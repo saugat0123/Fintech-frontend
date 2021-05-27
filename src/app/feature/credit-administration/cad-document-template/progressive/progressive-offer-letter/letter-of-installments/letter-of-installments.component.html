@@ -1,19 +1,19 @@
-<div class="container text-justify">
-    <div class="row">
-        <div class="col-md-12">
+<div [nbSpinner]="spinner"  class="container text-justify row" id="{{offerLetterConst.LETTER_OF_INSTALLMENT}}">
+
+        <div class="col-md-12 viewFull">
             <form [formGroup]="form" (ngSubmit)="onSumbit()">
                 <h6 class="text-center">किस्ताबन्दी–पत्र<br>
                     (Letter of Installments)</h6>
                 <p class="text-right"> मिति:
                     <input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="date"
                            placeholder=""
                            type="text"/>
                 </p>
                 <b> श्री प्रोग्रेशिभ फाइनान्स लि.</b>
                 <br>
                 <b> <input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="branchName"
                            placeholder=""
                            type="text"/> शाखा ।</b>
                 <br>
@@ -21,22 +21,22 @@
                     <p>महोदय,</p>
                     <br>
                     <p>त्यस वित्तीय संस्थाबाट म/हामी <input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="customerName"
                            placeholder=""
                            type="text"/>
                         लाई जारी गरिएको रु..<input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="karjaAmount"
                            placeholder=""
                            type="text"/>कर्जाको सन्दर्भमा त्यस वित्तीय संस्थाबाट कुनै पनि समयभित्र कर्जा
                         चुक्ता गर्न मागगरिएको अवस्थामा कुनै पूर्वाग्रह नराखि <input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="timePeriod"
                            placeholder=""
                            type="text"/>महिना/वर्षको अवधि भित्र रु.<input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="kistaAmount"
                            placeholder=""
                            type="text"/>
                         को प्रत्येक<input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="kista"
                            placeholder=""
                            type="text"/>मा किस्तावन्दी स्वरुप पूर्ण कर्जा भुक्तानी गर्न म÷हामीदृढ छु÷छौं । यदि कुनै किस्ता तोकिएको मितिमा भुक्तानी
                         नभएमा त्यस वित्तीय संस्थालाई सम्पूर्ण कर्जा तुरुन्तभुक्तानीको माग गर्ने अधिकार हुनेछ र म÷हामी उपर त्यस वित्तीय संस्थाले सम्पूर्ण हक तथा उपाय कार्यान्वयनगर्न
@@ -48,17 +48,17 @@
 
                     <div class="row">
                    <input class="form-field form-control-sm nepaliFont "
-                             formControlName=""
+                             formControlName="debtorSign"
                              placeholder=""
                              type="text"/>
                         <br>
                        <p>ऋणीको तर्फबाट आधिकारीक दस्तखत <br>
 
                        दस्तखत गर्नेको नाम : <input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="debtorName"
                            placeholder=""
                            type="text"/> 	संस्थाको छाप : <input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="InstitutionStamp"
                            placeholder=""
                            type="text"/>
                        <br>
@@ -73,24 +73,39 @@
                         <br>
                         <br>
                         दस्तखत :<input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="guarantorSign"
                            placeholder=""
                            type="text"/>
                         <br>
                         नाम :<input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="guarantorName"
                            placeholder=""
                            type="text"/>
                         <br>
                         ठेगाना :<input class="form-field form-control-sm nepaliFont "
-                           formControlName=""
+                           formControlName="guarantorAddress"
                            placeholder=""
                            type="text"/>
                     </p>
 
                 </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                        Save
+                    </button>
+                </div>
+
 
             </form>
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{ offerLetterConst.LETTER_OF_INSTALLMENT }}"
+                    ngxPrint> Print
+            </button>
         </div>
     </div>
-</div>
+<app-letter-of-installments-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" hidden>
+
+</app-letter-of-installments-print>
+
