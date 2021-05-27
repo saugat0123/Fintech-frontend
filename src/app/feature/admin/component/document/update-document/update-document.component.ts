@@ -24,7 +24,7 @@ export class UpdateDocumentComponent implements OnInit {
     selectedDocumentList = Array<number>();
     label: string;
     spinner = false;
-
+    checkAll;
     form: FormGroup;
 
     constructor(
@@ -74,6 +74,24 @@ export class UpdateDocumentComponent implements OnInit {
         });
     }
 
+    unSelectAll($event) {
+        this.checkAll = false;
+        this.nbUpdateCheckbBox();
+        this.silentSave();
+    }
+
+    selectAll($event) {
+        this.checkAll = true;
+        this.nbUpdateCheckbBox();
+        this.silentSave();
+    }
+
+    nbUpdateCheckbBox() {
+        this.availableDocumentOptions.forEach(d => {
+            this.form.get(d.name).setValue(this.checkAll);
+        });
+    }
+
     updateLoanCycleInBulk() {
         this.service.updateDocumentByLoanCycle(this.loanCycle.id, this.selectedDocumentList)
             .subscribe(() => {
@@ -84,22 +102,41 @@ export class UpdateDocumentComponent implements OnInit {
             });
     }
 
-    save() {
+    silentSave() {
         const selectedDocumentValues = [];
-
+        this.spinner = true;
         this.availableDocumentOptions.forEach(d => {
             if (this.form.value[d.name] === true) {
                 selectedDocumentValues.push(d.id);
             }
         });
-
         this.service.updateDocumentByLoanCycle(this.loanCycle.id, selectedDocumentValues)
             .subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document Loan Cycle'));
+                this.router.navigate([this.router.url]);
+                this.spinner = false;
             }, error => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Document Loan Cycle'));
             });
     }
 
+
+    save() {
+        const selectedDocumentValues = [];
+        this.spinner = true;
+        this.availableDocumentOptions.forEach(d => {
+            if (this.form.value[d.name] === true) {
+                selectedDocumentValues.push(d.id);
+            }
+        });
+        this.service.updateDocumentByLoanCycle(this.loanCycle.id, selectedDocumentValues)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document Loan Cycle'));
+                this.router.navigate([this.router.url]);
+                this.spinner = false;
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Document Loan Cycle'));
+            });
+    }
 }
