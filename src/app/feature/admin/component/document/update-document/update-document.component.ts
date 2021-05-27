@@ -77,6 +77,7 @@ export class UpdateDocumentComponent implements OnInit {
     unSelectAll($event) {
         this.checkAll = false;
         this.nbUpdateCheckbBox();
+        this.save();
     }
 
     selectAll($event) {
