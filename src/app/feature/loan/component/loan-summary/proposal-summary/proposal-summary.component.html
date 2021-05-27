@@ -95,10 +95,10 @@
                     </span>
                     <span *ngIf="!loan?.loan?.isFundable">
                         <span
-                                *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT'"> CM: Rs. {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)|currencyFormatter}} ,
-                        </span>
-                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT'">CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}}
-                            %,</span>
+                                *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT'">
+                            CM: Rs. {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)|currencyFormatter}} ,</span>
+                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT'">
+                            CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}}%,</span>
                         COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
                     </span>
                 </td>
