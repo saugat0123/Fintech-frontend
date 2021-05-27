@@ -102,7 +102,7 @@ export class UpdateDocumentComponent implements OnInit {
 
     save() {
         const selectedDocumentValues = [];
-
+        this.spinner = true;
         this.availableDocumentOptions.forEach(d => {
             if (this.form.value[d.name] === true) {
                 selectedDocumentValues.push(d.id);
@@ -111,10 +111,11 @@ export class UpdateDocumentComponent implements OnInit {
         this.service.updateDocumentByLoanCycle(this.loanCycle.id, selectedDocumentValues)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document Loan Cycle'));
+                this.router.navigate([this.router.url]);
+                this.spinner = false;
             }, error => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Document Loan Cycle'));
             });
     }
-
 }
