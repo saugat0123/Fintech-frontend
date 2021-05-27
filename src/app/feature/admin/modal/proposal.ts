@@ -24,5 +24,8 @@ export class Proposal {
     prepaymentCharge: number;
     enhanceLimitAmount: number;
     settlementAmount: number;
+    existCashMargin: number;
+    existCashMarginMethod: string;
+    existCommissionPercentage: number;
 
 }
