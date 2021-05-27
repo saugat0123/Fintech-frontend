@@ -29,6 +29,7 @@ export class TemplateDocumentComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.pathValue)) {
       this.checked = true;
     }
+    console.log('checked', this.checked);
   }
 
   fileUpload(file) {
@@ -56,6 +57,12 @@ export class TemplateDocumentComponent implements OnInit {
     link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
     link.setAttribute('visibility', 'hidden');
     link.click();
+  }
+
+  deleteDocument(): void {
+    delete this.pathValue;
+    this.docPathEmitter.emit(this.pathValue);
+    this.checked = false;
   }
 
 }
