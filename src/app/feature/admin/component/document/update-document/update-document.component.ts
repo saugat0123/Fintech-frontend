@@ -77,12 +77,13 @@ export class UpdateDocumentComponent implements OnInit {
     unSelectAll($event) {
         this.checkAll = false;
         this.nbUpdateCheckbBox();
-        this.save();
+        this.silentSave();
     }
 
     selectAll($event) {
         this.checkAll = true;
         this.nbUpdateCheckbBox();
+        this.silentSave();
     }
 
     nbUpdateCheckbBox() {
@@ -100,6 +101,25 @@ export class UpdateDocumentComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Document Loan Cycle'));
             });
     }
+
+    silentSave() {
+        const selectedDocumentValues = [];
+        this.spinner = true;
+        this.availableDocumentOptions.forEach(d => {
+            if (this.form.value[d.name] === true) {
+                selectedDocumentValues.push(d.id);
+            }
+        });
+        this.service.updateDocumentByLoanCycle(this.loanCycle.id, selectedDocumentValues)
+            .subscribe(() => {
+                this.router.navigate([this.router.url]);
+                this.spinner = false;
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Document Loan Cycle'));
+            });
+    }
+
 
     save() {
         const selectedDocumentValues = [];
