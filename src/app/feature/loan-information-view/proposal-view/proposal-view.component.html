@@ -82,21 +82,21 @@
         <!--        <td>-</td>-->
         <td>
           <span *ngIf="loan?.loan?.isFundable">
-            BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate || 0 | percent}} ,
-            PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate || 0 | percent}} ,
-            IR : {{(loan?.proposal?.data | jsonParse)?.interestRate || 0 | percent}}
+            BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}} %,
+            PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
+            IR : {{(loan?.proposal?.data | jsonParse)?.interestRate}} %
           </span>
           <span *ngIf="!loan?.loan?.isFundable">
             <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
               CM: Rs.  {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}} ,</span>
             <span *ngIf="(loan?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
-              CM: {{ ((loan?.proposal?.data | jsonParse)?.cashMargin || 0 | percent)}} ,</span>
-            COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage || 0 | percent}}</span>
+              CM: {{ ((loan?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
+            COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
         </td>
         <td class="text-right pr-1">
           <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
             Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
-          <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge || 0 | percent}}</ng-template>
+          <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} %</ng-template>
         </td>
         <td width="150px" class="text-left pl-1">
           <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
@@ -258,7 +258,7 @@
         <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
         <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral" class="text-right pr-1">{{proposalAllData?.moratoriumPeriod}}</td>
-        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalAllData?.commitmentFee | percent}}</td>
+        <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalAllData?.commitmentFee}} %</td>
         <td *ngIf="checkedData?.swapChargeChecked && (client !== clientName?.MEGA)">
           <div *ngIf="proposalAllData.swapChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{proposalAllData.swapCharge | currencyFormatter}}</div>
           <ng-template #percentage>
