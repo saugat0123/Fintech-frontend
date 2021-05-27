@@ -14,10 +14,10 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {SingleCombinedLoanDto} from '../../dto/single-combined-loan.dto';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../loan/model/docStatus';
-import {Stage} from '../../../loan/model/stage';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {Local} from 'protractor/built/driverProviders';
 import {LoanStage} from '../../../loan/model/loanStage';
+import {ChangeLoanComponent} from '../change-loan/change-loan.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -70,7 +70,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     constructor(private router: Router,
                 private customerService: CustomerService,
                 private customerLoanService: LoanFormService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private spinnerService: NgxSpinnerService) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -152,7 +153,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                     createdAt: loan.createdAt,
                     collateralRequirement: loan.proposal.collateralRequirement,
                     requiredCollateral: loan.proposal.collateralRequirement,
-                    currentStage: loan.currentStage
+                    currentStage: loan.currentStage,
+                    parentId: loan.parentId
                 });
             } else if (   // check if combined loan is not included already
                 !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
@@ -189,7 +191,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                             createdAt: l.createdAt,
                             collateralRequirement: l.proposal.collateralRequirement,
                             requiredCollateral: l.proposal.collateralRequirement,
-                            currentStage: l.currentStage
+                            currentStage: l.currentStage,
+                            parentId: l.parentId
                         };
                         return singleCombinedLoanDto;
                     })
@@ -237,6 +240,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     onClick(loanConfigId: number, customerId: number, currentStage: LoanStage) {
         this.modalService.dismissAll();
+        this.spinnerService.show();
         if (!ObjectUtil.isEmpty(currentStage)) {
             if ((currentStage.toUser.id.toString() === this.currentUserId) && (this.currentUserRoleType === 'MAKER')) {
                 this.router.navigate(['/home/loan/summary'], {
@@ -263,7 +267,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
                 }
             });
         }
-
+        this.spinnerService.hide();
     }
 
     initial() {
@@ -313,5 +317,15 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     addRequiredCollateral(collateralRequirement: number, proposalLimit) {
         return collateralRequirement * proposalLimit;
+    }
+
+    changeLoan(id: number, loanConfigId: number) {
+        const modelRef = this.modalService.open(ChangeLoanComponent, {backdrop: false});
+        modelRef.componentInstance.customerType = this.customerInfo.customerType;
+        modelRef.componentInstance.currentLoanConfigId = loanConfigId;
+        modelRef.componentInstance.isMicroCustomer = this.customerInfo.isMicroCustomer;
+        modelRef.componentInstance.customerLoanId = id;
+
+
     }
 }
