@@ -1,8 +1,9 @@
 <nb-card>
     <nb-card-header class="sb-bg-dark">
         <h2 class="text-white">{{formLabel}} Loan Configuration
-        <button class="close cursor pull-right text-white" (click)="close()">×</button>
-    </h2></nb-card-header>
+            <button class="close cursor pull-right text-white" (click)="close()">×</button>
+        </h2>
+    </nb-card-header>
     <nb-card-body>
         <form #loanConfigForm="ngForm" (ngSubmit)="onSubmit()" name="form">
             <div class="box-body">
@@ -35,13 +36,14 @@
                         <div class="col-md-9 form-group">
                             <label><h6>Nature of Loan</h6></label>
                             <div class="row ml-2">
-                                    <nb-radio-group name="loanNature" class="d-inline-flex" [(ngModel)]="loanConfig.loanNature">
-                                        <nb-radio
-                                                *ngFor="let option of loanNature"
-                                                [value]="option.value">
-                                            {{ option.value }}
-                                        </nb-radio>
-                                    </nb-radio-group>
+                                <nb-radio-group name="loanNature" class="d-inline-flex"
+                                                [(ngModel)]="loanConfig.loanNature">
+                                    <nb-radio
+                                            *ngFor="let option of loanNature"
+                                            [value]="option.value">
+                                        {{ option.value }}
+                                    </nb-radio>
+                                </nb-radio-group>
                             </div>
                         </div>
                     </div>
@@ -49,7 +51,8 @@
                         <div class="col-md-9 form-group">
                             <label><h6>Nature of Assets financed</h6></label>
                             <div class="row ml-2">
-                                <nb-radio-group name="financedAssets" class="d-inline-flex" [(ngModel)]="loanConfig.financedAssets">
+                                <nb-radio-group name="financedAssets" class="d-inline-flex"
+                                                [(ngModel)]="loanConfig.financedAssets">
                                     <nb-radio
                                             *ngFor="let option of financedAssets"
                                             [value]="option.value">
@@ -59,29 +62,33 @@
                             </div>
                         </div>
                     </div>
-                <div class="col-md-4">
-                    <div class="form-group>">
-                        <label><h6>Collateral Requirement (In %)</h6></label>
-                        <input type="text" class="form-control" name="collateralrequirement" required placeholder="e.g. 13"
-                               [(ngModel)]="loanConfig.collateralRequirement" #collateralRequirement="ngModel"
-                               [ngClass]="{ 'is-invalid': loanConfigForm.submitted && collateralRequirement.invalid }">
-                        <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && collateralRequirement.invalid">
-                            <div *ngIf="collateralRequirement.errors.required"></div>
-                            <div *ngIf="collateralRequirement.invalid && loanConfig.collateralRequirement !== undefined &&loanConfig.collateralRequirement !== null">
-                                Collateral Requirement is required!
+                    <div class="col-md-4">
+                        <div class="form-group>">
+                            <label><h6>Collateral Requirement (In %)</h6></label>
+                            <input type="text" class="form-control" name="collateralrequirement" required
+                                   placeholder="e.g. 13"
+                                   [(ngModel)]="loanConfig.collateralRequirement" #collateralRequirement="ngModel"
+                                   [ngClass]="{ 'is-invalid': loanConfigForm.submitted && collateralRequirement.invalid }">
+                            <div class="invalid-feedback"
+                                 *ngIf="loanConfigForm.submitted && collateralRequirement.invalid">
+                                <div *ngIf="collateralRequirement.errors.required"></div>
+                                <div *ngIf="collateralRequirement.invalid && loanConfig.collateralRequirement !== undefined &&loanConfig.collateralRequirement !== null">
+                                    Collateral Requirement is required!
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label><h6>Loan Short Name</h6></label>
-                            <input type="text" class="form-control" name="shortNames" required placeholder="e.g. WCL for Working capital Loan"
+                            <input type="text" class="form-control" name="shortNames" required
+                                   placeholder="e.g. WCL for Working capital Loan"
                                    [(ngModel)]="loanConfig.shortNames" #shortNames="ngModel"
                                    [ngClass]="{ 'is-invalid': loanConfigForm.submitted && shortNames.invalid }">
                             <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && shortNames.invalid">
                                 <div *ngIf="shortNames.errors.required"></div>
-                                <div *ngIf="shortNames.invalid && loanConfig.shortNames !== undefined &&loanConfig.shortNames !== null">Short Name is required!
+                                <div *ngIf="shortNames.invalid && loanConfig.shortNames !== undefined &&loanConfig.shortNames !== null">
+                                    Short Name is required!
                                 </div>
                             </div>
                         </div>
@@ -137,45 +144,45 @@
                     </div>
                 </div>
 
-<!--                <h6>Assessment</h6>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-5 pr-0">-->
-<!--                        <nb-card size="small">-->
-<!--                            <nb-card-header>-->
-<!--                                Loan Templates-->
-<!--                            </nb-card-header>-->
-<!--                            <nb-list>-->
-<!--                                <nb-list-item *ngFor="let loanTemplate of loanTemplateList">-->
-<!--                                    <div (dblclick)="updateSelectTemplate(loanTemplate)"-->
-<!--                                         style="cursor: pointer;">-->
-<!--                                        <span>{{loanTemplate.name}}</span>-->
-<!--                                    </div>-->
-<!--                                </nb-list-item>-->
-<!--                            </nb-list>-->
-<!--                        </nb-card>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-2 my-auto">-->
-<!--                        <div class="text-center">-->
-<!--                            <em class="fas fa-arrow-right fa-5x"></em>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                <!--                <h6>Assessment</h6>-->
+                <!--                <div class="row">-->
+                <!--                    <div class="col-md-5 pr-0">-->
+                <!--                        <nb-card size="small">-->
+                <!--                            <nb-card-header>-->
+                <!--                                Loan Templates-->
+                <!--                            </nb-card-header>-->
+                <!--                            <nb-list>-->
+                <!--                                <nb-list-item *ngFor="let loanTemplate of loanTemplateList">-->
+                <!--                                    <div (dblclick)="updateSelectTemplate(loanTemplate)"-->
+                <!--                                         style="cursor: pointer;">-->
+                <!--                                        <span>{{loanTemplate.name}}</span>-->
+                <!--                                    </div>-->
+                <!--                                </nb-list-item>-->
+                <!--                            </nb-list>-->
+                <!--                        </nb-card>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-md-2 my-auto">-->
+                <!--                        <div class="text-center">-->
+                <!--                            <em class="fas fa-arrow-right fa-5x"></em>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
 
-<!--                    <div class="col-md-5 pl-0">-->
-<!--                        <nb-card size="small">-->
-<!--                            <nb-card-header>-->
-<!--                                Confirmed Loan Templates-->
-<!--                            </nb-card-header>-->
-<!--                            <nb-list>-->
-<!--                                <nb-list-item *ngFor="let confirmLoanTemplate of confirmLoanTemplateList">-->
-<!--                                    <div (dblclick)="updateUnselectTemplate(confirmLoanTemplate)"-->
-<!--                                         style="cursor: pointer;">-->
-<!--                                        <span>{{confirmLoanTemplate.name}}</span>-->
-<!--                                    </div>-->
-<!--                                </nb-list-item>-->
-<!--                            </nb-list>-->
-<!--                        </nb-card>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                    <div class="col-md-5 pl-0">-->
+                <!--                        <nb-card size="small">-->
+                <!--                            <nb-card-header>-->
+                <!--                                Confirmed Loan Templates-->
+                <!--                            </nb-card-header>-->
+                <!--                            <nb-list>-->
+                <!--                                <nb-list-item *ngFor="let confirmLoanTemplate of confirmLoanTemplateList">-->
+                <!--                                    <div (dblclick)="updateUnselectTemplate(confirmLoanTemplate)"-->
+                <!--                                         style="cursor: pointer;">-->
+                <!--                                        <span>{{confirmLoanTemplate.name}}</span>-->
+                <!--                                    </div>-->
+                <!--                                </nb-list-item>-->
+                <!--                            </nb-list>-->
+                <!--                        </nb-card>-->
+                <!--                    </div>-->
+                <!--                </div>-->
                 <div class="row">
                     <div class="col-md-6">
                         <label for="renewable"><h6>Renewable</h6></label><br>
@@ -190,7 +197,8 @@
                             </nb-radio-group>
                         </div>
                     </div>
-                    <div *ngIf="productUtils.OFFER_LETTER && !(productUtils.CAD_LITE_VERSION) && !(productUtils.FULL_CAD)" class="col-md-6">
+                    <div *ngIf="productUtils.OFFER_LETTER && !(productUtils.CAD_LITE_VERSION) && !(productUtils.FULL_CAD)"
+                         class="col-md-6">
                         <div class="form-group">
                             <label><strong>Post Approval Document</strong></label>
                             <ng-select [items]="offerLetterList"
@@ -228,12 +236,18 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Initial</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxInitial($event, true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxInitial($event, false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, initialDocument, this.finalInitialDocument)"
-                                                    [value]="initialDocument.checked"
+                                                    [checked]="initialDocument.checked"
                                                     id="{{'initialDocument'+documentIndex}}"
                                                     status="primary">
                                                 {{initialDocument.displayName}}
@@ -250,12 +264,20 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxRenewal($event, true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxRenewal($event, false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
+
+                                    <br><br>
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let renewalDocument of renewalDocumentList; let documentIndex = index;">
                                             <nb-checkbox id="{{'renewDocument'+documentIndex}}" status="primary"
                                                          (change)="updateDocument($event, renewalDocument, finalRenewalDocument)"
-                                                         [value]="renewalDocument.checked">
+                                                         [checked]="renewalDocument.checked">
                                                 <span>{{renewalDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -270,12 +292,18 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Closure</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxClosure($event,true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxClosure($event,false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let closureDocument of closureDocumentList; let documentIndex = index">
                                             <nb-checkbox id="{{'closureDocument'+documentIndex}}" status="primary"
                                                          (change)="updateDocument($event, closureDocument, finalClosureDocument)"
-                                                         [value]="closureDocument.checked">
+                                                         [checked]="closureDocument.checked">
                                                 {{closureDocument.displayName}}
                                             </nb-checkbox>
                                         </div>
@@ -290,13 +318,19 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxEligibility($event,true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxEligibility($event,false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index"
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, eligibilityDocument, finalEligibilityDocument)"
-                                                    [value]="eligibilityDocument.checked"
+                                                    [checked]="eligibilityDocument.checked"
                                                     id="{{'eligibility'+documentIndex}}"
                                                     status="primary">
                                                 <span>{{eligibilityDocument.displayName}}</span>
@@ -313,13 +347,19 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Enhance</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxEnhance($event,true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxEnhance($event,false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let enhanceDocument of enhanceDocumentList; let documentIndex = index"
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, enhanceDocument, finalEnhanceDocument)"
-                                                    [value]="enhanceDocument.checked"
+                                                    [checked]="enhanceDocument.checked"
                                                     id="{{'enhance'+documentIndex}}"
                                                     status="primary">
                                                 <span>{{enhanceDocument.displayName}}</span>
@@ -336,13 +376,19 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Partial Settlement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxPartial($event, true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxPartial($event, false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let partialDocument of partialSettlementDocumentList; let documentIndex = index"
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, partialDocument, finalPartialSettlementDocument)"
-                                                    [value]="partialDocument.checked"
+                                                    [checked]="partialDocument.checked"
                                                     id="{{'partial'+documentIndex}}"
                                                     status="primary">
                                                 <span>{{partialDocument.displayName}}</span>
@@ -359,13 +405,19 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Full Settlement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxFull($event,true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxFull($event, false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div
                                                 *ngFor="let fullDocument of fullSettlementDocumentList; let documentIndex = index"
                                                 class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, fullDocument, finalFullSettlementDocument)"
-                                                    [value]="fullDocument.checked"
+                                                    [checked]="fullDocument.checked"
                                                     id="{{'full'+documentIndex}}"
                                                     status="primary">
                                                 <span>{{fullDocument.displayName}}</span>
@@ -377,20 +429,27 @@
                         </nb-accordion>
                     </div>
 
-                    <div class="box box-primary col-md-6 mb-2" *ngIf="productUtils.CAD_LITE_VERSION || (productUtils.FULL_CAD && !productUtils.CHECK_LIST_LITE_VERSION)">
+                    <div class="box box-primary col-md-6 mb-2"
+                         *ngIf="productUtils.CAD_LITE_VERSION || (productUtils.FULL_CAD && !productUtils.CHECK_LIST_LITE_VERSION)">
                         <nb-accordion>
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Cad Documents</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxCad($event,true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxCad($event,false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
                                         <div
-                                            *ngFor="let cadDocument of cadDocumentUploadList; let documentIndex = index"
-                                            class="col-md-4">
+                                                *ngFor="let cadDocument of cadDocumentUploadList; let documentIndex = index"
+                                                class="col-md-4">
                                             <nb-checkbox
-                                                (change)="updateDocument($event, cadDocument, finalCadDocumentUploadList)"
-                                                [value]="cadDocument.checked"
-                                                id="{{'cad'+ documentIndex}}"
-                                                status="primary">
+                                                    (change)="updateDocument($event, cadDocument, finalCadDocumentUploadList)"
+                                                    [checked]="cadDocument.checked"
+                                                    id="{{'cad'+ documentIndex}}"
+                                                    status="primary">
                                                 <span>{{cadDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -404,13 +463,18 @@
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew With Enhancement</nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxRenewalEnhance($event, true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxRenewalEnhance($event, false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
                                     <div class="row">
-                                        <div
-                                                *ngFor="let renewWithEnhancementDocument of renewWithEnhancementDocumentList; let documentIndex = index"
-                                                class="col-md-4">
+                                        <div *ngFor="let renewWithEnhancementDocument of renewWithEnhancementDocumentList; let documentIndex = index"
+                                             class="col-md-4">
                                             <nb-checkbox
                                                     (change)="updateDocument($event, renewWithEnhancementDocument, finalRenewWithEnhancementDocument)"
-                                                    [value]="renewWithEnhancementDocument.checked"
+                                                    [checked]="renewWithEnhancementDocument.checked"
                                                     id="{{'renewWithEnhancement'+documentIndex}}"
                                                     status="primary">
                                                 <span>{{renewWithEnhancementDocument.displayName}}</span>
