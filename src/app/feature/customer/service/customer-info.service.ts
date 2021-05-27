@@ -50,4 +50,12 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/update-nep-data/${id}`);
         return this.http.patch(req.url, data , {headers: req.header});
     }
+    /*public updateCustomerBranch(customerInfoId, toBranchId) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/update-customer-branch/${customerInfoId}`);
+        return this.http.post(req.url, toBranchId, {headers: req.header});
+    }*/
+    public transferCustomerWithLoansToOtherBranch(object) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/transfer-customer-other-branch`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }
 }

@@ -17,4 +17,6 @@ export class SingleCombinedLoanDto {
   requiredCollateral: number;
   collateralRequirement: number;
   currentStage: LoanStage = new LoanStage();
+  parentId?: number;
+
 }

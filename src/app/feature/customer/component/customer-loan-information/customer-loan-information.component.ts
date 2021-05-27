@@ -393,8 +393,6 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.ciclResponse = new CiclArray();
         }
         this.ciclResponse = data;
-
-        console.log(this.ciclResponse);
         this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
             .subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
@@ -557,12 +555,11 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.reportingInfoLevels = data;
         this.customerInfoService.saveLoanInfo(this.reportingInfoLevels, this.customerInfoId, TemplateName.CUSTOMER_REPORTING_INFO)
             .subscribe(() => {
-                console.log('Reporting Info Level:', this.reportingInfoLevels);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save Customer Reporting Info!'));
                 this.reportingInfoLevelAccordion.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
-                console.log(error);
+                console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
             });
     }
