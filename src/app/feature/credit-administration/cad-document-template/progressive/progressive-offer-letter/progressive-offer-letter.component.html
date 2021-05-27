@@ -31,6 +31,18 @@
             *ngSwitchCase=offerLetterConst.LOAN_DEED>
 
             </app-loan-deed>
+            <app-promissory-note-guarantor
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE_GUARANTOR>
+
+            </app-promissory-note-guarantor>
+            <app-letter-of-agreement
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_AGREEMENT>
+
+            </app-letter-of-agreement>
         </div>
     </nb-card-body>
 </nb-card>

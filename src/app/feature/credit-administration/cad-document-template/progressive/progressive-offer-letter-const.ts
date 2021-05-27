@@ -3,7 +3,10 @@ export enum ProgressiveOfferLetterConst {
     LETTER_OF_INSTALLMENT,
     LETTER_OF_LEIN,
     PROMISSORY_NOTE,
-    LOAN_DEED
+    LOAN_DEED,
+    PROMISSORY_NOTE_GUARANTOR,
+    LETTER_OF_AGREEMENT
+
 
 }
 
@@ -20,6 +23,10 @@ export namespace ProgressiveOfferLetterConst {
                 return 'Promissory Note';
             case ProgressiveOfferLetterConst.LOAN_DEED:
                 return 'Loan Deed';
+            case ProgressiveOfferLetterConst.PROMISSORY_NOTE_GUARANTOR:
+                return 'Promissory Note Guarantor';
+            case ProgressiveOfferLetterConst.LETTER_OF_AGREEMENT:
+                return 'Letter of Agreement';
 
         }
     }

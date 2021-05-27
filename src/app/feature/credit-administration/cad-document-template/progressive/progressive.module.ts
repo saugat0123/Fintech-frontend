@@ -14,6 +14,10 @@ import { LoanDeedComponent } from './progressive-offer-letter/loan-deed/loan-dee
 import { LetterOfInstallmentsPrintComponent } from './progressive-offer-letter/letter-of-installments/letter-of-installments-print/letter-of-installments-print.component';
 import { LetterOfLeinPrintComponent } from './progressive-offer-letter/letter-of-lein/letter-of-lein-print/letter-of-lein-print.component';
 import { PromissoryNotePrintComponent } from './progressive-offer-letter/promissory-note/promissory-note-print/promissory-note-print.component';
+import {PromissoryNoteGuarantorComponent} from "./progressive-offer-letter/promissory-note-guarantor/promissory-note-guarantor.component";
+import { PromissoryNoteGuarantorPrintComponent } from './progressive-offer-letter/promissory-note-guarantor/promissory-note-guarantor-print/promissory-note-guarantor-print.component';
+import {LetterOfAgreementComponent} from "./progressive-offer-letter/letter-of-agreement/letter-of-agreement.component";
+import { LetterOfAgreementPrintComponent } from './progressive-offer-letter/letter-of-agreement/letter-of-agreement-print/letter-of-agreement-print.component';
 
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -29,7 +33,10 @@ const COMPONENTS = [
         LetterOfInstallmentsPrintComponent,
         LetterOfLeinPrintComponent,
         PromissoryNotePrintComponent,
-
+        PromissoryNoteGuarantorComponent,
+        PromissoryNoteGuarantorPrintComponent,
+        LetterOfAgreementComponent,
+        LetterOfAgreementPrintComponent
 
     ],
     exports: [
