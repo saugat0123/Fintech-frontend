@@ -22,7 +22,6 @@ import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
-import {ExpOfClient} from '../../micro-loan/template/micro-crg-params/model/ExpOfClient';
 
 @Component({
     selector: 'app-security',
@@ -241,7 +240,7 @@ export class SecurityComponent implements OnInit {
         this.initialSecurity.submit();
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
-            selectedArray: this.initialSecurity.selectedArray,
+            selectedSecurity: this.initialSecurity.selectedSecurity,
             underConstructionChecked: this.initialSecurity.underConstructionChecked,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
@@ -258,11 +257,9 @@ export class SecurityComponent implements OnInit {
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
-        this.initialSecurity.selectedArray.forEach((selected) => {
-            if (selected === 'ShareSecurity') {
-                this.shareSecuritySelected = true;
-            }
-        });
+        if (this.initialSecurity.selectedSecurity === 'ShareSecurity') {
+            this.shareSecuritySelected = true;
+        }
         if (this.shareSecuritySelected) {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
@@ -301,10 +298,7 @@ export class SecurityComponent implements OnInit {
 
     calculateTotalSecurity(securityData): number {
         let totalSecurityAmount = 0;
-        const isLandSelected = securityData.selectedArray.includes('LandSecurity');
-        const isBuildingSelected = securityData.selectedArray.includes('ApartmentSecurity');
-        securityData.selectedArray.forEach(selectedSecurity => {
-            switch (selectedSecurity) {
+        switch (securityData.selectedSecurity) {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
@@ -352,7 +346,6 @@ export class SecurityComponent implements OnInit {
                     totalSecurityAmount += 0;
                     break;
             }
-        });
         return totalSecurityAmount;
     }
 }

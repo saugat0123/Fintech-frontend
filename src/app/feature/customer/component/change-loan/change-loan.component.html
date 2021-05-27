@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="card-header">
+        Change Loan
+        <a (click)="close()" aria-label="Close" class="close cursor"><span aria-hidden="true">×</span></a>
+    </div>
+    <div class="card-body">
+
+        <nb-card [nbSpinner]="spinner"
+                 nbSpinnerSize="large"
+                 nbSpinnerMessage="loading..."
+                 *ngIf="spinner">
+            <nb-card-body></nb-card-body>
+        </nb-card>
+
+        <form [formGroup]="changeLoanForm" *ngIf="!spinner" class="form-group">
+            <div class="col-md-12">
+                <select
+                        formControlName="loanId"
+                        class="form-control"
+                        name="loanId">
+                    <option hidden> select Loan Type</option>
+                    <option *ngFor="let allList of loanList"
+                            [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="d-flex justify-content-end">
+
+                    <button nbButton shape="rectangle" size="small" status="success" (click)="submit(msgTemplate)">
+                        Change
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-overlay-spinner></app-overlay-spinner>
+
+<ng-template #msgTemplate>
+    <div class="card">
+        <div class="card-header">
+            <em class="fa fa-info-circle"></em> Information
+            <a (click)="close()" aria-label="Close" class="close cursor"><span aria-hidden="true">×</span></a>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12">
+                Loan has been Successfully Changed ! Please fill Necessary Data in Form!
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="col-md-12 py-2">
+                <div class="clearfix">
+                    <div class="float-right">
+                        <button nbButton shape="rectangle" size="small" status="success" (click)="close()">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
