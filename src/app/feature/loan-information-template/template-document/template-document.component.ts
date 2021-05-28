@@ -29,7 +29,6 @@ export class TemplateDocumentComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.pathValue)) {
       this.checked = true;
     }
-    console.log('checked', this.checked);
   }
 
   fileUpload(file) {
