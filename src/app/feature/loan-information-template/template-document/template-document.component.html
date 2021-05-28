@@ -8,6 +8,7 @@
         <th>Upload</th>
         <th *ngIf="checked">Preview</th>
         <th>Status</th>
+        <th *ngIf="checked">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -20,15 +21,18 @@
                    type="file"></td>
         <td *ngIf="checked"><i (click)="previewDoc(pathValue)" class="fas fa-eye"></i></td>
         <td>
-          <i *ngIf="checked" class="fas fa-check-circle"></i>
-          <i *ngIf="!checked" class="fas fa-times-circle"></i>
-
+          <span *ngIf="checked" style="color:limegreen">
+                  <i class="fas fa-check-circle"></i></span>
+          <span *ngIf="!checked"
+                style="color:red"><i class="fas fa-times-circle"></i></span>
+        </td>
+        <td class="cursor">
+          <span *ngIf="checked">
+            <i (click)="deleteDocument()" class="fas fa-trash"></i>
+          </span>
         </td>
       </tr>
       </tbody>
-
     </table>
-
   </div>
-
 </div>
