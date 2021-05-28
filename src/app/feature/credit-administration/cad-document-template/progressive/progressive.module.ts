@@ -18,6 +18,7 @@ import {PromissoryNoteGuarantorComponent} from "./progressive-offer-letter/promi
 import { PromissoryNoteGuarantorPrintComponent } from './progressive-offer-letter/promissory-note-guarantor/promissory-note-guarantor-print/promissory-note-guarantor-print.component';
 import {LetterOfAgreementComponent} from "./progressive-offer-letter/letter-of-agreement/letter-of-agreement.component";
 import { LetterOfAgreementPrintComponent } from './progressive-offer-letter/letter-of-agreement/letter-of-agreement-print/letter-of-agreement-print.component';
+import { LoanDeedPrintComponent } from './progressive-offer-letter/loan-deed/loan-deed-print/loan-deed-print.component';
 
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -36,7 +37,8 @@ const COMPONENTS = [
         PromissoryNoteGuarantorComponent,
         PromissoryNoteGuarantorPrintComponent,
         LetterOfAgreementComponent,
-        LetterOfAgreementPrintComponent
+        LetterOfAgreementPrintComponent,
+        LoanDeedPrintComponent
 
     ],
     exports: [

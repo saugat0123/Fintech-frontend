@@ -1,4 +1,4 @@
-<div class="container text-justify">
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LOAN_DEED}}">
 
     <div class="col-md-12 viewFull">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -10,78 +10,79 @@
                <p>
                    लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
                    बमोजिमदर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिकावडा नं. २२स्थित
-                   रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभफाईनान्सलिमिटेडको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.पा.÷न.पा.÷उ.म.न.पा.÷म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   स्थित <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
+                   रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभफाईनान्सलिमिटेडको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="district">
+                   जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="municipality">
+                   गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="wadNo">
+                   स्थित <input class="form-field nepaliFont form-control-sm" type="text" formControlName="branchName">
                    शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको)लिखत
-                   गरी दिनेकानाम<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">को
-                   नाति÷नातिनि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   को छोरा÷छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">को
-                   पति÷पत्नी<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.पा.÷न.पा.÷म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   (साबिक <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.बि.स.÷न.पा.वडा न.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">),
-                   स्थायी ठेगानाभई हाल <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.पा.÷न.पा.÷म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">)
-                   बस्ने वर्ष <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   को <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   (ना.प्र.नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   जि.प्र.का.) <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">)
-                   वानेपाल सरकार, <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   मन्त्रालय<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">विभाग÷कम्पनी
-                   रजिष्ट्रारको कार्यालय<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   मा<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   ऐन <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   अन्तर्गत मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   माप्रा.लि.नं.÷प्रा.फा.नं.÷सा.फा.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   मादर्ता भई करदता सेवाकार्यालय <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   बाटमिति <input class="form-field nepaliFont form-control-sm" type="text" formControlName=""> मा
-                   स्थायी लेखानम्बर (पान) दर्ता प्रमाणपत्र न<input class="form-field nepaliFont form-control-sm" type="text" formControlName=""> को प्रमाणपत्र प्राप्त..................
-                   जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.पा.÷न.पा.÷म.न.पा. वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
+                   गरी दिनेकानाम<input class="form-field nepaliFont form-control-sm" type="text" formControlName="grandParentName">को
+                   नाति/नातिनि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="parentName">
+                   को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="husbandWifeName">को
+                   पति/पत्नी<input class="form-field nepaliFont form-control-sm" type="text" formControlName="likhitDistrict">
+                   जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="likhitMunicipalty">
+                   गा.पा./न.पा./म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="likhitWadNo">
+                   (साबिक <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sabikVDC">
+                   गा.बि.स./न.पा.वडा न.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="sabikWadNo">),
+                   स्थायी ठेगानाभई हाल <input class="form-field nepaliFont form-control-sm" type="text" formControlName="tempVDC">
+                   गा.पा./न.पा./म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="tempWadNo">)
+                   बस्ने वर्ष <input class="form-field nepaliFont form-control-sm" type="text" formControlName="age">
+                   को <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerName">
+                   (ना.प्र.नं.<input class="form-field nepaliFont form-control-sm" type="text" formControlName="citizenshipNo">
+                   मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="date">
+                   जि.प्र.का.) <input class="form-field nepaliFont form-control-sm" type="text" formControlName="cdoOffice">)
+                   वानेपाल सरकार, <input class="form-field nepaliFont form-control-sm" type="text" formControlName="mantralayaName">
+                   मन्त्रालय<input class="form-field nepaliFont form-control-sm" type="text" formControlName="biBhag">विभाग/कम्पनी
+                   रजिष्ट्रारको कार्यालय<input class="form-field nepaliFont form-control-sm" type="text" formControlName="regOffice">
+                   मा<input class="form-field nepaliFont form-control-sm" type="text" formControlName="act">
+                   ऐन <input class="form-field nepaliFont form-control-sm" type="text" formControlName="underName">
+                   अन्तर्गत मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="underDate">
+                   मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="praliNo">
+                   मादर्ता भई करदता सेवाकार्यालय <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sewaKaryalaya">
+                   बाट मिति <input class="form-field nepaliFont form-control-sm" type="text" formControlName="lekhaNumDate"> मा
+                   स्थायी लेखानम्बर (पान) दर्ता प्रमाणपत्र न<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certficateNo"> को प्रमाणपत्र प्राप्त.
+                   <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedDistrict">
+                   जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedMunicipality">
+                   गा.पा./न.पा./म.न.पा. वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedWadNo">
                    मा रजिष्टर्डकार्यालय
-                   रहेको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
+                   रहेको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedRegOffice">
                    (जसलाई यसउप्रान्त यस लिखतमाऋणीभनिएको छ) कातर्पmबाटअधिकार प्राप्त
-                   संचालक÷प्रोप्राईटर÷साझेदार÷प्रतिनिधि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   को नाति÷नातिनि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">को
-                   छोरा÷छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">को
-                   पति÷पत्नी<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.पा.÷न.पा.÷म.न.पा.वडा नं<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   स्थायी ठेगानाभई हाल <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   गा.पा.÷न.पा.÷म.न.पा.वडा न. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   बस्ने वर्ष <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   को <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   (ना.प्र.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   जि.प्र.का. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
-                   )आगे म÷हामीऋणीको व्यापार÷व्यवसाय सञ्चालनगर्न
+                   संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedGrandParentName">
+                   को नाति/नातिनि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedParentName">को
+                   छोरा/छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedHusbandWifeName">को
+                   पति/पत्नी<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonDistrict">
+                   जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonMunicipality">
+                   गा.पा./न.पा./म.न.पा.वडा नं<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonWadNo">
+                   स्थायी ठेगानाभई हाल <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonTempDistrict">
+                   जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonTempVDC">
+                   गा.पा./न.पा./म.न.पा.वडा न. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonTempWadNo">
+                   बस्ने वर्ष <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonAge">
+                   को <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonName">
+                   (ना.प्र.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedPersonCitizenshipNo">
+                   मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedDate">
+                   जि.प्र.का. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedCdoOffice">
+                   )आगे म/हामीऋणीको व्यापार/व्यवसाय सञ्चालनगर्न
                    ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनीवित्तीय संस्थासंग लिखितअनुरोध गरेकोमातपाई
-                   धनीवित्तीय संस्थाले म÷हामीऋणीको नाममाजारी गरेको मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="">
+                   धनीवित्तीय संस्थाले म/हामीऋणीको नाममाजारी गरेको मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="namjariDate">
                    को ऋण स्वीकृतीपत्रअनुसार स्वीकृत निम्नानुसारका
                    ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृतीपत्रमाउल्लिखिततरिकाबमोजिमप्राप्तगर्ने गरी यो ऋणकर्जाको तमसुक गरी दिएको ठीक साँचो हो ।
                    तपाई धनीवित्तीय संस्थाबाटप्राप्तऋणकर्जा तथा बैंकिङ्ग सूविधाहरुमालाग्ने व्याज, कमिशन, शूल्कआदितलउल्लेखित स्वीकृत सम्बन्धितऋणकर्जा तथा
                    बैंकिङ्ग सुविधाखण्ड–खण्डमाउल्लेख भएको दर अनुसार तिरी बुझाई सोहीखण्डमा लेखिएको मितिभित्रमावा स्वीकृत ऋणकर्जा तथा बैंकिङ्ग
-                   सूविधानविकरणभएमानविकरण हूं‘दाकाबखततपाई धनीवित्तीय संस्थाले म÷हामीऋणीकानाममाजारी गर्ने ऋण स्वीकृतिपत्रमातोकिएको
-                   मितिभित्रमाऋणकर्जाको सम्पूर्ण साँवाव्याजचूक्ताभूक्तानगर्नेछु÷छौं । म÷हामीऋणीकानाममा स्वीकृत बैंकिङ्ग सुविधा(ग्यारेन्टीबण्डतथाअन्यविभिन्नशीर्षक अन्तर्गत)
-                   को कर्जा उपभोग गर्दा तपाई धनीवित्तीय संस्था उपर कुनै थपदायित्वश्रृजनाभएमात्यस्तो थपदायित्वतपाई धनीवित्तीय संस्थाले मागगर्नासाथतिर्ने बूझाउने छु÷छौं ।
-                   स्वीकृत ऋणकर्जा तथाभविष्यमातपाई धनीवित्तीय संस्थाले उपलव्ध गराउने थपऋणकर्जा तथा सूविधा समेतको सुरक्षणबापतम÷हामीऋणीको निजीश्रोतबाटखरिद
-                   गरेको, श्रृजनाभएको र तपाई धनीवित्तीय संस्थाबाटप्राप्तऋणकर्जाबाटखरिद वाआयात गरेको÷श्रृजना गरेको लगायतम÷हामीऋणीको नाममा रहे÷भएको सम्पूर्ण
-                   चल÷अचल सम्पत्तितथाभविष्यमाम÷हामीऋणीको नाममाकायमहुने श्री सम्पत्तितथाम÷हामीऋणीले भूक्तानीप्राप्तगर्न बाँकी
-                   रकमहरु (Accounts Receivable) समेत यसै लिखतबाटतपाई धनीवित्तीय संस्थाको नाममा सुरक्षणलेखिदिएको छु÷छौं ।
-                   सोको अलावातपसिलमाउल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाटतपाई धनीवित्तीय संस्थाको नाममाधितोबन्धकलिखत गरिदिएकोछु÷गरिदिनेछु ।
+                   सूविधानविकरणभएमानविकरण हूं‘दाकाबखततपाई धनीवित्तीय संस्थाले म/हामीऋणीकानाममाजारी गर्ने ऋण स्वीकृतिपत्रमातोकिएको
+                   मितिभित्रमाऋणकर्जाको सम्पूर्ण साँवाव्याजचूक्ताभूक्तानगर्नेछु/छौं । म/हामीऋणीकानाममा स्वीकृत बैंकिङ्ग सुविधा(ग्यारेन्टीबण्डतथाअन्यविभिन्नशीर्षक अन्तर्गत)
+                   को कर्जा उपभोग गर्दा तपाई धनीवित्तीय संस्था उपर कुनै थपदायित्वश्रृजनाभएमात्यस्तो थपदायित्वतपाई धनीवित्तीय संस्थाले मागगर्नासाथतिर्ने बूझाउने छु/छौं ।
+                   स्वीकृत ऋणकर्जा तथाभविष्यमातपाई धनीवित्तीय संस्थाले उपलव्ध गराउने थपऋणकर्जा तथा सूविधा समेतको सुरक्षणबापतम/हामीऋणीको निजीश्रोतबाटखरिद
+                   गरेको, श्रृजनाभएको र तपाई धनीवित्तीय संस्थाबाटप्राप्तऋणकर्जाबाटखरिद वाआयात गरेको/श्रृजना गरेको लगायतम/हामीऋणीको नाममा रहे/भएको सम्पूर्ण
+                   चल/अचल सम्पत्तितथाभविष्यमाम/हामीऋणीको नाममाकायमहुने श्री सम्पत्तितथाम/हामीऋणीले भूक्तानीप्राप्तगर्न बाँकी
+                   रकमहरु (Accounts Receivable) समेत यसै लिखतबाटतपाई धनीवित्तीय संस्थाको नाममा सुरक्षणलेखिदिएको छु/छौं ।
+                   सोको अलावातपसिलमाउल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाटतपाई धनीवित्तीय संस्थाको नाममाधितोबन्धकलिखत गरिदिएकोछु/गरिदिनेछु ।
                    प्राप्तऋणकर्जाको तपाई धनीवित्तीय संस्थालाई तिर्नुपर्ने साँवा, व्याज, थपब्याज, कमिशनशुल्कआदि यसै लिखततथाउल्लेखितऋण स्वीकृतीपत्रानूसार
-                   तोकिएको तरिकाबमोजिमनतिरे÷नबुझाएमावाबुझाउनआलटाल गरेमावाकिस्ताखिलाफी गरेमावाऋण स्वीकृतिपत्रतथा यसै लिखतको कुनै सर्त उल्लंघन गरेमा
-                   समेत म÷हामीऋणीको नाममातपाई धनीवित्तीय संस्थामाखोलेको निक्षेप खातामाजम्मा रहेको रकमबाटकट्टा गरी तथाधितो लेखिदिएको
+                   तोकिएको तरिकाबमोजिमनतिरे/नबुझाएमावाबुझाउनआलटाल गरेमावाकिस्ताखिलाफी गरेमावाऋण स्वीकृतिपत्रतथा यसै लिखतको कुनै सर्त उल्लंघन गरेमा
+                   समेत म/हामीऋणीको नाममातपाई धनीवित्तीय संस्थामाखोलेको निक्षेप खातामाजम्मा रहेको रकमबाटकट्टा गरी तथाधितो लेखिदिएको
                    सुरक्षणप्रचलितकानूनबमोजिमलिलामबिक्रीवाअन्यव्यवस्था गरी तपाई धनीवित्तीय संस्थाको सम्पूर्ण लेनाअसूलउपर गरि लिनूहोला । कथमकदाचितधितो
                    लेखिदिएको सम्पत्तिकच्चानकरा ठहरी लिलामबिक्रीहुननसकेमावालिलामबिक्रीहुँदा समेत तपाई धनीवित्तीय संस्थाको सम्पूर्ण लेनाअसूलउपर नभएमा
-                   मेरो÷हाम्रो÷ऋणीकोघरघरानाको श्रीसम्पत्तिबाटअसूलउपर गरि लिनुहोला । नेपाल राष्ट्र बैंकद्धारा बैंकतथावित्तीय संस्थाहरुलाई जारी गरिएको कर्जा
-                   सूचनातथाकालोसूचीव्यवस्थासम्बन्धीनिर्देशनबमोजिमम÷हामी÷ऋणीलाई कालोसुचीमा समावेश गरेमा मेरो÷हाम्रो÷ऋणीकोमञ्जुरीछभनीकिनाराका साक्षीका
-                   रोहबरमातपाई धनीवित्तीय संस्थाको कार्यालयमाबसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय संस्थालाई दिया÷दियौं ।
+                   मेरो/हाम्रो/ऋणीकोघरघरानाको श्रीसम्पत्तिबाटअसूलउपर गरि लिनुहोला । नेपाल राष्ट्र बैंकद्धारा बैंकतथावित्तीय संस्थाहरुलाई जारी गरिएको कर्जा
+                   सूचनातथाकालोसूचीव्यवस्थासम्बन्धीनिर्देशनबमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा मेरो/हाम्रो/ऋणीकोमञ्जुरीछभनीकिनाराका साक्षीका
+                   रोहबरमातपाई धनीवित्तीय संस्थाको कार्यालयमाबसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय संस्थालाई दिया/दियौं ।
                </p>
            </div>
             <br>
@@ -100,48 +101,70 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr><td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td></tr>
+                    <tr><td><input class="form-field nepaliFont form-control-sm" type="text" formControlName="approvedSubidhakisim"></td>
+                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName="approvedAmount"></td>
+                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName="approvedCommision"></td>
+                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName="approvedLoanTime"></td></tr>
                     </tbody>
                 </table>
             </div>
             <br>
             <p class="text-center"><b>धितोसुरक्षणबापत रहेको/रहने सम्पत्तीको विवरण</b></p>
-            <div style="width: 500px">
-                <table  class="table table-bordered text-center">
+            <div >
+                <table  class="table table-bordered text-center table-responsive-md">
                     <thead>
                     <tr>
-                        <th >सि.नं.</th>
+                        <th width="5%">सि.नं.</th>
                         <th >धितोको बिवरण
                         </th>
-                        <th>जिल्ला</th>
-                        <th>गा.पा.÷न.पा./ <br>
+                        <th width="10%">जिल्ला</th>
+                        <th width="10%">गा.पा./न.पा./ <br>
                             म.न.पा.</th>
-                        <th>वडा नं.</th>
-                        <th>
+                        <th width="7%">वडा नं.</th>
+                        <th width="10%">
                             कि.नं
                         </th>
-                        <th>क्षेत्रफल</th>
-                        <th>रजिष्टे«शन नं.</th>
-                        <th>धनीको नाम थर र वतन</th>
+                        <th width="10%">क्षेत्रफल</th>
+                        <th width="10%">रजिष्टे«शन नं.</th>
+                        <th width="28%">धनीको नाम थर र वतन</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr><td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td>
-                        <td><input class="form-field nepaliFont form-control-sm" type="text" formControlName=""></td></tr>
+                    <tr><td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesSN"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesSNBibaran"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesDistrict"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesMunicipality"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesWadNo"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesKeyNo"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesArea"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesRegNo"></td>
+                        <td><input class="form-field nepaliFont form-control" type="text" formControlName="SecuritiesOwnerName"></td></tr>
                     </tbody>
                 </table>
             </div>
+            <br>
+            <p>
+                ईतिसम्बत <input class="form-field nepaliFont form-control-sm" type="text" formControlName="itiSambatYear">
+                साल	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="itiSambatMonth">
+                महिना <input class="form-field nepaliFont form-control-sm" type="text" formControlName="itiSambatDate">
+                गते	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="itiSambatTime">
+                रोज	शुभम् <input class="form-field nepaliFont form-control-sm" type="text" formControlName="itiSambatRoj"> ।
+            </p>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
         </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{ offerLetterConst.LOAN_DEED }}"
+                ngxPrint> Print
+        </button>
     </div>
 
 </div>
+
+<app-loan-deed-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  hidden></app-loan-deed-print>
