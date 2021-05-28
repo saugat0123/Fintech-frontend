@@ -47,7 +47,7 @@ export class TemplateDocumentComponent implements OnInit {
     this.customerInfoService.upload(formData).subscribe((res: any) => {
       this.docPathEmitter.emit(res.detail);
       this.checked = true;
-    }, error => this.toast.show(new Alert(AlertType.WARNING, error.error.message)));
+    }, error => this.toast.show(new Alert(AlertType.WARNING, 'Please read the note to Upload the Document')));
   }
 
   previewDoc(url: string) {
