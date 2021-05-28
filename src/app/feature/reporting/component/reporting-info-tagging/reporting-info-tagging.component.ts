@@ -20,7 +20,8 @@ export class ReportingInfoTaggingComponent implements OnInit {
   public isFilterCollapsed = true;
   public filterForm: FormGroup;
   private search = {
-    name: undefined
+    name: undefined,
+    reportingInfoType: undefined,
   };
   public savedReportTagsId = new Set<number>();
   public finalReportingInfoLevels: Array<ReportingInfoLevel>;
@@ -59,7 +60,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
 
   private getReportingInfo(): void {
     this.reportingInfoService.getAllWithSearch(this.search).subscribe((response: any) => {
-      this.reportingInfoList = response.detail;
+      this.reportingInfoList = response.detail.filter((f) => f.reportingInfoType === 'c');
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load reporting info'));
@@ -68,7 +69,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
 
   private buildFilterForm(): void {
     this.filterForm = this.formBuilder.group({
-      name: [undefined]
+      name: [undefined],
     });
   }
 
