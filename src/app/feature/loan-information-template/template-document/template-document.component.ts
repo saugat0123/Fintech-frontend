@@ -58,4 +58,10 @@ export class TemplateDocumentComponent implements OnInit {
     link.click();
   }
 
+  deleteDocument(): void {
+    delete this.pathValue;
+    this.docPathEmitter.emit(this.pathValue);
+    this.checked = false;
+  }
+
 }
