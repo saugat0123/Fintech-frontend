@@ -34,6 +34,7 @@ export class LoanDeedComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
 
+
   constructor( private dialogRef: NbDialogRef<LoanDeedComponent>,
                private formBuilder: FormBuilder,
                private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -46,6 +47,7 @@ export class LoanDeedComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.checkOfferLetter();
+
   }
 
 
