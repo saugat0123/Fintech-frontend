@@ -16,11 +16,12 @@ import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-    selector: 'app-letter-of-arrangements',
-    templateUrl: './letter-of-arrangements.component.html',
-    styleUrls: ['./letter-of-arrangements.component.scss']
+  selector: 'app-letter-of-lein',
+  templateUrl: './letter-of-lein.component.html',
+  styleUrls: ['./letter-of-lein.component.scss']
 })
-export class LetterOfArrangementsComponent implements OnInit {
+export class LetterOfLeinComponent implements OnInit {
+
     @Input() offerLetterType;
     @Input() cadOfferLetterApprovedDoc;
     spinner;
@@ -32,25 +33,19 @@ export class LetterOfArrangementsComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
 
+    constructor(private dialogRef: NbDialogRef<LetterOfLeinComponent>,
+                private formBuilder: FormBuilder,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private administrationService: CreditAdministrationService,
+                private toastService: ToastService,
+                private routerUtilsService: RouterUtilsService,
+                private customerOfferLetterService: CustomerOfferLetterService,) { }
 
-    constructor(
-        private dialogRef: NbDialogRef<LetterOfArrangementsComponent>,
-        private formBuilder: FormBuilder,
-        private nepToEngNumberPipe: NepaliToEngNumberPipe,
-        private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-        private administrationService: CreditAdministrationService,
-        private toastService: ToastService,
-        private routerUtilsService: RouterUtilsService,
-        private customerOfferLetterService: CustomerOfferLetterService,
-    ) {
-    }
-
-    ngOnInit() {
+  ngOnInit() {
         this.buildForm();
         this.checkOfferLetter();
-
-    }
-
+  }
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
 
@@ -61,10 +56,10 @@ export class LetterOfArrangementsComponent implements OnInit {
 
     checkOfferLetter() {
         this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-            === this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_ARRANGEMENTS).toString())[0];
+            === this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_LEIN).toString())[0];
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
-            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_ARRANGEMENTS);
+            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_LEIN);
             this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -74,20 +69,20 @@ export class LetterOfArrangementsComponent implements OnInit {
         }
     }
 
-    submit(): void {
+    onSubmit(): void {
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
-                    this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_ARRANGEMENTS).toString()) {
+                    this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_LEIN).toString()) {
                     offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
-            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_ARRANGEMENTS);
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_LEIN);
             offerDocument.initialInformation = JSON.stringify(this.form.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
@@ -107,13 +102,22 @@ export class LetterOfArrangementsComponent implements OnInit {
 
     }
 
-    buildForm() {
-        this.form = this.formBuilder.group({
-            date: [undefined],
-            branch: [undefined],
-            subject: [undefined],
-            punji: [undefined],
-            customerName: [undefined],
-        });
-    }
+
+  buildForm(){
+      this.form=this.formBuilder.group({
+        date:[undefined],
+          branchName:[undefined],
+          chaltiKhataNo:[undefined],
+          jariBranch:[undefined],
+          khatawalName:[undefined],
+          amount:[undefined],
+          customerSign:[undefined],
+          customerName:[undefined],
+          customerAddress:[undefined],
+          companyStamp:[undefined]
+      })
+  }
+
+
+
 }
