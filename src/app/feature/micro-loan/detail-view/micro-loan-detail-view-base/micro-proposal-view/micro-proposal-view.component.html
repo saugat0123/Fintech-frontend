@@ -7,6 +7,8 @@
                 <th *ngIf="checkApproved" class="">Existing Limit</th>
                 <th *ngIf="checkApproved">Outstanding Limit</th>
                 <th>Proposed Limit</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted">Existing Cash Margin</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted">Existing Commission (%)</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted">Cash Margin</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted">Commission (%)</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted">Commission Frequency</th>
@@ -15,6 +17,8 @@
                 <th *ngIf="checkApproved" class="text-right pr-1">{{proposalData?.existingLimit | currencyFormatter}}</th>
                 <th *ngIf="checkApproved" class="text-right pr-1">{{proposalData?.outStandingLimit | currencyFormatter}}</th>
                 <th class="text-right pr-1">Rs. {{proposalData?.proposedLimit | currencyFormatter}}</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.existCommissionPercentage}}</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.existCashMargin}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.cashMargin}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.commissionPercentage}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.commissionFrequency}}</th>
@@ -26,6 +30,9 @@
             <tr class="text-white sb-bg-dark">
                 <th *ngIf="isFixedDeposit">Coupon Rate</th>
                 <th *ngIf="isFixedDeposit">Premium On Coupon Rate</th>
+                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral"> Existing Interest
+                    Rate(%)
+                </th>
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">Interest
                     Rate(%)
                 </th>
@@ -39,6 +46,7 @@
             <tr>
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</th>
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.premiumOnCouponRate}}</th>
+                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.existInterestRate}}</th>
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.interestRate}}</th>
                 <th  class="text-center">{{proposalData?.interestRebate}}%</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
