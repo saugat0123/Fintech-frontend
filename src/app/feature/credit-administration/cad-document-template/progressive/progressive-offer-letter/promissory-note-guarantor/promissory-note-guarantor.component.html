@@ -5,6 +5,7 @@
                 <h6 class="text-center">कप्रतिज्ञा पत्र<br>
                     (PROMISSORY NOTE)</h6>
                 <br>
+
                 <div class="row col-md-12">
                    <p>लिखितम् <input class="form-field form-control-sm nepaliFont "
                                      formControlName="address"
@@ -21,7 +22,7 @@
                        रकम रु.<input class="form-field form-control-sm nepaliFont "
                                      formControlName="amount"
                                      placeholder=""
-                                     type="text"/> (अक्षेरुपी रु. <input class="form-field form-control-sm nepaliFont "
+                                     type="text" (change)="getNumAmountWord('amount','amountInWord')"/> (अक्षेरुपी रु. <input readonly class="form-field  form-control-sm nepaliFont "
                                                                          formControlName="amountInWord"
                                                                          placeholder=""
                                                                          type="text"/>

@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {FiscalYear} from '../../../../admin/modal/FiscalYear';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-nta-mega-summary',
@@ -15,8 +17,11 @@ export class NtaMegaSummaryComponent implements OnInit {
   currentYearData;
   prevYearData;
   prevFiscalYearIndex: number;
-
   fiscalYearArray = new Array<FiscalYear>();
+
+  // Client
+  client = environment.client;
+  clientName = Clients;
 
   constructor() { }
 

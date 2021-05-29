@@ -7,6 +7,8 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ToastService} from '../../../@core/utils';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {environment} from '../../../../environments/environment';
+import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-nta-mega',
@@ -35,6 +37,10 @@ export class NtaMegaComponent implements OnInit {
   parentForm: FormGroup;
   netTradingAssetsFormArray: FormArray;
   fiscalYearArray = new Array<FiscalYear>();
+
+  // Client
+  client = environment.client;
+  clientName = Clients;
 
   spinner = false;
 
