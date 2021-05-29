@@ -30,7 +30,7 @@
             <tr class="text-white sb-bg-dark">
                 <th *ngIf="isFixedDeposit">Coupon Rate</th>
                 <th *ngIf="isFixedDeposit">Premium On Coupon Rate</th>
-                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral"> Existing Interest
+                <th  *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN'"> Existing Interest
                     Rate(%)
                 </th>
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">Interest

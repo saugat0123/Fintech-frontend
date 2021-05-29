@@ -12,6 +12,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class MicroProposalViewComponent implements OnInit {
   @Input() formData: Proposal;
   @Input() customerType;
+  @Input() loanType;
   proposalData;
   recommendationChecked;
   checkApproved = false;
