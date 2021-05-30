@@ -26,4 +26,12 @@ export class ReportingInfoService extends BaseService<ReportingInfo> {
 
     return this.http.post(req.url, obj, {headers: req.header});
   }
+
+  public getWithType(type: any): Observable<any> {
+
+    const api = `${this.getApi()}/get-by-type?type=${type}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
+
 }

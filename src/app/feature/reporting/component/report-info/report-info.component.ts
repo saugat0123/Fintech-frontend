@@ -20,7 +20,7 @@ export class ReportInfoComponent implements OnInit {
     public isFilterCollapsed = true;
     public filterForm: FormGroup;
     private search = {
-        // name: undefined,
+        name: undefined,
         reportingInfoType: undefined,
     };
 
@@ -58,7 +58,7 @@ export class ReportInfoComponent implements OnInit {
 
     public onSearch(): void {
         this.search.reportingInfoType = this.reportingInfoType;
-        // this.search.name = ObjectUtil.setUndefinedIfNull(this.filterForm.get('name').value);
+        this.search.name = ObjectUtil.setUndefinedIfNull(this.filterForm.get('name').value);
         ReportInfoComponent.loadData(this);
     }
 
@@ -70,14 +70,15 @@ export class ReportInfoComponent implements OnInit {
 
     private buildFilterForm(): void {
         this.filterForm = this.formBuilder.group({
-            name: [undefined]
+            name: [undefined],
+            reportingInfoType: this.reportingInfoType,
         });
     }
 
     private getReportingInfo(): void {
         this.search.reportingInfoType = this.reportingInfoType;
-        this.reportingInfoService.getAllWithSearch(this.search).subscribe((response: any) => {
-            this.reportingInfoList = response.detail.filter((f) => f.reportingInfoType === this.reportingInfoType);
+        this.reportingInfoService.getWithType(this.reportingInfoType).subscribe((response: any) => {
+            this.reportingInfoList = response.detail;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load reporting info'));
