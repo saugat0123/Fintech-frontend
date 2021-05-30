@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <label>Choose Security Type</label>
                         <ng-select (change)="change(selectedSecurity)" [(ngModel)]="selectedSecurity"
-                        [addTagText]="null"
+                        (ngModelChange)="clearValidationState()" [addTagText]="null"
                         placeholder="Select Security" [ngModelOptions]="{standalone: true}">
                             <ng-option *ngFor="let type of getSecurities()" [value]="type?.key">
                                 {{type?.value}}
@@ -42,11 +42,16 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="owner">Owner</label>
-                                <input class="form-control rounded" formControlName="owner"
-                                       id="owner"
-                                       name="owner" placeholder="Owner Name"
-                                       type="text"/>
+                                <label for="owner"><strong>Owner</strong></label>
+                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors) }"
+                                        class="form-control form-control-sm-error rounded" formControlName="owner"
+                                        id="owner" name="owner" placeholder="Owner Name" type="text" required/>
+                                <div *ngIf="(landSelected) && (land.get('owner').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="land.get('owner').errors.required">
+                                        Owner name is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -518,11 +523,18 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
-                                        <input (input)="calculateBuildUpAreaRate(i, 'building')"
+                                        <input [ngClass]="{'is-invalid': (apartmentSelected) && (building.get('buildArea').errors)}"
+                                                (input)="calculateBuildUpAreaRate(i, 'building')"
                                                class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="build up area"
-                                               type="number"/>
+                                               type="number" required/>
+                                        <div *ngIf=" (apartmentSelected) && (building.get('buildArea').invalid)"
+                                             class="invalid-feedback">
+                                            <div *ngIf="building.get('buildArea').errors.required">
+                                                Build up area is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -1299,10 +1311,17 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="title" for="owner">Owner</label>
-                                    <input class="form-control rounded"
+                                    <input [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('owner').errors)}"
+                                            class="form-control rounded"
                                            formControlName="owner"
                                            name="owner" placeholder="Owner Name"
-                                           type="text"/>
+                                           type="text" required/>
+                                    <div *ngIf="(landBuilding) && (landAndBuilding.get('owner').invalid)">
+                                        <div *ngIf="landAndBuilding.get('owner').errors.required"
+                                        class="invalid-feedback">
+                                            Owner name is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1959,9 +1978,14 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="model">Model No.</label>
-                                <input class="form-control rounded" formControlName="model"
+                                <input [ngClass]="{'is-invalid': (plantSelected) && (plant.get('model').errors)}"
+                                        class="form-control rounded" formControlName="model"
                                        name="model" placeholder="Model No."
-                                       type="text"/>
+                                       type="text" required/>
+                                <div *ngIf="(plantSelected) && (plant.get('model').invalid)"
+                                class="invalid-feedback">
+                                    <div *ngIf="plant.get('model').errors.required">Model no is required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -2162,10 +2186,15 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="model"><strong>Model</strong></label>
-                                <input
+                                <input [ngClass]="{'is-invalid': (vehicleSelected) && (addMoreVehicle.get('model').errors)}"
                                         class="form-control" formControlName="model" id="model" name="model"
                                         placeholder="Model"
-                                        type="text">
+                                        type="text" required />
+                                <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('model').invalid)" class="invalid-feedback">
+                                    <div *ngIf="addMoreVehicle.get('model').errors.required">
+                                        Model name is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2485,7 +2514,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">FD Account Number<strong></strong></label>
-                                <input class="form-control" formControlName="accountNumber">
+                                <input [ngClass]="{'is-invalid': (depositSelected) && (deposit.get('accountNumber').errors)}"
+                                        class="form-control" formControlName="accountNumber"
+                                required />
+                                <div *ngIf="(depositSelected) && (deposit.get('accountNumber').invalid)" class="invalid-feedback">
+                                    <div *ngIf="deposit.get('accountNumber').errors.required">
+                                        Account no is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2725,7 +2761,7 @@
             </nb-card>
         </nb-card>
 
-        <nb-card [hidden]="!hypothecation" class="p-3">
+        <nb-card [hidden]="!hypothecationOfStock" class="p-3">
             <div class="box-header with-border">
                 <h2 class="box-title title">Hypothecation of Stock</h2>
             </div>
@@ -2745,9 +2781,15 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title">Owner</label>
-                                <input class="form-control rounded" formControlName="owner"
+                                <input [ngClass]="{'is-invalid': (hypothecationOfStock) && (hypothecation.get('owner').errors)}"
+                                        class="form-control rounded" formControlName="owner"
                                        placeholder="Owner"
-                                       type="text"/>
+                                       type="text" required/>
+                                <div *ngIf="(hypothecationOfStock) && (hypothecation.get('owner').invalid)" class="invalid-feedback">
+                                    <div *ngIf="hypothecation.get('owner').errors.required">
+                                        Owner name is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -2822,7 +2864,7 @@
                        value="Add More Hypothecation Of Stock"/>
             </div>
         </nb-card>
-        <nb-card [hidden]="!assignment" class="p-3">
+        <nb-card [hidden]="!assignmentOfReceivable" class="p-3">
             <div class="box-header with-border">
                 <h2 class="box-title title">Assignment Of Receivable</h2>
             </div>
@@ -2835,9 +2877,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="title" for="description">Amount</label>
-                                <input class="form-control rounded" formControlName="amount"
+                                <input [ngClass]="{'is-invalid': (assignmentOfReceivable) && (assignment.get('amount').errors)}"
+                                        class="form-control rounded" formControlName="amount"
                                        placeholder="Amount"
-                                       type="number"/>
+                                       type="number" required/>
+                                <div *ngIf="(assignmentOfReceivable) && (assignment.get('amount').invalid)" class="invalid-feedback">
+                                    <div *ngIf="assignment.get('amount').errors.required">
+                                        Amount is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -2898,7 +2946,7 @@
             </div>
         </nb-card>
 
-        <nb-card [hidden]="!corporate" class="p-3">
+        <nb-card [hidden]="!corporateGuarantee" class="p-3">
             <div class="box-header with-border">
                 <h2 class="box-title title">Corporate Guarantee</h2>
             </div>
@@ -2910,9 +2958,15 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title">Name of Guarantor</label>
-                                <input class="form-control rounded" formControlName="name"
+                                <input [ngClass]="{'is-invalid': (corporateGuarantee) && (corporate.get('name').errors)}"
+                                        class="form-control rounded" formControlName="name"
                                        placeholder="Name of Guarantor"
-                                       type="text"/>
+                                       type="text" required/>
+                                <div *ngIf="(corporateGuarantee) && (corporate.get('name').invalid)" class="invalid-feedback">
+                                    <div *ngIf="corporate.get('name').errors.required">
+                                        Guarantor name is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -2986,9 +3040,15 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title">Name of Guarantor</label>
-                                <input class="form-control rounded" formControlName="name"
+                                <input [ngClass]="{'is-invalid': (personal) && (personalGuarantee.get('name').errors)}"
+                                        class="form-control rounded" formControlName="name"
                                        placeholder="Name of Guarantor"
-                                       type="text"/>
+                                       type="text" required/>
+                                <div *ngIf="(personal) && (personalGuarantee.get('name').invalid)" class="invalid-feedback">
+                                    <div *ngIf="personalGuarantee.get('name').errors.required">
+                                        Guarantor name is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -3054,9 +3114,16 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">Insured Amount</label>
-                                <input class="form-control rounded" formControlName="insuredAmount"
+                                <input [ngClass]="{'is-invalid': (insurancePolicySelected) && (insurancePolicy.get('insuredAmount').errors)}"
+                                        class="form-control rounded" formControlName="insuredAmount"
                                        placeholder="Insured Amount"
-                                       type="number"/>
+                                       type="number" required/>
+                                <div *ngIf="(insurancePolicySelected) && (insurancePolicy.get('insuredAmount').invalid)"
+                                class="invalid-feedback">
+                                    <div *ngIf="insurancePolicy.get('insuredAmount').errors.required">
+                                        Insured amount is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
