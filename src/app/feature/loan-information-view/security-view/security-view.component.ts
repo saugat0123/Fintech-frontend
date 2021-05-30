@@ -55,7 +55,7 @@ export class SecurityViewComponent implements OnInit {
     this.securityData = JSON.parse(this.security.data);
     // land security
     this.securityData['initialForm']['landDetails'].filter(f => {
-      if (f.owner !== null) {
+      if (f.owner !== '') {
         this.landSelected = true;
       }
     });
