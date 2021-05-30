@@ -45,7 +45,7 @@ export class SecurityTableComponent implements OnInit {
   ngOnInit() {
     // land security
       this.formDataForEdit['landDetails'].filter(f => {
-        if (f.owner !== null) {
+        if (f.owner !== '') {
           this.landSecurity = this.formDataForEdit['landDetails'];
           this.isLandSecurity = true;
         }
