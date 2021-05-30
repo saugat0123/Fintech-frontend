@@ -54,6 +54,7 @@ export class MicroProposalComponent implements OnInit {
   showInstallmentAmount = false;
   showRepaymentMode = false;
   optionList = ['Yes', 'No'];
+  existInterestLimit: number;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -121,6 +122,7 @@ export class MicroProposalComponent implements OnInit {
             this.setCollateralRequirement(this.collateralRequirement);
             // this.checkLoanConfig();
             this.setValidatorForPrepaymentField();
+            this.existInterestLimit = response.detail.existInterestRate;
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -221,6 +223,10 @@ export class MicroProposalComponent implements OnInit {
       undividedFamilyRemarks: [undefined],
       providersApplicant: [undefined],
       providersApplicantRemarks: [undefined],
+      existInterestRate: [undefined],
+      existCommissionPercentage: [undefined],
+      existCashMargin: [undefined],
+      existCashMarginMethod: ['PERCENT'],
 
     });
   }
@@ -295,7 +301,9 @@ export class MicroProposalComponent implements OnInit {
     this.proposalData.premiumOnCouponRate = this.microProposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.microProposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.microProposalForm.get('cashMarginMethod').value;
-
+    this.proposalData.existCommissionPercentage = this.microProposalForm.get('existCommissionPercentage').value;
+    this.proposalData.existCashMargin = this.microProposalForm.get('existCashMargin').value;
+    this.proposalData.existCashMarginMethod = this.microProposalForm.get('existCashMarginMethod').value;
   }
 
   get formControls() {

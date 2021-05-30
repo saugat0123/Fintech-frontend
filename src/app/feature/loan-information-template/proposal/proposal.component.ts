@@ -60,6 +60,7 @@ export class ProposalComponent implements OnInit {
   client = environment.client;
   clientName = Clients;
   othersSubsidyLoan = false;
+  existInterestLimit: number;
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -98,6 +99,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
+      this.existInterestLimit = this.formDataForEdit['existInterestRate'];
     } else {
       this.setActiveBaseRate();
     }
@@ -144,6 +146,9 @@ export class ProposalComponent implements OnInit {
             this.setCollateralRequirement(this.collateralRequirement);
             // this.checkLoanConfig();
             this.setValidatorForPrepaymentField();
+            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+              this.existInterestLimit = response.detail.existInterestRate;
+            }
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -223,6 +228,10 @@ export class ProposalComponent implements OnInit {
       purposeOfLoan: undefined,
       termsAndCondition: undefined,
       prepaymentSwapCommitment: [undefined],
+      existCashMargin: [undefined],
+      existCashMarginMethod: ['PERCENT'],
+      existInterestRate: [undefined],
+      existCommissionPercentage: [undefined],
       settlementAmount: [undefined]
     });
   }
@@ -302,6 +311,9 @@ export class ProposalComponent implements OnInit {
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
     this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
     this.proposalData.settlementAmount = this.proposalForm.get('settlementAmount').value;
+    this.proposalData.existCashMargin = this.proposalForm.get('existCashMargin').value;
+    this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
+    this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
   }
 
   get formControls() {
@@ -551,6 +563,7 @@ export class ProposalComponent implements OnInit {
           default:
             return;
         }
+
     }
 
     calculateInterestAmountForRepaymentMode() {
