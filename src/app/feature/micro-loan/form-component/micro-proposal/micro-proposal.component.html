@@ -63,6 +63,28 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="existCashMargin"><strong> Existing Cash Margin</strong>
+                                            <input
+                                                    formControlName="existCashMarginMethod"
+                                                    name="existCashMarginMethod"
+                                                    type="radio"
+                                                    value="PERCENT"> <strong> % </strong>
+                                            <input
+                                                    formControlName="existCashMarginMethod"
+                                                    name="existCashMarginMethod"
+                                                    type="radio"
+                                                    value="FLAT"> <strong>Flat</strong>
+                                        </label>
+                                        <input
+                                                class="form-control" formControlName="existCashMargin"
+                                                id="existCashMargin"
+                                                name="existCashMargin" placeholder=" Existing Cash Margin"
+                                                type="number">
+
+                                    </div>
+                                </div>
 
                                 <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
                                     <div class="form-group">
@@ -81,6 +103,16 @@
                                                 type="number">
                                     </div>
 
+                                </div>
+                                <div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="existCommissionPercentage"><strong>Existing Commission (%)</strong></label>
+                                        <input
+                                                class="form-control" formControlName="existCommissionPercentage"
+                                                id="existCommissionPercentage" name="existCommissionPercentage"
+                                                placeholder="Existing Commision (%)"
+                                                type="number">
+                                    </div>
                                 </div>
                                 <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
                                     <div class="form-group">
@@ -147,6 +179,18 @@
                                         <div *ngIf="(submitted) && formControls.interestRebate.invalid" class="invalid-feedback">
                                             <span *ngIf="formControls.interestRebate.errors.required">Interest Rebate is required</span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"
+                                     *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN' ">
+                                    <div class="form-group">
+                                        <label class="title" for="existInterestRate"> <strong> Existing Interest Rate(%)</strong></label>
+                                        <input
+                                                class="form-control" formControlName="existInterestRate"
+                                                id="existInterestRate" name="existInterestRate" placeholder="Existing Interest Rate(%)"
+                                                [(ngModel)]="existInterestLimit"
+                                                type="number" appDecimalNumber
+                                        >
                                     </div>
                                 </div>
                                 <div class="col-md-4"
