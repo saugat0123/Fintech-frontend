@@ -47,12 +47,16 @@ export class HirePurchaseDeedComponent implements OnInit {
 this.buildForm();
     this.startingGuarantor();
 this.checkOfferLetter();
-const ar=this.form.get('guarantorDetail') as FormArray;
-this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(value=>{
+const guar=this.form.get('guarantorDetail') as FormArray;
+const prs=JSON.parse(this.offerLetterDocument.initialInformation);
+      prs.guarantorDetail.forEach((value:any)=>{
+          console.log(value);
+          this.form.patchValue({
+              guarantorDetail:value
+          })
 
-    const prs=JSON.parse(value.initialInformation);
 
-})
+      })
 
   }
 
