@@ -19,6 +19,11 @@ import { PromissoryNoteGuarantorPrintComponent } from './progressive-offer-lette
 import {LetterOfAgreementComponent} from "./progressive-offer-letter/letter-of-agreement/letter-of-agreement.component";
 import { LetterOfAgreementPrintComponent } from './progressive-offer-letter/letter-of-agreement/letter-of-agreement-print/letter-of-agreement-print.component';
 import { LoanDeedPrintComponent } from './progressive-offer-letter/loan-deed/loan-deed-print/loan-deed-print.component';
+import {HirePurchaseDeedComponent} from "./progressive-offer-letter/hire-purchase-deed/hire-purchase-deed.component";
+import {GuaranteeBondCorporateComponent} from "./progressive-offer-letter/guarantee-bond-corporate/guarantee-bond-corporate.component";
+import {IndemnityDeedComponent} from "./progressive-offer-letter/indemnity-deed/indemnity-deed.component";
+import {LetterOfContinuityComponent} from "./progressive-offer-letter/letter-of-continuity/letter-of-continuity.component";
+import {LetterOfDisbursementComponent} from "./progressive-offer-letter/letter-of-disbursement/letter-of-disbursement.component";
 
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -38,7 +43,12 @@ const COMPONENTS = [
         PromissoryNoteGuarantorPrintComponent,
         LetterOfAgreementComponent,
         LetterOfAgreementPrintComponent,
-        LoanDeedPrintComponent
+        LoanDeedPrintComponent,
+        HirePurchaseDeedComponent,
+        GuaranteeBondCorporateComponent,
+        IndemnityDeedComponent,
+        LetterOfContinuityComponent,
+        LetterOfDisbursementComponent,
 
     ],
     exports: [
