@@ -43,6 +43,12 @@
                     *ngSwitchCase=offerLetterConst.LETTER_OF_AGREEMENT>
 
             </app-letter-of-agreement>
+            <app-hire-purchase-deed
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.HIRE_PURCHASE_DEED>
+
+            </app-hire-purchase-deed>
         </div>
     </nb-card-body>
 </nb-card>
