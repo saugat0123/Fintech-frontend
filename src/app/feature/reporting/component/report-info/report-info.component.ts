@@ -15,13 +15,14 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
     styleUrls: ['./report-info.component.scss']
 })
 export class ReportInfoComponent implements OnInit {
-    @Input() reportingInfoType;
+    @Input() type;
+    spinner = false;
     public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
     public isFilterCollapsed = true;
     public filterForm: FormGroup;
     private search = {
         name: undefined,
-        reportingInfoType: undefined,
+        type: undefined,
     };
 
     constructor(
@@ -37,7 +38,7 @@ export class ReportInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.reportingInfoType);
+        console.log(this.type);
         ReportInfoComponent.loadData(this);
         this.buildFilterForm();
     }
@@ -45,7 +46,7 @@ export class ReportInfoComponent implements OnInit {
     public add(report: ReportingInfo) {
         const ref = this.dialogService.open(ReportInfoFormComponent, {size: 'lg', backdrop: 'static'});
         ref.componentInstance.model = report || new ReportingInfo();
-        ref.componentInstance.reportingInfoType = this.reportingInfoType;
+        ref.componentInstance.type = this.type;
         ref.componentInstance.action = report ? Action.UPDATE : Action.ADD;
 
         ModalUtils.resolve(ref.result, ReportInfoComponent.loadData, this);
@@ -57,7 +58,7 @@ export class ReportInfoComponent implements OnInit {
     }
 
     public onSearch(): void {
-        this.search.reportingInfoType = this.reportingInfoType;
+        this.search.type = this.type;
         this.search.name = ObjectUtil.setUndefinedIfNull(this.filterForm.get('name').value);
         ReportInfoComponent.loadData(this);
     }
@@ -71,17 +72,20 @@ export class ReportInfoComponent implements OnInit {
     private buildFilterForm(): void {
         this.filterForm = this.formBuilder.group({
             name: [undefined],
-            reportingInfoType: this.reportingInfoType,
+            type: this.type,
         });
     }
 
     private getReportingInfo(): void {
-        this.search.reportingInfoType = this.reportingInfoType;
-        this.reportingInfoService.getWithType(this.reportingInfoType).subscribe((response: any) => {
+        this.spinner = true;
+        this.search.type = this.type;
+        this.reportingInfoService.getAllWithSearch(this.search).subscribe((response: any) => {
             this.reportingInfoList = response.detail;
+            this.spinner = false;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load reporting info'));
+            this.spinner = false;
         });
     }
 }

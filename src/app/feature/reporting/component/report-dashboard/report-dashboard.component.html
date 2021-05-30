@@ -6,18 +6,18 @@
     <nb-accordion>
       <nb-accordion-item #itemNRBReportingFacility>
         <nb-accordion-item-header>
-          Reporting Information for Facility
+          Reporting Facility
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-report-info [reportingInfoType]="'f'" *ngIf="itemNRBReportingFacility.expanded"></app-report-info>
+          <app-report-info [type]="'f'" *ngIf="itemNRBReportingFacility.expanded"></app-report-info>
         </nb-accordion-item-body>
       </nb-accordion-item>
       <nb-accordion-item #itemNRBReportingCustomer >
         <nb-accordion-item-header>
-          Reporting Information for Customer
+          Reporting Customer
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-report-info [reportingInfoType]="'c'" *ngIf="itemNRBReportingCustomer.expanded"></app-report-info>
+          <app-report-info [type]="'c'" *ngIf="itemNRBReportingCustomer.expanded"></app-report-info>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>

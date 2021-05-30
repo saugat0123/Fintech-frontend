@@ -36,7 +36,7 @@ export class ReportInfoLevelFormComponent implements OnInit {
 
     public onSubmit(): void {
         const reportingInfo = this.reportForm.value as ReportingInfo;
-        reportingInfo.reportingInfoType = this.reportingInfo.reportingInfoType;
+        reportingInfo.type = this.reportingInfo.type;
         this.reportingInfoService.save(reportingInfo).subscribe(() => {
             if (this.reportingInfo.id == null) {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved reporting info'));
