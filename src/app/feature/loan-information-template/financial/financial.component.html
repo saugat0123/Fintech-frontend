@@ -325,8 +325,7 @@
                         <input class="form-control" formControlName="existingObligationOtherBank" id="existingObligationOtherBank"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
                                (change)="totalObligation()"
-                               placeholder="Amount">
-
+                               placeholder="Amount" appDecimalNumber>
                         <div *ngIf="(submitted) && form.existingObligationOtherBank.invalid"
                              class="invalid-feedback">Invalid Existing Obligation at other Bank
                         </div>
@@ -335,10 +334,8 @@
                         <label for="totalObligationCurrentBank"><strong>Proposed and Existing Obligation at Our Bank</strong></label>
                         <input class="form-control" formControlName="totalObligationCurrentBank" id="totalObligationCurrentBank"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('existingObligationOtherBank').invalid}"
-                               type="number"
-                               (change)="totalObligation()"
-                               placeholder="Amount">
-
+                               type="number" (change)="totalObligation()"
+                               placeholder="Amount" appDecimalNumber>
                         <div *ngIf="(submitted) && form.totalObligationCurrentBank.invalid"
                              class="invalid-feedback">Invalid Existing Obligation value
                         </div>
@@ -349,10 +346,7 @@
                                type="number"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalBankObligation').invalid}"
                                [readOnly]="true"
-
-                               [value]="numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)"
-                        >
-
+                               [value]="(numberUtils.isNumber(form.existingObligationOtherBank.value) + numberUtils.isNumber(form.totalObligationCurrentBank.value)).toFixed(2)">
                         <div *ngIf="(submitted) && form.totalBankObligation.invalid"
                              class="invalid-feedback">Invalid Total Bank Obligation value
                         </div>
@@ -362,7 +356,6 @@
                         <input class="form-control" formControlName="obligationGrossIncomeRatio" id="obligationGrossIncomeRatio"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('obligationGrossIncomeRatio').invalid}"
                                [readOnly]="true">
-
                         <div *ngIf="(submitted) && form.obligationGrossIncomeRatio.invalid"
                              class="invalid-feedback">Invalid Obligation Ratio
                         </div>
