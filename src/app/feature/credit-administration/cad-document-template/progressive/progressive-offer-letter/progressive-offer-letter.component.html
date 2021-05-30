@@ -49,6 +49,12 @@
                     *ngSwitchCase=offerLetterConst.HIRE_PURCHASE_DEED>
 
             </app-hire-purchase-deed>
+            <app-indemnity-deed
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_INDEMNITY>
+
+            </app-indemnity-deed>
         </div>
     </nb-card-body>
 </nb-card>

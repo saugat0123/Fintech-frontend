@@ -47,8 +47,7 @@ export class HirePurchaseDeedComponent implements OnInit {
         this.buildForm();
 
         this.checkOfferLetter();
-        const gua = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        console.log(gua);
+
 
     }
 
