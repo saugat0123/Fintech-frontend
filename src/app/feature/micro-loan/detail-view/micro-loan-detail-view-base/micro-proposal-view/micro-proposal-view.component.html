@@ -17,8 +17,8 @@
                 <th *ngIf="checkApproved" class="text-right pr-1">{{proposalData?.existingLimit | currencyFormatter}}</th>
                 <th *ngIf="checkApproved" class="text-right pr-1">{{proposalData?.outStandingLimit | currencyFormatter}}</th>
                 <th class="text-right pr-1">Rs. {{proposalData?.proposedLimit | currencyFormatter}}</th>
-                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.existCommissionPercentage}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.existCashMargin}}</th>
+                <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.existCommissionPercentage}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.cashMargin}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.commissionPercentage}}</th>
                 <th *ngIf="!isFundable && fundableNonFundableSelcted" class="text-right pr-1">{{proposalData?.commissionFrequency}}</th>
@@ -46,7 +46,7 @@
             <tr>
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</th>
                 <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.premiumOnCouponRate}}</th>
-                <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.existInterestRate}}</th>
+                <th  *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN' " class="text-right pr-1">{{proposalData?.existInterestRate}}</th>
                 <th  *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.interestRate}}</th>
                 <th  class="text-center">{{proposalData?.interestRebate}}%</th>
                 <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral" class="text-right pr-1">{{proposalData?.baseRate}}</th>
