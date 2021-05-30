@@ -1984,7 +1984,7 @@
                                        type="text" required/>
                                 <div *ngIf="(plantSelected) && (plant.get('model').invalid)"
                                 class="invalid-feedback">
-                                    <div *ngIf="plant.get('model').errors.required"></div>
+                                    <div *ngIf="plant.get('model').errors.required">Model no is required</div>
                                 </div>
                             </div>
                         </div>
