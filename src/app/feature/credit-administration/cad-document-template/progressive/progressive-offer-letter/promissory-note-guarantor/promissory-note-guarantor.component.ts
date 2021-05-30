@@ -118,7 +118,6 @@ this.checkOfferLetter();
       tolName:[undefined],
       fatherName:[undefined],
       grandFatherName:[undefined],
-      guarantorSign:[undefined],
       guarantorName:[undefined],
       guarantorAddress:[undefined],
       sanakhatGuarantorName:[undefined],

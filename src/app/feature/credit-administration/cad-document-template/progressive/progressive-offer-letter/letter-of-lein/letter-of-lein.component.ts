@@ -111,7 +111,6 @@ export class LetterOfLeinComponent implements OnInit {
           jariBranch:[undefined],
           khatawalName:[undefined],
           amount:[undefined],
-          customerSign:[undefined],
           customerName:[undefined],
           customerAddress:[undefined],
           companyStamp:[undefined]

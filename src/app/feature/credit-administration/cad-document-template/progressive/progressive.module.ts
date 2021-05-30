@@ -24,6 +24,7 @@ import {GuaranteeBondCorporateComponent} from "./progressive-offer-letter/guaran
 import {IndemnityDeedComponent} from "./progressive-offer-letter/indemnity-deed/indemnity-deed.component";
 import {LetterOfContinuityComponent} from "./progressive-offer-letter/letter-of-continuity/letter-of-continuity.component";
 import {LetterOfDisbursementComponent} from "./progressive-offer-letter/letter-of-disbursement/letter-of-disbursement.component";
+import { HirePurchaseDeedPrintComponent } from './progressive-offer-letter/hire-purchase-deed/hire-purchase-deed-print/hire-purchase-deed-print.component';
 
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -49,6 +50,7 @@ const COMPONENTS = [
         IndemnityDeedComponent,
         LetterOfContinuityComponent,
         LetterOfDisbursementComponent,
+        HirePurchaseDeedPrintComponent,
 
     ],
     exports: [

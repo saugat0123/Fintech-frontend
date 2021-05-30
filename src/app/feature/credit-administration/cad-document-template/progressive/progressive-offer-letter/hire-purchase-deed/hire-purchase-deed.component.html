@@ -7,12 +7,16 @@
                 <br>
                 <div class="row">
                     <p>लिखितम् धनीकानामप्रचलितबैंकतथावित्तीय संस्था सम्बन्धी ऐन, बमोजिमदर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका
-                        वडा नं. ३२ स्थित रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभफाईनान्स लिमिटेडको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="districtName">
+                        वडा नं. ३२ स्थित रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभफाईनान्स लिमिटेडको
+                        <input class="form-field nepaliFont form-control-sm" type="text" formControlName="districtName">
                         जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="municipalityName">
                         गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="wadNo">
-                        स्थित <input class="form-field nepaliFont form-control-sm" type="text" formControlName="branchName">शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा“वित्तीय संस्था”भनिएको)लिखत गरी
-                        दिनेकानाम <span id="yellow"><input class="form-field nepaliFont form-control-sm" type="text" formControlName="grandParentName">को नाति/नातिनि <input class="form-field nepaliFont form-control-sm" type="text" formControlName="parentName">
-                        को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="husbandWifeName">को पति/पत्नी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerDistrict">िल्ला
+                        स्थित <input class="form-field nepaliFont form-control-sm" type="text" formControlName="branchName">शाखाकार्यालय
+                        (जसलाई यस उप्रान्त यस लिखतमा“वित्तीय संस्था”भनिएको)लिखत गरी
+                        दिनेकानाम <span id="yellow"><input class="form-field nepaliFont form-control-sm" type="text" formControlName="grandParentName">
+                            को नाति/नातिनि <input class="form-field nepaliFont form-control-sm" type="text" formControlName="parentName">
+                        को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="husbandWifeName">
+                            को पति/पत्नी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerDistrict">िल्ला
                             <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerMunicipality">
                         गा.पा./न.पा./म.न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerWadNo">
                             (साबिक  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sabikVDC">
@@ -109,7 +113,7 @@
                 <br>
                 <h6 class="text-center">तपसिल</h6>
                 <div class="table-responsive-md">
-                <table class="table  table-bordered border-dark">
+                <table class="table  table-bordered border-dark text-center">
                     <thead>
                     <tr>
                         <th>
@@ -154,7 +158,7 @@
                 <p class="text-center"><b>भवदीय,</b></p>
                 <div class="">
                 <p>
-                    दस्तखत :-<input class="form-field nepaliFont form-control-sm" type="text" formControlName="sincerlySign">
+                    दस्तखत :-................
                     <br>
                     अख्तियारप्राप्तब्यक्तिको नाम :-	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarName">
                     (ना.प्र.नं<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarCitizenshipNo">.
@@ -204,7 +208,7 @@
                 </div>
                 <b class="text-left">साक्षी :</b>
                 <div class="col-md-12 float-right">
-                    <button (click)="addMoreGuarantor()" type="button" class="btn btn-primary btn-sm float-right " size="tiny"> Add More Guarantor <i class="fas fa-plus"></i></button>
+                    <button (click)="addMoreGuarantor()" type="button" class="btn btn-primary btn-sm float-right " size="tiny">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
                 </div>
 
                 <div class="row col-md-12 " >
@@ -212,10 +216,10 @@
                         <div [formGroupName]="i">
 
                     <div >
-                        <p>दस्तखत :<input class="form-field nepaliFont form-control-sm" type="text" formControlName="guarantorSign"></p>
+                        <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
 
 
-                    <table class="table-bordered table ">
+                    <table class="table-bordered table text-center ">
                         <thead>
                         <tr>
                             <th width="10%">नाम</th>
@@ -231,9 +235,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorName"></td>
-                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorCitizenshipNo"></td>
-                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorDate"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="name"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="citizenNumber"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="issuedYear"></td>
                             <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorCDOoffice"></td>
                             <td><input class="form-field  nepaliFont form-control" type="text" formControlName="guarantorDistrict"></td>
                             <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorMunicipality"></td>
@@ -282,6 +286,15 @@
                     </button>
                 </div>
             </form>
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{ offerLetterConst.HIRE_PURCHASE_DEED }}"
+                    ngxPrint> Print
+            </button>
         </div>
 
 </div>
+
+<app-hire-purchase-deed-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  hidden></app-hire-purchase-deed-print>
