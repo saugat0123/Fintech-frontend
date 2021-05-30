@@ -230,6 +230,7 @@
                     </nb-card-header>
                     <nb-card-body>
                         <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                                 (emitLoanList)="getLoanList($event)"
                                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
                                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
                                                  [formValue]="customer"></app-customer-group-loan>
@@ -455,7 +456,8 @@
                         *ngIf="customerInfo &&  isEditable"
                         [customerInfoId]="customerInfoId"
                         [isMicroCustomer]="customer?.isMicroCustomer"
-                        [customerInfo]="customerInfo"></app-customer-loan-information>
+                        [customerInfo]="customerInfo"
+                        [isContainedApprovedLoan]="isContainedApprovedLoan"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf=" !isEditable"
                                                     [customerInfo]="customerInfo"></app-customer-loan-information-view>
             </div>

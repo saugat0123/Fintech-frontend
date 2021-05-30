@@ -45,6 +45,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() loanTag: string;
     @Input() shareSecurity;
     @Input() customerSecurityId;
+    @Input() isContainedApprovedLoan;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;

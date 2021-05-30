@@ -36,6 +36,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     @Output() messageToEmit: EventEmitter<LoanAmountType> = new EventEmitter();
 
+    @Output() emitLoanList: EventEmitter<LoanDataHolder[]> = new EventEmitter<LoanDataHolder[]>();
+
     fetchLoan = FetchLoan;
     @Input()
     total: number;
@@ -137,6 +139,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     groupCombinedLoan(customerLoans: LoanDataHolder[]): SingleCombinedLoanDto[] {
         const loanHistories: SingleCombinedLoanDto[] = [];
+        this.emitLoanList.emit(customerLoans);
         for (const loan of customerLoans) {
             // if loan is not combined
             if (ObjectUtil.isEmpty(loan.combinedLoan)) {

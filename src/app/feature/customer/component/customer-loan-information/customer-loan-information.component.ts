@@ -119,6 +119,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     private dataFromPreviousSecurity: NbAccordionItemComponent;
     @ViewChild('previousSecurityInfoTagging', {static: false})
     public previousSecurityComponent: PreviousSecurityComponent;
+    @Input() isContainedApprovedLoan;
 
     private siteVisit: SiteVisit;
     private financial: Financial;

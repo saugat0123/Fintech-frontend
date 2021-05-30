@@ -37,6 +37,7 @@ export class SecurityComponent implements OnInit {
     @Output() securityDataEmitter = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
+    @Input() isContainedApprovedLoan;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
