@@ -865,8 +865,11 @@
                 <span><strong>Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
                         [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                <ng-template #noinfo>
+                    <p>No any information tagged</p>
+                </ng-template>
             </div>
             <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
                 <span><strong>Customer Reporting Information</strong></span>
