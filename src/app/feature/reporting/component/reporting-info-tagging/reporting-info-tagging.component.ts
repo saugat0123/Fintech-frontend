@@ -16,13 +16,14 @@ import {ReportingInfoTaggingFormComponent} from '../reporting-info-tagging-form/
 export class ReportingInfoTaggingComponent implements OnInit {
   @Input() public reportingInfoLevels: Array<ReportingInfoLevel>;
   @Output() public reportingInfoLevelsEmitter = new EventEmitter();
+  @Input() type;
   spinner = false;
   public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
   public isFilterCollapsed = true;
   public filterForm: FormGroup;
   private search = {
     name: undefined,
-    type: "f",
+    type: undefined,
   };
   public savedReportTagsId = new Set<number>();
   public finalReportingInfoLevels: Array<ReportingInfoLevel>;
@@ -61,6 +62,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
 
   private getReportingInfo(): void {
     this.spinner = true;
+    this.search.type = this.type;
     this.reportingInfoService.getAllWithSearch(this.search).subscribe((response: any) => {
       this.reportingInfoList = response.detail;
       this.spinner = false;
