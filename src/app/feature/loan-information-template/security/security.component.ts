@@ -38,6 +38,7 @@ export class SecurityComponent implements OnInit {
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
     @Input() isMicroCustomer: boolean;
+    @Input() isContainedApprovedLoan;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;

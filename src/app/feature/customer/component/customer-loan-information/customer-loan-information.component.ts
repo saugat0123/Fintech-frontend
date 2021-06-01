@@ -119,6 +119,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     private dataFromPreviousSecurity: NbAccordionItemComponent;
     @ViewChild('previousSecurityInfoTagging', {static: false})
     public previousSecurityComponent: PreviousSecurityComponent;
+    @Input() isContainedApprovedLoan;
 
     private siteVisit: SiteVisit;
     private financial: Financial;
@@ -160,6 +161,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('isContainedApprovedLoan', this.isContainedApprovedLoan);
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
             this.siteVisit = this.customerInfo.siteVisit;

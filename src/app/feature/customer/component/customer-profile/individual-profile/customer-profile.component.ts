@@ -89,6 +89,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     isEditable = false;
     jointInfo = [];
     isJointInfo = false;
+    isContainedApprovedLoan = false;
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -144,7 +145,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
         });
         this.utilService.getProductUtil().then(r =>
             this.productUtils = r);
-
     }
 
     ngAfterContentInit(): void {
@@ -431,5 +431,17 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.isEditable = res.detail;
         }); }
 
+    }
+
+    getLoanList($event) {
+        let loanDocumentStatus: Array<string>;
+        for (const loanList of $event) {
+            loanDocumentStatus = loanList.documentStatus;
+            this.isContainedApprovedLoan = !(loanDocumentStatus.includes('INITIAL') ||
+                loanDocumentStatus.includes('PENDING') ||
+                loanDocumentStatus.includes('CLOSED') ||
+                loanDocumentStatus.includes('DISCUSSION') ||
+                loanDocumentStatus.includes('UNDER_REVIEW'));
+        }
     }
 }
