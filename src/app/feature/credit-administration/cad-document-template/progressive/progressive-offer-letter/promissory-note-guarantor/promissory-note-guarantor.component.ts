@@ -164,14 +164,13 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
             this.addGuarantor();
             return;
         }
-        //receving null guarantors from customer config
+
        data.forEach((value) => {
             formArray.push(this.formBuilder.group({
                 guarantorName: [value.name],
                 issuedPlace: [value.issuedPlace]
             }))
         })
-
 
 
     }

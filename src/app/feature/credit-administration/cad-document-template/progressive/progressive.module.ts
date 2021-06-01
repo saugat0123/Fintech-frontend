@@ -28,6 +28,7 @@ import { HirePurchaseDeedPrintComponent } from './progressive-offer-letter/hire-
 import { IndemnityDeedPrintComponent } from './progressive-offer-letter/indemnity-deed/indemnity-deed-print/indemnity-deed-print.component';
 import { LetterOfDisbursementPrintComponent } from './progressive-offer-letter/letter-of-disbursement/letter-of-disbursement-print/letter-of-disbursement-print.component';
 import { GuaranteeBondCorporatePrintComponent } from './progressive-offer-letter/guarantee-bond-corporate/guarantee-bond-corporate-print/guarantee-bond-corporate-print.component';
+import { LetterOfContinuityPrintComponent } from './progressive-offer-letter/letter-of-continuity/letter-of-continuity-print/letter-of-continuity-print.component';
 
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -57,6 +58,7 @@ const COMPONENTS = [
         IndemnityDeedPrintComponent,
         LetterOfDisbursementPrintComponent,
         GuaranteeBondCorporatePrintComponent,
+        LetterOfContinuityPrintComponent,
 
     ],
     exports: [
