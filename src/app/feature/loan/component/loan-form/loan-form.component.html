@@ -209,6 +209,7 @@
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
                         <app-reporting-info-tagging #reportingInfoTagging
+                                                    [type]="'f'"
                                                     [reportingInfoLevels]="loanDocument?.reportingInfoLevels">
                         </app-reporting-info-tagging>
                     </ng-template>

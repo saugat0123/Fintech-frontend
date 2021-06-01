@@ -283,6 +283,7 @@
                         (securityDataEmitter)="saveSecurity($event)"
                         [calendarType]="calendarType"
                         [fromProfile]="true"
+                        [isMicroCustomer]="isMicroCustomer"
                         [securityValue]="customerInfo?.security"
                         [shareSecurity]="customerInfo?.shareSecurity"></app-security>
         </nb-accordion-item-body>
@@ -460,6 +461,7 @@
           <app-reporting-info-tagging #reportingInfoTagging
                                       *ngIf="reportingInfoLevelAccordion.expanded"
                                       (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"
+                                      [type]="'c'"
                   [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-reporting-info-tagging>
           <div>
             <button class="btn float-right d-flex justify-content-end" (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save</button>
