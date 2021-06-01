@@ -1,55 +1,55 @@
-<nb-card>
-  <nb-card-header>
-    <div class="row">
-      <div class="col-md-6">
-        <button
-            (click)="isFilterCollapsed = !isFilterCollapsed"
-            [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-            nbButton
-            shape="rectangle"
-            status="primary">
-          <i class="fa fa-filter"> Filter</i>
-        </button>
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
         <div class="row">
-          <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
-            <div class="d-flex py-3 justify-content-start">
-              <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
-                <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput
-                       placeholder="Enter name" type="text">
-                <div class="pt-3">
-                  <button class="mr-2" nbButton shape="rectangle" size="small"
-                          status="info" type="submit">Search
-                  </button>
-                  <button (click)="clear()" nbButton shape="rectangle" size="small" status="danger">
-                    Clear
-                  </button>
+            <div class="col-md-6">
+                <button
+                        (click)="isFilterCollapsed = !isFilterCollapsed"
+                        [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                        nbButton
+                        shape="rectangle"
+                        status="primary">
+                    <i class="fa fa-filter"> Filter</i>
+                </button>
+                <div class="row">
+                    <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+                        <div class="d-flex py-3 justify-content-start">
+                            <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                                <input class="mr-1" fieldSize="medium" formControlName="name" id="name" nbInput
+                                       placeholder="Enter name" type="text">
+                                <div class="pt-3">
+                                    <button class="mr-2" nbButton shape="rectangle" size="small"
+                                            status="info" type="submit">Search
+                                    </button>
+                                    <button (click)="clear()" nbButton shape="rectangle" size="small" status="danger">
+                                        Clear
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </form>
             </div>
-          </div>
+            <div class="col-md-6 text-right">
+                <button (click)="add(null)" nbButton outline status="success" title="Add">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
         </div>
-      </div>
-      <div class="col-md-6 text-right">
-        <button (click)="add(null)" nbButton outline status="success" title="Add">
-          <i class="fa fa-plus"></i>
-        </button>
-      </div>
-    </div>
-  </nb-card-header>
-  <nb-card-body>
-    <nb-accordion>
-      <nb-accordion-item #itemReport *ngFor="let report of reportingInfoList">
-        <nb-accordion-item-header>
-          <a (click)="add(report)" class="p-2 cursor"><i
-              class="fa fa-edit"></i></a> {{report?.name}}
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-report-info-level-form *ngIf="itemReport.expanded"
-                                      (updateReport)="refreshData($event)"
-                                      [reportingInfo]="report"
-          ></app-report-info-level-form>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
-  </nb-card-body>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-accordion>
+            <nb-accordion-item #itemReport *ngFor="let report of reportingInfoList">
+                <nb-accordion-item-header>
+                    <a (click)="add(report)" class="p-2 cursor"><i
+                            class="fa fa-edit"></i></a> {{report?.name}}
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <app-report-info-level-form *ngIf="itemReport.expanded"
+                                                (updateReport)="refreshData($event)"
+                                                [reportingInfo]="report"
+                    ></app-report-info-level-form>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+    </nb-card-body>
 </nb-card>
