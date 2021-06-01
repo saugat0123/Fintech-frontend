@@ -55,6 +55,24 @@
                     *ngSwitchCase=offerLetterConst.LETTER_OF_INDEMNITY>
 
             </app-indemnity-deed>
+            <app-letter-of-disbursement
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_DISBURSEMENT>
+
+            </app-letter-of-disbursement>
+            <app-guarantee-bond-corporate
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_CORPORATE>
+
+            </app-guarantee-bond-corporate>
+            <app-letter-of-continuity
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_CORPORATE>
+
+            </app-letter-of-continuity>
         </div>
     </nb-card-body>
 </nb-card>

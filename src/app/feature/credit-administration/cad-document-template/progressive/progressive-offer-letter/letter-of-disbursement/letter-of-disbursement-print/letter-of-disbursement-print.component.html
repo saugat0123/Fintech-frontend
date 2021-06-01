@@ -1,0 +1,118 @@
+<div  class="container text-justify row" id="print-section-{{offerLetterConst.LETTER_OF_DISBURSEMENT}}">
+
+    <div class="col-md-12 viewFull">
+        <form >
+            <h6 class="text-center">भूक्तानी–पत्र<br>
+                (Letter of Disbursement)</h6>
+            <p class="text-right"> मिति:
+                <span class="nepaliFont">{{printDocForm?.date}}</span>
+            </p>
+            <b> प्रोग्रेशिभफाईनान्स लिमिटेड,</b>
+            <br>
+            <b>बनेपा शाखा ।</b>
+            <br>
+            <div class="row col-md-12">
+                <p><b>विषय :- रु. <span class="nepaliFont">{{printDocForm?.amount}}</span> /–(अक्षरुपी दशलाखमात्र ।)– को ऋण रकमभूक्तानी गरी पाउं ।</b>
+                </p>
+                <br>
+                <br>
+                <p>
+                    महोदय,<br>
+                    उपरोक्तसम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाछ स्वीकृत भएको
+                    कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो गोपालअधिकारी कोनाममा रहेको चल्ति/बचतखाता नं.
+                    <span class="nepaliFont">{{printDocForm?.accNumber}}</span>
+                    मा रकमान्तर
+                    गरि दिन यो भुक्तानीपत्रमासहिछाप गरि दिएका छु/छौं ।
+                </p>
+
+            </div>
+            <br>
+            <p class="text-center"><b>भवदीय,</b></p>
+            <div id="Sincerely" class="row col-md-12">
+
+                <br>
+                <p>
+                    दस्तखत :-.............
+                    <br>
+                    <br>
+                    दस्तखत गर्नेको नाम :- <span class="nepaliFont">{{printDocForm?.sincerlyname}}</span>
+                    <br>
+                    स्थायीठेगाना :- <span class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+                    <br>
+                    हालको ठेगाना :- <span class="nepaliFont">{{printDocForm?.sincerlytempAddress}}</span>
+                    <br>
+                    <br>
+
+                    वावु/आमाको नाम :- <span class="nepaliFont">{{printDocForm?.parentName}}</span>
+                    <br>
+                    वाजे/बजैको नाम :- <span class="nepaliFont">{{printDocForm?.grandParentName}}</span>
+                    <br>
+                    पति/पत्निको नाम :- <span class="nepaliFont">{{printDocForm?.husbandWifeName}}</span>
+
+
+                </p>
+            </div>
+            <br>
+            <div class="row" id="signature">
+                औठा छाप:
+                <table id="fingerXap" class="table  table-bordered">
+                    <thead>
+                    <tr>
+                        <th>दाँ.</th>
+                        <th>बाँ.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30"
+                                      rows="10"></textarea></td>
+                        <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30"
+                                      rows="10"></textarea></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div>
+                <p class="text-left">  <b class="text-left">साक्षी :</b></p>
+
+                <div  *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
+                    {{i + 1 | nepaliWord: 'unicode'}}
+                    <p>दस्तखत :- ...............
+                    <table border="1" class="tableGuarantor text-center">
+                        <thead>
+                        <tr>
+                            <th>नाम</th>
+                            <th>ठेगाना</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>{{guarantor?.guarantorName}}</td>
+                            <td>{{guarantor?.issuedPlace}}</td></tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <b>सनाखत साक्षी</b>
+                <br>
+                <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने
+                    धनीवित्तीय संस्थामाकार्यरत कर्मचारी <span class="nepaliFont">{{printDocForm?.biktiyaPersonName}}</span> <br>
+                    <br>
+                    इति सम्बत २०६<span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
+                    साल <span class="nepaliFont">{{printDocForm?.itiSambatMoth}}</span>
+                    महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
+                    गते रोज <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
+                    शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatSubham}}</span> ।</p>
+
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
