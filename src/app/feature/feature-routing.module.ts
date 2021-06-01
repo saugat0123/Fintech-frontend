@@ -36,7 +36,8 @@ const routes: Routes = [
       },
       {
         path: 'report',
-        loadChildren: () => import('./reporting/reporting.module').then(m => m.ReportingModule)
+        loadChildren: () => import('./reporting/reporting.module').then(m => m.ReportingModule),
+        canActivate: [RouteGuard]
       },
       {
         path: 'update-loan',
