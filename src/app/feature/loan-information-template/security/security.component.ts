@@ -264,7 +264,11 @@ export class SecurityComponent implements OnInit {
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
-        this.securityData.data = JSON.stringify(mergedForm);
+        if (this.isContainedApprovedLoan) {
+            this.securityData.additionalSecurity = JSON.stringify(mergedForm);
+        } else {
+            this.securityData.data = JSON.stringify(mergedForm);
+        }
         this.securityData.guarantor = [];
         if (this.initialSecurity.selectedSecurity === 'ShareSecurity') {
             this.shareSecuritySelected = true;

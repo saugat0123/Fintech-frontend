@@ -297,6 +297,29 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
     }
 
+    public saveAdditionalSecurity(data: Security) {
+        if (ObjectUtil.isEmpty(this.security)) {
+            this.security = new Security();
+        }
+        if (!ObjectUtil.isEmpty(data)) {
+            this.security.additionalSecurity = data.additionalSecurity;
+            this.security.totalSecurityAmount = data.totalSecurityAmount;
+            this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Additional Security Data!'));
+                    if (!ObjectUtil.isEmpty(data.share)) {
+                        this.saveShare(data);
+                    } else {
+                        this.triggerCustomerRefresh.emit(true);
+                        this.itemSecurity.close();
+                    }
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Additional Security Data!'));
+                });
+        }
+    }
+
     saveShare(data) {
         this.shareSecurity = data.share;
         this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
