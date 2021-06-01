@@ -12,6 +12,7 @@ import {Document} from '../../admin/modal/document';
 import {CustomerLoanDocumentComponent} from '../customer-loan-document/customer-loan-document.component';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cad-document-upload',
@@ -29,12 +30,17 @@ export class CadDocumentUploadComponent implements OnInit {
   docList = [];
   data: Object;
   form: FormGroup;
+    documentName;
+    documentId;
+    index;
+
   constructor(private loanConfigService: LoanConfigService,
               private toastService: ToastService,
               private activatedRoute: ActivatedRoute,
               private loanFormService: LoanFormService,
               private route: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private modelService: NgbModal) { }
 
   ngOnInit() {
     this.buildForm();
@@ -147,4 +153,22 @@ export class CadDocumentUploadComponent implements OnInit {
   backUrl() {
     history.back();
   }
+
+    openModel(model, documentName: string, documentId, index: number) {
+        this.documentName = documentName;
+        this.documentId = documentId;
+        this.index = index;
+        this.modelService.open(model);
+    }
+
+    onClose() {
+        this.modelService.dismissAll();
+    }
+
+    confirmDelete(i) {
+        this.modelService.dismissAll();
+        this.customerDocumentArray.indexOf(this.index);
+        this.customerDocumentArray.splice(this.index, 1);
+        this.initialDocuments[this.index].checked = false;
+    }
 }

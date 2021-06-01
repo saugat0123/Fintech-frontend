@@ -1,0 +1,287 @@
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.HIRE_PURCHASE_DEED}}">
+
+        <div class="col-md-12  viewFull">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h6 class="text-center">किस्ताबन्दी खरीद प्रणाली (हायरपर्चेज) सम्झौतापत्र<br>
+                    (Hire Purchase Deed)</h6>
+                <br>
+                <div class="row">
+                    <p>लिखितम् धनीकानामप्रचलितबैंकतथावित्तीय संस्था सम्बन्धी ऐन, बमोजिमदर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका
+                        वडा नं. ३२ स्थित रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभफाईनान्स लिमिटेडको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="districtName">
+                        जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="municipalityName">
+                        गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="wadNo">
+                        स्थित <input class="form-field nepaliFont form-control-sm" type="text" formControlName="branchName">शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा“वित्तीय संस्था”भनिएको)लिखत गरी
+                        दिनेकानाम <span id="yellow"><input class="form-field nepaliFont form-control-sm" type="text" formControlName="grandParentName">को नाति/नातिनि <input class="form-field nepaliFont form-control-sm" type="text" formControlName="parentName">
+                        को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="husbandWifeName">को पति/पत्नी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerDistrict">िल्ला
+                            <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerMunicipality">
+                        गा.पा./न.पा./म.न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerWadNo">
+                            (साबिक  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sabikVDC">
+                            गा.बि.स./न.पा. वडा न. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sabikWadNo">),
+                        स्थायी ठेगानाभई हाल  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="tempMunicipality">
+                            गा.पा./न.पा./म.न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="tempWadNo">
+                            ) बस्ने वर्ष  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="age">
+                        को  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerName">
+                            (ना.प्र.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="customerCitizenshipNo">
+                            मिति <input class="form-field nepaliFont form-control-sm" type="text" formControlName="date">
+                            जि.प्र.का.)  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="cdoOffice">)</span>
+                       <span id="red"> वानेपाल
+                        सरकार,  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="matralayaName">
+                           मन्त्रालय <input class="form-field nepaliFont form-control-sm" type="text" formControlName="biBhagCompany">विभाग/कम्पनी रजिष्ट्रारको
+                        कार्यालय  <input class="form-field nepaliFont form-control-sm" type="text" formControlName="regOffice">
+                           मा <input class="form-field nepaliFont form-control-sm" type="text" formControlName="act">
+                           ऐन <input class="form-field nepaliFont form-control-sm" type="text" formControlName="under">
+                           अन्तर्गत
+                        मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="underDate">मा
+                           प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="praliNo">मा
+                           दर्ता भई करदता
+                        सेवाकार्यालय <input class="form-field nepaliFont form-control-sm" type="text" formControlName="serviceOffice">
+                           बाट मिति <input class="form-field nepaliFont form-control-sm" type="text" formControlName="serviceDate">
+                           मा स्थायी लेखानम्बर (पान) दर्ता
+                        प्रमाणपत्र न<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certificateNo">
+                           को प्रमाणपत्र प्राप्त<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedDistrict">
+                        जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedMunicipality">
+                           गा.पा./न.पा./म.न.पा. वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="certifiedWadNo">
+                           मा रजिष्टर्ड कार्यालय
+                        रहेको <input class="form-field nepaliFont form-control-sm" type="text" formControlName="secRegOffice">
+                           (जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) कातर्पmबाट अधिकार प्राप्त
+                        संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiGrandParent">
+                        को नाति/नातिनि<input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiParent">
+                           को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiHusbandWifeName">
+                        को पति/पत्नी<input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiDistrict">
+                           जिल्ला<input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiMunicipality">
+                           गा.पा./न.पा./म.न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiWadNo">
+                           स्थायी ठेगानाभई
+                        हाल <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiTempDistrict">
+                           जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiTempMunicipality">
+                           गा.पा./न.पा./म.न.पा. वडा न. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiTempWadNo">,
+                           बस्ने वर्ष <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiAge">
+                        को <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiName">
+                           (ना.प्र.नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiCitizenshipNo">
+                           मिति<input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiDate">
+                           जि.प्र.का. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="pratinidhiCDOoffice">,)</span>वाआगे,वित्तीय संस्था र ऋणीका वीचकिस्ताबन्दीखरिद प्रणाली (हायर पर्चेज) सम्बन्धी यो लिखत
+                        खडा गरीएको छ । वित्तीय संस्था र ऋणी दुवैले निम्नशर्त बन्देज, उपबन्देजहरुको परिपालनागर्न सत्य निष्ठाका साथमंञ्जुर कबुलगर्दछु ।
+                        यसको एक प्रति दोहरी बुझीलियौ ।</p>
+                    <br>
+                    <p>
+                        १.	ऋणीले निबेदनपत्रद्वारा वित्तीय संस्थासंग माग गरेको माल बस्तु किस्ताबन्दीखरिद प्रणाली (हायरपर्चेज) माप्राप्तगर्नको लागिमाग गरेकाले ऋण सम्झौतापत्र९क्बलअतष्यल ीभततभच०माउल्लेखगरिएको माल वस्तु किस्ताबन्दीखरिद प्रणाली (हायर पर्चेज) माप्राप्तगर्नको लागियस पछिका प्रकरणहरुका शर्त बन्देज र उपबन्देजहरुको अधिनमा रही यस पछि सामान/वस्तु/वाहनकिस्ताबन्दीखरिद प्रणालीमा वित्तीय संस्थाले दिने र ऋणीले लिने छ ।
+                        <br>
+                        २.	वित्तीय संस्थाको नाममादर्ता हूननसक्ने सामान/वस्तुवाहेकअन्य सामान/वस्तु/वाहनवित्तीय संस्थाले आफ्नो नाममातथा स्वामित्वमादर्ता गर्ने छ । यस सम्झौतापत्रअनुसार ऋणीले बुझाउनु पर्ने सम्पूर्ण किस्ताब्याज र अन्यलागेका रकमचूक्तानगरे सम्म सो सामानको स्वामित्ववित्तीय संस्थामा नै निहित रही रहने छ ।
+                        <br>
+                        ३.	तपसलिमाउल्लेखितइन्जिन नं, च्याचिस नं., सवारी दर्ता नंं. भएको सामान/वस्तु/वाहनधितोको रुपमा रहने छ । ऋण सम्झौतामाउल्लेख भएअनुसारको किस्ताबन्दीतालिकाअनुसार सांवा र ब्याज ऋणीले भुक्तानगर्नेछ ।
+                        <br>
+                        ४.	सामान/वस्तु/वाहन ऋणीको संरक्षण, नियन्त्रण र उपयोगमा रहने छ । निवेदनमाउल्लेख गरेको प्रयोजन बाहेक अन्यप्रयोजनको निमित्तप्रयोग गर्ने छैन र अरु कसैलाई यो सामान/वस्तु/वाहनउपभोग गर्न दिने, प्रत्यक्षवाअप्रत्यक्षकुनै तवरबाटपनिअरुलाई बेचविखनगर्ने बन्धकीमादिने वाहक हस्तान्तरण गर्ने छैन । ऋणीले वित्तीय संस्थाको पूर्व लिखित स्वीकृति बेगर सामान/वस्तु/वाहनमाकुनै प्रकारको भार र दायित्वहरु श्रृजना गराउने छैन ।
+                        <br>
+                        ५.	ऋणीले सामान/वस्तु/वाहनचालू अवस्थामा राख्नु पर्दछ र तत्सम्बन्धी सम्पूर्ण सम्भार र संरक्षण गर्नु पर्नेछ  ।
+                        <br>
+                        ६.	वित्तीय संस्थाले सामान/वस्तु/वाहन, वित्तीय संस्थाको नाममा लेखिदिएको वा देखाएको धितो निरिक्षण गर्न चाहेमाकुनै पनिबखत ऋणीले वित्तीय संस्थालाई निरिक्षण गर्न दिनु पर्नेछ ।
+                        <br>
+                        ७.	सामान/वस्तु/वाहनप्राप्तगर्न लाग्ने रजिष्ट्रेशनखर्च, नामसारी गर्दा लाग्ने खर्च, बीमावापतको खर्च इत्यादिको साथै सामान/वस्तु/वाहनमालाग्ने कुनै पनि सरकारी वा सार्वजनिक दस्तूर, कर इत्यादि समेत ऋणीले समयमा नै चूक्तागर्नु पर्नेछ । त्यस्ता दस्तूर समयमानबुझाई कुनै किसिमको विवादउत्पन्नभएमा र त्यसबाटकुनै किसिमकोहानीनोक्सानीभएमात्यसको सम्पूर्ण जिम्मेवारी ऋणीले लिने छ ।
+                        <br>
+                        ८.	सामान/वस्तु/वाहनजफत, रोक्कावाविवादितहुने गरी ऋणीले कुनै कार्य गर्ने छैन र यदित्यस्तो कार्य गरी नोक्सानीभएमा ऋणी जवाफदेहीहूनेछ ।
+                        <br>
+                        ९.	सामान/वस्तु/वाहन र अन्य साधनको सम्पूर्ण जोखिमको बीमागर्दा बुझाउनु पर्ने प्रिमियम समयमा नै ऋणीले बुझाउने छ ।धितो अचल सम्पत्तिको वीमागर्दा लाग्नेनियमानुसार प्रिमियम समयमा नै ऋणीले बुझाउने छ ।
+                        <br>
+                        १०.	ऋणीले बुझाउनु पर्ने किस्ताबन्दी रकमवाअन्य रकम समयमानबुझाएमावाउल्लेखितशर्तहरु उलघंन गरेमावित्तीय संस्थाले सामान/वस्तु/वाहनआफ्नो नियन्त्रणमा लिई सो सामान/वस्तु/वाहनलिलामवाअन्यब्यवस्था गरी बिक्री गरी सांवाब्याज सवै असुलउपर गरी लिने छ । असुलउपर हूननसकेको रकम सुरक्षण वापत राखिएको र देखाएको चलअचल सम्पत्ति र ऋणीको घर घरानाबाट समेत असुलउपर गरी वित्तीय संस्थाले आफ्नोलगानीअसुलगरि लिएमा ऋणी मञ्जुर गर्दछ ।
+                        <br>
+                        ११.	ऋणमा प्राप्तगरिएको सामान/वस्तु/वाहनका पार्टपूर्जा वामिशिनरीलाई खरावनियतलिई तोडफोडवा साटफेर गर्ने जस्ता काम गरी वित्तीय संस्थालाई हानीनोक्सानीगर्ने नियतभएको वा यो सम्झौतापत्रको शर्तहरु बर्खिलाप गरेको वित्तीय संस्थालाई लागेमाकर्जा चुक्तागर्ने अबधिजतिसुकै बांकीभएपनिकिस्ताबुझाउदै गरेमापनि सामान/वस्तु/वाहनवित्तीय संस्थाले जफत/कब्जा गरी बिक्री गरी वित्तीय संस्थाको सांवाब्याज र वित्तीय संस्थाले तिरीदिएकाअन्य दस्तूर, कर इत्यादिवित्तीय संस्थाले असुलउपर गर्ने छ । त्यसबाटपनिनपुगेमाथपधितो लेखिदिएको सम्पत्तिलिलाम गरी असूलउपर गर्न सक्ने छ र यसमा ऋणीको मञ्जूर छ ।
+                        <br>
+                        १२.	ऋणीले यस सम्झौतापत्रमाउल्लेखितशर्त दायित्वहरु पुरा गरी सवै किस्ताबन्दी रकमबूझाईसकेपछिमात्र ऋणीले सामान/वस्तू/वाहनमा स्वामित्वप्राप्तगर्ने गरी वित्तीय संस्थाले नामसारी गरिदिने छ ।
+                        <br>
+                        १३.	ऋणीले तोकिएकोकुनै सामान/वस्तु/वाहनको लागी ऋण स्वीकृतीपाईसकेपछि सो को सट्टा अर्को सामान/वस्तु/वाहनवाऋणीको लागि सो स्वीकृत ऋण सार्नपाईने छैन ।
+                        <br>
+                        १४.	ऋणीले वित्तीय संस्थासंग हायर पर्चेज कर्जा अन्तर्गत सम्बन्धितकार्यालयमादर्ता गराउनु पर्ने किसिमको मालसामानखरिद गर्ने भएमाउक्तमालसामानवित्तीय संस्थाको नाममादर्ता गराई वित्तीय संस्थालाई सुरक्षण वापतथपधितो दिनुपर्ने छ र सम्बन्धितमालसामानको सक्कलै कागजातवित्तीय संस्थाले राख्ने छ ।
+                        <br>
+                        १५.	ऋणीले धितो लेखिदिंदाको सम्पत्तिको प्रदेश सरकार, स्थानीयनिकायवा नेपाल सरकारलाई बुझाउनु पर्ने मालपोत र अन्य कर दस्तूर, बीमाआदि समयमाबुझाई सुरक्षित राख्नु पर्नेछ । कुनै कारणले सो मालपोत, कर वाअन्यबुझाउनु पर्ने दस्तूर नबुझाएमा र त्यस्तो रकमवित्तीय संस्थाले तिरिदिएमावित्तीय संस्थाले बुझाएको रुपैया माथिआफ्नो नियमानुसार दरको ब्याजलगाई बंैकले ऋणीसंग असुलउपर गरी लिनेछ ।
+                        <br>
+                        १६.	बंैकबाट लिएको ऋण रकमजुनमालसामानखरिद गर्न भनीलिएको हो, सो खरिद गरेको मालसामानको कोटेशन, विल भरपाई आदिवित्तीय संस्थाले तोकेको समय भित्र ऋणीले पेश गर्नु पर्नेछ ।
+                        <br>
+                        १७.	ऋणीले वित्तीय संस्थालाई तिर्नु बुझाउनु पर्ने सांवाब्याजआदि समय समयमानबुझाई किस्ताखिलाफी गरेमावित्तीय संस्थाले धितोमा रहेको सामान/वस्तु/वाहनजफत/कब्जा गरी तेश्रो ब्यक्तिलाई हस्तान्तरण गरी कर्जा भुक्तानीगर्न लगाई कर्जा चुक्ताभएपश्चात सो ब्यक्तिको नाममावित्तीय संस्थाले सिधै नामसारी गर्ने ब्यवस्थामिलाउन सक्नेछ ।
+                        <br>
+                        १८.	वित्तीय संस्थाको कर्जा अन्तर्गत खरिद गरेको सामान/वस्तु/वाहन गैर कानूनीतवरबाटप्रयोग गरी सम्बन्धितनिकायले कब्जामालिएमा सो सामान बस्तुछुटाउने/अन्यकानूनीहर्जनातिरी बुझाई उक्त सामान/वस्तु/वाहनछुटाउने र सो सम्बन्धीखर्चहरु ऋणीले ब्यहोर्नु पर्नेछ ।
+                        <br>
+                        १९.	यो किस्ताबन्दीखरिद प्रणाली (हायर पर्चेज) को सम्झौतापत्रमाप्रोग्रेशिभफाइनान्स लिमिटेड.,
+                        <input class="form-field nepaliFont form-control-sm" type="text" formControlName="kistabandiBranchName">शाखाकार्यालय,
+                        <input class="form-field nepaliFont form-control-sm" type="text" formControlName="kistabandiBranchAddress">माबसीमनोमान राजिखुशीले तपसिलका साक्षीहरुको रोहवरमा सहिछाप गरी दियौं र यसको एक प्रति दोहरी बुझीलियौं ।
+
+                    </p>
+
+                </div>
+                <br>
+                <h6 class="text-center">तपसिल</h6>
+                <div class="table-responsive-md">
+                <table class="table  table-bordered border-dark">
+                    <thead>
+                    <tr>
+                        <th>
+                            क्र.सं.
+                        </th>
+                        <th>
+                            सवारीको प्रकार
+                        </th>
+                        <th>इन्जिन नं.</th>
+                        <th>च्यासिस नं.</th>
+                        <th>सवारी दर्ता नं.</th>
+                        <th>सवारीदर्ता मिति</th>
+                    </tr>
+
+                    </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <textarea name="" class="tapsil nepaliFont"  formControlName="tapsilSN" cols="30" rows="10"></textarea>
+                            </td>
+                            <td>
+                                <textarea name=""  class="tapsil nepaliFont" formControlName="sawariPrakar" cols="30" rows="10"></textarea>
+                            </td>
+                            <td>
+                                <textarea name=""  class="tapsil nepaliFont" formControlName="engineNo" cols="30" rows="10"></textarea>
+                            </td>
+                            <td>
+                                <textarea name=""  class="tapsil nepaliFont" formControlName="chasisNo" cols="30" rows="10"></textarea>
+                            </td>
+                            <td>
+                                <textarea name=""  class="tapsil nepaliFont" formControlName="regNo" cols="30" rows="10"></textarea>
+                            </td>
+                            <td>
+                                <textarea name=""  class="tapsil nepaliFont" formControlName="regDate" cols="30" rows="10"></textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+
+                </div>
+                <br>
+                <p class="text-center"><b>भवदीय,</b></p>
+                <div class="">
+                <p>
+                    दस्तखत :-<input class="form-field nepaliFont form-control-sm" type="text" formControlName="sincerlySign">
+                    <br>
+                    अख्तियारप्राप्तब्यक्तिको नाम :-	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarName">
+                    (ना.प्र.नं<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarCitizenshipNo">.
+                    मिति <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarDate">
+                    जि.प्र.का. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarMuniciplity">)
+                    <br>
+                    अख्तियार प्राप्तब्यक्तिको ठेगाना :-स्थायी <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarPermanentDistrict">
+                    जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarPermanentMunicipality">
+                    गा.पा./न.पा.वडा नं<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarPermanentWadNo">.
+                    (साबिक <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarSabikVDC">
+                    गा.बि.स./न.पा.वडा नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarSabikWadNo">)
+                    <br>
+                    हालको ठेगाना<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarTempDistrict">
+                    जिल्ला <input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarTempMunicipality">
+                    गा.पा./न.पा.वडा नं<input class="form-field nepaliFont form-control-sm" type="text" formControlName="akhtiyarTempWadNo">.
+                    <br>
+                    <br>
+                    वावु/आमाको नाम :-	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="sicerlyFatherName">/
+                    <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sicerlyMotherName">
+                    <br>
+                    वाजे/बजैको नाम <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sicerlyGrandFatherName">/
+                    <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sicerlyGrandMotherName">
+                    <br>
+                    पति/पत्निको नामः-	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="sicerlyHusbandName">/
+                    <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sicerlyWifeNAme">
+
+
+                </p>
+                    <p>संस्थाको छाप/औठा छाप
+                    <div class="text-center">
+                    <table id="fingerXap" class="table  table-bordered">
+                        <thead>
+                        <tr>
+                            <th>दाँ.</th>
+                            <th>बाँ.</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><textarea  style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
+                            <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                </div>
+                <b class="text-left">साक्षी :</b>
+                <div class="col-md-12 float-right">
+                    <button (click)="addMoreGuarantor()" type="button" class="btn btn-primary btn-sm float-right " size="tiny"> Add More Guarantor <i class="fas fa-plus"></i></button>
+                </div>
+
+                <div class="row col-md-12 " >
+                    <div *ngFor="let guarantor of form.get('guarantorDetail')['controls']; let i=index" formArrayName="guarantorDetail">
+                        <div [formGroupName]="i">
+
+                    <div >
+                        <p>दस्तखत :<input class="form-field nepaliFont form-control-sm" type="text" formControlName="guarantorSign"></p>
+
+
+                    <table class="table-bordered table ">
+                        <thead>
+                        <tr>
+                            <th width="10%">नाम</th>
+                            <th width="10%">ना.प्र.नं.</th>
+                            <th width="15%">मिति</th>
+                            <th width="15%">जि.प्र.का.</th>
+                            <th width="15%">जिल्ला</th>
+                            <th width="25%">गा.पा./न.पा.</th>
+                            <th width="10%">वडा नं.</th>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorName"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorCitizenshipNo"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorDate"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorCDOoffice"></td>
+                            <td><input class="form-field  nepaliFont form-control" type="text" formControlName="guarantorDistrict"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorMunicipality"></td>
+                            <td><input class="form-field nepaliFont form-control" type="text" formControlName="guarantorWadNo"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                        <div *ngIf="form.get('guarantorDetail')['length']>1" class="col-md-3 float-right">
+                            <button (click)="removeGuarantor(i)"
+                                    class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                    value="Delete">
+                                <em class="fas fa-trash" style="color: white;">
+                                    Delete Guarantor
+                                </em>
+
+                            </button>
+                        </div>
+                    </div>
+                        </div>
+
+
+                </div>
+
+
+
+                </div>
+
+                <br>
+                <div>
+                    <br>
+                    <b>सनाखत साक्षी</b>
+                    <br>
+                    <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछापगर्ने धनीवित्तीय संस्थामाकार्यरत कर्मचारी
+                        <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sanakhatPersonName">
+                        (कर्मचारी संकेत नं. <input class="form-field nepaliFont form-control-sm" type="text" formControlName="sanakhatPersonSymNo">)
+                    <br>
+                    ईतिसम्बत	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="itisambatYear">
+                    साल	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="itisambatMonth">
+                    महिना	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="itisambatDate">
+                    गते	<input class="form-field nepaliFont form-control-sm" type="text" formControlName="itisambatTime">
+                    रोज	शुभम् <input class="form-field nepaliFont form-control-sm" type="text" formControlName="itisambatSubham">।
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+
+</div>

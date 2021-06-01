@@ -27,7 +27,6 @@
             <tr>
                 <td colspan="3" class="text-left pl-1"><b>Total Income </b></td>
                 <td class="text-right pr-1" colspan="3"><b>Rs.{{ financialData['initialForm']['totalIncome'] | currencyFormatter}}</b></td>
-                <td></td>
             </tr>
             </tbody>
         </table>
@@ -56,7 +55,6 @@
                 <td class="text-right pr-1" colspan="2">
                     <strong>Rs. {{financialData['initialForm']['totalExpense'] | currencyFormatter}}</strong>
                 </td>
-                <td></td>
             </tr>
         </table>
         <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
@@ -143,7 +141,7 @@
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
-                <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio | percent}}</td>
+                <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>
 
             </tr>
 

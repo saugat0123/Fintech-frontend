@@ -48,6 +48,7 @@ export class LetterOfArrangementsComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetter();
+
     }
 
     fillForm() {
@@ -109,6 +110,7 @@ export class LetterOfArrangementsComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             date: [undefined],
+            branch: [undefined],
             subject: [undefined],
             punji: [undefined],
             customerName: [undefined],

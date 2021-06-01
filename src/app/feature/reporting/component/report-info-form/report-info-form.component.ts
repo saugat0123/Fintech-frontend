@@ -17,6 +17,7 @@ import {Status} from '../../../../@core/Status';
 export class ReportInfoFormComponent implements OnInit {
   @Input() model: ReportingInfo;
   @Input() action: Action;
+  @Input() type;
 
   spinner = false;
   form: FormGroup;
@@ -45,6 +46,7 @@ export class ReportInfoFormComponent implements OnInit {
     }
     this.spinner = true;
     this.model = this.form.value as ReportingInfo;
+    this.model.type = this.type;
     this.reportingInfoService.initialSave(this.model).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved report!'));
       this.model = new ReportingInfo();
@@ -59,6 +61,7 @@ export class ReportInfoFormComponent implements OnInit {
   private buildForm(): void {
     this.form = this.formBuilder.group({
       id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
+      type: [ObjectUtil.setUndefinedIfNull(this.model.type)],
       name: [ObjectUtil.setUndefinedIfNull(this.model.name), [Validators.required]],
       status: [this.action === Action.ADD ? Status.ACTIVE : this.model.status],
       version: [ObjectUtil.setUndefinedIfNull(this.model.version)],

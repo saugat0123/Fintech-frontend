@@ -22,6 +22,8 @@ import {FacCategory} from '../../admin/modal/crg/fac-category';
 import {environment} from '../../../../environments/environment';
 import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ToastService} from '../../../@core/utils';
 
 @Component({
     selector: 'app-security',
@@ -35,6 +37,7 @@ export class SecurityComponent implements OnInit {
     @Output() securityDataEmitter = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
+    @Input() isMicroCustomer: boolean;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -79,7 +82,8 @@ export class SecurityComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private toastService: ToastService,
     ) {
     }
 
@@ -232,6 +236,10 @@ export class SecurityComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         if (this.securityForm.invalid) {
+            return;
+        }
+        if (this.initialSecurity.securityForm.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             return;
         }
         if (!ObjectUtil.isEmpty(this.securityValue)) {

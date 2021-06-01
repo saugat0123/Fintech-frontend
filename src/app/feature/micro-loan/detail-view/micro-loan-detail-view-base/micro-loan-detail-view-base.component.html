@@ -47,11 +47,7 @@
         [loanTag]="loanDataHolder?.loan?.loanTag"
         [formData]="loanDataHolder?.creditRiskGradingAlpha">
 </app-crg-alpha-detailed-view>
-<app-crg-lambda-detail-view
-        *ngIf="loanDataHolder?.creditRiskGradingLambda"
-        [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
-</app-crg-lambda-detail-view>
-        <app-crg-micro *ngIf="loanDataHolder?.creditRiskGradingLambda"
+        <app-crg-micro *ngIf="loanDataHolder?.crgMicro"
                 [formData]="loanDataHolder?.crgMicro"
                        [incomeFromAccount]="loanDataHolder?.loanHolder?.incomeFromAccount"
                        [security]="loanDataHolder?.security"

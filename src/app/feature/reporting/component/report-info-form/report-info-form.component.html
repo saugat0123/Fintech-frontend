@@ -1,32 +1,33 @@
 <nb-card [nbSpinner]="spinner" accent="primary" class="m-0"
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
-  <nb-card-header class="sb-bg-dark">
-    <a (click)="activeModal.dismiss('Dismiss');" aria-label="Close" class="close cursor"
-       data-dismiss="modal">
-      <span aria-hidden="true" class="text-white">×</span></a>
-    <h4 class="modal-title pull-left text-white">{{action}} Report</h4>
-  </nb-card-header>
-  <nb-card-body>
-    <form [formGroup]="form" class="form-horizontal">
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label for="name">Name</label>
-          <input [ngClass]="{'is-invalid': submitted && formControls.name.errors}" class="form-control" formControlName="name"
-                 id="name" placeholder="Name"
-                 type="text"/>
-          <div *ngIf="submitted && formControls.name.invalid" class="invalid-feedback">
-            Name is required!
-          </div>
-        </div>
-      </div>
-      <nb-card-footer class="float-right">
-        <button (click)="onSubmit()" [disabled]="spinner" nbButton status="primary">
-          <em class="fa fa-save"></em>
-        </button>
-      </nb-card-footer>
-    </form>
-  </nb-card-body>
+    <nb-card-header class="sb-bg-dark">
+        <a (click)="activeModal.dismiss('Dismiss');" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true" class="text-white">×</span></a>
+        <h4 class="modal-title pull-left text-white">{{action}} Report</h4>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="form" class="form-horizontal">
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label for="name">Name</label>
+                    <input [ngClass]="{'is-invalid': submitted && formControls.name.errors}" class="form-control"
+                           formControlName="name"
+                           id="name" placeholder="Name"
+                           type="text"/>
+                    <div *ngIf="submitted && formControls.name.invalid" class="invalid-feedback">
+                        Name is required!
+                    </div>
+                </div>
+            </div>
+            <nb-card-footer class="float-right">
+                <button (click)="onSubmit()" [disabled]="spinner" nbButton status="primary">
+                    <em class="fa fa-save"></em>
+                </button>
+            </nb-card-footer>
+        </form>
+    </nb-card-body>
 </nb-card>
 
 

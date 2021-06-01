@@ -12,7 +12,7 @@
             <td>{{'Land Security'}}</td>
             <td>{{landSecurity.length}}</td>
             <td><strong>Owner:</strong>{{landSecurity[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity[0]?.area || 'NA'}},
-                <strong>Market Value: </strong>Rs.{{landSecurity[0]?.marketValue | currencyFormatter }}</td>
+                <strong>Location: </strong>{{landSecurity[0]?.location }}</td>
         </tr>
         </tbody>
 
@@ -31,7 +31,7 @@
             <td>{{'Land and Building'}}</td>
             <td>{{landAndBuilding.length}}</td>
             <td><strong>Owner:</strong>{{landAndBuilding[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landAndBuilding[0]?.area || 'NA'}},
-                <strong>Market Value: </strong>Rs.{{landAndBuilding[0]?.marketValue | currencyFormatter }}</td>
+                <strong>Location </strong>{{landAndBuilding[0]?.location }}</td>
         </tr>
         </tbody>
 

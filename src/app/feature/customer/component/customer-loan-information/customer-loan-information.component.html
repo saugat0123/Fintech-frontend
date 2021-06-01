@@ -50,7 +50,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #itemFinancial>
+      <nb-accordion-item #itemFinancial *ngIf="!isMicroCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -229,7 +229,7 @@
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>NET TRADING ASSETS (NTA)</span>
+              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)' : 'NET TRADING ASSETS (NTA)'}}</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.netTradingAssets" style="color:green" title="Status : Saved">
@@ -283,6 +283,7 @@
                         (securityDataEmitter)="saveSecurity($event)"
                         [calendarType]="calendarType"
                         [fromProfile]="true"
+                        [isMicroCustomer]="isMicroCustomer"
                         [securityValue]="customerInfo?.security"
                         [shareSecurity]="customerInfo?.shareSecurity"></app-security>
         </nb-accordion-item-body>
@@ -460,6 +461,7 @@
           <app-reporting-info-tagging #reportingInfoTagging
                                       *ngIf="reportingInfoLevelAccordion.expanded"
                                       (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"
+                                      [type]="'c'"
                   [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-reporting-info-tagging>
           <div>
             <button class="btn float-right d-flex justify-content-end" (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save</button>

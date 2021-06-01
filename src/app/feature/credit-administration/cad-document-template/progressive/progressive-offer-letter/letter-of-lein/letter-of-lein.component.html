@@ -1,0 +1,99 @@
+<div class="container text-justify row" [nbSpinner]="spinner"  id="{{offerLetterConst.LETTER_OF_LEIN}}">
+
+        <div class="col-md-12 viewFull">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h6 class="text-center">ऋणीको नाममाजारी गरेको कर्जा विरुद्ध पेश्कीदिएकोमा ग्रहणाधिकार–पत्र<br>
+                    (Letter of Lien)</h6>
+                <p class="text-right"> मिति:
+                    <input class="form-field form-control-sm nepaliFont "
+                           formControlName="date"
+                           placeholder=""
+                           type="text"/>
+                </p>
+                <b> श्री प्रोग्रेशिभ फाइनान्स लि.</b>
+                <br>
+                <b> <input class="form-field form-control-sm nepaliFont "
+                           formControlName="branchName"
+                           placeholder=""
+                           type="text"/> शाखा ।</b>
+                <br>
+                <div class="row ">
+                    <p>महोदय, <br>
+                        म/हामी. लेखनाथ भण्डारीलाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋणवाकुनै प्रकारको बैकिङ्ग सुविधाहरु
+                        उपलब्धगर्ने वाऋणको निरन्तरताकायम राख्ने वाअन्यकुनै प्रकारबाटउधारो वाऋण
+                        सेवाप्रदानगरिएकोमाम/हामी रु.१०,००,०००,।अक्षरेंपीदशलाख रुपौयाकोे मेरो नामको निम्नविवरणको चल्तीखाताको रकम त्यस
+                        वित्तीय संस्थालाई ग्रहणाधिकार–पत्र स्वरुप पेश गर्दछु/छौ । कथमकदाचित मैले/हामीले मेरो/हाम्रो खातामागगरिएको समयमामिलानगर्न
+                        असफलभएमावा मेरो/हाम्रो दायित्व पुरा नगरेमावा त्यस वित्तीय संस्थाप्रतिआफ्नो वचनवद्धताकुनै प्रकार वातरिकाबाट पुरा नगरेमा यस
+                        मामिलामा त्यस वित्तीय संस्थाको अधिकार तथाउपचारमाकुनै पूर्वाग्रह नराखि त्यस वित्तीय संस्थाले उक्तखातामाभएको रकमबाट म्यादपुग्ने
+                        मितिवा सो अगावै कुनै पनि समयमाम/हामीलाई विना सूचनाआफ्नो लेनाअसुलउपर गरि सो बाट मेरो/हाम्रो खाता, दायित्ववा त्यस
+                        वित्तीय संस्थाप्रतिको वचनवद्धता(commitment)मिलानगर्न म/हामी यसै पत्रसाथअपरिवर्र्तीत (irrevocably)  र निश्चित
+                        रुपले(expressly)अधिकार प्रत्यायोजन गर्दछु/छौं ।
+                    </p>
+                </div>
+                <p class="text-center">उपरोक्तउल्लेखितमुद्दतीखाता रसिदहरुको विवरण</p>
+                <div class="table-responsive-md">
+                    <table class="table-bordered table text-center">
+                        <thead>
+                        <tr>
+                            <th>चल्तीखाता नं</th>
+                            <th>जारी गर्नेशाखा</th>
+                            <th>खातावालको नाम</th>
+                            <th>रकम</th>
+                        </tr>
+                        </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <textarea class=" nepaliFont " name="" formControlName="chaltiKhataNo" id=""  cols="30" rows="10"></textarea>
+                                </td>
+                                <td><textarea class="nepaliFont " name="" id="" formControlName="chaltiKhataNo" cols="30" rows="10"></textarea></td>
+                                <td><textarea class=" nepaliFont " name="" id="" formControlName="khatawalName" cols="30" rows="10"></textarea></td>
+                               <td>
+                                   <textarea class=" nepaliFont " name="" id="" formControlName="amount" cols="30" rows="10"></textarea>
+                               </td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <p>भवदीय,
+                        <br>
+                        दस्तखत<input class="form-field form-control-sm nepaliFont "
+                                     formControlName="customerSign"
+                                     placeholder=""
+                                     type="text"/>
+                        <br>
+                        नाम : <input class="form-field form-control-sm nepaliFont "
+                                     formControlName="customerName"
+                                     placeholder=""
+                                     type="text"/>
+                        <br>
+                        ठेगाना : <input class="form-field form-control-sm nepaliFont "
+                                        formControlName="customerAddress"
+                                        placeholder=""
+                                        type="text"/>
+
+                    </p>
+                    <p class="text-right">संस्थाकोछाप : <input class="form-field form-control-sm nepaliFont "
+                                            formControlName="companyStamp"
+                                            placeholder=""
+                                            type="text"/></p>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                        Save
+                    </button>
+                </div>
+            </form>
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{ offerLetterConst.LETTER_OF_LEIN }}"
+                    ngxPrint> Print
+            </button>
+        </div>
+    </div>
+
+<app-letter-of-lein-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  hidden></app-letter-of-lein-print>

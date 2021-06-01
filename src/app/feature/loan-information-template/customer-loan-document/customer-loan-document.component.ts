@@ -11,6 +11,7 @@ import {ToastService} from '../../../@core/utils';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CustomerDocuments} from '../../loan/model/customerDocuments';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -26,19 +27,20 @@ export class CustomerLoanDocumentComponent implements OnInit {
     renewDocuments: Document[] = [];
     loanConfig: LoanConfig = new LoanConfig();
     loanName: string;
-
     customerDocumentArray: Array<CustomerDocuments> = new Array<CustomerDocuments>();
     documentMap: string;
-
     paramProperties: any;
-
     errorMessage: string;
     loanConfigId;
+    documentName;
+    documentId;
+    index;
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
-                private loanFormService: LoanFormService) {
+                private loanFormService: LoanFormService,
+                private modelService: NgbModal) {
     }
 
     ngOnInit() {
@@ -164,8 +166,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         });
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
-
-                    console.log(this.customerDocumentArray);
                     this.initialDocuments[index].checked = true;
                 },
                 error => {
@@ -177,5 +177,23 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
             );
         }
+    }
+
+    openModel(model, documentName: string, documentId, index: number) {
+        this.documentName = documentName;
+        this.documentId = documentId;
+        this.index = index;
+        this.modelService.open(model);
+    }
+
+    onClose() {
+        this.modelService.dismissAll();
+    }
+
+    confirmDelete(i) {
+        this.modelService.dismissAll();
+        this.customerDocumentArray.indexOf(this.index);
+        this.customerDocumentArray.splice(this.index, 1);
+        this.initialDocuments[this.index].checked = false;
     }
 }
