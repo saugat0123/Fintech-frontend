@@ -8,10 +8,10 @@
       <tr class="text-white sb-bg-dark">
         <th>Name</th>
         <th>Customer Id</th>
-        <th>Date of birth</th>
+        <th>Date of birth(AD/BS)</th>
         <th>Age</th>
         <th>Citizenship no.</th>
-        <th>Citizenship Issued Date</th>
+        <th>Citizenship Issued Date(AD/BS)</th>
         <th>Issued Place</th>
         <th>Gender</th>
         <th>Marital Status</th>
@@ -22,10 +22,10 @@
       <tr>
         <td class="text-left pl-1">{{individual?.customerName}}</td>
         <td class="text-right pr-1">{{customerInfo?.customerCode || 'N/A'}}</td>
-        <td class="text-left pl-1">{{individual?.dob | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{individual?.dob | date}} ({{individual?.dob | engNepDate: false}})</td>
         <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
-        <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} ({{individual?.citizenshipIssuedDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
         <td class="text-left pl-1">{{customerInfo?.gender}}</td>
         <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
@@ -119,7 +119,7 @@
         <th>Name</th>
         <th>Relation</th>
         <th>Citizenship no.</th>
-        <th>Citizenship Issued Date</th>
+        <th>Citizenship Issued Date(AD/BS)</th>
         <th>Citizenship Issued District</th>
         <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
 
@@ -139,7 +139,7 @@
           {{relative.citizenshipNumber || 'N/A'}}
         </td>
         <td class="text-left pl-1">
-          {{relative.citizenshipIssuedDate | engNepDate: false}}
+          {{relative.citizenshipIssuedDate | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})
         </td>
         <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
         <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
@@ -198,10 +198,10 @@
         <tr class="text-white sb-bg-dark">
           <th>Name</th>
           <th>Customer Id</th>
-          <th>Date of birth</th>
+          <th>Date of birth(AD/BS)</th>
           <th>Age</th>
           <th>Citizenship no.</th>
-          <th>Issued Date</th>
+          <th>Issued Date(Ad/BS)</th>
           <th>Issued Place</th>
           <th>Gender</th>
           <th>Marital Status</th>
@@ -209,10 +209,10 @@
         <tr class="text-left">
           <td class="pl-1">{{info?.customerName}}</td>
           <td class="pl-1">{{info?.customerCode}}</td>
-          <td class="text-left pl-1">{{info?.dob | engNepDate: false}}</td>
+          <td class="text-left pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
           <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber || 'NA'}}</td>
-          <td class="text-right pr-1">{{info?.citizenshipIssuedDate | date}}</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate | date}} ({{info?.citizenshipIssuedDate | engNepDate: false}})</td>
           <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>
           <td class="pl-1">{{info?.gender.toLowerCase()}}</td>
           <td class="pl-1">{{info?.maritalStatus.toLowerCase()}}</td>
@@ -241,7 +241,7 @@
           <th>Relation Name</th>
           <th>Citizenship no.</th>
           <th>Citizenship Issued District</th>
-          <th>Citizenship Issued Date</th>
+          <th>Citizenship Issued Date(AD/BS)</th>
           <th>Age</th>
         </tr>
         <tr *ngIf="info?.customerRelativeName1">
@@ -249,7 +249,7 @@
           <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
-          <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 || 'NA' | engNepDate: false}}</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 | date}} ({{info?.citizenshipIssuedDate1 | engNepDate: false}})</td>
           <td class="text-left pl-1">{{info?.age1 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName2">
@@ -257,7 +257,7 @@
           <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
-          <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 || 'NA' | engNepDate: false}}</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 | date}} ({{info?.citizenshipIssuedDate2 | engNepDate: false}})</td>
           <td class="text-left pl-1">{{info?.age2 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName3">
@@ -265,7 +265,7 @@
           <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
-          <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 || 'NA' | engNepDate: false}}</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 | date}} ({{info?.citizenshipIssuedDate3 | engNepDate: false}})</td>
           <td class="text-left pl-1">{{info?.age3 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName4">
@@ -273,7 +273,7 @@
           <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
-          <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 || 'NA' | engNepDate: false}}</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 | date}} ({{info?.citizenshipIssuedDate4 | engNepDate: false}})</td>
           <td class="text-left pl-1">{{info?.age4 || 'NA'}}</td>
         </tr>
         <tr *ngIf="info?.customerRelativeName5">
@@ -281,7 +281,7 @@
           <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
-          <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 || 'NA' | engNepDate: false}}</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 | date}} ({{info?.citizenshipIssuedDate5 | engNepDate: false}})</td>
           <td class="text-left pl-1">{{info?.age5 || 'NA'}}</td>
         </tr>
       </ng-container>
@@ -293,9 +293,9 @@
       </tr>
       <tr>
         <th>Customer Name</th>
-        <th> Province</th>
+        <th>Province</th>
         <th>District</th>
-        <th> Municipalities</th>
+        <th>Municipalities</th>
         <th>Ward no.</th>
         <th>Address Line 1</th>
         <th>Address Line 2</th>
