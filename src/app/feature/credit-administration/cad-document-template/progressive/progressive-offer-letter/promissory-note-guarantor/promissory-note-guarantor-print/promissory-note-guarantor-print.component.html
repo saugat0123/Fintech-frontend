@@ -46,7 +46,7 @@
             <div class="col-md-12">
                 <p class="text-left"><b>साक्षी:-
                     </b></p>
-                <div  *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
+                <div  *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" style="overflow-x: auto">
                     {{i + 1 | nepaliWord: 'unicode'}}
                     <p>दस्तखत :- ...............
                     <table border="1" class="tableGuarantor text-center">
@@ -57,8 +57,8 @@
                         </tr>
                         </thead>
                     <tbody>
-                    <tr><td>{{guarantor?.guarantorName}}</td>
-                    <td>{{guarantor?.issuedPlace}}</td></tr>
+                    <tr><td><span class="nepaliFont">{{guarantor?.guarantorName}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.issuedPlace}}</span></td></tr>
                     </tbody>
                     </table>
                     <br>

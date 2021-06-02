@@ -116,6 +116,7 @@ export class LetterOfDisbursementComponent implements OnInit {
         this.form = this.formBuilder.group({
             date:[undefined],
             amount:[undefined],
+            amountInWord:[undefined],
             accNumber:[undefined],
             sincerlyname:[undefined],
             sincerlyPermanentAddress:[undefined],
@@ -169,5 +170,10 @@ export class LetterOfDisbursementComponent implements OnInit {
 
     }
 
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
+    }
 
 }

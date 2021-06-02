@@ -170,6 +170,9 @@ this.checkOfferLetter();
       itiSambaMonth:[undefined],
       itiSambatDate:[undefined],
       itiSambatTime:[undefined],
+      sicerlyFatherName:[undefined],
+      sicerlyGrandFatherName:[undefined],
+      sicerlyHusbandName:[undefined],
       itiSambatRojSubham:[undefined],
       guarantorDetails:this.formBuilder.array([])
 

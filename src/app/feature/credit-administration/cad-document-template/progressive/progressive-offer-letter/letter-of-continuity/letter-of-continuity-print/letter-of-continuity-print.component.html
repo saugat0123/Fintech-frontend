@@ -21,7 +21,7 @@
                     गराएको प्रतिज्ञापत्रको आधारमावित्तीय संस्थाले हालप्रदान गरेको कर्जा र भविष्यमाप्रदानगर्ने घटीबढी कर्जा रकमतिर्न वुझाउनबांकी
                     रहेमा म/हामी जिम्मेवार छु/छौं ।
                     यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउनबांकी रकमभविष्यमा थपघट भई वा समय समयमाचुक्तागरिने किस्ताको कारण कुनै समयमा
-                    सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहनगएमापनितत्पश्चातको कारोवारबाट पुनःकायमहुनजाने
+                    सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहनगएमा पनि तत्पश्चातको कारोवारबाट पुनःकायमहुनजाने
                     कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट सोझै झिकी हिसावमिला नगर्नुहुन यो निरन्तरताको पत्रमा सहिछाप गरि दिएको छु/छौ ।
                 </p>
             </div>
@@ -75,7 +75,7 @@
             <b> साक्षी :</b>
 
 
-            <div  *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
+            <div  *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" style="overflow-x: auto">
                 {{i + 1 | nepaliWord: 'unicode'}}
                 <p>दस्तखत :- ...............
                 <table border="1" class="tableGuarantor text-center">
@@ -86,8 +86,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr><td>{{guarantor?.guarantorName}}</td>
-                        <td>{{guarantor?.issuedPlace}}</td></tr>
+                    <tr><td><span class="nepaliFont">{{guarantor?.guarantorName}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.issuedPlace}}</span></td></tr>
                     </tbody>
                 </table>
                 <br>
@@ -212,41 +212,40 @@
             <b> साक्षी :</b>
 
             <div>
-                <div *ngFor="let guarantor of printDocForm?.secguarantorDetails; index as i">
+                <div *ngFor="let guarantor of printDocForm?.secguarantorDetails; index as i" style="overflow-x: auto">
                     <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp; दस्तखत :......................</p>
-                    <table class="table-bordered table text-center ">
+                    <table border="1">
                         <thead>
                         <tr>
-                            <th width="10%">नाम</th>
-                            <th width="10%">ना.प्र.नं.</th>
-                            <th width="15%">मिति</th>
-                            <th width="15%">जि.प्र.का.</th>
-                            <th width="15%">जिल्ला</th>
-                            <th width="25%">गा.पा./न.पा.</th>
-                            <th width="10%">वडा नं.</th>
+                            <th>नाम</th>
+                            <th>ना.प्र.नं.</th>
+                            <th>मिति</th>
+                            <th>जि.प्र.का.</th>
+                            <th>जिल्ला</th>
+                            <th>गा.पा./न.पा.</th>
+                            <th>वडा नं.</th>
 
                         </tr>
 
                         </thead>
                         <tbody>
                         <tr>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.guarantorName}}"> </td>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.citizenNumber}}"> </td>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.issuedYear}}"> </td>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.guarantorCDOoffice}}"></td>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.guarantorDistrict}}"> </td>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.guarantorMunicipality}}"> </td>
-                            <td> <input style="border: none" readonly class="form-field nepaliFont form-control"  value="{{guarantor?.guarantorWadNo}}"> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.guarantorName}}</span> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.citizenNumber}}</span> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.issuedYear}}</span> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.guarantorCDOoffice}}</span> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.guarantorDistrict}}</span> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.guarantorMunicipality}}</span> </td>
+                            <td> <span class="nepaliFont">{{guarantor?.guarantorWadNo}}</span> </td>
                         </tr>
                         </tbody>
                     </table>
-
-
+                    <br>
+                    <br>
                 </div>
 
-
-
             </div>
+            <br>
             <div>
                 <b>सनाखत साक्षी</b>
                 <br>
