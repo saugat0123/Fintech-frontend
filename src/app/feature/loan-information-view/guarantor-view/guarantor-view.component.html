@@ -10,7 +10,7 @@
       <tr class="text-white sb-bg-dark">
         <th colspan="2">Name</th>
         <th>CitizenNumber</th>
-        <th>Issued Year</th>
+        <th>Issued Year(AD/BS)</th>
         <th>Issued Place</th>
         <th>Address 1</th>
         <th>Address 2</th>
@@ -23,7 +23,7 @@
       <tr>
         <td class="text-left pl-1" colspan="2">{{guarantor?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
-        <td class="text-left pl-1">{{guarantor?.issuedYear | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{guarantor?.issuedYear | date}} ({{guarantor?.issuedYear | engNepDate: false}})</td>
         <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
         <td class="text-left pl-1">{{guarantor?.permanentAddressLineOne}}</td>
         <td class="text-left pl-1">{{guarantor?.permanentAddressLineTwo}}</td>
@@ -61,7 +61,7 @@
       </tbody>
       <tr class="text-white sb-bg-dark">
         <td>Profession</td>
-        <td>Date of Birth</td>
+        <td>Date of Birth (AD/BS)</td>
         <th>Relationship</th>
         <th>Net Worth</th>
         <th>Temporary Address 1</th>
@@ -74,7 +74,7 @@
       </tr>
       <tr>
         <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
-        <td class="text-left pl-1">{{guarantor?.dateOfBirth | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{guarantor?.dateOfBirth | date}} ({{guarantor?.dateOfBirth | engNepDate: false}})</td>
         <td class="text-left pl-1">{{guarantor?.relationship}}</td>
         <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>

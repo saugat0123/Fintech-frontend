@@ -8,10 +8,10 @@
             <tr class="text-white sb-bg-dark">
                 <th>Name</th>
                 <th>Customer Id</th>
-                <th>Date of birth</th>
+                <th>Date of birth(AD/BS)</th>
                 <th>Age</th>
                 <th>Citizenship no.</th>
-                <th>Citizenship Issued Date</th>
+                <th>Citizenship Issued Date(AD/BS)</th>
                 <th>Issued Place</th>
                 <th>Gender</th>
                 <th>Marital Status</th>
@@ -22,10 +22,10 @@
             <tr>
                 <td class="text-left pl-1">{{individual?.customerName}}</td>
                 <td class="text-right pr-1">{{customerInfo?.customerCode}}</td>
-                <td class="text-left pl-1">{{individual?.dob | date}}</td>
+                <td class="text-left pl-1">{{individual?.dob | date}} ({{individual?.dob | engNepDate: false}})</td>
                 <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
                 <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
-                <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}</td>
+                <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} ({{individual?.citizenshipIssuedDate | engNepDate: false}})</td>
                 <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
                 <td class="text-left pl-1">{{customerInfo?.gender}}</td>
                 <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
@@ -67,9 +67,9 @@
                 <th colspan="6">Permanent Address</th>
             </tr>
             <tr>
-                <th> Province</th>
+                <th>Province</th>
                 <th>District</th>
-                <th> Municipalities</th>
+                <th>Municipalities</th>
                 <th>Ward no.</th>
                 <th>Address Line 1</th>
                 <th>Address Line 2</th>
@@ -113,10 +113,8 @@
                 <th>Name</th>
                 <th>Relation</th>
                 <th>Citizenship no.</th>
-                <th>Citizenship Issued Date</th>
+                <th>Citizenship Issued Date(AD/BS)</th>
                 <th>Citizenship Issued District</th>
-
-
             </tr>
             </thead>
             <tbody>
@@ -132,7 +130,7 @@
                     {{relative.citizenshipNumber}}
                 </td>
                 <td class="text-left pl-1">
-                    {{relative.citizenshipIssuedDate | date}}
+                    {{relative.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'N/A'}} ({{relative.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})
                 </td>
                 <td class="text-left pl-1">{{relative.citizenshipIssuedPlace}}</td>
 
