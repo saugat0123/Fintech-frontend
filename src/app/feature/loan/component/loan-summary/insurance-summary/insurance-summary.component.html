@@ -11,8 +11,8 @@
         <th>Premium Amount</th>
         <th>Insurance Company</th>
         <th>Coverage</th>
-        <th>Issued Date</th>
-        <th>Expiry Date</th>
+        <th>Issued Date(AD/BS)</th>
+        <th>Expiry Date(AD/BS)</th>
         <th>Remarks(if any)</th>
       </tr>
       </thead>
@@ -25,8 +25,8 @@
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
         <td class="text-left pl-1">{{insurance?.company}}</td>
         <td class="text-left pl-1">{{insurance?.policyType}}</td>
-        <td class="text-left pl-1">{{insurance?.issuedDate | engNepDate: false}}</td>
-        <td class="text-left pl-1">{{insurance?.expiryDate | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{insurance?.issuedDate | date}} ({{insurance?.issuedDate | engNepDate: false}})</td>
+        <td class="text-left pl-1">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{insurance?.remark}}</td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">

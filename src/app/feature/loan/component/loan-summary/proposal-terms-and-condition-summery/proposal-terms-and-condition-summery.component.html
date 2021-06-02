@@ -10,7 +10,7 @@
     <ol>
       <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
         <div class="row sb-medium">
-          <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}({{data.createdAt | engNepDate: false}}) :</u></span>
+          <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span>
           <div class="row col-md-12">
 <!--            <div>-->
               <span  [innerHTML]="(data.proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>

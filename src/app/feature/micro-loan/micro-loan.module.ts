@@ -29,6 +29,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {MicroChecklistComponent} from './detail-view/micro-loan-detail-view-base/micro-checklist/micro-checklist.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NepaliPatroModule} from 'nepali-patro';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         LoanInformationTemplateModule,
         NgSelectModule,
         NepaliCalendarModule,
+        NepaliPatroModule,
     ]
 })
 export class MicroLoanModule { }
