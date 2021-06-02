@@ -30,7 +30,7 @@
                                         [ePreDate]="formGroupCheckList.get('dateCheckList').value"></app-calendar>
                                 <nb-datepicker #dateOfChecklist></nb-datepicker>
                             </ng-container>
-                            <span *ngIf="!fromProfile">{{dataForEdit?.dateCheckList | date}}</span>
+                            <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
 
                         </div>
                         <div class="pt-2">
@@ -182,7 +182,7 @@
                                                 <nb-datepicker #dateOfLastValuation></nb-datepicker>
                                             </div>
                                         </div>
-                                        <span *ngIf="!fromProfile"><b>{{dataForEdit?.dateValuation | date}}</b></span>
+                                        <span *ngIf="!fromProfile"><b>{{dataForEdit?.dateValuation | date}} ({{dataForEdit?.dateValuation | engNepDate: false}})</b></span>
                                     </td>
                                     <ng-container *ngIf="fromProfile">
 
@@ -247,7 +247,7 @@
                                                 <nb-datepicker #dateCall></nb-datepicker>
                                             </div>
                                         </div>
-                                        <span *ngIf="!fromProfile"><b>{{dataForEdit?.callReportDate | date}}</b></span>
+                                        <span *ngIf="!fromProfile"><b>{{dataForEdit?.callReportDate | date}} ({{dataForEdit?.callReportDate | engNepDate: false}})</b></span>
                                         <br>
                                         Number of irregularity Report raised in the past 12 months:<input *ngIf="fromProfile"
                                                                                                           class="form-control col-md-4" formControlName="callReportIrregularityReport" placeholder="Eg: One">
