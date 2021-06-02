@@ -7,23 +7,25 @@ import {NbAccordionModule} from '@nebular/theme';
 import {ProgressiveOfferLetterComponent} from './progressive-offer-letter/progressive-offer-letter.component';
 import {LetterOfArrangementsComponent} from './progressive-offer-letter/letter-of-arrangements/letter-of-arrangements.component';
 import { LetterOfArrangementsPrintComponent } from './progressive-offer-letter/letter-of-arrangements/letter-of-arrangements-print/letter-of-arrangements-print.component';
-import {LetterOfInstallmentsComponent} from "./progressive-offer-letter/letter-of-installments/letter-of-installments.component";
+import {LetterOfInstallmentsComponent} from './progressive-offer-letter/letter-of-installments/letter-of-installments.component';
 import { LetterOfLeinComponent } from './progressive-offer-letter/letter-of-lein/letter-of-lein.component';
 import { PromissoryNoteComponent } from './progressive-offer-letter/promissory-note/promissory-note.component';
 import { LoanDeedComponent } from './progressive-offer-letter/loan-deed/loan-deed.component';
 import { LetterOfInstallmentsPrintComponent } from './progressive-offer-letter/letter-of-installments/letter-of-installments-print/letter-of-installments-print.component';
 import { LetterOfLeinPrintComponent } from './progressive-offer-letter/letter-of-lein/letter-of-lein-print/letter-of-lein-print.component';
 import { PromissoryNotePrintComponent } from './progressive-offer-letter/promissory-note/promissory-note-print/promissory-note-print.component';
-import {PromissoryNoteGuarantorComponent} from "./progressive-offer-letter/promissory-note-guarantor/promissory-note-guarantor.component";
+import {PromissoryNoteGuarantorComponent} from './progressive-offer-letter/promissory-note-guarantor/promissory-note-guarantor.component';
 import { PromissoryNoteGuarantorPrintComponent } from './progressive-offer-letter/promissory-note-guarantor/promissory-note-guarantor-print/promissory-note-guarantor-print.component';
-import {LetterOfAgreementComponent} from "./progressive-offer-letter/letter-of-agreement/letter-of-agreement.component";
+import {LetterOfAgreementComponent} from './progressive-offer-letter/letter-of-agreement/letter-of-agreement.component';
 import { LetterOfAgreementPrintComponent } from './progressive-offer-letter/letter-of-agreement/letter-of-agreement-print/letter-of-agreement-print.component';
 import { LoanDeedPrintComponent } from './progressive-offer-letter/loan-deed/loan-deed-print/loan-deed-print.component';
-import {HirePurchaseDeedComponent} from "./progressive-offer-letter/hire-purchase-deed/hire-purchase-deed.component";
-import {GuaranteeBondCorporateComponent} from "./progressive-offer-letter/guarantee-bond-corporate/guarantee-bond-corporate.component";
-import {IndemnityDeedComponent} from "./progressive-offer-letter/indemnity-deed/indemnity-deed.component";
-import {LetterOfContinuityComponent} from "./progressive-offer-letter/letter-of-continuity/letter-of-continuity.component";
-import {LetterOfDisbursementComponent} from "./progressive-offer-letter/letter-of-disbursement/letter-of-disbursement.component";
+import {HirePurchaseDeedComponent} from './progressive-offer-letter/hire-purchase-deed/hire-purchase-deed.component';
+import {GuaranteeBondCorporateComponent} from './progressive-offer-letter/guarantee-bond-corporate/guarantee-bond-corporate.component';
+import {IndemnityDeedComponent} from './progressive-offer-letter/indemnity-deed/indemnity-deed.component';
+import {LetterOfContinuityComponent} from './progressive-offer-letter/letter-of-continuity/letter-of-continuity.component';
+import {LetterOfDisbursementComponent} from './progressive-offer-letter/letter-of-disbursement/letter-of-disbursement.component';
+import {CrossGuaranteeBondComponent} from './progressive-offer-letter/cross-guarantee-bond/cross-guarantee-bond.component';
+import {GuaranteeBondPersonalComponent} from './progressive-offer-letter/guarantee-bond-personal/guarantee-bond-personal.component';
 
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -49,6 +51,8 @@ const COMPONENTS = [
         IndemnityDeedComponent,
         LetterOfContinuityComponent,
         LetterOfDisbursementComponent,
+        CrossGuaranteeBondComponent,
+        GuaranteeBondPersonalComponent
 
     ],
     exports: [
