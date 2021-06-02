@@ -6,7 +6,6 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../model/loanData';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
-import {DateService} from '../../../../../@core/service/baseservice/date.service';
 
 @Component({
   selector: 'app-company-info-summary',
@@ -24,10 +23,9 @@ export class CompanyInfoSummaryComponent implements OnInit {
   @Input() approveSheet;
   client = environment.client;
   clientName = Clients;
-  nepaliDate;
 
 
-  constructor(private dateService: DateService) { }
+  constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
@@ -35,9 +33,6 @@ export class CompanyInfoSummaryComponent implements OnInit {
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
-    this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
-      this.nepaliDate = nepDate.detail;
-    });
   }
 
 }

@@ -647,7 +647,7 @@
                         <div class="text-center signature-detail sb-bg-secondary text-white">
                             <p class="m-0 sb-small">{{previous?.toUser?.name}}</p>
                             <p class="m-0 sb-small">({{previous?.toUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>
                 </div>

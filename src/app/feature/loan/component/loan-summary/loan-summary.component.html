@@ -906,8 +906,7 @@
                             <th>S.N</th>
                             <th>Document</th>
                             <th>Preview</th>
-                            <th>Download
-                            </th>
+                            <th>Download</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -964,8 +963,7 @@
                             <th>Guarantor</th>
                             <th>Document</th>
                             <th>Preview</th>
-                            <th>Download
-                            </th>
+                            <th>Download</th>
                         </tr>
                         </thead>
                         <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
@@ -1054,8 +1052,7 @@
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
                             <tr class="text-white sb-bg-dark">
-                                <th colspan="4"> Customer General Document
-                                </th>
+                                <th colspan="4"> Customer General Document</th>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th>SN</th>
@@ -1186,7 +1183,7 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | engNepDate: false}}
+                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -1221,7 +1218,7 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
@@ -1279,7 +1276,7 @@
                         <div class="text-center signature-detail sb-bg-secondary text-white">
                             <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
                             <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | engNepDate: false}}</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,7 @@
         <tr>
           <td><b>Nature Of business</b></td>
           <td>{{companyJsonData?.majorProductService}}</td>
-          <td><b>Relationship Start Date (AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{nepaliDate}}})</td>
-
+          <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
         </tr>
         <tr>
           <td><b>Sister Concerns</b></td>
@@ -22,9 +21,8 @@
           <td></td>
         </tr>
         <tr>
-
           <td><b>Date(AD/BS)</b></td>
-          <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{nepaliDate}}})</td>
+          <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
         </tr>
         <tr>
           <td><b>Regd. Number</b></td>
@@ -45,7 +43,7 @@
             </span>
               </div>
               <div class="col-md-6">
-                <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{nepaliDate}})
+                <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}})
               </div>
             </div>
           </td>
@@ -64,7 +62,7 @@
             <b>Business Operation Since(if Other than registration date)(AD/BS)</b>
           </td>
           <td colspan="2">
-            {{companyInfo?.establishmentDate | date}} ({{nepaliDate}})
+            {{companyInfo?.establishmentDate | date}} ({{companyInfo?.establishmentDate |engNepDate: false}})
           </td>
         </tr>
         <tr>
