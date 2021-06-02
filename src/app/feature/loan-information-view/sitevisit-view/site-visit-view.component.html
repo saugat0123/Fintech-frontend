@@ -58,7 +58,7 @@
         <th>Ward</th>
         <th>Address Line 1</th>
         <th>Address Line 2</th>
-        <th>Date of Visit</th>
+        <th>Date of Visit(AD/BS)</th>
         <th>Objective of Visit</th>
     </tr>
     <tr>
@@ -71,9 +71,8 @@
         <td class="text-right pr-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-
     </tr>
     <tr class="text-white sb-bg-dark">
 
@@ -301,28 +300,24 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="7"><b>Current Asset Inspection:
-            Stock</b></td>
+        <td colspan="7"><b>Current Asset Inspection: Stock</b></td>
     </tr>
     <tr *ngIf="!formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="4"><b>Current Asset Inspection:
-            Stock</b></td>
+        <td colspan="4"><b>Current Asset Inspection: Stock</b></td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Date of Inspection</th>
-        <th>Particulars Of Good
-            Inspected</th>
+        <th>Date of Inspection(AD/BS)</th>
+        <th>Particulars Of Good Inspected</th>
         <th>Stock Value Reported</th>
         <th>Rents</th>
-        <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Copy of rental/leased
-            agreement obtained
-        </th>
+        <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Copy of rental/leased agreement obtained</th>
         <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Rents payment up to</th>
         <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Rent Receipt shown</th>
     </tr>
 
     <tr>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['dateOfInspection'] | engNepDate: false}}</td>
+        <td class="text-left pl-1">
+            {{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}} ({{formData['currentAssetsInspectionDetails']['dateOfInspection'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
@@ -341,14 +336,13 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
-        <th colspan="6"><b>Current Asset Inspection:
-            Insurance Verification</b></th>
+        <th colspan="6"><b>Current Asset Inspection: Insurance Verification</b></th>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Assets Mortgaged</th>
         <th>Insured Amount</th>
         <th>Insurance Company</th>
-        <th>Expiry Date</th>
+        <th>Expiry Date(AD/BS)</th>
         <th>Client Over All Rating</th>
         <th>Stock Value Confirmed
     </tr>
@@ -358,18 +352,16 @@
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}} ({{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>
 
     <tr class="text-white sb-bg-dark">
         <th colspan="6">Comments</th>
-
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['comments']}}</td>
-
     </tr>
 </table>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"

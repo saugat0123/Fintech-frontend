@@ -8,7 +8,7 @@
             <tr>
                 <td><b>Nature Of business</b></td>
                 <td>{{companyJsonData?.majorProductService}}</td>
-                <td><b>Relationship Start Date</b>: {{companyJsonData?.relationshipSince |engNepDate: false}}</td>
+                <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
             </tr>
             <tr>
                 <td><b>Sister Concerns</b></td>
@@ -25,8 +25,8 @@
             </tr>
             <tr>
 
-                <td><b>Date</b></td>
-                <td>{{companyInfo?.legalStatus?.registrationDate |engNepDate: false}}</td>
+                <td><b>Date(AD/BS)</b></td>
+                <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
             </tr>
             <tr>
                 <td><b>Regd. Number</b></td>
@@ -56,9 +56,9 @@
             </tr>
 
             <tr>
-                <td><b>Business Operation Since(if Other than registration date)</b></td>
+                <td><b>Business Operation Since(if Other than registration date)(AD/BS)</b></td>
                 <td colspan="2">
-                    {{companyInfo?.establishmentDate |engNepDate: false}}
+                    {{companyInfo?.establishmentDate | date}} ({{companyInfo?.establishmentDate |engNepDate: false}})
                 </td>
             </tr>
             <tr>
@@ -131,19 +131,19 @@
             </tr>
             <tr>
                 <td><b>Loan products</b></td>
-                <td colspan="2">{{companyJsonData?.microCustomerDetail?.loanProducts || 'NA'}}</td>
+                <td colspan="2" [innerHTML]="companyJsonData?.microCustomerDetail?.loanProducts || 'NA' | safeHtml"></td>
             </tr>
             <tr>
                 <td><b>Saving Products</b></td>
-                <td colspan="2">{{companyJsonData?.microCustomerDetail?.otherProducts || 'NA'}}</td>
+                <td colspan="2" [innerHTML]="companyJsonData?.microCustomerDetail?.savingProducts || 'NA' | safeHtml"></td>
             </tr>
             <tr>
                 <td><b>Other products</b></td>
-                <td colspan="2"><span [innerHTML]="companyJsonData?.microCustomerDetail?.repaymentSchedule || 'NA'"></span></td>
+                <td colspan="2"><span [innerHTML]="companyJsonData?.microCustomerDetail?.otherProducts || 'NA' | safeHtml"></span></td>
             </tr>
             <tr>
                 <td><b>Repayment Schedule</b></td>
-                <td colspan="2">{{companyJsonData?.microCustomerDetail?.savingProducts || 'NA'}}</td>
+                <td colspan="2" [innerHTML]="companyJsonData?.microCustomerDetail?.repaymentSchedule || 'NA'| safeHtml"></td>
             </tr>
 
         </table>
@@ -155,7 +155,7 @@
                 <th>Within Limit Remarks (if any)</th>
             </tr>
             <tr>
-                <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
+                <td class="text-left pl-1" [innerHTML]="loanDataHolder?.companyInfo?.withinLimitRemarks | safeHtml"></td>
             </tr>
         </table>
     </div>
@@ -234,7 +234,7 @@
         <th>Market Risk</th>
         </thead>
         <tbody>
-        <td class="text-left pl-1">{{companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA'}}</td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA' | safeHtml"></td>
         </tbody>
     </table>
 </div>
@@ -244,7 +244,7 @@
         <th>Financial Risk</th>
         </thead>
         <tbody>
-        <td class="text-left pl-1">{{companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA'}}</td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA' | safeHtml"></td>
         </tbody>
     </table>
 </div>
@@ -254,7 +254,7 @@
         <th>Management Risk</th>
         </thead>
         <tbody>
-        <td class="text-left pl-1">{{companyJsonData?.marketScenario['technicalAspect'] || 'NA'}}</td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] || 'NA' | safeHtml"></td>
         </tbody>
     </table>
 </div>
@@ -264,7 +264,7 @@
         <th>Security Risk</th>
         </thead>
         <tbody>
-        <td class="text-left pl-1">{{companyJsonData?.marketScenario['securityRisk'] || 'NA'}}</td>
+        <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk'] || 'NA' | safeHtml"></td>
         </tbody>
     </table>
 </div>
