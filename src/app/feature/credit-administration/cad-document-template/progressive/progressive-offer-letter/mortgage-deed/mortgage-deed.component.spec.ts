@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MortgageDeedComponent } from './mortgage-deed.component';
 
-describe('HypothecationOfGoodsAndReceivablesAComponent', () => {
+describe('MortgageDeedComponent', () => {
   let component: MortgageDeedComponent;
   let fixture: ComponentFixture<MortgageDeedComponent>;
 
