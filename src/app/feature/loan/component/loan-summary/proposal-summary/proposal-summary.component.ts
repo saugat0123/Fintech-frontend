@@ -58,7 +58,6 @@ export class ProposalSummaryComponent implements OnInit {
         this.checkedData = JSON.parse(this.proposalData.checkedData);
         this.getLoanConfig();
         this.checkInstallmentAmount();
-        console.log('customer loan list :::', this.customerAllLoanList);
     }
 
     public getTotal(key: string): number {
