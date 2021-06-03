@@ -31,7 +31,7 @@
            class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small">
         <tr class="text-white sb-bg-dark">
             <th>Person Contacted</th>
-            <th>Date of Visit</th>
+            <th>Date of Visit(AD/BS)</th>
             <th>Office Address</th>
             <th>Ward</th>
             <th>Address Line 1</th>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
-            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}}</td>
+            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</td>
             <td class="text-left pl-1">
                 {{formData['businessSiteVisitDetails']['officeAddress']?.province?.name}},
                 {{formData['businessSiteVisitDetails']['officeAddress']?.district?.name}},
