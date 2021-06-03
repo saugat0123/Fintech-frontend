@@ -102,7 +102,7 @@ export class ChangeLoanComponent implements OnInit {
                     }, 2000);
                 }, error => {
                     this.spinnerService.hide();
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Switch Loan'));
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Switch Loan'));
 
                 });
             }
