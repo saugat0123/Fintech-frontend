@@ -24,6 +24,7 @@ import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {Comments} from '../../admin/modal/comments';
 import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
+import {AdditionalSecurity} from './additional-security';
 
 export class CustomerInfoData {
     id: number;
@@ -75,4 +76,5 @@ export class CustomerInfoData {
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
+    additionalSecurity: Array<AdditionalSecurity>;
 }
