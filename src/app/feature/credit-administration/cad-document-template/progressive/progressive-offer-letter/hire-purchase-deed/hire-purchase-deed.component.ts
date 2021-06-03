@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ProgressiveOfferLetterConst} from '../../progressive-offer-letter-const';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {ExcelOfferLetterConst} from '../../../../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -17,48 +16,40 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 
 @Component({
-  selector: 'app-hire-purchase-deed',
-  templateUrl: './hire-purchase-deed.component.html',
-  styleUrls: ['./hire-purchase-deed.component.scss']
+    selector: 'app-hire-purchase-deed',
+    templateUrl: './hire-purchase-deed.component.html',
+    styleUrls: ['./hire-purchase-deed.component.scss']
 })
 export class HirePurchaseDeedComponent implements OnInit {
 
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
-  spinner;
-  form: FormGroup;
-  offerLetterConst = ProgressiveOfferLetterConst;
-  customerOfferLetter: CustomerOfferLetter;
-  initialInfoPrint;
-  existingOfferLetter = false;
-  offerLetterDocument: OfferDocument;
-  nepaliData;
+    @Input() offerLetterType;
+    @Input() cadOfferLetterApprovedDoc;
+    spinner;
+    form: FormGroup;
+    offerLetterConst = ProgressiveOfferLetterConst;
+    customerOfferLetter: CustomerOfferLetter;
+    initialInfoPrint;
+    existingOfferLetter = false;
+    offerLetterDocument: OfferDocument;
+    nepaliData;
 
-  constructor( private dialogRef: NbDialogRef<HirePurchaseDeedComponent>,
-               private formBuilder: FormBuilder,
-               private nepToEngNumberPipe: NepaliToEngNumberPipe,
-               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-               private administrationService: CreditAdministrationService,
-               private toastService: ToastService,
-               private routerUtilsService: RouterUtilsService,
-               private customerOfferLetterService: CustomerOfferLetterService,) { }
+    constructor(private dialogRef: NbDialogRef<HirePurchaseDeedComponent>,
+                private formBuilder: FormBuilder,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private administrationService: CreditAdministrationService,
+                private toastService: ToastService,
+                private routerUtilsService: RouterUtilsService,
+                private customerOfferLetterService: CustomerOfferLetterService,) {
+    }
 
-  ngOnInit() {
-this.buildForm();
-    this.startingGuarantor();
-this.checkOfferLetter();
-const guar=this.form.get('guarantorDetail') as FormArray;
-const prs=JSON.parse(this.offerLetterDocument.initialInformation);
-      prs.guarantorDetail.forEach((value:any)=>{
-          console.log(value);
-          this.form.patchValue({
-              guarantorDetail:value
-          })
+    ngOnInit() {
+        this.buildForm();
+
+        this.checkOfferLetter();
 
 
-      })
-
-  }
+    }
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -66,6 +57,9 @@ const prs=JSON.parse(this.offerLetterDocument.initialInformation);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
         });
+        this.setGuarantors(this.nepaliData.guarantorDetails);
+
+
     }
 
     checkOfferLetter() {
@@ -79,12 +73,13 @@ const prs=JSON.parse(this.offerLetterDocument.initialInformation);
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
+            this.setGuarantors(initialInfo.guarantorDetail);
             this.form.patchValue(initialInfo);
         }
     }
 
     onSubmit(): void {
-      console.log(this.form.value);
+        console.log(this.form.value);
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -118,125 +113,136 @@ const prs=JSON.parse(this.offerLetterDocument.initialInformation);
     }
 
 
-
-
-
-    buildForm(){
-        this.form=this.formBuilder.group({
-            districtName:[undefined],
-            municipalityName:[undefined],
-            wadNo:[undefined],
-            branchName:[undefined],
-            grandParentName:[undefined],
-            parentName:[undefined],
-            husbandWifeName:[undefined],
-            customerDistrict:[undefined],
-            customerMunicipality:[undefined],
-            customerWadNo:[undefined],
-            sabikVDC:[undefined],
-            sabikWadNo:[undefined],
-            tempMunicipality:[undefined],
-            tempWadNo:[undefined],
-            age:[undefined],
-            customerName:[undefined],
-            customerCitizenshipNo:[undefined],
-            date:[undefined],
-            cdoOffice:[undefined],
-            matralayaName:[undefined],
-            biBhagCompany:[undefined],
-            regOffice:[undefined],
-            act:[undefined],
-            under:[undefined],
-            underDate:[undefined],
-            praliNo:[undefined],
-            serviceOffice:[undefined],
-            serviceDate:[undefined],
-            certificateNo:[undefined],
-            certifiedDistrict:[undefined],
-            certifiedMunicipality:[undefined],
-            certifiedWadNo:[undefined],
-            secRegOffice:[undefined],
-            pratinidhiGrandParent:[undefined],
-            pratinidhiParent:[undefined],
-            pratinidhiHusbandWifeName:[undefined],
-            pratinidhiDistrict:[undefined],
-            pratinidhiMunicipality:[undefined],
-            pratinidhiWadNo:[undefined],
-            pratinidhiTempDistrict:[undefined],
-            pratinidhiTempMunicipality:[undefined],
-            pratinidhiTempWadNo:[undefined],
-            pratinidhiAge:[undefined],
-            pratinidhiName:[undefined],
-            pratinidhiCitizenshipNo:[undefined],
-            pratinidhiDate:[undefined],
-            pratinidhiCDOoffice:[undefined],
-            kistabandiBranchName:[undefined],
-            kistabandiBranchAddress:[undefined],
-            tapsilSN:[undefined],
-            sawariPrakar:[undefined],
-            engineNo:[undefined],
-            chasisNo:[undefined],
-            regNo:[undefined],
-            regDate:[undefined],
-            sincerlySign:[undefined],
-            akhtiyarName:[undefined],
-            akhtiyarCitizenshipNo:[undefined],
-            akhtiyarDate:[undefined],
-            akhtiyarMuniciplity:[undefined],
-            akhtiyarPermanentDistrict:[undefined],
-            akhtiyarPermanentMunicipality:[undefined],
-            akhtiyarPermanentWadNo:[undefined],
-            akhtiyarSabikVDC:[undefined],
-            akhtiyarSabikWadNo:[undefined],
-            akhtiyarTempDistrict:[undefined],
-            akhtiyarTempMunicipality:[undefined],
-            akhtiyarTempWadNo:[undefined],
-            sicerlyFatherName:[undefined],
-            sicerlyMotherName:[undefined],
-            sicerlyGrandFatherName:[undefined],
-            sicerlyGrandMotherName:[undefined],
-            sicerlyHusbandName:[undefined],
-            sicerlyWifeNAme:[undefined],
-            sanakhatPersonName:[undefined],
-            sanakhatPersonSymNo:[undefined],
-            itisambatYear:[undefined],
-            itisambatMonth:[undefined],
-            itisambatDate:[undefined],
-            itisambatTime:[undefined],
-            itisambatSubham:[undefined],
-            guarantorDetail:this.formBuilder.array([])
+    buildForm() {
+        this.form = this.formBuilder.group({
+            districtName: [undefined],
+            municipalityName: [undefined],
+            wadNo: [undefined],
+            branchName: [undefined],
+            grandParentName: [undefined],
+            parentName: [undefined],
+            husbandWifeName: [undefined],
+            customerDistrict: [undefined],
+            customerMunicipality: [undefined],
+            customerWadNo: [undefined],
+            sabikVDC: [undefined],
+            sabikWadNo: [undefined],
+            tempMunicipality: [undefined],
+            tempWadNo: [undefined],
+            age: [undefined],
+            customerName: [undefined],
+            customerCitizenshipNo: [undefined],
+            date: [undefined],
+            cdoOffice: [undefined],
+            matralayaName: [undefined],
+            biBhagCompany: [undefined],
+            regOffice: [undefined],
+            act: [undefined],
+            under: [undefined],
+            underDate: [undefined],
+            praliNo: [undefined],
+            serviceOffice: [undefined],
+            serviceDate: [undefined],
+            certificateNo: [undefined],
+            certifiedDistrict: [undefined],
+            certifiedMunicipality: [undefined],
+            certifiedWadNo: [undefined],
+            secRegOffice: [undefined],
+            pratinidhiGrandParent: [undefined],
+            pratinidhiParent: [undefined],
+            pratinidhiHusbandWifeName: [undefined],
+            pratinidhiDistrict: [undefined],
+            pratinidhiMunicipality: [undefined],
+            pratinidhiWadNo: [undefined],
+            pratinidhiTempDistrict: [undefined],
+            pratinidhiTempMunicipality: [undefined],
+            pratinidhiTempWadNo: [undefined],
+            pratinidhiAge: [undefined],
+            pratinidhiName: [undefined],
+            pratinidhiCitizenshipNo: [undefined],
+            pratinidhiDate: [undefined],
+            pratinidhiCDOoffice: [undefined],
+            kistabandiBranchName: [undefined],
+            kistabandiBranchAddress: [undefined],
+            tapsilSN: [undefined],
+            sawariPrakar: [undefined],
+            engineNo: [undefined],
+            chasisNo: [undefined],
+            regNo: [undefined],
+            regDate: [undefined],
+            sincerlySign: [undefined],
+            akhtiyarName: [undefined],
+            akhtiyarCitizenshipNo: [undefined],
+            akhtiyarDate: [undefined],
+            akhtiyarMuniciplity: [undefined],
+            akhtiyarPermanentDistrict: [undefined],
+            akhtiyarPermanentMunicipality: [undefined],
+            akhtiyarPermanentWadNo: [undefined],
+            akhtiyarSabikVDC: [undefined],
+            akhtiyarSabikWadNo: [undefined],
+            akhtiyarTempDistrict: [undefined],
+            akhtiyarTempMunicipality: [undefined],
+            akhtiyarTempWadNo: [undefined],
+            sicerlyFatherName: [undefined],
+            sicerlyMotherName: [undefined],
+            sicerlyGrandFatherName: [undefined],
+            sicerlyGrandMotherName: [undefined],
+            sicerlyHusbandName: [undefined],
+            sicerlyWifeNAme: [undefined],
+            sanakhatPersonName: [undefined],
+            sanakhatPersonSymNo: [undefined],
+            itisambatYear: [undefined],
+            itisambatMonth: [undefined],
+            itisambatDate: [undefined],
+            itisambatTime: [undefined],
+            itisambatSubham: [undefined],
+            guarantorDetail: this.formBuilder.array([])
         });
     }
-  guarantorFormGroup():FormGroup{
-    return this.formBuilder.group({
-      guarantorName:[undefined],
-      guarantorSign:[undefined],
-      guarantorCitizenshipNo:[undefined],
-      guarantorDate:[undefined],
-      guarantorCDOoffice:[undefined],
-      guarantorDistrict:[undefined],
-      guarantorMunicipality:[undefined],
-      guarantorWadNo:[undefined]
 
-    })
+    guarantorFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined],
+            citizenNumber: [undefined],
+            issuedYear: [undefined],
+            guarantorCDOoffice: [undefined],
+            guarantorDistrict: [undefined],
+            guarantorMunicipality: [undefined],
+            guarantorWadNo: [undefined]
+
+        })
 
 
-  }
+    }
 
-  addMoreGuarantor():void{
-        const formArray=this.form.get('guarantorDetail') as FormArray;
+    setGuarantors(data) {
+        const formArray = this.form.get('guarantorDetail') as FormArray;
+        if (data.length === 0) {
+            this.addMoreGuarantor();
+            return;
+        }
+        data.forEach(value => {
+            formArray.push(this.formBuilder.group({
+                name: [value.name],
+                citizenNumber: [value.citizenNumber],
+                issuedYear: [value.issuedYear],
+                guarantorCDOoffice: [value.guarantorCDOoffice],
+                guarantorDistrict: [value.guarantorDistrict],
+                guarantorMunicipality: [value.guarantorMunicipality],
+                guarantorWadNo: [value.guarantorWadNo]
+            }));
+        });
+    }
+
+    addMoreGuarantor(): void {
+        const formArray = this.form.get('guarantorDetail') as FormArray;
         formArray.push(this.guarantorFormGroup())
     }
 
-    removeGuarantor(index:number):void{
-        const formArray=this.form.get('guarantorDetail') as FormArray;
+    removeGuarantor(index: number): void {
+        const formArray = this.form.get('guarantorDetail') as FormArray;
         formArray.removeAt(index);
     }
 
-    startingGuarantor():void
-    {
-        const formArray=this.form.get('guarantorDetail') as FormArray;
-        formArray.push(this.guarantorFormGroup())
-    }
 
 }
