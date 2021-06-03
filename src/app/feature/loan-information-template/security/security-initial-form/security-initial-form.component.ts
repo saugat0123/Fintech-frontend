@@ -854,9 +854,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     change(selectedSecurity) {
-        if (selectedSecurity === null) {
-            return;
-        } else if (this.selectedArray.indexOf(selectedSecurity) === -1) {
+        if (this.selectedArray.indexOf(selectedSecurity) === -1 && selectedSecurity !== null) {
             this.selectedArray.push(selectedSecurity);
         }
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
