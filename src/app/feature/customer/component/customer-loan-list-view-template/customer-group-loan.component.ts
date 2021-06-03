@@ -18,6 +18,9 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {LoanStage} from '../../../loan/model/loanStage';
 import {ChangeLoanComponent} from '../change-loan/change-loan.component';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 
 @Component({
@@ -31,11 +34,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               private customerService: CustomerService,
               private customerLoanService: LoanFormService,
               private modalService: NgbModal,
-              private spinnerService: NgxSpinnerService) {
+              private spinnerService: NgxSpinnerService,
+              private toastService: ToastService) {
   }
 
-  static LOAN_CHANGE = 'loanChange';
-  static LOAN_DELETE = 'loanDelete';
+  public static LOAN_CHANGE = 'loanChange';
+  public static LOAN_DELETE = 'loanDelete';
   @Input()
   formValue: Customer;
   customer: Customer;
@@ -129,7 +133,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;
       loanAmountType.value = this.totalLoanProposedAmount;
       this.messageToEmit.emit(loanAmountType);
-    });
+    }, error => this.spinner = false);
   }
 
   calculateCollateralData() {
@@ -337,15 +341,24 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   }
 
-  loanDropDownAction(id: number, loanConfigId: number, action) {
-    if (!ObjectUtil.isEmpty(action.target.value)) {
-      const act = action.target.value;
-      if (act === CustomerGroupLoanComponent.LOAN_CHANGE) {
-        this.changeLoan(id, loanConfigId);
+  deleteLoan(id: number) {
+    const ref = this.modalService.open(LoginPopUp);
+    let isAuthorized = false;
+
+    ref.componentInstance.returnAuthorizedState.subscribe((receivedEntry) => {
+      isAuthorized = receivedEntry;
+
+      if (isAuthorized) {
+        this.modalService.dismissAll();
+        this.spinner = true;
+        this.customerLoanService.deleteLoanByAdminAndMaker(id).subscribe(() => {
+          this.getCustomerLoans();
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Delete Loan'));
+        }, error => {
+          this.spinner = false;
+          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
       }
-      if (act === CustomerGroupLoanComponent.LOAN_DELETE) {
-        console.log('im delting file');
-      }
-    }
+    });
   }
 }
