@@ -27,7 +27,7 @@
       </div>
     </div>
     <hr>
-    <app-loan-view *ngIf="activity === 'LOAN_APPROVED' && data" [customerLoan]="customerLoan"></app-loan-view>
+    <app-loan-view *ngIf="(activity === 'LOAN_APPROVED' || activity === 'DELETE_LOAN') && data" [customerLoan]="customerLoan"></app-loan-view>
     <app-insurance-view [insurance]="data"
                         *ngIf="activity === 'INSURANCE_UPDATE' && data"></app-insurance-view>
 
@@ -127,7 +127,7 @@
 
         <tr *ngFor="let p of loanUpdateData?.proposal">
           <td><strong>{{p?.fieldName}}</strong></td>
-          <td><span *ngIf="p?.fieldName == 'Proposed Limit'">RS.{{p?.prevValue | currencyFormatter}}
+          <td><span *ngIf="p?.fieldName == 'Proposed Limit'">RS.{{(p?.prevValue) | currencyFormatter}}
             /-</span>
             <span *ngIf="p?.fieldName !== 'Proposed Limit'" [innerHTML]="p?.prevValue | safeHtml"></span></td>
         </tr>

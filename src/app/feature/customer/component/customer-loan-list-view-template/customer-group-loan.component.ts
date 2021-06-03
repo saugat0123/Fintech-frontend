@@ -344,11 +344,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   deleteLoan(id: number) {
     const ref = this.modalService.open(LoginPopUp);
     let isAuthorized = false;
-    this.spinner = true;
+
     ref.componentInstance.returnAuthorizedState.subscribe((receivedEntry) => {
       isAuthorized = receivedEntry;
-      this.modalService.dismissAll();
+
       if (isAuthorized) {
+        this.modalService.dismissAll();
+        this.spinner = true;
         this.customerLoanService.deleteLoanByAdminAndMaker(id).subscribe(() => {
           this.getCustomerLoans();
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Delete Loan'));
