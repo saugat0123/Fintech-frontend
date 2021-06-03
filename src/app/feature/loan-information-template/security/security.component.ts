@@ -249,6 +249,7 @@ export class SecurityComponent implements OnInit {
             this.securityData = this.securityValue;
         }
         this.initialSecurity.submit();
+        console.log('selectedArray', this.initialSecurity.selectedArray);
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
             selectedArray: this.initialSecurity.selectedArray,

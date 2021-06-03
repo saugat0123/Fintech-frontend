@@ -190,6 +190,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
+            this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
@@ -856,6 +857,7 @@ export class SecurityInitialFormComponent implements OnInit {
     change(selectedSecurity) {
         if (this.selectedArray.indexOf(selectedSecurity) === -1 && selectedSecurity !== null) {
             this.selectedArray.push(selectedSecurity);
+            console.log('selectedArray', this.selectedArray);
         }
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
             = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
