@@ -10,7 +10,8 @@ export enum ProgressiveOfferLetterConst {
     LETTER_OF_INDEMNITY,
     LETTER_OF_DISBURSEMENT,
     GUARANTEE_BOND_CORPORATE,
-    LETTER_OF_CONTINUITY
+    LETTER_OF_CONTINUITY,
+    CROSS_GUARANTEE_BOND
 
 
 }
@@ -42,6 +43,8 @@ export namespace ProgressiveOfferLetterConst {
                 return 'Guarantee Bond Corporate';
             case ProgressiveOfferLetterConst.LETTER_OF_CONTINUITY:
                 return 'Letter Of Continuity';
+            case ProgressiveOfferLetterConst.CROSS_GUARANTEE_BOND:
+                return 'Cross Guarantee Bond';
 
 
         }
