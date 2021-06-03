@@ -13,14 +13,25 @@
 
 <div class="container" id="security">
     <div class="form-group">
-        <app-security-initial-form #initialSecurity
+        <div *ngIf="isContainedApprovedLoan;else oldSecurity">
+            <h1>Additional Security</h1>
+            <app-additional-security
+                    [calendarType]="calendarType"
+                    [formData]="initialSecurityValue"
+                    [loanTag]="loanTag"
+                    [shareSecurity]="shareSecurity"
+                    [customerSecurityId]="securityId"
+                    [isContainedApprovedLoan]="isContainedApprovedLoan"></app-additional-security>
+        </div>
+        <ng-template #oldSecurity>
+            <app-security-initial-form #initialSecurity
                                    [calendarType]="calendarType"
                                    [formData]="initialSecurityValue"
                                    [loanTag]="loanTag"
                                    [shareSecurity]="shareSecurity"
-                                   [customerSecurityId]="securityId"
-                                    [isContainedApprovedLoan]="isContainedApprovedLoan">
-        </app-security-initial-form>
+                                   [customerSecurityId]="securityId">
+            </app-security-initial-form>
+        </ng-template>
         <div class="form-group">
             <form [formGroup]="securityForm">
                 <ng-container *ngIf="!disableCrgAlphaParams && isBusinessLoan">

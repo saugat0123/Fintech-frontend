@@ -48,6 +48,7 @@ import { FixAssetCollateralComponent } from './security/security-initial-form/fi
 import {AngularDraggableModule} from 'angular2-draggable';
 import { CrgMicroComponent } from './crg-micro/crg-micro.component';
 import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
+import { AdditionalSecurityComponent } from './security/security-initial-form/additional-security/additional-security/additional-security.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -81,7 +82,8 @@ const COMPONENTS = [
     NtaMegaComponent,
     PreviousSecurityComponent,
     FixAssetCollateralComponent,
-    SecurityTableComponent
+    SecurityTableComponent,
+    AdditionalSecurityComponent
 ];
 
 

@@ -45,7 +45,6 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() loanTag: string;
     @Input() shareSecurity;
     @Input() customerSecurityId;
-    @Input() isContainedApprovedLoan;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
@@ -186,7 +185,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        if (this.formData !== undefined && !this.isContainedApprovedLoan) {
+        if (this.formData !== undefined) {
             this.ownerKycRelationInfoCheckedForLand = true;
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
@@ -298,8 +297,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     buildForm() {
         this.securityForm = this.formBuilder.group({
-            isModifiable: [!!this.isContainedApprovedLoan],
-            dateTimeStamp: [this.isContainedApprovedLoan ? this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss') : undefined],
             buildingDetailsDescription: [undefined],
             description: [undefined],
             totalLandValueRemarks: [undefined],

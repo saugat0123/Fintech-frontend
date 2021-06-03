@@ -40,6 +40,7 @@ import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
+import {AdditionalSecurity} from '../../../loan/model/additional-security';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -127,6 +128,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     private creditRiskGrading: CreditRiskGrading;
     private crgGamma: CreditRiskGradingGamma;
     private security: Security;
+    private additionalSecurity: Array<AdditionalSecurity>;
     private shareSecurity: ShareSecurity;
     private guarantors: GuarantorDetail;
     public insurance: Array<Insurance>;
@@ -179,6 +181,9 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
             this.security = this.customerInfo.security;
+        }
+        if (!ObjectUtil.isEmpty(this.customerInfo.additionalSecurity)) {
+            this.additionalSecurity = this.customerInfo.additionalSecurity;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
             this.insurance = this.customerInfo.insurance;
@@ -297,17 +302,18 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
     }
 
-    public saveAdditionalSecurity(data: Security) {
-        if (ObjectUtil.isEmpty(this.security)) {
-            this.security = new Security();
+    public saveAdditionalSecurity(data: Array<AdditionalSecurity>) {
+        if (ObjectUtil.isEmpty(this.additionalSecurity)) {
+            this.additionalSecurity = new Array<AdditionalSecurity>();
         }
         if (!ObjectUtil.isEmpty(data)) {
-            this.security.additionalSecurity = data.additionalSecurity;
-            this.security.totalSecurityAmount = data.totalSecurityAmount;
-            this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
+            this.additionalSecurity = data;
+            // this.additionalSecurity.additionalSecurity = data.additionalSecurity;
+            // this.additionalSecurity.totalSecurityAmount = data.totalSecurityAmount;
+            this.customerInfoService.saveLoanInfo(this.additionalSecurity, this.customerInfoId, TemplateName.ADDITIONAL_SECURITY)
                 .subscribe(() => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Additional Security Data!'));
-                    if (!ObjectUtil.isEmpty(data.share)) {
+                    if (!ObjectUtil.isEmpty(data)) {
                         this.saveShare(data);
                     } else {
                         this.triggerCustomerRefresh.emit(true);
