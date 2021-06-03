@@ -9,7 +9,7 @@
             <tr class="text-white sb-bg-dark">
                 <th>Company Name</th>
                 <th>Customer ID</th>
-                <th>Establishment Date</th>
+                <th>Establishment Date(AD/BS)</th>
                 <th>Registration Number</th>
                 <th>Issue Place</th>
                 <th>PAN</th>
@@ -21,7 +21,7 @@
             <tr>
                 <td class="text-left pl-1">{{formValue?.companyName}}</td>
                 <td class="text-right pr-1">{{customerInfo['customerCode'] || 'N/A'}}</td>
-                <td class="text-left pl-1">{{formValue?.establishmentDate | engNepDate: false}}</td>
+                <td class="text-left pl-1">{{formValue?.establishmentDate | date}} ({{formValue?.establishmentDate | engNepDate: false}})</td>
                 <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
@@ -34,7 +34,7 @@
                 <th>Mobile Number</th>
                 <th>LandLine Number</th>
                 <th>Major products/Service</th>
-                <th>Relationship Since</th>
+                <th>Relationship Since(AD/BS)</th>
                 <th>Client Type</th>
                 <th>Sub Sector</th>
                 <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
@@ -44,7 +44,7 @@
                 <td class="text-right pr-1">{{formValue?.contactNum}}</td>
                 <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | engNepDate: false}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
                 <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
@@ -61,8 +61,8 @@
             <tr class="text-white sb-bg-dark">
                 <td>Type of Registration/License</td>
                 <td>Name of license holder</td>
-                <td>License Issued Date</td>
-                <td>License Expiry Date</td>
+                <td>License Issued Date(AD/BS)</td>
+                <td>License Expiry Date(AD/BS)</td>
                 <td>License Issue Place</td>
             </tr>
             </thead>
@@ -70,8 +70,8 @@
             <tr>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | engNepDate: false}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}} ({{additionalInfoJsonData?.licenseIssuedDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}} {{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -92,10 +92,10 @@
                 <th>Corporate Structure</th>
                 <th>Registered Office</th>
                 <th>Registered Under Act</th>
-                <th>Registration Date</th>
+                <th>Registration Date(AD/BS)</th>
                 <th>PAN/VAT Registration Office</th>
-                <th>PAN/VAT Registration Date</th>
-                <th>Registration Expiry Date</th>
+                <th>PAN/VAT Registration Date(AD/BS)</th>
+                <th>Registration Expiry Date(AD/BS)</th>
             </tr>
             </thead>
             <tbody>
@@ -103,10 +103,10 @@
                 <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
                 <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
-                <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | engNepDate: false}}</td>
+                <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}} ({{formValue?.legalStatus?.registrationDate | engNepDate: false}})</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |engNepDate: false}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate | date}} ({{formValue?.legalStatus?.panRegistrationDate |engNepDate: false}})</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}} ({{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}})</td>
             </tr>
             </tbody>
         </table>
@@ -303,18 +303,18 @@
                     <th>Father's Name</th>
                     <th>Grandfather's Name</th>
                     <th>Citizenship Number</th>
-                    <th>Issued date</th>
+                    <th>Issued date(AD/BS)</th>
                     <th>Issued place</th>
-                    <th>Date of birth</th>
+                    <th>Date of birth(AD/BS)</th>
                 </tr>
                 <tr *ngIf="client !== clientName.MEGA">
                     <td></td>
                     <td class="text-left pl-1"><strong>{{holder?.fatherName}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.grandFatherName}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.citizenshipNum}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.issuedDate|engNepDate: false}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.issuedDate | date}} ({{holder?.issuedDate|engNepDate: false}})</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.issuedPlace}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth|engNepDate: false}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.dateOfBirth | date}} ({{holder?.dateOfBirth|engNepDate: false}})</strong></td>
                 </tr>
 
                 <tr *ngIf="client != clientName.MEGA">
@@ -332,7 +332,7 @@
                                 <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Issued Location</th>
-                                <th>Issued Date</th>
+                                <th>Issued Date(AD/BS)</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
                                 <th>Remarks</th>
@@ -347,7 +347,7 @@
                                     <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-right pr-1">{{d?.age || 'N/A' }}</td>
                                     <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}}</td>
+                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}} ({{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}})</td>
                                     <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
                                     <td class="text-left pl-1">{{d?.remark ? d?.remark : 'N/A'}}</td>

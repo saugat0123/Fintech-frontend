@@ -6,7 +6,11 @@ export enum ProgressiveOfferLetterConst {
     LOAN_DEED,
     PROMISSORY_NOTE_GUARANTOR,
     LETTER_OF_AGREEMENT,
-    HIRE_PURCHASE_DEED
+    HIRE_PURCHASE_DEED,
+    LETTER_OF_INDEMNITY,
+    LETTER_OF_DISBURSEMENT,
+    GUARANTEE_BOND_CORPORATE,
+    LETTER_OF_CONTINUITY
 
 
 }
@@ -30,6 +34,15 @@ export namespace ProgressiveOfferLetterConst {
                 return 'Letter of Agreement';
             case ProgressiveOfferLetterConst.HIRE_PURCHASE_DEED:
                 return 'Hire Purchase Deed';
+            case ProgressiveOfferLetterConst.LETTER_OF_INDEMNITY:
+                return 'Letter Of Indemnity';
+            case ProgressiveOfferLetterConst.LETTER_OF_DISBURSEMENT:
+                return 'Letter Of Disbursement';
+            case ProgressiveOfferLetterConst.GUARANTEE_BOND_CORPORATE:
+                return 'Guarantee Bond Corporate';
+            case ProgressiveOfferLetterConst.LETTER_OF_CONTINUITY:
+                return 'Letter Of Continuity';
+
 
         }
     }

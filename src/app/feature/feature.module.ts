@@ -17,34 +17,37 @@ import {CommonAddressComponent} from './common-address/common-address.component'
 import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.component';
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 import {SafePipe} from './memo/pipe/safe.pipe';
+import {ErrorPageComponent} from './error-page/error-page.component';
 
 
 @NgModule({
-        imports: [
-            FeatureRoutingModule,
-            ThemeModule,
-            NbAccordionModule,
-            NgxChartsModule,
-            NbSelectModule,
-            NbDatepickerModule.forRoot(),
-            NgSelectModule,
-            DragDropModule,
-            NepaliCalendarModule
-        ],
-        declarations: [
-            FeatureComponent,
-            DashboardComponent,
-            PendingLoanComponent,
-            PendingsLoanComponent,
-            CadDataComponent,
-            DataVisualizationComponent,
-            ApprovalRoleHierarchyComponent,
-            MouseScrollDisableDirective,
-            CommonAddressComponent,
-            CustomerWisePendingComponent
-        ],
-        exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
-        providers: [SafePipe]
+      imports: [
+        FeatureRoutingModule,
+        ThemeModule,
+        NbAccordionModule,
+        NgxChartsModule,
+        NbSelectModule,
+        NbDatepickerModule.forRoot(),
+        NgSelectModule,
+        DragDropModule,
+        NepaliCalendarModule
+      ],
+      declarations: [
+        FeatureComponent,
+        DashboardComponent,
+        PendingLoanComponent,
+        PendingsLoanComponent,
+        CadDataComponent,
+        DataVisualizationComponent,
+        ApprovalRoleHierarchyComponent,
+        MouseScrollDisableDirective,
+        CommonAddressComponent,
+        CustomerWisePendingComponent,
+        ErrorPageComponent
+
+      ],
+      exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
+      providers: [SafePipe]
     }
 )
 export class FeatureModule {

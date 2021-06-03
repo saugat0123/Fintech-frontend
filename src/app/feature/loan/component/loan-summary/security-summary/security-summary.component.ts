@@ -43,6 +43,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() securityId: number;
     @Input() collateralSiteVisitDetail = [];
     @Input() isCollateralSiteVisit;
+    @Input() nepaliDate;
 
     constructor() {
     }

@@ -13,7 +13,7 @@ export class CommonService {
     public openDocument(file) {
         let fileName = file;
         if (file !== null) {
-            fileName = ApiConfig.URL + '/' + file;
+            fileName = `${ApiConfig.URL}/${file}?${Math.floor(Math.random() * 100) + 1}`;
 
             const link = document.createElement('a');
             link.href = fileName;

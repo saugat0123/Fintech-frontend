@@ -11,8 +11,11 @@
             <br>
             <b>  <span class="nepaliFont">{{printDocForm?.branchName}}</span> शाखा ।</b>
             <br>
+            <br>
             <div class="row ">
+
                 <p>महोदय, <br>
+                    <br>
                     म/हामी. लेखनाथ भण्डारीलाई त्यस वित्तीय संस्थाले मन्जुर गरे अनुसार ऋणवाकुनै प्रकारको बैकिङ्ग सुविधाहरु
                     उपलब्धगर्ने वाऋणको निरन्तरताकायम राख्ने वाअन्यकुनै प्रकारबाटउधारो वाऋण
                     सेवाप्रदानगरिएकोमाम/हामी रु.१०,००,०००,।अक्षरेंपीदशलाख रुपौयाकोे मेरो नामको निम्नविवरणको चल्तीखाताको रकम त्यस
@@ -25,34 +28,35 @@
                 </p>
             </div>
             <p class="text-center">उपरोक्तउल्लेखितमुद्दतीखाता रसिदहरुको विवरण</p>
-            <div>
-                <table class="table-bordered table">
-                    <thead>
+            <div style="overflow-x: auto">
+                <table class="table table-bordered text-center table-responsive-md">
                     <tr>
                         <th>चल्तीखाता नं</th>
                         <th>जारी गर्नेशाखा</th>
                         <th>खातावालको नाम</th>
-                        <th>रकम</th>
+                        <th colspan="2">रकम</th>
+
                     </tr>
-                    </thead>
-                    <tbody>
                     <tr>
-                        <td>
-                            <span class="nepaliFont">{{printDocForm?.chaltiKhataNo}}</span>
-                        </td>
-                        <td> <span class="nepaliFont">{{printDocForm?.chaltiKhataNo}}</span></td>
-                        <td> <span class="nepaliFont">{{printDocForm?.khatawalName}}</span></td>
-                        <td>
-                            <span class="nepaliFont">{{printDocForm?.amount}}</span>
-                        </td>
+                        <td rowspan="2">
+                            <span class="nepaliFont">{{printDocForm?.chaltiKhataNo}}</span></td>
+                        <td rowspan="2">
+                            <span class="nepaliFont">{{printDocForm?.jariBranch}}</span>
+                        </td >
+                        <td rowspan="2"><span class="nepaliFont">{{printDocForm?.khatawalName}}</span></td>
+                        <th width="5%">रु.</th>
+                        <th width="5%">पैसा</th>
                     </tr>
-                    </tbody>
+                    <tr>
+                        <td><span class="nepaliFont">{{printDocForm?.tableAmount}}</span></td>
+                        <td><span class="nepaliFont">{{printDocForm?.tablePaisa}}</span></td>
+                    </tr>
                 </table>
             </div>
             <div>
                 <p>भवदीय,
                     <br>
-                    दस्तखत :  <span class="nepaliFont">{{printDocForm?.customerSign}}</span>
+                    दस्तखत :..............
                     <br>
                     नाम :  <span class="nepaliFont">{{printDocForm?.customerName}}</span>
                     <br>
