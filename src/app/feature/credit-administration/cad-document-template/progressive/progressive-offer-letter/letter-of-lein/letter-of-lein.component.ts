@@ -110,8 +110,8 @@ export class LetterOfLeinComponent implements OnInit {
           chaltiKhataNo:[undefined],
           jariBranch:[undefined],
           khatawalName:[undefined],
-          amount:[undefined],
-          customerSign:[undefined],
+          tableAmount:[undefined],
+          tablePaisa:[undefined],
           customerName:[undefined],
           customerAddress:[undefined],
           companyStamp:[undefined]

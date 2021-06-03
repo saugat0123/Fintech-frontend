@@ -43,14 +43,29 @@
 
             </div>
 
-            <div class="row col-md-12">
-                <p class="text-left"><b>साक्षी:- <br>
-                    (१)</b></p>
-                <div  id="guarantor" class="container">
-                    <p>दस्तखत :- <span class="nepaliFont">{{printDocForm?.guarantorSign}}</span> <br>
-                        नाम :- <span class="nepaliFont">{{printDocForm?.guarantorName}}</span> <br>
-                        ठेगाना :- <span class="nepaliFont">{{printDocForm?.guarantorAddress}}</span></p>
+            <div class="col-md-12">
+                <p class="text-left"><b>साक्षी:-
+                    </b></p>
+                <div  *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" style="overflow-x: auto">
+                    {{i + 1 | nepaliWord: 'unicode'}}
+                    <p>दस्तखत :- ...............
+                    <table border="1" class="tableGuarantor text-center">
+                        <thead>
+                        <tr>
+                            <th>नाम</th>
+                            <th>ठेगाना</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                    <tr><td><span class="nepaliFont">{{guarantor?.guarantorName}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.issuedPlace}}</span></td></tr>
+                    </tbody>
+                    </table>
+                    <br>
                 </div>
+
+                <br>
+                <br>
                 <p class="text-left"><b>सनाखत साक्षी:</b></p>
                 <div>
                     <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; कारणीलाई म राम्ररी चिन्दछु निजले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप
