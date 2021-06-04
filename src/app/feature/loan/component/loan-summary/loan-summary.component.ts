@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -40,7 +40,11 @@ import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-i
 import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
-
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
+import {ApprovalRoleHierarchy} from '../../approval/ApprovalRoleHierarchy';
+import {ApprovalRoleHierarchyService} from '../../approval/approval-role-hierarchy.service';
+import {DOCUMENT} from '@angular/common';
 @Component({
     selector: 'app-loan-summary',
     templateUrl: './loan-summary.component.html',
@@ -172,9 +176,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     collateralSiteVisitDetail = [];
     isCollateralSiteVisit = false;
     age: number;
+   isOpen: false;
+   private dialogRef: NbDialogRef<any>;
+   refId: number;
 
 
     constructor(
+        @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
         private loanFormService: LoanFormService,
         private loanActionService: LoanActionService,
@@ -191,7 +199,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private commonRoutingUtilsService: CommonRoutingUtilsService,
         private toastService: ToastService,
         private fiscalYearService: FiscalYearService,
-        private collateralSiteVisitService: CollateralSiteVisitService
+        private collateralSiteVisitService: CollateralSiteVisitService,
+        private nbDialogService: NbDialogService,
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -634,7 +643,38 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     SetRoleHierarchy(loanId: number) {
-        this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+        let context;
+        context = {
+            approvalType: 'LOAN',
+            refId: loanId,
+            isRoleModal: true,
+        };
+       // @ts-ignore
+        this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
+            context,
+        }).onClose.subscribe((res: any) => {
+            this.activatedRoute.queryParams.subscribe((res) => {
+                this.loanConfigId = res.loanConfigId;
+                this.customerId = res.customerId;
+            });
+            this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+                if (value) {
+                    this.router.navigate(['/home/loan/summary'],
+                        {
+                            queryParams: {
+                                loanConfigId: this.loanConfigId,
+                                customerId: this.customerId,
+                            }
+                        });
+                }
+            });
+        });
+    }
+    public close() {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
     }
 
     openApprovalSheetInfoModal() {
@@ -652,7 +692,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     public customSafePipe(val) {
-        return val.replace(/(<([^>]+)>)/gi, "");
+        return val.replace(/(<([^>]+)>)/gi, ' ');
     }
 
     calculateAge(dob) {
