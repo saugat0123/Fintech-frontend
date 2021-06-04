@@ -178,7 +178,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     age: number;
    isOpen: false;
    private dialogRef: NbDialogRef<any>;
-   // loanId: number;
    refId: number;
 
 

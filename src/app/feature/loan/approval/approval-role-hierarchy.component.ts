@@ -44,8 +44,6 @@ export class ApprovalRoleHierarchyComponent implements OnInit, OnChanges {
 
 
     ngOnInit() {
-        console.log('Approval', this.approvalType);
-        console.log('REf', this.refId);
         this.breadcrumbService.notify(this.title);
         this.route.paramMap.subscribe(paramsMap => {
             if (this.isRoleModal) {
