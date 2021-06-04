@@ -184,7 +184,8 @@
                                                        [formData]="loanDocument?.creditRiskGradingAlpha"
                                                        [companyInfo]="loanDocument?.companyInfo"
                                                        [customerInfo]="loanDocument?.loanHolder"
-                                                       [loanTag]="loanTag"></app-credit-risk-grading-alpha>
+                                                       [loanTag]="loanTag"
+                                                       [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
