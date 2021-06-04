@@ -192,6 +192,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public deleteLoanByAdminAndMaker(customerLoanId: number) {
+        const api = `${this.getApi()}/delete-loan/${customerLoanId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.delete(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }
