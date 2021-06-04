@@ -7,6 +7,11 @@
             <span aria-hidden="true" class="text-white">×</span></a>
     </nb-card-header>
     <nb-card-body>
+        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
+                        name="basicInfoCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
         <div class="form-group">
             <nb-tabset fullWidth>
                 <nb-tab tabTitle="Joint Customer Detail">
@@ -362,10 +367,11 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="province{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('province').errors}"
-                                                        (change)="getDistricts(joinCustomerInfo.get('province').value)"
+                                                        (change)="getDistricts(i, joinCustomerInfo.get('province').value)"
                                                         formControlName="province"
                                                         id="province{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Province</option>
                                                     <ng-option *ngFor="let provinceVal of provinceList"
                                                             [value]="provinceVal">
                                                         {{provinceVal.name}}
@@ -378,13 +384,15 @@
                                                         </span>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-4 form-group">
                                                 <label for="district{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('district').errors}"
-                                                        (change)="getMunicipalities(joinCustomerInfo.get('district')?.value)"
+                                                        (change)="getMunicipalities(i, joinCustomerInfo.get('district')?.value)"
                                                         formControlName="district"
                                                         id="district{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>District</option>
                                                     <ng-option *ngFor="let districtVal of districtList"
                                                             [value]="districtVal">
                                                         {{districtVal.name}}
@@ -397,12 +405,14 @@
                                                         </span>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-4 form-group">
                                                 <label for="municipality{{i}}">Municipalities or VDC</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('municipalities').errors}"
                                                         formControlName="municipalities"
                                                         id="municipality{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Municipalities</option>
                                                     <ng-option *ngFor="let municipalityVal of municipalitiesList"
                                                             [value]="municipalityVal">
                                                         {{municipalityVal.name}}
@@ -486,10 +496,11 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryProvince{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
-                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('province')?.value)"
+                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('temporaryProvince')?.value)"
                                                         formControlName="temporaryProvince"
                                                         id="temporaryProvince{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Province</option>
                                                     <ng-option *ngFor="let provinceVal of provinceList"
                                                             [value]="provinceVal">
                                                         {{provinceVal?.name}}
@@ -505,10 +516,11 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryDistrict{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
-                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('district')?.value)"
+                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('temporaryDistrict')?.value)"
                                                         formControlName="temporaryDistrict"
                                                         id="temporaryDistrict{{i}}"
                                                            bindLabel="name">
+                                                    <option [ngValue]="null" hidden>District</option>
                                                     <ng-option *ngFor="let districtVal of temporaryDistrictList"
                                                             [value]="districtVal">
                                                         {{districtVal?.name}}
@@ -528,6 +540,7 @@
                                                         formControlName="temporaryMunicipalities"
                                                         id="temporaryMunicipalities{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Municipalities</option>
                                                     <ng-option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
                                                             [value]="municipalityVal">
                                                         {{municipalityVal?.name}}
@@ -989,7 +1002,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div *ngIf="!crgLambdaDisabled && !microCustomer">
                     <nb-card class="card-height">
                         <nb-card-header>
                             <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
@@ -1015,7 +1028,7 @@
                         </nb-card-body>
                     </nb-card>
                 </div>
-                <div class="col-4">
+                <div *ngIf="!crgLambdaDisabled && !microCustomer" class="col-4">
                     <label><strong>Net worth</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                            class="form-control" placeholder="Net Worth Amount"

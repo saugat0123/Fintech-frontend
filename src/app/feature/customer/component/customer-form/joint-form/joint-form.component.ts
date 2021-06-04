@@ -202,29 +202,29 @@ export class JointFormComponent implements OnInit {
     });
   }
 
-  getDistricts(province: Province) {
+  getDistricts(index, province: Province) {
     this.commonLocation.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.districtList = response.detail;
           this.districtList.sort((a, b) => a.name.localeCompare(b.name));
           this.districtList.forEach(district => {
             if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
-              this.basicJointInfo.controls.district.setValue(district);
-              this.getMunicipalities(district);
+                this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).setValue(district);
+              this.getMunicipalities(index, district);
             }
           });
         }
     );
   }
 
-  getMunicipalities(district: District) {
+  getMunicipalities(index, district: District) {
     this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.municipalitiesList = response.detail;
           this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
           this.municipalitiesList.forEach(municipality => {
             if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-              this.basicJointInfo.controls.municipalities.setValue(municipality);
+                this.basicJointInfo.get(['jointCustomerInfo', index, 'municipalities']).setValue(district);
             }
           });
         }
@@ -332,7 +332,7 @@ export class JointFormComponent implements OnInit {
               if (!ObjectUtil.isEmpty(this.customer.province)) {
                 if (province.id === this.customer.province.id) {
                   this.basicJointInfo.controls.province.setValue(province);
-                  this.getDistricts(province);
+                  this.getDistricts(index, province);
                 }
               }
               if (!ObjectUtil.isEmpty(this.customer.temporaryProvince)) {
@@ -373,7 +373,7 @@ export class JointFormComponent implements OnInit {
       wardNumber: [undefined, Validators.required],
       contactNumber: [undefined, [Validators.required, Validators.max(9999999999), Validators.min(1000000000)]],
       landLineNumber: [undefined],
-      email: [undefined, [Validators.required, Validators.email]],
+      email: [undefined, Validators.email],
       // initial Relation Date not used in ui
       initialRelationDate: [new Date()],
       citizenshipNumber: [undefined, Validators.required],
@@ -399,13 +399,13 @@ export class JointFormComponent implements OnInit {
       customerRelativeName1: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber1: [undefined],
       citizenshipIssuedPlace1: [undefined],
-      citizenshipIssuedDate1: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
       age1: [undefined],
       customerRelation2: [undefined, Validators.required],
       customerRelativeName2: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber2: [undefined],
       citizenshipIssuedPlace2: [undefined],
-      citizenshipIssuedDate2: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
       age2: [undefined],
       customerRelation3: [undefined],
       customerRelativeName3: [undefined],
