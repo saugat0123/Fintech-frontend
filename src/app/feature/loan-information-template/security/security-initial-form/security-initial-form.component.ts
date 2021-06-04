@@ -191,6 +191,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
+            console.log('selectedArray', this.formData['selectedArray']);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
@@ -855,6 +856,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     change(selectedSecurity) {
+        console.log(selectedSecurity);
         if (this.selectedArray.indexOf(selectedSecurity) === -1 && selectedSecurity !== null) {
             this.selectedArray.push(selectedSecurity);
             console.log('selectedArray', this.selectedArray);
