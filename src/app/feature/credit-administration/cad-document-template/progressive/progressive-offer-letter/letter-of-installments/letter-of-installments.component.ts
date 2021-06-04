@@ -113,7 +113,6 @@ this.checkOfferLetter();
             debtorSign:[undefined],
             debtorName:[undefined],
             InstitutionStamp:[undefined],
-            guarantorSign:[undefined],
             guarantorName:[undefined],
             guarantorAddress:[undefined]
 
