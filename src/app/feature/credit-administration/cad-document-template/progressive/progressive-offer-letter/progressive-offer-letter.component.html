@@ -79,6 +79,12 @@
                     *ngSwitchCase=offerLetterConst.CROSS_GUARANTEE_BOND>
 
             </app-cross-guarantee-bond>
+            <app-guarantee-bond-personal
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_PERSONAL>
+
+            </app-guarantee-bond-personal>
         </div>
     </nb-card-body>
 </nb-card>
