@@ -15,20 +15,20 @@
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase=offerLetterConst.LETTER_OF_INSTALLMENT></app-letter-of-installments>
-<app-letter-of-lein
-        [offerLetterType]="offerLetterType"
-        [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-        *ngSwitchCase=offerLetterConst.LETTER_OF_LEIN>
+            <app-letter-of-lein
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_LEIN>
 
-</app-letter-of-lein>
+            </app-letter-of-lein>
             <app-promissory-note [offerLetterType]="offerLetterType"
                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                                  *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE>
 
             </app-promissory-note>
             <app-loan-deed [offerLetterType]="offerLetterType"
-            [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-            *ngSwitchCase=offerLetterConst.LOAN_DEED>
+                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                           *ngSwitchCase=offerLetterConst.LOAN_DEED>
 
             </app-loan-deed>
             <app-promissory-note-guarantor
@@ -73,6 +73,10 @@
                     *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY>
 
             </app-letter-of-continuity>
+            <app-offer-letter-corporate
+                    *ngSwitchCase=offerLetterConst.OFFER_LETTER_CORPORATE
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-corporate>
         </div>
     </nb-card-body>
 </nb-card>
