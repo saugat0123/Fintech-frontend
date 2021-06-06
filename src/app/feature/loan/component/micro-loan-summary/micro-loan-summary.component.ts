@@ -38,6 +38,8 @@ import {Security} from '../../../admin/modal/security';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 
 @Component({
   selector: 'app-micro-loan-summary',
@@ -174,6 +176,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   dataFromComments;
   previousSecuritySummary = false;
   dataFromPreviousSecurity;
+  private dialogRef: NbDialogRef<any>;
+  isOpen: false;
 
 
   constructor(
@@ -193,7 +197,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       private commonRoutingUtilsService: CommonRoutingUtilsService,
       private toastService: ToastService,
       private fiscalYearService: FiscalYearService,
-      private collateralSiteVisitService: CollateralSiteVisitService
+      private collateralSiteVisitService: CollateralSiteVisitService,
+      private nbDialogService: NbDialogService,
   ) {
     this.client = environment.client;
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -664,11 +669,41 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   setRoleHierarchy(loanId: number) {
-    this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+   let context;
+   context = {
+     approvalType: 'lOAN',
+     refId: loanId,
+     isRoleModal: true
+   };
+   // @ts-ignore
+   this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
+     context,
+   }).onClose.subscribe((res: any) => {
+     this.activatedRoute.queryParams.subscribe((res) => {
+       this.loanConfigId = res.loanConfigId;
+       this.customerId = res.customerId;
+     });
+     this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+       if (value) {
+         this.router.navigate( ['/home/loan/summary'], {
+           queryParams: {
+             loanConfigId: this.loanConfigId,
+             customerId: this.customerId,
+           }
+         });
+       }
+     });
+   });
+  }
+  public close() {
+    if (this.isOpen) {
+      this.dialogRef.close();
+      this.isOpen = false;
+    }
   }
 
   public customSafePipe(val) {
-    return val.replace(/(<([^>]+)>)/gi, "");
+    return val.replace(/(<([^>]+)>)/gi, ' ');
   }
 
 }
