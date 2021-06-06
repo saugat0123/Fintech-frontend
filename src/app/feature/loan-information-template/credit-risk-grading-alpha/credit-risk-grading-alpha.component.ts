@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
@@ -22,6 +22,9 @@ import {ExperienceMap} from '../../admin/modal/experience';
 import {Security} from '../../loan/model/security';
 import {LoanTag} from '../../loan/model/loanTag';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {CustomerShareData} from '../../admin/modal/CustomerShareData';
+import {SecurityInitialFormComponent} from '../security/security-initial-form/security-initial-form.component';
+import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
 @Component({
   selector: 'app-credit-risk-grading-alpha',
@@ -39,6 +42,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   @Input() security: Security;
   @Input() companyInfo: CompanyInfo;
   @Input() customerInfo: CustomerInfoData;
+  @Input() shareSecurity: ShareSecurity;
   // @Input() proposedLimit;
   @Input() loanTag: string;
 
@@ -338,7 +342,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       if (selectedSecurity === 'LandSecurity') {
         const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
         for (let i = 0; i < landDetailsArray.length; i++) {
-          totalFMV = Number(landDetailsArray[i].marketValue) + totalFMV;
+          totalFMV += Number(landDetailsArray[i].landConsideredValue);
         }
       } else if (selectedSecurity === 'VehicleSecurity') {
         const vehicleDetailsArray = securityParsedData.initialForm.vehicleDetails as Array<any>;
@@ -348,7 +352,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       } else if (selectedSecurity === 'ApartmentSecurity') {
         const buildingDetailsArray = securityParsedData.initialForm.buildingDetails as Array<any>;
         for (let i = 0; i < buildingDetailsArray.length; i++) {
-          totalFMV = Number(buildingDetailsArray[i].buildingFairMarketValue) + totalFMV;
+          totalFMV += Number(buildingDetailsArray[i].buildingFairMarketValue);
         }
       } else if (selectedSecurity === 'PlantSecurity') {
         const plantDetailsArray = securityParsedData.initialForm.plantDetails as Array<any>;
@@ -358,7 +362,18 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       } else if (selectedSecurity === 'Land and Building Security') {
         const landBuildingsArray = securityParsedData.initialForm.landBuilding as Array<any>;
         for (let i = 0; i < landBuildingsArray.length; i++) {
-          totalFMV = Number(landBuildingsArray[i].marketValue) + totalFMV;
+          totalFMV += Number(landBuildingsArray[i].landConsideredValue);
+        }
+      } else if (selectedSecurity === 'FixedDeposit') {
+        const fixedDepositArray = securityParsedData.initialForm.fixedDepositDetails as Array<any>;
+        for (let i = 0; i < fixedDepositArray.length; i++) {
+          totalFMV += Number(fixedDepositArray[i].amount);
+        }
+      } else if (selectedSecurity === 'ShareSecurity') {
+        const shareSecurityData =  JSON.parse(this.shareSecurity.data);
+        const shareSecurity = shareSecurityData.shareSecurityDetails as Array<any>;
+        for (let i = 0; i < shareSecurity.length; i++) {
+          totalFMV += Number(shareSecurity[i].consideredValue);
         }
       }
     });
