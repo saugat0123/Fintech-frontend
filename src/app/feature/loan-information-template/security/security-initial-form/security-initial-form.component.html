@@ -2234,8 +2234,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="valuationAmount"><strong>Valuation
-                                    Amount</strong></label>
+                                <label class="title" for="valuationAmount"><strong>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</strong></label>
                                 <input
                                         (keyup)="vehicleRemainingAmount(i)"
                                         class="form-control" formControlName="valuationAmount" id="valuationAmount"
