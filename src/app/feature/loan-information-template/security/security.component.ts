@@ -238,6 +238,9 @@ export class SecurityComponent implements OnInit {
         if (this.securityForm.invalid) {
             return;
         }
+        if (this.initialSecurity.selectedSecurity === undefined) {
+            this.initialSecurity.clearValidationAtInitialStage();
+        }
         if (this.initialSecurity.securityForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             return;
@@ -248,7 +251,7 @@ export class SecurityComponent implements OnInit {
         this.initialSecurity.submit();
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
-            selectedSecurity: this.initialSecurity.selectedSecurity,
+            selectedArray: this.initialSecurity.selectedArray,
             underConstructionChecked: this.initialSecurity.underConstructionChecked,
             otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value,
@@ -265,9 +268,11 @@ export class SecurityComponent implements OnInit {
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
-        if (this.initialSecurity.selectedSecurity === 'ShareSecurity') {
-            this.shareSecuritySelected = true;
-        }
+        this.initialSecurity.selectedArray.forEach((selected) => {
+            if (selected === 'ShareSecurity') {
+                this.shareSecuritySelected = true;
+            }
+        });
         if (this.shareSecuritySelected) {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
@@ -306,7 +311,8 @@ export class SecurityComponent implements OnInit {
 
     calculateTotalSecurity(securityData): number {
         let totalSecurityAmount = 0;
-        switch (securityData.selectedSecurity) {
+        securityData.selectedArray.forEach(selectedSecurity => {
+            switch (selectedSecurity) {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
@@ -333,9 +339,9 @@ export class SecurityComponent implements OnInit {
                     break;
 
                 case 'Land and Building Security':
-                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
-                        for (let i = 0; i < landBuildingArray.length; i++) {
-                            totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
+                    const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
+                    for (let i = 0; i < landBuildingArray.length; i++) {
+                        totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
                     }
                     break;
                 case 'FixedDeposit':
@@ -344,16 +350,17 @@ export class SecurityComponent implements OnInit {
                         totalSecurityAmount += Number(fixedDepositArray[i].amount);
                     }
                     break;
-                    case 'ShareSecurity':
-                        const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
-                        shareSecurity.forEach(value => {
-                            totalSecurityAmount += value.total;
-                        });
+                case 'ShareSecurity':
+                    const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
+                    for (let i = 0; i < shareSecurity.length; i++) {
+                        totalSecurityAmount += Number(shareSecurity[i].consideredValue);
+                    }
                     break;
                 default:
                     totalSecurityAmount += 0;
                     break;
             }
+        });
         return totalSecurityAmount;
     }
 }
