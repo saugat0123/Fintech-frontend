@@ -1017,7 +1017,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!crgLambdaDisabled && !microCustomer">
+                <div *ngIf="!crgLambdaDisabled">
                     <nb-card class="card-height">
                         <nb-card-header>
                             <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
@@ -1043,7 +1043,7 @@
                         </nb-card-body>
                     </nb-card>
                 </div>
-                <div *ngIf="!crgLambdaDisabled && !microCustomer" class="col-4">
+                <div *ngIf="!crgLambdaDisabled" class="col-4">
                     <label><strong>Net worth</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                            class="form-control" placeholder="Net Worth Amount"

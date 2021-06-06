@@ -37,7 +37,6 @@ export class JointFormComponent implements OnInit {
   @Input() currentVal: any;
   jointInputVal: number;
   calendarType = 'AD';
-  microCustomer = false;
   basicJointInfo: FormGroup;
   submitted = false;
   spinner = false;
@@ -319,7 +318,6 @@ export class JointFormComponent implements OnInit {
           this.customer.dob = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('dob').value;
           // to json
           this.customer.jointInfo = JSON.stringify(value);
-          this.customer.isMicroCustomer = this.microCustomer;
           this.customerService.save(this.customer).subscribe(res => {
             this.spinner = false;
             this.close();
