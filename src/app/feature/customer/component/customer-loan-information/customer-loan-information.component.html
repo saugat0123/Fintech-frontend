@@ -280,14 +280,15 @@
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <div *ngIf="isContainedApprovedLoan;else security">
-            <app-security *ngIf="itemSecurity.expanded"
-                          (securityDataEmitter)="saveAdditionalSecurity($event)"
-                          [calendarType]="calendarType"
-                          [fromProfile]="true"
-                          [isMicroCustomer]="isMicroCustomer"
-                          [securityValue]="customerInfo?.security"
-                          [shareSecurity]="customerInfo?.shareSecurity"
-                          [isContainedApprovedLoan]="isContainedApprovedLoan"></app-security>
+            <app-adiitional-security-parent
+                    *ngIf="itemSecurity.expanded"
+                    (securityDataEmitter)="saveAdditionalSecurity($event)"
+                    [calendarType]="calendarType"
+                    [fromProfile]="true"
+                    [isMicroCustomer]="isMicroCustomer"
+                    [additionalSecurityValue]="customerInfo?.additionalSecurity"
+                    [shareSecurity]="customerInfo?.shareSecurity"
+                    [isContainedApprovedLoan]="isContainedApprovedLoan"></app-adiitional-security-parent>
           </div>
           <ng-template #security>
             <app-security *ngIf="itemSecurity.expanded"

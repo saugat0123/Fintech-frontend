@@ -307,9 +307,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.additionalSecurity = new Array<AdditionalSecurity>();
         }
         if (!ObjectUtil.isEmpty(data)) {
-            this.additionalSecurity = data;
-            // this.additionalSecurity.additionalSecurity = data.additionalSecurity;
-            // this.additionalSecurity.totalSecurityAmount = data.totalSecurityAmount;
+            let additionalSecurityData;
+            let totalSecurityAmount;
+            data.forEach((securityData) => {
+                additionalSecurityData = securityData.data;
+                totalSecurityAmount = securityData.totalSecurityAmount;
+            });
+            this.additionalSecurity.forEach((securityData) => {
+                securityData.data = additionalSecurityData;
+                securityData.totalSecurityAmount = totalSecurityAmount;
+            });
             this.customerInfoService.saveLoanInfo(this.additionalSecurity, this.customerInfoId, TemplateName.ADDITIONAL_SECURITY)
                 .subscribe(() => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Additional Security Data!'));

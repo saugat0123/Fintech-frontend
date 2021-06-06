@@ -48,7 +48,8 @@ import { FixAssetCollateralComponent } from './security/security-initial-form/fi
 import {AngularDraggableModule} from 'angular2-draggable';
 import { CrgMicroComponent } from './crg-micro/crg-micro.component';
 import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
-import { AdditionalSecurityComponent } from './security/security-initial-form/additional-security/additional-security/additional-security.component';
+import { AdditionalSecurityComponent } from './security/security-initial-form/additional-security/additional-security-child/additional-security.component';
+import { AdiitionalSecurityParentComponent } from './security/security-initial-form/additional-security/adiitional-security-parent/adiitional-security-parent.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -83,7 +84,8 @@ const COMPONENTS = [
     PreviousSecurityComponent,
     FixAssetCollateralComponent,
     SecurityTableComponent,
-    AdditionalSecurityComponent
+    AdditionalSecurityComponent,
+    AdiitionalSecurityParentComponent
 ];
 
 
