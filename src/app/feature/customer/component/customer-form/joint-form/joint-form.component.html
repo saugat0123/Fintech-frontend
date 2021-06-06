@@ -929,7 +929,7 @@
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
                                                         <input *ngIf="calendarType === 'AD'" nbInput
-                                                               [nbDatepicker]="relationCitizenIssueDate4"
+                                                               [nbDatepicker]="relationCitizenIssueDate5"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate5"
                                                                id="citizenshipIssuedDate5{{i}}"
@@ -937,7 +937,7 @@
                                                         <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate5')?.value"
                                                                       *ngIf="calendarType === 'BS'"
                                                                       (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate5').patchValue($event?.eDate)"></app-calendar>
-                                                        <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
+                                                        <nb-datepicker #relationCitizenIssueDate5></nb-datepicker>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
