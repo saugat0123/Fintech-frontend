@@ -70,7 +70,7 @@ export class JointFormComponent implements OnInit {
   maritalStatusEnum = MaritalStatus;
   placeHolderForMaritalStatus;
   individualJsonData: any;
-  crgLambdaDisabled = envSrdb.disableCrgLambda;
+  crgLambdaDisabled = environment.disableCrgLambda;
   client = environment.client;
   clientName = Clients;
   id: number;
@@ -389,7 +389,6 @@ export class JointFormComponent implements OnInit {
       landLineNumber: [undefined],
       email: [undefined, Validators.email],
       // initial Relation Date not used in ui
-      initialRelationDate: [new Date()],
       citizenshipNumber: [undefined, Validators.required],
       citizenshipIssuedPlace: [undefined, Validators.required],
       citizenshipIssuedDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
@@ -408,7 +407,6 @@ export class JointFormComponent implements OnInit {
       gender: [undefined, Validators.required],
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
-      relationCheck: [undefined, Validators.required],
       customerRelation1: [undefined, Validators.required],
       customerRelativeName1: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber1: [undefined],
