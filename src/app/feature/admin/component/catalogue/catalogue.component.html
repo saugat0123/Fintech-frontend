@@ -256,7 +256,15 @@
                     </td>
 
                     <td *ngIf="!model.parentId">
-                        <p>NA</p>
+                        <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                            <button nbButton status="warning" size="tiny"
+                                    (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
+                                    model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
+                                <em class="fa fa-arrow-circle-right"></em></button>
+                        </div>
+                        <div *ngIf='!((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                            <p>NA</p>
+                        </div>
                     </td>
                 </ng-template>
             </tr>
@@ -356,6 +364,25 @@
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
                     <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
+                    <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+                </div>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+
+    <ng-template #onReInitiateLoan class="p-0">
+        <nb-card class="m-0" [nbSpinner]="reInitiateSpinner">
+            <nb-card-header>
+                <h5>Are you sure you want to re-initiate {{reInitiateLoanFacilityName}}({{reInitiateLoanType}}) of customer
+                    {{reInitiateLoanCustomerName}}</h5><h5 *ngIf="showBranch"> from {{reInitiateLoanBranchName}} branch?</h5>
+            </nb-card-header>
+            <nb-card-body>
+                <label for="comment">Reason to re-initiate loan</label>
+                <textarea rows="5" #comment id="comment" class="form-control" placeholder="Remarks"></textarea>
+            </nb-card-body>
+            <nb-card-footer>
+                <div class="d-flex justify-content-end">
+                    <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES</button>
                     <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
                 </div>
             </nb-card-footer>

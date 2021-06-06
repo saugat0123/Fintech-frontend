@@ -87,6 +87,13 @@ export class CatalogueComponent implements OnInit {
     ];
     transferSpinner = false;
 
+    canReInitiateLoan = false;
+    reInitiateSpinner = false;
+    reInitiateLoanCustomerName: string;
+    reInitiateLoanFacilityName: string;
+    reInitiateLoanBranchName: string;
+    reInitiateLoanType: string;
+
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -173,6 +180,10 @@ export class CatalogueComponent implements OnInit {
 
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
+        }
+
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+            this.canReInitiateLoan = true;
         }
 
         if (!this.redirected) {
@@ -426,10 +437,7 @@ export class CatalogueComponent implements OnInit {
                 customerId: childId,
                 catalogue: true
             }
-
         });
-
-
     }
 
     getCsv() {
@@ -504,5 +512,36 @@ export class CatalogueComponent implements OnInit {
 
     public showUpdateLoanInfo(loanFlags: CustomerLoanFlag[]): boolean {
         return loanFlags.map((f) => f.flag).includes(LoanFlag[LoanFlag.INSURANCE_EXPIRY]);
+    }
+
+    onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName) {
+        this.reInitiateLoanCustomerName = customerName;
+        this.reInitiateLoanFacilityName = loanFacilityName;
+        this.reInitiateLoanType = loanType;
+        this.reInitiateLoanBranchName = branchName;
+        this.formAction.patchValue({
+                customerLoanId: customerLoanId,
+                docAction: DocAction.value(DocAction.RE_INITIATE),
+                comment: 'Re-initiate'
+            }
+        );
+        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
+    }
+
+    reInitiateConfirm(comment: string) {
+        this.reInitiateSpinner = true;
+        this.formAction.patchValue({
+            comment: comment
+        });
+        this.loanFormService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
+            this.reInitiateSpinner = false;
+            this.modalService.dismissAll();
+            CatalogueComponent.loadData(this);
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            this.modalService.dismissAll();
+
+        });
     }
 }
