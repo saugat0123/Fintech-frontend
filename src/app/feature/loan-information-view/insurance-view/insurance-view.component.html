@@ -17,8 +17,8 @@
         <th>Insured value(Amount In NRP)</th>
         <th>Insurance Company</th>
         <th>Premium Amount</th>
-        <th>Issued Date</th>
-        <th>Expiry Date</th>
+        <th>Issued Date(AD/BS)</th>
+        <th>Expiry Date(AD/BS)</th>
       </tr>
       </thead>
       <tbody>
@@ -29,8 +29,8 @@
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
         <td class="text-left pl-1">{{insurance?.company}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
-        <td class="text-left pl-1">{{insurance?.issuedDate | engNepDate: false}}</td>
-        <td class="text-left pl-1">{{insurance?.expiryDate | engNepDate: false}}</td>
+        <td class="text-left pl-1">{{insurance?.issuedDate | date}} ({{insurance?.issuedDate | engNepDate: false}})</td>
+        <td class="text-left pl-1">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th></th>

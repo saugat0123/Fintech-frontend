@@ -65,7 +65,7 @@ export class SecurityInitialFormComponent implements OnInit {
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
 
     securityId = SecurityIds;
-
+    selectedArray = [];
     securityForm: FormGroup;
     landSelected = false;
     apartmentSelected = false;
@@ -190,6 +190,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.ownerKycRelationInfoCheckedForLandBuilding = true;
             this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
+            this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
@@ -428,7 +429,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBranch: [singleData.landBranch],
                     landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ? undefined : singleData.landConsideredValue],
                     typeOfProperty: [singleData.typeOfProperty],
-                    modeOfTransfer: [singleData.modeOfTransfer],
                     revaluationData: [singleData.revaluationData],
                     landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
                     landStaffRepresentativeName2: [singleData.landStaffRepresentativeName2],
@@ -630,7 +630,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     totalCost: [singleData.totalCost],
                     landConsideredValue: [singleData.landConsideredValue],
                     typeOfProperty: [singleData.typeOfProperty],
-                    modeOfTransfer: [singleData.modeOfTransfer],
                     buildingValuator: [singleData.buildingValuator],
                     buildingValuatorDate: [ObjectUtil.isEmpty(singleData.buildingValuatorDate) ?
                         undefined : new Date(singleData.buildingValuatorDate)],
@@ -856,6 +855,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     change(selectedSecurity) {
+        if (this.selectedArray.indexOf(selectedSecurity) === -1 && selectedSecurity !== null) {
+            this.selectedArray.push(selectedSecurity);
+        }
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
             = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
             this.hypothecationOfStock = this.assignmentOfReceivable = this.corporateGuarantee = this.personal = this.insurancePolicySelected =
@@ -907,7 +909,65 @@ export class SecurityInitialFormComponent implements OnInit {
             }
 
     }
-
+    clearValidationAtInitialStage() {
+        if (this.selectedSecurity === undefined) {
+            const landDetailsFormControls = this.securityForm.get('landDetails') as FormArray;
+            landDetailsFormControls.controls.forEach(f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
+            });
+            const vehicleDetailsFormControls = this.securityForm.get('vehicleDetails') as FormArray;
+            vehicleDetailsFormControls.controls.forEach(f => {
+                f.get('model').clearValidators();
+                f.get('model').updateValueAndValidity();
+            });
+            const buildingDetailsFormControls = this.securityForm.get('buildingDetails') as FormArray;
+            buildingDetailsFormControls.controls.forEach(f => {
+                f.get('buildArea').clearValidators();
+                f.get('buildArea').updateValueAndValidity();
+            });
+            const landBuildingFormControls = this.securityForm.get('landBuilding') as FormArray;
+            landBuildingFormControls.controls.forEach(f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
+            });
+            const plantDetailsFormControls = this.securityForm.get('plantDetails') as FormArray;
+            plantDetailsFormControls.controls.forEach(f => {
+                f.get('model').clearValidators();
+                f.get('model').updateValueAndValidity();
+            });
+            const fixedDepositDetailsFormControls = this.securityForm.get('fixedDepositDetails') as FormArray;
+            fixedDepositDetailsFormControls.controls.forEach(f => {
+                f.get('accountNumber').clearValidators();
+                f.get('accountNumber').updateValueAndValidity();
+            });
+            const hypothecationOfStockFormControls = this.securityForm.get('hypothecationOfStock') as FormArray;
+            hypothecationOfStockFormControls.controls.forEach(f => {
+                f.get('owner').clearValidators();
+                f.get('owner').updateValueAndValidity();
+            });
+            const corporateGuaranteeFormControls = this.securityForm.get('corporateGuarantee') as FormArray;
+            corporateGuaranteeFormControls.controls.forEach(f => {
+                f.get('name').clearValidators();
+                f.get('name').updateValueAndValidity();
+            });
+            const personalGuaranteeFormControls = this.securityForm.get('personalGuarantee') as FormArray;
+            personalGuaranteeFormControls.controls.forEach(f => {
+                f.get('name').clearValidators();
+                f.get('name').updateValueAndValidity();
+            });
+            const insurancePolicyFormControls = this.securityForm.get('insurancePolicy') as FormArray;
+            insurancePolicyFormControls.controls.forEach(f => {
+                f.get('insuredAmount').clearValidators();
+                f.get('insuredAmount').updateValueAndValidity();
+            });
+            const assignmentFormControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
+            assignmentFormControls.controls.forEach(f => {
+                f.get('amount').clearValidators();
+                f.get('amount').updateValueAndValidity();
+            });
+        }
+    }
     clearValidationState() {
         if (this.selectedSecurity !== 'LandSecurity') {
             const formControls = this.securityForm.get('landDetails') as FormArray;
@@ -1063,7 +1123,6 @@ export class SecurityInitialFormComponent implements OnInit {
             landBranch: [undefined],
             landConsideredValue: [undefined],
             typeOfProperty: [undefined],
-            modeOfTransfer: [undefined],
             revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}],
             landStaffRepresentativeDesignation: [undefined],
             landStaffRepresentativeName2: [undefined],
@@ -1141,7 +1200,6 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingBranch: [undefined],
             landConsideredValue: [undefined],
             typeOfProperty: [undefined],
-            modeOfTransfer: [undefined],
             ownershipTransferDate: [undefined],
             ownershipTransferThrough: [undefined],
             otherOwnershipTransferValue: undefined,

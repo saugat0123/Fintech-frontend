@@ -29,7 +29,7 @@
             class="table table-bordered table-responsive-md table-sm sb-small text-center">
       <thead>
       <tr class="sb-bg-dark text-white">
-        <th>Loan Facility</th>
+        <th>Loan Facility(Created Date(AD/BS))</th>
         <th>Existing Limit</th>
         <th>Outstanding</th>
         <th>Enhance</th>
@@ -41,7 +41,7 @@
         <th>Proposed INT/COM/CM</th>
 
         <th>Service Charge</th>
-        <th>Limit Expiry/Tenure</th>
+        <th>Limit Expiry/Tenure(AD/BS)</th>
       </tr>
       </thead>
       <tbody>
@@ -54,7 +54,7 @@
           <ng-container
                   *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
           &nbsp;|&nbsp;
-          {{ loan?.loan?.name }} ({{ loan?.createdAt | engNepDate: false }})
+          {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
         </td>
         <td class="text-right pr-1">
           <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">
@@ -114,7 +114,7 @@
         </td>
         <td width="150px" class="text-left pl-1">
           <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
-          <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | engNepDate: false}}</span>
+          <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}} ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>
           <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
         </td>
       </tr>
