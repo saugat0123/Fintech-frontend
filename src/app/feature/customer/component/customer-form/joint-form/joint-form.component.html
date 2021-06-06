@@ -367,7 +367,7 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="province{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('province').errors}"
-                                                        (change)="getDistricts(i, joinCustomerInfo.get('province').value)"
+                                                        (change)="getDistricts(i, joinCustomerInfo.get('province').value, $event)"
                                                         formControlName="province"
                                                         id="province{{i}}"
                                                         bindLabel="name">
@@ -388,7 +388,7 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="district{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('district').errors}"
-                                                        (change)="getMunicipalities(i, joinCustomerInfo.get('district')?.value)"
+                                                        (change)="getMunicipalities(i, joinCustomerInfo.get('district')?.value, $event)"
                                                         formControlName="district"
                                                         id="district{{i}}"
                                                         bindLabel="name">
@@ -496,7 +496,7 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryProvince{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
-                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('temporaryProvince')?.value)"
+                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('temporaryProvince')?.value, $event)"
                                                         formControlName="temporaryProvince"
                                                         id="temporaryProvince{{i}}"
                                                         bindLabel="name">
@@ -516,7 +516,7 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryDistrict{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
-                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('temporaryDistrict')?.value)"
+                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('temporaryDistrict')?.value, $event)"
                                                         formControlName="temporaryDistrict"
                                                         id="temporaryDistrict{{i}}"
                                                            bindLabel="name">
@@ -634,6 +634,9 @@
                                                                        id="citizenshipIssuedDate1{{i}}"
                                                                        name="citizenshipIssuedDate1{{i}}"
                                                                        readonly>
+                                                                <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate1')?.value"
+                                                                              *ngIf="calendarType === 'BS'"
+                                                                              (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate1').patchValue($event?.eDate)"></app-calendar>
                                                                 <nb-datepicker #relationCitizenIssueDate1></nb-datepicker>
                                                                 <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors"
                                                                      class="small text-danger">
@@ -723,6 +726,9 @@
                                                                id="citizenshipIssuedDate2{{i}}"
                                                                name="citizenshipIssuedDate2{{i}}"
                                                                readonly>
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate2')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate2').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate2></nb-datepicker>
                                                         <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors"
                                                              class="small text-danger">
@@ -800,6 +806,9 @@
                                                                formControlName="citizenshipIssuedDate3"
                                                                id="citizenshipIssuedDate3{{i}}"
                                                                name="citizenshipIssuedDate3{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate3')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate3').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate3></nb-datepicker>
                                                     </div>
                                                 </div>
@@ -861,6 +870,9 @@
                                                                formControlName="citizenshipIssuedDate4"
                                                                id="citizenshipIssuedDate4{{i}}"
                                                                name="citizenshipIssuedDate4{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate4')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate4').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
                                                     </div>
                                                 </div>
@@ -922,6 +934,9 @@
                                                                formControlName="citizenshipIssuedDate5"
                                                                id="citizenshipIssuedDate5{{i}}"
                                                                name="citizenshipIssuedDate5{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate5')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate5').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
                                                     </div>
                                                 </div>
