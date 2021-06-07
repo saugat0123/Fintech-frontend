@@ -271,11 +271,7 @@ export class AdiitionalSecurityParentComponent implements OnInit {
     };
     this.additionalSecurityData.forEach((additionalSecurity) => {
       additionalSecurity.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
-      if (this.isContainedApprovedLoan) {
-        additionalSecurity.additionalSecurity = JSON.stringify(mergedForm);
-      } else {
-        additionalSecurity.data = JSON.stringify(mergedForm);
-      }
+      additionalSecurity.additionalSecurity = JSON.stringify(mergedForm);
       additionalSecurity.guarantor = [];
       this.additionalSecurity.selectedArray.forEach((selected) => {
         if (selected === 'ShareSecurity') {

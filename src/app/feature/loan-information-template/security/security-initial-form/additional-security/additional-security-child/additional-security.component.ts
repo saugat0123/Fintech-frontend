@@ -855,60 +855,64 @@ export class AdditionalSecurityComponent implements OnInit {
   }
 
 
-  change(selectedSecurity) {
-    if (this.selectedArray.indexOf(selectedSecurity) === -1 && selectedSecurity !== null) {
-      this.selectedArray.push(selectedSecurity);
-    }
+  change(arraySelected) {
+    const selectedSecurity = [];
     this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-        = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
-        this.hypothecationOfStock = this.assignmentOfReceivable = this.corporateGuarantee = this.personal = this.insurancePolicySelected =
-            this.landOtherBranchChecked = this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked =
-                this.vehicleOtherBranchChecked = this.plantOtherBranchChecked = false;
-    switch (selectedSecurity) {
-      case 'LandSecurity' :
-        this.landSelected = true;
-        break;
-      case 'VehicleSecurity' :
-        this.vehicleSelected = true;
-        break;
-      case 'ApartmentSecurity' :
-        this.apartmentSelected = true;
-        break;
-      case 'Land and Building Security' :
-        this.landBuilding = true;
-        break;
-      case 'PlantSecurity' :
-        this.plantSelected = true;
-        break;
-      case 'FixedDeposit':
-        this.depositSelected = true;
-        break;
-      case 'ShareSecurity':
-        this.shareSelected = true;
-        break;
-      case 'HypothecationOfStock':
-        this.hypothecationOfStock = true;
-        break;
-      case 'LeaseAssignment':
-        this.assignments = true;
-        break;
-      case 'OtherSecurity':
-        this.securityOther = true;
-        break;
-      case 'CorporateGuarantee':
-        this.corporateGuarantee = true;
-        break;
-      case 'PersonalGuarantee':
-        this.personal = true;
-        break;
-      case 'InsurancePolicySecurity':
-        this.insurancePolicySelected = true;
-        break;
-      case 'AssignmentOfReceivables':
-        this.assignmentOfReceivable = true;
-        break;
+        = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding =
+        this.insurancePolicySelected = this.hypothecationOfStock = this.assignmentOfReceivable =
+            this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
+                this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
+                    this.plantOtherBranchChecked = false;
+    if (this.selectedArray !== undefined && this.selectedArray.indexOf(arraySelected) === -1 && arraySelected !== null) {
+      this.selectedArray.push(arraySelected);
     }
-
+    selectedSecurity.push(arraySelected);
+    selectedSecurity.forEach(selectedValue => {
+      switch (selectedValue) {
+        case 'LandSecurity' :
+          this.landSelected = true;
+          break;
+        case 'VehicleSecurity' :
+          this.vehicleSelected = true;
+          break;
+        case 'ApartmentSecurity' :
+          this.apartmentSelected = true;
+          break;
+        case 'Land and Building Security' :
+          this.landBuilding = true;
+          break;
+        case 'PlantSecurity' :
+          this.plantSelected = true;
+          break;
+        case 'FixedDeposit':
+          this.depositSelected = true;
+          break;
+        case 'ShareSecurity':
+          this.shareSelected = true;
+          break;
+        case 'HypothecationOfStock':
+          this.hypothecationOfStock = true;
+          break;
+        case 'LeaseAssignment':
+          this.assignments = true;
+          break;
+        case 'OtherSecurity':
+          this.securityOther = true;
+          break;
+        case 'CorporateGuarantee':
+          this.corporateGuarantee = true;
+          break;
+        case 'PersonalGuarantee':
+          this.personal = true;
+          break;
+        case 'InsurancePolicySecurity':
+          this.insurancePolicySelected = true;
+          break;
+        case 'AssignmentOfReceivables':
+          this.assignmentOfReceivable = true;
+          break;
+      }
+    });
   }
   clearValidationAtInitialStage() {
     if (this.selectedSecurity === undefined) {
