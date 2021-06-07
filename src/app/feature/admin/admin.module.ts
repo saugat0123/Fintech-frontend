@@ -91,6 +91,8 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
+import { EligibilityLoanConfigComponent } from './component/eligibility/eligibility-loan-config/eligibility-loan-config.component';
+import { LoanConfigFormComponent } from './component/eligibility/eligibility-loan-config/loan-config-form/loan-config-form.component';
 
 @NgModule({
     declarations: [
@@ -167,6 +169,8 @@ import { RoleAddComponent } from './component/user/role-add/role-add.component';
         CadRoleHierarchyComponent,
         CbsGroupExecutorComponent,
         RoleAddComponent,
+        EligibilityLoanConfigComponent,
+        LoanConfigFormComponent,
         // SecurityComponent
     ],
   imports: [

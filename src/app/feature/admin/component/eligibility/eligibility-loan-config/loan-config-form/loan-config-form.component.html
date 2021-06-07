@@ -1,0 +1,33 @@
+<nb-card class="mb-0 sb-small">
+    <nb-card-header class="sb-bg-dark text-white">
+        <div class="row">
+            <div class="col-md-6">{{action}} Loan Config</div>
+            <div class="col-md-6">
+                <a class="close cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true" class="text-white">×</span></a>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="col-md-12">
+            <form [formGroup]="loanConfig">
+                <div class="row">
+                    <div class="col-md-6 form-group ">
+                        <label>Name</label>
+                        <input type="text" class="form-control"
+                               formControlName="name" name="loanName"
+                               placeholder="Loan Name">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Nature</label>
+                        <select formControlName="nature"
+                                class="custom-select">
+                            <option value="" hidden>Select Nature of Loan</option>
+                            <option value="OD">OD</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nb-card-body>
+</nb-card>
