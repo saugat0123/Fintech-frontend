@@ -357,9 +357,9 @@ export class SecurityComponent implements OnInit {
                     break;
                 case 'ShareSecurity':
                     const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
-                    for (let i = 0; i < shareSecurity.length; i++) {
-                        totalSecurityAmount += Number(shareSecurity[i].consideredValue);
-                    }
+                    shareSecurity.forEach(value => {
+                        totalSecurityAmount += value.consideredValue;
+                    });
                     break;
                 default:
                     totalSecurityAmount += 0;
