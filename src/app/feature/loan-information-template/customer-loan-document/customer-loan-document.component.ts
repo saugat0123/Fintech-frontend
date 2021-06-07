@@ -35,6 +35,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     documentName;
     documentId;
     index;
+    actualLoanId;
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
@@ -45,6 +46,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
 
     ngOnInit() {
         let loanId = null;
+        let customerId = null;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.paramProperties = {
@@ -54,7 +56,12 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 };
                 this.paramProperties = paramsValue;
                 loanId = this.paramProperties.loanId;
+                customerId = this.paramProperties.customerId;
                 this.loanConfigId = loanId;
+                if (customerId === undefined) {
+                    customerId = '';
+                }
+                this.actualLoanId = customerId;
                 if (ObjectUtil.isEmpty(this.paramProperties.loanId) || (!ObjectUtil.isEmpty(this.loanDataHolder.loan))) {
                     loanId = this.loanDataHolder.loan.id;
                     this.loanConfigId = loanId;
@@ -131,6 +138,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             formData.append('documentId', documentId);
             formData.append('loanHolderId', this.loanDataHolder.loanHolder.id.toString());
             formData.append('customerType', this.loanDataHolder.loanHolder.customerType);
+            formData.append('loanId1', this.actualLoanId);
             if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
                 formData.append('action', 'new');
             }
