@@ -854,16 +854,20 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
 
-    change(selectedSecurity) {
-        if (this.selectedArray.indexOf(selectedSecurity) === -1 && selectedSecurity !== null) {
-            this.selectedArray.push(selectedSecurity);
-        }
+    change(arraySelected) {
+        const selectedSecurity = [];
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding = this.insurancePolicySelected =
-            this.hypothecationOfStock = this.assignmentOfReceivable = this.corporateGuarantee = this.personal = this.insurancePolicySelected =
-                this.landOtherBranchChecked = this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked =
-                    this.vehicleOtherBranchChecked = this.plantOtherBranchChecked = false;
-            switch (selectedSecurity) {
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding =
+            this.insurancePolicySelected = this.hypothecationOfStock = this.assignmentOfReceivable =
+                this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
+                    this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
+                        this.plantOtherBranchChecked = false;
+        if (this.selectedArray !== undefined && this.selectedArray.indexOf(arraySelected) === -1 && arraySelected !== null) {
+            this.selectedArray.push(arraySelected);
+        }
+        selectedSecurity.push(arraySelected);
+        selectedSecurity.forEach(selectedValue => {
+            switch (selectedValue) {
                 case 'LandSecurity' :
                     this.landSelected = true;
                     break;
@@ -907,7 +911,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.assignmentOfReceivable = true;
                     break;
             }
-
+        });
     }
     clearValidationAtInitialStage() {
         if (this.selectedSecurity === undefined) {
