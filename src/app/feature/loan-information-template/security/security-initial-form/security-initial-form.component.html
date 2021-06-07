@@ -10,13 +10,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Choose Security Type</label>
-                        <ng-select (change)="change(selectedSecurity)" [(ngModel)]="selectedSecurity"
-                        (ngModelChange)="clearValidationState()" [addTagText]="null"
-                        placeholder="Select Security" [ngModelOptions]="{standalone: true}">
-                            <ng-option *ngFor="let type of getSecurities()" [value]="type?.key">
+                        <select class="form-control" (change)="change(selectedSecurity)" [(ngModel)]="selectedSecurity"
+                        (ngModelChange)="clearValidationState()"
+                        [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let type of getSecurities()" [value]="type?.key">
                                 {{type?.value}}
-                            </ng-option>
-                        </ng-select>
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -2234,8 +2234,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="valuationAmount"><strong>Valuation
-                                    Amount</strong></label>
+                                <label class="title" for="valuationAmount"><strong>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</strong></label>
                                 <input
                                         (keyup)="vehicleRemainingAmount(i)"
                                         class="form-control" formControlName="valuationAmount" id="valuationAmount"

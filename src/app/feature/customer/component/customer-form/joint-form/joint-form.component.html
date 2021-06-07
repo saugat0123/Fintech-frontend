@@ -7,6 +7,11 @@
             <span aria-hidden="true" class="text-white">×</span></a>
     </nb-card-header>
     <nb-card-body>
+        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
+                        name="basicInfoCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
         <div class="form-group">
             <nb-tabset fullWidth>
                 <nb-tab tabTitle="Joint Customer Detail">
@@ -362,10 +367,11 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="province{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('province').errors}"
-                                                        (change)="getDistricts(joinCustomerInfo.get('province').value)"
+                                                        (change)="getDistricts(i, joinCustomerInfo.get('province').value, $event)"
                                                         formControlName="province"
                                                         id="province{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Province</option>
                                                     <ng-option *ngFor="let provinceVal of provinceList"
                                                             [value]="provinceVal">
                                                         {{provinceVal.name}}
@@ -378,13 +384,15 @@
                                                         </span>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-4 form-group">
                                                 <label for="district{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('district').errors}"
-                                                        (change)="getMunicipalities(joinCustomerInfo.get('district')?.value)"
+                                                        (change)="getMunicipalities(i, joinCustomerInfo.get('district')?.value, $event)"
                                                         formControlName="district"
                                                         id="district{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>District</option>
                                                     <ng-option *ngFor="let districtVal of districtList"
                                                             [value]="districtVal">
                                                         {{districtVal.name}}
@@ -397,12 +405,14 @@
                                                         </span>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-4 form-group">
                                                 <label for="municipality{{i}}">Municipalities or VDC</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('municipalities').errors}"
                                                         formControlName="municipalities"
                                                         id="municipality{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Municipalities</option>
                                                     <ng-option *ngFor="let municipalityVal of municipalitiesList"
                                                             [value]="municipalityVal">
                                                         {{municipalityVal.name}}
@@ -453,7 +463,7 @@
                                         </div>
                                         <div class="row ml-1">
                                             <div class="col-md-12">
-                                                <nb-checkbox (change)="sameAsPermanent(i)" formControlName="relationCheck" id="relationCheck{{i}}">
+                                                <nb-checkbox (change)="sameAsPermanent(i)" id="relationCheck{{i}}">
                                                     <i>Check if Temporary Address is same as Permanent Address</i>
                                                 </nb-checkbox>
                                             </div>
@@ -486,10 +496,11 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryProvince{{i}}">Province</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
-                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('province')?.value)"
+                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('temporaryProvince')?.value, $event)"
                                                         formControlName="temporaryProvince"
                                                         id="temporaryProvince{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Province</option>
                                                     <ng-option *ngFor="let provinceVal of provinceList"
                                                             [value]="provinceVal">
                                                         {{provinceVal?.name}}
@@ -505,10 +516,11 @@
                                             <div class="col-md-4 form-group">
                                                 <label for="temporaryDistrict{{i}}">District</label>
                                                 <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
-                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('district')?.value)"
+                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('temporaryDistrict')?.value, $event)"
                                                         formControlName="temporaryDistrict"
                                                         id="temporaryDistrict{{i}}"
                                                            bindLabel="name">
+                                                    <option [ngValue]="null" hidden>District</option>
                                                     <ng-option *ngFor="let districtVal of temporaryDistrictList"
                                                             [value]="districtVal">
                                                         {{districtVal?.name}}
@@ -528,6 +540,7 @@
                                                         formControlName="temporaryMunicipalities"
                                                         id="temporaryMunicipalities{{i}}"
                                                         bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Municipalities</option>
                                                     <ng-option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
                                                             [value]="municipalityVal">
                                                         {{municipalityVal?.name}}
@@ -621,6 +634,9 @@
                                                                        id="citizenshipIssuedDate1{{i}}"
                                                                        name="citizenshipIssuedDate1{{i}}"
                                                                        readonly>
+                                                                <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate1')?.value"
+                                                                              *ngIf="calendarType === 'BS'"
+                                                                              (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate1').patchValue($event?.eDate)"></app-calendar>
                                                                 <nb-datepicker #relationCitizenIssueDate1></nb-datepicker>
                                                                 <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors"
                                                                      class="small text-danger">
@@ -710,6 +726,9 @@
                                                                id="citizenshipIssuedDate2{{i}}"
                                                                name="citizenshipIssuedDate2{{i}}"
                                                                readonly>
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate2')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate2').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate2></nb-datepicker>
                                                         <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors"
                                                              class="small text-danger">
@@ -787,6 +806,9 @@
                                                                formControlName="citizenshipIssuedDate3"
                                                                id="citizenshipIssuedDate3{{i}}"
                                                                name="citizenshipIssuedDate3{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate3')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate3').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate3></nb-datepicker>
                                                     </div>
                                                 </div>
@@ -848,6 +870,9 @@
                                                                formControlName="citizenshipIssuedDate4"
                                                                id="citizenshipIssuedDate4{{i}}"
                                                                name="citizenshipIssuedDate4{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate4')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate4').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
                                                     </div>
                                                 </div>
@@ -904,12 +929,15 @@
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
                                                         <input *ngIf="calendarType === 'AD'" nbInput
-                                                               [nbDatepicker]="relationCitizenIssueDate4"
+                                                               [nbDatepicker]="relationCitizenIssueDate5"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate5"
                                                                id="citizenshipIssuedDate5{{i}}"
                                                                name="citizenshipIssuedDate5{{i}}">
-                                                        <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate5')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate5').patchValue($event?.eDate)"></app-calendar>
+                                                        <nb-datepicker #relationCitizenIssueDate5></nb-datepicker>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -989,7 +1017,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div *ngIf="!crgLambdaDisabled">
                     <nb-card class="card-height">
                         <nb-card-header>
                             <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
@@ -1015,7 +1043,7 @@
                         </nb-card-body>
                     </nb-card>
                 </div>
-                <div class="col-4">
+                <div *ngIf="!crgLambdaDisabled" class="col-4">
                     <label><strong>Net worth</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                            class="form-control" placeholder="Net Worth Amount"
