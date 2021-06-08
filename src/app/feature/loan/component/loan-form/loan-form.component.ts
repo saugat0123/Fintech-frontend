@@ -128,6 +128,7 @@ export class LoanFormComponent implements OnInit {
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
     submitDisable = false;
+    loanDataReady = false;
     loanDocument: LoanDataHolder;
 
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
@@ -721,6 +722,7 @@ export class LoanFormComponent implements OnInit {
                 this.loanDocument.security = this.loanHolder.security;
                 this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
                 this.loanDocument.insurance = this.loanHolder.insurance;
+                this.loanDataReady = true;
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));
