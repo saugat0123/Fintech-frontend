@@ -93,7 +93,7 @@ export class IncomeFromAccountComponent implements OnInit {
       creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
       debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
       debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
-      repaymentTrackWithCurrentBank: [undefined, [Validators.required]],
+      repaymentTrackWithCurrentBank: [undefined]
     });
   }
 
