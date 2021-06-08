@@ -433,9 +433,14 @@
                                 <!--                end of ng s
                                 installment amount div-->
 
+<!--                                Interest Amount:::{{showInterestAmount}}-->
+<!--&lt;!&ndash;                                {{client !== clientName?.ICFC}}&ndash;&gt;-->
+<!--                                Condition:::{{showInterestAmount || client !== clientName?.ICFC}}-->
+<!--                                clinetName:: {{client}} , {{clientName?.ICFC}}-->
                                     <div class="col-md-4"
-                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                         *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           && (showInterestAmount || client !== clientName?.ICFC)">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
@@ -446,8 +451,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4"
-                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                         *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           && (showInterestAmount || client !== clientName?.ICFC)">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
@@ -457,6 +463,30 @@
                                                     type="number">
                                         </div>
                                     </div>
+<!--                                    <div class="col-md-4"-->
+<!--                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&-->
+<!--                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                                        <div class="form-group>">-->
+<!--                                            <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>-->
+<!--                                            <input-->
+<!--                                                    class="form-control" formControlName="interestAmount"-->
+<!--                                                    id="interestAmount"-->
+<!--                                                    name="interestAmount" placeholder="Interest Amount" disabled-->
+<!--                                                    type="number">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-4"-->
+<!--                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&-->
+<!--                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                                        <div class="form-group>">-->
+<!--                                            <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>-->
+<!--                                            <input-->
+<!--                                                    class="form-control" formControlName="principalAmount"-->
+<!--                                                    id="principalAmount"-->
+<!--                                                    name="principalAmount" placeholder="Principle Amount" disabled-->
+<!--                                                    type="number">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
 
                                 <!--                start of Moratorium period amount div-->

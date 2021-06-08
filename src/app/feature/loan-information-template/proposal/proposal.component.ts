@@ -61,6 +61,7 @@ export class ProposalComponent implements OnInit {
   clientName = Clients;
   othersSubsidyLoan = false;
   existInterestLimit: number;
+  showInterestAmount = true;
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -505,6 +506,7 @@ export class ProposalComponent implements OnInit {
       this.checkRepaymentMode();
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
     } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
+      this.showInterestAmount = false;
       this.showRepaymentMode = true;
       this.showInstallmentAmount = false;
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
@@ -512,6 +514,7 @@ export class ProposalComponent implements OnInit {
       this.calculateInterestAmountForRepaymentMode();
       this.showInstallmentAmount = false;
       this.showRepaymentMode = false;
+      this.showInterestAmount = true;
     }
   }
 
