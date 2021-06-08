@@ -32,6 +32,7 @@ import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
 import {Province} from '../../modal/province';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 
 @Component({
     selector: 'app-catalogue',
@@ -529,19 +530,26 @@ export class CatalogueComponent implements OnInit {
     }
 
     reInitiateConfirm(comment: string) {
-        this.reInitiateSpinner = true;
-        this.formAction.patchValue({
-            comment: comment
-        });
-        this.loanFormService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
-            this.reInitiateSpinner = false;
-            this.modalService.dismissAll();
-            CatalogueComponent.loadData(this);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-            this.modalService.dismissAll();
-
+        const ref = this.modalService.open(LoginPopUp);
+        let isAuthorized = false;
+        ref.componentInstance.returnAuthorizedState.subscribe((receivedEntry) => {
+            isAuthorized = receivedEntry;
+            if (isAuthorized) {
+                this.modalService.dismissAll();
+                this.reInitiateSpinner = true;
+                this.formAction.patchValue({
+                    comment: comment
+                });
+                this.loanFormService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
+                    this.reInitiateSpinner = false;
+                    this.modalService.dismissAll();
+                    CatalogueComponent.loadData(this);
+                }, error => {
+                    this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                    this.modalService.dismissAll();
+                });
+            }
         });
     }
 }
