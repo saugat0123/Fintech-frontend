@@ -6,6 +6,8 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from "@angular/router";
 import {EligibilityLoanConfigServiceService} from "../eligibility-loan-config-service.service";
 import {DocumentService} from "../../../document/document.service";
+import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
+import {Document} from "../../../../modal/document";
 
 @Component({
     selector: 'app-loan-config-form',
@@ -41,6 +43,12 @@ export class LoanConfigFormComponent implements OnInit {
     }
 
     onSubmit(): void {
+
+        if(!ObjectUtil.isEmpty(this.finalInitialDocument)){
+            const doc= this.loanConfig.value;
+            doc.documents=this.finalInitialDocument;
+        }
+
         this.service.saveEligibilityLoanConfig(this.loanConfig.value).subscribe(resp => {
 
         })
@@ -48,6 +56,7 @@ export class LoanConfigFormComponent implements OnInit {
 
     buildForm() {
         this.loanConfig = this.formBuilder.group({
+            documents:[undefined],
             name: [undefined],
             nature: [undefined],
         });

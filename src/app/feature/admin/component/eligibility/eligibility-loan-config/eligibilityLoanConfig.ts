@@ -1,3 +1,4 @@
+import {Document} from "../../../modal/document";
 
 export class EligibilityLoanConfig {
     name: String;
@@ -9,6 +10,7 @@ export class EligibilityLoanConfig {
     version: number;
     modifiedBy: number;
     new: boolean;
+    documents: Array<Document>;
 
 
 }
