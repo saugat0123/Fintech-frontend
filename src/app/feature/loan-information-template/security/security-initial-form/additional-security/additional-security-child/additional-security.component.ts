@@ -297,8 +297,6 @@ export class AdditionalSecurityComponent implements OnInit {
 
   buildForm() {
     this.securityForm = this.formBuilder.group({
-      isModifiable: [!!this.isContainedApprovedLoan],
-      dateTimeStamp: [this.isContainedApprovedLoan ? this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss') : undefined],
       buildingDetailsDescription: [undefined],
       description: [undefined],
       totalLandValueRemarks: [undefined],

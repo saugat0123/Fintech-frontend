@@ -25,6 +25,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CustomerShareData} from '../../../../../admin/modal/CustomerShareData';
 import {AdditionalSecurity} from '../../../../../loan/model/additional-security';
 import {AdditionalSecurityComponent} from '../additional-security-child/additional-security.component';
+import {add} from 'ionicons/icons';
 
 @Component({
   selector: 'app-adiitional-security-parent',
@@ -35,7 +36,7 @@ export class AdiitionalSecurityParentComponent implements OnInit {
   @Input() additionalSecurityValue: Array<AdditionalSecurity>;
   @Input() calendarType: CalendarType;
   @Input() loanTag: string;
-  @Output() securityDataEmitter = new EventEmitter();
+  @Output() additionalSecurityDataEmitter = new EventEmitter();
   @Input() fromProfile;
   @Input() shareSecurity: ShareSecurity;
   @Input() isMicroCustomer: boolean;
@@ -98,8 +99,10 @@ export class AdiitionalSecurityParentComponent implements OnInit {
     this.buildForm();
     this.buildCrgSecurityForm();
     this.getProvince();
-    if (!ObjectUtil.isEmpty(this.additionalSecurityValue)) {
-      this.additionalSecurityValue.forEach((securityValue) => {
+    console.log('additionalSecurityValue', this.additionalSecurityValue);
+    if (this.additionalSecurityValue.length > 0) {
+      console.log('I am inside');
+      this.additionalSecurityValue.filter((securityValue) => {
         this.securityValueForEdit = JSON.parse(securityValue.data);
         this.additionalSecurityObjectValue = this.securityValueForEdit;
         this.setCrgSecurityForm(this.securityValueForEdit);
@@ -269,9 +272,9 @@ export class AdiitionalSecurityParentComponent implements OnInit {
       securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
       vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
     };
-    this.additionalSecurityData.forEach((additionalSecurity) => {
+      const additionalSecurity: AdditionalSecurity = new AdditionalSecurity();
       additionalSecurity.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
-      additionalSecurity.additionalSecurity = JSON.stringify(mergedForm);
+      additionalSecurity.data = JSON.stringify(mergedForm);
       additionalSecurity.guarantor = [];
       this.additionalSecurity.selectedArray.forEach((selected) => {
         if (selected === 'ShareSecurity') {
@@ -311,8 +314,14 @@ export class AdiitionalSecurityParentComponent implements OnInit {
         guarantorIndex++;
         additionalSecurity.guarantor.push(guarantor);
       }
-    });
-    this.securityDataEmitter.emit(this.additionalSecurityData);
+      this.additionalSecurityData.push({
+        data: additionalSecurity.data,
+        valuatorId: additionalSecurity.valuatorId,
+        share: additionalSecurity.share,
+        guarantor: additionalSecurity.guarantor,
+        totalSecurityAmount: additionalSecurity.totalSecurityAmount,
+      });
+    this.additionalSecurityDataEmitter.emit(this.additionalSecurityData);
   }
 
   calculateTotalSecurity(securityData): number {

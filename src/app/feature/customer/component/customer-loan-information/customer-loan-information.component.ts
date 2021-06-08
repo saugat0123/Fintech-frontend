@@ -182,8 +182,8 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
             this.security = this.customerInfo.security;
         }
-        if (!ObjectUtil.isEmpty(this.customerInfo.additionalSecurity)) {
-            this.additionalSecurity = this.customerInfo.additionalSecurity;
+        if (!ObjectUtil.isEmpty(this.customerInfo.additionalSecurities)) {
+            this.additionalSecurity = this.customerInfo.additionalSecurities;
         }
         if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
             this.insurance = this.customerInfo.insurance;
@@ -319,7 +319,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             });
             this.customerInfoService.saveLoanInfo(this.additionalSecurity, this.customerInfoId, TemplateName.ADDITIONAL_SECURITY)
                 .subscribe(() => {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Additional Security Data!'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully Saved Additional Security Data!'));
                     if (!ObjectUtil.isEmpty(data)) {
                         this.saveShare(data);
                     } else {
@@ -328,21 +328,21 @@ export class CustomerLoanInformationComponent implements OnInit {
                     }
                 }, error => {
                     console.error(error);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Additional Security Data!'));
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Additional Security Data!'));
                 });
         }
     }
 
     saveShare(data) {
         this.shareSecurity = data.share;
-        this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
-            .subscribe(() => {
-                this.itemSecurity.close();
-                this.triggerCustomerRefresh.emit(true);
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
-            });
+        // this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
+        //     .subscribe(() => {
+        //         this.itemSecurity.close();
+        //         this.triggerCustomerRefresh.emit(true);
+        //     }, error => {
+        //         console.error(error);
+        //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
+        //     });
     }
 
     saveGuarantor(data: GuarantorDetail) {

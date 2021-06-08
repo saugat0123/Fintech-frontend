@@ -76,5 +76,5 @@ export class CustomerInfoData {
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
-    additionalSecurity: Array<AdditionalSecurity>;
+    additionalSecurities: Array<AdditionalSecurity>;
 }

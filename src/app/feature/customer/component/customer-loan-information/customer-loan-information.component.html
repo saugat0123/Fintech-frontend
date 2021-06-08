@@ -282,11 +282,11 @@
           <div *ngIf="isContainedApprovedLoan;else security">
             <app-adiitional-security-parent
                     *ngIf="itemSecurity.expanded"
-                    (securityDataEmitter)="saveAdditionalSecurity($event)"
+                    (additionalSecurityDataEmitter)="saveAdditionalSecurity($event)"
                     [calendarType]="calendarType"
                     [fromProfile]="true"
                     [isMicroCustomer]="isMicroCustomer"
-                    [additionalSecurityValue]="customerInfo?.additionalSecurity"
+                    [additionalSecurityValue]="customerInfo?.additionalSecurities"
                     [shareSecurity]="customerInfo?.shareSecurity"
                     [isContainedApprovedLoan]="isContainedApprovedLoan"></app-adiitional-security-parent>
           </div>
