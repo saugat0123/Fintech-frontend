@@ -428,7 +428,6 @@ export class CatalogueComponent implements OnInit {
         }
         this.loanDataHolder = data;
         this.modalService.open(onActionChange);
-
     }
 
     renewedOrCloseFrom(loanConfigId, childId) {
