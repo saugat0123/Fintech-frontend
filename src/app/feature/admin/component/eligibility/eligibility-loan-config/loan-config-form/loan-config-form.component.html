@@ -10,7 +10,7 @@
     </nb-card-header>
     <nb-card-body>
         <div class="col-md-12">
-            <form [formGroup]="loanConfig">
+            <form [formGroup]="loanConfig" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="col-md-6 form-group ">
                         <label>Name</label>
@@ -27,6 +27,29 @@
                         </select>
                     </div>
                 </div>
+
+                <h6> Choose Documents</h6>
+
+                <span (click)="nbUpdateCheckBoxInitial($event, true)"
+                      class="btn btn-primary btn-sm">Select All
+                                    </span>
+                <span (click)="nbUpdateCheckBoxInitial($event, false)"
+                      class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
+                <div class="row">
+                    <div class="col-md-4"
+                         *ngFor="let initialDocument of documents; let documentIndex = index">
+                        <nb-checkbox
+                                (change)="updateDocument($event, initialDocument,finalInitialDocument)"
+                                [checked]="initialDocument.checked"
+                                id="{{'initialDocument'+documentIndex}}"
+                                status="primary">
+                            {{initialDocument.displayName}}
+                        </nb-checkbox>
+                    </div>
+                </div>
+                  <button type="submit" class="btn btn-info float-right">Save</button>
+
             </form>
         </div>
     </nb-card-body>

@@ -6,7 +6,7 @@ import {Document} from '../../../modal/document';
 import {ModalUtils} from '../../../../../@core/utils';
 import {LoanConfigFormComponent} from './loan-config-form/loan-config-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {RoleFormComponent} from '../../role-permission/role-form/role-form.component';
+import {EligibilityLoanConfigServiceService} from "./eligibility-loan-config-service.service";
 
 @Component({
   selector: 'app-eligibility-loan-config',
@@ -14,11 +14,22 @@ import {RoleFormComponent} from '../../role-permission/role-form/role-form.compo
   styleUrls: ['./eligibility-loan-config.component.scss']
 })
 export class EligibilityLoanConfigComponent implements OnInit {
-
+  eligibilityLoanConfig=[];
   constructor(private router: Router,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private service: EligibilityLoanConfigServiceService
+              ) { }
 
   ngOnInit() {
+    this.loadData();
+    console.log(this.eligibilityLoanConfig)
+  }
+
+  loadData(){
+    this.service.getAllEligibilityLoanConfig().subscribe( resp => {
+      console.log(resp);
+      this.eligibilityLoanConfig=resp.detail;
+    })
   }
 
   add() {
@@ -27,4 +38,8 @@ export class EligibilityLoanConfigComponent implements OnInit {
     // modalRef.componentInstance.model = new LoanConfigFormComponent();
     // this.router.navigate(['home/admin/eligibility/loan-config-form']);
   }
+
+
+
+
 }

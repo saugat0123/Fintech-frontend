@@ -12,16 +12,29 @@
         <table class="table table-sm table-bordered table-hover sb-small text-center">
             <thead>
             <tr class="sb-bg-dark text-white">
-                <th>SN</th>
-                <th>Name</th>
-                <th>Nature type</th>
+                <th  scope="col">SN</th>
+                <th  scope="col">Name</th>
+                <th  scope="col">Nature type</th>
+                <th  scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>test</td>
-                <td>test1</td>
-                <td>test2</td>
+            <tr *ngFor="let data of eligibilityLoanConfig; let i=index" >
+                <td>{{i+1}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.nature}}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm"
+                       data-placement="top"
+                       data-toggle="tooltip" title="Edit">
+                        <em class="fa fa-edit" style="color:white"></em>
+                    </a>
+                    <a  class="btn btn-danger btn-sm"
+                       data-placement="top"
+                       data-toggle="tooltip" style="margin-left:10px" title="Delete">
+                        <em class="fa fa-trash" style="color:white;"></em>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
