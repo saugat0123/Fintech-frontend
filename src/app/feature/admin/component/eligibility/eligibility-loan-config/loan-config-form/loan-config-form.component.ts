@@ -63,7 +63,7 @@ export class LoanConfigFormComponent implements OnInit {
                 this.service.saveEligibilityLoanConfig(this.loanConfig.value).subscribe(resp => {
                     this.loadData();
                     this.modelref.close(ModalResponse.SUCCESS);
-                     const alert= new Alert(AlertType.SUCCESS, 'Successfully Saved Eligibility Laon ')
+                     const alert= new Alert(AlertType.SUCCESS, 'Successfully Saved Eligibility Loan ')
                         this.toast.show(alert);
                     this.router.navigate([this.router.url]);
 
@@ -72,7 +72,7 @@ export class LoanConfigFormComponent implements OnInit {
                         this.error = err.error.errors;
                     }
                     this.modelref.close(ModalResponse.ERROR);
-                    this.toast.show(new Alert(AlertType.ERROR, 'Failed to create Eligibility Laon'));
+                    this.toast.show(new Alert(AlertType.ERROR, 'Failed to create Eligibility Loan'));
                     this.router.navigate([this.router.url]);
                 });
 
@@ -87,14 +87,14 @@ export class LoanConfigFormComponent implements OnInit {
                 this.model.nature = this.loanConfig.get('nature').value;
                 this.service.saveEligibilityLoanConfig(this.model).subscribe(resp => {
                     this.modelref.close(ModalResponse.SUCCESS);
-                    this.toast.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Eligibility Laon '));
+                    this.toast.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Eligibility Loan '));
                     this.router.navigate([this.router.url]);
                 }, (err) => {
                     if (err.error.errors) {
                         this.error = err.error.errors;
                     }
                     this.modelref.close(ModalResponse.ERROR);
-                    this.toast.show(new Alert(AlertType.ERROR, 'Failed Update Eligibility Laon'));
+                    this.toast.show(new Alert(AlertType.ERROR, 'Failed Update Eligibility Loan'));
                     this.router.navigate([this.router.url]);
                 })
 
