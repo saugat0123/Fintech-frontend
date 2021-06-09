@@ -17,7 +17,6 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
 
     static API = 'v1/Loan-customer';
 
-
     constructor(protected http: HttpClient) {
         super(http);
     }
@@ -77,9 +76,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     public renewLoan(searchObj: any) {
         const api = `${this.getApi()}/close-renew-customer-loan`;
         const req = ApiUtils.getRequest(api);
-
         return this.http.post(req.url, searchObj, {headers: req.header});
-
     }
 
     public getLoanStatusApi(loanNo: string): Observable<any> {
@@ -181,10 +178,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    /*public transferLoanToOtherBranch(object, bId: number): Observable<any> {
-        const req = ApiUtils.getRequest(`${LoanFormService.API}/transfer-loan-other-branch/${bId}`);
+    public reInitiateLoan(object): Observable<any> {
+        const req = ApiUtils.getRequest(`${LoanFormService.API}/re-initiate-loan`);
         return this.http.post(req.url, object, {headers: req.header});
-    }*/
+    }
 
     public changeLoanConfigByCustomerLoanIdAndLoanConfigID(customerLoanId: number, loanConfigId: number) {
         const api = `${this.getApi()}/change-loan/customer-loan-id/${customerLoanId}/loan-config-id/${loanConfigId}`;
