@@ -27,7 +27,11 @@ export class RouteGuard implements CanActivate {
             }
           }
         });
-        const linkList = mapLink.filter(f => f === state.url);
+        let url = state.url;
+        if (state.url.toString().includes('?')) {
+          url = state.url.split('?')[0];
+        }
+        const linkList = mapLink.filter(f => f === url);
         if (linkList.length > 0) {
           return true;
         }

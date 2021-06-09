@@ -37,7 +37,6 @@ export class JointFormComponent implements OnInit {
   @Input() currentVal: any;
   jointInputVal: number;
   calendarType = 'AD';
-  microCustomer = false;
   basicJointInfo: FormGroup;
   submitted = false;
   spinner = false;
@@ -71,7 +70,7 @@ export class JointFormComponent implements OnInit {
   maritalStatusEnum = MaritalStatus;
   placeHolderForMaritalStatus;
   individualJsonData: any;
-  crgLambdaDisabled = envSrdb.disableCrgLambda;
+  crgLambdaDisabled = environment.disableCrgLambda;
   client = environment.client;
   clientName = Clients;
   id: number;
@@ -144,7 +143,7 @@ export class JointFormComponent implements OnInit {
             initialRelationDate: [jointDetail.initialRelationDate],
             citizenshipNumber: [jointDetail.citizenshipNumber],
             citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace],
-            citizenshipIssuedDate: [jointDetail.citizenshipIssuedDate],
+            citizenshipIssuedDate: new Date(jointDetail.citizenshipIssuedDate),
             dob: [ObjectUtil.isEmpty(jointDetail.dob) ?
                 undefined : new Date(jointDetail.dob), DateValidator.isValidBefore],
             occupation: [jointDetail.occupation],
@@ -171,67 +170,78 @@ export class JointFormComponent implements OnInit {
             customerRelativeName1: [jointDetail.customerRelativeName1],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
             citizenshipIssuedPlace1: [jointDetail.citizenshipIssuedPlace1],
-            citizenshipIssuedDate1: [jointDetail.citizenshipIssuedDate1],
+            citizenshipIssuedDate1: new Date(jointDetail.citizenshipIssuedDate1),
             age1: [jointDetail.age1],
             customerRelation2: [jointDetail.customerRelation2],
             customerRelativeName2: [jointDetail.customerRelativeName2],
             citizenshipNumber2: [jointDetail.citizenshipNumber2],
             citizenshipIssuedPlace2: [jointDetail.citizenshipIssuedPlace2],
-            citizenshipIssuedDate2: [jointDetail.citizenshipIssuedDate2],
+            citizenshipIssuedDate2: new Date(jointDetail.citizenshipIssuedDate2),
             age2: [jointDetail.age2],
             customerRelation3: [jointDetail.customerRelation3],
             customerRelativeName3: [jointDetail.customerRelativeName3],
             citizenshipNumber3: [jointDetail.citizenshipNumber3],
             citizenshipIssuedPlace3: [jointDetail.citizenshipIssuedPlace3],
-            citizenshipIssuedDate3: [jointDetail.citizenshipIssuedDate3],
+            citizenshipIssuedDate3: new Date(jointDetail.citizenshipIssuedDate3),
             age3: [jointDetail.age3],
             customerRelation4: [jointDetail.customerRelation4],
             customerRelativeName4: [jointDetail.customerRelativeName4],
             citizenshipNumber4: [jointDetail.citizenshipNumber4],
             citizenshipIssuedPlace4: [jointDetail.citizenshipIssuedPlace4],
-            citizenshipIssuedDate4: [jointDetail.citizenshipIssuedDate4],
+            citizenshipIssuedDate4: new Date(jointDetail.citizenshipIssuedDate4),
             age4: [jointDetail.age4],
             customerRelation5: [jointDetail.customerRelation5],
             customerRelativeName5: [jointDetail.customerRelativeName5],
             citizenshipNumber5: [jointDetail.citizenshipNumber5],
             citizenshipIssuedPlace5: [jointDetail.citizenshipIssuedPlace5],
-            citizenshipIssuedDate5: [jointDetail.citizenshipIssuedDate5],
+            citizenshipIssuedDate5: new Date(jointDetail.citizenshipIssuedDate5),
             age5: [jointDetail.age5],
           })
       );
     });
   }
 
-  getDistricts(province: Province) {
+  getDistricts(index, province: Province, event) {
+      if (event) {
+          this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).setValue(null);
+          this.basicJointInfo.get(['jointCustomerInfo', index, 'municipalities']).setValue(null);
+      }
     this.commonLocation.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.districtList = response.detail;
           this.districtList.sort((a, b) => a.name.localeCompare(b.name));
           this.districtList.forEach(district => {
             if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
-              this.basicJointInfo.controls.district.setValue(district);
-              this.getMunicipalities(district);
+                this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).setValue(district);
+              this.getMunicipalities(index, district, event);
             }
           });
         }
     );
   }
 
-  getMunicipalities(district: District) {
+  getMunicipalities(index, district: District, event) {
+      if (event) {
+          this.basicJointInfo.get(['jointCustomerInfo', index, 'municipalities']).setValue(null);
+      }
     this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.municipalitiesList = response.detail;
           this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
           this.municipalitiesList.forEach(municipality => {
             if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-              this.basicJointInfo.controls.municipalities.setValue(municipality);
+                this.basicJointInfo.get(['jointCustomerInfo', index, 'municipalities']).setValue(district);
             }
           });
         }
     );
 
   }
-  getTemporaryDistricts(index, province: Province) {
+  getTemporaryDistricts(index, province: Province, event) {
+      if (event) {
+          this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).setValue(null);
+          this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).setValue(null);
+      }
     this.commonLocation.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.temporaryDistrictList = response.detail;
@@ -239,14 +249,17 @@ export class JointFormComponent implements OnInit {
           this.temporaryDistrictList.forEach(district => {
             if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
               this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryDistrict']).setValue(district);
-              this.getTemporaryMunicipalities(index, district);
+              this.getTemporaryMunicipalities(index, district, event);
             }
           });
         }
     );
   }
 
-  getTemporaryMunicipalities(index, district: District) {
+  getTemporaryMunicipalities(index, district: District, event) {
+      if (event) {
+          this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryMunicipalities']).setValue(null);
+      }
     this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
           this.temporaryMunicipalitiesList = response.detail;
@@ -305,7 +318,6 @@ export class JointFormComponent implements OnInit {
           this.customer.dob = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('dob').value;
           // to json
           this.customer.jointInfo = JSON.stringify(value);
-          this.customer.isMicroCustomer = this.microCustomer;
           this.customerService.save(this.customer).subscribe(res => {
             this.spinner = false;
             this.close();
@@ -331,14 +343,16 @@ export class JointFormComponent implements OnInit {
             if (this.customer !== undefined) {
               if (!ObjectUtil.isEmpty(this.customer.province)) {
                 if (province.id === this.customer.province.id) {
-                  this.basicJointInfo.controls.province.setValue(province);
-                  this.getDistricts(province);
+                    this.basicJointInfo.get(['jointCustomerInfo', index, 'province']).setValue(province);
+                  // this.basicJointInfo.controls.province.setValue(province);
+                  this.getDistricts(index, province, event);
                 }
               }
               if (!ObjectUtil.isEmpty(this.customer.temporaryProvince)) {
                 if (province.id === this.customer.temporaryProvince.id) {
-                  this.basicJointInfo.controls.temporaryProvince.setValue(province);
-                  this.getTemporaryDistricts(index, province);
+                    this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryProvince']).setValue(province);
+                  // this.basicJointInfo.controls.temporaryProvince.setValue(province);
+                  this.getTemporaryDistricts(index, province, event);
                 }
               }
             }
@@ -373,9 +387,8 @@ export class JointFormComponent implements OnInit {
       wardNumber: [undefined, Validators.required],
       contactNumber: [undefined, [Validators.required, Validators.max(9999999999), Validators.min(1000000000)]],
       landLineNumber: [undefined],
-      email: [undefined, [Validators.required, Validators.email]],
+      email: [undefined, Validators.email],
       // initial Relation Date not used in ui
-      initialRelationDate: [new Date()],
       citizenshipNumber: [undefined, Validators.required],
       citizenshipIssuedPlace: [undefined, Validators.required],
       citizenshipIssuedDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
@@ -394,18 +407,17 @@ export class JointFormComponent implements OnInit {
       gender: [undefined, Validators.required],
       maritalStatus: [undefined, Validators.required],
       customerLegalDocumentAddress: [undefined, Validators.required],
-      relationCheck: [undefined, Validators.required],
       customerRelation1: [undefined, Validators.required],
       customerRelativeName1: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber1: [undefined],
       citizenshipIssuedPlace1: [undefined],
-      citizenshipIssuedDate1: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      citizenshipIssuedDate1: [undefined, DateValidator.isValidBefore],
       age1: [undefined],
       customerRelation2: [undefined, Validators.required],
       customerRelativeName2: [undefined, Validators.compose([Validators.required])],
       citizenshipNumber2: [undefined],
       citizenshipIssuedPlace2: [undefined],
-      citizenshipIssuedDate2: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      citizenshipIssuedDate2: [undefined, DateValidator.isValidBefore],
       age2: [undefined],
       customerRelation3: [undefined],
       customerRelativeName3: [undefined],
@@ -481,9 +493,9 @@ export class JointFormComponent implements OnInit {
     this.basicJointInfo.get(['jointCustomerInfo' , index, 'temporaryProvince'])
         .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'province']).value);
     this.customer.temporaryDistrict = this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).value;
-    this.getTemporaryDistricts(index, this.basicJointInfo.get(['jointCustomerInfo', index, 'province']).value);
+    this.getTemporaryDistricts(index, this.basicJointInfo.get(['jointCustomerInfo', index, 'province']).value, event);
     this.customer.temporaryMunicipalities = this.basicJointInfo.get(['jointCustomerInfo', index, 'municipalities']).value;
-    this.getTemporaryMunicipalities(index, this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).value);
+    this.getTemporaryMunicipalities(index, this.basicJointInfo.get(['jointCustomerInfo', index, 'district']).value, event);
     this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryAddressLine1'])
         .setValue(this.basicJointInfo.get(['jointCustomerInfo', index, 'permanentAddressLine1']).value);
     this.basicJointInfo.get(['jointCustomerInfo', index, 'temporaryAddressLine2'])

@@ -127,7 +127,8 @@
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
-                        <app-credit-risk-grading-gamma #crgGamma
+                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
                                                        [fromProfile]="true"
                                                        [loanConfigId]="id"
                                                        [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
@@ -178,7 +179,8 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
-                        <app-credit-risk-grading-alpha #creditRiskGradingAlpha
+                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+                        <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
                                                        [financialData]="loanDocument?.financial?.data"
                                                        [security]="loanDocument?.security"
                                                        [formData]="loanDocument?.creditRiskGradingAlpha"
@@ -189,7 +191,8 @@
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
-                        <app-credit-risk-grading-lambda #creditRiskGradingLambda
+                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+                        <app-credit-risk-grading-lambda *ngIf="loanDataReady" #creditRiskGradingLambda
                                                         [customer]="loanDocument?.customerInfo"
                                                         [customerInfoData]="loanDocument?.loanHolder"
                                                         [formData]="loanDocument?.creditRiskGradingLambda"
@@ -201,7 +204,8 @@
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
-                        <app-crg-micro #crgMicro
+                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+                        <app-crg-micro *ngIf="loanDataReady" #crgMicro
                                        [formData]="loanDocument?.crgMicro"
                                        [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
                                        [security]="loanDocument?.security"

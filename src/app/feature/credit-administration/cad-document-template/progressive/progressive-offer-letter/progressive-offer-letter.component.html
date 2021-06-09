@@ -73,6 +73,18 @@
                     *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY>
 
             </app-letter-of-continuity>
+            <app-cross-guarantee-bond
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.CROSS_GUARANTEE_BOND>
+
+            </app-cross-guarantee-bond>
+            <app-guarantee-bond-personal
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_PERSONAL>
+
+            </app-guarantee-bond-personal>
             <app-offer-letter-corporate
                     *ngSwitchCase=offerLetterConst.OFFER_LETTER_CORPORATE
                     [offerLetterType]="offerLetterType"
