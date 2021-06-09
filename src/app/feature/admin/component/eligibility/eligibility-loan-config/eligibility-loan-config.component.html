@@ -26,17 +26,18 @@
                 <td>
                     <a class="btn btn-primary btn-sm"
                        data-placement="top"
-                       data-toggle="tooltip" title="Edit">
+                       data-toggle="tooltip" title="Edit" (click)="update(data.id, data)">
                         <em class="fa fa-edit" style="color:white"></em>
                     </a>
                     <a  class="btn btn-danger btn-sm"
                        data-placement="top"
-                       data-toggle="tooltip" style="margin-left:10px" title="Delete">
+                       data-toggle="tooltip" style="margin-left:10px" title="Delete" (click)="delete(data)">
                         <em class="fa fa-trash" style="color:white;"></em>
                     </a>
                 </td>
             </tr>
             </tbody>
         </table>
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
     </nb-card-body>
 </nb-card>

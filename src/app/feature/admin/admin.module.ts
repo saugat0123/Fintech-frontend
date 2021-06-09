@@ -93,6 +93,7 @@ import { CbsGroupExecutorComponent } from './component/preference/cbs-group-exec
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import { EligibilityLoanConfigComponent } from './component/eligibility/eligibility-loan-config/eligibility-loan-config.component';
 import { LoanConfigFormComponent } from './component/eligibility/eligibility-loan-config/loan-config-form/loan-config-form.component';
+import { LoanConfigDeleteModalComponent } from './component/eligibility/eligibility-loan-config/loan-config-delete-modal/loan-config-delete-modal.component';
 
 @NgModule({
     declarations: [
@@ -171,6 +172,7 @@ import { LoanConfigFormComponent } from './component/eligibility/eligibility-loa
         RoleAddComponent,
         EligibilityLoanConfigComponent,
         LoanConfigFormComponent,
+        LoanConfigDeleteModalComponent,
         // SecurityComponent
     ],
   imports: [
@@ -222,7 +224,9 @@ import { LoanConfigFormComponent } from './component/eligibility/eligibility-loa
         RemarkModalComponent,
         AccountNumberModalComponent,
         FinancialConfigModalComponent,
-        RoleAddComponent
+        RoleAddComponent,
+        LoanConfigDeleteModalComponent
+
     ]
 
 })

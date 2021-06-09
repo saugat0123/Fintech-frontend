@@ -1,6 +1,7 @@
 import {Document} from "../../../modal/document";
 
-export class EligibilityLoanConfig {
+export class EligibilityLoanConfiguration {
+
     name: String;
     nature: String;
     id: number;
@@ -10,7 +11,7 @@ export class EligibilityLoanConfig {
     version: number;
     modifiedBy: number;
     new: boolean;
-    documents: Array<Document>;
+    documents=Array<Document>();
 
 
 }
