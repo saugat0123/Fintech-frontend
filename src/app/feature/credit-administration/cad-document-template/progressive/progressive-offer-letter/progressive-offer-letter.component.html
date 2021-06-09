@@ -89,6 +89,10 @@
                     *ngSwitchCase=offerLetterConst.OFFER_LETTER_CORPORATE
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-corporate>
+            <app-offer-letter-personal
+                    *ngSwitchCase=offerLetterConst.OFFER_LETTER_PERSONAL
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-personal>
         </div>
     </nb-card-body>
 </nb-card>
