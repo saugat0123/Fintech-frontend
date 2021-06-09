@@ -31,12 +31,14 @@ import {GuaranteeBondCorporatePrintComponent} from './progressive-offer-letter/g
 import {LetterOfContinuityPrintComponent} from './progressive-offer-letter/letter-of-continuity/letter-of-continuity-print/letter-of-continuity-print.component';
 import {CrossGuaranteeBondComponent} from './progressive-offer-letter/cross-guarantee-bond/cross-guarantee-bond.component';
 import {GuaranteeBondPersonalComponent} from './progressive-offer-letter/guarantee-bond-personal/guarantee-bond-personal.component';
-import {HypothecationOfGoodsAndReceivablesBComponent} from './progressive-offer-letter/hypothecation-of-goods-and-receivables-b/hypothecation-of-goods-and-receivables-b.component';
-import {MortgageDeedComponent} from './progressive-offer-letter/mortgage-deed/mortgage-deed.component';
-import {OfferLetterCorporateComponent} from './progressive-offer-letter/offer-letter-corporate/offer-letter-corporate.component';
-import {OfferLetterPersonalComponent} from './progressive-offer-letter/offer-letter-personal/offer-letter-personal.component';
 import {OfferLetterCorporatePrintComponent} from './progressive-offer-letter/offer-letter-corporate/offer-letter-corporate-print/offer-letter-corporate-print.component';
 
+import {HypothecationOfGoodsAndReceivablesBComponent} from "./progressive-offer-letter/hypothecation-of-goods-and-receivables-b/hypothecation-of-goods-and-receivables-b.component";
+import {MortgageDeedComponent} from "./progressive-offer-letter/mortgage-deed/mortgage-deed.component";
+import {OfferLetterCorporateComponent} from "./progressive-offer-letter/offer-letter-corporate/offer-letter-corporate.component";
+import {OfferLetterPersonalComponent} from "./progressive-offer-letter/offer-letter-personal/offer-letter-personal.component";
+import { CrossGuaranteeBondPrintComponent } from './progressive-offer-letter/cross-guarantee-bond/cross-guarantee-bond-print/cross-guarantee-bond-print.component';
+import { GuaranteeBondPersonalPrintComponent } from './progressive-offer-letter/guarantee-bond-personal/guarantee-bond-personal-print/guarantee-bond-personal-print.component';
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
     LetterOfInstallmentsComponent];
@@ -72,6 +74,8 @@ const COMPONENTS = [
         MortgageDeedComponent,
         OfferLetterCorporateComponent,
         OfferLetterPersonalComponent,
+        CrossGuaranteeBondPrintComponent,
+        GuaranteeBondPersonalPrintComponent
         OfferLetterCorporatePrintComponent
 
     ],

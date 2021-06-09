@@ -61,6 +61,7 @@ export class ProposalComponent implements OnInit {
   clientName = Clients;
   othersSubsidyLoan = false;
   existInterestLimit: number;
+  showInterestAmount = true;
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -162,8 +163,6 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
-
-  this.onChange();
   }
 
   buildForm() {
@@ -216,7 +215,7 @@ export class ProposalComponent implements OnInit {
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
       prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
-          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? undefined :
+          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? 0 :
           this.proposalData.prepaymentCharge],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
@@ -507,6 +506,7 @@ export class ProposalComponent implements OnInit {
       this.checkRepaymentMode();
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
     } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
+      this.showInterestAmount = false;
       this.showRepaymentMode = true;
       this.showInstallmentAmount = false;
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
@@ -514,6 +514,7 @@ export class ProposalComponent implements OnInit {
       this.calculateInterestAmountForRepaymentMode();
       this.showInstallmentAmount = false;
       this.showRepaymentMode = false;
+      this.showInterestAmount = true;
     }
   }
 
