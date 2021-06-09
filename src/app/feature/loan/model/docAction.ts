@@ -7,8 +7,8 @@ export enum DocAction {
     CLOSED,
     TRANSFER,
     PULLED,
-    BACKWARD_TO_COMMITTEE
-
+    BACKWARD_TO_COMMITTEE,
+    RE_INITIATE
 }
 
 export namespace DocAction {
@@ -31,6 +31,8 @@ export namespace DocAction {
             return 'PULLED';
         } else if (docAction === DocAction.BACKWARD_TO_COMMITTEE) {
             return 'BACKWARD TO COMMITTEE';
+        } else if (docAction === DocAction.RE_INITIATE) {
+            return 'RE_INITIATE';
         }
     }
 }
