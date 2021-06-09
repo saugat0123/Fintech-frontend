@@ -40,7 +40,7 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         LoginBaseComponent,
         NewPasswordComponent,
         TimeOutPopUpComponent,
-        NepaliCurrencyWordPipe
+
     ],
     imports: [
         BrowserModule,
@@ -71,7 +71,9 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
         NepaliPercentWordPipe],
     bootstrap: [AppComponent],
-    exports: [],
+    exports: [
+
+    ],
     entryComponents: [TimeOutPopUpComponent]
 
 })

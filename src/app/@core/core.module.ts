@@ -19,6 +19,7 @@ import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
 import {NgxNumToWordsModule} from 'ngx-num-to-words';
 import {FormsModule} from '@angular/forms';
 import {LoginPopUp} from './login-popup/login-pop-up';
+import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 
 
 const DATA_SERVICES = [];
@@ -32,6 +33,7 @@ export const NB_CORE_PROVIDERS = [
     PermissionService,
     LoanStatusPipe,
     EngToNepaliNumberPipe,
+    NepaliCurrencyWordPipe
 ];
 
 const UTILITY_MODULES = [
@@ -58,6 +60,7 @@ const UTILITY_MODULES = [
         NepaliToEngNumberPipe,
         LoanStatusPipe,
         EngToNepaliNumberPipe,
+        NepaliCurrencyWordPipe,
         ...UTILITY_MODULES,
         LoginPopUp
     ],
@@ -74,6 +77,7 @@ const UTILITY_MODULES = [
         LoanStatusPipe,
         EngToNepaliNumberPipe,
         NepaliPercentWordPipe,
+        NepaliCurrencyWordPipe,
         LoginPopUp
 
     ], entryComponents: [LoginPopUp]

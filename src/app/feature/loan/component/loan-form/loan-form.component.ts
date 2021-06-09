@@ -290,9 +290,11 @@ export class LoanFormComponent implements OnInit {
                             }
                             this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
                             this.populateTemplate();
+                            this.loanDataReady = true;
                         }, error => {
                             console.log(error);
                             this.populateTemplate();
+                            this.loanDataReady = true;
                         }
                     );
                 } else {
