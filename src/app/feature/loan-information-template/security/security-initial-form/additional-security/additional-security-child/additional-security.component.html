@@ -19,7 +19,9 @@
             <hr>
         </div>
         <div *ngIf="landSecurity">
-            <app-land-security></app-land-security>
+            <app-land-security
+            [calendarType]="calendarType"
+            [customerSecurityId]="customerInfoId"></app-land-security>
         </div>
         <div *ngIf="vehicleSecurity">
             <app-vehicle-security></app-vehicle-security>
