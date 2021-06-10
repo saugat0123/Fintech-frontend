@@ -45,6 +45,7 @@ export class ProposalViewComponent implements OnInit {
   showRepaymentMode = false;
   showPrincipalAmount = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+  showInterestAmount = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
@@ -148,6 +149,7 @@ export class ProposalViewComponent implements OnInit {
       this.showInstallmentAmount = true;
     }
     if (this.proposalAllData.repaymentMode === 'CUSTOM') {
+      this.showInterestAmount = true;
       this.showRepaymentMode = true;
     }
     if (this.proposalAllData.repaymentMode === 'AT MATURITY') {
