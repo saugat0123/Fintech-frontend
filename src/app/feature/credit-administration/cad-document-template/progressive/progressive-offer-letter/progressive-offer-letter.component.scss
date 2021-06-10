@@ -1,3 +1,7 @@
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  width: 100%;
+}
+
 .nepali {
   font-size: 16px;
   line-height: 40px;
@@ -73,6 +77,11 @@ input::-webkit-input-placeholder {
   width: 291px;
   height: 186px;
   max-height: 186px;
+}
+
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
 }
 
 .page-break {
