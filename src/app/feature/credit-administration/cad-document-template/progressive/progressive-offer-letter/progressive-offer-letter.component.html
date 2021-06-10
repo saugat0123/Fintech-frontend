@@ -15,20 +15,20 @@
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase=offerLetterConst.LETTER_OF_INSTALLMENT></app-letter-of-installments>
-<app-letter-of-lein
-        [offerLetterType]="offerLetterType"
-        [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-        *ngSwitchCase=offerLetterConst.LETTER_OF_LEIN>
+            <app-letter-of-lein
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_LEIN>
 
-</app-letter-of-lein>
+            </app-letter-of-lein>
             <app-promissory-note [offerLetterType]="offerLetterType"
                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                                  *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE>
 
             </app-promissory-note>
             <app-loan-deed [offerLetterType]="offerLetterType"
-            [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-            *ngSwitchCase=offerLetterConst.LOAN_DEED>
+                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                           *ngSwitchCase=offerLetterConst.LOAN_DEED>
 
             </app-loan-deed>
             <app-promissory-note-guarantor
@@ -85,6 +85,14 @@
                     *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_PERSONAL>
 
             </app-guarantee-bond-personal>
+            <app-offer-letter-corporate
+                    *ngSwitchCase=offerLetterConst.OFFER_LETTER_CORPORATE
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-corporate>
+            <app-offer-letter-personal
+                    *ngSwitchCase=offerLetterConst.OFFER_LETTER_PERSONAL
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-personal>
         </div>
     </nb-card-body>
 </nb-card>
