@@ -22,7 +22,6 @@
         </app-security-initial-form>
         <div class="form-group">
             <form [formGroup]="securityForm">
-                Condition:::: {{!disableCrgAlphaParams && isBusinessLoan}}
                 <ng-container *ngIf="!disableCrgAlphaParams && isBusinessLoan">
                     <div>
                         <h4>Guarantee</h4>
