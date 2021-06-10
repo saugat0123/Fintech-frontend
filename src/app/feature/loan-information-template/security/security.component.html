@@ -22,6 +22,7 @@
         </app-security-initial-form>
         <div class="form-group">
             <form [formGroup]="securityForm">
+                Condition:::: {{!disableCrgAlphaParams && isBusinessLoan}}
                 <ng-container *ngIf="!disableCrgAlphaParams && isBusinessLoan">
                     <div>
                         <h4>Guarantee</h4>
@@ -60,7 +61,7 @@
                                         {{location?.value}}
                                     </nb-option>
                                 </nb-select>
-                                <div *ngIf="submitted && securityForm.get('securityGuarantee').invalid" class="neb-error-feedback">
+                                <div *ngIf="submitted && securityForm.get('buildingLocation').invalid" class="neb-error-feedback">
                                     Building Location is Required
                                 </div>
                             </div>
@@ -83,7 +84,7 @@
                                                    [value]="used?.value">{{used?.value}}</nb-option>
                                     </nb-option-group>
                                 </nb-select>
-                                <div *ngIf="submitted && securityForm.get('securityGuarantee').invalid" class="neb-error-feedback">
+                                <div *ngIf="submitted && securityForm.get('vehicleSecurityCoverage').invalid" class="neb-error-feedback">
                                     Vehicle Security Coverage is Required
                                 </div>
                             </div>
@@ -99,7 +100,7 @@
                                 <nb-card-body>
                                     <nb-radio-group formControlName="lambdaScheme"
                                                     id="lambdaScheme"
-                                                    name="lambdaScheme">
+                                                    name="lambdaScheme" (valueChange)="checkDisableLamdha($event)">
                                         <nb-radio value="GENERAL">General</nb-radio>
                                         <nb-radio value="AUTO_PRIVATE">Auto Loan (Private - Personal)</nb-radio>
                                         <nb-radio value="AUTO_COMMERCIAL">Auto Loan (Commercial - Personal)</nb-radio>
@@ -144,7 +145,7 @@
                                             <nb-option *ngFor="let val of facCategory" [value]="val.value">{{val.value}}</nb-option>
                                         </nb-select>
                                         <div *ngIf="submitted && securityForm.get('facCategory').invalid" class="neb-error-feedback">
-                                            Road Access Value is Required
+                                            Primary FAC is Required
                                         </div>
                                     </div>
                                 </div>
@@ -175,6 +176,9 @@
                                                            [value]="used?.value">{{used?.value}}</nb-option>
                                             </nb-option-group>
                                         </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('securityCoverageAutoPrivate').invalid" class="neb-error-feedback">
+                                            Security Coverage Private is Required
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -204,6 +208,9 @@
                                                            [value]="used?.value">{{used?.value}}</nb-option>
                                             </nb-option-group>
                                         </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('securityCoverageAutoCommercial').invalid" class="neb-error-feedback">
+                                            Security Coverage of Commerical is Required
+                                        </div>
                                     </div>
                                 </div>
                             </div>

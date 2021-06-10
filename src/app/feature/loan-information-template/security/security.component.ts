@@ -106,8 +106,9 @@ export class SecurityComponent implements OnInit {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
-        if (this.disableCrgAlphaParams) {
-            this.checkDisableAlpha();
+        this.checkDisableAlpha();
+        if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
+            this.checkDisableLamdha(event);
         }
     }
 
@@ -119,10 +120,10 @@ export class SecurityComponent implements OnInit {
 
     buildCrgSecurityForm() {
         this.securityForm = this.formBuilder.group({
-            securityGuarantee: [undefined, Validators.required],
-            buildingLocation: [undefined, Validators.required],
-            vehicleSecurityCoverage: [undefined, Validators.required],
-            lambdaScheme: ['GENERAL', !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            securityGuarantee: [undefined],
+            buildingLocation: [undefined],
+            vehicleSecurityCoverage: [undefined],
+            lambdaScheme: [undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
@@ -379,6 +380,25 @@ export class SecurityComponent implements OnInit {
     }
 
     checkDisableAlpha() {
-        this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], false);
+        if (!this.disableCrgAlphaParams && this.isBusinessLoan) {
+            this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], true);
+        } else {
+            this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], false);
+        }
+    }
+
+    checkDisableLamdha(event) {
+        this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'], false);
+        switch (event) {
+            case 'GENERAL':
+                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
+                break;
+            case 'AUTO_PRIVATE':
+                this.controlValidation(['securityCoverageAutoPrivate'], true);
+                break;
+            case 'AUTO_COMMERCIAL':
+                this.controlValidation(['securityCoverageAutoCommercial'], true);
+                break;
+        }
     }
 }
