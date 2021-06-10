@@ -92,8 +92,7 @@
                         <div *ngIf="landSecurityForm.get(['landSecurity',i,'landOtherBranchChecked']).value">
                             <div class="form-group">
                                 <label>Select Branch</label>
-                                <ng-select (change)="valuator(landSecurityForm.get(['landSecurity',i,'landBranch']).value.id,'land',i)"
-                                        [multiple]="false"
+                                <ng-select [multiple]="false"
                                         bindLabel="name"
                                         formControlName="landBranch"
                                         placeholder="">
