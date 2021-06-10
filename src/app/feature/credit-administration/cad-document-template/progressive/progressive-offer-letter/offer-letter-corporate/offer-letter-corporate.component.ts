@@ -57,7 +57,7 @@ export class OfferLetterCorporateComponent implements OnInit {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         console.log(this.nepaliData);
         const customerAddress =
-            this.nepaliData.permanentMunicipality + ' j8f g. ' +
+            this.nepaliData.permanentMunicipality + ' j8f g ' +
             this.nepaliData.permanentWard + ' , ' +
             this.nepaliData.permanentDistrict;
         this.form.patchValue({
@@ -238,6 +238,9 @@ export class OfferLetterCorporateComponent implements OnInit {
 
             amount2: [undefined],
             amountInWords2: [undefined],
+
+            bulletText641: [undefined],
+            bulletText642: [undefined],
 
             financeBranch: [undefined],
             financeMunicipality: [undefined],
