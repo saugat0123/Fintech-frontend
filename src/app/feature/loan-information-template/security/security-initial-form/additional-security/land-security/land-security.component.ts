@@ -33,7 +33,6 @@ export class LandSecurityComponent implements OnInit {
   ownershipTransfers = OwnershipTransfer;
   dialogRef: NbDialogRef<any>;
   isOpen = false;
-  landOwnerKycChecked: boolean;
   areaFormat = ['R-A-P-D', 'B-K-D', 'SQF', 'Sq.m'];
   typeOfProperty = ['Guthi', 'Lease Hold', 'Free Hold', 'Rajkar', 'Others'];
   designationList = [];
@@ -156,8 +155,7 @@ export class LandSecurityComponent implements OnInit {
   }
 
   public landOwnerKycCheck(event, index: number): void {
-    const val = this.landOwnerKycChecked = event;
-    this.landSecurityForm.get(['landSecurity', index, 'landOwnerKyc']).setValue(val);
+    this.landSecurityForm.get(['landSecurity', index, 'landOwnerKyc']).setValue(event);
   }
 
   public openSiteVisitModel(security: string): void {
