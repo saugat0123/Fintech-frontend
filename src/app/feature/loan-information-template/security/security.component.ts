@@ -106,6 +106,9 @@ export class SecurityComponent implements OnInit {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
+        if (this.disableCrgAlphaParams) {
+            this.checkDisableAlpha();
+        }
     }
 
     buildForm() {
@@ -116,9 +119,9 @@ export class SecurityComponent implements OnInit {
 
     buildCrgSecurityForm() {
         this.securityForm = this.formBuilder.group({
-            securityGuarantee: [undefined],
-            buildingLocation: [undefined],
-            vehicleSecurityCoverage: [undefined],
+            securityGuarantee: [undefined, Validators.required],
+            buildingLocation: [undefined, Validators.required],
+            vehicleSecurityCoverage: [undefined, Validators.required],
             lambdaScheme: ['GENERAL', !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
@@ -362,5 +365,20 @@ export class SecurityComponent implements OnInit {
             }
         });
         return totalSecurityAmount;
+    }
+
+    controlValidation(controlNames: string[], validate) {
+        controlNames.forEach(s => {
+            if (validate) {
+                this.securityForm.get(s).setValidators(Validators.required);
+            } else {
+                this.securityForm.get(s).clearValidators();
+            }
+            this.securityForm.get(s).updateValueAndValidity();
+        });
+    }
+
+    checkDisableAlpha() {
+        this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], false);
     }
 }

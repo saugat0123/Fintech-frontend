@@ -39,6 +39,9 @@
                                               [value]="guarantee?.value">{{guarantee?.value}}
                                     </nb-radio>
                                 </nb-radio-group>
+                                <div *ngIf="submitted && securityForm.get('securityGuarantee').invalid" class="neb-error-feedback">
+                                    Security Guarantee is Required
+                                </div>
                             </div>
                         </nb-card-body>
                     </nb-card>
@@ -57,6 +60,9 @@
                                         {{location?.value}}
                                     </nb-option>
                                 </nb-select>
+                                <div *ngIf="submitted && securityForm.get('securityGuarantee').invalid" class="neb-error-feedback">
+                                    Building Location is Required
+                                </div>
                             </div>
                         </div>
                         <div class="col">
@@ -77,6 +83,9 @@
                                                    [value]="used?.value">{{used?.value}}</nb-option>
                                     </nb-option-group>
                                 </nb-select>
+                                <div *ngIf="submitted && securityForm.get('securityGuarantee').invalid" class="neb-error-feedback">
+                                    Vehicle Security Coverage is Required
+                                </div>
                             </div>
                         </div>
                     </div>
