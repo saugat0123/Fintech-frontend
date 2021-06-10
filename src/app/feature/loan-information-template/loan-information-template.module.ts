@@ -48,8 +48,23 @@ import { FixAssetCollateralComponent } from './security/security-initial-form/fi
 import {AngularDraggableModule} from 'angular2-draggable';
 import { CrgMicroComponent } from './crg-micro/crg-micro.component';
 import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
-import { AdditionalSecurityComponent } from './security/security-initial-form/additional-security/additional-security-child/additional-security.component';
-import { AdiitionalSecurityParentComponent } from './security/security-initial-form/additional-security/adiitional-security-parent/adiitional-security-parent.component';
+import {AdditionalSecurityComponent} from './security/security-initial-form/additional-security/additional-security-child/additional-security.component';
+import {AdditionalSecurityParentComponent} from './security/security-initial-form/additional-security/aditional-security-parent/additional-security-parent.component';
+import { LandSecurityComponent } from './security/security-initial-form/additional-security/land-security/land-security.component';
+import { VehicleSecurityComponent } from './security/security-initial-form/additional-security/vehicle-security/vehicle-security.component';
+import { ApartmentSecurityComponent } from './security/security-initial-form/additional-security/apartment-security/apartment-security.component';
+import { LandAndBuildingSecurityComponent } from './security/security-initial-form/additional-security/land-and-building-security/land-and-building-security.component';
+import { PlantAndMachinerySecurityComponent } from './security/security-initial-form/additional-security/plant-and-machinery-security/plant-and-machinery-security.component';
+import { FixDepositReceiptSecurityComponent } from './security/security-initial-form/additional-security/fix-deposit-receipt-security/fix-deposit-receipt-security.component';
+import { ShareSecurityComponent } from './security/security-initial-form/additional-security/share-security/share-security.component';
+import { HypothecationOfStockSecurityComponent } from './security/security-initial-form/additional-security/hypothecation-of-stock-security/hypothecation-of-stock-security.component';
+import { CorporateGuaranteeSecurityComponent } from './security/security-initial-form/additional-security/corporate-guarantee-security/corporate-guarantee-security.component';
+import { PersonalGuaranteeSecurityComponent } from './security/security-initial-form/additional-security/personal-guarantee-security/personal-guarantee-security.component';
+import { InsurancePolicySecurityComponent } from './security/security-initial-form/additional-security/insurance-policy-security/insurance-policy-security.component';
+import { AssignmentOfReceivableSecurityComponent } from './security/security-initial-form/additional-security/assignment-of-receivable-security/assignment-of-receivable-security.component';
+import { LeaseAssignmentSecurityComponent } from './security/security-initial-form/additional-security/lease-assignment-security/lease-assignment-security.component';
+import { OtherSecurityComponent } from './security/security-initial-form/additional-security/other-security/other-security.component';
+
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -85,7 +100,21 @@ const COMPONENTS = [
     FixAssetCollateralComponent,
     SecurityTableComponent,
     AdditionalSecurityComponent,
-    AdiitionalSecurityParentComponent
+    AdditionalSecurityParentComponent,
+    LandSecurityComponent,
+    VehicleSecurityComponent,
+    ApartmentSecurityComponent,
+    LandAndBuildingSecurityComponent,
+    PlantAndMachinerySecurityComponent,
+    FixDepositReceiptSecurityComponent,
+    ShareSecurityComponent,
+    HypothecationOfStockSecurityComponent,
+    CorporateGuaranteeSecurityComponent,
+    PersonalGuaranteeSecurityComponent,
+    InsurancePolicySecurityComponent,
+    AssignmentOfReceivableSecurityComponent,
+    LeaseAssignmentSecurityComponent,
+    OtherSecurityComponent
 ];
 
 

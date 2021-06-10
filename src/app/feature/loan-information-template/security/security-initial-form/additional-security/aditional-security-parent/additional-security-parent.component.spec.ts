@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdiitionalSecurityParentComponent } from './adiitional-security-parent.component';
+import { AdditionalSecurityParentComponent } from './additional-security-parent.component';
 
 describe('AdiitionalSecurityParentComponent', () => {
-  let component: AdiitionalSecurityParentComponent;
-  let fixture: ComponentFixture<AdiitionalSecurityParentComponent>;
+  let component: AdditionalSecurityParentComponent;
+  let fixture: ComponentFixture<AdditionalSecurityParentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdiitionalSecurityParentComponent ]
+      declarations: [ AdditionalSecurityParentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdiitionalSecurityParentComponent);
+    fixture = TestBed.createComponent(AdditionalSecurityParentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

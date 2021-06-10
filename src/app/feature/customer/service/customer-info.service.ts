@@ -58,4 +58,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/transfer-customer-other-branch`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+    public getAllAdditionalSecurityByCustomerInfoId(id: number) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/additional-security/${id}`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
