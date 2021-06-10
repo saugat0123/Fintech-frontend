@@ -73,6 +73,18 @@
                     *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY>
 
             </app-letter-of-continuity>
+            <app-hypothecation-of-goods-and-receivables-b
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B>
+
+            </app-hypothecation-of-goods-and-receivables-b>
+            <app-mortgage-deed
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.MORTGAGE_DEED>
+
+            </app-mortgage-deed>
         </div>
     </nb-card-body>
 </nb-card>

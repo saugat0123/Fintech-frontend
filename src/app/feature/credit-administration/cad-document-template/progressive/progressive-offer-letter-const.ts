@@ -10,7 +10,10 @@ export enum ProgressiveOfferLetterConst {
     LETTER_OF_INDEMNITY,
     LETTER_OF_DISBURSEMENT,
     GUARANTEE_BOND_CORPORATE,
-    LETTER_OF_CONTINUITY
+    LETTER_OF_CONTINUITY,
+    HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B = 12,
+    MORTGAGE_DEED = 13,
+
 
 
 }
@@ -42,7 +45,10 @@ export namespace ProgressiveOfferLetterConst {
                 return 'Guarantee Bond Corporate';
             case ProgressiveOfferLetterConst.LETTER_OF_CONTINUITY:
                 return 'Letter Of Continuity';
-
+            case ProgressiveOfferLetterConst.HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B:
+                return 'Hypothecation Of Goods And Receivables B ';
+            case ProgressiveOfferLetterConst.MORTGAGE_DEED:
+                return 'Mortgage Deed ';
 
         }
     }
