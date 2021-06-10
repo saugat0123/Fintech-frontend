@@ -1,6 +1,6 @@
-<div class="row" id="{{ offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES }}">
+<div class="row" id="print-section-{{ offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES }}">
     <div class="col-md-12 viewFull">
-        <form (ngSubmit)="onSubmit()" class="nepali text-justify" [formGroup]="form">
+        <form class="nepali text-justify">
             <div class="nep">
                 <div class="text-center">
                     <b>हाइपोथिकेसन धितो सुरक्षणसम्बन्धी लिखत</b>
@@ -18,11 +18,9 @@
                             बमोजिम काम
                             कारोबार
                             गर्नेे प्रोग्रेशिभ फाइनान्स लिमिटेडको
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="financePlace">
+                            <span class="nepaliFont">{{printDocForm?.financePlace}}</span>
                             स्थित
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="financeBranch">
+                            <span class="nepaliFont">{{printDocForm?.financeBranch}}</span>
                             कार्यालय (जसलाई यस उप्रान्त
                             लिखतमा
                             “धनी
@@ -35,45 +33,37 @@
                     <tr>
                         <td width="25%">ऋणी फर्म/ कम्पनीको नाम:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   readonly
-                                   formControlName="customerName">
+                            <span class="nepaliFont">{{printDocForm?.customerName}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>ठेगाना:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   readonly
-                                   formControlName="customerAddress">
+                            <span class="nepaliFont">{{printDocForm?.customerAddress}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>कारोबार स्थल:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="transactionPlace">
+                            <span class="nepaliFont">{{printDocForm?.transactionPlace}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>दर्ता नं.:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="regNum">
+                            <span class="nepaliFont">{{printDocForm?.regNum}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>दर्ता मिति:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="regDate">
+                            <span class="nepaliFont">{{printDocForm?.regDate}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>दर्ता भएको निकाय:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="regOffice">
+                            <span class="nepaliFont">{{printDocForm?.regOffice}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -82,50 +72,43 @@
                     <tr>
                         <td>नाम, थर:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierName">
+                            <span class="nepaliFont">{{printDocForm?.properitierName}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>हालको उमेर:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierAge">
+                            <span class="nepaliFont">{{printDocForm?.properitierAge}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>ना.प्र.न.</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierCitizenNum">
+                            <span class="nepaliFont">{{printDocForm?.properitierCitizenNum}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>नागरिकता बमोजिमको ठेगाना</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierCitizenAddress">
+                            <span class="nepaliFont">{{printDocForm?.properitierCitizenAddress}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>हालको ठेगाना</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierCurrentAddress">
+                            <span class="nepaliFont">{{printDocForm?.properitierCurrentAddress}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>पिता/पतिको नाम:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierParentName">
+                            <span class="nepaliFont">{{printDocForm?.properitierParentName}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>बाजे/शसुराको नाम:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="properitierGrandParentName">
+                            <span class="nepaliFont">{{printDocForm?.properitierGrandParentName}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -137,10 +120,8 @@
                     <tr>
                         <td>ऋण स्वीकृतिपत्रको मिति र प.सं.:</td>
                         <td colspan="2">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="loanApproveDate">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="loanApprovePasa">
+                            <span class="nepaliFont">{{printDocForm?.loanApproveDate}}</span>
+                            <span class="nepaliFont">{{printDocForm?.loanApprovePasa}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -155,21 +136,16 @@
                         <td>१.</td>
                         <td width="50%">बैंक जमानत (Bank Guarantee)</td>
                         <td width="25%">
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="jamanatAmount">
+                            <span class="nepaliFont">{{printDocForm?.jamanatAmount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>२.</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="jamanatOther">
+                            <span class="nepaliFont">{{printDocForm?.jamanatOther}}</span>
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="jamanatOtherAmount">
+                            <span class="nepaliFont">{{printDocForm?.jamanatOtherAmount}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -179,76 +155,58 @@
                         <td>४.</td>
                         <td>क्यास क्रेडिट</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="cashCreditAmount">
+                            <span class="nepaliFont">{{printDocForm?.cashCreditAmount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>५.</td>
                         <td>रिभल्भिङ्ग/चालुपूँजी</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="revolvingAmount">
+                            <span class="nepaliFont">{{printDocForm?.revolvingAmount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>६.</td>
                         <td>डिमान्ड कर्जा</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="demandLoanAmount">
+                            <span class="nepaliFont">{{printDocForm?.demandLoanAmount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>७.</td>
                         <td>परियोजना कर्जा/आवाधिक कर्जा (Fixed Term Loan)</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="fixedTermAmount">
+                            <span class="nepaliFont">{{printDocForm?.fixedTermAmount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>९.</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="koshOther1">
+                            <span class="nepaliFont">{{printDocForm?.koshOther1}}</span>
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="koshOtherAmount1">
+                            <span class="nepaliFont">{{printDocForm?.koshOtherAmount1}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>१०.</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="koshOther2">
+                            <span class="nepaliFont">{{printDocForm?.koshOther2}}</span>
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   (change)="addAmounts()"
-                                   formControlName="koshOtherAmount2">
+                            <span class="nepaliFont">{{printDocForm?.koshOtherAmount2}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">कुल सीमा (अंकमा)</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                   (change)="getNumAmountWord('totalLimitAmount', 'totalLimitAmountInWords')"
-                                   formControlName="totalLimitAmount">
+                            <span class="nepaliFont font-size-normal">{{printDocForm?.totalLimitAmount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">कुल सीमा (अक्षरमा)</td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal"
-                                   readonly
-                                   formControlName="totalLimitAmountInWords">
+                            <span class="nepaliFont font-size-normal">{{printDocForm?.totalLimitAmountInWords}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -475,6 +433,7 @@
                     सम्पत्ति उपर हुन सक्ने कुनै
                     प्रकारको हानी नोक्सानी म/हामी ऋणी स्वयंको हानी नोक्सानी हुने कुरामा म म/हामी ऋणीको मञ्जुरी छ ।<br>
                 </div>
+                <div class="page-break"></div>
                 <b>७. ऋणीले बहाल, भाडा तथा कर फछ्यौंट गर्नुपर्ने :</b><br>
                 <div class="ml-3">
                     धितो सम्पत्ति वा सो को अंश रहेको, भण्डार गरिएको कारखाना/गोदामघर/पसल/कबल/टहरा आदि म/हामी ऋणीले बहाल,
@@ -640,6 +599,7 @@
                     प्राप्त हक, अधिकार, सुविधा वा
                     उपचारका सम्बन्धमा यसमा उल्लिखित कुनै कुराहरुले पनि प्रतिकूल प्रभाव पार्ने छैनन् ।<br>
                 </div>
+                <div class="page-break"></div>
                 <b>१५. ऋणीको संरचनामा हेरफेर :</b><br>
                 <div class="ml-3">
                     म/हामी ऋणी कम्पनी वा फर्म भएमा वा त्यस्तो कम्पनी वा फर्मको भएमा यो सम्झौता बहाल रहेसम्म त्यस्तो
@@ -680,52 +640,37 @@
                 <b>साक्षीः</b><br>
                 <b>ऋणीको तर्फबाटः</b><br>
 
-                <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
-                     formArrayName="guarantors" class="mb-4">
-                    <div [formGroupName]="i">
+                <div *ngFor="let guarantor of printDocForm?.guarantors; index as i"
+                     class="mb-4">
+                    <div>
                         {{i + 1 | nepaliWord: 'unicode'}}.
-                        <input type="text" class="nepaliFont form-field form-control-sm"
-                               formControlName="name">
-                        <span (click)="removeGuarantor(i)" size="small" class="float-right ml-1 btn-sm btn btn-danger"
-                              *ngIf="form.get('guarantors')['length']>1"><i class="fa fa-trash"></i></span>
-                        <span (click)="addEmptyGuarantor()" nbButton size="small" status="info" type="button"
-                              class="d-print-none  btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i></span>
+                        <span class="nepaliFont">{{guarantor?.name}}</span>
                         <br>
                     </div>
                 </div>
 
                 <b>धनी वित्तीय संस्थाको तर्फबाटः</b><br>
 
-                <div *ngFor="let financeGuarantor of form.get('financeGuarantors')['controls']; index as i"
-                     formArrayName="financeGuarantors" class="mb-4">
-                    <div [formGroupName]="i">
+                <div *ngFor="let financeGuarantor of printDocForm?.financeGuarantors; index as i"
+                     class="mb-4">
+                    <div>
                         {{i + 1 | nepaliWord: 'unicode'}}.
-                        <input type="text" class="nepaliFont form-field form-control-sm"
-                               formControlName="name">
-                        <span (click)="removeFinanceGuarantor(i)" size="small"
-                              class="float-right ml-1 btn-sm btn btn-danger"
-                              *ngIf="form.get('financeGuarantors')['length']>1"><i class="fa fa-trash"></i></span>
-                        <span (click)="addEmptyFinanceGuarantor()" nbButton size="small" status="info" type="button"
-                              class="d-print-none btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i></span>
+                        <span class="nepaliFont">{{financeGuarantor?.name}}</span>
+
                         <br>
                     </div>
                 </div>
 
                 <p>ईति सम्वत् २०
-                    <input type="text" class="nepaliFont form-field form-control-sm"
-                           formControlName="docYear">
+                    <span class="nepaliFont">{{printDocForm?.docYear}}</span>
                     साल
-                    <input type="text" class="nepaliFont form-field form-control-sm"
-                           formControlName="docMonth">
+                    <span class="nepaliFont">{{printDocForm?.docMonth}}</span>
                     महिना
-                    <input type="text" class="nepaliFont form-field form-control-sm"
-                           formControlName="docDate">
+                    <span class="nepaliFont">{{printDocForm?.docDate}}</span>
                     गते रोज
-                    <input type="text" class="nepaliFont form-field form-control-sm"
-                           formControlName="docRoj">
+                    <span class="nepaliFont">{{printDocForm?.docRoj}}</span>
                     शुभम्
-                    <input type="text" class="nepaliFont form-field form-control-sm"
-                           formControlName="docSubham">
+                    <span class="nepaliFont">{{printDocForm?.docSubham}}</span>
                 </p>
                 <br>
 
@@ -741,57 +686,35 @@
                         <th>परिमाण</th>
                         <th>प्रचलित मुल्य</th>
                         <th>कैफियत</th>
-                        <th width="5%"></th>
                     </tr>
                     </thead>
-                    <tbody *ngFor="let anusuchi of form.get('anusuchis')['controls']; index as i"
-                           formArrayName="anusuchis">
-                    <tr [formGroupName]="i">
+                    <tbody *ngFor="let anusuchi of printDocForm?.anusuchis; index as i">
+                    <tr>
                         <td>
                             {{i + 1 | nepaliWord: 'unicode' }}.
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="name">
+                            <span class="nepaliFont">{{anusuchi?.name}}</span>
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="quantity">
+                            <span class="nepaliFont">{{anusuchi?.quantity}}</span>
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="amount">
+                            <span class="nepaliFont">{{anusuchi?.amount}}</span>
                         </td>
                         <td>
-                            <input type="text" class="nepaliFont form-field form-control-sm"
-                                   formControlName="remarks">
-                        </td>
-                        <td>
-                            <span (click)="removeAnusuchi(i)" size="small"
-                                  class="float-right d-print-none ml-1 btn btn-sm btn-danger"
-                                  *ngIf="form.get('anusuchis')['length']>1"><i class="fa fa-trash"></i></span>
-                            <span (click)="addEmptyAnusuchi()" nbButton size="small" status="info" type="button"
-                                  class="d-print-none float-right btn btn-sm btn-primary"><i
-                                    class="fa fa-plus"></i></span>
-                        </td>
+                            <span class="nepaliFont">{{anusuchi?.remarks}}</span></td>
+
                     </tr>
                     </tbody>
                 </table>
                 <p> टर्म लोन भएमा मिल, मेशिनरी, पार्टपूर्जा ईत्यादिको पूरा विवरण उल्लेख गर्ने । चालु पूँजी कर्जा मात्र
                     भएमा ऋणीले पेश गरेको Stock Statement बमोजिमका माल, वस्तुहरु भनेर उल्लेख गर्ने । </p>
             </div>
-            <button type="submit" class="btn btn-primary float-right" nbButton status="success">
-                Save
-            </button>
+
         </form>
-        <button class="btn btn-primary d-print-none"
-                [useExistingCss]="true"
-                [disabled]="!initialInfoPrint"
-                printSectionId="print-section-{{ offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES }}"
-                ngxPrint>print
-        </button>
+
     </div>
 </div>
 
-<app-hypothecation-of-goods-and-receivables-a-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                                                    hidden></app-hypothecation-of-goods-and-receivables-a-print>
+
