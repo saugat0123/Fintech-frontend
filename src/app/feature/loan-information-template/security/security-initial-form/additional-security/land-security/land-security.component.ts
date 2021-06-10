@@ -23,7 +23,7 @@ import {OwnershipTransfer} from '../../../../../loan/model/ownershipTransfer';
 export class LandSecurityComponent implements OnInit {
   landSecurityForm: FormGroup;
 
-  @Input() customerSecurityId;
+  @Input() customerSecurityId: number;
   @Input() calendarType: CalendarType;
 
   branchLists: Array<Branch> = new Array<Branch>();
@@ -76,7 +76,6 @@ export class LandSecurityComponent implements OnInit {
       landBranch: [undefined],
       landConsideredValue: [undefined],
       typeOfProperty: [undefined],
-      revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}],
       landStaffRepresentativeDesignation: [undefined],
       landStaffRepresentativeName2: [undefined],
       landStaffRepresentativeDesignation2: [undefined],
@@ -156,8 +155,9 @@ export class LandSecurityComponent implements OnInit {
 
   }
 
-  public landOwnerKycCheck(event): void {
-    this.landOwnerKycChecked = event;
+  public landOwnerKycCheck(event, index: number): void {
+    const val = this.landOwnerKycChecked = event;
+    this.landSecurityForm.get(['landSecurity', index, 'landOwnerKyc']).setValue(val);
   }
 
   public openSiteVisitModel(security: string): void {
