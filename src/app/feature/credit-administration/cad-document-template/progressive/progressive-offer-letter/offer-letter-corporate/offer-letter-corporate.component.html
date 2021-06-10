@@ -1341,7 +1341,7 @@
                         <br>
 
                         <input class="form-control-sm form-field nepaliFont"
-                               [value]="form.get('financeBranch').value"
+                               [value]="initialInfoPrint?.bottomFinanceBranch ? initialInfoPrint?.bottomFinanceBranch : form.get('financeBranch').value"
                                type="text"
                                formControlName="bottomFinanceBranch">
                         शाखा,
@@ -1357,11 +1357,11 @@
                         त्यस वित्तीय सस्थाको मिति
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               [value]="form.get('date').value"
+                               [value]="initialInfoPrint?.bottomDate ? initialInfoPrint?.bottomDate : form.get('date').value"
                                formControlName="bottomDate">
                         को पत्र न.
                         <input class="form-control-sm form-field nepaliFont"
-                               [value]="form.get('patraNum').value"
+                               [value]="initialInfoPrint?.bottomPatraNum ? initialInfoPrint?.bottomPatraNum : form.get('patraNum').value"
                                type="text"
                                formControlName="bottomPatraNum">
                         बमोजिमश्री

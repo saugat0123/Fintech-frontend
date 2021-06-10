@@ -87,7 +87,7 @@ export class OfferLetterCorporateComponent implements OnInit {
             this.existingOfferLetter = true;
             this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
-            this.form.patchValue(initialInfo);
+            this.form.patchValue(this.initialInfoPrint);
         }
     }
 
