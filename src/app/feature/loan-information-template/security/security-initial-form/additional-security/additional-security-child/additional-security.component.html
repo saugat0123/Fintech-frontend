@@ -44,7 +44,7 @@
             <app-share-security></app-share-security>
         </div>
         <div *ngIf="hypothecationOfStockSecurity">
-            <app-hypothecation-of-stock-security></app-hypothecation-of-stock-security>
+            <app-hypothecation-of-stock-security [calendarType]="calendarType"></app-hypothecation-of-stock-security>
         </div>
         <div *ngIf="corporateGuaranteeSecurity">
             <app-corporate-guarantee-security></app-corporate-guarantee-security>
