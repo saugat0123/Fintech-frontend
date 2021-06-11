@@ -25,12 +25,12 @@ export class FixDepositReceiptSecurityComponent implements OnInit {
 
   private fixedDepositFormGroup(): FormGroup {
     return this.formBuilder.group({
-      receiptNumber: [''],
-      amount: [''],
+      receiptNumber: [undefined],
+      amount: [undefined],
       expiryDate: undefined,
-      couponRate: [''],
-      beneficiary: [''],
-      remarks: [''],
+      couponRate: [undefined],
+      beneficiary: [undefined],
+      remarks: [undefined],
       accountHolderName: undefined,
       accountNumber: [undefined, Validators.required],
       tenureStartDate: undefined
