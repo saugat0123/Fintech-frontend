@@ -23,7 +23,6 @@ import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
@@ -109,9 +108,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus;
     placeHolderForMaritalStatus;
-    individualJsonData: IndividualJsonData;
+    individualJsonData: IndividualJsonData = new IndividualJsonData();
 
-    crgLambdaDisabled = envSrdb.disableCrgLambda;
+    crgLambdaDisabled = environment.disableCrgLambda;
     client = environment.client;
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
@@ -398,12 +397,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
-            securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.securityRisk],
-            incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.incomeRisk],
-            successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
-                this.individualJsonData.successionRisk],
+            securityRisk: [this.individualJsonData.securityRisk === undefined ? undefined :
+                this.individualJsonData.securityRisk, [Validators.required]],
+            incomeRisk: [this.individualJsonData.incomeRisk === undefined ? undefined :
+                this.individualJsonData.incomeRisk, [Validators.required]],
+            successionRisk: [this.individualJsonData.successionRisk === undefined ? undefined :
+                this.individualJsonData.successionRisk, [Validators.required]],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
                 undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?
