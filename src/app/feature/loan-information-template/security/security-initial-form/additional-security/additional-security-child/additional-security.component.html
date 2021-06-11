@@ -53,7 +53,7 @@
             <app-personal-guarantee-security></app-personal-guarantee-security>
         </div>
         <div *ngIf="insurancePolicySecurity">
-            <app-insurance-policy-security></app-insurance-policy-security>
+            <app-insurance-policy-security [calendarType]="calendarType"></app-insurance-policy-security>
         </div>
         <div *ngIf="assignmentOfReceivablesSecurity">
             <app-assignment-of-receivable-security></app-assignment-of-receivable-security>
