@@ -35,7 +35,7 @@
             [customerSecurityId]="customerSecurityId"></app-land-and-building-security>
         </div>
         <div *ngIf="plantAndMachinerySecurity">
-            <app-plant-and-machinery-security></app-plant-and-machinery-security>
+            <app-plant-and-machinery-security [calendarType]="calendarType"></app-plant-and-machinery-security>
         </div>
         <div *ngIf="fixedDepositSecurity">
             <app-fix-deposit-receipt-security></app-fix-deposit-receipt-security>

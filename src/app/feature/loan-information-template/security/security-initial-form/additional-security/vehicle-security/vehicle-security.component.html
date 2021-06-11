@@ -168,7 +168,7 @@
                                        placeholder=""
                                        formControlName="vehicalValuator" (click)="getValuatorList(i)">
                                 <ng-option [value]="null">Select Valuator Name</ng-option>
-                                <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
+                                <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
                                            [value]="valuator">{{valuator.name}}</ng-option>
                             </ng-select>
                         </div>
