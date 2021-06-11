@@ -1,1 +1,750 @@
-<p>apartment-security works!</p>
+<nb-card class="p-5">
+    <div [formGroup]="apartmentSecurityForm">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <nb-checkbox (change)="underConstruction($event.target.checked)"
+                        formControlName="checkUnderConstruction">Check if Under Construction
+                    </nb-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="box-header with-border">
+            <h2 class="box-title title">Apartment Details</h2>
+        </div>
+        <div *ngFor="let building of apartmentSecurityForm.get('apartmentSecurity')['controls']; let i = index"
+             class="font-weight-bold"
+             formArrayName="apartmentSecurity">
+            <div [formGroupName]="i">
+                <div class="row justify-content-end">
+                    <button class="btn btn-primary sb-small mr-2"
+                            (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit
+                    </button>
+                </div>
+                <ng-template #apartment>
+                    <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
+                    branch location
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="buildingName">Apartment Name</label>
+                                <input class="form-control rounded" formControlName="buildingName"
+                                       id="buildingName"
+                                       name="buildingName" placeholder="name of Apartment"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="buildingDescription">Apartment
+                                    Description</label>
+                                <input class="form-control rounded"
+                                       formControlName="buildingDescription"
+                                       id="buildingDescription"
+                                       name="buildingDescription" placeholder="Apartment description"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
+                                <input class="form-control rounded" formControlName="buildArea"
+                                       id="buildArea"
+                                       name="buildArea" placeholder="build up area"
+                                       type="number" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="buildRate">Build Up Area Rate</label>
+                                <input class="form-control rounded" formControlName="buildRate"
+                                       id="buildRate"
+                                       name="buildRate" placeholder="build up rate"
+                                       type="number"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="totalCost">Total Cost</label>
+                                <input class="form-control rounded" formControlName="totalCost"
+                                       id="totalCost"
+                                       name="totalCost" placeholder="total cost"
+                                       type="number" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="floorName">Floor Name</label>
+                                <input class="form-control rounded" formControlName="floorName"
+                                       id="floorName"
+                                       name="floorName" placeholder="First Floor,Second....."
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="valuationArea">Valuation Taken Area
+                                    (Sq.ft)</label>
+                                <input class="form-control rounded" formControlName="valuationArea"
+                                       id="valuationArea"
+                                       name="valuationArea" placeholder="Valuation Taken Area"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="ratePerSquareFeet">Rate per Square
+                                    Feet</label>
+                                <input class="form-control rounded"
+                                       formControlName="ratePerSquareFeet"
+                                       id="ratePerSquareFeet"
+                                       name="ratePerSquareFeet" placeholder="Rate per Square Feet"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="estimatedCost">Estimated Cost</label>
+                                <input class="form-control rounded" formControlName="estimatedCost"
+                                       id="estimatedCost"
+                                       name="estimatedCost" placeholder="Estimated Cost"
+                                       type="number" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="waterSupplyPercent">Water Supply %</label>
+                                <input class="form-control rounded" formControlName="waterSupplyPercent"
+                                       id="waterSupplyPercent"
+                                       name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="waterSupply">Water Supply</label>
+                                <input class="form-control rounded" formControlName="waterSupply"
+                                       id="waterSupply"
+                                       name="waterSupply" placeholder="Water Supply"
+                                       type="number" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="sanitationPercent">Sanitation %</label>
+                                <input class="form-control rounded"
+                                       formControlName="sanitationPercent"
+                                       id="sanitationPercent"
+                                       name="sanitationPercent" placeholder="Sanitation %"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="sanitation">Sanitation</label>
+                                <input class="form-control rounded" formControlName="sanitation"
+                                       id="sanitation"
+                                       name="sanitation" placeholder="Sanitation"
+                                       type="number" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="electrificationPercent">Electrification %</label>
+                                <input class="form-control rounded"
+                                       formControlName="electrificationPercent"
+                                       id="electrificationPercent"
+                                       name="electrificationPercent" placeholder="Electrification %"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="electrification">Electrification</label>
+                                <input class="form-control rounded"
+                                       formControlName="electrification"
+                                       id="electrification"
+                                       name="electrification" placeholder="Electrification"
+                                       type="number" readonly/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="buildingTotalCost">Apartment Total
+                                    Cost</label>
+                                <input class="form-control rounded"
+                                       formControlName="buildingTotalCost"
+                                       id="buildingTotalCost"
+                                       name="buildingTotalCost" placeholder="Apartment total cost"
+                                       type="number" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="buildingFairMarketValue">Apartment Fair
+                                    Market
+                                    Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="buildingFairMarketValue"
+                                       id="buildingFairMarketValue"
+                                       name="buildingFairMarketValue" placeholder="Apartment FMV"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title"
+                                       for="buildingDistressValue">Apartment Distress Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="buildingDistressValue"
+                                       id="buildingDistressValue"
+                                       name="buildingDistressValue" placeholder="Apartment value"
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div *ngIf="apartmentSecurityForm.get(['apartmentSecurity',i,'apartmentOtherBranchChecked']).value">
+                                <div class="form-group">
+                                    <label>Select Branch</label>
+                                    <ng-select (change)="valuator(i)"
+                                            [multiple]="false"
+                                            bindLabel="name"
+                                            formControlName="apartmentBranch"
+                                            placeholder="">
+                                        <ng-option *ngFor="let branch of branchLists"
+                                                   [value]="branch">{{branch.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Valuator Name</label>
+                                <ng-select [multiple]="false"
+                                           bindLabel="name"
+                                           placeholder=""
+                                           formControlName="ApartmentValuator"
+                                           (click)="valuator(i)">
+                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
+                                    <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
+                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="ApartmentValuatorDate">Valuated Date</label>
+                                <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                       formControlName="ApartmentValuatorDate"
+                                       id="ApartmentValuatorDate"
+                                       name="ApartmentValuatorDate" placeholder="Valuated Date"
+                                       [nbDatepicker]="ApartmentValuatorDate"
+                                       type="text"/>
+                                <app-calendar
+                                        (messageToEmit)="apartmentSecurityForm.get(['apartmentSecurity',i,'ApartmentValuatorDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="apartmentSecurityForm.get(['apartmentSecurity',i,'ApartmentValuatorDate']).value"></app-calendar>
+                                <nb-datepicker #ApartmentValuatorDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="ApartmentValuatorRepresentative">Valuator
+                                    Representative Name</label>
+                                <input class="form-control rounded"
+                                       formControlName="ApartmentValuatorRepresentative"
+                                       id="ApartmentValuatorRepresentative"
+                                       name="ApartmentValuatorRepresentative"
+                                       placeholder="Valuator Representative Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="apartmentStaffRepresentativeDesignation">Staff
+                                    Representative Designation 1</label>
+                                <select class="form-control rounded"
+                                        formControlName="apartmentStaffRepresentativeDesignation"
+                                        id="apartmentStaffRepresentativeDesignation"
+                                        name="apartmentStaffRepresentativeDesignation">
+                                    <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative
+                                    Name 1</label>
+                                <input class="form-control rounded"
+                                       formControlName="ApartmentStaffRepresentativeName"
+                                       id="ApartmentStaffRepresentativeName"
+                                       name="ApartmentStaffRepresentativeName"
+                                       placeholder="Staff Representative Name 1"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="apartmentStaffRepresentativeDesignation2">Staff
+                                    Representative Designation 2</label>
+                                <select class="form-control rounded"
+                                        formControlName="apartmentStaffRepresentativeDesignation2"
+                                        id="apartmentStaffRepresentativeDesignation2"
+                                        name="apartmentStaffRepresentativeDesignation2">
+                                    <option [ngValue]="null">Staff Representative Designation 2</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="apartmentStaffRepresentativeName2">Staff
+                                    Representative Name 2</label>
+                                <input class="form-control rounded"
+                                       formControlName="apartmentStaffRepresentativeName2"
+                                       id="apartmentStaffRepresentativeName2"
+                                       name="apartmentStaffRepresentativeName2"
+                                       placeholder="Staff Representative Name 2"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <app-security-revaluation [calendarType]="calendarType"></app-security-revaluation>
+                        </div>
+                        <div *ngIf="apartmentSecurityForm.get('apartmentSecurity')['length'] > 1"
+                             class="col-md-1 pt-4">
+                            <input (click)="removeApartmentForm(i)"
+                                   class="align-self-end btn btn-sm btn-danger btn-primary"
+                                   type="button" value="Delete"/>
+                        </div>
+
+                    </div>
+                </ng-template>
+                <ng-template [ngTemplateOutlet]="apartment"></ng-template>
+            </div>
+            <hr>
+        </div>
+
+
+        <div class="text-right">
+            <input (click)="addApartmentForm()" class="btn btn-sm btn-flat btn-primary" type="button"
+                   value="Add Apartment"/>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label class="title ml-3" for="buildingDetailsDescription">Apartment Details
+                    Description</label>
+                <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
+                          id="buildingDetailsDescription"
+                          placeholder="Apartment Description"
+                          rows="5"></textarea>
+            </div>
+        </div>
+
+        <div *ngIf="underConstructionChecked">
+            <div *ngFor="let building of apartmentSecurityForm.get('apartmentUnderConstructions')['controls']; let i = index"
+                 class="font-weight-bold"
+                 formArrayName="apartmentUnderConstructions">
+                <div [formGroupName]="i">
+                    <div class="box-header with-border">
+                        <h2 class="box-title title">Apartment Details Before Completion</h2>
+                    </div>
+                    <div formGroupName="buildingDetailsBeforeCompletion">
+                        <ng-template #build>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingName">Apartment Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="bname"
+                                               name="buildingName" placeholder="name of Apartment"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDescription">Apartment
+                                            Description</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDescription"
+                                               id="descriptioin"
+                                               name="buildingDescription" placeholder="Apartment description"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
+                                        <input class="form-control rounded" formControlName="buildArea"
+                                               id="area"
+                                               name="buildArea" placeholder="build up area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildRate">Build Up Area Rate</label>
+                                        <input class="form-control rounded" formControlName="buildRate"
+                                               id="rate"
+                                               name="buildRate" placeholder="build up rate"
+                                               type="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="totalCost">Total Cost</label>
+                                        <input class="form-control rounded" formControlName="totalCost"
+                                               id="cost"
+                                               name="totalCost" placeholder="total cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="floorName">Floor Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="fname"
+                                               name="floorName" placeholder="First Floor,Second....."
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="valuationArea">Valuation Taken Area
+                                            (Sq.ft)</label>
+                                        <input class="form-control rounded" formControlName="valuationArea"
+                                               id="vArea"
+                                               name="valuationArea" placeholder="Valuation Taken Area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ratePerSquareFeet">Rate per Square
+                                            Feet</label>
+                                        <input class="form-control rounded" formControlName="ratePerSquareFeet"
+                                               id="ratepsf"
+                                               name="ratePerSquareFeet" placeholder="Rate per Square Feet"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="estimatedCost">Estimated Cost</label>
+                                        <input class="form-control rounded" formControlName="estimatedCost"
+                                               id="estCost"
+                                               name="estimatedCost" placeholder="Estimated Cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="beforeWaterSupplyPercent">Water Supply %</label>
+                                        <input class="form-control rounded" formControlName="beforeWaterSupplyPercent"
+                                               id="beforeWaterSupplyPercent"
+                                               name="beforeWaterSupplyPercent" placeholder="Water Supply Percentage"
+                                               type="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="waterSupply">Water Supply</label>
+                                        <input class="form-control rounded" formControlName="waterSupply"
+                                               id="supply"
+                                               name="waterSupply" placeholder="Water Supply"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="beforeSanitationPercent">Sanitation %</label>
+                                        <input class="form-control rounded" formControlName="beforeSanitationPercent"
+                                               id="beforeSanitationPercent"
+                                               name="beforeSanitationPercent" placeholder="Sanitation %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="sanitation">Sanitation</label>
+                                        <input class="form-control rounded" formControlName="sanitation"
+                                               id="san"
+                                               name="sanitation" placeholder="Sanitation"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="electrificationPercent">Electrification %</label>
+                                        <input class="form-control rounded" formControlName="electrificationPercent"
+                                               id="beforeElectrificationPercent"
+                                               name="electrificationPercent" placeholder="Electrification %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="electrification">Electrification</label>
+                                        <input class="form-control rounded" formControlName="electrification"
+                                               id="ele"
+                                               name="electrification" placeholder="Electrification"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
+                                        <input class="form-control rounded" formControlName="buildingTotalCost"
+                                               id="tc"
+                                               name="buildingTotalCost" placeholder="Apartment total cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingFairMarketValue">Apartment Fair Market
+                                            Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingFairMarketValue"
+                                               id="fmv"
+                                               name="buildingFairMarketValue" placeholder="Apartment FMV"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDistressValue">Apartment Distress
+                                            Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDistressValue"
+                                               id="dv"
+                                               name="buildingDistressValue" placeholder="Apartment DV"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </ng-template>
+                        <ng-template [ngTemplateOutlet]="build"></ng-template>
+                    </div>
+                    <hr>
+
+                    <div class="box-header with-border">
+                        <h2 class="box-title title">Apartment Details After Completion</h2>
+                        <div formGroupName="buildingDetailsAfterCompletion">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingName">Apartment Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="afterName"
+                                               name="buildingName" placeholder="name of Apartment"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDescription">Apartment
+                                            Description</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDescription"
+                                               id="afterDesc"
+                                               name="buildingDescription" placeholder="Apartment description"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
+                                        <input class="form-control rounded" formControlName="buildArea"
+                                               id="afterArea"
+                                               name="buildArea" placeholder="build up area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildRate">Build Up Area Rate</label>
+                                        <input class="form-control rounded" formControlName="buildRate"
+                                               id="afterbuildRate"
+                                               name="buildRate" placeholder="build up rate"
+                                               type="number"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="totalCost">Total Cost</label>
+                                        <input class="form-control rounded" formControlName="totalCost"
+                                               id="afterTc"
+                                               name="totalCost" placeholder="total cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="floorName">Floor Name</label>
+                                        <input class="form-control rounded" formControlName="buildingName"
+                                               id="afterFloorName"
+                                               name="floorName" placeholder="First Floor,Second....."
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="valuationArea">Valuation Taken Area
+                                            (Sq.ft)</label>
+                                        <input class="form-control rounded" formControlName="valuationArea"
+                                               id="afterVA"
+                                               name="valuationArea" placeholder="Valuation Taken Area"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ratePerSquareFeet">Rate per Square
+                                            Feet</label>
+                                        <input class="form-control rounded" formControlName="ratePerSquareFeet"
+                                               id="afterRate"
+                                               name="ratePerSquareFeet" placeholder="Rate per Square Feet"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="estimatedCost">Estimated Cost</label>
+                                        <input class="form-control rounded" formControlName="estimatedCost"
+                                               id="afterEstCost"
+                                               name="estimatedCost" placeholder="Estimated Cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="afterWaterSupplyPercent">Water Supply %</label>
+                                        <input class="form-control rounded" formControlName="afterWaterSupplyPercent"
+                                               id="afterWaterSupplyPercent"
+                                               name="afterWaterSupplyPercent" placeholder="Water Supply Percentage"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="waterSupply">Water Supply</label>
+                                        <input class="form-control rounded" formControlName="waterSupply"
+                                               id="afterSupply"
+                                               name="waterSupply" placeholder="Water Supply"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="afterSanitationPercent">Sanitation %</label>
+                                        <input class="form-control rounded" formControlName="afterSanitationPercent"
+                                               id="afterSanitationPercent"
+                                               name="beforeSanitationPercent" placeholder="Sanitation %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="sanitation">Sanitation</label>
+                                        <input class="form-control rounded" formControlName="sanitation"
+                                               id="afterSanitation"
+                                               name="sanitation" placeholder="Sanitation"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="electrificationPercent">Electrification %</label>
+                                        <input class="form-control rounded" formControlName="electrificationPercent"
+                                               id="afterElectrificationPercent"
+                                               name="electrificationPercent" placeholder="Electrification %"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="electrification">Electrification</label>
+                                        <input class="form-control rounded" formControlName="electrification"
+                                               id="afterElectrification"
+                                               name="electrification" placeholder="Electrification"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
+                                        <input class="form-control rounded" formControlName="buildingTotalCost"
+                                               id="afterbuildTc"
+                                               name="buildingTotalCost" placeholder="Apartment total cost"
+                                               type="number" readonly/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingFairMarketValue">Apartment Fair Market
+                                            Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingFairMarketValue"
+                                               id="afterFMV"
+                                               name="buildingFairMarketValue" placeholder="Apartment FMV"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingDistressValue">Apartment Distress
+                                            Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingDistressValue"
+                                               id="afterDV"
+                                               name="buildingDistressValue" placeholder="Apartment DV"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div *ngIf="apartmentSecurityForm.get('apartmentUnderConstructions')['length'] > 1"
+                                     class="col-md-1 pt-4">
+                                    <input (click)="removeApartmentUnderConstructions(i)"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button" value="Delete"/>
+                                </div>
+
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <input (click)="addApartmentBuildingUnderConstructions()" class="btn btn-sm btn-flat btn-primary"
+                       type="button"
+                       value="Add Apartment"/>
+            </div>
+        </div>
+    </div>
+</nb-card>

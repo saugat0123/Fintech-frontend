@@ -112,7 +112,7 @@ export class LandSecurityComponent implements OnInit {
     (<FormArray>this.landSecurityForm.get('landSecurity')).removeAt(index);
   }
 
-  public valuator(index: number) {
+  public valuator(index: number): void {
     const branchSearchObj = {
       'branchIds': LocalStorageUtil.getStorage().branch
     };

@@ -27,7 +27,8 @@
             <app-vehicle-security [calendarType]="calendarType"></app-vehicle-security>
         </div>
         <div *ngIf="apartmentSecurity">
-            <app-apartment-security></app-apartment-security>
+            <app-apartment-security [calendarType]="calendarType"
+                                    [customerSecurityId]="customerInfoId"></app-apartment-security>
         </div>
         <div *ngIf="landAndBuildingSecurity">
             <app-land-and-building-security></app-land-and-building-security>
