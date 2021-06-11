@@ -21,17 +21,18 @@
         <div *ngIf="landSecurity">
             <app-land-security
             [calendarType]="calendarType"
-            [customerSecurityId]="customerInfoId"></app-land-security>
+            [customerSecurityId]="customerSecurityId"></app-land-security>
         </div>
         <div *ngIf="vehicleSecurity">
             <app-vehicle-security [calendarType]="calendarType"></app-vehicle-security>
         </div>
         <div *ngIf="apartmentSecurity">
             <app-apartment-security [calendarType]="calendarType"
-                                    [customerSecurityId]="customerInfoId"></app-apartment-security>
+                                    [customerSecurityId]="customerSecurityId"></app-apartment-security>
         </div>
         <div *ngIf="landAndBuildingSecurity">
-            <app-land-and-building-security></app-land-and-building-security>
+            <app-land-and-building-security [calendarType]="calendarType"
+            [customerSecurityId]="customerSecurityId"></app-land-and-building-security>
         </div>
         <div *ngIf="plantAndMachinerySecurity">
             <app-plant-and-machinery-security></app-plant-and-machinery-security>

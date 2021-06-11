@@ -1,1 +1,623 @@
-<p>land-and-building-security works!</p>
+<nb-card class="p-5">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="box-header with-border">
+                <h2 class="box-title title">Land and Building Security</h2>
+            </div>
+        </div>
+    </div>
+    <div [formGroup]="landBuildingSecurityForm">
+        <div formArrayName="landBuildingSecurity">
+            <div
+                    *ngFor="let landAndBuilding of landBuildingSecurityForm.get('landBuildingSecurity')['controls']; let i = index"
+                    class="font-weight-bold">
+                <div class="row justify-content-end">
+                    <button class="btn btn-primary sb-small mr-2"
+                            (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1))">Inspect Site Visit
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p><b>{{i + 1}}.Land & Building</b></p>
+
+                    </div>
+                    <div *ngIf="landBuildingSecurityForm.get('landBuildingSecurity') ['length'] > 1"
+                            class="col-md-1 float-right mt-2">
+                        <input (click)="removeLandBuildingForm(i)"
+                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                               type="button" value="Delete"/>
+                    </div>
+                </div>
+                <div [formGroupName]="i">
+                    <input type="checkbox" formControlName="underConstructionChecked"> Check if Land & Building is
+                    Under Construction
+                    <br>
+                    <input type="checkbox" formControlName="landBuildingOtherBranchChecked"> Property on another
+                    branch location
+                    <div class="row pt-2">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="owner">Owner</label>
+                                <input class="form-control rounded"
+                                       formControlName="owner"
+                                       id="owner"
+                                       name="owner" placeholder="Owner Name"
+                                       type="text" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="location">Location</label>
+                                <input class="form-control rounded"
+                                       formControlName="location"
+                                       id="location"
+                                       name="location" placeholder="location"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="plotNumber">Plot
+                                    No.</label>
+                                <input class="form-control rounded"
+                                       formControlName="plotNumber"
+                                       id="plotNumber"
+                                       name="plotNumber" placeholder="Plot No."
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="areaFormat">Area
+                                    Format</label>
+                                <select class="form-control rounded"
+                                        formControlName="areaFormat"
+                                        id="areaFormat"
+                                        name="areaFormat">
+                                    <option [value]="null">Select Area Format</option>
+                                    <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="area">Area</label>
+                                <input class="form-control rounded"
+                                       formControlName="area"
+                                       id="area"
+                                       name="area" placeholder="area"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="landConsideredValue">Considered Value</label>
+                                <input class="form-control" formControlName="landConsideredValue"
+                                       id="landConsideredValue" name="total" placeholder="considered value"
+                                       type="number">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="area">House Number
+                                </label>
+                                <input
+                                        class="form-control rounded"
+                                        formControlName="houseNumber" name="houseNumber"
+                                        placeholder="House Number"
+                                        type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="area">Total building area
+                                    (Sqf)</label>
+                                <input class="form-control rounded"
+                                       formControlName="totalBuildingArea"
+                                       name="totalBuildingArea"
+                                       placeholder="Total building area (Sqf)"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="area">Cost per sqf</label>
+                                <input class="form-control rounded"
+                                       formControlName="costPerSquare"
+                                       name="costPerSquare"
+                                       placeholder="Cost per sqf"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="area">Total cost
+                                </label>
+                                <input class="form-control rounded"
+                                       formControlName="totalCost"
+                                       name="totalCost" placeholder="Total cost"
+                                       type="number"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="marketValue">Fair
+                                    Market
+                                    Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="marketValue"
+                                       name="marketValue"
+                                       id="marketValue"
+                                       placeholder="market value"
+                                       type="number"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title"
+                                       for="distressValue">Distress Value</label>
+                                <input class="form-control rounded"
+                                       formControlName="distressValue"
+                                       name="distressValue"
+                                       id="distressValue"
+                                       placeholder="distress value"
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity',i,'landBuildingOtherBranchChecked']).value">
+                                <div class="form-group">
+                                    <label>Select Branch</label>
+                                    <ng-select [multiple]="false"
+                                               bindLabel="name"
+                                               formControlName="buildingBranch"
+                                               placeholder="">
+                                        <ng-option
+                                                *ngFor="let branch of branchLists"
+                                                [value]="branch">{{branch.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="title" for="landBuildingCollateralOwnerRelationship">Collateral Owner
+                                    Relationship</label>
+                                <select class="form-control rounded"
+                                        formControlName="landBuildingCollateralOwnerRelationship"
+                                        id="landBuildingCollateralOwnerRelationship"
+                                        name="landBuildingCollateralOwnerRelationship">
+                                    <option [ngValue]="null">--Select Relationship--</option>
+                                    <option *ngFor="let relationship of collateralOwnerRelationshipList.relation"
+                                            [ngValue]="relationship.id">{{relationship.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="title" for="roadAccessBluePrint">Is road access seen in blueprint or
+                                    not</label>
+                                <select class="form-control rounded"
+                                        formControlName="roadAccessBluePrint"
+                                        id="roadAccessBluePrint"
+                                        name="roadAccessBluePrint">
+                                    <option [ngValue]="null">--Select Road Access--</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="roadAccessDescribe"><strong>Briefly describe the road access</strong></label>
+                            <textarea class="form-control"
+                                      formControlName="roadAccessDescribe"
+                                      id="roadAccessDescribe"
+                                      name="roadAccessDescribe"
+                                      placeholder="Road Access Description"
+                                      rows="5"
+                                      type="text"></textarea>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="landAndBuildingSecurityLegalDocumentAddress"><strong>Address as per Legal
+                                Document</strong></label>
+                            <textarea class="form-control"
+                                      formControlName="landAndBuildingSecurityLegalDocumentAddress"
+                                      id="landAndBuildingSecurityLegalDocumentAddress"
+                                      name="landAndBuildingSecurityLegalDocumentAddress"
+                                      placeholder="Address as per Legal Document"
+                                      rows="5"
+                                      type="text" maxlength="256"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-inline">
+                                    <nb-checkbox id="landBuildingOwnerKyc{{i}}" class="ml-2"
+                                                 formControlName="landBuildingOwnerKyc"
+                                                 (checkedChange)="landBuildingOwnerInfoCheck($event, i)">
+                                        <h6>Owner KYC Applicable</h6>
+                                    </nb-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"
+                             *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity', i, 'landBuildingOwnerKyc']).value === true">
+                            <app-owner-kyc-applicable [calendarType]="calendarType"></app-owner-kyc-applicable>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Valuator Name</label>
+                                <ng-select [multiple]="false"
+                                           bindLabel="name"
+                                           placeholder=""
+                                           formControlName="buildingValuator" (click)="valuator(i)">
+                                    <ng-option [value]="null">Select Valuator Name</ng-option>
+                                    <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
+                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Valuated Date</label>
+                                <input *ngIf="calendarType === 'AD'"
+                                       [nbDatepicker]="buildingValuatorDate"
+                                       class="form-control rounded"
+                                       formControlName="buildingValuatorDate"
+                                       name="buildingValuatorDate"
+                                       placeholder="Valuated Date"
+                                       type="text"/>
+                                <app-calendar
+                                        (messageToEmit)="landBuildingSecurityForm.get(['landBuildingSecurity',i,'buildingValuatorDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="landBuildingSecurityForm.get(['landBuildingSecurity',i,'buildingValuatorDate']).value"></app-calendar>
+                                <nb-datepicker
+                                    #buildingValuatorDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Valuator Representative
+                                    Name</label>
+                                <input class="form-control rounded"
+                                       formControlName="buildingValuatorRepresentative"
+                                       name="buildingValuatorRepresentative"
+                                       placeholder="Valuator Representative Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="landBuildingStaffRepresentativeDesignation">Staff
+                                    Representative Designation 1</label>
+                                <select class="form-control rounded"
+                                        formControlName="landBuildingStaffRepresentativeDesignation"
+                                        id="landBuildingStaffRepresentativeDesignation"
+                                        name="landBuildingStaffRepresentativeDesignation">
+                                    <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Staff Representative Name 1</label>
+                                <input class="form-control rounded"
+                                       formControlName="buildingStaffRepresentativeName"
+                                       name="buildingStaffRepresentativeName"
+                                       placeholder="Staff Representative Name 1"
+                                       type="text"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="landBuildingStaffRepresentativeDesignation2">Staff
+                                    Representative Designation 2</label>
+                                <select class="form-control rounded"
+                                        formControlName="landBuildingStaffRepresentativeDesignation2"
+                                        id="landBuildingStaffRepresentativeDesignation2"
+                                        name="landBuildingStaffRepresentativeDesignation2">
+                                    <option [ngValue]="null">Staff Representative Designation 2</option>
+                                    <option *ngFor="let designation of designationList"
+                                            [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="landBuildingStaffRepresentativeName2">Staff Representative
+                                    Name 2</label>
+                                <input class="form-control rounded"
+                                       formControlName="landBuildingStaffRepresentativeName2"
+                                       id="landBuildingStaffRepresentativeName2"
+                                       name="landBuildingStaffRepresentativeName2"
+                                       placeholder="Staff Representative Name 2"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Type of property</label>
+                                <select class="form-control rounded" formControlName="typeOfProperty"
+                                        name="typeOfProperty">
+                                    <option [value]="null">Select Type of property</option>
+                                    <option *ngFor="let property of typeOfProperty"
+                                            [value]="property">{{property}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer date</label>
+                                <input class="form-control rounded" formControlName="ownershipTransferDate"
+                                       name="ownershipTransferDate" placeholder="Ownership transfer date"
+                                       [nbDatepicker]="ownershipDate"
+                                       *ngIf="calendarType === 'AD'">
+                                <app-calendar
+                                        (messageToEmit)="landBuildingSecurityForm.get(['landBuildingSecurity',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="landBuildingSecurityForm.get(['landBuildingSecurity',i,'ownershipTransferDate']).value"></app-calendar>
+                                <nb-datepicker #ownershipDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title">Ownership transfer Through</label>
+                                <select class="form-control rounded" formControlName="ownershipTransferThrough"
+                                        name="ownershipTransferThrough"
+                                        (change)="resetOtherTransferParameter('landBuildingSecurity', i,false)">
+                                    <option [value]="null">Select Ownership transfer through</option>
+                                    <option *ngFor="let ownership of ownershipTransferEnumPair"
+                                            [ngValue]="ownership.key">{{ownership.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4"
+                             *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity',i,'ownershipTransferThrough'])
+                             .value === ownershipTransfers.id(ownershipTransfers.OTHER)">
+                            <div class="form-group">
+                                <label class="title">Other</label>
+                                <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
+                                       name="otherOwnershipTransferValue"
+                                       placeholder="Other Ownership Transfer Mode"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <ng-container>
+                            <div class="col-md-12"
+                                 *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity' , i,'ownershipTransferThrough'])
+                                 .value === ownershipTransfers.id(ownershipTransfers.SALE)">
+                                <strong>Has transfer date elapsed by 6 months plus 35 days? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes"
+                                       formControlName="saleOwnershipTransfer"
+                                       (input)="resetOtherTransferParameter('landBuildingSecurity', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No"
+                                       formControlName="saleOwnershipTransfer"
+                                       (input)="resetOtherTransferParameter('landBuildingSecurity', i,true)">
+                                <label>No</label>
+
+                            </div>
+                            <div class="col-md-12"
+                                 *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity' , i,'ownershipTransferThrough'])
+                                 .value === ownershipTransfers.id(ownershipTransfers.FAMILY_SEPARATION)">
+                                <strong>Has transfer date elapsed by 3 month? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes"
+                                       formControlName="familyTransferOwnershipTransfer"
+                                       (input)="resetOtherTransferParameter('landBuildingSecurity', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No"
+                                       formControlName="familyTransferOwnershipTransfer"
+                                       (input)="resetOtherTransferParameter('landBuildingSecurity', i,true)">
+                                <label>No</label>
+                            </div>
+                            <div class="col-md-12"
+                                 *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity' , i,'ownershipTransferThrough'])
+                                 .value === ownershipTransfers.id(ownershipTransfers.GIFT_BAKASPATRA)">
+                                <strong>Has transfer date elapsed by 2 year plus 35 days? </strong>
+                                <input class="ml-md-3" type="radio" value="Yes"
+                                       formControlName="giftOwnershipTransfer"
+                                       (input)="resetOtherTransferParameter('landBuildingSecurity', i,true)">
+                                <label>Yes</label>
+                                <input class="ml-md-3" type="radio" value="No"
+                                       formControlName="giftOwnershipTransfer"
+                                       (input)="resetOtherTransferParameter('landBuildingSecurity', i,true)">
+                                <label>No</label>
+                            </div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="col-md-12 d-inline-flex"
+                                 *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity' , i,'saleOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as
+                                    applicable)</i>
+                                <input class="form-control col-md-3" formControlName="saleRegistrationAmount"
+                                       type="number" placeholder="Amount">
+                            </div>
+                            <div class="col-md-12 d-inline-flex"
+                                 *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity' , i,'familyTransferOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as
+                                    applicable)</i>
+                                <input class="form-control col-md-3" formControlName="familyRegistrationAmount"
+                                       type="number" placeholder="Amount">
+                            </div>
+                            <div class="col-md-12 d-inline-flex"
+                                 *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity' , i,'giftOwnershipTransfer']).value === 'No'">
+                                <i>*Incase of No, specify registration amount in the transfer deed (as
+                                    applicable)</i>
+                                <input class="form-control col-md-3" formControlName="giftRegistrationAmount"
+                                       type="number" placeholder="Amount">
+                            </div>
+                        </ng-container>
+                        <div class="col-md-12">
+                            <app-security-revaluation [calendarType]="calendarType"></app-security-revaluation>
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+                    <div *ngIf="landBuildingSecurityForm.get(['landBuildingSecurity',i,'underConstructionChecked']).value">
+                        <p><b>Land And Building Under Construction Detail</b></p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Owner</label>
+                                    <input class="form-control rounded"
+                                           formControlName="ownerConstruction"
+                                           name="owner" placeholder="Owner Name"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Location</label>
+                                    <input class="form-control rounded"
+                                           formControlName="locationConstruction"
+                                           name="location" placeholder="location"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Plot
+                                        No.</label>
+                                    <input class="form-control rounded"
+                                           formControlName="plotNumberConstruction"
+                                           name="plotNumber" placeholder="Plot No."
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Area
+                                        Format</label>
+                                    <select class="form-control rounded"
+                                            formControlName="areaFormatConstruction"
+                                            name="areaFormat">
+                                        <option [value]="null">Select Area Format</option>
+                                        <option [value]="area" *ngFor="let area of areaFormat">{{area}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Area</label>
+                                    <input class="form-control rounded"
+                                           formControlName="areaConstruction"
+                                           name="area" placeholder="area"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="landConsideredValueConstruction">Considered Value</label>
+                                    <input class="form-control" formControlName="landConsideredValueConstruction"
+                                           id="landConsideredValueConstruction" name="total"
+                                           placeholder="considered value" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Total building area
+                                        (Sqf)</label>
+                                    <input class="form-control rounded"
+                                           formControlName="totalBuildingAreaConstruction"
+                                           name="totalBuildingArea"
+                                           placeholder="Total building area (Sqf)"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Cost per sqf</label>
+                                    <input class="form-control rounded"
+                                           formControlName="costPerSquareConstruction"
+                                           name="costPerSquare"
+                                           placeholder="Cost per sqf"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Total Estimate cost</label>
+                                    <input class="form-control rounded"
+                                           formControlName="totalCostConstruction"
+                                           name="totalCost" placeholder="Total cost"
+                                           type="number"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Fair
+                                        Market
+                                        Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="marketValueConstruction"
+                                           name="marketValue"
+                                           placeholder="market value"
+                                           type="number"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title"
+                                           for="distressValue">Distress Value</label>
+                                    <input class="form-control rounded"
+                                           formControlName="distressValueConstruction"
+                                           name="distressValue"
+                                           placeholder="distress value"
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Progess cost</label>
+                                    <input class="form-control rounded"
+                                           formControlName="progessCost"
+                                           name="progessCost" placeholder="Progess cost"
+                                           type="number"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <input (click)="addLandBuildingForm()"
+                       class="btn btn-sm btn-flat btn-primary"
+                       type="button"
+                       value="Add More Land & Building"/>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="title" for="area">Remarks of
+                        land and building
+                    </label>
+                    <textarea class="form-control rounded"
+                              formControlName="landBuildingDescription"
+                              name="remarksBuilding"
+                              placeholder="Description  of land and building"
+                              rows="2" type="text"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</nb-card>
