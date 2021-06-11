@@ -213,8 +213,7 @@
                             <div *ngIf="apartmentSecurityForm.get(['apartmentSecurity',i,'apartmentOtherBranchChecked']).value">
                                 <div class="form-group">
                                     <label>Select Branch</label>
-                                    <ng-select (change)="valuator(i)"
-                                            [multiple]="false"
+                                    <ng-select [multiple]="false"
                                             bindLabel="name"
                                             formControlName="apartmentBranch"
                                             placeholder="">
@@ -232,10 +231,9 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="ApartmentValuator"
-                                           (click)="valuator(i)">
-                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
-                                    <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
+                                           formControlName="ApartmentValuator" (click)="valuator(i)">
+                                    <ng-option [value]="null">Select Valuator Name</ng-option>
+                                    <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
                                                [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
