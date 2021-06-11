@@ -1,1 +1,160 @@
-<p>share-security works!</p>
+<nb-card class="p-3" [formGroup]="shareSecurityForm">
+    <nb-card-header>
+        <h6 class="box-title title">Details of security offered and valuation amount</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="sharePriceDate"><b>Price Updated Date</b></label>
+                <input formControlName="sharePriceDate"
+                       class="form-control"
+                       [readOnly]="true"
+                       id="sharePriceDate">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="avgDaysForPrice"><b>Average Day's for Share Price</b></label>
+                <input formControlName="avgDaysForPrice"
+                       class="form-control"
+                       [readOnly]="true"
+                       id="avgDaysForPrice">
+            </div>
+            <div class="col-md-3">
+                <label for="promoter"><b>Loan Promoter Percent</b></label>
+                <input [(ngModel)]="activeNepseMaster.promoter"
+                       [ngModelOptions]="{standalone: true}" class="form-control"
+                       disabled id="promoter">
+            </div>
+
+            <div class="col-md-3">
+                <label for="ordinary"><b>Loan Ordinary Percent</b></label>
+                <input [(ngModel)]="activeNepseMaster.ordinary"
+                       [ngModelOptions]="{standalone: true}" class="form-control"
+                       disabled id="ordinary">
+            </div>
+        </div>
+        <br>
+        <div *ngFor="let shareField of shareSecurityForm.get('shareSecurity')['controls'];  let shareFieldIndex = index"
+                formArrayName="shareSecurity">
+            <div [formGroupName]="shareFieldIndex">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="companyName">Select Company Name :: Company Code</label>
+                            <select (change)="setShareValueByCompany(shareFieldIndex)"
+                                    class="custom-select"
+                                    formControlName="companyName" id="companyName"
+                                    name="companyName">
+                                <option [value]="null" disabled selected>--Select Company Name--
+                                </option>
+                                <option *ngFor="let nepse of nepseList"
+                                        value="{{nepse.companyName }}">{{nepse.companyName}}
+                                    : {{nepse.companyCode}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="shareType">Select Share Type</label>
+                            <input class="form-control" formControlName="shareType" id="shareType"
+                                   name="shareType" readonly type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="totalShareUnit">Number of Share Unit</label>
+                            <input (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                   class="form-control" formControlName="totalShareUnit"
+                                   id="totalShareUnit"
+                                   name="totalShareUnit"
+                                   type="number">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="shareRate">Rate of Each Unit</label>
+                            <input
+                                    (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                    class="form-control" formControlName="amountPerUnit"
+                                    id="shareRate" name="shareRate"
+                                    type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="total">Total</label>
+                            <input class="form-control" formControlName="total" id="total"
+                                   name="total" readonly type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="consideredValue">Considered Value</label>
+                            <input class="form-control" formControlName="consideredValue"
+                                   id="consideredValue" name="total" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="client === clientName?.ICFC">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title">Price Earning Ratio</label>
+                            <input class="form-control" formControlName="priceEarningRatio"
+                                   id="priceEarningRatio" name="priceEarningRatio" type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title">Price to Book Value</label>
+                            <input class="form-control" formControlName="priceBookValue"
+                                   id="priceBookValue" name="priceBookValue" type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title">Dividend Yield</label>
+                            <input class="form-control" formControlName="dividendYeild"
+                                   id="dividendYeild" name="dividendYeild" type="number">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="title">Dividend Payout Radio</label>
+                            <input class="form-control" formControlName="dividendPayoutRatio"
+                                   id="dividendPayoutRatio" name="dividendPayoutRatio" type="number">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="shareSecurityForm.get('shareSecurity')['length'] > 1"
+                     class="d-flex justify-content-sm-end">
+                    <button (click)="removeShareList(shareFieldIndex)"
+                            class="btn btn-sm btn-flat btn-danger">
+                        <em class="fa fa-trash bg-transparent"></em>
+                    </button>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <div class="d-flex justify-content-sm-end">
+            <p class="font-weight-bolder">Total Considered
+                Value: {{totalConsideredValue}}</p>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button (click)="addShareSecurity()" class="btn btn-sm btn-flat btn-primary"><i
+                    class="fa fa-plus"></i></button>
+        </div>
+    </nb-card-body>
+    <nb-card>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="securityOffered">Description/Details of security offered</label>
+                    <textarea class="form-control text-area" formControlName="securityOffered"
+                              id="securityOffered"></textarea>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</nb-card>
