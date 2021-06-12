@@ -1,16 +1,15 @@
-
-    <div class="row" [nbSpinner]="spinner" class="row" id="{{offerLetterConst.MORTGAGE_DEED}}">
+<div class="row" [nbSpinner]="spinner" class="row" id="{{offerLetterConst.MORTGAGE_DEED}}">
         <div class="col-md-12 viewFull"  >
-            <form>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="row" style="margin-top: 50px">
-                    <div class="col-md-12">
-                        <table class="table  table-bordered">
+                    <div>
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <tr>
                                 <td>टोकन/दर्ता नं. ः</td>
                                 <td><input class="form-control-lg form-field nepaliFont"
                                            type="text"
-                                           formControlName="">
+                                           formControlName="tokenDartaNo">
                                 </td>
                                 <td>
                                     दर्ता मिति ः
@@ -18,70 +17,70 @@
                                 <td>
                                     <input class="form-control-lg form-field nepaliFont"
                                            type="text"
-                                           formControlName="">
+                                           formControlName="tokenDartaDate1">
                                 </td>
                             </tr>
                             <tr>
                                 <td>रजिष्ट्रेशन नं. ः</td>
                                 <td><input class="form-control-lg form-field nepaliFont"
                                            type="text"
-                                           formControlName="">
+                                           formControlName="regNo">
                                 </td>
                                 <td>दर्ता मिति ः</td>
                                 <td><input class="form-control-lg form-field nepaliFont"
                                            type="text"
-                                           formControlName="">
+                                           formControlName="tokenDartaDate2">
                                 </td>
                             </tr>
                             <tr>
                                 <td>ऋणीको नाम ः</td>
                                 <td><input class="form-control-lg form-field nepaliFont"
                                            type="text"
-                                           formControlName="">
+                                           formControlName="creditorName">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <p>
-                        <b class="text-center">विषय ः धितोबन्धक लिखत ।</b><br>
+                    </div><br><br>
 
-                        लिखितमलिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. २२, न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको प्रोग्रेशिभफाइनान्स
+                        <b class="text-center">विषय ः धितोबन्धक लिखत ।</b><br>
+                    <p>
+                        लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. २२, न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको प्रोग्रेशिभफाइनान्स
                         लिमिटेडको <input class="form-control-lg form-field nepaliFont"
                                          type="text"
-                                         formControlName="">
+                                         formControlName="districtName">
                         जिल्ला <input class="form-control-lg form-field nepaliFont"
                                       type="text"
-                                      formControlName="">
+                                      formControlName="municipalityName">
                         न.पा./गा.पा.वडा नं. <input class="form-control-lg form-field nepaliFont"
                                                    type="text"
-                                                   formControlName="">
+                                                   formControlName="wardNo">
                         स्थित <input class="form-control-lg form-field nepaliFont"
                                      type="text"
-                                     formControlName=""> शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको),
-                        लिखत गरि धितो सुरक्षण लेखिदिनेकोनाम <input class="form-control-lg form-field nepaliFont"
+                                     formControlName="branchName"> शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको),
+                        लिखत गरि धितो सुरक्षण लेखि दिनेको नाम <input class="form-control-lg form-field nepaliFont"
                                                                    type="text"
-                                                                   formControlName="">
-                        (जसलाई यस उप्रान्त यस लिखतमा“धितो सुरक्षणकर्ता” भनिएको) आगे <input class="form-control-lg form-field nepaliFont"
+                                                                   formControlName="dhitoName">
+                        (जसलाई यस उप्रान्त यस लिखतमा “धितो सुरक्षणकर्ता” भनिएको) आगे <input class="form-control-lg form-field nepaliFont"
                                                                                            type="text"
-                                                                                           formControlName="">
-                        (जसलाई यस उप्रान्त यस लिखतमा“ऋणी”भनिएको) को नाममाजम्मास्वीकृत भएको स्वीकृत भई उपभोग गर्ने
+                                                                                           formControlName="aageChreditor">
+                        (जसलाई यस उप्रान्त यस लिखतमा “ऋणी” भनिएको) को नाममा जम्मा स्वीकृत भएको स्वीकृत भई उपभोग गर्ने
                         रु. <input class="form-control-lg form-field nepaliFont"
                                    type="text"
-                                   formControlName="">।–
+                                   formControlName="upabhogRu">।–
                         (अक्षेरेपी <input class="form-control-lg form-field nepaliFont"
                                           type="text"
-                                          formControlName="">मात्र)
-                        सम्मको कर्जा सीमामध्ये प्रस्तुतजायजेथा रु <input class="form-control-lg form-field nepaliFont"
+                                          formControlName="upabhogRuWord">मात्र)
+                        सम्मको कर्जा सीमामध्ये प्रस्तुत जायजेथा रु <input class="form-control-lg form-field nepaliFont"
                                                                          type="text"
-                                                                         formControlName="">।–
+                                                                         formControlName="jyayeJethaRu">।–
                         (अक्षेरेपी <input class="form-control-lg form-field nepaliFont"
                                           type="text"
-                                          formControlName="">मात्र)
+                                          formControlName="jyayeJethaRuWord">मात्र)
                         सम्म वाधितोको मुल्यले खामे सम्मको चालुपूंजि (Working Capital)ि, डिमाण्डलोन (Demand Loan) वाअन्यकर्जा लगायतकाकुनै
                         पनि शीर्षकका अल्पआबधिककर्जा (Short Term Loan) वादिर्घकालीनकर्जा (Term Loan),बैंक ग्यारेन्टी (Bank Guarantee),
                         बिल्स पर्चेज (Bill Purchase), ब्रिजग्यापकर्जा (Bridge Gap Loan) वावित्तीय संस्थाले प्रदान गर्ने अन्य विभिन्न किसीमका ऋणकर्जा
-                        तथा बैकिङ्ग सुविधाहरु एकै पटकवापटकपटक गरी वानविकरण गर्नु परेमा सो समेत गर्न सक्ने गरि मैले/हामीले/ऋणीले उपभोग गर्ने सम्पूर्ण
+                        तथा बैकिङ्ग सुविधाहरु एकै पटक वाप टकपटक गरी वानविकरण गर्नु परेमा सो समेत गर्न सक्ने गरि मैले/हामीले/ऋणीले उपभोग गर्ने सम्पूर्ण
                         ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको धितोबन्धकसुरक्षणवापतअचल सम्पत्ति घरजग्गाधितोबन्धक लेखिदिनमञ्जुर छ, छैन भनी धनीवित्तीय संस्थाबाट
                         सोधनीहुँदा सो मा मेरो/हाम्रो पूुर्ण मञ्जुरी भएको र मलाई/हामीलाई/ऋणीलाई उपरोक्तानूसार कुनैपनिउद्देश्यकालागि एकै पटक वा पटकपटक गरी
                         भविष्यमा समेत तपांई धनीवित्तीय संस्थाले उपलव्ध गराएको थप ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको सुरक्षण वापत समेत कायम रहने गरी मेरो/हाम्रोे
@@ -106,241 +105,440 @@
                         रकमकलमउठाई लिनु भनि तपांई धनीवित्तीय संस्थाको कार्यालयमा बसि यो धितोवन्धकको लिखत लेखि लिखतको आद्योपान्त व्यहोरा पढीबाँचीयसको
                         मतलव र परिणाम समेत बुझि मेरो/हाम्रो मनोमानि राजीखुशीले यो धितोबन्धकको लिखत सहीछाप गरी तपांई धनीवित्तीय संस्थालाई दिएं/दियौ ।
 
-                    </p>
-                    <div class="col-md-12">
-                        <table class="table  table-bordered">
-                            <b>ऋणीको विवरणर सहीछाप ः फर्म/कम्पनीको हकमा</b>
+                    </p><br><br>
+                    <p><b>ऋणीको विवरणर सहीछाप ः फर्म/कम्पनीको हकमा</b></p>
+                    <div>
+                        <table class="table  table-bordered text-center">
                             <tbody>
-                            <table>
                                 <tr>
 
                                     <th>ऋणीको नाम थर
-                                        (देवनागरीमा)  ः</th>
-                                    <th>नाम थर (अंग्रेजीमा) ः </th>
-                                    <th>दर्ता मिति ः </th>
-                                    <th>फर्म÷कम्पनीको छाप</th>
+                                        (देवनागरीमा)  ः<input class="form-control-lg form-field nepaliFont"
+                                                              type="text"
+                                                              formControlName="creditorNameNepali1"></th>
+                                    <th>नाम थर (अंग्रेजीमा) ः<input class="form-control-lg form-field nepaliFont"
+                                                                    type="text"
+                                                                    formControlName="creditorNameEnglish1"> </th>
+                                    <th>दर्ता मिति ः <input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="dartaDate1"></th>
+                                    <th>फर्म/कम्पनीको छाप</th>
                                 </tr>
                                 <tr>
-                                    <td>प्रा.लि.नं./सा.फ.नं./प्रा.फ.र.नं.  </td>
-                                    <td colspan="2">दर्ता गर्ने कार्यालय र स्थान ः </td>
+                                    <td>प्रा.लि.नं./सा.फ.नं./प्रा.फ.र.नं. <input class="form-control-lg form-field nepaliFont"
+                                                                                 type="text"
+                                                                                 formControlName="praliNo1"> </td>
+                                    <td colspan="2">दर्ता गर्ने कार्यालय र स्थान ः <input class="form-control-lg form-field nepaliFont"
+                                                                                          type="text"
+                                                                                          formControlName="dartaOfficeAndAddress1"></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
-                                    <td>स्थायी लेखादर्ता (पान) नं. ः</td>
-                                    <td>दर्ता मितिः	दर्ता गर्ने कार्यालय ः </td>
-                                    <td>दर्ता गर्ने कार्यालय ः </td>
+                                    <td>स्थायी लेखादर्ता (पान) नं. ः<input class="form-control-lg form-field nepaliFont"
+                                                                           type="text"
+                                                                           formControlName="panNo1"></td>
+                                    <td>दर्ता मितिः <input class="form-control-lg form-field nepaliFont"
+                                                                                     type="text"
+                                                                                     formControlName="dartaMiti1"></td>
+                                    <td>दर्ता गर्ने कार्यालय ः<input class="form-control-lg form-field nepaliFont"
+                                                                     type="text"
+                                                                     formControlName="dartaOffice1"> </td>
                                     <td></td>
 
                                 <tr>
-                                    <td colspan="2">रजिष्टर्ड कार्यालयको ठेगाना ः</td>
+                                    <td colspan="2">रजिष्टर्ड कार्यालयको ठेगाना ः<input class="form-control-lg form-field nepaliFont"
+                                                                                        type="text"
+                                                                                        formControlName="RegOfficeAddress1"></td>
                                 <td></td><td></td>
 
                                 </tr>
                                 <tr>
-                                    <td>प्रोप्राईटर÷अख्तियारप्राप्तव्यक्तिको नाम थर (देवनागरीमा) ः </td>
-                                    <td>नाम थर (अंग्रेजीमा) ः </td>
-                                    <td>ना.प्र.प.नं.ः<br>
-                                        जारी मिति ः	<br>
-                                        जारी गर्नेकार्यालय ः जि.प्र.का
+                                    <td>प्रोप्राईटर/ अख्तियारप्राप्तव्यक्तिको नाम थर (देवनागरीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                                                          type="text"
+                                                                                                          formControlName="propNameNepali1"></td>
+                                    <td>नाम थर (अंग्रेजीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                     type="text"
+                                                                     formControlName="propNameEnglish1"></td>
+                                    <td>ना.प्र.प.नं.ः<input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="propCitizenNo1"><br>
+                                        जारी मिति ः<input class="form-control-lg form-field nepaliFont"
+                                                          type="text"
+                                                          formControlName="propCitizenJariDate1">	<br>
+                                        जारी गर्नेकार्यालय ः जि.प्र.का<input class="form-control-lg form-field nepaliFont"
+                                                                             type="text"
+                                                                             formControlName="propCitizenJariOffice1">
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">ठेगानाः</td>
+                                    <td colspan="2">ठेगानाः<input class="form-control-lg form-field nepaliFont"
+                                                                  type="text"
+                                                                  formControlName="propAddress1"></td>
                                     <td></td>
                                     <td>दस्तखतः .....................</td>
                                 </tr>
-                            </table>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-md-12">
-                        <table class="table  table-bordered">
-                            <b>ऋणीको विवरणर सहीछाप ः ब्यक्तिको हकमा</b>
+                    </div><br><br>
+
+                    <p><b>ऋणीको विवरणर सहीछाप ः ब्यक्तिको हकमा</b></p>
+                    <div>
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <tr>
+                                <th>ऋणीको नाम थर (देवनागरीमा)  ः<input class="form-control-lg form-field nepaliFont"
+                                                                       type="text"
+                                                                       formControlName="creditorNameNepali2"></th>
+                                <th>नाम थर (अंग्रेजीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                 type="text"
+                                                                 formControlName="creditorNameEnglish2"></th>
+                                <th>जन्ममिति ः <input class="form-control-lg form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="dateOfBirth1"></th>
+                                <th rowspan="4">
+                                    <div>
+                                    <table id="fingerXap" class="table  table-bordered text-center">
+                                        <tbody>
+                                        <tr>
+                                            <td>दस्तखतः .....................</td>
+                                        <tr>
+                                            <th>दाँ.</th>
+                                            <th>बाँ.</th>
+                                        </tr>
+                                        <tr>
+                                            <td><textarea  style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
+                                            <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
+                                        </tr>
 
-                                <th>ऋणीको नाम थर (देवनागरीमा)  ः</th>
-                                <th>नाम थर (अंग्रेजीमा) ः </th>
-                                <th>जन्ममिति ः </th>
-                                <th></th>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </th>
                             </tr>
                             <tr>
-                                <td>ठेगानाः– ............... </td>
-                                <td>लिङ्ग ः– ................. </td>
+                                <td colspan="2">ठेगानाः– <input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="address1"> </td>
+                                <td>लिङ्ग ः– <input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="sex1"> </td>
                             </tr>
 
                             <tr>
-                                <td>नागरिकता नं. र जारी मिति ........................</td>
-                                <td>नागरिकता जारी गर्ने कार्यालय र स्थानः– ..................</td>
-                                <td>मोबाईल नम्बर ः–	 </td>
+                                <td>नागरिकता नं. र जारी मिति <input class="form-control-lg form-field nepaliFont"
+                                                                    type="text"
+                                                                    formControlName="creditorCitizenshipNo1">
+                                    <input class="form-control-lg form-field nepaliFont"
+                                           type="text"
+                                           formControlName="creditorCitizenshipIssueDate1">
+                                </td>
+                                <td>नागरिकता जारी गर्ने कार्यालय र स्थानः– <input class="form-control-lg form-field nepaliFont"
+                                                                                  type="text"
+                                                                                  formControlName="creditorCitizenshipIssueOffice1">
+                                    <input class="form-control-lg form-field nepaliFont"
+                                           type="text"
+                                           formControlName="creditorCitizenshipOfficeAddress1"></td>
+                                <td>मोबाईल नम्बर ः–<input class="form-control-lg form-field nepaliFont"
+                                                          type="text"
+                                                          formControlName="creditorMobileNo1">	 </td>
 
                             <tr>
-                                <td>पति/पत्निको नाम ः– ................... </td>
-                                <td>बाबुको नाम ः–<br>
-                                    आमाको नाम ः– </td>
-                                <td>बाजेको नाम ः–<br>
-                                    बजैको नाम ः–
+                                <td>पति/पत्निको नाम ः– <input class="form-control-lg form-field nepaliFont"
+                                                              type="text"
+                                                              formControlName="creditorSpouse1"> </td>
+                                <td>बाबुको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="creditorFatherName1"><br>
+                                    आमाको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="creditorMotherName1"> </td>
+                                <td>बाजेको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="creditorGrandFatherName1"><br>
+                                    बजैको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="creditorGrandMotherName1">
                                 </td>
                             </tr>
-                            <tr>
-                                <td>दस्तखतः .....................</td>
-                            <tr>
-                                <th>दाँ.</th>
-                                <th>बाँ.</th>
-                            </tr>
-                            <tr>
-                                <td><textarea  style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
-                                <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
-                            </tr>
-
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-md-12">
-                        <table class="table  table-bordered">
-                            <b>धितोबन्धकलिखत गरिदिनेको विवरण र सहीछाप(फर्म÷कम्पनीको हकमा) ः
-                                यो धितोबन्धकदिएको जग्गा समेत गर्दा नेपालभरमा मेरो र मेरो परिवारको नाममाहदबन्दीभन्दाबढिजग्गा छैन।</b>
+                    </div><br><br>
+
+                    <p><b>धितोबन्धकलिखत गरिदिनेको विवरण र सहीछाप(फर्म/कम्पनीको हकमा) ः
+                        यो धितोबन्धकदिएको जग्गा समेत गर्दा नेपालभरमा मेरो र मेरो परिवारको नाममा हदबन्दी भन्दा बढि जग्गा छैन।</b></p>
+                    <div>
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <table>
                                 <tr>
                                     <th>नाम ः
-                                        (देवनागरीमा)  ः
+                                        (देवनागरीमा)  ः<input class="form-control-lg form-field nepaliFont"
+                                                              type="text"
+                                                              formControlName="creditorNameNepali3">
                                     </th>
-                                    <th>नाम थर (अंग्रेजीमा) ः </th>
-                                    <th>दर्ता मिति ः </th>
+                                    <th>नाम थर (अंग्रेजीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                     type="text"
+                                                                     formControlName="creditorNameEnglish3"></th>
+                                    <th>दर्ता मिति ः <input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="dartaDate2"></th>
                                     <th>फर्म/कम्पनीको छाप</th>
                                 </tr>
                                 <tr>
-                                    <td>प्रा.लि.नं./सा.फ.नं./प्रा.फ.र.नं.  </td>
-                                    <td>दर्ता गर्ने कार्यालय र स्थान ः </td>
+                                    <td>प्रा.लि.नं./सा.फ.नं./प्रा.फ.र.नं.  <input class="form-control-lg form-field nepaliFont"
+                                                                                  type="text"
+                                                                                  formControlName="praliNo2"></td>
+                                    <td>दर्ता गर्ने कार्यालय र स्थान ः <input class="form-control-lg form-field nepaliFont"
+                                                                              type="text"
+                                                                              formControlName="dartaOfficeAndAddress2"></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
 
                                 <tr>
-                                    <td>स्थायी लेखादर्ता (पान) नं. ः</td>
-                                    <td>दर्ता मितिः	दर्ता गर्ने कार्यालय ः </td>
-                                    <td>दर्ता गर्ने कार्यालय ः </td>
-
-                                <tr>
-                                    <td>रजिष्टर्ड कार्यालयको ठेगाना ः</td>
-
-                                </tr>
-                                <tr>
-                                    <td>प्रोप्राईटर/अख्तियारप्राप्तव्यक्तिको नाम थर (देवनागरीमा) ः </td>
-                                    <td>नाम थर (अंग्रेजीमा) ः </td>
-                                    <td>ना.प्र.प.नं.ः<br>
-                                        जारी मिति ः	<br>
-                                        जारी गर्नेकार्यालय ः जि.प्र.का
+                                    <td>स्थायी लेखादर्ता (पान) नं. ः<input class="form-control-lg form-field nepaliFont"
+                                                                           type="text"
+                                                                           formControlName="panNo2"></td>
+                                    <td>दर्ता मितिः <input class="form-control-lg form-field nepaliFont"
+                                                           type="text"
+                                                           formControlName="dartaMiti2">
                                     </td>
+                                    <td>दर्ता गर्ने कार्यालय ः <input class="form-control-lg form-field nepaliFont"
+                                                                      type="text"
+                                                                      formControlName="dartaOffice2">
+                                    </td>
+                                    <td></td>
+
+                                <tr>
+                                    <td>रजिष्टर्ड कार्यालयको ठेगाना ः<input class="form-control-lg form-field nepaliFont"
+                                                                            type="text"
+                                                                            formControlName="RegOfficeAddress2">
+                                    </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
                                 </tr>
                                 <tr>
-                                    <td>ठेगानाः</td>
+                                    <td>प्रोप्राईटर/अख्तियारप्राप्तव्यक्तिको नाम थर (देवनागरीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                                                          type="text"
+                                                                                                          formControlName="propNameNepali2">
+                                    </td>
+                                    <td>नाम थर (अंग्रेजीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                     type="text"
+                                                                     formControlName="propNameEnglish2">
+                                    </td>
+                                    <td>ना.प्र.प.नं.ः<input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="propCitizenNo2"><br>
+                                        जारी मिति ः	<input class="form-control-lg form-field nepaliFont"
+                                                              type="text"
+                                                              formControlName="propCitizenJariDate2"><br>
+                                        जारी गर्नेकार्यालय ः<input class="form-control-lg form-field nepaliFont"
+                                                                             type="text"
+                                                                             formControlName="propCitizenJariOffice2">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>ठेगानाः<input class="form-control-lg form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="propAddress2">
+                                    </td>
+                                    <td></td>
+                                    <td></td>
                                     <td>दस्तखतः .....................</td>
                                 </tr>
                             </table>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-md-12">
-                        <table class="table  table-bordered">
-                            <b>धितोबन्धकलिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) ः यो धितोबन्धकदिएको जग्गा समेत गर्दा
-                                नेपालअधिराज्यभरमा मेरो र मेरो परिवारको नाममाहदबन्दीभन्दाबढिजग्गा छैन ।</b>
+                    </div><br><br>
+
+                    <p><b>धितोबन्धकलिखत गरिदिनेको विवरण र सहीछाप (व्यक्तिको हकमा) ः यो धितोबन्धकदिएको जग्गा समेत गर्दा
+                        नेपालअधिराज्यभरमा मेरो र मेरो परिवारको नाममाहदबन्दीभन्दाबढिजग्गा छैन ।</b></p>
+                    <div>
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <tr>
 
-                                <th>नाम थर ः</th>
-                                <th>नाम थर (अंग्रेजीमा) ः </th>
-                                <th>जन्ममिति ः </th>
-                                <th></th>
+                                <th>नाम थर ः<input class="form-control-lg form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="creditorNameNepali4"></th>
+                                <th>नाम थर (अंग्रेजीमा) ः<input class="form-control-lg form-field nepaliFont"
+                                                                type="text"
+                                                                formControlName="creditorNameEnglish4"> </th>
+                                <th>जन्ममिति ः <input class="form-control-lg form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="dateOfBirth3">
+                                </th>
+                                <th rowspan="4">
+                                    <div >
+                                        <table id="fingerXap" class="table  table-bordered text-center">
+                                            <tr>
+                                                <td>दस्तखतः .....................</td>
+                                            </tr>
+                                            <tr>
+                                                <th>दाँ.</th>
+                                                <th>बाँ.</th>
+                                            </tr>
+                                            <tr>
+                                                <td><textarea  style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
+                                                <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </th>
                             </tr>
                             <tr>
-                                <td>ठेगानाः– ............... </td>
-                                <td>लिङ्ग ः– ................. </td>
+                                <td colspan="2">ठेगानाः– <input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="address3">
+                                </td>
+
+                                <td>लिङ्ग ः– <input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="sex3">
+                                </td>
                             </tr>
 
                             <tr>
-                                <td>नागरिकता नं.........................</td>
-                                <td>नागरिकता जारी गर्ने कार्यालय र स्थानः– ..................<br>
-                                    जि.प्र.का.</td>
-                                <td>मोबाईल नम्बर ः–	<br>
-                                    जग्गाधनी संकेत नंं. ः</td>
-
+                                <td>नागरिकता नं.<input class="form-control-lg form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="creditorCitizenshipNo2">
+                                </td>
+                                <td>नागरिकता जारी गर्ने कार्यालय र स्थानः– <input class="form-control-lg form-field nepaliFont"
+                                                                                  type="text"
+                                                                                  formControlName="creditorCitizenshipOfficeAddress2"><br>
+                                </td>
+                                <td>मोबाईल नम्बर ः–	<input class="form-control-lg form-field nepaliFont"
+                                                              type="text"
+                                                              formControlName="creditorMobileNo2"><br>
+                                    जग्गाधनी संकेत नंं. ः<input class="form-control-lg form-field nepaliFont"
+                                                                type="text"
+                                                                formControlName="jaggaDhaniSanketNo">
+                                </td>
                             <tr>
-                                <td>जारी मिति ः </td>
-                                <td>बाबुको नाम ः–</td>
-                                <td>बाजेको नाम ः–</td>
+                                <td>जारी मिति ः <input class="form-control-lg form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="creditorCitizenshipIssueDate2">
+                                </td>
+                                <td>बाबुको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="creditorFatherName2">
+                                </td>
+                                <td>बाजेको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="creditorGrandFatherName2">
+                                </td>
                             </tr>
-                            <td>पति÷पत्निको नाम ः– ................... </td>
-                            <td>आमाको नाम ः–</td>
-                            <td>बजैको नाम ः–</td>
-                            <tr>
-
-                            </tr>
-                            <tr>
-                                <td>दस्तखतः .....................</td>
-                            <tr>
-                                <th>दाँ.</th>
-                                <th>बाँ.</th>
-                            </tr>
-                            <tr>
-                                <td><textarea  style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
-                                <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30" rows="10"></textarea></td>
-                            </tr>
-
+                            <td>पति/पत्निको नाम ः– <input class="form-control-lg form-field nepaliFont"
+                                                          type="text"
+                                                          formControlName="creditorSpouse2">
+                            </td>
+                            <td>आमाको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="creditorMotherName2">
+                            </td>
+                            <td>बजैको नाम ः–<input class="form-control-lg form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="creditorGrandMotherName2">
+                            </td>
                             </tbody>
                         </table>
-                    </div>
+                    </div><br><br>
+
+                    <p><b>लिखत गराई लिने (धनी) को विवरण र सहिछाप ः </b></p>
                     <div class="col-md-12">
-                        <table class="table  table-bordered">
-                            <b>लिखत गराई लिने (धनी) को विवरण र सहिछाप ः </b>
+                        <table class="table  table-bordered text-center">
                             <tbody>
-                            <table>
                                 <tr>
-                                    <th>नामथरः ः<br>
-                                        (............शाखा)
+                                    <th>नामथरः ः<input class="form-control-lg form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="creditorNameNepali5"><br>
+                                        (<input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="branchName1">शाखा)
                                     </th>
-                                    <th>नाम थर (अंग्रेजीमा)ः<br>
-                                        (....BRANCH)</th>
-                                    <th>दर्ता मिति ः </th>
+                                    <th>नाम थर (अंग्रेजीमा)ः<input class="form-control-lg form-field nepaliFont"
+                                                                   type="text"
+                                                                   formControlName="creditorNameEnglish5"><br>
+                                        (<input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="branchName2">BRANCH)</th>
+                                    <th>दर्ता मिति ः <input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="dartaDate3"></th>
                                     <th>वित्तीय संस्थाको छाप</th>
                                 </tr>
                                 <tr>
-                                    <td>दर्ता नं.ः  </td>
-                                    <td>दर्ता गर्ने कार्यालयःकम्पनी रजिष्ट्रारको कार्यालय	 </td>
+                                    <td>दर्ता नं.ः  <input class="form-control-lg form-field nepaliFont"
+                                                           type="text"
+                                                           formControlName="dartaNo3"></td>
+                                    <td>दर्ता गर्ने कार्यालयःकम्पनी रजिष्ट्रारको कार्यालय
+                                    </td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
 
                                 <tr>
-                                    <td>स्थायी लेखादर्ता (पान) नं. ः</td>
-                                    <td>दर्ता मितिः</td>
-                                    <td>दर्ता गर्ने कार्यालयःआन्तरिक राजश्वकार्यालय,</td>
+                                    <td>स्थायी लेखादर्ता (पान) नं. ः<input class="form-control-lg form-field nepaliFont"
+                                                                           type="text"
+                                                                           formControlName="panNo3"></td>
+                                    <td>दर्ता मितिः<input class="form-control-lg form-field nepaliFont"
+                                                          type="text"
+                                                          formControlName="dartaMiti3"></td>
+                                    <td>दर्ता गर्ने कार्यालयःआन्तरिक राजश्वकार्यालय,
+                                    </td>
+                                    <td></td>
+                                </tr>
 
                                 <tr>
-                                    <td>रजिष्टर्ड कार्यालयको ठेगाना ः  का.जि.का.म.न.पा. वडा नं. २२, न्यूरोड, काठमाण्डौ ।</td>
-
+                                    <td colspan="2">रजिष्टर्ड कार्यालयको ठेगाना ः  का.जि.का.म.न.पा. वडा नं. २२, न्यूरोड, काठमाण्डौ ।</td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td>प्रतिनिधिको नाम थर(देवनागरीमा) ः </td>
-                                    <td>प्रतिनिधिकोनाम थर (अंग्रेजीमा) ः </td>
-                                    <td>ना.प्र.प.नं.ः<br>
-                                        जारी मिति ः	<br>
+                                    <td>प्रतिनिधिको नाम थर(देवनागरीमा) ः <input class="form-control-lg form-field nepaliFont"
+                                                                                type="text"
+                                                                                formControlName="pratiNameNepali3"></td>
+                                    <td>प्रतिनिधिकोनाम थर (अंग्रेजीमा) ः<input class="form-control-lg form-field nepaliFont"
+                                                                               type="text"
+                                                                               formControlName="pratiNameEnglish3"> </td>
+                                    <td>ना.प्र.प.नं.ः<input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="pratiCitizenNo3"><br>
+                                        जारी मिति ः<input class="form-control-lg form-field nepaliFont"
+                                                          type="text"
+                                                          formControlName="pratiCitizenJariDate3">	<br>
                                         जारी गर्नेकार्यालय ः जि.प्र.का
                                     </td>
+                                    <td rowspan="2">दस्तखतः .....................</td>
                                 </tr>
                                 <tr>
-                                    <td>ठेगानाः</td>
-                                    <td>दस्तखतः .....................</td>
+                                    <td colspan="2">ठेगानाः<input class="form-control-lg form-field nepaliFont"
+                                                      type="text"
+                                                      formControlName="pratiAddress3"></td>
+                                    <td></td>
                                 </tr>
-                            </table>
                             </tbody>
                         </table>
-                    </div>
+                    </div><br><br>
+
+                    <b>धितोबन्धकदिएको अचल सम्पत्तिकोविवरण ः</b>
                     <div class="col-md-12">
-                        <table class="table  table-bordered">
-                            <b>धितोबन्धकदिएको अचल सम्पत्तिकोविवरण ः</b>
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <tr>
-                                <th>जग्गाको विवरण (स्रेस्ताबमोजिम)  प्रदेश नं. ः ......जिल्ला ः ...............</th>
+                                <th colspan="8">जग्गाको विवरण (स्रेस्ताबमोजिम)  प्रदेश नं. ः <input class="form-control-lg form-field nepaliFont"
+                                                                                        type="text"
+                                                                                        formControlName="jaggaPradeshNo">
+                                    जिल्ला  ः <input class="form-control-lg form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="jaggaDistrict">
+                                </th>
                             </tr>
                             <tr>
 
@@ -356,76 +554,186 @@
 
                             </tr>
                             <tr>
-                                <td>जिल्ला ः<br>
-                                    म.न.पा./उ.म.न.पा /न.पा./गा.बि.स.ः<br>
-                                    वडा नं. ः<br>
-                                    टोलः
+                                <td>जिल्ला ः<input class="form-control-lg form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="sawikDistrict"><br>
+                                    म.न.पा./उ.म.न.पा /न.पा./गा.बि.स.ः<input class="form-control-lg form-field nepaliFont"
+                                                                            type="text"
+                                                                            formControlName="sawikMunicipality"><br>
+                                    वडा नं. ः<input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="sawikWardNo"><br>
+                                    टोलः<input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="sawikTole">
                                 </td>
                                 <td>
-                                    जिल्ला ः<br>
-                                    म.न.पा./उ.म.न.पा /न.पा./गा.बि.स.ः<br>
-                                    वडा नं. ः<br>
-                                    टोलः
+                                    जिल्ला ः<input class="form-control-lg form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="halDistrict"><br>
+                                    म.न.पा./उ.म.न.पा /न.पा./गा.बि.स.ः<input class="form-control-lg form-field nepaliFont"
+                                                                            type="text"
+                                                                            formControlName="halMunicipality"><br>
+                                    वडा नं. ः<input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="halWardNo"><br>
+                                    टोलः<input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="halTole">
                                 </td>
-                                <td></td>
-                                <td>.........<br>
-                                    (........)</td>
+<!--                                <td><input class="form-control-lg form-field nepaliFont"-->
+<!--                                           type="text"-->
+<!--                                           formControlName="seatNo"></td>-->
+                                <td><input class="form-control-lg form-field nepaliFont"
+                                           type="text"
+                                           formControlName="kittaNoAnka"><br>
+                                    (<input class="form-control-lg form-field nepaliFont"
+                                            type="text"
+                                            formControlName="kittaNoWord">)
+                                </td>
+<!--                                <td><input class="form-control-lg form-field nepaliFont"-->
+<!--                                           type="text"-->
+<!--                                           formControlName="Khanda">-->
+<!--                                </td>-->
+<!--                                <td><input class="form-control-lg form-field nepaliFont"-->
+<!--                                           type="text"-->
+<!--                                           formControlName="area">-->
+<!--                                </td>-->
+<!--                                <td><input class="form-control-lg form-field nepaliFont"-->
+<!--                                           type="text"-->
+<!--                                           formControlName="type">-->
+<!--                                </td>-->
+<!--                                <td><input class="form-control-lg form-field nepaliFont"-->
+<!--                                           type="text"-->
+<!--                                           formControlName="kaifiyat">-->
+<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <p>उक्तकित्ता नं. .................. को घर÷जग्गातथा सो घर÷जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत ।</p>
+                    </div><br><br>
+                    <p>उक्तकित्ता नं. <input class="form-control-lg form-field nepaliFont"
+                                             type="text"
+                                             formControlName="kittaNo"> को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत ।</p>
 
                     <p>संलग्नप्रमाणहरु ः<br>
-                        (क) चालु आ.व. ..............को मालपोत तिरेको रसिदको प्रतिलिपीथान–१<br>
+                        (क) चालु आ.व. <input class="form-control-lg form-field nepaliFont"
+                                             type="text"
+                                             formControlName="chaluArthikBarsa">.को मालपोत तिरेको रसिदको प्रतिलिपीथान–१<br>
                         (ख) जग्गाधनीदर्ता प्रमाणपूर्जाको प्रतिलिपीथान–१<br>
                         (ग) लिखत गरिदिनेको नागरिकताको प्रमाणपत्रको प्रतिलिपीथान–१<br>
                         (घ) करचुक्ताप्रमाणपत्रको प्रतिलिपीथान–१<br>
                         (ङ) लिखत गराई लिनेको दर्ता प्रमाणपत्रको प्रतिलिपीथान–१<br>
                         (च) लिनेको प्रतिनिधिनियुक्त गरिएको पत्र सक्कलथान–१<br>
 
-                        ईति सम्वत् २०......... साल.......................महिना ................ गते .........................रोज शुभम्..............................................................।
+                        ईति सम्वत् २०<input class="form-control-lg form-field nepaliFont"
+                                            type="text"
+                                            formControlName="itisambatYear">
+                        साल <input class="form-control-lg form-field nepaliFont"
+                                   type="text"
+                                   formControlName="itisambatMonth">
+                        महिना <input class="form-control-lg form-field nepaliFont"
+                                     type="text"
+                                     formControlName="itisambatDay">
+                        गते <input class="form-control-lg form-field nepaliFont"
+                                   type="text"
+                                   formControlName="itisambatTime">
+                        रोज शुभम्<input class="form-control-lg form-field nepaliFont"
+                                        type="text"
+                                        formControlName="itisambatShubam">।
 
-                        यो लिखतमैले भने बमोजिम÷मधितोसुरक्षणकर्ता  ................... स्वयंले तयार गरेको हो भनी सही गर्नेको नामः .......................................................... हस्ताक्षर ........................ ।
+                        यो लिखतमैले भने बमोजिम/मधितोसुरक्षणकर्ता <input class="form-control-lg form-field nepaliFont"
+                                                                        type="text"
+                                                                        formControlName="dhitoSurakchanKarta">
+                        स्वयंले तयार गरेको हो भनी सही गर्नेको नामः <input class="form-control-lg form-field nepaliFont"
+                                                                          type="text"
+                                                                          formControlName="dhitoSurakchanKartaName">
+                        हस्ताक्षर ........................ ।
                     </p>
+                    <br><br>
                     <div class="col-md-12">
-                        <table class="table  table-bordered">
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <tr>
-                                <td><b>लेखिएको वमोजिमश्रेस्ताकायम छ÷छैनः</b><br>
-                                    कर्मचारीको दस्तखतः........................... नामः ..........................
-                                    पदः ................................मितिः .............................
+                                <td><b>लेखिएको वमोजिमश्रेस्ताकायम छ/छैनः</b><br>
+                                    कर्मचारीको दस्तखतः...........................
+                                    नामः <input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="karmachariName1">
+                                    पदः <input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="karmachariPosition1">
+                                    मितिः <input class="form-control-lg form-field nepaliFont"
+                                                 type="text"
+                                                 formControlName="karmachariDate1">
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>लेखिएको किता नं. को जग्गा र घरजग्गा रोक्का छ÷छैन ः</b><br>
-                                    कर्मचारीको दस्तखतः..................... नामः ............................
-                                    पदः ............................... मितिः .............................
+                                <td><b>लेखिएको किता नं. को जग्गा र घरजग्गा रोक्का छ/छैन ः</b><br>
+                                    कर्मचारीको दस्तखतः............................
+                                    नामः <input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="karmachariName2">
+                                    पदः <input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="karmachariPosition2">
+                                    मितिः <input class="form-control-lg form-field nepaliFont"
+                                                 type="text"
+                                                 formControlName="karmachariDate2">
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>लेखिएको जग्गाको न्युनतममुल्याङ्कन रु ...................................... हुने देखिन्छ ।</b><br>
-                                    कर्मचारीको दस्तखतः..................... नामः ............................
-                                    पदः ............................... मितिः .............................
+                                <td><b>लेखिएको जग्गाको न्युनतममुल्याङ्कन रु <input class="form-control-lg form-field nepaliFont"
+                                                                                   type="text"
+                                                                                   formControlName="jaggaMinimumPrice">
+                                    हुने देखिन्छ ।
+                                </b><br>
+                                    कर्मचारीको दस्तखतः............................
+                                    नामः <input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="karmachariName3">
+                                    पदः <input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="karmachariPosition3">
+                                    मितिः <input class="form-control-lg form-field nepaliFont"
+                                                 type="text"
+                                                 formControlName="karmachariDate3">
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div><br><br>
                     <div class="col-md-4">
-                        <table class="table  table-bordered">
+                        <table class="table  table-bordered text-center">
                             <tbody>
                             <tr>
                                 <td>
-                                    रजिष्ट्रेशन नं. ..................................<br>
-                                    पारित मिति ः .......................................<br>
-                                    टोकन/दर्ता नं. ः ...................................<br>
-                                    मिति ः ................................................<br>
-                                    कारोबार (थैली) अङ्क रु ............................<br>
-                                    रजिष्ट्रेशनदरुतुर रु ................................<br>
-                                    पँुजिगतलाभकर रु ................................<br>
-                                    अन्य कर/दरुतुर रु ................................<br>
-                                    रसिद नं. ............................................
+                                    रजिष्ट्रेशन नं. <input class="form-control-lg form-field nepaliFont"
+                                                           type="text"
+                                                           formControlName="regNo2"><br>
+                                    पारित मिति ः <input class="form-control-lg form-field nepaliFont"
+                                                        type="text"
+                                                        formControlName="paritDate"><br>
+                                    टोकन/दर्ता नं. ः <input class="form-control-lg form-field nepaliFont"
+                                                            type="text"
+                                                            formControlName="tokenDartaNo2"><br>
+                                    मिति ः<input class="form-control-lg form-field nepaliFont"
+                                                 type="text"
+                                                 formControlName="date"><br>
+                                    कारोबार (थैली) अङ्क रु <input class="form-control-lg form-field nepaliFont"
+                                                                  type="text"
+                                                                  formControlName="karobatThailiRu"><br>
+                                    रजिष्ट्रेशन दरुतुर रु <input class="form-control-lg form-field nepaliFont"
+                                                                type="text"
+                                                                formControlName="regDasturRu"><br>
+                                    पुँजिगत लाभकर रु <input class="form-control-lg form-field nepaliFont"
+                                                           type="text"
+                                                           formControlName="lavKar"><br>
+                                    अन्य कर/दरुतुर रु <input class="form-control-lg form-field nepaliFont"
+                                                             type="text"
+                                                             formControlName="anyaKar"><br>
+                                    रसिद नं. <input class="form-control-lg form-field nepaliFont"
+                                                    type="text"
+                                                    formControlName="rasidNo">
 
                                 </td>
                             </tr>
@@ -437,9 +745,13 @@
                             भूमिव्यवस्था, सहकारी तथा गरिबि निवारणमन्त्रालय<br>
                             भूमिव्यवस्थापनतथाअभिलेख विभाग।</b><br>
 
-                        मालपोत कार्यालयः ............................................<br>
+                        मालपोत कार्यालयः <input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="malpotKaryalaya"><br>
 
-                        डोरमुकामः ......................................................
+                        डोरमुकामः <input class="form-control-lg form-field nepaliFont"
+                                         type="text"
+                                         formControlName="doormukam">
 
                     </div>
                     <div class="col-md-4">
@@ -448,20 +760,32 @@
                             <tr>
                                 <td>
                                     <b> स्वीकृत (पारित) गर्नेको</b><br>
-                                    दस्तखत र मिति ः .................................................<br>
+                                    दस्तखत र मिति ः ......................<input class="form-control-lg form-field nepaliFont"
+                                                                             type="text"
+                                                                             formControlName="paritMiti"><br>
 
-                                    नाम ः .........................................................<br>
+                                    नाम ः <input class="form-control-lg form-field nepaliFont"
+                                                 type="text"
+                                                 formControlName="paritName"><br>
 
-                                    पद ः ..........................................................<br>
+                                    पद ः <input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="paritPosition"><br>
 
                                     यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउदालिखतबमोजिम कारोबार गरेको मञ्जुर गरेकोले
                                     लिखतपारित (स्वीकृत) गर्नको लागि पेश गरेको छु ।<br>
                                     <b>फाँटवालाको</b><br>
-                                    दस्तखत र मिति ः .................................................<br>
+                                    दस्तखत र मिति ः .......................<input class="form-control-lg form-field nepaliFont"
+                                                                                  type="text"
+                                                                                  formControlName="fatwalaMiti"><br>
 
-                                    नाम ः .........................................................<br>
+                                    नाम ः <input class="form-control-lg form-field nepaliFont"
+                                                 type="text"
+                                                 formControlName="fatwalaName"><br>
 
-                                    पद ः ..........................................................<br>
+                                    पद ः <input class="form-control-lg form-field nepaliFont"
+                                                type="text"
+                                                formControlName="fatwalaPosition"><br>
                                 </td>
                             </tr>
                             </tbody>
