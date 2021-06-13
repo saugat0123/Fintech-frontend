@@ -9,6 +9,9 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {QuestionService} from '../../../../service/question.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {EligibilityLoanConfigServiceService} from "../eligibility-loan-config/eligibility-loan-config-service.service";
+import {EligibilityLoanConfiguration} from "../eligibility-loan-config/EligibilityLoanConfiguration";
+import {EligibilityLoanConfigQuestion} from "../../../modal/eligibilityLoanConfigQuestion";
 
 @Component({
     selector: 'app-question',
@@ -22,11 +25,14 @@ export class QuestionComponent implements OnInit {
     existingQuestionList: boolean;
     newQuestionList: boolean;
     task: string;
-    questionList: Array<Questions> = new Array<Questions>();
+    questionList: Array<any>= new Array<any>();
     schemeList: Array<LoanConfig> = new Array<LoanConfig>();
     qsnContent: Questions = new Questions();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
+    loanType: boolean;
+    eligibilitySchemeList: Array<EligibilityLoanConfiguration> =new Array<EligibilityLoanConfiguration>();
+    // eligibilityQuestionList: Array<EligibilityLoanConfigQuestion>= new Array<EligibilityLoanConfigQuestion>();
 
     private modalRef: NgbModalRef;
 
@@ -35,7 +41,8 @@ export class QuestionComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private router: Router,
                 private modalService: NgbModal,
-                private toastService: ToastService) {}
+                private toastService: ToastService,
+                private eligibilityLoanService : EligibilityLoanConfigServiceService) {}
 
     ngOnInit() {
         this.questionAnswerForm = this.formBuilder.group({
@@ -45,12 +52,30 @@ export class QuestionComponent implements OnInit {
         this.getSchemeList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
+        this.loanType=true;
+        this.getEligibilitySchemeList();
+        if( this.loanType){
+            // @ts-ignore
+            this.questionList = Array<Questions>=new Array<Questions>();
+        }
+        else{
+            // @ts-ignore
+            this.questionList=Array<EligibilityLoanConfigQuestion>= new Array<EligibilityLoanConfigQuestion>();
+        }
+
     }
 
     getSchemeList() {
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.schemeList = response.detail;
         });
+    }
+
+    getEligibilitySchemeList(){
+        this.eligibilityLoanService.getAll().subscribe( resp => {
+            console.log(resp);
+            this.eligibilitySchemeList= resp.detail;
+        })
     }
 
     addQuestionField() {
@@ -93,11 +118,13 @@ export class QuestionComponent implements OnInit {
         this.loanConfigId = this.questionAnswerForm.get('loanConfigId').value;
 
         this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
-            this.questionList = response.detail;
-
-            this.questionList.forEach(qsn => {
-                this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
-            });
+            console.log(response);
+            this.questionList= response.detail;
+            if(this.loanType) {
+                this.questionList.forEach(qsn => {
+                    this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
+                });
+            }
 
             if (this.questionList.length !== 0) {
                 this.existingQuestionList = true;
@@ -210,7 +237,11 @@ export class QuestionComponent implements OnInit {
         this.questionService.editQuestion(newQsnContent, this.loanConfigId, newQsnContent.id).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
+               if(this.loanType){
                 this.questionList = new Array<Questions>();
+               } else {
+                this.questionList= new Array<EligibilityLoanConfigQuestion>();
+               }
                 this.qsnContent = new Questions();
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');

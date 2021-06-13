@@ -2,15 +2,26 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../@core/utils/api/ApiUtils';
+import {EligibilityLoanConfigServiceService} from "../admin/component/eligibility/eligibility-loan-config/eligibility-loan-config-service.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class QuestionService {
     loanConfigApi = 'v1/loan-configs/';
-    questionApi = '/questions';
+    questionApi: string;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private loanConfigService: EligibilityLoanConfigServiceService) {
+
+        this.loanConfigService.checkType().subscribe( resp => {
+            if(resp.detail === true){
+                this.questionApi = '/questions';
+            }
+            else{
+                this.questionApi='/EligibilityLoanConfigQuestion';
+            }
+        })
     }
 
     saveQuestionList(model: Object, loanConfigId): Observable<Object> {

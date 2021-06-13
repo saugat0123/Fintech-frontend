@@ -38,5 +38,11 @@ export class EligibilityLoanConfigServiceService extends BaseService<Eligibility
     return this.http.post(req.url, searchObj, {headers: req.header});
   }
 
+  //This is for another service to check whether the document type is Eligibility or not.
+  public checkType():Observable<any>{
+    const api = `${this.getApi()}/checkType`;
+    const getUrl = ApiUtils.getRequest(api);
+    return this.http.get(getUrl.url,{headers: getUrl.header});
+  }
 
 }

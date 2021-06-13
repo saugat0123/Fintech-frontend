@@ -8,10 +8,20 @@
                             <div class="col-md-5">
                                 <label>Please select a scheme to begin.</label>
                                 <select (change)="onChangeSchemeOption()" class="form-control custom-select"
-                                        formControlName="loanConfigId">
+                                        formControlName="loanConfigId" *ngIf="loanType">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
-                                    <option *ngFor="let scheme of schemeList; "
-                                            [ngValue]="scheme?.id">{{scheme.name}}</option>
+
+                                        <option  *ngFor="let scheme of schemeList;"
+                                                 [ngValue]="scheme?.id">{{scheme.name}}</option>
+
+                                </select>
+                                <select (change)="onChangeSchemeOption()" class="form-control custom-select"
+                                        formControlName="loanConfigId" *ngIf="!loanType">
+                                    <option [ngValue]="null" hidden> Select a scheme</option>
+
+                                    <option  *ngFor="let scheme of eligibilitySchemeList;"
+                                             [ngValue]="scheme?.id">{{scheme.name}}</option>
+
                                 </select>
                             </div>
                             <div *ngIf="existingQuestionList" class="col-md-7 text-right mt-5">
@@ -64,7 +74,8 @@
                             </tr>
                             <tr [ngbCollapse]="collapsedIndex != i" id="ans{{i}}">
                                 <td colspan="6">
-                                    <table aria-describedby="answers-table" class="table table-bordered table-sm sb-small text-center">
+                                    <table aria-describedby="answers-table"
+                                           class="table table-bordered table-sm sb-small text-center">
                                         <thead class="thead-light">
                                         <tr class="text-white sb-bg-dark">
                                             <th scope="col">Answer description</th>
@@ -98,16 +109,19 @@
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <label>Question Description:</label>
-                                                <input class="form-control" formControlName="description" placeholder="Question description"
+                                                <input class="form-control" formControlName="description"
+                                                       placeholder="Question description"
                                                        type="text">
                                             </div>
                                             <div class="col-md-4">
                                                 <label>Appearance order:</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" formControlName="appearanceOrder" placeholder="Appearance order"
+                                                    <input class="form-control" formControlName="appearanceOrder"
+                                                           placeholder="Appearance order"
                                                            type="number">
                                                     <div class="input-group-append">
-                                                        <button (click)="deleteQuestionField(i)" class="btn btn-danger btn-sm">
+                                                        <button (click)="deleteQuestionField(i)"
+                                                                class="btn btn-danger btn-sm">
                                                             <i class="fa fa-trash" style="color:white;"></i>
                                                         </button>
                                                     </div>
@@ -236,9 +250,9 @@
                             </div>
 
                             <div class="col-md-3 px-0 mx-0">
-                                    <label>Appearance order:</label>
-                                    <input class="form-control" formControlName="appearanceOrder"
-                                           type="number">
+                                <label>Appearance order:</label>
+                                <input class="form-control" formControlName="appearanceOrder"
+                                       type="number">
                             </div>
 
                             <div class="col-md-4 px-0 mx-0">
