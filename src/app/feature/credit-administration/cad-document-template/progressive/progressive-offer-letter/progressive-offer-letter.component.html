@@ -73,6 +73,30 @@
                     *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY>
 
             </app-letter-of-continuity>
+            <app-cross-guarantee-bond
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.CROSS_GUARANTEE_BOND>
+
+            </app-cross-guarantee-bond>
+            <app-guarantee-bond-personal
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_PERSONAL>
+
+            </app-guarantee-bond-personal>
+            <app-offer-letter-corporate
+                    *ngSwitchCase=offerLetterConst.OFFER_LETTER_CORPORATE
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-corporate>
+            <app-offer-letter-personal
+                    *ngSwitchCase=offerLetterConst.OFFER_LETTER_PERSONAL
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter-personal>
+            <app-hypothecation-of-goods-and-receivables-a
+                    *ngSwitchCase=offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-hypothecation-of-goods-and-receivables-a>
             <app-hypothecation-of-goods-and-receivables-b
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"

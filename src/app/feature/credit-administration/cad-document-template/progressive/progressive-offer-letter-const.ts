@@ -11,11 +11,13 @@ export enum ProgressiveOfferLetterConst {
     LETTER_OF_DISBURSEMENT,
     GUARANTEE_BOND_CORPORATE,
     LETTER_OF_CONTINUITY,
-    HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B = 12,
-    MORTGAGE_DEED = 13,
-
-
-
+    GUARANTEE_BOND_PERSONAL,
+    MORTGAGE_DEED,
+    CROSS_GUARANTEE_BOND,
+    A_HOTHECATION_OF_GOODS_AND_RECEIVABLES,
+    B_HOTHECATION_OF_GOODS_AND_RECEIVABLES,
+    OFFER_LETTER_PERSONAL,
+    OFFER_LETTER_CORPORATE
 }
 
 export namespace ProgressiveOfferLetterConst {
@@ -45,14 +47,22 @@ export namespace ProgressiveOfferLetterConst {
                 return 'Guarantee Bond Corporate';
             case ProgressiveOfferLetterConst.LETTER_OF_CONTINUITY:
                 return 'Letter Of Continuity';
-            case ProgressiveOfferLetterConst.HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B:
-                return 'Hypothecation Of Goods And Receivables B ';
+            case ProgressiveOfferLetterConst.GUARANTEE_BOND_PERSONAL:
+                return 'Guarantee Bond Personal';
             case ProgressiveOfferLetterConst.MORTGAGE_DEED:
-                return 'Mortgage Deed ';
-
+                return 'Mortgage Deed';
+            case ProgressiveOfferLetterConst.CROSS_GUARANTEE_BOND:
+                return 'Cross Guarantee Bond';
+            case ProgressiveOfferLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES:
+                return 'A Hypothecation of Goods and Receivables';
+            case ProgressiveOfferLetterConst.B_HOTHECATION_OF_GOODS_AND_RECEIVABLES:
+                return 'B Hypothecation of Goods and Receivables';
+            case ProgressiveOfferLetterConst.OFFER_LETTER_PERSONAL:
+                return 'Offer Letter Personal';
+            case ProgressiveOfferLetterConst.OFFER_LETTER_CORPORATE:
+                return 'Offer Letter Corporate';
         }
     }
-
 
     export function keysEnum(offerLetter: string) {
         let key = null;
@@ -80,5 +90,4 @@ export namespace ProgressiveOfferLetterConst {
         });
         return enums;
     }
-
 }
