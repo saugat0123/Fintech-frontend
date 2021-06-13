@@ -1,4 +1,4 @@
-<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B}}">
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES}}">
     <div class="col-md-12 viewFull">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="nep">
@@ -407,9 +407,9 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><textarea style="background-color: transparent;resize:none" name="" id=""
+                                    <td><textarea style="background-color: transparent;resize:none" name=""
                                                   cols="30" rows="10"></textarea></td>
-                                    <td><textarea style="background-color: transparent;resize:none" name="" id=""
+                                    <td><textarea style="background-color: transparent;resize:none" name=""
                                                   cols="30" rows="10"></textarea></td>
                                 </tr>
                                 </tbody>
@@ -518,7 +518,7 @@
         <button class="btn btn-primary d-print-none"
                 [useExistingCss]="true"
                 [disabled]="!initialInfoPrint"
-                printSectionId="print-section-{{ offerLetterConst.HYPOTHECATION_OF_GOODS_AND_RECEIVABLE_B }}"
+                printSectionId="print-section-{{ offerLetterConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES }}"
                 ngxPrint> Print
         </button>
     </div>
