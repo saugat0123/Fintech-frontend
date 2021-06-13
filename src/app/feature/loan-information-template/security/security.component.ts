@@ -123,7 +123,7 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            lambdaScheme: [undefined],
+            lambdaScheme: ['GENERAL', !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
@@ -399,6 +399,8 @@ export class SecurityComponent implements OnInit {
             case 'AUTO_COMMERCIAL':
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
+            default:
+                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
         }
     }
 }
