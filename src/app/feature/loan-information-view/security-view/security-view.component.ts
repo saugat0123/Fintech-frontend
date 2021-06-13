@@ -36,8 +36,8 @@ export class SecurityViewComponent implements OnInit {
   buildingSelected = false;
   landBuilding = false;
   ownerShipTransfer = OwnershipTransfer;
-  disableCrgAlphaParams = envSrdb.disableCrgAlpha;
-  crgLambdaDisabled = envSrdb.disableCrgLambda;
+  disableCrgAlphaParams = environment.disableCrgAlpha;
+  crgLambdaDisabled = environment.disableCrgLambda;
   client = environment.client;
   clientName = Clients;
   securityOther: any;
