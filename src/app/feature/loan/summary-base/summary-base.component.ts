@@ -47,7 +47,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     loanSummaryActive = true;
     approvalSheetActive = false;
-    loanTag= LoanTag;
+    loanTag = LoanTag;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -109,6 +109,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     getLoanDataHolder() {
+        const roleType: string = LocalStorageUtil.getStorage().roleType;
         this.actionsList.approved = false;
         this.actionsList.sendForward = false;
         this.actionsList.edit = false;
@@ -161,6 +162,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.closed = false;
             }
 
+
             await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
                 .subscribe((res: any) => {
                     if (res.detail === undefined) {
@@ -169,6 +171,11 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                         if (this.loanDataHolder.proposal !== null
                             && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
                             this.actionsList.approved = false;
+                        }
+                        if (this.loanDataHolder.proposal !== null
+                            && roleType === 'APPROVAL'
+                            && this.loanDataHolder.proposal.proposedLimit < res.detail.amount) {
+                            this.actionsList.sendForward = false;
                         }
                     }
                 });
