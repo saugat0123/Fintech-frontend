@@ -739,21 +739,43 @@
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label><strong>Income Risk</strong></label>
-                                   <ckeditor id="incomeRisk" formControlName="incomeRisk" name="introduction" type="text"
-                                             [config]="ckeConfig"></ckeditor>
+                                   <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && basicInfoControls.incomeRisk.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="basicInfoControls.incomeRisk.errors.required">
+                                           Income Risk is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
                                    <label><strong>Security Risk</strong></label>
-                                   <ckeditor id="securityRisk" formControlName="securityRisk" name="introduction"
-                                             [config]="ckeConfig"></ckeditor>
+                                   <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.securityRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && basicInfoControls.securityRisk.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="basicInfoControls.securityRisk.errors.required">
+                                           Security Risk is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
                                    <label><strong>Succession Risk</strong></label>
-                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="introduction" [config]="ckeConfig"></ckeditor>
+                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.successionRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && basicInfoControls.successionRisk.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="basicInfoControls.successionRisk.errors.required">
+                                           Succession Risk is required
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                        </div>
