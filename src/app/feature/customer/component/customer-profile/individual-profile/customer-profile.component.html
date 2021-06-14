@@ -18,8 +18,8 @@
 
                         <nb-icon icon="arrow-right-outline"></nb-icon>
                     </button>
-                    <button [nbPopoverPlacement]="'left'" [nbPopover]="loanExposures" class="shake-infinite"
-                            nbButton size="small" status="warning">Exposures&nbsp;<i
+                    <button [nbPopoverPlacement]="'left'" [nbPopover]="loanExposures"
+                            nbButton size="small" status="info">Exposures&nbsp;<i
                             class="fas fa-exclamation-triangle"></i></button>
                 </div>
 
@@ -512,15 +512,15 @@
 
 <ng-template #loanExposures>
     <nb-card style="margin-bottom: 0">
-        <nb-card-header>Loan Flags</nb-card-header>
+        <nb-card-header>Security Calculations</nb-card-header>
         <nb-card-body>
             <ul>
-                <li>totalSecurityAmount: {{customerInfo.totalSecurityAmount}}</li>
-                <li>totalProposedLimit: {{customerInfo.totalProposedLimit}}</li>
-                <li>totalRequiredCollateral: {{customerInfo.totalRequiredCollateral}}</li>
-                <li>deficitSurplus: {{customerInfo.deficitSurplus}}</li>
-                <li>coveragePercent: {{customerInfo.coveragePercent}}</li>
-                <li>loanExposure: {{customerInfo.loanExposure}}</li>
+                <li>Total FMV/Considered Value: <strong>{{customerInfo.totalSecurityAmount |currencyFormatter}}</strong></li>
+                <li>totalProposedLimit: <strong>{{customerInfo.totalProposedLimit |currencyFormatter}}</strong></li>
+                <li>totalRequiredCollateral: <strong>{{customerInfo.totalRequiredCollateral |currencyFormatter}}</strong></li>
+                <li>deficitSurplus: <strong>{{customerInfo.deficitSurplus |currencyFormatter}}</strong></li>
+                <li>coveragePercent: <strong>{{customerInfo.coveragePercent |percent}}</strong></li>
+                <li>loanExposure: <strong>{{customerInfo.loanExposure |percent}}</strong></li>
             </ul>
         </nb-card-body>
     </nb-card>
