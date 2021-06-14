@@ -173,7 +173,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                             this.actionsList.approved = false;
                         }
                         if (this.loanDataHolder.proposal !== null
-                            && roleType === 'APPROVAL'
                             && this.loanDataHolder.proposal.proposedLimit < res.detail.amount) {
                             this.actionsList.sendForward = false;
                         }
