@@ -8,7 +8,6 @@ import {ToastService} from '../../../@core/utils';
 import {Editor} from '../../../@core/utils/constants/editor';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
-import {environment} from '../../../../environments/environment.srdb';
 import {CalendarType} from '../../../@core/model/calendar-type';
 
 @Component({
@@ -34,8 +33,6 @@ export class CiclComponent implements OnInit {
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
-
-  crgLambdaDisabled = environment.disableCrgLambda;
   ciclHistory = false;
 
   constructor(

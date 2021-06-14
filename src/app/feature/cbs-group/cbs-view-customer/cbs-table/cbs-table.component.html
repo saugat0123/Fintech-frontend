@@ -22,7 +22,7 @@
         <td class="text-left pl-1">{{data?.obligor || '-'}}</td>
         <td class="text-right pr-1">{{data?.jsonDataMap?.MainCode || '-'}}</td>
         <td class="text-left pl-1">{{data?.jsonDataMap?.Name || '-'}}</td>
-        <td> class="text-left pl-1">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
+        <td class="text-left pl-1">{{data?.jsonDataMap?.TypeOfCredit || '-'}}</td>
         <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.ApprovedLimit))| currencyFormatter) || '-'}}</td>
         <td class="text-right pr-1">Rs.{{(Number(twoDecimalDigit(data?.jsonDataMap?.OSPrincipal)) | currencyFormatter) || '-'}}</td>
         <td>{{data?.jsonDataMap?.InterestRate || '-'}}</td>
