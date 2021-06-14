@@ -26,7 +26,7 @@ export class EligibilityLoanConfigServiceService extends BaseService<Eligibility
 
   getAllEligibilityLoanConfig(): Observable<any>
   {
-    const Url=this.eligibilityloanconfig+'/getAll';
+    const Url=this.eligibilityloanconfig+'/all';
     const getUrl=ApiUtils.getRequest(Url);
     return this.http.get(getUrl.url,{headers: getUrl.header});
   }

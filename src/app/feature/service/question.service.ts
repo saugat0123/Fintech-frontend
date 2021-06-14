@@ -10,16 +10,16 @@ import {EligibilityLoanConfigServiceService} from "../admin/component/eligibilit
 export class QuestionService {
     loanConfigApi = 'v1/loan-configs/';
     questionApi: string;
-
+    loanType:boolean=false;
     constructor(private http: HttpClient,
                 private loanConfigService: EligibilityLoanConfigServiceService) {
 
         this.loanConfigService.checkType().subscribe( resp => {
             if(resp.detail === true){
-                this.questionApi = '/questions';
+                this.questionApi='/EligibilityLoanConfigQuestion';
             }
             else{
-                this.questionApi='/EligibilityLoanConfigQuestion';
+                this.questionApi = '/questions';
             }
         })
     }

@@ -8,7 +8,7 @@
                             <div class="col-md-5">
                                 <label>Please select a scheme to begin.</label>
                                 <select (change)="onChangeSchemeOption()" class="form-control custom-select"
-                                        formControlName="loanConfigId" *ngIf="loanType">
+                                        formControlName="loanConfigId" *ngIf="!loanType">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
 
                                         <option  *ngFor="let scheme of schemeList;"
@@ -16,7 +16,7 @@
 
                                 </select>
                                 <select (change)="onChangeSchemeOption()" class="form-control custom-select"
-                                        formControlName="loanConfigId" *ngIf="!loanType">
+                                        formControlName="loanConfigId" *ngIf="loanType">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
 
                                     <option  *ngFor="let scheme of eligibilitySchemeList;"

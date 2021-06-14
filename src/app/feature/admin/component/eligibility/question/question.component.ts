@@ -28,6 +28,7 @@ export class QuestionComponent implements OnInit {
     questionList: Array<any>= new Array<any>();
     schemeList: Array<LoanConfig> = new Array<LoanConfig>();
     qsnContent: Questions = new Questions();
+    eligibilityQuestionContent: EligibilityLoanConfigQuestion=new EligibilityLoanConfigQuestion();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
     loanType: boolean;
@@ -52,15 +53,15 @@ export class QuestionComponent implements OnInit {
         this.getSchemeList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
-        this.loanType=true;
         this.getEligibilitySchemeList();
+      this.checkLoanType();
         if( this.loanType){
             // @ts-ignore
-            this.questionList = Array<Questions>=new Array<Questions>();
+            this.questionList=Array<EligibilityLoanConfigQuestion>= new Array<EligibilityLoanConfigQuestion>();
         }
         else{
             // @ts-ignore
-            this.questionList=Array<EligibilityLoanConfigQuestion>= new Array<EligibilityLoanConfigQuestion>();
+            this.questionList = Array<Questions>=new Array<Questions>();
         }
 
     }
@@ -218,7 +219,7 @@ export class QuestionComponent implements OnInit {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
 
-                this.questionList = new Array<Questions>();
+               this.selectType();
 
                 this.onChangeSchemeOption();
 
@@ -227,7 +228,7 @@ export class QuestionComponent implements OnInit {
 
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
 
-                this.questionList = new Array<Questions>();
+              this.selectType();
             }
         );
     }
@@ -237,11 +238,7 @@ export class QuestionComponent implements OnInit {
         this.questionService.editQuestion(newQsnContent, this.loanConfigId, newQsnContent.id).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
-               if(this.loanType){
-                this.questionList = new Array<Questions>();
-               } else {
-                this.questionList= new Array<EligibilityLoanConfigQuestion>();
-               }
+              this.selectType();
                 this.qsnContent = new Questions();
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');
@@ -249,7 +246,7 @@ export class QuestionComponent implements OnInit {
             }, error => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Question'));
-                this.questionList = new Array<Questions>();
+              this.selectType();
             }
         );
     }
@@ -271,16 +268,35 @@ export class QuestionComponent implements OnInit {
             this.questionService.deleteQuestion(this.loanConfigId, qsnContent.id).subscribe(() => {
 
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Questions'));
-                    this.questionList = new Array<Questions>();
+                   this.selectType();
                     this.qsnContent = new Questions();
                     this.onChangeSchemeOption();
 
                 }, error => {
                     console.log(error);
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Question'));
-                    this.questionList = new Array<Questions>();
+                    this.selectType();
                 }
             );
         }
+    }
+
+    selectType():void{
+        if(this.loanType){
+            this.questionList = new Array<EligibilityLoanConfigQuestion>();
+        }else{
+            this.questionList = new Array<Questions>();
+        }
+    }
+
+    checkLoanType(){
+        this.eligibilityLoanService.checkType().subscribe( resp =>{
+            if(resp.detail === true) {
+                this.loanType = true;
+            }
+            else  {
+                this.loanType = false;
+            }
+        })
     }
 }
