@@ -127,12 +127,21 @@
             / Rs. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
             / Rs. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
         </tr>
-        <tr *ngIf="client === clientName?.ICFC">
-          <td><b>Fixed / Working(Current) / Total  Capital</b></td>
-          <td colspan="2">Rs. {{companyInfo?.capital?.fixedCapital |currencyFormatter}}
-            / Rs. {{companyInfo?.capital?.workingCapital | currencyFormatter}}
-            / Rs. {{companyInfo?.capital?.totalCapital | currencyFormatter}} </td>
-        </tr>
+
+        <ng-container *ngIf="client === clientName?.ICFC">
+          <tr *ngIf="companyInfo?.capital?.fixedCapital > 0">
+            <td><b>Fixed Capital</b></td>
+            <td colspan="2">Rs. {{companyInfo?.capital?.fixedCapital |currencyFormatter}}</td>
+          </tr>
+          <tr *ngIf="companyInfo?.capital?.workingCapital > 0">
+            <td><b>Working(Current) Capital</b></td>
+            <td colspan="2">Rs. {{companyInfo?.capital?.workingCapital |currencyFormatter}}</td>
+          </tr>
+          <tr *ngIf="companyInfo?.capital?.totalCapital > 0">
+            <td><b>Total  Capital</b></td>
+            <td colspan="2">Rs. {{companyInfo?.capital?.totalCapital |currencyFormatter}}</td>
+          </tr>
+        </ng-container>
 
         <tr>
           <td><b>Client Type</b></td>
