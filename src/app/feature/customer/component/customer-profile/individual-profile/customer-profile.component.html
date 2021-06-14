@@ -18,6 +18,9 @@
 
                         <nb-icon icon="arrow-right-outline"></nb-icon>
                     </button>
+                    <button [nbPopoverPlacement]="'left'" [nbPopover]="loanExposures" class="shake-infinite"
+                            nbButton size="small" status="warning">Exposures&nbsp;<i
+                            class="fas fa-exclamation-triangle"></i></button>
                 </div>
 
             </div>
@@ -211,9 +214,6 @@
             <div class="col-md-12">
                 <button [nbPopoverPlacement]="'left'" [nbPopover]="loanFlagsTemplate" class="shake-infinite"
                         nbButton size="small" status="warning">Alert&nbsp;<i
-                        class="fas fa-exclamation-triangle"></i></button>
-                <button [nbPopoverPlacement]="'left'" [nbPopover]="loanExposures" class="shake-infinite"
-                        nbButton size="small" status="warning">Exposures&nbsp;<i
                         class="fas fa-exclamation-triangle"></i></button>
             </div>
         </div>
