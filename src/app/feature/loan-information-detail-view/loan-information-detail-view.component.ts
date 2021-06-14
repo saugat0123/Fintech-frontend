@@ -159,11 +159,19 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 return 'REJECTED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
                 return 'CLOSED BY:';
+            } else if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+                return 'RE INITIATED:';
             } else {
                 return 'SUPPORTED BY:';
             }
         } else {
-            return 'SUPPORTED BY:';
+            if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+                return 'REJECTED BY:';
+            } else if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+                return 'RE INITIATED:';
+            } else {
+                return 'SUPPORTED BY:';
+            }
         }
     }
 
