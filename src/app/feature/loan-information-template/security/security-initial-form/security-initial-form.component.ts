@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -1713,6 +1713,7 @@ export class SecurityInitialFormComponent implements OnInit {
     private getShareDataList() {
         const list: Array<CustomerShareData> = [];
         this.shareField.controls.forEach(c => list.push(c.value));
+        console.log(list);
         return list;
     }
 

@@ -212,6 +212,9 @@
                 <button [nbPopoverPlacement]="'left'" [nbPopover]="loanFlagsTemplate" class="shake-infinite"
                         nbButton size="small" status="warning">Alert&nbsp;<i
                         class="fas fa-exclamation-triangle"></i></button>
+                <button [nbPopoverPlacement]="'left'" [nbPopover]="loanExposures" class="shake-infinite"
+                        nbButton size="small" status="warning">Exposures&nbsp;<i
+                        class="fas fa-exclamation-triangle"></i></button>
             </div>
         </div>
         <div class="row">
@@ -502,6 +505,22 @@
         <nb-card-body>
             <ul>
                 <li *ngFor="let flag of customerInfo?.loanFlags">{{flag?.description}}</li>
+            </ul>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
+
+<ng-template #loanExposures>
+    <nb-card style="margin-bottom: 0">
+        <nb-card-header>Loan Flags</nb-card-header>
+        <nb-card-body>
+            <ul>
+                <li>totalSecurityAmount: {{customerInfo.totalSecurityAmount}}</li>
+                <li>totalProposedLimit: {{customerInfo.totalProposedLimit}}</li>
+                <li>totalRequiredCollateral: {{customerInfo.totalRequiredCollateral}}</li>
+                <li>deficitSurplus: {{customerInfo.deficitSurplus}}</li>
+                <li>coveragePercent: {{customerInfo.coveragePercent}}</li>
+                <li>loanExposure: {{customerInfo.loanExposure}}</li>
             </ul>
         </nb-card-body>
     </nb-card>

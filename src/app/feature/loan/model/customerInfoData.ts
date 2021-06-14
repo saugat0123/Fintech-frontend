@@ -75,4 +75,10 @@ export class CustomerInfoData {
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
+    totalSecurityAmount: number;
+    totalProposedLimit: number;
+    totalRequiredCollateral: number;
+    deficitSurplus: number;
+    coveragePercent: number;
+    loanExposure: number;
 }
