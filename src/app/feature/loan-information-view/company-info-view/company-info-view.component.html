@@ -120,9 +120,11 @@
                 <th>Authorized Capital</th>
                 <th>Issued Capital</th>
                 <th>Paid Up Capital</th>
-                <th *ngIf="client === clientName?.ICFC">Total Capital</th>
-                <th *ngIf="client === clientName?.ICFC">Fixed Capital</th>
-                <th *ngIf="client === clientName?.ICFC">Working Capital</th>
+                <ng-container *ngIf="client === clientName?.ICFC">
+                    <th *ngIf="formValue?.capital?.totalCapital > 0">Total Capital</th>
+                    <th *ngIf="formValue?.capital?.fixedCapital > 0">Fixed Capital</th>
+                    <th *ngIf="formValue?.capital?.workingCapital > 0">Working Capital</th>
+                </ng-container>
                 <th>Number Of Shareholder</th>
             </tr>
             </thead>
@@ -131,9 +133,11 @@
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.authorizedCapital | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.issuedCapital | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{formValue?.capital?.paidUpCapital | currencyFormatter}}</td>
-                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.totalCapital}}</td>
-                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.fixedCapital}}</td>
-                <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">Rs. {{formValue?.capital?.workingCapital}}</td>
+                <ng-container *ngIf="client === clientName?.ICFC">
+                    <td class="text-right pr-1" *ngIf="formValue?.capital?.totalCapital > 0">Rs. {{formValue?.capital?.totalCapital}}</td>
+                    <td class="text-right pr-1" *ngIf="formValue?.capital?.fixedCapital > 0">Rs. {{formValue?.capital?.fixedCapital}}</td>
+                    <td class="text-right pr-1" *ngIf="formValue?.capital?.workingCapital > 0">Rs. {{formValue?.capital?.workingCapital}}</td>
+                </ng-container>
                 <td class="text-right pr-1">{{formValue?.capital?.numberOfShareholder}}</td>
             </tr>
             </tbody>
