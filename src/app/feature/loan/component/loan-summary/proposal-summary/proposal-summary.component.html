@@ -249,15 +249,20 @@
 <div class="row" *ngIf="client === clientName?.ICFC">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
             <tr class="text-white sb-bg-dark">
-                <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)">Subsidized Loan/Discount Rate</th>
-                <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)">Subsidized Loan Type</th>
-                <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">Others</th>
+                <th colspan="7">Information of Subsidized Loan</th>
             </tr>
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>
+                <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidized Loan Type</th>
+                <th *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">Others</th>
+            </tr>
+            </thead>
             <tr>
-                <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)">{{proposalAllData?.subsidizedLoan}}%</td>
-                <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA)">{{proposalAllData?.subsidyLoanType}}</td>
-                <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
+                <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked">{{calculateInterestRate()}} %</td>
+                <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked">{{proposalAllData?.subsidyLoanType}}</td>
+                <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
             </tr>
         </table>
     </div>
