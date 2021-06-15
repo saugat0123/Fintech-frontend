@@ -13,17 +13,215 @@
 
 <div class="container" id="security">
     <div class="form-group">
-        <div>
-            <h1>Additional Security</h1>
-            <app-additional-security #additionalSecurity
-                    [calendarType]="calendarType"
-                    [loanTag]="loanTag"
-                    [shareSecurityData]="shareSecurity"
-                    [isContainedApprovedLoan]="isContainedApprovedLoan"></app-additional-security>
+        <app-additional-security #initialSecurity
+                                   [calendarType]="calendarType"
+                                   [formData]="initialSecurityValue"
+                                   [loanTag]="loanTag"
+                                   [shareSecurity]="shareSecurity"
+                                   [customerSecurityId]="securityId">
+        </app-additional-security>
+        <div class="form-group">
+            <form [formGroup]="securityForm">
+                <ng-container *ngIf="!disableCrgAlphaParams && isBusinessLoan">
+                    <div>
+                        <h4>Guarantee</h4>
+                    </div>
+                    <nb-card>
+                        <nb-card-header>
+                            <label><h5>Security Guarantee</h5></label>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="form-group">
+                                <nb-radio-group class="d-contents form-control"
+                                                formControlName="securityGuarantee"
+                                                name="securityGuarantee">
+                                    <nb-radio *ngFor="let guarantee of guaranteeList"
+                                              [value]="guarantee?.value">{{guarantee?.value}}
+                                    </nb-radio>
+                                </nb-radio-group>
+                                <div *ngIf="submitted && securityForm.get('securityGuarantee').invalid" class="neb-error-feedback">
+                                    Security Guarantee is Required
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <h5>FAC (land & building) Location</h5>
+                            </div>
+                            <div class="form-group">
+                                <nb-select formControlName="buildingLocation"
+                                           fullWidth
+                                           placeholder="Select location">
+                                    <nb-option *ngFor="let location of locationList"
+                                               [value]="location?.value">
+                                        {{location?.value}}
+                                    </nb-option>
+                                </nb-select>
+                                <div *ngIf="submitted && securityForm.get('buildingLocation').invalid" class="neb-error-feedback">
+                                    Building Location is Required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div>
+                                <h5>Vehicle Security Coverage</h5>
+                            </div>
+                            <div class="form-group">
+                                <nb-select formControlName="vehicleSecurityCoverage"
+                                           fullWidth
+                                           placeholder="Select vechicle security coverage here">
+                                    <nb-option [value]="coverageList[0]?.value">{{coverageList[0]?.value}}</nb-option>
+                                    <nb-option-group style="font-weight: bold" title="New">
+                                        <nb-option *ngFor="let newC of newCoverage"
+                                                   [value]="newC?.value">{{newC?.value}}</nb-option>
+                                    </nb-option-group>
+                                    <nb-option-group style="font-weight: bold" title="Used">
+                                        <nb-option *ngFor="let used of usedCoverage"
+                                                   [value]="used?.value">{{used?.value}}</nb-option>
+                                    </nb-option-group>
+                                </nb-select>
+                                <div *ngIf="submitted && securityForm.get('vehicleSecurityCoverage').invalid" class="neb-error-feedback">
+                                    Vehicle Security Coverage is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="!isMicroCustomer && !crgLambdaDisabled && !isBusinessLoan">
+                    <div class="row">
+                        <div class="col">
+                            <nb-card>
+                                <nb-card-header>Please select scheme type for CRG calculation</nb-card-header>
+                                <nb-card-body>
+                                    <nb-radio-group formControlName="lambdaScheme"
+                                                    id="lambdaScheme"
+                                                    name="lambdaScheme" (valueChange)="checkDisableLamdha($event)">
+                                        <nb-radio value="GENERAL">General</nb-radio>
+                                        <nb-radio value="AUTO_PRIVATE">Auto Loan (Private - Personal)</nb-radio>
+                                        <nb-radio value="AUTO_COMMERCIAL">Auto Loan (Commercial - Personal)</nb-radio>
+                                    </nb-radio-group>
+                                    <div *ngIf="submitted && securityForm.get('lambdaScheme').invalid" class="neb-error-feedback">
+                                        Scheme type is Required
+                                    </div>
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+                    </div>
+
+                    <nb-card *ngIf="securityForm.get('lambdaScheme').value === 'GENERAL'">
+                        <nb-card-header>
+                            CRG General criteria
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row" >
+                                <div class="col">
+                                    <div>
+                                        <h5>Road access of primary property</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="roadAccessOfPrimaryProperty"
+                                                   fullWidth
+                                                   placeholder="Select Road access of primary property">
+                                            <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
+                                        </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('roadAccessOfPrimaryProperty').invalid" class="neb-error-feedback">
+                                            Road Access Value is Required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <h5>Primary FAC categorization</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="facCategory"
+                                                   fullWidth
+                                                   placeholder="Select Primary FAC categorization">
+                                            <nb-option *ngFor="let val of facCategory" [value]="val.value">{{val.value}}</nb-option>
+                                        </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('facCategory').invalid" class="neb-error-feedback">
+                                            Primary FAC is Required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                    <nb-card *ngIf="securityForm.get('lambdaScheme').value === 'AUTO_PRIVATE'">
+                        <nb-card-header>
+                            CRG Auto Loan (Private - Personal) criteria
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row" >
+                                <div class="col">
+                                    <div>
+                                        <h5>Security Coverage</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="securityCoverageAutoPrivate"
+                                                   fullWidth
+                                                   placeholder="Select security coverage here">
+                                            <nb-option-group style="font-weight: bold" title="New">
+                                                <nb-option *ngFor="let newC of apNewCoverage"
+                                                           [value]="newC?.value">{{newC?.value}}</nb-option>
+                                            </nb-option-group>
+                                            <nb-option-group style="font-weight: bold" title="Used">
+                                                <nb-option *ngFor="let used of apUsedCoverage"
+                                                           [value]="used?.value">{{used?.value}}</nb-option>
+                                            </nb-option-group>
+                                        </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('securityCoverageAutoPrivate').invalid" class="neb-error-feedback">
+                                            Security Coverage Private is Required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                    <nb-card *ngIf="securityForm.get('lambdaScheme').value === 'AUTO_COMMERCIAL'">
+                        <nb-card-header>
+                            CRG Auto Loan (Commercial - Personal) criteria
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row" >
+                                <div class="col">
+                                    <div>
+                                        <h5>Security Coverage</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-select formControlName="securityCoverageAutoCommercial"
+                                                   fullWidth
+                                                   placeholder="Select security coverage here">
+                                            <nb-option-group style="font-weight: bold" title="New">
+                                                <nb-option *ngFor="let newC of acNewCoverage"
+                                                           [value]="newC?.value">{{newC?.value}}</nb-option>
+                                            </nb-option-group>
+                                            <nb-option-group style="font-weight: bold" title="Used">
+                                                <nb-option *ngFor="let used of acUsedCoverage"
+                                                           [value]="used?.value">{{used?.value}}</nb-option>
+                                            </nb-option-group>
+                                        </nb-select>
+                                        <div *ngIf="submitted && securityForm.get('securityCoverageAutoCommercial').invalid" class="neb-error-feedback">
+                                            Security Coverage of Commerical is Required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                </ng-container>
+            </form>
         </div>
     </div>
 </div>
 <hr>
-<div class="py-4 d-flex justify-content-end">
-    <button nbButton>save</button>
+<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+    <button (click)="onSubmit()" nbButton>save</button>
 </div>
