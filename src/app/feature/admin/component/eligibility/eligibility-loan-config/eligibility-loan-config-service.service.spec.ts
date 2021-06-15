@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EligibilityLoanConfigServiceService } from './eligibility-loan-config-service.service';
+import { EligibilityLoanConfigService } from './eligibility-loan-config-service';
 
 describe('EligibilityLoanConfigServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: EligibilityLoanConfigServiceService = TestBed.get(EligibilityLoanConfigServiceService);
+    const service: EligibilityLoanConfigService = TestBed.get(EligibilityLoanConfigService);
     expect(service).toBeTruthy();
   });
 });

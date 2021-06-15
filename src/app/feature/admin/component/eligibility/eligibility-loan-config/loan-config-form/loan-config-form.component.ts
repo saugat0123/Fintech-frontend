@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from "@angular/router";
-import {EligibilityLoanConfigServiceService} from "../eligibility-loan-config-service.service";
+import {EligibilityLoanConfigService} from "../eligibility-loan-config-service";
 import {DocumentService} from "../../../document/document.service";
 import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
 import {Document} from "../../../../modal/document";
@@ -33,7 +33,7 @@ export class LoanConfigFormComponent implements OnInit {
                 private router: Router,
                 private modalService: NgbModal,
                 private formBuilder: FormBuilder,
-                private service: EligibilityLoanConfigServiceService,
+                private service: EligibilityLoanConfigService,
                 private docService: DocumentService,
                 private modelref: NgbActiveModal,
                 private toast: ToastService) {

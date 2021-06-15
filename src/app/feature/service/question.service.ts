@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../@core/utils/api/ApiUtils';
-import {EligibilityLoanConfigServiceService} from "../admin/component/eligibility/eligibility-loan-config/eligibility-loan-config-service.service";
+import {EligibilityLoanConfigService} from "../admin/component/eligibility/eligibility-loan-config/eligibility-loan-config-service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,13 +12,16 @@ export class QuestionService {
     questionApi: string;
     loanType:boolean=false;
     constructor(private http: HttpClient,
-                private loanConfigService: EligibilityLoanConfigServiceService) {
+                private loanConfigService: EligibilityLoanConfigService) {
+
+       /* Using the same service class for both 'S' type loan and 'D' type loan
+        resp.detail==true=='S' type loan
+        resp.detail==false=='D' type loan */
 
         this.loanConfigService.checkType().subscribe( resp => {
             if(resp.detail === true){
                 this.questionApi='/EligibilityLoanConfigQuestion';
-            }
-            else{
+            } else{
                 this.questionApi = '/questions';
             }
         })

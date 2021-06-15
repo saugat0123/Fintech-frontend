@@ -9,7 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {QuestionService} from '../../../../service/question.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {EligibilityLoanConfigServiceService} from "../eligibility-loan-config/eligibility-loan-config-service.service";
+import {EligibilityLoanConfigService} from "../eligibility-loan-config/eligibility-loan-config-service";
 import {EligibilityLoanConfiguration} from "../eligibility-loan-config/EligibilityLoanConfiguration";
 import {EligibilityLoanConfigQuestion} from "../../../modal/eligibilityLoanConfigQuestion";
 
@@ -25,16 +25,13 @@ export class QuestionComponent implements OnInit {
     existingQuestionList: boolean;
     newQuestionList: boolean;
     task: string;
-    questionList: Array<any>= new Array<any>();
+    questionList: Array<any> = new Array<any>();
     schemeList: Array<LoanConfig> = new Array<LoanConfig>();
     qsnContent: Questions = new Questions();
-    eligibilityQuestionContent: EligibilityLoanConfigQuestion=new EligibilityLoanConfigQuestion();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
     loanType: boolean;
-    eligibilitySchemeList: Array<EligibilityLoanConfiguration> =new Array<EligibilityLoanConfiguration>();
-    // eligibilityQuestionList: Array<EligibilityLoanConfigQuestion>= new Array<EligibilityLoanConfigQuestion>();
-
+    eligibilitySchemeList: Array<EligibilityLoanConfiguration> = new Array<EligibilityLoanConfiguration>();
     private modalRef: NgbModalRef;
 
     constructor(private formBuilder: FormBuilder,
@@ -43,7 +40,8 @@ export class QuestionComponent implements OnInit {
                 private router: Router,
                 private modalService: NgbModal,
                 private toastService: ToastService,
-                private eligibilityLoanService : EligibilityLoanConfigServiceService) {}
+                private eligibilityLoanService: EligibilityLoanConfigService) {
+    }
 
     ngOnInit() {
         this.questionAnswerForm = this.formBuilder.group({
@@ -54,14 +52,13 @@ export class QuestionComponent implements OnInit {
         this.existingQuestionList = false;
         this.newQuestionList = false;
         this.getEligibilitySchemeList();
-      this.checkLoanType();
-        if( this.loanType){
+        this.checkLoanType();
+        if (this.loanType) {
             // @ts-ignore
-            this.questionList=Array<EligibilityLoanConfigQuestion>= new Array<EligibilityLoanConfigQuestion>();
-        }
-        else{
+            this.questionList = Array < EligibilityLoanConfigQuestion >= new Array<EligibilityLoanConfigQuestion>();
+        } else {
             // @ts-ignore
-            this.questionList = Array<Questions>=new Array<Questions>();
+            this.questionList = Array < Questions >= new Array<Questions>();
         }
 
     }
@@ -72,10 +69,10 @@ export class QuestionComponent implements OnInit {
         });
     }
 
-    getEligibilitySchemeList(){
-        this.eligibilityLoanService.getAll().subscribe( resp => {
+    getEligibilitySchemeList() {
+        this.eligibilityLoanService.getAll().subscribe(resp => {
             console.log(resp);
-            this.eligibilitySchemeList= resp.detail;
+            this.eligibilitySchemeList = resp.detail;
         })
     }
 
@@ -120,8 +117,8 @@ export class QuestionComponent implements OnInit {
 
         this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
             console.log(response);
-            this.questionList= response.detail;
-            if(this.loanType) {
+            this.questionList = response.detail;
+            if (this.loanType) {
                 this.questionList.forEach(qsn => {
                     this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
                 });
@@ -213,13 +210,15 @@ export class QuestionComponent implements OnInit {
     }
 
     onSave() {
-        if (this.questionAnswerForm.invalid) { return; }
+        if (this.questionAnswerForm.invalid) {
+            return;
+        }
         this.questionList = this.questionAnswerForm.value.questionForm;
         this.questionService.saveQuestionList(this.questionList, this.loanConfigId).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
 
-               this.selectType();
+                this.selectType();
 
                 this.onChangeSchemeOption();
 
@@ -228,17 +227,19 @@ export class QuestionComponent implements OnInit {
 
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
 
-              this.selectType();
+                this.selectType();
             }
         );
     }
 
     onUpdate(newQsnContent) {
-        if (newQsnContent.invalid) { return; }
+        if (newQsnContent.invalid) {
+            return;
+        }
         this.questionService.editQuestion(newQsnContent, this.loanConfigId, newQsnContent.id).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
-              this.selectType();
+                this.selectType();
                 this.qsnContent = new Questions();
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');
@@ -246,7 +247,7 @@ export class QuestionComponent implements OnInit {
             }, error => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Question'));
-              this.selectType();
+                this.selectType();
             }
         );
     }
@@ -268,7 +269,7 @@ export class QuestionComponent implements OnInit {
             this.questionService.deleteQuestion(this.loanConfigId, qsnContent.id).subscribe(() => {
 
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Questions'));
-                   this.selectType();
+                    this.selectType();
                     this.qsnContent = new Questions();
                     this.onChangeSchemeOption();
 
@@ -281,20 +282,21 @@ export class QuestionComponent implements OnInit {
         }
     }
 
-    selectType():void{
-        if(this.loanType){
-            this.questionList = new Array<EligibilityLoanConfigQuestion>();
-        }else{
-            this.questionList = new Array<Questions>();
+
+    selectType(): void {
+        if (this.loanType) {
+            this.questionList = new Array<EligibilityLoanConfigQuestion>(); // this for 'S' type loan
+        } else {
+            this.questionList = new Array<Questions>(); //this for 'D' type loan
         }
     }
 
-    checkLoanType(){
-        this.eligibilityLoanService.checkType().subscribe( resp =>{
-            if(resp.detail === true) {
+    //Check loan type whether it is 'S' type or 'D' type.
+    checkLoanType() {
+        this.eligibilityLoanService.checkType().subscribe(resp => {
+            if (resp.detail === true) {
                 this.loanType = true;
-            }
-            else  {
+            } else {
                 this.loanType = false;
             }
         })

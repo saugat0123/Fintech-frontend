@@ -7,7 +7,7 @@ import {EligibilityLoanConfiguration} from "./EligibilityLoanConfiguration";
 @Injectable({
   providedIn: 'root'
 })
-export class EligibilityLoanConfigServiceService extends BaseService<EligibilityLoanConfiguration>{
+export class EligibilityLoanConfigService extends BaseService<EligibilityLoanConfiguration>{
 
   eligibilityloanconfig = 'v1/eligibility-loanConfiguration';
   constructor(protected http:HttpClient) {
@@ -38,7 +38,7 @@ export class EligibilityLoanConfigServiceService extends BaseService<Eligibility
     return this.http.post(req.url, searchObj, {headers: req.header});
   }
 
-  //This is for another service to check whether the document type is Eligibility or not.
+  //This is for another service to check whether the loan type is 'S' or 'D'.
   public checkType():Observable<any>{
     const api = `${this.getApi()}/checkType`;
     const getUrl = ApiUtils.getRequest(api);

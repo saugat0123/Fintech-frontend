@@ -5,7 +5,7 @@ import {Violation} from "../../../../../../@core/utils/modal/Violation";
 import {EligibilityLoanConfiguration} from "../EligibilityLoanConfiguration";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalResponse, ToastService} from "../../../../../../@core/utils";
-import {EligibilityLoanConfigServiceService} from "../eligibility-loan-config-service.service";
+import {EligibilityLoanConfigService} from "../eligibility-loan-config-service";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
 
 @Component({
@@ -23,7 +23,7 @@ export class LoanConfigDeleteModalComponent implements OnInit {
 
   modelForm: FormGroup
   constructor( private formBuilder: FormBuilder,
-               private service: EligibilityLoanConfigServiceService,
+               private service: EligibilityLoanConfigService,
                private modalRef: NgbActiveModal,
                private toast: ToastService) { }
 
