@@ -257,14 +257,6 @@
 
                     <td *ngIf="!model.parentId">
                         <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
-                            <!--<select class="form-control form-control-tiny py-0"
-                                    (change)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
-                                    model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
-                                <option [value]="null" selected hidden>Select</option>
-                                <ng-container>
-                                    <option value="RE_INITIATE_LOAN">Re-initiate Loan</option>
-                                </ng-container>
-                            </select>-->
                             <button nbButton status="warning" size="tiny"
                                     (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
                                     model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
