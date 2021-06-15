@@ -20,6 +20,10 @@
             </nb-icon>
           </button>
 
+          <button [nbPopoverPlacement]="'left'" [nbPopover]="loanExposures"
+                  nbButton size="small" status="info">Exposures&nbsp;<i
+                  class="fas fa-exclamation-triangle"></i></button>
+
         </div>
       </div>
       <div class="offset-4 col-md-4 float-right">
@@ -507,6 +511,21 @@
     <nb-card-body>
       <ul>
         <li *ngFor="let flag of customerInfo?.loanFlags">{{flag?.description}}</li>
+      </ul>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #loanExposures>
+  <nb-card style="margin-bottom: 0">
+    <nb-card-header>Security Calculations</nb-card-header>
+    <nb-card-body>
+      <ul>
+        <li>Total FMV/Considered Value: <strong>{{customerInfo.totalSecurityAmount |currencyFormatter}}</strong></li>
+        <li>totalProposedLimit: <strong>{{customerInfo.totalProposedLimit |currencyFormatter}}</strong></li>
+        <li>totalRequiredCollateral: <strong>{{customerInfo.totalRequiredCollateral |currencyFormatter}}</strong></li>
+        <li>deficitSurplus: <strong>{{customerInfo.deficitSurplus |currencyFormatter}}</strong></li>
+        <li>coveragePercent: <strong>{{customerInfo.coveragePercent |percent}}</strong></li>
+        <li>loanExposure: <strong>{{customerInfo.loanExposure |percent}}</strong></li>
       </ul>
     </nb-card-body>
   </nb-card>
