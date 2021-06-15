@@ -40,6 +40,8 @@ import {OfferLetterPersonalComponent} from "./progressive-offer-letter/offer-let
 import { CrossGuaranteeBondPrintComponent } from './progressive-offer-letter/cross-guarantee-bond/cross-guarantee-bond-print/cross-guarantee-bond-print.component';
 import { GuaranteeBondPersonalPrintComponent } from './progressive-offer-letter/guarantee-bond-personal/guarantee-bond-personal-print/guarantee-bond-personal-print.component';
 import { OfferLetterPersonalPrintComponent } from './progressive-offer-letter/offer-letter-personal/offer-letter-personal-print/offer-letter-personal-print.component';
+import {HypothecationOfGoodsAndReceivablesAComponent} from './progressive-offer-letter/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a.component';
+import { HypothecationOfGoodsAndReceivablesAPrintComponent } from './progressive-offer-letter/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a-print/hypothecation-of-goods-and-receivables-a-print.component';
 const COMPONENTS = [
     LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
     LetterOfInstallmentsComponent];
@@ -71,6 +73,7 @@ const COMPONENTS = [
         LetterOfContinuityPrintComponent,
         CrossGuaranteeBondComponent,
         GuaranteeBondPersonalComponent,
+        HypothecationOfGoodsAndReceivablesAComponent,
         HypothecationOfGoodsAndReceivablesBComponent,
         MortgageDeedComponent,
         OfferLetterCorporateComponent,
@@ -78,7 +81,8 @@ const COMPONENTS = [
         CrossGuaranteeBondPrintComponent,
         GuaranteeBondPersonalPrintComponent,
         OfferLetterCorporatePrintComponent,
-        OfferLetterPersonalPrintComponent
+        OfferLetterPersonalPrintComponent,
+        HypothecationOfGoodsAndReceivablesAPrintComponent
 
     ],
     exports: [
