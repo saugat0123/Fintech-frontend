@@ -62,7 +62,7 @@ export class KeyIndicatorsHeaderMap {
         [KeyIndicatorsConstantsEnum.AVERAGE_COLLECTION_PERIOD, 'Average Collection Period - Days'],
         [KeyIndicatorsConstantsEnum.AVERAGE_PAYMENT_PERIOD, 'Average Payment Period - Days'],
         [KeyIndicatorsConstantsEnum.NET_OPERATING_CYCLE, 'Net Operating Cycle - Days'],
-        [KeyIndicatorsConstantsEnum.NET_WC_BEFORE_BANK, 'Net WC before Bank(Rs. in 000)']
+        [KeyIndicatorsConstantsEnum.NET_WC_BEFORE_BANK, 'Net WC before Bank']
     ]);
 }
 

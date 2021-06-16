@@ -851,9 +851,9 @@
                     </td>
                 </tr>
             </table>
-            <p class="float-left"><strong>key Indicators</strong></p>
+            <p class="float-left"><strong>Key Indicators</strong></p>
                     <table
-                           class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+                           class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="client !== clientName?.ICFC">
                         <thead>
                         <tr class="text-white sb-bg-dark">
                             <th>S.No</th>
@@ -1030,6 +1030,23 @@
                         </tr>
                         </tbody>
                     </table>
+            <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="client === clientName?.ICFC">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>Particulars</th>
+                    <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let selectedParticular of summaryCheckedList; let i = index">
+                    <td class="text-left pl-2"><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
+                    <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]" class="text-right pr-1">
+                        {{amount.value}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                 <tr class="text-white sb-bg-dark">
                     <td><b>Justification</b></td>

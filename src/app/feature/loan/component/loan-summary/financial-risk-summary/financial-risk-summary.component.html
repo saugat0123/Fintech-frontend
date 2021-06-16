@@ -99,7 +99,7 @@
 
 
  <!--Referenced for dynamic Checkbox summary-->
-<!--<table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+<table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="client === clientName?.ICFC">
     <thead>
     <tr class="text-white sb-bg-dark">
         <th>Key Financial Indicators</th>
@@ -114,12 +114,12 @@
         </td>
     </tr>
     </tbody>
-</table>-->
+</table>
 
 
 <!--New MEGA requirement 2021, March 21-->
 <table
-        class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+        class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="client !== clientName?.ICFC">
     <thead>
     <tr class="text-white sb-bg-dark">
         <th>S.No</th>
