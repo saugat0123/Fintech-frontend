@@ -205,7 +205,6 @@
                 <div>
                     <table class="table  table-bordered text-center">
                         <tbody>
-                        <table>
                             <tr>
                                 <th>नाम :-
                                     (देवनागरीमा)  :-<span class="nepaliFont">{{printDocForm?.creditorNameNepali3}}</span>
@@ -260,7 +259,7 @@
                                 <td></td>
                                 <td>दस्तखत:- .....................</td>
                             </tr>
-                        </table>
+
                         </tbody>
                     </table>
                 </div><br><br>
@@ -339,7 +338,7 @@
                                 (<span class="nepaliFont">{{printDocForm?.branchName1}}</span>शाखा)
                             </th>
                             <th>नाम थर (अंग्रेजीमा):-<span >{{printDocForm?.creditorNameEnglish5}}</span><br>
-                                (<span>{{printDocForm?.branchName2}}</span>BRANCH)</th>
+                                (<span>{{printDocForm?.branchName2}}</span> &nbsp;&nbsp;&nbsp; BRANCH)</th>
                             <th>दर्ता मिति :- <span class="nepaliFont">{{printDocForm?.dartaDate3}}</span>
                             </th>
                             <th>वित्तीय संस्थाको छाप</th>
@@ -388,8 +387,11 @@
                     </table>
                 </div><br><br>
 
+
                 <b>धितोबन्धकदिएको अचल सम्पत्तिकोविवरण :-</b>
-                <div class="col-md-12">
+                <div style="page-break-before: always; margin-top: 200px">
+                <div class="col-md-12" style="overflow-x: auto;">
+
                     <table class="table  table-bordered text-center">
                         <tbody>
                         <tr>
@@ -423,31 +425,24 @@
                                 वडा नं. :-<span class="nepaliFont">{{printDocForm?.halWardNo}}</span><br>
                                 टोल:-<span class="nepaliFont">{{printDocForm?.halTole}}</span>
                             </td>
-                            <!--                                <td><input class="form-control-lg form-field nepaliFont"-->
-                            <!--                                           type="text"-->
-                            <!--                                           formControlName="seatNo"></td>-->
+                                                            <td><span class="nepaliFont">{{printDocForm?.seatNo}}</span>
                             <td><span class="nepaliFont">{{printDocForm?.kittaNoAnka}}</span><br>
                                 (<span class="nepaliFont">{{printDocForm?.kittaNoWord}}</span>)
                             </td>
-                            <!--                                <td><input class="form-control-lg form-field nepaliFont"-->
-                            <!--                                           type="text"-->
-                            <!--                                           formControlName="Khanda">-->
-                            <!--                                </td>-->
-                            <!--                                <td><input class="form-control-lg form-field nepaliFont"-->
-                            <!--                                           type="text"-->
-                            <!--                                           formControlName="area">-->
-                            <!--                                </td>-->
-                            <!--                                <td><input class="form-control-lg form-field nepaliFont"-->
-                            <!--                                           type="text"-->
-                            <!--                                           formControlName="type">-->
-                            <!--                                </td>-->
-                            <!--                                <td><input class="form-control-lg form-field nepaliFont"-->
-                            <!--                                           type="text"-->
-                            <!--                                           formControlName="kaifiyat">-->
-                            <!--                                </td>-->
+                                                            <td>
+                                                                <span class="nepaliFont">{{printDocForm?.Khanda}}</span>
+
+                                                            </td>
+                                                            <td><span class="nepaliFont">{{printDocForm?.area}}</span>
+                                                            </td>
+                                                            <td><span class="nepaliFont">{{printDocForm?.type}}</span>
+                                                            </td>
+                                                            <td><span class="nepaliFont">{{printDocForm?.kaifiyat}}</span>
+                                                            </td>
                         </tr>
                         </tbody>
                     </table>
+                </div>
                 </div><br><br>
                 <p>उक्तकित्ता नं. <span class="nepaliFont">{{printDocForm?.kittaNo}}</span>
                     को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत ।</p>
@@ -523,7 +518,7 @@
                     </table>
                 </div>
                 <div class="col-md-4">
-                    <div style="margin-top: 150px">
+                    <div style="margin-top: 400px">
                         <b class="text-center">नेपाल सरकार<br>
                             भूमिव्यवस्था, सहकारी तथा गरिबि निवारणमन्त्रालय<br>
                             भूमिव्यवस्थापनतथाअभिलेख विभाग।</b><br>
