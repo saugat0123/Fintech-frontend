@@ -149,21 +149,28 @@ export class LoanInformationDetailViewComponent implements OnInit {
         modalRef.componentInstance.comments = comments;
     }
 
-    loanHandler(index: number, length: number) {
-        if (index === 0) {
-            return 'INITIATED BY:';
-        } else if (index === length - 1) {
+    loanHandler(index: number, length: number, label: string) {
+        if (index === length - 1 && index !== 0) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
                 return 'REJECTED BY:';
             } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
                 return 'CLOSED BY:';
+            }
+        }
+        if (!ObjectUtil.isEmpty(label)) {
+            return label;
+        } else {
+            if (index === 0) {
+                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+                    return 'RE INITIATED:';
+                } else {
+                    return 'INITIATED BY:';
+                }
             } else {
                 return 'SUPPORTED BY:';
             }
-        } else {
-            return 'SUPPORTED BY:';
         }
     }
 
@@ -176,7 +183,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
         let lastBackwardIndex = 0;
         stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
                 lastBackwardIndex = index;
             }
         });
