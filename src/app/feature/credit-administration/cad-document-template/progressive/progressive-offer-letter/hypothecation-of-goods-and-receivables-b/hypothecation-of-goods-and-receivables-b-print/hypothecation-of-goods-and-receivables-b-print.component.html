@@ -68,7 +68,7 @@
                 स्वीकृत सीमामानब९ने गरी
                 झिकीलिनपाउने र वा रिभोल्भिङ्ग (Revolving), कर्जा सूविधाअन्तर्गतको कर्जा रकमको सीमा ऋ०ाीको
                 खातामाजम्माभएअनूसार लिनपाउने र त्यसरी
-                लिएको रकमउक्तखातामाफिर्ता जम्मा गरेतापनि सो रकम लेखिएबमोजिमपूनःझिक्नलिनपाउने गरी अर्थात उपरोक्त
+                लिएको रकमउक्तखातामाफिर्ता जम्मा गरेतापनि सो रकम लेखिएबमोजिमपून:-झिक्नलिनपाउने गरी अर्थात उपरोक्त
                 स्वीकृत ऋण रकमलाई वार्षिक
                 रुपमावाधनीवित्तीय संस्थाले तोकेको समयमापूनरावलोकन, नविकरण समेत गर्ने गरी रिभल्भिङ्ग वा ६र्मिने६िङ्ग
                 रुपमा ऋणीले उपभोग गर्ने वाधनीवित्तीय
@@ -227,10 +227,10 @@
                     <table class="table  table-bordered">
                         <tbody>
                         <tr>
-                            <td>दस्तखत र संस्थाको ५ाप ः—</td>
+                            <td>दस्तखत र संस्थाको ५ाप :-</td>
                         </tr>
                         <tr>
-                            <td>दस्तखत गर्नेको नाम ः—</td>
+                            <td>दस्तखत गर्नेको नाम :-</td>
                             <td><span class="nepaliFont">{{printDocForm?.signName}}</span>
                                        (ना.प्र.नं.<span class="nepaliFont">{{printDocForm?.signCitizenNo}}</span>
 
@@ -240,8 +240,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>ठेगाना ः—स्थायी <br>
-                                हालको ठेगाना ः
+                            <td>ठेगाना :-स्थायी <br>
+                               
                             </td>
                             <td><span class="nepaliFont">{{printDocForm?.permDistrict}}</span>
                                        जिल्ला
@@ -250,15 +250,19 @@
                                 <span class="nepaliFont">{{printDocForm?.permWard}}</span>
                                        (साबिक <span class="nepaliFont">{{printDocForm?.sawikMunicipality}}</span>
 
-                                गा.बि.स./न.पा.वडा नं<span class="nepaliFont">{{printDocForm?.sawikWard}}</span>)<br>
-                                <span class="nepaliFont">{{printDocForm?.currentDistrict}}</span>जिल्ला
-                                <span class="nepaliFont">{{printDocForm?.currentMunicipality}}</span>गा.पा./न.पा.
-                                वडा नं. <span class="nepaliFont">{{printDocForm?.currentWard}}</span>
+                                गा.बि.स./न.पा.वडा नं<span class="nepaliFont">{{printDocForm?.sawikWard}}</span>)
+                                
                             </td>
 
                         </tr>
                         <tr>
-                            <td>वावू/आमाको नाम ः—</td>
+                           <td> हालको ठेगाना :-</td> 
+                            <td><span class="nepaliFont">{{printDocForm?.currentDistrict}}</span>जिल्ला
+                                <span class="nepaliFont">{{printDocForm?.currentMunicipality}}</span>गा.पा./न.पा.
+                                वडा नं. <span class="nepaliFont">{{printDocForm?.currentWard}}</span></td>
+                        </tr>
+                        <tr>
+                            <td>वावू/आमाको नाम :-</td>
                             <td><span class="nepaliFont">{{printDocForm?.signFatherName}}</span>
                             </td>
 
@@ -267,8 +271,8 @@
 
                         </tr>
                         <tr>
-                            <td>वाजे/बजैको नाम ः—<br>
-                                पति/पत्निको नाम ः—
+                            <td>वाजे/बजैको नाम :-<br>
+                                पति/पत्निको नाम :-
                             </td>
                             <td>
                                 <span class="nepaliFont">{{printDocForm?.signGrandFatherName}}</span>
@@ -309,7 +313,7 @@
 
             <b class="text-left">साक्षी :</b>
 
-            <div class="row col-md-12 ">
+            <div class="col-md-12 ">
                 <div *ngFor="let guarantor of  printDocForm?.guarantorDetail; index as i" style="overflow-x: auto">
 
                     <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>

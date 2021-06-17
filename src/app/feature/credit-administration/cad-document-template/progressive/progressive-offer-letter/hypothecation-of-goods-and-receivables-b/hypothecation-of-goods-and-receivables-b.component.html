@@ -130,16 +130,16 @@
                     जारी कर्जा स्वीकृतिपत्र वमोजिम प्राप्त
                     गर्ने/गरेको रु.<input class="form-control-sm form-field nepaliFont"
                                           type="text"
-                                          formControlName="karjaRu">
+                                          formControlName="karjaRu" (change)="getNumAmountWord('karjaRu','karjaRuWord')">
                     (अक्षरेपी रु .<input class="form-control-sm form-field nepaliFont"
                                          type="text"
-                                         formControlName="karjaRuWord">मात्र)
+                                         formControlName="karjaRuWord" readonly>मात्र)
                     सम्मको ऋण रकमको सीमा स्वीकृत भएकोमा सो स्वीकृत ऋण रकमको सीमामध्येबा६ एकै प६कवाप६कप६कनिवेदनदिई वानदिई
                     ऋ०ा रकमको
                     स्वीकृत सीमामानब९ने गरी
                     झिकीलिनपाउने र वा रिभोल्भिङ्ग (Revolving), कर्जा सूविधाअन्तर्गतको कर्जा रकमको सीमा ऋ०ाीको
                     खातामाजम्माभएअनूसार लिनपाउने र त्यसरी
-                    लिएको रकमउक्तखातामाफिर्ता जम्मा गरेतापनि सो रकम लेखिएबमोजिमपूनःझिक्नलिनपाउने गरी अर्थात उपरोक्त
+                    लिएको रकमउक्तखातामाफिर्ता जम्मा गरेतापनि सो रकम लेखिएबमोजिमपून:-झिक्नलिनपाउने गरी अर्थात उपरोक्त
                     स्वीकृत ऋण रकमलाई वार्षिक
                     रुपमावाधनीवित्तीय संस्थाले तोकेको समयमापूनरावलोकन, नविकरण समेत गर्ने गरी रिभल्भिङ्ग वा ६र्मिने६िङ्ग
                     रुपमा ऋणीले उपभोग गर्ने वाधनीवित्तीय
@@ -160,10 +160,10 @@
                     सो ऋणको सूरक्ष०ा वापत ऋणीले तपसिलमा लेखिएबमोजिममूल्य
                     रु. <input class="form-control-sm form-field nepaliFont"
                                type="text"
-                               formControlName="tapsilMulyaRu">
+                               formControlName="tapsilMulyaRu" (change)="getNumAmountWord('tapsilMulyaRu','tapsilMulyaWord')">
                     (अक्षरेपी रु .<input class="form-control-sm form-field nepaliFont"
                                          type="text"
-                                         formControlName="tapsilMulyaWord">सम्मको तपसिलमाउल्लेखितहाल
+                                         formControlName="tapsilMulyaWord" readonly>सम्मको तपसिलमाउल्लेखितहाल
                     भै रहेका तथा भविष्यमा सिर्जना हूने प्लान्६, मेसिनरी तथाफर्निचर फिक्सचर सर सामान सम्पत्तिधितो लेखि
                     दिएको ५ू/५ौं
                     ।धनीवित्तीय संस्थाले चाहेमा जूनसूकै बखतसूरक्ष०ामा रहेको, रहनू पर्ने सम्पत्ति न३६ाई बूझाउने ५ू/५ौ ।
@@ -315,10 +315,10 @@
                         <table class="table  table-bordered">
                             <tbody>
                             <tr>
-                                <td>दस्तखत र संस्थाको ५ाप ः—</td>
+                                <td>दस्तखत र संस्थाको ५ाप :-</td>
                             </tr>
                             <tr>
-                                <td>दस्तखत गर्नेको नाम ः—</td>
+                                <td>दस्तखत गर्नेको नाम :-</td>
                                 <td><input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="signName">(ना.प्र.नं.<input
@@ -334,9 +334,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>ठेगाना ः—स्थायी <br>
-                                    हालको ठेगाना ः
+                                <td>ठेगाना :-स्थायी <br>
+
                                 </td>
+
                                 <td><input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="permDistrict">जिल्ला
@@ -352,7 +353,12 @@
                                     गा.बि.स./न.पा.वडा नं<input class="form-control-sm form-field nepaliFont"
                                                                type="text"
                                                                formControlName="sawikWard">)<br>
-                                    <input class="form-control-sm form-field nepaliFont"
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td> हालको ठेगाना :-</td>
+                                <td><input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="currentDistrict">जिल्ला
                                     <input class="form-control-sm form-field nepaliFont"
@@ -361,10 +367,9 @@
                                     वडा नं. <input class="form-control-sm form-field nepaliFont"
                                                    type="text"
                                                    formControlName="currentWard"></td>
-
                             </tr>
                             <tr>
-                                <td>वावू/आमाको नाम ः—</td>
+                                <td>वावू/आमाको नाम :-</td>
                                 <td><input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="signFatherName">
@@ -374,8 +379,8 @@
 
                             </tr>
                             <tr>
-                                <td>वाजे/बजैको नाम ः—<br>
-                                    पति/पत्निको नाम ः—
+                                <td>वाजे/बजैको नाम :-<br>
+                                    पति/पत्निको नाम :-
                                 </td>
                                 <td>
                                     <input class="form-control-sm form-field nepaliFont"

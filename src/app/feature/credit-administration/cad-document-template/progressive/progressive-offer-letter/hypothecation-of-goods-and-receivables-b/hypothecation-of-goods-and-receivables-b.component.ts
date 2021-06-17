@@ -219,5 +219,9 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
     formArray.removeAt(index);
   }
 
-
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+  }
 }
