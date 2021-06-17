@@ -21,6 +21,7 @@ import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.e
 import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-summary-base',
@@ -171,13 +172,45 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                         if (this.loanDataHolder.proposal !== null
                             && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
                             this.actionsList.approved = false;
-                        }
-                        if (this.loanDataHolder.proposal !== null
+                            this.actionsList.sendForward = true;
+                        } else if (this.loanDataHolder.proposal !== null
+                            && LocalStorageUtil.getStorage().roleType === 'APPROVAL'
                             && this.loanDataHolder.proposal.proposedLimit < res.detail.amount) {
                             this.actionsList.sendForward = false;
                         }
+
                     }
                 });
+
+            /*
+            * checks Approval Limit for each loan in combined loan
+            * disables approve and enables forward button if condition fails
+            */
+            if (this.loanDataHolder.combinedLoan && 'id' in this.loanDataHolder.combinedLoan) {
+                let combinedLoanData;
+                let combinedProposedLimit;
+                await this.combinedLoanService.detail(this.loanDataHolder.combinedLoan.id).subscribe((res) => {
+                    combinedLoanData = res.detail;
+                    combinedLoanData.loans.forEach((l, i) => {
+                        combinedProposedLimit += l.proposal.proposedLimit;
+                        this.approvalLimitService.getLimitByRoleAndLoan(l.loan.id, l.loanCategory)
+                            .subscribe((res: any) => {
+                                if (res.detail === undefined) {
+                                    this.actionsList.approved = false;
+                                } else {
+                                    if (l.proposal !== null
+                                        && LocalStorageUtil.getStorage().roleType === 'APPROVAL'
+                                        && l.proposal.proposedLimit > res.detail.amount) {
+                                        this.actionsList.approved = false;
+                                        this.actionsList.sendForward = true;
+                                    }
+
+                                }
+                            });
+                    });
+                });
+            }
+
             if (this.loanDataHolder.isSol) {
                 if (this.loanDataHolder.solUser.id !== this.user.id) {
                     this.actionsList.approved = false;

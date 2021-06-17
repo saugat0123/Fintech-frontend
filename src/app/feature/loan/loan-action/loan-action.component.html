@@ -10,7 +10,7 @@
 </ng-template>
 <div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
 
-    <button (click)="loanAction('approve')" *ngIf="!catalogueStatus || !actionsList.approved"
+    <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
             [disabled]="!actionsList.approved"
             [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
             class="btn-sm btn-success">
