@@ -28,7 +28,8 @@ export enum KeyIndicatorsConstantsEnum {
     AVERAGE_COLLECTION_PERIOD = 'averageCollectionPeriod',
     AVERAGE_PAYMENT_PERIOD = 'averagePaymentPeriod',
     NET_OPERATING_CYCLE = 'netOperatingCycle',
-    NET_WC_BEFORE_BANK = 'netWCBeforeBank'
+    NET_WC_BEFORE_BANK = 'netWCBeforeBank',
+    CASH_FLOW_KI = 'cashFlowKI'
 }
 
 export class KeyIndicatorsHeaderMap {
@@ -62,7 +63,8 @@ export class KeyIndicatorsHeaderMap {
         [KeyIndicatorsConstantsEnum.AVERAGE_COLLECTION_PERIOD, 'Average Collection Period - Days'],
         [KeyIndicatorsConstantsEnum.AVERAGE_PAYMENT_PERIOD, 'Average Payment Period - Days'],
         [KeyIndicatorsConstantsEnum.NET_OPERATING_CYCLE, 'Net Operating Cycle - Days'],
-        [KeyIndicatorsConstantsEnum.NET_WC_BEFORE_BANK, 'Net WC before Bank']
+        [KeyIndicatorsConstantsEnum.NET_WC_BEFORE_BANK, 'Net WC before Bank(in Rs.)'],
+        [KeyIndicatorsConstantsEnum.CASH_FLOW_KI, 'Cash Flow(in Rs.)']
     ]);
 }
 
