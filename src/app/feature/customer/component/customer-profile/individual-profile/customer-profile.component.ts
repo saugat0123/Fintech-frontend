@@ -83,7 +83,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-    crgLambdaDisabled = envSrdb.disableCrgLambda;
+    crgLambdaDisabled = environment.disableCrgLambda;
     client = environment.client;
     clientName = Clients;
     isEditable = false;

@@ -823,17 +823,19 @@
         </div>
         <div *ngIf="isCollateralSiteVisit" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
-            <ng-container *ngFor="let collateralDetail of collateralSiteVisitDetail; let j = index">
+            <ng-container>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security</th>
                         <th>Site Visit Date(AD/BS)</th>
+                        <th>Comments about FAC</th>
                     </tr>
-                    <tr *ngFor="let siteVisit of collateralDetail; let k = index">
+                    <tr *ngFor="let siteVisit of siteVisitJson; let k = index">
                         <td>{{k+1}}</td>
-                        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
-                        <td>{{siteVisit?.siteVisitDate| date}} ({{siteVisit?.siteVisitDate| engNepDate: false}})</td>
+                        <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+                        <td class="text-left pl-1">{{siteVisit?.date| date}} ({{siteVisit?.date| engNepDate: false}})</td>
+                        <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
                     </tr>
                 </table>
             </ng-container>
