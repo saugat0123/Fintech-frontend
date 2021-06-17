@@ -56,6 +56,7 @@ export class ProposalSummaryComponent implements OnInit {
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
+        this.calculateInterestRate();
         this.getLoanConfig();
         this.checkInstallmentAmount();
     }
@@ -157,5 +158,13 @@ export class ProposalSummaryComponent implements OnInit {
         if (this.proposalAllData.repaymentMode === 'AT MATURITY') {
             this.showPrincipalAmount = true;
         }
+    }
+
+    calculateInterestRate() {
+        const premiumRateOnBaseRate = Number(this.proposalAllData.premiumRateOnBaseRate);
+        const baseRate = Number(this.proposalAllData.baseRate);
+        const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
+        const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
+        return interestRate;
     }
 }

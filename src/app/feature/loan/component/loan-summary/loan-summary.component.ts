@@ -39,12 +39,10 @@ import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
-import {CollateralSiteVisit} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
-import {ApprovalRoleHierarchy} from '../../approval/ApprovalRoleHierarchy';
-import {ApprovalRoleHierarchyService} from '../../approval/approval-role-hierarchy.service';
 import {DOCUMENT} from '@angular/common';
+
 @Component({
     selector: 'app-loan-summary',
     templateUrl: './loan-summary.component.html',
@@ -533,7 +531,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             return label;
         } else {
             if (index === 0) {
-                return 'INITIATED BY:';
+                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+                    return 'RE INITIATED:';
+                } else {
+                    return 'INITIATED BY:';
+                }
             } else {
                 return 'SUPPORTED BY:';
             }
@@ -601,7 +603,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
         let lastBackwardIndex = 0;
         stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
                 lastBackwardIndex = index;
             }
         });

@@ -46,6 +46,7 @@ export class ProposalViewComponent implements OnInit {
   showPrincipalAmount = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showInterestAmount = false;
+  prepaymentCharge;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
@@ -54,6 +55,7 @@ export class ProposalViewComponent implements OnInit {
   ngOnInit() {
     this.proposalAllData = JSON.parse(this.proposalData.data);
     this.checkedData = JSON.parse(this.proposalData.checkedData);
+    this.calculateInterestRate();
     this.getLoanConfig();
     this.checkInstallmentAmount();
   }
@@ -155,5 +157,13 @@ export class ProposalViewComponent implements OnInit {
     if (this.proposalAllData.repaymentMode === 'AT MATURITY') {
       this.showPrincipalAmount = true;
     }
+  }
+
+  calculateInterestRate() {
+    const premiumRateOnBaseRate = Number(this.proposalAllData.premiumRateOnBaseRate);
+    const baseRate = Number(this.proposalAllData.baseRate);
+    const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
+    const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
+    return interestRate;
   }
 }
