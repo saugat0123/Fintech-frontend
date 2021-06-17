@@ -291,7 +291,10 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             });
         }
 
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'on-pull-click full-width modal'
+        });
     }
 
     onClose() {
@@ -301,7 +304,10 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     openCommentModal(template, data: LoanDataHolder) {
         this.model = new LoanDataHolder();
         this.model = data;
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'loan-activity full-width modal'
+        });
     }
 
 

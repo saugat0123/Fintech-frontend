@@ -307,7 +307,10 @@ export class CustomerWisePendingComponent implements OnInit {
     openCommentModal(template, data: LoanDataHolder) {
         this.model = new LoanDataHolder();
         this.model = data;
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'loan-activity full-width modal'
+        });
     }
 
     onClose() {
@@ -337,7 +340,10 @@ export class CustomerWisePendingComponent implements OnInit {
             this.displayCombineLoanList[0].loan.name = this.displayCombineLoanList[0].loan.name.toString().split(',')[0];
         });
 
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'loan-activity full-width modal'
+        });
     }
 
     onClickLoan(loanConfigId: number, customerLoan: number) {
