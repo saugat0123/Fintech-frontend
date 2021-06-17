@@ -158,7 +158,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
 
-    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    disableApprovalSheetFlag = environment.disableApprovalSheet;
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';

@@ -163,7 +163,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
-  disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+  disableApprovalSheetFlag = environment.disableApprovalSheet;
   roleType;
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
