@@ -322,14 +322,13 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
 
-                       <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                           [customerAllLoanList]="customerAllLoanList"
-                                                           [proposalData]="proposalData"></app-proposal-justification-summary>
-            <app-security-summary
-                    *ngIf="securitySummary"
-                    [formData]="securityData" [shareSecurity]="shareSecurityData"
-                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"
-                    [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
+            <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                [customerAllLoanList]="customerAllLoanList"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
+
+            <app-security-summary *ngIf="securitySummary"
+                                  [formData]="securityData" [shareSecurity]="shareSecurityData"
+                                  [securityId]="securityId"></app-security-summary>
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"

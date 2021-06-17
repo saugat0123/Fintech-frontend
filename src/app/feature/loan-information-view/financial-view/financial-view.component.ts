@@ -3,6 +3,9 @@ import {Financial} from '../../loan/model/financial';
 import {CustomerType} from '../../customer/model/customerType';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {KeyIndicatorsHeaderMap} from '../../loan-information-template/financial/constants/key-indicators-constants';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ToastService} from '../../../@core/utils';
 
 @Component({
   selector: 'app-financial-view',
@@ -24,13 +27,22 @@ export class FinancialViewComponent implements OnInit {
   clientName = Clients;
   auditorList = [];
 
-  constructor() {
+  // selected ratio
+  summaryCheckedList = [];
+  keyIndicatorsHeaderParticularsMap = KeyIndicatorsHeaderMap.KeyIndicatorsHeaderParticularMap;
+
+  constructor(protected toastService: ToastService) {
   }
 
   ngOnInit() {
     this.activeClientIsMega = environment.client === Clients.MEGA;
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
+      try {
+        this.summaryCheckedList = this.financialData.keyIndicatorsData.summaryCheckList;
+      } catch (e) {
+        this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
+      }
     }
     if (CustomerType[this.customerType] === CustomerType.INSTITUTION) {
       this.isBusinessLoan = true;

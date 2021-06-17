@@ -1344,14 +1344,16 @@
         <tr class="text-white sb-bg-dark">
           <th colspan="1">S.N</th>
           <th colspan="2">Security</th>
-          <th colspan="7">Remarks For 'NO' Option</th>
+          <th colspan="4">Remarks For 'NO' Option</th>
+          <th colspan="3">Comments about FAC</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
           <td colspan="1">{{i+1}}</td>
           <td class="text-left pl-1" colspan="2">{{siteVisit?.securityName.slice(0, -2)}}</td>
-          <td class="text-left pl-1" colspan="7">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
+          <td class="text-left pl-1" colspan="4">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
+          <td class="text-left pl-1" colspan="3">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
         </tr>
       </tbody>
     </table>
@@ -1407,5 +1409,29 @@
       </ng-container>
       </tbody>
     </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="6">Location Details</th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th class="sn">S.N</th>
+        <th>Security</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <tr>
+          <td>{{i+1}}</td>
+          <td class="text-right pr-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+          <td class="text-right pr-1">{{siteVisit?.fixedAssetsLongitude || 'NA'}}</td>
+          <td class="text-right pr-1">{{siteVisit.fixedAssetsLatitude || 'NA'}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+
   </div>
 </div>
