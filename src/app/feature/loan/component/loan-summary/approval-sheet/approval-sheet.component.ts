@@ -149,7 +149,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
-    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    disableApprovalSheetFlag = environment.disableApprovalSheet;
     showApprovalSheetInfo = false;
     isJointInfo = false;
     jointInfo = [];

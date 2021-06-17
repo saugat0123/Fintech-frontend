@@ -7,6 +7,8 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {KeyIndicatorsConstantsEnum} from '../constants/key-indicators-constants';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-key-indicators',
@@ -19,6 +21,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     keyIndicatorsForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
+    client = environment.client;
+    clientName = Clients;
 
     summaryCheckListMap: Map<string, boolean> = new Map<string, boolean>([
         ['growth', false],
@@ -50,7 +54,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         ['averageCollectionPeriod', false],
         ['averagePaymentPeriod', false],
         ['netOperatingCycle', false],
-        ['netWCBeforeBank', false]
+        ['netWCBeforeBank', false],
+        ['cashFlowKI', false]
     ]);
 
     summaryCheckList = KeyIndicatorsConstantsEnum.values();
@@ -93,16 +98,15 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setAverageCollectionPeriod(keyIndicatorsData.averageCollectionPeriod);
             this.setAveragePaymentPeriod(keyIndicatorsData.averagePaymentPeriod);
             this.setNetOperatingCycle(keyIndicatorsData.netOperatingCycle);
+            this.setNetWCBeforeBank(keyIndicatorsData.netWCBeforeBank);
             keyIndicatorsData.cashFlowKI === undefined ? this.setMockCashFlowKI(keyIndicatorsData.netOperatingCycle) :
                 this.setCashFlowKI(keyIndicatorsData.cashFlowKI);
             this.keyIndicatorsForm.get('justificationKeyIndicators').patchValue(keyIndicatorsData.justificationKeyIndicators);
             try {
                 if (keyIndicatorsData.summaryCheckList.length > 0) {
                     this.keyIndicatorsForm.get('summaryCheckList').patchValue(keyIndicatorsData.summaryCheckList);
-                    this.setSummaryCheckListTemplateValues(keyIndicatorsData.summaryCheckList);
-                } else {
-                    this.setSummaryCheckListTemplateValues(this.summaryCheckList);
                 }
+                this.setSummaryCheckListTemplateValues(keyIndicatorsData.summaryCheckList);
             } catch (e) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
             }
@@ -158,6 +162,9 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         } else {
             const spliceIndex = this.summaryCheckList.indexOf(particular);
             this.summaryCheckList.splice(spliceIndex, 1);
+            if (this.summaryCheckList.length < 1) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'Please select at least one Key Indicator!'));
+            }
         }
         this.summaryCheckList = this.summaryCheckList.filter(onlyUnique);
     }
@@ -546,6 +553,18 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     // netOperatingCycle
     setNetOperatingCycle(currentData) {
         const controls = this.keyIndicatorsForm.get('netOperatingCycle') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setNetWCBeforeBank(currentData) {
+        const controls = this.keyIndicatorsForm.get('netWCBeforeBank') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
