@@ -103,7 +103,6 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
                 this.setCashFlowKI(keyIndicatorsData.cashFlowKI);
             this.keyIndicatorsForm.get('justificationKeyIndicators').patchValue(keyIndicatorsData.justificationKeyIndicators);
             try {
-                console.log('length:::', keyIndicatorsData.summaryCheckList.length);
                 if (keyIndicatorsData.summaryCheckList.length > 0) {
                     this.keyIndicatorsForm.get('summaryCheckList').patchValue(keyIndicatorsData.summaryCheckList);
                 }
