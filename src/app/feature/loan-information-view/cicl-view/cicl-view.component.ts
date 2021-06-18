@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
-import {environment} from '../../../../environments/environment.srdb';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-cicl-view',

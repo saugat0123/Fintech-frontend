@@ -146,7 +146,7 @@ export class CompanyFormComponent implements OnInit {
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
     srdbAffiliatedId = false;
-    disableCrgAlpha = envSrdb.disableCrgAlpha;
+    disableCrgAlpha = environment.disableCrgAlpha;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,

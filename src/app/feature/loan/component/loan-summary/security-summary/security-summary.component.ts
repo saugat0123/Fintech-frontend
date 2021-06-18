@@ -4,6 +4,8 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
+import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 
 
 @Component({
@@ -41,11 +43,11 @@ export class SecuritySummaryComponent implements OnInit {
     assignments = false;
     leaseAssignment: any;
     @Input() securityId: number;
-    @Input() collateralSiteVisitDetail = [];
-    @Input() isCollateralSiteVisit;
-    @Input() nepaliDate;
+    isCollateralSiteVisit = false;
+    collateralSiteVisits: Array<CollateralSiteVisit> = [];
+    siteVisitJson = [];
 
-    constructor() {
+    constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
 
     ngOnInit() {
@@ -159,6 +161,18 @@ export class SecuritySummaryComponent implements OnInit {
         }
         if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
             this.isPresentGuarantor = true;
+        }
+        if (this.securityId !== undefined) {
+            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+                .subscribe((response: any) => {
+                    this.collateralSiteVisits = response.detail;
+                    this.collateralSiteVisits.filter(item => {
+                        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                    });
+                    if (response.detail.length > 0) {
+                        this.isCollateralSiteVisit = true;
+                    }
+                });
         }
     }
 

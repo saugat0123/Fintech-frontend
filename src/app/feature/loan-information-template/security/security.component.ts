@@ -106,6 +106,10 @@ export class SecurityComponent implements OnInit {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
+        this.checkDisableAlpha();
+        if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
+            this.checkDisableLamdha(event);
+        }
     }
 
     buildForm() {
@@ -362,5 +366,41 @@ export class SecurityComponent implements OnInit {
             }
         });
         return totalSecurityAmount;
+    }
+
+    controlValidation(controlNames: string[], validate) {
+        controlNames.forEach(s => {
+            if (validate) {
+                this.securityForm.get(s).setValidators(Validators.required);
+            } else {
+                this.securityForm.get(s).clearValidators();
+            }
+            this.securityForm.get(s).updateValueAndValidity();
+        });
+    }
+
+    checkDisableAlpha() {
+        if (!this.disableCrgAlphaParams && this.isBusinessLoan) {
+            this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], true);
+        } else {
+            this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], false);
+        }
+    }
+
+    checkDisableLamdha(event) {
+        this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'], false);
+        switch (event) {
+            case 'GENERAL':
+                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
+                break;
+            case 'AUTO_PRIVATE':
+                this.controlValidation(['securityCoverageAutoPrivate'], true);
+                break;
+            case 'AUTO_COMMERCIAL':
+                this.controlValidation(['securityCoverageAutoCommercial'], true);
+                break;
+            default:
+                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
+        }
     }
 }

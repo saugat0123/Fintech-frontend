@@ -31,7 +31,7 @@
                     Rs. {{this.data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
-            <tr>
+            <tr *ngIf="!disabledAlpha && !disabledLambda">
                 <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
                 <td colspan="2" class="text-left pl-1">
                     {{this.data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
