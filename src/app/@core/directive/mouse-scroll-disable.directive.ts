@@ -30,21 +30,21 @@ export class MouseScrollDisableDirective {
             function () {
                 this.blur();
             });
-        target.addEventListener('keydown', function (e) {
-            key[e.keyCode] = true;
-            switch (e.keyCode) {
-                case 38:
-                case 40:
-                    e.preventDefault();
-                    break;
-                default:
-                    break;
-            }
-        }, false);
-
-        target.addEventListener('keyup', function (e) {
-            key[e.keyCode] = false;
-        }, false);
+        // target.addEventListener('keydown', function (e) {
+        //     key[e.keyCode] = true;
+        //     switch (e.keyCode) {
+        //         case 38:
+        //         case 40:
+        //             e.preventDefault();
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }, false);
+        //
+        // target.addEventListener('keyup', function (e) {
+        //     key[e.keyCode] = false;
+        // }, false);
     }
 
 }
