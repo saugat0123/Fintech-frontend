@@ -23,7 +23,7 @@ export class IndividualViewComponent implements OnInit {
   clientType: string;
   subsectorDetail: string;
 
-  crgLambdaDisabled = envSrdb.disableCrgLambda;
+  crgLambdaDisabled = environment.disableCrgLambda;
   client = environment.client;
   clientName = Clients;
 

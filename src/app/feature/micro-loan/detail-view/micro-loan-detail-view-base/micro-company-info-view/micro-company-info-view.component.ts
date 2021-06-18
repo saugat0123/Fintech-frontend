@@ -7,10 +7,10 @@ import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {BusinessAndIndustry} from '../../../../admin/modal/businessAndIndustry';
 import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 import {BusinessGiven} from '../../../../admin/modal/businessGiven';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-micro-company-info-view',
@@ -33,7 +33,7 @@ export class MicroCompanyInfoViewComponent implements OnInit {
   businessGiven: BusinessGiven;
   companyLocationData;
   srdbAffiliatedId = false;
-  disableCrgAlpha = envSrdb.disableCrgAlpha;
+  disableCrgAlpha = environment.disableCrgAlpha;
 
   constructor() {
   }

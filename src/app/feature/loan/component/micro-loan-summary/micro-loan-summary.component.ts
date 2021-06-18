@@ -163,7 +163,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
-  disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+  disableApprovalSheetFlag = environment.disableApprovalSheet;
   roleType;
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
@@ -178,6 +178,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   dataFromPreviousSecurity;
   private dialogRef: NbDialogRef<any>;
   isOpen: false;
+  securityId: number;
 
 
   constructor(
@@ -231,13 +232,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       this.marketingActivity = true;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
-          .subscribe((response: any) => {
-            this.collateralSiteVisitDetail.push(response.detail);
-            if (response.detail.length > 0) {
-              this.isCollateralSiteVisit = true;
-            }
-          });
+      this.securityId = this.loanDataHolder.security.id;
     }
   }
 
@@ -559,7 +554,11 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       return label;
     } else {
       if (index === 0) {
-        return 'INITIATED BY:';
+        if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+          return 'RE INITIATED:';
+        } else {
+          return 'INITIATED BY:';
+        }
       } else {
         return 'SUPPORTED BY:';
       }
@@ -626,7 +625,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
     let lastBackwardIndex = 0;
     stages.forEach((data, index) => {
-      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+          || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
         lastBackwardIndex = index;
       }
     });
