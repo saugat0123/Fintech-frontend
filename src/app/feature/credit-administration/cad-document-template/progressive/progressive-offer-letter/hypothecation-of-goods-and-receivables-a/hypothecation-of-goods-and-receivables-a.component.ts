@@ -77,10 +77,10 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
 
     checkOfferLetter() {
         this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-            === this.offerLetterConst.value(this.offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES).toString())[0];
+            === this.offerLetterConst.value(this.offerLetterConst.A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES).toString())[0];
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
-            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES);
+            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES);
             this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -100,13 +100,13 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
-                    this.offerLetterConst.value(this.offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES).toString()) {
+                    this.offerLetterConst.value(this.offerLetterConst.A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES).toString()) {
                     offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
-            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.A_HOTHECATION_OF_GOODS_AND_RECEIVABLES);
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES);
             offerDocument.initialInformation = JSON.stringify(this.form.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
