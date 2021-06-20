@@ -1,16 +1,44 @@
-<nb-card>
+<nb-card class="scrollView">
     <nb-card-header>
         <a (click)="onClose()" aria-label="Close" class="close cursor"
            data-dismiss="modal">
             <span aria-hidden="true">×</span></a>
     </nb-card-header>
     <!--todo dynamic reference-->
-    <nb-card-body>
+    <nb-card-body class="">
         <div [ngSwitch]="offerLetterType">
             <app-letter-of-arrangements
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase=offerLetterConst.LETTER_OF_ARRANGEMENTS></app-letter-of-arrangements>
+            <app-letter-of-agreement
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.LETTER_OF_AGREEMENT"></app-letter-of-agreement>
+            <app-margin-call-deed-share-loan-company
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.CALL_DEED_SHARE_LOAN_COMPANY"></app-margin-call-deed-share-loan-company>
+            <app-margin-call-deed-share-loan
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.CALL_DEED_SHARE_LOAN"></app-margin-call-deed-share-loan>
+            <app-promissory-note
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.PROMISSORY_NOTE"></app-promissory-note>
+            <app-mortgage-deed-company
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.MORTGAGE_DEED_COMPANY"></app-mortgage-deed-company>
+            <app-mrtg-deed-individual-different
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER"></app-mrtg-deed-individual-different>
+            <app-mrtg-deed-individual-same
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME"></app-mrtg-deed-individual-same>
         </div>
     </nb-card-body>
 </nb-card>
