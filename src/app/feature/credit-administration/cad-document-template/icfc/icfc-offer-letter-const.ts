@@ -1,5 +1,12 @@
 export enum IcfcOfferLetterConst {
     LETTER_OF_ARRANGEMENTS,
+    AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY,
+    BANK_GUARANTEE,
+    BUSINESS_LOAN,
+    CORPORATE_GUARANTEE,
+    LETTER_OF_CONTINUITY,
+    LETTER_OF_SET_OFF,
+    PERSONAL_TERM_LOAN
 }
 
 export namespace IcfcOfferLetterConst {
@@ -7,6 +14,20 @@ export namespace IcfcOfferLetterConst {
         switch (offerLetterConst) {
             case IcfcOfferLetterConst.LETTER_OF_ARRANGEMENTS:
                 return 'Letter of Arrangements';
+            case IcfcOfferLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY:
+                return 'AC Debit and Loan Disbursement Authority';
+            case IcfcOfferLetterConst.BANK_GUARANTEE:
+                return 'Bank Guarantee';
+            case IcfcOfferLetterConst.BUSINESS_LOAN:
+                return 'Business Loan';
+            case IcfcOfferLetterConst.CORPORATE_GUARANTEE:
+                return 'Corporate Guarantee';
+            case IcfcOfferLetterConst.LETTER_OF_CONTINUITY:
+                return 'Letter of Continuity';
+            case IcfcOfferLetterConst.LETTER_OF_SET_OFF:
+                return 'Letter of Set Off';
+            case IcfcOfferLetterConst.PERSONAL_TERM_LOAN:
+                return 'Personal Term Loan';
         }
     }
 
