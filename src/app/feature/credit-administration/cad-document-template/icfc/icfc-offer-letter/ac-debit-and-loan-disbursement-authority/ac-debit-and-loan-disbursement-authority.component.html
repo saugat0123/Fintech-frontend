@@ -1,0 +1,85 @@
+<div class="container text-justify">
+    <!--div class="row">-->
+    <form (ngSubmit)="onSubmit()" [formGroup]="acDebitAndLoanDisbursementAuthority" id="acDebitAndLoanDisbursementAuthorityPrint">
+        <div class="form-group align">
+            <div class="logo-container print-only">
+                <div>
+                    <p class="text-right">Date: <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
+                        <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('date').value ? acDebitAndLoanDisbursementAuthority.get('date').value  : '========='}}</b></span></p>
+                    The Manager<br/>
+                    ICFC Finance Limited<br/>
+                    <input class="form-field form-control-sm disable-print" formControlName="address" type="text"/>
+                    <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('address').value ? acDebitAndLoanDisbursementAuthority.get('address').value  : '========='}}</b></span>
+                </div>
+            </div>
+            <br>
+            <h6 class="text-center">
+                <p>
+                    <strong>Sub: <u>Loan Disbursement</u></strong>
+                </p>
+            </h6>
+            <p>Sir/Madam,</p>
+            <p>
+                Please kindly make loan disbursement of NPR <input class="form-field form-control-sm disable-print" formControlName="amount" type="text"/>
+                <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('amount').value ? acDebitAndLoanDisbursementAuthority.get('amount').value  : '========='}}</b></span>
+                (Nepalese Rupees <input class="form-field form-control-sm disable-print" formControlName="amount2" type="text"/>
+                <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('amount2').value ? acDebitAndLoanDisbursementAuthority.get('amount2').value  : '========='}}</b></span> & 00/100) from my sanctioned loan
+                <input class="form-field form-control-sm disable-print" formControlName="loan" type="text"/>
+                <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('loan').value ? acDebitAndLoanDisbursementAuthority.get('loan').value  : '========='}}</b></span> loan amount NPR
+                <input class="form-field form-control-sm disable-print" formControlName="loanAmount" type="text"/>
+                <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('loanAmount').value ? acDebitAndLoanDisbursementAuthority.get('loanAmount').value  : '========='}}</b></span> (Nepalese Rupees
+                <input class="form-field form-control-sm disable-print" formControlName="loanAmount2" type="text"/>
+                <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('loanAmount2').value ? acDebitAndLoanDisbursementAuthority.get('loanAmount2').value  : '========='}}</b></span> & 00/100) in to my/our nominee account (A/C No.
+                <input class="form-field form-control-sm disable-print" formControlName="accountNo" type="text"/>
+                <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('accountNo').value ? acDebitAndLoanDisbursementAuthority.get('accountNo').value  : '========='}}</b></span> ) held with you.
+            </p>
+            <br>
+            <p>Thanking You</p>
+            <br><br>
+            <p>Authorized Signature</p>
+            <br>
+            <hr>
+            <div>
+                <div class="logo-container print-only">
+                    <div>
+                        <p class="text-right">Date: <input class="form-field form-control-sm disable-print" formControlName="date2" type="text"/>
+                            <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('date2').value ? acDebitAndLoanDisbursementAuthority.get('date2').value  : '========='}}</b></span></p>
+                        ICFC Finance Limited<br/>
+                        <input class="form-field form-control-sm disable-print" formControlName="address2" type="text"/>
+                        <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('address2').value ? acDebitAndLoanDisbursementAuthority.get('address2').value  : '========='}}</b></span>
+                    </div>
+                </div>
+                <br>
+                <h6 class="text-center">
+                    <p>
+                        <strong>Sub: <u>Account Debit Authority</u></strong>
+                    </p>
+                </h6>
+                <p>Sir/Madam,</p>
+                <p>
+                    I/we <input class="form-field form-control-sm disable-print" formControlName="name" type="text"/>
+                    <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('name').value ? acDebitAndLoanDisbursementAuthority.get('name').value  : '========='}}</b></span>
+                    hereby give you the full authority to debit my/our account (A/C No. <input class="form-field form-control-sm disable-print" formControlName="accountNo2" type="text"/>
+                    <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('accountNo2').value ? acDebitAndLoanDisbursementAuthority.get('accountNo2').value  : '========='}}</b></span>
+                    ) for necessary charges and repayment of <input class="form-field form-control-sm disable-print" formControlName="loan2" type="text"/>
+                    <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('loan2').value ? acDebitAndLoanDisbursementAuthority.get('loan2').value  : '========='}}</b></span>
+                    loan sanctioned by you favoring me/us partially or fully as on need basis, for insurance charges, for valuation charges and for management fee (<input class="form-field form-control-sm disable-print" formControlName="rate" type="text"/>
+                    <span class="print-only"><b>{{acDebitAndLoanDisbursementAuthority.get('rate').value ? acDebitAndLoanDisbursementAuthority.get('rate').value  : '========='}}</b></span> % of loan amount).
+                </p>
+                <br>
+                <p>Thanking You</p>
+                <br><br>
+                <p>Authorized Signature</p>
+                <br>
+            </div>
+        </div>
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="acDebitAndLoanDisbursementAuthorityPrint" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="acDebitAndLoanDisbursementAuthorityPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success">Save</button>
+            </div>
+        </div>
+    </form>
+    <!--</div>-->
+</div>
