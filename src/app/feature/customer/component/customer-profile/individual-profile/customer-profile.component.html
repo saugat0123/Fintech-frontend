@@ -370,14 +370,14 @@
                             </div>
                             <hr>
                         </div>
-                        <div class="row" *ngIf="!crgLambdaDisabled">
+                        <div class="row" *ngIf="!crgLambdaDisabled && !microCustomer">
                             <div class="col-md-5">
                                 <span> <strong>Net Worth</strong></span></div>
                             <div class="col-md-1">
                                 <span> <strong>:</strong></span></div>
                             <div class="col-md-5"> Rs. {{customer?.netWorth |currencyFormatter}}</div>
                         </div>
-                        <div class="row" *ngIf="!crgLambdaDisabled">
+                        <div class="row" *ngIf="!crgLambdaDisabled && !microCustomer">
                             <div class="col-md-5">
                                 <span> <strong>Banking RelationShip</strong></span></div>
                             <div class="col-md-1">

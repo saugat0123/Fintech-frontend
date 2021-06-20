@@ -18,7 +18,6 @@ export class CommentsSummaryComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.comment = JSON.parse(this.formData.data);
-            console.log(this.comment);
         }
     }
 
