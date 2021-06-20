@@ -1,6 +1,6 @@
-<div class="container nep text-justify">
+<div class="container text-justify">
     <!--div class="row">-->
-    <form [formGroup]="acDebitAndLoanDisbursementAuthority" class="nep" id="acDebitAndLoanDisbursementAuthorityPrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="acDebitAndLoanDisbursementAuthority" id="acDebitAndLoanDisbursementAuthorityPrint">
         <div class="form-group align">
             <div class="logo-container print-only">
                 <div>
@@ -78,10 +78,7 @@
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="acDebitAndLoanDisbursementAuthorityPrint" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="acDebitAndLoanDisbursementAuthorityPrint" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success">Save</button>
-
-
             </div>
-
         </div>
     </form>
     <!--</div>-->

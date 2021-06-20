@@ -17,12 +17,14 @@ import { PromissoryNoteComponent } from './icfc-offer-letter/promissory-note/pro
 import { MortgageDeedCompanyComponent } from './icfc-offer-letter/mortgage-deed-company/mortgage-deed-company.component';
 import { MrtgDeedIndividualDifferentComponent } from './icfc-offer-letter/mrtg-deed-individual-different/mrtg-deed-individual-different.component';
 import { MrtgDeedIndividualSameComponent } from './icfc-offer-letter/mrtg-deed-individual-same/mrtg-deed-individual-same.component';
+import {NgxPrintModule} from 'ngx-print';
 
 @NgModule({
     declarations: [IcfcOfferLetterComponent, LetterOfArrangementsComponent, AcDebitAndLoanDisbursementAuthorityComponent, BankGuaranteeComponent, BusinessLoanComponent, CorporateGuaranteeComponent, LetterOfContinuityComponent, LetterOfSetOffComponent, PersonalTermLoanComponent, LetterOfAgreementComponent, MarginCallDeedShareLoanCompanyComponent, MarginCallDeedShareLoanComponent, PromissoryNoteComponent, MortgageDeedCompanyComponent, MrtgDeedIndividualDifferentComponent, MrtgDeedIndividualSameComponent],
     imports: [
         CommonModule,
-        ThemeModule
+        ThemeModule,
+        NgxPrintModule
     ],
     entryComponents: [
         IcfcOfferLetterComponent
