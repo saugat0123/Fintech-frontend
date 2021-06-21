@@ -179,7 +179,6 @@
                           <td></td>
                       </tr>
                       <tr class="sb-bg-secondary text-white">
-                          <th></th>
                           <th>ReValuation Date(AD/BS)</th>
                           <th colspan="1">Valuator name</th>
                           <th colspan="1">ReValuation Fmv</th>
@@ -190,7 +189,6 @@
                           <th colspan="1">Change in Considered Value</th>
                       </tr>
                       <tr>
-                          <td></td>
                           <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate | date}} ({{landDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
                           <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
@@ -462,7 +460,7 @@
                         </tr>
                         <tr>
                             <td class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate | date}} ({{buildingDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-                            <td colspan="1" class="text-left pl-1">Rs. {{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
