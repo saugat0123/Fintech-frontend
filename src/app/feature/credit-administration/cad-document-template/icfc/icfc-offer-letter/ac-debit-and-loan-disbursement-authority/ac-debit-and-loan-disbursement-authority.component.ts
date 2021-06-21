@@ -11,6 +11,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-ac-debit-and-loan-disbursement-authority',
@@ -26,8 +27,8 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   initialInfoPrint;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
-  form: FormGroup;
   spinner: boolean;
+  nepData;
 
   constructor(private formBuilder: FormBuilder,
               private currencyFormatPipe: CurrencyFormatterPipe,
@@ -39,6 +40,33 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.checkOfferLetter();
+  }
+
+  checkOfferLetter() {
+    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+        === this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY).toString())[0];
+    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+      this.offerLetterDocument = new OfferDocument();
+      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY);
+      this.fillForm();
+    } else {
+      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+      this.initialInfoPrint = initialInfo;
+      this.existingOfferLetter = true;
+      if (!ObjectUtil.isEmpty(initialInfo)) {}
+      this.acDebitAndLoanDisbursementAuthority.patchValue(this.initialInfoPrint);
+    }
+  }
+
+  fillForm() {
+    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    this.acDebitAndLoanDisbursementAuthority.patchValue({
+      date: this.nepData.date ? this.nepData.date : '',
+      address: this.nepData.address ? this.nepData.address : '',
+      amount: this.nepData.amount ? this.nepData.amount : '',
+      amount2: this.nepData.date ? this.nepData.amount2 : '',
+    });
   }
 
   onSubmit(): void {
@@ -49,13 +77,13 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+          offerLetterPath.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY);
-      offerDocument.initialInformation = JSON.stringify(this.form.value);
+      offerDocument.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
@@ -75,7 +103,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   }
 
   buildForm() {
-    this.form = this.formBuilder.group({
+    this.acDebitAndLoanDisbursementAuthority = this.formBuilder.group({
       date: [undefined],
       address: [undefined],
       amount: [undefined],
