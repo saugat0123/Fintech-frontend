@@ -62,8 +62,6 @@ export class BankGuaranteeComponent implements OnInit {
     this.bankGuarantee.patchValue({
       date: this.nepData.date ? this.nepData.date : '',
       address: this.nepData.address ? this.nepData.address : '',
-      amount: this.nepData.amount ? this.nepData.amount : '',
-      amount2: this.nepData.date ? this.nepData.amount2 : '',
     });
   }
 
@@ -101,27 +99,26 @@ export class BankGuaranteeComponent implements OnInit {
 
   buildForm() {
     this.bankGuarantee = this.formBuilder.group({
-      address: [undefined],
-      district: [undefined],
-      year: [undefined],
-      month: [undefined],
-      day: [undefined],
-      branch: [undefined],
-      regNo: [undefined],
-      debtorName: [undefined],
-      date: [undefined],
-      guarantorName: [undefined],
       field: [undefined],
       field2: [undefined],
-      karja: [undefined],
-      rate: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      rate2: [undefined],
-      baseRate2: [undefined],
-      premiumRate2: [undefined],
-      amount: [undefined],
+      field3: [undefined],
+      refNo: [undefined],
+      refNo2: [undefined],
       name: [undefined],
+      ward: [undefined],
+      date: [undefined],
+      date2: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
+      amount2: [undefined],
+      amountInWords2: [undefined],
+      amount3: [undefined],
+      amountInWords3: [undefined],
+      startDate: [undefined],
+      expiryDate: [undefined],
+      office: [undefined],
+      branchAddress: [undefined],
+      office2: [undefined]
     });
   }
 }

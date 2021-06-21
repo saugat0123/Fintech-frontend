@@ -1,6 +1,6 @@
 <div class="container nep text-justify">
     <!--div class="row">-->
-    <form [formGroup]="personalTermLoan" class="nep" id="personalTermLoanPrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="personalTermLoan" class="nep" id="personalTermLoanPrint">
         <div class="form-group align">
             <div class="logo-container print-only">
                 <div>
@@ -378,7 +378,7 @@
 
         <div class="row disable-print">
             <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalTermLoanPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalTermLoanPrint" (click)="onSubmit()" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalTermLoanPrint" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success">Save</button>
 
