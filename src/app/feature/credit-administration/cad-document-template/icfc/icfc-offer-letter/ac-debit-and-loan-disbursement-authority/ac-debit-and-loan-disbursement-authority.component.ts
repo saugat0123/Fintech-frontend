@@ -62,10 +62,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   fillForm() {
     this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     this.acDebitAndLoanDisbursementAuthority.patchValue({
-      date: this.nepData.date ? this.nepData.date : '',
-      address: this.nepData.address ? this.nepData.address : '',
-      amount: this.nepData.amount ? this.nepData.amount : '',
-      amount2: this.nepData.date ? this.nepData.amount2 : '',
+      name: this.nepData.name ? this.nepData.name : '',
     });
   }
 
