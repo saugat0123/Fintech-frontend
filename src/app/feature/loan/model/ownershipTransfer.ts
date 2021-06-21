@@ -2,6 +2,7 @@ export enum OwnershipTransfer {
   SALE = 'Sale(Rajinama)',
   FAMILY_SEPARATION = 'Family Separation',
   GIFT_BAKASPATRA = 'Gift (Bakaspatra)',
+  PATRIARCHAL_PROPERTY = 'Patriarchal Property(Paitrik Sampathi)',
   OTHER = 'Other'
 }
 
@@ -19,6 +20,8 @@ export namespace OwnershipTransfer {
       return 'FAMILY_SEPARATION';
     } else if (ownershipTransfer === OwnershipTransfer.GIFT_BAKASPATRA) {
       return 'GIFT_BAKASPATRA';
+    } else if (ownershipTransfer === OwnershipTransfer.PATRIARCHAL_PROPERTY) {
+      return 'PATRIARCHAL_PROPERTY';
     } else if (ownershipTransfer === OwnershipTransfer.OTHER) {
       return 'OTHER';
     }
