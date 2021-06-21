@@ -12,9 +12,8 @@ previousSecurity: any;
   constructor() { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.formData)){
+    if (!ObjectUtil.isEmpty(this.formData)) {
       this.previousSecurity = JSON.parse(this.formData.data);
-      console.log(this.previousSecurity);
     }
   }
 

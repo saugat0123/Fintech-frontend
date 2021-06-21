@@ -397,12 +397,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
             customerRelatives: this.formBuilder.array([]),
             introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
-            securityRisk: [this.individualJsonData.securityRisk === undefined ? undefined :
-                this.individualJsonData.securityRisk, [Validators.required]],
-            incomeRisk: [this.individualJsonData.incomeRisk === undefined ? undefined :
-                this.individualJsonData.incomeRisk, [Validators.required]],
-            successionRisk: [this.individualJsonData.successionRisk === undefined ? undefined :
-                this.individualJsonData.successionRisk, [Validators.required]],
+            securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.securityRisk],
+            incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.incomeRisk],
+            successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.successionRisk],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
                 undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
             netWorth: [this.customer.netWorth === undefined ?
