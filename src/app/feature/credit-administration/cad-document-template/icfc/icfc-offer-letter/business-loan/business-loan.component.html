@@ -1,6 +1,6 @@
 <div class="container nep text-justify">
     <!--div class="row">-->
-    <form [formGroup]="businessLoan" class="nep" id="businessLoanPrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="businessLoan" class="nep" id="businessLoanPrint">
         <div class="form-group align">
             <div class="logo-container print-only">
                 <div>
@@ -376,8 +376,8 @@
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	......................................</p>
                     <br>
-                    <p><strong>जमानी दिनेको नामः </strong> <input class="form-field form-control-sm disable-print" formControlName="debtorName" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{businessLoan.get('debtorName').value ? businessLoan.get('debtorName').value  : '========='}}</b></span></p>
+                    <p><strong>जमानी दिनेको नामः </strong> <input class="form-field form-control-sm disable-print" formControlName="guarantorName" type="text"/>
+                        <span class="print-only nepaliFont"><b>{{businessLoan.get('guarantorName').value ? businessLoan.get('guarantorName').value  : '========='}}</b></span></p>
                     <br><p>मितिः <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
                         <span class="print-only nepaliFont"><b>{{businessLoan.get('date').value ? businessLoan.get('date').value  : '========='}}</b></span></p>
 
@@ -389,7 +389,7 @@
             <div class="col-md-12 text-right">
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="businessLoanPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="businessLoanPrint" class="mr-2 custom-color" >Print</button>
-                <button nbButton status="success" (click)="submit()">Save</button>
+                <button nbButton status="success" (click)="onSubmit()">Save</button>
 
 
             </div>
