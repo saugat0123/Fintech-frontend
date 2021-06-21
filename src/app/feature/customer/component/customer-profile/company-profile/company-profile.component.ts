@@ -141,6 +141,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
         this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            console.log(res.detail);
             this.setCompanyData(this.companyInfo);
             this.spinner = false;
         }, error => {

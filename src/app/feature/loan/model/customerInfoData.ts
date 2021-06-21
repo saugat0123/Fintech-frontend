@@ -81,4 +81,8 @@ export class CustomerInfoData {
     deficitSurplus: number;
     coveragePercent: number;
     loanExposure: number;
+     totalFmv: number;
+     totalDv: number;
+     deficitSurplusOnFmv: number;
+     deficitSurplusOnDv: number;
 }
