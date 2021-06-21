@@ -101,7 +101,7 @@
         <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
         <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
         <td class="text-left pl-1">{{landDetails?.ownershipTransferDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
-        <td>{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
+        <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landDetails?.familyTransferOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landDetails?.giftOwnershipTransfer}}</td>
@@ -278,7 +278,7 @@
         <tr>
           <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
           <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
-          <td>{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
+          <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landBuilding?.giftOwnershipTransfer}}</td>
@@ -1333,9 +1333,9 @@
         <td class="text-left pl-1">{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.roadSetbacks === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.roadSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
       </tr>
       </tbody>
     </table>
