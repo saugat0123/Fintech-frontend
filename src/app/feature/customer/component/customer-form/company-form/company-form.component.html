@@ -1384,12 +1384,10 @@
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label for="businessObjective"><strong></strong></label>
-                                   <input
-                                       [ngClass]="{ 'is-invalid': (submitted) && form.businessObjective.errors }"
-                                       class="form-control"
-                                       formControlName="businessObjective" id="businessObjective"
-                                       name="businessObjective" placeholder="Business Objective"
-                                       type="text"/>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessObjective.errors }"
+                                             formControlName="businessObjective" id="businessObjective"
+                                             name="businessObjective" [config]="ckeConfig"
+                                             type="text"></ckeditor>
                                    <div *ngIf="(submitted) && form.businessObjective.invalid"
                                         class="invalid-feedback">
                                        <div *ngIf="form.businessObjective.errors.required">

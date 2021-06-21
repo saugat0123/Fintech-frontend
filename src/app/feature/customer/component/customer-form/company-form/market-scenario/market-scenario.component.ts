@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Editor} from '../../../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-market-scenario',
@@ -11,6 +12,7 @@ export class MarketScenarioComponent implements OnInit {
     @Input() marketScenario;
     marketScenarioForm: FormGroup;
     submitted = false;
+    ckeConfig = Editor.CK_CONFIG;
 
     submitData;
 
@@ -32,9 +34,9 @@ export class MarketScenarioComponent implements OnInit {
             KeyBuyers: [undefined, Validators.required],
             competitorsOverview: [undefined],
             marketDemandService: [undefined],
-            BusinessIndustryOutlook: [undefined],
+            marketRisk: [undefined],
             marketingStrategies: [undefined],
-            technicalAspect: [undefined],
+            managementRisk: [undefined],
             securityRisk: [undefined],
             financialAndCashFlowRisk: [undefined],
         });
