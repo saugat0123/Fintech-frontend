@@ -160,7 +160,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
 
-    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    disableApprovalSheetFlag = environment.disableApprovalSheet;
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
@@ -179,7 +179,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    isOpen: false;
    private dialogRef: NbDialogRef<any>;
    refId: number;
-   siteVisitDocuments: Array<SiteVisitDocument>;
+    securityId: number;
+    siteVisitDocuments: Array<SiteVisitDocument>;
 
 
     constructor(
@@ -224,7 +225,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-           this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
+            this.securityId = this.loanDataHolder.security.id;
+            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
                .subscribe((response: any) => {
                    this.collateralSiteVisitDetail.push(response.detail);
                    const arr = [];

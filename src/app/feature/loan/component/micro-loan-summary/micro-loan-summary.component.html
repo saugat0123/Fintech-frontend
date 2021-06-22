@@ -3,13 +3,32 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
-                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    <!--  File under Possession started-->
+                    <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
+                    loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-role-heirarchy-chain [refId]="id"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+                    <!--  End of File Under possession div-->
+
+                    <div class="mt-2" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
-                    loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER'">
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
+                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
                                 status="primary" nbTooltip="Configure Approval Role Hierarchy"
-                                (click)="setRoleHierarchy(loanDataHolder?.id)">
-                            <i class="fa fa-user-shield"></i>Set Role Hierarchy
+                                (click)="setRoleHierarchy(loanDataHolder?.id)">Set Role Hierarchy
                         </button>
                     </div>
                     <br>
@@ -322,14 +341,13 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
 
-                       <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                           [customerAllLoanList]="customerAllLoanList"
-                                                           [proposalData]="proposalData"></app-proposal-justification-summary>
-            <app-security-summary
-                    *ngIf="securitySummary"
-                    [formData]="securityData" [shareSecurity]="shareSecurityData"
-                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"
-                    [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
+            <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                [customerAllLoanList]="customerAllLoanList"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
+
+            <app-security-summary *ngIf="securitySummary"
+                                  [formData]="securityData" [shareSecurity]="shareSecurityData"
+                                  [securityId]="securityId"></app-security-summary>
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"

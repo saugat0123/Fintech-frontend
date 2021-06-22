@@ -4,6 +4,8 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
+import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 
@@ -46,8 +48,11 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() isCollateralSiteVisit;
     @Input() nepaliDate;
     @Input() siteVisitDocuments: Array<SiteVisitDocument>;
+    isCollateralSiteVisitPresent = false;
+    collateralSiteVisits: Array<CollateralSiteVisit> = [];
+    siteVisitJson = [];
 
-    constructor() {
+    constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
 
     ngOnInit() {
@@ -161,6 +166,18 @@ export class SecuritySummaryComponent implements OnInit {
         }
         if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
             this.isPresentGuarantor = true;
+        }
+        if (this.securityId !== undefined) {
+            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
+                .subscribe((response: any) => {
+                    this.collateralSiteVisits = response.detail;
+                    this.collateralSiteVisits.filter(item => {
+                        this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                    });
+                    if (response.detail.length > 0) {
+                        this.isCollateralSiteVisitPresent = true;
+                    }
+                });
         }
     }
 

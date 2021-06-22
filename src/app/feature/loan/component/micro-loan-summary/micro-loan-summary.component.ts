@@ -163,7 +163,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
-  disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+  disableApprovalSheetFlag = environment.disableApprovalSheet;
   roleType;
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
@@ -178,6 +178,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   dataFromPreviousSecurity;
   private dialogRef: NbDialogRef<any>;
   isOpen: false;
+  securityId: number;
 
 
   constructor(
@@ -231,13 +232,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       this.marketingActivity = true;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
-      this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
-          .subscribe((response: any) => {
-            this.collateralSiteVisitDetail.push(response.detail);
-            if (response.detail.length > 0) {
-              this.isCollateralSiteVisit = true;
-            }
-          });
+      this.securityId = this.loanDataHolder.security.id;
     }
   }
 
@@ -252,9 +247,9 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   getLoanDataHolder() {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
-    // Setting financial data---
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
-      this.financialData = this.loanDataHolder.financial;
+    // Setting micro financial data---
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microOtherParameters)) {
+      this.financialData = this.loanDataHolder.loanHolder.microOtherParameters;
       this.financialSummary = true;
     }
 

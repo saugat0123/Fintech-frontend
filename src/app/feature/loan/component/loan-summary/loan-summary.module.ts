@@ -96,7 +96,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         ProposalSummaryComponent,
         MGroupSummaryComponent,
         CommentsSummaryComponent,
-        PreviousSecuritySummaryComponent
+        PreviousSecuritySummaryComponent,
+        RoleHierarchyChainComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
