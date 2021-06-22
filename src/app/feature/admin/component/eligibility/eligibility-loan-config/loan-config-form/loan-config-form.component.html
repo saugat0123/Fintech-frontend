@@ -1,4 +1,4 @@
-<nb-card class="mb-0 sb-small">
+<nb-card class="mb-0 sb-small" [nbSpinner]="spinner">
     <nb-card-header class="sb-bg-dark text-white">
         <div class="row">
             <div class="col-md-6">{{action}} Loan Config</div>
@@ -24,6 +24,7 @@
                                 class="custom-select">
                             <option value="" hidden>Select Nature of Loan</option>
                             <option value="OD">OD</option>
+                            <option value=""> </option>
                         </select>
                     </div>
                 </div>

@@ -23,10 +23,12 @@ export class LoanConfigFormComponent implements OnInit {
     finalInitialDocument = Array<Document>();
     loanConfig: FormGroup;
     eligibilityLoanConfig = [];
-    documents;
+    documents = [];
     @Input() loanId;
     @Input() model: EligibilityLoanConfiguration;
     error: Array<Violation>;
+
+    spinner=false;
 
 
     constructor(private activeModal: NgbActiveModal,
@@ -40,13 +42,13 @@ export class LoanConfigFormComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.buildForm();
         this.loadData();
         this.setDocuments();
-        this.checkDocument(this.loanId);
-        console.log(this.documents);
 
+        this.documents.forEach(data => {
+            console.log(data);
+        })
 
     }
 
@@ -55,6 +57,7 @@ export class LoanConfigFormComponent implements OnInit {
 
         switch (this.action) {
             case Action.ADD:
+                this.spinner=true;
                 if(!ObjectUtil.isEmpty(this.finalInitialDocument)){
                     const doc= this.loanConfig.value;
                     doc.documents=this.finalInitialDocument;
@@ -65,6 +68,7 @@ export class LoanConfigFormComponent implements OnInit {
                     this.modelref.close(ModalResponse.SUCCESS);
                      const alert= new Alert(AlertType.SUCCESS, 'Successfully Saved Eligibility Loan ')
                         this.toast.show(alert);
+                     this.spinner=false;
                     this.router.navigate([this.router.url]);
 
                 },(err) => {
@@ -131,8 +135,8 @@ export class LoanConfigFormComponent implements OnInit {
 
     getActiveDocuments(id: number): void {
         this.docService.getByLoanCycleAndStatus(id, 'ACTIVE').subscribe(resp => {
-
             this.documents = resp.detail;
+            this.checkDocument(this.loanId);
         })
     }
 
@@ -163,25 +167,27 @@ export class LoanConfigFormComponent implements OnInit {
     }
 
     checkDocument(id: number) {
-        this.service.getAllEligibilityLoanConfig().subscribe(res => {
-            res.detail.forEach(data => {
-                if (data.id === id) {
-                    data.documents.forEach(doc => {
-                        if(!ObjectUtil.isEmpty(this.documents)) {
+        if (this.documents.length >= 0) {
+            this.service.getAllEligibilityLoanConfig().subscribe(res => {
+                console.log(res.detail);
+                res.detail.forEach(data => {
+                    if (data.id === id) {
+                        data.documents.forEach(doc => {
+
                             this.documents.forEach(resp => {
+                                console.log(resp);
                                 if (resp.id === doc.id) {
                                     resp.checked = true;
                                     this.finalInitialDocument.push(resp);
                                 }
                             });
 
-                        }
-                    });
-                }
+                        });
+                    }
+                });
             });
-        });
+        }
     }
-
 
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
