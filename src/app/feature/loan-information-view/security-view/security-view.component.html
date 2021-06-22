@@ -1434,13 +1434,15 @@
     </table>
     <strong class="ml-3">Collateral Site Visit Documents</strong>
     <hr/>
-    <div class="row row-after">
-      <div class="column" *ngFor="let doc of siteVisitDocuments;">
+    <div class="container">
+      <div class="row">
+      <div class="col" *ngFor="let doc of siteVisitDocuments;">
         <img *ngIf="doc?.isPrintable === isPrintable"
              [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)"
              class="figure-img img-fluid rounded img-medium"
              alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName)">
       </div>
+    </div>
     </div>
   </div>
 </div>
