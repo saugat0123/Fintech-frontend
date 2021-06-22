@@ -8,6 +8,9 @@ import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
 import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {flatten} from '@angular/compiler';
 
 @Component({
   selector: 'app-security-view',
@@ -47,11 +50,17 @@ export class SecurityViewComponent implements OnInit {
   collateralSiteVisits: Array<CollateralSiteVisit> = [];
   siteVisitJson = [];
   isCollateralSiteVisit = false;
+  siteVisitDocuments: Array<SiteVisitDocument>;
+  url: string;
+  separator = '/';
+  fileType = '.jpg';
+  isPrintable = 'YES';
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
 
   ngOnInit() {
+    this.url = ApiConfig.URL;
     this.securityData = JSON.parse(this.security.data);
     // land security
     this.securityData['initialForm']['landDetails'].filter(f => {
@@ -153,6 +162,15 @@ export class SecurityViewComponent implements OnInit {
       this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
           .subscribe((response: any) => {
             this.collateralSiteVisits = response.detail;
+            const arr = [];
+            this.collateralSiteVisits.forEach(f => {
+              if (f.siteVisitDocuments.length > 0) {
+                arr.push(f.siteVisitDocuments);
+              }
+            });
+            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+            this.siteVisitDocuments = flatten(arr);
+
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
               });
@@ -176,6 +194,15 @@ export class SecurityViewComponent implements OnInit {
     depositList.forEach(deposit => {
       this.totalAmount += deposit.amount;
     });
+  }
+
+  viewDocument(url: string, name: string) {
+    const viewDocName = name.concat(this.fileType);
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
   }
 
 }

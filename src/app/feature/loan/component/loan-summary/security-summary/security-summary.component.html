@@ -836,6 +836,19 @@
                         <td>{{siteVisit?.siteVisitDate| date}} ({{siteVisit?.siteVisitDate| engNepDate: false}})</td>
                     </tr>
                 </table>
+                <strong>Collateral Site Visit Documents</strong>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Document Name</th>
+                        <th>Is Printable?</th>
+                    </tr>
+                    <tr *ngFor="let doc of siteVisitDocuments; let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{doc?.docName}}</td>
+                        <td>{{doc?.isPrintable}}</td>
+                    </tr>
+                </table>
             </ng-container>
         </div>
         <div *ngIf="formData['initialForm']['remark']" class="row">

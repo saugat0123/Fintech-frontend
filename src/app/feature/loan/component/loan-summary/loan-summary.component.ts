@@ -42,6 +42,8 @@ import {CollateralSiteVisitService} from '../../../loan-information-template/sec
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 import {DOCUMENT} from '@angular/common';
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {flatten} from '@angular/compiler';
 
 @Component({
     selector: 'app-loan-summary',
@@ -177,6 +179,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    isOpen: false;
    private dialogRef: NbDialogRef<any>;
    refId: number;
+   siteVisitDocuments: Array<SiteVisitDocument>;
 
 
     constructor(
@@ -224,6 +227,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
                .subscribe((response: any) => {
                    this.collateralSiteVisitDetail.push(response.detail);
+                   const arr = [];
+                   response.detail.forEach(f => {
+                       if (f.siteVisitDocuments.length > 0) {
+                         arr.push(f.siteVisitDocuments);
+                       }
+                   });
+                   // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+                   this.siteVisitDocuments = flatten(arr);
                    if (response.detail.length > 0) {
                        this.isCollateralSiteVisit = true;
                    }

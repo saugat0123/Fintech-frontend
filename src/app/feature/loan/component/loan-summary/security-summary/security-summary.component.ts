@@ -4,6 +4,7 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
+import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() collateralSiteVisitDetail = [];
     @Input() isCollateralSiteVisit;
     @Input() nepaliDate;
+    @Input() siteVisitDocuments: Array<SiteVisitDocument>;
 
     constructor() {
     }
