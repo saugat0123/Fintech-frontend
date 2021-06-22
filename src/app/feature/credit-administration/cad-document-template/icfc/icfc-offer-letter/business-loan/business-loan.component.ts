@@ -11,6 +11,8 @@ import {ToastService} from '../../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 
 
@@ -29,6 +31,8 @@ export class BusinessLoanComponent implements OnInit {
   initialInfoPrint;
   existingOfferLetter: boolean;
   spinner: boolean;
+  engToNepNumberPipe: EngToNepaliNumberPipe;
+  currencyFormatPipe: CurrencyFormatterPipe;
 
   constructor(private dialogRef: NbDialogRef<BusinessLoanComponent>,
               private formBuilder: FormBuilder,
@@ -82,14 +86,7 @@ export class BusinessLoanComponent implements OnInit {
   fillForm() {
     this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     this.businessLoan.patchValue({
-      date: this.nepData.date ? this.nepData.date : '',
-      year: this.nepData.year ? this.nepData.year  : '',
-      month: this.nepData.month ? this.nepData.month : '',
-      day: this.nepData.day ? this.nepData.day : '',
-      baseRate: this.nepData.baseRate ? this.nepData.baseRate : '',
-      baseRate2: this.nepData.baseRate2 ? this.nepData.baseRate2 : '',
-      premiumRate: this.nepData.premiumRate ? this.nepData.premiumRate : '',
-      premiumRate2: this.nepData.premiumRate2 ? this.nepData.premiumRate2 : '',
+
     });
   }
 
@@ -141,6 +138,14 @@ export class BusinessLoanComponent implements OnInit {
       this.dialogRef.close();
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+
+  calcYearlyRate(formArrayName, i) {
+    const baseRate = this.nepToEngNumberPipe.transform(this.businessLoan.get([formArrayName, i, 'baseRate']).value);
+    const premiumRate = this.nepToEngNumberPipe.transform(this.businessLoan.get([formArrayName, i, 'premiumRate']).value);
+    const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+    const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+    this.businessLoan.get([formArrayName, i, 'yearlyRate']).patchValue(asd);
   }
 
 }
