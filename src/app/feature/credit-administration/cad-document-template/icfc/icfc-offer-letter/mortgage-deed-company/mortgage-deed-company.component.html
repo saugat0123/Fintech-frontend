@@ -75,7 +75,7 @@
                            (change)="convertAmountInWords('loanAmount', 'loanAmountWords')"
                            type="text"/>
                     /— (अक्षरुपी
-                    <input class="form-field form-control-sm nepaliFont" name="loanAmountWords"
+                    <input class="form-field form-control-sm nepaliFont longInput" name="loanAmountWords"
                            formControlName="loanAmountWords"
                            placeholder=""
                            type="text"/>
@@ -137,7 +137,7 @@
                             </td>
                             <td>
                                 नाम थर (अङ्ग्रेजीमा) ः
-                                <input class="form-field form-control-sm nepaliFont" name="guarantorNameEnglish"
+                                <input class="form-field form-control-sm" name="guarantorNameEnglish"
                                        formControlName="guarantorNameEnglish"
                                        placeholder=""
                                        type="text"/>
@@ -217,7 +217,7 @@
                                            formControlName="landLordSignNo"
                                            placeholder=""
                                            type="text"/>
-                                </p>
+                                </p>अङ्ग्रेजीमा
                                 <p>
                                     मोबाइल नं.ः
                                     <input class="form-field form-control-sm nepaliFont" name="mobileNo"
@@ -260,10 +260,11 @@
                 <p>
                     <b>
                         ऋणी
-                        <input class="form-field form-control-sm nepaliFont" name="borrowerName2"
-                               formControlName="borrowerName2"
-                               placeholder=""
-                               type="text"/>
+<!--                        <input class="form-field form-control-sm nepaliFont" name="borrowerName2"-->
+<!--                               formControlName="borrowerName2"-->
+<!--                               placeholder=""-->
+<!--                               type="text"/>-->
+                        <span class="nepaliFont form-field"> {{mortgageDeedCompany.get('letterPersonName').value}}</span>
                         को विवरण र सहिछाप
                     </b>
                 </p>
@@ -279,7 +280,7 @@
                             </td>
                             <td>
                                 नाम थर (अङ्ग्रेजीमा) ः
-                                <input class="form-field form-control-sm nepaliFont" name="borrowerNameEnglish"
+                                <input class="form-field form-control-sm" name="borrowerNameEnglish"
                                        formControlName="borrowerNameEnglish"
                                        placeholder=""
                                        type="text"/>
@@ -439,12 +440,16 @@
                     </b>
                 </p>
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center" style="width: 100%">
+                    <table class="table table-bordered text-center" style="width: 100%; overflow-x: auto">
                         <thead>
                         <tr>
                             <td colspan="12" class="text-center">
+                                <p>
+                                    <b>
+                                        जग्गाको विवरण (श्रेस्ता बमोजिम)
+                                    </b>
+                                </p>
                                 <b>
-                                    जग्गाको विवरण (श्रेस्ता बमोजिम)
                                     प्रदेश
                                     <input class="form-field form-control-sm nepaliFont" name="landProvince"
                                            formControlName="landProvince"
@@ -619,10 +624,11 @@
                 <p>
                     <b>
                         यो लिखत म कारणी ऋणी
-                        <input class="form-field form-control-sm nepaliFont" name="borrowerName3"
-                               formControlName="borrowerName3"
-                               placeholder=""
-                               type="text"/>
+<!--                        <input class="form-field form-control-sm nepaliFont" name="borrowerName3"-->
+<!--                               formControlName="borrowerName3"-->
+<!--                               placeholder=""-->
+<!--                               type="text"/>-->
+                        <span class="nepaliFont form-field">{{mortgageDeedCompany.get('borrowerName').value}}</span>
                         स्वयंले तयार गरेको हो भनी सही गर्ने  ।
                     </b>
                 </p>
