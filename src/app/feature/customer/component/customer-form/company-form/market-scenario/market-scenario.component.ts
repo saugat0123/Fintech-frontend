@@ -34,9 +34,9 @@ export class MarketScenarioComponent implements OnInit {
             KeyBuyers: [undefined, Validators.required],
             competitorsOverview: [undefined],
             marketDemandService: [undefined],
-            marketRisk: [undefined],
+            BusinessIndustryOutlook: [undefined],
             marketingStrategies: [undefined],
-            managementRisk: [undefined],
+            technicalAspect: [undefined],
             securityRisk: [undefined],
             financialAndCashFlowRisk: [undefined],
         });

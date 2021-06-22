@@ -338,7 +338,7 @@
                                         name="ownershipTransferThrough"
                                         (change)="resetOtherTransferParameter('landDetails', i,false)">
                                     <option [value]="null">Select Ownership transfer through</option>
-                                    <option *ngFor="let ownership of ownershipTransferEnumPair"
+                                    <option *ngFor="let ownership of newOwnerShipTransfer"
                                             [ngValue]="ownership.key">{{ownership.value}}</option>
                                 </select>
                             </div>
@@ -1660,7 +1660,7 @@
                                             name="ownershipTransferThrough"
                                             (change)="resetOtherTransferParameter('landBuilding', i,false)">
                                         <option [value]="null">Select Ownership transfer through</option>
-                                        <option *ngFor="let ownership of ownershipTransferEnumPair"
+                                        <option *ngFor="let ownership of newOwnerShipTransfer"
                                                 [ngValue]="ownership.key">{{ownership.value}}</option>
                                     </select>
                                 </div>

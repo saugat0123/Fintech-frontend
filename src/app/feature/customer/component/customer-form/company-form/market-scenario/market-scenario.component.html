@@ -72,13 +72,13 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="marketRisk"><strong>Industry/Market Risk & Mitigation</strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.marketRisk.errors }"
-                          formControlName="marketRisk" id="marketRisk"
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
+                          formControlName="BusinessIndustryOutlook" id="marketRisk"
                           name="marketRisk" [config]="ckeConfig"
                           type="text"></ckeditor>
-                <div *ngIf="submitted && form.marketRisk?.errors "
+                <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
                      class="invalid-feedback">
-                    <div *ngIf="form.marketRisk?.errors.required">
+                    <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
                         Industry/Market Risk & Mitigation is required
                     </div>
                 </div>
@@ -102,14 +102,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="managementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
-                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.managementRisk.errors }"
-                          formControlName="managementRisk" id="managementRisk"
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
+                          formControlName="technicalAspect" id="managementRisk"
                           name="managementRisk" [config]="ckeConfig"
                           type="text"></ckeditor>
 
-                <div *ngIf="submitted && form.managementRisk?.errors "
+                <div *ngIf="submitted && form.technicalAspect?.errors "
                      class="invalid-feedback">
-                    <div *ngIf="form.managementRisk?.errors.required">
+                    <div *ngIf="form.technicalAspect?.errors.required">
                         Business/Management Risk & Mitigation is required
                     </div>
                 </div>

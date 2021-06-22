@@ -151,6 +151,7 @@ export class SecurityInitialFormComponent implements OnInit {
     clientName = Clients;
     dialogRef: NbDialogRef<any>;
     isOpen = false;
+    newOwnerShipTransfer = [];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -246,6 +247,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setShareSecurityDetails(this.shareSecurity);
         }
         this.updateLandSecurityTotal();
+        this.reArrangeEnumType();
 
     }
 
@@ -2049,5 +2051,12 @@ export class SecurityInitialFormComponent implements OnInit {
             hasScroll: true
         });
         this.isOpen = true;
+    }
+
+    reArrangeEnumType() {
+        const other = this.ownershipTransferEnumPair.filter(value => value.value.toString() === 'Other');
+        const index = this.ownershipTransferEnumPair.indexOf(other[0]);
+        this.ownershipTransferEnumPair.splice(index, 1);
+        this.newOwnerShipTransfer = this.ownershipTransferEnumPair.concat(other);
     }
 }
