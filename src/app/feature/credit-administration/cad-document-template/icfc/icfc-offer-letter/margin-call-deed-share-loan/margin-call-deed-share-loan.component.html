@@ -1,4 +1,4 @@
-<div class="container bodyConfig text-justify">
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.CALL_DEED_SHARE_LOAN}}">
     <form (ngSubmit)="submit()" [formGroup]="marginShareLoan" id="marginShareLoan">
         <div class="row" id="heading">
             <div class="col-md-12 text-center">
@@ -49,7 +49,7 @@
                            formControlName="municipalityOrVdc"
                            type="text"/>
                     गा.पा./न.पा. वडा नं.
-                    <input class="form-field form-control-sm nepaliFont" name="wardNo"
+                    <input class="form-field form-control-sm nepaliFont shortInput" name="wardNo"
                            placeholder=""
                            formControlName="wardNo"
                            type="text"/>
@@ -69,7 +69,7 @@
                            formControlName="tempMunicipalityOrVdc"
                            type="text"/>
                     गा.पा./न.पा. वडा नं.
-                    <input class="form-field form-control-sm nepaliFont" name="tempWardNo"
+                    <input class="form-field form-control-sm nepaliFont shortInput" name="tempWardNo"
                            placeholder=""
                            formControlName="tempWardNo"
                            type="text"/>
@@ -330,10 +330,24 @@
                 शुभम्.........................................................................।
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-12 text-right">
-                <button nbButton status="success">Save</button>
+                <button nbButton status="success" type="submit">Save</button>
             </div>
         </div>
     </form>
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.CALL_DEED_SHARE_LOAN}}"
+                    ngxPrint>
+                Print
+            </button>
+        </div>
+    </div>
 </div>
+
+<app-margin-call-deed-share-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                                       hidden></app-margin-call-deed-share-loan-print>
