@@ -1,74 +1,68 @@
 <div class="container text-justify">
     <!--div class="row">-->
-    <form [formGroup]="bankGuarantee" id="bankGuaranteePrint">
-        <div class="form-group align">
+    <form (ngSubmit)="onSubmit()" [formGroup]="bankGuarantee" id="bankGuaranteePrint">
+        <div class="form-group align mb-5">
             <div class="logo-container print-only">
                 <div>
-                    <input class="form-field form-control-sm disable-print" formControlName="field" type="text"/>
-                    <span class="print-only"><b>{{bankGuarantee.get('field').value ? bankGuarantee.get('field').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm" formControlName="field" type="text"/>
                     <br/>
-                    <input class="form-field form-control-sm disable-print" formControlName="field2" type="text"/>
-                    <span class="print-only"><b>{{bankGuarantee.get('field2').value ? bankGuarantee.get('field2').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm" formControlName="field2" type="text"/>
                     <br/>
-                    <input class="form-field form-control-sm disable-print" formControlName="field3" type="text"/>
-                    <span class="print-only"><b>{{bankGuarantee.get('field3').value ? bankGuarantee.get('field3').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm" formControlName="field3" type="text"/>
                 </div>
             </div>
-            <h6 class="text-center">
+            <h6 class="text-center mt-5 mb-4">
                 <p>
                     <strong>Our Reference Number: <u>ICFC/CR/B<input class="form-field form-control-sm disable-print" formControlName="refNo" type="text"/>
-                        <span class="print-only"><b>{{bankGuarantee.get('refNo').value ? bankGuarantee.get('refNo').value  : '========='}}</b></span>/GTEE /077/078/<input class="form-field form-control-sm disable-print" formControlName="refNo2" type="text"/>
-                        <span class="print-only"><b>{{bankGuarantee.get('refNo2').value ? bankGuarantee.get('refNo2').value  : '========='}}</b></span></u></strong>
+                       /GTEE /077/078/<input class="form-field form-control-sm disable-print" formControlName="refNo2" type="text"/>
+                       </u></strong>
                 </p>
             </h6>
-            <p>Sir/Madam,</p>
+
             <p>
                 WHEREAS, <strong>M/s.</strong> <input class="form-field form-control-sm disable-print" formControlName="name" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('name').value ? bankGuarantee.get('name').value  : '========='}}</b></span>, <strong>Ward no. 1, </strong><input class="form-field form-control-sm disable-print" formControlName="ward" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('ward').value ? bankGuarantee.get('ward').value  : '========='}}</b></span>, <strong>Nepal</strong> (Hereinafter called “the applicant”), has applied for purchase of Automobiles from you and whereas you require from the Applicant a Performance Bond for an amount of <strong>NPR </strong>
+                , <strong>Ward no. 1, </strong><input class="form-field form-control-sm disable-print" formControlName="ward" type="text"/>
+                , <strong>Nepal</strong> (Hereinafter called “the applicant”), has applied for purchase of Automobiles from you and whereas you require from the Applicant a Performance Bond for an amount of <strong>NPR </strong>
                 <input class="form-field form-control-sm disable-print" formControlName="amount" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('amount').value ? bankGuarantee.get('amount').value  : '========='}}</b></span> (Nepalese
-                <input class="form-field form-control-sm disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('amountInWords').value ? bankGuarantee.get('amountInWords').value  : '========='}}</b></span> Only), we <strong>ICFC Finance Ltd. (ICFC)</strong>, Banepa Office, Banepa (the Guarantor) hereby agree and covenant as follows.
+                 (Nepalese
+                <input class="form-field form-control-sm disable-print" formControlName="amountInWords" type="text" readonly/>
+                 Only), we <strong>ICFC Finance Ltd. (ICFC)</strong>, Banepa Office, Banepa (the Guarantor) hereby agree and covenant as follows.
             </p>
-            <p>
+            <p class="mt-4 mb-4">
                 In the event of the Applicant failing to perform their obligations under the Contract for any reason whatsoever, the Guarantor shall pay you without demur a sum or sums up to <strong>NPR </strong>
                 <input class="form-field form-control-sm disable-print" formControlName="amount2" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('amount2').value ? bankGuarantee.get('amount2').value  : '========='}}</b></span> (Nepalese <input class="form-field form-control-sm disable-print" formControlName="amountInWords2" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('amountInWords2').value ? bankGuarantee.get('amountInWords2').value  : '========='}}</b></span>
+                 (Nepalese <input class="form-field form-control-sm disable-print" formControlName="amountInWords2" type="text" readonly/>
                 Only) against your receipt for the sum claimed accompanied by your statement that the Applicant failed to comply with the Contract terms.
             </p>
-            <p>
+            <p class="mt-4 mb-4">
                 This Letter of Guarantee shall be valid from <input class="form-field form-control-sm disable-print" formControlName="startDate" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('startDate').value ? bankGuarantee.get('starDate').value  : '========='}}</b></span> and expires on <input class="form-field form-control-sm disable-print" formControlName="expiryDate" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('expiryDate').value ? bankGuarantee.get('expiryDate').value  : '========='}}</b></span>
+                 and expires on <input class="form-field form-control-sm disable-print" formControlName="expiryDate" type="text"/>
                 Notwithstanding anything contained herein above our liability under this guarantee is restricted to <strong>NPR </strong> <input class="form-field form-control-sm disable-print" formControlName="amount3" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('amount3').value ? bankGuarantee.get('amount3').value  : '========='}}</b></span>
-                (Nepalese <input class="form-field form-control-sm disable-print" formControlName="amountInWords3" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('amountInWords3').value ? bankGuarantee.get('amountInWords3').value  : '========='}}</b></span> Only).
+                (Nepalese <input class="form-field form-control-sm disable-print" formControlName="amountInWords3" type="text" readonly/>
+                Only).
             </p>
-            <p>
+            <p class="mt-4 mb-4">
                 Any claim under this guarantee must be received in writing by ICFC, <input class="form-field form-control-sm disable-print" formControlName="office" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('office').value ? bankGuarantee.get('office').value  : '========='}}</b></span> Branch Office,
+                Branch Office,
                 <input class="form-field form-control-sm disable-print" formControlName="branchAddress" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('branchAddress').value ? bankGuarantee.get('branchAddress').value  : '========='}}</b></span> directly along with the original of this guarantee within in banking hours on or before its
+                 directly along with the original of this guarantee within in banking hours on or before its
                 expiry date as mentioned above and if no such claim has been received by ICFC, <input class="form-field form-control-sm disable-print" formControlName="office2" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('office2').value ? bankGuarantee.get('office2').value  : '========='}}</b></span>  at
+                  at
                 that time and date, all your rights under this guarantee shall cease .
             </p>
-            <p>
+            <p class="mt-4 mb-4">
                 Retention of this guarantee does not confer any rights upon the Beneficiary beyond the expiry date as mentioned above.</p>
 
 
-               <p>In all communications, please state our Reference Number.</p>
+               <p class="mt-5 mb-5">In all communications, please state our Reference Number.</p>
 
-            <p>
-            <strong>Dated <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
-                <span class="print-only"><b>{{bankGuarantee.get('date').value ? bankGuarantee.get('date').value  : '========='}}</b></span></strong>
+            <p class="mb-lg-5">
+            <strong>Dated <input class="form-field form-control-sm disable-print" formControlName="date2" type="text"/>
+                </strong>
             </p>
 
             <br>
-            <div>
+            <div class="mt-5 mb-5">
             <div style="width: 50%;float:left">
                 <p>_______________________<br>
                     Authorized Signature<br>
