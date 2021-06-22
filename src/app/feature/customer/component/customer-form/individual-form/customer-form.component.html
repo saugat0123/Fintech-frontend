@@ -738,7 +738,7 @@
                        <div class="row" *ngIf="!microCustomer">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label><strong>Income Risk</strong></label>
+                                   <label><strong>Income Risk & Mitigation</strong></label>
                                    <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
                                              [config]="ckeConfig"
                                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors }"></ckeditor>
@@ -752,7 +752,7 @@
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
-                                   <label><strong>Security Risk</strong></label>
+                                   <label><strong>Security Risk & Mitigation</strong></label>
                                    <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"
                                              [config]="ckeConfig"
                                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.securityRisk.errors }"></ckeditor>
@@ -766,7 +766,7 @@
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
-                                   <label><strong>Succession Risk</strong></label>
+                                   <label><strong>Succession Risk & Mitigation</strong></label>
                                    <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"
                                              [config]="ckeConfig"
                                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.successionRisk.errors }"></ckeditor>

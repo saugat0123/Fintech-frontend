@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
-                            <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
+                            <label class="title" for="phoneNoOfContact">Mobile Number</label>
                             <input class="form-control"
                                    [ngClass]="{'is-invalid': (submitted) && form.phoneNoOfContact?.errors}"
                                    formControlName="phoneNoOfContact" id="phoneNoOfContact"
@@ -57,12 +57,12 @@
                         </div>
                         <div class="row col-md-12">
                             <div class="col-md-6 form-group">
-                                <label class="title" for="address1">Address Line 1</label>
+                                <label class="title" for="address1">Address Line 1 (optional)</label>
                                 <input class="form-control" formControlName="address1" id="address1" name="address1"
                                        placeholder="Address Line 1 (optional)" type="text">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label class="title" for="address2">Address Line 2</label>
+                                <label class="title" for="address2">Address Line 2 (optional)</label>
                                 <input class="form-control" formControlName="address2" id="address2" name="address2"
                                        placeholder="Address Line 2 (optional)" type="text">
                             </div>
@@ -131,7 +131,7 @@
                                 <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
                                        formControlName="ward"
                                        id="ward" name="ward"
-                                       placeholder="Ward" type="number">
+                                       placeholder="Ward Number" type="number">
                                 <div *ngIf="(submitted) && form.ward.invalid"
                                      class="invalid-feedback">
                                     <div *ngIf="form.ward.errors.required">
@@ -291,7 +291,7 @@
                             <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
                             <textarea class="form-control" formControlName="remarksForOtherFacility"
                                       id="remarksForOtherFacility" name="remarksForOtherFacility"
-                                      placeholder="Remarks"
+                                      placeholder="Remarks For 'No' Option"
                                       cols="3" type="text"></textarea>
                         </div>
                         <div class="row col-md-12" *ngIf="form.building?.value == 'YES'">
@@ -374,36 +374,37 @@
                                     <input class="form-control" formControlName="noOfStorey" id="noOfStorey"
                                            name="noOfStorey" placeholder="No. of Storey ">
                                 </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="title" for="roadSetbacks">Any road setbacks?</label>
-                                    <select class="custom-select" formControlName="roadSetbacks" id="roadSetbacks"
-                                            name="roadSetbacks">
-                                        <option [ngValue]="null" hidden>Select Yes/No</option>
-                                        <option value="YES">Yes</option>
-                                        <option value="NO">No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="title" for="riverOrCanalSetbacks">Any river/canal setbacks?</label>
-                                    <select class="custom-select" formControlName="riverOrCanalSetbacks"
-                                            id="riverOrCanalSetbacks"
-                                            name="riverOrCanalSetbacks">
-                                        <option [ngValue]="null" hidden>Select Yes/No</option>
-                                        <option value="YES">Yes</option>
-                                        <option value="NO">No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="title" for="highTensionSetbacks">Any High-tension setbacks?</label>
-                                    <select class="custom-select" formControlName="highTensionSetbacks"
-                                            id="highTensionSetbacks"
-                                            name="highTensionSetbacks">
-                                        <option [ngValue]="null" hidden>Select Yes/No</option>
-                                        <option value="YES">Yes</option>
-                                        <option value="NO">No</option>
-                                    </select>
-                                </div>
                             </div>
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="roadSetbacks">Any road setbacks?</label>
+                            <select class="custom-select" formControlName="roadSetbacks" id="roadSetbacks"
+                                    name="roadSetbacks">
+                                <option [ngValue]="null" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="riverOrCanalSetbacks">Any river/canal setbacks?</label>
+                            <select class="custom-select" formControlName="riverOrCanalSetbacks"
+                                    id="riverOrCanalSetbacks"
+                                    name="riverOrCanalSetbacks">
+                                <option [ngValue]="null" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="highTensionSetbacks">Any High-tension setbacks?</label>
+                            <select class="custom-select" formControlName="highTensionSetbacks"
+                                    id="highTensionSetbacks"
+                                    name="highTensionSetbacks">
+                                <option [ngValue]="null" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
                         </div>
 
                         <h5 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h5>
