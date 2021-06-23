@@ -6,7 +6,7 @@
         <th colspan="5">Credit Risk Grading (Gamma)</th>
     </tr>
     <tr class="sb-bg-dark text-white">
-        <th>S.N</th>
+        <th class="sn">S.N</th>
         <th>Question</th>
         <th>Answer</th>
         <th>Score</th>
@@ -16,16 +16,16 @@
     <tr *ngFor="let crgGammaData of crgGammaList; let i = index">
         <td class="text-center">{{ i+1 }}</td>
         <td class="text-left font-weight-bold pl-1">{{ crgGammaData?.question }}</td>
-        <td class="text-center font-weight-bold">{{ crgGammaData?.answer }}</td>
-        <td class="text-center font-weight-bold">{{ crgGammaData?.score }}</td>
+        <td class="text-left font-weight-bold pl-1">{{ crgGammaData?.answer }}</td>
+        <td class="text-right font-weight-bold pr-1">{{ crgGammaData?.score }}</td>
     </tr>
     <tr>
-        <td colspan="2" class="sb-bg-secondary text-white text-right pr-5"><strong>Total Score :</strong></td>
-        <td colspan="2" class="sb-bg-secondary text-white text-left pl-5"><strong>{{ crgGammaData?.totalPoint }}</strong></td>
+        <td colspan="3" class="sb-bg-secondary text-white text-left pl-1"><strong>Total Score :</strong></td>
+        <td colspan="1" class="sb-bg-secondary text-white text-right pr-1"><strong>{{ crgGammaData?.totalPoint }}</strong></td>
     </tr>
     <tr>
-        <td colspan="2" class="sb-bg-secondary text-white text-right pr-5"><strong>Grade :</strong></td>
-        <td colspan="2" class="sb-bg-secondary text-white text-left pl-5"><strong>{{ crgGammaData?.grade }}</strong></td>
+        <td colspan="3" class="sb-bg-secondary text-white text-left pl-1"><strong>Grade :</strong></td>
+        <td colspan="1" class="sb-bg-secondary text-white text-left pl-1"><strong>{{ crgGammaData?.grade }}</strong></td>
     </tr>
     </tbody>
 </table>

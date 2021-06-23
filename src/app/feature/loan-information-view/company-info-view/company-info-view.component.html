@@ -418,7 +418,7 @@
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th>Succession Risk</th>
+                <th>Succession Risk & Mitigation</th>
             </tr>
             <tr>
                 <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
@@ -430,7 +430,7 @@
             <tr class="text-white sb-bg-dark">
                 <th>Business Objective</th>
             </tr>
-            <tr class="text-left pl-1">{{companyJsonData?.businessObjective}}</tr>
+            <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
         </table>
 
         <table
@@ -456,55 +456,55 @@
                 <th>Market demand of product/service</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketDemandService']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Key Suppliers</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['keySupplier']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Key Buyers</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['KeyBuyers']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Competitors Overview</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['competitorsOverview']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Industry/Market Risk</th>
+                <th>Industry/Market Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['BusinessIndustryOutlook']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Marketing Strategies</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['marketingStrategies']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Business/Management Risk</th>
+                <th>Business/Management Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['technicalAspect']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Security Risk</th>
+                <th>Security Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['securityRisk']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Financial and Cash Flow Risk</th>
+                <th>Financial and Cash Flow Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.marketScenario['financialAndCashFlowRisk']}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
             </tr>
         </table>
         <table
@@ -522,7 +522,7 @@
                 <th>Legal review Remarks</th>
             </tr>
             <tr>
-                <td class="text-left pl-1">{{companyJsonData?.legalReviewRemark}}</td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.legalReviewRemark"></td>
             </tr>
         </table>
         <table *ngIf="!srdbAffiliatedId"
@@ -648,19 +648,19 @@
                 <th>Market Competition</th>
             </tr>
             <tr>
-                <td>{{businessAndIndustry?.regulatoryConcern}}</td>
-                <td>{{businessAndIndustry?.supplier}}</td>
-                <td>{{businessAndIndustry?.buyer}}</td>
-                <td>{{formValue?.industryGrowth}}</td>
-                <td>{{formValue?.marketCompetition}}</td>
+                <td class="text-left pl-1">{{businessAndIndustry?.regulatoryConcern}}</td>
+                <td class="text-left pl-1">{{businessAndIndustry?.supplier}}</td>
+                <td class="text-left pl-1">{{businessAndIndustry?.buyer}}</td>
+                <td class="text-left pl-1">{{formValue?.industryGrowth}}</td>
+                <td class="text-left pl-1">{{formValue?.marketCompetition}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Experience</th>
                 <th>Succession</th>
             </tr>
             <tr>
-                <td>{{formValue?.experience}}</td>
-                <td>{{formValue?.succession}}</td>
+                <td class="text-left pl-1">{{formValue?.experience}}</td>
+                <td class="text-left pl-1">{{formValue?.succession}}</td>
             </tr>
         </table>
     </div>
