@@ -91,6 +91,8 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
+import {CreditMemoModule} from "../credit-memo/credit-memo.module";
+
 
 @NgModule({
     declarations: [
@@ -186,7 +188,8 @@ import { RoleAddComponent } from './component/user/role-add/role-add.component';
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAP_API_KEY
     }),
-    NepaliCalendarModule
+    NepaliCalendarModule,
+      CreditMemoModule
   ],
 
     entryComponents: [
