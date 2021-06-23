@@ -16,7 +16,7 @@
         <th>Area Format</th>
         <th>Area</th>
         <th>Considered Value</th>
-        <th>Distress Value</th>
+        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         <th>Fair Market Value</th>
         <th>Collateral Owner Relationship</th>
       </tr>
@@ -196,7 +196,7 @@
         <thead>
         <tr class="text-white sb-bg-dark">
           <th></th>
-          <th>Distress Value</th>
+          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
@@ -326,7 +326,7 @@
           <th>Area Format</th>
           <th>Area</th>
           <th>Considered Value</th>
-          <th>Distress Value</th>
+          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <td></td>
@@ -603,7 +603,7 @@
       <tr class="text-white sb-bg-dark">
         <th>Apartment Total Cost</th>
         <th>Apartment Fair Market Value</th>
-        <th>Apartment Distress Value</th>
+        <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
@@ -760,7 +760,7 @@
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment Distress Value</th>
+          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -844,7 +844,7 @@
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment Distress Value</th>
+          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         </tr>
         <tr class="text-right">
           <td></td>
