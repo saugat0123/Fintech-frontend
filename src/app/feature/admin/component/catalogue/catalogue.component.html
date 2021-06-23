@@ -249,20 +249,19 @@
                     </select>
                 </td>
                 <ng-template #linkin>
-                    <td *ngIf="model.parentId">
-                        <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
-                           class="text-success cursor">{{loanType[model.loanType]}} From
-                            <em class="p-1 fa fa-edit"></em></a>
-                    </td>
-
-                    <td *ngIf="!model.parentId">
+                    <td>
                         <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                             <button nbButton status="warning" size="tiny"
                                     (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
                                     model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
                                 Re-initiate</button>
                         </div>
-                        <div *ngIf='!((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                        <div *ngIf="model.parentId">
+                            <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
+                               class="text-success cursor">{{loanType[model.loanType]}} From
+                                <em class="p-1 fa fa-edit"></em></a>
+                        </div>
+                        <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                             <p>NA</p>
                         </div>
                     </td>

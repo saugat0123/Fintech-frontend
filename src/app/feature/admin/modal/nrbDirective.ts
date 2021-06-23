@@ -3,7 +3,8 @@ export enum NrbDirective {
   WATCHLIST = 'watchlist',
   DOUBTFUL = 'Doubtful',
   SUBSTANDARD = 'Substandard',
-  BAD = 'Bad'
+  BAD = 'Bad',
+  NOT_APPLICABLE = 'Not Applicable'
 }
 
 
