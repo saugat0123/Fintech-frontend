@@ -13,6 +13,8 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
+import {Router} from '@angular/router';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 
 
 
@@ -28,19 +30,21 @@ export class BusinessLoanComponent implements OnInit {
   nepData;
   offerLetterDocument: OfferDocument;
   offerLetterConst = IcfcOfferLetterConst;
-  initialInfoPrint;
-  existingOfferLetter: boolean;
+  existingOfferLetter = false;
   spinner: boolean;
-  engToNepNumberPipe: EngToNepaliNumberPipe;
-  currencyFormatPipe: CurrencyFormatterPipe;
+  initialInfoPrint;
 
   constructor(private dialogRef: NbDialogRef<BusinessLoanComponent>,
               private formBuilder: FormBuilder,
-              private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private router: Router,
               private toastService: ToastService,
+              private routerUtilService: RouterUtilsService,
               private administrationService: CreditAdministrationService,
-              private routerUtilService: RouterUtilsService) { }
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe,
+              private nepToEngNumberPipe: NepaliToEngNumberPipe,
+              ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -55,25 +59,66 @@ export class BusinessLoanComponent implements OnInit {
 
   buildForm() {
     this.businessLoan = this.formBuilder.group({
-      address: [undefined],
-      district: [undefined],
-      year: [undefined],
-      month: [undefined],
-      day: [undefined],
       branch: [undefined],
       regNo: [undefined],
+      month: [undefined],
+      day: [undefined],
+      name: [undefined],
+      field: [undefined],
+      field2: [undefined],
+      subject: [undefined],
+      year: [undefined],
+      month2: [undefined],
+      day2: [undefined],
+      credit: [undefined],
+      annualRate: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      annualRate2: [undefined],
+      baseRate2: [undefined],
+      premiumRate2: [undefined],
+      annualRate3: [undefined],
+      baseRate3: [undefined],
+      premiumRate3: [undefined],
+      month3: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
+      years: [undefined],
+      serviceChargeRate: [undefined],
+      serviceCharge: [undefined],
+      creditInformationFee: [undefined],
+      creditCommitmentFeeRate: [undefined],
+      creditCommitmentFeeAnnualRate: [undefined],
+      biAnnualRate: [undefined],
+      twoToFiveRate: [undefined],
+      afterFiveRate: [undefined],
+      sawa: [undefined],
+      sawa2: [undefined],
       debtorName: [undefined],
       date: [undefined],
       guarantorName: [undefined],
-      field: [undefined],
-      field2: [undefined],
-      karja: [undefined],
-      rate: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      rate2: [undefined],
-      baseRate2: [undefined],
-      premiumRate2: [undefined],
+      assessor: [undefined],
+      evaluationDate: [undefined],
+      fmv: [undefined],
+      dv: [undefined],
+      name2: [undefined],
+      amount2: [undefined],
+      amountInWords2: [undefined],
+      from: [undefined],
+      amount3: [undefined],
+      amountInWords3: [undefined],
+      amount4: [undefined],
+      amountInWords4: [undefined],
+      amount5: [undefined],
+      amount6: [undefined],
+      address: [undefined],
+      district: [undefined],
+      year2: [undefined],
+      month4: [undefined],
+      day3: [undefined],
+      branch2: [undefined],
+      regNo2: [undefined],
+      date2: [undefined],
     });
   }
 
@@ -101,8 +146,6 @@ export class BusinessLoanComponent implements OnInit {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       this.initialInfoPrint = initialInfo;
       this.existingOfferLetter = true;
-      console.log('It is initial info', initialInfo);
-      // Codes of setting the businessLoan arrays:
       if (!ObjectUtil.isEmpty(initialInfo)) {}
       this.businessLoan.patchValue(this.initialInfoPrint);
     }
@@ -140,12 +183,12 @@ export class BusinessLoanComponent implements OnInit {
     });
   }
 
-  calcYearlyRate(formArrayName, i) {
-    const baseRate = this.nepToEngNumberPipe.transform(this.businessLoan.get([formArrayName, i, 'baseRate']).value);
-    const premiumRate = this.nepToEngNumberPipe.transform(this.businessLoan.get([formArrayName, i, 'premiumRate']).value);
+  calcYearlyRate(base, premium, annual) {
+    const baseRate = this.nepToEngNumberPipe.transform(this.businessLoan.get(base).value);
+    const premiumRate = this.nepToEngNumberPipe.transform(this.businessLoan.get(premium).value);
     const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
-    const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-    this.businessLoan.get([formArrayName, i, 'yearlyRate']).patchValue(asd);
+    const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+    this.businessLoan.get(annual).patchValue(finalValue);
   }
 
 }

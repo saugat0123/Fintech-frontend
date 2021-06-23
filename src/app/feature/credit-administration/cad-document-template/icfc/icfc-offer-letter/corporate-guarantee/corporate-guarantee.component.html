@@ -1,8 +1,8 @@
 <div class="container text-justify">
     <!--div class="row">-->
-    <form [formGroup]="corporateGuarantee" id="corporateGuaranteePrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="corporateGuarantee" id="corporateGuarantee">
         <div class="form-group align">
-            <div class="logo-container print-only">
+            <div class="logo-container">
                 <div>
                   <h1 class="text-center">CORPORATE GUARANTEE</h1>
                     ICFC Finance Limited<br/>
@@ -10,10 +10,10 @@
                 </div>
             </div>
             <br>
-            <p>In consideration of your making or continuing advances or otherwise giving or continuing credit or accommodation to <input class="form-field form-control-sm disable-print" formControlName="name" type="text"/>
-                <span class="print-only"><b>{{corporateGuarantee.get('name').value ? corporateGuarantee.get('name').value  : '========='}}</b></span> hereinafter called the Principal, I/we, jointly and severally guarantee to you due repayment, within two days after demand, or all monies which shall at any time to be due to you from the Principal, in any shape of form, together with interest charges cost etc. provided that the total amount recoverable from me/us, jointly and severally under this guarantee shall not at any time exceed the Principal sum of  NPR <input class="form-field form-control-sm disable-print" formControlName="amount" type="text"/>
-                <span class="print-only"><b>{{corporateGuarantee.get('amount').value ? corporateGuarantee.get('amount').value  : '========='}}</b></span> (Rupees <input class="form-field form-control-sm disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only"><b>{{corporateGuarantee.get('amountInWords').value ? corporateGuarantee.get('amountInWords').value  : '========='}}</b></span> only) exclusive of charges.
+            <p>In consideration of your making or continuing advances or otherwise giving or continuing credit or accommodation to <input class="form-field form-control-sm" formControlName="name" type="text"/>
+                 hereinafter called the Principal, I/we, jointly and severally guarantee to you due repayment, within two days after demand, or all monies which shall at any time to be due to you from the Principal, in any shape of form, together with interest charges cost etc. provided that the total amount recoverable from me/us, jointly and severally under this guarantee shall not at any time exceed the Principal sum of  NPR <input class="form-field form-control-sm" formControlName="amount" type="text"/>
+                 (Rupees <input readonly class="form-field form-control-sm" formControlName="amountInWords" type="text"/>
+                 only) exclusive of charges.
             </p>
             <p>And I/We, jointly, further agree as under:</p>
             <ol>
@@ -31,8 +31,8 @@
                 <li>Where the Principal purports to act on behalf of another person or Company, you shall not be bound to inquire into the powers of such Principal and all the moneys, borrowed by him will be covered by this guarantee notwithstanding any absence or insufficiency of or irregularity in the exercise of the powers.</li>
                 <li>Any notice, by way of demand, request or otherwise hereunder, may be given to me/us or any of us personally or may be left at the last known place of business of residence of may be sent to me/us or any of us by post addressed as aforesaid and if sent by post, it shall be deemed to have been duly given when it would reach me/us in due course of post, if for want of address or otherwise, the notice cannot be given by post and advertisement in a newspaper shall be deemed sufficient notice given on the day of the advertisement appears.</li>
             </ol>
-            <p>Dated this <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
-                <span class="print-only"><b>{{corporateGuarantee.get('date').value ? corporateGuarantee.get('date').value  : '========='}}</b></span></p>
+            <p>Dated this <input class="form-field form-control-sm" formControlName="date" type="text"/>
+                </p>
 <table style="margin-left: 100px">
     <tr>
         <td>Signature		</td>
@@ -40,23 +40,23 @@
     </tr>
     <tr>
         <td>Authorized Person      </td>
-        <td>: <input class="form-field form-control-sm disable-print" formControlName="authorizedPerson" type="text"/>
-            <span class="print-only"><b>{{corporateGuarantee.get('authorizedPerson').value ? corporateGuarantee.get('authorizedPerson').value  : '========='}}</b></span></td>
+        <td>: <input class="form-field form-control-sm" formControlName="authorizedPerson" type="text"/>
+            </td>
     </tr>
     <tr>
         <td>Name of Guarantor 	</td>
-        <td>: <input class="form-field form-control-sm disable-print" formControlName="guarantorName" type="text"/>
-            <span class="print-only"><b>{{corporateGuarantee.get('guarantorName').value ? corporateGuarantee.get('guarantorName').value  : '========='}}</b></span></td>
+        <td>: <input class="form-field form-control-sm" formControlName="guarantorName" type="text"/>
+            </td>
     </tr>
     <tr>
         <td>Address 		</td>
-        <td>: <input class="form-field form-control-sm disable-print" formControlName="address" type="text"/>
-            <span class="print-only"><b>{{corporateGuarantee.get('address').value ? corporateGuarantee.get('address').value  : '========='}}</b></span></td>
+        <td>: <input class="form-field form-control-sm" formControlName="address" type="text"/>
+            </td>
     </tr>
     <tr>
         <td> Tel. No			</td>
-        <td>: <input class="form-field form-control-sm disable-print" formControlName="telNo" type="text"/>
-            <span class="print-only"><b>{{corporateGuarantee.get('telNo').value ? corporateGuarantee.get('telNo').value  : '========='}}</b></span></td>
+        <td>: <input class="form-field form-control-sm" formControlName="telNo" type="text"/>
+            </td>
     </tr>
     <tr>
         <td>Office Seal		</td>
@@ -65,10 +65,8 @@
 </table>
             <br>
         </div>
-        <div class="row disable-print">
+        <div class="row">
             <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="corporateGuaranteePrint" class="mr-2" status="basic">Save & Print</button>
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="corporateGuaranteePrint" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success">Save</button>
 
 

@@ -106,19 +106,18 @@ export class BankGuaranteeComponent implements OnInit {
       refNo2: [undefined],
       name: [undefined],
       ward: [undefined],
-      date: [undefined],
-      date2: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
       amount2: [undefined],
       amountInWords2: [undefined],
-      amount3: [undefined],
-      amountInWords3: [undefined],
       startDate: [undefined],
       expiryDate: [undefined],
+      amount3: [undefined],
+      amountInWords3: [undefined],
       office: [undefined],
       branchAddress: [undefined],
-      office2: [undefined]
+      office2: [undefined],
+      date: [undefined]
     });
   }
 }

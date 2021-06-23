@@ -1,8 +1,8 @@
 <div class="container text-justify">
     <!--div class="row">-->
-    <form (ngSubmit)="onSubmit()" [formGroup]="acDebitAndLoanDisbursementAuthority" id="acDebitAndLoanDisbursementAuthorityPrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="acDebitAndLoanDisbursementAuthority" id="acDebitAndLoanDisbursementAuthority">
         <div class="form-group align">
-            <div class="logo-container print-only">
+            <div class="logo-container">
                 <div>
                     <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
                         </p>
@@ -19,12 +19,12 @@
             </h6>
             <p>Sir/Madam,</p>
             <p>
-                Please kindly make loan disbursement of NPR <input class="form-field form-control-sm" formControlName="amount" type="text"/>
+                Please kindly make loan disbursement of NPR <input class="form-field form-control-sm" formControlName="amount" type="number"/>
                 (Nepalese Rupees <input class="form-field form-control-sm" formControlName="amount2" type="text" readonly/>
                  & 00/100) from my sanctioned loan
                 <input class="form-field form-control-sm" formControlName="loan" type="text"/>
                  loan amount NPR
-                <input class="form-field form-control-sm" formControlName="loanAmount" type="text"/>
+                <input class="form-field form-control-sm" formControlName="loanAmount" type="number"/>
                  (Nepalese Rupees
                 <input class="form-field form-control-sm" formControlName="loanAmount2" type="text" readonly/>
                  & 00/100) in to my/our nominee account (A/C No.
@@ -69,8 +69,6 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="acDebitAndLoanDisbursementAuthorityPrint" class="mr-2" status="basic">Save & Print</button>
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="acDebitAndLoanDisbursementAuthorityPrint" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success">Save</button>
             </div>
         </div>
