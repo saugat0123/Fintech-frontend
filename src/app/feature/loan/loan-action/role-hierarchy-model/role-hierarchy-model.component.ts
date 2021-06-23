@@ -88,12 +88,13 @@ export class RoleHierarchyModelComponent implements OnInit {
             documentStatus: [this.documentStatus],
         });
     }
+
     // get all roll based on set hierarchy
     private getRoleData(): void {
         this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId).subscribe((response: any) => {
-                this.transferRoleList = [];
-                this.transferRoleList = response.detail;
-            });
+            this.transferRoleList = [];
+            this.transferRoleList = response.detail;
+        });
     }
 
     // get user list based on role
@@ -108,7 +109,7 @@ export class RoleHierarchyModelComponent implements OnInit {
                 // check for empty user
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
-                } else if (this.userList.length === 1) {
+                } else {
                     // fetch user internally
                     this.form.patchValue({
                         toUser: this.userList[0]
@@ -117,10 +118,10 @@ export class RoleHierarchyModelComponent implements OnInit {
             });
         });
     }
-    
+
     // get selected user username
     getSelectedUser(toUser) {
-        // set selected user
+        //   set selected user
         this.selectedUsername = toUser.username;
     }
 

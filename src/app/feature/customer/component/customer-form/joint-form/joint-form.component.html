@@ -976,42 +976,42 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><strong>Income Risk</strong></label>
+                            <label><strong>Income Risk & Mitigation</strong></label>
                             <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('incomeRisk').errors }"
                                       id="incomeRisk" formControlName="incomeRisk"
                                       [config]="ckeConfig"></ckeditor>
                             <div *ngIf="(submitted) && basicJointInfo.get('incomeRisk').invalid"
                                  class="help-block">
                                                         <span *ngIf="basicJointInfo.get('incomeRisk').errors.required">
-                                                          <span class="text-danger">Income risk is required</span>
+                                                          <span class="text-danger">Income risk & Mitigation is required</span>
                                                         </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><strong>Security Risk</strong></label>
+                            <label><strong>Security Risk & Mitigation</strong></label>
                             <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('securityRisk').errors }"
                                       id="securityRisk" formControlName="securityRisk"
                                       [config]="ckeConfig"></ckeditor>
                             <div *ngIf="(submitted) && basicJointInfo.get('securityRisk').invalid"
                                  class="help-block">
                                                         <span *ngIf="basicJointInfo.get('securityRisk').errors.required">
-                                                          <span class="text-danger">Security risk is required</span>
+                                                          <span class="text-danger">Security risk & Mitigation is required</span>
                                                         </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><strong>Succession Risk</strong></label>
+                            <label><strong>Succession Risk & Mitigation</strong></label>
                             <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('successionRisk').errors }"
                                       id="successionRisk" formControlName="successionRisk"
                                       [config]="ckeConfig"></ckeditor>
                             <div *ngIf="(submitted) && basicJointInfo.get('successionRisk').invalid"
                                  class="help-block">
                                                         <span *ngIf="basicJointInfo.get('successionRisk').errors.required">
-                                                          <span class="text-danger">Succession risk is required</span>
+                                                          <span class="text-danger">Succession risk & Mitigation is required</span>
                                                         </span>
                             </div>
                         </div>

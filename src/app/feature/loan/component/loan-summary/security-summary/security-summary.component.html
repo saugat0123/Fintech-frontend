@@ -137,7 +137,7 @@
                                 <th>Address</th>
                                 <ng-container *ngIf="client === clientName.MEGA">
                                     <th>Ownership Transfer Date(AD/BS)</th>
-                                    <th>Ownership Transfer Through</th>
+                                    <th class="text-left pl-1">Ownership Transfer Through</th>
                                     <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
                                     <th *ngIf="landDetails?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
                                     <th *ngIf="landDetails?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
@@ -179,7 +179,6 @@
                           <td></td>
                       </tr>
                       <tr class="sb-bg-secondary text-white">
-                          <th></th>
                           <th>ReValuation Date(AD/BS)</th>
                           <th colspan="1">Valuator name</th>
                           <th colspan="1">ReValuation Fmv</th>
@@ -190,7 +189,6 @@
                           <th colspan="1">Change in Considered Value</th>
                       </tr>
                       <tr>
-                          <td></td>
                           <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate | date}} ({{landDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
                           <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
@@ -306,7 +304,7 @@
                         <th>Address as per Legal Document</th>
                         <ng-container *ngIf="client === clientName.MEGA">
                             <th>Ownership Transfer Date(AD/BS)</th>
-                            <th>Ownership Transfer Through</th>
+                            <th class="text-left pl-1">Ownership Transfer Through</th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
@@ -462,7 +460,7 @@
                         </tr>
                         <tr>
                             <td class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate | date}} ({{buildingDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-                            <td colspan="1" class="text-left pl-1">Rs. {{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
@@ -823,17 +821,19 @@
         </div>
         <div *ngIf="isCollateralSiteVisit" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
-            <ng-container *ngFor="let collateralDetail of collateralSiteVisitDetail; let j = index">
+            <ng-container>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security</th>
                         <th>Site Visit Date(AD/BS)</th>
+                        <th>Comments about FAC</th>
                     </tr>
-                    <tr *ngFor="let siteVisit of collateralDetail; let k = index">
+                    <tr *ngFor="let siteVisit of siteVisitJson; let k = index">
                         <td>{{k+1}}</td>
-                        <td>{{siteVisit?.securityName.slice(0, -2)}}</td>
-                        <td>{{siteVisit?.siteVisitDate| date}} ({{siteVisit?.siteVisitDate| engNepDate: false}})</td>
+                        <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+                        <td class="text-left pl-1">{{siteVisit?.date| date}} ({{siteVisit?.date| engNepDate: false}})</td>
+                        <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
                     </tr>
                 </table>
             </ng-container>

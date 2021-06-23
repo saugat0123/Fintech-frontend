@@ -35,9 +35,10 @@
 
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                                [shareSecurityData]="loanHolder?.shareSecurity" [securityId]="securityId"></app-security-view>
-            <app-financial-view *ngIf="loanHolder?.financial"
+            <app-financial-view *ngIf="loanHolder?.microOtherParameters"
                                 [customerType]="loanHolder?.customerType"
-                                [formData]="loanHolder?.financial"></app-financial-view>
+                                [microCustomer]= "loanDataHolder?.customerInfo?.isMicroCustomer"
+                                [microFormData]="loanHolder?.microOtherParameters"></app-financial-view>
             <app-crg-gamma-detail-view
                     *ngIf="loanDataHolder?.crgGamma"
                     [formData]="loanDataHolder?.crgGamma">

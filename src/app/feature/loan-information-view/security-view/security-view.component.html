@@ -16,7 +16,7 @@
         <th>Area Format</th>
         <th>Area</th>
         <th>Considered Value</th>
-        <th>Distress Value</th>
+        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         <th>Fair Market Value</th>
         <th>Collateral Owner Relationship</th>
       </tr>
@@ -86,7 +86,7 @@
         <th colspan="2">Type of Property</th>
         <th colspan="2">Address as per Legal Document</th>
         <th>Ownership transfer date(AD/BS)</th>
-        <th> Ownership transfer Through</th>
+        <th class="text-left pl-1">Ownership transfer Through</th>
         <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
@@ -101,7 +101,7 @@
         <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
         <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
         <td class="text-left pl-1">{{landDetails?.ownershipTransferDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
-        <td>{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
+        <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landDetails?.familyTransferOwnershipTransfer}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landDetails?.giftOwnershipTransfer}}</td>
@@ -196,7 +196,7 @@
         <thead>
         <tr class="text-white sb-bg-dark">
           <th></th>
-          <th>Distress Value</th>
+          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
@@ -278,7 +278,7 @@
         <tr>
           <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
           <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
-          <td>{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
+          <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landBuilding?.giftOwnershipTransfer}}</td>
@@ -326,7 +326,7 @@
           <th>Area Format</th>
           <th>Area</th>
           <th>Considered Value</th>
-          <th>Distress Value</th>
+          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <td></td>
@@ -603,7 +603,7 @@
       <tr class="text-white sb-bg-dark">
         <th>Apartment Total Cost</th>
         <th>Apartment Fair Market Value</th>
-        <th>Apartment Distress Value</th>
+        <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
@@ -760,7 +760,7 @@
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment Distress Value</th>
+          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -844,7 +844,7 @@
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment Distress Value</th>
+          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -1333,9 +1333,9 @@
         <td class="text-left pl-1">{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.roadSetbacks === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.roadSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
       </tr>
       </tbody>
     </table>
@@ -1344,14 +1344,16 @@
         <tr class="text-white sb-bg-dark">
           <th colspan="1">S.N</th>
           <th colspan="2">Security</th>
-          <th colspan="7">Remarks For 'NO' Option</th>
+          <th colspan="4">Remarks For 'NO' Option</th>
+          <th colspan="3">Comments about FAC</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
           <td colspan="1">{{i+1}}</td>
           <td class="text-left pl-1" colspan="2">{{siteVisit?.securityName.slice(0, -2)}}</td>
-          <td class="text-left pl-1" colspan="7">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
+          <td class="text-left pl-1" colspan="4">{{siteVisit?.remarksForOtherFacility || 'NA'}}</td>
+          <td class="text-left pl-1" colspan="3">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
         </tr>
       </tbody>
     </table>
@@ -1407,5 +1409,29 @@
       </ng-container>
       </tbody>
     </table>
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="6">Location Details</th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th class="sn">S.N</th>
+        <th>Security</th>
+        <th>Longitude</th>
+        <th>Latitude</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <tr>
+          <td>{{i+1}}</td>
+          <td class="text-right pr-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+          <td class="text-right pr-1">{{siteVisit?.fixedAssetsLongitude || 'NA'}}</td>
+          <td class="text-right pr-1">{{siteVisit.fixedAssetsLatitude || 'NA'}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+
   </div>
 </div>

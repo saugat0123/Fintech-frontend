@@ -1,0 +1,427 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.CALL_DEED_SHARE_LOAN_COMPANY}}">
+    <form (ngSubmit)="submit()" [formGroup]="shareLoanCompany" id="shareLoanCompany">
+        <div class="row" id="heading">
+            <div class="col-md-12 text-center">
+                <h5>आइ.सि.एफ.सि. फाइनान्स लिमिटेड, भाटभटेनी, काठमाण्डौ</h5>
+                <h5>(आइ.सि.एफ.सि.)</h5>
+                <h5>बैंक तथा वित्तिय संस्था सम्बन्धी ऐन, २०७३ द्वारा स्थापित </h5>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p>
+                    आइ.सि.एफ.सि. फाइनान्स लिमिटेडसँग शेयर कर्जा अन्र्तगत
+                    रु <input class="form-field form-control-sm nepaliFont" name="shareLoan" placeholder=""
+                              formControlName="shareLoan"
+                              (change)="convertAmountInWords('shareLoan', 'shareLoanWords')"
+                             type="text"/>
+                    /–
+                    (अक्षरुपी
+                    <input class="form-field form-control-sm nepaliFont longInput" name="shareLoanWords" placeholder=""
+                           formControlName="shareLoanWords"
+                           type="text"/>
+                    मात्र)
+                    लिई सो ऋण कर्जाको ब्याज, सेवा शुल्क र थप दस्तुर समेत बुझाउन ऋणीका नाम नेपाल सरकार,
+                    <input class="form-field form-control-sm nepaliFont" name="governmentOfficeName" placeholder=""
+                           formControlName="governmentOfficeName"
+                           type="text"/>
+                    मन्त्रालय, <input class="form-field form-control-sm nepaliFont" name="governmentOfficeAddress" placeholder=""
+                                      formControlName="governmentOfficeAddress"
+                                      type="text"/>
+                    को
+                    कार्यालय/विभागमा दर्ता नं.
+                    <input class="form-field form-control-sm nepaliFont" name="registrationNo" placeholder=""
+                           formControlName="registrationNo"
+                           type="text"/>
+                    रहि मिति <input class="form-field form-control-sm nepaliFont" name="registeredDate"
+                                    placeholder="............../......../........"
+                                    formControlName="registeredDate"
+                                    type="text"/>
+                     मा दर्ता भई
+                    <input class="form-field form-control-sm nepaliFont" name="province"
+                           placeholder=""
+                           formControlName="province"
+                           type="text"/>
+                    प्रदेश
+                    <input class="form-field form-control-sm nepaliFont" name="zoneName"
+                                  placeholder=""
+                                  formControlName="zoneName"
+                                  type="text"/>
+                    अञ्चल,
+                    <input class="form-field form-control-sm nepaliFont" name="districtName"
+                                  placeholder=""
+                                  formControlName="districtName"
+                                  type="text"/>
+                    जिल्ला
+                    <input class="form-field form-control-sm nepaliFont" name="municipalityOrVdc"
+                           placeholder=""
+                           formControlName="municipalityOrVdc"
+                           type="text"/>
+                    गा.पा./न.पा. वडा नं.
+                    <input class="form-field form-control-sm nepaliFont shortInput" name="wardNo"
+                           placeholder=""
+                           formControlName="wardNo"
+                           type="text"/>
+                    मा रजिष्टर्ड कार्यालय रहेको पान नं.
+                    <input class="form-field form-control-sm nepaliFont" name="panNo"
+                           placeholder=""
+                           formControlName="panNo"
+                           type="text"/>
+                    भएको श्री
+                    <input class="form-field form-control-sm nepaliFont" name="orgOwnerName"
+                           placeholder=""
+                           formControlName="orgOwnerName"
+                           type="text"/>
+                    को
+                    तर्फबाट <b>अख्तियार प्राप्त आधिकारिक व्यक्ति</b>
+                    श्री
+                    <input class="form-field form-control-sm nepaliFont" name="grandfatherName"
+                           placeholder=""
+                           formControlName="grandfatherName"
+                           type="text"/>
+                    को नाति/नातिनी/बुहारी, श्री
+                    <input class="form-field form-control-sm nepaliFont" name="fatherName"
+                           placeholder=""
+                           formControlName="fatherName"
+                           type="text"/>
+                    को छोरा/छोरी/पत्नी
+                    <input class="form-field form-control-sm nepaliFont" name="borrowerProvince"
+                           placeholder=""
+                           formControlName="borrowerProvince"
+                           type="text"/>
+                    प्रदेश
+                    <input class="form-field form-control-sm nepaliFont" name="borrowerZone"
+                           placeholder=""
+                           formControlName="borrowerZone"
+                           type="text"/>
+                    अञ्चल,
+                    <input class="form-field form-control-sm nepaliFont" name="borrowerDistrict"
+                           placeholder=""
+                           formControlName="borrowerDistrict"
+                           type="text"/>
+                    जिल्ला,
+                    <input class="form-field form-control-sm nepaliFont" name="borrowerVdcOrMunicipality"
+                           placeholder=""
+                           formControlName="borrowerVdcOrMunicipality"
+                           type="text"/>
+                    गा.पा./न.पा. वडा नं.
+                    <input class="form-field form-control-sm nepaliFont shortInput" name="borrowerWardNo"
+                           placeholder=""
+                           formControlName="borrowerWardNo"
+                           type="text"/>
+                    को हाल
+                    <input class="form-field form-control-sm nepaliFont" name="tempProvince"
+                           placeholder=""
+                           formControlName="tempProvince"
+                           type="text"/>
+                    प्रदेश
+                    <input class="form-field form-control-sm nepaliFont" name="tempZone"
+                                  placeholder=""
+                                  formControlName="tempZone"
+                                  type="text"/>
+                    अञ्चल,
+                    <input class="form-field form-control-sm nepaliFont" name="tempDistrict"
+                                  placeholder=""
+                                  formControlName="tempDistrict"
+                                  type="text"/>
+                    जिल्ला,
+                    <input class="form-field form-control-sm nepaliFont" name="tempMunicipalityOrVdc"
+                           placeholder=""
+                           formControlName="tempMunicipalityOrVdc"
+                           type="text"/>
+                    गा.पा./न.पा. वडा नं.
+                    <input class="form-field form-control-sm nepaliFont shortInput" name="tempWardNo"
+                           placeholder=""
+                           formControlName="tempWardNo"
+                           type="text"/>
+                    बस्ने बर्ष
+                    <input class="form-field form-control-sm nepaliFont" name="borrowerAge"
+                                      placeholder=""
+                                      formControlName="borrowerAge"
+                                      type="text"/>
+                    को/की श्री
+                    <input class="form-field form-control-sm nepaliFont" name="borrowerName"
+                                      placeholder=""
+                                      formControlName="borrowerName"
+                                      type="text"/>
+                    (जसलाई यसपछी ऋणी भनीएको छ))
+                    ले प्रस्ताव राखेको र ऋणीले राखेको प्रस्ताव माग बमोजिम ऋण कर्जा दिने भई दुवै पक्षको मन्जुरीले तपसिल बमोजिमको शर्तहरुमा काम गर्न
+                    आइ.सि.एफ.सि.को कार्यालयमा बसी यो करार सहिछाप गरी एक–एक प्रति लियौं/दियौं ।
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12 pb-2">
+                <h6 class="text-center">तपसिल</h6>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-borderless">
+                    <tbody>
+                    <tr>
+                        <td>१.</td>
+                        <td>
+                            आइ.सि.एफ.सि. फाइनान्सले ऋणीलाई यो सम्झौता भएको मितिमा स्वीकृत ऋण रु.
+                            <input class="form-field form-control-sm nepaliFont" name="loanAmount"
+                                   (change)="convertAmountInWords('loanAmount', 'loanAmountInWord')"
+                                   formControlName="loanAmount"
+                                   type="text"/>
+                            /–
+                            (अक्षरुपी
+                            <input class="form-field form-control-sm nepaliFont longInput" name="loanAmountInWord"
+                                   placeholder=""
+                                   formControlName="loanAmountInWord"
+                                   type="text"/>
+                            मात्र) सम्म ऋण कर्जा  दिइनेछ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            २.
+                        </td>
+                        <td>
+                            यस कर्जामा कर्जा रकम लिएको मिति देखि बक्यौता रकम (Outstanding Balance) को आधारमा वार्षिक
+                            <input class="form-field form-control-sm nepaliFont shortInput" name="interestRate"
+                                   placeholder=""
+                                   formControlName="interestRate"
+                                   type="text"/>
+                            % प्रतिशतका दरले
+                            <input class="form-field form-control-sm nepaliFont" name="interestAmount"
+                                   placeholder=""
+                                   formControlName="interestAmount"
+                                   type="text"/>
+                            ब्याज तिर्न बुझाउन मञ्जुर गर्दछ । साथै, ब्याजदर परिवर्तन भएमा सोहि परिवर्तित ब्याजदरले हुने ब्याज रकम तिर्न बुझाउन मञ्जुर गर्दछ ।
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ३.
+                        </td>
+                        <td>
+                            यस कर्जाको पहिलो भुक्तानी लिने रकममा स्वीकृत ऋण रकमको
+                            <input class="form-field form-control-sm nepaliFont shortInput" name="serviceRate"
+                                   placeholder=""
+                                   formControlName="serviceRate"
+                                   type="text"/>
+                            % प्रतिशतले सेवा शुल्क तिर्न बुझाउन ऋणी मन्जुर गर्दछ ।
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ४.
+                        </td>
+                        <td>
+                            यस कर्जाको भुक्तानी अवधि
+                            <input class="form-field form-control-sm nepaliFont shortInput" name="repaymentPeriod"
+                                   placeholder=""
+                                   formControlName="repaymentPeriod"
+                                   type="text"/>
+                            महिना/वर्ष को हुनेछ र उपरोक्त समयावधि पश्चात् सम्पूर्ण कर्जा रकम चुक्ता गर्नुपर्नेछ ।
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ५.
+                        </td>
+                        <td>
+                            धितोमा रहेको शेयरको बजार मूल्य वा
+                            <input class="form-field form-control-sm nepaliFont" name="duration"
+                                   placeholder=""
+                                   formControlName="duration"
+                                   type="text"/>
+                            दिनको औसत मूल्य भन्दा जुन कम हुन्छ सो मूल्य कर्जा Outstanding Balance
+                            को <input class="form-field form-control-sm nepaliFont shortInput" name="loanValueRate"
+                                      placeholder=""
+                                      formControlName="loanValueRate"
+                                      type="text"/>
+                            % भन्दा नबढ्ने गरि मात्र आइ.सि.एफ.सि.ले कर्जा प्रवाह गर्नेछ । बजारको अवस्था हेरी धितोमा रहेको शेयरको मूल्य घट्न गई
+                            आइ.सि.एफ.सि.बाट कर्जा प्रवाह गरिएको रकम
+                            <input class="form-field form-control-sm nepaliFont shortInput" name="debtFlowRate"
+                                   placeholder=""
+                                   formControlName="debtFlowRate"
+                                   type="text"/>
+                            % भन्दा बढ्न गएमा वा कर्जा प्रवाह गरिएको रकम असूल उपर नहुने देखिएमा ऋणीसँग
+                            आइ.सि.एफ.सि.ले थप धितो सुरक्षणको लागि वा सम्पूर्ण कर्जा रकम चुक्ता भुक्तानीको लागि सूचना दिइने छ । यदि तोकिएको समयभित्र थप धितो प्राप्त
+                            नभएमा वा कर्जा चुक्ता गर्न नसकेमा  धितोमा रहेको शेयर तोकिएको ऋण समयावधि अगावै बिक्री गरी आइ.सि.एफ.सि.ले आफ्नो लेना असूल उपर गर्न
+                            सक्नेछ ।
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            ६.
+                        </td>
+                       <td>
+                           स्वीकृत ऋणको आइ.सि.एफ.सि.लाई बुझाउनु पर्ने साँवा, ब्याज, ऋण भाषा भित्र नबुझाएमा कम्पनीको नियमानुसार जरिवाना तथा थप दस्तुर लाग्नेछ ।
+
+                       </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ७.
+                        </td>
+                        <td>
+                            आइ.सि.एफ.सि.को साँवा, ब्याज तथा अन्य लेना रकम चुक्ता भुक्तान नभएसम्म उक्त ऋणको लागि धितो स्वरुप ऋणीको नाममा रहेको बैंकहरुको
+                            शेयरबाट प्राप्त हुने लाभांश, बोनस शेयर, हकप्रद शेयर आदिको स्वामित्व आइ.सि.एफ.सि.मा निहित रहने छ ।
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ८.
+                        </td>
+                        <td>
+                            ऋणीले भाषा भित्र आइ.सि.एफ.सि.लाई बुझाउनु पर्ने साँवा, ब्याज तथा अन्य थप दस्तुर नबुझाएमा धितो स्वरुप रहेको शेयर आइ.सि.एफ.सि.ले
+                            कुनै पनि समयमा बिक्रि गरी वा अन्य कुनै उपाय गरी आइ.सि.एफ.सि.को सम्पूर्ण लेना असूल उपर गर्न सक्नेछ ।
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ९.
+                        </td>
+                       <td>
+                           यसरी असूल उपर गर्दा लाग्ने सम्पूर्ण खर्च ऋणीले व्यहोर्न मञ्जुर गर्दछ ।
+
+                       </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            १०.
+                        </td>
+                        <td>
+                            धितो स्वरुप राखेको शेयरबाट आइ.सि.एफ.सि. फाइनान्सको सम्पूर्ण लेना असूल उपर नभएमा ऋणीको अन्य जायजेथा समेतबाट लेना रकम असूल
+                            उपर गर्न सकिनेछ ।
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ११.
+                        </td>
+                        <td>
+                            यदि ऋणीले उपरोक्त शर्तहरु बमोजिम तिर्नुपर्ने रकम समयमानै तिर्न बुझाउन सकेन भने ऋणीलाई नेपाल राष्ट्र बैंकद्वारा बैंक तथा वित्तीय संस्थाहरुलाई
+                            जारी गरीएको एकिकृत निर्देशनको कर्जा सूचना तथा कालोसूची सम्बन्धी व्यवस्थाको नम्बर १० मा भएको कालोसूची सम्बन्धि व्यवस्था तथा उल्लेखित तपसिलका
+                            अवस्थाका आधारमा समेत धनी कम्पनीले कर्जा सूचना केन्द्रको कालोसूचीमा समावेश गरि ऋणीको सम्पूर्ण चल अचल श्रीसम्पत्ती लिलाम बिक्री वा अन्य व्यवस्था
+                            गरि ऋणीले तिर्नुपर्ने सम्पूर्ण रकम असूल उपर गरि लिएमा ऋणीको पूर्ण मञ्जुरी छ । पछि ऋणीले उक्त ऋणको सम्पूर्ण रकम तिर्नु बुझाउनु पर्ने होइन भनि
+                            तथा ऋणीलाई कालोसूचीमा समावेश गर्न मिल्ने होइन भनि कहिं कतै उजूर वाजुर तथा खर खिचलो गर्ने छैन गरेमा यसै लिखतलाई आधार मानी ऋणीको उजुर
+                            खारेज होस् भनि ऋणीको मनोमान खुसीराजीका साथ किनारका साक्षीहरुको रोहवरमा तपाई धनी फाइनान्सको कार्यालयमा बसी यो लिखत लेखी सहिछाप गरी
+                            तपाई धनी फाइनान्सलाई दियाँ र यसको दोहरी प्रति समेत बुझिलिएँ ।
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            १२.
+                        </td>
+                        <td>
+                            यो करार मिति
+                            <input class="form-field form-control-sm nepaliFont" name="singedYear"
+                                   placeholder="२०........."
+                                   formControlName="singedYear"
+                                   type="text"/>
+                            साल
+                            <input class="form-field form-control-sm nepaliFont shortInput" name="signedMonth"
+                                   placeholder=""
+                                   formControlName="signedMonth"
+                                   type="text"/>
+                            महिना
+                            <input class="form-field form-control-sm nepaliFont shortInput" name="singedDate"
+                                   placeholder=""
+                                   formControlName="singedDate"
+                                   type="text"/>
+                            गते
+                            रोज
+                            <input class="form-field form-control-sm nepaliFont" name="singedDay"
+                                   placeholder=""
+                                   formControlName="singedDay"
+                                   type="text"/>
+                            सँग सम्बन्धित भई सहिछाप भयो ।
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-lg-5 justify-content-center">
+            <div class="col-md-10">
+                दस्तखतः _______________________
+            </div>
+            <div class="col-md-10 d-flex justify-content-between">
+                <div class="signature table-responsive">
+                    <table class="table table-bordered text-center signatureTable">
+                        <thead>
+                        <tr>
+                            <th>दायाँ</th>
+                            <th>बायाँ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="headSignature pt-5">
+                    <div class="col-md-10 pt-5">
+                        ...................................................
+                        <p class="text-center">
+                            आइ.सि.एफ.सि.को तर्फबाट
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                ईति सम्वत्
+                <input class="form-field form-control-sm nepaliFont" name="docWrittenYear"
+                       placeholder="२०..........."
+                       formControlName="docWrittenYear"
+                       type="text"/>
+                 साल
+                <input class="form-field form-control-sm nepaliFont shortInput" name="docWrittenMonth"
+                       placeholder="२"
+                       formControlName="docWrittenMonth"
+                       type="text"/>
+                 महिना
+                <input class="form-field form-control-sm nepaliFont shortInput" name="docWrittenDate"
+                       placeholder="२"
+                       formControlName="docWrittenDate"
+                       type="text"/>
+                गते
+                रोज
+                <input class="form-field form-control-sm nepaliFont" name="docWrittenDay"
+                       placeholder=""
+                       formControlName="docWrittenDay"
+                       type="text"/>
+                शुभम्.........................................................................।
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success">Save</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.CALL_DEED_SHARE_LOAN_COMPANY}}"
+                    ngxPrint>
+                Print
+            </button>
+        </div>
+    </div>
+</div>
+
+<app-margin-call-deed-share-company-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-margin-call-deed-share-company-print>
