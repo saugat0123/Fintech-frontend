@@ -1436,7 +1436,7 @@
     <hr/>
     <div class="container">
       <div class="row">
-      <div class="col" *ngFor="let doc of siteVisitDocuments;">
+      <div class="col-md-4" *ngFor="let doc of siteVisitDocuments;">
         <img *ngIf="doc?.isPrintable === isPrintable"
              [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)"
              class="figure-img img-fluid rounded img-medium"
