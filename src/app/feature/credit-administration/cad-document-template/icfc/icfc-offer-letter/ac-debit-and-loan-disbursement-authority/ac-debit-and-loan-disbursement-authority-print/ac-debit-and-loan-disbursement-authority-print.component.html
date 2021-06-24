@@ -1,0 +1,72 @@
+<div class="container bodyConfig mt-2 text-justify" id="print-section-{{offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY}}">
+    <!--div class="row">-->
+    <form id="acDebitAndLoanDisbursementAuthorityPrint">
+        <div class="form-group align text-justify">
+
+                <div>
+                    <p class="text-right">Date: <span class="font-weight-bold">{{letter?.date}}</span>
+                    </p>
+                    The Manager<br/>
+                    ICFC Finance Limited<br/>
+                    <span class="font-weight-bold">{{letter?.address}}</span>
+                </div>
+
+            <br>
+            <h6 class="text-center">
+                <p>
+                    <strong>Sub: <u>Loan Disbursement</u></strong>
+                </p>
+            </h6>
+            <p>Sir/Madam,</p>
+            <p>
+                Please kindly make loan disbursement of NPR <span class="font-weight-bold">{{letter?.amount}}</span>
+                (Nepalese Rupees <span class="font-weight-bold">{{letter?.amountInWords}}</span>
+                & 00/100) from my sanctioned loan
+                <span class="font-weight-bold">{{letter?.loan}}</span>
+                loan amount NPR
+                <span class="font-weight-bold">{{letter?.loanAmount}}</span>
+                (Nepalese Rupees
+                <span class="font-weight-bold">{{letter?.loanAmountInWords}}</span>
+                & 00/100) in to my/our nominee account (A/C No.
+                <span class="font-weight-bold">{{letter?.accountNo}}</span>
+                ) held with you.
+            </p>
+            <br>
+            <p>Thanking You</p>
+            <br><br>
+            <p>Authorized Signature</p>
+            <br>
+            <hr>
+            <div>
+                <div>
+                    <div>
+                        <p class="text-right mt-5">Date: <span class="font-weight-bold">{{letter?.date2}}</span>
+                        </p>
+                        ICFC Finance Limited<br/>
+                        <span class="font-weight-bold">{{letter?.address2}}</span>
+                    </div>
+                </div>
+                <br>
+                <h6 class="text-center">
+                    <p>
+                        <strong>Sub: <u>Account Debit Authority</u></strong>
+                    </p>
+                </h6>
+                <p>Sir/Madam,</p>
+                <p>
+                    I/we <span class="font-weight-bold">{{letter?.name}}</span>
+                    hereby give you the full authority to debit my/our account (A/C No. <span class="font-weight-bold">{{letter?.accountNo2}}</span>
+                    ) for necessary charges and repayment of <span class="font-weight-bold">{{letter?.loan2}}</span>
+                    loan sanctioned by you favoring me/us partially or fully as on need basis, for insurance charges, for valuation charges and for management fee (<span class="font-weight-bold">{{letter?.rate}}</span>
+                    % of loan amount).
+                </p>
+                <br>
+                <p>Thanking You</p>
+                <br><br>
+                <p>Authorized Signature</p>
+                <br>
+            </div>
+        </div>
+    </form>
+    <!--</div>-->
+</div>

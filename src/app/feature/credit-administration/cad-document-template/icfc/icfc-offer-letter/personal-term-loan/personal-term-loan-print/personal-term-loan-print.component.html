@@ -1,33 +1,33 @@
-<div class="container bodyConfig text-justify" id="{{offerLetterConst.PERSONAL_TERM_LOAN}}">
+<div class="bodyConfig mt-2 text-justify" id="print-section-{{offerLetterConst.PERSONAL_TERM_LOAN}}">
     <!--div class="row">-->
-    <form (ngSubmit)="onSubmit()" [formGroup]="personalTermLoan" class="nep" id="personalTermLoan">
-        <div class="form-group align">
-            <div class="logo-container">
+    <form class="nep" id="personalTermLoan">
+        <div class="form-group align text-justify">
+
                 <div>
-                    च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont" formControlName="branch" type="text"/>
-                    —कर्जा/०७६—७७/ <input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text"/>
-                    <p class="text-right">मिति : २०७६/ <input class="form-field form-control-sm nepaliFont" formControlName="month" type="text"/>
-                         / <input class="form-field form-control-sm nepaliFont" formControlName="day" type="text"/>
-                         </p>
-                    श्री <input class="form-field form-control-sm nepaliFont" formControlName="name" type="text"/>
+                    च.नं.: आइ.सि.एफ.सि.—शाखा <span class="font-weight-bold nepaliFont">{{letter?.branch}}</span>
+                    —कर्जा/०७६—७७/ <span class="font-weight-bold nepaliFont">{{letter?.regNo}}</span>
+                    <p class="text-right">मिति : २०७६/ <span class="font-weight-bold nepaliFont">{{letter?.month}}</span>
+                        / <span class="font-weight-bold nepaliFont">{{letter?.day}}</span>
+                    </p>
+                    श्री <span class="font-weight-bold nepaliFont">{{letter?.name}}</span>
                     <br>
-                    <input class="form-field form-control-sm nepaliFont" formControlName="field" type="text"/>
+                    <span class="font-weight-bold nepaliFont">{{letter?.field}}</span>
                     <br>
-                    <input class="form-field form-control-sm nepaliFont" formControlName="field2" type="text"/>
+                    <span class="font-weight-bold nepaliFont">{{letter?.field2}}</span>
                     ।
                 </div>
-            </div>
+
             <h6 class="text-center">
-                <strong>विषय : <u>व्यक्तिगत <input class="form-field form-control-sm nepaliFont" formControlName="subject" type="text"/>
-                     कर्जा स्वीकृति पत्र ।</u></strong>
+                <strong>विषय : <u>व्यक्तिगत <span class="font-weight-bold nepaliFont">{{letter?.subject}}</span>
+                    कर्जा स्वीकृति पत्र ।</u></strong>
             </h6>
             <p>
             <p>महोदय,</p>
-            <p><u><input class="form-field form-control-sm nepaliFont" formControlName="subhida" type="text"/>
-                </u> सुविधा माग गर्दै तपाईले मिति
-                २०७६/ <input class="form-field form-control-sm nepaliFont" formControlName="month2" type="text"/>
-                 / <input class="form-field form-control-sm nepaliFont" formControlName="day2" type="text"/>
-                 मा आइ.सि.एफ.सि. फाइनान्स लिमिटेड (यसपछि फाइनान्स भनिने छ) समक्ष पेश गर्नु भएको निवेदनका सम्बन्धमा लेखिंदैछ । प्रस्तुत सन्दर्भमा, फाइनान्सले निम्न शर्त बन्देजको अधिनमा रहने गरी तपाईका नाममा निम्न बमोजिम कर्जा सुविधा सीमा स्वीकृत गर्ने निर्णय गरेको व्यहोरा जानकारी गराउँदछौं ।</p>
+            <p><u><span class="font-weight-bold nepaliFont">{{letter?.subhida}}</span>
+            </u> सुविधा माग गर्दै तपाईले मिति
+                २०७६/ <span class="font-weight-bold nepaliFont">{{letter?.month2}}</span>
+                / <span class="font-weight-bold nepaliFont">{{letter?.day2}}</span>
+                मा आइ.सि.एफ.सि. फाइनान्स लिमिटेड (यसपछि फाइनान्स भनिने छ) समक्ष पेश गर्नु भएको निवेदनका सम्बन्धमा लेखिंदैछ । प्रस्तुत सन्दर्भमा, फाइनान्सले निम्न शर्त बन्देजको अधिनमा रहने गरी तपाईका नाममा निम्न बमोजिम कर्जा सुविधा सीमा स्वीकृत गर्ने निर्णय गरेको व्यहोरा जानकारी गराउँदछौं ।</p>
             <p><strong>१. <u>कर्जा सुविधाः</u></strong></p>
             <table border="1" width="100%">
                 <tr class="text-center">
@@ -42,49 +42,33 @@
                 </tr>
             </table><br>
             <p><strong>२.	<u>ब्याजदरः</u></strong><br></p>
-            <p><strong>क)</strong>	प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate" type="text"/>
+            <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold">{{letter?.annualRate}}</span>
 
-                प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate" type="text" (change)="calcYearlyRate('baseRate',
-                                               'premiumRate',
-                                               'annualRate')"/>
-                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate" type="text" (change)="calcYearlyRate('baseRate',
-                                               'premiumRate',
-                                               'annualRate')"/>
-                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="sawa" type="text"/>
-                मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (change)="convertAmountInWords('amount','amountInWords')"/>
-                 (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords" type="text"/>
-                 ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । आइ.सि.एफ.सि. र/वा नेपाल राष्ट्र बैंकले समय–समयमा निर्धारण गरे अनुसार समय समयमा ब्याज दर परिवर्तन हुन सक्नेछ । यस्तो परिवर्तित ब्याजदर तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ । </p>
+                प्रतिशत[Base Rate ( <span class="font-weight-bold">{{letter?.baseRate}}</span>
+                %) + Premium Rate ( <span class="font-weight-bold">{{letter?.premiumRate}}</span>
+                %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <span class="font-weight-bold">{{letter?.sawa}}</span>
+                मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold">{{letter?.amount}}</span>
+                (अक्षरुपी <span class="font-weight-bold">{{letter?.amountInWords}}</span>
+                ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । आइ.सि.एफ.सि. र/वा नेपाल राष्ट्र बैंकले समय–समयमा निर्धारण गरे अनुसार समय समयमा ब्याज दर परिवर्तन हुन सक्नेछ । यस्तो परिवर्तित ब्याजदर तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ । </p>
             <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>	प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate2" type="text"/>
+            <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold">{{letter?.annualRate2}}</span>
 
-                प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate2" type="text" (change)="calcYearlyRate('baseRate2',
-                                               'premiumRate2',
-                                               'annualRate2')"/>
-                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate2" type="text" (change)="calcYearlyRate('baseRate2',
-                                               'premiumRate2',
-                                               'annualRate2')"/>
-                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="sawa2" type="text"/>
-                 मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (change)="convertAmountInWords('amount2','amountInWords2')"/>
-                 (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords2" type="text"/>
-                 ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । यस्तो Fixed Interest Rate तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ ।</p>
+                प्रतिशत[Base Rate ( <span class="font-weight-bold">{{letter?.baseRate2}}</span>
+                %) + Premium Rate ( <span class="font-weight-bold">{{letter?.premiumRate2}}</span>
+                %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <span class="font-weight-bold">{{letter?.sawa2}}</span>
+                मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold">{{letter?.amount2}}</span>
+                (अक्षरुपी <span class="font-weight-bold">{{letter?.amountInWords2}}</span>
+                ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । यस्तो Fixed Interest Rate तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ ।</p>
             <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>	प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate3" type="text"/>
-                प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate3" type="text" (change)="calcYearlyRate('baseRate3',
-                                               'premiumRate3',
-                                               'annualRate3')"/>
-                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate3" type="text" (change)="calcYearlyRate('baseRate3',
-                                               'premiumRate3',
-                                               'annualRate3')"/>
-                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
+            <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold">{{letter?.annualRate3}}</span>
+                प्रतिशत [Base Rate ( <span class="font-weight-bold">{{letter?.baseRate3}}</span>
+                %) + Premium Rate ( <span class="font-weight-bold">{{letter?.premiumRate3}}</span>
+                %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
             <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate4" type="text"/>
-                 प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate4" type="text" (change)="calcYearlyRate('baseRate4',
-                                               'premiumRate4',
-                                               'annualRate4')"/>
-                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate4" type="text" (change)="calcYearlyRate('baseRate4',
-                                               'premiumRate4',
-                                               'annualRate4')"/>
-                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
+            <p><strong>क)</strong>प्रति वर्ष <span class="font-weight-bold">{{letter?.annualRate4}}</span>
+                प्रतिशत [Base Rate ( <span class="font-weight-bold">{{letter?.baseRate4}}</span>
+                %) + Premium Rate ( <span class="font-weight-bold">{{letter?.premiumRate4}}</span>
+                %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
 
             <p>तालिका बमोजिम बुझाउनु पर्ने किस्ता रकम (ब्याज तथा सावाँ र ब्याज) तालिकामा उल्लेखित मितिभित्र नबुझाएमा ऋणीले विलम्ब शुल्क वापत प्रति किस्ता रु.५००/– तिर्नु बुझाउनु पर्नेछ ।</p>
             <p><strong>ख)</strong>	वार्षिक व्याजदरको निर्धारण आधारदरमा प्रिमियम थप गरि निर्धारण गरिएकोछ । आधारदर ऋण प्रवाह हँुदाको समयको अघिल्लो त्रयमासको प्रकाशित आधारदरलाई कायम गरिएकोछ । फाइनान्सले त्रैमासिक रुपमा प्रकाशित गर्ने आधारदर परिवर्तन भएमा सोही बमोजिम त्रैमासिक रुपमा थप÷घट गरि कर्जा सुविधाको ब्याजदर समायोजन गर्न सक्नेछ । यसरी ब्याजदर समायोजन गरिएको खण्डमा सम्बन्धित ऋणको भुक्तानी अवधि अथवा भुक्तानी रकममा पनि समायोजन गरिनेछ । ऋणमा लाग्ने प्रिमियमदर ऋणको प्रकृति, भुक्तानी अवधि, ऋणीको कर्जा जोखिम वर्गिकरणको आधारमा फाइनान्सको नियमानुसार गरिएको छ । फाइनान्सले कुनै पनि बेला ऋणीलाई सूचित गरी निजकोे सहमतिमा प्रिमियमदरमा हेरफेर गर्न सक्नेछ ।</p>
@@ -94,29 +78,29 @@
             <p><strong>३.	<u>कर्जा प्रवाह (डिस्बर्समेन्ट):</u></strong></p>
             <p>यस कर्जा स्वीकृतिपत्रमा उल्लेख भए बमोजिम ऋणीले गर्नु गराउनु पर्ने सम्पूर्ण सुरक्षण लिखत कागजातहरु फाइनान्स समक्ष पेश गरेपश्चात् मात्र स्वीकृत कर्जा वा सुविधा उपलब्ध गराइनेछ ।</p>
             <p><strong>४.	<u>कर्जाको भाखा / बहाल रहने अवधिः</u></strong></p>
-            <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <strong><u><input class="form-field form-control-sm nepaliFont" formControlName="years" type="text"/>
-                 वर्ष</u></strong>को लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
+            <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <strong><u><span class="font-weight-bold">{{letter?.years}}</span>
+                वर्ष</u></strong>को लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
             <p class="text-center"><strong><u>वा</u></strong></p>
             <p>यस कर्जा सुविधा रिभल्भिङ्ग (Revolving) प्रकृतिको हुनेछ र आवश्यकता अनुरुप रकम राख्न र निकाल्न सकिनेछ । यो कर्जाको समयावधि कर्जा दर्ता हुने मितिदेखि <strong><u>१ वर्ष</u></strong>को लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ । कर्जाको कारोबार चित्तबुझ्दो भएमा फाइनान्सले ऋणीको निवेदनको आधारमा कर्जा नविकरण गर्न सक्नेछ । कर्जा नविकरण गर्ने वा नगर्ने सम्पूर्ण अधिकार फाइनान्समा निहित हुनेछ । कर्जा नविकरण गर्दा फाइनान्सको नियमानुसार नविकरण शुल्क लिई कर्जा नविकरण गरिनेछ ।</p>
             <p><strong>५.	<u>शुल्क तथा कमिशनः</u></strong></p>
             <table border="1">
                 <tr>
                     <td width="20%" style="vertical-align:top;">सेवा शुल्क</td>
-                    <td>जम्मा कर्जा रकमको <input class="form-field form-control-sm nepaliFont" formControlName="rate" type="text"/>
-                         % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="serviceCharge" type="text" />
-                         ऋणीलाई फिर्ता हुने छैन ।)
+                    <td>जम्मा कर्जा रकमको <span class="font-weight-bold">{{letter?.rate}}</span>
+                        % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <span class="font-weight-bold">{{letter?.serviceCharge}}</span>
+                        ऋणीलाई फिर्ता हुने छैन ।)
                     </td>
                 </tr>
                 <tr>
                     <td width="20%" style="vertical-align:top;">कर्जा सूचना शुल्क</td>
-                    <td>रु. <input class="form-field form-control-sm nepaliFont" formControlName="creditInformationFee" type="text"/>
-                         /—</td>
+                    <td>रु. <span class="font-weight-bold">{{letter?.creditInformationFee}}</span>
+                        /—</td>
                 </tr>
                 <tr>
                     <td width="20%" style="vertical-align:top;">कर्जा प्रतिबद्धता शुल्क</td>
-                    <td>स्वीकृत कर्जा सीमाको वार्षिक औषत ६०% कर्जा उपयोग नभएमा कम उपयोग गरेको कर्जाको सावाँ रकममा वार्षिक <input class="form-field form-control-sm nepaliFont" formControlName="creditCommitmentFeeAnnualRate" type="text"/>
-                         % सम्मका दरले प्रतिबद्धता शुल्क लाग्ने छ । कर्जाको उपयोग भए नभएको सम्बन्धमा कर्जाको समयावधि समाप्त हुने मितिसम्मको कारोबार अनुगमन गरि प्रतिबद्धता शुल्क लिइने छ । साथै, कर्जा स्वीकृत गर्दाको बखत तोकिएको कर्जाको समयसीमावधि अर्थात् ऋणीले यस स्वीकृति पत्र मार्फत कर्जा प्रयोगका लागि प्रतिबद्धता जाहेर गरेको समयावधिको प्रावधान उल्लंघन गरेमा समेत स्वीकृत कर्जा सीमाको <input class="form-field form-control-sm nepaliFont" formControlName="creditCommitmentFeeRate" type="text"/>
-                         % प्रतिबद्धता शुल्क लिइने छ ।</td>
+                    <td>स्वीकृत कर्जा सीमाको वार्षिक औषत ६०% कर्जा उपयोग नभएमा कम उपयोग गरेको कर्जाको सावाँ रकममा वार्षिक <span class="font-weight-bold">{{letter?.creditCommitmentFeeAnnualRate}}</span>
+                        % सम्मका दरले प्रतिबद्धता शुल्क लाग्ने छ । कर्जाको उपयोग भए नभएको सम्बन्धमा कर्जाको समयावधि समाप्त हुने मितिसम्मको कारोबार अनुगमन गरि प्रतिबद्धता शुल्क लिइने छ । साथै, कर्जा स्वीकृत गर्दाको बखत तोकिएको कर्जाको समयसीमावधि अर्थात् ऋणीले यस स्वीकृति पत्र मार्फत कर्जा प्रयोगका लागि प्रतिबद्धता जाहेर गरेको समयावधिको प्रावधान उल्लंघन गरेमा समेत स्वीकृत कर्जा सीमाको <span class="font-weight-bold">{{letter?.creditCommitmentFeeRate}}</span>
+                        % प्रतिबद्धता शुल्क लिइने छ ।</td>
                 </tr>
             </table>
 
@@ -131,18 +115,18 @@
                     <td>कर्जा सूचना केन्द्रद्वारा तोकिएको शुल्क अनुसार</td>
                 </tr>
                 <tr>
-                <td style="vertical-align:top;">कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)</td>
-                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="biAnnualRate" type="text"/>
-                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="twoToFiveRate" type="text"/>
-                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont" formControlName="afterFiveRate" type="text"/>
-                         %</td>
-            </tr>
+                    <td style="vertical-align:top;">कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)</td>
+                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <span class="font-weight-bold">{{letter?.biAnnualRate}}</span>
+                        % सम्म, २ देखी ५ वर्ष सम्म <span class="font-weight-bold">{{letter?.twoToFiveRate}}</span>
+                        % सम्म, ५ वर्ष पश्चात <span class="font-weight-bold">{{letter?.afterFiveRate}}</span>
+                        %</td>
+                </tr>
                 <tr>
                     <td style="vertical-align:top;">कर्जा स्थानान्तरण शुल्क (Swap Fee)</td>
-                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="biAnnualRate2" type="text"/>
-                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="twoToFiveRate2" type="text"/>
-                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont" formControlName="afterFiveRate2" type="text"/>
-                         %</td>
+                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <span class="font-weight-bold">{{letter?.biAnnualRate2}}</span>
+                        % सम्म, २ देखी ५ वर्ष सम्म <span class="font-weight-bold">{{letter?.twoToFiveRate2}}</span>
+                        % सम्म, ५ वर्ष पश्चात <span class="font-weight-bold">{{letter?.afterFiveRate2}}</span>
+                        %</td>
                 </tr>
 
             </table>
@@ -172,40 +156,40 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <input class="form-field form-control-sm nepaliFont" formControlName="assessor" type="text"/>
-                        , मुल्यांकन मितिः <input class="form-field form-control-sm nepaliFont" formControlName="evaluationDate" type="text"/>
-                        </td>
+                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <span class="font-weight-bold">{{letter?.assessor}}</span>
+                        , मुल्यांकन मितिः <span class="font-weight-bold">{{letter?.evaluationDate}}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border-top: none;vertical-align: center">धितोको मूल्यांकन रकम <strong>FMV</strong> : रु <input class="form-field form-control-sm nepaliFont" formControlName="fmv" type="text"/>
-                        , <strong>DV</strong> : रु <input class="form-field form-control-sm nepaliFont" formControlName="dv" type="text"/>
-                        </td>
+                    <td colspan="8" style="border-top: none;vertical-align: center">धितोको मूल्यांकन रकम <strong>FMV</strong> : रु <span class="font-weight-bold">{{letter?.fmv}}</span>
+                        , <strong>DV</strong> : रु <span class="font-weight-bold">{{letter?.dv}}</span>
+                    </td>
                 </tr>
             </table>
             <p><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
             <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
-            <p>ग) श्री <input class="form-field form-control-sm nepaliFont" formControlName="name2" type="text"/>
-                 बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (change)="convertAmountInWords('amount3','amountInWords3')"/>
-                 (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords3" type="text"/>
-                 मात्र) बराबरको व्यक्तिगत जमानी ।</p>
-            <p>घ) <input class="form-field form-control-sm nepaliFont" formControlName="from" type="text"/>
-                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।</p>
+            <p>ग) श्री <span class="font-weight-bold">{{letter?.name2}}</span>
+                बाट स्वीकृत कर्जा रकम रु. <span class="font-weight-bold">{{letter?.amount3}}</span>
+                (अक्षरुपी <span class="font-weight-bold">{{letter?.amountInWords3}}</span>
+                मात्र) बराबरको व्यक्तिगत जमानी ।</p>
+            <p>घ) <span class="font-weight-bold">{{letter?.from}}</span>
+                बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।</p>
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount4" type="text" (change)="convertAmountInWords('amount4','amountInWords4')"/>
-                     (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords4" type="text"/>
-                     मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount5" type="text" (change)="convertAmountInWords('amount5','amountInWords5')"/>
-                     (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords5" type="text"/>
-                     मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
+                <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold">{{letter?.amount4}}</span>
+                    (अक्षरुपी <span class="font-weight-bold">{{letter?.amountInWords4}}</span>
+                    मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
+                <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold">{{letter?.amount5}}</span>
+                    (अक्षरुपी <span class="font-weight-bold">{{letter?.amountInwords5}}</span>
+                    मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
                 <li>धितोबन्धक कागज ।</li>
                 <li>ऋणी तथा जमानतकर्ताको पारिवारिक र खुद सम्पत्ती विवरण ।</li>
             </ul>
 
             <p><strong>९. <u>वीमाः</u></strong></p>
-            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरण/मालवस्तुहरु/सरसामानहरुको मौज्दात तथा धितोसँग सम्बन्धित सबै सम्पत्तिहरुको <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="insuranceAmount" type="text"/>
-                 बराबरको व्यापक वीमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
+            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरण/मालवस्तुहरु/सरसामानहरुको मौज्दात तथा धितोसँग सम्बन्धित सबै सम्पत्तिहरुको <strong>रु. </strong> <span class="font-weight-bold">{{letter?.insuranceAmount}}</span>
+                बराबरको व्यापक वीमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
             <p><strong>१०.  <u>निरीक्षण तथा पुनरावलोकनः</u></strong></p>
             <p>फाइनान्सले आवश्यकता अनुसार ऋणीलाई पूर्व सूचना दिई वा नदिई जुनसुकै बखत पटक पटक ऋणीको व्यवसाय स्थल, कार्यालय तथा खाता, बही, हिसाब, स्याहा, श्रेस्ता र धितोको निरीक्षण गर्ने अधिकार हुनेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा खर्च ऋणी स्वयंले व्यहोर्नु पर्नेछ । उल्लेखित ऋण कर्जा फाइनान्सले आवश्यक ठानेका बखत वा कर्जा नविकरणको समयमा पुनरावलोकन गर्नेछ ।</p>
             <p><strong>११.  <u>उपयोगः</u></strong></p>
@@ -297,35 +281,35 @@
                     <td colspan="2">ऋणीले यस स्वीकृतिपत्रमा उल्लेखित कुनै शर्त उल्लंघन गरेको अवस्थामा फाइनान्सलाई ऋणी उपर निम्न बमोजिमको कुनै एक वा सोभन्दा बढी कारवाही गर्ने अधिकार हुनेछ ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.१)</td>
+                    <td>१४.१)</td>
                     <td>ऋणीको साँवा अथवा ब्याज भाखा नाघ्नु अगावै कुनैपनि समयमा ऋणीले तिर्न बाँकी रहेको ऋण कर्जा वा अन्य लेना रकमको साँवा तथा ब्याज समेत तुरुन्त तिर्न लगाउने / असूल उपर गर्ने प्रकृया अघि बढाउने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.२)</td>
+                    <td>१४.२)</td>
                     <td>प्रिमियमदर बृद्धि गर्ने तथा यस स्वीकृतिपत्रको शर्त बमोजिम थप दायित्व ऋणीलाई लगाउने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.३)</td>
+                    <td>१४.३)</td>
                     <td>ऋण कर्जाको सुरक्षणको लागि धितो लेखिदिएको सम्पतीहरु कब्जामा लिने, बिक्री गर्ने र प्राप्त रकमबाट धितो बिक्री गर्दा भएको खर्च, ऋणीले तिर्न बाँकी ब्याज, साँवा वा अन्य लेना रकम असूल उपर गर्ने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.४)</td>
+                    <td>१४.४)</td>
                     <td>ऋणीको अन्य चल अचल सम्पत्ती वा जमानत दिनेको सम्पत्ती समेत रोक्का गर्ने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.५)</td>
+                    <td>१४.५)</td>
                     <td>यस स्वीकृतिपत्र बमोजिम फाइनान्सले स्वीकार गरेका वा पूरा गर्नुपर्ने दायित्वबाट छुटकरा लिने वा कुनै शर्तहरु फिर्ता लिने वा कुनै शर्तमा परिवर्तन गर्ने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.६)</td>
+                    <td>१४.६)</td>
                     <td>ऋणीको कारणले फाइनान्सलाई हुन आउने वा भएको अरु कुनैपनि हानी नोक्सानीहरु भराउने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.७)</td>
+                    <td>१४.७)</td>
                     <td>फाइनान्सले कर्जा तिर्ने सम्बन्धमा ऋणी तथा जमानीकर्ताहरुलाई दिइएको वा फाइनान्ससँग उपलब्ध ठेगानामा छोडिदिएको वा विद्युतीय माध्यमबाट वा हुलाकबाट पठाइएको पत्रलाई समयमा कर्जा नतिरेको अनन्य प्रमाणका रुपमा लिई ऋणी/जमानीकर्ता तथा सम्बद्ध व्यक्तिहरु विरुद्ध बैंक तथा वित्तीय संस्था सम्बन्धी ऐन, बैंक तथा वित्तीय संस्थाको ऋण असूली ऐन, तथा अन्य प्रचलित कानून बमोजिम ऋण असूली सम्बन्धी कारवाही चलाउने ।</td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top">१४.८)</td>
+                    <td>१४.८)</td>
                     <td>नेपाल राष्ट्र बैंकको कालोसूची सम्बन्धी निर्देशिका बमोजिम ऋणी, जमानतकर्ता तथा कर्जासँग सम्बन्धित कुनैपनि पक्षलाई कर्जा सूचना केन्द« लि.को कालोसूचीमा नाम समावेश गराउनुुपर्ने अवस्था सृजना हुन गएमा सो सम्बन्धमा फाइनान्सले आवश्यक प्रक्रिया अवलम्बन गर्ने ।</td>
                 </tr>
             </table>
@@ -361,54 +345,34 @@
                 </div>
             </div>
             <div>
-            <p><strong>श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड,</strong></p>
-            <p><strong>मुख्य कार्यालय, भाटभटेनी</strong></p>
-            <p><strong>काठमाण्डौ, नेपाल ।</strong></p>
+                <p><strong>श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड,</strong></p>
+                <p><strong>मुख्य कार्यालय, भाटभटेनी</strong></p>
+                <p><strong>काठमाण्डौ, नेपाल ।</strong></p>
             </div>
             <br><br><br><br>
             <p>महोदय,</p>
             <br><br> <br>
             <p>तत्यस फाइनान्सको मिति २०७६/०८/२०, च.नं.: आइ.सि.एफ.सि.—शाखा ००१—कर्जा/०७६—७७/११६ को व्यक्तिगत ओभरड्राफ्ट कर्जा स्वीकृति पत्र मैले/हामीले प्राप्त गरें/गर्यौं । उक्त पत्रमा उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण सुरक्षण कागजातहरु समयभित्रै नै गरिदिने छु/छौं ।</p>
-           <br> <br><br>
+            <br> <br><br>
             <div>
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	.....................................</p><br>
-                    <p><strong>ऋणीको नामः</strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName" type="text"/>
-                        </p>
-                   <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date" type="text"/>
-                        </p>
+                    <p><strong>ऋणीको नामः</strong> <span class="font-weight-bold">{{letter?.debtorName}}</span>
+                    </p>
+                    <br><p>मितिः <span class="font-weight-bold">{{letter?.date}}</span>
+                </p>
                     <br><br><br><p>___________________________</p>
                 </div>
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	.....................................</p>
-                    <br><p><strong>ऋणीको नामः </strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName2" type="text"/>
-                        </p>
-                    <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date2" type="text"/>
-                        </p>
+                    <br><p><strong>ऋणीको नामः </strong> <span class="font-weight-bold">{{letter?.debtorName2}}</span>
+                </p>
+                    <br><p>मितिः <span class="font-weight-bold">{{letter?.date2}}</span>
+                </p>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <button nbButton status="success">Save</button>
             </div>
         </div>
     </form>
     <!--</div>-->
-    <div class="row mt-2">
-        <div class="col-md-12 text-right">
-            <button class="btn btn-primary d-print-none"
-                    [useExistingCss]="true"
-                    [disabled]="!initialInfoPrint"
-                    printSectionId="print-section-{{offerLetterConst.PERSONAL_TERM_LOAN}}"
-                    ngxPrint>
-                PRINT
-            </button>
-        </div>
-    </div>
 </div>
-<app-personal-term-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
-                             hidden></app-personal-term-loan-print>
-
 
