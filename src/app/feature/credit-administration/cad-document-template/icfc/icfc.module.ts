@@ -23,9 +23,11 @@ import { MarginCallDeedShareCompanyPrintComponent } from './icfc-offer-letter/ma
 import { PromissoryNotePrintComponent } from './icfc-offer-letter/promissory-note/promissory-note-print/promissory-note-print.component';
 import { MortgageDeedCompanyPrintComponent } from './icfc-offer-letter/mortgage-deed-company/mortgage-deed-company-print/mortgage-deed-company-print.component';
 import { MrtgDeedIndividualDifferentPrintComponent } from './icfc-offer-letter/mrtg-deed-individual-different/mrtg-deed-individual-different-print/mrtg-deed-individual-different-print.component';
+import { MrtgDeedIndividualSamePrintComponent } from './icfc-offer-letter/mrtg-deed-individual-same/mrtg-deed-individual-same-print/mrtg-deed-individual-same-print.component';
+import { LetterOfAgreementPrintComponent } from './icfc-offer-letter/letter-of-agreement/letter-of-agreement-print/letter-of-agreement-print.component';
 
 @NgModule({
-    declarations: [IcfcOfferLetterComponent, LetterOfArrangementsComponent, AcDebitAndLoanDisbursementAuthorityComponent, BankGuaranteeComponent, BusinessLoanComponent, CorporateGuaranteeComponent, LetterOfContinuityComponent, LetterOfSetOffComponent, PersonalTermLoanComponent, LetterOfAgreementComponent, MarginCallDeedShareLoanCompanyComponent, MarginCallDeedShareLoanComponent, PromissoryNoteComponent, MortgageDeedCompanyComponent, MrtgDeedIndividualDifferentComponent, MrtgDeedIndividualSameComponent, MarginCallDeedShareLoanPrintComponent, MarginCallDeedShareCompanyPrintComponent, PromissoryNotePrintComponent, MortgageDeedCompanyPrintComponent, MrtgDeedIndividualDifferentPrintComponent],
+    declarations: [IcfcOfferLetterComponent, LetterOfArrangementsComponent, AcDebitAndLoanDisbursementAuthorityComponent, BankGuaranteeComponent, BusinessLoanComponent, CorporateGuaranteeComponent, LetterOfContinuityComponent, LetterOfSetOffComponent, PersonalTermLoanComponent, LetterOfAgreementComponent, MarginCallDeedShareLoanCompanyComponent, MarginCallDeedShareLoanComponent, PromissoryNoteComponent, MortgageDeedCompanyComponent, MrtgDeedIndividualDifferentComponent, MrtgDeedIndividualSameComponent, MarginCallDeedShareLoanPrintComponent, MarginCallDeedShareCompanyPrintComponent, PromissoryNotePrintComponent, MortgageDeedCompanyPrintComponent, MrtgDeedIndividualDifferentPrintComponent, MrtgDeedIndividualSamePrintComponent, LetterOfAgreementPrintComponent],
     imports: [
         CommonModule,
         ThemeModule,
