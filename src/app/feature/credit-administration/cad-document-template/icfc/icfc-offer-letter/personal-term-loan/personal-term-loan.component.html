@@ -1,34 +1,33 @@
 <div class="container nep text-justify">
     <!--div class="row">-->
-    <form (ngSubmit)="onSubmit()" [formGroup]="personalTermLoan" class="nep" id="personalTermLoanPrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="personalTermLoan" class="nep" id="personalTermLoan">
         <div class="form-group align">
-            <div class="logo-container print-only">
+            <div class="logo-container">
                 <div>
-                    च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branch" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('branch').value ? personalTermLoan.get('branch').value  : '========='}}</b></span> —कर्जा/०७६—७७/ <input class="form-field form-control-sm nepaliFont disable-print" formControlName="regNo" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('regNo').value ? personalTermLoan.get('regNo').value  : '========='}}</b></span>
-                    <p class="text-right">मिति : २०७६/ <input class="form-field form-control-sm nepaliFont disable-print" formControlName="month" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('month').value ? personalTermLoan.get('month').value  : '========='}}</b></span> / <input class="form-field form-control-sm nepaliFont disable-print" formControlName="day" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('day').value ? personalTermLoan.get('day').value  : '========='}}</b></span> </p>
-                    श्री <input class="form-field form-control-sm nepaliFont disable-print" formControlName="name" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('name').value ? personalTermLoan.get('name').value  : '========='}}</b></span><br>
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="field" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('field').value ? personalTermLoan.get('field').value  : '========='}}</b></span><br>
-                    <input class="form-field form-control-sm nepaliFont disable-print" formControlName="field2" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('field2').value ? personalTermLoan.get('field2').value  : '========='}}</b></span>।
+                    च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont" formControlName="branch" type="text"/>
+                    —कर्जा/०७६—७७/ <input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text"/>
+                    <p class="text-right">मिति : २०७६/ <input class="form-field form-control-sm nepaliFont" formControlName="month" type="text"/>
+                         / <input class="form-field form-control-sm nepaliFont" formControlName="day" type="text"/>
+                         </p>
+                    श्री <input class="form-field form-control-sm nepaliFont" formControlName="name" type="text"/>
+                    <br>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="field" type="text"/>
+                    <br>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="field2" type="text"/>
+                    ।
                 </div>
             </div>
             <h6 class="text-center">
-                <strong>विषय : <u>व्यक्तिगत <input class="form-field form-control-sm nepaliFont disable-print" formControlName="karja" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('karja').value ? personalTermLoan.get('karja').value  : '========='}}</b></span> कर्जा स्वीकृति पत्र ।</u></strong>
+                <strong>विषय : <u>व्यक्तिगत <input class="form-field form-control-sm nepaliFont" formControlName="subject" type="text"/>
+                     कर्जा स्वीकृति पत्र ।</u></strong>
             </h6>
             <p>
             <p>महोदय,</p>
-            <p><u><input class="form-field form-control-sm nepaliFont disable-print" formControlName="subhida" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('subhida').value ? personalTermLoan.get('subhida').value  : '========='}}</b></span></u> सुविधा माग गर्दै तपाईले मिति
-                २०७६/ <input class="form-field form-control-sm nepaliFont disable-print" formControlName="month" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('month').value ? personalTermLoan.get('month').value  : '========='}}</b></span> / <input class="form-field form-control-sm nepaliFont disable-print" formControlName="day" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('day').value ? personalTermLoan.get('day').value  : '========='}}</b></span> मा आइ.सि.एफ.सि. फाइनान्स लिमिटेड (यसपछि फाइनान्स भनिने छ) समक्ष पेश गर्नु भएको निवेदनका सम्बन्धमा लेखिंदैछ । प्रस्तुत सन्दर्भमा, फाइनान्सले निम्न शर्त बन्देजको अधिनमा रहने गरी तपाईका नाममा निम्न बमोजिम कर्जा सुविधा सीमा स्वीकृत गर्ने निर्णय गरेको व्यहोरा जानकारी गराउँदछौं ।</p>
+            <p><u><input class="form-field form-control-sm nepaliFont" formControlName="subhida" type="text"/>
+                </u> सुविधा माग गर्दै तपाईले मिति
+                २०७६/ <input class="form-field form-control-sm nepaliFont" formControlName="month2" type="text"/>
+                 / <input class="form-field form-control-sm nepaliFont" formControlName="day2" type="text"/>
+                 मा आइ.सि.एफ.सि. फाइनान्स लिमिटेड (यसपछि फाइनान्स भनिने छ) समक्ष पेश गर्नु भएको निवेदनका सम्बन्धमा लेखिंदैछ । प्रस्तुत सन्दर्भमा, फाइनान्सले निम्न शर्त बन्देजको अधिनमा रहने गरी तपाईका नाममा निम्न बमोजिम कर्जा सुविधा सीमा स्वीकृत गर्ने निर्णय गरेको व्यहोरा जानकारी गराउँदछौं ।</p>
             <p><strong>१. <u>कर्जा सुविधाः</u></strong></p>
             <table border="1" width="100%">
                 <tr class="text-center">
@@ -43,34 +42,49 @@
                 </tr>
             </table><br>
             <p><strong>२.	<u>ब्याजदरः</u></strong><br></p>
-            <p><strong>क)</strong>	प्रति वर्ष <input class="form-field form-control-sm nepaliFont disable-print" formControlName="rate3" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('rate3').value ? personalTermLoan.get('rate3').value  : '========='}}</b></span>
-                प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="baseRate3" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('baseRate3').value ? personalTermLoan.get('baseRate3').value  : '========='}}</b></span> %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="premiumRate3" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('premiumRate3').value ? personalTermLoan.get('premiumRate3').value  : '========='}}</b></span> %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont disable-print" formControlName="month" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('month').value ? personalTermLoan.get('month').value  : '========='}}</b></span> मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> (अक्षरुपी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amountInWords').value ? personalTermLoan.get('amountInWords').value  : '========='}}</b></span> ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । आइ.सि.एफ.सि. र/वा नेपाल राष्ट्र बैंकले समय–समयमा निर्धारण गरे अनुसार समय समयमा ब्याज दर परिवर्तन हुन सक्नेछ । यस्तो परिवर्तित ब्याजदर तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ । </p>
+            <p><strong>क)</strong>	प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate" type="text"/>
+
+                प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate" type="text" (change)="calcYearlyRate('baseRate',
+                                               'premiumRate',
+                                               'annualRate')"/>
+                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate" type="text" (change)="calcYearlyRate('baseRate',
+                                               'premiumRate',
+                                               'annualRate')"/>
+                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="sawa" type="text"/>
+                मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (change)="convertAmountInWords('amount','amountInWords')"/>
+                 (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords" type="text"/>
+                 ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । आइ.सि.एफ.सि. र/वा नेपाल राष्ट्र बैंकले समय–समयमा निर्धारण गरे अनुसार समय समयमा ब्याज दर परिवर्तन हुन सक्नेछ । यस्तो परिवर्तित ब्याजदर तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ । </p>
             <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>	प्रति वर्ष <input class="form-field form-control-sm nepaliFont disable-print" formControlName="rate3" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('rate3').value ? personalTermLoan.get('rate3').value  : '========='}}</b></span>
-                प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="baseRate3" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('baseRate3').value ? personalTermLoan.get('baseRate3').value  : '========='}}</b></span> %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="premiumRate3" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('premiumRate3').value ? personalTermLoan.get('premiumRate3').value  : '========='}}</b></span> %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont disable-print" formControlName="month" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('month').value ? personalTermLoan.get('month').value  : '========='}}</b></span> मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> (अक्षरुपी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amountInWords').value ? personalTermLoan.get('amountInWords').value  : '========='}}</b></span> ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । यस्तो Fixed Interest Rate तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ ।</p>
+            <p><strong>क)</strong>	प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate2" type="text"/>
+
+                प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate2" type="text" (change)="calcYearlyRate('baseRate2',
+                                               'premiumRate2',
+                                               'annualRate2')"/>
+                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate2" type="text" (change)="calcYearlyRate('baseRate2',
+                                               'premiumRate2',
+                                               'annualRate2')"/>
+                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="sawa2" type="text"/>
+                 मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (change)="convertAmountInWords('amount2','amountInWords2')"/>
+                 (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords2" type="text"/>
+                 ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । यस्तो Fixed Interest Rate तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ ।</p>
             <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>	प्रति वर्ष <input class="form-field form-control-sm nepaliFont disable-print" formControlName="rate" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('rate').value ? personalTermLoan.get('rate').value  : '========='}}</b></span>
-                प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="baseRate" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('baseRate').value ? personalTermLoan.get('baseRate').value  : '========='}}</b></span> %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="premiumRate" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('premiumRate').value ? personalTermLoan.get('premiumRate').value  : '========='}}</b></span> %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
+            <p><strong>क)</strong>	प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate3" type="text"/>
+                प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate3" type="text" (change)="calcYearlyRate('baseRate3',
+                                               'premiumRate3',
+                                               'annualRate3')"/>
+                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate3" type="text" (change)="calcYearlyRate('baseRate3',
+                                               'premiumRate3',
+                                               'annualRate3')"/>
+                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
             <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>प्रति वर्ष <input class="form-field form-control-sm nepaliFont disable-print" formControlName="rate2" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('rate2').value ? personalTermLoan.get('rate2').value  : '========='}}</b></span> प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="baseRate2" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('baseRate2').value ? personalTermLoan.get('baseRate2').value  : '========='}}</b></span> %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont disable-print" formControlName="premiumRate2" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('premiumRate2').value ? personalTermLoan.get('premiumRate2').value  : '========='}}</b></span> %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
+            <p><strong>क)</strong>प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate4" type="text"/>
+                 प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate4" type="text" (change)="calcYearlyRate('baseRate4',
+                                               'premiumRate4',
+                                               'annualRate4')"/>
+                 %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate4" type="text" (change)="calcYearlyRate('baseRate4',
+                                               'premiumRate4',
+                                               'annualRate4')"/>
+                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
 
             <p>तालिका बमोजिम बुझाउनु पर्ने किस्ता रकम (ब्याज तथा सावाँ र ब्याज) तालिकामा उल्लेखित मितिभित्र नबुझाएमा ऋणीले विलम्ब शुल्क वापत प्रति किस्ता रु.५००/– तिर्नु बुझाउनु पर्नेछ ।</p>
             <p><strong>ख)</strong>	वार्षिक व्याजदरको निर्धारण आधारदरमा प्रिमियम थप गरि निर्धारण गरिएकोछ । आधारदर ऋण प्रवाह हँुदाको समयको अघिल्लो त्रयमासको प्रकाशित आधारदरलाई कायम गरिएकोछ । फाइनान्सले त्रैमासिक रुपमा प्रकाशित गर्ने आधारदर परिवर्तन भएमा सोही बमोजिम त्रैमासिक रुपमा थप÷घट गरि कर्जा सुविधाको ब्याजदर समायोजन गर्न सक्नेछ । यसरी ब्याजदर समायोजन गरिएको खण्डमा सम्बन्धित ऋणको भुक्तानी अवधि अथवा भुक्तानी रकममा पनि समायोजन गरिनेछ । ऋणमा लाग्ने प्रिमियमदर ऋणको प्रकृति, भुक्तानी अवधि, ऋणीको कर्जा जोखिम वर्गिकरणको आधारमा फाइनान्सको नियमानुसार गरिएको छ । फाइनान्सले कुनै पनि बेला ऋणीलाई सूचित गरी निजकोे सहमतिमा प्रिमियमदरमा हेरफेर गर्न सक्नेछ ।</p>
@@ -80,29 +94,29 @@
             <p><strong>३.	<u>कर्जा प्रवाह (डिस्बर्समेन्ट):</u></strong></p>
             <p>यस कर्जा स्वीकृतिपत्रमा उल्लेख भए बमोजिम ऋणीले गर्नु गराउनु पर्ने सम्पूर्ण सुरक्षण लिखत कागजातहरु फाइनान्स समक्ष पेश गरेपश्चात् मात्र स्वीकृत कर्जा वा सुविधा उपलब्ध गराइनेछ ।</p>
             <p><strong>४.	<u>कर्जाको भाखा / बहाल रहने अवधिः</u></strong></p>
-            <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <strong><u><input class="form-field form-control-sm nepaliFont disable-print" formControlName="years" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('years').value ? personalTermLoan.get('years').value  : '========='}}</b></span> वर्ष</u></strong>को लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
+            <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <strong><u><input class="form-field form-control-sm nepaliFont" formControlName="years" type="text"/>
+                 वर्ष</u></strong>को लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
             <p class="text-center"><strong><u>वा</u></strong></p>
             <p>यस कर्जा सुविधा रिभल्भिङ्ग (Revolving) प्रकृतिको हुनेछ र आवश्यकता अनुरुप रकम राख्न र निकाल्न सकिनेछ । यो कर्जाको समयावधि कर्जा दर्ता हुने मितिदेखि <strong><u>१ वर्ष</u></strong>को लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ । कर्जाको कारोबार चित्तबुझ्दो भएमा फाइनान्सले ऋणीको निवेदनको आधारमा कर्जा नविकरण गर्न सक्नेछ । कर्जा नविकरण गर्ने वा नगर्ने सम्पूर्ण अधिकार फाइनान्समा निहित हुनेछ । कर्जा नविकरण गर्दा फाइनान्सको नियमानुसार नविकरण शुल्क लिई कर्जा नविकरण गरिनेछ ।</p>
             <p><strong>५.	<u>शुल्क तथा कमिशनः</u></strong></p>
             <table border="1">
                 <tr>
                     <td width="20%" style="vertical-align:top;">सेवा शुल्क</td>
-                    <td>जम्मा कर्जा रकमको <input class="form-field form-control-sm nepaliFont disable-print" formControlName="rate" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('rate').value ? personalTermLoan.get('rate').value  : '========='}}</b></span> % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> ऋणीलाई फिर्ता हुने छैन ।)
+                    <td>जम्मा कर्जा रकमको <input class="form-field form-control-sm nepaliFont" formControlName="rate" type="text"/>
+                         % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="serviceCharge" type="text" />
+                         ऋणीलाई फिर्ता हुने छैन ।)
                     </td>
                 </tr>
                 <tr>
                     <td width="20%" style="vertical-align:top;">कर्जा सूचना शुल्क</td>
-                    <td>रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> /—</td>
+                    <td>रु. <input class="form-field form-control-sm nepaliFont" formControlName="creditInformationFee" type="text"/>
+                         /—</td>
                 </tr>
                 <tr>
                     <td width="20%" style="vertical-align:top;">कर्जा प्रतिबद्धता शुल्क</td>
-                    <td>स्वीकृत कर्जा सीमाको वार्षिक औषत ६०% कर्जा उपयोग नभएमा कम उपयोग गरेको कर्जाको सावाँ रकममा वार्षिक <input class="form-field form-control-sm nepaliFont disable-print" formControlName="annualRate" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('annualRate').value ? personalTermLoan.get('annualRate').value  : '========='}}</b></span> % सम्मका दरले प्रतिबद्धता शुल्क लाग्ने छ । कर्जाको उपयोग भए नभएको सम्बन्धमा कर्जाको समयावधि समाप्त हुने मितिसम्मको कारोबार अनुगमन गरि प्रतिबद्धता शुल्क लिइने छ । साथै, कर्जा स्वीकृत गर्दाको बखत तोकिएको कर्जाको समयसीमावधि अर्थात् ऋणीले यस स्वीकृति पत्र मार्फत कर्जा प्रयोगका लागि प्रतिबद्धता जाहेर गरेको समयावधिको प्रावधान उल्लंघन गरेमा समेत स्वीकृत कर्जा सीमाको <input class="form-field form-control-sm nepaliFont disable-print" formControlName="rate" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('rate').value ? personalTermLoan.get('rate').value  : '========='}}</b></span> % प्रतिबद्धता शुल्क लिइने छ ।</td>
+                    <td>स्वीकृत कर्जा सीमाको वार्षिक औषत ६०% कर्जा उपयोग नभएमा कम उपयोग गरेको कर्जाको सावाँ रकममा वार्षिक <input class="form-field form-control-sm nepaliFont" formControlName="creditCommitmentFeeAnnualRate" type="text"/>
+                         % सम्मका दरले प्रतिबद्धता शुल्क लाग्ने छ । कर्जाको उपयोग भए नभएको सम्बन्धमा कर्जाको समयावधि समाप्त हुने मितिसम्मको कारोबार अनुगमन गरि प्रतिबद्धता शुल्क लिइने छ । साथै, कर्जा स्वीकृत गर्दाको बखत तोकिएको कर्जाको समयसीमावधि अर्थात् ऋणीले यस स्वीकृति पत्र मार्फत कर्जा प्रयोगका लागि प्रतिबद्धता जाहेर गरेको समयावधिको प्रावधान उल्लंघन गरेमा समेत स्वीकृत कर्जा सीमाको <input class="form-field form-control-sm nepaliFont" formControlName="creditCommitmentFeeRate" type="text"/>
+                         % प्रतिबद्धता शुल्क लिइने छ ।</td>
                 </tr>
             </table>
 
@@ -118,17 +132,17 @@
                 </tr>
                 <tr>
                 <td style="vertical-align:top;">कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)</td>
-                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont disable-print" formControlName="biAnnualRate" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('biAnnualRate').value ? personalTermLoan.get('biAnnualRate').value  : '========='}}</b></span> % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont disable-print" formControlName="twoToFiveRate" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('twoToFiveRate').value ? personalTermLoan.get('twoToFiveRate').value  : '========='}}</b></span> % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont disable-print" formControlName="afterFiveRate" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('afterFiveRate').value ? personalTermLoan.get('afterFiveRate').value  : '========='}}</b></span> %</td>
+                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="biAnnualRate" type="text"/>
+                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="twoToFiveRate" type="text"/>
+                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont" formControlName="afterFiveRate" type="text"/>
+                         %</td>
             </tr>
                 <tr>
                     <td style="vertical-align:top;">कर्जा स्थानान्तरण शुल्क (Swap Fee)</td>
-                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont disable-print" formControlName="biAnnualRate2" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('biAnnualRate2').value ? personalTermLoan.get('biAnnualRate2').value  : '========='}}</b></span> % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont disable-print" formControlName="twoToFiveRate2" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('twoToFiveRate2').value ? personalTermLoan.get('twoToFiveRate2').value  : '========='}}</b></span> % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont disable-print" formControlName="afterFiveRate2" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('afterFiveRate2').value ? personalTermLoan.get('afterFiveRate2').value  : '========='}}</b></span> %</td>
+                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="biAnnualRate2" type="text"/>
+                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="twoToFiveRate2" type="text"/>
+                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont" formControlName="afterFiveRate2" type="text"/>
+                         %</td>
                 </tr>
 
             </table>
@@ -158,40 +172,40 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mulyankankarta" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('mulyankankarta').value ? personalTermLoan.get('mulyankankarta').value  : '========='}}</b></span>, मुल्यांकन मितिः <input class="form-field form-control-sm nepaliFont disable-print" formControlName="mulyankanmiti" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('mulyankanmiti').value ? personalTermLoan.get('mulyankanmiti').value  : '========='}}</b></span></td>
+                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <input class="form-field form-control-sm nepaliFont" formControlName="assessor" type="text"/>
+                        , मुल्यांकन मितिः <input class="form-field form-control-sm nepaliFont" formControlName="evaluationDate" type="text"/>
+                        </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border-top: none;vertical-align: center">धितोको मूल्यांकन रकम <strong>FMV</strong> : रु <input class="form-field form-control-sm nepaliFont disable-print" formControlName="fmv" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('fmv').value ? personalTermLoan.get('fmv').value  : '========='}}</b></span>, <strong>DV</strong> : रु <input class="form-field form-control-sm nepaliFont disable-print" formControlName="dv" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('dv').value ? personalTermLoan.get('dv').value  : '========='}}</b></span></td>
+                    <td colspan="8" style="border-top: none;vertical-align: center">धितोको मूल्यांकन रकम <strong>FMV</strong> : रु <input class="form-field form-control-sm nepaliFont" formControlName="fmv" type="text"/>
+                        , <strong>DV</strong> : रु <input class="form-field form-control-sm nepaliFont" formControlName="dv" type="text"/>
+                        </td>
                 </tr>
             </table>
             <p><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
             <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
-            <p>ग) श्री <input class="form-field form-control-sm nepaliFont disable-print" formControlName="name" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('name').value ? personalTermLoan.get('name').value  : '========='}}</b></span> बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> (अक्षरुपी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amountInWords').value ? personalTermLoan.get('amountInWords').value  : '========='}}</b></span> मात्र) बराबरको व्यक्तिगत जमानी ।</p>
-            <p>घ) <input class="form-field form-control-sm nepaliFont disable-print" formControlName="from" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('from').value ? personalTermLoan.get('from').value  : '========='}}</b></span> बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।</p>
+            <p>ग) श्री <input class="form-field form-control-sm nepaliFont" formControlName="name2" type="text"/>
+                 बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (change)="convertAmountInWords('amount3','amountInWords3')"/>
+                 (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords3" type="text"/>
+                 मात्र) बराबरको व्यक्तिगत जमानी ।</p>
+            <p>घ) <input class="form-field form-control-sm nepaliFont" formControlName="from" type="text"/>
+                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।</p>
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> (अक्षरुपी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amountInWords').value ? personalTermLoan.get('amountInWords').value  : '========='}}</b></span> मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> (अक्षरुपी <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amountInWords" type="text"/>
-                    <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amountInWords').value ? personalTermLoan.get('amountInWords').value  : '========='}}</b></span> मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount4" type="text" (change)="convertAmountInWords('amount4','amountInWords4')"/>
+                     (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords4" type="text"/>
+                     मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount5" type="text" (change)="convertAmountInWords('amount5','amountInWords5')"/>
+                     (अक्षरुपी <input readonly class="form-field form-control-sm nepaliFont" formControlName="amountInWords5" type="text"/>
+                     मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
                 <li>धितोबन्धक कागज ।</li>
                 <li>ऋणी तथा जमानतकर्ताको पारिवारिक र खुद सम्पत्ती विवरण ।</li>
             </ul>
 
             <p><strong>९. <u>वीमाः</u></strong></p>
-            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु÷सवारी साधन/ मेशिनरी/उपकरण/मालवस्तुहरु/सरसामानहरुको मौज्दात तथा धितोसँग सम्बन्धित सबै सम्पत्तिहरुको <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont disable-print" formControlName="amount" type="text"/>
-                <span class="print-only nepaliFont"><b>{{personalTermLoan.get('amount').value ? personalTermLoan.get('amount').value  : '========='}}</b></span> बराबरको व्यापक वीमा वर्ष÷वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
+            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरण/मालवस्तुहरु/सरसामानहरुको मौज्दात तथा धितोसँग सम्बन्धित सबै सम्पत्तिहरुको <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="insuranceAmount" type="text"/>
+                 बराबरको व्यापक वीमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
             <p><strong>१०.  <u>निरीक्षण तथा पुनरावलोकनः</u></strong></p>
             <p>फाइनान्सले आवश्यकता अनुसार ऋणीलाई पूर्व सूचना दिई वा नदिई जुनसुकै बखत पटक पटक ऋणीको व्यवसाय स्थल, कार्यालय तथा खाता, बही, हिसाब, स्याहा, श्रेस्ता र धितोको निरीक्षण गर्ने अधिकार हुनेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा खर्च ऋणी स्वयंले व्यहोर्नु पर्नेछ । उल्लेखित ऋण कर्जा फाइनान्सले आवश्यक ठानेका बखत वा कर्जा नविकरणको समयमा पुनरावलोकन गर्नेछ ।</p>
             <p><strong>११.  <u>उपयोगः</u></strong></p>
@@ -359,32 +373,26 @@
             <div>
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	.....................................</p><br>
-                    <p><strong>ऋणीको नामः</strong> <input class="form-field form-control-sm disable-print" formControlName="debtorName" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('debtorName').value ? personalTermLoan.get('debtorName').value  : '========='}}</b></span></p>
-                   <br><p>मितिः <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('date').value ? personalTermLoan.get('date').value  : '========='}}</b></span></p>
+                    <p><strong>ऋणीको नामः</strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName" type="text"/>
+                        </p>
+                   <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date" type="text"/>
+                        </p>
                     <br><br><br><p>___________________________</p>
                 </div>
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	.....................................</p>
-                    <br><p><strong>ऋणीको नामः </strong> <input class="form-field form-control-sm disable-print" formControlName="debtorName" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('debtorName').value ? personalTermLoan.get('debtorName').value  : '========='}}</b></span></p>
-                    <br><p>मितिः <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
-                        <span class="print-only nepaliFont"><b>{{personalTermLoan.get('date').value ? personalTermLoan.get('date').value  : '========='}}</b></span></p>
-
+                    <br><p><strong>ऋणीको नामः </strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName2" type="text"/>
+                        </p>
+                    <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date2" type="text"/>
+                        </p>
                 </div>
             </div>
         </div>
 
-        <div class="row disable-print">
+        <div class="row">
             <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalTermLoanPrint" (click)="onSubmit()" class="mr-2" status="basic">Save & Print</button>
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="personalTermLoanPrint" class="mr-2 custom-color" >Print</button>
                 <button nbButton status="success">Save</button>
-
-
             </div>
-
         </div>
     </form>
     <!--</div>-->

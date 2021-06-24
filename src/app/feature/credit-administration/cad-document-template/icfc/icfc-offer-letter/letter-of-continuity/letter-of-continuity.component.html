@@ -1,16 +1,15 @@
 <div class="container text-justify">
     <!--div class="row">-->
-    <form [formGroup]="letterOfContinuity" class="nep" id="letterOfContinuityPrint">
+    <form (ngSubmit)="onSubmit()" [formGroup]="letterOfContinuity" class="nep" id="letterOfContinuity">
         <div class="form-group align">
-            <div class="logo-container print-only">
+            <div class="logo-container">
                 <div>
                     <h1 class="text-center">LETTER OF CONTINUITY</h1>
-                    <p class="text-right">Date: <input class="form-field form-control-sm disable-print" formControlName="date" type="text"/>
-                        <span class="print-only"><b>{{letterOfContinuity.get('date').value ? letterOfContinuity.get('date').value  : '========='}}</b></span></p>
+                    <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
+                        </p>
                     <p>To,</p>
                     <p>ICFC FINANCE LIMITED</p>
-                    <input class="form-field form-control-sm disable-print" formControlName="branchAddress" type="text"/>
-                    <span class="print-only"><b>{{letterOfContinuity.get('branchAddress').value ? letterOfContinuity.get('branchAddress').value  : '========='}}</b></span>
+                    <input class="form-field form-control-sm" formControlName="branchAddress" type="text"/>
                 </div>
             </div>
         </div>
@@ -24,21 +23,19 @@
         <table>
             <tr>
                 <td width="50%">Witness:</td>
-                <td>1. <input class="form-field form-control-sm disable-print" formControlName="witness" type="text"/>
-                    <span class="print-only"><b>{{letterOfContinuity.get('witness').value ? letterOfContinuity.get('witness').value  : '========='}}</b></span></td>
+                <td>1. <input class="form-field form-control-sm" formControlName="witness" type="text"/>
+                    </td>
             </tr>
             <tr>
                 <td></td>
-                <td>2. <input class="form-field form-control-sm disable-print" formControlName="witness2" type="text"/>
-                    <span class="print-only"><b>{{letterOfContinuity.get('witness2').value ? letterOfContinuity.get('witness2').value  : '========='}}</b></span></td>
+                <td>2. <input class="form-field form-control-sm" formControlName="witness2" type="text"/>
+                    </td>
             </tr>
         </table>
         <p class="text-right">Authorized Signature (S)</p>
-        <div class="row disable-print">
+        <div class="row">
             <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="corporateGuaranteePrint" class="mr-2" status="basic">Save & Print</button>
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="corporateGuaranteePrint" class="mr-2 custom-color" >Print</button>
-                <button nbButton status="success">Save</button>
+                <button nbButton status="success" >Save</button>
             </div>
         </div>
     </form>
