@@ -34,14 +34,14 @@ export class CustomerLoanDocumentComponent implements OnInit {
     loanConfigId;
     documentName;
     documentId;
-    index;
+    initialDocIndex;
     actualLoanId;
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
-                private modelService: NgbModal) {
+                private modelService: NgbModal,) {
     }
 
     ngOnInit() {
@@ -109,6 +109,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         });
                     });
                 }
+                console.log('Backend', this.customerDocumentArray);
             }
         );
 
@@ -138,7 +139,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             formData.append('documentId', documentId);
             formData.append('loanHolderId', this.loanDataHolder.loanHolder.id.toString());
             formData.append('customerType', this.loanDataHolder.loanHolder.customerType);
-            formData.append('loanId1', this.actualLoanId);
+            formData.append('actualLoanId', this.actualLoanId);
             if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
                 formData.append('action', 'new');
             }
@@ -175,6 +176,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
                     this.initialDocuments[index].checked = true;
+                    console.log('Doc path::::', this.customerDocumentArray);
                 },
                 error => {
                     console.error(error);
@@ -190,7 +192,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     openModel(model, documentName: string, documentId, index: number) {
         this.documentName = documentName;
         this.documentId = documentId;
-        this.index = index;
+        this.initialDocIndex = index;
         this.modelService.open(model);
     }
 
@@ -199,9 +201,23 @@ export class CustomerLoanDocumentComponent implements OnInit {
     }
 
     confirmDelete(i) {
+        console.log(i);
+        console.log('Before::::', this.customerDocumentArray);
+        for (let j = 0; this.customerDocumentArray.length > j; j++) {
+            if (this.initialDocuments[i].id === this.customerDocumentArray[j].document.id) {
+                this.customerDocumentArray.splice(j, 1);
+                this.initialDocuments[i].checked = false;
+                break;
+            }
+        }
+        this.loanFormService.deleteDocument(this.customerDocumentArray[i].document.id, this.loanDataHolder.id,
+            this.customerDocumentArray[i].documentPath).subscribe((res: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED '.concat(this.documentName)));
+        }, error => {
+            // tslint:disable-next-line:max-line-length
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ? ' Successfully DELETED ' : error.error.message));
+        });
+        console.log('After:::', this.customerDocumentArray);
         this.modelService.dismissAll();
-        this.customerDocumentArray.indexOf(this.index);
-        this.customerDocumentArray.splice(this.index, 1);
-        this.initialDocuments[this.index].checked = false;
     }
 }
