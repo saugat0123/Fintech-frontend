@@ -32,13 +32,15 @@ import { CorporateGuaranteePrintComponent } from './icfc-offer-letter/corporate-
 import { LetterOfContinuityPrintComponent } from './icfc-offer-letter/letter-of-continuity/letter-of-continuity-print/letter-of-continuity-print.component';
 import { LetterOfSetOffPrintComponent } from './icfc-offer-letter/letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import { PersonalTermLoanPrintComponent } from './icfc-offer-letter/personal-term-loan/personal-term-loan-print/personal-term-loan-print.component';
+import {CoreModule} from '../../../../@core/core.module';
 
 @NgModule({
     declarations: [IcfcOfferLetterComponent, LetterOfArrangementsComponent, AcDebitAndLoanDisbursementAuthorityComponent, BankGuaranteeComponent, BusinessLoanComponent, CorporateGuaranteeComponent, LetterOfContinuityComponent, LetterOfSetOffComponent, PersonalTermLoanComponent, LetterOfAgreementComponent, MarginCallDeedShareLoanCompanyComponent, MarginCallDeedShareLoanComponent, PromissoryNoteComponent, MortgageDeedCompanyComponent, MrtgDeedIndividualDifferentComponent, MrtgDeedIndividualSameComponent, MarginCallDeedShareLoanPrintComponent, MarginCallDeedShareCompanyPrintComponent, PromissoryNotePrintComponent, MortgageDeedCompanyPrintComponent, MrtgDeedIndividualDifferentPrintComponent, MrtgDeedIndividualSamePrintComponent, LetterOfAgreementPrintComponent, AcDebitAndLoanDisbursementAuthorityPrintComponent, BankGuaranteePrintComponent, BusinessLoanPrintComponent, CorporateGuaranteePrintComponent, LetterOfContinuityPrintComponent, LetterOfSetOffPrintComponent, PersonalTermLoanPrintComponent],
     imports: [
         CommonModule,
         ThemeModule,
-        NgxPrintModule
+        NgxPrintModule,
+        CoreModule
     ],
     entryComponents: [
         IcfcOfferLetterComponent
