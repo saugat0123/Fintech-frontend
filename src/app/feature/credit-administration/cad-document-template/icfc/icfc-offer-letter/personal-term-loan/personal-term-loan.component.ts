@@ -218,18 +218,21 @@ export class PersonalTermLoanComponent implements OnInit {
     });
   }
 
+  buildLandSecurity() {
+    return this.formBuilder.group({
+      snNo: [undefined],
+      dhaniName: [undefined],
+      district2: [undefined],
+      munVdc: [undefined],
+      wardNo: [undefined],
+      kiNo: [undefined],
+      area: [undefined],
+      details: [undefined],
+    });
+  }
+
   addTableData() {
-    (this.personalTermLoan.get('loanSecurityTable') as FormArray).push(
-        this.formBuilder.group({
-          dhaniName: [undefined],
-          district2: [undefined],
-          munVdc: [undefined],
-          wardNo: [undefined],
-          kiNo: [undefined],
-          area: [undefined],
-          details: [undefined],
-        })
-    );
+    (this.personalTermLoan.get('loanSecurityTable') as FormArray).push(this.buildLandSecurity());
   }
 
   removeTable(index) {
@@ -244,6 +247,7 @@ export class PersonalTermLoanComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
+        snNo: [value.snNo],
         dhaniName: [value.dhaniName],
         district2: [value.district2],
         munVdc: [value.munVdc],
