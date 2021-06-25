@@ -40,21 +40,22 @@
                 </tr>
                 <tbody *ngFor="let data of personalTermLoan.get('loanFacilityTable')['controls']; let index = index" formArrayName="loanFacilityTable">
                 <tr [formGroupName]="index">
-                    <td style="padding: 10px"><input class="form-field form-control-sm nepaliFont" placeholder="व्यक्तिगत आवधिक कर्जा" formControlName="loanTitle" type="text"/></td>
+                    <td><input class="form-field form-control-sm nepaliFont" placeholder="व्यक्तिगत आवधिक कर्जा" formControlName="loanTitle" type="text"/></td>
                     <td><input class="form-field form-control-sm nepaliFont" formControlName="purpose" type="text"/></td>
                     <td><input class="form-field form-control-sm nepaliFont" formControlName="depositApprovedLoanAmount" type="text"/></td>
                 </tr>
-                <div class="col-md-12">
-                    <button
-                            (click)="removeLoanFacilityData(index)"
-                            *ngIf="index > 0"
-                            class="mt-3 mb-3" nbButton
-                            status="primary">हटाउनुहोस्
-                    </button>
-                </div>
+                <button
+                        (click)="removeLoanFacilityData(index)"
+                        *ngIf="index > 0"
+                        class="mt-3 mb-3" nbButton
+                        status="primary">हटाउनुहोस्
+                </button>
+<!--                <div class="col-md-12">-->
+<!--                    -->
+<!--                </div>-->
                 </tbody>
             </table>
-            <div class="row mr-1 mt-3 mb-3">
+            <div class="row mr-1 mt-5 mb-3">
                 <div class="col-md-12 text-right">
                     <button (click)="addLoanFacilityTable()" nbButton size="small" status="info" type="Button">
                         थप्नुहोस्..
@@ -118,7 +119,7 @@
                     %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
             </ng-container>
 <!--            <p class="text-center"><strong>वा</strong></p>-->
-           <ng-container *ngIf="allLoanInterest">
+           <ng-container *ngIf="personalOverdraftMonthlySelected">
                <p><strong>क)</strong>प्रति वर्ष <input readonly class="form-field form-control-sm nepaliFont" formControlName="annualRate4" type="text"/>
                    प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate4" type="text" (change)="calcYearlyRate('baseRate4',
                                                'premiumRate4',
