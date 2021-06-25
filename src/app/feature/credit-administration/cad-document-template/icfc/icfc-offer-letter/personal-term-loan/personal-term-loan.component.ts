@@ -33,11 +33,11 @@ export class PersonalTermLoanComponent implements OnInit {
   selectedArray = [];
   selectedLoanTermArray = [];
   selectedInterestArray = [];
-  loanRateOptions = ['Variable Interest Rate', 'Fixed Interest Rate', 'Personal Overdraft Loan', 'All Types of Loans'];
+  loanRateOptions = ['Variable Interest Rate', 'Fixed Interest Rate', 'Personal Overdraft Loan (Quarterly)', 'Personal Overdraft Loan (Monthly)'];
   varInterestRateSelected: boolean;
   fixedInterestRateSelected: boolean;
   personalOverdraftLoanSelected: boolean;
-  allLoanInterest: boolean;
+  personalOverdraftMonthlySelected: boolean;
   loanCondition = ['All Term Loan', 'OD Nature Loan'];
   allTermLoanSelected: boolean;
   odNatureLoanSelected: boolean;
@@ -298,8 +298,10 @@ export class PersonalTermLoanComponent implements OnInit {
     this.selectedInterestArray = $event;
     $event.includes('Variable Interest Rate') ? this.varInterestRateSelected = true : this.varInterestRateSelected = false;
     $event.includes('Fixed Interest Rate') ? this.fixedInterestRateSelected = true : this.fixedInterestRateSelected = false;
-    $event.includes('Personal Overdraft Loan') ? this.personalOverdraftLoanSelected = true : this.personalOverdraftLoanSelected = false;
-    $event.includes('All Types of Loans') ? this.allLoanInterest = true : this.allLoanInterest = false;
+    $event.includes('Personal Overdraft Loan (Quarterly)') ?
+        this.personalOverdraftLoanSelected = true : this.personalOverdraftLoanSelected = false;
+    $event.includes('Personal Overdraft Loan (Monthly)') ?
+        this.personalOverdraftMonthlySelected = true : this.personalOverdraftMonthlySelected = false;
   }
 
   calcYearlyRate(base, premium, annual) {

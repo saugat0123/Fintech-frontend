@@ -12,21 +12,22 @@ export class PersonalTermLoanPrintComponent implements OnInit {
   varInterestRateSelected = false;
   fixedInterestRateSelected = false;
   personalOverdraftLoanSelected = false;
-  allLoanInterest = false;
+  personalOverdraftMonthlySelected = false;
   allTermLoanSelected = false;
   odNatureLoanSelected = false;
   constructor() { }
 
   ngOnInit() {
+    console.log(this.letter);
     this.letter.interestTypeSelectedArray.forEach(value => {
       switch (value) {
         case 'Variable Interest Rate': this.varInterestRateSelected = true;
         break;
         case 'Fixed Interest Rate': this.fixedInterestRateSelected = true;
         break;
-        case 'Personal Overdraft Loan': this.personalOverdraftLoanSelected = true;
+        case 'Personal Overdraft Loan (Quarterly)': this.personalOverdraftLoanSelected = true;
         break;
-        case 'All Types of Loans': this.allTermLoanSelected = true;
+        case 'Personal Overdraft Loan (Monthly)': this.personalOverdraftMonthlySelected = true;
         break;
       }
     });
