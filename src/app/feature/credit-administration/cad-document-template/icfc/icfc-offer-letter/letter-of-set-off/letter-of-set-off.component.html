@@ -1,4 +1,4 @@
-<div class="container text-justify">
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.LETTER_OF_SET_OFF}}">
     <!--div class="row">-->
     <form (ngSubmit)="onSubmit()" [formGroup]="letterOfSetOff" class="nep" id="letterOfSetOff">
         <div class="form-group align">
@@ -56,4 +56,17 @@
         </div>
     </form>
     <!--</div>-->
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.LETTER_OF_SET_OFF}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
 </div>
+<app-letter-of-set-off-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                               hidden></app-letter-of-set-off-print>

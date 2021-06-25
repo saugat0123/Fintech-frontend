@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
@@ -30,6 +30,17 @@ export class PersonalTermLoanComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepData;
   initialInfoPrint;
+  selectedArray = [];
+  selectedLoanTermArray = [];
+  selectedInterestArray = [];
+  loanRateOptions = ['Variable Interest Rate', 'Fixed Interest Rate', 'Personal Overdraft Loan', 'All Types of Loans'];
+  varInterestRateSelected: boolean;
+  fixedInterestRateSelected: boolean;
+  personalOverdraftLoanSelected: boolean;
+  allLoanInterest: boolean;
+  loanCondition = ['All Term Loan', 'OD Nature Loan'];
+  allTermLoanSelected: boolean;
+  odNatureLoanSelected: boolean;
 
 
   constructor(private dialogRef: NbDialogRef<PersonalTermLoanComponent>,
@@ -108,6 +119,18 @@ export class PersonalTermLoanComponent implements OnInit {
       insuranceAmount: [undefined],
       debtorName2: [undefined],
       date2: [undefined],
+      dhaniName: [undefined],
+      district2: [undefined],
+      munVdc: [undefined],
+      wardNo: [undefined],
+      kiNo: [undefined],
+      area: [undefined],
+      details: [undefined],
+      interestTypeSelectedArray: [undefined],
+      loanTermSelectedArray: [undefined],
+
+      loanSecurityTable: this.formBuilder.array([]),
+      loanFacilityTable: this.formBuilder.array([]),
     });
   }
 
@@ -120,9 +143,16 @@ export class PersonalTermLoanComponent implements OnInit {
       this.fillForm();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+      this.selectedInterestArray = initialInfo.interestTypeSelectedArray;
+      this.selectedArray = initialInfo.loanTermSelectedArray;
+      this.changeType(this.selectedArray);
+      this.changeInterestType(this.selectedInterestArray);
       this.initialInfoPrint = initialInfo;
       this.existingOfferLetter = true;
-      if (!ObjectUtil.isEmpty(initialInfo)) {}
+      if (!ObjectUtil.isEmpty(initialInfo)) {
+        this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
+        this.setLoanFacilityTable(initialInfo.loanFacilityTable);
+      }
       this.personalTermLoan.patchValue(this.initialInfoPrint);
     }
   }
@@ -149,6 +179,7 @@ export class PersonalTermLoanComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('This is print value: ', this.personalTermLoan.value);
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -156,12 +187,19 @@ export class PersonalTermLoanComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.PERSONAL_TERM_LOAN).toString()) {
+          this.personalTermLoan.get('interestTypeSelectedArray').patchValue(this.selectedInterestArray);
+          console.log(this.selectedArray);
+          this.personalTermLoan.get('loanTermSelectedArray').patchValue(this.selectedArray);
+          console.log('Mid of the process!:  ', this.personalTermLoan.value);
           offerLetterPath.initialInformation = JSON.stringify(this.personalTermLoan.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_TERM_LOAN);
+      this.personalTermLoan.get('interestTypeSelectedArray').patchValue(this.selectedInterestArray);
+      this.personalTermLoan.get('loanTermSelectedArray').patchValue(this.selectedArray);
+      console.log('Mid of the process!:  ', this.personalTermLoan.value);
       offerDocument.initialInformation = JSON.stringify(this.personalTermLoan.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
       console.log('This is cad offer letter : ', this.cadOfferLetterApprovedDoc);
@@ -178,6 +216,90 @@ export class PersonalTermLoanComponent implements OnInit {
       this.dialogRef.close();
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+
+  buildLandSecurity() {
+    return this.formBuilder.group({
+      snNo: [undefined],
+      dhaniName: [undefined],
+      district2: [undefined],
+      munVdc: [undefined],
+      wardNo: [undefined],
+      kiNo: [undefined],
+      area: [undefined],
+      details: [undefined],
+    });
+  }
+
+  addTableData() {
+    (this.personalTermLoan.get('loanSecurityTable') as FormArray).push(this.buildLandSecurity());
+  }
+
+  removeTable(index) {
+    (this.personalTermLoan.get('loanSecurityTable') as FormArray).removeAt(index);
+  }
+
+  setLoanSecurityTableData(data) {
+    const formArray = this.personalTermLoan.get('loanSecurityTable') as FormArray;
+    if (data.length === 0) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        snNo: [value.snNo],
+        dhaniName: [value.dhaniName],
+        district2: [value.district2],
+        munVdc: [value.munVdc],
+        wardNo: [value.wardNo],
+        kiNo: [value.kiNo],
+        area: [value.area],
+        details: [value.details],
+      }));
+    });
+  }
+
+  changeType($event) {
+    this.selectedArray = $event;
+    $event.includes('All Term Loan') ? this.allTermLoanSelected = true : this.allTermLoanSelected = false;
+    $event.includes('OD Nature Loan') ? this.odNatureLoanSelected = true : this.odNatureLoanSelected = false;
+  }
+
+  addLoanFacilityTable() {
+    (this.personalTermLoan.get('loanFacilityTable') as FormArray).push(
+        this.formBuilder.group({
+          purpose: [undefined],
+          depositApprovedLoanAmount: [undefined],
+          loanTitle: [undefined],
+        })
+    );
+  }
+
+  removeLoanFacilityData(index) {
+    (this.personalTermLoan.get('loanFacilityTable') as FormArray).removeAt(index);
+  }
+
+  setLoanFacilityTable(data) {
+    const formArray = this.personalTermLoan.get('loanFacilityTable') as FormArray;
+    if (data.length === 0) {
+      this.addLoanFacilityTable();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        purpose: [value.purpose],
+        depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
+        loanTitle: [value.loanTitle],
+      }));
+    });
+  }
+
+  changeInterestType($event) {
+    this.selectedInterestArray = $event;
+    $event.includes('Variable Interest Rate') ? this.varInterestRateSelected = true : this.varInterestRateSelected = false;
+    $event.includes('Fixed Interest Rate') ? this.fixedInterestRateSelected = true : this.fixedInterestRateSelected = false;
+    $event.includes('Personal Overdraft Loan') ? this.personalOverdraftLoanSelected = true : this.personalOverdraftLoanSelected = false;
+    $event.includes('All Types of Loans') ? this.allLoanInterest = true : this.allLoanInterest = false;
   }
 
   calcYearlyRate(base, premium, annual) {

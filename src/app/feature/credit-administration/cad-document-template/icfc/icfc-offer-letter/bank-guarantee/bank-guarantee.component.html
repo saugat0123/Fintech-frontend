@@ -1,8 +1,8 @@
-<div class="container text-justify">
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.BANK_GUARANTEE}}">
     <!--div class="row">-->
     <form (ngSubmit)="onSubmit()" [formGroup]="bankGuarantee" id="bankGuarantee">
         <div class="form-group align mb-5">
-            <div class="logo-container">
+
                 <div>
                     <input class="form-field form-control-sm" formControlName="field" type="text"/>
                     <br/>
@@ -10,7 +10,7 @@
                     <br/>
                     <input class="form-field form-control-sm" formControlName="field3" type="text"/>
                 </div>
-            </div>
+
             <h6 class="text-center mt-5 mb-4">
                 <p>
                     <strong>Our Reference Number: <u>ICFC/CR/B<input class="form-field form-control-sm" formControlName="refNo" type="text"/>
@@ -75,14 +75,25 @@
             </div>
             </div>
             <br>
-
         </div>
         <div class="row">
             <div class="col-md-12 text-right">
                 <button nbButton status="success">Save</button>
             </div>
-
         </div>
     </form>
     <!--</div>-->
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.BANK_GUARANTEE}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
 </div>
+<app-bank-guarantee-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                                                    hidden></app-bank-guarantee-print>
