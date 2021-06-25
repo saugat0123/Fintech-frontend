@@ -612,11 +612,11 @@
                                        type="text"/>
                             </td>
                         </tr>
-                        <div class="col-md-12 mb-2">
+                        <div class="col-md-12">
                             <button
                                     (click)="removeTableDetails(index)"
                                     *ngIf="index > 0"
-                                    class="mt-3" nbButton
+                                    class="mt-3 mb-3" nbButton
                                     status="primary">हटाउनुहोस्
                             </button>
                         </div>
@@ -712,7 +712,12 @@
                                placeholder=""
                                formControlName="docWrittenDay"
                                type="text"/>
-                        शुभम्.........................................................................।
+                        शुभम्
+                        <input class="form-field form-control-sm nepaliFont" name="subham"
+                               placeholder=""
+                               formControlName="subham"
+                               type="text"/>
+                        ।
                     </p>
                 </div>
             </div>
@@ -982,7 +987,7 @@
                     [disabled]="!initialInfoPrint"
                     printSectionId="print-section-{{offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER}}"
                     ngxPrint>
-                Print
+                PRINT
             </button>
         </div>
     </div>
