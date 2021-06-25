@@ -1,0 +1,80 @@
+<div class="bodyConfig mt-2 text-justify" id="print-section-{{offerLetterConst.BANK_GUARANTEE}}">
+    <!--div class="row">-->
+    <form id="bankGuaranteePrint">
+        <div class="form-group align mb-5 text-justify">
+                <div>
+                    <span class="font-weight-bold">{{letter?.field}}</span>
+                    <br/>
+                    <span class="font-weight-bold">{{letter?.field2}}</span>
+                    <br/>
+                    <span class="font-weight-bold">{{letter?.field3}}</span>
+                </div>
+            <h6 class="text-center mt-5 mb-4">
+                <p>
+                    <strong>Our Reference Number: <u>ICFC/CR/B<span class="font-weight-bold">{{letter?.refNo}}</span>
+                        /GTEE /077/078/<span class="font-weight-bold">{{letter?.refNo}}</span>
+                    </u></strong>
+                </p>
+            </h6>
+
+            <p>
+                WHEREAS, <strong>M/s. </strong> <span class="font-weight-bold">{{letter?.name}}</span>
+                , <strong>Ward no. 1, </strong><span class="font-weight-bold">{{letter?.ward}}</span>
+                , <strong>Nepal</strong> (Hereinafter called “the applicant”), has applied for purchase of Automobiles from you and whereas you require from the Applicant a Performance Bond for an amount of <strong>NPR </strong>
+                <span class="font-weight-bold">{{letter?.amount}}</span>
+                (Nepalese
+                <span class="font-weight-bold">{{letter?.amountInWords}}</span>
+                Only), we <strong>ICFC Finance Ltd. (ICFC)</strong>, Banepa Office, Banepa (the Guarantor) hereby agree and covenant as follows.
+            </p>
+            <p class="mt-4 mb-4">
+                In the event of the Applicant failing to perform their obligations under the Contract for any reason whatsoever, the Guarantor shall pay you without demur a sum or sums up to <strong>NPR </strong>
+                <span class="font-weight-bold">{{letter?.amount2}}</span>
+                (Nepalese <span class="font-weight-bold">{{letter?.amountInWords2}}</span>
+                Only) against your receipt for the sum claimed accompanied by your statement that the Applicant failed to comply with the Contract terms.
+            </p>
+            <p class="mt-4 mb-4">
+                This Letter of Guarantee shall be valid from <span class="font-weight-bold">{{letter?.startDate}}</span>
+                and expires on <span class="font-weight-bold">{{letter?.expiryDate}}</span>
+                Notwithstanding anything contained herein above our liability under this guarantee is restricted to <strong>NPR </strong> <span class="font-weight-bold">{{letter?.amount3}}</span>
+                (Nepalese <span class="font-weight-bold">{{letter?.amountInWords3}}</span>
+                Only).
+            </p>
+            <p class="mt-4 mb-4">
+                Any claim under this guarantee must be received in writing by ICFC, <span class="font-weight-bold">{{letter?.office}}</span>
+                Branch Office,
+                <span class="font-weight-bold">{{letter?.branchAddress}}</span>
+                directly along with the original of this guarantee within in banking hours on or before its
+                expiry date as mentioned above and if no such claim has been received by ICFC, <span class="font-weight-bold">{{letter?.office2}}</span>
+                at
+                that time and date, all your rights under this guarantee shall cease .
+            </p>
+            <p class="mt-4 mb-4">
+                Retention of this guarantee does not confer any rights upon the Beneficiary beyond the expiry date as mentioned above.</p>
+
+
+            <p class="mt-5 mb-5">In all communications, please state our Reference Number.</p>
+
+            <p class="mb-lg-5">
+                <strong>Dated <span class="font-weight-bold">{{letter?.date}}</span>
+                </strong>
+            </p>
+
+            <br>
+            <div class="mt-5 mb-5">
+                <div style="width: 50%;float:left">
+                    <p>_______________________<br>
+                        Authorized Signature<br>
+                        For ICFC Finance Ltd.</p>
+                </div>
+                <div style="float:left">
+                    <p>_______________________<br>
+                        Authorized Signature<br>
+                        For ICFC Finance Ltd.</p>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </form>
+    <!--</div>-->
+</div>
