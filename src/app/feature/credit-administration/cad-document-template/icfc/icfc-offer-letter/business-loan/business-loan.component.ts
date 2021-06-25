@@ -119,6 +119,15 @@ export class BusinessLoanComponent implements OnInit {
       branch2: [undefined],
       regNo2: [undefined],
       date2: [undefined],
+      purpose: [undefined],
+      depositApprovedLoanAmount: [undefined],
+      dhaniName: [undefined],
+      district2: [undefined],
+      munVdc: [undefined],
+      wardNo: [undefined],
+      kiNo: [undefined],
+      area: [undefined],
+      details: [undefined],
     });
   }
 
