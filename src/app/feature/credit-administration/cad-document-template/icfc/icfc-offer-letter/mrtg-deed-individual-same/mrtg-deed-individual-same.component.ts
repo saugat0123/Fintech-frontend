@@ -109,6 +109,7 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
       inspectorRole: [undefined],
       checkedDate1: [undefined],
       approvedBy1: [undefined],
+      subham: [undefined],
       inspectorRole1: [undefined],
       propertyEvaluation: this.formBuilder.array([]),
     });
