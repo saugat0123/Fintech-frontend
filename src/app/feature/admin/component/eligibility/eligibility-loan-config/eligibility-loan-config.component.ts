@@ -10,6 +10,8 @@ import {PaginationUtils} from "../../../../../@core/utils/PaginationUtils";
 import {Alert, AlertType} from "../../../../../@theme/model/Alert";
 import {Pageable} from "../../../../../@core/service/baseservice/common-pageable";
 import {LoanConfigDeleteModalComponent} from "./loan-config-delete-modal/loan-config-delete-modal.component";
+import {LoanConfigService} from "../../loan-config/loan-config.service";
+import {LoanConfig} from "../../../modal/loan-config";
 
 @Component({
     selector: 'app-eligibility-loan-config',
@@ -17,7 +19,7 @@ import {LoanConfigDeleteModalComponent} from "./loan-config-delete-modal/loan-co
     styleUrls: ['./eligibility-loan-config.component.scss']
 })
 export class EligibilityLoanConfigComponent implements OnInit {
-    eligibilityLoanConfig: Array<EligibilityLoanConfiguration>;
+    eligibilityLoanConfig: Array<LoanConfig>;
     page = 1;
     search = {};
     spinner = false;
@@ -26,7 +28,7 @@ export class EligibilityLoanConfigComponent implements OnInit {
 
     constructor(private router: Router,
                 private modalService: NgbModal,
-                private service: EligibilityLoanConfigService,
+                private service: LoanConfigService,
                 private toastService: ToastService
     ) {
     }
@@ -58,11 +60,11 @@ export class EligibilityLoanConfigComponent implements OnInit {
     add() {
         const modalRef = this.modalService.open(LoanConfigFormComponent, {backdrop: 'static', size: 'lg'});
         modalRef.componentInstance.action = Action.ADD;
-        modalRef.componentInstance.model = new EligibilityLoanConfiguration();
+        modalRef.componentInstance.model = new LoanConfig();
         ModalUtils.resolve(modalRef.result, EligibilityLoanConfigComponent.loadData, this);
     }
 
-    update(loanId: number, loanConfig: EligibilityLoanConfiguration) {
+    update(loanId: number, loanConfig: LoanConfig) {
         const modalRef = this.modalService.open(LoanConfigFormComponent, {backdrop: 'static', size: 'lg'});
         modalRef.componentInstance.action = Action.UPDATE;
         modalRef.componentInstance.loanId = loanId;
@@ -70,7 +72,7 @@ export class EligibilityLoanConfigComponent implements OnInit {
         ModalUtils.resolve(modalRef.result, EligibilityLoanConfigComponent.loadData, this);
     }
 
-    delete(loanConfig: EligibilityLoanConfiguration) {
+    delete(loanConfig: LoanConfig) {
         const modalRef = this.modalService.open(LoanConfigDeleteModalComponent, {backdrop: 'static', size: 'lg'});
         modalRef.componentInstance.model = loanConfig;
         modalRef.componentInstance.action = Action.DELETE;

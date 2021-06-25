@@ -33,5 +33,7 @@ export class LoanConfig {
     loanTag: string;
     approvedDocument: Array<Document>;
     renewWithEnhancement: Array<Document>;
+    loanType:string;
+    eligibilityConfigLoanNature: string;
 
 }

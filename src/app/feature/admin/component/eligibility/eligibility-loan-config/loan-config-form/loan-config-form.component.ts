@@ -11,6 +11,8 @@ import {Document} from "../../../../modal/document";
 import {EligibilityLoanConfiguration} from "../EligibilityLoanConfiguration";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
 import {Violation} from "../../../../../../@core/utils/modal/Violation";
+import {LoanConfig} from "../../../../modal/loan-config";
+import {LoanConfigService} from "../../../loan-config/loan-config.service";
 
 @Component({
     selector: 'app-loan-config-form',
@@ -25,11 +27,11 @@ export class LoanConfigFormComponent implements OnInit {
     eligibilityLoanConfig = [];
     documents = [];
     @Input() loanId;
-    @Input() model: EligibilityLoanConfiguration;
+    @Input() model: LoanConfig;
     error: Array<Violation>;
 
     spinner=false;
-
+    loanConfigs: LoanConfig = new LoanConfig();
 
     constructor(private activeModal: NgbActiveModal,
                 private router: Router,
@@ -38,7 +40,8 @@ export class LoanConfigFormComponent implements OnInit {
                 private service: EligibilityLoanConfigService,
                 private docService: DocumentService,
                 private modelref: NgbActiveModal,
-                private toast: ToastService) {
+                private toast: ToastService,
+                private configService: LoanConfigService) {
     }
 
     ngOnInit() {
@@ -61,9 +64,13 @@ export class LoanConfigFormComponent implements OnInit {
                 if(!ObjectUtil.isEmpty(this.finalInitialDocument)){
                     const doc= this.loanConfig.value;
                     doc.documents=this.finalInitialDocument;
+                    this.loanConfigs.eligibilityDocuments=this.finalInitialDocument;
+                    this.loanConfigs.name=this.loanConfig.get('name').value;
+                    this.loanConfigs.eligibilityConfigLoanNature = this.loanConfig.get('nature').value;
+                    this.loanConfigs.loanType='S'; //** DO NOT CHANGE THIS
                 }
 
-                this.service.saveEligibilityLoanConfig(this.loanConfig.value).subscribe(resp => {
+                this.configService.save(this.loanConfigs).subscribe(resp => {
                     this.loadData();
                     this.modelref.close(ModalResponse.SUCCESS);
                      const alert= new Alert(AlertType.SUCCESS, 'Successfully Saved Eligibility Loan ')
@@ -85,11 +92,12 @@ export class LoanConfigFormComponent implements OnInit {
             case Action.UPDATE:
                 if(!ObjectUtil.isEmpty(this.finalInitialDocument)){
                     const doc= this.loanConfig.value;
-                    this.model.documents=this.finalInitialDocument;
+                    this.model.eligibilityDocuments=this.finalInitialDocument;
                 }
                 this.model.name = this.loanConfig.get('name').value;
-                this.model.nature = this.loanConfig.get('nature').value;
-                this.service.saveEligibilityLoanConfig(this.model).subscribe(resp => {
+                this.model.eligibilityConfigLoanNature = this.loanConfig.get('nature').value;
+                this.model.loanType='S';  //** DO NOT CHANGE THIS
+                this.configService.save(this.model).subscribe(resp => {
                     this.modelref.close(ModalResponse.SUCCESS);
                     this.toast.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Eligibility Loan '));
                     this.router.navigate([this.router.url]);
@@ -112,7 +120,7 @@ export class LoanConfigFormComponent implements OnInit {
             documents:[undefined],
             id:[this.model.id=== undefined ? '': this.model.id],
             name: [this.model.name=== undefined ? '' : this.model.name],
-            nature: [this.model.nature===undefined ? '' : this.model.nature],
+            nature: [this.model.eligibilityConfigLoanNature===undefined ? '' : this.model.eligibilityConfigLoanNature],
         });
     }
 
@@ -168,12 +176,11 @@ export class LoanConfigFormComponent implements OnInit {
 
     checkDocument(id: number) {
         if (this.documents.length >= 0) {
-            this.service.getAllEligibilityLoanConfig().subscribe(res => {
+            this.configService.getAllWithNoFilter().subscribe(res => {
                 console.log(res.detail);
                 res.detail.forEach(data => {
                     if (data.id === id) {
-                        data.documents.forEach(doc => {
-
+                        data.eligibilityDocuments.forEach(doc => {
                             this.documents.forEach(resp => {
                                 console.log(resp);
                                 if (resp.id === doc.id) {

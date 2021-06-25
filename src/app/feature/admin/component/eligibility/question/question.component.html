@@ -8,21 +8,14 @@
                             <div class="col-md-5">
                                 <label>Please select a scheme to begin.</label>
                                 <select (change)="onChangeSchemeOption()" class="form-control custom-select"
-                                        formControlName="loanConfigId" *ngIf="!loanType">
+                                        formControlName="loanConfigId">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
 
                                         <option  *ngFor="let scheme of schemeList;"
                                                  [ngValue]="scheme?.id">{{scheme.name}}</option>
 
                                 </select>
-                                <select (change)="onChangeSchemeOption()" class="form-control custom-select"
-                                        formControlName="loanConfigId" *ngIf="loanType">
-                                    <option [ngValue]="null" hidden> Select a scheme</option>
 
-                                    <option  *ngFor="let scheme of eligibilitySchemeList;"
-                                             [ngValue]="scheme?.id">{{scheme.name}}</option>
-
-                                </select>
                             </div>
                             <div *ngIf="existingQuestionList" class="col-md-7 text-right mt-5">
                                 <button type="submit" nbButton outline status="primary"

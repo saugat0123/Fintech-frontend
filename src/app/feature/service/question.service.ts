@@ -9,22 +9,11 @@ import {EligibilityLoanConfigService} from "../admin/component/eligibility/eligi
 })
 export class QuestionService {
     loanConfigApi = 'v1/loan-configs/';
-    questionApi: string;
+    questionApi = '/questions'
     loanType:boolean=false;
     constructor(private http: HttpClient,
                 private loanConfigService: EligibilityLoanConfigService) {
 
-       /* Using the same service class for both 'S' type loan and 'D' type loan
-        resp.detail==true=='S' type loan
-        resp.detail==false=='D' type loan */
-
-        this.loanConfigService.checkType().subscribe( resp => {
-            if(resp.detail === true){
-                this.questionApi='/EligibilityLoanConfigQuestion';
-            } else{
-                this.questionApi = '/questions';
-            }
-        })
     }
 
     saveQuestionList(model: Object, loanConfigId): Observable<Object> {

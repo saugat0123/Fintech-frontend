@@ -7,6 +7,7 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalResponse, ToastService} from "../../../../../../@core/utils";
 import {EligibilityLoanConfigService} from "../eligibility-loan-config-service";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
+import {LoanConfig} from "../../../../modal/loan-config";
 
 @Component({
   selector: 'app-loan-config-delete-modal',
@@ -18,7 +19,7 @@ export class LoanConfigDeleteModalComponent implements OnInit {
   @Input()
   action: Action = Action.DELETE;
   @Input()
-  model : EligibilityLoanConfiguration;
+  model : LoanConfig;
   errors: Array<Violation>;
 
   modelForm: FormGroup

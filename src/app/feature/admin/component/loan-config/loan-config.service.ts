@@ -22,8 +22,22 @@ export class LoanConfigService extends BaseService<LoanConfig> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getPaginationWithSearchObjectD(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+        const api = `${this.getApi()}/listD?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
     public getApi(): string {
         return LoanConfigService.API;
+    }
+
+    public getAllWithNoFilter(): Observable<any> {
+
+        const api = `${this.getApi()}/allNoFilter`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
     }
 
 }
