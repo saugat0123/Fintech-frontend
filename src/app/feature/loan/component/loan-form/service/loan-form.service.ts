@@ -195,8 +195,8 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.delete(req.url, {headers: req.header});
     }
 
-    public deleteDocument(id: number, customerId, path): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-document/${id}/${customerId}`);
+    public deleteCustomerDocument(docId: number, path, customerDocId: number, actualLoanId: number): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-document/${docId}/${customerDocId}/${actualLoanId}`);
         return this.http.post(req.url, path, {headers: req.header});
     }
 
