@@ -80,7 +80,7 @@
                             </td>
                             <td>
                                 नाम थर (अङ्ग्रेजीमा) ः
-                                <span class="font-weight-bold nepaliFont">{{letter?.guarantorNameEnglish}}</span>
+                                <span class="font-weight-bold">{{letter?.guarantorNameEnglish}}</span>
                             </td>
                             <td>
                                 <p>
@@ -92,7 +92,7 @@
                                     <span class="font-weight-bold nepaliFont">{{letter?.gender}}</span>
                                 </p>
                             </td>
-                            <td rowspan="4" style="width: 22%" class="m-auto">
+                            <td rowspan="4" style="width: 30%" class="m-auto">
                                 <div class="col-md-12">
                                     <p class="mb-3">
                                         दस्तखत ः .....................
@@ -128,7 +128,7 @@
                                 <span class="font-weight-bold nepaliFont">{{letter?.citizenshipNo}}</span>
                                 <span class="font-weight-bold nepaliFont">{{letter?.citizenshipIssuedDate}}</span>
                             </td>
-                            <td>
+                            <td width="28%">
                                 नागरिकता जारी गर्ने कार्यालय र स्थानः
                                 <span class="font-weight-bold nepaliFont">{{letter?.citizenshipIssuedOffice}}</span>
                             </td>
@@ -182,8 +182,10 @@
                                 <span class="font-weight-bold nepaliFont">{{letter?.borrowerNameNepali}}</span>
                             </td>
                             <td>
-                                नाम थर (अङ्ग्रेजीमा) ः
-                                <span class="font-weight-bold nepaliFont">{{letter?.borrowerNameEnglish}}</span>
+                                <p>
+                                    नाम थर (अङ्ग्रेजीमा) ः
+                                </p>
+                                <span class="font-weight-bold">{{letter?.borrowerNameEnglish}}</span>
                             </td>
                             <td>
                                 <p>
@@ -195,7 +197,7 @@
                                     <span class="font-weight-bold nepaliFont">{{letter?.borrowerGender}}</span>
                                 </p>
                             </td>
-                            <td rowspan="4" style="width: 22%">
+                            <td rowspan="4" style="width: 30%">
                                 <div class="col-md-12 mt-4">
                                     <p class="mb-3">
                                         दस्तखत ः .....................
@@ -227,13 +229,13 @@
                         </tr>
                         <tr>
                             <td>
-                                <span>
+                                <p>
                                     ना.प्र.नं. र जारी मिति ः
-                                </span>
+                                </p>
                                 <span class="font-weight-bold nepaliFont">{{letter?.borrowerCitizenshipNo}}</span>
                                 <span class="font-weight-bold nepaliFont">{{letter?.citizenshipIssuedDate}}</span>
                             </td>
-                            <td>
+                            <td style="width: 28%">
                                 नागरिकता जारी गर्ने कार्यालय र स्थानः
                                 <span class="font-weight-bold nepaliFont">{{letter?.borrowerCitizenshipIssuedOffice}}</span>
                             </td>
@@ -348,7 +350,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row extendedMargin">
             <div class="col-md-12">
                 <b>
                     दृष्टि/धितो बन्धक दिएको
@@ -358,8 +360,8 @@
                     <span class="font-weight-bold nepaliFont">{{letter?.regLandRevOffice}}</span>
                     मा दर्ता कायम रहेको अचल सम्पत्तीको विवरण
                 </b>
-                <div class="table-responsive">
-                    <table class="table table-bordered text-center" style="width: 100%">
+                <div>
+                    <table class="table table-bordered text-center" style="width: 100%; overflow-x: visible">
                         <thead>
                         <tr>
                             <td colspan="12" class="text-center">
@@ -534,10 +536,10 @@
                                 <span class="font-weight-bold nepaliFont">{{letter?.staffName1}}</span>
                             </p>
                             <p>
-                                <span class="font-weight-bold nepaliFont">{{letter?.staffPosition1}}</span>
                                 पद
-                                <span class="font-weight-bold nepaliFont">{{letter?.signedDate1}}</span>
+                                <span class="font-weight-bold nepaliFont">{{letter?.staffPosition1}}</span>
                                 मिति
+                                <span class="font-weight-bold nepaliFont">{{letter?.signedDate1}}</span>
                             </p>
                         </td>
                     </tr>
