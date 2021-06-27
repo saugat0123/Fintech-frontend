@@ -55,11 +55,13 @@ export class SecurityViewComponent implements OnInit {
   separator = '/';
   fileType = '.jpg';
   isPrintable = 'YES';
+  random;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
 
   ngOnInit() {
+    this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
     this.securityData = JSON.parse(this.security.data);
     // land security
