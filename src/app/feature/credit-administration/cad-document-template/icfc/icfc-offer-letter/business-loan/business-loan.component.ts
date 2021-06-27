@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -33,6 +33,18 @@ export class BusinessLoanComponent implements OnInit {
   existingOfferLetter = false;
   spinner: boolean;
   initialInfoPrint;
+  selectedArray = [];
+  selectedLoanTermArray = [];
+  selectedInterestArray = [];
+  loanRateOptions = ['Business Overdraft Loan (Quarterly)', 'Business Overdraft Loan (Monthly)', 'Business Term Loan'];
+  loanCondition = ['Overdraft Loan', 'Term Loan'];
+  overdraftLoanSelected;
+  termLoanSelected;
+  businessOverdraftLoanQSelected;
+  businessOverdraftLoanMSelected;
+  businessTermLoanSelected;
+
+
 
   constructor(private dialogRef: NbDialogRef<BusinessLoanComponent>,
               private formBuilder: FormBuilder,
@@ -128,6 +140,11 @@ export class BusinessLoanComponent implements OnInit {
       kiNo: [undefined],
       area: [undefined],
       details: [undefined],
+      interestTypeSelectedArray: [undefined],
+      loanTermSelectedArray: [undefined],
+
+      loanSecurityTable: this.formBuilder.array([]),
+      loanFacilityTable: this.formBuilder.array([]),
     });
   }
 
@@ -153,9 +170,16 @@ export class BusinessLoanComponent implements OnInit {
       this.fillForm();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+      this.selectedInterestArray = initialInfo.interestTypeSelectedArray;
+      this.selectedArray = initialInfo.loanTermSelectedArray;
+      this.changeType(this.selectedArray);
+      this.changeInterestType(this.selectedInterestArray);
       this.initialInfoPrint = initialInfo;
       this.existingOfferLetter = true;
-      if (!ObjectUtil.isEmpty(initialInfo)) {}
+      if (!ObjectUtil.isEmpty(initialInfo)) {
+        this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
+        this.setLoanFacilityTable(initialInfo.loanFacilityTable);
+      }
       this.businessLoan.patchValue(this.initialInfoPrint);
     }
   }
@@ -168,12 +192,17 @@ export class BusinessLoanComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.BUSINESS_LOAN).toString()) {
+          this.businessLoan.get('interestTypeSelectedArray').patchValue(this.selectedInterestArray);
+          console.log(this.selectedInterestArray, 'Selected');
+          this.businessLoan.get('loanTermSelectedArray').patchValue(this.selectedArray);
           offerLetterPath.initialInformation = JSON.stringify(this.businessLoan.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.BUSINESS_LOAN);
+      this.businessLoan.get('interestTypeSelectedArray').patchValue(this.selectedInterestArray);
+      this.businessLoan.get('loanTermSelectedArray').patchValue(this.selectedArray);
       offerDocument.initialInformation = JSON.stringify(this.businessLoan.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
       console.log('This is cad offer letter : ', this.cadOfferLetterApprovedDoc);
@@ -198,6 +227,91 @@ export class BusinessLoanComponent implements OnInit {
     const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
     const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
     this.businessLoan.get(annual).patchValue(finalValue);
+  }
+
+  buildLandSecurity() {
+    return this.formBuilder.group({
+      snNo: [undefined],
+      dhaniName: [undefined],
+      district2: [undefined],
+      munVdc: [undefined],
+      wardNo: [undefined],
+      kiNo: [undefined],
+      area: [undefined],
+      details: [undefined],
+    });
+  }
+
+  addTableData() {
+    (this.businessLoan.get('loanSecurityTable') as FormArray).push(this.buildLandSecurity());
+  }
+
+  removeTable(index) {
+    (this.businessLoan.get('loanSecurityTable') as FormArray).removeAt(index);
+  }
+
+  setLoanSecurityTableData(data) {
+    const formArray = this.businessLoan.get('loanSecurityTable') as FormArray;
+    if (data.length === 0) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        snNo: [value.snNo],
+        dhaniName: [value.dhaniName],
+        district2: [value.district2],
+        munVdc: [value.munVdc],
+        wardNo: [value.wardNo],
+        kiNo: [value.kiNo],
+        area: [value.area],
+        details: [value.details],
+      }));
+    });
+  }
+
+  changeType($event) {
+    this.selectedArray = $event;
+    $event.includes('Overdraft Loan') ? this.overdraftLoanSelected = true : this.overdraftLoanSelected = false;
+    $event.includes('Term Loan') ? this.termLoanSelected = true : this.termLoanSelected = false;
+  }
+
+  addLoanFacilityTable() {
+    (this.businessLoan.get('loanFacilityTable') as FormArray).push(
+        this.formBuilder.group({
+          purpose: [undefined],
+          depositApprovedLoanAmount: [undefined],
+          credit: [undefined],
+        })
+    );
+  }
+
+  removeLoanFacilityData(index) {
+    (this.businessLoan.get('loanFacilityTable') as FormArray).removeAt(index);
+  }
+
+  setLoanFacilityTable(data) {
+    const formArray = this.businessLoan.get('loanFacilityTable') as FormArray;
+    if (data.length === 0) {
+      this.addLoanFacilityTable();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        purpose: [value.purpose],
+        depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
+        credit: [value.credit],
+      }));
+    });
+  }
+
+  changeInterestType($event) {
+    this.selectedInterestArray = $event;
+    $event.includes('Business Overdraft Loan (Quarterly)') ?
+        this.businessOverdraftLoanQSelected = true : this.businessOverdraftLoanQSelected = false;
+    $event.includes('Business Overdraft Loan (Monthly)') ?
+        this.businessOverdraftLoanMSelected = true : this.businessOverdraftLoanMSelected = false;
+    $event.includes('Business Term Loan') ? this.businessTermLoanSelected = true : this.businessTermLoanSelected = false;
   }
 
 }
