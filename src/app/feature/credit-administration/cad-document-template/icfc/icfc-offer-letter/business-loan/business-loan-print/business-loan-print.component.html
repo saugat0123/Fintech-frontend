@@ -35,25 +35,30 @@
                     <th style="padding: 10px">प्रयोजन तथा उद्देश्य</th>
                     <th style="padding: 10px">जम्मा स्वीकृत कर्जा रकम</th>
                 </tr>
-                <tr>
-                    <td style="padding: 10px">व्यवसायिक <span class="font-weight-bold nepaliFont">{{letter?.credit}}</span>
+                <tr *ngFor="let loanFacilityDetails of letter?.loanFacilityTable; let i = index">
+                    <td style="padding: 10px">व्यवसायिक <span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.credit}}</span>
                         कर्जा</td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.purpose}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.depositApprovedLoanAmount}}</span></td>
+                    <td><span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.purpose}}</span></td>
+                    <td><span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.depositApprovedLoanAmount}}</span></td>
                 </tr>
             </table><br>
             <p><strong>२.	<u>ब्याजदरः</u></strong><br></p>
+            <ng-container *ngIf="businessOverdraftLoanQSelected">
             <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate}}</span>
                 प्रतिशत [Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate}}</span>
                 %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate}}</span>
                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
-            <p class="text-center"><strong>वा</strong></p>
+            </ng-container>
+                <!--<p class="text-center"><strong>वा</strong></p>-->
+            <ng-container *ngIf="businessOverdraftLoanMSelected">
             <p>प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate2}}</span>
                 प्रतिशत [Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate2}}</span>
                 %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate2}}</span>
                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
-            <p class="text-center"><strong>वा</strong></p>
-            <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate3}}</span>
+            </ng-container>
+            <!--<p class="text-center"><strong>वा</strong></p>-->
+            <ng-container *ngIf="businessTermLoanSelected">
+                <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate3}}</span>
 
                 प्रतिशत[Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate3}}</span>
                 %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate3}}</span>
@@ -61,7 +66,7 @@
                 मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold nepaliFont">{{letter?.amount}}</span>
                 (अक्षरुपी <span class="font-weight-bold nepaliFont">{{letter?.amountInWords}}</span>
                 ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।</p>
-
+            </ng-container>
             <p>तालिका बमोजिम बुझाउनु पर्ने किस्ता रकम (ब्याज तथा सावाँ र ब्याज) तालिकामा उल्लेखित मितिभित्र नबुझाएमा ऋणीले विलम्ब शुल्क वापत प्रति किस्ता रु.५००/– तिर्नु बुझाउनु पर्नेछ ।</p>
             <p><strong>ख)</strong>	वार्षिक व्याजदरको निर्धारण आधारदरमा प्रिमियम थप गरि निर्धारण गरिएकोछ । आधारदर ऋण प्रवाह हँुदाको समयको अघिल्लो त्रयमासको प्रकाशित आधारदरलाई कायम गरिएकोछ । फाइनान्सले त्रैमासिक रुपमा प्रकाशित गर्ने आधारदर परिवर्तन भएमा सोही बमोजिम त्रैमासिक रुपमा थप÷घट गरि कर्जा सुविधाको ब्याजदर समायोजन गर्न सक्नेछ । यसरी ब्याजदर समायोजन गरिएको खण्डमा सम्बन्धित ऋणको भुक्तानी अवधि अथवा भुक्तानी रकममा पनि समायोजन गरिनेछ । ऋणमा लाग्ने प्रिमियमदर ऋणको प्रकृति, भुक्तानी अवधि, ऋणीको कर्जा जोखिम वर्गिकरणको आधारमा फाइनान्सको नियमानुसार गरिएको छ । फाइनान्सले कुनै पनि बेला ऋणीलाई सूचित गरी निजकोे सहमतिमा प्रिमियमदरमा हेरफेर गर्न सक्नेछ ।</p>
             <p><strong>ग)</strong>	ऋणीले उपभोग गरेको कर्जाको तालिका अनुरुप ब्याज तथा साँवा रकम बुझाउनु पर्ने दिनमा सार्वजनिक बिदा परेमा सोको अघिल्लो दिन ऋणीले कर्जासँग सम्बन्धित खातामा आवश्यक रकम जम्मा गर्नुपर्नेछ ।</p>
@@ -70,10 +75,14 @@
             <p><strong>३.	<u>कर्जा प्रवाह (डिस्बर्समेन्ट):</u></strong></p>
             <p>यस कर्जा स्वीकृतिपत्रमा उल्लेख भए बमोजिम ऋणीले गर्नु गराउनु पर्ने सम्पूर्ण सुरक्षण लिखत कागजातहरु फाइनान्स समक्ष पेश गरेपश्चात् मात्र स्वीकृत कर्जा वा सुविधा उपलब्ध गराइनेछ ।</p>
             <p><strong>४.	<u>कर्जाको भाखा / बहाल रहने अवधिः</u></strong></p>
+            <ng-container *ngIf="overdraftLoanSelected">
             <p>यस कर्जा सुविधा रिभल्भिङ्ग (Revolving) प्रकृतिको हुनेछ र आवश्यकता अनुरुप रकम राख्न र निकाल्न सकिनेछ । यो कर्जाको समयावधि कर्जा दर्ता हुने मितिदेखि १ वर्षको लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ । कर्जाको कारोबार चित्तबुझ्दो भएमा फाइनान्सले ऋणीको निवेदनको आधारमा कर्जा नविकरण गर्न सक्नेछ । कर्जा नविकरण गर्ने वा नगर्ने सम्पूर्ण अधिकार फाइनान्समा निहित हुनेछ । कर्जा नविकरण गर्दा फाइनान्सको नियमानुसार नविकरण शुल्क लिई कर्जा नविकरण गरिनेछ ।</p>
-            <p class="text-center"><strong><u>वा</u></strong></p>
+            </ng-container>
+            <!--<p class="text-center"><strong><u>वा</u></strong></p>-->
+            <ng-container *ngIf="termLoanSelected">
             <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <span class="font-weight-bold nepaliFont">{{letter?.years}}</span>
                 वर्षको लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
+            </ng-container>
             <p><strong>५.	<u>शुल्क तथा कमिशनः</u></strong></p>
             <table border="1">
                 <tr>
@@ -135,15 +144,31 @@
                     <th>क्षेत्रफल</th>
                     <th>विवरण</th>
                 </tr>
-                <tr>
-                    <td class="text-center">१.</td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.dhaniName}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.district2}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.munVdc}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.wardNo}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.kiNo}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.area}}</span></td>
-                    <td><span class="font-weight-bold nepaliFont">{{letter?.details}}</span></td>
+                <tr *ngFor="let tableData of letter?.loanSecurityTable; let i = index">
+                    <td class="text-center">
+                        <span class="font-weight-bold nepaliFont">{{tableData?.snNo}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.dhaniName}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.district2}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.munVdc}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.wardNo}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.kiNo}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.area}}</span>
+                    </td>
+                    <td>
+                        <span class="font-weight-bold nepaliFont">{{tableData?.details}}</span>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <span class="font-weight-bold nepaliFont">{{letter?.assessor}}</span>
