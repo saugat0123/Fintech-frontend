@@ -30,19 +30,13 @@
                             </div>
 
                             <div class="col-md-3">
-                                <select class="custom-select" formControlName="loanType" *ngIf="!loanType">
+                                <select class="custom-select" formControlName="loanType">
                                     <option [value]="null" hidden selected>Select Loan Type</option>
                                     <option *ngFor="let loanType of loanTypeList"
                                             [value]="loanType.id">{{loanType.name}}
                                     </option>
                                 </select>
 
-                                <select class="custom-select" formControlName="loanType" *ngIf="loanType">
-                                    <option [value]="null" hidden selected>Select Loan Type</option>
-                                    <option *ngFor="let loanType of eligibilityLoanTypeList"
-                                            [value]="loanType.id">{{loanType.name}}
-                                    </option>
-                                </select>
                             </div>
 
                             <div class="col-md-3">

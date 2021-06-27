@@ -32,7 +32,6 @@ export class NewRequestsComponent implements OnInit {
     applicantList: Array<Applicant> = new Array<Applicant>();
     filterForm: FormGroup;
     isFilterCollapsed = true;
-    eligibilityLoanTypeList: Array<EligibilityLoanConfiguration> = new Array<EligibilityLoanConfiguration>();
     loanType: boolean=false;
     page = 1;
     search: any = {
@@ -86,13 +85,6 @@ export class NewRequestsComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
 
-        this.eligibilityLoanConfigService.getAll().subscribe( (response: any) => {
-            console.log(response.detail);
-            this.eligibilityLoanTypeList = response.detail;
-        }, err => {
-          console.log(err);
-          this.toastService.show(new Alert(AlertType.ERROR, ' Unable to load loan '));
-        })
 
         this.eligibilityLoanConfigService.checkType().subscribe( (response: any) => {
             if(response.detail===true){

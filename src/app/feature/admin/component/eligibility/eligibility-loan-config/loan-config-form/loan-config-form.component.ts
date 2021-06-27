@@ -68,6 +68,8 @@ export class LoanConfigFormComponent implements OnInit {
                     this.loanConfigs.name=this.loanConfig.get('name').value;
                     this.loanConfigs.eligibilityConfigLoanNature = this.loanConfig.get('nature').value;
                     this.loanConfigs.loanType='S'; //** DO NOT CHANGE THIS
+                    this.loanConfigs.enableEligibility=true;
+
                 }
 
                 this.configService.save(this.loanConfigs).subscribe(resp => {
@@ -97,6 +99,7 @@ export class LoanConfigFormComponent implements OnInit {
                 this.model.name = this.loanConfig.get('name').value;
                 this.model.eligibilityConfigLoanNature = this.loanConfig.get('nature').value;
                 this.model.loanType='S';  //** DO NOT CHANGE THIS
+                this.loanConfigs.enableEligibility=true;
                 this.configService.save(this.model).subscribe(resp => {
                     this.modelref.close(ModalResponse.SUCCESS);
                     this.toast.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Eligibility Loan '));
