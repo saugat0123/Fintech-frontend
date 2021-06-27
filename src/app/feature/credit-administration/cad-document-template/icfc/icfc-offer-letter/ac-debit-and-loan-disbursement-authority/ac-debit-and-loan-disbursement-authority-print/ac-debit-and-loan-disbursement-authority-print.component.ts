@@ -9,10 +9,22 @@ import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
 export class AcDebitAndLoanDisbursementAuthorityPrintComponent implements OnInit {
   @Input() letter;
   offerLetterConst = IcfcOfferLetterConst;
+  loanDisbursementSelected = false;
+  accountDebitSelected =  false;
 
   constructor() { }
 
   ngOnInit() {
+    // this.letter.subjectSelectedValue.forEach(value => {
+    //
+    // });
+    const value = this.letter.subjectSelectedValue;
+    switch (value) {
+      case 'Loan Disbursement': this.loanDisbursementSelected = true;
+        break;
+      case 'Account Debit Authority': this.accountDebitSelected = true;
+      break;
+    }
   }
 
 }

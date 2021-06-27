@@ -92,6 +92,7 @@ export class MarginCallDeedShareLoanCompanyComponent implements OnInit {
       docWrittenMonth: [undefined],
       docWrittenDate: [undefined],
       docWrittenDay: [undefined],
+      subham: [undefined],
     });
   }
 
@@ -100,13 +101,6 @@ export class MarginCallDeedShareLoanCompanyComponent implements OnInit {
     // Checking the data:
     console.log(this.nepData);
     this.shareLoanCompany.patchValue({
-      // province: this.nepData.permanentProvince ? this.nepData.permanentProvince : '',
-      // zoneName: [undefined],
-      // districtName: this.nepData.permanentDistrict ? this.nepData.permanentDistrict : '',
-      // municipalityOrVdc: this.nepData.permanentMunicipality ? this.nepData.permanentMunicipality : '',
-      // wardNo: this.nepData.permanentWard ? this.nepData.permanentWard : '',
-      // panNo: [undefined],
-      // orgOwnerName: [undefined],
       grandfatherName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
       fatherName: this.nepData.fatherName ? this.nepData.fatherName : '',
       borrowerProvince: this.nepData.permanentProvince ? this.nepData.permanentProvince : '',
