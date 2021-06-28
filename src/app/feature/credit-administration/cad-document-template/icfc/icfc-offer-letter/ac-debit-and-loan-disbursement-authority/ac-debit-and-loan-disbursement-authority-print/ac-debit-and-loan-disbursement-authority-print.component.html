@@ -6,7 +6,10 @@
                 <div>
                     <p class="text-right">Date: <span class="font-weight-bold">{{letter?.date}}</span>
                     </p>
-                    The Manager<br/>
+                    <ng-container *ngIf="loanDisbursementSelected">
+                        The Manager
+                    </ng-container>
+                    <br/>
                     ICFC Finance Limited<br/>
                     <span class="font-weight-bold">{{letter?.address}}</span>
                 </div>
