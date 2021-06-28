@@ -19,9 +19,9 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     return CollateralSiteVisitService.API;
   }
 
-  public saveCollateralSiteVisit(securityId: number, collateral: CollateralSiteVisit): Observable<any> {
+  public saveCollateralSiteVisit(securityId: number, collateral: FormData): Observable<any> {
     const api = `${this.getApi()}/${securityId}`;
-    const req = ApiUtils.getRequest(api);
+    const req = ApiUtils.getRequestWithFileSupport(api);
     return this.http.post(req.url, collateral, {headers: req.header});
   }
 
