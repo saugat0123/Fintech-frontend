@@ -1258,6 +1258,49 @@
       <tr class="text-white sb-bg-dark">
         <th>S.N</th>
         <th>Security</th>
+        <th>Water Supply</th>
+        <th>Electricity</th>
+        <th>Boundary Wall Construction</th>
+        <th>Boundary Fencing</th>
+        <th>Drainage</th>
+        <th>Open</th>
+        <th>Telephone Line</th>
+        <th>Any road setbacks?</th>
+        <th>Any river/canal/setbacks?</th>
+        <th>Any High-tension setbacks?</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td class="text-left pl-1">{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.boundaryWallConstruction === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.boundaryFencing === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.drainage === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.roadSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="17">Building Detail</th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Building Area</th>
+        <th>Construction Year(AD/BS)</th>
+        <th>Building Type</th>
+        <th>Built Up Area</th>
+        <th>Number of Storey</th>
         <th>Load Bearing Wall</th>
         <th>Mortar Cement</th>
         <th>Other Roofing</th>
@@ -1274,6 +1317,12 @@
       <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td class="text-left pl-1">{{siteVisit?.buildingArea === null ? 'NA' : siteVisit?.buildingArea}}</td>
+        <td class="text-left pl-1">{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}
+          ({{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | engNepDate: false}})</td>
+        <td class="text-left pl-1">{{siteVisit?.buildingType === null ? 'NA' : siteVisit?.buildingType}}</td>
+        <td class="text-left pl-1">{{siteVisit?.builtUpArea === null ? 'NA' : siteVisit?.builtUpArea}}</td>
+        <td class="text-left pl-1">{{siteVisit?.noOfStorey === null ? 'NA' : siteVisit?.noOfStorey}}</td>
         <td class="text-left pl-1">{{siteVisit?.loadBearingWall === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.mortarCement === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.otherRoofing === true ? 'YES' : 'NO'}}</td>
@@ -1287,54 +1336,7 @@
       </tr>
       </tbody>
     </table>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-      <thead>
-        <tr>
-          <th colspan="17">Building Detail</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-          <th>S.N</th>
-          <th>Security</th>
-          <th>Water Supply</th>
-          <th>Electricity</th>
-          <th>Boundary Wall Construction</th>
-          <th>Boundary Fencing</th>
-          <th>Drainage</th>
-          <th>Open</th>
-          <th>Telephone Line</th>
-          <th>Building Area</th>
-          <th>Construction Year(AD/BS)</th>
-          <th>Building Type</th>
-          <th>Built Up Area</th>
-          <th>Number of Storey</th>
-          <th>Any road setbacks?</th>
-          <th>Any river/canal/setbacks?</th>
-          <th>Any High-tension setbacks?</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <td>{{i+1}}</td>
-        <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
-        <td class="text-left pl-1">{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.boundaryWallConstruction === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.boundaryFencing === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.drainage === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.buildingArea === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}
-          ({{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.roadSetbacks}}</td>
-        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
-        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
-      </tr>
-      </tbody>
-    </table>
+
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
         <tr class="text-white sb-bg-dark">
