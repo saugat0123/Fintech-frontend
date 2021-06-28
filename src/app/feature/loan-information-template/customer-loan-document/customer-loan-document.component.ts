@@ -69,7 +69,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
             });
 
-
         this.loanConfigService.detail(loanId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
@@ -111,7 +110,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     });
                 }
                 this.deleteDocument = this.customerDocumentArray;
-                console.log('Backend', this.customerDocumentArray);
             }
         );
 
@@ -178,7 +176,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
                     this.initialDocuments[index].checked = true;
-                    console.log('Doc path::::', this.customerDocumentArray);
                 },
                 error => {
                     console.error(error);
@@ -203,40 +200,24 @@ export class CustomerLoanDocumentComponent implements OnInit {
     }
 
     confirmDelete(i) {
-        console.log(i);
         this.deleteDocument.forEach(resp => {
-
-            console.log('test delete', resp.id);
             for (let j = 0; this.customerDocumentArray.length > j; j++) {
                 if (this.initialDocuments[i].id === this.customerDocumentArray[j].document.id) {
-                    console.log('INSIDE:::', this.customerDocumentArray[j].documentPath);
-                    console.log('customerDocId', resp.id);
                     // tslint:disable-next-line:max-line-length
                     if (this.customerDocumentArray[j].document.id === resp.document.id) {
-                        this.loanFormService.deleteCustomerDocument(this.initialDocuments[i].id, this.customerDocumentArray[j].documentPath,
-                            resp.id === undefined ? null : resp.id, this.actualLoanId).subscribe((res: any) => {
+                        this.loanFormService.deleteCustomerDocument(this.customerDocumentArray[j].documentPath).subscribe((res: any) => {
                             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED '.concat(this.documentName)));
                         }, error => {
                             this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ?
                                 ' Successfully DELETED ' : error.error.message));
                         });
-                        // this.customerDocumentArray.splice(j, 1);
+                        this.customerDocumentArray.splice(j, 1);
                         this.initialDocuments[i].checked = false;
                         break;
                     }
                 }
             }
-
         });
-       // tslint:disable-next-line:max-line-length
-        // this.loanFormService.deleteDocument(this.initialDocuments[i].id, this.customerDocumentArray[this.documentId].documentPath).subscribe((res: any) => {
-        //     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED '.concat(this.documentName)));
-        // }, error => {
-        //     this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ?
-        //         ' Successfully DELETED ' : error.error.message));
-        // });
-
-        // console.log('After:::', this.customerDocumentArray);
         this.modelService.dismissAll();
     }
 }
