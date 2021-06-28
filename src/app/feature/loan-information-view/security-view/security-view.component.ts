@@ -171,7 +171,9 @@ export class SecurityViewComponent implements OnInit {
               }
             });
             // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-            this.siteVisitDocuments = flatten(arr);
+            const docArray = flatten(arr);
+            // filter for only printable document
+            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
 
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
