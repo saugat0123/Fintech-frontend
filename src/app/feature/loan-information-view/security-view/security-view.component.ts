@@ -3,7 +3,6 @@ import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
-import {environment as envSrdb} from '../../../../environments/environment.srdb';
 import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
 import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
@@ -209,4 +208,7 @@ export class SecurityViewComponent implements OnInit {
     link.click();
   }
 
+  public onError(event): void {
+    event.target.src = 'assets/img/noImage.png';
+  }
 }
