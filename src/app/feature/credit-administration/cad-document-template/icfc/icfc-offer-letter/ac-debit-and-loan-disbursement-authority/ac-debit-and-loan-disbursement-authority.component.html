@@ -6,7 +6,10 @@
                 <div>
                     <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
                         </p>
-                    The Manager<br/>
+                    <ng-container *ngIf="loanDisbursementSelected">
+                        The Manager
+                    </ng-container>
+                    <br/>
                     ICFC Finance Limited<br/>
                     <input class="form-field form-control-sm" formControlName="address" type="text"/>
                 </div>
