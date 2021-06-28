@@ -128,6 +128,7 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
       checkedDate1: [undefined],
       approvedBy1: [undefined],
       inspectorRole1: [undefined],
+      subham: [undefined],
       mrtgPropertyDetails: this.formBuilder.array([]),
 
     });

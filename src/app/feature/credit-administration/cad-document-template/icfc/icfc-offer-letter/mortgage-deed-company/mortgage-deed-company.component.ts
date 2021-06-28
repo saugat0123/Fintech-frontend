@@ -122,6 +122,7 @@ export class MortgageDeedCompanyComponent implements OnInit {
       checkedDate1: [undefined],
       ApprovedBy1: [undefined],
       inspectorRole1: [undefined],
+      subham: [undefined],
       propertyEvaluation: this.formBuilder.array([]),
     });
   }

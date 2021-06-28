@@ -78,6 +78,7 @@ export class MarginCallDeedShareLoanComponent implements OnInit {
       docWrittenMonth: [undefined],
       docWrittenDate: [undefined],
       docWrittenDay: [undefined],
+      subham: [undefined],
     });
   }
 

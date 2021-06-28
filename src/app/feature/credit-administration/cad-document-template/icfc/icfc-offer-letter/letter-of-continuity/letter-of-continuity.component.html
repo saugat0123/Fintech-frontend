@@ -1,4 +1,4 @@
-<div class="container text-justify">
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.LETTER_OF_CONTINUITY}}">
     <!--div class="row">-->
     <form (ngSubmit)="onSubmit()" [formGroup]="letterOfContinuity" class="nep" id="letterOfContinuity">
         <div class="form-group align">
@@ -40,4 +40,17 @@
         </div>
     </form>
     <!--</div>-->
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.LETTER_OF_CONTINUITY}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
 </div>
+<app-letter-of-continuity-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                          hidden></app-letter-of-continuity-print>
