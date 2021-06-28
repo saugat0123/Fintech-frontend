@@ -836,15 +836,17 @@
                         <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
                     </tr>
                 </table>
-                <strong>Collateral Site Visit Documents</strong>
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <strong *ngIf="siteVisitDocuments.length>0">Collateral Site Visit Documents</strong>
+                <table *ngIf="siteVisitDocuments.length>0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
+                        <th>Security Name</th>
                         <th>Document Name</th>
                         <th>Is Printable?</th>
                     </tr>
                     <tr *ngFor="let doc of siteVisitDocuments; let i=index;">
                         <td>{{i+1}}</td>
+                        <td>{{doc?.securityName.slice(0, -2)}}</td>
                         <td>{{doc?.docName}}</td>
                         <td>{{doc?.isPrintable}}</td>
                     </tr>

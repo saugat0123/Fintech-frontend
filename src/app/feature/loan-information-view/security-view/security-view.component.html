@@ -1432,15 +1432,15 @@
       </ng-container>
       </tbody>
     </table>
-    <strong class="ml-3">Collateral Site Visit Documents</strong>
-    <hr/>
-    <div class="container">
+    <strong *ngIf="siteVisitDocuments.length>0" class="ml-3">Collateral Site Visit Documents</strong>
+    <div *ngIf="siteVisitDocuments.length>0" class="container mt-2">
       <div class="row">
       <div class="col-md-4" *ngFor="let doc of siteVisitDocuments;">
         <img *ngIf="doc?.isPrintable === isPrintable"
              [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
              class="figure-img img-fluid rounded img-medium"
              alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName)">
+        <span *ngIf="doc?.isPrintable === isPrintable" class="ml-5">Document for {{doc?.securityName.slice(0, -2)}}</span>
       </div>
     </div>
     </div>

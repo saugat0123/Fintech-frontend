@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -251,6 +251,10 @@ export class FixAssetCollateralComponent implements OnInit {
         this.submitted = true;
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
+        }
+        if (ObjectUtil.isEmpty(this.securityId)) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
+            return;
         }
         this.fixedAssetsForm.get('securityName').patchValue(this.security);
         const formData: FormData = new FormData();
