@@ -1,5 +1,5 @@
 export enum IcfcOfferLetterConst {
-    LETTER_OF_ARRANGEMENTS,
+    // LETTER_OF_ARRANGEMENTS,
     AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY,
     BANK_GUARANTEE,
     BUSINESS_LOAN,
@@ -19,8 +19,8 @@ export enum IcfcOfferLetterConst {
 export namespace IcfcOfferLetterConst {
     export function value(offerLetterConst: IcfcOfferLetterConst) {
         switch (offerLetterConst) {
-            case IcfcOfferLetterConst.LETTER_OF_ARRANGEMENTS:
-                return 'Letter of Arrangements';
+            // case IcfcOfferLetterConst.LETTER_OF_ARRANGEMENTS:
+            //     return 'Letter of Arrangements';
             case IcfcOfferLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY:
                 return 'AC Debit and Loan Disbursement Authority';
             case IcfcOfferLetterConst.BANK_GUARANTEE:
