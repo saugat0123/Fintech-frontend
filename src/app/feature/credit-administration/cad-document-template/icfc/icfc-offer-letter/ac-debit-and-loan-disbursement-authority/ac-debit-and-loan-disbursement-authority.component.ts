@@ -24,7 +24,11 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   acDebitAndLoanDisbursementAuthority: FormGroup;
   offerLetterConst = IcfcOfferLetterConst;
   customerOfferLetter: CustomerOfferLetter;
+  selectedData = 'Loan Disbursement';
+  subjectType = ['Loan Disbursement', 'Account Debit Authority'];
   initialInfoPrint;
+  loanDisbursementSelected: boolean;
+  accountDebitSelected: boolean;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   spinner: boolean;
@@ -50,8 +54,11 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
       this.offerLetterDocument = new OfferDocument();
       this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY);
       this.fillForm();
+      this.loanDisbursementSelected = true;
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+      this.selectedData = initialInfo.subjectSelectedValue;
+      this.changeType(this.selectedData);
       this.initialInfoPrint = initialInfo;
       this.existingOfferLetter = true;
       if (!ObjectUtil.isEmpty(initialInfo)) {}
@@ -67,6 +74,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.acDebitAndLoanDisbursementAuthority.value);
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
@@ -74,12 +82,14 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY).toString()) {
+          this.acDebitAndLoanDisbursementAuthority.get('subjectSelectedValue').patchValue(this.selectedData);
           offerLetterPath.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY);
+      this.acDebitAndLoanDisbursementAuthority.get('subjectSelectedValue').patchValue(this.selectedData);
       offerDocument.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
@@ -104,10 +114,10 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
       date: [undefined],
       address: [undefined],
       amount: [undefined],
-      amount2: [undefined],
+      amountInWords: [undefined],
       loan: [undefined],
       loanAmount: [undefined],
-      loanAmount2: [undefined],
+      loanAmountInWords: [undefined],
       accountNo: [undefined],
       date2: [undefined],
       address2: [undefined],
@@ -115,6 +125,15 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
       accountNo2: [undefined],
       loan2: [undefined],
       rate: [undefined],
+      amount2: [undefined],
+      loanAmount2: [undefined],
+      subjectSelectedValue: [undefined],
     });
+  }
+
+  changeType($event) {
+    this.selectedData = $event;
+    $event.includes('Loan Disbursement') ? this.loanDisbursementSelected = true : this.loanDisbursementSelected = false;
+    $event.includes('Account Debit Authority') ? this.accountDebitSelected = true : this.accountDebitSelected = false;
   }
 }

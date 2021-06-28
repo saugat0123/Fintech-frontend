@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NbDialogRef} from '@nebular/theme';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
@@ -31,7 +31,7 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
   customeVar;
 
   constructor(private dialogRef: NbDialogRef<MrtgDeedIndividualSameComponent>,
-      private formBuilder: FormBuilder,
+              private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private toastService: ToastService,
@@ -40,7 +40,6 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    console.log(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     this.checkOfferLetter();
   }
 
@@ -78,18 +77,6 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
       regLandRevOffice: [undefined],
       landProvince: [undefined],
       landDistrict: [undefined],
-      districtName: [undefined],
-      MunicipalityOrVdc: [undefined],
-      wardNo: [undefined],
-      seatNo: [undefined],
-      KittaNo: [undefined],
-      area: [undefined],
-      propertyDetails: [undefined],
-      propertyRight: [undefined],
-      propertyEast: [undefined],
-      propertyWest: [undefined],
-      propertyNorth: [undefined],
-      propertySouth: [undefined],
       receipt: [undefined],
       recommendationDoc: [undefined],
       guarantorName1: [undefined],
@@ -122,8 +109,9 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
       inspectorRole: [undefined],
       checkedDate1: [undefined],
       approvedBy1: [undefined],
+      subham: [undefined],
       inspectorRole1: [undefined],
-
+      propertyEvaluation: this.formBuilder.array([]),
     });
   }
 
@@ -137,7 +125,6 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
 
   fillForm() {
     this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    console.log(this.nepData);
     const customerAddress =
         this.nepData.permanentMunicipality + ' j8f g ' +
         this.nepData.permanentWard + ' , ' +
@@ -166,11 +153,58 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       this.initialInfoPrint = initialInfo;
       this.existingOfferLetter = true;
-      console.log('It is initial info', initialInfo);
-      // Codes of setting the form arrays:
-      if (!ObjectUtil.isEmpty(initialInfo)) {}
+      if (!ObjectUtil.isEmpty(initialInfo)) {
+        this.setPropertyEvaluationTable(initialInfo.propertyEvaluation);
+      }
       this.form.patchValue(this.initialInfoPrint);
     }
+  }
+
+  addTableData() {
+    (this.form.get('propertyEvaluation') as FormArray).push(
+        this.formBuilder.group({
+          districtName: [undefined],
+          MunicipalityOrVdc: [undefined],
+          wardNo: [undefined],
+          seatNo: [undefined],
+          KittaNo: [undefined],
+          area: [undefined],
+          propertyDetails: [undefined],
+          propertyRight: [undefined],
+          propertyEast: [undefined],
+          propertyWest: [undefined],
+          propertyNorth: [undefined],
+          propertySouth: [undefined],
+        })
+    );
+  }
+
+  removeTableDetail(index) {
+    (this.form.get('propertyEvaluation') as FormArray).removeAt(index);
+  }
+
+  setPropertyEvaluationTable(data) {
+    const formArray = this.form.get('propertyEvaluation') as FormArray;
+    if (data.length === 0) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        districtName: [value.districtName],
+        MunicipalityOrVdc: [value.MunicipalityOrVdc],
+        wardNo: [value.wardNo],
+        seatNo: [value.seatNo],
+        KittaNo: [value.kittaNo],
+        area: [value.area],
+        propertyDetails: [value.propertyDetails],
+        propertyRight: [value.propertyRight],
+        propertyEast: [value.propertyEast],
+        propertyWest: [value.propertyWest],
+        propertyNorth: [value.propertyNorth],
+        propertySouth: [value.propertySouth],
+      }));
+    });
   }
 
   submit() {
@@ -190,7 +224,6 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME);
       offerDocument.initialInformation = JSON.stringify(this.form.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
-      console.log('This is cad offer letter : ', this.cadOfferLetterApprovedDoc);
     }
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved offer letter !'));

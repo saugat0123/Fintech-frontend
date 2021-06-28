@@ -1,4 +1,4 @@
-<div class="container bodyConfig text-justify">
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME}}">
     <form (ngSubmit)="submit()" [formGroup]="form" id="mortgageDeedIndividualSame">
         <div class="row">
             <div class="col-md-12 text-center">
@@ -109,7 +109,7 @@
                             </td>
                             <td>
                                 नाम थर (अङ्ग्रेजीमा) ः
-                                <input class="form-field form-control-sm nepaliFont" name="borrowerNameEnglish"
+                                <input class="form-field form-control-sm" name="borrowerNameEnglish"
                                        formControlName="borrowerNameEnglish"
                                        placeholder=""
                                        type="text"/>
@@ -385,8 +385,8 @@
                             <td>दक्षिण</td>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr style="height: 80px">
+                        <tbody *ngFor="let data of form.get('propertyEvaluation')['controls']; let index = index" formArrayName="propertyEvaluation">
+                        <tr [formGroupName]="index">
                             <td>
                                 <input class="form-field form-control-sm nepaliFont tableFields" name="districtName"
                                        formControlName="districtName"
@@ -460,8 +460,23 @@
                                        type="text"/>
                             </td>
                         </tr>
+                        <div class="col-md-12">
+                            <button
+                                    (click)="removeTableDetail(index)"
+                                    *ngIf="index > 0"
+                                    class="mt-3 mb-3" nbButton
+                                    status="primary">हटाउनुहोस्
+                            </button>
+                        </div>
                         </tbody>
                     </table>
+                </div>
+                <div class="row mr-1 mb-3">
+                    <div class="col-md-12 text-right">
+                        <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                            थप्नुहोस्..
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -547,7 +562,12 @@
                                placeholder=""
                                formControlName="docWrittenDay"
                                type="text"/>
-                        शुभम्.........................................................................।
+                        शुभम्
+                        <input class="form-field form-control-sm nepaliFont" name="subham"
+                               placeholder=""
+                               formControlName="subham"
+                               type="text"/>
+                        ।
                     </p>
                 </div>
             </div>
@@ -809,4 +829,17 @@
             </div>
         </div>
     </form>
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
 </div>
+
+<app-mrtg-deed-individual-same-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-mrtg-deed-individual-same-print>

@@ -24,15 +24,12 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="keySupplier"><strong>Key Suppliers</strong></label>
-                <textarea rows="5"
-                          [ngClass]="{ 'is-invalid':submitted && form.keySupplier?.errors }"
-                          class="form-control rounded"
-                          formControlName="keySupplier"
-                          id="keySupplier"
-                          placeholder="Key Supplier"
-                          type="text"></textarea>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.keySupplier.errors }"
+                          formControlName="keySupplier" id="keySupplier"
+                          name="keySupplier" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.keySupplier?.errors "
-                     class="invalid-feedback">
+                     class="text-danger">
                     <div *ngIf="form.keySupplier?.errors.required">
                         Key Suppliers is required
                     </div>
@@ -41,16 +38,13 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="keySupplier"><strong>Key Buyers</strong></label>
-                <textarea rows="5"
-                          [ngClass]="{ 'is-invalid':submitted && form.KeyBuyers?.errors }"
-                          class="form-control rounded"
-                          formControlName="KeyBuyers"
-                          id="KeyBuyers"
-                          placeholder="Key Buyers"
-                          type="text"></textarea>
+                <label for="KeyBuyers"><strong>Key Buyers</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.KeyBuyers.errors }"
+                          formControlName="KeyBuyers" id="KeyBuyers"
+                          name="KeyBuyers" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.KeyBuyers?.errors "
-                     class="invalid-feedback">
+                     class="text-danger">
                     <div *ngIf="form.KeyBuyers?.errors.required">
                         Key Buyers is required
                     </div>
@@ -62,14 +56,10 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="competitorsOverview"><strong>Competitors Overview</strong></label>
-                <textarea
-                        rows="5"
-                        [ngClass]="{ 'is-invalid':submitted && form.competitorsOverview?.errors }"
-                        class="form-control rounded"
-                        formControlName="competitorsOverview"
-                        id="competitorsOverview"
-                        placeholder="Competitors Overview"
-                        type="text"></textarea>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.competitorsOverview.errors }"
+                          formControlName="competitorsOverview" id="competitorsOverview"
+                          name="competitorsOverview" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.competitorsOverview?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.competitorsOverview?.errors.required">
@@ -81,34 +71,26 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <label for="BusinessIndustryOutlook"><strong>Industry/Market Risk</strong></label>
-                <textarea
-                        rows="5"
-                        [ngClass]="{ 'is-invalid':submitted && form.BusinessIndustryOutlook?.errors }"
-                        class="form-control rounded"
-                        formControlName="BusinessIndustryOutlook"
-                        id="BusinessIndustryOutlook"
-                        placeholder="Industry/Market risk"
-                        type="text"></textarea>
+                <label for="marketRisk"><strong>Industry/Market Risk & Mitigation</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
+                          formControlName="BusinessIndustryOutlook" id="marketRisk"
+                          name="marketRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
-                        Industry/Market Risk is required
+                        Industry/Market Risk & Mitigation is required
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="BusinessIndustryOutlook"><strong>Marketing Strategies</strong></label>
-                <textarea
-                        rows="5"
-                        [ngClass]="{ 'is-invalid':submitted && form.marketingStrategies?.errors }"
-                        class="form-control rounded"
-                        formControlName="marketingStrategies"
-                        id="marketingStrategies"
-                        placeholder="Marketing Strategies"
-                        type="text"></textarea>
+                <label for="marketingStrategies"><strong>Marketing Strategies</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.marketingStrategies.errors }"
+                          formControlName="marketingStrategies" id="marketingStrategies"
+                          name="marketingStrategies" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.marketingStrategies?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.marketingStrategies?.errors.required">
@@ -119,57 +101,46 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="technicalAspect"><strong>Business/Management Risk </strong></label>
-                <textarea
-                        rows="5"
-                        [ngClass]="{ 'is-invalid':submitted && form.technicalAspect?.errors }"
-                        class="form-control rounded"
-                        formControlName="technicalAspect"
-                        id="technicalAspect"
-                        placeholder="Management Risk "
-                        type="text"></textarea>
+                <label for="managementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.technicalAspect.errors }"
+                          formControlName="technicalAspect" id="managementRisk"
+                          name="managementRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
+
                 <div *ngIf="submitted && form.technicalAspect?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.technicalAspect?.errors.required">
-                        Business/Management Risk is required
+                        Business/Management Risk & Mitigation is required
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="technicalAspect"><strong>Security Risk </strong></label>
-                <textarea
-                        rows="5"
-                        [ngClass]="{ 'is-invalid':submitted && form.securityRisk?.errors }"
-                        class="form-control rounded"
-                        formControlName="securityRisk"
-                        id="securityRisk"
-                        placeholder="Security Risk "
-                        type="text"></textarea>
+                <label for="securityRisk"><strong>Security Risk & Mitigation</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.securityRisk.errors }"
+                          formControlName="securityRisk" id="securityRisk"
+                          name="securityRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.securityRisk?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.securityRisk?.errors.required">
-                        Security Risk is required
+                        Security Risk & Mitigation is required
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="technicalAspect"><strong>Financial and Cash Flow Risk </strong></label>
-                <textarea
-                        rows="5"
-                        [ngClass]="{ 'is-invalid':submitted && form.financialAndCashFlowRisk?.errors }"
-                        class="form-control rounded"
-                        formControlName="financialAndCashFlowRisk"
-                        id="financialAndCashFlowRisk"
-                        placeholder="Financial and Cash Flow Risk"
-                        type="text"></textarea>
+                <label for="financialAndCashFlowRisk"><strong>Financial and Cash Flow Risk & Mitigation</strong></label>
+                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.financialAndCashFlowRisk.errors }"
+                          formControlName="financialAndCashFlowRisk" id="financialAndCashFlowRisk"
+                          name="financialAndCashFlowRisk" [config]="ckeConfig"
+                          type="text"></ckeditor>
                 <div *ngIf="submitted && form.financialAndCashFlowRisk?.errors "
                      class="invalid-feedback">
                     <div *ngIf="form.financialAndCashFlowRisk?.errors.required">
-                        Financial and Cash Flow Risk is required
+                        Financial and Cash Flow Risk & Mitigation is required
                     </div>
                 </div>
             </div>

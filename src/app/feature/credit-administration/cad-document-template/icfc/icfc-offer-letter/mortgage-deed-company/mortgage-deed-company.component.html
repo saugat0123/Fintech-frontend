@@ -1,4 +1,4 @@
-<div class="container bodyConfig text-justify">
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.MORTGAGE_DEED_COMPANY}}">
     <form (ngSubmit)="submit()" [formGroup]="mortgageDeedCompany" id="mortgageDeedCompany">
         <div class="row">
             <div class="col-md-12 text-center">
@@ -75,7 +75,7 @@
                            (change)="convertAmountInWords('loanAmount', 'loanAmountWords')"
                            type="text"/>
                     /— (अक्षरुपी
-                    <input class="form-field form-control-sm nepaliFont" name="loanAmountWords"
+                    <input class="form-field form-control-sm nepaliFont longInput" name="loanAmountWords"
                            formControlName="loanAmountWords"
                            placeholder=""
                            type="text"/>
@@ -137,7 +137,7 @@
                             </td>
                             <td>
                                 नाम थर (अङ्ग्रेजीमा) ः
-                                <input class="form-field form-control-sm nepaliFont" name="guarantorNameEnglish"
+                                <input class="form-field form-control-sm" name="guarantorNameEnglish"
                                        formControlName="guarantorNameEnglish"
                                        placeholder=""
                                        type="text"/>
@@ -163,7 +163,7 @@
                                     <p class="mb-3">
                                         दस्तखत ः .....................
                                     </p>
-                                    <table class="table table-bordered" style="height: 150px;">
+                                    <table class="table table-bordered" style="height: 130px;">
                                         <tbody>
                                         <tr>
                                             <td></td>
@@ -260,10 +260,11 @@
                 <p>
                     <b>
                         ऋणी
-                        <input class="form-field form-control-sm nepaliFont" name="borrowerName2"
-                               formControlName="borrowerName2"
-                               placeholder=""
-                               type="text"/>
+<!--                        <input class="form-field form-control-sm nepaliFont" name="borrowerName2"-->
+<!--                               formControlName="borrowerName2"-->
+<!--                               placeholder=""-->
+<!--                               type="text"/>-->
+                        <span class="nepaliFont form-field"> {{mortgageDeedCompany.get('letterPersonName').value}}</span>
                         को विवरण र सहिछाप
                     </b>
                 </p>
@@ -279,7 +280,7 @@
                             </td>
                             <td>
                                 नाम थर (अङ्ग्रेजीमा) ः
-                                <input class="form-field form-control-sm nepaliFont" name="borrowerNameEnglish"
+                                <input class="form-field form-control-sm" name="borrowerNameEnglish"
                                        formControlName="borrowerNameEnglish"
                                        placeholder=""
                                        type="text"/>
@@ -439,12 +440,16 @@
                     </b>
                 </p>
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center" style="width: 100%">
+                    <table class="table table-bordered text-center" style="width: 100%; overflow-x: auto">
                         <thead>
                         <tr>
                             <td colspan="12" class="text-center">
+                                <p>
+                                    <b>
+                                        जग्गाको विवरण (श्रेस्ता बमोजिम)
+                                    </b>
+                                </p>
                                 <b>
-                                    जग्गाको विवरण (श्रेस्ता बमोजिम)
                                     प्रदेश
                                     <input class="form-field form-control-sm nepaliFont" name="landProvince"
                                            formControlName="landProvince"
@@ -556,11 +561,11 @@
                                        type="text"/>
                             </td>
                         </tr>
-                        <div class="col-md-12 mb-2">
+                        <div class="col-md-12">
                             <button
                                     (click)="removeTableDetail(index)"
                                     *ngIf="index > 0"
-                                    class="mt-3" nbButton
+                                    class="mt-3 mb-3" nbButton
                                     status="primary">हटाउनुहोस्
                             </button>
                         </div>
@@ -619,10 +624,11 @@
                 <p>
                     <b>
                         यो लिखत म कारणी ऋणी
-                        <input class="form-field form-control-sm nepaliFont" name="borrowerName3"
-                               formControlName="borrowerName3"
-                               placeholder=""
-                               type="text"/>
+<!--                        <input class="form-field form-control-sm nepaliFont" name="borrowerName3"-->
+<!--                               formControlName="borrowerName3"-->
+<!--                               placeholder=""-->
+<!--                               type="text"/>-->
+                        <span class="nepaliFont form-field">{{mortgageDeedCompany.get('borrowerName').value}}</span>
                         स्वयंले तयार गरेको हो भनी सही गर्ने  ।
                     </b>
                 </p>
@@ -653,7 +659,12 @@
                            placeholder=""
                            formControlName="docWrittenDay"
                            type="text"/>
-                    शुभम्.........................................................................।
+                    शुभम्
+                    <input class="form-field form-control-sm nepaliFont" name="subham"
+                           placeholder=""
+                           formControlName="subham"
+                           type="text"/>
+                    ।
                 </p>
             </div>
         </div>
@@ -684,16 +695,17 @@
                                       type="text"/>
                            </p>
                            <p>
+                               पद
                                <input class="form-field form-control-sm nepaliFont" name="staffPosition1"
                                       placeholder=""
                                       formControlName="staffPosition1"
                                       type="text"/>
-                               पद
+
+                               मिति
                                <input class="form-field form-control-sm nepaliFont" name="signedDate1"
                                       placeholder=""
                                       formControlName="signedDate1"
                                       type="text"/>
-                               मिति
                            </p>
                        </td>
                     </tr>
@@ -914,4 +926,17 @@
             </div>
         </div>
     </form>
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.MORTGAGE_DEED_COMPANY}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
 </div>
+
+<app-mortgage-deed-company-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-mortgage-deed-company-print>

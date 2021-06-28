@@ -1,7 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
+import {NbDialogRef} from '@nebular/theme';
+import {ToastService} from '../../../../../../@core/utils';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
+import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CadDocStatus} from '../../../../model/CadDocStatus';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-mrtg-deed-individual-different',
@@ -13,13 +24,27 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc;
 
   mrtgIndividualDifferent: FormGroup;
+  nepData;
+  spinner;
+  initialInfoPrint;
+  existingOfferLetter = false;
+  offerLetterConst = IcfcOfferLetterConst;
+  customerOfferLetter: CustomerOfferLetter;
+  offerLetterDocument: OfferDocument;
+  customVar;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private toastService: ToastService,
+              private administrationService: CreditAdministrationService,
+              private routerUtilService: RouterUtilsService,
+              private customerOfferLetterService: CustomerOfferLetterService,
+              private dialogRef: NbDialogRef<MrtgDeedIndividualDifferentComponent>) { }
 
   ngOnInit() {
     this.buildForm();
+    this.checkOfferLetter();
   }
 
   buildForm() {
@@ -70,18 +95,6 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
       regLandRevOffice: [undefined],
       landProvince: [undefined],
       landDistrict: [undefined],
-      districtName: [undefined],
-      MunicipalityOrVdc: [undefined],
-      wardNo: [undefined],
-      seatNo: [undefined],
-      KittaNo: [undefined],
-      area: [undefined],
-      propertyDetails: [undefined],
-      propertyRight: [undefined],
-      propertyEast: [undefined],
-      propertyWest: [undefined],
-      propertyNorth: [undefined],
-      propertySouth: [undefined],
       receipt: [undefined],
       recommendationDoc: [undefined],
       guarantorName1: [undefined],
@@ -115,12 +128,10 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
       checkedDate1: [undefined],
       approvedBy1: [undefined],
       inspectorRole1: [undefined],
+      subham: [undefined],
+      mrtgPropertyDetails: this.formBuilder.array([]),
 
     });
-  }
-
-  submit() {
-    console.log(this.mrtgIndividualDifferent.value);
   }
 
   convertAmountInWords(numLabel, wordLabel) {
@@ -128,5 +139,132 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.mrtgIndividualDifferent.get(wordLabel).patchValue(convertedVal);
   }
+
+  fillForm() {
+    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    const customerAddress =
+        this.nepData.permanentMunicipality + ' j8f g ' +
+        this.nepData.permanentWard + ' , ' +
+        this.nepData.permanentDistrict;
+    this.checkGender(this.nepData.gender);
+    this.mrtgIndividualDifferent.patchValue({
+      letterWriterName: this.nepData.name ? this.nepData.name : '',
+      borrowerNameNepali: this.nepData.name ? this.nepData.name : '',
+      borrowerGender: this.customVar ? this.customVar  : '',
+      borrowerAddress: customerAddress ? customerAddress : '',
+      borrowerCitizenshipNo: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
+      borrowerCitizenshipIssuedDate: this.nepData.citizenshipIssueDate ? this.nepData.citizenshipIssueDate : '',
+      borrowerCitizenshipIssuedOffice: this.nepData.citizenshipIssueDistrict ? this.nepData.citizenshipIssueDistrict : '',
+      borrowerFatherName: this.nepData.fatherName ? this.nepData.fatherName : '',
+      borrowerGrandFatherName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
+      borrowerSpouseName: this.nepData.husbandName ? this.nepData.husbandName : '',
+    });
+  }
+
+  checkOfferLetter() {
+    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+        === this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER).toString())[0];
+    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+      this.offerLetterDocument = new OfferDocument();
+      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER);
+      this.fillForm();
+    } else {
+      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+      this.initialInfoPrint = initialInfo;
+      this.existingOfferLetter = true;
+      if (!ObjectUtil.isEmpty(initialInfo)) {
+        this.setTablePropertyDetails(initialInfo.mrtgPropertyDetails);
+      }
+      this.mrtgIndividualDifferent.patchValue(this.initialInfoPrint);
+    }
+  }
+
+  addTable() {
+    (this.mrtgIndividualDifferent.get('mrtgPropertyDetails') as FormArray).push(
+        this.formBuilder.group({
+          districtName: [undefined],
+          MunicipalityOrVdc: [undefined],
+          wardNo: [undefined],
+          seatNo: [undefined],
+          KittaNo: [undefined],
+          area: [undefined],
+          propertyDetails: [undefined],
+          propertyRight: [undefined],
+          propertyEast: [undefined],
+          propertyWest: [undefined],
+          propertyNorth: [undefined],
+          propertySouth: [undefined],
+        })
+    );
+  }
+
+  removeTableDetails(index) {
+    (this.mrtgIndividualDifferent.get('mrtgPropertyDetails') as FormArray).removeAt(index);
+  }
+
+  setTablePropertyDetails(data) {
+    const formArray = this.mrtgIndividualDifferent.get('mrtgPropertyDetails') as FormArray;
+    if (data.length === 0) {
+      this.addTable();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        districtName: [value.districtName],
+        MunicipalityOrVdc: [value.MunicipalityOrVdc],
+        wardNo: [value.wardNo],
+        seatNo: [value.seatNo],
+        KittaNo: [value.kittaNo],
+        area: [value.area],
+        propertyDetails: [value.propertyDetails],
+        propertyRight: [value.propertyRight],
+        propertyEast: [value.propertyEast],
+        propertyWest: [value.propertyWest],
+        propertyNorth: [value.propertyNorth],
+        propertySouth: [value.propertySouth],
+      }));
+    });
+  }
+
+  submit() {
+    console.log(this.mrtgIndividualDifferent.value);
+    this.spinner = true;
+    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
+    if (this.existingOfferLetter) {
+      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+        if (offerLetterPath.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER).toString()) {
+          offerLetterPath.initialInformation = JSON.stringify(this.mrtgIndividualDifferent.value);
+        }
+      });
+    } else {
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER);
+      offerDocument.initialInformation = JSON.stringify(this.mrtgIndividualDifferent.value);
+      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+    }
+    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved offer letter !'));
+      this.spinner = false;
+      this.dialogRef.close();
+      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+    }, error => {
+      console.log(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Failed to save offer letter !'));
+      this.spinner = false;
+      this.dialogRef.close();
+      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+    });
+  }
+
+  checkGender(gender) {
+    if (gender === '1') {
+      this.customVar = 'k\'?if';
+    } else {
+      this.customVar = 'dlxnf';
+    }
+  }
+
 
 }
