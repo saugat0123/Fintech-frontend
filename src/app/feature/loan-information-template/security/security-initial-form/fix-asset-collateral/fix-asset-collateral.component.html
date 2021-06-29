@@ -49,7 +49,7 @@
                             <input class="form-control"
                                    [ngClass]="{'is-invalid': (submitted) && form.phoneNoOfContact?.errors}"
                                    formControlName="phoneNoOfContact" id="phoneNoOfContact"
-                                   name="phoneNoOfContact" placeholder="Mobile Number" type="text">
+                                   name="phoneNoOfContact" placeholder="Contact Number" type="text">
                             <div *ngIf="submitted && form?.phoneNoOfContact?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="form?.phoneNoOfContact.errors.pattern">Invalid Mobile Number</span>
@@ -343,7 +343,7 @@
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="buildingArea">Building Area</label>
                                     <input class="form-control" formControlName="buildingArea" id="buildingArea"
-                                           name="buildingArea" placeholder="building area">
+                                           name="buildingArea" placeholder="Building Area">
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="constructionYear">Construction Year</label>
@@ -536,6 +536,38 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <strong>Site Visit Map Document</strong><button nbButton size="tiny" status="success"
+                 (click)="openDocumentCreateModal(null)">
+                <i class="fa fa-plus"></i>
+            </button>
+                <table class="table table-bordered table-hover table-sm sb-small text-center">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Document Name</th>
+                        <th>Is Printable?</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let doc of siteVisitDocument;let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{doc?.docName}}</td>
+                        <td>
+                        <span *ngIf="doc.isPrintable==='YES'"><i class="fas fa-check-circle text-success"></i></span>
+                            <span *ngIf="doc.isPrintable==='NO'"><i class="fas fa-times-circle text-danger"></i></span>
+                        </td>
+                        <td>
+                            <span *ngIf="doc.docPath" class="ml-1"><a (click)="viewDocument(doc?.docPath,doc?.docName)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a></span>
+                            <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </nb-card-body>

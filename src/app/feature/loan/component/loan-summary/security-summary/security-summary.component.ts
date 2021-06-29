@@ -6,6 +6,7 @@ import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
+import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 
 
 @Component({
@@ -43,7 +44,11 @@ export class SecuritySummaryComponent implements OnInit {
     assignments = false;
     leaseAssignment: any;
     @Input() securityId: number;
-    isCollateralSiteVisit = false;
+    @Input() collateralSiteVisitDetail = [];
+    @Input() isCollateralSiteVisit;
+    @Input() nepaliDate;
+    @Input() siteVisitDocuments: Array<SiteVisitDocument>;
+    isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
 
@@ -170,7 +175,7 @@ export class SecuritySummaryComponent implements OnInit {
                         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
                     });
                     if (response.detail.length > 0) {
-                        this.isCollateralSiteVisit = true;
+                        this.isCollateralSiteVisitPresent = true;
                     }
                 });
         }
