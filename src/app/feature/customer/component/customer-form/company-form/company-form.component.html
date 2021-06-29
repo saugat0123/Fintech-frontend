@@ -1185,7 +1185,8 @@
                                               id="issuedDate" placeholder="Enter Issued date"
                                               type="text"/>
                                        <input formControlName="issuedDate" *ngIf="calendarType === 'BS'" hidden>
-                                       <app-calendar [ePreDate]="proprietor.get('issuedDate').value" *ngIf="calendarType === 'BS'"></app-calendar>
+                                       <app-calendar [ePreDate]="proprietor.get('issuedDate').value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="proprietor.get('issuedDate').patchValue($event?.eDate)"></app-calendar>
                                        <nb-datepicker #issuedDate></nb-datepicker>
                                        <div *ngIf="(submitted) && proprietor.get('issuedDate').invalid"
                                             class="invalid-feedback">
