@@ -42,7 +42,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
-                private modelService: NgbModal,) {
+                private modelService: NgbModal) {
     }
 
     ngOnInit() {
