@@ -816,7 +816,7 @@
                 </table>
             </div>
         </div>
-        <div *ngIf="isCollateralSiteVisit" class="col-md-12">
+        <div *ngIf="isCollateralSiteVisitPresent" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
             <ng-container>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -831,6 +831,21 @@
                         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
                         <td class="text-left pl-1">{{siteVisit?.date| date}} ({{siteVisit?.date| engNepDate: false}})</td>
                         <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
+                    </tr>
+                </table>
+                <strong *ngIf="siteVisitDocuments.length>0">Collateral Site Visit Documents</strong>
+                <table *ngIf="siteVisitDocuments.length>0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Security Name</th>
+                        <th>Document Name</th>
+                        <th>Is Printable?</th>
+                    </tr>
+                    <tr *ngFor="let doc of siteVisitDocuments; let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{doc?.securityName.slice(0, -2)}}</td>
+                        <td>{{doc?.docName}}</td>
+                        <td>{{doc?.isPrintable}}</td>
                     </tr>
                 </table>
             </ng-container>
