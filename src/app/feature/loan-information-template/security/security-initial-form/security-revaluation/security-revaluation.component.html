@@ -45,6 +45,14 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
+                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                                   class="form-control" formControlName="reValuatedConsideredValue"
+                                   id="reValuatedConsideredValue" name="total" placeholder="considered value">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label class="title" for="reValuatedFmv">FMV as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    class="form-control rounded" formControlName="reValuatedFmv"
@@ -63,14 +71,6 @@
                                    type="text"/>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
-                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
-                                   class="form-control" formControlName="reValuatedConsideredValue"
-                                   id="reValuatedConsideredValue" name="total" placeholder="considered value">
-                        </div>
-                    </div>
                 </ng-container>
             </div>
         </nb-card-body>
@@ -80,12 +80,9 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="title" for="changeInFmv">Change in Fmv</label>
-                        <input class="form-control rounded" formControlName="changeInFmv"
-                               id="changeInFmv"
-                               [readOnly]="true"
-                               name="changeInFmv" placeholder="market value"
-                               type="text"/>
+                        <label for="changeInConsideredValue">Change in Considered Value</label>
+                        <input [readOnly]="true" class="form-control" formControlName="changeInConsideredValue"
+                               id="changeInConsideredValue" name="total" placeholder="considered value">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -99,9 +96,12 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="changeInConsideredValue">Change in Considered Value</label>
-                        <input [readOnly]="true" class="form-control" formControlName="changeInConsideredValue"
-                               id="changeInConsideredValue" name="total" placeholder="considered value">
+                        <label class="title" for="changeInFmv">Change in Fmv</label>
+                        <input class="form-control rounded" formControlName="changeInFmv"
+                               id="changeInFmv"
+                               [readOnly]="true"
+                               name="changeInFmv" placeholder="market value"
+                               type="text"/>
                     </div>
                 </div>
             </div>
