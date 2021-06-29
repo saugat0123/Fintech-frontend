@@ -1,4 +1,4 @@
-<nb-card ngDraggable [ngResizable]="true">
+<nb-card [ngResizable]="true">
     <nb-card-header>
         <strong>Collateral Site Visit for {{security}}</strong>
         <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -49,7 +49,7 @@
                             <input class="form-control"
                                    [ngClass]="{'is-invalid': (submitted) && form.phoneNoOfContact?.errors}"
                                    formControlName="phoneNoOfContact" id="phoneNoOfContact"
-                                   name="phoneNoOfContact" placeholder="Mobile Number" type="text">
+                                   name="phoneNoOfContact" placeholder="Contact Number" type="text">
                             <div *ngIf="submitted && form?.phoneNoOfContact?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="form?.phoneNoOfContact.errors.pattern">Invalid Mobile Number</span>
@@ -218,7 +218,7 @@
                             </div>
                         </div>
                         <h5 class="col-md-12 mt-3">Other Facilities</h5>
-                        <div class="row">
+                        <div class="row col-md-12">
                             <div class="col-md-6">
                                 <table class="table table-bordered table-sm sb-small text-center">
                                     <tr class="text-white sb-bg-dark">
@@ -228,56 +228,42 @@
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td>Load Bearing Wall</td>
-                                        <td><input formControlName="loadBearingWall" type="checkbox"></td>
+                                        <td>Water Supply</td>
+                                        <td><input formControlName="waterSupply" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>Mortar Cement</td>
-                                        <td><input formControlName="mortarCement" type="checkbox"></td>
+                                        <td>Electricity</td>
+                                        <td><input formControlName="electricity" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>Other Roofing</td>
-                                        <td><input formControlName="otherRoofing" type="checkbox"></td>
+                                        <td>Boundary Wall Construction</td>
+                                        <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td>Inside Furniture</td>
-                                        <td><input formControlName="insideFurniture" type="checkbox"></td>
+                                        <td>Boundary Fencing</td>
+                                        <td><input formControlName="boundaryFencing" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
-                                        <td>Frame Structure</td>
-                                        <td><input formControlName="frameStructure" type="checkbox"></td>
+                                        <td>Drainage</td>
+                                        <td><input formControlName="drainage" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>6</td>
-                                        <td>RCC Roofing</td>
-                                        <td><input formControlName="rccRoofing" type="checkbox"></td>
+                                        <td>Open</td>
+                                        <td><input formControlName="open" type="checkbox"></td>
                                     </tr>
                                     <tr>
                                         <td>7</td>
-                                        <td>Bathroom And Toilet</td>
-                                        <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>Naksa Pass Obtained</td>
-                                        <td><input formControlName="naksaPassObtained" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Building Completion Certificate Obtained</td>
-                                        <td><input formControlName="buildingCompCertificate" type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Construction appears to be as per the Approved Naksa Pass</td>
-                                        <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
+                                        <td>Telephone Line</td>
+                                        <td><input formControlName="telephoneLine" type="checkbox"></td>
                                     </tr>
                                 </table>
                             </div>
+
                             <div class="col-md-6 form-group">
                                 <label class="title" for="building">Building</label>
                                 <select class="custom-select" formControlName="building" id="building" name="building">
@@ -296,7 +282,7 @@
                         </div>
                         <div class="row col-md-12" *ngIf="form.building?.value == 'YES'">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <table class="table table-bordered table-sm sb-small text-center">
                                         <tr class="text-white sb-bg-dark">
                                             <th>SN</th>
@@ -305,45 +291,61 @@
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td>Water Supply</td>
-                                            <td><input formControlName="waterSupply" type="checkbox"></td>
+                                            <td>Load Bearing Wall</td>
+                                            <td><input formControlName="loadBearingWall" type="checkbox"></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td>Electricity</td>
-                                            <td><input formControlName="electricity" type="checkbox"></td>
+                                            <td>Mortar Cement</td>
+                                            <td><input formControlName="mortarCement" type="checkbox"></td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td>Boundary Wall Construction</td>
-                                            <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
+                                            <td>Other Roofing</td>
+                                            <td><input formControlName="otherRoofing" type="checkbox"></td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
-                                            <td>Boundary Fencing</td>
-                                            <td><input formControlName="boundaryFencing" type="checkbox"></td>
+                                            <td>Inside Furniture</td>
+                                            <td><input formControlName="insideFurniture" type="checkbox"></td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
-                                            <td>Drainage</td>
-                                            <td><input formControlName="drainage" type="checkbox"></td>
+                                            <td>Frame Structure</td>
+                                            <td><input formControlName="frameStructure" type="checkbox"></td>
                                         </tr>
                                         <tr>
                                             <td>6</td>
-                                            <td>Open</td>
-                                            <td><input formControlName="open" type="checkbox"></td>
+                                            <td>RCC Roofing</td>
+                                            <td><input formControlName="rccRoofing" type="checkbox"></td>
                                         </tr>
                                         <tr>
                                             <td>7</td>
-                                            <td>Telephone Line</td>
-                                            <td><input formControlName="telephoneLine" type="checkbox"></td>
+                                            <td>Bathroom And Toilet</td>
+                                            <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Naksa Pass Obtained</td>
+                                            <td><input formControlName="naksaPassObtained" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Building Completion Certificate Obtained</td>
+                                            <td><input formControlName="buildingCompCertificate" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>Construction appears to be as per the Approved Naksa Pass</td>
+                                            <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
                                         </tr>
                                     </table>
                                 </div>
+
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="buildingArea">Building Area</label>
                                     <input class="form-control" formControlName="buildingArea" id="buildingArea"
-                                           name="buildingArea" placeholder="building area">
+                                           name="buildingArea" placeholder="Building Area">
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="constructionYear">Construction Year</label>
@@ -536,6 +538,38 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <strong>Site Visit Map Document</strong><button nbButton size="tiny" status="success"
+                 (click)="openDocumentCreateModal(null)">
+                <i class="fa fa-plus"></i>
+            </button>
+                <table class="table table-bordered table-hover table-sm sb-small text-center">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Document Name</th>
+                        <th>Is Printable?</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let doc of siteVisitDocument;let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{doc?.docName}}</td>
+                        <td>
+                        <span *ngIf="doc.isPrintable==='YES'"><i class="fas fa-check-circle text-success"></i></span>
+                            <span *ngIf="doc.isPrintable==='NO'"><i class="fas fa-times-circle text-danger"></i></span>
+                        </td>
+                        <td>
+                            <span *ngIf="doc.docPath" class="ml-1"><a (click)="viewDocument(doc?.docPath,doc?.docName)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a></span>
+                            <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </nb-card-body>

@@ -118,22 +118,22 @@
         <tr class="sb-bg-dark text-white">
           <th>ReValuation Date(AD/BS)</th>
           <th colspan="2">Valuator name</th>
-          <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">ReValuation Considered Value</th>
-          <th colspan="1">Change in Fmv</th>
-          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">ReValuation Fmv</th>
           <th colspan="1">Change in Considered Value</th>
+          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">Change in Fmv</th>
         </tr>
         <tr class="text-right">
           <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate | date}} ({{landDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
           <td colspan="2" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
-          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
           <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+          <td colspan="1" class="pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
         </tr>
       </ng-container>
 
@@ -296,22 +296,22 @@
           <tr class="sb-bg-dark text-white">
             <th>ReValuation Date(AD/BS)</th>
             <th colspan="2">Valuator name</th>
-            <th colspan="1">ReValuation Fmv</th>
-            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
             <th colspan="1">ReValuation Considered Value</th>
-            <th colspan="1">Change in Fmv</th>
-            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">ReValuation Fmv</th>
             <th colspan="1">Change in Considered Value</th>
+            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">Change in Fmv</th>
           </tr>
           <tr class="text-right">
             <td class="text-left pl-1">{{landBuilding?.revaluationData?.reValuationDate | date}} ({{landBuilding?.revaluationData?.reValuationDate |engNepDate: false}})</td>
             <td colspan="2" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
-            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
+            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
             <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
+            <td colspan="1" class="pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
           </tr>
         </ng-container>
         <br>
@@ -641,28 +641,24 @@
           <td colspan="8"></td>
         </tr>
         <tr class="sb-bg-dark text-white">
-          <th>ReValuation Date(AD/BS)</th>
+          <th colspan="1">ReValuation Date(AD/BS)</th>
           <th colspan="1">Valuator name</th>
-          <th colspan="1">ReValuation Fmv</th>
-          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">ReValuation Considered Value</th>
+          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">ReValuation Fmv</th>
+          <th colspan="1">Change in Considered Value</th>
+          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
         <tr>
-          <td  class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate | date}} ({{buildingDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+          <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate | date}} ({{buildingDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
           <td colspan="1"  class="text-left pl-1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
-          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
           <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-        </tr>
-        <tr class="sb-bg-dark text-white">
-          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
-          <th colspan="1">Change in Considered Value</th>
-        </tr>
-        <tr>
-          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
           <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
+          <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
         </tr>
       </ng-container>
     </table>
@@ -1262,6 +1258,49 @@
       <tr class="text-white sb-bg-dark">
         <th>S.N</th>
         <th>Security</th>
+        <th>Water Supply</th>
+        <th>Electricity</th>
+        <th>Boundary Wall Construction</th>
+        <th>Boundary Fencing</th>
+        <th>Drainage</th>
+        <th>Open</th>
+        <th>Telephone Line</th>
+        <th>Any road setbacks?</th>
+        <th>Any river/canal/setbacks?</th>
+        <th>Any High-tension setbacks?</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
+        <td>{{i+1}}</td>
+        <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td class="text-left pl-1">{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.boundaryWallConstruction === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.boundaryFencing === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.drainage === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
+        <td class="text-left pl-1">{{siteVisit?.roadSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
+        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-sm table-bordered text-center table-sm sb-small">
+      <thead>
+      <tr>
+        <th colspan="17">Building Detail</th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Security</th>
+        <th>Building Area</th>
+        <th>Construction Year(AD/BS)</th>
+        <th>Building Type</th>
+        <th>Built Up Area</th>
+        <th>Number of Storey</th>
         <th>Load Bearing Wall</th>
         <th>Mortar Cement</th>
         <th>Other Roofing</th>
@@ -1278,6 +1317,12 @@
       <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
         <td>{{i+1}}</td>
         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
+        <td class="text-left pl-1">{{siteVisit?.buildingArea === null ? 'NA' : siteVisit?.buildingArea}}</td>
+        <td class="text-left pl-1">{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}
+          ({{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | engNepDate: false}})</td>
+        <td class="text-left pl-1">{{siteVisit?.buildingType === null ? 'NA' : siteVisit?.buildingType}}</td>
+        <td class="text-left pl-1">{{siteVisit?.builtUpArea === null ? 'NA' : siteVisit?.builtUpArea}}</td>
+        <td class="text-left pl-1">{{siteVisit?.noOfStorey === null ? 'NA' : siteVisit?.noOfStorey}}</td>
         <td class="text-left pl-1">{{siteVisit?.loadBearingWall === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.mortarCement === true ? 'YES' : 'NO'}}</td>
         <td class="text-left pl-1">{{siteVisit?.otherRoofing === true ? 'YES' : 'NO'}}</td>
@@ -1291,54 +1336,7 @@
       </tr>
       </tbody>
     </table>
-    <table class="table table-sm table-bordered text-center table-sm sb-small">
-      <thead>
-        <tr>
-          <th colspan="17">Building Detail</th>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-          <th>S.N</th>
-          <th>Security</th>
-          <th>Water Supply</th>
-          <th>Electricity</th>
-          <th>Boundary Wall Construction</th>
-          <th>Boundary Fencing</th>
-          <th>Drainage</th>
-          <th>Open</th>
-          <th>Telephone Line</th>
-          <th>Building Area</th>
-          <th>Construction Year(AD/BS)</th>
-          <th>Building Type</th>
-          <th>Built Up Area</th>
-          <th>Number of Storey</th>
-          <th>Any road setbacks?</th>
-          <th>Any river/canal/setbacks?</th>
-          <th>Any High-tension setbacks?</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let siteVisit of siteVisitJson; let i = index">
-        <td>{{i+1}}</td>
-        <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
-        <td class="text-left pl-1">{{siteVisit?.waterSupply === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.electricity === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.boundaryWallConstruction === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.boundaryFencing === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.drainage === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.open === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.telephoneLine === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.buildingArea === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | date}}
-          ({{siteVisit?.constructionYear === null ? 'NA': siteVisit?.constructionYear | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{siteVisit?.buildingType === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.builtUpArea === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.noOfStorey === true ? 'YES' : 'NO'}}</td>
-        <td class="text-left pl-1">{{siteVisit?.roadSetbacks}}</td>
-        <td class="text-left pl-1">{{siteVisit?.riverOrCanalSetbacks}}</td>
-        <td class="text-left pl-1">{{siteVisit?.highTensionSetbacks}}</td>
-      </tr>
-      </tbody>
-    </table>
+
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
         <tr class="text-white sb-bg-dark">
@@ -1432,6 +1430,17 @@
       </ng-container>
       </tbody>
     </table>
-
+    <strong *ngIf="siteVisitDocuments.length>0" class="ml-3">Collateral Site Visit Documents</strong>
+    <div *ngIf="siteVisitDocuments.length>0" class="container mt-2">
+      <div class="row">
+      <div class="col-md-4" *ngFor="let doc of siteVisitDocuments;">
+        <img [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
+             class="figure-img img-fluid rounded img-medium"
+             alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName)"
+        (error)="onError($event)">
+        <span class="ml-5">Document for {{doc?.securityName.slice(0, -2)}}</span>
+      </div>
+    </div>
+    </div>
   </div>
 </div>
