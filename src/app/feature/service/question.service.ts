@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../@core/utils/api/ApiUtils';
-import {EligibilityLoanConfigService} from "../admin/component/eligibility/eligibility-loan-config/eligibility-loan-config-service";
+
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +11,7 @@ export class QuestionService {
     loanConfigApi = 'v1/loan-configs/';
     questionApi = '/questions'
     loanType:boolean=false;
-    constructor(private http: HttpClient,
-                private loanConfigService: EligibilityLoanConfigService) {
+    constructor(private http: HttpClient) {
 
     }
 

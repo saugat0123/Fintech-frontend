@@ -4,8 +4,6 @@ import {Action} from '../../../../../@core/Action';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {LoanConfigFormComponent} from './loan-config-form/loan-config-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EligibilityLoanConfigService} from "./eligibility-loan-config-service";
-import {EligibilityLoanConfiguration} from "./EligibilityLoanConfiguration";
 import {PaginationUtils} from "../../../../../@core/utils/PaginationUtils";
 import {Alert, AlertType} from "../../../../../@theme/model/Alert";
 import {Pageable} from "../../../../../@core/service/baseservice/common-pageable";

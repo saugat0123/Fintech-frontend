@@ -38,8 +38,7 @@ export class QuestionComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private router: Router,
                 private modalService: NgbModal,
-                private toastService: ToastService,
-                private eligibilityLoanService: EligibilityLoanConfigService) {
+                private toastService: ToastService) {
     }
 
     ngOnInit() {

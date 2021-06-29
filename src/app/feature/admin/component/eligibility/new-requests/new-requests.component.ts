@@ -48,8 +48,7 @@ export class NewRequestsComponent implements OnInit {
                 private modalService: NgbModal,
                 private router: Router,
                 private branchService: BranchService,
-                private loanConfigService: LoanConfigService,
-                private eligibilityLoanConfigService: EligibilityLoanConfigService) {
+                private loanConfigService: LoanConfigService) {
     }
 
     static loadData(other: NewRequestsComponent) {
@@ -86,11 +85,7 @@ export class NewRequestsComponent implements OnInit {
         });
 
 
-        this.eligibilityLoanConfigService.checkType().subscribe( (response: any) => {
-            if(response.detail===true){
-                this.loanType=true;
-            }
-        })
+
 
         NewRequestsComponent.loadData(this);
     }

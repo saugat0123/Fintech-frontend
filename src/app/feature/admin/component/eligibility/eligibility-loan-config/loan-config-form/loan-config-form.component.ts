@@ -37,7 +37,6 @@ export class LoanConfigFormComponent implements OnInit {
                 private router: Router,
                 private modalService: NgbModal,
                 private formBuilder: FormBuilder,
-                private service: EligibilityLoanConfigService,
                 private docService: DocumentService,
                 private modelref: NgbActiveModal,
                 private toast: ToastService,
@@ -46,12 +45,8 @@ export class LoanConfigFormComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.loadData();
         this.setDocuments();
 
-        this.documents.forEach(data => {
-            console.log(data);
-        })
 
     }
 
@@ -73,7 +68,7 @@ export class LoanConfigFormComponent implements OnInit {
                 }
 
                 this.configService.save(this.loanConfigs).subscribe(resp => {
-                    this.loadData();
+
                     this.modelref.close(ModalResponse.SUCCESS);
                      const alert= new Alert(AlertType.SUCCESS, 'Successfully Saved Eligibility Loan ')
                         this.toast.show(alert);
@@ -127,12 +122,7 @@ export class LoanConfigFormComponent implements OnInit {
         });
     }
 
-    loadData() {
-        this.service.getAllEligibilityLoanConfig().subscribe(resp => {
-            console.log(resp);
-            this.eligibilityLoanConfig = resp.detail;
-        })
-    }
+
 
     setDocuments(): void {
         this.docService.getAllLoanCycle().subscribe(reponse => {
