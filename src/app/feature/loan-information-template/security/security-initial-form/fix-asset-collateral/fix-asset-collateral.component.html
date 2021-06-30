@@ -564,9 +564,17 @@
                             <span *ngIf="doc.isPrintable==='NO'"><i class="fas fa-times-circle text-danger"></i></span>
                         </td>
                         <td>
-                            <span *ngIf="doc.docPath" class="ml-1"><a (click)="viewDocument(doc?.docPath,doc?.docName)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a></span>
-                            <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
+                            <span *ngIf="doc.docPath" class="ml-1"><a (click)="viewDocument(doc?.docPath,doc?.docName)">
+                                <i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
+                            </span>
+                            <span *ngIf="doc?.isApproved;else templateRef"  data-toggle="tooltip"
+                                  nbTooltip="This document contained approved loan and cannot be edit">
+                                    <a class="fa fa-edit cursor ml-1"></a>
+                                </span>
                         </td>
+                        <ng-template #templateRef>
+                            <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
+                        </ng-template>
                     </tr>
                     </tbody>
                 </table>
