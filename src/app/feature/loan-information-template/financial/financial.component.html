@@ -414,7 +414,7 @@
 </form>
 
 <div *ngIf="isBusinessLoan">
-    <div class="row my-2" *ngIf="client === clientName?.SHINE_RESUNGA">
+    <div class="row my-2" *ngIf="!disableCrgAlphaParams">
         <div class="col-md-12 form-group">
             <label><b>Total Working Capital Limit*</b></label>
             <input #totalWorkingCapitalLimit nbInput
