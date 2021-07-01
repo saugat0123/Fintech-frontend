@@ -40,6 +40,7 @@ export class CustomerDocComponent implements OnInit {
     documentId;
     index;
     currentRoleTypeMaker = false;
+    spinner = false;
 
     constructor(private documentService: DocumentService,
                 private loanService: LoanFormService,
@@ -89,6 +90,7 @@ export class CustomerDocComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
             return;
         }
+        this.spinner = true;
         this.customerGeneralDocumentService.uploadDoc(formData).subscribe((res: any) => {
             // const customerGeneralDocument: CustomerGeneralDocument = res.detail;
             // if (!ObjectUtil.isEmpty(this.customerInfo)) {
@@ -113,9 +115,11 @@ export class CustomerDocComponent implements OnInit {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
             this.refreshCustomerInfo.emit(true);
+            this.spinner = false;
         }, error => {
             this.modelService.dismissAll();
             console.error(error);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save '.concat(documentName)));
         });
         this.generalDocumentReq[index].checked = true;
