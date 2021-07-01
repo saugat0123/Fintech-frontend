@@ -17,7 +17,6 @@ export class CrgAlphaDetailedViewComponent implements OnInit {
 
   ngOnInit() {
     this.crgAlphaData = JSON.parse(this.formData.data);
-    console.log('Alpha Data:::', this.crgAlphaData);
   }
 
 }
