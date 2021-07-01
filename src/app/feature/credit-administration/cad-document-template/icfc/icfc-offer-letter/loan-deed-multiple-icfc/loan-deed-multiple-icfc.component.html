@@ -1,0 +1,388 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.LOAN_DEED_MULTIPLE}}">
+    <div  class="row">
+        <div class="col-md-12">
+            <form (ngSubmit)="submit()" [formGroup]="loanDeedMultiple" class="nepali" id="loanDeedMultiplePrint">
+                <div class="bodyConfig">
+                    <div>
+                        <p class="text-center" style="font-size:16pt;"><b>ऋण लिखत (Loan deed)</b></p>
+                        <p>
+
+                            लिखितम् लिखत गराई लिनेका नाम प्रचलित नेपाल कानुन बमोजिम संस्थापित तथा संचालित वागमती अञ्चल, काठमाण्डौ जिल्ला,
+                            काठमाण्डौ महानगरपालिका वडा नं.२, भाटभटेनीस्थित का आइ.सि.एफ.सि. फाइनान्स लिमिटेडको शाखा कार्यालय
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="branch"
+                                   placeholder=""
+                                   type="text"/>
+                            (यस पछि धनी संस्था भनिएको) लिखत गरी दिनेको नाम
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="grandParents"
+                                   placeholder=""
+                                   type="text"/>
+                            को नाति/नातिनी/बुहारी,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="parents"
+                                   placeholder=""
+                                   type="text"/>
+                            छोरा/छोरी/पत्नी,
+                            प्रदेश नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="permanentProvince"
+                                   placeholder=""
+                                   type="text"/>,&nbsp;&nbsp;
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="permanentDistrict"
+                                   placeholder=""
+                                   type="text"/>
+                            जिल्ला
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="permanentMunicipalityVDC"
+                                   placeholder=""
+                                   type="text"/>
+                            गा बि स/ नगरपालिका वडा नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="permanentWardNo"
+                                   placeholder=""
+                                   type="text"/>,
+                            घर भई हाल प्रदेश नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="temporaryProvince"
+                                   placeholder=""
+                                   type="text"/>,&nbsp;
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="temporaryDistrict"
+                                   placeholder=""
+                                   type="text"/>
+                            जिल्ला
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="temporaryMunicipalityVDC"
+                                   placeholder=""
+                                   type="text"/>
+                            गा बि स/ नगरपालिका वडा नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="temporaryWardNo"
+                                   placeholder=""
+                                   type="text"/>,
+                            <input class="form-field form-control-sm nepaliFont "
+                                   formControlName="temporaryAddress"
+                                   placeholder=""
+                                   type="text"/>
+
+                            बस्ने वर्ष
+                            <input class="form-field form-control-sm nepaliFont "
+                                   size="2"
+                                   formControlName="age"
+                                   placeholder=""
+                                   type="text"/>
+                            को
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="relation"
+                                   placeholder=""
+                                   type="text"/>
+                            (ना. प्र. प. नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="citizenshipNo"
+                                   placeholder=""
+                                   type="text"/>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="issueDate"
+                                   placeholder=""
+                                   type="text"/>
+                            जिल्ला
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="issueDistrict"
+                                   placeholder=""
+                                   type="text"/>
+                            ) ( १ समेत जना
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="onePerson"
+                                   placeholder=""
+                                   type="text"/>
+                            (यस पछि संयुक्त रुपमा ऋणी भनिएको) आगे ऋणीलाई कर्जा आवश्यक भई तपाई धनी संस्थालाई कर्जा दिलाई दिनु अनुरोध गर्दा तपाईं धनी संस्थाको मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="date"
+                                   placeholder=""
+                                   type="text"/>
+                            को कर्जा स्वीकृति पत्र (Credit Facility Letter) मा उल्लेखित शर्तहरु पालना गर्ने गरी
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="loan"
+                                   placeholder=""
+                                   type="text"/>
+                            कर्जा अन्तर्गत
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="purpose"
+                                   placeholder=""
+                                   type="text"/>
+                            उद्धेश्यका लागि यस संस्थाबाट एकै पटकमा वा पटक–पटक गरी कुल कर्जा रु
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="amount"
+                                   (change)="convertAmountInWords('amount', 'amountInWords')"
+                                   placeholder=""
+                                   type="text"/>
+                            /– (अक्षरेपी
+                            <input class="form-field form-control-sm nepaliFont col-3"
+                                   formControlName="amountInWords"
+                                   placeholder=""
+                                   type="text"/>
+
+                            मात्र) सम्म ऋण लिएको ठिक साँचो हो ।  सो कर्जाको साँवा व्याज रकम तथा अन्य दस्तुर समेत आजका मितिले
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="timeDuration"
+                                   placeholder=""
+                                   type="text"/>
+                            भित्रमा चुक्ता भुक्तान गरिनेछ । उक्त कर्जामा
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="rate"
+                                   placeholder=""
+                                   type="text" size="5"/>
+
+                            % दरले हुने व्याज रकम, व्याज दरमा परिवर्तन भएमा परिवर्तित दरले हुने व्याज, कर्जाको भाखा म्याद नाघेमा म्याद नाघेको कर्जामा संस्थाको नियमानुसार
+                            लाग्ने पेनाल ब्याज र धनी संस्थाको नियमानुसार लाग्ने अन्य दस्तुर समेतका रकम बुझाउन मञ्जुरी छ । उक्त कर्र्जा र पछि लिने विभिन्न ऋण/सुविधा र
+                            सोमा लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर र ऋण असुलीमा लाग्ने खर्च लगायतका सम्पूर्ण रकम समेतको सुरक्षण वापत धनी संस्थाको नाममा
+                            तपसिल बमोजिमकोे घरजग्गा र सो जग्गामा पछि बन्ने थपिने घर, टहरा, ग्यारेज लिगलगापात समेत धनी संस्थाको नाममा धितो सुरक्षण लेखि दिएका छौं ।
+                            धितो लेखिदिएको सम्पत्तिमा संस्थाको सम्पूर्ण रकम चुक्ता नगरी वा संस्थाको पूर्व स्वीकृति नलिई हटाउने भत्काउने सार्ने वा, घरजग्गाको मोल घटाउने काम गर्ने छैन ।
+                            उपरोक्तानुसार ऋणीले लिएको वा लिने ऋण रकमको सम्पूर्ण साँवा, व्याज रकम र धनी संस्थाको नियमानुसार ऋणीले तिर्न बुझाउन पर्ने अन्य रकम समेत फछ्यौट
+                            नभएसम्म यो लिखत कायमै रहनेछ र कर्जा नविकरण भएमा नविकरण हुदांको अवस्थामा धनी संस्थाले ऋणीको नाममा जारी गर्ने ऋण स्वीकृति पत्रहरुमा उल्लेखित
+                            शर्तबन्देजहरु पनि यसै लिखतको अभिन्न अंङ्ग हुनेछ । स्वीकृत ऋणकर्जा तथा भविष्यमा धनी संस्थाले उपलब्ध गराउने थप ऋणकर्जा तथा सूविधाको सुरक्षण वापत
+                            तपसिल बमोजिमको सम्पत्ति तथा ऋणीको निजी श्रोतबाट खरिद गरेको श्रृजना भएको र धनी संस्थाबाट प्राप्त ऋणकर्जाबाट खरिद वा आयात गरेको, श्रृजना गरेकोे
+                            लगायत तथा ऋणीको हककोे श्री सम्पत्ति तथा ऋणीले भूक्तानी प्राप्त गर्न बांकी आसामी खाताका (Accounts Receivable) रकमहरु समेत यसै लिखितबाट
+                            धनी संस्थाको नाउंमा धितो बन्धक लेखिदिएको छ । ऋणीले उपरोक्त शर्त बन्देजको उल्लंघन गरेमा वा ऋण कर्जाको दुरुपयोग वा अन्य कार्यमा लगाएमा वा धनी
+                            संस्थाले तोकिदिएको भाखा भित्र कर्जा र सोमा लागेका ब्याज वा हर्जाना चुक्ता नगरेमा ऋणीले यसै लिखतद्वारा सुरक्षण लेखिदिएको तपसिलमा उल्लेखित घरजग्गा,
+                            नेपाल राष्ट्र बैंकको नीति निर्देशन अनुसार कालो सूचीमा दर्ता गरी वा नगरी धनी संस्थाको तजबिजमा बैंक तथा वित्तीय संस्था सम्वन्धी ऐन, २०७३ अन्य प्रचलित
+                            कानून तथा संस्थाको नियमानुसार लिलाम विक्री वा अन्य व्यवस्था गरी बेचविखन गरी ऋण कर्जाको असुल उपर गरी लिनुपर्ने सम्पुर्ण साँवा, व्याज, फि, कमिशन,
+                            पेनाल्टी तथा अन्य दैदस्तुरहरु असुल उपर गरी लिनुहोला । उपरोक्त बमोजिम लिलाम विक्री वा बेचविखन गर्दा शुरु निर्धारित मुल्यांकनमा घटीवढी गरीे लिलाम विक्री
+                            वा अन्य तवरले बेचबिखन गर्न सक्ने कुरामा ऋणीको मन्जुरी छ । साथै, संस्थाको कर्जा समयमा चुक्ता भुक्तान नगरी कर्जा असुलीको कारवाही चलाउँदा कर्जा सूचना
+                            केन्द्रको कालो सूचिमा समावेश गरी ऋणीको नाममा अन्य बैंक तथा वित्तीय संस्थामा रहेको संस्था खाताको जानकारी माग गर्न, उक्त खाता रोक्का गरी कर्जा असुली
+                            गर्न वा नेपाल धितोपत्र बोर्डमा सूचिकृत तथा सूचिकृत नभएका अन्य संगठित संस्थाहरुको धितोपत्रर शेयरको जानकारी माग गर्न र उक्त धितोपत्ररशेयरहरु रोक्का गरी
+                            कर्जा असुली गर्न संस्थालाई यसै लिखत बमोजिम पूर्ण अख्तियारी प्रदान गरेका छौं । धितो सुरक्षण लेखिदिएको तपसिलको घरजग्गा कच्चा नकरा ठहरी बेचविखन, लिलाम
+                            विक्री हुन नसकेमा वा लिलाम, विक्री हुँदा समेत बसंस्थाले असुल गरी लिनु पर्ने सम्पूर्ण रकम कलम असुल उपर नभएमा ऋणीको हक वा हक लाग्ने घरघरानाको अन्य
+                            चल अचल जायज्येथा समेतबाट असुल गरी लिएमा ऋणीको  मन्जुरी छ । पछि कुनै उजुर दावी गर्ने छैन, गरे यसै लिखतले बदर होस् भनि किनाराका साक्षीहरुको
+                            रोहवरमा धनी संस्थाको प्रतिनिधिको सामुन्ने संस्थाकै कार्यालयमा बसी प्राप्त अख्तियारी अन्तरगत खुशीराजीले यो लिखतमा सहिछाप गरि धनी आइ.सि.एफ.सि. फाइनान्स लिमिटेडलाई दियौं ।
+                            साक्षी किनाराका सदर ।
+                        <p class="text-center"><b>तपसिल</b></p>
+                        धितो लेखिदिएको अचल सम्पत्तिको बिवरण
+                        <table border="1" width="100%">
+                            <thead>
+                            <tr>
+                                <th>क्र.सं.</th>
+                                <th>जग्गाधनीको नाम</th>
+                                <th>न.पा./गा.वि.स.</th>
+                                <th>वडा नं.</th>
+                                <th>सिट नं.</th>
+                                <th>कि.नं.</th>
+                                <th>क्षेत्रफल</th>
+                                <th>र.नं. /मिति</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let data of loanDeedMultiple.get('propertyDetailsTable')['controls']; let index = index;" formArrayName="propertyDetailsTable">
+                            <tr [formGroupName]="index">
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="landOwnerDesc"
+                                           placeholder=""
+                                           type="text"/>
+
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="landOwnerName"
+                                           placeholder=""
+                                           type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="landOwnerMunicipalityVDC"
+                                           placeholder=""
+                                           type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="landOwnerWardNo"
+                                           placeholder=""
+                                           type="text" size="2"/>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="seatNo"
+                                           placeholder=""
+                                           type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="kNo"
+                                           placeholder=""
+                                           type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="area"
+                                           placeholder=""
+                                           type="text"/>
+                                </td>
+                                <td>
+                                    <input class="form-field form-control-sm nepaliFont col-9"
+                                           formControlName="rNoDate"
+                                           placeholder=""
+                                           type="text"/>
+                                </td>
+
+                            </tr>
+                            <div class="col-md-12">
+                                <button
+                                        (click)="removeTableData(index)"
+                                        *ngIf="index > 0"
+                                        size="small"
+                                        class="mt-3 mb-3" nbButton
+                                        status="primary">हटाउनुहोस्
+                                </button>
+                            </div>
+                            </tbody>
+                        </table>
+                        <div class="row mr-1 mb-3">
+                            <div class="col-md-12 text-right">
+                                <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                                    थप्नुहोस्..
+                                </button>
+                            </div>
+                        </div>
+                        <br />
+                        <p>माथि उल्लेखित जग्गामा उल्लेख भएको घर, गोदाम, टहरा, कारखाना आदि र भविष्यमा बन्ने घर, गोदाम, टहरा, कारखाना आदि समेत यसै लिखतबाट संस्थालाई दिन मञ्जुर भएको छु/छौं ।</p>
+
+                        <p class="text-left"><b>ऋणीको  सहिछाप :</b></p>
+                        <div class="row">
+                            <div class="col">
+                                नामः <input class="form-field form-control-sm nepaliFont"
+                                            formControlName="debtorName"
+                                            placeholder=""
+                                            type="text"/>
+                                <br/>
+                                दस्तखत
+                                <br/>
+                                दा.<span style="padding-right: 100px"></span>वा.
+                            </div>
+                            <div class="col">
+                                नामः <input class="form-field form-control-sm nepaliFont"
+                                            formControlName="debtorName2"
+                                            placeholder=""
+                                            type="text"/>
+                                <br/>
+                                दस्तखतः
+                                <br/>
+                                दा.<span style="padding-right: 100px"></span>वा.
+                            </div>
+                        </div>
+                        <br/>
+                        <div>
+                            <p class="text-left"><b>रोहबर धनी संस्थाको कर्मचारी ः</b></p>
+                            नामः <input class="form-field form-control-sm nepaliFont"
+                                        formControlName="rohbarBankEmployeeName"
+                                        placeholder=""
+                                        type="text"/>
+                            <br/>
+                            दस्तखत
+                        </div>
+                        <br />
+                        <div>
+                            ईति सम्वत् २०
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="year"
+                                   placeholder=""
+                                   type="text" size="2"/>
+                            साल
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="month"
+                                   placeholder=""
+                                   type="text" size="2"/>
+                            महिना
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="day"
+                                   placeholder=""
+                                   type="text" size="2"/>
+                            गते रोज
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="time"
+                                   placeholder=""
+                                   type="text" size="5" />
+                            शुभम् ।
+                        </div>
+                        <br />
+                        <div>
+                            <p class="text-left"><b>साक्षीः</b></p>
+
+                            <p>१.  <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="districtOfWitness"
+                                          placeholder=""
+                                          type="text"/>
+                                जिल्ला
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="municipalityVDCOfWitness"
+                                       placeholder=""
+                                       type="text"/>
+                                नगरपालिका/गाउँपालिका वडा नं
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="wardNoOfWitness"
+                                       placeholder=""
+                                       type="text" size="2"/>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="ageOfWitness"
+                                       placeholder=""
+                                       type="text" size="3"/>
+                                को/की <input class="form-field form-control-sm nepaliFont"
+                                             formControlName="relationOfWitness"
+                                             placeholder=""
+                                             type="text"/>
+                            </p>
+                            <p>
+                                २. <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="districtOfWitness2"
+                                          placeholder=""
+                                          type="text"/>
+                                जिल्ला
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="municipalityVDCOfWitness2"
+                                       placeholder=""
+                                       type="text"/>
+                                नगरपालिका/गाउँपालिका वडा नं
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="wardNoOfWitness2"
+                                       placeholder=""
+                                       type="text" size="2"/>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="ageOfWitness2"
+                                       placeholder=""
+                                       type="text" size="3"/>
+                                को/की
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="relationOfWitness2"
+                                       placeholder=""
+                                       type="text"/>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button nbButton status="success" >Save</button>
+                    </div>
+
+                </div>
+            </form>
+            <div class="row mt-2">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-primary d-print-none"
+                            [useExistingCss]="true"
+                            [disabled]="!initialInfoPrint"
+                            printSectionId="print-section-{{offerLetterConst.LOAN_DEED_MULTIPLE}}"
+                            ngxPrint>
+                        PRINT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loan-deed-multiple-icfc-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-loan-deed-multiple-icfc-print>
