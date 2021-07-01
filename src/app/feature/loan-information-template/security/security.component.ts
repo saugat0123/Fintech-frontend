@@ -110,7 +110,6 @@ export class SecurityComponent implements OnInit {
         if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
             this.checkDisableLamdha(event);
         }
-        console.log('Security Parse Data:::', this.securityValueForEdit);
     }
 
     buildForm() {
@@ -124,7 +123,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            lambdaScheme: ['GENERAL', !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme:
+                [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
