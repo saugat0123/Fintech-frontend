@@ -43,10 +43,50 @@
                     </div>
                 </div>
             </div>
+            <div *ngIf="isMaker && isSolUserPresent">
+                <span class="text-danger font-italic">This file contain SOL user for final approval
+                    please select SOL user for transferring file
+                </span>
+                <div class="col-md-12">
+                    <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)">is SOL?
+                    </nb-checkbox>
+                </div>
+                <div *ngIf="isNoUserSelectedSol" class="sb-small text-danger">{{solNoUserSelectedMessage}}</div>
+                <div class="col-md-12 row" *ngIf="showHideSolUser">
+                    <div class="col-md-6">
+                        <label class="toRole" for="toRole">Approval Role</label>
+                        <select style="width: 100%"
+                                (change)="getSOlUSerList(this.form.get('selectedRoleForSol').value)"
+                                class="form-control form-control-sm"
+                                formControlName="selectedRoleForSol"
+                                name="toRole">
+                            <option [value]="null" hidden>Select To</option>
+                            <option *ngFor="let forwardBackward of sendForwardBackwardList"
+                                    [ngValue]="forwardBackward.role"
+                                    [selected]="forwardBackward.role.id === customerLoanHolder?.solUser?.role.id">
+                                {{forwardBackward.role?.roleName}}
+                            </option>
+                        </select>
+                        <div *ngIf="isNoUserSol" class="sb-small text-danger">{{solNoUserMessage}}</div>
+                    </div>
+                    <div class="col-md-6" *ngIf="solUserList?.length > 1">
+                        <div style="width:100%">
+                            <label class="solUser" for="solUser">Approval User</label>
+                            <select class="form-control form-control-sm" formControlName="solUser" id="solUser"
+                                    name="solUser">
+                                <option *ngFor="let user of solUserList"
+                                        [ngValue]="user"
+                                        [selected]="user.id === customerLoanHolder?.solUser?.id">
+                                    {{user.username}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button (click)="onSubmit()" [disabled]="form.invalid" nbButton type="button">
+        <button (click)="onSubmit()" [disabled]="form.invalid || (!isSolUserSelected && isSolUserPresent)" nbButton type="button">
             <em class="fa fa-save"></em>
         </button>
     </nb-card-footer>
