@@ -74,6 +74,7 @@ export class CustomerDocComponent implements OnInit {
     }
 
     onFileChange(documentName: string, documentId, index: number) {
+        this.spinner = true;
         const formData: FormData = new FormData();
         formData.append('file', this.uploadFile);
         formData.append('documentName', documentName);
@@ -90,7 +91,6 @@ export class CustomerDocComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
             return;
         }
-        this.spinner = true;
         this.customerGeneralDocumentService.uploadDoc(formData).subscribe((res: any) => {
             // const customerGeneralDocument: CustomerGeneralDocument = res.detail;
             // if (!ObjectUtil.isEmpty(this.customerInfo)) {
@@ -117,9 +117,9 @@ export class CustomerDocComponent implements OnInit {
             this.refreshCustomerInfo.emit(true);
             this.spinner = false;
         }, error => {
+            this.spinner = false;
             this.modelService.dismissAll();
             console.error(error);
-            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save '.concat(documentName)));
         });
         this.generalDocumentReq[index].checked = true;
