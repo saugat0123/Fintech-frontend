@@ -103,7 +103,9 @@
     </div>
   </nb-card-body>
 </nb-card>
-<ng-template #uploadModel>
+<ng-template #uploadModel [nbSpinner]="spinner" accent="primary" class="m-0"
+             nbSpinnerSize="giant"
+             nbSpinnerStatus="primary">
     <div class="modal-content">
   <div class="modal-header" style="display:block">
     <a (click)="onClose()" aria-label="Close"
