@@ -13,7 +13,10 @@ export enum IcfcOfferLetterConst {
     PROMISSORY_NOTE,
     MORTGAGE_DEED_COMPANY,
     MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER,
-    MORTGAGE_DEED_INDIVIDUAL_SAME
+    MORTGAGE_DEED_INDIVIDUAL_SAME,
+    LOAN_DEED_COMPANY,
+    LOAN_DEED_MULTIPLE,
+    LOAN_DEED_SINGLE,
 }
 
 export namespace IcfcOfferLetterConst {
@@ -49,6 +52,12 @@ export namespace IcfcOfferLetterConst {
                 return 'Mortgage Deed Individual different borrower and owner';
             case IcfcOfferLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME:
                 return 'Mortgage deed individual same borrower and owner';
+            case IcfcOfferLetterConst.LOAN_DEED_COMPANY:
+                return 'Loan Deed Company';
+            case IcfcOfferLetterConst.LOAN_DEED_MULTIPLE:
+                return 'Loan Deed Multiple';
+            case IcfcOfferLetterConst.LOAN_DEED_SINGLE:
+                return 'Loan Deed Single';
         }
     }
 
