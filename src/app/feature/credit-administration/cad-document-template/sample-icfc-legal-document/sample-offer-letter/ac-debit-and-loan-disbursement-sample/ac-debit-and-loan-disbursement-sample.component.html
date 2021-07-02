@@ -1,0 +1,107 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.AC_DEBIT_AND_LOAN_SAMPLE}}">
+    <!--div class="row">-->
+    <form (ngSubmit)="onSubmit()" [formGroup]="acDebitAndLoanDisbursementSample" id="acDebitAndLoanDisbursementAuthority">
+        <div class="form-group align">
+            <div class="logo-container">
+                <div>
+                    <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
+                    </p>
+                    <ng-container *ngIf="loanDisbursementSelected">
+                        The Manager
+                    </ng-container>
+                    <br/>
+                    ICFC Finance Limited<br/>
+                    <input class="form-field form-control-sm" formControlName="address" type="text"/>
+                </div>
+            </div>
+            <br>
+            <h6 class="text-center">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Sub:</label>
+                            <nb-select (selectedChange)="changeType($event)"
+                                       [(selected)]="selectedData"
+                                       placeholder="Select">
+                                <nb-option *ngFor="let type of subjectType" [value]="type">
+                                    {{type}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+            </h6>
+            <ng-container *ngIf="loanDisbursementSelected">
+                <p>Sir/Madam,</p>
+                <p>
+                    Please kindly make loan disbursement of NPR <input class="form-field form-control-sm" formControlName="amount" type="number"/>
+                    (Nepalese Rupees <input class="form-field form-control-sm" formControlName="amount2" type="text"/>
+                    & 00/100) from my sanctioned loan
+                    <input class="form-field form-control-sm" formControlName="loan" type="text"/>
+                    loan amount NPR
+                    <input class="form-field form-control-sm" formControlName="loanAmount" type="number"/>
+                    (Nepalese Rupees
+                    <input class="form-field form-control-sm" formControlName="loanAmount2" type="text"/>
+                    & 00/100) in to my/our nominee account (A/C No.
+                    <input class="form-field form-control-sm" formControlName="accountNo" type="text"/>
+                    ) held with you.
+                </p>
+                <br>
+                <p>Thanking You</p>
+                <br><br>
+                <p>Authorized Signature</p>
+            </ng-container>
+            <!--            <br>-->
+            <!--            <hr>-->
+            <ng-container *ngIf="accountDebitSelected">
+                <div>
+                    <!--                    <div>-->
+                    <!--                        <div>-->
+                    <!--                            <p class="text-right mt-5">Date: <input class="form-field form-control-sm" formControlName="date2" type="text"/>-->
+                    <!--                            </p>-->
+                    <!--                            ICFC Finance Limited<br/>-->
+                    <!--                            <input class="form-field form-control-sm" formControlName="address2" type="text"/>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <br>-->
+                    <!--                    <h6 class="text-center">-->
+                    <!--                        <p>-->
+                    <!--                            <strong>Sub: <u>Account Debit Authority</u></strong>-->
+                    <!--                        </p>-->
+                    <!--                    </h6>-->
+                    <p>Sir/Madam,</p>
+                    <p>
+                        I/we <input class="form-field form-control-sm" formControlName="name" type="text"/>
+                        hereby give you the full authority to debit my/our account (A/C No. <input class="form-field form-control-sm" formControlName="accountNo2" type="text"/>
+                        ) for necessary charges and repayment of <input class="form-field form-control-sm" formControlName="loan2" type="text"/>
+                        loan sanctioned by you favoring me/us partially or fully as on need basis, for insurance charges, for valuation charges and for management fee (<input class="form-field form-control-sm" formControlName="rate" type="text"/>
+                        % of loan amount).
+                    </p>
+                    <br>
+                    <p>Thanking You</p>
+                    <br><br>
+                    <p>Authorized Signature</p>
+                    <br>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success">Save</button>
+            </div>
+        </div>
+    </form>
+    <!--</div>-->
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.AC_DEBIT_AND_LOAN_SAMPLE}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
+</div>
+<app-ac-debit-and-loan-disbursement-sample-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-ac-debit-and-loan-disbursement-sample-print>

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MegaModule} from './mega/mega.module';
 import {ProgressiveModule} from './progressive/progressive.module';
 import {IcfcModule} from './icfc/icfc.module';
+import {SampleIcfcLegalDocumentModule} from './sample-icfc-legal-document/sample-icfc-legal-document.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {IcfcModule} from './icfc/icfc.module';
         MegaModule,
         ProgressiveModule,
         IcfcModule,
+        SampleIcfcLegalDocumentModule
     ]
 })
 export class CadDocumentTemplateModule {

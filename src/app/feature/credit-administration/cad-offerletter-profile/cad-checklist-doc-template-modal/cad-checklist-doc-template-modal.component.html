@@ -21,6 +21,11 @@
       <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
       <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-company>
       <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
+      <!-- Sample legal Documents-->
+      <app-letter-of-continuity-sample *ngSwitchCase="cadTemplate.LETTER_OF_CONTINUITY_SAMPLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-letter-of-continuity-sample>
+      <app-letter-of-agreement-sample *ngSwitchCase="cadTemplate.LETTER_OF_AGREEMENT_SAMPLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-letter-of-agreement-sample>
+      <app-ac-debit-and-loan-disbursement-sample *ngSwitchCase="cadTemplate.AC_DEBIT_AND_LOAN_SAMPLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-ac-debit-and-loan-disbursement-sample>
+      <app-bank-guarantee-sample *ngSwitchCase="cadTemplate.BANK_GUARANTEE_SAMPLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-bank-guarantee-sample>
 
       <p *ngSwitchDefault>No Template is available for this Document!!! </p>
 
