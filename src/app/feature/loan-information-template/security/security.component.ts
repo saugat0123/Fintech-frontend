@@ -123,7 +123,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            lambdaScheme: ['GENERAL', !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme:
+                [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
@@ -320,7 +321,11 @@ export class SecurityComponent implements OnInit {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
-                        totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                        if (landDetailsArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+                        } else {
+                            totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                        }
                     }
                     break;
                 case 'VehicleSecurity':
@@ -332,7 +337,11 @@ export class SecurityComponent implements OnInit {
                 case 'ApartmentSecurity':
                     const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
                     for (let i = 0; i < buildingDetailsArray.length; i++) {
-                        totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                        if (buildingDetailsArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+                        } else {
+                            totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                        }
                     }
                     break;
                 case 'PlantSecurity':
@@ -345,7 +354,11 @@ export class SecurityComponent implements OnInit {
                 case 'Land and Building Security':
                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                     for (let i = 0; i < landBuildingArray.length; i++) {
-                        totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
+                        if (landBuildingArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(landBuildingArray[i].revaluationData.reValuatedConsideredValue);
+                        } else {
+                            totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
+                        }
                     }
                     break;
                 case 'FixedDeposit':
@@ -399,8 +412,6 @@ export class SecurityComponent implements OnInit {
             case 'AUTO_COMMERCIAL':
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
-            default:
-                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
         }
     }
 }
