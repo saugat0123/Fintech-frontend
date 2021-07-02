@@ -99,7 +99,7 @@ export class RoleHierarchyModelComponent implements OnInit {
             customerLoanId: [this.customerLoanId],
             docAction: [this.docAction],
             documentStatus: [this.documentStatus],
-            isSol: [undefined],
+            isSol: [false],
             solUser: [undefined],
             selectedRoleForSol: [undefined]
         });
@@ -182,14 +182,12 @@ export class RoleHierarchyModelComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
             return;
         }
-        if (this.isMaker) {
-            const isSolSelected = this.form.get('isSol').value;
-            if (isSolSelected) {
-                const selectedSolUser = this.form.get('solUser').value;
-                if (ObjectUtil.isEmpty(selectedSolUser)) {
-                    this.isNoUserSelectedSol = true;
-                    return;
-                }
+        const isSolSelected = this.form.get('isSol').value;
+        if (isSolSelected) {
+            const selectedSolUser = this.form.get('solUser').value;
+            if (ObjectUtil.isEmpty(selectedSolUser)) {
+                this.isNoUserSelectedSol = true;
+                return;
             }
         }
         const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
