@@ -26,12 +26,12 @@ export class CalendarComponent implements OnInit {
   selectedMonth;
   selectedMonthInt;
   selectedDay;
-  START_ENGLISH_DAY = 14;
+  START_ENGLISH_DAY = 13;
   START_ENGLISH_MONTH = 4;
-  START_ENGLISH_YEAR = 1943;
+  START_ENGLISH_YEAR = 1923;
   START_NEPALI_DAY = 1;
   START_NEPALI_MONTH = 1;
-  START_NEPALI_YEAR = 2000;
+  START_NEPALI_YEAR = 1980;
   numberOfDaysPerMonth;
   date: Date;
   eDateRespTonDate;
