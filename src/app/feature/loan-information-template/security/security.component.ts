@@ -412,8 +412,6 @@ export class SecurityComponent implements OnInit {
             case 'AUTO_COMMERCIAL':
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
-            default:
-                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
         }
     }
 }
