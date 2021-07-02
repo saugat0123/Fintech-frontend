@@ -534,7 +534,7 @@
                                     {{relative.citizenshipNumber}}
                                 </td>
                                 <td class="text-left pl-1">
-                                    {{loanDataHolder?.customerInfo?.dob | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})
+                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
                                 </td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 

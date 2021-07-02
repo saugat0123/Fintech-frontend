@@ -5,5 +5,6 @@ export class SiteVisitDocument extends BaseEntity {
     isPrintable: string;
     docPath: string;
     securityName: string;
+    isApproved: boolean;
     multipartFile: File;
 }
