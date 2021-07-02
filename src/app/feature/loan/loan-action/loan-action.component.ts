@@ -91,6 +91,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     branchId: this.branchId,
                     docAction: DocAction.value(DocAction.BACKWARD),
+                    docActionMsg: 'Returned',
                     documentStatus: DocStatus.PENDING
                 };
                 break;
@@ -101,6 +102,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
+                    docActionMsg: 'Returned Back To Committee',
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
                     toRole: {id: Number(LocalStorageUtil.getStorage().roleId)}
@@ -119,6 +121,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: DocAction.value(DocAction.FORWARD),
+                    docActionMsg: 'Forwarded',
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
                     isMaker: this.isMaker,
@@ -137,6 +140,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: 'APPROVED',
+                    docActionMsg: 'Approved',
                     documentStatus: DocStatus.APPROVED
                 };
                 break;
@@ -147,6 +151,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: 'REJECT',
+                    docActionMsg: 'Rejected',
                     documentStatus: DocStatus.REJECTED
                 };
                 break;
@@ -157,6 +162,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
                     docAction: 'CLOSED',
+                    docActionMsg: 'Closed',
                     documentStatus: DocStatus.CLOSED
                 };
                 break;
