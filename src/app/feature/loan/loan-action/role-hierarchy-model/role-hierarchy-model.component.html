@@ -43,9 +43,9 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="isMaker && isSolUserPresent">
-                <span class="text-danger font-italic">This file contain SOL user for final approval
-                    please select SOL user for transferring file
+            <div *ngIf="isSolUserPresent">
+                <span class="text-danger font-italic">This file contains SOL user for final approval.
+                    Please select SOL user for transferring file
                 </span>
                 <div class="col-md-12">
                     <nb-checkbox class="cursor" (checkedChange)="isSolChecked($event)">is SOL?
