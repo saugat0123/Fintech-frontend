@@ -31,6 +31,7 @@ export class LoanActionModalComponent implements OnInit {
     @Input() loanConfigId: number;
     @Input() customerLoanId: number;
     @Input() docAction: string;
+    @Input() docActionMsg: string;
     @Input() documentStatus: DocStatus;
     @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | string;
     @Input() isForward: boolean;
@@ -153,6 +154,7 @@ export class LoanActionModalComponent implements OnInit {
             toUser: [undefined],
             toRole: [this.toRole, this.isForward ? [Validators.required] : []],
             docAction: [this.docAction],
+            docActionMsg: [this.docActionMsg],
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
             isSol: [undefined],
@@ -193,7 +195,7 @@ export class LoanActionModalComponent implements OnInit {
     private postAction() {
         console.log(this.formAction.value);
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-            const msg = `Document Has been Successfully ${this.formAction.get('docAction').value}`;
+            const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.sendLoanNotification(response.detail.customerLoanId);
             this.router.navigate(['/home/pending']);
