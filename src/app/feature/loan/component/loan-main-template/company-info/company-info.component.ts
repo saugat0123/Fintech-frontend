@@ -282,16 +282,16 @@ export class CompanyInfoComponent implements OnInit {
               Validators.required],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength],
 
             weakness: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.weakness, Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.weakness],
 
             opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.opportunity, Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.opportunity],
 
             threats: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats],
         });
     }
 
