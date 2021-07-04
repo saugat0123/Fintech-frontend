@@ -85,7 +85,6 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
     this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
       this.combinedLoan = response.detail;
-      console.log('combinedLoan', this.combinedLoan);
       this.combinedLoan.loans.forEach((l, i) => {
         this.isUserPresent[i] = true;
         this.isSolUserPresent[i] = true;

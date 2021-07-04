@@ -193,7 +193,6 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     private postAction() {
-        console.log(this.formAction.value);
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));

@@ -170,7 +170,6 @@ export class RoleHierarchyModelComponent implements OnInit {
     }
 
     public onSubmit() {
-        console.log(this.form.value);
         this.submitted = true;
         // stop form submit if invalid
         if (this.form.invalid) {
