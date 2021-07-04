@@ -128,7 +128,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             this.actionsList.sendBackward = true;
             this.actionsList.rejected = true;
             this.actionsList.closed = true;
-            if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
+            if ((this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) ||
+                (this.loanDataHolder.currentStage.toRole.roleType.toString() === 'MAKER')) {
                 this.actionsList.sendBackward = false;
                 this.actionsList.edit = true;
                 this.actionsList.approved = false;

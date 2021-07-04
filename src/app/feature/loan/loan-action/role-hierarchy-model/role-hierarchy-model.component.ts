@@ -19,6 +19,7 @@ import {LoanStage} from '../../model/loanStage';
 import {UserService} from '../../../admin/component/user/user.service';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-role-hierarchy-model',
@@ -42,6 +43,7 @@ export class RoleHierarchyModelComponent implements OnInit {
     @Input() docAction: string;
     @Input() documentStatus: DocStatus;
     @Input() isTransfer: boolean;
+    @Input() toRole: Role;
     length = false;
     roleId: number;
     transferRoleList = [];
@@ -53,6 +55,15 @@ export class RoleHierarchyModelComponent implements OnInit {
     ckeConfig = Editor.CK_CONFIG;
     selectedUsername: string;
     username: string;
+    solUserList: Array<User> = new Array<User>();
+    showHideSolUser = false;
+    solNoUserMessage = 'No User Present in this Role';
+    solNoUserSelectedMessage = 'Please Select User For Sol';
+    isNoUserSol = false;
+    isNoUserSelectedSol = false;
+    sendForwardBackwardList = [];
+    isSolUserPresent = false;
+    isSolUserSelected = false;
 
     constructor(
         public nbDialogRef: NbDialogRef<RoleHierarchyModelComponent>,
@@ -68,12 +79,14 @@ export class RoleHierarchyModelComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isSolUserPresent = this.customerLoanHolder.isSol;
         this.form = this.buildForm();
         // get and fetch roleId from local storage
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
+        // method call
+        this.conditionalDataLoad();
         // method called
         this.getRoleData();
-        console.log('username', this.username);
     }
 
     // method to build form control names
@@ -86,14 +99,46 @@ export class RoleHierarchyModelComponent implements OnInit {
             customerLoanId: [this.customerLoanId],
             docAction: [this.docAction],
             documentStatus: [this.documentStatus],
+            isSol: [false],
+            solUser: [undefined],
+            selectedRoleForSol: [undefined]
         });
     }
+
     // get all roll based on set hierarchy
     private getRoleData(): void {
         this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId).subscribe((response: any) => {
-                this.transferRoleList = [];
-                this.transferRoleList = response.detail;
-            });
+            this.transferRoleList = [];
+            this.transferRoleList = response.detail;
+        });
+    }
+    // get all approval role list
+    private conditionalDataLoad(): void {
+        switch (this.popUpTitle) {
+            case 'Transfer':
+                const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
+                const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
+
+                this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
+                    .subscribe((response: any) => {
+                        this.sendForwardBackwardList = [];
+                        this.sendForwardBackwardList = response.detail.sort(function(a, b) {
+                            return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
+                        });
+                        if (this.sendForwardBackwardList.length > 0) {
+                            this.form.patchValue({
+                                toRole: this.sendForwardBackwardList[0].role
+                            });
+                            this.getUserList(this.sendForwardBackwardList[0].role);
+                        }
+                    });
+                break;
+            default:
+                if (!ObjectUtil.isEmpty(this.toRole)) {
+                    this.getUserList(this.toRole);
+                }// send backward to committee
+
+        }
     }
 
     // get user list based on role
@@ -108,7 +153,7 @@ export class RoleHierarchyModelComponent implements OnInit {
                 // check for empty user
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
-                } else if (this.userList.length === 1) {
+                } else {
                     // fetch user internally
                     this.form.patchValue({
                         toUser: this.userList[0]
@@ -117,10 +162,10 @@ export class RoleHierarchyModelComponent implements OnInit {
             });
         });
     }
-    
+
     // get selected user username
     getSelectedUser(toUser) {
-        // set selected user
+        //   set selected user
         this.selectedUsername = toUser.username;
     }
 
@@ -136,12 +181,21 @@ export class RoleHierarchyModelComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
             return;
         }
+        const isSolSelected = this.form.get('isSol').value;
+        if (isSolSelected) {
+            const selectedSolUser = this.form.get('solUser').value;
+            if (ObjectUtil.isEmpty(selectedSolUser)) {
+                this.isNoUserSelectedSol = true;
+                return;
+            }
+        }
         const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
             context: {
                 // send context to Loan Action Verification Component for authentication
                 toUser: this.form.get('toUser').value,
                 toRole: this.form.get('toRole').value,
-                action: this.docAction
+                action: this.docAction,
+                isSolUserPresent: this.customerLoanHolder.isSol
             }
         });
         dialogRef.onClose.subscribe((verified: boolean) => {
@@ -203,5 +257,56 @@ export class RoleHierarchyModelComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
+    }
+
+    getSOlUSerList(role) {
+        this.form.patchValue({
+            solUser: [undefined]
+        });
+        this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+            this.solUserList = response.detail;
+            this.isNoUserSol = false;
+            this.isSolUserSelected = true;
+            if (this.solUserList.length === 1) {
+                this.form.patchValue({
+                    solUser: this.solUserList[0]
+                });
+            } else if (this.solUserList.length > 1) {
+                this.form.patchValue({
+                    solUser: this.solUserList[0]
+                });
+
+            } else if (this.solUserList.length === 0) {
+                this.isNoUserSol = true;
+            }
+        });
+
+    }
+
+    isSolChecked(event) {
+        if (event) {
+            this.showHideSolUser = true;
+            this.form.patchValue({
+                solUser: null,
+                isSol: true
+            });
+            if (this.customerLoanHolder.isSol) {
+                this.form.get('solUser').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ?
+                    null : this.customerLoanHolder.solUser);
+                this.form.get('selectedRoleForSol').patchValue(ObjectUtil.isEmpty(this.customerLoanHolder.solUser) ?
+                    null : this.customerLoanHolder.solUser.role);
+            }
+            this.form.get('solUser').setValidators(Validators.required);
+            this.form.get('solUser').updateValueAndValidity();
+        } else {
+            this.showHideSolUser = false;
+            this.form.patchValue({
+                solUser: null,
+                isSol: false
+            });
+            this.form.get('solUser').setValidators([]);
+            this.form.get('solUser').clearValidators();
+            this.form.get('solUser').updateValueAndValidity();
+        }
     }
 }

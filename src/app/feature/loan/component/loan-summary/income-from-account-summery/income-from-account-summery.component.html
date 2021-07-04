@@ -1,7 +1,7 @@
 <div class="row mt-2">
   <div class="col-md-12">
     <p><strong>Income From Account</strong></p>
-    <label><strong>Account No: {{this.incomeFromAccount?.accountNo}}</strong></label>
+    <label><strong>Account No: {{incomeFromAccount?.accountNo}}</strong></label>
     <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
       <thead>
       <tr class="sb-bg-dark text-white">
@@ -12,52 +12,64 @@
       </thead>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Gross Interest</td>
-        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.interestDuringReview |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.interestAfterNextReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{incomeFromAccount?.interestDuringReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{incomeFromAccount?.interestAfterNextReview |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Free and Commission</td>
-        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.commissionDuringReview |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.commissionAfterNextReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{incomeFromAccount?.commissionDuringReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{incomeFromAccount?.commissionAfterNextReview |currencyFormatter}}</td>
       </tr>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Loan Processing Charge</td>
-        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
-        <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.loanProcessingAfterNextReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
+        <td class="text-right pr-1">Rs. {{incomeFromAccount?.loanProcessingAfterNextReview |currencyFormatter}}</td>
       </tr>
       <ng-container *ngIf="srdbAffiliatedId">
         <tr>
           <td class="sb-bg-secondary text-white text-left pl-1">LC Commission</td>
-          <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.lcCommissionDuringReview |currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs. {{incomeFromAccount?.lcCommissionDuringReview |currencyFormatter}}</td>
           <td class="text-right pr-1">
-            Rs. {{this.incomeFromAccount?.lcCommissionAfterNextReview |currencyFormatter}}
+            Rs. {{incomeFromAccount?.lcCommissionAfterNextReview |currencyFormatter}}
           </td>
         </tr>
         <tr>
           <td class="sb-bg-secondary text-white text-left pl-1">Guarantee Commission</td>
-          <td class="text-right pr-1">Rs. {{this.incomeFromAccount?.guaranteeCommissionDuringReview |currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs. {{incomeFromAccount?.guaranteeCommissionDuringReview |currencyFormatter}}</td>
           <td class="text-right pr-1">
-            Rs. {{this.incomeFromAccount?.guaranteeCommissionAfterNextReview |currencyFormatter}}
+            Rs. {{incomeFromAccount?.guaranteeCommissionAfterNextReview |currencyFormatter}}
           </td>
         </tr>
       </ng-container>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Other Charges</td>
         <td class="text-right pr-1">
-          Rs. {{this.incomeFromAccount?.otherChargesDuringReview |currencyFormatter}}
+          Rs. {{incomeFromAccount?.otherChargesDuringReview |currencyFormatter}}
         </td>
         <td class="text-right pr-1">
-          Rs. {{this.incomeFromAccount?.otherChargesAfterNextReview |currencyFormatter}}
+          Rs. {{incomeFromAccount?.otherChargesAfterNextReview |currencyFormatter}}
         </td>
       </tr>
       <tr  class="font-weight-bold">
         <td class="sb-bg-secondary text-white text-left pl-1">Total</td>
         <td class="text-right pr-1">
-          Rs. {{this.incomeFromAccount?.totalIncomeDuringReview |currencyFormatter}}
+          Rs. {{incomeFromAccount?.totalIncomeDuringReview |currencyFormatter}}
         </td>
         <td class="text-right pr-1">
-          Rs. {{this.incomeFromAccount?.totalIncomeAfterNextReview |currencyFormatter}}</td>
+          Rs. {{incomeFromAccount?.totalIncomeAfterNextReview |currencyFormatter}}</td>
       </tr>
+    </table>
+    <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+      <thead>
+      <tr class="sb-bg-dark text-white">
+        <th>Remark</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.incomeFromTheAccount"></td>
+      </tr>
+      </tbody>
     </table>
   </div>
 </div>

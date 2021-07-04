@@ -89,12 +89,12 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInDv: undefined,
             changeInConsideredValue: undefined,
         };
-        calcData.changeInFmv = NumberUtils.isNumber(this.oldValuation[i][fmv]
-            - this.formGroup.get('reValuatedFmv').value);
-        calcData.changeInDv = NumberUtils.isNumber(this.oldValuation[i][dv]
-            - this.formGroup.get('reValuatedDv').value);
-        calcData.changeInConsideredValue = NumberUtils.isNumber(this.oldValuation[i][considered]
-            - this.formGroup.get('reValuatedConsideredValue').value);
+        calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('reValuatedFmv').value -
+            this.oldValuation[i][fmv]);
+        calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('reValuatedDv').value -
+            this.oldValuation[i][dv]);
+        calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('reValuatedConsideredValue').value -
+            this.oldValuation[i][considered]);
         this.formGroup.patchValue(calcData);
     }
 

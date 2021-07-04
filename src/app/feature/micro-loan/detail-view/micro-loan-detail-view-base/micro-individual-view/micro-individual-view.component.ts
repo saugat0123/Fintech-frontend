@@ -2,10 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
-import {environment} from '../../../../../../environments/environment.srdb';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {LoanDataHolder} from '../../../../loan/model/loanData';
+import {environment} from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-micro-individual-view',

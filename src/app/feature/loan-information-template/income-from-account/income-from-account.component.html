@@ -122,16 +122,13 @@
         </div>
         <div class="col-md-12">
           <div class="form-group">
-                    <textarea
-                            [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"
-                            class="form-control"
-                            formControlName="incomeFromTheAccount" id="accountIncome"
-                            name="accountIncome"
-                            placeholder="Income from the Account"
-                            rows="3"></textarea>
+            <label for="remark"><strong>Remark</strong></label>
+            <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"
+                      class="form-control" formControlName="incomeFromTheAccount" id="remark"
+                      name="remark" placeholder="Remark" rows="3"></textarea>
             <div *ngIf="(submitted) && formControls.incomeFromTheAccount.invalid"
                  class="invalid-feedback">
-              <span *ngIf="formControls.incomeFromTheAccount.errors.required">Income from the Account is required.</span>
+              <span *ngIf="formControls.incomeFromTheAccount.errors.required">Remark is required.</span>
             </div>
 
           </div>

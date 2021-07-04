@@ -32,6 +32,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | string;
     @Input() combinedLoanId: number;
     @Input() docAction: string;
+    @Input() docActionMsg: string;
     @Input() documentStatus: DocStatus;
     @Input() isForward: boolean;
     @Input() additionalDetails: any;
@@ -112,8 +113,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
         } else if (value === 'combined') {
             this.combinedType.form = this.buildCombinedForm();
-            if (this.docAction == DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
-                //set role
+            if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
                 this.roleService.detail(this.toRole.id).subscribe((res: any) => {
                     this.toRole = res.detail;
                     this.combinedType.form.patchValue({
@@ -233,6 +233,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             toUser: [undefined],
             toRole: [undefined, this.isForward ? [Validators.required] : []],
             docAction: [this.docAction],
+            docActionMsg: [this.docActionMsg],
             comment: [undefined, Validators.required],
             documentStatus: [this.documentStatus],
             isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
@@ -252,6 +253,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 toUser: [undefined],
                 toRole: [undefined, this.isForward ? [Validators.required] : []],
                 docAction: [this.docAction],
+                docActionMsg: [this.docActionMsg],
                 comment: [undefined, Validators.required],
                 documentStatus: [this.documentStatus],
                 loanName: undefined,
@@ -287,6 +289,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     toUser: this.combinedType.form.get('toUser').value,
                     toRole: this.combinedType.form.get('toRole').value,
                     docAction: this.combinedType.form.get('docAction').value,
+                    docActionMsg: this.combinedType.form.get('docActionMsg').value,
                     comment: this.combinedType.form.get('comment').value,
                     documentStatus: this.combinedType.form.get('documentStatus').value,
                     isSol: this.combinedType.form.get('isSol').value,
@@ -298,7 +301,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             actions = this.individualType.form.get('actions').value;
         }
         this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
-            const msg = `Document Has been Successfully ${this.docAction}`;
+            const msg = `Successfully ${this.docActionMsg}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.router.navigate(['/home/pending']);
         }, error => {

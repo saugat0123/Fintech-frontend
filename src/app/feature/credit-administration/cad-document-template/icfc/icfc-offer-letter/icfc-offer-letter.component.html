@@ -1,16 +1,84 @@
-<nb-card>
+<nb-card class="scrollView">
     <nb-card-header>
         <a (click)="onClose()" aria-label="Close" class="close cursor"
            data-dismiss="modal">
             <span aria-hidden="true">×</span></a>
     </nb-card-header>
     <!--todo dynamic reference-->
-    <nb-card-body>
+    <nb-card-body class="">
         <div [ngSwitch]="offerLetterType">
-            <app-letter-of-arrangements
+<!--            <app-letter-of-arrangements-->
+<!--                    [offerLetterType]="offerLetterType"-->
+<!--                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"-->
+<!--                    *ngSwitchCase=offerLetterConst.LETTER_OF_ARRANGEMENTS></app-letter-of-arrangements>-->
+            <app-letter-of-agreement
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                    *ngSwitchCase=offerLetterConst.LETTER_OF_ARRANGEMENTS></app-letter-of-arrangements>
+                    *ngSwitchCase="offerLetterConst.LETTER_OF_AGREEMENT"></app-letter-of-agreement>
+            <app-margin-call-deed-share-loan-company
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.CALL_DEED_SHARE_LOAN_COMPANY"></app-margin-call-deed-share-loan-company>
+            <app-margin-call-deed-share-loan
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.CALL_DEED_SHARE_LOAN"></app-margin-call-deed-share-loan>
+            <app-promissory-note
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.PROMISSORY_NOTE"></app-promissory-note>
+            <app-mortgage-deed-company
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.MORTGAGE_DEED_COMPANY"></app-mortgage-deed-company>
+            <app-mrtg-deed-individual-different
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER"></app-mrtg-deed-individual-different>
+            <app-mrtg-deed-individual-same
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME"></app-mrtg-deed-individual-same>
+            <app-ac-debit-and-loan-disbursement-authority
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY></app-ac-debit-and-loan-disbursement-authority>
+            <app-bank-guarantee
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.BANK_GUARANTEE></app-bank-guarantee>
+            <app-business-loan
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.BUSINESS_LOAN></app-business-loan>
+            <app-corporate-guarantee
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.CORPORATE_GUARANTEE></app-corporate-guarantee>
+            <app-letter-of-continuity
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY></app-letter-of-continuity>
+            <app-letter-of-set-off
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.LETTER_OF_SET_OFF></app-letter-of-set-off>
+            <app-personal-term-loan
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase=offerLetterConst.PERSONAL_TERM_LOAN></app-personal-term-loan>
+            <app-loan-deed-company-icfc
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.LOAN_DEED_COMPANY"></app-loan-deed-company-icfc>
+            <app-loan-deed-multiple-icfc
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.LOAN_DEED_MULTIPLE"></app-loan-deed-multiple-icfc>
+            <app-loan-deed-single-icfc
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.LOAN_DEED_SINGLE"></app-loan-deed-single-icfc>
         </div>
     </nb-card-body>
 </nb-card>

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {NbDialogRef} from '@nebular/theme';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
@@ -15,6 +15,10 @@ import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {CreateDocumentComponent} from '../create-document/create-document.component';
+import {SiteVisitDocument} from './site-visit-document';
+import {ActivatedRoute} from '@angular/router';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-fix-asset-collateral',
@@ -22,9 +26,13 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
     styleUrls: ['./fix-asset-collateral.component.scss']
 })
 export class FixAssetCollateralComponent implements OnInit {
+
     fixedAssetsForm: FormGroup;
     @Input() securityId: number;
     @Input() security: string;
+    @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
+    customerType: string;
+    customerId: number;
     submitted = false;
     majorMarketPlaceDistance = ['less than 500M', '500M to 1KM', '1KM to 2KM', 'More than 2KM'];
     designationList = [];
@@ -37,6 +45,7 @@ export class FixAssetCollateralComponent implements OnInit {
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
     selectedSiteVisit: any;
+    fileType = '.jpg';
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -45,7 +54,10 @@ export class FixAssetCollateralComponent implements OnInit {
                 private toastService: ToastService,
                 private roleService: RoleService,
                 private addressService: AddressService,
-                private collateralSiteVisitService: CollateralSiteVisitService) {
+                private collateralSiteVisitService: CollateralSiteVisitService,
+                private modelService: NgbModal,
+                private nbDialogService: NbDialogService,
+                private activatedRoute: ActivatedRoute) {
     }
 
     get form() {
@@ -65,6 +77,14 @@ export class FixAssetCollateralComponent implements OnInit {
         this.getRoleList();
         this.getCollateralBySecurityName(this.security);
         this.addStaffs();
+        this.getCustomerTypeAndId();
+    }
+
+    getCustomerTypeAndId() {
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.customerType = params.customerType;
+            this.customerId = params.customerInfoId;
+        });
     }
 
     getCollateralBySecurityName(securityName) {
@@ -84,6 +104,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
+            this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
             this.getDistrictsById(this.collateralData.province.id, null);
             this.getMunicipalitiesById(this.collateralData.district.id, null);
@@ -231,15 +252,45 @@ export class FixAssetCollateralComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
-        this.collateralSiteVisit.siteVisitDate = this.fixedAssetsForm.get('date').value;
+        if (ObjectUtil.isEmpty(this.securityId)) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'No security found please add one'));
+            return;
+        }
         this.fixedAssetsForm.get('securityName').patchValue(this.security);
-        this.collateralSiteVisit.siteVisitJsonData = JSON.stringify(this.fixedAssetsForm.value);
-        this.collateralSiteVisit.securityName = this.security;
+        const formData: FormData = new FormData();
+        // for update site visit
+        if (!ObjectUtil.isEmpty(this.collateralSiteVisit.id)) {
+            formData.append('id', this.collateralSiteVisit.id.toString());
+        }
+        // for new site visit
+        if (!ObjectUtil.isEmpty(this.siteVisitDocument)) {
+            this.siteVisitDocument.map((m) => {
+                formData.append('docName', m.docName);
+                if (!ObjectUtil.isEmpty(m.multipartFile)) {
+                    formData.append('file', m.multipartFile, m.docName);
+                    formData.append('fileExist', 'Yes');
+                } else {
+                    formData.append('fileExist', 'No');
+                }
+                formData.append('isPrintable', m.isPrintable);
+                let docIds = -1;
+                if (!ObjectUtil.isEmpty(m.id)) {
+                    docIds = m.id;
+                }
+                formData.append('docId', docIds.toString());
+            });
+        }
+        // required parameter for backend
+        formData.append('customerId', this.customerId.toString());
+        formData.append('customerType', this.customerType);
+        formData.append('siteVisitData', this.fixedAssetsForm.get('date').value);
+        formData.append('securityName', this.security);
+        formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
         if (this.fixedAssetsForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             return;
         }
-        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, this.collateralSiteVisit).subscribe(() => {
+        this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
             this.nbDialogRef.close();
         }, error => {
@@ -251,5 +302,21 @@ export class FixAssetCollateralComponent implements OnInit {
 
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
+
+    public openDocumentCreateModal(editId): void {
+        const siteVisitDocument = this.siteVisitDocument;
+        this.nbDialogService.open(CreateDocumentComponent, {
+            context: { editId, siteVisitDocument }
+        });
+    }
+
+    viewDocument(url: string, name: string) {
+        const viewDocName = name.concat(this.fileType);
+        const link = document.createElement('a');
+        link.target = '_blank';
+        link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+        link.setAttribute('visibility', 'hidden');
+        link.click();
     }
 }
