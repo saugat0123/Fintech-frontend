@@ -30,10 +30,10 @@ export class MicroCompanyFormComponentComponent implements OnInit {
 
   buildForm() {
     this.microCustomerForm = this.formBuilder.group({
-      repaymentSchedule: [undefined , Validators.required],
-      loanProducts: [undefined , Validators.required],
-      savingProducts: [undefined , Validators.required],
-      otherProducts: [undefined , Validators.required],
+      repaymentSchedule: [undefined],
+      loanProducts: [undefined],
+      savingProducts: [undefined],
+      otherProducts: [undefined],
     });
   }
 
