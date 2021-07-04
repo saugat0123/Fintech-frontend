@@ -111,6 +111,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
       currentRoleOrder: this.currentRoleOrder,
       docAction: DocAction.value(DocAction.TRANSFER),
       documentStatus: DocStatus.PENDING,
+      toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
     };
     if (ObjectUtil.isEmpty(this.combinedLoanId)) {
       this.dialogRef = this.nbDialogService.open(RoleHierarchyModelComponent, {
