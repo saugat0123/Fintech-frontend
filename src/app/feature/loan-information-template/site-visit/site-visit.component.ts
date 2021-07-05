@@ -13,6 +13,7 @@ import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {DateValidator} from '../../../@core/validator/date-validator';
 
 
 declare let google: any;
@@ -117,6 +118,7 @@ export class SiteVisitComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
+      console.log('SiteVisit Data::::', this.formDataForEdit);
     }
 
     this.buildForm();
@@ -172,8 +174,10 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
                 : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted,
           [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
-        dateOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : new Date(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit)],
+        dateOfVisit: [this.formDataForEdit === undefined ? '' :
+            this.formDataForEdit.businessSiteVisitDetails === undefined ? '' :
+            ObjectUtil.isEmpty(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit) ? undefined :
+                new Date(this.formDataForEdit.businessSiteVisitDetails.dateOfVisit)],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
         staffRepresentativeNameDesignation: [this.formDataForEdit === undefined ? undefined :
@@ -201,9 +205,11 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
-        dateOfInspection: [this.formDataForEdit === undefined ? ''
-            : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : new Date(this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection), Validators.required],
+        dateOfInspection: [this.formDataForEdit === undefined ? '' :
+            this.formDataForEdit.currentAssetsInspectionDetails === undefined ? '' :
+                ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection) ? undefined :
+                    new Date(this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection),
+                    [Validators.required, DateValidator.isValidBefore]],
         particularsOfGoodInspected: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                 : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected],
@@ -235,10 +241,11 @@ export class SiteVisitComponent implements OnInit {
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany],
-          expiryDate: [this.formDataForEdit === undefined ? ''
-              : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : new Date(this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate)],
+          expiryDate: [this.formDataForEdit === undefined ? '' :
+              this.formDataForEdit.currentAssetsInspectionDetails === undefined ? '' :
+                  this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? '' :
+                      ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate) ? undefined :
+                          new Date(this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate)],
           clientsOverallRating: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
