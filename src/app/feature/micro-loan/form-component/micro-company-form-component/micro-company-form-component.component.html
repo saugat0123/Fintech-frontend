@@ -50,7 +50,7 @@
                        <label for="repaymentSchedule" class="title"><sup class="text-danger">*</sup><strong>Repayment Schedule</strong></label>
                        <ckeditor [config]="ckeConfig"
                                  [style]="{height:'250px !important;'}"
-                                 formControlName="repaymentSchedule" required
+                                 formControlName="repaymentSchedule"
                                  id="repaymentSchedule"
                                  [ngClass]="{'is-invalid': (submitted) && form.repaymentSchedule.errors}"></ckeditor>
                            <div *ngIf="submitted" style="padding-top: 0.25%">
