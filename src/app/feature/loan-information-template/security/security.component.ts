@@ -111,7 +111,7 @@ export class SecurityComponent implements OnInit {
         }
         this.checkDisableAlpha();
         if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
-            this.checkDisableLamdha();
+            this.checkDisableLamdha(event);
         }
     }
 
@@ -142,7 +142,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            lambdaScheme: [formData.lambdaScheme , !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme: [formData.lambdaScheme,
+                !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
             facCategory: [formData.facCategory],
             securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
@@ -405,7 +406,7 @@ export class SecurityComponent implements OnInit {
         }
     }
 
-    checkDisableLamdha(event?) {
+    checkDisableLamdha(event) {
         this.controlValidation(this.lambdaControls, false);
         switch (event) {
             case 'GENERAL':
