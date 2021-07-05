@@ -8,6 +8,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
 
 @Component({
     selector: 'app-owner-kyc-applicable',
@@ -58,7 +59,8 @@ export class OwnerKycApplicableComponent implements OnInit {
                     relationName: [singleData.relationName],
                     citizenshipNumber: [singleData.citizenshipNumber],
                     issuedLocation: [singleData.issuedLocation],
-                    issuedDate: [new Date(singleData.issuedDate)],
+                    issuedDate: [ObjectUtil.isEmpty(singleData.issuedDate) ?
+                        undefined : new Date(singleData.issuedDate), DateValidator.isValidBefore],
                     mobileNumber: [singleData.mobileNumber],
                     address: [singleData.address],
                     age: [singleData.age],
