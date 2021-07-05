@@ -30,8 +30,8 @@ export class MarketScenarioComponent implements OnInit {
 
     buildForm() {
         this.marketScenarioForm = this.formBuilder.group({
-            keySupplier: [undefined, Validators.required],
-            KeyBuyers: [undefined, Validators.required],
+            keySupplier: [undefined],
+            KeyBuyers: [undefined],
             competitorsOverview: [undefined],
             marketDemandService: [undefined],
             BusinessIndustryOutlook: [undefined],
