@@ -891,7 +891,7 @@
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white"
                     *ngIf="loanDataHolder?.customerDocument?.length > 0"
-                    (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
+                    (click)=getDocPath()> Download All Document</button>
           </span>
                 </div>
             </div>

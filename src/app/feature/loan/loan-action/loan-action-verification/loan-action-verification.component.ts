@@ -19,7 +19,9 @@ export class LoanActionVerificationComponent implements OnInit {
   @Input() toRole: Role;
   @Input() individualCombine;
   @Input() action;
+  @Input() isSolUserPresent;
   forwardAction;
+  transferAction;
   falseCredential = false;
   falseCredentialMessage = '';
 
@@ -32,6 +34,7 @@ export class LoanActionVerificationComponent implements OnInit {
 
   ngOnInit() {
     this.forwardAction = DocAction.value(DocAction.FORWARD);
+    this.transferAction = DocAction.value(DocAction.TRANSFER);
     if (!ObjectUtil.isEmpty(this.individualCombine)) {
       this.individualCombine.actions.forEach(action =>
           this.customerLoanService.detail(action.customerLoanId).subscribe(value => {

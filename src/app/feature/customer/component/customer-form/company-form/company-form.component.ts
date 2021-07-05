@@ -837,7 +837,7 @@ export class CompanyFormComponent implements OnInit {
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
-        if (!this.disableCrgAlpha) {
+        if (!this.disableCrgAlpha && !this.microCustomer) {
             this.bankingRelationComponent.onSubmit();
         }
         if (this.microCustomer) {
@@ -850,7 +850,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
-            (this.disableCrgAlpha ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
+            ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -961,7 +961,7 @@ export class CompanyFormComponent implements OnInit {
             this.companyJsonData.proprietorList.push(proprietors);
         }
 
-        if (!this.disableCrgAlpha) {
+        if (!this.disableCrgAlpha && !this.microCustomer) {
             /** banking relation setting data from child **/
             this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
@@ -1150,6 +1150,16 @@ export class CompanyFormComponent implements OnInit {
 
     microCustomerValidation(micro: boolean) {
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
+        const clientTypeControl = this.companyInfoFormGroup.get('clientType');
+        if (micro) {
+            clientTypeControl.patchValue('MICRO');
+            clientTypeControl.disable();
+        } else {
+            // this.clientType = this.clientType.filter(v => v !== 'MICRO');
+            clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
+                this.clientTypeInput);
+            clientTypeControl.enable();
+        }
     }
 
     /** @Param validate --- true for add validation and false for remove validation
