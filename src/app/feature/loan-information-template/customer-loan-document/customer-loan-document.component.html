@@ -1,14 +1,13 @@
 <nb-card>
   <nb-card-header>
-    <h3><strong>Documents</strong></h3>
+    <h3><strong>Loan Documents</strong></h3>
   </nb-card-header>
   <nb-card-body>
     <div *ngIf="initialDocuments.length > 0" class="row">
       <div class="col-md-6">
         <div class="box-header with-border">
-          <h2><strong>Document for initial phase</strong></h2>
           <em><span
-              style="color:red;">(select file smaller than 5Mb)</span></em>
+              style="color:red;">(Select file smaller than 5MB)</span></em>
         </div>
         <div *ngIf="errorMessage">
           <span class="color" style="color:red"> {{errorMessage}}</span>
@@ -22,6 +21,7 @@
               <th>Type</th>
               <th>Upload</th>
               <th>Upload Status</th>
+              <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -50,6 +50,11 @@
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
               </td>
+              <td class="cursor">
+                <span *ngIf="document.checked">
+                  <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
+                </span>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -61,3 +66,24 @@
     </div>
   </nb-card-body>
 </nb-card>
+
+<ng-template #confirmation>
+  <div class="modal-content">
+    <div class="modal-header" style="display:block">
+      <a (click)="onClose()" aria-label="Close"
+         class="close cursor" data-dismiss="modal">
+        <span aria-hidden="true">×</span></a>
+      <h4 class="nav  navbar-right pull-left">Confirmation</h4>
+    </div>
+    <div class="modal-body">
+      <span class="py-4">
+        Do You want to delete {{documentName}}?
+      </span>
+    </div>
+    <div class="modal-footer">
+      <div class="d-flex justify-content-end pb-md-3">
+        <button  (click)="confirmDelete(index)" class="btn btn-success float-right" type="submit"> Yes </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

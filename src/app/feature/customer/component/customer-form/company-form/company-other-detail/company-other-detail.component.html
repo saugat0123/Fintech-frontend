@@ -1,70 +1,74 @@
 <div>
-  <h5>6. Other Details</h5>
+    <h5>6. Other Details</h5>
 </div>
 <div [formGroup]="companyOtherDetailGroupForm">
-  <div class="row">
-    <div class="col-md-4 form-group">
-      <label><strong>Tax Clearance Till</strong></label>
-      <select formControlName="taxClearanceTill" id="taxClearanceTill"
-              [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
-        <option [value]="null" hidden>Select Tax Clearance Till</option>
-        <option  *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
-          {{fiscalYear.year}}
-      </select>
-<!--      <div *ngIf="submitted && form.taxClearanceTill?.errors "-->
-<!--           class="small text-danger">-->
-<!--        <div *ngIf="form.taxClearanceTill?.errors.required">-->
-<!--          Tax clearance till is required-->
-<!--        </div>-->
-<!--      </div>-->
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="taxClearanceRemark"><strong>Tax Clearance/Paid Remark</strong></label>
-        <input id="taxClearanceRemark" formControlName="taxClearanceRemark" name="taxClearanceRemark" type="text"
-                  class="form-control" placeholder="remark"/>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="negativeList"><strong>Customer Negative List Checked?</strong></label> <br>
-        <nb-radio-group class="close d-inline-flex float-left" formControlName="negativeList" name="negativeList" id="negativeList">
-          <nb-radio value="checked">Checked</nb-radio>
-          <nb-radio value="unchecked">Unchecked</nb-radio>
-        </nb-radio-group>
-        <div *ngIf="submitted && form.negativeList?.errors "
-             class="small text-danger">
-          <div *ngIf="form.negativeList?.errors.required">
-            Negative List is required
-          </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label><strong>Tax Clearance Till</strong></label>
+            <select formControlName="taxClearanceTill" id="taxClearanceTill"
+                    [ngClass]="{'is-invalid':submitted &&  form.taxClearanceTill?.errors}" class="form-control">
+                <option [value]="null">Select Tax Clearance Till</option>
+                <option *ngFor="let fiscalYear of fiscalYears" [value]="fiscalYear.year">
+                    {{fiscalYear.year}}
+            </select>
+            <!--      <div *ngIf="submitted && form.taxClearanceTill?.errors "-->
+            <!--           class="small text-danger">-->
+            <!--        <div *ngIf="form.taxClearanceTill?.errors.required">-->
+            <!--          Tax clearance till is required-->
+            <!--        </div>-->
+            <!--      </div>-->
         </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="negativeListRemark"><strong>Negative List Remark</strong></label>
-        <input id="negativeListRemark" formControlName="negativeListRemark" name="negativeListRemark" type="text"
-               class="form-control" placeholder="remark"/>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="ClassificationByNRB"><strong>Classification as per NRB directive</strong></label>
-        <select
-            [ngClass]="{ 'is-invalid':submitted && form.ClassificationByNRB?.errors }"
-            class="form-control rounded"
-            formControlName="ClassificationByNRB"
-            id="ClassificationByNRB">
-          <option [ngValue]="null" hidden>Select Classification as per NRB directive</option>
-          <option *ngFor="let nrbDirective of nrbDirective" [ngValue]="nrbDirective.key">{{nrbDirective.value}}</option>
-        </select>
-        <div *ngIf="submitted && form.ClassificationByNRB?.errors "
-             class="invalid-feedback">
-          <div *ngIf="form.ClassificationByNRB?.errors.required">
-            Classification as per NRB is required
-          </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="taxClearanceRemark"><strong>Tax Clearance/Paid Remark</strong></label>
+                <input id="taxClearanceRemark" formControlName="taxClearanceRemark" name="taxClearanceRemark"
+                       type="text"
+                       class="form-control" placeholder="Tax Clearance/Paid Remark"/>
+            </div>
         </div>
-      </div>
+        <div class="col-md-2" *ngIf="client !== clientName?.SHINE_RESUNGA">
+            <div class="form-group">
+                <label for="negativeList"><strong>Customer Negative List Checked?</strong></label> <br>
+                <nb-radio-group class="close d-inline-flex float-left" formControlName="negativeList"
+                                name="negativeList" id="negativeList">
+                    <nb-radio value="checked">Checked</nb-radio>
+                    <nb-radio value="unchecked">Unchecked</nb-radio>
+                </nb-radio-group>
+                <div *ngIf="submitted && form.negativeList?.errors "
+                     class="small text-danger">
+                    <div *ngIf="form.negativeList?.errors.required">
+                        Negative List is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" *ngIf="client !== clientName?.SHINE_RESUNGA">
+            <div class="form-group">
+                <label for="negativeListRemark"><strong>Negative List Remark</strong></label>
+                <input id="negativeListRemark" formControlName="negativeListRemark" name="negativeListRemark"
+                       type="text"
+                       class="form-control" placeholder="Negative List Remark"/>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="ClassificationByNRB"><strong>Classification as per NRB directive</strong></label>
+                <select
+                        [ngClass]="{ 'is-invalid':submitted && form.ClassificationByNRB?.errors }"
+                        class="form-control rounded"
+                        formControlName="ClassificationByNRB"
+                        id="ClassificationByNRB">
+                    <option [ngValue]="null">Select Classification as per NRB directive</option>
+                    <option *ngFor="let nrbDirective of nrbDirective"
+                            [ngValue]="nrbDirective.key">{{nrbDirective.value}}</option>
+                </select>
+                <div *ngIf="submitted && form.ClassificationByNRB?.errors "
+                     class="invalid-feedback">
+                    <div *ngIf="form.ClassificationByNRB?.errors.required">
+                        Classification as per NRB is required
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -1,16 +1,15 @@
 <div class="row mt-3">
   <div class="col-md-12">
-    <p><strong>Reporting Information</strong></p>
     <div class="row">
       <div class="col-md-12">
         <table *ngIf="layout === 'vertical'" class="table table-bordered table-sm sb-small text-center">
           <ng-container *ngFor="let report of reportingInfoSummary">
             <tr>
-              <td class="font-weight-bold text-left pl-1" colspan="2">{{report?.name}}</td>
+              <td class="font-weight-bold text-center" colspan="2">{{report?.name}}</td>
             </tr>
-            <tr class="font-weight-bold sb-bg-secondary text-center">
-              <td>Code</td>
-              <td>Description</td>
+            <tr class="font-weight-bold sb-bg-secondary text-left">
+              <td class="pl-1">Code</td>
+              <td class="pl-1">Description</td>
             </tr>
             <tr *ngFor="let level of report?.reportingInfoLevels">
               <td class="text-right pr-1">{{level?.code}}</td>
@@ -23,15 +22,15 @@
             <table class="table table-bordered table-sm sb-small text-center">
               <tr class="sb-bg-dark text-white">
                 <td [attr.colspan]="report?.reportingInfoLevels?.length + 1"
-                    class="font-weight-bold text-left pl-1">{{report?.name}}</td>
+                    class="font-weight-bold text-center">{{report?.name}}</td>
               </tr>
               <tr>
-                <td class="font-weight-bold sb-bg-secondary text-white text-right pr-1">Code</td>
-                <td *ngFor="let level of report?.reportingInfoLevels">{{level?.code}}</td>
+                <td class="font-weight-bold sb-bg-secondary text-white text-left pl-1">Code</td>
+                <td *ngFor="let level of report?.reportingInfoLevels" class="text-right pr-1">{{level?.code}}</td>
               </tr>
               <tr>
                 <td class="font-weight-bold sb-bg-secondary text-white text-left pl-1">Description</td>
-                <td *ngFor="let level of report?.reportingInfoLevels">{{level?.description}}</td>
+                <td *ngFor="let level of report?.reportingInfoLevels" class="text-left pl-1">{{level?.description}}</td>
               </tr>
             </table>
           </ng-container>

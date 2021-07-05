@@ -1,29 +1,31 @@
 <div class="py-2">
-    <div *ngIf="client == clientName.MEGA"><span><strong>Justification and purpose of present proposal:</strong></span></div>
-    <div *ngIf="client != clientName.MEGA"><span><strong>Justification of Facilities:</strong></span></div>
-
+    <div *ngIf="client == clientName.MEGA"><span><strong>{{client === clientName?.MEGA ? 'Justification and purpose of present proposal:' : 'Justification of Facilities:'}}</strong></span></div>
     <hr>
     <div class="py-2">
         <ol>
             <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
                 <div class="row sb-medium">
-                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}}) :</u></span></strong>
+                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span></strong>
                 </div>
 
-        <div class="text-align" [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation | safeHtml">
-        </div>
+                <div>
+                    <div class="row sb-small" ><strong>{{client === clientName?.MEGA ? 'Justification of limit :' : 'Background :' }}</strong></div>
+                    <div class="sb-small">
+                        <span [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
+                    </div>
+                </div>
 
                 <div>
                     <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
                     <div class="sb-small">
-                        <span>{{(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA'}}</span>
+                        <span [innerHTML]="(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
                     </div>
                 </div>
 
                 <div>
                     <div class="row sb-small"><strong> Repayment criteria :</strong></div>
                     <div class="sb-small">
-                        <span>{{(data.proposal.data |jsonParse)?.repayment || 'NA'}}</span>
+                        <span [innerHTML]="(data?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>
                 <hr>

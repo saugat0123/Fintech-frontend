@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ReportingInfoLevel} from '../../model/reporting-info-level';
 import {ReportingInfo} from '../../model/reporting-info';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -15,11 +15,15 @@ import {ReportingInfoTaggingFormComponent} from '../reporting-info-tagging-form/
 })
 export class ReportingInfoTaggingComponent implements OnInit {
   @Input() public reportingInfoLevels: Array<ReportingInfoLevel>;
+  @Output() public reportingInfoLevelsEmitter = new EventEmitter();
+  @Input() type;
+  spinner = false;
   public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
   public isFilterCollapsed = true;
   public filterForm: FormGroup;
   private search = {
-    name: undefined
+    name: undefined,
+    type: undefined,
   };
   public savedReportTagsId = new Set<number>();
   public finalReportingInfoLevels: Array<ReportingInfoLevel>;
@@ -57,8 +61,11 @@ export class ReportingInfoTaggingComponent implements OnInit {
   }
 
   private getReportingInfo(): void {
+    this.spinner = true;
+    this.search.type = this.type;
     this.reportingInfoService.getAllWithSearch(this.search).subscribe((response: any) => {
       this.reportingInfoList = response.detail;
+      this.spinner = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load reporting info'));
@@ -67,7 +74,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
 
   private buildFilterForm(): void {
     this.filterForm = this.formBuilder.group({
-      name: [undefined]
+      name: [undefined],
     });
   }
 
@@ -86,5 +93,6 @@ export class ReportingInfoTaggingComponent implements OnInit {
       reportingInfoLevel.id = v;
       return reportingInfoLevel;
     });
+    this.reportingInfoLevelsEmitter.emit(this.finalReportingInfoLevels);
   }
 }

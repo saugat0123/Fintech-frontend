@@ -33,6 +33,8 @@ import {GroupSummaryDto} from './GroupSummaryDto';
 import {CreditRiskGradingLambda} from '../../admin/modal/CreditRiskGradingLambda';
 import {CadDocument} from './cadDocument';
 import {User} from '../../admin/modal/user';
+import {Comments} from '../../admin/modal/comments';
+import {CrgMicro} from './CrgMicro';
 
 
 export class LoanDataHolder extends BaseEntity {
@@ -51,6 +53,7 @@ export class LoanDataHolder extends BaseEntity {
     customerDocument: Array<CustomerDocuments>;
     siteVisit: SiteVisit;
     financial: Financial;
+    crgMicro: CrgMicro;
     security: Security;
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
@@ -95,5 +98,7 @@ export class LoanDataHolder extends BaseEntity {
     data: string;
     limitExceed: any;
     loanRemarks: any;
+    comments: Comments;
+
 
 }

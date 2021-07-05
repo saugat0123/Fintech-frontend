@@ -1,14 +1,4 @@
-import {
-    Component,
-    DoCheck,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    QueryList, ViewChild,
-    ViewChildren
-} from '@angular/core';
+import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -32,9 +22,10 @@ import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
-import {environment} from '../../../../../../environments/environment.srdb';
-import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
+import {environment, environment as env} from '../../../../../../environments/environment';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+import {Clients} from '../../../../../../environments/Clients';
+import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-customer-form',
@@ -73,7 +64,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     calendarType = 'AD';
     microCustomer = false;
-    microEnabled: boolean = environment.microLoan;
+    microEnabled: boolean = env.microLoan;
 
     basicInfo: FormGroup;
     submitted = false;
@@ -117,9 +108,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     public genderPairs = EnumUtils.pairs(Gender);
     maritalStatusEnum = MaritalStatus;
     placeHolderForMaritalStatus;
-    individualJsonData: IndividualJsonData;
+    individualJsonData: IndividualJsonData = new IndividualJsonData();
 
     crgLambdaDisabled = environment.disableCrgLambda;
+    client = environment.client;
+    clientName = Clients;
+    ckeConfig = Editor.CK_CONFIG;
 
     ngOnInit() {
         this.getProvince();
@@ -155,6 +149,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
+                age: [undefined, Validators.required],
                 version: [0]
             })
         );
@@ -168,6 +163,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
                 this.districtList.forEach(district => {
                     if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
                         this.basicInfo.controls.district.setValue(district);
@@ -182,6 +178,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
+                this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.municipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
                         this.basicInfo.controls.municipalities.setValue(municipality);
@@ -196,6 +193,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.temporaryDistrictList = response.detail;
+                this.temporaryDistrictList.sort((a, b) => a.name.localeCompare(b.name));
                 this.temporaryDistrictList.forEach(district => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryDistrict) && district.id === this.customer.temporaryDistrict.id) {
                         this.basicInfo.controls.temporaryDistrict.patchValue(district);
@@ -210,6 +208,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
+                this.temporaryMunicipalitiesList.sort((a,b) => a.name.localeCompare(b.name));
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
@@ -239,7 +238,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log(this.basicInfo);
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -251,6 +249,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
             } else {
+                if (this.client !== this.clientName.SHINE_RESUNGA) {
+                    const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
+                    ageControl.controls.filter(f => {
+                        f.get('age').clearValidators();
+                        f.get('age').updateValueAndValidity();
+                    });
+                }
                 if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
@@ -278,7 +283,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
                     this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
-                    this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
@@ -367,6 +371,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.individualJsonData.permanentAddressLine1],
             permanentAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.permanentAddressLine2],
+            fatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.fatherName],
+            grandFatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
+                this.individualJsonData.grandFatherName],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
                 Validators.max(9999999999), Validators.min(1000000000)]],
@@ -402,7 +410,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 undefined : this.customer.netWorth,
                 this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
-            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType],
+            clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
                 this.customer.temporaryProvince, Validators.required],
             temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :
@@ -423,6 +431,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.customerLegalDocumentAddress, Validators.required],
 
         });
+        this.onCustomerTypeChange(this.microCustomer);
     }
 
     setIndividualJsonData() {
@@ -434,6 +443,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.permanentAddressLine2 = this.basicInfoControls.permanentAddressLine2.value;
         individualJsonData.temporaryAddressLine1 = this.basicInfoControls.temporaryAddressLine1.value;
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
+        individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
+        individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -444,11 +455,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const relation = ['Grand Father', 'Father'];
         relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
-                customerRelation: [{value: customerRelation, disabled: true}],
+                customerRelation: [{value: customerRelation, disabled: false}],
                 customerRelativeName: [undefined, Validators.required],
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
+                age: [undefined, Validators.required],
                 version: [undefined]
             }));
         });
@@ -462,13 +474,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 // Increase index number with increase in static relatives---
                 relativesData.push(this.formBuilder.group({
                     customerRelation: (index > 1) ? [(customerRelative)] :
-                        [({value: customerRelative, disabled: true}), Validators.required],
+                        [({value: customerRelative, disabled: false}), Validators.required],
                     customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
                     version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
                     citizenshipNumber: [singleRelatives.citizenshipNumber],
                     citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                        undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore]
+                        undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
+                    age: [singleRelatives.age, Validators.required]
                 }));
             });
 
@@ -493,6 +506,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     private getAllDistrict() {
         this.commonLocation.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         });
     }
 
@@ -654,7 +668,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     /** @Param validate --- true for add validation and false for remove validation
      * @Param controlNames --- list of formControlName**/
     controlValidation(controlNames: string[], validate) {
-        console.log(validate);
         controlNames.forEach(s => {
             if (validate) {
                 this.basicInfo.get(s).setValidators(Validators.required);
@@ -666,13 +679,21 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onCustomerTypeChange(check: boolean) {
-        console.log('value is check', check);
         if (check || this.crgLambdaDisabled) {
             this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
                 'netWorth'], false);
         } else {
             this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
                 'netWorth'], true);
+        }
+        const clientTypeControl = this.basicInfo.get('clientType');
+        if (check) {
+            clientTypeControl.patchValue('MICRO');
+            clientTypeControl.disable();
+        } else {
+            // this.clientType = this.clientType.filter(v => v !== 'MICRO');
+            clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
+            clientTypeControl.enable();
         }
     }
 

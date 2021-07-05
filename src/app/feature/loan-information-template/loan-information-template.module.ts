@@ -4,7 +4,7 @@ import {SiteVisitComponent} from './site-visit/site-visit.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // @ts-ignore
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 // @ts-ignore
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
@@ -42,6 +42,13 @@ import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
+import { CommentsComponent } from './comments/comments.component';
+import { PreviousSecurityComponent } from './previous-security/previous-security.component';
+import { FixAssetCollateralComponent } from './security/security-initial-form/fix-asset-collateral/fix-asset-collateral.component';
+import {AngularDraggableModule} from 'angular2-draggable';
+import { CrgMicroComponent } from './crg-micro/crg-micro.component';
+import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
+import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -72,13 +79,18 @@ const COMPONENTS = [
     SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
-    NtaMegaComponent
+    NtaMegaComponent,
+    PreviousSecurityComponent,
+    FixAssetCollateralComponent,
+    SecurityTableComponent,
+    CreateDocumentComponent,
 ];
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent],
-    exports: [...COMPONENTS, MicroProposalComponent],
+  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+      CrgMicroComponent],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,
@@ -95,7 +107,11 @@ const COMPONENTS = [
         }),
         CoreModule,
         CKEditorModule,
-        FeatureModule
+        FeatureModule,
+        AngularDraggableModule
+    ],
+    providers: [
+        NgbActiveModal
     ]
 })
 export class LoanInformationTemplateModule {

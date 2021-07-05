@@ -32,5 +32,6 @@ export class LoanConfig {
     loanCategory: string;
     loanTag: string;
     approvedDocument: Array<Document>;
+    renewWithEnhancement: Array<Document>;
 
 }

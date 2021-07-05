@@ -152,14 +152,14 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
     decimalWords;
 
     transform(value: any, ...args: any[]): any {
-        if (!ObjectUtil.isEmpty(value)) {
-            return this.numberIntoWordsNepali(value);
+        if (ObjectUtil.isEmpty(value)) {
+            return '';
         }
+        return this.numberIntoWordsNepali(value);
     }
 
 
     numberIntoWordsNepaliPaisa(e) {
-        console.log(e);
         let a = '';
         if (isNaN(e) || '' === e) {
             return 'N/A';
@@ -198,7 +198,6 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
     }
 
     numberIntoWordsNepali(e) {
-        console.log(e);
         let paisa = '';
         if (isNaN(e) || '' === e) {
             return 'N/A';
@@ -210,6 +209,7 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
             paisa = this.numberIntoWordsNepaliPaisa(afterDecimal[1]);
         }
         let a = '';
+        e = afterDecimal[0];
         const n = Math.floor(e % 100).toString();
         if (('' + e).length > 2) {
             a = ('' + e).substring(('' + e).length - 3, ('' + e).length - 2);

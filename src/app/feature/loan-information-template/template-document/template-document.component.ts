@@ -47,15 +47,21 @@ export class TemplateDocumentComponent implements OnInit {
     this.customerInfoService.upload(formData).subscribe((res: any) => {
       this.docPathEmitter.emit(res.detail);
       this.checked = true;
-    }, error => this.toast.show(new Alert(AlertType.WARNING, error.error.message)));
+    }, error => this.toast.show(new Alert(AlertType.WARNING, 'Please read the note to Upload the Document')));
   }
 
   previewDoc(url: string) {
     const link = document.createElement('a');
     link.target = '_blank';
-    link.href = `${ApiConfig.URL}/${url}`;
+    link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
     link.setAttribute('visibility', 'hidden');
     link.click();
+  }
+
+  deleteDocument(): void {
+    delete this.pathValue;
+    this.docPathEmitter.emit(this.pathValue);
+    this.checked = false;
   }
 
 }

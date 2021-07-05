@@ -23,12 +23,14 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   nepData;
+  guarantorData;
+  submitted = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService) { }
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
     const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -40,6 +42,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.guarantorData = Object.values(this.nepData.guarantorDetails);
     }
     if (!ObjectUtil.isEmpty(guarantorList)) {
       const guarantorDetails = this.personalGuaranteeCompany.get('personalGuaranteeCompany') as FormArray;

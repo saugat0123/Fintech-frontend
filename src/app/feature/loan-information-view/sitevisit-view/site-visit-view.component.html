@@ -22,18 +22,18 @@
         <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy']}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
         <th>Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr>
         <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName2}}</td>
         <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisitLongitude']}}</td>
         <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisiLatitude']}}</td>
     </tr>
@@ -58,9 +58,8 @@
         <th>Ward</th>
         <th>Address Line 1</th>
         <th>Address Line 2</th>
-        <th>Date of Visit</th>
+        <th>Date of Visit(AD/BS)</th>
         <th>Objective of Visit</th>
-        <th>Staff Representative Designation</th>
     </tr>
     <tr>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
@@ -72,11 +71,8 @@
         <td class="text-right pr-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.ward}}</td>
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address1}}</td>
         <td class="text-left pl-1"> {{formData['businessSiteVisitDetails']['officeAddress']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+        <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['dateOfVisit'] | date}} ({{formData['businessSiteVisitDetails']['dateOfVisit'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
-
-
     </tr>
     <tr class="text-white sb-bg-dark">
 
@@ -85,16 +81,18 @@
 
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
         <th>Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr>
+        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{formData?.businessSiteVisitDetails?.staffRepresentativeName2}}</td>
         <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLongitude']}}</td>
         <td class="text-right pr-1">{{formData['businessSiteVisitDetails']['businessSiteVisitLatitude']}}</td>
     </tr>
@@ -111,9 +109,8 @@
 </table>
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
-<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">Fixed Asset Collateral &
-    Facilities
-    Details</p>
+<p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">
+    {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Asset Collateral'}} & Facilities Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
@@ -126,14 +123,11 @@
         <th>Phone Number</th>
         <th>Type Of Property</th>
         <th>Shape Of Land</th>
-        <th>Location And Shape Of Land As Per Blueprint</th>
-        <th>Road Approach</th>
-        <th>Road Width</th>
-        <th>Road Access From</th>
+        <th>Does the location & shape of land appear consistent with Blue Print?</th>
 
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['date'] | date}} </td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['date'] | engNepDate: false}} </td>
         <td class="text-left pl-1">
             {{formData['fixedAssetCollateralDetails']['address']?.province?.name}},
             {{formData['fixedAssetCollateralDetails']['address']?.district?.name}},
@@ -147,14 +141,15 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['typeOfProperty']}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['shapeOfLand']}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['locationAndShapeOfLand']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
-        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
 
     </tr>
     <tr class="text-white sb-bg-dark">
+        <th>Road Approach</th>
+        <th>Road Width(in feet)</th>
+        <th>Road Access From in feet</th>
         <th>Prominent Place</th>
-        <th>Approach Distance</th>
+        <th *ngIf="client === clientName?.SHINE_RESUNGA">Approach Distance(in meter)</th>
+        <th *ngIf="client !== clientName?.SHINE_RESUNGA">Approach Distance(in feet)</th>
         <th>Water Supply</th>
         <th>Electricity</th>
         <th>Boundary wall</th>
@@ -165,9 +160,12 @@
 
     </tr>
 
-    <!--   Other Facilities     ==================-->
+    <!--   Facilities     ==================-->
 
     <tr>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadApproach']}}</td>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadWidth']}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['facilities']['roadAccessFrom']}}</td>
         <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['prominentPlace']}}</td>
         <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['facilities']['approachDistance']}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['waterSupply'] | booleanConvert}}</td>
@@ -177,15 +175,13 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['drainage'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['open'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['telephoneLine'] | booleanConvert}}</td>
+    </tr>
 
     <tr class="text-white sb-bg-dark">
-        <th colspan="8">Remarks</th>
-
-    <tr>
+        <th colspan="12">Remarks</th>
     </tr>
-    <td colspan="8" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
-
     <tr>
+        <td colspan="12" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['remarksForOtherFacility']}}</td>
     </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
@@ -208,7 +204,7 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'NO' ? 'No' : null}}</td>
         <ng-container *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingArea']}}</td>
-            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | date}}</td>
+            <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionYear'] | engNepDate: false}}</td>
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingType']}}</td>
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['builtUpArea']}}</td>
             <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['noOfStorey']}}</td>
@@ -225,9 +221,6 @@
         <th>Naksa Pass Obtained</th>
         <th>Building Completion Certificate Obtained</th>
         <th>Construction as per Approved Naksa Pass</th>
-        <th>Any Road Setbacks</th>
-        <th>Any River/Canal Setbacks</th>
-        <th>Any High-Tension Setbacks</th>
     </tr>
     <tr *ngIf="formData['fixedAssetCollateralDetails']['otherFacilities']['building'] === 'YES'">
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['frameStructure'] | booleanConvert}}</td>
@@ -236,9 +229,16 @@
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['naksaPassObtained'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['buildingCompCertificate'] | booleanConvert}}</td>
         <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['constructionAsPerNaksa'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] | booleanConvert}}</td>
-        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] | booleanConvert}}</td>
+    </tr>
+    <tr class="text-white sb-bg-dark">
+        <th>Any Road Setbacks</th>
+        <th>Any River/Canal Setbacks</th>
+        <th>Any High-Tension Setbacks</th>
+    </tr>
+    <tr>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['roadSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['riverOrCanalSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
+        <td class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'YES' ? 'Yes' : formData['fixedAssetCollateralDetails']['otherFacilities']['highTensionSetbacks'] === 'NO' ? 'No' : 'N/A'}}</td>
     </tr>
 
 </table>
@@ -266,20 +266,31 @@
         <td colspan="3" class="text-left pl-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['commentAboutFAC']}}</td>
 
     </tr>
+    <tr class="text-white sb-bg-dark">
+        <th colspan="3">Location details</th>
+    </tr>
+    <tr>
+        <td>Longitude</td>
+        <td>latitude</td>
+    </tr>
+    <tr>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLongitude']}}</td>
+        <td class="text-right pr-1">{{formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['fixedAssetsLatitude']}}</td>
+    </tr>
 </table>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
     </tr>
     <tr *ngFor="let staff of formData['fixedAssetCollateralDetails']['vicinityToTheBasicAmenities']['staffs']">
         <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
 
     </tr>
 </table>
@@ -289,27 +300,24 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="7"><b>Current Asset Inspection:
-            Stock</b></td>
+        <td colspan="7"><b>Current Asset Inspection: Stock</b></td>
     </tr>
     <tr *ngIf="!formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="4"><b>Current Asset Inspection:
-            Stock</b></td>
+        <td colspan="4"><b>Current Asset Inspection: Stock</b></td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th>Date of Inspection</th>
-        <th>Good Inspected</th>
+        <th>Date of Inspection(AD/BS)</th>
+        <th>Particulars Of Good Inspected</th>
         <th>Stock Value Reported</th>
         <th>Rents</th>
-        <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Copy of rental/leased
-            agreement obtained
-        </th>
+        <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Copy of rental/leased agreement obtained</th>
         <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Rents payment up to</th>
         <th *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">Rent Receipt shown</th>
     </tr>
 
     <tr>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}}</td>
+        <td class="text-left pl-1">
+            {{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}} ({{formData['currentAssetsInspectionDetails']['dateOfInspection'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['stockValueReported'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['rents']}}</td>
@@ -328,14 +336,13 @@
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
-        <th colspan="6"><b>Current Asset Inspection:
-            Insurance Verification</b></th>
+        <th colspan="6"><b>Current Asset Inspection: Insurance Verification</b></th>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Assets Mortgaged</th>
         <th>Insured Amount</th>
         <th>Insurance Company</th>
-        <th>Expiry Date</th>
+        <th>Expiry Date(AD/BS)</th>
         <th>Client Over All Rating</th>
         <th>Stock Value Confirmed
     </tr>
@@ -345,33 +352,31 @@
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['assetsMortgaged'] | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuredAmount'] | currencyFormatter}}</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['insuranceCompany']}}</td>
-        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}}</td>
+        <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | date}} ({{formData['currentAssetsInspectionDetails']['insuranceVerification']['expiryDate'] | engNepDate: false}})</td>
         <td class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['clientsOverallRating']}}</td>
         <td class="text-right pr-1">Rs. {{formData['currentAssetsInspectionDetails']['insuranceVerification']['stockValueConfirmed'] | currencyFormatter}}</td>
     </tr>
 
     <tr class="text-white sb-bg-dark">
         <th colspan="6">Comments</th>
-
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['insuranceVerification']['comments']}}</td>
-
     </tr>
 </table>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
-        <th>Staff Representative Designation</th>
-        <th>Staff Representative Name</th>
-        <th>Alternative Staff Representative Designation</th>
-        <th>Alternative Staff Representative Name</th>
+        <th>Staff Representative Designation 1</th>
+        <th>Staff Representative Name 1</th>
+        <th>Staff Representative Designation 2</th>
+        <th>Staff Representative Name 2</th>
     </tr>
     <tr *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails']">
         <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation}}</td>
         <td class="text-left pl-1">{{staff.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{staff.alternativeStaffRepresentativeName}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeNameDesignation2}}</td>
+        <td class="text-left pl-1">{{staff.staffRepresentativeName2}}</td>
     </tr>
 </table>
 
@@ -385,27 +390,31 @@
         <th colspan="6"><b>Current Asset Inspection: Major Inquiries and Observations</b></th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="6">Business Nature and Operating/Manufacturing</th>
+        <th colspan="6">Explain the business nature, operating/manufacturing process in maximum 4 lines as per observation/discussion with the customer during inspection.</th>
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessNature']}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="6">Observation Of Business Operation/Activities</th>
+        <th colspan="6">Observation of business operation/activities: No of staffs/workers, Machines/Plant in operation; Loading/unloading happening/brief of various sections of business (Manufacturing/ Packaging/ Storage/ Dispatch/ Quality Control etc.), No of vehicles observed etc.</th>
     </tr>
     <tr>
         <td colspan="6" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessActivities']}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="6">Questions For Accompanying Person Of Client</th>
+        <th colspan="6">Questions to be asked to the accompanying person of client</th>
     </tr>
     <tr class="text-white sb-bg-dark">
-        <th colspan="3">Business compared to last year</th>
-        <th colspan="3">Prospects and Challenges for the business</th>
+        <th colspan="3">How is the business doing now compared to last year?</th>
+        <th colspan="3">What are the prospects and challenges for the business?</th>
     </tr>
     <tr>
         <td colspan="3" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessProgress']}}</td>
         <td colspan="3" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['majorInquiriesAndObservations']['businessChallenges']}}</td>
+    </tr>
+    <tr>
+        <th colspan="2"><b>Power Back-up Arrangement availability at site:</b></th>
+        <th colspan="2"><b>The stock register system at the site is in the form of:</b></th>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Normal Electricity Line</th>
@@ -579,6 +588,7 @@
     </tr>
 </table>
 
+<div *ngIf="client !== clientName?.SHINE_RESUNGA">
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>
@@ -770,3 +780,4 @@
         <td colspan="3" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.otherCurrentAssets?.overAllFindings}}</td>
     </tr>
 </table>
+</div>

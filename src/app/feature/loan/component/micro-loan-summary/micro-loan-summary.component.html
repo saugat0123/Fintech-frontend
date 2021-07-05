@@ -3,13 +3,32 @@
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
-                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    <!--  File under Possession started-->
+                    <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
+                    loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-role-heirarchy-chain [refId]="id"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+                    <!--  End of File Under possession div-->
+
+                    <div class="mt-2" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
-                    loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER'">
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
+                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
                                 status="primary" nbTooltip="Configure Approval Role Hierarchy"
-                                (click)="setRoleHierarchy(loanDataHolder?.id)">
-                            <i class="fa fa-user-shield"></i>Set Role Hierarchy
+                                (click)="setRoleHierarchy(loanDataHolder?.id)">Set Role Hierarchy
                         </button>
                     </div>
                     <br>
@@ -70,8 +89,7 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span
-                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal</span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
@@ -82,7 +100,8 @@
                                     : loanDataHolder?.customerInfo?.customerName}}
                                </strong> </span>
                                 </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    {{loanDataHolder?.branch?.province?.name}}</div>
                                 <div class="badge badge-warning">Summary</div>
                             </div>
                         </div>
@@ -187,8 +206,51 @@
                 </div>
             </div>
 
+            <!--CRG MICRO-->
+            <div *ngIf="crgMicroSummary">
+                <nb-card class="sb-medium">
+                    <nb-card-header>
+                        <h6>Credit Risk Gauge (MICRO)</h6>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-md-6 mr-0 pr-0 text-right">
+                                <app-gauge-chart [chartWidth]="275"
+                                                 gaugeIdentifier="crg-micro"
+                                                 [chartHeight]="180"
+                                                 [maxValue]="100"
+                                                 [obtainedValue]="crgMicroScore"></app-gauge-chart>
+                            </div>
+                            <div class="col-md-6 ml-0 gauge-label-padding">
+                                <div class="vertical-line">
+                                    <div class="text-left pl-2">
+                                        Credit Risk Grade :
+                                        <span [class]="crgMicroStatusBadge"> {{crgMicroGrade | titlecase}}</span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Credit Risk Rating :
+                                        <span [class]="crgMicroStatusBadge"> {{ crgMicroRating | titlecase }}</span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Credit Risk Score :
+                                        <span><strong> {{ crgMicroScore }}</strong></span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Premium :
+                                        <span><strong> {{ crgMicroPremium }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+
             <!--CRG - Lambda-->
-            <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
+            <div *ngIf="false" class="col-md-12">
                 <div *ngIf="creditRiskLambdaSummary">
                     <nb-card class="sb-medium">
                         <nb-card-header>
@@ -246,7 +308,7 @@
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b> {{loanDataHolder.lastModifiedAt | date}}
+                        )<b> on:</b> {{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
                     </span>
                 </div>
             </div>
@@ -279,26 +341,48 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
 
-                       <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                           [customerAllLoanList]="customerAllLoanList"
-                                                           [proposalData]="proposalData"></app-proposal-justification-summary>
-            <app-security-summary
-                    *ngIf="securitySummary"
-                    [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+            <app-proposal-justification-summary *ngIf="proposalSummary"
+                                                [customerAllLoanList]="customerAllLoanList"
+                                                [proposalData]="proposalData"></app-proposal-justification-summary>
+
+            <app-security-summary *ngIf="securitySummary"
+                                  [formData]="securityData" [shareSecurity]="shareSecurityData"
+                                  [securityId]="securityId"></app-security-summary>
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
-            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                            [fiscalYears]="fiscalYearArray"
-                            [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            </ng-template>
+
+            <br>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-comments-summary *ngIf="commentsSummary"
+                                      [formData]="dataFromComments"></app-comments-summary>
+                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+            </div>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
-            <app-guarantor-summary *ngIf="checkGuarantorData"
-                                   [guarantorData]="guarantorData"></app-guarantor-summary>
+            <div *ngIf="client !== clientName?.MEGA">
+                <app-guarantor-summary *ngIf="checkGuarantorData"
+                                       [guarantorData]="guarantorData"></app-guarantor-summary>
+            </div>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            </div>
 
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"
@@ -353,7 +437,7 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}}
+                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -373,10 +457,9 @@
 
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print">
-                                    {{previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
+                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?
+                                    previousList?.comment?.substring(0, 49):
+                                    previousList?.comment)">
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"
@@ -388,7 +471,7 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
@@ -407,10 +490,9 @@
 
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction}}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print">
-                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment}}
+                                    loanDataHolder?.currentStage?.comment)">
                                 </div>
                                 <a (click)="open(loanDataHolder.currentStage.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
@@ -433,19 +515,19 @@
                      class="col-md-2 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, previous?.fromUser?.role?.authorityLabel)}}</span>
+                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
                             <div class="print-only signature-padding"></div>
                             <img align="middle" alt="signature"
                                  class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
+                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                         </div>
                         <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
+                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                            <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>
                 </div>

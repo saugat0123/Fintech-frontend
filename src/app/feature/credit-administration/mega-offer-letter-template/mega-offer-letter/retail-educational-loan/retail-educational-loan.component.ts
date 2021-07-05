@@ -12,6 +12,11 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 
 @Component({
     selector: 'app-retail-educational-loan',
@@ -26,6 +31,9 @@ export class RetailEducationalLoanComponent implements OnInit {
     initialInfoPrint;
     offerLetterConst = MegaOfferLetterConst;
     offerLetterDocument: OfferDocument;
+    nepData;
+    external = [];
+    loanHolderInfo;
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
@@ -34,12 +42,20 @@ export class RetailEducationalLoanComponent implements OnInit {
                 private toastService: ToastService,
                 private routerUtilService: RouterUtilsService,
                 private administrationService: CreditAdministrationService,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                private nepPercentWordPipe: NepaliPercentWordPipe,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) {
     }
 
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetterData();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
     }
 
     buildForm() {
@@ -136,4 +152,22 @@ export class RetailEducationalLoanComponent implements OnInit {
 
     }
 
+
+    changeToNepAmount(event: any, target, from) {
+        this.form.get([target]).patchValue(event.nepVal);
+        this.form.get([from]).patchValue(event.val);
+    }
+
+    patchFunction(target) {
+        const patchValue1 = this.form.get([target]).value;
+        return patchValue1;
+    }
+
+    calcYearlyRate(base , premium , target) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get(base).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(premium).value);
+        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
+        const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
+        this.form.get(target).patchValue(finalValue);
+    }
 }

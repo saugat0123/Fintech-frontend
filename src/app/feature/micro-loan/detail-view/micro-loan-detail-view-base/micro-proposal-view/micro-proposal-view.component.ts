@@ -3,6 +3,7 @@ import {Proposal} from '../../../../admin/modal/proposal';
 import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LoanType} from '../../../../loan/model/loanType';
 
 @Component({
   selector: 'app-micro-proposal-view',
@@ -30,6 +31,7 @@ export class MicroProposalViewComponent implements OnInit {
   allId;
   showInstallmentAmount = false;
   showRepaymentMode = false;
+  public loanType = LoanType;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {

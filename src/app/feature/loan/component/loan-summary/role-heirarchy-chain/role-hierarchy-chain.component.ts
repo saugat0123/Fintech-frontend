@@ -11,6 +11,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {DocStatus} from '../../../model/docStatus';
 import {DocAction} from '../../../model/docAction';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {RoleHierarchyCombinedModelComponent} from '../../../loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
 
 @Component({
   selector: 'app-role-heirarchy-chain',
@@ -23,6 +24,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() loanFlags: CustomerLoanFlag[];
   @Input() branchId: number;
+  @Input() combinedLoanId: number;
   approvalType: string;
   length = false;
   defaultRoleHierarchies = [];
@@ -36,7 +38,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
   popUpTitle: string;
   currentRoleOrder: number;
   currentRoleType: string;
-  arrow = '>>';
+  arrow = ' >> ';
 
   constructor(
       private route: ActivatedRoute,
@@ -89,12 +91,13 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
 
   public openRoleHierarchyModel(): void {
     this.close();
+    let context;
     if (this.loanFlags && this.loanFlags.length > 0) {
       this.loanFlags.sort((a, b) => a.order - b.order);
       this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
       return;
     }
-    const context = {
+    context = {
       approvalType: this.approvalType,
       refId: this.refId,
       isMaker: this.isMaker,
@@ -108,13 +111,26 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
       currentRoleOrder: this.currentRoleOrder,
       docAction: DocAction.value(DocAction.TRANSFER),
       documentStatus: DocStatus.PENDING,
+      toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
     };
-    this.dialogRef = this.nbDialogService.open(RoleHierarchyModelComponent, {
-      context,
-      closeOnBackdropClick: false,
-      hasBackdrop: false,
-      hasScroll: true
-    });
+    if (ObjectUtil.isEmpty(this.combinedLoanId)) {
+      this.dialogRef = this.nbDialogService.open(RoleHierarchyModelComponent, {
+        context,
+        closeOnBackdropClick: false,
+        hasBackdrop: false,
+        hasScroll: true
+      });
+    } else {
+      context.combinedLoanId = this.combinedLoanId;
+      context.isMaker = this.isMaker;
+      context.branchId =  this.branchId;
+      this.dialogRef = this.nbDialogService.open(RoleHierarchyCombinedModelComponent, {
+        context,
+        closeOnBackdropClick: false,
+        hasBackdrop: false,
+        hasScroll: true
+      });
+    }
     this.isOpen = true;
   }
 }

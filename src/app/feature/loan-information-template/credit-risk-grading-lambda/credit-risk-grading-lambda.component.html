@@ -202,33 +202,59 @@
                 <td colspan="2"><strong>Security Risk</strong></td>
                 <td colspan="4"><strong>30.00%</strong></td>
             </tr>
-            <tr>
-                <td>(Capacity & Capital)</td>
-                <td>Security Coverage</td>
-                <td>70%</td>
-                <td>{{creditRiskGradingForm.get('securityCoverage').get('parameter').value}}</td>
-                <td> {{creditRiskGradingForm.get('securityCoverage').get('automatedValue').value}} </td>
-                <td>{{creditRiskGradingForm.get('securityCoverage').get('value').value}}%</td>
-            </tr>
+            <ng-container *ngIf="lambdaScheme === 'GENERAL'">
+                <tr>
+                    <td>(Capacity & Capital)</td>
+                    <td>Loan to Value Ratio / Percentage of Financing
+                    </td>
+                    <td>70%</td>
+                    <td>{{creditRiskGradingForm.get('securityCoverage').get('parameter').value}}</td>
+                    <td> {{creditRiskGradingForm.get('securityCoverage').get('automatedValue').value}} </td>
+                    <td>{{creditRiskGradingForm.get('securityCoverage').get('value').value}}%</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Location of property</td>
+                    <td>10%</td>
+                    <td>{{creditRiskGradingForm.get('locationOfProperty').get('parameter').value}}</td>
+                    <td> -- </td>
+                    <td>{{creditRiskGradingForm.get('locationOfProperty').get('value').value}}%</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Road Access</td>
+                    <td>10%</td>
+                    <td>{{creditRiskGradingForm.get('roadAccess').get('parameter').value}}</td>
+                    <td>--</td>
+                    <td>{{creditRiskGradingForm.get('roadAccess').get('value').value}}%</td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="lambdaScheme === 'AUTO_PRIVATE'">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Security Coverage - Auto Loan (Private - Personal)
+                    </td>
+                    <td>90%</td>
+                    <td>{{creditRiskGradingForm.get('securityCoverageAutoPrivate').get('parameter').value}}</td>
+                    <td> -- </td>
+                    <td>{{creditRiskGradingForm.get('securityCoverageAutoPrivate').get('value').value}}%</td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="lambdaScheme === 'AUTO_COMMERCIAL'">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Security Coverage - Auto Loan (Commercial - Personal)
+                    </td>
+                    <td>90%</td>
+                    <td>{{creditRiskGradingForm.get('securityCoverageAutoCommercial').get('parameter').value}}</td>
+                    <td> -- </td>
+                    <td>{{creditRiskGradingForm.get('securityCoverageAutoCommercial').get('value').value}}%</td>
+                </tr>
+            </ng-container>
+
             <tr>
                 <td>&nbsp;</td>
-                <td>Location of property</td>
-                <td>10%</td>
-                <td>{{creditRiskGradingForm.get('locationOfProperty').get('parameter').value}}</td>
-                <td> -- </td>
-                <td>{{creditRiskGradingForm.get('locationOfProperty').get('value').value}}%</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Road Access</td>
-                <td>10%</td>
-                <td>{{creditRiskGradingForm.get('roadAccess').get('parameter').value}}</td>
-                <td>--</td>
-                <td>{{creditRiskGradingForm.get('roadAccess').get('value').value}}%</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Net Worth</td>
+                <td>Net Worth to Total Bank Loan (Total Assets  Divided by Total Bank Loan)</td>
                 <td>10%</td>
                 <td>{{creditRiskGradingForm.get('netWorth').get('parameter').value}}</td>
                 <td> {{creditRiskGradingForm.get('netWorth').get('automatedValue').value}} </td>
@@ -242,7 +268,7 @@
 
             <tr>
                 <td colspan="2"><strong>Relationship Risk</strong></td>
-                <td colspan="4"><strong>5.00%</strong></td>
+                <td colspan="4"><strong>7.00%</strong></td>
             </tr>
             <tr>
                 <td>(Capacity)</td>
@@ -268,23 +294,15 @@
 
             <tr>
                 <td colspan="2"><strong>Exposure Risk</strong></td>
-                <td colspan="4"><strong>5.00%</strong></td>
+                <td colspan="4"><strong>3%</strong></td>
             </tr>
             <tr>
                 <td> </td>
-                <td>Multibanking</td>
-                <td>50%</td>
+                <td>Total bank exposure</td>
+                <td>100%</td>
                 <td>{{creditRiskGradingForm.get('multibanking').get('parameter').value}}</td>
                 <td> {{creditRiskGradingForm.get('multibanking').get('automatedValue').value}} </td>
                 <td>{{creditRiskGradingForm.get('multibanking').get('value').value}}%</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Repayment track in other BFIs</td>
-                <td>50%</td>
-                <td>{{creditRiskGradingForm.get('repaymentTrackInOtherBfIs').get('parameter').value}}</td>
-                <td>--</td>
-                <td>{{creditRiskGradingForm.get('repaymentTrackInOtherBfIs').get('value').value}}%</td>
             </tr>
 
             <tr class="table-success">

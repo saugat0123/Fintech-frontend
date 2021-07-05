@@ -112,8 +112,7 @@
         <th>Associated Since</th>
         <th *ngIf="showBranchProvince">Branch Province</th>
         <th *ngIf="isMaker">Action</th>
-
-
+        <th *ngIf="transferCustomer">Transfer</th>
       </tr>
       </thead>
       <tbody>
@@ -121,7 +120,9 @@
           *ngFor="let model of customerList;let i=index" class="cursor">
         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
         <td *ngIf="!isMaker" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.name}}</td>
-        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.name}}</td>
+        <td (click)="customerProfile(model.associateId,model.id,model.customerType)">
+          <span *ngIf="model.isJointCustomer">Joint Customer: </span>{{model?.name}}
+        </td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.customerType}}</td>
 
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.idNumber || 'NA'}}</td>
@@ -133,6 +134,14 @@
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
         <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
         <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
+        <td *ngIf="transferCustomer">
+          <div>
+            <button nbButton status="warning" size="tiny"
+                    (click)="onTransferClick(transferCust, model)">
+              <em class="fa fa-arrow-circle-right"></em></button>
+          </div>
+
+        </td>
       </tr>
 
       </tbody>
@@ -144,6 +153,97 @@
     <!-- ===================table-pagination==================== -->
   </nb-card-body>
 
+  <ng-template #transferCust>
+    <nb-card accent="primary" class="transfer-modal"
+             [nbSpinner]="transferSpinner"
+             nbSpinnerStatus="primary"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="Loading data for transfer...">
+      <nb-card-header>
+        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </a>
+        <h4>Transfer {{transferSelectedCustomerInfo.name}} of {{transferSelectedCustomerInfo.branch.name}} to other Branch</h4>
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="col-md-3 mb-3">
+            <select (change)="getMakerUsersByBranchId($event.target.value)">
+              <option [disabled] [value]="null" selected hidden>Select Branch</option>
+              <option *ngFor="let branch of branchListForTransfer;let i=index"
+                         value="{{branch.id}}">{{branch.name}}</option>
+            </select>
+        </div>
+          <nb-accordion *ngIf="!transferUserList.length > 0">
+              <nb-accordion-item>
+                  <nb-accordion-item-header>
+                      No Content Found
+                  </nb-accordion-item-header>
+              </nb-accordion-item>
+          </nb-accordion>
+        <nb-accordion *ngIf="transferUserList.length > 0">
+          <nb-accordion-item>
+            <nb-accordion-item-header>
+                Select User from {{transferSelectedBranch.name}} branch to transfer
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+
+              <div *ngFor="let user of transferUserList;let i=index">
+                <div class="col-md-12 row">
+                  <div>
+                    <a class="cursor">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="optradio" (click)="setUserForTransfer(user)">
+                          <strong class="ml-2">{{user.name}}</strong>
+                        </label>
+                      </div>
+
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button [disabled]="formAction.invalid"
+                [ngStyle]="{ 'filter' : (formAction.invalid)? 'grayscale(100%)': 'grayscale(0%)'}"
+                type="submit" class="btn btn-success float-right" (click)="actionNext(confirmation)">Next
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+
+  <ng-template #confirmation>
+    <nb-card accent="primary"
+             [nbSpinner]="transferSpinner"
+             [nbSpinnerMessage]="'Transferring customer to ' + transferSelectedBranch.name + ' branch...'">
+        <nb-card-header>Do you want to transfer this customer to <b>{{selectedUserForTransfer.name}}</b> of <b>{{transferSelectedBranch.name}}</b>?
+      </nb-card-header>
+      <nb-card-body>
+        <label for="comment">Reason to transfer customer</label>
+        <textarea rows="9" #comment id="comment" class="form-control"
+                  placeholder="Comments for transfer"></textarea>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+            Cancel
+          </button>
+          <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
+                  [disabled]="comment.value == undefined || comment.value == ''" type="submit"
+                  class="btn btn-primary  btn-flat" (click)="confirmTransferCustomer(comment.value)">
+            Confirm
+          </button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+
+  </ng-template>
 
 </nb-card>
 
@@ -166,8 +266,42 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success float-right" nbButton size="small" (click)="getForm()">Next
+    <button class="btn btn-success float-right" nbButton size="small" (click)="getForm(chooseAcType)">Next
     </button>
   </div>
+</ng-template>
+<ng-template #chooseAcType let-ref="dialogRef">
+  <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
+    <nb-card-header>
+      <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h5>Are you registering as Joint Customer?</h5>
+    </nb-card-header>
+    <nb-card-footer>
+      <div class="d-flex justify-content-end">
+        <button (click)="changeAction(chooseJointNo);ref.close()" nbButton status="primary" type="submit">YES</button>
+        <button (click)="onCloseJoint();ref.close()" nbButton status="warning" type="button">NO</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<ng-template #chooseJointNo let-ref="dialogRef">
+  <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
+    <nb-card-header>
+      <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h4>No. of Joint Customer</h4>
+      <input class="form-control"
+             placeholder="Please input greater or equal to 2"
+             type="number"
+             #joint>
+    </nb-card-header>
+    <nb-card-footer>
+      <button class="btn btn-success float-right" nbButton size="small" (click)="onNextJointCustomer(joint.value);ref.close()">Next
+      </button>
+    </nb-card-footer>
+  </nb-card>
 </ng-template>
 <app-overlay-spinner></app-overlay-spinner>

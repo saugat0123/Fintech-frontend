@@ -1,0 +1,15 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="previousSecurityFormGroup">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Previous Security</label>
+                            <ckeditor formControlName="securityDetails" [config]="ckeConfig"></ckeditor>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+

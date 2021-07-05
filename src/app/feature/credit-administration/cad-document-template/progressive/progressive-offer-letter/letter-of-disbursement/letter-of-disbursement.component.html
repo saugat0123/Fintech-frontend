@@ -1,0 +1,200 @@
+<div [nbSpinner]="spinner" class="container text-justify row" id="{{offerLetterConst.LETTER_OF_DISBURSEMENT}}">
+
+    <div class="col-md-12 viewFull">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <h6 class="text-center">भूक्तानी–पत्र<br>
+                (Letter of Disbursement)</h6>
+            <p class="text-right"> मिति:
+                <input class="form-field form-control-sm nepaliFont "
+                       formControlName="date"
+                       placeholder=""
+                       type="text"/>
+            </p>
+            <b> प्रोग्रेशिभफाईनान्स लिमिटेड,</b>
+            <br>
+            <b>बनेपा शाखा कार्यालय ।</b>
+            <br>
+            <p class="text-center"><b>विषय :- रु. <input class="form-field form-control-sm nepaliFont "
+                                                         formControlName="amount"
+                                                         placeholder=""
+                                                         type="text" (change)="getNumAmountWord('amount','amountInWord')"/>
+                /–(अक्षरुपी रु. <input class="form-field form-control-sm nepaliFont "
+                                       formControlName="amountInWord"
+                                       placeholder=""
+                                       type="text"/>   ।)– को ऋण रकम भूक्तानी गरी पाउं ।</b>
+            </p>
+            <div class="row col-md-12">
+
+                <br>
+                <br>
+                <p>
+                    महोदय,<br>
+                    उपरोक्तसम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाछ स्वीकृत भएको
+                    कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो गोपालअधिकारी को नाममा रहेको चल्ति/बचतखाता नं.
+                    <input class="form-field form-control-sm nepaliFont "
+                           formControlName="accNumber"
+                           placeholder=""
+                           type="text"/>
+                    मा रकमान्तर
+                    गरि दिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं ।
+                </p>
+
+            </div>
+            <br>
+            <p class="text-center"><b>भवदीय,</b></p>
+            <div id="Sincerely" class="row col-md-12">
+
+                <br>
+                <p>
+                    दस्तखत :-.............
+                    <br>
+                    <br>
+                    दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont "
+                                                formControlName="sincerlyname"
+                                                placeholder=""
+                                                type="text"/>
+                    <br>
+                    स्थायीठेगाना :-<input class="form-field form-control-sm nepaliFont "
+                                          formControlName="sincerlyPermanentAddress"
+                                          placeholder=""
+                                          type="text"/>
+                    <br>
+                    हालको ठेगाना :-<input class="form-field form-control-sm nepaliFont "
+                                          formControlName="sincerlytempAddress"
+                                          placeholder=""
+                                          type="text"/>
+                    <br>
+                    <br>
+
+                    वावु/आमाको नाम :-<input class="form-field form-control-sm nepaliFont "
+                                            formControlName="parentName"
+                                            placeholder=""
+                                            type="text"/>
+                    <br>
+                    वाजे/बजैको नाम :-<input class="form-field form-control-sm nepaliFont "
+                                            formControlName="grandParentName"
+                                            placeholder=""
+                                            type="text"/>
+                    <br>
+                    पति/पत्निको नाम :-<input class="form-field form-control-sm nepaliFont "
+                                             formControlName="husbandWifeName"
+                                             placeholder=""
+                                             type="text"/>
+
+
+                </p>
+            </div>
+            <br>
+            <div class="row" id="signature">
+                औठा छाप:
+                <table id="fingerXap" class="table  table-bordered">
+                    <thead>
+                    <tr>
+                        <th>दाँ.</th>
+                        <th>बाँ.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30"
+                                      rows="10"></textarea></td>
+                        <td><textarea style="background-color: transparent;resize:none" name="" id="" cols="30"
+                                      rows="10"></textarea></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div>
+                <p class="text-left">  <b class="text-left">साक्षी :</b></p>
+
+                <div class="col-md-12 float-right">
+                    <button (click)="addGuarantor()" type="button" class="btn btn-primary btn-sm float-right " size="tiny">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
+                </div>
+                <div id="guarantor" class="container" *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index" formArrayName="guarantorDetails">
+                    <div [formGroupName]="i">
+                        {{i + 1 | nepaliWord: 'unicode'}}
+                        <table class="table table-responsive-md table-bordered text-center">
+                            <thead>
+                            <tr>
+
+                                <th>नाम</th>
+                                <th>ठेगाना</th>
+                                <th>दस्तखत</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input class="form-field form-control-sm nepaliFont " formControlName="guarantorName"
+                                           placeholder="" type="text"/>
+                                <td><input class="form-field form-control-sm nepaliFont " formControlName="issuedPlace"
+                                           placeholder="" type="text"/></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
+                            <button (click)="removeGuarantor(i)"
+                                    class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                    value="Delete">
+                                <em class="fas fa-trash" style="color: white;">
+                                    Delete Guarantor
+                                </em>
+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <b>सनाखत साक्षी</b>
+                <br>
+
+                <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने
+                    धनीवित्तीय संस्थामाकार्यरत कर्मचारी<input class="form-field form-control-sm nepaliFont "
+                                                              formControlName="biktiyaPersonName"
+                                                              placeholder=""
+                                                              type="text"/> <br>
+                    <br>
+                    ईतिसम्बत <input class="form-field form-control-sm nepaliFont "
+                                    formControlName="itiSambatYear"
+                                    placeholder=""
+                                    type="text"/>
+                    साल <input class="form-field form-control-sm nepaliFont "
+                               formControlName="itiSambatMonth"
+                               placeholder=""
+                               type="text"/>
+                    महिना <input class="form-field form-control-sm nepaliFont "
+                                 formControlName="itiSambatDate"
+                                 placeholder=""
+                                 type="text"/>
+                    गते <input class="form-field form-control-sm nepaliFont "
+                               formControlName="itiSambatTime"
+                               placeholder=""
+                               type="text"/>
+                    रोज शुभम् <input class="form-field form-control-sm nepaliFont "
+                                     formControlName="itiSambatRojSumbham"
+                                     placeholder=""
+                                     type="text"/> ।</p>
+
+
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{ offerLetterConst.LETTER_OF_DISBURSEMENT}}"
+                ngxPrint> Print
+        </button>
+    </div>
+</div>
+<app-letter-of-disbursement-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                              hidden></app-letter-of-disbursement-print>
+
+

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -38,6 +38,16 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
+import {DOCUMENT} from '@angular/common';
+// tslint:disable-next-line:max-line-length
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {flatten} from '@angular/compiler';
+import * as JSZip from 'jszip';
+import * as JSZipUtils from 'jszip-utils/lib/index.js';
+import {saveAs as importedSaveAs} from 'file-saver';
 
 @Component({
     selector: 'app-loan-summary',
@@ -55,6 +65,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanConfig: LoanConfig = new LoanConfig();
 
     @Input() nepaliDate;
+    hasMissingDeferredDocs = false;
 
     client: string;
     clientName = Clients;
@@ -125,6 +136,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     creditRiskAlphaScore = 0;
     creditRiskAlphaPremium;
     creditRiskRatingAlpha;
+    creditRiskRatingAlphaCurrentYear;
     // noComplianceLoanAlpha = false;
     creditRiskAlphaSummary = false;
     /*alphaFiscalYearArray = [];
@@ -152,17 +164,31 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     fiscalYearArray = [];
 
-    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    disableApprovalSheetFlag = environment.disableApprovalSheet;
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
-    isMega = environment.isMega;
 
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
+    commentsSummary = false;
+    dataFromComments;
+    previousSecuritySummary = false;
+    dataFromPreviousSecurity;
+    isJointInfo = false;
+    jointInfo = [];
+    collateralSiteVisitDetail = [];
+    isCollateralSiteVisit = false;
+    age: number;
+   isOpen: false;
+   private dialogRef: NbDialogRef<any>;
+   refId: number;
+    securityId: number;
+    siteVisitDocuments: Array<SiteVisitDocument>;
 
 
     constructor(
+        @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
         private loanFormService: LoanFormService,
         private loanActionService: LoanActionService,
@@ -178,7 +204,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private combinedLoanService: CombinedLoanService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
         private toastService: ToastService,
-        private fiscalYearService: FiscalYearService
+        private fiscalYearService: FiscalYearService,
+        private collateralSiteVisitService: CollateralSiteVisitService,
+        private nbDialogService: NbDialogService,
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -191,9 +219,33 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
+            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+            this.isJointInfo = true;
+        }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityId = this.loanDataHolder.security.id;
+            this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.loanDataHolder.security.id)
+               .subscribe((response: any) => {
+                   this.collateralSiteVisitDetail.push(response.detail);
+                   const arr = [];
+                   response.detail.forEach(f => {
+                       if (f.siteVisitDocuments.length > 0) {
+                         arr.push(f.siteVisitDocuments);
+                       }
+                   });
+                   // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+                   this.siteVisitDocuments = flatten(arr);
+                   if (response.detail.length > 0) {
+                       this.isCollateralSiteVisit = true;
+                   }
+               });
+        }
     }
 
     ngOnDestroy(): void {
@@ -233,6 +285,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.incomeFromAccountData = this.loanDataHolder.loanHolder.incomeFromAccount;
             this.incomeFromAccountSummary = true;
         }
+        // Setting Comments data--
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+            this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+            this.commentsSummary = true;
+        }
+
+        // Setting Previous Security Data
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+            this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+            this.previousSecuritySummary = true;
+        }
+
 
         // Setting NetTradingAssets data--
         if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
@@ -280,6 +344,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
             this.creditRiskGradeAlpha = crgParsedData.creditRiskGrade;
             this.creditRiskRatingAlpha = crgParsedData.creditRiskRating;
+            this.creditRiskRatingAlphaCurrentYear = crgParsedData.currentFiscalYear;
             this.creditRiskAlphaPremium = crgParsedData.premium;
             this.creditRiskAlphaScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
                 0 : crgParsedData.totalScore;
@@ -483,7 +548,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             return label;
         } else {
             if (index === 0) {
-                return 'INITIATED BY:';
+                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+                    return 'RE INITIATED:';
+                } else {
+                    return 'INITIATED BY:';
+                }
             } else {
                 return 'SUPPORTED BY:';
             }
@@ -516,7 +585,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     previewOfferLetterDocument(url: string, name: string): void {
         const link = document.createElement('a');
         link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}`;
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
         link.download = name;
         link.setAttribute('visibility', 'hidden');
         link.click();
@@ -551,7 +620,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
         let lastBackwardIndex = 0;
         stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
                 lastBackwardIndex = index;
             }
         });
@@ -593,7 +663,38 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     SetRoleHierarchy(loanId: number) {
-        this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+        let context;
+        context = {
+            approvalType: 'LOAN',
+            refId: loanId,
+            isRoleModal: true,
+        };
+       // @ts-ignore
+        this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
+            context,
+        }).onClose.subscribe((res: any) => {
+            this.activatedRoute.queryParams.subscribe((res) => {
+                this.loanConfigId = res.loanConfigId;
+                this.customerId = res.customerId;
+            });
+            this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+                if (value) {
+                    this.router.navigate(['/home/loan/summary'],
+                        {
+                            queryParams: {
+                                loanConfigId: this.loanConfigId,
+                                customerId: this.customerId,
+                            }
+                        });
+                }
+            });
+        });
+    }
+    public close() {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
     }
 
     openApprovalSheetInfoModal() {
@@ -608,6 +709,72 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
             && storage.roleType === 'COMMITTEE'
             && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
+    }
+
+    public customSafePipe(val) {
+        return val.replace(/(<([^>]+)>)/gi, ' ');
+    }
+
+    calculateAge(dob) {
+        const difference = Math.abs(Date.now() - new Date(dob).getTime());
+        this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        return this.age;
+    }
+
+    // method to get all the paths which is require to zipping all files
+    public getDocPath(): void {
+        const docPaths = [];
+        const loanDocument = this.loanDataHolder.customerDocument;
+        for (const doc of loanDocument) {
+            docPaths.push(doc.documentPath);
+        }
+        const generalDocument = this.loanDataHolder.loanHolder.customerGeneralDocuments;
+        for (const doc of generalDocument) {
+            docPaths.push(doc.docPath);
+        }
+        const guarantorDocument = this.taggedGuarantorWithDoc;
+        for (const doc of guarantorDocument) {
+            docPaths.push(doc.docPath);
+        }
+        const insuranceDocument = this.insuranceWithDoc;
+        for (const doc of insuranceDocument) {
+            docPaths.push(doc.policyDocumentPath);
+        }
+        this.downloadAll(docPaths);
+    }
+
+    // method to make all files as a .zip file
+    private downloadAll(documentUrls: string[]): void {
+        const zip = new JSZip();
+        let count = 0;
+        const zipFilename = 'AllDocument.zip';
+        const urls = [];
+        if (documentUrls.length > 0) {
+            documentUrls.map(d => {
+                d = ApiConfig.URL + '/' + d;
+                urls.push(d);
+            });
+
+            urls.forEach((url: string) => {
+                const pathToZipFrom = new URL(url).pathname;
+                // loading a file and add it in a zip file
+                JSZipUtils.getBinaryContent(url, (err, data) => {
+                    if (err) {
+                        throw err; // or handle the error
+                    }
+                    zip.file(pathToZipFrom, data, {binary: true});
+                    count++;
+                    if (count === urls.length) {
+                        zip.generateAsync({type: 'blob'}).then(content => {
+                            importedSaveAs(content, zipFilename);
+                        });
+                    }
+                });
+            });
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
+        } else {
+            this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
+        }
     }
 }
 

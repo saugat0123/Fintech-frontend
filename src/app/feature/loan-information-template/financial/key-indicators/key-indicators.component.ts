@@ -6,6 +6,9 @@ import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {KeyIndicatorsConstantsEnum} from '../constants/key-indicators-constants';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-key-indicators',
@@ -18,6 +21,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     keyIndicatorsForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
+    client = environment.client;
+    clientName = Clients;
 
     summaryCheckListMap: Map<string, boolean> = new Map<string, boolean>([
         ['growth', false],
@@ -49,7 +54,8 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         ['averageCollectionPeriod', false],
         ['averagePaymentPeriod', false],
         ['netOperatingCycle', false],
-        ['netWCBeforeBank', false]
+        ['netWCBeforeBank', false],
+        ['cashFlowKI', false]
     ]);
 
     summaryCheckList = KeyIndicatorsConstantsEnum.values();
@@ -93,14 +99,14 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             this.setAveragePaymentPeriod(keyIndicatorsData.averagePaymentPeriod);
             this.setNetOperatingCycle(keyIndicatorsData.netOperatingCycle);
             this.setNetWCBeforeBank(keyIndicatorsData.netWCBeforeBank);
+            keyIndicatorsData.cashFlowKI === undefined ? this.setMockCashFlowKI(keyIndicatorsData.netOperatingCycle) :
+                this.setCashFlowKI(keyIndicatorsData.cashFlowKI);
             this.keyIndicatorsForm.get('justificationKeyIndicators').patchValue(keyIndicatorsData.justificationKeyIndicators);
             try {
                 if (keyIndicatorsData.summaryCheckList.length > 0) {
                     this.keyIndicatorsForm.get('summaryCheckList').patchValue(keyIndicatorsData.summaryCheckList);
-                    this.setSummaryCheckListTemplateValues(keyIndicatorsData.summaryCheckList);
-                } else {
-                    this.setSummaryCheckListTemplateValues(this.summaryCheckList);
                 }
+                this.setSummaryCheckListTemplateValues(keyIndicatorsData.summaryCheckList);
             } catch (e) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
             }
@@ -141,6 +147,7 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
             averagePaymentPeriod: this.formBuilder.array([]),
             netOperatingCycle: this.formBuilder.array([]),
             netWCBeforeBank: this.formBuilder.array([]),
+            cashFlowKI: this.formBuilder.array([]),
             justificationKeyIndicators: [undefined],
             summaryCheckList: [this.summaryCheckList]
         });
@@ -155,6 +162,9 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         } else {
             const spliceIndex = this.summaryCheckList.indexOf(particular);
             this.summaryCheckList.splice(spliceIndex, 1);
+            if (this.summaryCheckList.length < 1) {
+                this.toastService.show(new Alert(AlertType.WARNING, 'Please select at least one Key Indicator!'));
+            }
         }
         this.summaryCheckList = this.summaryCheckList.filter(onlyUnique);
     }
@@ -553,7 +563,6 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         });
     }
 
-    // netWCBeforeBank
     setNetWCBeforeBank(currentData) {
         const controls = this.keyIndicatorsForm.get('netWCBeforeBank') as FormArray;
         currentData.forEach(singleData => {
@@ -566,9 +575,35 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
         });
     }
 
+    // cashFlowKI
+    setCashFlowKI(currentData) {
+        const controls = this.keyIndicatorsForm.get('cashFlowKI') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setMockCashFlowKI(currentData) {
+        const controls = this.keyIndicatorsForm.get('cashFlowKI') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [0],
+                    year: [0]
+                })
+            );
+        });
+    }
+
     ngOnDestroy(): void {
         this.keyIndicatorsForm.get('summaryCheckList').patchValue(this.summaryCheckList);
         this.formData['keyIndicatorsData'].summaryCheckList = this.keyIndicatorsForm.get('summaryCheckList').value;
+        this.formData['keyIndicatorsData'].cashFlowKI = this.keyIndicatorsForm.get('cashFlowKI').value;
         this.formData['keyIndicatorsData'].justificationKeyIndicators = this.keyIndicatorsForm.get('justificationKeyIndicators').value;
     }
 }

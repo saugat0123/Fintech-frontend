@@ -22,14 +22,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4" *ngIf="checkApproved">
+                                <div class="col-md-4" *ngIf="loanType !== 'NEW_LOAN'">
                                     <div class="form-group">
                                         <label class="title" for="outStandingLimit">
-                                            <span [ngSwitch]="loanType">
-                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>
-                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>
-                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>
-                                            </span>
+<!--                                            <span [ngSwitch]="loanType">-->
+<!--                                            <strong  *ngSwitchCase = "'PARTIAL_SETTLEMENT_LOAN'">Settlement Amount</strong>-->
+<!--                                            <strong  *ngSwitchCase = "'ENHANCED_LOAN'">Enhancement Amount</strong>-->
+<!--                                            <strong  *ngSwitchDefault>Outstanding Limit</strong>-->
+<!--                                            </span>-->
+                                            <strong>Outstanding Limit</strong>
                                         </label>
                                         <input class="form-control"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.outStandingLimit.errors }"
@@ -44,13 +45,48 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-4" *ngIf="loanType === 'PARTIAL_SETTLEMENT_LOAN'">
+                                    <div class="form-group">
+                                        <label class="title" for="settlementAmount"></label>
+                                        <strong>Settlement Amount</strong>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.settlementAmount.errors }"
+                                               (keyup)="calculateLimitValues()"
+                                               formControlName="settlementAmount" id="settlementAmount"
+                                               name="settlementAmount" placeholder="Settlement Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && formControls.settlementAmount.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(formControls.settlementAmount.errors.required)">Settlement Amount is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" *ngIf="loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'">
+                                    <div class="form-group">
+                                        <label class="title" for="enhanceLimitAmount">
+                                            <strong>{{loanType === 'RENEW_WITH_ENHANCEMENT' ? 'Enhance Limit' : 'Enhancement Amount'}}</strong>
+                                        </label>
+                                        <input class="form-control"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.enhanceLimitAmount.errors }"
+                                               (keyup)="calculateLimitValues()"
+                                               formControlName="enhanceLimitAmount" id="enhanceLimitAmount"
+                                               name="enhanceLimitAmount" placeholder="Enhance Amount"
+                                               type="number">
+                                        <div *ngIf=" (submitted)  && formControls.enhanceLimitAmount.errors"
+                                             class="invalid-feedback">
+                                            <span *ngIf="(formControls.enhanceLimitAmount.errors.required)">Enhance limit is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
                                         <input
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
                                                 class="form-control"
-                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN'"
+                                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
                                                 formControlName="proposedLimit" id="proposedLimit"
                                                 name="proposedLimit" placeholder="Proposed limit"
                                                 type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
@@ -61,6 +97,29 @@
                                             <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
                                             <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="existCashMargin"><strong> Existing Cash Margin</strong>
+                                            <input
+                                                    formControlName="existCashMarginMethod"
+                                                    name="existCashMarginMethod"
+                                                    type="radio"
+                                                    value="PERCENT"> <strong> % </strong>
+                                            <input
+                                                    formControlName="existCashMarginMethod"
+                                                    name="existCashMarginMethod"
+                                                    type="radio"
+                                                    value="FLAT"> <strong>Flat</strong>
+                                        </label>
+                                        <input
+                                                class="form-control" formControlName="existCashMargin"
+                                                id="existCashMargin"
+                                                name="existCashMargin" placeholder=" Existing Cash Margin"
+                                                type="number">
+
                                     </div>
                                 </div>
 
@@ -91,6 +150,17 @@
                                         <!--                    </div>-->
                                     </div>
 
+                                </div>
+
+                                <div *ngIf="!isFundable && fundableNonFundableSelcted && loanType !== 'NEW_LOAN'" class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="existCommissionPercentage"><strong>Existing Commission (%)</strong></label>
+                                        <input
+                                                class="form-control" formControlName="existCommissionPercentage"
+                                                id="existCommissionPercentage" name="existCommissionPercentage"
+                                                placeholder="Existing Commision (%)"
+                                                type="number">
+                                    </div>
                                 </div>
                                 <div *ngIf="!isFundable && fundableNonFundableSelcted" class="col-md-4">
                                     <div class="form-group">
@@ -156,6 +226,19 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4"
+                                        *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) && loanType !== 'NEW_LOAN' ">
+                                    <div class="form-group">
+                                        <label class="title" for="existInterestRate"> <strong> Existing Interest Rate(%)</strong></label>
+                                        <input
+                                                class="form-control" formControlName="existInterestRate"
+                                                id="existInterestRate" name="existInterestRate" placeholder="Existing Interest Rate(%)"
+                                                [(ngModel)]="existInterestLimit"
+                                                type="number" appDecimalNumber
+                                                >
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4"
                                      *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
                                         <label class="title" for="interestRate"><strong>Interest
@@ -164,7 +247,8 @@
                                                 class="form-control" formControlName="interestRate"
                                                 id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                                                 [(ngModel)]="interestLimit"
-                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber>
+                                                type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber
+                                                >
                                         <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
                                         <!--                         class="invalid-feedback">-->
                                         <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
@@ -323,6 +407,7 @@
                                             <option value="MONTHLY">Monthly</option>
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="SEMI-ANNUALLY">Semi-Annually</option>
+                                            <option value="AT MATURITY" *ngIf="client === clientName?.ICFC">AT Maturity</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
                                              class="invalid-feedback">
@@ -347,24 +432,25 @@
                                 </div>
                                 <!--                end of ng s
                                 installment amount div-->
-
                                     <div class="col-md-4"
-                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                         *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           && (showInterestAmount || client !== clientName?.ICFC)">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Interest Amount</strong></label>
+                                            <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="interestAmount"
                                                     id="interestAmount"
                                                     name="interestAmount" placeholder="Interest Amount" disabled
-                                                    type="number" value="{{calculateInterestAmountForRepaymentMode()}}">
+                                                    type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-4"
-                                         *ngIf="(this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
-                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
+                                         *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
+                                           ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
+                                           && (showInterestAmount || client !== clientName?.ICFC)">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Principal Amount</strong></label>
+                                            <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="principalAmount"
                                                     id="principalAmount"
@@ -372,7 +458,6 @@
                                                     type="number">
                                         </div>
                                     </div>
-
 
                                 <!--                start of Moratorium period amount div-->
                                 <div class="col-md-4"
@@ -389,7 +474,7 @@
                                 <!--                end of Moratorium Period amount div-->
 
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group">
                                         <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong></label>
                                         <input
@@ -424,7 +509,7 @@
 
                                 <!--                start of Prepayment charge  div-->
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">
+                                     *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Prepayment Charge (in%) </strong></label>
                                         <input
@@ -553,7 +638,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group" *ngIf="client === clientName?.ICFC">
+                                <div class="col-md-4 form-group" *ngIf="(client !== clientName?.MEGA) && (client !== clientName?.SHINE_RESUNGA)">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -572,56 +657,69 @@
                                     </div>
                                 </div>
 
+                                <div *ngIf="client !== clientName?.MEGA">
+                                    <nb-checkbox class="ml-3" (change)="checkChecked($event.target.checked,'subsidizedLoan')"
+                                                 [checked]="subsidizedLoanChecked"><b>Subsidized Loan<em class="sb-medium">(if any)</em></b>
+                                    </nb-checkbox>
+                                    <div class="row ml-2">
+                                        <div class="col-md-4 form-group">
+                                            <div *ngIf="subsidizedLoanChecked">
+                                                <label for="subsidizedLoan"><strong>Subsidy Rate(%)</strong></label>
+                                                <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.subsidizedLoan.errors }"
+                                                        class="form-control" formControlName="subsidizedLoan"
+                                                        id="subsidizedLoan"
+                                                        name="subsidizedLoan" placeholder="Discount Rate"
+                                                        type="number" appDecimalNumber/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <div *ngIf="subsidizedLoanChecked">
+                                                <label for="subsidyLoanType"><strong>Subsidy Loan Type</strong></label>
+                                                <nb-select formControlName="subsidyLoanType" id="subsidyLoanType"
+                                                      placeholder="Select Loan Type" fullWidth (selectedChange)="onChange()">
+                                                    <nb-option *ngFor="let type of subsidyLoanType" [value]="type?.value">
+                                                        {{type?.value}}
+                                                    </nb-option>
+                                                </nb-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="othersSubsidyLoan" class="col-md-4 form-group">
+                                            <label for="others"><strong>Others</strong></label>
+                                            <input class="form-control" formControlName="others"
+                                                   id="others" placeholder="Others">
+                                        </div>
+                                    </div>
+
+                                </div>
+
 
                                 <!--                end of Moratorium Period amount div-->
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="disbursementCriteria"><strong>Disbursement
-                                            Criteria</strong></label>
-                                        <textarea
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
-                                                class="form-control"
-                                                formControlName="disbursementCriteria" id="disbursementCriteria"
-                                                name="disbursementCriteria"
-                                                placeholder="Disbursement Criteria"
-                                                rows="3"></textarea>
-                                        <div *ngIf="(submitted) && formControls.disbursementCriteria.invalid"
-                                             class="invalid-feedback">
-                                            <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
-                                        </div>
+                                <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
+                                    <label class="title" for="prepaymentSwapCommitment"
+                                           *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
+                                        <strong>Prepayment/Commitment/Swap Charge Description</strong>
+                                    </label>
+                                    <ng-template #commitmentDescription>
+                                        <label *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
+                                            <strong>Commitment/Swap Charge Description</strong>
+                                        </label>
+                                    </ng-template>
+                                    <ng-template #swapChargeDescription>
+                                        <label class="title" for="prepaymentSwapCommitment"><strong>Swap Charge Description</strong></label>
+                                    </ng-template>
+                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentSwapCommitment.errors}"
+                                              formControlName="prepaymentSwapCommitment" id="prepaymentSwapCommitment"
+                                              name="prepaymentSwapCommitment"
+                                              [config]="ckeConfig"></ckeditor>
+                                    <div *ngIf="(submitted) && formControls.prepaymentSwapCommitment.invalid"
+                                         class="text-danger">
+                                        <span *ngIf="formControls.prepaymentSwapCommitment.errors">Prepayment/Commitment/Swap Charge Description</span>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="title" for="repayment"><strong>Repayment</strong></label>
-                                        <textarea
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.repayment.errors }"
-                                                class="form-control"
-                                                formControlName="repayment" id="repayment"
-                                                name="repayment"
-                                                placeholder="Repayment"
-                                                rows="3"></textarea>
-                                        <div *ngIf="(submitted) && formControls.repayment.invalid"
-                                             class="invalid-feedback">
-                      <span
-                              *ngIf="formControls.repayment.errors.required">Repayment is required.</span>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
-
-                                        <label class="title" *ngIf="client != clientName.MEGA"><strong><sup class="text-danger">*</sup>Background</strong></label>
-                                        <label class="title" *ngIf="client === clientName.MEGA"><strong><sup class="text-danger">*</sup>Justification of limit</strong></label>
-                                        <!--                    <textarea-->
-                                        <!--                        [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"-->
-                                        <!--                        class="form-control"-->
-                                        <!--                        formControlName="borrowerInformation" id="borrowerInfo"-->
-                                        <!--                        name="borrowerInfo"-->
-                                        <!--                        placeholder="Borrower Information"-->
-                                        <!--                        rows="3"></textarea>-->
-
-
+                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Loan background' }}</strong>
                                         <ckeditor formControlName="borrowerInformation"
                                                   [style]="{height:'250px !important;'}"
                                                   placeholder="Background"
@@ -630,48 +728,59 @@
                                                   [ngClass]="{'is-invalid': formControls.borrowerInformation.invalid && submitted}">
                                         </ckeditor>
                                     </div>
-
-
                                 </div>
-
-
                                 <div class="clearfix"></div>
                                 <div class="col-md-12" style="padding-top: 70px;">
                                     <div *ngIf="submitted">
-                    <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                      <sup>*</sup>
-                        <div *ngIf="client != clientName.MEGA">Background Information is required.</div>
-                        <div *ngIf="client == clientName.MEGA">Justification of limit</div>
-                    </span>
+                                        <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
+                                            <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Loan background Information is required.' }}
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mt-3">
+                                <div class="col-md-12" *ngIf="client != clientName.MEGA">
                                     <div class="form-group">
-                                        <label class="title"><strong>Summary & Recommendation</strong></label>
-                                        <ckeditor formControlName="summeryRecommendation"
-                                                  [style]="{height:'250px !important;'}"
-                                                  placeholder="Summary & Recommendation"
-                                                  [config]="ckeConfig">
-                                        </ckeditor>
+                                        <label class="title"><b>Purpose of Loan</b></label>
+                                        <ckeditor formControlName="purposeOfLoan"></ckeditor>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title" for="remark"><strong>Remarks</strong></label>
-                                        <textarea
-                                            class="form-control"
-                                            formControlName="remark" id="remark"
-                                            name="remark"
-                                            placeholder="Remarks"
-                                            rows="3"></textarea>
+                                        <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
+                                        <ckeditor
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
+                                                formControlName="disbursementCriteria" id="disbursementCriteria"
+                                                name="disbursementCriteria"
+                                                [config]="ckeConfig"></ckeditor>
+                                        <div *ngIf="(submitted) && formControls.disbursementCriteria.invalid"
+                                             class="text-danger">
+                                            <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
+                                        </div>
                                     </div>
                                 </div>
-                              <div class="col-md-12" *ngIf="client != clientName.MEGA">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title"><b>Purpose of Loan</b></label>
-                                        <textarea class="form-control" [rows]="3" formControlName="purposeOfLoan" placeholder="Purpose of Loan"></textarea>
+                                        <label class="title" for="repayment"><strong>Repayment</strong></label>
+                                        <ckeditor
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.repayment.errors }"
+                                                formControlName="repayment" id="repayment"
+                                                name="repayment"
+                                                [config]="ckeConfig"></ckeditor>
+                                        <div *ngIf="(submitted) && formControls.repayment.invalid"
+                                             class="text-danger">
+                                            <span *ngIf="formControls.repayment.errors.required">Repayment is required.</span>
+                                        </div>
                                     </div>
-                              </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title" for="remark">
+                                            <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
+                                        <ckeditor
+                                                formControlName="remark" id="remark"
+                                                [config]="ckeConfig"></ckeditor>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><strong>Terms And Condition</strong></label>
@@ -682,6 +791,18 @@
                                         </ckeditor>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Summary & Recommendation</strong></label>
+                                        <ckeditor formControlName="summeryRecommendation"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Summary & Recommendation"
+                                                  [config]="ckeConfig">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
@@ -689,9 +810,6 @@
                                         <b>Waiver/Deviation</b>
                                     </nb-checkbox>
                                     <div *ngIf="waiverChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="waiverConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
@@ -703,10 +821,6 @@
                                         Obligor Limit</b>
                                     </nb-checkbox>
                                     <div *ngIf="solChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="solConclusionRecommendation"-->
-                                        <!--                              placeholder="  Single Obligor Limit "-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="solConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
@@ -718,10 +832,6 @@
                                         Mitigation</b>
                                     </nb-checkbox>
                                     <div *ngIf="riskChecked">
-                                        <!--                    <textarea class="form-control"-->
-                                        <!--                              formControlName="riskConclusionRecommendation"-->
-                                        <!--                              placeholder="Risk & Mitigation "-->
-                                        <!--                              rows="2"></textarea>-->
                                         <ckeditor formControlName="riskConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>

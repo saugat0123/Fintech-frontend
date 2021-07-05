@@ -1,0 +1,1069 @@
+<nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant" style="width: 100vw;">
+    <nb-card-header class="sb-bg-dark">
+        <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+           data-dismiss="modal">
+            <span aria-hidden="true" class="text-white">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
+                        name="basicInfoCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
+        <div class="form-group">
+            <nb-tabset fullWidth>
+                <nb-tab tabTitle="Joint Customer Detail">
+            <form [formGroup]="basicJointInfo" class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="clientType"><strong>Customer Client Type</strong></label>
+                            <select
+                                    class="custom-select" formControlName="clientType"
+                                    id="clientType">
+                                <option [ngValue]="null">Select Client Type</option>
+                                <option *ngFor="let data of clientType " [ngValue]="data"
+                                        [selected]="data === clientTypeInput" >{{data}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="subSector"><strong>SubSector</strong></label>
+                            <select
+                                    class="custom-select" formControlName="subsectorDetail"
+                                    id="subSector">
+                                <option [ngValue]="null">Select Subsector</option>
+                                <option *ngFor="let data of subSector "
+                                        [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"
+                                        [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div formArrayName="jointCustomerInfo">
+                    <div *ngFor="let joinCustomerInfo of basicJointInfo.get('jointCustomerInfo')['controls']; let i = index">
+                        <div [formGroupName]="i">
+                            <div class="row justify-content-center">
+                                <h5>Joint Customer Detail {{i+1}}</h5>
+                            </div>
+                            <hr style="height:2px; border:none; color:#000; background-color:#000;">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="customerNameForm{{i}}"><strong>Joint Customer Name {{i+1}}</strong></label>
+                                                    <input [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerName').errors }"
+                                                            class="form-control form-control-sm-error rounded" formControlName="customerName"
+                                                            id="customerNameForm{{i}}"
+                                                            name="customerName{{i}}"
+                                                            placeholder="Applicant's Full Name"
+                                                            type="text">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('customerName').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('customerName').errors.required">Customer name is
+                                                            required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 form-group">
+                                                <div class="form-group">
+                                                    <label for="gender{{i}}"><strong>Gender</strong></label>
+                                                    <br />
+                                                    <nb-radio-group class="d-flex" formControlName="gender" id="gender{{i}}" name="gender{{i}}">
+                                                        <nb-radio *ngFor="let gender of genderPairs"
+                                                                  [value]="gender?.key">
+                                                            {{ gender?.value }}</nb-radio>
+                                                    </nb-radio-group>
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('gender').invalid"
+                                                         class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('gender').errors.required">
+                                                          <span class="text-danger">Gender is required</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="maritalStatus{{i}}"><strong>Marital Status</strong></label>
+                                                    <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('maritalStatus').errors}"
+                                                               formControlName="maritalStatus" id="maritalStatus{{i}}"
+                                                               [addTagText]="null"
+                                                               [placeholder]="placeHolderForMaritalStatus"
+                                                               [multiple]="false">
+                                                        <ng-option *ngFor="let maritalStatus of maritalStatusEnum.values()" [value]="maritalStatus">
+                                                            {{maritalStatus}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('maritalStatus').invalid"
+                                                         class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('maritalStatus').errors.required">
+                                                          <span class="text-danger">Marital status is required</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="customerCode{{i}}"><strong>Customer ID</strong></label>
+                                                    <input
+                                                            class="form-control form-control-sm-error rounded" formControlName="customerCode"
+                                                            id="customerCode{{i}}"
+                                                            name="customerCode{{i}}"
+                                                            placeholder="Customer ID (Optional)"
+                                                            type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="email{{i}}"><strong>Email</strong></label>
+                                                    <input [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('email').errors }"
+                                                           class="form-control" formControlName="email" id="email{{i}}" name="email{{i}}"
+                                                           placeholder="eg. xyz@abc.com"
+                                                           type="email">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('email').invalid" class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('email').errors.required">
+                                                            Email address is required
+                                                        </div>
+                                                        <div *ngIf="joinCustomerInfo.get('email').errors.email">Valid email address has form
+                                                            xyz@abc.com
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- END ROW -->
+                                            <!-- Start Row-->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="dob{{i}}"><strong>Date of birth</strong></label>
+                                                    <input [nbDatepicker]="dob" *ngIf="calendarType === 'AD'"
+                                                           [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('dob').errors }"
+                                                           class="form-control date-pick" formControlName="dob"
+                                                           id="dob{{i}}"
+                                                           name="dob{{i}}"
+                                                           placeholder="Customer Date of birth"
+                                                           readonly>
+                                                    <input *ngIf="calendarType === 'BS'" formControlName="dob" hidden>
+                                                    <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="joinCustomerInfo.get('dob').value"
+                                                                  (messageToEmit)="joinCustomerInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
+                                                    <nb-datepicker #dob></nb-datepicker>
+                                                    <div *ngIf="submitted && joinCustomerInfo.get('dob').errors"
+                                                         class="small text-danger">
+                                                        <div
+                                                                *ngIf="joinCustomerInfo.get('dob').errors.required || joinCustomerInfo.get('dob').errors">
+                                                            Date of Birth is required
+                                                        </div>
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('dob').errors.beforeToday"
+                                                             class="small text-danger">
+                                                            Invalid Date of Birth!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="contactNumber{{i}}"><strong>Mobile Number</strong></label>
+                                                    <input
+                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('contactNumber').errors }"
+                                                            class="form-control" formControlName="contactNumber" id="contactNumber{{i}}"
+                                                            name="contactNumber{{i}}"
+                                                            placeholder="Mobile number"
+                                                            type="number">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('contactNumber').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('contactNumber').errors.required">
+                                                            Mobile Number number is required
+                                                        </div>
+                                                        <div *ngIf="joinCustomerInfo.get('contactNumber')?.errors.min ||
+                                                        joinCustomerInfo.get('contactNumber')?.errors.max">
+                                                            Enter 10 Digit Mobile no!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="landLineNumber{{i}}"><strong>LandLine Number</strong></label>
+                                                    <input
+                                                            class="form-control" formControlName="landLineNumber" id="landLineNumber{{i}}"
+                                                            name="landLineNumber{{i}}"
+                                                            placeholder="LandLine number"
+                                                            type="text">
+                                                </div>
+                                            </div>
+                                            <!-- END ROW -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="citizenshipNumber{{i}}"><strong>Citizenship Number</strong></label>
+                                                    <input
+                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipNumber').errors }"
+                                                            class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber{{i}}"
+                                                            name="citizenshipNumber{{i}}" placeholder="citizenship Number" pattern="[0-9/-]+"
+                                                            type="text">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('citizenshipNumber').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('citizenshipNumber').errors.required">
+                                                            citizenship Number is required and Match the pattern (0-9) and (/ or -)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- START ROW -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="citizenshipIssuedPlace{{i}}"><strong>Citizenship Issued
+                                                        District</strong></label>
+                                                    <ng-select [multiple]="false"
+                                                               formControlName="citizenshipIssuedPlace"
+                                                               id="citizenshipIssuedPlace{{i}}"
+                                                               [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedPlace').errors }">
+                                                        <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                            {{district?.name}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('citizenshipIssuedPlace').invalid"
+                                                         class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('citizenshipIssuedPlace').errors.required">
+                                                          <span class="text-danger">citizenship issued district is required</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="customerCitizenshipIssuedDate{{i}}"><strong>Issued Date</strong></label>
+                                                    <input *ngIf="calendarType === 'AD'" [nbDatepicker]="customerCitizenshipIssuedDate"
+                                                           [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate').errors }"
+                                                           class="form-control" formControlName="citizenshipIssuedDate"
+                                                           id="customerCitizenshipIssuedDate{{i}}"
+                                                           name="customerCitizenshipIssuedDate{{i}}">
+                                                    <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
+                                                    <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate')?.value"
+                                                                  *ngIf="calendarType === 'BS'"
+                                                                  (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
+                                                    <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
+                                                    <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate').errors"
+                                                         class="small text-danger">
+                                                        <div *ngIf="joinCustomerInfo.get('citizenshipIssuedDate').errors.required || joinCustomerInfo.get('citizenshipIssuedDate').errors">
+                                                            Registration Date is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="occupation{{i}}"><strong>Occupation </strong></label>
+                                                    <nb-select [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('occupation').errors }"
+                                                               formControlName="occupation"
+                                                               id="occupation{{i}}"
+                                                               placeholder="Occupation" multiple fullWidth
+                                                               (selectedChange)="occupationChange(i)">
+                                                        <nb-option value="Business Owner">Business Owner</nb-option>
+                                                        <nb-option value="Chartered Accountant">Chartered Accountant</nb-option>
+                                                        <nb-option value="Lawyer">Lawyer</nb-option>
+                                                        <nb-option value="Doctor">Doctor</nb-option>
+                                                        <nb-option value="Engineer">Engineer</nb-option>
+                                                        <nb-option value="Government Job">Government Job</nb-option>
+                                                        <nb-option value="Banker">Banker</nb-option>
+                                                        <nb-option value="Teaching Professional">Teaching Professional</nb-option>
+                                                        <nb-option value="Salary">Salary</nb-option>
+                                                        <nb-option value="Farmer">Farmer</nb-option>
+                                                        <nb-option value="House Wife">House Wife</nb-option>
+                                                        <nb-option value="Other">Other</nb-option>
+                                                    </nb-select>
+                                                    <div *ngIf="submitted && joinCustomerInfo.get('occupation').errors"
+                                                         class="help-block small">
+                                                        <span *ngIf="joinCustomerInfo.get('occupation').errors.required" class="text-danger">
+                                                          <span>Occupation is required</span>
+                                                        </span>
+                                                    </div>
+                                                    <div *ngIf="tempFlag.showOtherOccupation"
+                                                         class="col-md-12 mt-3 form-group">
+                                                        <label>Other occupation(s)</label>
+                                                        <input class="form-control" formControlName="otherOccupation" id="otherOccupation{{i}}"
+                                                               name="otherOccupation{{i}}" placeholder="Other occupation" type="text">
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('otherOccupation').errors"
+                                                                                                         class="help-block small">
+                                                              <span *ngIf="joinCustomerInfo.get('otherOccupation').errors.required">
+                                                              <span class="text-danger">Other occupation is required</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END ROW -->
+                                            <!-- START ROW -->
+                                            <div class="col-md-4" *ngIf="!tempFlag?.hideIncomeSource">
+                                                <div class="form-group">
+                                                    <label><strong>Income Source</strong></label>
+                                                    <nb-select
+                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('incomeSource').errors }"
+                                                            formControlName="incomeSource" id="incomeSource{{i}}"
+                                                            placeholder="Income Source" multiple fullWidth
+                                                            (selectedChange)="onIncomeSourceChange(i)">
+                                                        <nb-option value="Salaried">Salaried</nb-option>
+                                                        <nb-option value="Business">Business</nb-option>
+                                                        <nb-option value="Salaried & Business">Salaried & Business</nb-option>
+                                                        <nb-option value="Rent">Rent</nb-option>
+                                                        <nb-option value="Farming">Farming</nb-option>
+                                                        <nb-option value="Other">Other</nb-option>
+                                                    </nb-select>
+                                                    <div *ngIf="submitted && joinCustomerInfo.get('incomeSource').errors"
+                                                         class="help-block">
+                                                        <div *ngIf="joinCustomerInfo.get('incomeSource').errors.required">
+                                                            <span class="text-danger small"> Income Source is required</span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="tempFlag.showOtherIncomeSource"
+                                                         class="col-md-12 mt-3 form-group">
+                                                        <label>Other Income Source</label>
+                                                        <input class="form-control" formControlName="otherIncome" id="otherIncome{{i}}"
+                                                               name="otherIncome{{i}}" placeholder="Other Income source" type="text">
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('otherIncome').errors"
+                                                             class="invalid-feedback small">
+                                                            <div *ngIf="joinCustomerInfo.get('otherIncome').errors.required">Other income Source is
+                                                                required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row ml-1">
+                                            <div class="col-md-12">
+                                                <h5>Permanent Address {{i+1}}</h5>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label><strong>Address Line 1</strong></label>
+                                                    <input class="form-control"
+                                                           id="permanentAddressLine1{{i}}"
+                                                           name="permanentAddressLine1{{i}}"
+                                                           formControlName="permanentAddressLine1"
+                                                           placeholder="Address Line 1 (optional)"
+                                                           type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label><strong>Address Line 2</strong></label>
+                                                    <input class="form-control"
+                                                           id="permanentAddressLine2{{i}}"
+                                                           name="permanentAddressLine2{{i}}"
+                                                           formControlName="permanentAddressLine2"
+                                                           placeholder="Address Line 2 (optional)"
+                                                           type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 form-group">
+                                                <label for="province{{i}}">Province</label>
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('province').errors}"
+                                                        (change)="getDistricts(i, joinCustomerInfo.get('province').value, $event)"
+                                                        formControlName="province"
+                                                        id="province{{i}}"
+                                                        bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Province</option>
+                                                    <ng-option *ngFor="let provinceVal of provinceList"
+                                                            [value]="provinceVal">
+                                                        {{provinceVal.name}}
+                                                    </ng-option>
+                                                </ng-select>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('province').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('province').errors.required">
+                                                          <span class="text-danger">Province is required</span>
+                                                        </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 form-group">
+                                                <label for="district{{i}}">District</label>
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('district').errors}"
+                                                        (change)="getMunicipalities(i, joinCustomerInfo.get('district')?.value, $event)"
+                                                        formControlName="district"
+                                                        id="district{{i}}"
+                                                        bindLabel="name">
+                                                    <option [ngValue]="null" hidden>District</option>
+                                                    <ng-option *ngFor="let districtVal of districtList"
+                                                            [value]="districtVal">
+                                                        {{districtVal.name}}
+                                                    </ng-option>
+                                                </ng-select>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('district').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('district').errors.required">
+                                                          <span class="text-danger"> District is required</span>
+                                                        </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 form-group">
+                                                <label for="municipality{{i}}">Municipalities or VDC</label>
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('municipalities').errors}"
+                                                        formControlName="municipalities"
+                                                        id="municipality{{i}}"
+                                                        bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Municipalities</option>
+                                                    <ng-option *ngFor="let municipalityVal of municipalitiesList"
+                                                            [value]="municipalityVal">
+                                                        {{municipalityVal.name}}
+                                                    </ng-option>
+                                                </ng-select>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('municipalities').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('municipalities').errors.required">
+                                                          <span class="text-danger"> Municipalities is required</span>
+                                                        </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="wardNumber{{i}}"><strong>Ward Number</strong></label>
+                                                    <input
+                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('wardNumber').errors }"
+                                                            class="form-control" formControlName="wardNumber" id="wardNumber{{i}}"
+                                                            name="wardNumber{{i}}" placeholder="Ward Number"
+                                                            type="number" nbInput>
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('wardNumber').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('wardNumber').errors.required">
+                                                            Ward Number is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="title ml-3" for="customerLegalDocumentAddress{{i}}"><strong>Address as per Legal Document</strong></label>
+                                                    <textarea class="form-control" cols="6"
+                                                              [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerLegalDocumentAddress').errors }"
+                                                              formControlName="customerLegalDocumentAddress"
+                                                              id="customerLegalDocumentAddress{{i}}"
+                                                              name="customerLegalDocumentAddress{{i}}"
+                                                              placeholder="Address as per Legal Document"
+                                                              rows="2" maxlength="256"></textarea>
+                                                    <div *ngIf="submitted && joinCustomerInfo.get('customerLegalDocumentAddress').errors"
+                                                         class="invalid-feedback small">
+                                                        <div *ngIf="joinCustomerInfo.get('customerLegalDocumentAddress').errors.required">
+                                                            Address as per legal document is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ml-1">
+                                            <div class="col-md-12">
+                                                <nb-checkbox (change)="sameAsPermanent(i)" id="relationCheck{{i}}">
+                                                    <i>Check if Temporary Address is same as Permanent Address</i>
+                                                </nb-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="row ml-1">
+                                            <div class="col-md-12">
+                                                <h5>Temporary Address {{i+1}}</h5>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label><strong>Address Line 1</strong></label>
+                                                    <input class="form-control" id="temporaryAddressLine1{{i}}" name="temporaryAddressLine1{{i}}"
+                                                           formControlName="temporaryAddressLine1"
+                                                           placeholder="Address Line 1 (optional)"
+                                                           type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label><strong>Address Line 2</strong></label>
+                                                    <input class="form-control" id="temporaryAddressLine2{{i}}" name="temporaryAddressLine2{{i}}"
+                                                           formControlName="temporaryAddressLine2"
+                                                           placeholder="Address Line 2 (optional)"
+                                                           type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 form-group">
+                                                <label for="temporaryProvince{{i}}">Province</label>
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryProvince').errors}"
+                                                        (change)="getTemporaryDistricts(i, joinCustomerInfo.get('temporaryProvince')?.value, $event)"
+                                                        formControlName="temporaryProvince"
+                                                        id="temporaryProvince{{i}}"
+                                                        bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Province</option>
+                                                    <ng-option *ngFor="let provinceVal of provinceList"
+                                                            [value]="provinceVal">
+                                                        {{provinceVal?.name}}
+                                                    </ng-option>
+                                                </ng-select>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryProvince').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('temporaryProvince').errors.required">
+                                                          <span class="text-danger">Province is required</span>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 form-group">
+                                                <label for="temporaryDistrict{{i}}">District</label>
+                                                <ng-select [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryDistrict').errors}"
+                                                        (change)="getTemporaryMunicipalities(i, joinCustomerInfo.get('temporaryDistrict')?.value, $event)"
+                                                        formControlName="temporaryDistrict"
+                                                        id="temporaryDistrict{{i}}"
+                                                           bindLabel="name">
+                                                    <option [ngValue]="null" hidden>District</option>
+                                                    <ng-option *ngFor="let districtVal of temporaryDistrictList"
+                                                            [value]="districtVal">
+                                                        {{districtVal?.name}}
+                                                    </ng-option>
+                                                </ng-select>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryDistrict').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('temporaryDistrict').errors.required">
+                                                          <span class="text-danger"> District is required</span>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 form-group">
+                                                <label for="temporaryMunicipalities{{i}}">Municipalities or VDC</label>
+                                                <ng-select
+                                                        [ngClass]="{'is-invalid': submitted && joinCustomerInfo.get('temporaryMunicipalities').errors}"
+                                                        formControlName="temporaryMunicipalities"
+                                                        id="temporaryMunicipalities{{i}}"
+                                                        bindLabel="name">
+                                                    <option [ngValue]="null" hidden>Municipalities</option>
+                                                    <ng-option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
+                                                            [value]="municipalityVal">
+                                                        {{municipalityVal?.name}}
+                                                    </ng-option>
+                                                </ng-select>
+                                                <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryMunicipalities').invalid"
+                                                     class="help-block">
+                                                        <span *ngIf="joinCustomerInfo.get('temporaryMunicipalities').errors.required">
+                                                          <span class="text-danger"> Municipalities is required</span>
+                                                        </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="temporaryWardNumber{{i}}"><strong>Ward Number</strong></label>
+                                                    <input
+                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('temporaryWardNumber').errors }"
+                                                            class="form-control" formControlName="temporaryWardNumber" id="temporaryWardNumber{{i}}"
+                                                            name="temporaryWardNumber{{i}}" placeholder="Ward Number"
+                                                            type="number">
+                                                    <div *ngIf="(submitted) && joinCustomerInfo.get('temporaryWardNumber').invalid"
+                                                         class="invalid-feedback">
+                                                        <div *ngIf="joinCustomerInfo.get('temporaryWardNumber').errors.required">
+                                                            Ward Number is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5>Joint Customer Relation {{i+1}}</h5>
+                                            <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
+                                            <div class="row">
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="customerRelation1{{i}}"><strong>Relation</strong></label>
+                                                                <select class="form-control" formControlName="customerRelation1"
+                                                                        id="customerRelation1{{i}}"
+                                                                        [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerRelation1').errors }">
+                                                                    <option [value]="null">Select Relation</option>
+                                                                    <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                                                </select>
+                                                                <div *ngIf="submitted && joinCustomerInfo.get('customerRelation1').errors"
+                                                                     class="invalid-feedback">
+                                                                    <div *ngIf="joinCustomerInfo.get('customerRelation1').errors?.required">Relation
+                                                                        is required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="relationName1{{i}}"><strong>Name</strong></label>
+                                                                <input class="form-control" formControlName="customerRelativeName1"
+                                                                       [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerRelativeName1').errors }"
+                                                                       id="relationName1{{i}}"
+                                                                       placeholder="Name" type="text">
+                                                                <div *ngIf="submitted && joinCustomerInfo.get('customerRelativeName1').errors"
+                                                                     class="invalid-feedback">
+                                                                    Name is required!
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="citizenship1{{i}}"><strong>CitizenshipNumber</strong></label>
+                                                                <input class="form-control" formControlName="citizenshipNumber1"
+                                                                       id="citizenship1{{i}}" placeholder="Citizenship Number" type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="issuedDistrict1{{i}}"><strong>Issued District</strong></label>
+                                                                <ng-select [multiple]="false"
+                                                                           formControlName="citizenshipIssuedPlace1"
+                                                                           id="issuedDistrict1{{i}}">
+                                                                    <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                                        {{district?.name}}
+                                                                    </ng-option>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label><strong>Issued Date</strong></label>
+                                                                <input [nbDatepicker]="relationCitizenIssueDate1" *ngIf="calendarType === 'AD'"
+                                                                       [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate1').errors }"
+                                                                       class="form-control"
+                                                                       formControlName="citizenshipIssuedDate1"
+                                                                       id="citizenshipIssuedDate1{{i}}"
+                                                                       name="citizenshipIssuedDate1{{i}}"
+                                                                       readonly>
+                                                                <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate1')?.value"
+                                                                              *ngIf="calendarType === 'BS'"
+                                                                              (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate1').patchValue($event?.eDate)"></app-calendar>
+                                                                <nb-datepicker #relationCitizenIssueDate1></nb-datepicker>
+                                                                <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors"
+                                                                     class="small text-danger">
+                                                                    <div
+                                                                            *ngIf="joinCustomerInfo.get('citizenshipIssuedDate1').errors.required || joinCustomerInfo.get('citizenshipIssuedDate1').errors">
+                                                                        Issued Date is required
+                                                                    </div>
+                                                                    <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors.beforeToday"
+                                                                         class="small text-danger">
+                                                                        Invalid Issued Date!
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <label for="age1{{i}}"><strong>Age</strong></label>
+                                                                <input class="form-control"
+                                                                       formControlName="age1"
+                                                                       id="age1{{i}}"
+                                                                       name="age1{{i}}"
+                                                                       type="number"
+                                                                       [ngClass]="{'is-invalid': (submitted) && joinCustomerInfo.get('age1').errors}">
+                                                                <div *ngIf="submitted && joinCustomerInfo.get('age1').errors" class="small text-danger">
+                                                                    Age is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="customerRelation2{{i}}"><strong>Relation</strong></label>
+                                                        <select class="form-control" formControlName="customerRelation2"
+                                                                id="customerRelation2{{i}}"
+                                                                [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerRelation2').errors }">
+                                                            <option [value]="null">Select Relation</option>
+                                                            <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                                        </select>
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('customerRelation2').errors"
+                                                             class="invalid-feedback">
+                                                            <div *ngIf="joinCustomerInfo.get('customerRelation2').errors?.required">Relation
+                                                                is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="relationName2{{i}}"><strong>Name</strong></label>
+                                                        <input class="form-control" formControlName="customerRelativeName2"
+                                                               [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerRelativeName2').errors }"
+                                                               id="relationName2{{i}}"
+                                                               placeholder="Name" type="text">
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('customerRelativeName2').errors"
+                                                             class="invalid-feedback">
+                                                            Name is required!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="citizenship2{{i}}"><strong>CitizenshipNumber</strong></label>
+                                                        <input class="form-control" formControlName="citizenshipNumber2"
+                                                               id="citizenship2{{i}}" placeholder="Citizenship Number" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="issuedDistrict2{{i}}"><strong>Issued District</strong></label>
+                                                        <ng-select [multiple]="false"
+                                                                   formControlName="citizenshipIssuedPlace2"
+                                                                   id="issuedDistrict2{{i}}">
+                                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                                {{district?.name}}
+                                                            </ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label><strong>Issued Date</strong></label>
+                                                        <input [nbDatepicker]="relationCitizenIssueDate2" *ngIf="calendarType === 'AD'"
+                                                               [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate2').errors }"
+                                                               class="form-control"
+                                                               formControlName="citizenshipIssuedDate2"
+                                                               id="citizenshipIssuedDate2{{i}}"
+                                                               name="citizenshipIssuedDate2{{i}}"
+                                                               readonly>
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate2')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate2').patchValue($event?.eDate)"></app-calendar>
+                                                        <nb-datepicker #relationCitizenIssueDate2></nb-datepicker>
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors"
+                                                             class="small text-danger">
+                                                            <div
+                                                                    *ngIf="joinCustomerInfo.get('citizenshipIssuedDate2').errors.required || joinCustomerInfo.get('citizenshipIssuedDate2').errors">
+                                                                Issued Date is required
+                                                            </div>
+                                                            <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors.beforeToday"
+                                                                 class="small text-danger">
+                                                                Invalid Issued Date!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="age2{{i}}"><strong>Age</strong></label>
+                                                        <input class="form-control"
+                                                               formControlName="age2"
+                                                               id="age2{{i}}"
+                                                               name="age2{{i}}"
+                                                               type="number"
+                                                               [ngClass]="{'is-invalid': (submitted) && joinCustomerInfo.get('age2').errors}">
+                                                        <div *ngIf="submitted && joinCustomerInfo.get('age2').errors" class="small text-danger">
+                                                            Age is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="customerRelation3{{i}}"><strong>Relation</strong></label>
+                                                        <select class="form-control" formControlName="customerRelation3"
+                                                                id="customerRelation3{{i}}">
+                                                            <option [value]="null">Select Relation</option>
+                                                            <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="relationName3{{i}}"><strong>Name</strong></label>
+                                                        <input class="form-control" formControlName="customerRelativeName3"
+                                                               [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('customerRelativeName3').errors }"
+                                                               id="relationName3{{i}}"
+                                                               placeholder="Name" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="citizenship3{{i}}"><strong>CitizenshipNumber</strong></label>
+                                                        <input class="form-control" formControlName="citizenshipNumber3"
+                                                               id="citizenship3{{i}}" placeholder="Citizenship Number" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="issuedDistrict3{{i}}"><strong>Issued District</strong></label>
+                                                        <ng-select [multiple]="false"
+                                                                   formControlName="citizenshipIssuedPlace3"
+                                                                   id="issuedDistrict3{{i}}">
+                                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                                {{district?.name}}
+                                                            </ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label><strong>Issued Date</strong></label>
+                                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                                               [nbDatepicker]="relationCitizenIssueDate3"
+                                                               class="form-control"
+                                                               formControlName="citizenshipIssuedDate3"
+                                                               id="citizenshipIssuedDate3{{i}}"
+                                                               name="citizenshipIssuedDate3{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate3')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate3').patchValue($event?.eDate)"></app-calendar>
+                                                        <nb-datepicker #relationCitizenIssueDate3></nb-datepicker>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="age3{{i}}"><strong>Age</strong></label>
+                                                        <input class="form-control"
+                                                               formControlName="age3"
+                                                               id="age3{{i}}"
+                                                               name="age3{{i}}"
+                                                               type="number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="customerRelation4{{i}}"><strong>Relation</strong></label>
+                                                        <select class="form-control" formControlName="customerRelation4"
+                                                                id="customerRelation4{{i}}">
+                                                            <option [value]="null">Select Relation</option>
+                                                            <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="relationName4{{i}}"><strong>Name</strong></label>
+                                                        <input class="form-control" formControlName="customerRelativeName4"
+                                                               id="relationName4{{i}}"
+                                                               placeholder="Name" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="citizenship4{{i}}"><strong>CitizenshipNumber</strong></label>
+                                                        <input class="form-control" formControlName="citizenshipNumber4"
+                                                               id="citizenship4{{i}}" placeholder="Citizenship Number" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="issuedDistrict4{{i}}"><strong>Issued District</strong></label>
+                                                        <ng-select [multiple]="false"
+                                                                   formControlName="citizenshipIssuedPlace4"
+                                                                   id="issuedDistrict4{{i}}">
+                                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                                {{district?.name}}
+                                                            </ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label><strong>Issued Date</strong></label>
+                                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                                               [nbDatepicker]="relationCitizenIssueDate4"
+                                                               class="form-control"
+                                                               formControlName="citizenshipIssuedDate4"
+                                                               id="citizenshipIssuedDate4{{i}}"
+                                                               name="citizenshipIssuedDate4{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate4')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate4').patchValue($event?.eDate)"></app-calendar>
+                                                        <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="age4{{i}}"><strong>Age</strong></label>
+                                                        <input class="form-control"
+                                                               formControlName="age4"
+                                                               id="age4{{i}}"
+                                                               name="age4{{i}}"
+                                                               type="number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="customerRelation5{{i}}"><strong>Relation</strong></label>
+                                                        <select class="form-control" formControlName="customerRelation5"
+                                                                id="customerRelation5{{i}}">
+                                                            <option [value]="null">Select Relation</option>
+                                                            <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="relationName5{{i}}"><strong>Name</strong></label>
+                                                        <input class="form-control" formControlName="customerRelativeName5"
+                                                               id="relationName5{{i}}"
+                                                               placeholder="Name" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="citizenship5{{i}}"><strong>CitizenshipNumber</strong></label>
+                                                        <input class="form-control" formControlName="citizenshipNumber5"
+                                                               id="citizenship5{{i}}" placeholder="Citizenship Number" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="issuedDistrict5{{i}}"><strong>Issued District</strong></label>
+                                                        <ng-select [multiple]="false"
+                                                                   formControlName="citizenshipIssuedPlace5"
+                                                                   id="issuedDistrict5{{i}}">
+                                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                                {{district?.name}}
+                                                            </ng-option>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label><strong>Issued Date</strong></label>
+                                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                                               [nbDatepicker]="relationCitizenIssueDate5"
+                                                               class="form-control"
+                                                               formControlName="citizenshipIssuedDate5"
+                                                               id="citizenshipIssuedDate5{{i}}"
+                                                               name="citizenshipIssuedDate5{{i}}">
+                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate5')?.value"
+                                                                      *ngIf="calendarType === 'BS'"
+                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate5').patchValue($event?.eDate)"></app-calendar>
+                                                        <nb-datepicker #relationCitizenIssueDate5></nb-datepicker>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="age4{{i}}"><strong>Age</strong></label>
+                                                        <input class="form-control"
+                                                               formControlName="age5"
+                                                               id="age5{{i}}"
+                                                               name="age5{{i}}"
+                                                               type="number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                              </div>
+<!--                            <hr style="height:2px; border:none; color:#000; background-color:#000;">-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Introduction</strong></label>
+                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('introduction').errors }"
+                                      id="introduction" formControlName="introduction"
+                                      [config]="ckeConfig"></ckeditor>
+                            <div *ngIf="(submitted) && basicJointInfo.get('introduction').invalid"
+                                 class="help-block">
+                                                        <span *ngIf="basicJointInfo.get('introduction').errors.required">
+                                                          <span class="text-danger">Introduction is required</span>
+                                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Income Risk & Mitigation</strong></label>
+                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('incomeRisk').errors }"
+                                      id="incomeRisk" formControlName="incomeRisk"
+                                      [config]="ckeConfig"></ckeditor>
+                            <div *ngIf="(submitted) && basicJointInfo.get('incomeRisk').invalid"
+                                 class="help-block">
+                                                        <span *ngIf="basicJointInfo.get('incomeRisk').errors.required">
+                                                          <span class="text-danger">Income risk & Mitigation is required</span>
+                                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Security Risk & Mitigation</strong></label>
+                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('securityRisk').errors }"
+                                      id="securityRisk" formControlName="securityRisk"
+                                      [config]="ckeConfig"></ckeditor>
+                            <div *ngIf="(submitted) && basicJointInfo.get('securityRisk').invalid"
+                                 class="help-block">
+                                                        <span *ngIf="basicJointInfo.get('securityRisk').errors.required">
+                                                          <span class="text-danger">Security risk & Mitigation is required</span>
+                                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label><strong>Succession Risk & Mitigation</strong></label>
+                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('successionRisk').errors }"
+                                      id="successionRisk" formControlName="successionRisk"
+                                      [config]="ckeConfig"></ckeditor>
+                            <div *ngIf="(submitted) && basicJointInfo.get('successionRisk').invalid"
+                                 class="help-block">
+                                                        <span *ngIf="basicJointInfo.get('successionRisk').errors.required">
+                                                          <span class="text-danger">Succession risk & Mitigation is required</span>
+                                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!crgLambdaDisabled">
+                    <nb-card class="card-height">
+                        <nb-card-header>
+                            <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="form-group">
+                                <nb-radio-group class="d-contents form-control"
+                                                formControlName="bankingRelationship"
+                                                id="bankingRelationship"
+                                                name="bankingRelationship"
+                                                [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('bankingRelationship').errors }">
+                                    <nb-radio *ngFor="let elem of bankingRelationshipList"
+                                              [value]="elem?.value" >{{elem?.value}}
+                                    </nb-radio>
+                                </nb-radio-group>
+                                <div *ngIf="submitted && basicJointInfo.get('bankingRelationship').errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="basicJointInfo.get('bankingRelationship').errors.required">
+                                        Banking relation is required
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+                <div *ngIf="!crgLambdaDisabled" class="col-4">
+                    <label><strong>Net worth</strong></label>
+                    <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
+                           class="form-control" placeholder="Net Worth Amount"
+                           [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('netWorth').errors }" appDecimalNumber/>
+                    <div *ngIf="(submitted) && basicJointInfo.get('netWorth').invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="basicJointInfo.get('netWorth').errors">
+                            Valid Worth Amount is required
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </nb-tab>
+            </nb-tabset>
+        </div>
+    </nb-card-body>
+    <nb-card-footer class="py-4">
+        <div class="d-flex justify-content-end">
+            <button nbButton status="info" (click)="close()" class=" mr-2">close</button>
+            <button nbButton (click)="onSubmit(basicJointInfo.value)">save</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

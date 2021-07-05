@@ -19,7 +19,7 @@
       </thead>
 
       <tbody>
-      <th scope="row">&nbsp;</th>
+      <th scope="row">A</th>
       <td><b>ASSETS</b></td>
       <td *ngFor="let year of fiscalYear" scope="col" class="headingParticular"></td>
       </tbody>
@@ -193,7 +193,7 @@
 
       <tbody>
       <tr>
-        <th scope="row">&nbsp;</th>
+        <th scope="row">B</th>
         <td class="text-center"><b>Total Assets</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('totalAssets')['controls']; let j = index"
             formArrayName="totalAssets" scope="col">
@@ -205,7 +205,7 @@
       </tbody>
 
       <tbody>
-      <th scope="row">&nbsp;</th>
+      <th scope="row">C</th>
       <td><b>LIABILITIES</b></td>
       <td *ngFor="let year of fiscalYear" scope="col" class="headingParticular"></td>
       </tbody>
@@ -395,7 +395,7 @@
 
       <tbody>
       <tr>
-        <th scope="row">&nbsp;</th>
+        <th scope="row">D</th>
         <td class="text-center"><b>Total Liabilities and Equity</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('totalLiabilitiesAndEquity')['controls']; let j = index"
             formArrayName="totalLiabilitiesAndEquity" scope="col">
@@ -408,7 +408,7 @@
 
       <tbody>
       <tr>
-        <th scope="row">&nbsp;</th>
+        <th scope="row">E</th>
         <td class="text-center"><b>Difference</b></td>
         <td *ngFor="let amount of balanceSheetForm.get('differenceBS')['controls']; let j = index"
             formArrayName="differenceBS" scope="col">
@@ -421,12 +421,15 @@
 
       <tbody>
       <tr>
-        <th scope="row">&nbsp;</th>
+        <th scope="row">F</th>
         <td class="text-center">Principle Instalment paid/payable during the year</td>
         <td *ngFor="let amount of balanceSheetForm.get('principleInstalmentPaidDuringTheYear')['controls']; let j = index"
             formArrayName="principleInstalmentPaidDuringTheYear" scope="col">
           <div [formGroupName]="j" class="text-center">
-            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0">
+            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; "
+                   (input)="onValueChange('principleInstalmentPaidDuringTheYear', j)"
+                   (change)="checkForLatterFiscalYearChanges(j)"
+                   value="0">
           </div>
         </td>
       </tr>

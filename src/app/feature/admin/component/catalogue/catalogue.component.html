@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner" xmlns="http://www.w3.org/1999/html">
     <nb-card-header>
         <div class="col-md-12">
             <div class="row">
@@ -165,20 +165,18 @@
                 [ngStyle]="{'color': (getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)?.length > 0) ? 'red': 'auto'}"
                 class="cursor">
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td (click)="onClick(model.loan.id,model.id)"
+                <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranch">{{model?.branch?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
-                    {{model?.loanCategory === 'INSTITUTION' ?
-                    model?.companyInfo?.companyName
-                    : model?.customerInfo?.customerName}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id)">
+                    {{model?.loanHolder?.name}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.loan?.name}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">
                     <span
                             class="d-flex justify-content-end pr-1">Rs. {{model?.proposal?.proposedLimit | currencyFormatter}}</span>
                 </td>
-                <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{loanType[model?.loanType]}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">{{model?.documentStatus}}</td>
+                <td (click)="onClick(model?.loan?.id,model?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
@@ -194,7 +192,7 @@
                         /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
-                <td (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model?.loan?.id,model?.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
@@ -225,13 +223,13 @@
 
                 </td>
                 <td>
-                    <div (click)="onClick(model.loan.id,model.id)">
+                    <div (click)="onClick(model?.loan?.id,model?.id)">
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td (click)="onClick(model.loan.id,model.id)"
+                <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
-                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
+                <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="form-control form-control-tiny py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
@@ -246,26 +244,33 @@
                             <option value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
+                            <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
                         </ng-container>
                     </select>
                 </td>
                 <ng-template #linkin>
-                    <td *ngIf="model.parentId">
-                        <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
-                           class="text-success cursor">{{loanType[model.loanType]}} From
-                            <em class="p-1 fa fa-edit"></em></a>
-                    </td>
-
-                    <td *ngIf="!model.parentId">
-                        <p>NA</p>
+                    <td>
+                        <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                            <button nbButton status="warning" size="tiny"
+                                    (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
+                                    model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
+                                Re-initiate</button>
+                        </div>
+                        <div *ngIf="model.parentId">
+                            <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
+                               class="text-success cursor">{{loanType[model.loanType]}} From
+                                <em class="p-1 fa fa-edit"></em></a>
+                        </div>
+                        <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                            <p>NA</p>
+                        </div>
                     </td>
                 </ng-template>
             </tr>
             </tbody>
         </table>
-        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-        <!-- ===================table-pagination==================== -->
-        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+       <!-- ===================table-pagination==================== -->
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
 
@@ -303,7 +308,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6">
-                                        <span *ngFor="let branch of users.branchDtoList;">
+                                        <span *ngFor="let branch of users?.branchDtoList;">
                                             {{branch?.name}}
                                         </span>
                                     </div>
@@ -339,9 +344,9 @@
                     <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
                         Cancel
                     </button>
-                    <button [ngStyle]="{ 'filter' : (comment.value == undefined || comment.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
-                            [disabled]="comment.value == undefined || comment.value == ''" type="submit"
-                            class="btn btn-primary  btn-flat" (click)="confirm(comment.value)">
+                    <button [ngStyle]="{ 'filter' : (comment?.value == undefined || comment?.value == '')? 'grayscale(100%)': 'grayscale(0%)'}"
+                            [disabled]="comment?.value == undefined || comment?.value == ''" type="submit"
+                            class="btn btn-primary  btn-flat" (click)="confirm(comment?.value)">
                         Confirm
                     </button>
                 </div>
@@ -358,6 +363,28 @@
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
                     <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
+                    <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+                </div>
+            </nb-card-footer>
+        </nb-card>
+    </ng-template>
+
+    <ng-template #onReInitiateLoan class="p-0">
+        <nb-card class="m-0" [nbSpinner]="reInitiateSpinner">
+            <nb-card-header>
+                <h5>Are you sure you want to re-initiate this loan?</h5>
+            </nb-card-header>
+            <nb-card-body>
+                <div>Customer: {{reInitiateLoanCustomerName}} <br>
+                    Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})</div>
+                <div *ngIf="showBranch">Branch: {{reInitiateLoanBranchName}}</div>
+                <br>
+                <label for="comment">Remarks to re-initiate loan:</label>
+                <textarea rows="5" #comment id="comment" class="form-control" placeholder="Remarks"></textarea>
+            </nb-card-body>
+            <nb-card-footer>
+                <div class="d-flex justify-content-end">
+                    <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES</button>
                     <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
                 </div>
             </nb-card-footer>

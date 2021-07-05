@@ -30,6 +30,7 @@ import {ProposalCalculationUtils} from '../../loan-summary/ProposalCalculationUt
 import {LoanDataKey} from '../../../../../@core/utils/constants/loan-data-key';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {CustomerService} from '../../../../admin/service/customer.service';
+import {LoanTag} from '../../../model/loanTag';
 
 @Component({
     selector: 'app-customer-wise-loan-pull',
@@ -69,6 +70,8 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     isCombine = false;
     formVal = [];
     provinces = [];
+    currentUserId = LocalStorageUtil.getStorage().userId;
+    loanTag = LoanTag.values();
 
     constructor(
         private branchService: BranchService,
@@ -169,7 +172,8 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             provinceId: [undefined],
             customerType: [undefined],
             clientType: [undefined],
-            customerCode: [undefined]
+            customerCode: [undefined],
+            loanTag: [undefined],
         });
     }
 
@@ -239,6 +243,8 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             this.filterForm.get('clientType').value;
         this.catalogueService.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
             this.filterForm.get('customerCode').value;
+        this.catalogueService.search.loanTag = ObjectUtil.isEmpty(this.filterForm.get('loanTag').value) ? undefined :
+            this.filterForm.get('loanTag').value;
         CustomerWiseLoanPullComponent.loadData(this);
     }
 
@@ -285,7 +291,10 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             });
         }
 
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'on-pull-click full-width modal'
+        });
     }
 
     onClose() {
@@ -295,7 +304,10 @@ export class CustomerWiseLoanPullComponent implements OnInit {
     openCommentModal(template, data: LoanDataHolder) {
         this.model = new LoanDataHolder();
         this.model = data;
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'loan-activity full-width modal'
+        });
     }
 
 
@@ -345,6 +357,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
 
 
     getCsv() {
+        this.spinner = true;
         this.loanFormService.download(this.catalogueService.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
@@ -352,7 +365,10 @@ export class CustomerWiseLoanPullComponent implements OnInit {
             link.download = ApiConfig.URL + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
-
+            this.spinner = false;
+        }, error => {
+            this.spinner = false;
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === null ? 'Unable to download!' : error.error.message));
         });
     }
 

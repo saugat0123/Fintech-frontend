@@ -11,6 +11,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {NbDialogService} from '@nebular/theme';
 import * as CryptoJS from 'crypto-js';
 import {AdditionalExposureComponent} from '../additional-exposure/additional-exposure.component';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-disbursement-approved',
@@ -40,17 +41,18 @@ export class DisbursementApprovedComponent implements OnInit {
 
     static loadData(other: DisbursementApprovedComponent) {
         other.spinner = true;
-        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
+        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
             other.loanList.forEach((l) => other.encryptUrlArray.push({url: other.encryptUrl(l.id)}));
-            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
-
+            // tslint:disable-next-line:max-line-length
+            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
             console.log(other.loanList);
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
 
         }, error => {
+            other.spinner = false;
             console.log(error);
         });
     }

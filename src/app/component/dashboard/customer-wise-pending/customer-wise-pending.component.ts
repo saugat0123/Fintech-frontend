@@ -28,6 +28,8 @@ import {ProposalCalculationUtils} from '../../../feature/loan/component/loan-sum
 import {LoanDataKey} from '../../../@core/utils/constants/loan-data-key';
 import {CustomerService} from '../../../feature/admin/service/customer.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SafePipe} from '../../../feature/memo/pipe/safe.pipe';
+import {LoanTag} from '../../../feature/loan/model/loanTag';
 
 @Component({
     selector: 'app-customer-wise-pending',
@@ -49,7 +51,9 @@ export class CustomerWisePendingComponent implements OnInit {
         provinceId: undefined,
         customerType: undefined,
         clientType: undefined,
-        customerCode: undefined
+        customerCode: undefined,
+        toUser: undefined,
+        loanTag: undefined,
     };
     filterForm: FormGroup;
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -71,8 +75,11 @@ export class CustomerWisePendingComponent implements OnInit {
     loanForCombine: { loan: Array<LoanDataHolder> }[] = [];
     initStatus;
     clientType = [];
+    loanTag = LoanTag.values();
     subSector = [];
     model = new LoanDataHolder();
+    displayCombineLoanList = [];
+    loanHolderLoanListTemp: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
 
     constructor(
         private service: DmsLoanService,
@@ -87,7 +94,8 @@ export class CustomerWisePendingComponent implements OnInit {
         private formBuilder: FormBuilder,
         private location: AddressService,
         private customerService: CustomerService,
-        private modalService: NgbModal) {
+        private modalService: NgbModal,
+        private safePipe: SafePipe) {
     }
 
 
@@ -96,10 +104,11 @@ export class CustomerWisePendingComponent implements OnInit {
         other.toggleArray = [];
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
+        other.loanHolderLoanListTemp = [];
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
-                other.dmsLoanFiles = response.detail.content;
                 other.loanHolderLoanList = response.detail.content;
+                other.loanHolderLoanListTemp = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
                 other.loanHolderLoanList.forEach((l) => other.loanForCombine.push({loan: other.getLoansData(l.combineList)}));
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -192,7 +201,8 @@ export class CustomerWisePendingComponent implements OnInit {
             provinceId: [undefined],
             customerType: [undefined],
             clientType: [undefined],
-            customerCode: [undefined]
+            customerCode: [undefined],
+            loanTag: [undefined],
         });
     }
 
@@ -214,6 +224,8 @@ export class CustomerWisePendingComponent implements OnInit {
             this.filterForm.get('clientType').value;
         this.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
             this.filterForm.get('customerCode').value;
+        this.search.loanTag = ObjectUtil.isEmpty(this.filterForm.get('loanTag').value) ? undefined :
+            this.filterForm.get('loanTag').value;
         CustomerWisePendingComponent.loadData(this);
     }
 
@@ -233,13 +245,20 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     getCsv() {
+        this.spinner = true;
+        this.search.toUser = LocalStorageUtil.getStorage().userId;
         this.loanFormService.download(this.search).subscribe((response: any) => {
+            this.spinner = false;
             const link = document.createElement('a');
             link.target = '_blank';
             link.href = ApiConfig.URL + '/' + response.detail;
             link.download = ApiConfig.URL + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
+
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to download'));
+            this.spinner = false;
         });
     }
 
@@ -288,10 +307,54 @@ export class CustomerWisePendingComponent implements OnInit {
     openCommentModal(template, data: LoanDataHolder) {
         this.model = new LoanDataHolder();
         this.model = data;
-        this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'loan-activity full-width modal'
+        });
     }
 
-    onClose(){
+    onClose() {
         this.modalService.dismissAll();
     }
+
+
+    public customSafePipe(val) {
+        return this.safePipe.transform(val);
+    }
+
+    combineLoanListDisplay(data, template, index) {
+        const list = this.loanHolderLoanListTemp[index].combineList;
+        this.displayCombineLoanList = [];
+        list.forEach(l => {
+            const input: Map<number, Array<LoanDataHolder>> = l;
+            Object.keys(input).forEach(key => {
+                if (key.toString() === data.combinedLoan.id.toString()) {
+
+                    this.displayCombineLoanList = input[data.combinedLoan.id];
+
+                }
+            });
+
+            // tslint:disable-next-line:max-line-length
+            this.displayCombineLoanList[0].proposal.proposedLimit = JSON.parse(this.displayCombineLoanList[0].proposal.data)['proposedLimit'];
+            this.displayCombineLoanList[0].loan.name = this.displayCombineLoanList[0].loan.name.toString().split(',')[0];
+        });
+
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'loan-activity full-width modal'
+        });
+    }
+
+    onClickLoan(loanConfigId: number, customerLoan: number) {
+        this.spinner = true;
+        this.modalService.dismissAll();
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: customerLoan
+            }
+        });
+    }
+
 }

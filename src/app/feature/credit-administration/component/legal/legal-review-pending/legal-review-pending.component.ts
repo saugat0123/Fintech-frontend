@@ -6,6 +6,7 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {LoanType} from '../../../../loan/model/loanType';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-legal-review-pending',
@@ -35,15 +36,17 @@ export class LegalReviewPendingComponent implements OnInit {
         other.currentIndexArray = [];
         other.toggleArray = [];
         other.loanList = [];
-        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, 10).subscribe((res: any) => {
+        other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
             other.loanList = res.detail.content;
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
-            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: l.previousList.length}));
+            // tslint:disable-next-line:max-line-length
+            other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
             console.log(other.loanList);
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
 
         }, error => {
+            other.spinner = false;
             console.log(error);
         });
     }

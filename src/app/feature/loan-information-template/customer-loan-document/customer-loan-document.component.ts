@@ -11,6 +11,7 @@ import {ToastService} from '../../../@core/utils';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CustomerDocuments} from '../../loan/model/customerDocuments';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -21,27 +22,31 @@ export class CustomerLoanDocumentComponent implements OnInit {
     public static FILE_SIZE_5MB = 5242880;
     public static FILE_SIZE_10MB = 10485760;
     @Input() loanDataHolder: LoanDataHolder;
+    @Input() loanType: LoanType;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     loanConfig: LoanConfig = new LoanConfig();
     loanName: string;
-
     customerDocumentArray: Array<CustomerDocuments> = new Array<CustomerDocuments>();
     documentMap: string;
-
     paramProperties: any;
-
     errorMessage: string;
     loanConfigId;
+    documentName;
+    documentId;
+    index;
+    actualLoanId;
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private activatedRoute: ActivatedRoute,
-                private loanFormService: LoanFormService) {
+                private loanFormService: LoanFormService,
+                private modelService: NgbModal) {
     }
 
     ngOnInit() {
         let loanId = null;
+        let customerId = null;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.paramProperties = {
@@ -51,7 +56,12 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 };
                 this.paramProperties = paramsValue;
                 loanId = this.paramProperties.loanId;
+                customerId = this.paramProperties.customerId;
                 this.loanConfigId = loanId;
+                if (customerId === undefined) {
+                    customerId = '';
+                }
+                this.actualLoanId = customerId;
                 if (ObjectUtil.isEmpty(this.paramProperties.loanId) || (!ObjectUtil.isEmpty(this.loanDataHolder.loan))) {
                     loanId = this.loanDataHolder.loan.id;
                     this.loanConfigId = loanId;
@@ -63,7 +73,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             (response: any) => {
                 this.loanConfig = response.detail;
                 this.loanName = this.loanConfig.name;
-                switch (LoanType[this.loanDataHolder.loanType]) {
+                switch (LoanType[this.loanType]) {
                     case LoanType.NEW_LOAN:
                         this.initialDocuments = this.loanConfig.initial;
                         break;
@@ -81,6 +91,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         break;
                     case LoanType.FULL_SETTLEMENT_LOAN:
                         this.initialDocuments = this.loanConfig.fullSettlement;
+                        break;
+                    case LoanType.RENEW_WITH_ENHANCEMENT:
+                        this.initialDocuments = this.loanConfig.renewWithEnhancement;
                         break;
                     default:
                         this.initialDocuments = this.loanConfig.initial;
@@ -125,6 +138,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             formData.append('documentId', documentId);
             formData.append('loanHolderId', this.loanDataHolder.loanHolder.id.toString());
             formData.append('customerType', this.loanDataHolder.loanHolder.customerType);
+            formData.append('loanId1', this.actualLoanId);
             if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
                 formData.append('action', 'new');
             }
@@ -146,6 +160,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
             if (LoanType[this.loanDataHolder.loanType] === LoanType.PARTIAL_SETTLEMENT_LOAN) {
                 formData.append('action', 'PARTIAL_SETTLEMENT_LOAN');
             }
+            if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEW_WITH_ENHANCEMENT) {
+                formData.append('action', 'RENEW_WITH_ENHANCEMENT');
+            }
             this.loanFormService.uploadFile(formData).subscribe(
                 (result: any) => {
                     const customerDocumentObject = result.detail;
@@ -157,8 +174,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         });
                     }
                     this.customerDocumentArray.push(customerDocumentObject);
-
-                    console.log(this.customerDocumentArray);
                     this.initialDocuments[index].checked = true;
                 },
                 error => {
@@ -170,5 +185,23 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
             );
         }
+    }
+
+    openModel(model, documentName: string, documentId, index: number) {
+        this.documentName = documentName;
+        this.documentId = documentId;
+        this.index = index;
+        this.modelService.open(model);
+    }
+
+    onClose() {
+        this.modelService.dismissAll();
+    }
+
+    confirmDelete(i) {
+        this.modelService.dismissAll();
+        this.customerDocumentArray.indexOf(this.index);
+        this.customerDocumentArray.splice(this.index, 1);
+        this.initialDocuments[this.index].checked = false;
     }
 }

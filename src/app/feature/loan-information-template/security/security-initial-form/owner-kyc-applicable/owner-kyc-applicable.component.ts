@@ -8,6 +8,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
 
 @Component({
     selector: 'app-owner-kyc-applicable',
@@ -58,10 +59,12 @@ export class OwnerKycApplicableComponent implements OnInit {
                     relationName: [singleData.relationName],
                     citizenshipNumber: [singleData.citizenshipNumber],
                     issuedLocation: [singleData.issuedLocation],
-                    issuedDate: [singleData.issuedDate],
+                    issuedDate: [ObjectUtil.isEmpty(singleData.issuedDate) ?
+                        undefined : new Date(singleData.issuedDate), DateValidator.isValidBefore],
                     mobileNumber: [singleData.mobileNumber],
                     address: [singleData.address],
                     age: [singleData.age],
+                    remark: [singleData.remark]
 
                 })
             );
@@ -78,6 +81,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                 mobileNumber: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],
                 address: [undefined],
                 age: [undefined],
+                remark: [undefined]
             }
         );
     }
@@ -93,6 +97,7 @@ export class OwnerKycApplicableComponent implements OnInit {
     getAllDistrict() {
         this.districtService.getAllDistrict().subscribe((response: any) => {
             this.allDistrict = response.detail;
+            this.allDistrict.sort((a, b) => a.name.localeCompare(b.name));
         }, (error) => {
             console.log(error);
         });

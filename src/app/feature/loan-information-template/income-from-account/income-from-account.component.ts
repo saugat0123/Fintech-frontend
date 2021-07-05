@@ -4,9 +4,9 @@ import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
 import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCurrentBank';
-import {NumberUtils} from '../../../@core/utils/number-utils';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-income-from-account',
@@ -25,6 +25,9 @@ export class IncomeFromAccountComponent implements OnInit {
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
   srdbAffiliatedId = false;
+
+  disabledLambda = environment.disableCrgLambda;
+  disabledAlpha = environment.disableCrgAlpha;
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,
@@ -89,7 +92,7 @@ export class IncomeFromAccountComponent implements OnInit {
       creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
       debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
       debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
-      repaymentTrackWithCurrentBank: [undefined, [Validators.required]],
+      repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
     });
   }
 
@@ -148,7 +151,6 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   onAdditionalFieldSelect(chk) {
-    console.log(chk);
     if (chk) {
       this.incomeFormGroup.get('accountTransactionForm').disable();
     } else {

@@ -6,10 +6,9 @@ import {FormUtils} from '../../../@core/utils/form.utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {Editor} from '../../../@core/utils/constants/editor';
-import {RepaymentTrack} from '../../admin/modal/crg/RepaymentTrack';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
-import {environment} from '../../../../environments/environment.srdb';
+import {CalendarType} from '../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-cicl',
@@ -18,9 +17,10 @@ import {environment} from '../../../../environments/environment.srdb';
 })
 export class CiclComponent implements OnInit {
   @Input() ciclValue: CiclArray;
+    // @Input() calendarType: CalendarType;
 
   @Input() fromProfile: boolean;
-  calendarType = 'AD';
+  calendarType = CalendarType.AD;
 
   ciclForm: FormGroup;
 
@@ -30,12 +30,9 @@ export class CiclComponent implements OnInit {
   submitted = false;
   ckeConfig = Editor.CK_CONFIG;
 
-  repaymentTrack = RepaymentTrack.enumObject();
   relationshipList: RelationshipList = new RelationshipList();
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
-
-  crgLambdaDisabled = environment.disableCrgLambda;
   ciclHistory = false;
 
   constructor(
@@ -79,8 +76,6 @@ export class CiclComponent implements OnInit {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
-      repaymentTrack: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.repaymentTrack,
-          this.crgLambdaDisabled ? undefined : Validators.required],
       cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
@@ -149,7 +144,7 @@ export class CiclComponent implements OnInit {
             overdueAmount: [cicl.overdueAmount, Validators.required],
             outstandingAmount: [cicl.outstandingAmount, Validators.required],
             ciclStatus: [cicl.status, Validators.required],
-            obtaineddate: [cicl.obtaineddate, Validators.required],
+            obtaineddate: [new Date(cicl.obtaineddate), Validators.required],
             loanamount: [cicl.loanamount, Validators.required],
             overdue: [cicl.overdue],
             ciclRelation: [cicl.ciclRelation]
@@ -213,8 +208,6 @@ export class CiclComponent implements OnInit {
     // uncomment if value is need
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
-    this.ciclValue.repaymentTrack = this.ciclForm.get('repaymentTrack').value === undefined ? '' :
-        this.ciclForm.get('repaymentTrack').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }

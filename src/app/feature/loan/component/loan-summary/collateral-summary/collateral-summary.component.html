@@ -16,7 +16,7 @@
                 <th>Loan Facility</th>
                 <th>Proposed Limit</th>
                 <th>Type</th>
-                <th>Created On</th>
+                <th>Created On(AD/BS)</th>
                 <th>Collateral Req%</th>
                 <th>Required Collateral</th>
             </tr>
@@ -36,7 +36,7 @@
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
-                    <td class="text-left pl-1">{{model?.createdAt | date}}</td>
+                    <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
@@ -53,10 +53,9 @@
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
                     <td class="text-left pl-1">{{model?.loan?.name}}</td>
-                    <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
-                    || 0}}</td>
+                    <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter) || 0}}</td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
-                    <td class="text-left pl-1">{{model?.createdAt | date}}</td>
+                    <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs.
                         {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
@@ -82,11 +81,16 @@
         <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>
     </div>
     <div class="col-md-2 sb-small">
-        <mark class="alert-warning">Deficit/(Surplus):</mark>
+        <mark class="alert-warning">Surplus/(Deficit):</mark>
         <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>
     </div>
     <div  class="col-md-2 sb-small">
         <mark class="alert-warning">Coverage%:</mark>
-        <strong>{{(security?.totalSecurityAmount/totalRequiredCollateral)*100 |roundvalue |currencyFormatter}}%</strong>
+        <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |roundvalue}}%</strong>
+    </div>
+    <div  class="col-md-2 sb-small">
+        <mark class="alert-warning">Loan Exposure:</mark>
+        <strong>{{
+            ((totalProposedAmount) / security?.totalSecurityAmount) * 100 |roundvalue}}%</strong>
     </div>
 </div>

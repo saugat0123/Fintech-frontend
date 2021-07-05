@@ -5,6 +5,8 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {SecurityIds} from '../SecurityIds';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-security-revaluation',
@@ -17,9 +19,14 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     @Input() data;
     @Input() valuators;
     @Input() oldValuation;
+    @Input() index;
     formGroup: FormGroup;
     submitValue;
     @Output() revaluationDataEmitter = new EventEmitter();
+
+    // client
+    client = environment.client;
+    clientName = Clients;
 
     constructor(private valuatorService: ValuatorService,
                 private formBuilder: FormBuilder) {
@@ -39,8 +46,11 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
-            this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
+            if (!ObjectUtil.isEmpty(this.data.reValuationDate)) {
+                this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
+            }
         }
+
     }
 
     get formControls() {
@@ -81,13 +91,23 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInDv: undefined,
             changeInConsideredValue: undefined,
         };
-        calcData.changeInFmv = NumberUtils.isNumber(this.oldValuation[i][fmv]
-            - this.formGroup.get('reValuatedFmv').value);
-        calcData.changeInDv = NumberUtils.isNumber(this.oldValuation[i][dv]
-            - this.formGroup.get('reValuatedDv').value);
-        calcData.changeInConsideredValue = NumberUtils.isNumber(this.oldValuation[i][considered]
-            - this.formGroup.get('reValuatedConsideredValue').value);
+        calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('reValuatedFmv').value -
+            this.oldValuation[i][fmv]);
+        calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('reValuatedDv').value -
+            this.oldValuation[i][dv]);
+        calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('reValuatedConsideredValue').value -
+            this.oldValuation[i][considered]);
         this.formGroup.patchValue(calcData);
     }
 
+    revaluate(isRevaluated, index) {
+        const revData = {
+            reValuatedFmv: this.formGroup.get('reValuatedFmv').value,
+            reValuatedDv: this.formGroup.get('reValuatedDv').value,
+            reValuatedConsideredValue: this.formGroup.get('reValuatedConsideredValue').value,
+            isReValuated: isRevaluated,
+            index: index
+        };
+        this.revaluationDataEmitter.emit(revData);
+    }
 }

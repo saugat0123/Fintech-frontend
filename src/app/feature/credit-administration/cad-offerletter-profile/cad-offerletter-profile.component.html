@@ -6,7 +6,8 @@
     <nb-card-header>
         <div class="clearfix">
             <div>
-                <button nbButton size="tiny" nbTooltip="click to open config modal" (click)="openOfferLetterConfigModal()"><em
+                <button nbButton size="tiny" nbTooltip="click to open config modal"
+                        (click)="openOfferLetterConfigModal()"><em
                         class="fa fa-cogs"></em></button>
             </div>
             <div class="float-right">
@@ -44,7 +45,8 @@
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
-                        <nb-card-body *ngIf="client === clientList.MEGA">
+                        <nb-card-body
+                                *ngIf="client === clientList?.MEGA || client === clientList?.EXCEL || client === clientList?.PROGRESSIVE || client === clientList?.ICFC">
                             <div class="row">
                                 <div class="col-md-12">
                                     <nb-select
@@ -57,7 +59,7 @@
                                         </nb-option>
                                     </nb-select>
                                 </div>
-                                <div  class="col-md-12 mt-3">
+                                <div class="col-md-12 mt-3">
                                     <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
                                             class="float-right" nbButton
                                             size="small"
@@ -110,7 +112,7 @@
                                                 <span [ngStyle]="{'color': (cusOfferLetter?.draftPath == null) ? 'red': 'limegreen'}">
                                                     <i [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i></span>
                                         <span class="ml-1">
-                                                    <a (click)="previewClick(cusOfferLetter.draftPath)"
+                                                    <a (click)="previewClick(cusOfferLetter?.draftPath)"
                                                        *ngIf="cusOfferLetter?.draftPath !== null"><i
                                                             class="fas fa-eye cursor" style="color:cornflowerblue"></i>
                                                    </a>
@@ -121,24 +123,24 @@
                                                     <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
                                                 </span>
                                         <span class="ml-1">
-                                                    <a (click)="previewClick(cusOfferLetter.pathSigned)"
+                                                    <a (click)="previewClick(cusOfferLetter?.pathSigned)"
                                                        *ngIf="cusOfferLetter?.pathSigned !== null"><i
                                                             class="fas fa-eye cursor" style="color:cornflowerblue"></i>
                                                    </a>
                                                 </span>
                                     </td>
                                     <td>
-                                        <a (click)="openModel(uploadModel,cusOfferLetter.docName,cusOfferLetter.id,i)"
+                                        <a (click)="openModel(uploadModel,cusOfferLetter?.docName,cusOfferLetter?.id,i)"
                                            *ngIf="!(cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')"
-                                           title="upload {{cusOfferLetter.docName}}">
+                                           title="upload {{cusOfferLetter?.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
                                         <span *ngIf="roleType !== 'MAKER'">
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1"
-                                           (click)="openCustomOfferLetterDocumentModal(cusOfferLetter.id)"></a>
+                                           (click)="openCustomOfferLetterDocumentModal(cusOfferLetter?.id)"></a>
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() !== 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1"
                                            (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
@@ -316,7 +318,7 @@
 
 
                                                     <td>{{previous?.docAction}}</td>
-                                                    <td colspan="6">{{previous.comment}}</td>
+                                                    <td colspan="6" [innerHTML]="previous?.comment | safeHtml"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
@@ -346,7 +348,8 @@
                                                     </td>
 
                                                     <td>{{model?.currentStage?.docAction}}</td>
-                                                    <td colspan="6">{{model?.currentStage?.comment}}</td>
+                                                    <td colspan="6"
+                                                        [innerHTML]="model?.currentStage?.comment | safeHtml"></td>
 
                                                 </tr>
                                                 <tr class="sb-bg-dark">

@@ -1,6 +1,6 @@
 <div class="row pb-0">
     <div class="col-md-12">
-        <p *ngIf="!fromProfile" class="float-left"><b>Net Trading Assets</b></p>
+        <p *ngIf="!fromProfile" class="float-left"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></p>
     </div>
 </div>
 <nb-card [nbSpinner]="spinner">
@@ -36,7 +36,7 @@
                                class="table table-bordered table-hover text-center table-sm sb-small">
                             <thead class="text-center">
                             <tr class="sb-bg-dark text-white">
-                                <th scope="col">Net Trading Assets (NTA)</th>
+                                <th scope="col">{{client === clientName?.ICFC ? 'Net Trading Current Assets (NTCA)' : 'Net Trading Assets (NTA)'}}</th>
                                 <th scope="col">Q1</th>
                                 <th scope="col">Q2</th>
                                 <th scope="col">Q3</th>
@@ -324,7 +324,7 @@
                             </tr>
 
                             <tr formGroupName="netTradingAssets">
-                                <td><strong>Net Trading Assets</strong></td>
+                                <td><strong>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</strong></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['netTradingAssets', 'q1']).value | currencyFormatter}}</span>
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"
@@ -392,7 +392,7 @@
                             </tr>
 
                             <tr formGroupName="deRatio">
-                                <td><strong>D:E ratio</strong></td>
+                                <td><strong>{{client === clientName?.ICFC ? 'Loan To NTCA (%)' : 'D:E ratio (%)'}}</strong></td>
                                 <td>
                                     <span *ngIf="!fromProfile">{{netTradingAssetsFormGroup.get(['deRatio', 'q1']).value | currencyFormatter}}</span>
                                     <input *ngIf="fromProfile" class="cellInput text-center" formControlName="q1"

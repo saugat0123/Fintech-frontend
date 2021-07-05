@@ -25,6 +25,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {EngToNepaliNumberPipe} from './@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from './@core/pipe/currency-formatter.pipe';
 import {NepaliCurrencyWordPipe} from './@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
+import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
+import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
 
 
 @NgModule({
@@ -35,7 +39,8 @@ import {NepaliCurrencyWordPipe} from './@core/pipe/nepali-currency-word.pipe';
         ResentForgotPasswordComponent,
         LoginBaseComponent,
         NewPasswordComponent,
-        NepaliCurrencyWordPipe
+        TimeOutPopUpComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -63,10 +68,13 @@ import {NepaliCurrencyWordPipe} from './@core/pipe/nepali-currency-word.pipe';
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe],
+        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
+        NepaliPercentWordPipe],
     bootstrap: [AppComponent],
-    exports: [],
-    entryComponents: []
+    exports: [
+
+    ],
+    entryComponents: [TimeOutPopUpComponent]
 
 })
 export class AppModule {

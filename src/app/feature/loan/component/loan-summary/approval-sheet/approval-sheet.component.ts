@@ -149,8 +149,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
-    disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+    disableApprovalSheetFlag = environment.disableApprovalSheet;
     showApprovalSheetInfo = false;
+    isJointInfo = false;
+    jointInfo = [];
 
     constructor(
         private userService: UserService,
@@ -182,13 +184,16 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' && !ObjectUtil.isEmpty(
+            this.loanDataHolder.customerInfo.jointInfo)) {
+            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+            this.isJointInfo = true;
+        }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.prepareAuthoritySection();
         this.loadSummary();
         this.checkDocUploadConfig();
-        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
-            this.calculateAge();
-        }
     }
 
     ngOnDestroy(): void {
@@ -512,7 +517,11 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             return label;
         } else {
             if (index === 0) {
-                return 'INITIATED BY:';
+                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+                    return 'RE INITIATED:';
+                } else {
+                    return 'INITIATED BY:';
+                }
             } else {
                 return 'SUPPORTED BY:';
             }
@@ -559,7 +568,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
         let lastBackwardIndex = 0;
         stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
                 lastBackwardIndex = index;
             }
         });
@@ -622,12 +632,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.modalService.dismissAll();
         }
 
-    calculateAge() {
-        const dob = this.loanDataHolder.customerInfo.dob;
-        if (dob) {
-            const difference = Math.abs(Date.now() - new Date(dob).getTime());
-            this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
-        }
+    calculateAge(dob) {
+        const difference = Math.abs(Date.now() - new Date(dob).getTime());
+        this.age = Math.floor((difference / (1000 * 3600 * 24)) / 365);
+        return this.age;
     }
 
     openApprovalSheetInfoModal() {

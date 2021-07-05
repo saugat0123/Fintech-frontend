@@ -70,19 +70,28 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span
-                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal </span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
                                 <div
-                                        class="report-header-sub-heading"><span class="sb-medium"><strong>
+                                        class="report-header-sub-heading" *ngIf="!isJointInfo"><span class="sb-medium"><strong>
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
-                               </strong> </span>
+                                </strong> </span>
                                 </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+
+                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                    <div *ngFor="let jointCustomer of jointInfo">
+                                        <ng-container *ngFor="let info of jointCustomer">
+                                            <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    {{loanDataHolder?.branch?.province?.name}}</div>
                                 <div class="badge badge-warning">Approval Sheet</div>
                             </div>
                         </div>
@@ -123,11 +132,65 @@
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b> {{loanDataHolder?.lastModifiedAt | date}}
+                        )<b> on:</b>{{loanDataHolder?.lastModifiedAt | date}} ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})
 
                     </span>
 
                 </div>
+            </div>
+
+            <!--            CRG Gamma-->
+            <div *ngIf="crgGammaSummary" class="col-md-12">
+                <nb-card>
+                    <nb-card-header>
+                        <h6>Credit Risk Gauge (Gamma)</h6>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <app-gauge-chart [chartHeight]="180"
+                                                 [chartWidth]="275"
+                                                 [maxValue]="100"
+                                                 [obtainedValue]="crgGammaScore"></app-gauge-chart>
+                            </div>
+                            <div class="col-md-6 gauge-label-padding">
+                                <div class="vertical-line">
+                                    <div class="text-left pl-2">
+                                        <h5> Gamma </h5> <br>
+                                        Credit Risk Grade:
+                                        <span [class]="crgGammaGradeStatusBadge">  {{crgGammaGrade | titlecase}} </span>
+                                    </div>
+                                    <br>
+                                    <div class="text-left pl-2">
+                                        Credit Risk Score:
+                                        <span><strong> {{crgGammaScore}} </strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+
+            <!-- CRG Gamma score-->
+            <div *ngIf="crgGammaSummary">
+                <p><strong>Credit Risk Grading</strong></p>
+                <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Credit Risk Grading (Flavour)</th>
+                        <th>Credit Risk Grade</th>
+                        <th>Credit Risk Scrore</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Gamma</td>
+                        <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}} </span></td>
+                        <td><span><strong> {{crgGammaScore}} </strong></span></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
@@ -138,7 +201,7 @@
                 </div>
             </div>
 
-            <div *ngIf="loanCategory === 'INDIVIDUAL'" class="row">
+            <div *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo" class="row">
                 <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
                 </div>
@@ -149,7 +212,7 @@
                             <thead>
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
-                                <th>Date Of Birth</th>
+                                <th>Date Of Birth(AD/BS)</th>
                                 <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
@@ -161,8 +224,8 @@
                             <tbody>
                             <tr>
                                 <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                                <td class="text-right pr-1">{{age}} years</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.customerInfo?.dob | date}} ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
@@ -196,32 +259,108 @@
                                 <th>Name</th>
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
-                                <th>Citizenship Issued Date</th>
+                                <th>Citizenship Issued Date(AD/BS)</th>
 
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                                <td class="text-left pl-1">
-                                    {{relative.customerRelativeName}}
-                                </td>
-
-                                <td class="text-left pl-1">
-                                    {{relative.customerRelation}}
-                                </td>
-                                <td class="text-right pr-1">
-                                    {{relative.citizenshipNumber}}
-                                </td>
-                                <td class="text-left pl-1">
-                                    {{relative.citizenshipIssuedDate | date}}
-                                </td>
-
+                                <td class="text-left pl-1">{{relative.customerRelativeName}}</td>
+                                <td class="text-left pl-1">{{relative.customerRelation}}</td>
+                                <td class="text-right pr-1">{{relative.citizenshipNumber}}</td>
+                                <td class="text-left pl-1">{{relative.citizenshipIssuedDate | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            <!-- joint customer -->
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
+                <div class="col-md-12">
+                    <p><strong>Details of Borrower</strong></p>
+                </div>
+                <div class="col-md-12">
+                    <div>
+                        <table class="table table-condensed table-bordered table-sm table-responsive-md sb-small text-center">
+                           <thead>
+                           </thead>
+                            <tbody *ngFor="let jointCustomer of jointInfo">
+                            <ng-container *ngFor="let info of jointCustomer">
+                                <tr class="text-white sb-bg-dark">
+                                    <th>Name</th>
+                                    <th>Date of Birth(AD/BS)</th>
+                                    <th>Age</th>
+                                    <th>Citizenship Number</th>
+                                    <th>Mobile Number</th>
+                                    <th>LandLine Number</th>
+                                    <th>Occupation</th>
+                                    <th>Income Source</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left pl-1">{{info?.customerName}}</td>
+                                    <td class="text-left pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                                    <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
+                                    <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
+                                </tr>
+
+                                <!-- Family Details -->
+                                <tr><th colspan="5">Family Detail</th></tr>
+                                <tr class="text-white sb-bg-dark">
+                                    <th>Name</th>
+                                    <th>Relation Name</th>
+                                    <th>Citizenship no.</th>
+                                    <th>Citizenship Issued District</th>
+                                    <th>Citizenship Issued Date(AD/BS)</th>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName1">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName2">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName3">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName4">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName5">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                            </ng-container>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
                 <div class="col-md-12">
                     <p><strong>Detail of Present Proposal of the Facility</strong></p>
@@ -323,6 +462,7 @@
 
             <app-proposal-summary
                     *ngIf="proposalSummary"
+                    [approveSheet]="approveSheet"
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"></app-proposal-summary>
             <div class="row">
@@ -354,6 +494,19 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [security]="loanDataHolder?.security"></app-collateral-summary>
 
+            <div *ngIf="productUtils.CBS_ENABLE">
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <p><strong>Group Details</strong>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
+                                       *ngIf="loanDataHolder"></app-cbs-table>
+                    </div>
+                </div>
+            </div>
+
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
             <hr>
@@ -382,6 +535,7 @@
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
+            <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
            <!-- <div class="row mt-3 disable-print">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>
@@ -481,19 +635,19 @@
                      class="col-md-2 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, previous?.toUser?.role?.authorityLabel)}}</span>
+                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
                             <div class="print-only signature-padding"></div>
                             <img align="middle" alt="signature"
                                  class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
+                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                         </div>
                         <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{previous?.toUser?.name}}</p>
-                            <p class="m-0 sb-small">({{previous?.toUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
+                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                            <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>
                 </div>

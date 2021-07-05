@@ -13,7 +13,7 @@ export class CommonService {
     public openDocument(file) {
         let fileName = file;
         if (file !== null) {
-            fileName = ApiConfig.URL + '/' + file;
+            fileName = `${ApiConfig.URL}/${file}?${Math.floor(Math.random() * 100) + 1}`;
 
             const link = document.createElement('a');
             link.href = fileName;
@@ -26,7 +26,7 @@ export class CommonService {
     public download(url: string, name: string): void {
         const link = document.createElement('a');
         link.target = '_blank';
-        link.href = `${ApiConfig.URL}/${url}`;
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
         link.download = name;
         link.setAttribute('visibility', 'hidden');
         link.click();

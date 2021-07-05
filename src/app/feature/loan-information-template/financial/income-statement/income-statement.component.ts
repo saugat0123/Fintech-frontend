@@ -5,6 +5,9 @@ import {FinancialDeleteComponentComponent} from '../financial-delete-component/f
 import {ModalResponse} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-income-statement',
@@ -17,6 +20,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     incomeStatementForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
+    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,
@@ -272,26 +276,31 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
 
         } else {
-            cashFlowStatement.changedInFixedAsset[index].value =
-                (Number(this.financialService
-                    .fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory, 'Net Fixed Assets', index))
-                - Number(cashFlowStatement.depreciation[index].value)).toFixed(2);
+            if (!this.isSRDB) {
+                cashFlowStatement.changedInFixedAsset[index].value =
+                    (Number(this.financialService
+                            .fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory, 'Net Fixed Assets', index))
+                        - Number(cashFlowStatement.depreciation[index].value)).toFixed(2);
 
-            cashFlowStatement.changeInOtherAssets[index].value = (Number(balanceSheet.otherAssets[index].value)
-                - Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
-                    .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)))
-                .toFixed(2);
+                cashFlowStatement.changeInOtherAssets[index].value = (Number(balanceSheet.otherAssets[index].value)
+                    - Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
+                        .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)))
+                    .toFixed(2);
 
-            cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
+                /** Commented this because this made the 'addOpeningBalance' field editable being inexplicable **/
+                // cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
+            }
         }
 
         cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
 
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
 
-        cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
-        cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
-        cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
+        if (!(this.isSRDB && index === 0)) {
+            cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
+            cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
+            cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
+        }
 
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
         this.financialService.netCashFlowTotal(cashFlowStatement, index);
@@ -344,11 +353,10 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             this.financialService
                 .convertToPercent(Number(profitAfterTax.controls['value'].value) / Number(balanceSheet.netWorth[index].value));
 
-        keyIndicators.debtServiceCoverageRatio[index].value = Number(balanceSheet.longTermLoan[index].value) === 0 ? 0 :
-            ((Number(interestExpenses.controls['value'].value)
-                + Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
+        keyIndicators.debtServiceCoverageRatio[index].value =
+            ((Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                     .get('operatingExpensesCategory'), 'Depreciation', index))
-                + Number(profitAfterTax.controls['value'].value)) /
+                + Number(operatingProfit.controls['value'].value)) /
             (Number(interestExpenses.controls['value'].value)
                 + Number(balanceSheet.principleInstalmentPaidDuringTheYear[index].value))).toFixed(2);
 
@@ -380,6 +388,13 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         keyIndicators.netOperatingCycle[index].value = Number(keyIndicators.stockInHandDays[index].value)
             + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value);
+
+        if (!ObjectUtil.isEmpty(keyIndicators.cashFlowKI)) {
+            keyIndicators.cashFlowKI[index].value =
+                Number(profitAfterTax.controls['value'].value) +
+                Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
+                    .get('operatingExpensesCategory'), 'Depreciation', index));
+        }
     }
 
     checkForLatterFiscalYearChanges(index: number) {

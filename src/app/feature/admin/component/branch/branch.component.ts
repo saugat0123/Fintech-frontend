@@ -214,6 +214,7 @@ export class BranchComponent implements OnInit {
         this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
                 this.municipalities = response.detail;
+                this.municipalities.sort((a,b) => a.name.localeCompare(b.name));
             }
         );
     }
@@ -227,6 +228,7 @@ export class BranchComponent implements OnInit {
         this.location.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 this.districts = response.detail;
+                this.districts.sort((a,b) => a.name.localeCompare(b.name));
             }
         );
     }

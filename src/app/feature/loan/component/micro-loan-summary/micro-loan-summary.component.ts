@@ -36,6 +36,10 @@ import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component
 import {DocAction} from '../../model/docAction';
 import {Security} from '../../../admin/modal/security';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+import {Clients} from '../../../../../environments/Clients';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 
 @Component({
   selector: 'app-micro-loan-summary',
@@ -54,7 +58,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   @Input() nepaliDate;
 
   client: string;
-
+  clientName = Clients;
   docMsg;
   rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -135,6 +139,13 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   creditRiskLambdaPremium;
   creditGradeLambdaStatusBadge;
 
+  crgMicroSummary = false;
+  crgMicroScore = 0;
+  crgMicroGrade;
+  crgMicroRating;
+  crgMicroPremium;
+  crgMicroStatusBadge;
+
   customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
   incomeFromAccountSummary = false;
   incomeFromAccountData;
@@ -152,13 +163,22 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   fiscalYearArray = [];
 
-  disableApprovalSheetFlag = envSrdb.disableApprovalSheet;
+  disableApprovalSheetFlag = environment.disableApprovalSheet;
   roleType;
   synopsisCreditWorthiness;
   baselWiseRiskExposure;
   customerType: string;
   borrowerPortfolioDetail;
   marketingActivityDetail;
+  collateralSiteVisitDetail = [];
+  isCollateralSiteVisit = false;
+  commentsSummary = false;
+  dataFromComments;
+  previousSecuritySummary = false;
+  dataFromPreviousSecurity;
+  private dialogRef: NbDialogRef<any>;
+  isOpen: false;
+  securityId: number;
 
 
   constructor(
@@ -177,7 +197,9 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       private combinedLoanService: CombinedLoanService,
       private commonRoutingUtilsService: CommonRoutingUtilsService,
       private toastService: ToastService,
-      private fiscalYearService: FiscalYearService
+      private fiscalYearService: FiscalYearService,
+      private collateralSiteVisitService: CollateralSiteVisitService,
+      private nbDialogService: NbDialogService,
   ) {
     this.client = environment.client;
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -209,6 +231,9 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       this.marketingActivityDetail = this.loanDataHolder.loanHolder.marketingActivities;
       this.marketingActivity = true;
     }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+      this.securityId = this.loanDataHolder.security.id;
+    }
   }
 
   ngOnDestroy(): void {
@@ -222,9 +247,9 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   getLoanDataHolder() {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
-    // Setting financial data---
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
-      this.financialData = this.loanDataHolder.financial;
+    // Setting micro financial data---
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microOtherParameters)) {
+      this.financialData = this.loanDataHolder.loanHolder.microOtherParameters;
       this.financialSummary = true;
     }
 
@@ -253,6 +278,18 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.netTradingAssets)) {
       this.netTradingAssetsData = this.loanDataHolder.loanHolder.netTradingAssets;
       this.netTradingAssetsSummary = true;
+    }
+
+    // Setting Comments data--
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.commentsSummary = true;
+    }
+
+    // Setting Previous Security Data
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
+      this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
+      this.previousSecuritySummary = true;
     }
 
 
@@ -322,6 +359,24 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
         this.creditGradeLambdaStatusBadge = 'badge badge-danger';
       } else {
         this.creditGradeLambdaStatusBadge = 'badge badge-warning';
+      }
+    }
+
+    // Setting CRG- Micro data --
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.crgMicro)) {
+      const crgParsedData = JSON.parse(this.loanDataHolder.crgMicro.data);
+      this.crgMicroPremium = crgParsedData.premium;
+      this.crgMicroSummary = true;
+      this.crgMicroRating = crgParsedData.creditRiskRating;
+      this.crgMicroGrade = crgParsedData.creditRiskGrade;
+      this.crgMicroScore = ObjectUtil.isEmpty(crgParsedData.totalScore) || Number.isNaN(Number(crgParsedData.totalScore)) ?
+          0 : crgParsedData.totalScore;
+      if (this.crgMicroGrade === 'Excellent' || this.crgMicroGrade === 'Very Good') {
+        this.creditGradeLambdaStatusBadge = 'badge badge-success';
+      } else if (this.crgMicroGrade === 'Reject') {
+        this.crgMicroStatusBadge = 'badge badge-danger';
+      } else {
+        this.crgMicroStatusBadge = 'badge badge-warning';
       }
     }
 
@@ -499,7 +554,11 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       return label;
     } else {
       if (index === 0) {
-        return 'INITIATED BY:';
+        if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+          return 'RE INITIATED:';
+        } else {
+          return 'INITIATED BY:';
+        }
       } else {
         return 'SUPPORTED BY:';
       }
@@ -532,7 +591,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   previewOfferLetterDocument(url: string, name: string): void {
     const link = document.createElement('a');
     link.target = '_blank';
-    link.href = `${ApiConfig.URL}/${url}`;
+    link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
     link.download = name;
     link.setAttribute('visibility', 'hidden');
     link.click();
@@ -558,7 +617,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
           }
       }
   }*/
-
   /**
    * Get array of loan stage for authority signature array.
    *
@@ -567,7 +625,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
     let lastBackwardIndex = 0;
     stages.forEach((data, index) => {
-      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+          || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
         lastBackwardIndex = index;
       }
     });
@@ -610,7 +669,41 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   setRoleHierarchy(loanId: number) {
-    this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+   let context;
+   context = {
+     approvalType: 'lOAN',
+     refId: loanId,
+     isRoleModal: true
+   };
+   // @ts-ignore
+   this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
+     context,
+   }).onClose.subscribe((res: any) => {
+     this.activatedRoute.queryParams.subscribe((res) => {
+       this.loanConfigId = res.loanConfigId;
+       this.customerId = res.customerId;
+     });
+     this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+       if (value) {
+         this.router.navigate( ['/home/loan/summary'], {
+           queryParams: {
+             loanConfigId: this.loanConfigId,
+             customerId: this.customerId,
+           }
+         });
+       }
+     });
+   });
+  }
+  public close() {
+    if (this.isOpen) {
+      this.dialogRef.close();
+      this.isOpen = false;
+    }
+  }
+
+  public customSafePipe(val) {
+    return val.replace(/(<([^>]+)>)/gi, ' ');
   }
 
 }

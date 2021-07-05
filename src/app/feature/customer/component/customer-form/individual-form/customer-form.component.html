@@ -15,7 +15,9 @@
             <nb-radio value="AD">AD</nb-radio>
             <nb-radio value="BS">BS</nb-radio>
         </nb-radio-group>
-        <nb-checkbox #checkboxComponent [hidden]="!microEnabled" [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange(checkboxComponent.checked)">Micro Customer</nb-checkbox>
+        <div *ngIf="microEnabled">
+            <nb-checkbox #checkboxComponent [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange(checkboxComponent.checked)">Micro Customer</nb-checkbox>
+        </div>
        <div class="form-group">
            <form [formGroup]="basicInfo" class="form-horizontal">
            <!--    <button (click)="showHideNep()">NepDate</button>-->
@@ -50,11 +52,16 @@
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Client Type</strong></label>
                                    <select
+                                           [ngClass]="{ 'is-invalid':submitted && basicInfoControls.clientType.errors }"
                                            class="custom-select" formControlName="clientType">
                                        <option [ngValue]="null">Select Client Type</option>
                                        <option *ngFor="let data of clientType " [ngValue]="data"
                                                [selected]="data === clientTypeInput" >{{data}}</option>
                                    </select>
+                                   <div *ngIf="submitted && basicInfoControls.clientType.errors"
+                                        class="invalid-feedback">
+                                       <div *ngIf="basicInfoControls.clientType.errors.required">Customer Type is required</div>
+                                   </div>
                                </div>
                            </div>
                            <div class="col-md-6">
@@ -176,6 +183,22 @@
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="form-group">
+                                   <label for="contactNumber"><strong>Father's Name</strong></label>
+                                   <input class="form-control" formControlName="fatherName"
+                                          placeholder="Father Name"
+                                          type="text">
+                               </div>
+                           </div>
+                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="form-group">
+                                   <label for="contactNumber"><strong>Grandfather's Name</strong></label>
+                                   <input class="form-control" formControlName="grandFatherName"
+                                          placeholder="Grandfather Name"
+                                          type="text">
+                               </div>
+                           </div>
 
 
                            <!-- END ROW -->
@@ -248,8 +271,7 @@
                                    <ng-select [multiple]="false"
                                               formControlName="citizenshipIssuedPlace"
                                               id="citizenshipIssuedPlace"
-                                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }"
-                                   >
+                                              [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }">
                                        <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                                            {{district?.name}}
                                        </ng-option>
@@ -606,7 +628,7 @@
                                                <select class="form-control" formControlName="customerRelation"
                                                        id="customerRelation{{i}}"
                                                        [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }">
-                                                   <option [ngValue]="null" hidden>Select Relation</option>
+                                                   <option [value]="null" hidden>Select Relation</option>
                                                    <option [value]="relation.id" *ngFor="let relation of relationArray.relation">{{relation.name}}</option>
                                                </select>
                                                <div *ngIf="submitted && relatives.get('customerRelation').errors"
@@ -639,11 +661,10 @@
                                        </div>
                                        <div class="col-md-2">
                                            <div class="form-group">
-                                               <label for="issuedLocation{{i}}"><strong>Issued District</strong></label>
+                                               <label for="issuedDistrict{{i}}"><strong>Issued District</strong></label>
                                                <ng-select [multiple]="false"
                                                           formControlName="citizenshipIssuedPlace"
-                                                          id="issuedLocation{{i}}"
-                                               >
+                                                          id="issuedDistrict{{i}}">
                                                    <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
                                                        {{district?.name}}
                                                    </ng-option>
@@ -672,6 +693,18 @@
                                                </div>
                                            </div>
                                        </div>
+                                       <div class="col-md-2" *ngIf="client === clientName.SHINE_RESUNGA">
+                                           <div class="form-group">
+                                               <label for="age{{i}}"><strong>Age</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="age"
+                                                      id="age{{i}}" type="number"
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
+                                               <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
+                                                   Age is required
+                                               </div>
+                                           </div>
+                                       </div>
                                        <div *ngIf="i>1" class="ml-3">
                                            <button (click)="removeRelatives(i)"
                                                    class="float-right" nbButton
@@ -690,11 +723,11 @@
                            <div class="col-md-12">
                                <div class="form-group">
                                    <label><strong>Introduction</strong></label>
-                                   <textarea id="introduction" formControlName="introduction" name="introduction" type="text"
-                                             class="form-control" placeholder="introduction"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></textarea>
+                                   <ckeditor id="introduction" formControlName="introduction" name="introduction" type="text"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.introduction.errors }"></ckeditor>
                                    <div *ngIf="(submitted) && basicInfoControls.introduction.invalid"
-                                        class="invalid-feedback">
+                                        class="text-danger">
                                        <div *ngIf="basicInfoControls.introduction.errors.required">
                                            Introduction is required
                                        </div>
@@ -705,13 +738,13 @@
                        <div class="row" *ngIf="!microCustomer">
                            <div class="col-md-12">
                                <div class="form-group">
-                                   <label><strong>Income Risk</strong></label>
-                                   <textarea id="incomeRisk" formControlName="incomeRisk" name="introduction" type="text"
-                                             class="form-control" placeholder="Income Risk" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.incomeRisk?.errors }"></textarea>
-                                   <div *ngIf="(submitted) && basicInfoControls?.incomeRisk?.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls?.incomeRisk?.errors?.required">
+                                   <label><strong>Income Risk & Mitigation</strong></label>
+                                   <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && basicInfoControls.incomeRisk.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="basicInfoControls.incomeRisk.errors.required">
                                            Income Risk is required
                                        </div>
                                    </div>
@@ -719,13 +752,13 @@
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
-                                   <label><strong>Security Risk</strong></label>
-                                   <textarea id="securityRisk" formControlName="securityRisk" name="introduction" type="text"
-                                             class="form-control" placeholder="Security Risk" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.securityRisk?.errors }"></textarea>
-                                   <div *ngIf="(submitted) && basicInfoControls?.securityRisk?.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls?.securityRisk?.errors?.required">
+                                   <label><strong>Security Risk & Mitigation</strong></label>
+                                   <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.securityRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && basicInfoControls.securityRisk.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="basicInfoControls.securityRisk.errors.required">
                                            Security Risk is required
                                        </div>
                                    </div>
@@ -733,13 +766,13 @@
                            </div>
                            <div class="col-md-12" *ngIf="!microCustomer">
                                <div class="form-group">
-                                   <label><strong>Succession Risk</strong></label>
-                                   <textarea id="successionRisk" formControlName="successionRisk" name="introduction" type="text"
-                                             class="form-control" placeholder="Succession Risk" rows="5"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls?.successionRisk?.errors }"></textarea>
-                                   <div *ngIf="(submitted) && basicInfoControls?.successionRisk?.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls?.successionRisk?.errors?.required">
+                                   <label><strong>Succession Risk & Mitigation</strong></label>
+                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.successionRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && basicInfoControls.successionRisk.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="basicInfoControls.successionRisk.errors.required">
                                            Succession Risk is required
                                        </div>
                                    </div>

@@ -11,88 +11,40 @@ import {NepaliWordPipe} from './pipe/nepali-word.pipe';
 import {ReplacePipe} from './utils/replace.pipe';
 import {RoundvaluePipe} from './pipe/roundvalue.pipe';
 import {BooleanConvertPipe} from './pipe/boolean-convert.pipe';
-import { DecimalNumberDirective } from './directive/decimal-number.directive';
-import { EngToNepaliNumberPipe } from './pipe/eng-to-nepali-number.pipe';
-import { LoanStatusPipe } from './pipe/loan-status-pipe';
-// import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
-// import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
+import {DecimalNumberDirective} from './directive/decimal-number.directive';
+import {NepaliToEngNumberPipe} from './pipe/nepali-to-eng-number.pipe';
+import {LoanStatusPipe} from './pipe/loan-status-pipe';
+import {EngToNepaliNumberPipe} from './pipe/eng-to-nepali-number.pipe';
+import {NepaliPercentWordPipe} from './pipe/nepali-percent-word.pipe';
+import {NgxNumToWordsModule} from 'ngx-num-to-words';
+import {FormsModule} from '@angular/forms';
+import {LoginPopUp} from './login-popup/login-pop-up';
+import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 
-const socialLinks = [
-    {
-        url: 'https://github.com/akveo/nebular',
-        target: '_blank',
-        icon: 'socicon-github',
-    },
-    {
-        url: 'https://www.facebook.com/akveo/',
-        target: '_blank',
-        icon: 'socicon-facebook',
-    },
-    {
-        url: 'https://twitter.com/akveo_inc',
-        target: '_blank',
-        icon: 'socicon-twitter',
-    },
-];
 
 const DATA_SERVICES = [];
-/*
-export class NbSimpleRoleProvider extends NbRoleProvider {
-  getRole() {
-    // here you could provide any role based on any auth flow
-    return observableOf('guest');
-  }
-}*/
 
 export const NB_CORE_PROVIDERS = [
     ...DATA_SERVICES,
-    /* ...NbAuthModule.forRoot({
-
-       strategies: [
-         NbDummyAuthStrategy.setup({
-           name: 'email',
-           delay: 3000,
-         }),
-       ],
-       forms: {
-         login: {
-           socialLinks: socialLinks,
-         },
-         register: {
-           socialLinks: socialLinks,
-         },
-       },
-     }).providers,
-
-     NbSecurityModule.forRoot({
-       accessControl: {
-         guest: {
-           view: '*',
-         },
-         user: {
-           parent: 'guest',
-           create: '*',
-           edit: '*',
-           remove: '*',
-         },
-       },
-     }).providers,
-
-     {
-       provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
-     },*/
     AnalyticsService,
     LayoutService,
     StateService,
     ToastService,
     PermissionService,
     LoanStatusPipe,
+    EngToNepaliNumberPipe,
+    NepaliCurrencyWordPipe
+];
 
+const UTILITY_MODULES = [
+    NgxNumToWordsModule
 ];
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        FormsModule,
+        ...UTILITY_MODULES
     ],
     exports: [
         // NbAuthModule,
@@ -105,8 +57,12 @@ export const NB_CORE_PROVIDERS = [
         RoundvaluePipe,
         BooleanConvertPipe,
         DecimalNumberDirective,
+        NepaliToEngNumberPipe,
+        LoanStatusPipe,
         EngToNepaliNumberPipe,
-        LoanStatusPipe
+        NepaliCurrencyWordPipe,
+        ...UTILITY_MODULES,
+        LoginPopUp
     ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
@@ -117,9 +73,14 @@ export const NB_CORE_PROVIDERS = [
         RoundvaluePipe,
         BooleanConvertPipe,
         DecimalNumberDirective,
-        EngToNepaliNumberPipe,
+        NepaliToEngNumberPipe,
         LoanStatusPipe,
-    ],
+        EngToNepaliNumberPipe,
+        NepaliPercentWordPipe,
+        NepaliCurrencyWordPipe,
+        LoginPopUp
+
+    ], entryComponents: [LoginPopUp]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

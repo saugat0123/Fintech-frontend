@@ -7,13 +7,14 @@
           <table class="table table-bordered text-right table-sm sb-small text-center">
             <thead>
             <tr>
-              <th class="text-center" colspan="5">Income of Borrower</th>
+              <th class="text-center" colspan="6">Income of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Source of Income</th>
               <th>Organization</th>
               <th>Amount</th>
+              <th>Age Of Income Generated</th>
               <th>Remarks</th>
             </tr>
             </thead>
@@ -23,11 +24,12 @@
               <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
               <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
               <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+              <td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>
               <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
               <td class="text-left pl-1" colspan="3"><strong>Total Income</strong></td>
-              <td colspan="2" class="text-right pr-1">
+              <td colspan="3" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong>
               </td>
             </tr>
@@ -40,7 +42,7 @@
           <table class="table table-bordered table-sm sb-small text-center">
             <thead>
             <tr>
-              <th class="text-center" colspan="5">Expenses of Borrower</th>
+              <th class="text-center" colspan="5">{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</th>
             </tr>
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
@@ -57,7 +59,7 @@
               <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total Expense</strong></td>
+              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}}</strong></td>
               <td colspan="2" class="text-right pr-1">
                 <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
               </td>
@@ -68,6 +70,33 @@
                 <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
               </td>
             </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>Total EMI of client including present proposal</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
+                      : 'EMI / Gross Monthly Income'}}</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="3"><strong>EMI / Net Monthly Income</strong></td>
+              <td colspan="2" class="text-right pr-1">
+                <strong>{{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
+              </td>
+            </tr>
+
+            <tr class="text-white sb-bg-dark">
+              <th colspan="4">Note</th>
+            </tr>
+            <tr>
+              <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
+            </tr>
+
             </tbody>
           </table>
         </div>
@@ -76,10 +105,58 @@
   </div>
 </div>
 
+<table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
+  <thead>
+  <tr class="text-white sb-bg-dark">
+    <th colspan="5">Borrower Repayment Capacity</th>
+  </tr>
+  <tr  class="text-white sb-bg-dark">
+    <th>Gross Total Income</th>
+    <th>Existing Obligation at other Bank</th>
+    <th>Proposed and Existing Obligation at Our Bank</th>
+    <th>Total Bank Obligation</th>
+    <th>Total Bank Obligation to Gross Income Ratio</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
+    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
+    <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>
+  </tr>
+  </tbody>
+</table>
+
+
 <div *ngIf="isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
       <p><strong>Financial Highlights of the Entity</strong></p>
+      <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr>
+          <th class="text-center sb-bg-dark text-white" colspan="7">Financial Auditor Detail Information</th>
+        </tr>
+        <tr class="sb-bg-secondary text-white">
+          <th scope="col" class="sn">S.N</th>
+          <th scope="col">Audited</th>
+          <th scope="col">Audit Firm</th>
+          <th scope="col">Propriete/Partner</th>
+          <th scope="col">Membership No.</th>
+          <th scope="col">Certificate of Practice</th>
+          <th scope="col">Class</th>
+        </tr>
+        <tr *ngFor="let auditor of auditorList; let i = index">
+          <td><strong>{{i + 1}}</strong></td>
+          <td class="text-right pr-1">{{auditor['audited']}}</td>
+          <td class="text-left pl-1">{{auditor['auditFirm']}}</td>
+          <td class="text-left pl-1">{{auditor['proprietePartner']}}</td>
+          <td class="text-right pr-1">{{auditor['membershipNo']}}</td>
+          <td class="text-left pl-1">{{auditor['certificateOfPractice']}}</td>
+          <td class="text-left pl-1">{{auditor['class']}}</td>
+        </tr>
+      </table>
       <div *ngIf="activateOldFinancialSummary" class="row">
         <div class="col-md-12">
           <table class="table table-bordered table-sm sb-small">

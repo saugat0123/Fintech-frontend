@@ -6,18 +6,28 @@
                     <div *ngIf="loanDataHolder?.documentStatus?.toString() === 'PENDING'||
                     loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'">
-                        <app-role-heirarchy-chain [refId]="id"
-                        [loanDataHolder]="loanDataHolder"
-                        [branchId]="loanDataHolder?.branch?.id"
-                        [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>File Under Possession</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-role-heirarchy-chain [refId]="id"
+                                                              [loanDataHolder]="loanDataHolder"
+                                                              [branchId]="loanDataHolder?.branch?.id"
+                                                              [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                                              [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"></app-role-heirarchy-chain>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
                     </div>
-                    <div *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    <div class="mt-2" *ngIf="(loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
                     loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
-                    loanDataHolder?.documentStatus?.toString() === 'INITIAL') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
+                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
                                 status="primary" nbTooltip="Configure Approval Role Hierarchy"
                                 (click)="SetRoleHierarchy(loanDataHolder?.id)">
-                            <i class="fa fa-user-shield"></i>Set Role Hierarchy
+<!--                            <i class="fa fa-user-shield"></i>-->
+                            Set Role Hierarchy
                         </button>
                     </div>
                     <br>
@@ -91,20 +101,26 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal of</span> <span
-                                        class="sb-medium"> {{loanConfig?.name}}</span>
+                                    <span class="sb-small"> Credit Appraisal </span>
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
-                                <div
-                                        class="report-header-sub-heading"><span class="sb-medium"><strong>
+                                <div class="report-header-sub-heading" *ngIf="!isJointInfo"><span class="sb-medium"><strong>
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
                                </strong> </span>
                                 </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
-                                <div class="badge badge-warning">Summary</div>
+                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                    <div *ngFor="let jointCustomer of jointInfo">
+                                        <ng-container *ngFor="let info of jointCustomer">
+                                            <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    {{loanDataHolder?.branch?.province?.name}}</div> <div class="badge badge-warning">Summary</div>
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
@@ -129,7 +145,7 @@
 
             <hr class="print-line disable-print">
 
-            <div class="row disable-print">
+            <div class="row">
 
                 <!-- CRG - Normal-->
                 <!--        <div *ngIf="creditRiskSummary" class="col-md-12">-->
@@ -176,7 +192,7 @@
                             <h6>Credit Risk Gauge (Gamma)</h6>
                         </nb-card-header>
                         <nb-card-body>
-                            <div class="row disable-print">
+                            <div class="row">
                                 <div class="col-md-6 text-right">
                                     <app-gauge-chart [chartHeight]="180"
                                                      [chartWidth]="275"
@@ -221,6 +237,11 @@
                                     </div>
                                     <div class="col-md-6 ml-0 gauge-label-padding">
                                         <div class="vertical-line">
+                                            <div class="text-left pl-2">
+                                                Current year (as) :
+                                                <span><strong> {{ creditRiskRatingAlphaCurrentYear }}</strong></span>
+                                            </div>
+                                            <br>
                                             <div class="text-left pl-2">
                                                 Credit Risk Grade :
                                                 <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
@@ -353,14 +374,14 @@
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b> {{loanDataHolder.lastModifiedAt | date}}
+                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
 
                     </span>
 
                 </div>
             </div>
 
-            <div class="print-only">
+            <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
                 <p><strong>Credit Risk Grading</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -368,37 +389,35 @@
                     <tr class="text-white sb-bg-dark">
                         <th>Credit Risk Grading (Flavour)</th>
                         <th>Credit Risk Grade</th>
-                        <th>Credit Risk Rating</th>
+                        <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
                         <th>Credit Risk Score</th>
-                        <th>Premium</th>
+                        <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
-                        <td>Lambda</td>
+                        <td class="text-left pl-1">Lambda</td>
                         <td><span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
                         </td>
                         <td><span
                                 [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
                         </td>
-                        <td><strong> {{ creditRiskLambdaScore }}</strong></td>
-                        <td><strong> {{ creditRiskLambdaPremium }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
                     </tr>
                     <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
-                        <td>Alpha</td>
+                        <td class="text-left pl-1">Alpha</td>
                         <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
                         </td>
                         <td><span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
                         </td>
-                        <td><strong> {{ creditRiskAlphaScore }}</strong></td>
-                        <td><strong> {{ creditRiskAlphaPremium }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>
+                        <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>
                     </tr>
                     <tr *ngIf="crgGammaSummary">
-                        <td>Gamma</td>
+                        <td class="text-left pl-1">Gamma</td>
                         <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                        <td>N/A</td>
-                        <td><span><strong> {{ crgGammaScore }}</strong></span></td>
-                        <td>N/A</td>
+                        <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -412,7 +431,7 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL'">
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo">
                 <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
                 </div>
@@ -423,34 +442,40 @@
                             <thead>
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
-                                <th>Date Of Birth</th>
+                                <th>Date Of Birth(AD/BS)</th>
+                                <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
                                 <th>LandLine Number</th>
                                 <th>Occupation</th>
                                 <th>Income Source</th>
-
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                                <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}} ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})</td>
+                                <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
 
+
                             </tr>
                             <tr class="text-white sb-bg-dark">
+                                <th *ngIf="client !== clientName.MEGA">Father's Name</th>
+                                <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
                                 <th>Customer Client Type</th>
                                 <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
-                                <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
-                                <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
 
                             </tr>
@@ -490,7 +515,8 @@
                                 <th>Name</th>
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
-                                <th>Citizenship Issued Date</th>
+                                <th>Citizenship Issued Date (AD/BS)</th>
+                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
 
                             </tr>
                             </thead>
@@ -507,14 +533,96 @@
                                     {{relative.citizenshipNumber}}
                                 </td>
                                 <td class="text-left pl-1">
-                                    {{relative.citizenshipIssuedDate | date}}
+                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
                                 </td>
+                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
                             </tr>
                             </tbody>
                         </table>
                     </div>
 
+                </div>
+            </div>
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
+                <div class="col-md-12">
+                    <p><strong>Details of Borrower</strong></p>
+                </div>
+                <div class="col-md-12">
+                    <div>
+                        <table
+                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                            <thead>
+                            </thead>
+                            <tbody *ngFor="let jointCustomer of jointInfo">
+                            <ng-container *ngFor="let info of jointCustomer">
+                                <tr class="text-white sb-bg-dark">
+                                    <th>Name</th>
+                                    <th>Date Of Birth(AD/BS)</th>
+                                    <th>Age</th>
+                                    <th>Citizenship Number</th>
+                                    <th>Mobile Number</th>
+                                    <th>LandLine Number</th>
+                                    <th>Occupation</th>
+                                    <th>Income Source</th>
+                                </tr>
+                                <tr class="text-left">
+                                    <td class="pl-1">{{info?.customerName}}</td>
+                                    <td class="pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                                    <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
+                                    <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.landLineNumber || 'NA'}}</td>
+                                    <td class="pl-1">{{info?.occupation || 'NA'}}</td>
+                                    <td class="pl-1">{{info?.incomeSource || 'NA'}}</td>
+                                </tr>
+                                <tr><th colspan="5">Family Detail</th></tr>
+                            <tr class="text-white sb-bg-dark">
+                                <th>Name</th>
+                                <th>Relation Name</th>
+                                <th>Citizenship no.</th>
+                                <th>Citizenship Issued District</th>
+                                <th>Citizenship Issued Date(AD/BS)</th>
+                            </tr>
+                                <tr *ngIf="info?.customerRelativeName1">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName2">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName3">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName4">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                                <tr *ngIf="info?.customerRelativeName5">
+                                    <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
+                                    <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}})</td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
@@ -644,13 +752,7 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"
                     [loanDataHolder]="loanDataHolder"></app-proposal-summary>
-            <div class="row">
-                <div class="col-md-12 sb-medium">
-                    <strong>Propose Amount:</strong>
-                    Rs. {{loanDataHolder?.proposal?.proposedAmountInWords}}
-                    Only /-
-                </div>
-            </div>
+
             <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
@@ -704,29 +806,37 @@
                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
             </div>
             <app-security-summary *ngIf="securitySummary"
-                                  [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
+                                  [formData]="securityData" [shareSecurity]="shareSecurityData"
+            [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                                  [securityId]="securityId"
+                                  [siteVisitDocuments]="siteVisitDocuments"
+            [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
 
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
-            <!--            <app-net-trading-assets *ngIf="netTradingAssetsSummary"
-                                                [fromProfile]="false"
-                                                [netTradingAssetsData]="netTradingAssetsData"></app-net-trading-assets>-->
-            <ng-container *ngIf="!isMega; else ntaMegaSummary">
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-            </ng-container>
-
-            <ng-template #ntaMegaSummary>
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                 [fiscalYears]="fiscalYearArray"
+                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
             </ng-template>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
+            <br>
+            <div *ngIf="client === clientName?.MEGA">
+                <app-comments-summary *ngIf="commentsSummary"
+                                             [formData]="dataFromComments"></app-comments-summary>
+                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+            </div>
+
             <br>
             <div *ngIf="client !== clientName?.MEGA">
                 <app-guarantor-summary *ngIf="checkGuarantorData"
@@ -753,16 +863,26 @@
                 </app-report-summary>
             </div>
             <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+                <span><strong>Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
                         [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                <ng-template #noinfo>
+                    <p>No any information tagged</p>
+                </ng-template>
+            </div>
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+                <span><strong>Customer Reporting Information</strong></span>
+                <app-report-summary
+                        [approved]="false"
+                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
             </div>
 
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
             <div class="row">
@@ -771,7 +891,7 @@
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white"
                     *ngIf="loanDataHolder?.customerDocument?.length > 0"
-                    (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
+                    (click)=getDocPath()> Download All Document</button>
           </span>
                 </div>
             </div>
@@ -787,8 +907,7 @@
                             <th>S.N</th>
                             <th>Document</th>
                             <th>Preview</th>
-                            <th>Download
-                            </th>
+                            <th>Download</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -845,8 +964,7 @@
                             <th>Guarantor</th>
                             <th>Document</th>
                             <th>Preview</th>
-                            <th>Download
-                            </th>
+                            <th>Download</th>
                         </tr>
                         </thead>
                         <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
@@ -935,8 +1053,7 @@
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
                             <tr class="text-white sb-bg-dark">
-                                <th colspan="4"> Customer General Document
-                                </th>
+                                <th colspan="4"> Customer General Document</th>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th>SN</th>
@@ -1067,7 +1184,7 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}}
+                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -1085,24 +1202,24 @@
                                 </div>
                             </td>
 
-                            <td class="text-left pl-1">{{previousList?.docAction}}</td>
+                            <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
-                                <div class="pl-1 disable-print">
-                                    {{previousList?.comment?.length > 50 ?
+                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                    previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
+                                    previousList?.comment)">
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only justify-content">{{previousList?.comment}}</span>
+                                    <span class="pl-1 print-only justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
@@ -1122,9 +1239,9 @@
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>
                             <td class="text-left">
                                 <div class="pl-1 disable-print">
-                                    <span [innerHTML]="loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                    <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                                    loanDataHolder?.currentStage?.comment)"></span>
                                 </div>
                                 <a (click)="open(loanDataHolder.currentStage.comment)"
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
@@ -1148,19 +1265,19 @@
                      class="col-md-2 padding-0-125">
                     <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, previous?.fromUser?.role?.authorityLabel)}}</span>
+                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
                             <div class="print-only signature-padding"></div>
                             <img align="middle" alt="signature"
                                  class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
+                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
                         </div>
                         <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">({{previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt}}</p>
+                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                            <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>
                 </div>
@@ -1196,9 +1313,9 @@
                             <td class="text-left pl-1">{{previousList?.docAction}}</td>
                             <td class="text-left">
                                 <div class="pl-1">
-                                    <span [innerHTML]="previousList?.comment?.length > 50 ?
+                                    <span [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment | safeHtml"></span>
+                                    previousList?.comment)"></span>
                                 </div>
                                 <a (click)="open(previousList?.comment)"
                                    *ngIf="previousList?.comment?.length > 50"

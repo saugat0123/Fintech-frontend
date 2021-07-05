@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormArray , FormBuilder , FormGroup , Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 import {Security} from '../../loan/model/security';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -19,7 +19,11 @@ import {ActivatedRoute} from '@angular/router';
 import {CustomerShareData} from '../../admin/modal/CustomerShareData';
 import {RoadAccess} from '../../admin/modal/crg/RoadAccess';
 import {FacCategory} from '../../admin/modal/crg/fac-category';
-import {environment} from '../../../../environments/environment.srdb';
+import {environment} from '../../../../environments/environment';
+import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-private';
+import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ToastService} from '../../../@core/utils';
 
 @Component({
     selector: 'app-security',
@@ -33,6 +37,7 @@ export class SecurityComponent implements OnInit {
     @Output() securityDataEmitter = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
+    @Input() isMicroCustomer: boolean;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -61,16 +66,27 @@ export class SecurityComponent implements OnInit {
     newCoverage = VehicleSecurityCoverage.getNew();
     usedCoverage = VehicleSecurityCoverage.getUsed();
 
+    apNewCoverage = SecurityCoverageAutoPrivate.getNew();
+    apUsedCoverage = SecurityCoverageAutoPrivate.getUsed();
+
+    acNewCoverage = SecurityCoverageAutoCommercial.getNew();
+    acUsedCoverage = SecurityCoverageAutoCommercial.getUsed();
+
     roadAccess = RoadAccess.enumObject();
     facCategory = FacCategory.enumObject();
 
     disableCrgAlphaParams = environment.disableCrgAlpha;
     crgLambdaDisabled = environment.disableCrgLambda;
+    securityId: number;
+
+    alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
+    lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
 
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private toastService: ToastService,
     ) {
     }
 
@@ -88,9 +104,14 @@ export class SecurityComponent implements OnInit {
             this.initialSecurityValue = this.securityValueForEdit;
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
+            this.securityId = this.securityValue.id;
         } else {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
+        }
+        this.checkDisableAlpha();
+        if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
+            this.checkDisableLamdha();
         }
     }
 
@@ -105,8 +126,14 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            roadAccessOfPrimaryProperty: [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
-            facCategory: [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme: [undefined,
+                !this.crgLambdaDisabled
+                && !this.isBusinessLoan
+                && !this.isMicroCustomer ? Validators.required : undefined],
+            roadAccessOfPrimaryProperty: [undefined],
+            facCategory: [undefined],
+            securityCoverageAutoPrivate: [undefined],
+            securityCoverageAutoCommercial: [undefined],
         });
     }
 
@@ -115,9 +142,12 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty ,
-                !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
-            facCategory: [formData.facCategory , !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme: [formData.lambdaScheme,
+                !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
+            roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
+            facCategory: [formData.facCategory],
+            securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
+            securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
         });
     }
 
@@ -219,6 +249,13 @@ export class SecurityComponent implements OnInit {
         if (this.securityForm.invalid) {
             return;
         }
+        if (this.initialSecurity.selectedSecurity === undefined) {
+            this.initialSecurity.clearValidationAtInitialStage();
+        }
+        if (this.initialSecurity.securityForm.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            return;
+        }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
         }
@@ -233,7 +270,10 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: this.securityForm.get('securityGuarantee').value,
             buildingLocation: this.securityForm.get('buildingLocation').value,
             roadAccessOfPrimaryProperty: this.securityForm.get('roadAccessOfPrimaryProperty').value,
+            lambdaScheme: this.securityForm.get('lambdaScheme').value,
             facCategory: this.securityForm.get('facCategory').value,
+            securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
+            securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
@@ -282,14 +322,16 @@ export class SecurityComponent implements OnInit {
 
     calculateTotalSecurity(securityData): number {
         let totalSecurityAmount = 0;
-        const isLandSelected = securityData.selectedArray.includes('LandSecurity');
-        const isBuildingSelected = securityData.selectedArray.includes('ApartmentSecurity');
         securityData.selectedArray.forEach(selectedSecurity => {
             switch (selectedSecurity) {
                 case 'LandSecurity':
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
-                        totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                        if (landDetailsArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+                        } else {
+                            totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
+                        }
                     }
                     break;
                 case 'VehicleSecurity':
@@ -301,7 +343,11 @@ export class SecurityComponent implements OnInit {
                 case 'ApartmentSecurity':
                     const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
                     for (let i = 0; i < buildingDetailsArray.length; i++) {
-                        totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                        if (buildingDetailsArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+                        } else {
+                            totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
+                        }
                     }
                     break;
                 case 'PlantSecurity':
@@ -312,9 +358,13 @@ export class SecurityComponent implements OnInit {
                     break;
 
                 case 'Land and Building Security':
-                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
-                        for (let i = 0; i < landBuildingArray.length; i++) {
+                    const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
+                    for (let i = 0; i < landBuildingArray.length; i++) {
+                        if (landBuildingArray[i].revaluationData.isReValuated) {
+                            totalSecurityAmount += Number(landBuildingArray[i].revaluationData.reValuatedConsideredValue);
+                        } else {
                             totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
+                        }
                     }
                     break;
                 case 'FixedDeposit':
@@ -323,11 +373,11 @@ export class SecurityComponent implements OnInit {
                         totalSecurityAmount += Number(fixedDepositArray[i].amount);
                     }
                     break;
-                    case 'ShareSecurity':
-                        const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
-                        shareSecurity.forEach(value => {
-                            totalSecurityAmount += value.total;
-                        });
+                case 'ShareSecurity':
+                    const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
+                    shareSecurity.forEach(value => {
+                        totalSecurityAmount += value.consideredValue;
+                    });
                     break;
                 default:
                     totalSecurityAmount += 0;
@@ -335,5 +385,39 @@ export class SecurityComponent implements OnInit {
             }
         });
         return totalSecurityAmount;
+    }
+
+    controlValidation(controlNames: string[], validate) {
+        controlNames.forEach(s => {
+            if (validate) {
+                this.securityForm.get(s).setValidators(Validators.required);
+            } else {
+                this.securityForm.get(s).clearValidators();
+            }
+            this.securityForm.get(s).updateValueAndValidity();
+        });
+    }
+
+    checkDisableAlpha() {
+        if (!this.isMicroCustomer && !this.disableCrgAlphaParams && this.isBusinessLoan) {
+            this.controlValidation(this.alphaControls, true);
+        } else {
+            this.controlValidation(this.alphaControls, false);
+        }
+    }
+
+    checkDisableLamdha(event?) {
+        this.controlValidation(this.lambdaControls, false);
+        switch (event) {
+            case 'GENERAL':
+                this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
+                break;
+            case 'AUTO_PRIVATE':
+                this.controlValidation(['securityCoverageAutoPrivate'], true);
+                break;
+            case 'AUTO_COMMERCIAL':
+                this.controlValidation(['securityCoverageAutoCommercial'], true);
+                break;
+        }
     }
 }

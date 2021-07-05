@@ -1,0 +1,589 @@
+<nb-card [ngResizable]="true">
+    <nb-card-header>
+        <strong>Collateral Site Visit for {{security}}</strong>
+        <button (click)="nbDialogRef.close()" aria-label="Close"
+                class="close cursor d-inline-flex justify-content-end" nbButton
+                size="tiny"
+                status="primary">
+            <span aria-hidden="true">X</span></button>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-4">
+                <span><strong>Select Last Site Visit Date</strong></span>
+                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
+                    <option [ngValue]="null" hidden>Select Date</option>
+                    <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="fixedAssetsForm">
+                    <div class="row mt-3">
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="date">Date</label>
+                            <input nbInput fullWidth
+                                   [ngClass]="{ 'is-invalid': (submitted) && form.date?.errors }"
+                                   class="form-control" formControlName="date" id="date"
+                                   type="date">
+                            <div *ngIf="(submitted) && form.date?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="form.date?.errors.required">Date is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="personContacted">Person Contacted</label>
+                            <input class="form-control"
+                                   [ngClass]="{'is-invalid': (submitted) && form.personContacted?.errors}"
+                                   formControlName="personContacted" id="personContacted"
+                                   name="personContacted" placeholder="Person Contacted"
+                                   type="text">
+                            <div *ngIf="form.personContacted.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="form.personContacted.errors.pattern">Invalid Person Name</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="phoneNoOfContact">Mobile Number</label>
+                            <input class="form-control"
+                                   [ngClass]="{'is-invalid': (submitted) && form.phoneNoOfContact?.errors}"
+                                   formControlName="phoneNoOfContact" id="phoneNoOfContact"
+                                   name="phoneNoOfContact" placeholder="Contact Number" type="text">
+                            <div *ngIf="submitted && form?.phoneNoOfContact?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="form?.phoneNoOfContact.errors.pattern">Invalid Mobile Number</span>
+                            </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-6 form-group">
+                                <label class="title" for="address1">Address Line 1 (optional)</label>
+                                <input class="form-control" formControlName="address1" id="address1" name="address1"
+                                       placeholder="Address Line 1 (optional)" type="text">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="title" for="address2">Address Line 2 (optional)</label>
+                                <input class="form-control" formControlName="address2" id="address2" name="address2"
+                                       placeholder="Address Line 2 (optional)" type="text">
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                <label for="province">Province</label>
+                                <ng-select [ngClass]="{'is-invalid': submitted && form.province.errors}"
+                                        (change)="getDistrictsById(form.province.value?.id , $event)"
+                                        [compareWith]="compareFn"
+                                        formControlName="province"
+                                        id="province"
+                                        bindLabel="name">
+                                    <ng-option *ngFor="let provinceVal of provinceList"
+                                            [value]="provinceVal">
+                                        {{provinceVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="(submitted) && form.province.invalid"
+                                     class="help-block">
+                                     <span *ngIf="form.province.errors.required">
+                                        <span class="text-danger"> Province is required</span>
+                                     </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="district">District</label>
+                                <ng-select [ngClass]="{'is-invalid': submitted && form.district.errors}"
+                                        (change)="getMunicipalitiesById(form?.district.value?.id, $event)"
+                                        [compareWith]="compareFn"
+                                        formControlName="district"
+                                        id="district"
+                                        bindLabel="name">
+                                    <ng-option *ngFor="let districtVal of districts"
+                                            [value]="districtVal">
+                                        {{districtVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="(submitted) && form.district.invalid"
+                                     class="help-block">
+                                     <span *ngIf="form.district.errors.required">
+                                        <span class="text-danger"> District is required</span>
+                                     </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="municipality">Municipalities or VDC</label>
+                                <ng-select [ngClass]="{'is-invalid': submitted && form.municipalityVdc.errors}"
+                                        [compareWith]="compareFn"
+                                        formControlName="municipalityVdc"
+                                        id="municipality"
+                                        bindLabel="name">
+                                    <ng-option *ngFor="let municipalityVal of municipalities"
+                                            [value]="municipalityVal">
+                                        {{municipalityVal.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <div *ngIf="(submitted) && form.municipalityVdc.invalid"
+                                     class="help-block">
+                                     <span *ngIf="form.municipalityVdc.errors.required">
+                                        <span class="text-danger"> Municipalities is required</span>
+                                     </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="title" for="ward">Ward Number</label>
+                                <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
+                                       formControlName="ward"
+                                       id="ward" name="ward"
+                                       placeholder="Ward Number" type="number">
+                                <div *ngIf="(submitted) && form.ward.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.ward.errors.required">
+                                        Ward number is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="typeOfProperty">Type of Property</label>
+                            <select class="custom-select" formControlName="typeOfProperty" id="typeOfProperty"
+                                    name="typeOfProperty">
+                                <option [ngValue]="null" hidden>Type of Property</option>
+                                <option value="Agricultural">Agricultural</option>
+                                <option value="Industrial">Industrial</option>
+                                <option value="Commercial">Commercial</option>
+                                <option value="Residential">Residential</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="shapeOfLand">Shape of Land</label>
+                            <select class="custom-select" formControlName="shapeOfLand" id="shapeOfLand"
+                                    name="shapeOfLand">
+                                <option [ngValue]="null" hidden>Select shape of land</option>
+                                <option value="Rectangular">Rectangular</option>
+                                <option value="Triangular">Triangular</option>
+                                <option value="Irregular">Irregular</option>
+                                <option value="Vertical Slope">Vertical Slope</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title">Does the location & shape of land appear consistent with Blue
+                                Print?</label>
+                            <nb-radio-group formControlName="locationAndShapeOfLand"
+                                            class="ml-1 d-inline-flex text-center">
+                                <nb-radio value="Yes">Yes</nb-radio>
+                                <nb-radio value="No">No</nb-radio>
+                            </nb-radio-group>
+                        </div>
+                        <h5 class="col-md-12 mt-3">Facilities</h5>
+                        <div class="row col-md-12 pr-0">
+                            <div class="col-md-3 form-group">
+                                <label class="title" for="roadApproach">Road Approach</label>
+                                <select class="custom-select" formControlName="roadApproach" id="roadApproach"
+                                        name="roadApproach">
+                                    <option [ngValue]="null" hidden>Select Road Approach</option>
+                                    <option value="Black Topped Road">Black Topped Road</option>
+                                    <option value="Gravelled Road">Gravelled Road</option>
+                                    <option value="Earthen Road">Earthen Road</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="title" for="roadWidth">Road Width <em class="sb-small"><strong>(in
+                                    feet)</strong></em></label>
+                                <input class="form-control" formControlName="roadWidth" id="roadWidth" name="roadWidth"
+                                       placeholder="Road Width" type="number" appDecimalNumber/>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="title" for="prominentPlace">Prominent Place</label>
+                                <input class="form-control" formControlName="prominentPlace" id="prominentPlace"
+                                       name="prominentPlace" placeholder="Prominent Place" type="text">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <div>
+                                    <label class="title" for="approachDistance">Approach Distance<em
+                                            class="sb-small"><strong>(in meter)</strong></em></label>
+                                </div>
+                                <input class="form-control" formControlName="approachDistance" id="approachDistance"
+                                       name="approachDistance" placeholder="Approach Distance" type="number"
+                                       appDecimalNumber/>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="title" for="roadAccessFrom">Road Access From</label>
+                                <select class="custom-select" formControlName="roadAccessFrom" id="roadAccessFrom"
+                                        name="roadAccessFrom">
+                                    <option [ngValue]="null" hidden>Select Road Access From</option>
+                                    <option value="One Side">One Side</option>
+                                    <option value="Two Sides">Two Sides</option>
+                                    <option value="Both Sides">Both Sides</option>
+                                </select>
+                            </div>
+                        </div>
+                        <h5 class="col-md-12 mt-3">Other Facilities</h5>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <table class="table table-bordered table-sm sb-small text-center">
+                                    <tr class="text-white sb-bg-dark">
+                                        <th>SN</th>
+                                        <th>Particulars</th>
+                                        <th>Check for Yes</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Water Supply</td>
+                                        <td><input formControlName="waterSupply" type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Electricity</td>
+                                        <td><input formControlName="electricity" type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Boundary Wall Construction</td>
+                                        <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Boundary Fencing</td>
+                                        <td><input formControlName="boundaryFencing" type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Drainage</td>
+                                        <td><input formControlName="drainage" type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Open</td>
+                                        <td><input formControlName="open" type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Telephone Line</td>
+                                        <td><input formControlName="telephoneLine" type="checkbox"></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="title" for="building">Building</label>
+                                <select class="custom-select" formControlName="building" id="building" name="building">
+                                    <option [value]="null" hidden>Select Building</option>
+                                    <option value="YES">Yes</option>
+                                    <option value="NO">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 form-group" *ngIf="form.building?.value == 'NO'">
+                            <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
+                            <textarea class="form-control" formControlName="remarksForOtherFacility"
+                                      id="remarksForOtherFacility" name="remarksForOtherFacility"
+                                      placeholder="Remarks For 'No' Option"
+                                      cols="3" type="text"></textarea>
+                        </div>
+                        <div class="row col-md-12" *ngIf="form.building?.value == 'YES'">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table table-bordered table-sm sb-small text-center">
+                                        <tr class="text-white sb-bg-dark">
+                                            <th>SN</th>
+                                            <th>Particulars</th>
+                                            <th>Check for Yes</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Load Bearing Wall</td>
+                                            <td><input formControlName="loadBearingWall" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Mortar Cement</td>
+                                            <td><input formControlName="mortarCement" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Other Roofing</td>
+                                            <td><input formControlName="otherRoofing" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Inside Furniture</td>
+                                            <td><input formControlName="insideFurniture" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Frame Structure</td>
+                                            <td><input formControlName="frameStructure" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>RCC Roofing</td>
+                                            <td><input formControlName="rccRoofing" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Bathroom And Toilet</td>
+                                            <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>Naksa Pass Obtained</td>
+                                            <td><input formControlName="naksaPassObtained" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Building Completion Certificate Obtained</td>
+                                            <td><input formControlName="buildingCompCertificate" type="checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>Construction appears to be as per the Approved Naksa Pass</td>
+                                            <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+                                    <label class="title" for="buildingArea">Building Area</label>
+                                    <input class="form-control" formControlName="buildingArea" id="buildingArea"
+                                           name="buildingArea" placeholder="Building Area">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label class="title" for="constructionYear">Construction Year</label>
+                                    <input nbInput fullWidth
+                                           class="form-control"
+                                           formControlName="constructionYear" id="constructionYear"
+                                           type="date">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label class="title" for="buildingType">Building Type</label>
+                                    <select class="custom-select" formControlName="buildingType" id="buildingType"
+                                            name="buildingType">
+                                        <option [ngValue]="null" hidden>Select Building type</option>
+                                        <option value="Residential">Residential</option>
+                                        <option value="Commercial Complex/Mall">Commercial Complex/Mall</option>
+                                        <option value="Factory Shed">Factory Shed</option>
+                                        <option value="Warehouse">Warehouse</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label class="title" for="builtUpArea">Built Up Area</label>
+                                    <input class="form-control" formControlName="builtUpArea" id="builtUpArea"
+                                           name="builtUpArea" placeholder="Built Up Area">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label class="title" for="noOfStorey">Number of Storey</label>
+                                    <input class="form-control" formControlName="noOfStorey" id="noOfStorey"
+                                           name="noOfStorey" placeholder="No. of Storey ">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="roadSetbacks">Any road setbacks?</label>
+                            <select class="custom-select" formControlName="roadSetbacks" id="roadSetbacks"
+                                    name="roadSetbacks">
+                                <option [ngValue]="null" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="riverOrCanalSetbacks">Any river/canal setbacks?</label>
+                            <select class="custom-select" formControlName="riverOrCanalSetbacks"
+                                    id="riverOrCanalSetbacks"
+                                    name="riverOrCanalSetbacks">
+                                <option [ngValue]="null" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="highTensionSetbacks">Any High-tension setbacks?</label>
+                            <select class="custom-select" formControlName="highTensionSetbacks"
+                                    id="highTensionSetbacks"
+                                    name="highTensionSetbacks">
+                                <option [ngValue]="null" hidden>Select Yes/No</option>
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                        </div>
+
+                        <h5 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h5>
+                        <div class="row col-md-12 mt-3">
+                            <div class="col-md-6">
+                                <table class="table table-bordered table-sm sb-small text-center">
+                                    <tr class="text-white sb-bg-dark">
+                                        <th>SN</th>
+                                        <th>Particulars</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Major Market Places</td>
+                                        <td>
+                                            <select formControlName="majorMarketPlaces" class="custom-select">
+                                                <option [ngValue]="null" hidden>Select Distance</option>
+                                                <option *ngFor="let distance of majorMarketPlaceDistance"
+                                                        [ngValue]="distance">{{distance}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>School/Colleges</td>
+                                        <td>
+                                            <select formControlName="schoolOrCollege" class="custom-select">
+                                                <option [ngValue]="null" hidden>Select Distance</option>
+                                                <option *ngFor="let distance of majorMarketPlaceDistance"
+                                                        [ngValue]="distance">{{distance}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Hospital/Nursing Home</td>
+                                        <td>
+                                            <select formControlName="hospitalOrNursingHome" class="custom-select">
+                                                <option [ngValue]="null" hidden>Select Distance</option>
+                                                <option *ngFor="let distance of majorMarketPlaceDistance"
+                                                        [ngValue]="distance">{{distance}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div *ngFor="let staff of staffsForm; let i = index;" formArrayName="staffs">
+                                    <div [formGroupName]="i" class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label class="staffRepresentativeNameDesignation"
+                                                   for="staffRepresentativeNameDesignationFac">Staff Representative
+                                                Designation 1</label>
+                                            <select class="form-control"
+                                                    formControlName="staffRepresentativeNameDesignation"
+                                                    id="staffRepresentativeNameDesignationFac"
+                                                    name="staffRepresentativeNameDesignation">
+                                                <option [ngValue]="null" hidden>Staff Representative Designation 1
+                                                </option>
+                                                <option *ngFor="let designation of designationList"
+                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label class="staffRepresentativeName" for="staffRepresentativeNameFac">Staff
+                                                Representative Name 1</label>
+                                            <input class="form-control"
+                                                   formControlName="staffRepresentativeName"
+                                                   id="staffRepresentativeNameFac" name="staffRepresentativeName"
+                                                   placeholder="Staff Representative Name 1" type="text">
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label class="staffRepresentativeNameDesignation2"
+                                                   for="staffRepresentativeNameDesignationFac2">Staff Representative
+                                                Designation 2</label>
+                                            <select class="form-control"
+                                                    formControlName="staffRepresentativeNameDesignation2"
+                                                    id="staffRepresentativeNameDesignationFac2"
+                                                    name="staffRepresentativeNameDesignation2">
+                                                <option [ngValue]="null" hidden>Staff Representative Designation 2
+                                                </option>
+                                                <option *ngFor="let designation of designationList"
+                                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            <label class="staffRepresentativeName2"
+                                                   for="staffRepresentativeNameFac2">Staff Representative Name 2</label>
+                                            <input class="form-control"
+                                                   formControlName="staffRepresentativeName2"
+                                                   id="staffRepresentativeNameFac2"
+                                                   name="staffRepresentativeName2"
+                                                   placeholder="Staff Representative Name 2" type="text">
+                                        </div>
+                                        <div class="col-md-1 pt-4" *ngIf="i>0">
+                                            <input class="align-self-end btn btn-sm btn-danger btn-primary"
+                                                   (click)="deleteStaff(i)" type="button" value="Delete"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-sm btn-flat btn-primary" (click)="addStaffs()">Add Staff
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label class="title" for="commentAboutFAC">Comments About FAC</label>
+                                    <textarea class="form-control" formControlName="commentAboutFAC"
+                                              id="commentAboutFAC" name="commentsAboutFAC"
+                                              placeholder="Comments About FAC" cols="3" type="text"></textarea>
+                                </div>
+                                <div>
+                                    <label class="ml-2"><strong>Location Detail</strong></label>
+                                </div>
+                                <div class="row col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="fixedAssetsLongitude">Longitude</label>
+                                        <input type="number" class="form-control" id="fixedAssetsLongitude"
+                                               formControlName="fixedAssetsLongitude" name="fixedAssetsLongitude"
+                                               placeholder="Longitude">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="fixedAssetsLatitude">Latitude</label>
+                                        <input type="number" class="form-control" id="fixedAssetsLatitude"
+                                               formControlName="fixedAssetsLatitude" name="fixedAssetsLatitude"
+                                               placeholder="Latitude">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <strong>Site Visit Map Document</strong><button nbButton size="tiny" status="success"
+                 (click)="openDocumentCreateModal(null)">
+                <i class="fa fa-plus"></i>
+            </button>
+                <table class="table table-bordered table-hover table-sm sb-small text-center">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>S.N</th>
+                        <th>Document Name</th>
+                        <th>Is Printable?</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let doc of siteVisitDocument;let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{doc?.docName}}</td>
+                        <td>
+                        <span *ngIf="doc.isPrintable==='YES'"><i class="fas fa-check-circle text-success"></i></span>
+                            <span *ngIf="doc.isPrintable==='NO'"><i class="fas fa-times-circle text-danger"></i></span>
+                        </td>
+                        <td>
+                            <span *ngIf="doc.docPath" class="ml-1"><a (click)="viewDocument(doc?.docPath,doc?.docName)">
+                                <i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
+                            </span>
+                            <span *ngIf="doc?.isApproved;else templateRef"  data-toggle="tooltip"
+                                  nbTooltip="This document contained approved loan and cannot be edit">
+                                    <a class="fa fa-edit cursor ml-1"></a>
+                                </span>
+                        </td>
+                        <ng-template #templateRef>
+                            <span (click)="openDocumentCreateModal(i)"><a class="fa fa-edit cursor ml-1"></a></span>
+                        </ng-template>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton type="button" (click)="onSubmit()" class="float-right">Save</button>
+    </nb-card-footer>
+</nb-card>
+
+

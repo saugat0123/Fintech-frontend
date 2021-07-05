@@ -1,0 +1,63 @@
+<div  class="container text-justify" id="print-section-{{offerLetterConst.LETTER_OF_INSTALLMENT}}">
+
+    <div class="col-md-12 viewFull">
+        <form class="nepali">
+            <h6 class="text-center">किस्ताबन्दी–पत्र<br>
+                (Letter of Installments)</h6>
+            <p class="text-right"> मिति:
+                <span class="nepaliFont">{{printDocForm?.date}}</span>
+            </p>
+            <b> श्री प्रोग्रेशिभ फाइनान्स लि.</b>
+            <br>
+            <b> <span class="nepaliFont">{{printDocForm?.branchName}}</span> शाखा ।</b>
+            <br>
+            <div class="row col-md-12" >
+                <p>महोदय,</p>
+                <br>
+                <p>त्यस वित्तीय संस्थाबाट म/हामी <span class="nepaliFont">{{printDocForm?.customerName}}</span>
+                    लाई जारी गरिएको रु. <span class="nepaliFont">{{printDocForm?.karjaAmount}}</span> कर्जाको सन्दर्भमा त्यस वित्तीय संस्थाबाट कुनै पनि समयभित्र कर्जा
+                    चुक्ता गर्न मागगरिएको अवस्थामा कुनै पूर्वाग्रह नराखि <span class="nepaliFont">{{printDocForm?.timePeriod}}</span> महिना/वर्षको अवधि भित्र रु. <span class="nepaliFont">{{printDocForm?.kistaAmount}}</span>
+                    को प्रत्येक <span class="nepaliFont">{{printDocForm?.kista}}</span> मा किस्तावन्दी स्वरुप पूर्ण कर्जा भुक्तानी गर्न म÷हामीदृढ छु÷छौं । यदि कुनै किस्ता तोकिएको मितिमा भुक्तानी
+                    नभएमा त्यस वित्तीय संस्थालाई सम्पूर्ण कर्जा तुरुन्तभुक्तानीको माग गर्ने अधिकार हुनेछ र म/हामी उपर त्यस वित्तीय संस्थाले सम्पूर्ण हक तथा उपाय कार्यान्वयनगर्न
+                    सक्ने छ । म/हामी यकिन गर्दछौं कि त्यस वित्तीय संस्थाले म/हामीलाई सुविधाको निमित्त मात्र किस्तावन्दीकाव्यवस्था गरेको हो र साथै म/हामीले त्यस वित्तीय
+                    संस्थालाई अनुमोदन गर्दै प्रतिज्ञा–पत्र मा
+                    सहिछाप गरीदिएकोमा सोको शर्त बमोजिम सम्पूर्ण कर्जा रकम माग गर्ने अधिकार त्यस बैंकमा सुरक्षित हुनेछ ।</p>
+                <br>
+                <p>भवदीय,</p>
+
+                <div class="row">
+                    <span class="nepaliFont"> {{printDocForm?.debtorSign}}</span>
+                    <br>
+                    <span>.......................</span>
+                    <p>ऋणीको तर्फबाट आधिकारीक दस्तखत <br>
+
+                        दस्तखत गर्नेको नाम : <span class="nepaliFont">{{printDocForm?.debtorName}} </span>
+                        संस्थाको छाप :  <span class="nepaliFont">{{printDocForm?.InstitutionStamp}}</span>
+                        <br>
+                        म/हामी उपरोक्त व्यहोराको दृढ गर्दछु/छौं र त्यस बैंकले मुख्य ऋणीहरुलाई कुनै पनि समय वासमयाबधि
+                        दिइएकोमा मैले/हामीले सहिछाप गरि दिएको प्रत्याभूति पत्र (Letter of Guarantee/Guarantee Bond)
+                        कोशर्तहरु अनुरुप म/हामी उपर कारवाही चलाउन त्यस वित्तीय संस्थाको अधिकारमा कुनै असर पर्ने छैन ।
+                    </p>
+                </div>
+                <br>
+                <p>
+                    जमानीवाला
+                    <br>
+                    <br>
+                    दस्तखत : .............
+                    <br>
+                    नाम : <span class="nepaliFont">{{printDocForm?.guarantorName}}</span>
+                    <br>
+                    ठेगाना : <span class="nepaliFont">{{printDocForm?.guarantorAddress}}</span>
+                </p>
+
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+

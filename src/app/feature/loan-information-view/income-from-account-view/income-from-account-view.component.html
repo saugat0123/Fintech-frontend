@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <table class="table table-condensed table-bordered table-sm
-        table-responsive-md text-center table-sm sb-small" *ngIf="!this.formData?.newCustomerChecked">
+        table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr>
                 <th colspan="5">Account History</th>
@@ -16,25 +16,25 @@
             <tr>
                 <td class="text-left pl-1">Credit Transaction in Account</td>
                 <td class="text-right pr-1">
-                    Rs. {{this.data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
+                    Rs. {{data?.accountTransactionForm?.creditTransactionNumber | currencyFormatter}}
                 </td>
                 <td class="text-right pr-1">
-                    Rs. {{this.data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
+                    Rs. {{data?.accountTransactionForm?.creditTransactionValue  | currencyFormatter}}
                 </td>
             </tr>
             <tr>
                 <td class="text-left pl-1">Debit Transaction in Account</td>
                 <td class="text-right pr-1">
-                    Rs. {{this.data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
+                    Rs. {{data?.accountTransactionForm?.debitTransactionNumber | currencyFormatter}}
                 </td>
                 <td class="text-right pr-1">
-                    Rs. {{this.data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
+                    Rs. {{data?.accountTransactionForm?.debitTransactionValue | currencyFormatter}}
                 </td>
             </tr>
-            <tr>
+            <tr *ngIf="!disabledAlpha && !disabledLambda">
                 <td class="sb-bg-secondary text-white text-left pl-1">Repayment track in our bank</td>
-                <td colspan="2">
-                    {{this.data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
+                <td colspan="2" class="text-left pl-1">
+                    {{data?.accountTransactionForm?.repaymentTrackWithCurrentBank}}
                 </td>
             </tr>
             </tbody>

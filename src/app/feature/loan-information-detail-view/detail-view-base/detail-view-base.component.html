@@ -10,12 +10,33 @@
 <app-proposal-view *ngIf="loanDataHolder?.proposal"
                    [customerAllLoanList]="customerAllLoanList"
                    [proposalData]="proposalData"
-                    [loanDataHolder]="loanDataHolder"></app-proposal-view>
+                   [loanDataHolder]="loanDataHolder"></app-proposal-view>
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
+
+<div *ngIf="productUtils.CBS_ENABLE">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <p><strong>Group Details</strong>
+            </p>
+        </div>
+        <div class="col-md-12">
+            <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
+                           *ngIf="loanDataHolder"></app-cbs-table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!productUtils.CBS_ENABLE">
+    <app-proposal-justification-summary *ngIf="loanDataHolder?.proposal"
+                                        [customerAllLoanList]="customerAllLoanList"
+                                        [proposalData]="proposalData"></app-proposal-justification-summary>
+</div>
+
 <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
-                   [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+                   [shareSecurityData]="loanHolder?.shareSecurity"
+                   [securityId]="securityId"></app-security-view>
 <app-financial-view *ngIf="loanHolder?.financial"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
@@ -40,20 +61,24 @@
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
-            <ng-container *ngIf="!isMega; else ntaMegaSummary">
-                <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-            </ng-container>
+<ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                          [fiscalYears]="fiscalYearArray"
+                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+</ng-container>
 
-            <ng-template #ntaMegaSummary>
-                <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                      [fiscalYears]="fiscalYearArray"
-                                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-            </ng-template>
+<ng-template #otherBank>
+    <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                     [fiscalYears]="fiscalYearArray"
+                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+</ng-template>
+<div *ngIf="client === clientName?.MEGA">
+    <app-comments-summary
+            [formData]="dataFromComments"></app-comments-summary>
+    <app-previous-security-summary *ngIf="previousSecuritySummary"
+                                   [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+</div>
 
-<app-income-from-account-view *ngIf="loanHolder?.incomeFromAccount"
-                              [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-view>
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
@@ -66,23 +91,32 @@
     </app-report-summary>
 </div>
 <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+    <span><strong>Loan Reporting Information</strong></span>
     <app-report-summary
             [approved]="false"
-            *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+            *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
             [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+    <ng-template #noinfo>
+        <p>No any information tagged</p>
+    </ng-template>
+</div>
+<div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+    <span><strong>Customer Reporting Information</strong></span>
+    <app-report-summary
+            [approved]="false"
+            [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
 </div>
 
 <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
                     [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
 <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-            <!--<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
-                                          [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>-->
-            <app-credit-checklist-view *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
-                                          [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
+<!--<app-credit-checklist-general *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                              [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-general>-->
+<app-credit-checklist-view *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                           [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-credit-checklist-view>
 <!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
 <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
 <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
 <!--                                [fromProfile]="false"></app-credit-grading>-->
-<ng-template  #allDocumentView>
-    <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
-</ng-template>
+
+<app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>

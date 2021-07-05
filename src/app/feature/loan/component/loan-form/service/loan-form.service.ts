@@ -10,14 +10,12 @@ import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerDocuments} from '../../../model/customerDocuments';
 
 
-
 @Injectable({
     providedIn: 'root'
 })
 export class LoanFormService extends BaseService<LoanDataHolder> {
 
     static API = 'v1/Loan-customer';
-
 
     constructor(protected http: HttpClient) {
         super(http);
@@ -78,9 +76,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     public renewLoan(searchObj: any) {
         const api = `${this.getApi()}/close-renew-customer-loan`;
         const req = ApiUtils.getRequest(api);
-
         return this.http.post(req.url, searchObj, {headers: req.header});
-
     }
 
     public getLoanStatusApi(loanNo: string): Observable<any> {
@@ -130,6 +126,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(`${this.getApi()}/customer-group`);
         return this.http.post(req.url, customerGroup, {headers: req.header});
     }
+
     public getCustomerFromCustomerLoan(searchObj: any, page: number = 1, size: number = 10) {
         const api = `${this.getApi()}/customer-list?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
@@ -168,10 +165,34 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         };
         return this.http.post(req.url, customerDocuments, params);
     }
+
     public saveCbsNumbers(loanDataHolder) {
         const api = `${this.getApi()}/cbs`;
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, loanDataHolder, {headers: req.header});
+    }
+
+    public isCustomerEditable(loanHolderId: number) {
+        const api = `${this.getApi()}/customer-editable/${loanHolderId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public reInitiateLoan(object): Observable<any> {
+        const req = ApiUtils.getRequest(`${LoanFormService.API}/re-initiate-loan`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }
+
+    public changeLoanConfigByCustomerLoanIdAndLoanConfigID(customerLoanId: number, loanConfigId: number) {
+        const api = `${this.getApi()}/change-loan/customer-loan-id/${customerLoanId}/loan-config-id/${loanConfigId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public deleteLoanByAdminAndMaker(customerLoanId: number) {
+        const api = `${this.getApi()}/delete-loan/${customerLoanId}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.delete(req.url, {headers: req.header});
     }
 
     protected getApi(): string {

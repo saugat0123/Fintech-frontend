@@ -1,5 +1,4 @@
-
-<div id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}" class="nep">
+<div id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}" class="nep" xmlns="http://www.w3.org/1999/html">
 <nb-card      [nbSpinner]="spinner"
               nbSpinnerStatus="primary"
               nbSpinnerSize="large"
@@ -21,17 +20,33 @@
                </div>
                <div>
                    <p>
-                       <input class="form-field form-control-sm nepaliFont col-3"
-                              formControlName="borrowerName"
-                              placeholder="श्री/श्रीमती यज्ञ बहादुर कटवाल"
-                              type="text"/>
+                       <b>नाम :</b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
+
                    </p>
-                   <p>ठेगाना:
-                       <input class="form-field form-control-sm nepaliFont col-2"
-                              formControlName="borrowerAddress"
-                              placeholder="भरतपुर"
-                              type="text"/>
-                   </p>
+                   <div class="mb-2">
+                       <div>
+                           <b>स्थायी ठेगाना:</b>
+                           प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                           जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                           वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                           <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                           <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                       </div>
+                       <b>हाल :</b>
+                       प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                       जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                       वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                       <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                       <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
+                   </div>
                    <p>सम्पर्क टेलिफोन नंः
                        <input class="form-field form-control-sm nepaliFont"
                               formControlName="contactNumber"
@@ -93,11 +108,10 @@
                            <tbody>
                            <tr>
                                <td>कर्जा सीमा रकम</td>
-                               <td>रु. <input class="form-field form-control-sm nepaliFont"
-                                              formControlName="karjaSeemaRakam"
-                                              placeholder="१०,००,०००"
-                                              type="text"/>/-(अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
-                                                                              formControlName="karjaSeemaRakamWord"
+                               <td>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, i , 'professionalTermLoanArray')"
+                                                        [name]="patchFunction('professionalTermLoanArray',i,'karjaSeemaRakam')"></app-custom-input>/-
+                                                                            (अक्षेरुपी <input readonly class="form-field form-control-sm"
+                                                                                formControlName="karjaSeemaRakamWord"
                                                                               placeholder="दश लाख"
                                                                               type="text"/> रुपैयाँ मात्र।)</td>
                            </tr>
@@ -117,22 +131,24 @@
                            </tr>
                            <tr>
                                <td>व्याज</td>
-                               <td> <strong>आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate)</strong> (हालको आधार दर
-                                   <input class="form-field form-control-sm nepaliFont col-2"
+                               <td> आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate) (हालको आधार दर
+                                   <input (change)="calcYearlyRate('professionalTermLoanArray', i)"
+                                          class="form-field form-control-sm nepaliFont col-2"
                                           formControlName="aadharRate"
                                           placeholder=" २.३५%"
                                           type="text"/>% +
-                                   प्रिमियम दर <input class="form-field form-control-sm nepaliFont col-2"
+                                   प्रिमियम दर <input (change)="calcYearlyRate('professionalTermLoanArray', i)"
+                                                      class="form-field form-control-sm nepaliFont col-2"
                                                       formControlName="premiumRate"
                                                       placeholder=" २.३५%"
-                                                      type="text"/>%) का दरले हाललाइ
-                                   <strong>बार्षिक</strong>
-                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                                      type="text"/>%) का दरले हाललाइ बार्षिक
+                                   <input readonly class="form-field form-control-sm col-2"
                                           formControlName="rate"
                                           placeholder=" १३%"
                                           type="text"/>%
-                                   वा समय समयमा बैंकले तोके बमोजिम चुक्ता/भुक्तान गक्र्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन
-                                   हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
+                                   त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा समय समयमा बैंकले तोके
+                                   बमोजिम चुक्ताभुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही
+                                   बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
                                </td>
                            </tr>
                            <tr>
@@ -148,11 +164,12 @@
                                    समान <input class="form-field form-control-sm nepaliFont "
                                                formControlName="reenChuktaMaasik"
                                                placeholder="मासिक"
-                                               type="text"/> किस्ताबन्दीमा रु <input class="form-field form-control-sm nepaliFont "
-                                                                                     formControlName="emiAmount"
-                                                                                     placeholder=" २२,७५३.०७ "
-                                                                                     type="text"/>/– (अक्षेरुपी <input
-                                           class="form-field form-control-sm nepaliFont"
+
+                                               type="text"/> किस्ताबन्दीमा रु
+                                   <app-custom-input (eventEmit)="nepaliToEng($event, i , 'professionalTermLoanArray')"
+                                                                                                [name]="patchFunction('professionalTermLoanArray',i,'emiAmount')" ></app-custom-input>/- (अक्षेरुपी
+
+                                   <input readonly class="form-field form-control-sm"
                                            formControlName="amountInWords"
                                            placeholder=" बाईस हजार सात सय त्रिपन्न रुपैयाँ सात पैसा मात्र"
                                            type="text"/>मात्र) का
@@ -242,13 +259,12 @@
                            <tbody>
                            <tr>
                                <td>कर्जा सीमा रकम</td>
-                               <td>रु. <input class="form-field form-control-sm nepaliFont"
-                                              formControlName="karjaSeemaRakam"
-                                              placeholder="१०,००,०००"
-                                              type="text"/>/-(अक्षेरुपी <input class="form-field form-control-sm nepaliFont"
-                                                                              formControlName="karjaSeemaRakamWord"
-                                                                              placeholder="दश लाख"
-                                                                              type="text"/> रुपैयाँ मात्र।)</td>
+                               <td>रु.<app-custom-input (eventEmit)="changeToNepAmount($event, i , 'professionalOverDraftLoanArray')"
+                                                        [name]="patchFunction('professionalOverDraftLoanArray',i,'karjaSeemaRakam')"></app-custom-input>/-
+                                   (अक्षेरुपी <input readonly class="form-field form-control-sm nepaliFont"
+                                                     formControlName="karjaSeemaRakamWord"
+                                                     placeholder="दश लाख"
+                                                     type="text"/> रुपैयाँ मात्र।)</td>
                            </tr>
                            <tr>
                                <td>प्रयोजन</td>
@@ -267,17 +283,21 @@
                                </td>
                            </tr>
                            <tr>
+
+
                                <td>व्याज</td>
                                <td> आधार दर (Base Rate) +  प्रिमियम दर (Premium Rate) (हालको आधार दर
-                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                   <input (change)="calcYearlyRate('professionalOverDraftLoanArray', i)"
+                                          class="form-field form-control-sm nepaliFont col-2"
                                           formControlName="aadharRate"
                                           placeholder=" २.३५%"
                                           type="text"/>% +
-                                   प्रिमियम दर <input class="form-field form-control-sm nepaliFont col-2"
+                                   प्रिमियम दर <input (change)="calcYearlyRate('professionalOverDraftLoanArray', i)"
+                                                      class="form-field form-control-sm nepaliFont col-2"
                                                       formControlName="premiumRate"
                                                       placeholder=" २.३५%"
                                                       type="text"/>%) का दरले हाललाइ बार्षिक
-                                   <input class="form-field form-control-sm nepaliFont col-2"
+                                   <input readonly class="form-field form-control-sm nepaliFont col-2"
                                           formControlName="rate"
                                           placeholder=" १३%"
                                           type="text"/>%
@@ -737,30 +757,44 @@
                    सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतीय
                    माध्यम अथवा एस.एम.एस (SMS) मार्फत गराइनेछ जसलाई बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु
                    देहाय
-                   बमोजिमको ठेगानामा हुलाक वा प्mयाक्सको माध्यमद्वारा दिइनेछ ।
+                   बमोजिमको ठेगानामा हुलाक वा फ्याक्सको माध्यमद्वारा दिइनेछ ।
                </div>
                <div class="col-md-8">
                    <div class="pt-2 pb-2  col-md-8 ">
                        <div>बैंक कर्जा ब्यवस्थापन विभाग</div>
                        <div>मेगा बैंक नेपाल लिमिटेड, केन्द्रिय कार्यालय,</div>
                        <div>कमलादी, काठमाण्डौ पोष्ट बक्स नं.२६५५९</div>
-                       <div>फोन –९७७–१–४१६९२५० प्mयाक्स –९७७–१–४१६९२६०</div>
+                       <div>फोन –९७७–१–४१६९२५० </div>
+                       <div>फ्याक्स –९७७–१–४१६९२६०</div>
                        <div>काठमाडौं, नेपाल ।</div>
                    </div>
                    <div class=" col-md-10 " >
-                       <div>ऋणी</div>
-                       <div>
-                           नाम:
-                           <strong class="nepaliFont">
-                               {{retailProfessionalLoan.get('borrowerName').value}}
-                           </strong>
+                       <strong>ऋणीः</strong>
+                       <div class="ml-4">
+                           <strong>नाम : </strong><strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> <br>
+                           <div>
+                               <b>स्थायी ठेगाना:</b>
+                               प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                               जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                               वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                               <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                               <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                           </div>
+                           <b>हाल :</b>
+                           प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                           जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                           वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                           <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                           <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
                        </div>
-                       <p>ठेगाना:
-                           <strong class="nepaliFont">{{retailProfessionalLoan.get('borrowerAddress').value}}</strong>
-                       </p>
-                       <p>सम्पर्क टेलिफोन नंः
-                           <strong class="nepaliFont">{{retailProfessionalLoan.get('contactNumber').value}}</strong>
-                       </p>
                    </div>
                </div>
                <div class="pt-3">
@@ -812,7 +846,7 @@
                </div>
                <br>
                <div>
-                   ऋणीको नाम <strong class="nepaliFont">{{this.retailProfessionalLoan.get('borrowerName').value}}</strong>
+                   ऋणीको नाम :<strong class="nepaliFont">{{loanHolderInfo?.name}}</strong> ।
                </div>
                <br>
                <div class="col-md-12">
@@ -839,5 +873,7 @@
     </nb-card-footer>
 </nb-card>
 </div>
-<app-retail-professional-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-retail-professional-loan-print>
+<app-retail-professional-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                    hidden></app-retail-professional-loan-print>
 

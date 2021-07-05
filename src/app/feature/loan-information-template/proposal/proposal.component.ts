@@ -56,8 +56,26 @@ export class ProposalComponent implements OnInit {
   showInstallmentAmount = false;
   showRepaymentMode = false;
   swapChargeChecked = false;
+  subsidizedLoanChecked = false;
   client = environment.client;
   clientName = Clients;
+  othersSubsidyLoan = false;
+  existInterestLimit: number;
+  showInterestAmount = true;
+
+  subsidyLoanType = [
+    {value: 'Literate Youth Self Employment Loan'},
+    {value: 'Project Loan For Youth Returning From Foreign'},
+    {value: 'Female Entrepreneur Loan'},
+    {value: 'Business Loan For Marginalized Group of People'},
+    {value: 'Loan For Higher Technical Know How'},
+    {value: 'Residential Home Loan For Earthquake Affected'},
+    {value: 'Loan For Garment Industry Operation'},
+    {value: 'Loan For Training From Approved Technical Know How'},
+    {value: 'Agriculture Business Loan (Overdraft)'},
+    {value: 'Agriculture Business Loan (Term)'},
+    {value: 'Others'},
+  ];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -82,6 +100,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
+      this.existInterestLimit = this.formDataForEdit['existInterestRate'];
     } else {
       this.setActiveBaseRate();
     }
@@ -128,6 +147,9 @@ export class ProposalComponent implements OnInit {
             this.setCollateralRequirement(this.collateralRequirement);
             // this.checkLoanConfig();
             this.setValidatorForPrepaymentField();
+            if (ObjectUtil.isEmpty(this.formDataForEdit)) {
+              this.existInterestLimit = response.detail.existInterestRate;
+            }
           }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -139,9 +161,8 @@ export class ProposalComponent implements OnInit {
     .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
     this.checkInstallmentAmount();
-      this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
-          .patchValue(Number(value)));
-
+    this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
+        .patchValue(Number(value)));
   }
 
   buildForm() {
@@ -168,6 +189,7 @@ export class ProposalComponent implements OnInit {
       outStandingLimit: [undefined],
       collateralRequirement: [undefined, Validators.required],
       swapCharge: [undefined],
+      subsidizedLoan: [undefined],
       limitExpiryMethod: [undefined, Validators.required],
       duration: [undefined, Validators.required],
       condition: [undefined, Validators.required],
@@ -181,9 +203,9 @@ export class ProposalComponent implements OnInit {
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
       cashMarginMethod: ['PERCENT'],
-
-
-
+      enhanceLimitAmount: [undefined],
+      subsidyLoanType: [undefined],
+      others: [undefined],
 
       // Additional Fields--
       // for installment Amount--
@@ -193,7 +215,7 @@ export class ProposalComponent implements OnInit {
       moratoriumPeriod: [undefined],
       // for prepaymentCharge Amount--
       prepaymentCharge: [(ObjectUtil.isEmpty(this.proposalData)
-          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? undefined :
+          || ObjectUtil.isEmpty(this.proposalData.prepaymentCharge)) ? 0 :
           this.proposalData.prepaymentCharge],
       // for prepaymentCharge Amount--
       // for commitmentFee Amount--
@@ -203,9 +225,13 @@ export class ProposalComponent implements OnInit {
       riskConclusionRecommendation: [undefined],
       summeryRecommendation: undefined,
       purposeOfLoan: undefined,
-      termsAndCondition: undefined
-
-
+      termsAndCondition: undefined,
+      prepaymentSwapCommitment: [undefined],
+      existCashMargin: [undefined],
+      existCashMarginMethod: ['PERCENT'],
+      existInterestRate: [undefined],
+      existCommissionPercentage: [undefined],
+      settlementAmount: [undefined]
     });
   }
 
@@ -221,10 +247,10 @@ export class ProposalComponent implements OnInit {
 
   checkLoanTypeAndBuildForm() {
     if (this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' || this.loanType === 'PARTIAL_SETTLEMENT_LOAN'
-        || this.loanType === 'FULL_SETTLEMENT_LOAN') {
+        || this.loanType === 'FULL_SETTLEMENT_LOAN' || this.loanType === 'RENEW_WITH_ENHANCEMENT') {
       this.checkApproved = true;
       this.proposalForm.get('existingLimit').setValidators(Validators.required);
-      this.proposalForm.get('outStandingLimit').setValidators(Validators.required);
+      this.proposalForm.get('outStandingLimit');
     }
 }
   configEditor() {
@@ -259,7 +285,8 @@ export class ProposalComponent implements OnInit {
       solChecked: this.solChecked,
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked,
-      swapChargeChecked: this.swapChargeChecked
+      swapChargeChecked: this.swapChargeChecked,
+      subsidizedLoanChecked: this.subsidizedLoanChecked
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -281,6 +308,11 @@ export class ProposalComponent implements OnInit {
     this.proposalData.premiumOnCouponRate = this.proposalForm.get('premiumOnCouponRate').value;
     this.proposalData.tenorOfEachDeal = this.proposalForm.get('tenorOfEachDeal').value;
     this.proposalData.cashMarginMethod = this.proposalForm.get('cashMarginMethod').value;
+    this.proposalData.enhanceLimitAmount = this.proposalForm.get('enhanceLimitAmount').value;
+    this.proposalData.settlementAmount = this.proposalForm.get('settlementAmount').value;
+    this.proposalData.existCashMargin = this.proposalForm.get('existCashMargin').value;
+    this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
+    this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
   }
 
   get formControls() {
@@ -317,7 +349,6 @@ export class ProposalComponent implements OnInit {
         } else {
           this.riskChecked = false;
           this.proposalForm.get('riskConclusionRecommendation').setValue(null);
-
         }
         break;
       case 'swapCharge':
@@ -326,6 +357,15 @@ export class ProposalComponent implements OnInit {
         } else {
           this.swapChargeChecked = false;
           this.proposalForm.get('swapCharge').setValue(null);
+        }
+        break;
+      case 'subsidizedLoan':
+        if (event) {
+          this.subsidizedLoanChecked = true;
+        } else {
+          this.subsidizedLoanChecked = false;
+          this.proposalForm.get('subsidizedLoan').setValue(null);
+          this.proposalForm.get('subsidyLoanType').setValue(null);
         }
         break;
     }
@@ -337,6 +377,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['waiverChecked'], 'waiver');
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
+      this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
     }
   }
 
@@ -390,20 +431,24 @@ export class ProposalComponent implements OnInit {
     let interestAmount = 0;
     const rate = Number(this.proposalForm.get('interestRate').value) / 100;
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
-    const tenure = this.proposalForm.get('tenureDurationInMonths').value;
+    const tenure = this.proposalForm.get('tenureDurationInMonths').value / 12;
+    const calculatedInterestAmount = this.proposalForm.get('interestAmount').value;
     if (proposedAmount) {
       switch (repaymentMode) {
         case 'MONTHLY':
-          interestAmount = (proposedAmount * rate) / 12;
-          principleAmount = (proposedAmount / tenure) * 12;
+          interestAmount = (proposedAmount * rate * tenure) / 12;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 12;
           break;
         case 'QUARTERLY':
-          interestAmount = (proposedAmount * rate) / 4;
-          principleAmount = (proposedAmount / tenure) * 4;
+          interestAmount = (proposedAmount * rate * tenure) / 4;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 4;
           break;
         case 'SEMI-ANNUALLY' :
-          interestAmount = (proposedAmount * rate) / 2;
-          principleAmount = (proposedAmount / tenure) * 2;
+          interestAmount = (proposedAmount * rate * tenure) / 2;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 2;
+          break;
+        case 'AT MATURITY':
+          principleAmount = proposedAmount;
           break;
         default:
           principleAmount = 0;
@@ -461,12 +506,15 @@ export class ProposalComponent implements OnInit {
       this.checkRepaymentMode();
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
     } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
+      this.showInterestAmount = false;
       this.showRepaymentMode = true;
       this.showInstallmentAmount = false;
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
     } else {
+      this.calculateInterestAmountForRepaymentMode();
       this.showInstallmentAmount = false;
       this.showRepaymentMode = false;
+      this.showInterestAmount = true;
     }
   }
 
@@ -501,16 +549,20 @@ export class ProposalComponent implements OnInit {
     calculateLimitValues() {
 
         switch (this.loanType) {
-            case  'PARTIAL_SETTLEMENT_LOAN':
-                const newLimit = this.formControls.existingLimit.value - this.formControls.outStandingLimit.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
-                return;
-            case  'ENHANCED_LOAN':
-                const enhanceLimit = this.formControls.existingLimit.value + this.formControls.outStandingLimit.value;
-                this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
-                return;
-            default:
-                return;
+          case  'PARTIAL_SETTLEMENT_LOAN':
+            const newLimit = this.formControls.existingLimit.value - this.formControls.settlementAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(newLimit));
+            return;
+          case  'ENHANCED_LOAN':
+            const enhancementAmount = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhancementAmount));
+            return;
+          case  'RENEW_WITH_ENHANCEMENT':
+            const enhanceLimit = this.formControls.existingLimit.value + this.formControls.enhanceLimitAmount.value;
+            this.formControls.proposedLimit.setValue(NumberUtils.isNumber(enhanceLimit));
+            return;
+          default:
+            return;
         }
 
     }
@@ -518,8 +570,29 @@ export class ProposalComponent implements OnInit {
     calculateInterestAmountForRepaymentMode() {
         const proposeLimit = Number(this.proposalForm.get('proposedLimit').value);
         const interestRate = Number(this.proposalForm.get('interestRate').value);
-        const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value);
+        const tenureDurationInMonths = Number(this.proposalForm.get('tenureDurationInMonths').value) / 12;
         const interestAmount = (proposeLimit * (interestRate / 100) * tenureDurationInMonths) / 12;
-        return this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
+        this.proposalForm.get('interestAmount').setValue(Number(interestAmount).toFixed(2));
+        this.proposalForm.get('principalAmount').setValue(Number(proposeLimit).toFixed(2));
     }
+
+  calculateInterestRate() {
+    const baseRate = Number(this.proposalForm.get('baseRate').value);
+    const premiumRateOnBaseRate = Number(this.proposalForm.get('premiumRateOnBaseRate').value);
+    const discountRate = Number(this.proposalForm.get('subsidizedLoan').value);
+
+    const interestRate = (baseRate - discountRate + premiumRateOnBaseRate);
+    return this.proposalForm.get('interestRate').setValue(Number(interestRate).toFixed(2));
+  }
+
+  onChange() {
+    const isOtherSelected = this.proposalForm.get('subsidyLoanType').value.includes('Others');
+    if (isOtherSelected) {
+      this.othersSubsidyLoan = true;
+    } else {
+      this.othersSubsidyLoan = false;
+      this.proposalForm.get('others').setValue(null);
+    }
+  }
+
 }

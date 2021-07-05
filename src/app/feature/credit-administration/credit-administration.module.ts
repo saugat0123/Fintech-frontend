@@ -43,14 +43,17 @@ import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-
 import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
 import {AdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/additional-document.component';
 import {AddAdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/add-additional-document/add-additional-document.component';
-import { DocumentChecklistLiteComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist-lite/document-checklist-lite.component';
-import { DocumentChecklistViewLiteComponent } from './cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
-import { SecurityComplianceCertificateComponent } from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
+import {DocumentChecklistLiteComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist-lite/document-checklist-lite.component';
+import {DocumentChecklistViewLiteComponent} from './cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
+import {SecurityComplianceCertificateComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {NgxPrintModule} from 'ngx-print';
-import { AdditionalExposureComponent } from './component/disbursement/additional-exposure/additional-exposure.component';
-import { CadOfferLetterConfigurationComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {AdditionalExposureComponent} from './component/disbursement/additional-exposure/additional-exposure.component';
+import {CadOfferLetterConfigurationComponent} from './cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offer-letter-configuration/nep-proposed-amount-form/nep-proposed-amount-form.component';
+import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
+import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 
 
 @NgModule({
@@ -93,12 +96,15 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
         DocumentChecklistViewLiteComponent,
         SecurityComplianceCertificateComponent,
         AdditionalExposureComponent,
-        CadOfferLetterConfigurationComponent],
+        CadOfferLetterConfigurationComponent,
+        NepProposedAmountFormComponent,
+        CadFileSetupComponent],
     imports: [
         ThemeModule,
         CommonModule,
         NbDialogModule.forRoot(),
         MegaOfferLetterTemplateModule,
+        ExcelOfferLetterTemplateModule,
         CadDocumentTemplateModule,
         RouterModule.forChild(routes),
         NgSelectModule,
@@ -119,7 +125,9 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
         AddAdditionalDocumentComponent,
         SecurityComplianceCertificateComponent,
         AdditionalExposureComponent,
-        CadOfferLetterConfigurationComponent]
+        CadOfferLetterConfigurationComponent,
+        CadFileSetupComponent],
+    exports: [CadFileSetupComponent]
 })
 export class CreditAdministrationModule {
 }

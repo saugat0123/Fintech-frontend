@@ -1,6 +1,6 @@
 <div class="row p-3">
     <div class="col-md-12">
-        <p class="float-left"><b>Net Trading Assets</b></p>
+        <p class="float-left"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></p>
     </div>
     <table
             class="table table-bordered table-hover table-sm sb-small">
@@ -11,7 +11,7 @@
             <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
         </tr>
         <tr class="sb-bg-dark text-white text-center">
-            <th scope="col" >Net Trading Assets (NTA)</th>
+            <th scope="col">{{client === clientName?.ICFC ? 'Net Trading Current Assets (NTCA)' : 'Net Trading Assets (NTA)'}}</th>
             <th scope="col">Q1</th>
             <th scope="col">Q2</th>
             <th scope="col">Q3</th>
@@ -27,17 +27,17 @@
         <tr class="text-center">
             <td class="text-left pl-1">As On</td>
             <!--previous year-->
-            <td>{{prevYearData?.asOnDate?.q1 |date}}</td>
-            <td>{{prevYearData?.asOnDate?.q2 |date}}</td>
-            <td>{{prevYearData?.asOnDate?.q3 |date}}</td>
-            <td>{{prevYearData?.asOnDate?.q4 |date}}</td>
+            <td>{{prevYearData?.asOnDate?.q1 |engNepDate: false}}</td>
+            <td>{{prevYearData?.asOnDate?.q2 |engNepDate: false}}</td>
+            <td>{{prevYearData?.asOnDate?.q3 |engNepDate: false}}</td>
+            <td>{{prevYearData?.asOnDate?.q4 |engNepDate: false}}</td>
             <td></td>
 
             <!-- current year-->
-            <td>{{currentYearData?.asOnDate?.q1 |date}}</td>
-            <td>{{currentYearData?.asOnDate?.q2 |date}}</td>
-            <td>{{currentYearData?.asOnDate?.q3 |date}}</td>
-            <td>{{currentYearData?.asOnDate?.q4 |date}}</td>
+            <td>{{currentYearData?.asOnDate?.q1 |engNepDate: false}}</td>
+            <td>{{currentYearData?.asOnDate?.q2 |engNepDate: false}}</td>
+            <td>{{currentYearData?.asOnDate?.q3 |engNepDate: false}}</td>
+            <td>{{currentYearData?.asOnDate?.q4 |engNepDate: false}}</td>
             <td></td>
 
             <td></td>
@@ -151,7 +151,7 @@
             <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.average |currencyFormatter}}</td>
         </tr>
         <tr>
-            <td class="text-left pl-1"><b>Net Trading Assets</b></td>
+            <td class="text-left pl-1"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></td>
             <!--previous year-->
             <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q1 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q2 |currencyFormatter}}</td>
@@ -183,7 +183,7 @@
             <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.average |currencyFormatter}}</td>
         </tr>
         <tr>
-            <td class="text-left pl-1"><strong>DE Ratio</strong></td>
+            <td class="text-left pl-1"><strong>{{client === clientName?.ICFC ? 'Loan To NTCA (%)' : 'D:E ratio (%)'}}</strong></td>
             <!--previous year-->
             <td class="pr-1"> {{prevYearData?.deRatio?.q1 |currencyFormatter}}</td>
             <td class="pr-1"> {{prevYearData?.deRatio?.q2 |currencyFormatter}}</td>

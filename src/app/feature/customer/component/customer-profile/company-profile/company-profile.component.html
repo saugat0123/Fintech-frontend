@@ -401,19 +401,19 @@
                   <table aria-describedby="swot table" class="table  table-bordered table-hover sb-small text-center">
                     <tr>
                       <td class="sb-bg-dark text-white"> Strengths</td>
-                      <td>{{companyJsonData?.swot?.strength}} </td>
+                      <td [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Weaknesses</td>
-                      <td> {{companyJsonData?.swot?.weakness}}</td>
+                      <td [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Opportunities</td>
-                      <td> {{companyJsonData?.swot?.opportunity}}</td>
+                      <td [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
                     </tr>
                     <tr>
                       <td class="sb-bg-dark text-white"> Threats</td>
-                      <td> {{companyJsonData?.swot?.threats}}</td>
+                      <td [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
                     </tr>
                   </table>
                 </nb-accordion-item-body>
@@ -426,8 +426,6 @@
         <nb-card accent="primary" style="height: 650px">
           <nb-card-header>
             Company Detail
-            <button (click)="openCompanyDetailEdit(companyInfo)" size="tiny" nbButton *ngIf="maker"
-                    class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>
             <app-company-profile-additional-information *ngIf="companyInfo?.registrationNumber"
@@ -446,16 +444,21 @@
       </div>
     </div>
     <!--        //cbs Group-->
+    <div class="row  py-2" *ngIf="maker && !isEditable">
+      <div class="col-md-12 text-danger">
+        <sup>*</sup><strong style=" font-style: oblique;"> This Customer Loan is Under Progress So Information cannot be Edited.
+      </strong> </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <app-customer-loan-information
             (triggerCustomerRefresh)="refreshCustomerInfo()"
-            *ngIf="customerInfo && maker"
+            *ngIf="customerInfo && isEditable"
             [customerInfoId]="customerInfoId"
             [customerInfo]="customerInfo"
             [isMicroCustomer]="companyInfo?.isMicroCustomer"
             [companyInfo]="companyInfo"></app-customer-loan-information>
-        <app-customer-loan-information-view *ngIf="!maker"
+        <app-customer-loan-information-view *ngIf="!isEditable"
                                             [customerInfo]="customerInfo"></app-customer-loan-information-view>
       </div>
     </div>

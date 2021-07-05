@@ -81,13 +81,13 @@
                            placeholder=""
                            type="text"
                            size="3"/>
-                    को <strong class="nepaliFont">{{one?.guarantorName}}</strong>
+                    को <strong class="nepaliFont">{{one?.name}}</strong>
                         (ना.प्र.प नं. <strong class="nepaliFont">
-                                {{one?.guarantorCitizenshipNum}}
+                                {{one?.citizenNumber}}
                                 </strong>
-                    मिति <strong class="nepaliFont">{{one?.guarantorIssueDate}}</strong>
+                    मिति <strong class="nepaliFont">{{one?.issuedYear}}</strong>
                         जिल्ला <strong class="nepaliFont">
-                                {{one?.guarantorIssueDistrict}}
+                                {{one?.issuedPlace}}
                                 </strong>), आगे
                     </span>
                     <span *ngIf="nepData?.gender==1">

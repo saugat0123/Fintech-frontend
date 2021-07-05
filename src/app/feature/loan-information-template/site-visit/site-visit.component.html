@@ -1,3 +1,12 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-end">
+        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                        name="guarantorCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
+    </div>
+</div>
 <nb-card [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="large"
@@ -6,25 +15,19 @@
     <nb-card-body>
         <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
             <div class="row justify-content-around">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <nb-checkbox [checked]="currentResidentForm"
                                  (change)="checkboxSelected('currentResident',$event.target.checked)">
                         Current Resident
                     </nb-checkbox>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <nb-checkbox [checked]="businessSiteVisitForm"
                                  (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
                         Business Site Visit
                     </nb-checkbox>
                 </div>
-                <div class="col-md-3">
-                    <nb-checkbox [checked]="fixedAssetCollateralForm"
-                                 (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
-                        Fixed Asset Collateral
-                    </nb-checkbox>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <nb-checkbox [checked]="currentAssetsInspectionForm"
                                  (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
                         Current Assets Inspection
@@ -47,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="ownerName" for="address">Owner Name</label>
+                    <label class="ownerName" for="ownerName">Owner Name</label>
                     <input class="form-control" formControlName="ownerName" id="ownerName" name="ownerName"
                            [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails')?.get('ownerName')?.errors }"
                            placeholder="owner name" type="text">
@@ -59,47 +62,42 @@
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="staffRepresentativeNameDesignation"
-                           for="staffRepresentativeNameDesignation">Staff Representative
-                        Designation</label>
+                           for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
                     <select class="form-control"
                             formControlName="staffRepresentativeNameDesignation"
                             id="staffRepresentativeNameDesignation"
                             name="staffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                         <option *ngFor="let designation of designationList"
                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
-                        Representative Name</label>
+                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name 1</label>
                     <input class="form-control" formControlName="staffRepresentativeName"
                            id="staffRepresentativeName" name="staffRepresentativeName"
-                           placeholder="Staff Representative Name" type="text">
+                           placeholder="Staff Representative Name 1" type="text">
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="alternativeStaffRepresentativeNameDesignation"
-                           for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
-                        Representative Designation</label>
+                    <label class="staffRepresentativeNameDesignation2"
+                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
                     <select class="form-control"
-                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                            id="alternativeStaffRepresentativeNameDesignation"
-                            name="alternativeStaffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                            Designation
+                            formControlName="staffRepresentativeNameDesignation2"
+                            id="staffRepresentativeNameDesignation2"
+                            name="staffRepresentativeNameDesignation2">
+                        <option [ngValue]="null">Staff Representative Designation 2
                         </option>
                          <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="alternativeStaffRepresentativeName"
-                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
-                        Name</label>
-                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                           id="alternativeStaffRepresentativeName"
-                           name="alternativeStaffRepresentativeName"
-                           placeholder="Alternative Staff Representative Name" type="text">
+                    <label class="staffRepresentativeName2"
+                           for="staffRepresentativeName2">Staff Representative Name 2</label>
+                    <input class="form-control" formControlName="staffRepresentativeName2"
+                           id="staffRepresentativeName2"
+                           name="staffRepresentativeName2"
+                           placeholder="Staff Representative Name 2" type="text">
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
@@ -173,8 +171,13 @@
                 <div class="col-md-4 form-group">
                     <label class="title" for="dateOfVisit">Date Of Visit</label>
                     <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
+                           *ngIf="calendarType === 'AD'"
                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors }"
                            id="dateOfVisit" placeholder="date of visit">
+                    <app-calendar
+                            [ePreDate]="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.value"
+                            *ngIf="calendarType === 'BS'"
+                            (messageToEmit)="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>
                     <nb-datepicker #datepicker3></nb-datepicker>
                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.invalid"
                          class="invalid-feedback">
@@ -193,47 +196,41 @@
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="staffRepresentativeNameDesignation"
-                           for="staffRepresentativeNameDesignation">Staff Representative
-                        Designation</label>
+                           for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
                     <select class="form-control"
                             formControlName="staffRepresentativeNameDesignation"
                             id="staffRepresentativeNameDesignationBusiness"
                             name="staffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                          <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
-                        Representative Name</label>
+                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name 1</label>
                     <input class="form-control" formControlName="staffRepresentativeName"
                            id="staffRepresentativeNameBusiness" name="staffRepresentativeName"
-                           placeholder="Staff Representative Name" type="text">
+                           placeholder="Staff Representative Name 1" type="text">
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="alternativeStaffRepresentativeNameDesignation"
-                           for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
-                        Representative Designation</label>
+                    <label class="staffRepresentativeNameDesignation2"
+                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
                     <select class="form-control"
-                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                            id="alternativeStaffRepresentativeNameDesignationBusiness"
-                            name="alternativeStaffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                            Designation
-                        </option>
+                            formControlName="staffRepresentativeNameDesignation2"
+                            id="staffRepresentativeNameDesignationBusiness2"
+                            name="staffRepresentativeNameDesignation2">
+                        <option [ngValue]="null">Staff Representative Designation 2 </option>
                          <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <label class="alternativeStaffRepresentativeName"
-                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
-                        Name</label>
-                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                           id="alternativeStaffRepresentativeNameBusiness"
-                           name="alternativeStaffRepresentativeName"
-                           placeholder="Alternative Staff Representative Name" type="text">
+                    <label class="staffRepresentativeName2"
+                           for="staffRepresentativeName2">Staff Representative Name 2</label>
+                    <input class="form-control" formControlName="staffRepresentativeName2"
+                           id="staffRepresentativeNameBusiness2"
+                           name="staffRepresentativeName2"
+                           placeholder="Staff Representative Name 2" type="text">
                 </div>
 
                 <!-- <div class="form-group col-md-4">
@@ -302,403 +299,6 @@
 <!--                    </agm-marker>-->
 <!--                </agm-map>-->
             </div>
-            <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
-                 formGroupName="fixedAssetCollateralDetails">
-                <h4 class="col-md-12">Fixed Assets Collateral</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="date">Date</label>
-                    <input [max]="date" [nbDatepicker]="datepicker4" class="form-control"
-                           [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors }"
-                           formControlName="date" id="date" placeholder="date">
-                    <nb-datepicker [max]="date" #datepicker4></nb-datepicker>
-                    <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('date')?.errors.required">date is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="personContacted">Person Contacted</label>
-                    <input class="form-control" formControlName="personContacted" id="personContacted"
-                           [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.errors }"
-                           name="personContacted" placeholder="person contacted"
-                           type="text">
-                    <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('personContacted')?.errors.pattern">
-                            Invalid Person Name</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
-                    <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
-                           [ngClass]="{ 'is-invalid': (fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.errors }"
-                           name="phoneNoOfContact" placeholder="phone no. of contact" type="text">
-                    <div *ngIf="(fixed) && siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('phoneNoOfContact')?.errors.pattern">
-                            Invalid Mobile Number
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <app-common-address #fixedAssetsAddress [address]="formDataForEdit?.fixedAssetCollateralDetails?.address"></app-common-address>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="typeOfProperty">Type of Property</label>
-                    <select class="custom-select" formControlName="typeOfProperty" id="typeOfProperty"
-                            name="typeOfProperty">
-                        <option [ngValue]="''" hidden>Type of Property</option>
-                        <option value="Agricultural">Agricultural</option>
-                        <option value="Industrial">Industrial</option>
-                        <option value="Commercial">Commercial</option>
-                        <option value="Residential">Residential</option>
-                        <option value="Others">Others</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="shapeOfLand">Shape of Land</label>
-                    <select class="custom-select" formControlName="shapeOfLand" id="shapeOfLand"
-                            name="shapeOfLand">
-                        <option [ngValue]="''" hidden>Select shape of land</option>
-                        <option value="Rectangular">Rectangular</option>
-                        <option value="Triangular">Triangular</option>
-                        <option value="Irregular">Irregular</option>
-                        <option value="Vertical Slope">Vertical Slope</option>
-                        <option value="Others">Others</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title">Does the location & shape of land appear consistent with Blue Print?</label>
-                    <nb-radio-group formControlName="locationAndShapeOfLand" class="ml-1 d-inline-flex text-center">
-                        <nb-radio value="Yes">Yes</nb-radio>
-                        <nb-radio value="No">No</nb-radio>
-                    </nb-radio-group>
-                </div>
-                <h5 class="col-md-12 mt-3">Facilities</h5>
-                <div class="row col-md-12 pr-0" formGroupName="facilities">
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="roadApproach">Road Approach</label>
-                        <select class="custom-select" formControlName="roadApproach" id="roadApproach"
-                                name="roadApproach">
-                            <option [ngValue]="''" hidden>Select Road Approach</option>
-                            <option value="Black Topped Road">Black Topped Road</option>
-                            <option value="Gravelled Road">Gravelled Road</option>
-                            <option value="Earthen Road">Earthen Road</option>
-                            <option value="Others">Others</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="roadWidth">Road Width <em class="sb-small"><strong>(in metres)</strong></em></label>
-                        <input class="form-control" formControlName="roadWidth" id="roadWidth" name="roadWidth"
-                              placeholder="road width" type="number" appDecimalNumber/>
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="prominentPlace">Prominent Place</label>
-                        <input class="form-control" formControlName="prominentPlace" id="prominentPlace"
-                                name="prominentPlace" placeholder="prominent place" type="text">
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="approachDistance">Approach Distance<em class="sb-small"><strong> (in metres)</strong></em></label>
-                        <input class="form-control" formControlName="approachDistance" id="approachDistance"
-                               name="approachDistance" placeholder="approach distance" type="number" appDecimalNumber/>
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="roadAccessFrom">Road Access From</label>
-                        <select class="custom-select" formControlName="roadAccessFrom" id="roadAccessFrom"
-                                name="roadAccessFrom">
-                            <option [ngValue]="''" hidden>Select Road Access From</option>
-                            <option value="One Side">One Side</option>
-                            <option value="Two Sides">Two Sides</option>
-                            <option value="Both Sides">Both Sides</option>
-                        </select>
-                    </div>
-                </div>
-                <h5 class="col-md-12 mt-3">Other Facilities</h5>
-                <div class="row col-md-12" formGroupName="otherFacilities">
-                    <div class="col-md-4 form-group">
-                        <table class="table table-bordered table-sm sb-small text-center">
-                            <tr class="text-white sb-bg-dark">
-                                <th>SN</th>
-                                <th>Particulars</th>
-                                <th>Check for Yes</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Water Supply</td>
-                                <td><input formControlName="waterSupply" type="checkbox"></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Electricity</td>
-                                <td><input formControlName="electricity" type="checkbox"></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Boundary Wall Construction</td>
-                                <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Boundary Fencing</td>
-                                <td><input formControlName="boundaryFencing" type="checkbox"></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Drainage</td>
-                                <td><input formControlName="drainage" type="checkbox"></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Open</td>
-                                <td><input formControlName="open" type="checkbox"></td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>Telephone Line</td>
-                                <td><input formControlName="telephoneLine" type="checkbox"></td>
-                            </tr>
-                        </table>
-
-                        <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
-                        <textarea class="form-control" formControlName="remarksForOtherFacility"
-                                  id="remarksForOtherFacility" name="remarksForOtherFacility"
-                                  placeholder="remarks"
-                                  row="3" type="text"></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col-md-12 form-group">
-                            <label class="title" for="building">Building</label>
-                            <select class="custom-select" formControlName="building" id="building"
-                                    name="building">
-                                <option [ngValue]="''" hidden>Select Building</option>
-                                <option value="YES">Yes</option>
-                                <option value="NO">No</option>
-                            </select>
-                        </div>
-                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                             class="col-md-12 form-group">
-                            <label class="title" for="buildingArea">Building Area</label>
-                            <input class="form-control" formControlName="buildingArea" id="buildingArea"
-                                   name="buildingArea" placeholder="building area">
-                        </div>
-                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                             class="col-md-12 form-group">
-                            <label class="title" for="constructionYear">Construction Year</label>
-                            <input [nbDatepicker]="datepicker5" class="form-control"
-                                   formControlName="constructionYear" id="constructionYear"
-                                   name="constructionYear" placeholder="construction year">
-                            <nb-datepicker #datepicker5></nb-datepicker>
-                        </div>
-                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                             class="col-md-12 form-group">
-                            <label class="title" for="buildingType">Building Type</label>
-                            <select class="custom-select" formControlName="buildingType" id="buildingType"
-                                    name="buildingType">
-                                <option [ngValue]="''" hidden>Select Building type</option>
-                                <option value="Residential">Residential</option>
-                                <option value="Commercial Complex/Mall">Commercial Complex/Mall</option>
-                                <option value="Factory Shed">Factory Shed</option>
-                                <option value="Warehouse">Warehouse</option>
-                                <option value="Others">Others</option>
-                            </select>
-                        </div>
-                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                             class="col-md-12 form-group">
-                            <label class="title" for="builtUpArea">Built Up Area</label>
-                            <input class="form-control" formControlName="builtUpArea" id="builtUpArea"
-                                   name="builtUpArea" placeholder="Built Up Area">
-                        </div>
-                        <div *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                             class="col-md-12 form-group">
-                            <label class="title" for="noOfStorey">Number of Storey</label>
-                            <input class="form-control" formControlName="noOfStorey" id="noOfStorey"
-                                   name="noOfStorey" placeholder="No. of Storey ">
-                        </div>
-                    </div>
-                    <table *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails')?.get('otherFacilities')?.get('building')?.value == 'YES'"
-                           class="table table-bordered col-md-4 table-sm sb-small text-center">
-                        <tr class="text-white sb-bg-dark">
-                            <th>SN</th>
-                            <th>Particulars</th>
-                            <th>Check for Yes</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Load Bearing Wall</td>
-                            <td><input formControlName="loadBearingWall" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mortar Cement</td>
-                            <td><input formControlName="mortarCement" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Other Roofing</td>
-                            <td><input formControlName="otherRoofing" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Inside Furniture</td>
-                            <td><input formControlName="insideFurniture" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Frame Structure</td>
-                            <td><input formControlName="frameStructure" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>RCC Roofing</td>
-                            <td><input formControlName="rccRoofing" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Bathroom And Toilet</td>
-                            <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Naksa Pass Obtained</td>
-                            <td><input formControlName="naksaPassObtained" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Building Completion Certificate Obtained</td>
-                            <td><input formControlName="buildingCompCertificate" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Construction appears to be as per the Approved Naksa Pass</td>
-                            <td><input formControlName="constructionAsPerNaksa" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Any road setbacks?</td>
-                            <td><input formControlName="roadSetbacks" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Any river/canal setbacks? </td>
-                            <td><input formControlName="riverOrCanalSetbacks" type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>Any High-tension setbacks?</td>
-                            <td><input formControlName="highTensionSetbacks" type="checkbox"></td>
-                        </tr>
-                    </table>
-                </div>
-                <h5 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h5>
-                <div class="row col-md-12 mt-3" formGroupName="vicinityToTheBasicAmenities">
-                    <div class="col-md-6">
-                        <table class="table table-bordered table-sm sb-small text-center">
-                            <tr class="text-white sb-bg-dark">
-                                <th>SN</th>
-                                <th>Particulars</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Major Market Places</td>
-                                <td>
-                                    <select formControlName="majorMarketPlaces" class="custom-select">
-                                        <option [ngValue]="null" hidden>Select Distance</option>
-                                        <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>School/Colleges</td>
-                                <td>
-                                    <select formControlName="schoolOrCollege" class="custom-select">
-                                        <option [ngValue]="''" hidden>Select Distance</option>
-                                        <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Hospital/Nursing Home</td>
-                                <td>
-                                    <select formControlName="hospitalOrNursingHome" class="custom-select">
-                                        <option [ngValue]="''" hidden>Select Distance</option>
-                                        <option *ngFor="let distance of majorMarketPlaceDistance" [ngValue]="distance">{{distance}}</option>
-                                    </select>
-
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-12">
-                        <div *ngFor="let staff of staffsForm; let i = index;"
-                             formArrayName="staffs">
-                            <div [formGroupName]="i" class="row">
-                                <div class="col-md-4 form-group">
-                                    <label class="staffRepresentativeNameDesignation"
-                                           for="staffRepresentativeNameDesignation">Staff Representative
-                                        Designation</label>
-                                    <select class="form-control"
-                                            formControlName="staffRepresentativeNameDesignation"
-                                            id="staffRepresentativeNameDesignationFac"
-                                            name="staffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
-                                         <option *ngFor="let designation of designationList"
-                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
-                                        Representative Name</label>
-                                    <input class="form-control" formControlName="staffRepresentativeName"
-                                           id="staffRepresentativeNameFac" name="staffRepresentativeName"
-                                           placeholder="Staff Representative Name" type="text">
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="alternativeStaffRepresentativeNameDesignation"
-                                           for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
-                                        Representative Designation</label>
-                                    <select class="form-control"
-                                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                                            id="alternativeStaffRepresentativeNameDesignationFac"
-                                            name="alternativeStaffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                                            Designation
-                                        </option>
-                                         <option *ngFor="let designation of designationList"
-                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="alternativeStaffRepresentativeName"
-                                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
-                                        Name</label>
-                                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                                           id="alternativeStaffRepresentativeNameFac"
-                                           name="alternativeStaffRepresentativeName"
-                                           placeholder="Alternative Staff Representative Name" type="text">
-                                </div>
-                                <div *ngIf="staffLength()>1" class="col-md-1 pt-4">
-                                    <input (click)="deleteStaff(i)"
-                                           class="align-self-end btn btn-sm btn-danger btn-primary"
-                                           type="button" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <button (click)="addStaffs()"
-                                    class="btn btn-sm btn-flat btn-primary">Add Staff
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <label class="title" for="commentAboutFAC">Comments About FAC</label>
-                            <textarea class="form-control" formControlName="commentAboutFAC"
-                                      id="commentAboutFAC" name="commentsAboutFAC"
-                                      placeholder="comments" row="3" type="text"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div [hidden]="!currentAssetsInspectionForm" class="row mt-3"
                  formGroupName="currentAssetsInspectionDetails">
                 <h4 class="col-md-12">Current Assets Inspection - Stock</h4>
@@ -707,7 +307,13 @@
                     <input [nbDatepicker]="datepicker1" class="form-control"
                            [ngClass]="{ 'is-invalid': (current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.errors }"
                            formControlName="dateOfInspection"
-                           id="dateOfInspection" placeholder="date of inspection">
+                           id="dateOfInspection" placeholder="date of inspection"
+                           *ngIf="calendarType === 'AD'">
+                    <app-calendar
+                            [ePreDate]="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.value"
+                            *ngIf="calendarType === 'BS'"
+                            (messageToEmit)="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection').patchValue($event?.eDate)"></app-calendar>
+
                     <nb-datepicker #datepicker1 ></nb-datepicker>
                     <div *ngIf="(current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.invalid"
                          class="invalid-feedback">
@@ -766,7 +372,7 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
                             <input class="form-control" formControlName="assetsMortgaged" id="assetsMortgaged"
-                                   name="assetsMortgaged" placeholder="assets mortgaged">
+                                   name="assetsMortgaged" placeholder="assets mortgaged" type="number">
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="insuredAmount">Insured Amount</label>
@@ -777,7 +383,7 @@
                             <label class="title" for="insuranceCompany">Insurance Company</label>
                             <select class="form-control" formControlName="insuranceCompany"
                                    id="insuranceCompany" name="insuranceCompany">
-                                <option [ngValue]="''" hidden>Select Insurance Company</option>
+                                <option [ngValue]="null">Select Insurance Company</option>
                                 <option *ngFor="let insurance of insuranceList" [ngValue]="insurance.id">{{insurance.name}}</option>
 
                             </select>
@@ -785,7 +391,12 @@
                         <div class="col-md-4 form-group">
                             <label class="title" for="expiryDate">Expiry Date</label>
                             <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expiryDate"
-                                   id="expiryDate" placeholder="expiry date">
+                                   id="expiryDate" placeholder="expiry date" *ngIf="calendarType === 'AD'">
+                            <app-calendar
+                                    [ePreDate]="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('insuranceVerification')?.get('expiryDate')?.value"
+                                    *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('insuranceVerification')?.get('expiryDate').patchValue($event?.eDate)"></app-calendar>
+
                             <nb-datepicker #datepicker2></nb-datepicker>
                         </div>
                         <div class="col-md-4 form-group">
@@ -817,47 +428,42 @@
                             <div [formGroupName]="i" class="row">
                                 <div class="col-md-4 form-group">
                                     <label class="staffRepresentativeNameDesignation"
-                                           for="staffRepresentativeNameDesignation">Staff Representative
-                                        Designation</label>
+                                           for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
                                     <select class="form-control"
                                             formControlName="staffRepresentativeNameDesignation"
                                             id="staffRepresentativeNameDesignationCurrent"
                                             name="staffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
                                          <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff
-                                        Representative Name</label>
+                                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name 1</label>
                                     <input class="form-control" formControlName="staffRepresentativeName"
                                            id="staffRepresentativeNameCurrent" name="staffRepresentativeName"
-                                           placeholder="Staff Representative Name" type="text">
+                                           placeholder="Staff Representative Name 1" type="text">
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <label class="alternativeStaffRepresentativeNameDesignation"
-                                           for="alternativeStaffRepresentativeNameDesignation">Alternative Staff
-                                        Representative Designation</label>
+                                    <label class="staffRepresentativeNameDesignation2"
+                                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
                                     <select class="form-control"
-                                            formControlName="alternativeStaffRepresentativeNameDesignation"
-                                            id="alternativeStaffRepresentativeNameDesignationCurrent"
-                                            name="alternativeStaffRepresentativeNameDesignation">
-                                        <option [ngValue]="null" hidden>Alternative Staff Representative
-                                            Designation
+                                            formControlName="staffRepresentativeNameDesignation2"
+                                            id="staffRepresentativeNameDesignationCurrent2"
+                                            name="staffRepresentativeNameDesignation2">
+                                        <option [ngValue]="null">Staff Representative Designation 2
                                         </option>
                                         <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <label class="alternativeStaffRepresentativeName"
-                                           for="alternativeStaffRepresentativeName">Alternative Staff Representative
-                                        Name</label>
-                                    <input class="form-control" formControlName="alternativeStaffRepresentativeName"
-                                           id="alternativeStaffRepresentativeNameCurrent"
-                                           name="alternativeStaffRepresentativeName"
-                                           placeholder="Alternative Staff Representative Name" type="text">
+                                    <label class="staffRepresentativeName2"
+                                           for="staffRepresentativeName2">Staff Representative Name 2</label>
+                                    <input class="form-control" formControlName="staffRepresentativeName2"
+                                           id="alternativeStaffRepresentativeNameCurrent2"
+                                           name="staffRepresentativeName2"
+                                           placeholder="Staff Representative Name 2" type="text">
                                 </div>
                                 <div *ngIf="inspectingStaffsDetailsLength()>1" class="col-md-1 pt-4">
                                     <input (click)="deleteInspectingStaffsDetails(i)"
@@ -1091,6 +697,7 @@
                     </div>
                 </div>
 
+                <div *ngIf="client !== clientName?.SHINE_RESUNGA">
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables</h4>
                 <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
                     <div *ngFor="let party of partyForm; let i = index;"
@@ -1334,7 +941,7 @@
                                             formControlName="position"
                                             id="position"
                                             name="position">
-                                        <option [ngValue]="null" hidden>Staff Representative Designation</option>
+                                        <option [ngValue]="null">Position</option>
                                         <option *ngFor="let designation of designationList"
                                                 [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
                                     </select>
@@ -1420,6 +1027,7 @@
                                       row="3" type="text"></textarea>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">

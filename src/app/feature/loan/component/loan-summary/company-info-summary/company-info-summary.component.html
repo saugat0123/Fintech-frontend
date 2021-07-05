@@ -5,12 +5,11 @@
         <tr>
           <td><b>Nature Of business</b></td>
           <td>{{companyJsonData?.majorProductService}}</td>
-          <td><b>Relationship Start Date</b>: {{companyJsonData?.relationshipSince |date}}</td>
-
+          <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
         </tr>
         <tr>
           <td><b>Sister Concerns</b></td>
-          <td colspan="2">{{companyJsonData?.sisterConcern}}</td>
+          <td colspan="2">{{companyJsonData?.sisterConcern || 'N/A'}}</td>
         </tr>
         <tr>
           <td rowspan="5"><b>RegistrationDetail</b></td>
@@ -22,17 +21,18 @@
           <td></td>
         </tr>
         <tr>
-
-          <td><b>Date</b></td>
-          <td>{{companyInfo?.legalStatus?.registrationDate |date}}</td>
+          <td><b>Date(AD/BS)</b></td>
+          <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
         </tr>
         <tr>
-
           <td><b>Regd. Number</b></td>
           <td>{{companyInfo?.registrationNumber}}</td>
         </tr>
+        <tr *ngIf="client === clientName?.SHINE_RESUNGA">
+          <td><b>Address as per legal Document</b></td>
+          <td>{{companyJsonData?.addressLegalDocument}}</td>
+        </tr>
         <tr>
-
           <td><b>PAN Number</b></td>
           <td>
             <div class="row">
@@ -43,7 +43,7 @@
             </span>
               </div>
               <div class="col-md-6">
-                <b>Date</b>: {{companyInfo?.legalStatus?.panRegistrationDate |date}}
+                <b>Date(AD/BS)</b>: {{companyInfo?.legalStatus?.panRegistrationDate | date}} ({{companyInfo?.legalStatus?.panRegistrationDate |engNepDate: false}})
               </div>
             </div>
           </td>
@@ -52,17 +52,17 @@
           <td>
             <b>Tax Clearance Till</b>
           </td>
-          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
+          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill || 'N/A'}}</td>
           <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
             :'N/A'}}</td>
         </tr>
 
         <tr>
           <td>
-            <b>Business Operation Since(if Other than registration date)</b>
+            <b>Business Operation Since(if Other than registration date)(AD/BS)</b>
           </td>
           <td colspan="2">
-            {{companyInfo?.establishmentDate |date}}
+            {{companyInfo?.establishmentDate | date}} ({{companyInfo?.establishmentDate |engNepDate: false}})
           </td>
         </tr>
         <tr>
@@ -111,10 +111,10 @@
         </tr>-->
         <tr>
           <td><b>Classification as per NRB Directive</b></td>
-          <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+          <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB || 'N/A'}}</td>
         </tr>
 
-        <tr>
+        <tr *ngIf="client !== clientName?.SHINE_RESUNGA">
           <td><b>Customer Negative List Checked</b></td>
           <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
             <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
@@ -127,6 +127,22 @@
             / Rs. {{companyInfo?.capital?.issuedCapital | currencyFormatter}}
             / Rs. {{companyInfo?.capital?.paidUpCapital | currencyFormatter}} </td>
         </tr>
+
+        <ng-container *ngIf="client === clientName?.ICFC">
+          <tr *ngIf="companyInfo?.capital?.fixedCapital > 0">
+            <td><b>Fixed Capital</b></td>
+            <td colspan="2">Rs. {{companyInfo?.capital?.fixedCapital |currencyFormatter}}</td>
+          </tr>
+          <tr *ngIf="companyInfo?.capital?.workingCapital > 0">
+            <td><b>Working(Current) Capital</b></td>
+            <td colspan="2">Rs. {{companyInfo?.capital?.workingCapital |currencyFormatter}}</td>
+          </tr>
+          <tr *ngIf="companyInfo?.capital?.totalCapital > 0">
+            <td><b>Total  Capital</b></td>
+            <td colspan="2">Rs. {{companyInfo?.capital?.totalCapital |currencyFormatter}}</td>
+          </tr>
+        </ng-container>
+
         <tr>
           <td><b>Client Type</b></td>
           <td>{{loanDataHolder?.loanHolder['clientType']}}</td>
@@ -134,7 +150,7 @@
         </tr>
         <tr>
           <td><b>SubSector</b></td>
-          <td>{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
+          <td>{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
         </tr>
 
 <!--        Obligor Code for SRDB only-->

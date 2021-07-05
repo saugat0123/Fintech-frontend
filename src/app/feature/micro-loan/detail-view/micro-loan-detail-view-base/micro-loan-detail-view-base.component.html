@@ -34,10 +34,11 @@
         </div>
 
             <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
-                               [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
-            <app-financial-view *ngIf="loanHolder?.financial"
+                               [shareSecurityData]="loanHolder?.shareSecurity" [securityId]="securityId"></app-security-view>
+            <app-financial-view *ngIf="loanHolder?.microOtherParameters"
                                 [customerType]="loanHolder?.customerType"
-                                [formData]="loanHolder?.financial"></app-financial-view>
+                                [microCustomer]= "loanDataHolder?.customerInfo?.isMicroCustomer"
+                                [microFormData]="loanHolder?.microOtherParameters"></app-financial-view>
             <app-crg-gamma-detail-view
                     *ngIf="loanDataHolder?.crgGamma"
                     [formData]="loanDataHolder?.crgGamma">
@@ -47,10 +48,11 @@
         [loanTag]="loanDataHolder?.loan?.loanTag"
         [formData]="loanDataHolder?.creditRiskGradingAlpha">
 </app-crg-alpha-detailed-view>
-<app-crg-lambda-detail-view
-        *ngIf="loanDataHolder?.creditRiskGradingLambda"
-        [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
-</app-crg-lambda-detail-view>
+        <app-crg-micro *ngIf="loanDataHolder?.crgMicro"
+                [formData]="loanDataHolder?.crgMicro"
+                       [incomeFromAccount]="loanDataHolder?.loanHolder?.incomeFromAccount"
+                       [security]="loanDataHolder?.security"
+                       [microOtherParameters]="loanHolder?.microOtherParameters"></app-crg-micro>
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"
@@ -59,8 +61,22 @@
                                         [fromProfile]="false"
                                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
              -->
-            <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0" [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+        <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+        </ng-container>
 
+        <ng-template #otherBank>
+            <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                             [fiscalYears]="fiscalYearArray"
+                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
+        </ng-template>
+        <div *ngIf="client === clientName?.MEGA">
+            <app-comments-summary
+                    [formData]="dataFromComments"></app-comments-summary>
+            <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+        </div>
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
                 <app-report-summary
@@ -79,7 +95,11 @@
 <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
                     [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
             <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-             <!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
+
+        <app-micro-checklist *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
+                                   [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-micro-checklist>
+
+        <!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
             <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
             <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
             <!--                                [fromProfile]="false"></app-credit-grading>-->
@@ -90,8 +110,7 @@
                                                [financialData]="loanDataHolder?.financial?.data"
                                                [companyInfo]="loanDataHolder?.companyInfo"
                                                [customerInfo]="loanDataHolder?.loanHolder"
-                                               [loanTag]="loanDataHolder?.loan?.loanTag"
-                                               [proposedLimit]="loanDataHolder?.proposal?.proposedLimit"></app-credit-risk-grading-alpha>
+                                               [loanTag]="loanDataHolder?.loan?.loanTag"></app-credit-risk-grading-alpha>
             </div>
         <ng-template  #allDocumentView>
             <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>

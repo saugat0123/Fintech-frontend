@@ -6,7 +6,7 @@
       <nb-card-body>
         <div class="row">
           <div class="col-md-12">
-        <form (ngSubmit)="submit()" [formGroup]="form">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="nepali">
           <h6 class="text-center">व्यक्तिगत एवं गोप्य</h6>
           <p class="text-right"> मिति:
             <input class="form-field form-control-sm nepaliFont col-3"
@@ -19,24 +19,34 @@
                                       type="text"></strong></p>
           </div>
           <div class="row form-group">
-            <p><strong>श्री / सुश्री / श्रीमती : <input class="form-field form-control-sm nepaliFont"
-                                                        formControlName="customerName"
-                                                        name="customerName"
-                                                        type="text"/></strong></p>
+            <p>  <b>नाम :</b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
+
           </div>
 
           <div class="row form-group">
-            <p><strong>स्थायी ठेगाना : : <input class="form-field form-control-sm nepaliFont"
-                                                formControlName="permanentAddress"
-                                                name="permanentAddress"
-                                                placeholder="" type="text"/></strong></p>
+            <p><b>स्थायी ठेगाना:</b></p>
+            <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+              जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+              वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+              <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+              <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+            </div>
           </div>
           <div class="row form-group">
-            <p> <strong> ठेगाना : : <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="currentAddress"
-                                           name="currentAddress"
-                                           type="text"/></strong></p>
-
+            <b>ठेगाना</b> :
+              प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+              जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+              वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+              <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+              <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
           </div>
           <div class="row form-group">
             <p>  <strong> मोवाइल नंः : <input class="form-field form-control-sm nepaliFont"
@@ -61,7 +71,7 @@
             <p class="ml-3">पक्षहरु :–</p>
           </div>
           <div class="row form-group">
-            १. <span class="nepaliFont form-field"> {{form.get('customerName').value }}</span>
+            १. <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
             (यस पछि “संयुक्त ऋणी” भनिएको) ।
           </div>
           <div class="row form-group">
@@ -83,23 +93,21 @@
               <tr>
                 <td>रकम</td>
                 <td>
-                  <input class="form-field form-control-sm nepaliFont"
-                         formControlName="loanAmount"
-                         name="loanAmount"
-                         placeholder=""
-                         type="text"/>
-                  <input class="form-field longInput nepaliFont ml-lg-5"
+                  रु.<app-custom-input (eventEmit)="changeToNepAmount($event, 'loanNameInWord', 'loanAmount')"
+                                    [name]="patchFunction('loanAmount')"></app-custom-input>/-
+                  (अक्षेरुपी
+                  <input readonly class="form-field form-control-sm"
                          formControlName="loanNameInWord"
                          name="loanNameInWord"
-                         placeholder="अक्षेरुपी "
-                         type="text"/>
+                         placeholder="अक्षेरुपी"
+                         type="text"/>मात्र ।
                 </td>
               </tr>
               <tr>
                 <td>
                   प्रयोजन
                 </td>
-                <td><span class="nepaliFont"> {{form.get('customerName').value }}</span>लाई
+                <td> <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>लाई
                   <input class="form-field form-control-sm nepaliFont"
                          formControlName="companyLocation"
                          name="companyLocation"
@@ -130,17 +138,19 @@
                                                     name="moratoriumPeriod"
                                                     placeholder=""
                                                     type="text"/> महिना मोराटोरियम अवधि सहित )।
-                  व्याज(हालको आधार दर <input class="form-field form-control-sm nepaliFont"
+                  व्याज(हालको आधार दर <input (change)="calcYearlyRate('baseRate' , 'premiumRate' , 'yearlyLoanRate')"
+                                             class="form-field form-control-sm nepaliFont"
                                              formControlName="baseRate"
                                              name="baseRate"
                                              placeholder="आधार दर"
-                                             type="text"/> + प्रिमियम दर <input
+                                             type="text"/> + प्रिमियम दर
+                          <input (change)="calcYearlyRate('baseRate' , 'premiumRate' , 'yearlyLoanRate')"
                           class="form-field form-control-sm nepaliFont"
                           formControlName="premiumRate"
                           name="प्रिमियम दर"
                           placeholder=""
                           type="text"/> %) का दरले हाललाई
-                  बार्षिक <input class="form-field form-control-sm nepaliFont"
+                  बार्षिक <input readonly class="form-field form-control-sm"
                                  formControlName="yearlyLoanRate"
                                  name="yearlyLoanRate"
                                  placeholder="बार्षिक दर"
@@ -165,12 +175,10 @@
                          name="emiPeriod"
                          placeholder=""
                          type="text"/> समान
-                  मासिक किस्ता बन्दीमा रु. <input class="form-field form-control-sm nepaliFont"
-                                                  formControlName="emiAmount"
-                                                  name="emiAmount"
-                                                  placeholder=""
-                                                  type="text"/>÷– (अक्षेरुपी <input
-                          class="form-field form-control-sm nepaliFont"
+                  मासिक किस्ता बन्दीमा रु.
+                  <app-custom-input (eventEmit)="changeToNepAmount($event, 'emiAmountInWord', 'emiAmount')"
+                                    [name]="patchFunction('emiAmount')"></app-custom-input>/- (अक्षेरुपी
+                          <input readonly class="form-field form-control-sm"
                           formControlName="emiAmountInWord"
                           name="emiAmountInWord"
                           placeholder=""
@@ -204,7 +212,7 @@
               </tr>
               <tr>
                 <td>सेवा शुल्क</td>
-                <td>भुक्तानी दिने ऋण सुविधा रकमको <input
+                <td>भुक्तानी दिने ऋण सुविधा रकमको रु.<input
                         class="form-field form-control-sm nepaliFont"
                         formControlName="serviceChargePercent"
                         name="serviceChargePercent"
@@ -324,7 +332,7 @@
                 <li>ऋणीको सम्पूर्ण आय रकम यस मेगा बैंक नेपाल लिमिटेडमा रहेको खाता मार्फत गर्नुपर्नेछ ।
                 </li>
                 <li>मोराटरियम अवधिमा समेत कर्जाको व्याज रकम मासिक रुपमा भुक्तानी गर्नुपर्नेछ ।</li>
-                <li> श्री र<span class="nepaliFont"> {{form.get('customerName').value }}</span>को
+                <li> श्री र<strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>को
                   व्यक्तिगत स्थायी लेखा दर्ता प्रमाणपत्रको (Permanent Account Number-PAN) प्रतिलिपी
                   पेश गर्नु पर्नेछ ।
                 </li>
@@ -680,7 +688,7 @@
               ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा नाघेको
               कर्जा रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य जानकारीहरु
               ऋणीलाई आधिकारीक पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई बैंकको आधिकारीक
-              सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा प्mयाक्सको माध्यमद्वारा
+              सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा फ्याक्सको माध्यमद्वारा
               दिइनेछ ।
             </div>
 
@@ -694,19 +702,40 @@
                   <p>मेगा बैंक नेपाल लिमिटेड, प्रधान कार्यालय, कमलादी, काठमाण्डौ</p>
                   <p>पोष्ट बक्स नंस् २६५५९
                   </p>
-                  <p>फोन –९७७–१–४१६९२५० प्mयाक्स–९७७–१–४१६९२६०</p>
+                  <p>फोन –९७७–१–४१६९२५० </p>
+                  <p>फ्याक्स –९७७–१–४१६९२६०</p>
                   <p> काठमाडौं, नेपाल ।</p>
                 </div>
               </div>
 
               <h6>ऋणीः</h6>
               <div class="ml-lg-5">
-                <p>श्री / सुश्री / श्रीमती : <span class="nepaliFont"> {{form.get('customerName').value }}</span></p>
-                <p>
-                  स्थायी ठेगाना : <span class="nepaliFont">{{form.get('permanentAddress').value }}</span>
-                </p>
-                <p> ठेगाना : <span class="nepaliFont"> {{form.get('currentAddress').value }} </span>
-                </p>
+                <p>श्री / सुश्री / श्रीमती : <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
+                <div class="row form-group">
+                  <p><b>स्थायी ठेगाना:</b></p>
+                  <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <b>ठेगाना</b> :
+                  प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                  जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                  वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                  <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                               गा बि स
+                           </span>
+                  <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
+                </div>
                 <p> मोवाइल नंः  <span class="nepaliFont">{{form.get('mobileNo').value }} </span></p>
               </div>
             </div>
@@ -747,7 +776,7 @@
           <div class="card">
             <div class="card-body" >
               म÷हामीले ९ पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढेंरपढ्यौं र बुझेंरबुझ्यौं । यसमा उल्लेख गरिएको सम्पूर्ण शर्तहरु पालना गर्न मरहामी मन्जुर गर्दछुरगर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछुरगर्दछौं ।
-              ऋणीको नाम ः <strong>श्री / सुश्री / श्रीमती : <span class="nepaliFont"> {{form.get('customerName').value }}</span> ।</strong>
+              ऋणीको नाम : <strong>श्री / सुश्री / श्रीमती : <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong> ।</strong>
               <br><br>
               <div class="row">
                 <div class="col-md-12">
@@ -755,7 +784,7 @@
               आधिकारीक दस्तखत ......................
             </span>
                   <span class="float-right">
-              मितिः....................
+              मितिः<span class="nepaliFont">{{form.get('date').value }} </span>
             </span>
                 </div>
               </div>
@@ -783,4 +812,5 @@
       </nb-card-footer>
     </nb-card>
 </div>
-<app-retail-educational-loan-print  *ngIf="initialInfoPrint"  [letter]="form.value" hidden></app-retail-educational-loan-print>
+<app-retail-educational-loan-print [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                   *ngIf="initialInfoPrint"  [letter]="form.value" hidden></app-retail-educational-loan-print>

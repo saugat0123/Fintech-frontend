@@ -15,11 +15,25 @@
                 <p>मितिः <span class="nepaliFont font-weight-bold">{{letter['date']}}</span></p>
             </div>
         </div>
-        <div class="mb-2">
-            <b>नाम:</b> <b class="nepaliFont">{{letter['to']}}</b>
+        <div class="row mt-0">
+            <div class="col-md-12">
+                <b>नाम:</b> <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong>
+            </div>
         </div>
-        <div class="mb-2">
-            <b>ठेगाना:</b> <b class="nepaliFont">{{letter['address']}}</b>
+        <div class="row">
+            <div class="col-md-12">
+                <b>ठेगाना:</b>
+                <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                               गा बि स
+                           </span>
+                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                               नगरपालिका
+                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                </div>
+            </div>
         </div>
 
         <div class="mb-2">
@@ -68,7 +82,7 @@
                         <tbody>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b> रु.</b> <strong class="nepaliFont">{{odl.overdrafLoanAmount}}</strong> /- (अक्षरुपी <strong class="nepaliFont">{{odl.overdrafLoanAmount}}</strong> रुपैयाँ मात्र ।)
+                            <td><b> रु.</b> <strong class="nepaliFont">{{odl.loanAmount}}</strong> /- (अक्षरुपी <strong class="">{{odl.loanAmountInWord}}</strong> मात्र ।)
                             </td>
                         </tr>
                         <tr>
@@ -78,9 +92,9 @@
                         <tr>
                             <td> व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर(Premium Rate)</b> (हालको आधार दर
-                                <strong class="nepaliFont">{{odl.overdrafLoanCurrentTermRate}}</strong>% + प्रिमियम दर
-                                <strong class="nepaliFont">{{odl.overdrafLoanPremiumRate}}</strong>%) का
-                                दरले हाललाई बार्षिक <strong class="nepaliFont">{{odl.overdrafLoanCurrentAnnualRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
+                                <strong class="nepaliFont">{{odl.baseRate}}</strong>% + प्रिमियम दर
+                                <strong class="nepaliFont">{{odl.premiumRate}}</strong>%) का
+                                दरले हाललाई बार्षिक <strong class="">{{odl.yearlyRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                 मसान्त) वा समय समयमा
                                 बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                 परिवर्तन
@@ -117,7 +131,7 @@
                         <tr>
                             <td> सेवा शुल्क</td>
                             <td>भुक्तानी दिईने ऋण सुविधा रकमको <strong class="nepaliFont">{{odl.overdrafLoanServiceRate}}</strong>%
-                                (<strong class="nepaliFont">{{odl.overdrafLoanServiceCharge}}</strong> प्रतिशत) मात्र।
+                                (<strong class="">{{odl.serviceChargeAmount}}</strong> प्रतिशत) मात्र।
                             </td>
                         </tr>
                         <tr>
@@ -146,7 +160,7 @@
                         <tbody>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b>रु </b> <strong class="nepaliFont">{{dmLoan.demandLoanLimit}}</strong>/- (अक्षरुपी <strong class="nepaliFont">{{dmLoan.demandLoanLimit}}</strong> रुपैयाँ मात्र ।)
+                            <td><b>रु </b> <strong class="nepaliFont">{{dmLoan.loanAmount}}</strong>/- (अक्षरुपी <strong class="">{{dmLoan.loanAmountInWord}}</strong> मात्र ।)
                             </td>
                         </tr>
                         <tr>
@@ -156,11 +170,11 @@
                         <tr>
                             <td> व्याज</td>
                             <td> <b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                <strong class="nepaliFont">{{dmLoan.demandLoanCurrentBaseRate}}</strong> % + प्रिमियम दर
-                                <strong class="nepaliFont">{{dmLoan.demandLoanPremiumRate}}</strong> %) का
+                                <strong class="nepaliFont">{{dmLoan.baseRate}}</strong> % + प्रिमियम दर
+                                <strong class="nepaliFont">{{dmLoan.premiumRate}}</strong> %) का
                                 दरले
                                 हाललाई बार्षिक
-                                <strong class="nepaliFont">{{dmLoan.demandLoanAnnualRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
+                                <strong class="">{{dmLoan.yearlyRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
                                 समय समयमा
                                 बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                 परिवर्तन
@@ -209,8 +223,8 @@
                         </tr>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b>रु </b> <strong class="nepaliFont">{{ftl.fixedTermLoanBoundaryAmountInNumber}}</strong> /- (अक्षरेपी
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanBoundaryAmountInWord}}</strong>
+                            <td><b>रु </b> <strong class="nepaliFont">{{ftl.loanAmount}}</strong> /- (अक्षरेपी
+                                <strong class="">{{ftl.loanAmountInWord}}</strong>
                                 मात्र ।)
                             </td>
                         </tr>
@@ -230,11 +244,9 @@
                             <td>बैंकबाट कर्जा भुक्तानी भएको मितिले एक महिना पश्चात प्रथम किस्ता प्रारम्भ हुने गरी
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanMonthlyTerm}}</strong> समान मासिक
                                 किस्ता बन्दीमा
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanAmountInNumber}}</strong>
+                                <strong class="nepaliFont">{{ftl.loanAmountInNumber}}</strong>
                                 (
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanAmountInWord}}</strong>
-                                रुपैँया पचासी पैसा
-                                मात्र) का दरले
+                                <strong class="">{{ftl.loanAkchyarupi}}</strong> मात्र) का दरले
                                 ईश्वी संवत अनुसारको प्रत्येक महिनाको
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanMonth}}</strong>
                                 तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ।
@@ -243,10 +255,10 @@
                         <tr>
                             <td> व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanBaseRate}}</strong>% + प्रिमियम दर
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanPremiumRate}}</strong> %) का
+                                <strong class="nepaliFont">{{ftl.baseRate}}</strong>% + प्रिमियम दर
+                                <strong class="nepaliFont">{{ftl.premiumRate}}</strong> %) का
                                 दरले हाललाई बार्षिक
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanCurrentYearPercent}}</strong> % वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि।
+                                <strong class="">{{ftl.yearlyRate}}</strong> % वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि।
                                 बैंकले त्रैमाशिक रुपमा
                                 प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
                             </td>
@@ -276,7 +288,7 @@
                             <td> सेवा शुल्क</td>
                             <td>भुक्तानी दिईने ऋण सुविधा रकमको
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanPaymentAmount}}</strong>
-                                ( <strong class="nepaliFont">{{ftl.fixedTermLoanPaymentAmountDescription}}</strong> प्रतिशत) मात्र ।</td>
+                                ( <strong class="">{{ftl.serviceChargeAmount}}</strong> प्रतिशत) मात्र ।</td>
                         </tr>
                         <tr>
                             <th scope="col" style="width: 15%;">प्रस्तावित सुविधा</th>
@@ -284,8 +296,8 @@
                         </tr>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b>रु</b> <strong class="nepaliFont">{{ftl.fixedTermLoanTwoBoundaryAmountInNumber}}</strong> /-
-                                (अक्षरुपी <strong class="nepaliFont">{{ftl.fixedTermLoanTwoBoundaryAmountInWord}}</strong> मात्र ।)
+                            <td><b>रु</b> <strong class="nepaliFont">{{ftl.secondFixedTermLoan}}</strong> /-
+                                (अक्षरुपी <strong class="">{{ftl.secondFixedTermLoanInWord}}</strong> मात्र ।)
                             </td>
                         </tr>
                         <tr>
@@ -304,7 +316,7 @@
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanTwoMonthlyTerm}}</strong> समान मासिक
                                 किस्ता बन्दीमा
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanTwoAmountInNumber}}</strong>(
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanTwoAmountInWord}}</strong> पैसा मात्र) का दरले
+                                <strong class="">{{ftl.fixedTermLoanTwoAmountInWord}}</strong> मात्र) का दरले
                                 ईश्वी संवत
                                 अनुसारको प्रत्येक महिनाको
                                 <strong class="nepaliFont">{{ftl.fixedTermTwoLoanMonth}}</strong>  चुक्ता भुक्तान गर्नुपर्नेछ।
@@ -313,11 +325,11 @@
                         <tr>
                             <td> व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanTwoBaseRate}}</strong> + प्रिमियम दर
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanTwoPremiumRate}}</strong>)
+                                <strong class="nepaliFont">{{ftl.secondBaseRate}}</strong>%  + प्रिमियम दर
+                                <strong class="nepaliFont">{{ftl.secondPremiumRate}}</strong>% )
                                 का
                                 दरले हाललाई बार्षिक
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanTwoCurrentYearPercent}}</strong> वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि।
+                                <strong class="">{{ftl.secondYearlyRate}}</strong>%  वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि।
                                 बैंकले त्रैमाशिक रुपमा
                                 प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
                             </td>
@@ -346,7 +358,7 @@
                             <td> सेवा शुल्क</td>
                             <td>भुक्तानी दिईने ऋण सुविधा रकमको
                                 <strong class="nepaliFont">{{ftl.fixedTermLoanTwoPaymentAmount}}</strong> (
-                                <strong class="nepaliFont">{{ftl.fixedTermLoanPaymentTwoAmountDescription}}</strong>
+                                <strong class="">{{ftl.serviceChargeAmount}}</strong>
                                 प्रतिशत) मात्र ।</td>
                         </tr>
                         </tbody>
@@ -369,8 +381,8 @@
                         </tr>
                         <tr>
                             <td> रकम</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{hploan.hirePurchasePaymentAmountInNumber}}</strong> /-
-                                (अक्षरुपी <strong class="nepaliFont">{{hploan.hirePurchaseLoanPaymentAmountInWord}}</strong> मात्र ।)</td>
+                            <td><b>रु</b><strong class="nepaliFont">{{hploan.loanAmount}}</strong> /-
+                                (अक्षरुपी <strong class="">{{hploan.loanAmountInWord}}</strong> मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> प्रयोजन</td>
@@ -387,9 +399,9 @@
                             <td>व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </b>
                                 (हालको आधार दर
-                                <strong class="nepaliFont">{{hploan.hirePurchaseLoanBaseRate}}</strong>+ प्रिमियम दर
-                                <strong class="nepaliFont">{{hploan.hirePurchaseLoanPremiumRate}}</strong>) का दरले हाललाई बार्षिक
-                                <strong class="nepaliFont">{{hploan.hirePurchaseLoanCurrentYear}}</strong> वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा
+                                <strong class="nepaliFont">{{hploan.baseRate}}</strong>% + प्रिमियम दर
+                                <strong class="nepaliFont">{{hploan.premiumRate}}</strong>%) का दरले हाललाई बार्षिक
+                                <strong class="">{{hploan.yearlyRate}}</strong>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा
                                 प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
                             </td>
                         </tr>
@@ -398,8 +410,8 @@
                             <td> बैंकबाट कर्जा भुक्तानी भएको मितिको एक महिना पछि प्रथम किस्ता प्रारम्भ हुने गरी
                                 <strong class="nepaliFont">{{hploan.hirePurchaseLoanTerm}}</strong> समान मासिक
                                 किस्ता बन्दीमा
-                                <strong class="nepaliFont">{{hploan.hirePurchaseLoanAmountInNumber}}</strong>(
-                                <strong class="nepaliFont">{{hploan.hirePurchaseLoanInWord}}</strong>मात्र) का दरले ईश्वी
+                                <strong class="nepaliFont">{{hploan.loanAmount}}</strong>(
+                                <strong class="">{{hploan.loanAmountInWord}}</strong> मात्र) का दरले ईश्वी
                                 संवत अनुसारको प्रत्येक महिनाको
                                 <strong class="nepaliFont">{{hploan.hirePurchaseLoanMonth}}</strong> तारिखमा चुक्ता भुक्तान गर्नु पर्नेछ।
                             </td>
@@ -427,7 +439,7 @@
                             <td> सेवा शुल्क</td>
                             <td>भुक्तानी हुने ऋण सुविधा रकमको
                                 <strong class="nepaliFont">{{hploan.hirePurchaseLoanServiceCharge}}</strong>(
-                                <strong class="nepaliFont">{{hploan.hirePurchaseLoanServicePercent}}</strong>प्रतिशत मात्र) ।
+                                <strong class="">{{hploan.serviceChargeAmount}}</strong>प्रतिशत मात्र) ।
                             </td>
                         </tr>
                         </tbody>
@@ -448,8 +460,8 @@
                         <tr>
                             <td> कर्जा सीमा रकम</td>
                             <td><b>रु</b>
-                               <strong class="nepaliFont">{{lc.letterOfCreditAmountInNumber}}</strong> /- (अक्षरुपी
-                                <strong class="nepaliFont">{{lc.latterOfCreditAmountInWord}}</strong>  मात्र ।)</td>
+                               <strong class="nepaliFont">{{lc.loanAmount}}</strong> /- (अक्षरुपी
+                                <strong class="">{{lc.loanAmountInWord}}</strong>  मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> उद्देश्य</td>
@@ -498,9 +510,9 @@
                         </tr>
                         <tr>
                             <td>कर्जा सीमा रकम</td>
-                            <td>रु <strong class="nepaliFont">{{tr.trustReceiptAmountInNumber}}</strong> /– (अक्षरेपी
-                                <strong class="nepaliFont">{{tr.trustReceiptAmountInWord}}</strong>
-                                रुपैयाँ मात्र ।)</td>
+                            <td>रु <strong class="nepaliFont">{{tr.loanAmount}}</strong> /– (अक्षरेपी
+                                <strong class="">{{tr.loanAmountInWord}}</strong>
+                                 मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> उद्देश्य</td>
@@ -509,10 +521,10 @@
                         <tr>
                             <td> व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                <strong class="nepaliFont">{{tr.trustReceiptBaseRate}}</strong> % + प्रिमियम दर
-                                <strong class="nepaliFont">{{tr.trustReceiptPremiumRate}}</strong> )% का
+                                <strong class="nepaliFont">{{tr.baseRate}}</strong> % + प्रिमियम दर
+                                <strong class="nepaliFont">{{tr.premiumRate}}</strong>%) का
                                 दरले हाललाई बार्षिक
-                                <strong class="nepaliFont">{{tr.trustReceiptYearlyRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
+                                <strong class="">{{tr.yearlyRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                 मसान्त) वा समय समयमा
                                 बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                 परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
@@ -558,9 +570,9 @@
                         <tbody>
                         <tr>
                             <td>कर्जा सीमा रकम</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{ch.cashCreditAmountInNumber}}</strong> /– (अक्षरेपी
-                                <strong class="nepaliFont">{{ch.cashCreditAmountInWord}}</strong>
-                                रुपैयाँ मात्र ।)</td>
+                            <td><b>रु</b><strong class="nepaliFont"> {{ch.loanAmount}}</strong> /– (अक्षरेपी
+                                <strong class="">{{ch.loanAmountInWord}}</strong>
+                                 मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> उद्देश्य</td>
@@ -570,10 +582,10 @@
                         <tr>
                             <td> व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate)</b> (हालको आधार दर
-                                <strong class="nepaliFont">{{ch.cashCreditBaseRate}}</strong> % + प्रिमियम दर
-                                <strong class="nepaliFont">{{ch.cashCreditPremiumRate}}</strong>%) का
+                                <strong class="nepaliFont">{{ch.baseRate}}</strong> % + प्रिमियम दर
+                                <strong class="nepaliFont">{{ch.premiumRate}}</strong>%) का
                                 दरले हाललाई बार्षिक
-                                <strong class="nepaliFont">{{ch.cashCreditCurrentYear}}</strong>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
+                                <strong class="">{{ch.yearlyRate}}</strong>% त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ
                                 मसान्त) वा समय समयमा
                                 बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि। बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर
                                 परिवर्तन
@@ -601,7 +613,7 @@
                         </tr>
                         <tr *ngIf="ch.dasturFlag">
                             <td>क.सु.के दस्तुर</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{ch.cashCreditDastur}}</strong>/– मात्र ।
+                            <td><b>रु</b><strong class="nepaliFont"> {{ch.cashCreditDastur}}</strong>/– मात्र ।
                             </td>
                         </tr>
                         </tbody>
@@ -620,9 +632,9 @@
                         <tbody>
                         <tr>
                             <td>कर्जा सीमा रकम</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{stl.shortTermLoanAmountInNumber}}</strong> /– (अक्षरेपी
-                                <strong class="nepaliFont">{{stl.shortTermLoanAmountInWord}}</strong>
-                                रुपैयाँ मात्र ।)।</td>
+                            <td><b>रु</b><strong class="nepaliFont">{{stl.loanAmount}}</strong> /– (अक्षरेपी
+                                <strong class="">{{stl.loanAmountInWord}}</strong>
+                                मात्र ।)।</td>
                         </tr>
                         <tr>
                             <td> उद्देश्य</td>
@@ -632,9 +644,9 @@
                         <tr>
                             <td> व्याज</td>
                             <td><b>आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) </b>
-                                (हालको आधार दर <strong class="nepaliFont">{{stl.shortTermLoanBaseRate}}</strong> + प्रिमियम दर
-                                <strong class="nepaliFont">{{stl.shortTermLoanPremiumRate}}</strong> %)
-                                का दरले हाललाई बार्षिक <strong class="nepaliFont">{{stl.shortTermLoanCurrentYear}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
+                                (हालको आधार दर <strong class="nepaliFont">{{stl.baseRate}}</strong>% + प्रिमियम दर
+                                <strong class="nepaliFont">{{stl.premiumRate}}</strong> %)
+                                का दरले हाललाई बार्षिक <strong class="">{{stl.yearlyRate}}</strong> % त्रैमासिक रुपमा (आश्विन मसान्त, पौष मसान्त, चैत्र मसान्त र असाढ मसान्त) वा
                                 समय समयमा बैंकले तोके बमोजिम चुक्ताभुक्तान गर्नु पर्ने गरि । बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा
                                 सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न/बढ्न) सक्नेछ ।
                             </td>
@@ -673,8 +685,8 @@
                         <tbody>
                         <tr>
                             <td> कर्जा सीमा रकम</td>
-                            <td><b>रु</b><strong class="nepaliFont">{{bng.bankGuaranteeAmountInNumber}}</strong> /- (अक्षरेपी
-                                <strong class="nepaliFont">{{bng.bankGuaranteeAmountInWord}}</strong> रुपैयाँ मात्र ।)</td>
+                            <td><b>रु</b><strong class="nepaliFont">{{bng.loanAmount}}</strong> /- (अक्षरेपी
+                                <strong class="">{{bng.loanAmountInWord}}</strong> मात्र ।)</td>
                         </tr>
                         <tr>
                             <td> उद्देश्य</td>
@@ -700,7 +712,7 @@
                         </tr>
                         <tr *ngIf="bng.dasturFlag">
                             <td>क.सु.के दस्तुर </td>
-                            <td><b>रु</b><strong class="nepaliFont">{{bng.bankGuaranteeDastur}}</strong>/– मात्र ।
+                            <td><b>रु</b><strong class="nepaliFont"> {{bng.bankGuaranteeDastur}}</strong>/– मात्र ।
                             </td>
                         </tr>
                         </tbody>
@@ -1060,8 +1072,23 @@
                     </div>
                     ऋणी <br>
                     <div class="ml-4">
-                        <strong>नाम : </strong><span class="nepaliFont form-field">{{letter?.to}}</span> <br>
-                        <strong>ठेगाना : </strong><span class="nepaliFont form-field">{{letter?.address}}</span><br>
+                        <strong>नाम : </strong><span class="nepaliFont form-field">{{loanHolderInfo?.name}}</span> <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <b>ठेगाना:</b>
+                                <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                                    गा बि स
+                                    </span>
+                                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                                    नगरपालिका
+                                    </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
                         <strong>संपर्क नम्बर : </strong><span class="nepaliFont form-field">{{letter?.mobileNo}}</span>
                     </div>
                 </div>
@@ -1120,7 +1147,7 @@
             रुपमा चुक्ता भुक्तान नगरे सम्म यसमा उल्ल्ेखित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं
             ।<br>
             <br>
-            ऋणीको नाम : <span class="nepaliFont form-field">{{letter?.to}}</span>
+            ऋणीको नाम : <span class="nepaliFont form-field">{{loanHolderInfo?.name}}</span>
             <br>
 
             <div class="row mt-5">

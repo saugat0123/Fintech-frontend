@@ -3,6 +3,15 @@
 
   </nb-card-header>
   <nb-card-body>
+    <div class="col-md-12">
+      <div class="d-flex justify-content-end">
+        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                        name="guarantorCalendarType">
+          <nb-radio value="AD">AD</nb-radio>
+          <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
     <form [formGroup]="ciclForm">
       <div class="row">
         <div class="col-md-4 form-group">
@@ -40,7 +49,7 @@
                         id="ciclRelation"
                         name="ciclRelation"
                         [ngClass]="{'is-invalid': submitted && cicl.get('ciclRelation').invalid}">
-                  <option [ngValue]="null" hidden>--Select Cicl relation--</option>
+                  <option [ngValue]="null">--Select Cicl relation--</option>
                   <option *ngFor="let relationship of ciclRelation" [ngValue]="relationship.key">{{relationship.value}}</option>
                 </select>
               </div>
@@ -96,8 +105,8 @@
                        id="obtaineddate"
                        type="text"/>
                 <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>
-                <app-calendar [ePreDate]="ciclForm.get('obtaineddate').value" *ngIf="calendarType === 'BS'"
-                              (messageToEmit)="ciclForm.get('obtaineddate').patchValue($event?.eDate)"></app-calendar>
+                <app-calendar [ePreDate]="cicl.get('obtaineddate').value" *ngIf="calendarType === 'BS'"
+                              (messageToEmit)="cicl.get('obtaineddate').patchValue($event?.eDate)"></app-calendar>
                 <nb-datepicker #obtainedDatePicker></nb-datepicker>
                 <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
                   <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>
@@ -148,31 +157,6 @@
 
       </div>
       <div class="row">
-
-        <div class="col-md-12 form-group">
-          <nb-card *ngIf="!crgLambdaDisabled">
-            <nb-card-body>
-              <div class="row">
-                <div class="col">
-                  <label for="repaymentTrack">
-                    <strong>Repayment track in other BFIs</strong></label><strong
-                    class="text-danger">*</strong>
-                  <select id="repaymentTrack" class="form-control"
-                          formControlName="repaymentTrack"
-                          [ngClass]="{'is-invalid': submitted && ciclForm.get('repaymentTrack').invalid}">
-                    <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
-                    <option *ngFor="let m of repaymentTrack"
-                            [value]="m?.value">{{m?.value}}</option>
-                  </select>
-                  <div *ngIf="(submitted) && ciclForm.get('repaymentTrack').invalid"
-                       class="invalid-feedback">
-                    Repayment Track is Required
-                  </div>
-                </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-        </div>
         <div class="col-md-12 form-group">
           <label for="ciclRemarks"><b>Remarks</b></label>
           <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->

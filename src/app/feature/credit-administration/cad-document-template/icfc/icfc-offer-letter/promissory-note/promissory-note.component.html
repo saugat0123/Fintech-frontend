@@ -1,0 +1,118 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.PROMISSORY_NOTE}}">
+    <form (ngSubmit)="submit()" [formGroup]="promissoryNote" id="promissoryNote">
+        <div class="row" id="heading">
+            <div class="col-md-12">
+                <h4 class="text-center">प्रोमिसरी नोट</h4>
+            </div>
+        </div>
+
+        <div class="row mt-5 justify-content-end">
+            <div class="col-md-12">
+                <p class="text-right">
+                    मितिः
+                    <input class="form-field form-control-sm nepaliFont" name="offerLetterDate"
+                           placeholder=""
+                           formControlName="offerLetterDate"
+                           type="text"/>
+                </p>
+            </div>
+        </div>
+        <div class="row mt-lg-5">
+            <div class="col-md-12 justify-content-end">
+                <p>
+                    रु. <input class="form-field form-control-sm nepaliFont" name="amount"
+                               placeholder=""
+                               formControlName="amount"
+                               type="text"/>
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12">
+                आइ.सि.एफ.सि. फाइनान्स लाई म/हामी
+                <input class="form-field form-control-sm nepaliFont" name="borrowerName"
+                       placeholder=""
+                       formControlName="borrowerName"
+                       type="text"/>
+                उक्त संस्थाले भुक्तानीको माग गरेको बखत मैले/हामीले लिएको
+                <input class="form-field form-control-sm nepaliFont" name="loanType"
+                       placeholder=""
+                       formControlName="loanType"
+                       type="text"/>
+                कर्जा शीर्षक अन्तर्गत रु.
+                <input class="form-field form-control-sm nepaliFont" name="loanAmount"
+                       (change)="convertAmountInWords('loanAmount', 'loanAmountWords')"
+                       formControlName="loanAmount"
+                       type="text"/>
+                (अक्षेरुपी
+                <input class="form-field form-control-sm nepaliFont longInput" name="loanAmountWords"
+                       placeholder=""
+                       formControlName="loanAmountWords"
+                       type="text"/>
+                मात्र) र सो रकममा आजको मिति <input class="form-field form-control-sm nepaliFont" name="loanReceivedDate"
+                                                   placeholder=""
+                                                   formControlName="loanReceivedDate"
+                                                   type="text"/>
+                देखि <input class="form-field form-control-sm nepaliFont shortInput" name="interestRate"
+                            placeholder=""
+                            formControlName="interestRate"
+                            type="text"/>
+                प्रतिशतका दरले ब्याज समेत तिर्ने कबुल गर्छु/गर्छौं ।
+
+            </div>
+        </div>
+
+        <div class="row justify-content-end mt-5">
+            <div class="col-md-6">
+                <div class="float-right pt-4">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            .......................................
+                        </p>
+                        <p class="text-center">
+
+                            दस्तखत (हरु)
+                        </p>
+                    </div>
+
+                    <p class="pt-3">
+                        नामः
+                        <input class="form-field form-control-sm nepaliFont" name="name"
+                               placeholder=""
+                               formControlName="name"
+                               type="text"/>
+
+
+                    </p>
+                    <p>
+                        ठेगानाः
+                        <input class="form-field form-control-sm nepaliFont" name="address"
+                               placeholder=""
+                               formControlName="address"
+                               type="text"/>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success">Save</button>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.PROMISSORY_NOTE}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
+</div>
+
+<app-promissory-note-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-promissory-note-print>

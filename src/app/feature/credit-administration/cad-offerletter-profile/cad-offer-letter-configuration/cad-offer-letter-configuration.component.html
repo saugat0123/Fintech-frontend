@@ -9,8 +9,8 @@
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="userConfigForm">
-            <nb-tabset>
-                <nb-tab tabTitle="व्यक्तिगत विवरण">
+            <nb-tabset (changeTab)="onChangeTab($event)">
+                <nb-tab tabId="0" tabTitle="व्यक्तिगत विवरण" #personal>
 
                     <div class="row">
                         <div class="col">
@@ -32,6 +32,7 @@
                                         id="citizenshipNo"
                                         [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
                                         name="name" placeholder="नगरिकता न"
+                                        readonly="readonly"
                                         type="text"/>
                             </div>
                         </div>
@@ -68,6 +69,7 @@
                                         id="age"
                                         [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
                                         name="age" placeholder="उमेर  "
+                                        readonly="readonly"
                                         type="text"/>
                             </div>
                         </div>
@@ -270,48 +272,19 @@
                     </div>
 
                 </nb-tab>
-                <nb-tab tabTitle="ग्यारेन्टर विवरण">
+                <nb-tab tabId="1"  tabTitle="ग्यारेन्टर विवरण">
 
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
-                            <div *ngFor="let guarantor1 of guarantorList; let j=index;">
-                                <div *ngIf="i == j">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label class="title" for="name">
-                                                Name: {{guarantor1?.name}} / &nbsp;
-                                            </label>
-                                            <label class="title">
-                                                Citizenship Number: {{guarantor1?.citizenNumber}} / &nbsp;
-                                            </label>
-                                            <label class="title">
-                                                Citizenship Issue Year: {{guarantor1?.issuedYear}} / &nbsp;
-                                            </label>
-                                            <label class="title">
-                                                Citizenship Issue District: {{guarantor1?.issuedPlace}} / &nbsp;
-                                            </label>
-                                            <label class="title">
-                                                Address: {{guarantor1?.guarantorLegalDocumentAddress}} / &nbsp;
-                                            </label>
-                                            <label class="title">
-                                                Relationship: {{guarantor1?.relationship}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="title">ग्यारेन्टरको नाम</label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorName"
+                                               formControlName="name"
                                                id="guarantorName"
                                                autocomplete="off"
-                                               [ngClass]="{ 'is-invalid': (submitted )}"
                                                name="name" placeholder="ग्यारेन्टरको नाम"
                                                type="text"/>
                                     </div>
@@ -320,10 +293,9 @@
                                     <div class="form-group">
                                         <label class="title">नगरिकता नम्बर</label>
                                         <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorCitizenshipNum"
+                                                formControlName="citizenNumber"
                                                 id="guarantorCitizenshipNum"
                                                 autocomplete="off"
-                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="नगरिकता नम्बर"
                                                 type="text"/>
                                     </div>
@@ -333,10 +305,9 @@
                                         <label class="title" for="guarantorIssueDate">जारी मिति</label>
                                         <input
                                                class="form-control rounded nepaliFont"
-                                               formControlName="guarantorIssueDate"
+                                               formControlName="issuedYear"
                                                id="guarantorIssueDate"
                                                autocomplete="off"
-                                               [ngClass]="{'is-invalid': submitted}"
                                                name="name" placeholder="जारी मिति"
                                                type="text"/>
                                     </div>
@@ -347,10 +318,9 @@
                                     <div class="form-group">
                                         <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
                                         <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorIssueDistrict"
+                                                formControlName="issuedPlace"
                                                 id="guarantorIssueDistrict"
                                                 autocomplete="off"
-                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="जारी जिल्ला"
                                                 type="text"/>
                                     </div>
@@ -359,10 +329,9 @@
                                     <div class="form-group">
                                         <label class="title" for="guarantorAddress">ठेगाना</label>
                                         <input  class="form-control rounded nepaliFont"
-                                                formControlName="guarantorAddress"
+                                                formControlName="guarantorLegalDocumentAddress"
                                                 id="guarantorAddress"
                                                 autocomplete="off"
-                                                [ngClass]="{'is-invalid': submitted}"
                                                 name="name" placeholder="ठेगाना"
                                                 type="text"/>
 
@@ -371,9 +340,8 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="relationMedium" for="guarantorRelationship">सम्बन्धको माध्यम</label>
-                                        <select class="form-control" formControlName="guarantorRelationship" id="guarantorRelationship"
-                                                [ngClass]="{'is-invalid': submitted}">
-                                            <option *ngFor="let relationship of relationshipList">{{relationship?.value}}</option>
+                                        <select class="form-control" formControlName="relationship" id="guarantorRelationship">
+                                            <option *ngFor="let relationship of relationshipList" [value]="relationship.value">{{relationship?.value}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -388,13 +356,18 @@
                     </div>
                     <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
                 </nb-tab>
+                <nb-tab tabId="2"  tabTitle=" प्रस्तावित रकम">
+                    <app-nep-proposed-amount-form [cadData]="cadData">
+
+                    </app-nep-proposed-amount-form>
+                </nb-tab>
             </nb-tabset>
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <div class="row">
+        <div class="row" *ngIf="!hideSaveBtn">
             <div class="col-md-12">
-                <button class="float-right" nbButton (click)="save()">save</button>
+                <button class="float-right" nbButton (click)="save()" >save</button>
             </div>
         </div>
     </nb-card-footer>
