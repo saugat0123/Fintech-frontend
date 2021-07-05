@@ -430,6 +430,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.customerLegalDocumentAddress, Validators.required],
 
         });
+        this.onCustomerTypeChange(this.microCustomer);
     }
 
     setIndividualJsonData() {
@@ -659,6 +660,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         } else {
             this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
                 'netWorth'], true);
+        }
+        const clientTypeControl = this.basicInfo.get('clientType');
+        if (check) {
+            clientTypeControl.patchValue('MICRO');
+            clientTypeControl.disable();
+        } else {
+            // this.clientType = this.clientType.filter(v => v !== 'MICRO');
+            clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
+            clientTypeControl.enable();
         }
     }
 
