@@ -1155,7 +1155,6 @@ export class CompanyFormComponent implements OnInit {
         if (micro) {
             this.controlValidation(alphaFields , false);
             clientTypeControl.patchValue('MICRO');
-            this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
             clientTypeControl.disable();
         } else {
             this.controlValidation(alphaFields , true);
