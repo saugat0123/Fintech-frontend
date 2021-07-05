@@ -481,33 +481,33 @@ export class CompanyFormComponent implements OnInit {
             /** 8.business and industry */
             regulatoryConcern: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.regulatoryConcern, this.disableCrgAlpha ? undefined : Validators.required],
+                this.businessAndIndustry.regulatoryConcern, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
             buyer: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.buyer, this.disableCrgAlpha ? undefined : Validators.required],
+                this.businessAndIndustry.buyer, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
             supplier: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) ? undefined :
-                this.businessAndIndustry.supplier, this.disableCrgAlpha ? undefined : Validators.required],
+                this.businessAndIndustry.supplier, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** 9. Industry Growth*/
             industryGrowth: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.industryGrowth)) ? undefined :
-                this.companyInfo.industryGrowth, this.disableCrgAlpha ? undefined : Validators.required],
+                this.companyInfo.industryGrowth, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** 10. Market competition*/
             marketCompetition: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.marketCompetition) ? undefined :
-                this.companyInfo.marketCompetition, this.disableCrgAlpha ? undefined : Validators.required],
+                this.companyInfo.marketCompetition, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** 11. Experience*/
             experience: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.experience) ? undefined :
-                this.companyInfo.experience, this.disableCrgAlpha ? undefined : Validators.required],
+                this.companyInfo.experience, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** Succession*/
             succession: [ObjectUtil.isEmpty(this.companyInfo)
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
-                this.companyInfo.succession, this.disableCrgAlpha ? undefined : Validators.required],
+                this.companyInfo.succession, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
             /** Groups BackGround*/
             groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
