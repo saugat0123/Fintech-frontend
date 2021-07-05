@@ -36,11 +36,13 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
   @Input() branchId: number;
   @Input() approvalType: string;
   @Input() refId: number;
+  @Input() toRole: Role;
   ckeConfig = Editor.CK_CONFIG;
   public combinedLoan: CombinedLoan;
   public LoanType = LoanType;
   public stageType: 'individually' | 'combined';
   public sendForwardBackwardList: [];
+  public sendForwardBackwardApprovalList: [];
   public combinedType: {
     form?: FormGroup,
     userList?: User[],
@@ -64,6 +66,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
   isUserNotPresentForCombine = false;
   selectedRole: Role;
   selectedUsername: string;
+  isSolPresent = false;
 
   constructor(
       public nbDialogRef: NbDialogRef<RoleHierarchyCombinedModelComponent>,
@@ -85,6 +88,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
       this.combinedLoan.loans.forEach((l, i) => {
         this.isUserPresent[i] = true;
         this.isSolUserPresent[i] = true;
+        this.isSolPresent = l.isSol;
         this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
       });
     }, error => {
@@ -92,6 +96,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load combined loan'));
     });
     this.conditionalCombinedDataLoad();
+    this.getConditionalCombinedDataLoad();
   }
 
   public changeStageType(value: 'individually' | 'combined'): void {
@@ -163,7 +168,11 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
         return;
       }
       const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
-          {context: {individualCombine: this.individualType.form.value, action: this.docAction}});
+          {context: {
+            individualCombine: this.individualType.form.value,
+              action: this.docAction,
+              isSolUserPresent: this.isSolPresent
+          }});
       dialogRef.onClose.subscribe((verified: boolean) => {
         if (verified === true) {
           this.postCombinedAction(false);
@@ -183,7 +192,8 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
       const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
         context: {
           toUser: this.combinedType.form.get('toUser').value,
-          toRole: this.combinedType.form.get('toRole').value, action: this.docAction
+          toRole: this.combinedType.form.get('toRole').value, action: this.docAction,
+          isSolUserPresent: this.isSolUserPresent
         }
       });
       dialogRef.onClose.subscribe((verified: boolean) => {
@@ -245,6 +255,20 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     }
   }
 
+  // get all approval role list
+  private getConditionalCombinedDataLoad(): void {
+    switch (this.popUpTitle) {
+      case 'Transfer':
+        const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
+        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
+            .subscribe((response: any) => {
+              this.sendForwardBackwardApprovalList = [];
+              this.sendForwardBackwardApprovalList = response.detail;
+            });
+        break;
+    }
+  }
+
   private postCombinedAction(isCombined: boolean) {
     let actions;
     if (isCombined) {
@@ -277,4 +301,88 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
+  // sol logic starts here
+  // individual
+  public getIndividualUserSolList(role, i: number) {
+    if (!ObjectUtil.isEmpty(role)) {
+      this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+        this.individualType.solUsers.set(i, response.detail);
+        const users: User[] = response.detail;
+        this.isSolUserPresent[i] = true;
+        if (users.length === 1) {
+          this.individualType.form.get(['actions', i]).patchValue({
+            solUser: users[0]
+          });
+        } else if (users.length > 1) {
+          this.individualType.form.get(['actions', i]).patchValue({
+            solUser: users[0]
+          });
+
+        } else if (users.length === 0) {
+          this.isSolUserPresent[i] = false;
+        }
+      });
+    }
+  }
+
+  showHideSol(event: boolean, i: number) {
+    const val = {index: i, value: event};
+    const checkIndexPresent = this.showSolUser.filter(s => s.index === i);
+    if (checkIndexPresent.length === 0) {
+      this.showSolUser.push(val);
+    } else {
+      checkIndexPresent[0].value = event;
+    }
+    if (!event) {
+      this.individualType.form.get(['actions', i]).patchValue({
+        solUser: null
+      });
+      this.individualType.form.get(['actions', i, 'solUser']).clearValidators();
+      this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
+    } else {
+      this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
+      this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
+      this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
+    }
+  }
+
+  // combineSol
+  public getCombinedSolUserList(role) {
+    this.isSolUserPresentForCombine = true;
+    this.combinedType.form.patchValue({
+      solUser: null
+    });
+    this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+      this.combinedType.solUserList = response.detail;
+      if (this.combinedType.solUserList.length === 1) {
+        this.combinedType.form.patchValue({
+          solUser: this.combinedType.solUserList[0]
+        });
+      } else if (this.combinedType.solUserList.length > 1) {
+        this.combinedType.form.patchValue({
+          solUser: this.combinedType.solUserList[0]
+        });
+      } else if (this.combinedType.solUserList.length === 0) {
+        this.isSolUserPresentForCombine = false;
+      }
+    });
+  }
+
+  showHideSolCombine(event: boolean) {
+    if (event) {
+      this.showHideCombineSolUser = true;
+      this.combinedType.form.get('solUser').patchValue(undefined);
+      this.combinedType.form.get('solUser').setValidators(Validators.required);
+      this.combinedType.form.get('solUser').updateValueAndValidity();
+    } else {
+      this.combinedType.form.patchValue({
+        solUser: null,
+        selectedRoleForSol: null,
+        isSol: false
+      });
+      this.showHideCombineSolUser = false;
+      this.combinedType.form.get('solUser').clearValidators();
+      this.combinedType.form.get('solUser').updateValueAndValidity();
+    }
+  }
 }

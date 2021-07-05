@@ -449,7 +449,6 @@
                                 <th>LandLine Number</th>
                                 <th>Occupation</th>
                                 <th>Income Source</th>
-
                             </tr>
                             </thead>
                             <tbody>
@@ -534,7 +533,7 @@
                                     {{relative.citizenshipNumber}}
                                 </td>
                                 <td class="text-left pl-1">
-                                    {{loanDataHolder?.customerInfo?.dob | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})
+                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
                                 </td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
@@ -892,7 +891,7 @@
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white"
                     *ngIf="loanDataHolder?.customerDocument?.length > 0"
-                    (click)=downloadAllDocument(loanDataHolder?.customerDocument[0]?.documentPath)> Download All Document</button>
+                    (click)=getDocPath()> Download All Document</button>
           </span>
                 </div>
             </div>

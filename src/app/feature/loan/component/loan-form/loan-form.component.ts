@@ -366,6 +366,12 @@ export class LoanFormComponent implements OnInit {
                         this.templateList.splice(index, 1);
                     }
                 });
+                this.templateList.forEach((value, index) => {
+                    if ((this.loanDocument.companyInfo.isMicroCustomer ||
+                        environment.disableCrgAlpha) && value.name === 'Credit Risk Grading - Alpha') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
             }
 
             if (environment.disableCrgAlpha) {
