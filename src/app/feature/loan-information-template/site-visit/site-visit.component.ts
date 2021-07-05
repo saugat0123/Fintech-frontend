@@ -118,7 +118,6 @@ export class SiteVisitComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
-      console.log('SiteVisit Data::::', this.formDataForEdit);
     }
 
     this.buildForm();
