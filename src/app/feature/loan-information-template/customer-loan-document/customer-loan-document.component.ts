@@ -203,9 +203,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
         this.deleteDocument.forEach(resp => {
             for (let j = 0; this.customerDocumentArray.length > j; j++) {
                 if (this.initialDocuments[i].id === this.customerDocumentArray[j].document.id) {
-                    // tslint:disable-next-line:max-line-length
                     if (this.customerDocumentArray[j].document.id === resp.document.id) {
-                        this.loanFormService.deleteCustomerDocument(this.customerDocumentArray[j].documentPath).subscribe((res: any) => {
+                        // tslint:disable-next-line:max-line-length
+                        this.loanFormService.deleteCustomerDocFromSystem(this.customerDocumentArray[j].documentPath).subscribe((res: any) => {
                             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED '.concat(this.documentName)));
                         }, error => {
                             this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ?
