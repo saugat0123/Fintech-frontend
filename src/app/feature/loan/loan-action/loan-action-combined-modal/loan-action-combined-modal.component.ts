@@ -134,7 +134,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 this.combinedType.form.patchValue({
                     toUser: this.combinedType.userList[0]
                 });
-            }  else if ((role.roleType === RoleType.COMMITTEE) && this.combinedType.userList.length > 1) {
+            } else if ((role.roleType === RoleType.COMMITTEE) && this.combinedType.userList.length > 1) {
                 const committeeDefaultUser = this.combinedType.userList.filter(f => f.name.toLowerCase().includes('default'));
                 this.showUserList = false;
                 if (committeeDefaultUser.length === 0) {
@@ -149,6 +149,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 }
 
             } else if (this.combinedType.userList.length > 1) {
+                this.combinedType.form.patchValue({
+                    toUser: this.combinedType.userList[0]
+                });
                 this.combinedType.form.get('toUser').setValidators(Validators.required);
                 this.combinedType.form.updateValueAndValidity();
             } else if (this.combinedType.userList.length === 0) {
@@ -162,16 +165,12 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.individualType.users.set(i, response.detail);
             const users: User[] = response.detail;
             this.isUserPresent[i] = true;
-            if (users.length === 1) {
-                this.individualType.form.get(['actions', i]).patchValue({
-                    toUser: users[0]
-                });
-            } else if (users.length > 1) {
-                this.individualType.form.get(['actions', i, 'toUser']).setValue(undefined);
+            if (users.length === 0) {
+                this.isUserPresent[i] = false;
+            } else {
+                this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
                 this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
                 this.individualType.form.updateValueAndValidity();
-            } else if (users.length === 0) {
-                this.isUserPresent[i] = false;
             }
         });
     }
