@@ -37,6 +37,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
   @Input() approvalType: string;
   @Input() refId: number;
   @Input() toRole: Role;
+  @Input() fileUnderCurrentRole;
   ckeConfig = Editor.CK_CONFIG;
   public combinedLoan: CombinedLoan;
   public LoanType = LoanType;
@@ -165,6 +166,10 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
       if (this.selectedRole.roleType === RoleType.MAKER &&
           this.selectedUsername === LocalStorageUtil.getStorage().username) {
         this.toastService.show(new Alert(AlertType.INFO, 'Please select different user to transfer file'));
+        return;
+      }
+      if (this.selectedRole.roleName === this.fileUnderCurrentRole) {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
         return;
       }
       const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,

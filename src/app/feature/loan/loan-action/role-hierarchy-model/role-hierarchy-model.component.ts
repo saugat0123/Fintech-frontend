@@ -44,6 +44,7 @@ export class RoleHierarchyModelComponent implements OnInit {
     @Input() documentStatus: DocStatus;
     @Input() isTransfer: boolean;
     @Input() toRole: Role;
+    @Input() fileUnderCurrentRole;
     length = false;
     roleId: number;
     transferRoleList = [];
@@ -143,6 +144,7 @@ export class RoleHierarchyModelComponent implements OnInit {
 
     // get user list based on role
     public getUserList(role) {
+        console.log(role);
         this.selectedRole = role;
         this.isEmptyUser = false;
         this.showUserList = true;
@@ -179,6 +181,10 @@ export class RoleHierarchyModelComponent implements OnInit {
         if (this.selectedRole.roleType === RoleType.MAKER &&
             this.selectedUsername === LocalStorageUtil.getStorage().username) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
+            return;
+        }
+        if (this.selectedRole.roleName === this.fileUnderCurrentRole) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
             return;
         }
         const isSolSelected = this.form.get('isSol').value;
