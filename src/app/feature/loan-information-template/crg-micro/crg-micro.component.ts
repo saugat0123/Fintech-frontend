@@ -75,9 +75,6 @@ export class CrgMicroComponent implements OnInit {
   constructor(protected formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    console.log(this.incomeFromAccount);
-    console.log(this.security);
-    console.log(this.microOtherParameters);
     this.buildForm();
     this.calculateCrg();
   }
@@ -202,15 +199,15 @@ export class CrgMicroComponent implements OnInit {
         Number(microData.projectCostTotal);
     const automatedValue = conditionValue.toFixed(2);
     if (conditionValue >= 80) {
-      this.setValueForCriteria('deRatio', '80% of total project cost', 6, automatedValue);
+      this.setValueForCriteria('deRatio', '80% of total project cost', 1, automatedValue);
     } else if (conditionValue >= 70 && conditionValue < 80) {
-      this.setValueForCriteria('deRatio', '70% of total project cost', 8.40, automatedValue);
+      this.setValueForCriteria('deRatio', '70% of total project cost', 1.40, automatedValue);
     } else if (conditionValue >= 60 && conditionValue < 70) {
-      this.setValueForCriteria('deRatio', '60% of total project cost', 10.80, automatedValue);
+      this.setValueForCriteria('deRatio', '60% of total project cost', 1.80, automatedValue);
     } else if (conditionValue >= 50 && conditionValue < 60) {
-      this.setValueForCriteria('deRatio', '50% of total project cost', 12.00, automatedValue);
+      this.setValueForCriteria('deRatio', '50% of total project cost', 2.00, automatedValue);
     } else {
-      this.setValueForCriteria('deRatio', '50% of total project cost', 12.00, automatedValue);
+      this.setValueForCriteria('deRatio', '50% of total project cost', 2.00, automatedValue);
     }
   }
 

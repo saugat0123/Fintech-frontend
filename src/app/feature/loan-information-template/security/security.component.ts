@@ -79,6 +79,9 @@ export class SecurityComponent implements OnInit {
     crgLambdaDisabled = environment.disableCrgLambda;
     securityId: number;
 
+    alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
+    lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
+
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
@@ -108,7 +111,7 @@ export class SecurityComponent implements OnInit {
         }
         this.checkDisableAlpha();
         if (!this.isMicroCustomer && !this.crgLambdaDisabled && !this.isBusinessLoan) {
-            this.checkDisableLamdha(event);
+            this.checkDisableLamdha();
         }
     }
 
@@ -123,8 +126,10 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: [undefined],
             buildingLocation: [undefined],
             vehicleSecurityCoverage: [undefined],
-            lambdaScheme:
-                [undefined, !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
+            lambdaScheme: [undefined,
+                !this.crgLambdaDisabled
+                && !this.isBusinessLoan
+                && !this.isMicroCustomer ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [undefined],
             facCategory: [undefined],
             securityCoverageAutoPrivate: [undefined],
@@ -137,7 +142,8 @@ export class SecurityComponent implements OnInit {
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
             vehicleSecurityCoverage: formData.vehicleSecurityCoverage,
-            lambdaScheme: [formData.lambdaScheme , !this.crgLambdaDisabled && !this.isBusinessLoan ? Validators.required : undefined],
+            lambdaScheme: [formData.lambdaScheme,
+                !this.crgLambdaDisabled && !this.isBusinessLoan && !this.isMicroCustomer ? Validators.required : undefined],
             roadAccessOfPrimaryProperty: [formData.roadAccessOfPrimaryProperty],
             facCategory: [formData.facCategory],
             securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
@@ -393,15 +399,15 @@ export class SecurityComponent implements OnInit {
     }
 
     checkDisableAlpha() {
-        if (!this.disableCrgAlphaParams && this.isBusinessLoan) {
-            this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], true);
+        if (!this.isMicroCustomer && !this.disableCrgAlphaParams && this.isBusinessLoan) {
+            this.controlValidation(this.alphaControls, true);
         } else {
-            this.controlValidation(['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'], false);
+            this.controlValidation(this.alphaControls, false);
         }
     }
 
-    checkDisableLamdha(event) {
-        this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'], false);
+    checkDisableLamdha(event?) {
+        this.controlValidation(this.lambdaControls, false);
         switch (event) {
             case 'GENERAL':
                 this.controlValidation(['roadAccessOfPrimaryProperty', 'facCategory'], true);
