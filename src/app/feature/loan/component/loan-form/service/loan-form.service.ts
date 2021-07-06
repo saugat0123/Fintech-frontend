@@ -195,6 +195,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.delete(req.url, {headers: req.header});
     }
 
+    public deleteCustomerDocFromSystem(path): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-document/`);
+        return this.http.post(req.url, path, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }
