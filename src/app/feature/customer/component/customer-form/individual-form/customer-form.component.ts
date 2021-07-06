@@ -90,7 +90,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-
+    temporaryAddressShow = true;
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -208,7 +208,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
-                this.temporaryMunicipalitiesList.sort((a,b) => a.name.localeCompare(b.name));
+                this.temporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
@@ -643,6 +643,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             'temporaryWardNumber'
         ];
 
+
         if (event.target.checked) {
             this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
             this.customer.temporaryDistrict = this.basicInfo.get('district').value;
@@ -653,12 +654,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
             this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
 
-            temporaryFields.forEach(t => {
-                this.basicInfo.get(t).disable();
-            });
+            this.temporaryAddressShow = false;
         } else {
+            this.temporaryAddressShow = true;
             temporaryFields.forEach(t => {
-                this.basicInfo.get(t).enable();
                 this.basicInfo.get(t).patchValue('');
             });
         }
