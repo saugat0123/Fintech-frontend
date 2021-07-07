@@ -16,7 +16,7 @@ export enum IcfcOfferLetterConst {
     MORTGAGE_DEED_INDIVIDUAL_SAME,
     LOAN_DEED_COMPANY,
     LOAN_DEED_MULTIPLE,
-    LOAN_DEED_SINGLE,
+    LOAN_DEED_PERSONAL_LOAN_HOME_LOAN,
 }
 
 export namespace IcfcOfferLetterConst {
@@ -56,8 +56,8 @@ export namespace IcfcOfferLetterConst {
                 return 'Loan Deed Company';
             case IcfcOfferLetterConst.LOAN_DEED_MULTIPLE:
                 return 'Loan Deed Multiple';
-            case IcfcOfferLetterConst.LOAN_DEED_SINGLE:
-                return 'Loan Deed Single';
+            case IcfcOfferLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN:
+                return 'Loan Deed Personal Loan Home Loan';
         }
     }
 
