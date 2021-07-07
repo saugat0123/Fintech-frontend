@@ -5,14 +5,61 @@
                 <div class="bodyConfig align">
                     <div>
 
-                        <p class="text-center" style="font-size:16pt;"><b>ऋण लिखत (Loan deed)</b></p>
                         <p>
                             लिखितम् धनीका  नाम  वागमती अञ्चल, काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २, भाटभटेनीस्थित प्रधान  कार्यालय  रही
                             <input class="form-field form-control-sm nepaliFont "
                                    formControlName="branch"
                                    placeholder=""
                                    type="text"/>  स्थित शाखा कार्यालय रहेको आइ.सि.एफ.सि. फाइनान्स
-                            लिमिटेड  (जसलाई यस पछि  “धनी संस्था” भनिएको छ) लिखत गरिदिने ऋणीका नाम
+                            लिमिटेड  (जसलाई यस पछि  “धनी संस्था” भनिएको छ) लिखत गरिदिने ऋणीका नाम नेपाल सरकार,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="ministryName"
+                                   placeholder=""
+                                   type="text"/> मन्त्रालय,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="registrarOffice"
+                                   placeholder=""
+                                   type="text"/>को  कार्यालय/ विभागमा  दर्ता नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="registrationNo"
+                                   placeholder=""
+                                   type="text"/>
+                            रहि मिति <input class="form-field form-control-sm nepaliFont"
+                                            formControlName="registrationYear"
+                                            placeholder=""
+                                            type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                  formControlName="registrationMonth"
+                                                                  placeholder=""
+                                                                  type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                       formControlName="registrationDay"
+                                                                                       placeholder=""
+                                                                                       type="text" size="2"/>
+                            मा  दर्ता भई <input class="form-field form-control-sm nepaliFont"
+                                                formControlName="registrarOfficeProvince"
+                                                placeholder=""
+                                                type="text"/>
+                            प्रदेश<input class="form-field form-control-sm nepaliFont"
+                                         formControlName="registrarOfficeZone"
+                                         placeholder=""
+                                         type="text"/>
+                            अञ्चल, <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="registrarOfficeDistrict"
+                                          placeholder=""
+                                          type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont"
+                                                                       formControlName="registrarOfficeVDCMun"
+                                                                       placeholder=""
+                                                                       type="text"/> गाउँपालिका/ नगरपालिका /महानगरपालीका वडा  नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="registrarOfficeWardNo"
+                                   placeholder=""
+                                   type="text" size="2"/> मा रजिष्टर्ड कार्यालय रहेको पान नं. <input class="form-field form-control-sm nepaliFont"
+                                                                                            formControlName="panNo"
+                                                                                            placeholder=""
+                                                                                            type="text"/> भएको
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="field"
+                                   placeholder=""
+                                   type="text"/> को तर्फबाट अख्तियार प्राप्त आधिकारिक व्यक्ति
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="grandParents"
                                    placeholder=""
@@ -69,20 +116,32 @@
                                                                     formControlName="citizenshipNo"
                                                                     placeholder=""
                                                                     type="text"/> मिति <input class="form-field form-control-sm nepaliFont"
-                                                                                              formControlName="issueDate"
+                                                                                              formControlName="issueYear"
                                                                                               placeholder=""
-                                                                                              type="text"/> जि.प्र.का <input class="form-field form-control-sm nepaliFont"
+                                                                                              type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                                   formControlName="issueMonth"
+                                                                                                                   placeholder=""
+                                                                                                                   type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                                                        formControlName="issueDay"
+                                                                                                                                        placeholder=""
+                                                                                                                                        type="text" size="2"/> जि.प्र.का <input class="form-field form-control-sm nepaliFont"
                                                                                                                              formControlName="issueDistrict"
                                                                                                                              placeholder=""
                                                                                                                              type="text"/>) (जसलाई यसपछी ऋणी भनिएको छ) आगे ऋणी संस्था
                             लाई  ऋण कर्जा सुविधाको आवश्यकता परी तपाई धनी संस्थासँग अनुरोध गरेको र <input class="form-field form-control-sm nepaliFont"
-                                                                                                         formControlName="date3"
+                                                                                                         formControlName="field2"
                                                                                                          placeholder=""
                                                                                                          type="text"/>
                             कर्जा शिर्षक अन्तर्गत मिति <input class="form-field form-control-sm nepaliFont"
-                                                              formControlName="date2"
+                                                              formControlName="year2"
                                                               placeholder=""
-                                                              type="text"/> मा कर्जा सीमा रकम रु. <input class="form-field form-control-sm nepaliFont"
+                                                              type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                   formControlName="month2"
+                                                                                   placeholder=""
+                                                                                   type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                        formControlName="day2"
+                                                                                                        placeholder=""
+                                                                                                        type="text" size="2"/> मा कर्जा सीमा रकम रु. <input class="form-field form-control-sm nepaliFont"
                                                                                                          formControlName="amount"
                                                                                                          placeholder=""
                                                                                                          type="text" (change)="convertAmountInWords('amount','amountInWords')"/> / (अक्षरेपी  <input class="form-field form-control-sm nepaliFont"
@@ -124,10 +183,16 @@
                             </thead>
                             <tbody *ngFor="let data of loanDeedCompany.get('propertyDetailsTable')['controls']; let index = index" formArrayName="propertyDetailsTable">
                             <tr [formGroupName]="index">
-                                <td><input class="form-field form-control-sm nepaliFont col-9"
-                                           formControlName="date3"
+                                <td><input class="form-field form-control-sm nepaliFont"
+                                           formControlName="year3"
                                            placeholder=""
-                                           type="text" size="3" /></td>
+                                           type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                          formControlName="month3"
+                                                                          placeholder=""
+                                                                          type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                         formControlName="day3"
+                                                                                                         placeholder=""
+                                                                                                         type="text" size="2"/></td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont col-9"
                                            formControlName="creditAmount"

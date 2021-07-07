@@ -5,7 +5,7 @@
                 <div class="bodyConfig align">
                     <div>
 
-                        <p class="text-center" style="font-size:16pt;"><b>ऋण लिखत (Loan deed)</b></p>
+
                         <div style="width: 1000px;">
                             <div style="float: left;width: 200px;transform: rotate(90deg); -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg);">
                                 <p class="text-left">साक्षीहरुः</p>
@@ -24,16 +24,25 @@
                                 <p>
                                 लिखितम् धनीका  नाम  वागमती अञ्चल, काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २, भाटभटेनीस्थित प्रधान  कार्यालय  रही
                                 <span class="font-weight-bold nepaliFont">{{letter?.branch}}</span>  स्थित शाखा कार्यालय रहेको आइ.सि.एफ.सि. फाइनान्स
-                                लिमिटेड  (जसलाई यस पछि  “धनी संस्था” भनिएको छ) लिखत गरिदिने ऋणीका नाम
+                                लिमिटेड  (जसलाई यस पछि  “धनी संस्था” भनिएको छ) लिखत गरिदिने ऋणीका नाम नेपाल सरकार,
+                                    <span class="font-weight-bold nepaliFont">{{letter?.ministryName}}</span> मन्त्रालय,
+                                    <span class="font-weight-bold nepaliFont">{{letter?.registrarOffice}}</span> को  कार्यालय/ विभागमा  दर्ता नं.
+                                    <span class="font-weight-bold nepaliFont">{{letter?.registrationNo}}</span>
+                                    रहि मिति <span class="font-weight-bold nepaliFont">{{letter?.registrationYear}}</span>/<span class="font-weight-bold nepaliFont">{{letter?.registrationMonth}}</span>/<span class="font-weight-bold nepaliFont">{{letter?.registrationDay}}</span>
+                                    मा  दर्ता भई <span class="font-weight-bold nepaliFont">{{letter?.registrarOfficeProvince}}</span>
+                                    प्रदेश <span class="font-weight-bold nepaliFont">{{letter?.registrarOfficeZone}}</span>
+                                    अञ्चल, <span class="font-weight-bold nepaliFont">{{letter?.registrarOfficeDistrict}}</span> जिल्ला, <span class="font-weight-bold nepaliFont">{{letter?.registrarOfficeVDCMun}}</span> गाउँपालिका/ नगरपालिका /महानगरपालीका वडा  नं.
+                                    <span class="font-weight-bold nepaliFont">{{letter?.registrarOfficeWardNo}}</span> मा रजिष्टर्ड कार्यालय रहेको पान नं. <span class="font-weight-bold nepaliFont">{{letter?.panNo}}</span> भएको
+                                    <span class="font-weight-bold nepaliFont">{{letter?.field}}</span> को तर्फबाट अख्तियार प्राप्त आधिकारिक व्यक्ति
                                 <span class="font-weight-bold nepaliFont">{{letter?.grandParents}}</span> को नाति/नातिनी/बुहारी, <span class="font-weight-bold nepaliFont">{{letter?.parents}}</span>
                                 को छोरा/छोरी/पत्नी <span class="font-weight-bold nepaliFont">{{letter?.permanentProvince}}</span> प्रदेश <span class="font-weight-bold nepaliFont">{{letter?.permanentZone}}</span> अञ्चल,  <span class="font-weight-bold nepaliFont">{{letter?.permanentDistrict}}</span> जिल्ला,
                                 <span class="font-weight-bold nepaliFont">{{letter?.permanentMunicipalityVDC}}</span> गाउँपालिका/ नगरपालिका /महानगरपालीका वडा नं. <span class="font-weight-bold nepaliFont">{{letter?.permanentWardNo}}</span> को हाल <span class="font-weight-bold nepaliFont">{{letter?.temporaryProvince}}</span> प्रदेश
                                 <span class="font-weight-bold nepaliFont">{{letter?.temporaryZone}}</span>
                                 अञ्चल,  <span class="font-weight-bold nepaliFont">{{letter?.temporaryDistrict}}</span> जिल्ला,  <span class="font-weight-bold nepaliFont">{{letter?.temporaryMunicipalityVDC}}</span> गाउँपालिका/ नगरपालिका /महानगरपालीका वडा नं.  <span class="font-weight-bold nepaliFont">{{letter?.temporaryWardNo}}</span>
-                                <span class="font-weight-bold nepaliFont">{{letter?.temporaryAddress}}</span> बस्ने बर्ष <span class="font-weight-bold nepaliFont">{{letter?.age}}</span> को/की
-                                <span class="font-weight-bold nepaliFont">{{letter?.borrowerName}}</span>  (ना.प्र.न. <span class="font-weight-bold nepaliFont">{{letter?.citizenshipNo}}</span> मिति <span class="font-weight-bold nepaliFont">{{letter?.issueDate}}</span> जि.प्र.का <span class="font-weight-bold nepaliFont">{{letter?.issueDistrict}}</span>) (जसलाई यसपछी ऋणी भनिएको छ) आगे ऋणी संस्था
+                                 <span class="font-weight-bold nepaliFont">{{letter?.temporaryAddress}}</span> बस्ने बर्ष <span class="font-weight-bold nepaliFont">{{letter?.age}}</span> को/की
+                                <span class="font-weight-bold nepaliFont">{{letter?.borrowerName}}</span>  (ना.प्र.न. <span class="font-weight-bold nepaliFont">{{letter?.citizenshipNo}}</span> मिति <span class="font-weight-bold nepaliFont">{{letter?.issueYear}}</span>/<span class="font-weight-bold nepaliFont">{{letter?.issueMonth}}</span>/<span class="font-weight-bold nepaliFont">{{letter?.issueDay}}</span> जि.प्र.का <span class="font-weight-bold nepaliFont">{{letter?.issueDistrict}}</span>) (जसलाई यसपछी ऋणी भनिएको छ) आगे ऋणी संस्था
                                 लाई  ऋण कर्जा सुविधाको आवश्यकता परी तपाई धनी संस्थासँग अनुरोध गरेको र <span class="font-weight-bold nepaliFont">{{letter?.field2}}</span>
-                                कर्जा शिर्षक अन्तर्गत मिति <span class="font-weight-bold nepaliFont">{{letter?.date2}}</span> मा कर्जा सीमा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount}}</span> / (अक्षरेपी  <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords}}</span>
+                                कर्जा शिर्षक अन्तर्गत मिति <span class="font-weight-bold nepaliFont">{{letter?.year2}}</span>/<span class="font-weight-bold nepaliFont">{{letter?.month2}}</span>/<span class="font-weight-bold nepaliFont">{{letter?.day2}}</span> मा कर्जा सीमा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount}}</span> / (अक्षरेपी  <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords}}</span>
                                 मात्र) स्वीकृत भएकोमा उक्त कर्जा सीमा भन्दा नबढ्ने गरी एकै पटक वा पटक पटक गरी संस्थाको खाता नं. <span class="font-weight-bold nepaliFont">{{letter?.accountNo}}</span>
                                 मार्फत  उपभोग  गर्ने गरी यो ऋण कर्जाको तमसूक गरिदिएको ठीक साँचो हो । तपाई धनी संस्थाबाट प्राप्त ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुमा लाग्ने ब्याज,
                                 शुल्क, दस्तुरहरु आदि तल उल्लेखित स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधा खण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको मितिभित्रमा
@@ -66,7 +75,7 @@
                                     <tbody>
                                     <tr *ngFor="let tableData of letter?.propertyDetailsTable; index as i">
                                         <td>
-                                            <span class="font-weight-bold nepaliFont">{{tableData?.date3}}</span>
+                                            <span class="font-weight-bold nepaliFont">{{tableData?.year3}}</span>/<span class="font-weight-bold nepaliFont">{{tableData?.month3}}</span>/<span class="font-weight-bold nepaliFont">{{tableData?.day3}}</span>
                                         </td>
                                         <td>
                                             <span class="font-weight-bold nepaliFont">{{tableData?.creditAmount}}</span>

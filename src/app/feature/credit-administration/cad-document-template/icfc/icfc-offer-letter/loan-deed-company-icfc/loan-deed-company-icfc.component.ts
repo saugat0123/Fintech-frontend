@@ -70,10 +70,14 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
       age: [undefined],
       borrowerName: [undefined],
       citizenshipNo: [undefined],
-      issueDate: [undefined],
+      issueYear: [undefined],
+      issueMonth: [undefined],
+      issueDay: [undefined],
       issueDistrict: [undefined],
-      date2: [undefined],
-      date3: [undefined],
+      field2: [undefined],
+      year2: [undefined],
+      month2: [undefined],
+      day2: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
       accountNo: [undefined],
@@ -84,7 +88,20 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
       day: [undefined],
       time: [undefined],
       propertyDetailsTable: this.formBuilder.array([]),
-      note: [undefined]
+      note: [undefined],
+      ministryName: [undefined],
+      registrarOffice: [undefined],
+      registrationNo: [undefined],
+      registrationYear: [undefined],
+      registrationMonth: [undefined],
+      registrationDay: [undefined],
+      registrarOfficeProvince: [undefined],
+      registrarOfficeZone: [undefined],
+      registrarOfficeDistrict: [undefined],
+      registrarOfficeVDCMun: [undefined],
+      registrarOfficeWardNo: [undefined],
+      panNo: [undefined],
+      field: [undefined],
     });
 
   }
@@ -168,7 +185,9 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
   addTableData() {
     (this.loanDeedCompany.get('propertyDetailsTable') as FormArray).push(
         this.formBuilder.group({
-          date3: [undefined],
+          year3: [undefined],
+          month3: [undefined],
+          day3: [undefined],
           creditAmount: [undefined],
           interestRate: [undefined],
           serviceCharge: [undefined],
@@ -189,7 +208,9 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        date3: [undefined],
+        year3: [undefined],
+        month3: [undefined],
+        day3: [undefined],
         creditAmount: [undefined],
         interestRate: [undefined],
         serviceCharge: [undefined],
