@@ -34,8 +34,9 @@ export class CustomerLoanDocumentComponent implements OnInit {
     loanConfigId;
     documentName;
     documentId;
-    index;
+    initialDocIndex;
     actualLoanId;
+    deleteDocument = [];
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
@@ -67,7 +68,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     this.loanConfigId = loanId;
                 }
             });
-
 
         this.loanConfigService.detail(loanId).subscribe(
             (response: any) => {
@@ -109,6 +109,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         });
                     });
                 }
+                this.deleteDocument = this.customerDocumentArray;
             }
         );
 
@@ -138,7 +139,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
             formData.append('documentId', documentId);
             formData.append('loanHolderId', this.loanDataHolder.loanHolder.id.toString());
             formData.append('customerType', this.loanDataHolder.loanHolder.customerType);
-            formData.append('loanId1', this.actualLoanId);
+            formData.append('actualLoanId', this.actualLoanId);
             if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
                 formData.append('action', 'new');
             }
@@ -190,7 +191,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
     openModel(model, documentName: string, documentId, index: number) {
         this.documentName = documentName;
         this.documentId = documentId;
-        this.index = index;
+        this.initialDocIndex = index;
         this.modelService.open(model);
     }
 
@@ -199,9 +200,24 @@ export class CustomerLoanDocumentComponent implements OnInit {
     }
 
     confirmDelete(i) {
+        this.deleteDocument.forEach(resp => {
+            for (let j = 0; this.customerDocumentArray.length > j; j++) {
+                if (this.initialDocuments[i].id === this.customerDocumentArray[j].document.id) {
+                    if (this.customerDocumentArray[j].document.id === resp.document.id) {
+                        // tslint:disable-next-line:max-line-length
+                        this.loanFormService.deleteCustomerDocFromSystem(this.customerDocumentArray[j].documentPath).subscribe((res: any) => {
+                            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully deleted '.concat(this.documentName)));
+                        }, error => {
+                            this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ?
+                                ' Successfully deleted ' : error.error.message));
+                        });
+                        this.customerDocumentArray.splice(j, 1);
+                        this.initialDocuments[i].checked = false;
+                        break;
+                    }
+                }
+            }
+        });
         this.modelService.dismissAll();
-        this.customerDocumentArray.indexOf(this.index);
-        this.customerDocumentArray.splice(this.index, 1);
-        this.initialDocuments[this.index].checked = false;
     }
 }
