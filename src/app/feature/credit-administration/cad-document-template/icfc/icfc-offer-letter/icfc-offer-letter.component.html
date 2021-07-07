@@ -76,9 +76,16 @@
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase="offerLetterConst.LOAN_DEED_MULTIPLE"></app-loan-deed-multiple-icfc>
             <app-loan-deed-personal-loan-home-loan-icfc
+                    *ngSwitchCase="offerLetterConst.LOAN_DEED_SHARE_LOAN"></app-loan-deed-multiple-icfc>
+            <app-loan-deed-single-icfc
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase="offerLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN"></app-loan-deed-personal-loan-home-loan-icfc>
+                    *ngSwitchCase="offerLetterConst.LOAN_DEED_SINGLE"></app-loan-deed-single-icfc>
+            <app-loan-deed-hire-purchase
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.LOAN_DEED_HIRE_PURCHASE"></app-loan-deed-hire-purchase>
         </div>
     </nb-card-body>
 </nb-card>
