@@ -1,5 +1,5 @@
 .bodyConfig {
-  font-size: 18px;
+  font-size: 14pt;
   line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
@@ -12,21 +12,25 @@
   width: 48%;
 }
 
-.nepaliList {
-  list-style-type: devanagari;
+.extendedMargin {
+  margin-top: 375px;
 }
 
 table {
-  font-size: 18px;
-  line-height: 1.8;
-  text-align: justify;
+  font-size: 14pt;
+  line-height: 1.4;
 }
 
 .loanWords {
-  font-size: 18px;
+  font-size: 13pt;
 }
 span {
-  font-size: 26px;
+  font-size: 20pt;
+  line-height: 1.2;
+}
+
+li {
+  list-style-type: none;
 }
 
 .logo-container {
@@ -50,5 +54,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 20px;
   }
 }
+
