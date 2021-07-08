@@ -44,7 +44,7 @@ export class RoleHierarchyModelComponent implements OnInit {
     @Input() documentStatus: DocStatus;
     @Input() isTransfer: boolean;
     @Input() toRole: Role;
-    @Input() fileUnderCurrentRole;
+    @Input() isFileUnderCurrentToUser;
     length = false;
     roleId: number;
     transferRoleList = [];
@@ -130,7 +130,6 @@ export class RoleHierarchyModelComponent implements OnInit {
                             this.form.patchValue({
                                 toRole: this.sendForwardBackwardList[0].role
                             });
-                            this.getUserList(this.sendForwardBackwardList[0].role);
                         }
                     });
                 break;
@@ -178,12 +177,14 @@ export class RoleHierarchyModelComponent implements OnInit {
             return;
         }
         // restricting loan transfer for same user
+        const selectedToUser = this.form.get('toUser').value;
         if (this.selectedRole.roleType === RoleType.MAKER &&
-            this.selectedUsername === LocalStorageUtil.getStorage().username) {
+            selectedToUser.username === LocalStorageUtil.getStorage().username) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
             return;
         }
-        if (this.selectedRole.roleName === this.fileUnderCurrentRole) {
+        const selectedUser = this.form.get('toUser').value;
+        if (selectedUser.username === this.isFileUnderCurrentToUser.username) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
             return;
         }
