@@ -1156,10 +1156,12 @@ export class CompanyFormComponent implements OnInit {
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
         console.log(micro, this.disableCrgAlpha);
         if (micro || !this.disableCrgAlpha) {
-            this.controlValidation(alphaFields , true);
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
                 clientTypeControl.disable();
+                this.controlValidation(alphaFields , false);
+            } else {
+                this.controlValidation(alphaFields , true);
             }
         } else {
             this.controlValidation(alphaFields , false);
