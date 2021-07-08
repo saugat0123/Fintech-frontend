@@ -10,7 +10,7 @@
         </nb-card-header>
         <nb-card-body>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12">isSolUserPresent::{{isSolPresent}}
                     <p>This loan is combined. All combined loans are mentioned below:</p>
                     <table class="table table-bordered table-hover table-sm sb-small text-center">
                         <thead>
@@ -92,7 +92,8 @@
                                             <div class="col-md-12 form-group">
                                                 <label class="toUser" for="toUser">To User</label>
                                                 <select class="custom-select" formControlName="toUser" id="toUser{{i}}"
-                                                        name="toUser" (change)="getSelectedUser(individualType?.form.get('toUser').value)">
+                                                        name="toUser" (change)="getSingleSelectedUser(control?.get('toUser').value, i)">
+                                                    <option [value]="undefined" hidden>To User</option>
                                                     <option *ngFor="let user of individualType?.users.get(i)"
                                                             [ngValue]="user">
                                                         {{user.username}}
@@ -137,7 +138,7 @@
                                                             formControlName="selectedRoleForSol"
                                                             id="selectedRoleForSol{{i}}"
                                                             name="selectedRoleForSol">
-                                                        <option [value]="null" hidden>Select To</option>
+                                                        <option [value]="undefined" hidden>Select To</option>
                                                         <option
                                                                 *ngFor="let forwardBackward of sendForwardBackwardList"
                                                                 [ngValue]="forwardBackward?.role">
@@ -156,7 +157,9 @@
                                                                 style="width: 100%"
                                                                 formControlName="solUser" id="solUser{{i}}"
                                                                 name="solUser"
-                                                                [compareWith]="compareFn">
+                                                                [compareWith]="compareFn"
+                                                                (change)="getSingleSelectedSolUser(control?.get('solUser').value, i)">
+                                                            <option [value]="undefined" hidden>To User</option>
                                                             <option *ngFor="let user of individualType?.solUsers.get(i)"
                                                                     [ngValue]="user">
                                                                 {{user.username}}
@@ -237,7 +240,7 @@
                                                 class="form-control form-control-sm"
                                                 formControlName="selectedRoleForSol"
                                                 name="solUser">
-                                            <option [value]="null" hidden>Select To</option>
+                                            <option [value]="undefined" hidden>Select To</option>
                                             <option *ngFor="let forwardBackward of sendForwardBackwardApprovalList"
                                                     [ngValue]="forwardBackward.role">
                                                 {{forwardBackward.role?.roleName}}
@@ -271,7 +274,7 @@
         <nb-card-footer>
             <button
                     (click)="onSubmit()"
-                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid)"
+                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid) || !showHideSoleForm"
                     nbButton type="button">
                 <em class="fa fa-save"></em>
             </button>
