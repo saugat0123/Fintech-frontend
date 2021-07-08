@@ -57,7 +57,8 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('amount').invalid}"
+                                    <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
+                                           [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('amount').invalid}"
                                            class="form-control" formControlName="amount"
                                            placeholder="Amount (Monthly)" type="number"  appDecimalNumber>
                                     <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
@@ -184,7 +185,8 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong><strong
                                             class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
+                                    <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
+                                           [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
                                            formControlName="amount" placeholder="Amount (Monthly)"
                                            type="number" class="form-control" appDecimalNumber>
                                     <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount is required</span>
