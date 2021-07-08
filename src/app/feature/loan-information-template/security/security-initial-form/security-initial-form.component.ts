@@ -1536,14 +1536,14 @@ export class SecurityInitialFormComponent implements OnInit {
                         receiptNumber: [deposit.receiptNumber],
                         amount: [deposit.amount],
                         expiryDate: [ObjectUtil.isEmpty(deposit.expiryDate) ?
-                            undefined : new Date(deposit.expiryDate), DateValidator.isValidBefore],
+                            undefined : new Date(deposit.expiryDate)],
                         couponRate: [deposit.couponRate],
                         beneficiary: [deposit.beneficiary],
                         remarks: [deposit.remarks],
                         accountHolderName: [deposit.accountHolderName],
                         accountNumber: [deposit.accountNumber],
                         tenureStartDate: [ObjectUtil.isEmpty(deposit.tenureStartDate) ?
-                            undefined : new Date(deposit.tenureStartDate), DateValidator.isValidBefore]
+                            undefined : new Date(deposit.tenureStartDate)]
                     })
                 );
             });

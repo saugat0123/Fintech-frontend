@@ -13,18 +13,18 @@ import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
-  selector: 'app-loan-deed-single-icfc',
-  templateUrl: './loan-deed-single-icfc.component.html',
-  styleUrls: ['./loan-deed-single-icfc.component.scss']
+  selector: 'app-loan-deed-personal-loan-home-loan-icfc',
+  templateUrl: './loan-deed-personal-loan-home-loan-icfc.component.html',
+  styleUrls: ['./loan-deed-personal-loan-home-loan-icfc.component.scss']
 })
-export class LoanDeedSingleIcfcComponent implements OnInit {
+export class LoanDeedPersonalLoanHomeLoanIcfcComponent implements OnInit {
   @Input() offerLetterType;
   @Input() cadOfferLetterApprovedDoc;
 
-  loanDeedSingle: FormGroup;
-  singleData;
+  loanDeedPersonalLoanHomeLoan: FormGroup;
   spinner;
   nepData;
   offerLetterDocument: OfferDocument;
@@ -32,6 +32,7 @@ export class LoanDeedSingleIcfcComponent implements OnInit {
   initialInfoPrint;
   existingOfferLetter = false;
   guarantorData;
+  editor = NepaliEditor.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -39,7 +40,7 @@ export class LoanDeedSingleIcfcComponent implements OnInit {
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,) { }
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -47,56 +48,50 @@ export class LoanDeedSingleIcfcComponent implements OnInit {
   }
 
   buildForm() {
-    this.loanDeedSingle = this.formBuilder.group({
+    this.loanDeedPersonalLoanHomeLoan = this.formBuilder.group({
       branch: [undefined],
       grandParents: [undefined],
-      temporaryProvince: [undefined],
+      parents: [undefined],
+      permanentProvince: [undefined],
+      permanentZone: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      parents: [undefined],
+      temporaryProvince: [undefined],
+      temporaryZone: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
       temporaryAddress: [undefined],
       age: [undefined],
-      relation: [undefined],
+      borrowerName: [undefined],
       citizenshipNo: [undefined],
-      issueDate: [undefined],
+      issueYear: [undefined],
+      issueMonth: [undefined],
+      issueDay: [undefined],
       issueDistrict: [undefined],
-      loanRequestDate: [undefined],
-      loan: [undefined],
-      purpose: [undefined],
-      annualRate: [undefined],
-      onePerson: [undefined],
+      year2: [undefined],
+      month2: [undefined],
+      day2: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      timeDuration: [undefined],
-      rohbarBankEmployeeName: [undefined],
-      guarantorName: [undefined],
-      guarantorName2: [undefined],
+      accountNo: [undefined],
+      witness: [undefined],
+      witness2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
       time: [undefined],
-      districtOfWitness: [undefined],
-      municipalityVDCOfWitness: [undefined],
-      wardNoOfWitness: [undefined],
-      ageOfWitness: [undefined],
-      relationOfWitness: [undefined],
-      districtOfWitness2: [undefined],
-      municipalityVDCOfWitness2: [undefined],
-      wardNoOfWitness2: [undefined],
-      ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined],
-      debtorName: [undefined],
       propertyDetailsTable: this.formBuilder.array([]),
+      note: [undefined],
+      field: [undefined],
     });
+
   }
 
   fillForm() {
     this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    this.loanDeedSingle.patchValue({
+    this.loanDeedPersonalLoanHomeLoan.patchValue({
       permanentDistrict: this.nepData.permanentDistrict ? this.nepData.permanentDistrict : '',
       permanentMunicipalityVDC: this.nepData.permanentMunicipality ? this.nepData.permanentMunicipality : '',
       permanentWardNo: this.nepData.permanentWard ? this.nepData.permanentWard : '',
@@ -115,10 +110,10 @@ export class LoanDeedSingleIcfcComponent implements OnInit {
 
   checkOfferLetter() {
     this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SINGLE).toString())[0];
+        === this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN).toString())[0];
     if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
       this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SINGLE);
+      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN);
       this.fillForm();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -127,66 +122,64 @@ export class LoanDeedSingleIcfcComponent implements OnInit {
       if (!ObjectUtil.isEmpty(initialInfo)) {
         this.setPropertyDetailsTable(initialInfo.propertyDetailsTable);
       }
-      this.loanDeedSingle.patchValue(this.initialInfoPrint);
+      this.loanDeedPersonalLoanHomeLoan.patchValue(this.initialInfoPrint);
     }
   }
 
   addTableData() {
-    (this.loanDeedSingle.get('propertyDetailsTable') as FormArray).push(
+    (this.loanDeedPersonalLoanHomeLoan.get('propertyDetailsTable') as FormArray).push(
         this.formBuilder.group({
-          sNo: [undefined],
-          landOwnerName: [undefined],
-          landOwnerMunicipalityVDC: [undefined],
-          landOwnerWardNo: [undefined],
-          seatNo: [undefined],
-          kNo: [undefined],
-          area: [undefined],
-          rNoDate: [undefined],
+          year3: [undefined],
+          month3: [undefined],
+          day3: [undefined],
+          creditAmount: [undefined],
+          interestRate: [undefined],
+          serviceCharge: [undefined],
+          bankingServiceAndDate: [undefined]
         })
     );
   }
 
   removeTableData(index) {
-    (this.loanDeedSingle.get('propertyDetailsTable') as FormArray).removeAt(index);
+    (this.loanDeedPersonalLoanHomeLoan.get('propertyDetailsTable') as FormArray).removeAt(index);
   }
 
   setPropertyDetailsTable(data) {
-    const formArray = this.loanDeedSingle.get('propertyDetailsTable') as FormArray;
+    const formArray = this.loanDeedPersonalLoanHomeLoan.get('propertyDetailsTable') as FormArray;
     if (data.length === 0) {
       this.addTableData();
       return;
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        sNo: [value.sNo],
-        landOwnerName: [value.landOwnerName],
-        landOwnerMunicipalityVDC: [value.landOwnerMunicipalityVDC],
-        landOwnerWardNo: [value.landOwnerWardNo],
-        seatNo: [value.seatNo],
-        kNo: [value.kNo],
-        area: [value.area],
-        rNoDate: [value.rNoDate],
+        year3: [undefined],
+        month3: [undefined],
+        day3: [undefined],
+        creditAmount: [undefined],
+        interestRate: [undefined],
+        serviceCharge: [undefined],
+        bankingServiceAndDate: [undefined]
       }));
     });
   }
 
 
   submit() {
-    console.log(this.loanDeedSingle.value);
+    console.log(this.loanDeedPersonalLoanHomeLoan.value);
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SINGLE).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.loanDeedSingle.value);
+            this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN).toString()) {
+          offerLetterPath.initialInformation = JSON.stringify(this.loanDeedPersonalLoanHomeLoan.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SINGLE);
-      offerDocument.initialInformation = JSON.stringify(this.loanDeedSingle.value);
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN);
+      offerDocument.initialInformation = JSON.stringify(this.loanDeedPersonalLoanHomeLoan.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
@@ -205,9 +198,9 @@ export class LoanDeedSingleIcfcComponent implements OnInit {
   }
 
   convertAmountInWords(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedSingle.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedPersonalLoanHomeLoan.get(numLabel).value);
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.loanDeedSingle.get(wordLabel).patchValue(convertedVal);
+    this.loanDeedPersonalLoanHomeLoan.get(wordLabel).patchValue(convertedVal);
   }
 
 }

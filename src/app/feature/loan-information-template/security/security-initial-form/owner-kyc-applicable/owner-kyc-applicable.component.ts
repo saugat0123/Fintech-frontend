@@ -60,7 +60,7 @@ export class OwnerKycApplicableComponent implements OnInit {
                     citizenshipNumber: [singleData.citizenshipNumber],
                     issuedLocation: [singleData.issuedLocation],
                     issuedDate: [ObjectUtil.isEmpty(singleData.issuedDate) ?
-                        undefined : new Date(singleData.issuedDate), DateValidator.isValidBefore],
+                        undefined : new Date(singleData.issuedDate)],
                     mobileNumber: [singleData.mobileNumber],
                     address: [singleData.address],
                     age: [singleData.age],

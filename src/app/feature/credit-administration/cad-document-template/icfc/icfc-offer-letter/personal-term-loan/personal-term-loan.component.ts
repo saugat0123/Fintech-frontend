@@ -128,6 +128,16 @@ export class PersonalTermLoanComponent implements OnInit {
       details: [undefined],
       interestTypeSelectedArray: [undefined],
       loanTermSelectedArray: [undefined],
+      regNo2: [undefined],
+      address: [undefined],
+      district: [undefined],
+      inApprovalFlag: [true],
+      prePaymentFlag: [true],
+      letterYear: [undefined],
+      footerLetterYear: [undefined],
+      footerLetterMonth: [undefined],
+      footerLetterDay: [undefined],
+      year2: [undefined],
 
       loanSecurityTable: this.formBuilder.array([]),
       loanFacilityTable: this.formBuilder.array([]),
@@ -182,6 +192,10 @@ export class PersonalTermLoanComponent implements OnInit {
     console.log('This is print value: ', this.personalTermLoan.value);
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+    const flagCheck = this.personalTermLoan.get('inApprovalFlag').value;
+    if (flagCheck === false) {
+      this.personalTermLoan.get('inApprovalFlag').patchValue(null);
+    }
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
@@ -310,6 +324,35 @@ export class PersonalTermLoanComponent implements OnInit {
     const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
     const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
     this.personalTermLoan.get(annual).patchValue(finalValue);
+  }
+
+  calcOtherRate(serviceCharge, chargeRate, swapfeeTwo, afterFiveRate, afterFiveRate2) {
+    const servCharge = this.nepToEngNumberPipe.transform(this.personalTermLoan.get(serviceCharge).value);
+    const calculatedRate = ( parseFloat(servCharge) / 100) * 50;
+    const finalCalcValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedRate));
+    this.personalTermLoan.get(chargeRate).patchValue(finalCalcValue);
+    this.personalTermLoan.get(swapfeeTwo).patchValue(finalCalcValue);
+    const calcFiveYears = ( parseFloat(servCharge) / 100) * 25;
+    const finalFiveYearsValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calcFiveYears));
+    this.personalTermLoan.get(afterFiveRate).patchValue(finalFiveYearsValue);
+    this.personalTermLoan.get(afterFiveRate2).patchValue(finalFiveYearsValue);
+    this.personalTermLoan.get('biAnnualRate').patchValue(this.personalTermLoan.get(serviceCharge).value);
+    this.personalTermLoan.get('biAnnualRate2').patchValue(this.personalTermLoan.get(serviceCharge).value);
+
+  }
+
+  setValue() {
+    const regValue = this.personalTermLoan.get('regNo').value;
+    console.log('This is reg Value: ', regValue);
+    this.personalTermLoan.get('regNo2').patchValue(regValue);
+  }
+
+  removeOptionalField(formGroup, fieldControlName) {
+    formGroup.get(fieldControlName).patchValue(false);
+  }
+
+  undoFieldRemove(formGroup, fieldControlName) {
+    formGroup.get(fieldControlName).patchValue(true);
   }
 
 }

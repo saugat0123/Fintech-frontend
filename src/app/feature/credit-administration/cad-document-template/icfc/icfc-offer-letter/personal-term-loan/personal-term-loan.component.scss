@@ -17,6 +17,19 @@ td{
   @extend .text-justify;
 }
 
+.longInput{
+  width: 400px;
+}
+
+.extendedLongInput{
+  width: 600px;
+}
+
+.shortInput{
+  width: 50px;
+}
+
+
 .text-justify,
 .text-justify p {
   text-align: justify;

@@ -56,6 +56,7 @@ import {OwnerKycApplicableComponent} from '../../../../loan-information-template
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
+import {mic} from 'ionicons/icons';
 
 @Component({
     selector: 'app-company-form',
@@ -852,6 +853,7 @@ export class CompanyFormComponent implements OnInit {
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
+            console.log(this.companyInfoFormGroup);
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
@@ -1152,12 +1154,17 @@ export class CompanyFormComponent implements OnInit {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
-        if (micro) {
-            this.controlValidation(alphaFields , false);
-            clientTypeControl.patchValue('MICRO');
-            clientTypeControl.disable();
+        console.log(micro, this.disableCrgAlpha);
+        if (micro || !this.disableCrgAlpha) {
+            if (micro) {
+                clientTypeControl.patchValue('MICRO');
+                clientTypeControl.disable();
+                this.controlValidation(alphaFields , false);
+            } else {
+                this.controlValidation(alphaFields , true);
+            }
         } else {
-            this.controlValidation(alphaFields , true);
+            this.controlValidation(alphaFields , false);
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
                 this.clientTypeInput);

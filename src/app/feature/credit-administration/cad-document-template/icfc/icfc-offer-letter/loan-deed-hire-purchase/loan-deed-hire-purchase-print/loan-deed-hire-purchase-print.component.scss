@@ -29,8 +29,8 @@ span {
   line-height: 1.2;
 }
 
-.nepaliList {
-  list-style-type: devanagari;
+li {
+  list-style-type: none;
 }
 
 .logo-container {
@@ -54,5 +54,7 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 20px;
   }
 }
+
