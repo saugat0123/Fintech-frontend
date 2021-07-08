@@ -48,7 +48,7 @@
                             <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    class="form-control" formControlName="reValuatedConsideredValue"
-                                   id="reValuatedConsideredValue" name="total" placeholder="considered value">
+                                   id="reValuatedConsideredValue" name="total" placeholder="Considered Value as per Revaluation">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -57,7 +57,7 @@
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    class="form-control rounded" formControlName="reValuatedFmv"
                                    id="reValuatedFmv"
-                                   name="reValuatedFmv" placeholder="market value"
+                                   name="reValuatedFmv" placeholder="FMV as per Revaluation"
                                    type="text"/>
                         </div>
                     </div>
@@ -67,7 +67,8 @@
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    class="form-control rounded" formControlName="reValuatedDv"
                                    id="reValuatedDv"
-                                   name="reValuatedDv" placeholder="distress value"
+                                   name="reValuatedDv"
+                                   [placeholder]="(client === clientName?.EXCEL) ? 'MV as per Revaluation' : 'DV as per Revaluation'"
                                    type="text"/>
                         </div>
                     </div>
@@ -82,7 +83,7 @@
                     <div class="form-group">
                         <label for="changeInConsideredValue">Change in Considered Value</label>
                         <input [readOnly]="true" class="form-control" formControlName="changeInConsideredValue"
-                               id="changeInConsideredValue" name="total" placeholder="considered value">
+                               id="changeInConsideredValue" name="total" placeholder="Change in Considered Value">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -90,17 +91,18 @@
                         <label class="title" for="changeInDv">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</label>
                         <input [readOnly]="true" class="form-control rounded" formControlName="changeInDv"
                                id="changeInDv"
-                               name="changeInDv" placeholder="distress value"
+                               name="changeInDv"
+                               [placeholder]="(client === clientName?.EXCEL) ? 'Change in MV' : 'Change in DV'"
                                type="text"/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="title" for="changeInFmv">Change in Fmv</label>
+                        <label class="title" for="changeInFmv">Change in FMV</label>
                         <input class="form-control rounded" formControlName="changeInFmv"
                                id="changeInFmv"
                                [readOnly]="true"
-                               name="changeInFmv" placeholder="market value"
+                               name="changeInFmv" placeholder="Change in FMV"
                                type="text"/>
                     </div>
                 </div>
