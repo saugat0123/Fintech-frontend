@@ -143,7 +143,6 @@ export class RoleHierarchyModelComponent implements OnInit {
 
     // get user list based on role
     public getUserList(role) {
-        console.log(role);
         this.selectedRole = role;
         this.isEmptyUser = false;
         this.showUserList = true;
