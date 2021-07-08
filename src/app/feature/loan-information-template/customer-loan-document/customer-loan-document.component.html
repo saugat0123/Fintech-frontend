@@ -77,12 +77,12 @@
     </div>
     <div class="modal-body">
       <span class="py-4">
-        Do You want to delete {{documentName}}?
+        Do you want to delete {{documentName}}? It will be <strong>permanently</strong> deleted?
       </span>
     </div>
     <div class="modal-footer">
       <div class="d-flex justify-content-end pb-md-3">
-        <button  (click)="confirmDelete(index)" class="btn btn-success float-right" type="submit"> Yes </button>
+        <button  (click)="confirmDelete(initialDocIndex)" class="btn btn-success float-right" type="submit"> Yes </button>
       </div>
     </div>
   </div>
