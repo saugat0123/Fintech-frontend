@@ -15,7 +15,6 @@ export enum IcfcOfferLetterConst {
     MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER,
     MORTGAGE_DEED_INDIVIDUAL_SAME,
     LOAN_DEED_COMPANY,
-    LOAN_DEED_MULTIPLE,
     LOAN_DEED_PERSONAL_LOAN_HOME_LOAN,
     LOAN_DEED_SHARE_LOAN,
     LOAN_DEED_HIRE_PURCHASE,
@@ -60,8 +59,6 @@ export namespace IcfcOfferLetterConst {
                 return 'Loan Deed Share Loan';
             case IcfcOfferLetterConst.LOAN_DEED_HIRE_PURCHASE:
                 return 'Loan Deed Hire Purchase';
-            case IcfcOfferLetterConst.LOAN_DEED_MULTIPLE:
-                return 'Loan Deed Multiple';
             case IcfcOfferLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN:
                 return 'Loan Deed Personal Loan Home Loan';
         }
