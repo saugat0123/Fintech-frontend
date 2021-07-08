@@ -1,8 +1,8 @@
-<div class="container bodyConfig text-justify" id="{{offerLetterConst.LOAN_DEED_COMPANY}}">
+<div class="container bodyConfig text-justify">
     <div class="row">
-        <div class="col-md-12">
-            <form (ngSubmit)="submit()" [formGroup]="loanDeedCompany" class="nepali" id="loanDeedCompanyPrint">
-                <div class="bodyConfig align">
+        <div class="col-md-12 viewFull">
+            <form (ngSubmit)="submit()" [formGroup]="loanDeedPersonalLoanHomeLoan" id="loanDeedPersonalLoanHomeLoanPrint" class="nepali">
+                <div class="bodyConfig">
                     <div>
 
                         <p>
@@ -28,12 +28,12 @@
                                             formControlName="registrationYear"
                                             placeholder=""
                                             type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                  formControlName="registrationMonth"
-                                                                  placeholder=""
-                                                                  type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                                       formControlName="registrationDay"
-                                                                                       placeholder=""
-                                                                                       type="text" size="2"/>
+                                                                          formControlName="registrationMonth"
+                                                                          placeholder=""
+                                                                          type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                        formControlName="registrationDay"
+                                                                                                        placeholder=""
+                                                                                                        type="text" size="2"/>
                             मा  दर्ता भई <input class="form-field form-control-sm nepaliFont"
                                                 formControlName="registrarOfficeProvince"
                                                 placeholder=""
@@ -53,9 +53,9 @@
                                    formControlName="registrarOfficeWardNo"
                                    placeholder=""
                                    type="text" size="2"/> मा रजिष्टर्ड कार्यालय रहेको पान नं. <input class="form-field form-control-sm nepaliFont"
-                                                                                            formControlName="panNo"
-                                                                                            placeholder=""
-                                                                                            type="text"/> भएको
+                                                                                                     formControlName="panNo"
+                                                                                                     placeholder=""
+                                                                                                     type="text"/> भएको
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="field"
                                    placeholder=""
@@ -84,9 +84,9 @@
                                                                                                     formControlName="permanentWardNo"
                                                                                                     placeholder=""
                                                                                                     type="text" size="2"/> को हाल  <input class="form-field form-control-sm nepaliFont"
-                                                                                                                                 formControlName="temporaryProvince"
-                                                                                                                                 placeholder=""
-                                                                                                                                 type="text"/> प्रदेश
+                                                                                                                                          formControlName="temporaryProvince"
+                                                                                                                                          placeholder=""
+                                                                                                                                          type="text"/> प्रदेश
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="temporaryZone"
                                    placeholder=""
@@ -119,15 +119,15 @@
                                                                                               formControlName="issueYear"
                                                                                               placeholder=""
                                                                                               type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                                                                   formControlName="issueMonth"
-                                                                                                                   placeholder=""
-                                                                                                                   type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                                                                                        formControlName="issueDay"
-                                                                                                                                        placeholder=""
-                                                                                                                                        type="text" size="2"/> जि.प्र.का <input class="form-field form-control-sm nepaliFont"
-                                                                                                                             formControlName="issueDistrict"
-                                                                                                                             placeholder=""
-                                                                                                                             type="text"/>) (जसलाई यसपछी ऋणी भनिएको छ) आगे ऋणी संस्था
+                                                                                                                            formControlName="issueMonth"
+                                                                                                                            placeholder=""
+                                                                                                                            type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                          formControlName="issueDay"
+                                                                                                                                                          placeholder=""
+                                                                                                                                                          type="text" size="2"/> जि.प्र.का <input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                                                                  formControlName="issueDistrict"
+                                                                                                                                                                                                  placeholder=""
+                                                                                                                                                                                                  type="text"/>) (जसलाई यसपछी ऋणी भनिएको छ) आगे ऋणी संस्था
                             लाई  ऋण कर्जा सुविधाको आवश्यकता परी तपाई धनी संस्थासँग अनुरोध गरेको र <input class="form-field form-control-sm nepaliFont"
                                                                                                          formControlName="field2"
                                                                                                          placeholder=""
@@ -136,18 +136,18 @@
                                                               formControlName="year2"
                                                               placeholder=""
                                                               type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                                   formControlName="month2"
-                                                                                   placeholder=""
-                                                                                   type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                                                        formControlName="day2"
-                                                                                                        placeholder=""
-                                                                                                        type="text" size="2"/> मा कर्जा सीमा रकम रु. <input class="form-field form-control-sm nepaliFont"
-                                                                                                         formControlName="amount"
-                                                                                                         placeholder=""
-                                                                                                         type="text" (change)="convertAmountInWords('amount','amountInWords')"/> / (अक्षरेपी  <input class="form-field form-control-sm nepaliFont"
-                                                                                                                                           formControlName="amountInWords"
-                                                                                                                                           placeholder=""
-                                                                                                                                           type="text" readonly/>
+                                                                                            formControlName="month2"
+                                                                                            placeholder=""
+                                                                                            type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                                          formControlName="day2"
+                                                                                                                          placeholder=""
+                                                                                                                          type="text" size="2"/> मा कर्जा सीमा रकम रु. <input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                                              formControlName="amount"
+                                                                                                                                                                              placeholder=""
+                                                                                                                                                                              type="text" (change)="convertAmountInWords('amount','amountInWords')"/> / (अक्षरेपी  <input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                                                                                                                                          formControlName="amountInWords"
+                                                                                                                                                                                                                                                                          placeholder=""
+                                                                                                                                                                                                                                                                          type="text" readonly/>
                             मात्र) स्वीकृत भएकोमा उक्त कर्जा सीमा भन्दा नबढ्ने गरी एकै पटक वा पटक पटक गरी संस्थाको खाता नं. <input class="form-field form-control-sm nepaliFont"
                                                                                                                                    formControlName="accountNo"
                                                                                                                                    placeholder=""
@@ -187,12 +187,12 @@
                                            formControlName="year3"
                                            placeholder=""
                                            type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                          formControlName="month3"
-                                                                          placeholder=""
-                                                                          type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
-                                                                                                         formControlName="day3"
-                                                                                                         placeholder=""
-                                                                                                         type="text" size="2"/></td>
+                                                                         formControlName="month3"
+                                                                         placeholder=""
+                                                                         type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                       formControlName="day3"
+                                                                                                       placeholder=""
+                                                                                                       type="text" size="2"/></td>
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont col-9"
                                            formControlName="creditAmount"
@@ -285,13 +285,11 @@
                             </p>
                         </div>
                     </div>
-
                 </div>
-                <div class="row">
+                <div class="row disable-print">
                     <div class="col-md-12 text-right">
                         <button nbButton status="success">Save</button>
                     </div>
-
                 </div>
             </form>
             <div class="row mt-2">
@@ -299,7 +297,7 @@
                     <button class="btn btn-primary d-print-none"
                             [useExistingCss]="true"
                             [disabled]="!initialInfoPrint"
-                            printSectionId="print-section-{{offerLetterConst.LOAN_DEED_COMPANY}}"
+                            printSectionId="print-section-{{offerLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN}}"
                             ngxPrint>
                         PRINT
                     </button>
@@ -309,4 +307,4 @@
     </div>
 </div>
 
-<app-loan-deed-company-icfc-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-loan-deed-company-icfc-print>
+<app-loan-deed-personal-loan-home-loan-icfc-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-loan-deed-personal-loan-home-loan-icfc-print>
