@@ -237,9 +237,9 @@ export class FinancialComponent implements OnInit {
             if (!this.isBusinessLoan) {
                 this.addIncomeOfBorrower();
                 this.addExpensesOfBorrower();
-                this.checkDisableAlpha();
             }
         }
+        this.checkDisableAlpha();
     }
 
     buildForm() {
@@ -478,6 +478,7 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
+        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
@@ -680,7 +681,7 @@ export class FinancialComponent implements OnInit {
     }
 
     checkDisableAlpha() {
-        if (!this.disableCrgAlphaParams) {
+        if (!this.isBusinessLoan && !this.disableCrgAlphaParams) {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], true);
         } else {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
