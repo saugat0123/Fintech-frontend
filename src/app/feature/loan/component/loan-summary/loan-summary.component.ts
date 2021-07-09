@@ -185,6 +185,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    refId: number;
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    customer;
+    test;
 
 
     constructor(
@@ -219,6 +221,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        console.log('loanData', this.loanDataHolder);
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -468,6 +471,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 // push current loan if not fetched from staged spec response
                 if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                     this.customerAllLoanList.push(this.loanDataHolder);
+                }
+                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                } else {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
                 }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList
