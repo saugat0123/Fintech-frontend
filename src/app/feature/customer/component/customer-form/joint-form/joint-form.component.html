@@ -165,6 +165,24 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                                <div class="form-group">
+                                                    <label for="fatherName"><strong>Father's Name</strong></label>
+                                                    <input class="form-control" formControlName="fatherName"
+                                                           placeholder="Father Name" id="fatherName"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                                <div class="form-group">
+                                                    <label for="grandFatherName"><strong>Grandfather's Name</strong></label>
+                                                    <input class="form-control" formControlName="grandFatherName"
+                                                           placeholder="Grandfather Name" id="grandFatherName"
+                                                           type="text">
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="contactNumber{{i}}"><strong>Mobile Number</strong></label>
@@ -274,6 +292,7 @@
                                                         <nb-option value="Salary">Salary</nb-option>
                                                         <nb-option value="Farmer">Farmer</nb-option>
                                                         <nb-option value="House Wife">House Wife</nb-option>
+                                                        <nb-option value="Army and Pensioners">Army and Pensioners</nb-option>
                                                         <nb-option value="Other">Other</nb-option>
                                                     </nb-select>
                                                     <div *ngIf="submitted && joinCustomerInfo.get('occupation').errors"

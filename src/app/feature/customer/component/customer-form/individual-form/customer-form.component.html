@@ -203,19 +203,6 @@
 
                            <!-- END ROW -->
                            <!-- START ROW -->
-                           <!--<div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="mobile"><b>Mobile</b></label>
-                                   <input -- class="form-control" formControlName="mobile" id="mobile" name="mobile"
-                                          type="text">
-                                   placeholder="Mobile number"
-                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.mobile.errors }">
-                                   <div *ngIf="(submitted) && basicInfoControls.mobile.invalid" class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls.mobile.errors.required">Mobile number is required</div>
-                                       <div *ngIf="basicInfoControls.mobile.errors.pattern">Mobile number is invalid.</div>
-                                   </div>
-                               </div>
-                           </div> -->
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Mobile Number</strong></label>
@@ -326,6 +313,7 @@
                                 <nb-option value="Salary">Salary</nb-option>
                                 <nb-option value="Farmer">Farmer</nb-option>
                                 <nb-option value="House Wife">House Wife</nb-option>
+                                <nb-option value="Army and Pensioners">Army and Pensioners</nb-option>
                                 <nb-option value="Other">Other</nb-option>
                             </nb-select>
                             <div *ngIf="submitted && basicInfoControls.occupation.errors"
