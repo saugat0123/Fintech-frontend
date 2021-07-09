@@ -24,7 +24,7 @@
                                                [appendTo]="'body'"
                                                (change)="optionChangeTypeOfSourceOfIncome($event, organizationSelect, true)">
                                         <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
-                                              class="text-danger small">Income source required</span>
+                                              class="text-danger small">Income source is required</span>
                                     </ng-select>
                                 </div>
                             </div>
@@ -39,22 +39,17 @@
                                                formControlName="organization">
                                     </ng-select>
                                     <span *ngIf="incomeOfBorrower.get('organization').invalid"
-                                          class="text-danger small">Type required</span>
+                                          class="text-danger small">Type is required</span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="title"><strong>Age of Income Generated(In Months)</strong><strong
                                             class="text-danger">*</strong></label>
-                                    <input
-                                           [ngClass]="{
-                               'is-invalid': incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched),
-                                'is-valid': !incomeOfBorrower.get('ageOfIncomeGenerated').invalid && (incomeOfBorrower.get('ageOfIncomeGenerated').dirty || incomeOfBorrower.get('ageOfIncomeGenerated').touched)
-                                }" class="form-control"
-                                           placeholder="Age of Income Generated"
-                                           formControlName="ageOfIncomeGenerated"
-                                           type="number" appDecimalNumber>
-                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age required</span>
+                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('ageOfIncomeGenerated').invalid}"
+                                           class="form-control" formControlName="ageOfIncomeGenerated"
+                                           placeholder="Age of Income Generated(In Months)" type="number" appDecimalNumber>
+                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age of Income Generated(In Months) is required</span>
                                 </div>
                             </div>
 
@@ -63,12 +58,9 @@
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
                                     <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
-                                           [ngClass]="{
-                               'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
-                                'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
-                                }" class="form-control"
-                                           formControlName="amount" placeholder="Amount"
-                                           type="number" appDecimalNumber>
+                                           [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('amount').invalid}"
+                                           class="form-control" formControlName="amount"
+                                           placeholder="Amount (Monthly)" type="number"  appDecimalNumber>
                                     <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                 </div>
                             </div>
@@ -77,12 +69,9 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong></label><strong
                                         class="text-danger">*</strong>
-                                    <input [ngClass]="{
-                               'is-invalid': incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched),
-                                'is-valid': !incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched)
-                                }" class="form-control"
+                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('remarks').invalid}"
                                            formControlName="remarks" placeholder="Remarks"
-                                           type="text">
+                                           type="text" class="form-control">
                                     <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
                                 </div>
                             </div>
@@ -107,7 +96,7 @@
                                type="button" value="Add More"/>
                     </div>
                 </div>
-              <div class="row">
+              <div class="row" *ngIf="!isBusinessLoan && !disableCrgAlphaParams">
                   <div class="col-md-12">
                       <nb-card>
                           <nb-card-body>
@@ -126,7 +115,7 @@
                                       </select>
                                       <div *ngIf="(submitted) && financialForm.get('majorSourceIncomeType').invalid"
                                            class="invalid-feedback">
-                                             Invalid Major Source of Income
+                                             Major Source of Income is required
                                       </div>
                                   </div>
                                   <div class="col-md-4" >
@@ -134,12 +123,12 @@
                                           class="text-danger">*</strong>
                                       <input class="form-control" formControlName="periodOfEarning" id="periodOfEarning"
                                              [ngClass]="{'is-invalid': submitted && financialForm.get('periodOfEarning').invalid}"
-                                             placeholder="Period of earning/employment">
+                                             placeholder="Period of earning/employment (in years)">
 
                                       <div *ngIf="(submitted) && form.periodOfEarning.invalid"
                                            class="invalid-feedback">
                                           <div>
-                                              Invalid Period of earning/employment
+                                              Period of earning/employment is required
                                           </div>
                                       </div>
                                   </div>
@@ -153,7 +142,12 @@
                                   <div class="col-md-4" nbTooltip="Type 0 if there is no alternate source" nbTooltipStatus="primary" >
                                       <label for="alternateIncomeSourceAmount"><strong>Source Amount</strong></label>
                                       <input class="form-control" formControlName="alternateIncomeSourceAmount" id="alternateIncomeSourceAmount"
+                                             [ngClass]="{'is-invalid': submitted && financialForm.get('alternateIncomeSourceAmount').invalid}"
                                              placeholder="Amount" appDecimalNumber/>
+                                      <div *ngIf="(submitted) && form.alternateIncomeSourceAmount.invalid"
+                                           class="invalid-feedback">
+                                          Alternate/Secondary source of income is required
+                                      </div>
                                   </div>
                               </div>
                           </nb-card-body>
@@ -179,14 +173,11 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Particulars</strong><strong
                                             class="text-danger">*</strong></label>
-                                    <input [ngClass]="{
-                               'is-invalid': expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched),
-                                'is-valid': !expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched)
-                                }" class="form-control"
+                                    <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('particulars').invalid}"
                                            formControlName="particulars" placeholder="Particulars"
-                                           type="text">
+                                           type="text" class="form-control">
                                     <span *ngIf="expensesOfBorrower.get('particulars').invalid"
-                                          class="invalid-feedback">Particulars required</span>
+                                          class="invalid-feedback">Particulars is required</span>
                                 </div>
                             </div>
 
@@ -195,13 +186,10 @@
                                     <label class="title"><strong>Amount (Monthly)</strong><strong
                                             class="text-danger">*</strong></label>
                                     <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
-                                           [ngClass]="{
-                               'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
-                                'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
-                                }" class="form-control"
-                                           formControlName="amount" placeholder="Amount"
-                                           type="number" appDecimalNumber>
-                                    <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                           [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('amount').invalid}"
+                                           formControlName="amount" placeholder="Amount (Monthly)"
+                                           type="number" class="form-control" appDecimalNumber>
+                                    <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount is required</span>
                                 </div>
                             </div>
 
@@ -209,14 +197,11 @@
                                 <div class="form-group">
                                     <label class="title"><strong>Remarks</strong><strong
                                             class="text-danger">*</strong></label>
-                                    <input [ngClass]="{
-                               'is-invalid': expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched),
-                                'is-valid': !expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched)
-                                }" class="form-control"
+                                    <input [ngClass]="{'is-invalid': submitted && expensesOfBorrower.get('remarks').invalid}"
                                            formControlName="remarks" placeholder="Remarks"
-                                           type="text">
+                                           type="text" class="form-control">
                                     <span *ngIf="expensesOfBorrower.get('remarks').invalid"
-                                          class="invalid-feedback">Remarks required</span>
+                                          class="invalid-feedback">Remarks is required</span>
                                 </div>
                             </div>
 
@@ -377,11 +362,16 @@
                         <nb-radio-group class="d-contents form-control"
                                         formControlName="salesProjectionVsAchievement"
                                         id="salesProjectionVsAchievement"
-                                        name="salesProjectionVsAchievement">
+                                        name="salesProjectionVsAchievement"
+                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid }">
                             <nb-radio *ngFor="let field of salesProjectionVsAchievementArray"
                                       [value]="field?.value">{{field?.value}}
                             </nb-radio>
                         </nb-radio-group>
+                        <div *ngIf="(submitted) && financialForm?.get('salesProjectionVsAchievement')?.invalid"
+                             class="invalid-feedback">
+                            Sales - Projection Vs Achievement is required
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12 border-bottom border-dark mb-4">
@@ -390,11 +380,16 @@
                         <nb-radio-group class="d-contents form-control"
                                         formControlName="netWorthOfFirmOrCompany"
                                         id="netWorthOfFirmOrCompany"
-                                        name="netWorthOfFirmOrCompany">
+                                        name="netWorthOfFirmOrCompany"
+                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm.get('netWorthOfFirmOrCompany').invalid }">
                             <nb-radio *ngFor="let field of netWorthOfFirmOrCompanyArray"
                                       [value]="field?.value">{{field?.value}}
                             </nb-radio>
                         </nb-radio-group>
+                        <div *ngIf="(submitted) && financialForm.get('netWorthOfFirmOrCompany').invalid"
+                             class="invalid-feedback">
+                            Net Worth of Firm/Company is required
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -403,11 +398,16 @@
                         <nb-radio-group class="d-contents form-control"
                                         formControlName="taxCompliance"
                                         id="taxCompliance"
-                                        name="taxCompliance">
+                                        name="taxCompliance"
+                                        [ngClass]="{ 'is-invalid': (submitted) && financialForm.get('taxCompliance').invalid }">
                             <nb-radio *ngFor="let field of taxComplianceArray"
                                       [value]="field?.value">{{field?.value}}
                             </nb-radio>
                         </nb-radio-group>
+                        <div *ngIf="(submitted) && financialForm.get('taxCompliance').invalid"
+                             class="invalid-feedback">
+                            Tax Compliance is required
+                        </div>
                     </div>
                 </div>
             </div>
@@ -416,7 +416,7 @@
 </form>
 
 <div *ngIf="isBusinessLoan">
-    <div class="row my-2">
+    <div class="row my-2" *ngIf="!disableCrgAlphaParams">
         <div class="col-md-12 form-group">
             <label><b>Total Working Capital Limit*</b></label>
             <input #totalWorkingCapitalLimit nbInput
