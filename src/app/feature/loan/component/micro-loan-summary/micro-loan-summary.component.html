@@ -465,7 +465,7 @@
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 read-margin disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1">{{previousList?.comment}}</span>
+                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
@@ -498,7 +498,7 @@
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
                                    class="text-left pl-1 read-margin disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1">{{loanDataHolder?.currentStage?.comment}}</span>
+                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
