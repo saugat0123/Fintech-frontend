@@ -1,7 +1,7 @@
 <div class="container bodyConfig text-justify" id="{{offerLetterConst.LOAN_DEED_SHARE_LOAN}}">
     <div  class="row">
         <div class="col-md-12">
-            <form (ngSubmit)="submit()" [formGroup]="loanDeedMultiple" id="loanDeedMultiplePrint">
+            <form (ngSubmit)="submit()" [formGroup]="loanDeedShareLoan" id="loanDeedMultiplePrint">
                 <div class="row">
                     <div class="col-md-12">
                         <p class="text-center" style="font-size:16pt;"><b>ऋण लिखत (Loan deed)</b></p>
@@ -102,7 +102,7 @@
                                 <td>चुक्ता भुक्तानी गर्ने बैंकिङ्ग सुविधा र मिति</td>
                             </tr>
                             </thead>
-                            <tbody *ngFor="let loanApprovalData of loanDeedMultiple.get('loanApprovalSpecificationTable')['controls']; let index = index;" formArrayName="loanApprovalSpecificationTable">
+                            <tbody *ngFor="let loanApprovalData of loanDeedShareLoan.get('loanApprovalSpecificationTable')['controls']; let index = index;" formArrayName="loanApprovalSpecificationTable">
                             <tr [formGroupName]="index">
                                 <td>
                                     <input class="form-field form-control-sm nepaliFont" id='loanApprovalYear'
@@ -134,7 +134,7 @@
                             <div class="col-md-12">
                                 <button
                                         (click)="removeTableData(index)"
-                                        *ngIf="loanDeedMultiple.get('loanApprovalSpecificationTable')['length'] > 1"
+                                        *ngIf="loanDeedShareLoan.get('loanApprovalSpecificationTable')['length'] > 1"
                                         class="mt-3 mb-3" nbButton
                                         status="primary">हटाउनुहोस्
                                 </button>
@@ -194,7 +194,7 @@
                         </p>
                     </div>
                     <div class="col-md-12 mt-2">
-                        <ul *ngFor="let eviData of loanDeedMultiple.get('evidenceNameArray')['controls']; let i = index" formArrayName="evidenceNameArray">
+                        <ul *ngFor="let eviData of loanDeedShareLoan.get('evidenceNameArray')['controls']; let i = index" formArrayName="evidenceNameArray">
                             <li [formGroupName]="i">
                                 <input class="form-field form-control-sm nepaliFont mediumInputField" id='evidenceName1'
                                         formControlName="evidenceName1"

@@ -11,6 +11,7 @@ import {ProposalCalculationUtils} from '../../../loan/component/loan-summary/Pro
 import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
 import {NepaliNumberAndWords} from '../../model/nepaliNumberAndWords';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LegalDocumentCheckListEnum} from '../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
     selector: 'app-cad-checklist-doc-template-modal',
@@ -26,6 +27,7 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
     nepaliNumber = new NepaliNumberAndWords();
 
     cadTemplate = CadCheckListTemplateEnum;
+    legalTemplate = LegalDocumentCheckListEnum;
 
     constructor(protected dialogRef: NbDialogRef<CadChecklistDocTemplateModalComponent>,
                 private currencyFormatPipe: CurrencyFormatterPipe,

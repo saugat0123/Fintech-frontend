@@ -14,6 +14,12 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {single} from 'rxjs/operators';
+import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 
 
 @Component({
@@ -22,16 +28,16 @@ import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor
   styleUrls: ['./loan-deed-company-icfc.component.scss']
 })
 export class LoanDeedCompanyIcfcComponent implements OnInit {
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
+
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
 
   loanDeedCompany: FormGroup;
   spinner;
-  offerLetterDocument: OfferDocument;
-  offerLetterConst = IcfcOfferLetterConst;
-  customerOfferLetter: CustomerOfferLetter;
+  offerLetterConst = LegalDocumentCheckListEnum;
   initialInfoPrint;
-  existingOfferLetter = false;
   customGender;
   nepData;
   guarantorData;
@@ -107,7 +113,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
   }
 
   fillForm() {
-    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     console.log(this.nepData.guarantorDetails);
     this.checkGender(this.nepData.gender);
     this.loanDeedCompany.patchValue({
@@ -130,55 +136,71 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-      === this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY);
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          if (!ObjectUtil.isEmpty(initialInfo)) {
+            this.setPropertyDetailsTable(initialInfo.propertyDetailsTable);
+          }
+          this.loanDeedCompany.patchValue(this.initialInfoPrint);
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.fillForm();
-    } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.initialInfoPrint = initialInfo;
-      this.existingOfferLetter = true;
-      if (!ObjectUtil.isEmpty(initialInfo)) {
-        this.setPropertyDetailsTable(initialInfo.propertyDetailsTable);
-      }
-      this.loanDeedCompany.patchValue(this.initialInfoPrint);
     }
   }
 
 
   submit() {
-    console.log(this.loanDeedCompany.value);
+    console.log(this.loanDeedCompany.value.amountInWords);
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+    let flag = true;
 
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-          this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+          console.log('Initial Information ==> ', singleCadFile);
         }
       });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+        console.log('Initial Information ==> ', cadFile.initialInformation);
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+        console.log('cad data from the loan ===> ', cadFile);
+      }
     } else {
-      const offerDocument = new OfferDocument();
-      console.log('Offer Document', offerDocument);
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY);
-      offerDocument.initialInformation = JSON.stringify(this.loanDeedCompany.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      const cadFile = new CadFile();
+      const document = new Document();
+      cadFile.initialInformation = JSON.stringify(this.loanDeedCompany.value);
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      console.log('Initial Information ==> ', cadFile.initialInformation);
+      this.cadData.cadFileList.push(cadFile);
+      console.log('cad data from the loan ===> ', cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     });
   }
 

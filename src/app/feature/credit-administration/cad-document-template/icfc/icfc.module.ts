@@ -49,6 +49,23 @@ import { LoanDeedHirePurchasePrintComponent } from './icfc-offer-letter/loan-dee
         NgxPrintModule,
         CoreModule
     ],
+    exports: [
+        AcDebitAndLoanDisbursementAuthorityComponent,
+        CorporateGuaranteeComponent,
+        LetterOfAgreementComponent,
+        LetterOfContinuityComponent,
+        LetterOfSetOffComponent,
+        LoanDeedHirePurchaseComponent,
+        LoanDeedPersonalLoanHomeLoanIcfcComponent,
+        MarginCallDeedShareLoanComponent,
+        MarginCallDeedShareLoanCompanyComponent,
+        MortgageDeedCompanyComponent,
+        MrtgDeedIndividualDifferentComponent,
+        MrtgDeedIndividualSameComponent,
+        PromissoryNoteComponent,
+        LoanDeedCompanyIcfcComponent,
+        LoanDeedMultipleIcfcComponent
+    ],
     entryComponents: [
         IcfcOfferLetterComponent
     ]
