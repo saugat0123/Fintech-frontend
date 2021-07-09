@@ -234,9 +234,12 @@ export class FinancialComponent implements OnInit {
             }
 
             // functions for adding fields in initial Financial Form
-            this.addIncomeOfBorrower();
-            this.addExpensesOfBorrower();
+            if (!this.isBusinessLoan) {
+                this.addIncomeOfBorrower();
+                this.addExpensesOfBorrower();
+            }
         }
+        this.checkDisableAlpha();
     }
 
     buildForm() {
@@ -248,20 +251,20 @@ export class FinancialComponent implements OnInit {
             totalExpense: [0],
             currentTotal: [0],
             netSaving: [0],
-            salesProjectionVsAchievement: undefined,
-            netWorthOfFirmOrCompany: undefined,
-            taxCompliance: undefined,
+            salesProjectionVsAchievement: [undefined, !this.disableCrgAlphaParams && this.isBusinessLoan ? Validators.required : undefined],
+            netWorthOfFirmOrCompany: [undefined, !this.disableCrgAlphaParams && this.isBusinessLoan ? Validators.required : undefined],
+            taxCompliance: [undefined, !this.disableCrgAlphaParams && this.isBusinessLoan ? Validators.required : undefined],
             historicalDataPresent: [true],
             totalWorkingCapitalLimit: [0],
             // crg lambda fields---
-            majorSourceIncomeType: [undefined, [Validators.required]],
-            periodOfEarning: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
+            majorSourceIncomeType: [undefined],
+            periodOfEarning: [undefined],
             alternateIncomeSource: [undefined],
-            alternateIncomeSourceAmount: [undefined, [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+            alternateIncomeSourceAmount: [undefined],
             // grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
-            emiWithProposal: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+            emiWithProposal: [undefined, !this.disableCrgAlphaParams && !this.isBusinessLoan ? Validators.required : undefined],
             emiGrossMonthly: [undefined],
             emiNetMonthly: [undefined],
             note: [undefined],
@@ -270,6 +273,7 @@ export class FinancialComponent implements OnInit {
             totalObligationCurrentBank: [undefined],
             totalBankObligation: [undefined],
             obligationGrossIncomeRatio: [undefined],
+            // riskFactorForm: this.buildRiskFactorForm(),
         });
     }
 
@@ -289,11 +293,11 @@ export class FinancialComponent implements OnInit {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    incomeSource: [singleData.incomeSource, Validators.required],
-                    organization: [singleData.organization, Validators.required],
-                    amount: [singleData.amount, Validators.required],
-                    remarks: [singleData.remarks, Validators.required],
-                    ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated, Validators.required],
+                    incomeSource: [singleData.incomeSource],
+                    organization: [singleData.organization],
+                    amount: [singleData.amount],
+                    remarks: [singleData.remarks],
+                    ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated],
                 })
             );
         });
@@ -304,9 +308,9 @@ export class FinancialComponent implements OnInit {
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
-                    particulars: [singleData.particulars, Validators.required],
-                    amount: [singleData.amount, Validators.required],
-                    remarks: [singleData.remarks, Validators.required]
+                    particulars: [singleData.particulars],
+                    amount: [singleData.amount],
+                    remarks: [singleData.remarks]
                 })
             );
         });
@@ -474,6 +478,7 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
+        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
@@ -618,7 +623,7 @@ export class FinancialComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
         }
-        if (!this.isBusinessLoan && this.financialForm.invalid) {
+        if (this.financialForm.invalid) {
             return;
         }
         this.calculateAndSetHighestScore();
@@ -663,4 +668,23 @@ export class FinancialComponent implements OnInit {
         this.financialForm.get('obligationGrossIncomeRatio').setValue((
                 this.form.totalBankObligation.value / this.form.totalIncome.value).toFixed(2));
         }
+
+    controlValidation(controlNames: string[], validate) {
+        controlNames.forEach(s => {
+            if (validate) {
+                this.financialForm.get(s).setValidators(Validators.required);
+            } else {
+                this.financialForm.get(s).clearValidators();
+            }
+            this.financialForm.get(s).updateValueAndValidity();
+        });
+    }
+
+    checkDisableAlpha() {
+        if (!this.isBusinessLoan && !this.disableCrgAlphaParams) {
+            this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], true);
+        } else {
+            this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
+        }
+    }
 }
