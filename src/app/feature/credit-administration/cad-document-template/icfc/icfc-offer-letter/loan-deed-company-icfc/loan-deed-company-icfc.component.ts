@@ -134,7 +134,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
       === this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY).toString())[0];
     if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
       this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME);
+      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY);
       this.fillForm();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
