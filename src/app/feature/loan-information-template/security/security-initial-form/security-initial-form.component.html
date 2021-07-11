@@ -59,7 +59,7 @@
                                 <label class="title" for="location">Location</label>
                                 <input class="form-control rounded" formControlName="location"
                                        id="location"
-                                       name="location" placeholder="location"
+                                       name="location" placeholder="Location"
                                        type="text"/>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <label class="title" for="area">Area</label>
                                 <input class="form-control rounded" formControlName="area"
                                        id="ba"
-                                       name="area" placeholder="area"
+                                       name="area" placeholder="Area"
                                        type="text"/>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 <input (change)="updateLandSecurityTotal()"
                                        class="form-control"
                                        formControlName="landConsideredValue"
-                                       id="landConsideredValue" name="total" placeholder="considered value">
+                                       id="landConsideredValue" name="total" placeholder="Considered Value">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -112,7 +112,7 @@
                                        class="form-control rounded"
                                        formControlName="marketValue"
                                        id="marketValue"
-                                       name="marketValue" placeholder="market value"
+                                       name="marketValue" placeholder="Fair Market Value"
                                        type="text"/>
                             </div>
                         </div>
@@ -123,7 +123,8 @@
                                        class="form-control rounded"
                                        formControlName="distressValue"
                                        id="distressValue"
-                                       name="distressValue" placeholder="distress value"
+                                       [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                       name="distressValue"
                                        type="text"/>
                             </div>
                         </div>
@@ -180,7 +181,7 @@
                             <textarea class="form-control"
                                       formControlName="roadAccessDescribe"
                                       id="roadAccessDescribeLand"
-                                      placeholder="Road Access Description"
+                                      placeholder="Briefly describe the road access"
                                       rows="5"
                                       type="text"></textarea>
                         </div>
@@ -498,18 +499,17 @@
                                         <label class="title" for="buildingName">Apartment Name</label>
                                         <input class="form-control rounded" formControlName="buildingName"
                                                id="buildingName"
-                                               name="buildingName" placeholder="name of Apartment"
+                                               name="buildingName" placeholder="Apartment Name"
                                                type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingDescription">Apartment
-                                            Description</label>
+                                        <label class="title" for="buildingDescription">Apartment Description</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDescription"
                                                id="buildingDescription"
-                                               name="buildingDescription" placeholder="Apartment description"
+                                               name="buildingDescription" placeholder="Apartment Description"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -520,7 +520,7 @@
                                                 (input)="calculateBuildUpAreaRate(i, 'building')"
                                                class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
-                                               name="buildArea" placeholder="build up area"
+                                               name="buildArea" placeholder="Build Up Area (Sq.ft)"
                                                type="number" required/>
                                         <div *ngIf=" (apartmentSelected) && (building.get('buildArea').invalid)"
                                              class="invalid-feedback">
@@ -536,7 +536,7 @@
                                         <input (input)="calculateBuildUpAreaRate(i,'building')"
                                                class="form-control rounded" formControlName="buildRate"
                                                id="buildRate"
-                                               name="buildRate" placeholder="build up rate"
+                                               name="buildRate" placeholder="Build Up Area Rate"
                                                type="number"/>
                                     </div>
                                 </div>
@@ -547,7 +547,7 @@
                                         <input (ngModelChange)="calculateWaterSupply(i,'building');calculateElectrification(i,'building');calculateSanitation(i,'building')"
                                                class="form-control rounded" formControlName="totalCost"
                                                id="totalCost"
-                                               name="totalCost" placeholder="total cost"
+                                               name="totalCost" placeholder="Total Cost"
                                                type="number" readonly/>
                                     </div>
                                 </div>
@@ -574,8 +574,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="ratePerSquareFeet">Rate per Square
-                                            Feet</label>
+                                        <label class="title" for="ratePerSquareFeet">Rate per Square Feet</label>
                                         <input (input)="calculateEstimatedCost(i,'building')"
                                                class="form-control rounded"
                                                formControlName="ratePerSquareFeet"
@@ -601,7 +600,7 @@
                                         <input (input)="calculateWaterSupply(i,'building')" class="form-control rounded"
                                                formControlName="waterSupplyPercent"
                                                id="waterSupplyPercent"
-                                               name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                               name="waterSupplyPercent" placeholder="Water Supply %"
                                                type="number"/>
                                     </div>
                                 </div>
@@ -662,24 +661,21 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingTotalCost">Apartment Total
-                                            Cost</label>
+                                        <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingTotalCost"
                                                id="buildingTotalCost"
-                                               name="buildingTotalCost" placeholder="Apartment total cost"
+                                               name="buildingTotalCost" placeholder="Apartment Total Cost"
                                                type="number" readonly/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingFairMarketValue">Apartment Fair
-                                            Market
-                                            Value</label>
+                                        <label class="title" for="buildingFairMarketValue">Apartment Fair Market Value</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingFairMarketValue"
                                                id="buildingFairMarketValue"
-                                               name="buildingFairMarketValue" placeholder="Apartment FMV"
+                                               name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -689,7 +685,8 @@
                                         <input class="form-control rounded"
                                                formControlName="buildingDistressValue"
                                                id="buildingDistressValue"
-                                               name="buildingDistressValue" placeholder="Apartment value"
+                                               [placeholder]="(client == clientName?.EXCEL) ? 'Apartment Market Value' : 'Apartment Distress Value'"
+                                               name="buildingDistressValue"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -745,8 +742,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="ApartmentValuatorRepresentative">Valuator
-                                            Representative Name</label>
+                                        <label class="title" for="ApartmentValuatorRepresentative">Valuator Representative Name</label>
                                         <input class="form-control rounded"
                                                formControlName="ApartmentValuatorRepresentative"
                                                id="ApartmentValuatorRepresentative"
@@ -842,7 +838,7 @@
                         Description</label>
                     <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
                               id="buildingDetailsDescription"
-                              placeholder="Apartment Description"
+                              placeholder="Apartment Details Description"
                               rows="5"></textarea>
                 </div>
             </div>
@@ -863,7 +859,7 @@
                                             <label class="title" for="buildingName">Apartment Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
                                                    id="bname"
-                                                   name="buildingName" placeholder="name of Apartment"
+                                                   name="buildingName" placeholder="Apartment Name"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -874,7 +870,7 @@
                                             <input class="form-control rounded"
                                                    formControlName="buildingDescription"
                                                    id="descriptioin"
-                                                   name="buildingDescription" placeholder="Apartment description"
+                                                   name="buildingDescription" placeholder="Apartment Description"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -884,7 +880,7 @@
                                             <input (input)="calculateBuildUpAreaRate(i,'before')"
                                                    class="form-control rounded" formControlName="buildArea"
                                                    id="area"
-                                                   name="buildArea" placeholder="build up area"
+                                                   name="buildArea" placeholder="Build Up Area"
                                                    type="number"/>
                                         </div>
                                     </div>
@@ -894,7 +890,7 @@
                                             <input (input)="calculateBuildUpAreaRate(i,'before')"
                                                    class="form-control rounded" formControlName="buildRate"
                                                    id="rate"
-                                                   name="buildRate" placeholder="build up rate"
+                                                   name="buildRate" placeholder="Build Up Area Rate"
                                                    type="number"/>
                                         </div>
                                     </div>
@@ -905,7 +901,7 @@
                                             <input (ngModelChange)="calculateSanitation(i,'before');calculateElectrification(i,'before');calculateWaterSupply(i,'before')"
                                                    class="form-control rounded" formControlName="totalCost"
                                                    id="cost"
-                                                   name="totalCost" placeholder="total cost"
+                                                   name="totalCost" placeholder="Total Cost"
                                                    type="number" readonly/>
                                         </div>
                                     </div>
@@ -957,7 +953,7 @@
                                             <input (input)="calculateWaterSupply(i,'before')"
                                                    class="form-control rounded" formControlName="waterSupplyPercent"
                                                    id="beforeWaterSupplyPercent"
-                                                   name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                                   name="waterSupplyPercent" placeholder="Water Supply %"
                                                    type="number"/>
                                         </div>
                                     </div>
@@ -1020,7 +1016,7 @@
                                             <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="tc"
-                                                   name="buildingTotalCost" placeholder="Apartment total cost"
+                                                   name="buildingTotalCost" placeholder="Apartment Total Cost"
                                                    type="number" readonly/>
                                         </div>
                                     </div>
@@ -1031,7 +1027,7 @@
                                             <input class="form-control rounded"
                                                    formControlName="buildingFairMarketValue"
                                                    id="fmv"
-                                                   name="buildingFairMarketValue" placeholder="Apartment FMV"
+                                                   name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1042,7 +1038,7 @@
                                             <input class="form-control rounded"
                                                    formControlName="buildingDistressValue"
                                                    id="dv"
-                                                   name="buildingDistressValue" placeholder="Apartment DV"
+                                                   name="buildingDistressValue" placeholder="Apartment Distress Value"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1062,7 +1058,7 @@
                                             <label class="title" for="buildingName">Apartment Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
                                                    id="afterName"
-                                                   name="buildingName" placeholder="name of Apartment"
+                                                   name="buildingName" placeholder="Apartment Name"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1073,7 +1069,7 @@
                                             <input class="form-control rounded"
                                                    formControlName="buildingDescription"
                                                    id="afterDesc"
-                                                   name="buildingDescription" placeholder="Apartment description"
+                                                   name="buildingDescription" placeholder="Apartment Description"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1083,7 +1079,7 @@
                                             <input (input)="calculateBuildUpAreaRate(i,'after')"
                                                    class="form-control rounded" formControlName="buildArea"
                                                    id="afterArea"
-                                                   name="buildArea" placeholder="build up area"
+                                                   name="buildArea" placeholder="Build Up Area"
                                                    type="number"/>
                                         </div>
                                     </div>
@@ -1093,7 +1089,7 @@
                                             <input (input)="calculateBuildUpAreaRate(i,'after')"
                                                    class="form-control rounded" formControlName="buildRate"
                                                    id="afterbuildRate"
-                                                   name="buildRate" placeholder="build up rate"
+                                                   name="buildRate" placeholder="Build Up Area Rate"
                                                    type="number"/>
                                         </div>
                                     </div>
@@ -1104,7 +1100,7 @@
                                             <input (ngModelChange)="calculateWaterSupply(i,'after');calculateElectrification(i,'after');calculateSanitation(i,'after')"
                                                    class="form-control rounded" formControlName="totalCost"
                                                    id="afterTc"
-                                                   name="totalCost" placeholder="total cost"
+                                                   name="totalCost" placeholder="Total Cost"
                                                    type="number" readonly/>
                                         </div>
                                     </div>
@@ -1155,7 +1151,7 @@
                                             <input (input)="calculateWaterSupply(i,'after')"
                                                    class="form-control rounded" formControlName="waterSupplyPercent"
                                                    id="afterWaterSupplyPercent"
-                                                   name="waterSupplyPercent" placeholder="Water Supply Percentage"
+                                                   name="waterSupplyPercent" placeholder="Water Supply %"
                                                    type="number"/>
                                         </div>
                                     </div>
@@ -1217,7 +1213,7 @@
                                             <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="afterbuildTc"
-                                                   name="buildingTotalCost" placeholder="Apartment total cost"
+                                                   name="buildingTotalCost" placeholder="Apartment Total Cost"
                                                    type="number" readonly/>
                                         </div>
                                     </div>
@@ -1228,7 +1224,7 @@
                                             <input class="form-control rounded"
                                                    formControlName="buildingFairMarketValue"
                                                    id="afterFMV"
-                                                   name="buildingFairMarketValue" placeholder="Apartment FMV"
+                                                   name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1239,7 +1235,7 @@
                                             <input class="form-control rounded"
                                                    formControlName="buildingDistressValue"
                                                    id="afterDV"
-                                                   name="buildingDistressValue" placeholder="Apartment DV"
+                                                   name="buildingDistressValue" placeholder="Apartment Distress Value"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -1303,7 +1299,7 @@
                         <div class="row pt-2">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="owner">Owner</label>
+                                    <label class="title" for="owner">Owner Name</label>
                                     <input [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('owner').errors)}"
                                             class="form-control rounded"
                                            formControlName="owner"
@@ -1322,7 +1318,7 @@
                                     <label class="title" for="location">Location</label>
                                     <input class="form-control rounded"
                                            formControlName="location"
-                                           name="location" placeholder="location"
+                                           name="location" placeholder="Location"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1353,7 +1349,7 @@
                                     <label class="title" for="area">Area</label>
                                     <input class="form-control rounded"
                                            formControlName="area"
-                                           name="area" placeholder="area"
+                                           name="area" placeholder="Area"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1361,7 +1357,7 @@
                                 <div class="form-group">
                                     <label for="landConsideredValue">Considered Value</label>
                                     <input class="form-control" formControlName="landConsideredValue"
-                                           id="landBuildingConsideredValue" name="total" placeholder="considered value"
+                                           id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
                                            type="number">
                                 </div>
                             </div>
@@ -1420,13 +1416,11 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="marketValue">Fair
-                                        Market
-                                        Value</label>
+                                    <label class="title" for="marketValue">Fair Market Value</label>
                                     <input class="form-control rounded"
                                            formControlName="marketValue"
                                            name="marketValue"
-                                           placeholder="market value"
+                                           placeholder="Fair Market Value"
                                            type="number"/>
                                 </div>
                             </div>
@@ -1436,7 +1430,7 @@
                                     <input class="form-control rounded"
                                            formControlName="distressValue"
                                            name="distressValue"
-                                           placeholder="distress value"
+                                           [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1498,7 +1492,7 @@
                                           formControlName="roadAccessDescribe"
                                           id="roadAccessDescribe"
                                           name="roadAccessDescribe"
-                                          placeholder="Road Access Description"
+                                          placeholder="Briefly describe the road access"
                                           rows="5"
                                           type="text"></textarea>
                             </div>
@@ -1655,7 +1649,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title">Ownership transfer Through</label>
+                                    <label class="title">Ownership transfer through</label>
                                     <select class="form-control rounded" formControlName="ownershipTransferThrough"
                                             name="ownershipTransferThrough"
                                             (change)="resetOtherTransferParameter('landBuilding', i,false)">
@@ -1671,7 +1665,7 @@
                                     <label class="title">Other</label>
                                     <input class="form-control rounded" formControlName="otherOwnershipTransferValue"
                                            name="otherOwnershipTransferValue"
-                                           placeholder="Other Ownership Transfer Mode"
+                                           placeholder="Other"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1755,7 +1749,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title">Owner</label>
+                                        <label class="title">Owner Name</label>
                                         <input class="form-control rounded"
                                                formControlName="ownerConstruction"
                                                name="owner" placeholder="Owner Name"
@@ -1767,7 +1761,7 @@
                                         <label class="title">Location</label>
                                         <input class="form-control rounded"
                                                formControlName="locationConstruction"
-                                               name="location" placeholder="location"
+                                               name="location" placeholder="Location"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -1798,7 +1792,7 @@
                                         <label class="title">Area</label>
                                         <input class="form-control rounded"
                                                formControlName="areaConstruction"
-                                               name="area" placeholder="area"
+                                               name="area" placeholder="Area"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -1807,7 +1801,7 @@
                                         <label for="landConsideredValueConstruction">Considered Value</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
-                                               placeholder="considered value" type="number">
+                                               placeholder="Considered Value" type="number">
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -1852,23 +1846,21 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title">Total Estimate cost</label>
+                                        <label class="title">Total Estimate Cost</label>
                                         <input class="form-control rounded"
                                                formControlName="totalCostConstruction"
-                                               name="totalCost" placeholder="Total cost"
+                                               name="totalCost" placeholder="Total Estimate Cost"
                                                type="number"/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title">Fair
-                                            Market
-                                            Value</label>
+                                        <label class="title">Fair Market Value</label>
                                         <input class="form-control rounded"
                                                formControlName="marketValueConstruction"
                                                name="marketValue"
-                                               placeholder="market value"
+                                               placeholder="Fair Market Value"
                                                type="number"/>
                                     </div>
                                 </div>
@@ -1878,16 +1870,16 @@
                                         <input class="form-control rounded"
                                                formControlName="distressValueConstruction"
                                                name="distressValue"
-                                               placeholder="distress value"
+                                               [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
                                                type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title">Progess cost</label>
+                                        <label class="title">Progess Cost</label>
                                         <input class="form-control rounded"
                                                formControlName="progessCost"
-                                               name="progessCost" placeholder="Progess cost"
+                                               name="progessCost" placeholder="Progess Cost"
                                                type="number"/>
                                     </div>
                                 </div>
@@ -1927,13 +1919,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="title" for="area">Remarks of
-                            land and building
-                        </label>
+                        <label class="title" for="area">Remarks of land and building</label>
                         <textarea class="form-control rounded"
                                   formControlName="landBuildingDescription"
                                   name="remarksBuilding"
-                                  placeholder="Description  of land and building"
+                                  placeholder="Remarks of land and building"
                                   [ngClass]="{ 'is-invalid':(submitted) &&  securityForm.get('landBuildingDescription').errors }"
                                   rows="2" type="text"></textarea>
                         <div *ngIf="(submitted) && securityForm.get('landBuildingDescription').invalid"
@@ -2239,7 +2229,8 @@
                                         (keyup)="vehicleRemainingAmount(i)"
                                         class="form-control" formControlName="valuationAmount" id="valuationAmount"
                                         name="valuationAmount"
-                                        placeholder="Valuation Amount" type="number">
+                                        [placeholder]="(client === clientName?.ICFC) ? 'Quotation/Valuation Amount' : 'Valuation Amount'"
+                                        type="number">
                             </div>
                         </div>
 
@@ -2438,7 +2429,7 @@
                                 <label class="title" for="showroomAddress">Showroom Address</label>
                                 <input class="form-control rounded" formControlName="showroomAddress"
                                        id="showroomAddress"
-                                       name="showroomAddress" placeholder="Showroom Name"
+                                       name="showroomAddress" placeholder="Showroom Address"
                                        type="text"/>
                             </div>
                         </div>
@@ -2487,20 +2478,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">FD Receipt Number<strong></strong></label>
-                                <input class="form-control" formControlName="receiptNumber">
+                                <input class="form-control" formControlName="receiptNumber" placeholder="FD Receipt Number">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">FD Account Holder Name<strong></strong></label>
-                                <input class="form-control" formControlName="accountHolderName">
+                                <input class="form-control" formControlName="accountHolderName" placeholder="FD Account Holder Name">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">FD Account Number<strong></strong></label>
                                 <input [ngClass]="{'is-invalid': (depositSelected) && (deposit.get('accountNumber').errors)}"
-                                        class="form-control" formControlName="accountNumber"
+                                        class="form-control" formControlName="accountNumber" placeholder="FD Account Number"
                                 required />
                                 <div *ngIf="(depositSelected) && (deposit.get('accountNumber').invalid)" class="invalid-feedback">
                                     <div *ngIf="deposit.get('accountNumber').errors.required">
@@ -2513,7 +2504,7 @@
                             <div class="form-group">
                                 <label class="title">FD Tenure Start Date<strong></strong></label>
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="tenureStartDate"
-                                       class="form-control" formControlName="tenureStartDate">
+                                       class="form-control" formControlName="tenureStartDate" placeholder="FD Tenure Start Date">
                                 <app-calendar *ngIf="calendarType === 'BS'"
                                               (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).patchValue($event?.eDate)"
                                               [ePreDate]="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).value"></app-calendar>
@@ -2523,7 +2514,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">Amount<strong></strong></label>
-                                <input class="form-control" formControlName="amount" type="number">
+                                <input class="form-control" formControlName="amount" placeholder="Amount" type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2543,19 +2534,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">Coupon Rate<strong></strong></label>
-                                <input class="form-control" formControlName="couponRate" type="number">
+                                <input class="form-control" formControlName="couponRate" placeholder="Coupon Rate" type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">Beneficiary<strong></strong></label>
-                                <input class="form-control" formControlName="beneficiary">
+                                <input class="form-control" formControlName="beneficiary" placeholder="Beneficiary">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">Remarks<strong></strong></label>
-                                <input class="form-control" formControlName="remarks">
+                                <input class="form-control" formControlName="remarks" placeholder="Remarks">
                             </div>
                         </div>
                     </div>
@@ -2618,8 +2609,7 @@
                                             class="custom-select"
                                             formControlName="companyName" id="companyName"
                                             name="companyName">
-                                        <option [value]="null" disabled selected>--Select Company Name--
-                                        </option>
+                                        <option [value]="null" disabled selected>--Select Company Name--</option>
                                         <option *ngFor="let nepse of nepseList"
                                                 value="{{nepse.companyName }}">{{nepse.companyName}}
                                             :: {{nepse.companyCode}}</option>
@@ -2649,7 +2639,7 @@
                                            class="form-control" formControlName="totalShareUnit"
                                            id="totalShareUnit"
                                            name="totalShareUnit"
-                                           type="number">
+                                           type="number" placeholder="Number of Share Unit">
                                     <div *ngIf="submitted && shareField.get('totalShareUnit').errors"
                                          class="invalid-feedback">
                                         <div *ngIf="shareField.get('totalShareUnit').errors.required">
@@ -2666,21 +2656,21 @@
                                             (change)="calculateShareFieldsValues(shareFieldIndex)"
                                             class="form-control" formControlName="amountPerUnit"
                                             id="shareRate" name="shareRate"
-                                            type="number">
+                                            type="number" placeholder="Rate of Each Unit">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="total">Total</label>
                                     <input class="form-control" formControlName="total" id="total"
-                                           name="total" readonly type="number">
+                                           name="total" readonly type="number" placeholder="Total">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="consideredValue">Considered Value</label>
                                     <input class="form-control" formControlName="consideredValue"
-                                           id="consideredValue" name="total" readonly>
+                                           id="consideredValue" name="total" placeholder="Considered Value" readonly>
                                 </div>
                             </div>
                         </div>
@@ -2689,28 +2679,32 @@
                                         <div class="form-group">
                                             <label class="title">Price Earning Ratio</label>
                                             <input class="form-control" formControlName="priceEarningRatio"
-                                                   id="priceEarningRatio" name="priceEarningRatio" type="number">
+                                                   id="priceEarningRatio" name="priceEarningRatio"
+                                                   placeholder="Price Earning Ratio" type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title">Price to Book Value</label>
                                             <input class="form-control" formControlName="priceBookValue"
-                                                   id="priceBookValue" name="priceBookValue" type="number">
+                                                   id="priceBookValue" name="priceBookValue"
+                                                   placeholder="Price to Book Value" type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title">Dividend Yield</label>
                                             <input class="form-control" formControlName="dividendYeild"
-                                                   id="dividendYeild" name="dividendYeild" type="number">
+                                                   id="dividendYeild" name="dividendYeild"
+                                                   placeholder="Dividend Yield" type="number">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="title">Dividend Payout Radio</label>
+                                            <label class="title">Dividend Payout Ratio</label>
                                             <input class="form-control" formControlName="dividendPayoutRatio"
-                                                   id="dividendPayoutRatio" name="dividendPayoutRatio" type="number">
+                                                   id="dividendPayoutRatio" name="dividendPayoutRatio"
+                                                   placeholder="Dividend Payout Ratio" type="number">
                                         </div>
                                     </div>
                             </div>
@@ -2739,6 +2733,7 @@
                         <div class="col-md-12">
                             <label for="securityOffered">Description/Details of security offered</label>
                             <textarea class="form-control text-area" formControlName="securityOffered"
+                                      placeholder="Description/Details of security offered"
                                       id="securityOffered"></textarea>
                         </div>
                     </div>
@@ -3202,7 +3197,7 @@
                             <div class="form-group">
                                 <label class="title">Yearly Cash Back Amount <em class="sb-medium">(if any)</em></label>
                                 <input class="form-control rounded" formControlName="cashBackAmount"
-                                       placeholder="Cash Back Amount"
+                                       placeholder="Yearly Cash Back Amount"
                                        type="number"/>
                             </div>
                         </div>
@@ -3225,7 +3220,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <label><b>Remarks</b></label>
+                <label><b>Remarks Common to all Security</b></label>
                 <textarea class="form-control" formControlName="remark" rows="4"
                           placeholder="Remarks Common to all Security"></textarea>
             </div>

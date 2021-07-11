@@ -833,8 +833,8 @@
                         <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
                     </tr>
                 </table>
-                <strong *ngIf="siteVisitDocuments.length>0">Collateral Site Visit Documents</strong>
-                <table *ngIf="siteVisitDocuments.length>0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <strong *ngIf="siteVisitDocuments">Collateral Site Visit Documents</strong>
+                <table *ngIf="siteVisitDocuments" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security Name</th>

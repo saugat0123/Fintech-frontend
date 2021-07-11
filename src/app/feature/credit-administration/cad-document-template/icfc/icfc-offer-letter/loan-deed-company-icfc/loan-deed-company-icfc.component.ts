@@ -13,6 +13,7 @@ import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
   customGender;
   nepData;
   guarantorData;
+  editor = NepaliEditor.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -52,19 +54,15 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
   buildForm() {
     this.loanDeedCompany = this.formBuilder.group({
       branch: [undefined],
-      temporaryProvince: [undefined],
+      grandParents: [undefined],
+      parents: [undefined],
+      permanentProvince: [undefined],
+      permanentZone: [undefined],
       permanentDistrict: [undefined],
       permanentMunicipalityVDC: [undefined],
       permanentWardNo: [undefined],
-      registrarRegistrationOffice: [undefined],
-      registrarRegistrationOfficeProvince: [undefined],
-      registrarRegistrationOfficeDistrict: [undefined],
-      registrarRegistrationOfficeMunicipalityVDC: [undefined],
-      registrarRegistrationOfficeWardNo: [undefined],
-      registrationNo: [undefined],
-      registrationDate: [undefined],
-      grandParents: [undefined],
-      parents: [undefined],
+      temporaryProvince: [undefined],
+      temporaryZone: [undefined],
       temporaryDistrict: [undefined],
       temporaryMunicipalityVDC: [undefined],
       temporaryWardNo: [undefined],
@@ -72,36 +70,38 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
       age: [undefined],
       borrowerName: [undefined],
       citizenshipNo: [undefined],
-      issueDate: [undefined],
+      issueYear: [undefined],
+      issueMonth: [undefined],
+      issueDay: [undefined],
       issueDistrict: [undefined],
-      date2: [undefined],
-      date3: [undefined],
-      loan: [undefined],
-      purpose: [undefined],
+      field2: [undefined],
+      year2: [undefined],
+      month2: [undefined],
+      day2: [undefined],
       amount: [undefined],
       amountInWords: [undefined],
-      rohbarBankEmployeeName: [undefined],
-      nameOfAuthorizedPerson: [undefined],
-      guarantorName: [undefined],
-      guarantorName2: [undefined],
+      accountNo: [undefined],
+      witness: [undefined],
+      witness2: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
       time: [undefined],
-      districtOfWitness: [undefined],
-      municipalityVDCOfWitness: [undefined],
-      wardNoOfWitness: [undefined],
-      ageOfWitness: [undefined],
-      relationOfWitness: [undefined],
-      districtOfWitness2: [undefined],
-      municipalityVDCOfWitness2: [undefined],
-      wardNoOfWitness2: [undefined],
-      ageOfWitness2: [undefined],
-      relationOfWitness2: [undefined],
-      permanentProvince: [undefined],
-      permanentZone: [undefined],
-      temporaryZone: [undefined],
       propertyDetailsTable: this.formBuilder.array([]),
+      note: [undefined],
+      ministryName: [undefined],
+      registrarOffice: [undefined],
+      registrationNo: [undefined],
+      registrationYear: [undefined],
+      registrationMonth: [undefined],
+      registrationDay: [undefined],
+      registrarOfficeProvince: [undefined],
+      registrarOfficeZone: [undefined],
+      registrarOfficeDistrict: [undefined],
+      registrarOfficeVDCMun: [undefined],
+      registrarOfficeWardNo: [undefined],
+      panNo: [undefined],
+      field: [undefined],
     });
 
   }
@@ -134,7 +134,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
       === this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY).toString())[0];
     if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
       this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_INDIVIDUAL_SAME);
+      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_COMPANY);
       this.fillForm();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
@@ -185,14 +185,13 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
   addTableData() {
     (this.loanDeedCompany.get('propertyDetailsTable') as FormArray).push(
         this.formBuilder.group({
-          sNo: [undefined],
-          landOwnerName: [undefined],
-          municipalityVDC: [undefined],
-          wardNo: [undefined],
-          seatNo: [undefined],
-          kNo: [undefined],
-          area: [undefined],
-          rNoDate: [undefined],
+          year3: [undefined],
+          month3: [undefined],
+          day3: [undefined],
+          creditAmount: [undefined],
+          interestRate: [undefined],
+          serviceCharge: [undefined],
+          bankingServiceAndDate: [undefined]
         })
     );
   }
@@ -209,14 +208,13 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        sNo: [value.sNo],
-        landOwnerName: [value.landOwnerName],
-        municipalityVDC: [value.municipalityVDC],
-        wardNo: [value.wardNo],
-        seatNo: [value.seatNo],
-        kNo: [value.kNo],
-        area: [value.area],
-        rNoDate: [value.rNoDate],
+        year3: [undefined],
+        month3: [undefined],
+        day3: [undefined],
+        creditAmount: [undefined],
+        interestRate: [undefined],
+        serviceCharge: [undefined],
+        bankingServiceAndDate: [undefined]
       }));
     });
   }

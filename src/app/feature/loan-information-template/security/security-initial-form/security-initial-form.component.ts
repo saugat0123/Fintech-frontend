@@ -32,6 +32,7 @@ import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
+import {DateValidator} from '../../../../@core/validator/date-validator';
 
 
 @Component({
@@ -823,11 +824,14 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.formBuilder.group({
                         insuredAmount: [singleData.insuredAmount],
                         insuranceCompanyName: [singleData.insuranceCompanyName],
-                        policyStartDate: [new Date(singleData.policyStartDate)],
-                        maturityDate: [new Date(singleData.maturityDate)],
+                        policyStartDate: [ObjectUtil.isEmpty(singleData.policyStartDate) ?
+                            undefined : new Date(singleData.policyStartDate)],
+                        maturityDate: [ObjectUtil.isEmpty(singleData.maturityDate) ?
+                            undefined : new Date(singleData.maturityDate)],
                         insurancePolicyType: [singleData.insurancePolicyType],
                         surrenderValue: [singleData.surrenderValue],
-                        earlySurrenderDate: [new Date(singleData.earlySurrenderDate)],
+                        earlySurrenderDate: [ObjectUtil.isEmpty(singleData.earlySurrenderDate) ?
+                            undefined : new Date(singleData.earlySurrenderDate)],
                         consideredValue: [singleData.consideredValue],
                         cashBackAmount: [singleData.cashBackAmount],
                     })
@@ -1462,7 +1466,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     model: [singleData.model],
                     registrationNumber: [singleData.registrationNumber],
-                    registrationDate: [new Date(singleData.registrationDate)],
+                    registrationDate: [ObjectUtil.isEmpty(singleData.registrationDate) ?
+                        undefined : new Date(singleData.registrationDate), DateValidator.isValidBefore],
                     engineNumber: [singleData.engineNumber],
                     chassisNumber: [singleData.chassisNumber],
                     valuationAmount: [singleData.valuationAmount],
@@ -1530,13 +1535,15 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.formBuilder.group({
                         receiptNumber: [deposit.receiptNumber],
                         amount: [deposit.amount],
-                        expiryDate: [new Date(deposit.expiryDate)],
+                        expiryDate: [ObjectUtil.isEmpty(deposit.expiryDate) ?
+                            undefined : new Date(deposit.expiryDate)],
                         couponRate: [deposit.couponRate],
                         beneficiary: [deposit.beneficiary],
                         remarks: [deposit.remarks],
                         accountHolderName: [deposit.accountHolderName],
                         accountNumber: [deposit.accountNumber],
-                        tenureStartDate: [new Date(deposit.tenureStartDate)]
+                        tenureStartDate: [ObjectUtil.isEmpty(deposit.tenureStartDate) ?
+                            undefined : new Date(deposit.tenureStartDate)]
                     })
                 );
             });

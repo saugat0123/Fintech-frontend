@@ -230,7 +230,7 @@
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="print-only justify-content">{{previousList?.comment}}</span>
+                                    <span class="print-only text-justify pl-1 pr-1" [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>

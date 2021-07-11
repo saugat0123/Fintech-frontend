@@ -170,31 +170,36 @@ export class JointFormComponent implements OnInit {
             customerRelativeName1: [jointDetail.customerRelativeName1],
             citizenshipNumber1: [jointDetail.citizenshipNumber1],
             citizenshipIssuedPlace1: [jointDetail.citizenshipIssuedPlace1],
-            citizenshipIssuedDate1: new Date(jointDetail.citizenshipIssuedDate1),
+            citizenshipIssuedDate1: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate1) ?
+                undefined : new Date(jointDetail.citizenshipIssuedDate1), DateValidator.isValidBefore],
             age1: [jointDetail.age1],
             customerRelation2: [jointDetail.customerRelation2],
             customerRelativeName2: [jointDetail.customerRelativeName2],
             citizenshipNumber2: [jointDetail.citizenshipNumber2],
             citizenshipIssuedPlace2: [jointDetail.citizenshipIssuedPlace2],
-            citizenshipIssuedDate2: new Date(jointDetail.citizenshipIssuedDate2),
+            citizenshipIssuedDate2: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate2) ?
+                undefined : new Date(jointDetail.citizenshipIssuedDate2), DateValidator.isValidBefore],
             age2: [jointDetail.age2],
             customerRelation3: [jointDetail.customerRelation3],
             customerRelativeName3: [jointDetail.customerRelativeName3],
             citizenshipNumber3: [jointDetail.citizenshipNumber3],
             citizenshipIssuedPlace3: [jointDetail.citizenshipIssuedPlace3],
-            citizenshipIssuedDate3: new Date(jointDetail.citizenshipIssuedDate3),
+            citizenshipIssuedDate3: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate3) ?
+                undefined : new Date(jointDetail.citizenshipIssuedDate3), DateValidator.isValidBefore],
             age3: [jointDetail.age3],
             customerRelation4: [jointDetail.customerRelation4],
             customerRelativeName4: [jointDetail.customerRelativeName4],
             citizenshipNumber4: [jointDetail.citizenshipNumber4],
             citizenshipIssuedPlace4: [jointDetail.citizenshipIssuedPlace4],
-            citizenshipIssuedDate4: new Date(jointDetail.citizenshipIssuedDate4),
+            citizenshipIssuedDate4: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate4) ?
+                undefined : new Date(jointDetail.citizenshipIssuedDate4), DateValidator.isValidBefore],
             age4: [jointDetail.age4],
             customerRelation5: [jointDetail.customerRelation5],
             customerRelativeName5: [jointDetail.customerRelativeName5],
             citizenshipNumber5: [jointDetail.citizenshipNumber5],
             citizenshipIssuedPlace5: [jointDetail.citizenshipIssuedPlace5],
-            citizenshipIssuedDate5: new Date(jointDetail.citizenshipIssuedDate5),
+            citizenshipIssuedDate5: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate5) ?
+                undefined : new Date(jointDetail.citizenshipIssuedDate5), DateValidator.isValidBefore],
             age5: [jointDetail.age5],
           })
       );
