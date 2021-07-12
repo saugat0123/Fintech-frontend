@@ -123,21 +123,24 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
 
   checkOfferLetter() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          const initialInfoPrint = initialInfo;
-          if (!ObjectUtil.isEmpty(initialInfo)) {
-            this.setSecurityDetails(initialInfo.securityDetailsArray);
-            this.setEvidenceData(initialInfo.evidenceNameArray);
-            this.setLoanApproval(initialInfo.loanApprovalSpecificationTable);
+      if (this.cadData.cadFileList.length > 0) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            const initialInfo = JSON.parse(singleCadFile.initialInformation);
+            const initialInfoPrint = initialInfo;
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+              this.setSecurityDetails(initialInfo.securityDetailsArray);
+              this.setEvidenceData(initialInfo.evidenceNameArray);
+              this.setLoanApproval(initialInfo.loanApprovalSpecificationTable);
+            }
+            this.loanDeedHirePurchase.patchValue(initialInfoPrint);
+          } else {
+            this.fillForm();
           }
-          this.loanDeedHirePurchase.patchValue(initialInfoPrint);
-        }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.fillForm();
+        });
+      } else {
+        this.fillForm();
+      }
     }
   }
 

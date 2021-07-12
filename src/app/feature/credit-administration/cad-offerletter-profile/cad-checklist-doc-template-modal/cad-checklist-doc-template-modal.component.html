@@ -43,6 +43,9 @@
         <app-mrtg-deed-individual-different *ngSwitchCase="legalTemplate.MORTGAGE_DEED_INDIVIDUAL_DIFFERENT_BORROWER" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-mrtg-deed-individual-different>
         <app-mrtg-deed-individual-same *ngSwitchCase="legalTemplate.MORTGAGE_DEED_INDIVIDUAL_SAME" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-mrtg-deed-individual-same>
         <app-promissory-note *ngSwitchCase="legalTemplate.PROMISSORY_NOTE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-promissory-note>
+        <app-consent-for-collateral *ngSwitchCase="legalTemplate.CONSENT_FOR_COLLATERAL" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-consent-for-collateral>
+        <app-consent-for-loan-interest-payment *ngSwitchCase="legalTemplate.CONSENT_FOR_LOAN" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-consent-for-loan-interest-payment>
+        <app-consent-letter-for-hp-loan *ngSwitchCase="legalTemplate.CONSENT_LETTER_FOR_HP_LOAN" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-consent-letter-for-hp-loan>
         <p *ngSwitchCase> No Template is available for this Document !!</p>
       </div>
     </div>

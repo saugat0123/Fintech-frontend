@@ -113,19 +113,22 @@ export class LoanDeedPersonalLoanHomeLoanIcfcComponent implements OnInit {
   checkOfferLetter() {
 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          if (!ObjectUtil.isEmpty(initialInfo)) {
-            this.setPropertyDetailsTable(initialInfo.propertyDetailsTable);
+      if (this.cadData.cadFileList.length > 0) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            const initialInfo = JSON.parse(singleCadFile.initialInformation);
+            this.initialInfoPrint = initialInfo;
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+              this.setPropertyDetailsTable(initialInfo.propertyDetailsTable);
+            }
+            this.loanDeedPersonalLoanHomeLoan.patchValue(this.initialInfoPrint);
+          } else {
+            this.fillForm();
           }
-          this.loanDeedPersonalLoanHomeLoan.patchValue(this.initialInfoPrint);
-        }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.fillForm();
+        });
+      } else {
+        this.fillForm();
+      }
     }
   }
 

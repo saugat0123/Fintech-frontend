@@ -147,24 +147,23 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
 
   checkOfferLetter() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        console.log(singleCadFile);
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          if (!ObjectUtil.isEmpty(initialInfo)) {
-            this.setPropertyEvaluationTable(initialInfo.propertyEvaluation);
-          }
-          this.form.patchValue(this.initialInfoPrint);
-        } else {
-          if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      if (this.cadData.cadFileList.length > 0) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          console.log(singleCadFile);
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            const initialInfo = JSON.parse(singleCadFile.initialInformation);
+            this.initialInfoPrint = initialInfo;
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+              this.setPropertyEvaluationTable(initialInfo.propertyEvaluation);
+            }
+            this.form.patchValue(this.initialInfoPrint);
+          } else {
             this.fillForm();
           }
-        }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.fillForm();
+        });
+      } else {
+        this.fillForm();
+      }
     }
   }
 
