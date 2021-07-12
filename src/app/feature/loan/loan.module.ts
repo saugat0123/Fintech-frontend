@@ -89,6 +89,10 @@ import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summar
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import { RoleHierarchyCombinedModelComponent } from './loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { GammaLoanSummaryComponent } from './component/gamma-loan-summary/gamma-loan-summary.component';
+import { GammaProposalSummaryComponent } from './component/gamma-loan-summary/gamma-proposal-summary/gamma-proposal-summary.component';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
+import { GammaIncomeFromAccountSummaryComponent } from './component/gamma-loan-summary/gamma-income-from-account-summary/gamma-income-from-account-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -151,7 +155,8 @@ const COMPONENTS = [
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
     MarketingActivitiesSummaryComponent,
-    RoleHierarchyCombinedModelComponent
+    RoleHierarchyCombinedModelComponent,
+    GammaLoanSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -193,7 +198,7 @@ const modules = {
 
 @NgModule({
     // tslint:disable-next-line:max-line-length
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent, GammaProposalSummaryComponent, GammaIncomeFromAccountSummaryComponent],
     imports: [
         ThemeModule,
         CommonModule,
@@ -219,7 +224,8 @@ const modules = {
         LoanInformationDetailViewModule,
         NbTooltipModule,
         MicroLoanModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        CbsGroupModule
     ],
 
     providers: [

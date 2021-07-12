@@ -51,6 +51,7 @@ export class SecuritySummaryComponent implements OnInit {
     isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
+    gammaSummary = environment.gammaSummary;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }

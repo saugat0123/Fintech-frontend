@@ -45,6 +45,7 @@ export class FinancialSummaryComponent implements OnInit {
   // Client Name
   client = environment.client;
   clientName = Clients;
+  gammaSummary = environment.gammaSummary;
 
   constructor(private financialService: FinancialService) { }
 
