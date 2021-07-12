@@ -1,0 +1,285 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.PERSONAL_GUARANTEE_COMPANY}}">
+    <div class="row">
+        <div class="col-md-12">
+            <form (ngSubmit)="submit()" [formGroup]="personalGuaranteeCompany" class="nepali" id="personalGuaranteeCompanyPrint">
+                <div class="bodyConfig align">
+                    <div>
+                    <p>
+                    लिखितम व्यक्तिगत धन जमानी दिने श्री <input class="form-field form-control-sm nepaliFont"
+                                                               formControlName="grandParents"
+                                                               placeholder=""
+                                                               type="text"/> को नाति/नातिनी/बुहारी श्री <input class="form-field form-control-sm nepaliFont"
+                                                                                                               formControlName="parents"
+                                                                                                               placeholder=""
+                                                                                                               type="text"/> को छोरा/छोरी/पत्नी
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="permanentProvince"
+                               placeholder=""
+                               type="text"/> प्रदेश <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="permanentZone"
+                                                           placeholder=""
+                                                           type="text"/> अञ्चल, <input class="form-field form-control-sm nepaliFont"
+                                                                                       formControlName="permanentDistrict"
+                                                                                       placeholder=""
+                                                                                       type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont"
+                                                                                                                    formControlName="permanentMunicipalityVDC"
+                                                                                                                    placeholder=""
+                                                                                                                    type="text"/> न.पा./गा.पा.,
+                        वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="permanentWardNo"
+                                       placeholder=""
+                                       type="text" size="2"/> स्थायी ठेगाना भई हाल
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="temporaryProvince"
+                               placeholder=""
+                               type="text"/> प्रदेश <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="temporaryZone"
+                                                           placeholder=""
+                                                           type="text"/> अञ्चल,
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="temporaryDistrict"
+                               placeholder=""
+                               type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="temporaryMunicipalityVDC"
+                                                            placeholder=""
+                                                            type="text"/> न.पा./गा.पा.,
+                        वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="temporaryWardNo"
+                                       placeholder=""
+                                       type="text" size="2"/>
+                        बस्ने वर्ष <input class="form-field form-control-sm nepaliFont "
+                                          size="2"
+                                          formControlName="age"
+                                          placeholder=""
+                                          type="text"/> को श्री <input class="form-field form-control-sm nepaliFont"
+                                                                       formControlName="borrowerName"
+                                                                       placeholder=""
+                                                                       type="text"/>
+                        (ना.प्र.न. <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="citizenshipNo"
+                                          placeholder=""
+                                          type="text"/>
+                        मिति <input class="form-field form-control-sm nepaliFont"
+                               formControlName="issueYear"
+                               placeholder=""
+                               type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                             formControlName="issueMonth"
+                                                             placeholder=""
+                                                             type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                           formControlName="issueDay"
+                                                                                           placeholder=""
+                                                                                           type="text" size="2"/> जि.प्र.का <input class="form-field form-control-sm nepaliFont"
+                                                                                                                                   formControlName="issueDistrict"
+                                                                                                                                   placeholder=""
+                                                                                                                                   type="text"/>)   आगे
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="registrarRegistrationOfficeProvince"
+                               placeholder=""
+                               type="text"/> प्रदेश <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="registrarRegistrationOfficeZone"
+                                                           placeholder=""
+                                                           type="text"/>
+                        अञ्चल, <input class="form-field form-control-sm nepaliFont"
+                                      formControlName="registrarRegistrationOfficeDistrict"
+                                      placeholder=""
+                                      type="text"/>
+                        जिल्ला, <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="registrarRegistrationOfficeVDCMun"
+                                       placeholder=""
+                                       type="text"/> न.पा./गा.पा., वडा नं.
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="registrarRegistrationOfficeWardNo"
+                               placeholder=""
+                               type="text" size="2"/>
+                        मा रजिष्ट्रर्ड कार्यालय रही श्री नेपाल सरकार <input class="form-field form-control-sm nepaliFont"
+                                                                            formControlName="ministryName"
+                                                                            placeholder=""
+                                                                            type="text"/>
+                        मन्त्रालय, <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="registrarRegistrationOffice"
+                                          placeholder=""
+                                          type="text"/> कार्यालय/विभागमा द.नं. <input class="form-field form-control-sm nepaliFont"
+                                                                                     formControlName="registrationNo"
+                                                                                     placeholder=""
+                                                                                     type="text"/> रहि मिति <input class="form-field form-control-sm nepaliFont"
+                                                                                                                   formControlName="registrationYear"
+                                                                                                                   placeholder=""
+                                                                                                                   type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                 formControlName="registrationMonth"
+                                                                                                                                                 placeholder=""
+                                                                                                                                                 type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                                               formControlName="registrationDay"
+                                                                                                                                                                               placeholder=""
+                                                                                                                                                                               type="text" size="2"/>
+                        मा दर्ता रहेको <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="field"
+                                              placeholder=""
+                                              type="text"/> (जसलाई यसपछि ऋणी भनिएको छ) ले धनी आइ.सि.एफ.सि.फाइनान्स लिमिटेडबाट
+                        मिति <input class="form-field form-control-sm nepaliFont"
+                                    formControlName="year2"
+                                    placeholder=""
+                                    type="text" size="4"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                  formControlName="month2"
+                                                                  placeholder=""
+                                                                  type="text" size="2"/>/<input class="form-field form-control-sm nepaliFont"
+                                                                                                formControlName="day2"
+                                                                                                placeholder=""
+                                                                                                type="text" size="2"/> गतेको ऋण स्विकृति पत्र अनुसार <input class="form-field form-control-sm nepaliFont"
+                                                                                                                                                            formControlName="credit"
+                                                                                                                                                            placeholder=""
+                                                                                                                                                            type="text"/>
+                        कर्जा शिर्षक अन्तर्गत रु. <input class="form-field form-control-sm nepaliFont"
+                                                         formControlName="amount"
+                                                         placeholder=""
+                                                         type="text" (change)="convertAmountInWords('amount','amountInWords')"/> (अक्षरुपी
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="amountInWords"
+                               placeholder=""
+                               type="text" readonly/>
+                         मात्र) ऋण कर्जा लिएकोमा सोको किस्ता, सावाँ, ब्याज, हर्जाना ब्याज समेत फाइनान्स लिमिटेडले तोकेको समयमा ऋणीले तिर्ने बुझाउने छ । ऋणीले फाइनान्स लिमिटेडले मागेको वा फाइनान्स लिमिटेडलाई तिर्नुपर्ने रकम समयमानै तिर्न नसकेमा, ऋण तिर्न आलटाल गरेमा नेपाल राष्ट्र बैंकद्वारा बैंक तथा वित्तिय संस्थाहरुलाई जारी गरीएको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशनको खण्ड ४ मा उल्लेखित तपसिलका अवस्था तथा खण्ड ५ मा भएको व्यवस्थाका आधारमा समेत धनी फाइनान्स लिमिटेडले कर्जा सूचना केन्द्रको कालोसूचीमा समावेश गरेमा वा नपुग रकम मबाट असूल उपर गरी लिएमा मेरो पूर्ण मन्जुरी छ । पछी मलाई कालोसूचीमा समावेश गर्न मिल्ने होइन मेरो श्रीसम्पत्तीबाट असूल उपर गरी लिन मिल्ने होइन भनि कहिं कतै उजुर वाजुर खर खिचलो गर्ने छैन । गरेमा यसै व्यक्तिगत जमानी लिखतलाई आधार मानी मेरो उजुर खारेज होस् भनि मेरो मनोमान खुसीराजीका साथ तपसिलमा उल्लेखित शर्त तथा किनाराका साक्षीहरुका रोहवरमा तपाई धनी फाइनान्स लिमिटेडको कार्यालयमा बसी व्यक्तिगत धनजमानीको लिखत लेखी सहिछाप गरी तपाई धनी फाइनान्स लिमिटेडलाई दियाँ ।
+                        <p class="text-center"><b><u>तपसिल</u></b></p>
+                        <table>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    १)
+                                </td>
+                                <td>यो व्यक्तिगत जमानी ऋणीले सम्पूर्ण ऋण चुक्ता नगरेसम्म यथावत् कायम रही रहने छ । जमानीकर्ताको दायित्व ऋणीले फाइनान्सलाई तिर्न बाँकी सावाँ, ब्याज, हर्जाना ब्याज र अन्य दस्तुर समेतको हुनेछ ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    २)
+                                </td>
+                                <td>कर्जाको सावाँ वा सावाँको कूनै किस्ता अवधि भुक्तानी मितिले ३ महिना नाघेमा वा ऋणीले उपयोग गरिरहेको विभिन्न कर्जा सुविधा मध्ये कुनै एउटा कर्जाको भुक्तानी मिति नाघेमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ३)
+                                </td>
+                                <td>ऋणीले कर्जा सुविधाको दुरुपयोग गरेको भनि तहाँबाट प्रमाणित, ठहर भएमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ४)
+                                </td>
+                                <td>कर्जाको सावाँ र ब्याजको भुक्तानी म्याद नाघे वा ननाघेमा पनि यदि धितोमा रहेको सामान/सुरक्षण (प्लेज, हाइपोथिकेशन समेत) को मूल्यले कर्जाको सावाँ ब्याजको रकमलाई नखाम्ने भएमा वा सुरक्षण नगन्य वा नभएमा वा गायव भएको तहाँबाट ठहर भएमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ५)
+                                </td>
+                                <td>सुरक्षणमा रहेको धितो दुरुपयोग भएको तहाँबाट ठहर भएमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ६)
+                                </td>
+                                <td>ऋणीनै गायव भएको भनि तहाँबाट ठहर भएमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ७)
+                                </td>
+                                <td>ऋणी टाट पल्टेमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ८)
+                                </td>
+                                <td>ऋण असूलीको क्रममा तहाँबाट धितो लिलामी सम्बन्धी सूचना प्रकाशित गरेमा वा अदालतमा ऋणी वा फाइनान्स लिमिटेडले मुद्दा दायर गरेमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    ९)
+                                </td>
+                                <td>ऋणी नक्कली चेक, विदेशी मुद्रा, क्रेडिट कार्ड, विल्स जस्ता विभिन्न नक्कली कागज तथा उपकरण प्रयोग गरि रकम ठगी गरेको ठहर भएमा वा ठगि गर्ने प्रयास गरेको विषयमा अदालतबाट कसुरदार ठहराएमा ।</td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top">
+                                    १०)
+                                </td>
+                                <td>ऋणी बैंकिङ्ग वा वित्तिय अपराधमा संलग्न भएको प्रमाणित भएमा ।</td>
+                            </tr>
+                        </table>
+                        <p><u><b>स्पष्टिकरणः</b> यस खण्डको प्रयोजनको लागि ठहर/प्रमाणित भन्नाले धनी फाइनान्सको निरीक्षण टोली वा आन्तरीक वा वाह्रय लेखापरिक्षक वा नेपाल राष्ट्र बैंकबाट खटिएको निरीक्षण टोलीले ठहर/प्रमाणित गरेको सम्झनु पर्दछ ।</u><p>
+                    <div style="width: 100%;padding-left: 50%">
+                    <b><u>व्यक्तिगत धनजमानी दिनेको</u></b>
+                    <br>
+                    नामः <input class="form-field form-control-sm nepaliFont"
+                                 formControlName="personalWealthGiver"
+                                 placeholder=""
+                                 type="text" />
+                    <br>
+                    ठेगानाः <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="personalWealthGiverAddress"
+                                   placeholder=""
+                                   type="text" />
+                    </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>
+                                ईति सम्वत् २०
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="year"
+                                       placeholder=""
+                                       type="text" size="2" />
+                                साल
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="month"
+                                       placeholder=""
+                                       type="text" size="2" /> महिना
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="day"
+                                       placeholder=""
+                                       type="text" size="2" /> गते रोज
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="time"
+                                       placeholder=""
+                                       type="text" size="5" /> शुभम् ।
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-left">साक्षीहरुः</p>
+                            <p>
+                                १.  <input class="form-field form-control-sm nepaliFont disable-print"
+                                           formControlName="witness"
+                                           placeholder=""
+                                           type="text"/>
+                            </p>
+                            <p>
+                                २.
+                                <input class="form-field form-control-sm nepaliFont disable-print"
+                                       formControlName="witness2"
+                                       placeholder=""
+                                       type="text" />
+                            </p>
+                            <p>
+                                लेखक
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button nbButton status="success">Save</button>
+                    </div>
+
+                </div>
+            </form>
+            <div class="row mt-2">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-primary d-print-none"
+                            [useExistingCss]="true"
+                            [disabled]="!initialInfoPrint"
+                            printSectionId="print-section-{{offerLetterConst.PERSONAL_GUARANTEE_COMPANY}}"
+                            ngxPrint>
+                        PRINT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<app-personal-guarantee-company-icfc-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-personal-guarantee-company-icfc-print>-->

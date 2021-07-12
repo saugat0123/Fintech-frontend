@@ -18,6 +18,7 @@ export enum IcfcOfferLetterConst {
     LOAN_DEED_PERSONAL_LOAN_HOME_LOAN,
     LOAN_DEED_SHARE_LOAN,
     LOAN_DEED_HIRE_PURCHASE,
+    PERSONAL_GUARANTEE_COMPANY
 }
 
 export namespace IcfcOfferLetterConst {
@@ -61,6 +62,8 @@ export namespace IcfcOfferLetterConst {
                 return 'Loan Deed Hire Purchase';
             case IcfcOfferLetterConst.LOAN_DEED_PERSONAL_LOAN_HOME_LOAN:
                 return 'Loan Deed Personal Loan Home Loan';
+            case IcfcOfferLetterConst.PERSONAL_GUARANTEE_COMPANY:
+                return 'Personal Guarantee Company';
         }
     }
 
