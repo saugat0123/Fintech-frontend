@@ -21,6 +21,8 @@ import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.e
 import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
+import {environment} from '../../../../environments/environment';
+import {SummaryType} from '../component/SummaryType';
 
 @Component({
     selector: 'app-summary-base',
@@ -47,7 +49,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     loanSummaryActive = true;
     approvalSheetActive = false;
-    loanTag= LoanTag;
+    loanTag = LoanTag;
+    gamma = environment.summaryType;
+    summaryType = SummaryType;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,

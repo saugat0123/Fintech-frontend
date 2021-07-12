@@ -3,6 +3,7 @@ import {Financial} from '../../../model/financial';
 import {FinancialService} from '../../../../loan-information-template/financial/financial.service';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-financial-summary',
@@ -45,7 +46,9 @@ export class FinancialSummaryComponent implements OnInit {
   // Client Name
   client = environment.client;
   clientName = Clients;
-  gammaSummary = environment.gammaSummary;
+  @Input() count;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor(private financialService: FinancialService) { }
 

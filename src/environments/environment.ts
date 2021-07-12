@@ -2,6 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import {Clients} from './Clients';
+import {SummaryType} from '../app/feature/loan/component/SummaryType';
 
 /**
  This file can be replaced during build by using the `fileReplacements` array.
@@ -28,7 +29,7 @@ export const environment = {
   microLoan: false,
   SBS_GROUP: false,
   MEGA_GROUP: false,
-  gammaSummary: true
+  summaryType: SummaryType.GAMMA
 };
 
 /*

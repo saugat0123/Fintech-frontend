@@ -47,6 +47,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ApprovalSheetInfoComponent} from '../loan-summary/approval-sheet-info/approval-sheet-info.component';
+import {SummaryType} from '../SummaryType';
 
 @Component({
   selector: 'app-gamma-loan-summary',
@@ -184,6 +185,8 @@ export class GammaLoanSummaryComponent implements OnInit {
   securityId: number;
   siteVisitDocuments: Array<SiteVisitDocument>;
   proposalAllData: any;
+  type = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,

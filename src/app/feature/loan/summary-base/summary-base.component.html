@@ -25,25 +25,53 @@
     <nb-card-body>
         <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">
        <ng-container [ngSwitch]="loanConfig.loanTag">
-           <app-micro-loan-summary
-                   *ngSwitchCase="'MICRO_LOAN'"
-                   (changeToApprovalSheetActive)="activeApprovalSheet()"
-                   [loanConfig]="loanConfig"
-                   [loanData]="loanDataHolder"
-                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>
+<!--           <app-micro-loan-summary-->
+<!--                   *ngSwitchCase="'MICRO_LOAN'"-->
+<!--                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
+<!--                   [loanConfig]="loanConfig"-->
+<!--                   [loanData]="loanDataHolder"-->
+<!--                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>-->
 <!--           <app-loan-summary *ngSwitchDefault-->
 <!--                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
 <!--                             [loanConfig]="loanConfig"-->
 <!--                             [loanData]="loanDataHolder"-->
 <!--                             [nepaliDate]="nepaliDate">-->
 <!--           </app-loan-summary>-->
-           <app-gamma-loan-summary *ngSwitchDefault
-                                   (changeToApprovalSheetActive)="activeApprovalSheet()"
-                                   [loanConfig]="loanConfig"
-                                   [loanData]="loanDataHolder"
-                                   [nepaliDate]="nepaliDate">
-           </app-gamma-loan-summary>
+
+
+
+<!--           <app-gamma-loan-summary *ngIf="type"-->
+<!--                                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
+<!--                                   [loanConfig]="loanConfig"-->
+<!--                                   [loanData]="loanDataHolder"-->
+<!--                                   [nepaliDate]="nepaliDate">-->
+<!--           </app-gamma-loan-summary>-->
+
        </ng-container>
+
+            <!-- Micro Summary-->
+            <app-micro-loan-summary
+                    *ngIf="gamma === summaryType?.LAMBDA"
+                    (changeToApprovalSheetActive)="activeApprovalSheet()"
+                    [loanConfig]="loanConfig"
+                    [loanData]="loanDataHolder"
+                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
+
+            <!-- Normal Summary-->
+            <app-loan-summary *ngIf="gamma === summaryType?.GENERAL"
+                              (changeToApprovalSheetActive)="activeApprovalSheet()"
+                              [loanConfig]="loanConfig"
+                              [loanData]="loanDataHolder"
+                              [nepaliDate]="nepaliDate"></app-loan-summary>
+
+            <!-- Gamma Summary-->
+            <app-gamma-loan-summary *ngIf="gamma === summaryType?.GAMMA"
+                                    (changeToApprovalSheetActive)="activeApprovalSheet()"
+                                    [loanConfig]="loanConfig"
+                                    [loanData]="loanDataHolder"
+                                    [nepaliDate]="nepaliDate"></app-gamma-loan-summary>
+
+
         </ng-container>
 
         <app-approval-sheet (changeToLoanSummaryActive)="activeLoanSummary()"

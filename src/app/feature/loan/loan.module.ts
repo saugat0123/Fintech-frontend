@@ -24,10 +24,8 @@ import {SuccessOfferLetterPrintComponent} from '../cad-documents/cad-document-co
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
-
 import {AgmCoreModule} from '@agm/core';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
-// tslint:disable-next-line:max-line-length
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {GroupComponent} from './component/loan-main-template/group/group.component';
@@ -53,7 +51,6 @@ import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/
 import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 import {PratigyaPatraPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
-
 import {JamaniTamsukLetterPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
 import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
@@ -92,7 +89,6 @@ import {NepaliPatroModule} from 'nepali-patro';
 import { GammaLoanSummaryComponent } from './component/gamma-loan-summary/gamma-loan-summary.component';
 import { GammaProposalSummaryComponent } from './component/gamma-loan-summary/gamma-proposal-summary/gamma-proposal-summary.component';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
-import { GammaIncomeFromAccountSummaryComponent } from './component/gamma-loan-summary/gamma-income-from-account-summary/gamma-income-from-account-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -198,7 +194,7 @@ const modules = {
 
 @NgModule({
     // tslint:disable-next-line:max-line-length
-    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent, GammaProposalSummaryComponent, GammaIncomeFromAccountSummaryComponent],
+    declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent, GammaProposalSummaryComponent],
     imports: [
         ThemeModule,
         CommonModule,

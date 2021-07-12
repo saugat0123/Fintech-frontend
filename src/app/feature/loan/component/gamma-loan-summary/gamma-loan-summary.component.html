@@ -686,8 +686,9 @@
 <!--                </div>-->
 <!--            </div>-->
 
-            <app-gamma-income-from-account-summary *ngIf="incomeFromAccountSummary"
-                                                   [formData]="incomeFromAccountData"></app-gamma-income-from-account-summary>
+            <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
+                                             [count] = "6"
+                                             [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
             <div class="row">
                 <div class="col-md-12">
@@ -733,7 +734,8 @@
             <!-- End of reporting Info-->
 
             <!-- Start Security Details-->
-            <app-security-summary *ngIf="securitySummary"
+            <app-security-summary *ngIf="securitySummary && type === summaryTypeName?.GAMMA"
+                                  [count]="10"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
@@ -766,6 +768,7 @@
 
             <!-- Start Income & Expenses -->
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
+                                   [count]="13"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
             <!-- Start Income & Expenses -->
 
@@ -779,7 +782,8 @@
             <ng-template #otherBank>
                 <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                  [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+                                 [netTradingAssetsData]="netTradingAssetsData"
+                                 [count]="14"></app-nta-summary>
             </ng-template>
             <br>
             <!-- End NTA-->
@@ -803,7 +807,8 @@
             <br>
             <div *ngIf="client !== clientName?.MEGA">
                 <app-guarantor-summary *ngIf="checkGuarantorData"
-                                       [guarantorData]="guarantorData"></app-guarantor-summary>
+                                       [guarantorData]="guarantorData"
+                                       [loanCategory]="loanDataHolder?.loanCategory"></app-guarantor-summary>
             </div>
             <br>
             <!-- End Guarantors Details -->
@@ -861,7 +866,7 @@
             <div class="row">
                 <div class="col-md-12 disable-print">
                     <span>
-                        <b>All Documents</b>
+                        <b>{{(loanCategory === 'INDIVIDUAL')  ? '24. ' : '25. '}}All Documents</b>
                         <button class="float-right sb-small sb-bg-dark text-white"
                                 *ngIf="loanDataHolder?.customerDocument?.length > 0"
                                 (click)=getDocPath()> Download All Document</button>

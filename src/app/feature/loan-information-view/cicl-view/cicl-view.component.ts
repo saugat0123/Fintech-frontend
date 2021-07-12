@@ -16,7 +16,6 @@ export class CiclViewComponent implements OnInit {
   ciclRelationList = CiclRelationListEnum;
 
   crgLambdaDisabled = environment.disableCrgLambda;
-  gammaSummary = environment.gammaSummary;
 
   constructor() {
   }
