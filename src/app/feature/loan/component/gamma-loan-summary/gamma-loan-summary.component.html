@@ -274,7 +274,6 @@
                 </div>
             </div>
 
-
             <div class="row sb-small">
                 <div class="col-md-12">
                     <b>Purpose: {{loanDataHolder.loan.name}}</b>
@@ -290,7 +289,6 @@
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
                         )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
-
                     </span>
 
                 </div>
@@ -312,20 +310,15 @@
                     <tbody>
                     <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
                         <td class="text-left pl-1">Lambda</td>
-                        <td><span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span>
-                        </td>
-                        <td><span
-                                [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span>
-                        </td>
+                        <td><span [class]="creditGradeLambdaStatusBadge"> {{creditRiskGradeLambda | titlecase}}</span></td>
+                        <td><span [class]="creditGradeLambdaStatusBadge"> {{ creditRiskRatingLambda | titlecase }}</span></td>
                         <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
                         <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
                     </tr>
                     <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
                         <td class="text-left pl-1">Alpha</td>
-                        <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
-                        </td>
-                        <td><span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span>
-                        </td>
+                        <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span></td>
+                        <td><span [class]="creditGradeAlphaStatusBadge"> {{ creditRiskRatingAlpha | titlecase }}</span></td>
                         <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>
                         <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>
                     </tr>
@@ -344,9 +337,6 @@
                     <app-company-info-summary [approveSheet]="notApprove"
                                               [companyInfo]="loanDataHolder?.companyInfo"
                                               [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-<!--                    <app-company-info-summary [approveSheet]="notApprove"-->
-<!--                                              [companyInfo]="loanDataHolder?.companyInfo"-->
-<!--                                              [loanDataHolder]="loanDataHolder"></app-company-info-summary>-->
                 </div>
             </div>
 

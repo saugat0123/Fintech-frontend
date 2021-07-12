@@ -109,15 +109,11 @@
                         <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
                         <div *ngIf="loanDataHolder?.isSol" class="float-right">
                             <span><strong>Approval User: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
-
                     </div>
-
                 </div>
             </div>
 
             <hr class="print-line disable-print">
-
-
             <div class="row sb-small">
                 <div class="col-md-12">
                     <b>Purpose: {{loanDataHolder?.loan?.name}}</b>
@@ -354,7 +350,6 @@
                                     <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}})</td>
                                 </tr>
                             </ng-container>
-
                             </tbody>
                         </table>
                     </div>
@@ -408,22 +403,14 @@
                         <tr>
                             <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Individual Exposure</th>
                             <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
-
                             <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Institution Exposure</th>
                             <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
-
                             <th>Group Exposure</th>
                             <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Interest Coverage Ratio
-                            </th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Interest Coverage Ratio</th>
                             <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Debt Service Coverage
-                                Ratio
-                            </th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Debt Service Coverage Ratio</th>
                             <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
-
                             <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Dealing Product Name</th>
                             <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.dealingProductName}}</td>
                         </tr>
@@ -460,11 +447,18 @@
                 </div>
             </div>
 
+            <!-- Start proposal summary-->
             <app-proposal-summary
                     *ngIf="proposalSummary"
                     [approveSheet]="approveSheet"
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"></app-proposal-summary>
+
+
+<!--            <app-gamma-proposal-summary *ngIf="proposalSummary"-->
+<!--                                        [approveSheet]="approveSheet"-->
+<!--                                        [customerAllLoanList]="customerAllLoanList"-->
+<!--                                        [proposalData]="proposalData"></app-gamma-proposal-summary>-->
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Propose Amount:</strong>
@@ -472,21 +466,19 @@
                     Only /-
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Credit Risk Grade : </strong>
                     <span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12 sb-medium">
                     <strong>Credit Risk Score : </strong>
                     <span><strong> {{ crgGammaScore }}</strong></span>
                 </div>
             </div>
-
+            <!-- End proposal summary-->
             <hr>
 
             <app-collateral-summary
@@ -507,11 +499,19 @@
                 </div>
             </div>
 
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '5. ' : '4. '}} Purpose of Loan</strong></p>-->
+<!--                </div>-->
+<!--                <div class="col-md-12">-->
+<!--                    <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></p>-->
+<!--                </div>-->
+<!--            </div>-->
+
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
             <hr>
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-
                 <app-report-summary
                         [approved]="true"
                         *ngIf="loanDataHolder?.reportingInfoLog"

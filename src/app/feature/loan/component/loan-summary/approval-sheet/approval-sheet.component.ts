@@ -153,6 +153,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     showApprovalSheetInfo = false;
     isJointInfo = false;
     jointInfo = [];
+    proposalAllData;
 
     constructor(
         private userService: UserService,
@@ -370,6 +371,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
+            this.proposalAllData = JSON.parse(this.proposalData.data);
             this.proposalSummary = true;
         }
 
