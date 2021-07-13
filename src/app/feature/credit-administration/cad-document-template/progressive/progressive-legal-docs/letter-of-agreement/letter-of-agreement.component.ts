@@ -43,7 +43,7 @@ export class LetterOfAgreementComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService,) {
+              private customerOfferLetterService: CustomerOfferLetterService) {
   }
 
   ngOnInit() {
@@ -55,7 +55,9 @@ export class LetterOfAgreementComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          this.form.patchValue(this.initialInfoPrint);
         }
       });
     }

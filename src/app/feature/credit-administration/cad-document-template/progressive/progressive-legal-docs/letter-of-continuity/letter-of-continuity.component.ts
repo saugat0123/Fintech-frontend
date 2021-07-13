@@ -55,7 +55,9 @@ export class LetterOfContinuityComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          this.form.patchValue(this.initialInfoPrint);
         }
       });
     }
