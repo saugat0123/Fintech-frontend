@@ -54,6 +54,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offer-letter-configuration/nep-proposed-amount-form/nep-proposed-amount-form.component';
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
+import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 
 
 @NgModule({
@@ -99,21 +100,22 @@ import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/exce
         CadOfferLetterConfigurationComponent,
         NepProposedAmountFormComponent,
         CadFileSetupComponent],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NbDialogModule.forRoot(),
-        MegaOfferLetterTemplateModule,
-        ExcelOfferLetterTemplateModule,
-        CadDocumentTemplateModule,
-        RouterModule.forChild(routes),
-        NgSelectModule,
-        CoreModule,
-        MegaModule,
-        NgxPrintModule,
-        AngularDraggableModule,
-        NepaliCalendarModule,
-    ],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NbDialogModule.forRoot(),
+    MegaOfferLetterTemplateModule,
+    ExcelOfferLetterTemplateModule,
+    CadDocumentTemplateModule,
+    RouterModule.forChild(routes),
+    NgSelectModule,
+    CoreModule,
+    MegaModule,
+    NgxPrintModule,
+    AngularDraggableModule,
+    NepaliCalendarModule,
+    ProgressiveModule,
+  ],
     entryComponents: [
         AssignPopUpComponent,
         VerifyPopUpComponent,
