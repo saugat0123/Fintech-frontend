@@ -817,10 +817,55 @@
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
-                                                 [checked]="solChecked"><b>Single
-                                        Obligor Limit</b>
+                                                 [checked]="solChecked"><b>Single Obligor Limit</b>
                                     </nb-checkbox>
                                     <div *ngIf="solChecked">
+                                        <table class="table table-bordered table-responsive table-hover" style="overflow-x: hidden">
+                                            <thead class="font-weight-bold">
+                                            <tr>
+                                                <th >क्र.सं (S.N)</th>
+                                                <th >विवरण (Details)</th>
+                                                <th >विमा रकम (Amount)</th>
+                                                <th >जोखिम वहन (Risks Coverage)</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody *ngFor="let data of proposalForm.get('groupExposure')['controls']; let index = index" formArrayName="groupExposure" >
+                                            <tr [formGroupName]="index">
+                                                <td>{{index + 1}}</td>
+                                                <td>
+                                                    <div>
+                                                        <input class="form-fields  nepaliFont"
+                                                               formControlName="description"
+                                                               placeholder="भवन"
+                                                               type="text"/>
+                                                    </div>
+                                                </td>
+                                                <td><input class="form-fields  nepaliFont"
+                                                           formControlName="sumInsured"
+                                                           placeholder="रु ३०,००,०००"
+                                                           type="text"/>
+                                                </td>
+                                                <td><input class="form-fields  nepaliFont"
+                                                           formControlName="riskBearer"
+                                                           placeholder="रग्रहस्थ बीमालेख ।"
+                                                           type="text"/>
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        (click)="removeLoanDetail(index)"
+                                                        *ngIf="index > 0"
+                                                        class="mt-3" nbButton
+                                                        status="primary">Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-right">
+                                            <input (click)="addTableData()" class="btn btn-sm btn-flat btn-primary"
+                                                   type="button" value="Add More"/>
+                                        </div>
+
                                         <ckeditor formControlName="solConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>

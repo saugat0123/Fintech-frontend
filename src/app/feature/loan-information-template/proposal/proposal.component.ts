@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Proposal} from '../../admin/modal/proposal';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
@@ -94,6 +94,7 @@ export class ProposalComponent implements OnInit {
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
+      // this.setTableData();
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.interestLimit = this.formDataForEdit['interestRate'];
       /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
@@ -163,6 +164,7 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
+    this.addTableData();
   }
 
   buildForm() {
@@ -231,7 +233,8 @@ export class ProposalComponent implements OnInit {
       existCashMarginMethod: ['PERCENT'],
       existInterestRate: [undefined],
       existCommissionPercentage: [undefined],
-      settlementAmount: [undefined]
+      settlementAmount: [undefined],
+      groupExposure: this.formBuilder.array([]),
     });
   }
 
@@ -593,6 +596,35 @@ export class ProposalComponent implements OnInit {
       this.othersSubsidyLoan = false;
       this.proposalForm.get('others').setValue(null);
     }
+  }
+
+  addTableData() {
+    (this.proposalForm.get('groupExposure') as FormArray).push(
+        this.formBuilder.group({
+          description: undefined,
+          sumInsured: undefined,
+          riskBearer: undefined,
+        })
+    );
+  }
+
+  setTableData(data) {
+    const formArray = this.proposalForm.get('loanData') as FormArray;
+    if (ObjectUtil.isEmpty(data)) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        description: [value.description],
+        sumInsured: [value.sumInsured],
+        riskBearer: [value.riskBearer],
+      }));
+    });
+  }
+
+  removeLoanDetail(index) {
+    (this.proposalForm.get('groupExposure') as FormArray).removeAt(index);
   }
 
 }
