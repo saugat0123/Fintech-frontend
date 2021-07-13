@@ -1,6 +1,7 @@
 <div class="row mt-4" *ngIf="insurance.length !== 0">
   <div class="col-md-12">
-    <p><strong>Insurance Detail</strong></p>
+    <p><strong>{{(summaryType !== summaryTypeName.GENERAL && loanCategory === 'INDIVIDUAL') ? '15. Insurance Detail' :
+            (summaryType !== summaryTypeName.GENERAL && loanCategory === 'INSTITUTION') ? '16. Insurance Detail' : 'Insurance Detail'}}</strong></p>
     <table class="table table-bordered text-center table-sm sb-small">
       <thead>
       <tr class="sb-bg-dark text-white">

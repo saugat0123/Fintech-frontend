@@ -677,14 +677,14 @@
                 </div>
             </div>
 
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <p><strong>{{loanCategory === 'INSTITUTION'}}5. Group background</strong></p>-->
-<!--                </div>-->
-<!--                <div class="col-md-12">-->
-<!--                    <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></p>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="row" *ngIf="loanCategory === 'INSTITUTION'">
+                <div class="col-md-12">
+                    <p><strong>5. Group Background</strong></p>
+                </div>
+                <div class="col-md-12">
+                    <p class="text-justify pl-1 pr-1" [innerHTML]="companyInfo?.groupsBackGround || 'N/A' | safeHtml"></p>
+                </div>
+            </div>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [count] = "6"
@@ -716,7 +716,7 @@
                 </app-report-summary>
             </div>
             <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-                <span><strong>Loan Reporting Information</strong></span>
+                <span><strong>9. Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
                         *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
@@ -726,7 +726,7 @@
                 </ng-template>
             </div>
             <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
-                <span><strong>Customer Reporting Information</strong></span>
+                <span><strong>9. Customer Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
                         [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
@@ -776,7 +776,8 @@
             <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
-                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+                                      [netTradingAssetsData]="netTradingAssetsData"
+                                      [count]="14"></app-nta-mega-summary>
             </ng-container>
 
             <ng-template #otherBank>
@@ -790,19 +791,23 @@
 
             <!-- Start CICL -->
             <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
-                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
+                               [ciclValue]="loanDataHolder?.loanHolder?.cicl"
+                               [loanCategory]="loanDataHolder?.loanCategory"></app-cicl-view>
             </div>
             <!-- End CICL-->
 
             <!-- Start Insurance Details -->
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
+                                   [insurance]="loanDataHolder?.insurance"
+                                   [loanCategory]="loanDataHolder?.loanCategory"></app-insurance-summary>
             <!-- End Insurance Details -->
 
             <!-- Start Guarantors Details -->
             <div *ngIf="client === clientName?.MEGA">
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+                                    [guarantorData]="loanDataHolder?.taggedGuarantors"
+                                    [loanCategory]="loanDataHolder?.loanCategory"></app-guarantor-view>
             </div>
             <br>
             <div *ngIf="client !== clientName?.MEGA">
@@ -812,6 +817,12 @@
             </div>
             <br>
             <!-- End Guarantors Details -->
+
+            <!-- Start credit Risk Grading-->
+            <app-crg-gamma-detail-view *ngIf="loanDataHolder?.crgGamma"
+                                       [formData]="loanDataHolder?.crgGamma"
+                                       [loanCategory]="loanDataHolder?.loanCategory"></app-crg-gamma-detail-view>
+            <!-- End credit Risk Grading-->
 
             <div *ngIf="client === clientName?.MEGA">
                 <app-comments-summary *ngIf="commentsSummary"
@@ -837,11 +848,20 @@
                 </div>
             </div>
 
+            <!-- Start Credit Checklist-->
+            <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                                       [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                       [fromProfile]="false"
+                                       [customerType]="loanDataHolder?.loanHolder?.customerType"
+                                       [loanCategory]="loanDataHolder?.loanCategory"></app-credit-checklist-view>
+            <!-- End Credit Checklist-->
+
             <!-- Start terms and conditions-->
             <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
                                                       [customerAllLoanList]="customerAllLoanList"
-                                                      [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+                                                      [loanDataHolder]="loanDataHolder"
+                                                      [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-terms-and-condition-summery>
             <!-- End terms and conditions-->
 
             <div class="row">

@@ -9,6 +9,7 @@ import {Occupation} from '../../admin/modal/occupation';
 })
 export class GuarantorViewComponent implements OnInit {
   @Input() guarantorData;
+  @Input() loanCategory;
   Occupation = Occupation;
   constructor() { }
 

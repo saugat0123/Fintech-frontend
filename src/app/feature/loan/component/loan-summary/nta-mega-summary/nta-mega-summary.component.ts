@@ -12,6 +12,7 @@ import {Clients} from '../../../../../../environments/Clients';
 export class NtaMegaSummaryComponent implements OnInit {
   @Input() netTradingAssetsData?: NetTradingAssets;
   @Input() fiscalYears: Array<FiscalYear>;
+  @Input() count;
   ntaData = [];
   currentFiscalYearIndex: number;
   currentYearData;

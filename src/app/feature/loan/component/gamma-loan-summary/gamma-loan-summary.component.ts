@@ -187,6 +187,7 @@ export class GammaLoanSummaryComponent implements OnInit {
   proposalAllData: any;
   type = environment.summaryType;
   summaryTypeName = SummaryType;
+  companyInfo: any;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -225,6 +226,9 @@ export class GammaLoanSummaryComponent implements OnInit {
       const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
       this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
       this.isJointInfo = true;
+    }
+    if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
+      this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
     }
     console.log('InputData:::', this.loanDataHolder);
     this.loadSummary();
