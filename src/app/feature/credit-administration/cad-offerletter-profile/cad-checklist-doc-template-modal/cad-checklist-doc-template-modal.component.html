@@ -46,6 +46,9 @@
         <app-consent-for-collateral *ngSwitchCase="legalTemplate.CONSENT_FOR_COLLATERAL" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-consent-for-collateral>
         <app-consent-for-loan-interest-payment *ngSwitchCase="legalTemplate.CONSENT_FOR_LOAN" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-consent-for-loan-interest-payment>
         <app-consent-letter-for-hp-loan *ngSwitchCase="legalTemplate.CONSENT_LETTER_FOR_HP_LOAN" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-consent-letter-for-hp-loan>
+        <app-personal-guarantee-company-icfc *ngSwitchCase="legalTemplate.PERSONAL_GUARANTEE_COMPANY" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-company-icfc>
+        <app-personal-guarantee-personal-both *ngSwitchCase="legalTemplate.PERSONAL_GUARANTEE_PERSONAL_BOTH" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-personal-both>
+        <app-personal-guarantee-personal *ngSwitchCase="legalTemplate.PERSONAL_GUARANTEE_PERSONAL" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-personal>
         <p *ngSwitchCase> No Template is available for this Document !!</p>
       </div>
     </div>
