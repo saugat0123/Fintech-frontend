@@ -753,8 +753,25 @@
 <!--                                                    [customerAllLoanList]="customerAllLoanList"-->
 <!--                                                    [proposalData]="proposalData"></app-proposal-justification-summary>-->
 <!--            </div>-->
-            <div>
-                <span><strong>12. Group Exposure</strong></span>
+            <div class="row">
+                <div class="col-md-12">
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '18. ' : '19. '}} Group Exposure and SOL</strong></p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <tr>
+                        <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
+                    </tr>
+                </div>
             </div>
             <!-- End Group Exposure -->
 
