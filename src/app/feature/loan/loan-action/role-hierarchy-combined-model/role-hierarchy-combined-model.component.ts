@@ -37,6 +37,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     @Input() approvalType: string;
     @Input() refId: number;
     @Input() toRole: Role;
+    @Input() isFileUnderCurrentToUser;
     ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
@@ -67,6 +68,8 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     selectedRole: Role;
     selectedUsername: string;
     isSolPresent = false;
+    showHideSoleForm = false;
+    singleSelectedToUser = [];
 
     constructor(
         public nbDialogRef: NbDialogRef<RoleHierarchyCombinedModelComponent>,
@@ -118,6 +121,9 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     public getCombinedUserList(role) {
         this.isUserNotPresentForCombine = false;
         this.selectedRole = role;
+        if (this.isSolPresent === false) {
+            this.showHideSoleForm = true;
+        }
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.combinedType.userList = response.detail;
             if (this.combinedType.userList.length === 0) {
@@ -133,6 +139,9 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     }
 
     public getIndividualUserList(role, i: number) {
+        if (this.isSolPresent === true) {
+            this.showHideSoleForm = true;
+        }
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.individualType.users.set(i, response.detail);
             const users: User[] = response.detail;
@@ -142,7 +151,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
 
             } else {
                 this.individualType.form.get(['actions', i]).patchValue({
-                    toUser: users[0]
+                    toUser: undefined
                 });
                 this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
                 this.individualType.form.updateValueAndValidity();
@@ -154,15 +163,39 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
         this.selectedUsername = toUser.username;
     }
 
+    public getSingleSelectedUser(toUser, index): void {
+        const selectedToUser = toUser.username;
+        if (toUser.roleType === RoleType.MAKER && selectedToUser === LocalStorageUtil.getStorage().username) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                toUser: undefined
+            });
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
+            return;
+        }
+        if (selectedToUser === this.isFileUnderCurrentToUser.username) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                toUser: undefined
+            });
+            this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
+            return;
+        }
+    }
+
+    getSingleSelectedSolUser(toUser, index) {
+        const selectedToUser = toUser.username;
+        if (selectedToUser === this.isFileUnderCurrentToUser.username) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                solUser: undefined
+            });
+            this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
+            return;
+        }
+    }
+
     public onSubmit(): void {
         if (this.stageType === 'individually') {
             this.individualType.submitted = true;
             if (this.individualType.form.invalid) {
-                return;
-            }
-            if (this.selectedRole.roleType === RoleType.MAKER &&
-                this.selectedUsername === LocalStorageUtil.getStorage().username) {
-                this.toastService.show(new Alert(AlertType.INFO, 'Please select different user to transfer file'));
                 return;
             }
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
@@ -186,14 +219,19 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
             }
             if (this.selectedRole.roleType === RoleType.MAKER &&
                 this.selectedUsername === LocalStorageUtil.getStorage().username) {
-                this.toastService.show(new Alert(AlertType.INFO, 'Please select different user to transfer file'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Please select different user to transfer file'));
+                return;
+            }
+            const selectedCombinedUser = this.combinedType.form.get('toUser').value;
+            if (selectedCombinedUser.username === this.isFileUnderCurrentToUser.username) {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
                 return;
             }
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
                 context: {
                     toUser: this.combinedType.form.get('toUser').value,
                     toRole: this.combinedType.form.get('toRole').value, action: this.docAction,
-                    isSolUserPresent: this.isSolUserPresent
+                    isSolUserPresent: this.isSolPresent
                 }
             });
             dialogRef.onClose.subscribe((verified: boolean) => {
@@ -340,6 +378,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
             this.individualType.form.get(['actions', i, 'solUser']).clearValidators();
             this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
         } else {
+            this.individualType.form.get(['actions', i, 'selectedRoleForSol']).setValue(undefined);
             this.individualType.form.get(['actions', i, 'solUser']).setValue(undefined);
             this.individualType.form.get(['actions', i, 'solUser']).setValidators(Validators.required);
             this.individualType.form.get(['actions', i, 'solUser']).updateValueAndValidity();
@@ -371,6 +410,8 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
     showHideSolCombine(event: boolean) {
         if (event) {
             this.showHideCombineSolUser = true;
+            this.showHideSoleForm = true;
+            this.combinedType.form.get('selectedRoleForSol').patchValue(undefined);
             this.combinedType.form.get('solUser').patchValue(undefined);
             this.combinedType.form.get('solUser').setValidators(Validators.required);
             this.combinedType.form.get('solUser').updateValueAndValidity();
@@ -381,6 +422,7 @@ export class RoleHierarchyCombinedModelComponent implements OnInit {
                 isSol: false
             });
             this.showHideCombineSolUser = false;
+            this.showHideSoleForm = false;
             this.combinedType.form.get('solUser').clearValidators();
             this.combinedType.form.get('solUser').updateValueAndValidity();
         }
