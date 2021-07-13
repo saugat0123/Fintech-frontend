@@ -1,0 +1,510 @@
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.GUARANTEE_BOND_PERSONAL}}">
+  <div class="col-md-12 viewFull">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="nep">
+        <div class="text-center">
+          बिषयः व्यक्तिगत जमानत
+        </div>
+        <br>
+        <p>
+          लिखितम धनीका नाम प्रचलित कम्पनी सम्बन्धी कानुन तथा बैंक तथा वित्तीय संस्था सम्बन्धी कानुन,
+          २०७३
+          बमोजिम संस्थापना भएको
+          <b> प्रोग्रेशिभ फाइनान्स लिमिटेड, शाखा कार्यालय न्युरोड (यस पछि “धनी वित्तीय संस्था” भनी
+            सम्बोधन गरिएको)</b>
+          व्यक्तिगत जमानी लेखी
+          दिने <input class="form-control-lg form-field nepaliFont"
+
+                      formControlName="grandParentName"
+                      type="text">
+          को/की नाति/नातिनी <input class="form-control-lg form-field nepaliFont"
+
+                                   formControlName="parentName"
+                                   type="text">
+          को/की छोरा/छोरि <input class="form-control-lg form-field nepaliFont"
+
+                                 formControlName="husbandName"
+                                 type="text">
+          की पत्नी <input class="form-control-lg form-field nepaliFont"
+
+                          formControlName="sasuSasura"
+                          type="text">
+          की बूहारी, नागरिकता वमोजिम <input class="form-control-lg form-field nepaliFont"
+
+                                            formControlName="district"
+                                            type="text">
+          जिल्ला <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="municipality"
+                        type="text">
+          न.पा./गा.वि.स., वडा नं. <input class="form-control-lg form-field nepaliFont"
+
+                                         formControlName="wadNo"
+                                         type="text">,
+          स्थायी ठेगाना भै हाल सोही
+          स्थानमा वा <input class="form-control-lg form-field nepaliFont"
+
+                            formControlName="tempDistrict"
+                            type="text">
+          जिल्ला <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="tempMunicipality"
+                        type="text">
+          न.पा./गा.पा., वडा नं. <input class="form-control-lg form-field nepaliFont"
+
+                                       formControlName="tempWadNo"
+                                       type="text">,
+          बस्ने
+          मिति <input class="form-control-lg form-field nepaliFont"
+
+                      formControlName="date"
+                      type="text"> मा जिल्ला
+          प्रशासन कार्यालय, <input class="form-control-lg form-field nepaliFont"
+
+                                   formControlName="cdoOffice"
+                                   type="text"> जारी गरिएको
+          ना.प्र.प.नं. <input class="form-control-lg form-field nepaliFont"
+
+                              formControlName="citizenshipNo"
+                              type="text"> भएको
+          बर्ष <input class="form-control-lg form-field nepaliFont"
+
+                      formControlName="age"
+                      type="text"> को/की <b> श्री श्रीमती शोभा थापा (जसलाई यस पछि
+          ‘जमानतकर्ता’ भनिएको)</b>
+          आगे म ज्ञ, <input class="form-control-lg form-field nepaliFont"
+
+                            formControlName="buttonGrandParentName"
+                            type="text"> को/की
+          नाति/नातिनी <input class="form-control-lg form-field nepaliFont"
+
+                             formControlName="buttonParentName"
+                             type="text"> को/की
+          छोरा/छोरि <input class="form-control-lg form-field nepaliFont"
+
+                           formControlName="buttonhusbandName"
+                           type="text"> की
+          पत्नी <input class="form-control-lg form-field nepaliFont"
+
+                       formControlName="buttonSasuSasura"
+                       type="text"> की बूहारी,
+          नागरिकता वमोजिम <input class="form-control-lg form-field nepaliFont"
+
+                                 formControlName="buttonDistrict"
+                                 type="text">
+          जिल्ला <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="buttonMunicipalityt"
+                        type="text"> न.पा./गा.वि.स.,
+          वडा नं. <input class="form-control-lg form-field nepaliFont"
+
+                         formControlName="buttonWadNo"
+                         type="text">,
+          स्थायी ठेगाना
+          भै हाल सोही स्थानमा वा <input class="form-control-lg form-field nepaliFont"
+
+                                        formControlName="buttonTempDistrict"
+                                        type="text">
+          जिल्ला . <input class="form-control-lg form-field nepaliFont"
+
+                          formControlName="buttonTempMuniciplity"
+                          type="text"> न.पा./गा.पा.,
+          वडा नं. <input class="form-control-lg form-field nepaliFont"
+
+                         formControlName="buttonTempWadNo"
+                         type="text">,
+          बस्ने
+          मिति <input class="form-control-lg form-field nepaliFont"
+
+                      formControlName="buttonDate"
+                      type="text"> मा जिल्ला प्रशासन कार्यालय,
+          <input class="form-control-lg form-field nepaliFont"
+
+                 formControlName="buttonCdoOffice"
+                 type="text"> जारी गरिएको
+          ना.प्र.प.नं. <input class="form-control-lg form-field nepaliFont"
+
+                              formControlName="buttonCitizenshipNo"
+                              type="text"> भएको
+          बर्ष <input class="form-control-lg form-field nepaliFont"
+
+                      formControlName="buttonAge"
+                      type="text"> को श्री <b> सफल खड्का, (यस पछि ‘ऋणी” भनी सम्बोधन
+          गरिएको) </b> ले
+          रिभल्भिङ्ग <b>(Revolving) कर्जा योजना व्यक्तिगत कर्जा योजना (Personal Loan Scheme)</b>
+          शीर्षकमा धनी
+          वित्तीय संस्था बाट यस
+          अघि लिएको तथा यस पछि लिने ऋण कर्जा तथा बैंकिग सुविधाको सुरक्षण वापत ब्यक्तिगत जमानी
+          बसीदिन’ भनी
+          मलाई अनूरोध गरे
+          बमोजिम ब्यक्तिगत जमानी बस्न मन्ज’र छ् छ्ैन भनी मलाई सोध्न’ भएकोमा मेरो चित्त ब’झ्यो । निज
+          ऋणीले तपाई
+          धनी वित्तीय संस्थाबाट
+          एकै पटक वा पटक पटक गरी यस पछि लिने/यस अघि लिएको रु. १५,००,०००/ (अक्षरुपी रुपैयां पन्ध्र
+          लाख
+          रुपौया मात्र) सम्मको नगद
+          कर्जा ऋ०ँ कर्जा लगायत अन्य बैंकिé स’विधा र त्यसको स¤ावा, ब्याज, थप ब्याज कमिसन दस्त’र आदि
+          तथा ऋण
+          असúलउपर गर्ने
+          सम्बन्धमा लाग्ने खर्च तथा उल्लेखित ऋणीस¤गको कारोबार वा असúलीको क्रममा लाग्न सक्ने कानúनी
+          खर्च लगायत
+          उक्त ऋण कर्जा तथा बैंकिग
+          सुविधाको जरियाबाट तपाई धनी वित्तीय संस्था उपर उत्पन्न ह’न सक्ने थप दायित्व लगायत अन्य
+          सम्पúर्०ा
+          रकमको जमानत स्वरुप यो ब्यक्तिगत
+          जमानीको कागज गरिदिएको/की छ्’ । धनी वित्तीय संस्थाबाट ऋणीले लिएको ऋण कर्जा तथा बैंकिग
+          स’विधा तथा
+          भविष्यमा ऋणी उपर
+          सृजित अन्य क’नै थप दायित्व वापतको सा¤वा, ब्याज, हर्जना ब्याज लगायतको सम्पúर्०ा रकम नतिरे
+          नब’झाए वा
+          तिर्न ब’झाउन आलटाल
+          गरे वा धनी वित्तीय संस्था र ऋणी बीचको शर्त संझौता बमोजिम ऋणीले पालना गनर्’पर्ने क’नै पनि
+          शर्तबन्देजहरु ऋणीले पालना नगरेमा वा
+          कर्जाका शर्तबन्देजहरु उल्लं३न गरेमा धनी वित्तीय संस्थाले माग गर्नासाथ ऋणीका नामको
+          सम्पúर्०ा कर्जा
+          च’क्ता फछ््यौट गर्ने दायित्व म
+          जमानीकर्ताको ह’नेछ् म जमानीकर्ताले यस जमानीको लिखत बमोजिमको दायित्व पúरा नगरेमा वा आलटाल
+          गरेमा वा यस
+          जमानीको लिखतमा
+          उल्लेखित क’नै पनि शर्तबन्देजहरु पालना नगरेमा वा उलं३न गरेमा तपाई धनी वित्तीय संस्थाले मेरो
+          तथा मेरा
+          परिवारका सदस्यहरुको तत्काल हक
+          भएको वा ह’न सक्ने चल अचल श्री सम्पत्ति जायजेथा बाट ऋणीका नामको कर्जा/बक्यौता असúल उपर
+          गरीलिन’होला ।
+          पछि अर्काले खाएको
+          लिएको ऋणकर्जा मैले तिर्न ब’झाउन पर्ने होईन भनी कहिं कतै उजúबाजúर गर्ने वा बादबिवाद खिचलो
+          गर्ने छ्ैन
+          । गरे यसै जमानतको कागजले
+          बदर होस् भनी किनारका साक्षीका रोहबरमा धनी वित्तीय संस्थाको कार्यलयमा बसी धनी वित्तीय
+          संस्थाले
+          प्रस्तावित गरे बमोजिम मेरो जमानीका थप
+          सर्तहरु देहाय बमोजिम ह’ने गरी लिखतको सम्पúर्०ा ब्यहोरा प९ी वाची सो को मतलव तथा परि०ााम
+          समेत ब’झी
+          आफ्नो स्वतन्त्र मञ्ज’रीले यो
+          ब्यक्तिगत जमानतको कागजमा सहिछ्ाप गरी तपाई धनी वित्तीय संस्थालाई दिए¤ ।
+        </p>
+
+        <p>
+          <b>जमानीका थप शर्तहरुः </b><br>
+          यस जमानीको लिखतबाट म/हामी उपर सृजना ह’ने क’नै पनि दायित्व ऋणीको दायित्व सरह ह’ने तथा धनी
+          वित्तीय
+          संस्थाले आफ्नो स्वेच्छ्ा अन’सार ऋणी उपरको दायित्वका सम्बन्धमा म/हामीलाई प्राथमिक रुपले
+          दायित्वधिन
+          बनाउन सक्नेछ् ।
+          <br>
+          १. म/हामीलाई जमानतबाट फ’र्सद दिएको क’राको धनी वित्तीय संस्थाले आधिकारिक लिखित सúचना
+          नदिएसम्म यो
+          मेरो/हाम्रो जमानत बहाल रहनेछ् ।
+          यस जमानी अन्तरगतको दायित्व पúरा गर्ने सम्बन्धमा धनी वित्तीय संस्थाले क’नै प्रकारको सह’लियत
+          वा थप समय
+          प्रदान गरेको ख०डमा समेत मेरो /हाम्रो जमानतको निरन्तरतामा क’नै प्रतिकúल असर पर्ने छ्ैन ।
+          कथंकदाचित धनी वित्तीय संस्थाले म/हामीलाई जमानतबाट फúर्सद दिएको सúचना प्रदान गरे पश्चात्
+          पनि ऋणीका
+          नाममा क’नै प्रकारको बा¤की बक्यौता वा दायित्व देखिन गएको अवस्थामा समेत मेरो /हाम्रो जमानत
+          बहाल
+          रहेको अवधि भरको ऋणीका नामको सम्पúर्०ा बा¤की बक्यौता वा दायित्व म/हामी जमानतकर्ताले च’क्ता
+          फछ््र्यौट
+          गनर्’पर्ने क’रामा म/हामी जमानतकर्ताको पúर्०ा मञ्जúरी छ् ।
+          <br>
+          २. यस जमानतमा अंकित रकम कै सम्बन्धमा धनी वित्तीय संस्थाले म/हामीबाट अन्य क’नै जमानत वा
+          धितो स’रक्ष०ा
+          लिएको अवस्थामा यो जमानत त्यस्तो स’रक्ष०ा वा जमानतको अतिरिक्त स’रक्ष०ाको रुपमा रहने छ् ।
+          क’नै पनि अवस्थामा यो जमानत त्यस्तो स’रक्ष०ा वा जमानतको प्रतिकúल ह’ने छ्ैन ।
+          <br>
+          ३. यस जमानतमा अंकित रकम कै सम्बन्धमा धनी वित्तीय संस्थाले म/हामी जमानतकर्तालाई ऋणीका नामको
+          बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थाले आफ्नो तजविच वा स्वेच्छ्ामा हामीलाई
+          एक्लाएक्लै
+          ९क्भखभचबििथ० वा
+          अन्य जमानतकर्ता समेतसंग सामुहिक रुपमा ९व्यष्लतथि० दायित्वधिन बनाउन सक्ने कूरामा
+          मेरो/हाम्रो मन्जुरी
+          छ् ।
+          पछि केही गरी एकै ऋण कर्जाका सम्बन्धमा अन्य जमानतकर्ता समेतसंग जमानत लिएकोमा बराबरीको
+          हिसाबले
+          दायित्व विभाजन हूनूपर्छ् भनी कूनै व्यहोराले वादविवाद गर्ने छ्ैन ।
+          <br>
+          ४. क’नै पनि समयमा ऋणीले यस जमानीमा अंकित कर्जाको सा¤वा, ब्याजको क’नै अांसिक भúक्तानी गरेमा
+          वा
+          कर्जाको खाता फछ््र्यौट गरेमा वा ऋणीको धनी वित्तीय संस्थास¤गको बैंक खातामा
+          क’नै भूक्तानी योग्य निक्षेप देखिएमा समेत यो जमानी अन्तरगतको दायित्वको निरन्तरमा
+          क’नै प्रतिक’ल असर पर्ने वा जमानी अन्तरगतको दायित्व पúरा भएको मानिने छ्ैन ।
+          <br>
+          छ्. यस जमानीमा अंकित कर्जा/बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थाले आवश्यक र उचित
+          ठहराए बमोजिम
+          म/हामीलाई क’नै पúर्व सúचना नदिई ऋणीलाई वा
+          मलाई क’नै प्रकारको सह’लियत वा थप समयावधि प्रदान गरेमा वा ऋणी र तपाई धनी वित्तीय संस्थाबीच
+          कर्जा/बक्यौताका सम्बन्धमा क’नै किसिमको सहमति वा समझदारी कायम
+          भएमा वा कर्जाको सूरक्ष०ाको रुपमा तपाई धनी वित्तीय संस्थाले म/हामी जमानतकर्तास¤ग वा ऋणीस¤ग
+          वा अन्य
+          कसैस¤ग लिएको क’नै धितो स’रक्ष०ा फ’क’वा गरिदिएमा, अदलबदल गरेमा,
+          नवीकर०ा गरेमा वा धितो स’रक्ष०ाबाट रकम असúलउपर गरेमा
+          वा कर्जाको सूरक्ष०ाको रुपमा रहेको धितो स’रक्ष०ालाई क’नै किसिमले ब्यवस्था गरेमा समेत
+          मेरो/हाम्रो यस
+          जमानत बमोजिमको दायित्वमा क’नै प्रतिकúल असर पर्ने छ्ैन ।
+          <br>
+          ट. यस जमानीमा अंकित कर्जाका सम्बन्धमा क’नै प्रकारको लाभांश, अांशिक भúक्तानी तथा कर्जाको
+          सूरक्ष०ामा
+          रहेको क’नै पनि किसिमको धितोबाट आर्जित रकम धनी वित्तीय संस्थाले आफúलाई फाईदा प’ग्ने
+          गरी आफúलाई उचित लागे बमोजिम ब’झिलिएमा म/हामी जमानीकर्ताको मञ्जुरी छ् ।
+          <br>
+          ठ. यस जमानीमा अंकित कर्जाका सम्बन्धमा धनी वित्तीय संस्थालाई दिएको क’नै पनि धितो स’रक्ष०ा
+          वा
+          सम्पत्तिको क’नै प्रकारले मúल्य ३टाउने वा ३ट्न दिने छ्ैन ।
+          <br>
+          ड. तपाई धनी वित्तीय संस्थाका अतिरिक्त मेरो/हाम्रो ब्यक्तिगत तर्फबाट ऋणीलाई दिएको क’नै पनि
+          किसिमको
+          ऋण सापट तथा लगानीको रकम तपाई धनी वित्तीय संस्थाको ऋण कर्जा पúर्०ा रुपले च’क्ता फछ््र्यौट
+          नभएसम्म ऋणीबाट भúक्तानी माग गर्ने छ्ैन ।
+          <br>
+          ९. यस जमानीमा अंकित कर्जा/बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थास¤गको ऋणीको क’नै पनि
+          बैंक खाता
+          तथा बैंक स्टेटमेन्टमा उल्लेख भएको विवर०ा म/हामी जमानतकर्तालाई पúर्०ा रुपले स्वीकार्य ह’ने
+          छ् ।
+          ऋणीको कर्जा/बक्यौताका सम्बन्धमा त्यस्तो बैंक खाता वा
+          स्टेटमेन्टमा उल्लेखित विवर०ा नै अन्तिम प्रमा०ाको रुपमा रहनेछ् ।
+          <br>
+          १०. यस जमानत बमोजिमको रकमको भूक्तानी माग गर्ने सम्बन्धमा धनी वित्तीय संस्थाको अधिकार
+          प्राप्त क’नै
+          पनि कर्मचारीले हस्ताक्षर गरी पठाउने सúचना वा पत्रलाई रित पúर्वक जमानत रकमको भूक्तानी माग
+          भएको
+          मान्नेछ्’/छ्ौं ।
+          <br>
+          ११. नेपाल राष्ट« बैंकको निर्देशिका वा अन्य प्रचलित कानúन बमोजिम म/हामी जमानतकर्तालाई कर्जा
+          सúचना
+          केन्द« वा प्रचलित कानúनबमोजिम अन्य कूनै निकायको निर्देशन पालन गर्नू पर्ने अवस्थामा वित्तीय
+          संस्थाले
+          सो निर्देशन र/वा कानुनी प्रावधान
+          बमोजिम कार्य गरेमा समेत म/हामी जमानतकर्ताको पúर्०ा मञ्जúरी ह’नेछ् ।
+          <br>
+          १२. यस जमानीमा नपरेका अन्य क’राहरु, बैंक तथा वित्तीय संस्था सम्बन्धी प्रचलित कानून, बैंक
+          तथा वित्तीय
+          संस्थाको ऋण असúली ऐन, द्दण्छड तथा प्रचलित कम्पनी सम्बन्धि कानून बमोजिम ह’नेछ्न ।
+          <br>
+          १३. यस जमानतमा उल्लिखित रकमको भूक्तानी माग गर्ने सम्बन्धमा वा म/हामी जमानतकर्ता र धनी
+          वित्तीय संस्था
+          बीचको क’नै किसिमको पत्राचारको क्रममा मेरा/हाम्रा नाममा धनी वित्तीय संस्थाबाट जारी ह’ने
+          सúचना वा
+          पत्राचार म/हामी स्वयंलाई प्रदान गरेमा वा
+          मैले/हामीले धनी वित्तीय संस्थालाई अन्तिम पटक उपलब्ध गराएको ठेगानामा छ्ोडिदिएमा वा
+          मेरो/हाम्रो
+          कारोबारको ठेगानामा वा निवासको ठेगानामा ह’लाक मार्फत पठाईदिएमा वा क’नै पनि समाचारपत्रमा
+          सúचना
+          प्रकाशित गरिएमा
+          रितपúर्वक पठाएको मान्नेछ्’/छ्ौं ।
+
+        </p>
+        <p>
+          दस्तखत :-.............
+          <br>
+          जमानी दिनेको नाम :- <input class="form-control-lg form-field nepaliFont"
+
+                                     formControlName="guaranteeNAme"
+                                     type="text">
+
+          (ना.प्र.नं. <input class="form-control-lg form-field nepaliFont"
+
+                             formControlName="guaranteeCitizenshipNo"
+                             type="text">
+          मिति <input class="form-control-lg form-field nepaliFont"
+
+                      formControlName="guaranteeIssueDate"
+                      type="text">
+          जि.प्र.का. <input class="form-control-lg form-field nepaliFont"
+
+                            formControlName="guaranteeCdoOffice"
+                            type="text">)
+          <br>
+
+          ठेगाना :-स्थायी
+          <input class="form-control-lg form-field nepaliFont"
+
+                 formControlName="guaranteePermanentDistrict"
+                 type="text">
+          जिल्ला <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="guaranteePermanentMunicipality"
+                        type="text">
+          गा.पा./न.पा.वडा नं.<input class="form-control-lg form-field nepaliFont"
+
+                                    formControlName="guaranteePermanentWadNo"
+                                    type="text">
+          (साबिक <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="sabikVDC"
+                        type="text">
+          गा.बि.स./न.पा.वडा नं.<input class="form-control-lg form-field nepaliFont"
+
+                                      formControlName="sabikWaNo"
+                                      type="text">)
+          <br>
+          हालको ठेगानाः
+          <input class="form-control-lg form-field nepaliFont"
+
+                 formControlName="guaranteeTempDistrict"
+                 type="text">
+          जिल्ला <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="guaranteeTempMunicipality"
+                        type="text">
+          गा.पा./न.पा.वडा नं. <input class="form-control-lg form-field nepaliFont"
+
+                                     formControlName="guaranteeTempWadNo"
+                                     type="text">
+
+          <br>
+          <br>
+          वावु/आमाको नाम :- <input class="form-control-lg form-field nepaliFont"
+
+                                   formControlName="fatherMotherName"
+                                   type="text">
+          <br>
+          वाजे/बजैको नाम :- <input class="form-control-lg form-field nepaliFont"
+
+                                   formControlName="grandFatherGrandmomName"
+                                   type="text">
+          <br>
+          पति/पत्निको नाम :- <input class="form-control-lg form-field nepaliFont"
+
+                                    formControlName="husbandWifeName"
+                                    type="text">
+
+        </p>
+        <br>
+        औठा छाप
+
+        <div>
+          <table class="table  table-bordered" id="fingerXap">
+            <thead>
+            <tr>
+              <th>दाँ.</th>
+              <th>बाँ.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><textarea cols="30" id="" name=""
+                            rows="10"
+                            style="background-color: transparent;resize:none"></textarea></td>
+              <td><textarea cols="30" id="" name=""
+                            rows="10"
+                            style="background-color: transparent;resize:none"></textarea></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <b> साक्षी ः </b><br>
+        <div class="col-md-12 float-right">
+          <button (click)="addMoreGuarantor()" class="btn btn-primary btn-sm float-right "
+                  size="tiny" type="button">साक्षी थप्नुहोस्<i
+              class="fas fa-plus"></i></button>
+        </div>
+
+        <div class="row col-md-12 ">
+          <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
+               formArrayName="guarantorDetails">
+            <div [formGroupName]="i">
+
+              <div>
+                <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+
+
+                <table class="table-bordered table text-center ">
+                  <thead>
+                  <tr>
+                    <th width="10%">नाम</th>
+                    <th width="10%">ना.प्र.नं.</th>
+                    <th width="15%">मिति</th>
+                    <th width="15%">जि.प्र.का.</th>
+                    <th width="15%">जिल्ला</th>
+                    <th width="25%">गा.पा./न.पा.</th>
+                    <th width="10%">वडा नं.</th>
+
+                  </tr>
+
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td><input class="form-field nepaliFont form-control" formControlName="name"
+                               type="text"></td>
+                    <td><input class="form-field nepaliFont form-control" formControlName="citizenNumber"
+                               type="text"></td>
+                    <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
+                               type="text"></td>
+                    <td><input class="form-field nepaliFont form-control" formControlName="guarantorCDOoffice"
+                               type="text"></td>
+                    <td><input class="form-field  nepaliFont form-control" formControlName="guarantorDistrict"
+                               type="text"></td>
+                    <td><input class="form-field nepaliFont form-control" formControlName="guarantorMunicipality"
+                               type="text"></td>
+                    <td><input class="form-field nepaliFont form-control" formControlName="guarantorWadNo"
+                               type="text"></td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
+                  <button (click)="removeGuarantor(i)"
+                          class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                          value="Delete">
+                    <em class="fas fa-trash" style="color: white;">
+                      Delete Guarantor
+                    </em>
+
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </div>
+        <br>
+        <b>सनाखत साक्षी</b>
+        <br>
+        ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत
+        कर्मचारी <input class="form-control-lg form-field nepaliFont"
+
+                        formControlName="karmachariName"
+                        type="text">
+        (कर्मचारी संकेत नं.<input class="form-control-lg form-field nepaliFont"
+
+                                  formControlName="karmachariSanketNo"
+                                  type="text">)
+
+        ईतिसम्बन्त <input class="form-control-lg form-field nepaliFont"
+
+                          formControlName="itiSambatYear"
+                          type="text">
+        साल <input class="form-control-lg form-field nepaliFont"
+
+                   formControlName="itiSambatMonth"
+                   type="text">
+        महिना <input class="form-control-lg form-field nepaliFont"
+
+                     formControlName="itiSambatDate"
+                     type="text">
+        गते <input class="form-control-lg form-field nepaliFont"
+
+                   formControlName="itiSambatRojSubham"
+                   type="text"> रोज शुभम् ।
+
+      </div>
+
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+          Save
+        </button>
+      </div>
+    </form>
+    <button [disabled]="!initialInfoPrint"
+            [useExistingCss]="true"
+            class="btn btn-primary d-print-none"
+            ngxPrint
+            printSectionId="print-section-{{ offerLetterConst.GUARANTEE_BOND_PERSONAL }}"> Print
+    </button>
+  </div>
+</div>
+
+<app-guarantee-bond-personal-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                   hidden></app-guarantee-bond-personal-print>
