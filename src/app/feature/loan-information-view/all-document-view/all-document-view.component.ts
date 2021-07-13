@@ -20,6 +20,7 @@ import {saveAs as importedSaveAs} from 'file-saver';
 })
 export class AllDocumentViewComponent implements OnInit {
   @Input() loanDataHolder;
+  @Input() loanCategory;
   minOneGuarantorDoc;
   minOneInsuranceDoc;
   taggedGuarantorWithDoc = [];

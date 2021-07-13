@@ -618,22 +618,11 @@
                     </tr>
                 </div>
             </div>
-
-            <app-gamma-proposal-summary *ngIf="proposalSummary"
-                                        [customerAllLoanList]="customerAllLoanList"
-                                        [proposalData]="proposalData"
-                                        [loanDataHolder]="loanDataHolder"></app-gamma-proposal-summary>
-
-<!--            <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">-->
-<!--                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
-<!--                    <tr class="sb-bg-dark text-white">-->
-<!--                        <th>Within Limit Remarks (if any)</th>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td class="text-left pl-1"> {{loanDataHolder?.customerInfo?.withinLimitRemarks}}</td>-->
-<!--                    </tr>-->
-<!--                </table>-->
-<!--            </div>-->
+            <app-proposal-summary *ngIf="proposalSummary"
+                                  [customerAllLoanList]="customerAllLoanList"
+                                  [proposalData]="proposalData"
+                                  [loanDataHolder]="loanDataHolder"
+                                  [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-summary>
 
 <!--            <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">-->
 <!--                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
@@ -734,7 +723,7 @@
             <!-- End of reporting Info-->
 
             <!-- Start Security Details-->
-            <app-security-summary *ngIf="securitySummary && type === summaryTypeName?.GAMMA"
+            <app-security-summary *ngIf="securitySummary"
                                   [count]="10"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
@@ -755,14 +744,17 @@
             <!-- End site Visit-->
 
             <!-- Start Group Exposure -->
-            <div *ngIf="!productUtils.CBS_ENABLE">
-                <app-collateral-summary
-                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                        [customerAllLoanList]="customerAllLoanList"
-                        [security]="loanDataHolder?.security"></app-collateral-summary>
-                <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                    [customerAllLoanList]="customerAllLoanList"
-                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
+<!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
+<!--                <app-collateral-summary-->
+<!--                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"-->
+<!--                        [customerAllLoanList]="customerAllLoanList"-->
+<!--                        [security]="loanDataHolder?.security"></app-collateral-summary>-->
+<!--                <app-proposal-justification-summary *ngIf="proposalSummary"-->
+<!--                                                    [customerAllLoanList]="customerAllLoanList"-->
+<!--                                                    [proposalData]="proposalData"></app-proposal-justification-summary>-->
+<!--            </div>-->
+            <div>
+                <span><strong>12. Group Exposure</strong></span>
             </div>
             <!-- End Group Exposure -->
 

@@ -51,27 +51,25 @@
 
             <!-- Micro Summary-->
             <app-micro-loan-summary
-                    *ngIf="gamma === summaryType?.LAMBDA"
+                    *ngIf="loanConfig.loanTag === 'MICRO_LOAN'"
                     (changeToApprovalSheetActive)="activeApprovalSheet()"
                     [loanConfig]="loanConfig"
                     [loanData]="loanDataHolder"
                     [nepaliDate]="nepaliDate"></app-micro-loan-summary>
 
             <!-- Normal Summary-->
-            <app-loan-summary *ngIf="gamma === summaryType?.GENERAL"
+            <app-loan-summary *ngIf="loanConfig.loanTag !== 'MICRO_LOAN' && summaryType === summaryTypeName?.GENERAL"
                               (changeToApprovalSheetActive)="activeApprovalSheet()"
                               [loanConfig]="loanConfig"
                               [loanData]="loanDataHolder"
                               [nepaliDate]="nepaliDate"></app-loan-summary>
 
             <!-- Gamma Summary-->
-            <app-gamma-loan-summary *ngIf="gamma === summaryType?.GAMMA"
+            <app-gamma-loan-summary *ngIf="summaryType === summaryTypeName?.GAMMA"
                                     (changeToApprovalSheetActive)="activeApprovalSheet()"
                                     [loanConfig]="loanConfig"
                                     [loanData]="loanDataHolder"
                                     [nepaliDate]="nepaliDate"></app-gamma-loan-summary>
-
-
         </ng-container>
 
         <app-approval-sheet (changeToLoanSummaryActive)="activeLoanSummary()"

@@ -50,8 +50,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     loanSummaryActive = true;
     approvalSheetActive = false;
     loanTag = LoanTag;
-    gamma = environment.summaryType;
-    summaryType = SummaryType;
+    summaryType = environment.summaryType;
+    summaryTypeName = SummaryType;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
