@@ -44,6 +44,7 @@ import {GuaranteeBondPersonalPrintComponent} from './progressive-legal-docs/guar
 import {OfferLetterPersonalPrintComponent} from './progressive-offer-letter/offer-letter-personal/offer-letter-personal-print/offer-letter-personal-print.component';
 import {HypothecationOfGoodsAndReceivablesAComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a.component';
 import {HypothecationOfGoodsAndReceivablesAPrintComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a-print/hypothecation-of-goods-and-receivables-a-print.component';
+import {ProgressiveLegalDocsComponent} from './progressive-legal-docs/progressive-legal-docs.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -53,6 +54,7 @@ const COMPONENTS = [
   declarations: [
     ...COMPONENTS,
     ProgressiveOfferLetterComponent,
+    ProgressiveLegalDocsComponent,
     LetterOfLeinComponent,
     PromissoryNoteComponent,
     LoanDeedComponent,
