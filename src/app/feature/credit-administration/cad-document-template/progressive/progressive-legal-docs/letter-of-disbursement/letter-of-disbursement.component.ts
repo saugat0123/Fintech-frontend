@@ -56,6 +56,7 @@ export class LetterOfDisbursementComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
+          this.setGuarantorDetails(initialInfo.guarantorDetails);
           this.form.patchValue(this.initialInfoPrint);
         }
       });

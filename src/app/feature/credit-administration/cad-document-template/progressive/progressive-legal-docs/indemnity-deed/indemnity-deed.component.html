@@ -50,10 +50,12 @@
           <br>
           <br>
           म/हामी त्यस वित्तीय संस्थाले सेवादिएवापत रु. <input
-            (change)="getNumAmountWord('amount','amountInWord')" class="form-field form-control-sm nepaliFont" formControlName="amount"
+            (change)="getNumAmountWord('amount','amountInWord')"
+            class="form-field form-control-sm nepaliFont" formControlName="amount"
             placeholder=""
             type="text"/>/–
-          (अक्षरेपी <input class="form-field  form-control-sm nepaliFont font-size-normal" formControlName="amountInWord"
+          (अक्षरेपी <input class="form-field  form-control-sm nepaliFont font-size-normal"
+                           formControlName="amountInWord"
                            placeholder="" readonly type="text"/> )
           रकमको भुक्तानीगर्न मन्जुर गर्दछू/छौं, र क्षतिपूर्ति/ग्यारेण्टी अन्तर्गत कुनै दावीमा
           भुक्तानी गरिएको खण्डमा त्यस वित्तीय संस्थालाई थपशुल्कतथा
@@ -72,9 +74,8 @@
         <p>
           दस्तखत र संस्थाको छाप :
           <br>
-          <textarea cols="30" id="" name="" rows="10" style="resize: none; height: 100px">
+          <span class="signature-area"></span>
 
-                        </textarea>
 
           <br>
           दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont"
@@ -131,10 +132,8 @@
           </thead>
           <tbody>
           <tr>
-            <td><textarea cols="30" id="" name="" rows="10"
-                          style="background-color: transparent;resize:none"></textarea></td>
-            <td><textarea cols="30" id="" name="" rows="10"
-                          style="background-color: transparent;resize:none"></textarea></td>
+            <td><span class="signature-area"></span></td>
+            <td><span class="signature-area"></span></td>
           </tr>
           </tbody>
         </table>
@@ -171,17 +170,22 @@
                 <tr>
                   <td><input class="form-field nepaliFont form-control" formControlName="name"
                              type="text"></td>
-                  <td><input class="form-field nepaliFont form-control" formControlName="citizenNumber"
+                  <td><input class="form-field nepaliFont form-control"
+                             formControlName="citizenNumber"
                              type="text"></td>
                   <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
                              type="text"></td>
-                  <td><input class="form-field nepaliFont form-control" formControlName="guarantorCDOoffice"
+                  <td><input class="form-field nepaliFont form-control"
+                             formControlName="guarantorCDOoffice"
                              type="text"></td>
-                  <td><input class="form-field  nepaliFont form-control" formControlName="guarantorDistrict"
+                  <td><input class="form-field  nepaliFont form-control"
+                             formControlName="guarantorDistrict"
                              type="text"></td>
-                  <td><input class="form-field nepaliFont form-control" formControlName="guarantorMunicipality"
+                  <td><input class="form-field nepaliFont form-control"
+                             formControlName="guarantorMunicipality"
                              type="text"></td>
-                  <td><input class="form-field nepaliFont form-control" formControlName="guarantorWadNo"
+                  <td><input class="form-field nepaliFont form-control"
+                             formControlName="guarantorWadNo"
                              type="text"></td>
                 </tr>
                 </tbody>
