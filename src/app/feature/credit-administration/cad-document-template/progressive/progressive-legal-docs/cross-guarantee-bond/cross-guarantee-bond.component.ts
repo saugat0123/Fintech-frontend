@@ -10,10 +10,11 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
 
 @Component({
   selector: 'app-cross-guarantee-bond',
@@ -24,8 +25,6 @@ export class CrossGuaranteeBondComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
   spinner;
   form: FormGroup;
   offerLetterConst = ProgressiveLegalDocConst;
@@ -47,67 +46,67 @@ export class CrossGuaranteeBondComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.checkOfferLetter();
+    this.fillForm();
   }
 
   fillForm() {
-    this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-
-    this.form.patchValue({
-      customerName: this.nepaliData.name ? this.nepaliData.name : '',
-    });
-
-
-  }
-
-  checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.CROSS_GUARANTEE_BOND).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CROSS_GUARANTEE_BOND);
-      this.fillForm();
-    } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.initialInfoPrint = initialInfo;
-      this.existingOfferLetter = true;
-
-      this.form.patchValue(initialInfo);
-    }
-  }
-
-  onSubmit(): void {
-    console.log(this.form.value);
-    this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.CROSS_GUARANTEE_BOND).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CROSS_GUARANTEE_BOND);
-      offerDocument.initialInformation = JSON.stringify(this.form.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-      this.spinner = false;
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+
+      this.form.patchValue({
+        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+      });
+    }
+  }
+
+
+  onSubmit(): void {
+    let flag = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
+          singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          this.initialInfoPrint = singleCadFile.initialInformation;
+        }
+      });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        cadFile.initialInformation = JSON.stringify(this.form.value);
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+      }
+    } else {
+      const cadFile = new CadFile();
+      const document = new Document();
+      cadFile.initialInformation = JSON.stringify(this.form.value);
+
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      this.cadData.cadFileList.push(cadFile);
+    }
+
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
-
   }
 
 
