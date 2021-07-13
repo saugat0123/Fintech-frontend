@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ProgressiveOfferLetterConst} from '../../../progressive-offer-letter/progressive-offer-letter-const';
+import {ProgressiveLegalDocConst} from '../../progressive-legal-doc-const';
 
 @Component({
   selector: 'app-guarantee-bond-personal-print',
@@ -8,7 +9,7 @@ import {ProgressiveOfferLetterConst} from '../../../progressive-offer-letter/pro
 })
 export class GuaranteeBondPersonalPrintComponent implements OnInit {
   @Input() printDocForm;
-  offerLetterConst = ProgressiveOfferLetterConst;
+  offerLetterConst = ProgressiveLegalDocConst;
 
   constructor() {
   }

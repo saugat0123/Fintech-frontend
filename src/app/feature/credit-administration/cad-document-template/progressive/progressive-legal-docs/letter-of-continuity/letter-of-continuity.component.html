@@ -31,7 +31,7 @@
           रहेमा म/हामी जिम्मेवार छु/छौं ।
           यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउनबांकी रकमभविष्यमा थपघट भई वा समय समयमाचुक्तागरिने
           किस्ताको कारण कुनै समयमा
-          सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहनगएमा पनितत्पश्चातको कारोवारबाट पुनःकायमहुनजाने
+          सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहनगएमा पनितत्पश्चातको कारोवारबाट पुन:कायमहुनजाने
           कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट सोझै झिकी हिसावमिलान गर्नुहुन यो निरन्तरताको पत्रमा
           सहिछाप गरि दिएको छु/छौ ।
         </p>
@@ -39,7 +39,7 @@
       <p class="text-center"><b>भवदीय,</b></p>
       <br>
 
-      <div class="row col-md-12 Sincerely">
+      <div class="row col-md-12 Sincerely text-center">
 
         <p>
           दस्तखत :— ..............
@@ -72,7 +72,7 @@
                                placeholder=""
                                type="text"/>
           <br>
-          पति/पत्निको नामः— <input class="form-field form-control-sm nepaliFont"
+          पति/पत्निको नाम:— <input class="form-field form-control-sm nepaliFont"
                                    formControlName="husbanWifeName"
                                    placeholder=""
                                    type="text"/>
@@ -92,10 +92,8 @@
           </thead>
           <tbody>
           <tr>
-            <td><textarea cols="30" id="" name="" rows="10"
-                          style="background-color: transparent;resize:none"></textarea></td>
-            <td><textarea cols="30" id="" name="" rows="10"
-                          style="background-color: transparent;resize:none"></textarea></td>
+            <td><span class="signature-area"></span></td>
+            <td><span class="signature-area"></span></td>
           </tr>
           </tbody>
         </table>
@@ -110,7 +108,8 @@
       </div>
 
 
-      <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index" class="container"
+      <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
+           class="container"
            formArrayName="guarantorDetails"
            id="guarantor">
         <div [formGroupName]="i">
@@ -156,13 +155,16 @@
           <br>
           ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक सा¤चो हो भनी सहीछाप गर्ने धनीवित्तीय
           संस्थामाकार्यरत
-          कर्मचारी<input class="form-field nepaliFont form-control-sm" formControlName="IdentifiedGuarantorName"
+          कर्मचारी<input class="form-field nepaliFont form-control-sm"
+                         formControlName="IdentifiedGuarantorName"
                          type="text">
 
-          (कर्मचारी संकेत नं.<input class="form-field nepaliFont form-control-sm" formControlName="IdentifiedHintNo"
+          (कर्मचारी संकेत नं.<input class="form-field nepaliFont form-control-sm"
+                                    formControlName="IdentifiedHintNo"
                                     type="text">)
           <br>
-          ईतिसम्बत <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatYear"
+          ईतिसम्बत <input class="form-field nepaliFont form-control-sm"
+                          formControlName="ItisambatYear"
                           type="text">
           साल <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatMonth"
                      type="text">
@@ -170,7 +172,8 @@
                        type="text">
           गते <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatTime"
                      type="text">
-          रोज शुभम् <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatRojSubham"
+          रोज शुभम् <input class="form-field nepaliFont form-control-sm"
+                           formControlName="ItisambatRojSubham"
                            type="text">। </p>
 
       </div>
@@ -253,7 +256,7 @@
           रहेमाम/हामीजिम्मेवार छु/छौं । यसरी बांकी रहेको सम्पूर्ण तिर्न
           वुझाउनबांकी रकमभविष्यमा थपघट भई वा समय समयमाचुक्तागरिने किस्ताको कारण कुनै समयमा सून्य
           व्यालेन्स वाक्रेडिट व्यालेन्स नै
-          रहनगएमा पनितत्पश्चातको कारोवारबाट पुनःकायमहुनजाने कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट
+          रहनगएमा पनितत्पश्चातको कारोवारबाट पुन:कायमहुनजाने कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट
           सोझै झिकी हिसावमिलान गर्नुहुन यो निरन्तरताको पत्रमा
           सहिछाप गरि दिएको छु/छौ ।
         </p>
@@ -282,7 +285,7 @@
                                                       formControlName="signaturePersonCDOoffice"
                                                       placeholder=""
                                                       type="text"/>)<br>
-          स्थायी ठेगाना ः—<input class="form-field form-control-sm nepaliFont"
+          स्थायी ठेगाना :—<input class="form-field form-control-sm nepaliFont"
                                  formControlName="signaturePersonPermanentDistrict"
                                  placeholder=""
                                  type="text"/>
@@ -321,17 +324,17 @@
 
         <br>
         <p>
-          वावु/आमाको नाम ः— <input class="form-field form-control-sm nepaliFont"
+          वावु/आमाको नाम :— <input class="form-field form-control-sm nepaliFont"
                                    formControlName="buttonParentName"
                                    placeholder=""
                                    type="text"/>
           <br>
-          वाजे/बजैको नाम ः—<input class="form-field form-control-sm nepaliFont"
+          वाजे/बजैको नाम :—<input class="form-field form-control-sm nepaliFont"
                                   formControlName="buttonGrandParentName"
                                   placeholder=""
                                   type="text"/>
           <br>
-          पति/पत्निको नाम ः— <input class="form-field form-control-sm nepaliFont"
+          पति/पत्निको नाम :— <input class="form-field form-control-sm nepaliFont"
                                     formControlName="buttonHusbandWifeName"
                                     placeholder=""
                                     type="text"/>
@@ -352,10 +355,8 @@
           </thead>
           <tbody>
           <tr>
-            <td><textarea cols="30" id="" name="" rows="10"
-                          style="background-color: transparent;resize:none"></textarea></td>
-            <td><textarea cols="30" id="" name="" rows="10"
-                          style="background-color: transparent;resize:none"></textarea></td>
+            <td><span class="signature-area"></span></td>
+            <td><span class="signature-area"></span></td>
           </tr>
           </tbody>
         </table>
@@ -385,25 +386,29 @@
                 <th width="15%">जिल्ला</th>
                 <th width="25%">गा.पा./न.पा.</th>
                 <th width="10%">वडा नं.</th>
-
               </tr>
-
               </thead>
               <tbody>
               <tr>
-                <td><input class="form-field nepaliFont form-control" formControlName="guarantorName"
+                <td><input class="form-field nepaliFont form-control"
+                           formControlName="guarantorName"
                            type="text"></td>
-                <td><input class="form-field nepaliFont form-control" formControlName="citizenNumber"
+                <td><input class="form-field nepaliFont form-control"
+                           formControlName="citizenNumber"
                            type="text"></td>
                 <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
                            type="text"></td>
-                <td><input class="form-field nepaliFont form-control" formControlName="guarantorCDOoffice"
+                <td><input class="form-field nepaliFont form-control"
+                           formControlName="guarantorCDOoffice"
                            type="text"></td>
-                <td><input class="form-field  nepaliFont form-control" formControlName="guarantorDistrict"
+                <td><input class="form-field  nepaliFont form-control"
+                           formControlName="guarantorDistrictara"
                            type="text"></td>
-                <td><input class="form-field nepaliFont form-control" formControlName="guarantorMunicipality"
+                <td><input class="form-field nepaliFont form-control"
+                           formControlName="guarantorMunicipality"
                            type="text"></td>
-                <td><input class="form-field nepaliFont form-control" formControlName="guarantorWadNo"
+                <td><input class="form-field nepaliFont form-control"
+                           formControlName="guarantorWadNo"
                            type="text"></td>
               </tr>
               </tbody>
@@ -430,10 +435,12 @@
           कार्यरत कर्मचारी
           <input class="form-field nepaliFont form-control-sm" formControlName="sanakhatPersonName"
                  type="text">
-          (कर्मचारी संकेत नं. <input class="form-field nepaliFont form-control-sm" formControlName="sanakhatPersonSymNo"
+          (कर्मचारी संकेत नं. <input class="form-field nepaliFont form-control-sm"
+                                     formControlName="sanakhatPersonSymNo"
                                      type="text">)
           <br>
-          ईतिसम्बत <input class="form-field nepaliFont form-control-sm" formControlName="itisambatYear"
+          ईतिसम्बत <input class="form-field nepaliFont form-control-sm"
+                          formControlName="itisambatYear"
                           type="text">
           साल <input class="form-field nepaliFont form-control-sm" formControlName="itisambatMonth"
                      type="text">
@@ -441,7 +448,8 @@
                        type="text">
           गते <input class="form-field nepaliFont form-control-sm" formControlName="itisambatTime"
                      type="text">
-          रोज शुभम् <input class="form-field nepaliFont form-control-sm" formControlName="itisambatSubham"
+          रोज शुभम् <input class="form-field nepaliFont form-control-sm"
+                           formControlName="itisambatSubham"
                            type="text">
       </div>
 
