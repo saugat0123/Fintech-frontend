@@ -62,6 +62,9 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
+          this.setAnusuchis(initialInfo.anusuchis);
+          this.setFinanceGuarantors(initialInfo.financeGuarantors);
+          this.setGuarantors(initialInfo.guarantors);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
