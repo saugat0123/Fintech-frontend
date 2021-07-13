@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
+import {LegalDocumentCheckListEnum} from '../../../../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-ac-debit-and-loan-disbursement-authority-print',
@@ -8,7 +8,7 @@ import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
 })
 export class AcDebitAndLoanDisbursementAuthorityPrintComponent implements OnInit {
   @Input() letter;
-  offerLetterConst = IcfcOfferLetterConst;
+  offerLetterConst = LegalDocumentCheckListEnum;
   loanDisbursementSelected = false;
   accountDebitSelected =  false;
 

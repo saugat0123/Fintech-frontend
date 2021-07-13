@@ -7,12 +7,13 @@ import {NbDialogRef} from '@nebular/theme';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
-import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
-import {OfferDocument} from '../../../../model/OfferDocument';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-promissory-note',
@@ -20,24 +21,25 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
   styleUrls: ['./promissory-note.component.scss']
 })
 export class PromissoryNoteComponent implements OnInit {
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
+
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
 
   promissoryNote: FormGroup;
   initialInfoPrint;
   spinner;
   existingOfferLetter = false;
-  offerLetterConst = IcfcOfferLetterConst;
-  customerOfferLetter: CustomerOfferLetter;
-  offerLetterDocument: OfferDocument;
+  offerLetterConst = LegalDocumentCheckListEnum;
 
   constructor(private dialogRef: NbDialogRef<PromissoryNoteComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private toastService: ToastService,
-              private adminService: CreditAdministrationService,
-              private routerUtilService: RouterUtilsService,
+              private administrationService: CreditAdministrationService,
+              private routerUtilsService: RouterUtilsService,
               private customerOfferLetterService: CustomerOfferLetterService) { }
 
   ngOnInit() {
@@ -67,47 +69,59 @@ export class PromissoryNoteComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.PROMISSORY_NOTE).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PROMISSORY_NOTE);
-    } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.initialInfoPrint = initialInfo;
-      this.existingOfferLetter = true;
-      this.promissoryNote.patchValue(this.initialInfoPrint);
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          console.log(singleCadFile, 'Single Cad File');
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          this.promissoryNote.patchValue(this.initialInfoPrint);
+        }
+      });
     }
   }
 
   submit() {
     console.log(this.promissoryNote.value);
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString()
-            === this.offerLetterConst.value(this.offerLetterConst.PROMISSORY_NOTE).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.promissoryNote.value);
+    let flag = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
+          singleCadFile.initialInformation = JSON.stringify(this.promissoryNote.value);
         }
       });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        cadFile.initialInformation = JSON.stringify(this.promissoryNote.value);
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+      }
     } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PROMISSORY_NOTE);
-      offerDocument.initialInformation = JSON.stringify(this.promissoryNote.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      const cadFile = new CadFile();
+      const document = new Document();
+      cadFile.initialInformation = JSON.stringify(this.promissoryNote.value);
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      this.cadData.cadFileList.push(cadFile);
     }
-    this.adminService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved offer letter !'));
+
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
-      console.log(error);
-      this.toastService.show(new Alert(AlertType.DANGER, 'Failed to save offer letter !'));
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     });
   }
 }

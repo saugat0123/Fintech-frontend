@@ -41,13 +41,45 @@ import { LoanDeedPersonalLoanHomeLoanIcfcPrintComponent } from './icfc-offer-let
 import { LoanDeedPersonalLoanHomeLoanIcfcComponent } from './icfc-offer-letter/loan-deed-personal-loan-home-loan-icfc/loan-deed-personal-loan-home-loan-icfc.component';
 import { LoanDeedHirePurchaseComponent } from './icfc-offer-letter/loan-deed-hire-purchase/loan-deed-hire-purchase.component';
 import { LoanDeedHirePurchasePrintComponent } from './icfc-offer-letter/loan-deed-hire-purchase/loan-deed-hire-purchase-print/loan-deed-hire-purchase-print.component';
+import { ConsentForCollateralComponent } from './icfc-offer-letter/consent-for-collateral/consent-for-collateral.component';
+import { ConsentForLoanInterestPaymentComponent } from './icfc-offer-letter/consent-for-loan-interest-payment/consent-for-loan-interest-payment.component';
+import { ConsentLetterForHpLoanComponent } from './icfc-offer-letter/consent-letter-for-hp-loan/consent-letter-for-hp-loan.component';
+import { PersonalGuaranteePersonalBothComponent } from './icfc-offer-letter/personal-guarantee-personal-both/personal-guarantee-personal-both.component';
+import { PersonalGuaranteePersonalComponent } from './icfc-offer-letter/personal-guarantee-personal/personal-guarantee-personal.component';
+import { PersonalGuaranteeCompanyIcfcComponent } from './icfc-offer-letter/personal-guarantee-company-icfc/personal-guarantee-company-icfc.component';
+import { PersonalGuaranteeCompanyIcfcPrintComponent } from './icfc-offer-letter/personal-guarantee-company-icfc/personal-guarantee-company-icfc-print/personal-guarantee-company-icfc-print.component';
+import { PersonalGuaranteePersonalPrintComponent } from './icfc-offer-letter/personal-guarantee-personal/personal-guarantee-personal-print/personal-guarantee-personal-print.component';
+import { PersonalGuaranteePersonalBothPrintComponent } from './icfc-offer-letter/personal-guarantee-personal-both/personal-guarantee-personal-both-print/personal-guarantee-personal-both-print.component';
 @NgModule({
-    declarations: [IcfcOfferLetterComponent, LetterOfArrangementsComponent, AcDebitAndLoanDisbursementAuthorityComponent, BankGuaranteeComponent, BusinessLoanComponent, CorporateGuaranteeComponent, LetterOfContinuityComponent, LetterOfSetOffComponent, PersonalTermLoanComponent, LetterOfAgreementComponent, MarginCallDeedShareLoanCompanyComponent, MarginCallDeedShareLoanComponent, PromissoryNoteComponent, MortgageDeedCompanyComponent, MrtgDeedIndividualDifferentComponent, MrtgDeedIndividualSameComponent, MarginCallDeedShareLoanPrintComponent, MarginCallDeedShareCompanyPrintComponent, PromissoryNotePrintComponent, MortgageDeedCompanyPrintComponent, MrtgDeedIndividualDifferentPrintComponent, MrtgDeedIndividualSamePrintComponent, LetterOfAgreementPrintComponent, AcDebitAndLoanDisbursementAuthorityPrintComponent, BankGuaranteePrintComponent, BusinessLoanPrintComponent, CorporateGuaranteePrintComponent, LetterOfContinuityPrintComponent, LetterOfSetOffPrintComponent, PersonalTermLoanPrintComponent, LoanDeedCompanyIcfcComponent, LoanDeedMultipleIcfcComponent, LoanDeedPersonalLoanHomeLoanIcfcComponent, LoanDeedCompanyIcfcPrintComponent, LoanDeedMultipleIcfcPrintComponent, LoanDeedPersonalLoanHomeLoanIcfcPrintComponent, LoanDeedHirePurchaseComponent, LoanDeedHirePurchasePrintComponent],
+    declarations: [IcfcOfferLetterComponent, LetterOfArrangementsComponent, AcDebitAndLoanDisbursementAuthorityComponent, BankGuaranteeComponent, BusinessLoanComponent, CorporateGuaranteeComponent, LetterOfContinuityComponent, LetterOfSetOffComponent, PersonalTermLoanComponent, LetterOfAgreementComponent, MarginCallDeedShareLoanCompanyComponent, MarginCallDeedShareLoanComponent, PromissoryNoteComponent, MortgageDeedCompanyComponent, MrtgDeedIndividualDifferentComponent, MrtgDeedIndividualSameComponent, MarginCallDeedShareLoanPrintComponent, MarginCallDeedShareCompanyPrintComponent, PromissoryNotePrintComponent, MortgageDeedCompanyPrintComponent, MrtgDeedIndividualDifferentPrintComponent, MrtgDeedIndividualSamePrintComponent, LetterOfAgreementPrintComponent, AcDebitAndLoanDisbursementAuthorityPrintComponent, BankGuaranteePrintComponent, BusinessLoanPrintComponent, CorporateGuaranteePrintComponent, LetterOfContinuityPrintComponent, LetterOfSetOffPrintComponent, PersonalTermLoanPrintComponent, LoanDeedCompanyIcfcComponent, LoanDeedMultipleIcfcComponent, LoanDeedPersonalLoanHomeLoanIcfcComponent, LoanDeedCompanyIcfcPrintComponent, LoanDeedMultipleIcfcPrintComponent, LoanDeedPersonalLoanHomeLoanIcfcPrintComponent, LoanDeedHirePurchaseComponent, LoanDeedHirePurchasePrintComponent, ConsentForCollateralComponent, ConsentForLoanInterestPaymentComponent, ConsentLetterForHpLoanComponent, PersonalGuaranteePersonalBothComponent, PersonalGuaranteePersonalComponent, PersonalGuaranteeCompanyIcfcComponent, PersonalGuaranteeCompanyIcfcPrintComponent, PersonalGuaranteePersonalPrintComponent, PersonalGuaranteePersonalBothPrintComponent],
     imports: [
         CommonModule,
         ThemeModule,
         NgxPrintModule,
         CoreModule
+    ],
+    exports: [
+        AcDebitAndLoanDisbursementAuthorityComponent,
+        CorporateGuaranteeComponent,
+        LetterOfAgreementComponent,
+        LetterOfContinuityComponent,
+        LetterOfSetOffComponent,
+        LoanDeedHirePurchaseComponent,
+        LoanDeedPersonalLoanHomeLoanIcfcComponent,
+        MarginCallDeedShareLoanComponent,
+        MarginCallDeedShareLoanCompanyComponent,
+        MortgageDeedCompanyComponent,
+        MrtgDeedIndividualDifferentComponent,
+        MrtgDeedIndividualSameComponent,
+        PromissoryNoteComponent,
+        LoanDeedCompanyIcfcComponent,
+        LoanDeedMultipleIcfcComponent,
+        ConsentForCollateralComponent,
+        ConsentForLoanInterestPaymentComponent,
+        ConsentLetterForHpLoanComponent,
+        PersonalGuaranteePersonalBothComponent,
+        PersonalGuaranteePersonalComponent,
+        PersonalGuaranteeCompanyIcfcComponent
     ],
     entryComponents: [
         IcfcOfferLetterComponent

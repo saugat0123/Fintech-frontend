@@ -1,17 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
-import {OfferDocument} from '../../../../model/OfferDocument';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {NbDialogRef} from '@nebular/theme';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-ac-debit-and-loan-disbursement-authority',
@@ -19,20 +20,21 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./ac-debit-and-loan-disbursement-authority.component.scss']
 })
 export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
+
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
+
   acDebitAndLoanDisbursementAuthority: FormGroup;
-  offerLetterConst = IcfcOfferLetterConst;
-  customerOfferLetter: CustomerOfferLetter;
+  offerLetterConst = LegalDocumentCheckListEnum;
   selectedData = 'Loan Disbursement';
   subjectType = ['Loan Disbursement', 'Account Debit Authority'];
   initialInfoPrint;
   loanDisbursementSelected: boolean;
   accountDebitSelected: boolean;
   existingOfferLetter = false;
-  offerLetterDocument: OfferDocument;
   spinner: boolean;
-  nepData;
+  // nepData;
 
   constructor(private formBuilder: FormBuilder,
               private currencyFormatPipe: CurrencyFormatterPipe,
@@ -48,63 +50,64 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY);
-      this.fillForm();
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.loanDisbursementSelected = true;
-    } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.selectedData = initialInfo.subjectSelectedValue;
-      this.changeType(this.selectedData);
-      this.initialInfoPrint = initialInfo;
-      this.existingOfferLetter = true;
-      if (!ObjectUtil.isEmpty(initialInfo)) {}
-      this.acDebitAndLoanDisbursementAuthority.patchValue(this.initialInfoPrint);
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          this.selectedData = initialInfo.subjectSelectedValue;
+          this.changeType(this.selectedData);
+          this.acDebitAndLoanDisbursementAuthority.patchValue(this.initialInfoPrint);
+        }
+      });
     }
-  }
-
-  fillForm() {
-    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    this.acDebitAndLoanDisbursementAuthority.patchValue({
-      name: this.nepData.name ? this.nepData.name : '',
-    });
   }
 
   onSubmit(): void {
     console.log(this.acDebitAndLoanDisbursementAuthority.value);
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY).toString()) {
+    let flag = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
           this.acDebitAndLoanDisbursementAuthority.get('subjectSelectedValue').patchValue(this.selectedData);
-          offerLetterPath.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
+          singleCadFile.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
         }
       });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        this.acDebitAndLoanDisbursementAuthority.get('subjectSelectedValue').patchValue(this.selectedData);
+        cadFile.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+      }
     } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY);
+      const cadFile = new CadFile();
+      const document = new Document();
       this.acDebitAndLoanDisbursementAuthority.get('subjectSelectedValue').patchValue(this.selectedData);
-      offerDocument.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      cadFile.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      this.cadData.cadFileList.push(cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     });
 
   }
