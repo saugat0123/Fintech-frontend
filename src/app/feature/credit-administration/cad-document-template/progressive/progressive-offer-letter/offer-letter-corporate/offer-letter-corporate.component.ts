@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {ProgressiveOfferLetterConst} from '../../progressive-offer-letter-const';
+import {ProgressiveOfferLetterConst} from '../progressive-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';

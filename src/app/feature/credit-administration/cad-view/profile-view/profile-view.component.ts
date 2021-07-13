@@ -17,7 +17,7 @@ import {UpdateCustomerCadInfoComponent} from '../../cad-offerletter-profile/upda
 import {ExcelOfferLetterComponent} from '../../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
 import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
 import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {ProgressiveOfferLetterConst} from '../../cad-document-template/progressive/progressive-offer-letter-const';
+import {ProgressiveOfferLetterConst} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
 import {ProgressiveOfferLetterComponent} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 import {IcfcOfferLetterConst} from '../../cad-document-template/icfc/icfc-offer-letter-const';
 import {IcfcOfferLetterComponent} from '../../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
