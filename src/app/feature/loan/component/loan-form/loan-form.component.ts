@@ -60,6 +60,9 @@ import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
+import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
+import {Document} from '../../../admin/modal/document';
+import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
     selector: 'app-loan-form',
@@ -206,11 +209,16 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('microProposalInfo', {static: false})
     microProposalInfo: MicroProposalComponent;
 
+    @ViewChild('obtainedDocument', {static: false})
+    obtainedDocument: ObtainedDocumentComponent;
+
     loanTag: string;
     loanHolder = new CustomerInfoData();
     loanTypeKeyValue = LoanType;
     loanType;
-
+    customerData = {
+        obtainableDocument: Array<ObtainableDoc>()
+    };
 
     constructor(
         private loanDataService: LoanDataService,
@@ -346,6 +354,7 @@ export class LoanFormComponent implements OnInit {
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
+                    console.log(value, ':::what value');
                     if (value.name === 'Company Info') {
                         this.templateList.splice(index, 1);
                     } else if (value.name === 'Credit Risk Grading - Alpha') {
@@ -369,6 +378,11 @@ export class LoanFormComponent implements OnInit {
                 this.templateList.forEach((value, index) => {
                     if ((this.loanDocument.companyInfo.isMicroCustomer ||
                         environment.disableCrgAlpha) && value.name === 'Credit Risk Grading - Alpha') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+                this.templateList.forEach((value, index) => {
+                    if ( value.name === 'Obtained Document'){
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -542,6 +556,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     selectChild(name, action, loanTag) {
+        console.log(name, '::NAme');
         // if (name === 'Customer Info' && action) {
         //   if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
         //     this.basicInfo.submitted = true;
@@ -604,7 +619,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
-
+        if (name === 'Obtained Document' && action) {
+            this.customerData.obtainableDocument = this.obtainedDocument.obtainabledDocument;
+            this.loanDocument.data = JSON.stringify(this.customerData);
+        }
         // if (name === 'CICL' && action) {
         //   if (this.cicl.ciclForm.invalid ) {
         //     this.cicl.submitted = true;
