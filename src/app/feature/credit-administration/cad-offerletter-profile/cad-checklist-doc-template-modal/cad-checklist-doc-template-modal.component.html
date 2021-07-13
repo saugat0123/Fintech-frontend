@@ -5,26 +5,155 @@
       <span aria-hidden="true">×</span></a>
   </nb-card-header>
   <nb-card-body>
-    <div *ngIf="client === clientList.MEGA">
-    <div [ngSwitch]="documentId">
-      <app-assignment-of-receivable *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
-      <app-deed-hypo-of-machinery *ngSwitchCase="cadTemplate.DEED_HYPO_OF_MACHINERY_COMPONENT" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-deed-hypo-of-machinery>
-      <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-hypo-of-stock>
-      <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-company>
-      <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
-      <app-personal-guarantee-company *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-company>
-      <app-personal-guarantee-joint-borrower *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_JOINT_BORROWER"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-joint-borrower>
-      <app-personal-guarantee-person-to-person *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-personal-guarantee-person-to-person>
-      <app-promissory-note-single-borrower *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-promissory-note-single-borrower>
-      <app-trust-receipt-nepali-limit *ngSwitchCase="cadTemplate.TRUST_RECEIPT_NEPALI_LIMIT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-trust-receipt-nepali-limit>
-      <app-loan-deed-single *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-single>
-      <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
-      <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-promissory-note-company>
-      <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"  [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId" [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
+    <div *ngIf="client === clientList.PROGRESSIVE">
+      <div [ngSwitch]="documentId">
+        <app-letter-of-arrangements
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_ARRANGEMENTS></app-letter-of-arrangements>
+        <app-letter-of-installments
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_INSTALLMENT></app-letter-of-installments>
+        <app-letter-of-lein
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_LEIN>
 
-      <p *ngSwitchDefault>No Template is available for this Document!!! </p>
+        </app-letter-of-lein>
+        <app-promissory-note [cadData]="cadData" [documentId]="documentId"
+                             [customerLoanId]="customerLoanId"
+                             *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE>
 
+        </app-promissory-note>
+        <app-loan-deed [cadData]="cadData" [documentId]="documentId"
+                       [customerLoanId]="customerLoanId"
+                       *ngSwitchCase=offerLetterConst.LOAN_DEED>
+
+        </app-loan-deed>
+        <app-promissory-note-guarantor
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE_GUARANTOR>
+
+        </app-promissory-note-guarantor>
+        <app-letter-of-agreement
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_AGREEMENT>
+
+        </app-letter-of-agreement>
+        <app-hire-purchase-deed
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.HIRE_PURCHASE_DEED>
+
+        </app-hire-purchase-deed>
+        <app-indemnity-deed
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_INDEMNITY>
+
+        </app-indemnity-deed>
+        <app-letter-of-disbursement
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_DISBURSEMENT>
+
+        </app-letter-of-disbursement>
+        <app-guarantee-bond-corporate
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_CORPORATE>
+
+        </app-guarantee-bond-corporate>
+        <app-letter-of-continuity
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY>
+
+        </app-letter-of-continuity>
+        <app-cross-guarantee-bond
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.CROSS_GUARANTEE_BOND>
+
+        </app-cross-guarantee-bond>
+        <app-guarantee-bond-personal
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.GUARANTEE_BOND_PERSONAL>
+
+        </app-guarantee-bond-personal>
+        <app-hypothecation-of-goods-and-receivables-a
+            *ngSwitchCase=offerLetterConst.A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"></app-hypothecation-of-goods-and-receivables-a>
+        <app-hypothecation-of-goods-and-receivables-b
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES>
+
+        </app-hypothecation-of-goods-and-receivables-b>
+        <app-mortgage-deed
+            [cadData]="cadData" [documentId]="documentId"
+            [customerLoanId]="customerLoanId"
+            *ngSwitchCase=offerLetterConst.MORTGAGE_DEED>
+
+        </app-mortgage-deed>
+      </div>
     </div>
+    <div *ngIf="client === clientList.MEGA">
+      <div [ngSwitch]="documentId">
+        <app-assignment-of-receivable *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLE"
+                                      [cadData]="cadData" [documentId]="documentId"
+                                      [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
+        <app-deed-hypo-of-machinery *ngSwitchCase="cadTemplate.DEED_HYPO_OF_MACHINERY_COMPONENT"
+                                    [cadData]="cadData" [documentId]="documentId"
+                                    [customerLoanId]="customerLoanId"></app-deed-hypo-of-machinery>
+        <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData"
+                           [documentId]="documentId"
+                           [customerLoanId]="customerLoanId"></app-hypo-of-stock>
+        <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
+                               [documentId]="documentId"
+                               [customerLoanId]="customerLoanId"></app-loan-deed-company>
+        <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"
+                                     [cadData]="cadData" [documentId]="documentId"
+                                     [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
+        <app-personal-guarantee-company *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"
+                                        [cadData]="cadData" [documentId]="documentId"
+                                        [customerLoanId]="customerLoanId"></app-personal-guarantee-company>
+        <app-personal-guarantee-joint-borrower
+            *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_JOINT_BORROWER" [cadData]="cadData"
+            [documentId]="documentId"
+            [customerLoanId]="customerLoanId"></app-personal-guarantee-joint-borrower>
+        <app-personal-guarantee-person-to-person
+            *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_PERSON_TO_PERSON" [cadData]="cadData"
+            [documentId]="documentId"
+            [customerLoanId]="customerLoanId"></app-personal-guarantee-person-to-person>
+        <app-promissory-note-single-borrower
+            *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_SINGLE_BORROWER" [cadData]="cadData"
+            [documentId]="documentId" [customerLoanId]="customerLoanId"
+            [nepaliAmount]="nepaliNumber"></app-promissory-note-single-borrower>
+        <app-trust-receipt-nepali-limit *ngSwitchCase="cadTemplate.TRUST_RECEIPT_NEPALI_LIMIT"
+                                        [cadData]="cadData" [documentId]="documentId"
+                                        [customerLoanId]="customerLoanId"></app-trust-receipt-nepali-limit>
+        <app-loan-deed-single *ngSwitchCase="cadTemplate.LOAN_DEED_SINGLE" [cadData]="cadData"
+                              [documentId]="documentId"
+                              [customerLoanId]="customerLoanId"></app-loan-deed-single>
+        <app-loan-deed-multiple *ngSwitchCase="cadTemplate.LOAN_DEED_MULTIPLE" [cadData]="cadData"
+                                [documentId]="documentId"
+                                [customerLoanId]="customerLoanId"></app-loan-deed-multiple>
+        <app-promissory-note-company *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_COMPANY"
+                                     [cadData]="cadData" [documentId]="documentId"
+                                     [customerLoanId]="customerLoanId"></app-promissory-note-company>
+        <app-promissory-note-joint *ngSwitchCase="cadTemplate.PROMISSORY_NOTE_JOINT"
+                                   [cadData]="cadData" [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId"
+                                   [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
+
+        <p *ngSwitchDefault>No Template is available for this Document!!! </p>
+      </div>
     </div>
     <div *ngIf="client === clientList.ICFC">
       <div [ngSwitch]="documentId">

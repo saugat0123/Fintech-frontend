@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProgressiveOfferLetterConst} from '../../../progressive-offer-letter-const';
+import {ProgressiveOfferLetterConst} from '../../progressive-offer-letter-const';
 
 @Component({
     selector: 'app-offer-letter-personal-print',

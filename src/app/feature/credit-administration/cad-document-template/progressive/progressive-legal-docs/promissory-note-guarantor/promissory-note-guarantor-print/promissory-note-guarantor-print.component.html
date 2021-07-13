@@ -1,0 +1,101 @@
+<div class="row" id="print-section-{{offerLetterConst.PROMISSORY_NOTE_GUARANTOR}}">
+
+  <div class="col-md-12 viewFull">
+    <form class="nepali">
+      <h6 class="text-center">कप्रतिज्ञा पत्र<br>
+        (PROMISSORY NOTE)</h6>
+      <br>
+      <div class="row col-md-12">
+        <p>लिखितम् <span class="nepaliFont">{{printDocForm?.address}}</span>
+          स्थित <span class="nepaliFont">{{printDocForm?.customerName}}</span> ले त्यस प्रोग्रेशिभ
+          फाइनान्स लिमिटेड <span class="nepaliFont">{{printDocForm?.branchName}}</span> शाखा
+          कार्यालयबाट लिएको कर्जा
+          रकम रु.<span class="nepaliFont">{{printDocForm?.amount}}</span> (अक्षेरुपी रु. <span
+              class="nepaliFont">{{printDocForm?.amountInWord}}</span>
+          ) र सो रकममा बैंक नियमानुसार लाग्ने ब्याज समेत बैंकले
+          भुक्तानीे माग गरेका बखत तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/ौं ।</p>
+      </div>
+      <div class="row col-md-12" id="detail">
+        <p>दस्तखत :- <span class="nepaliFont">{{printDocForm?.signature}}</span> संस्थाको हकमा छाप
+          समेत <br>
+          दस्तखत गर्नेको नाम :- <span
+              class="nepaliFont">{{printDocForm?.signaturePersonName}}</span> संस्थाको हकमा अख्तियार
+          प्राप्त व्यक्ति <br>
+          नागरिकता नं., जारी मिति र कार्यालय :- <span
+              class="nepaliFont">{{printDocForm?.karyalayaName}}</span> <br>
+          ठेगाना :- <span class="nepaliFont">{{printDocForm?.district}}</span>
+          जिल्ला <span class="nepaliFont">{{printDocForm?.VDC}}</span>
+          गा.वि.स/न.पा. वडा नं. <span class="nepaliFont">{{printDocForm?.WadNo}}</span>
+          टोल <span class="nepaliFont">{{printDocForm?.tolName}}</span> <br>
+          <br>
+          वावुको नाम :- <span class="nepaliFont">{{printDocForm?.fatherName}}</span>
+          <br>
+          वाजेको नाम :-<span class="nepaliFont">{{printDocForm?.grandFatherName}}</span>
+        </p>
+        <table class="table  table-bordered" id="fingerXap">
+          <thead>
+          <tr>
+            <th>दाँ.</th>
+            <th>बाँ.</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><textarea cols="30" id="" name="" rows="10"
+                          style="background-color: transparent;resize:none"></textarea></td>
+            <td><textarea cols="30" id="" name="" rows="10"
+                          style="background-color: transparent;resize:none"></textarea></td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="col-md-12">
+        <p class="text-left"><b>साक्षी:-
+        </b></p>
+        <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i"
+             style="overflow-x: auto">
+          {{i + 1 | nepaliWord: 'unicode'}}
+          <p>दस्तखत :- ...............
+          <table border="1" class="tableGuarantor text-center">
+            <thead>
+            <tr>
+              <th>नाम</th>
+              <th>ठेगाना</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><span class="nepaliFont">{{guarantor?.guarantorName}}</span></td>
+              <td><span class="nepaliFont">{{guarantor?.issuedPlace}}</span></td>
+            </tr>
+            </tbody>
+          </table>
+          <br>
+        </div>
+
+        <br>
+        <br>
+        <p class="text-left"><b>सनाखत साक्षी:</b></p>
+        <div>
+          <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; कारणीलाई म राम्ररी चिन्दछु निजले मेरो सामुन्नेमा
+            सही छाप गरेको ठीक साँचो हो भनी सही छाप
+            गर्ने धनी बैंकमा कार्यरत कर्मचारी <span
+                class="nepaliFont">{{printDocForm?.sanakhatGuarantorName}}</span> १
+            <br>
+            इति सम्बत २०६<span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
+            साल <span class="nepaliFont">{{printDocForm?.itiSambatMoth}}</span>
+            महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
+            गते रोज <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
+            शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatSubham}}</span> ।
+          </p>
+        </div>
+      </div>
+
+
+    </form>
+
+  </div>
+
+</div>
