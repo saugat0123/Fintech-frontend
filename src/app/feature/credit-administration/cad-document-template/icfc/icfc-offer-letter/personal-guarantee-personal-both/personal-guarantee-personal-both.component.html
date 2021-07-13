@@ -208,7 +208,7 @@
                 </p>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row">
             <div class="col-md-12">
                 <h5 class="text-center font-weight-bold">
                     तपसिल
@@ -267,7 +267,7 @@
                 </p>
             </div>
         </div>
-        <div class="row justify-content-end mt-2">
+        <div class="row justify-content-end">
             <div class="col-md-5">
                 <p class="font-weight-bold">
                     <u>व्यक्तिगत धनजमानी दिनेको</u>
@@ -346,4 +346,16 @@
             </div>
         </div>
     </form>
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.PERSONAL_GUARANTEE_PERSONAL_BOTH}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
 </div>
+<app-personal-guarantee-personal-both-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-personal-guarantee-personal-both-print>
