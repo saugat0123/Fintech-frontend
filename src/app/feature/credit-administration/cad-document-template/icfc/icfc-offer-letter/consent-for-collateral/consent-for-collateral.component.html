@@ -69,7 +69,7 @@
     <br><br>
     <p class="text-center"><b>तपसिल</b></p>
     <br>
-    <table>
+    <table class="table table-bordered">
       <thead>
       <tr>
         <th>जग्गाधनिको नाम</th>
@@ -79,23 +79,63 @@
         <th> सिट नं.</th>
         <th> कि.नं.</th>
         <th> क्षेत्रफल</th>
-        <th> [+ जग्गाधनी]</th>
+        <th>
+          <span (click)="addEmptyTapsil()" nbButton size="small" status="info" type="button"
+                class="float-right d-print-none btn btn-sm btn-primary">+ थप्नुहोस्</span>
+        </th>
       </tr>
       </thead>
-      <tbody>
-      <tr>
+      <tbody *ngFor="let tapsils of form.get('tapsils')['controls']; index as i"
+             formArrayName="tapsils" class="mt-4">
+      <tr [formGroupName]="i">
         <td>
           नाम:
-
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggadhaniName">
           <br>पिता:
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggadhaniParentName">
           <br>बाजे:
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggadhaniGrandParentName">
         </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggaDistrict">
+        </td>
+        <td>
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggaMunicipality">
+        </td>
+        <td>
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggaWardNum">
+        </td>
+        <td>
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggaSeatNum">
+        </td>
+        <td>
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggaKittaNum">
+        </td>
+        <td>
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont"
+                 formControlName="jaggaArea">
+        </td>
+        <td>
+          <i (click)="removeTapsil(i)" size="small" class="float-right fa fa-trash"
+             *ngIf="form.get('tapsils')['length']>1"></i>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -148,27 +188,27 @@
            formArrayName="guarantors" class="mt-4">
         <div [formGroupName]="i">
           {{i + 1 | nepaliWord: 'unicode'}}) नागरिकता नं
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="citizenNumber">
           , मिति
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="issuedYear">
           , जारी जिल्ला
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="issuedPlace">
           भै
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="guarantorLegalDocumentAddress">
           बस्ने वर्ष
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="age">
           को
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="name">
           <i (click)="removeGuarantor(i)" size="small" class="float-right fa fa-trash"
@@ -195,11 +235,11 @@
   <button class="btn btn-primary d-print-none"
           [useExistingCss]="true"
           [disabled]="!initialInfoPrint"
-          printSectionId="print-section-{{ offerLetterConst.CONSENT_FOR_LOAN }}"
+          printSectionId="print-section-{{ offerLetterConst.CONSENT_FOR_COLLATERAL }}"
           ngxPrint>print
   </button>
 </div>
-<!--<app-consent-for-loan-interest-payment-print *ngIf="initialInfoPrint"-->
-<!--                                             [printDocForm]="initialInfoPrint"-->
-<!--                                             hidden></app-consent-for-loan-interest-payment-print>-->
+<app-consent-for-collateral-print *ngIf="initialInfoPrint"
+                                             [printDocForm]="initialInfoPrint"
+                                             hidden></app-consent-for-collateral-print>
 

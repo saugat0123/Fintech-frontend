@@ -55,7 +55,7 @@ export class ConsentForCollateralComponent implements OnInit {
   fillForm() {
     this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     const customerAddress = this.nepData.permanentMunicipality + '-' + this.nepData.permanentWard + ', ' + this.nepData.permanentDistrict + ', ' + this.nepData.permanentProvince;
-    this.setGuarantors(this.nepData.guarantorDetails);
+
     this.form.patchValue({
       customerName: this.nepData.name ? this.nepData.name : '',
       citizenshipNum: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
@@ -63,18 +63,22 @@ export class ConsentForCollateralComponent implements OnInit {
       spouseName: this.nepData.husbandName ? this.nepData.husbandName : '',
       grandParentName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
     });
+
+    this.setGuarantors(this.nepData.guarantorDetails);
+    this.setTapsils(this.nepData.tapsils);
+
   }
 
   checkOfferLetter() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       if (this.cadData.cadFileList.length > 0) {
         this.cadData.cadFileList.forEach(singleCadFile => {
-          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === 1515) {
             const initialInfo = JSON.parse(singleCadFile.initialInformation);
             this.initialInfoPrint = initialInfo;
+            console.log(initialInfo);
             this.form.patchValue(this.initialInfoPrint);
           } else {
-            this.addEmptyGuarantor();
             this.fillForm();
           }
         });
@@ -152,6 +156,7 @@ export class ConsentForCollateralComponent implements OnInit {
 
       citizenshipNum: [undefined],
       citizenshipIssueDate: [undefined],
+      citizenshipIssuePlace: [undefined],
       spouseName: [undefined],
       grandParentName: [undefined],
 
@@ -195,6 +200,43 @@ export class ConsentForCollateralComponent implements OnInit {
 
   removeGuarantor(index) {
     (this.form.get('guarantors') as FormArray).removeAt(index);
+  }
+
+  setTapsils(data) {
+    const formArray = this.form.get('tapsils') as FormArray;
+    if (data.length === 0) {
+      this.addEmptyTapsil();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        citizenNumber: [value.citizenNumber],
+        issuedYear: [value.issuedYear],
+        issuedPlace: [value.issuedPlace],
+        guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+        age: [value.age],
+        name: [value.name],
+      }));
+    });
+  }
+
+  addEmptyTapsil() {
+    (this.form.get('tapsils') as FormArray).push(
+        this.formBuilder.group({
+          jaggadhaniName: [undefined],
+          jaggadhaniParentName: [undefined],
+          jaggadhaniGrandParentName: [undefined],
+          jaggaDistrict: [undefined],
+          jaggaMunicipality: [undefined],
+          jaggaWardNum: [undefined],
+          jaggaSeatNum: [undefined],
+          jaggaKittaNum: [undefined],
+          jaggaArea: [undefined],
+        }));
+  }
+
+  removeTapsil(index) {
+    (this.form.get('tapsils') as FormArray).removeAt(index);
   }
 
   convertAmountInWords(numLabel, wordLabel) {
