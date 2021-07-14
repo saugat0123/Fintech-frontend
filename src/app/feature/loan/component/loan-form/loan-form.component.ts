@@ -216,8 +216,10 @@ export class LoanFormComponent implements OnInit {
     loanHolder = new CustomerInfoData();
     loanTypeKeyValue = LoanType;
     loanType;
-    customerData = {
-        obtainableDocument: Array<ObtainableDoc>()
+
+    financialDocuments = {
+        documents: Array<ObtainableDoc>(),
+        OtherDocuments: String
     };
 
     constructor(
@@ -244,6 +246,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
+
         console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
@@ -354,7 +357,6 @@ export class LoanFormComponent implements OnInit {
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
-                    console.log(value, ':::what value');
                     if (value.name === 'Company Info') {
                         this.templateList.splice(index, 1);
                     } else if (value.name === 'Credit Risk Grading - Alpha') {
@@ -466,6 +468,11 @@ export class LoanFormComponent implements OnInit {
     }
 
     pushProposalTemplateToLast() {
+        this.templateList.push({
+            active: false,
+            name: 'Obtainable Documents',
+            templateUrl: null
+        });
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
                 this.templateList.push(this.templateList.splice(index, 1)[0]);
@@ -556,7 +563,6 @@ export class LoanFormComponent implements OnInit {
     }
 
     selectChild(name, action, loanTag) {
-        console.log(name, '::NAme');
         // if (name === 'Customer Info' && action) {
         //   if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
         //     this.basicInfo.submitted = true;
@@ -619,9 +625,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
-        if (name === 'Obtained Document' && action) {
-            this.customerData.obtainableDocument = this.obtainedDocument.obtainabledDocument;
-            this.loanDocument.data = JSON.stringify(this.customerData);
+        if (name === 'Obtainable Documents' && action) {
+            this.financialDocuments.documents = this.obtainedDocument.obtainabledDocument;
+            this.financialDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
+            this.loanDocument.data = JSON.stringify(this.financialDocuments);
         }
         // if (name === 'CICL' && action) {
         //   if (this.cicl.ciclForm.invalid ) {
