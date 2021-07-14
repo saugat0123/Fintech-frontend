@@ -5,7 +5,7 @@
             <div class="row logo-container">
                 <div class="col-md-12">
                     च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont" formControlName="branch" type="text"/>
-                    —कर्जा/<input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text" (change)="setValue()"/>
+                    —कर्जा/<input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text"/>
                     <p class="text-right">मिति :
                         <input class="form-field form-control-sm nepaliFont" formControlName="letterYear" type="text"/>
                         / <input class="form-field form-control-sm nepaliFont shortInput" formControlName="month" type="text"/>
@@ -250,7 +250,10 @@
                         <tbody>
                         <ng-container *ngFor="let data of personalTermLoan.get('loanSecurityTable')['controls']; let index = index" formArrayName="loanSecurityTable">
                             <tr [formGroupName]="index">
-                                <td><input class="form-field form-control-sm nepaliFont shortInput" formControlName="snNo" type="text"/></td>
+                                <td>
+<!--                                    <input class="form-field form-control-sm nepaliFont shortInput" formControlName="snNo" type="text"/>-->
+                                    {{index + 1 | nepaliNumber: 'unicode'}}
+                                </td>
                                 <td><input class="form-field form-control-sm nepaliFont" formControlName="dhaniName" type="text"/></td>
                                 <td><input class="form-field form-control-sm nepaliFont" formControlName="district2" type="text"/></td>
                                 <td><input class="form-field form-control-sm nepaliFont" formControlName="munVdc" type="text"/></td>
@@ -490,9 +493,9 @@
 
             <p>महोदय,</p>
             <br><br> <br>
-            <p>तत्यस फाइनान्सको मिति <input class="form-field form-control-sm nepaliFont" formControlName="footerLetterYear" type="text"/>/
-                <input class="form-field form-control-sm nepaliFont shortInput" formControlName="footerLetterMonth" type="text"/>
-                /<input class="form-field form-control-sm nepaliFont shortInput" formControlName="footerLetterDay" type="text"/>
+            <p>तत्यस फाइनान्सको मिति <span class="nepaliFont form-field"> {{personalTermLoan.get('letterYear').value}}</span>/
+                <span class="nepaliFont form-field"> {{personalTermLoan.get('month').value}}</span>
+                /<span class="nepaliFont form-field"> {{personalTermLoan.get('day').value}}</span>
                 , च.नं.: आइ.सि.एफ.सि.—शाखा <span class="nepaliFont form-field"> {{personalTermLoan.get('branch').value}}</span> —कर्जा/
                 <span class="nepaliFont form-field"> {{personalTermLoan.get('regNo').value}}</span> को व्यक्तिगत ओभरड्राफ्ट कर्जा स्वीकृति पत्र मैले/हामीले प्राप्त गरें/गर्यौं । उक्त पत्रमा
                 उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण

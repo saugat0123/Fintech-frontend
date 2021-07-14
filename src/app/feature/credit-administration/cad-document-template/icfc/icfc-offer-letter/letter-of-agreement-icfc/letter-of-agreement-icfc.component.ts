@@ -8,7 +8,6 @@ import {ToastService} from '../../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NbDialogRef} from '@nebular/theme';
-import {CadOfferLetterConfigurationComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
@@ -58,19 +57,6 @@ export class LetterOfAgreementIcfcComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    // this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-    // === this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_AGREEMENT).toString())[0];
-    // if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-    //   this.offerLetterDocument = new OfferDocument();
-    //   this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_AGREEMENT);
-    // } else {
-    //   const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-    //   this.initialInfoPrint = initialInfo;
-    //   this.existingOfferLetter = true;
-    //   if (!ObjectUtil.isEmpty(initialInfo)) {
-    //   }
-    //   this.letterOfAgreement.patchValue(this.initialInfoPrint);
-    // }
 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -87,21 +73,6 @@ export class LetterOfAgreementIcfcComponent implements OnInit {
     console.log(this.letterOfAgreement.value);
     this.spinner = true;
     let flag = true;
-    // this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-    //
-    // if (this.existingOfferLetter) {
-    //   this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-    //     if (offerLetterPath.docName.toString() ===
-    //     this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_AGREEMENT).toString()) {
-    //       offerLetterPath.initialInformation = JSON.stringify(this.letterOfAgreement.value);
-    //     }
-    //   });
-    // } else {
-    //   const offerDocument = new OfferDocument();
-    //   offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_AGREEMENT);
-    //   offerDocument.initialInformation = JSON.stringify(this.letterOfAgreement.value);
-    //   this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
-    // }
 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
