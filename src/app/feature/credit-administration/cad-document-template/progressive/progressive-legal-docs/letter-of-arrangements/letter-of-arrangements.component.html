@@ -1,0 +1,89 @@
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LETTER_OF_ARRANGEMENTS}}">
+  <div class="col-md-12 viewFull">
+    <form (ngSubmit)="submit()" [formGroup]="form" class="nepali">
+      <div class="nep">
+        <div class="text-center">
+          बन्दोबस्त–पत्र
+          <br>
+          (Letter of Arrangements)
+        </div>
+        <div class="text-right">
+          मितिः
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="date"
+                 type="text">
+        </div>
+        <br>
+        <b>
+          प्रोग्रेशिभफाईनान्स लिमिटेड.,
+          <br>
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="branch"
+                 type="text">
+          शाखा ।
+        </b>
+        <br>
+        <br>
+        <b class="text-center">
+          विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="subject"
+                 type="text">
+          को रिभल्भिङ/
+          चालु
+          पूँजी/
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="punji"
+                 type="text">
+          हद सम्म स्विकृत गरिएको सम्बन्धमा ।
+        </b>
+        <br>
+        <br>
+        <p>
+          उपरोक्त विषय सम्बन्धि
+          <input class="form-control-sm form-field nepaliFont"
+                 formControlName="customerName"
+                 readonly
+                 type="text">
+          लाई उपरोक्तऋणको सिमा उपलब्ध
+          गराईएकोमा सो को
+          लागि मैले/हामीले आजका दिनमा प्रतिज्ञा पत्र तथा अन्य कागजातमा सहिछाप गरि जारी गरि दिएकोमा
+          म/हामी त्यस
+          वित्तीय
+          संस्थाबाटउपलब्ध गराइएको सुविधाकुनै पनि समयमाम/हामीलाई पूर्व सूचनानदिई रद्द गर्न सक्ने
+          अधिकारको पालना
+          गर्ने छु /छौं ।
+        </p>
+        <p>
+          कथम् कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म/हामी त्यस
+          वित्तीय
+          संस्थाले माग गरेमा
+          सम्पूर्ण बाँकी ऋण तथा अन्य कुनै दस्तुर, व्याजवा पेनाल्टी रकम समेत तुरुन्त भुक्तानी गर्ने
+          बचन यसै
+          पत्रद्वारा अवगत
+          गर्दछु/छौं ।
+        </p>
+        भवदीय, <br><br>
+
+        ..............................................
+        <br>
+        ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
+        दस्तखत गर्नेको नामः <span class="nepaliFont">{{form.get('customerName').value}}</span><br>
+      </div>
+      <div class="col-md-12">
+        <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+          Save
+        </button>
+      </div>
+    </form>
+    <button [disabled]="!initialInfoPrint"
+            [useExistingCss]="true"
+            class="btn btn-primary d-print-none"
+            ngxPrint
+            printSectionId="print-section-{{ offerLetterConst.LETTER_OF_ARRANGEMENTS }}"> Print
+    </button>
+  </div>
+</div>
+
+<app-letter-of-arrangements-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  hidden></app-letter-of-arrangements-print>
