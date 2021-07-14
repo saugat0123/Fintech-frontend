@@ -18,6 +18,9 @@ export class FiscalYearModalComponent implements OnInit {
     fiscalYearsArray = [];
     financialStatementForm: FormGroup;
 
+    editAuditor = false;
+    editAuditorInstance;
+
     spinner = false;
     showAuditorDetailsForm = false;
 
@@ -42,6 +45,12 @@ export class FiscalYearModalComponent implements OnInit {
     ngOnInit() {
         this.getFiscalYear();
         this.buildForm();
+        if (this.editAuditor) {
+            this.showAuditorDetailsForm = true;
+            this.financialStatementForm.setControl('auditorDetails', this.setAuditorDetailsValueWithGroup(this.editAuditorInstance));
+            this.financialStatementForm.get('financialStatement').clearValidators();
+            this.financialStatementForm.get('fiscalYear').clearValidators();
+        }
         if (environment.client === this.clientName.SHINE_RESUNGA) {
             this.financialStatementList.push('Management Certified');
         }
@@ -72,6 +81,17 @@ export class FiscalYearModalComponent implements OnInit {
             membershipNo: [undefined, Validators.required],
             certificateOfPractice: [undefined, Validators.required],
             class: [undefined, Validators.required],
+        });
+    }
+
+    setAuditorDetailsValueWithGroup(auditor) {
+        return this.formBuilder.group({
+            audited: [auditor.audited],
+            auditFirm: [auditor.auditFirm, Validators.required],
+            proprietePartner: [auditor.proprietePartner, Validators.required],
+            membershipNo: [auditor.membershipNo, Validators.required],
+            certificateOfPractice: [auditor.certificateOfPractice, Validators.required],
+            class: [auditor.class, Validators.required],
         });
     }
 
