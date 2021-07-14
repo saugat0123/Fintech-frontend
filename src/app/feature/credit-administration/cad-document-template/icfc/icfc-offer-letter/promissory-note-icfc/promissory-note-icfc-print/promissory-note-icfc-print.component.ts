@@ -1,13 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
 import {LegalDocumentCheckListEnum} from '../../../../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
-  selector: 'app-promissory-note-print',
-  templateUrl: './promissory-note-print.component.html',
-  styleUrls: ['./promissory-note-print.component.scss']
+  selector: 'app-promissory-note-icfc-print',
+  templateUrl: './promissory-note-icfc-print.component.html',
+  styleUrls: ['./promissory-note-icfc-print.component.scss']
 })
-export class PromissoryNotePrintComponent implements OnInit {
+export class PromissoryNoteIcfcPrintComponent implements OnInit {
   @Input() letter;
   @Input() nepaliData;
   offerLetterConst = LegalDocumentCheckListEnum;

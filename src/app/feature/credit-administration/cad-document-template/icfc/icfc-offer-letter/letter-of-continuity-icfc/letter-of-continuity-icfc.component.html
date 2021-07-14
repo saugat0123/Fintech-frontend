@@ -6,7 +6,7 @@
                 <div>
                     <h1 class="text-center">LETTER OF CONTINUITY</h1>
                     <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
-                        </p>
+                    </p>
                     <p>To,</p>
                     <p>ICFC FINANCE LIMITED</p>
                     <input class="form-field form-control-sm" formControlName="branchAddress" type="text"/>
@@ -24,12 +24,12 @@
             <tr>
                 <td width="50%">Witness:</td>
                 <td>1. <input class="form-field form-control-sm" formControlName="witness" type="text"/>
-                    </td>
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td>2. <input class="form-field form-control-sm" formControlName="witness2" type="text"/>
-                    </td>
+                </td>
             </tr>
         </table>
         <p class="text-right">Authorized Signature (S)</p>
@@ -52,5 +52,5 @@
         </div>
     </div>
 </div>
-<app-letter-of-continuity-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
-                          hidden></app-letter-of-continuity-print>
+<app-letter-of-continuity-icfc-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                                hidden></app-letter-of-continuity-icfc-print>
