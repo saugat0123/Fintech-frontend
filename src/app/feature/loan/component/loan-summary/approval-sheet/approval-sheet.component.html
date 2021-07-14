@@ -583,6 +583,38 @@
             </div>
             <!-- End Site Visit -->
 
+            <!-- Start Group Exposure -->
+            <!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
+            <!--                <app-collateral-summary-->
+            <!--                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"-->
+            <!--                        [customerAllLoanList]="customerAllLoanList"-->
+            <!--                        [security]="loanDataHolder?.security"></app-collateral-summary>-->
+            <!--                <app-proposal-justification-summary *ngIf="proposalSummary"-->
+            <!--                                                    [customerAllLoanList]="customerAllLoanList"-->
+            <!--                                                    [proposalData]="proposalData"></app-proposal-justification-summary>-->
+            <!--            </div>-->
+            <div class="row">
+                <div class="col-md-12">
+                    <p><strong>12. Group Exposure and SOL</strong></p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <tr>
+                        <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
+                    </tr>
+                </div>
+            </div>
+            <!-- End Group Exposure -->
+
             <!-- Start Income & Expenses -->
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [count]="13"
@@ -665,11 +697,11 @@
             </div>
 
             <!-- Start Credit Checklist-->
-<!--            <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"-->
-<!--                                       [formData]="loanDataHolder?.loanHolder?.creditChecklist"-->
-<!--                                       [fromProfile]="false"-->
-<!--                                       [customerType]="loanDataHolder?.loanHolder?.customerType"-->
-<!--                                       [loanCategory]="loanDataHolder?.loanCategory"></app-credit-checklist-view>-->
+            <app-credit-checklist-view *ngIf="loanDataHolder?.loanHolder?.creditChecklist"
+                                       [formData]="loanDataHolder?.loanHolder?.creditChecklist"
+                                       [fromProfile]="false"
+                                       [customerType]="loanDataHolder?.loanHolder?.customerType"
+                                       [loanCategory]="loanDataHolder?.loanCategory"></app-credit-checklist-view>
             <!-- End Credit Checklist-->
 
             <!-- Start terms and conditions-->
