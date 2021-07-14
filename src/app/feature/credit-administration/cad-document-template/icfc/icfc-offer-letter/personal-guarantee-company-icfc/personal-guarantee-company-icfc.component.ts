@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {OfferDocument} from '../../../../model/OfferDocument';
-import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -9,35 +8,28 @@ import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {OfferDocument} from '../../../../model/OfferDocument';
 import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-loan-deed-hire-purchase',
-  templateUrl: './loan-deed-hire-purchase.component.html',
-  styleUrls: ['./loan-deed-hire-purchase.component.scss']
+  selector: 'app-personal-guarantee-company-icfc',
+  templateUrl: './personal-guarantee-company-icfc.component.html',
+  styleUrls: ['./personal-guarantee-company-icfc.component.scss']
 })
-export class LoanDeedHirePurchaseComponent implements OnInit {
-
+export class PersonalGuaranteeCompanyIcfcComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  @Input() nepaliAmount: NepaliNumberAndWords;
 
-  loanDeedHirePurchase: FormGroup;
-  multipleData;
-  spinner;
-  nepData;
+  personalGuaranteeCompany: FormGroup;
   offerLetterDocument: OfferDocument;
+  spinner;
   offerLetterConst = LegalDocumentCheckListEnum;
   initialInfoPrint;
-  editor = NepaliEditor.CK_CONFIG;
-  existingOfferLetter = false;
-  guarantorData;
+  nepData;
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
@@ -45,7 +37,7 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private dialogRef: NbDialogRef<LoanDeedHirePurchaseComponent>) { }
+              private dialogRef: NbDialogRef<PersonalGuaranteeCompanyIcfcComponent>) { }
 
   ngOnInit() {
     this.buildForm();
@@ -53,20 +45,8 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
   }
 
   buildForm() {
-    this.loanDeedHirePurchase = this.formBuilder.group({
-      branchName: [undefined],
-      registeredGovMinistry: [undefined],
-      registeredGovOffice: [undefined],
-      companyRegisteredNo: [undefined],
-      companyRegisteredDate: [undefined],
-      companyProvince: [undefined],
-      companyZone: [undefined],
-      companyDistrict: [undefined],
-      companyMunicipality: [undefined],
-      companyWardNo: [undefined],
-      companyPanNo: [undefined],
-      companyName: [undefined],
-      grandParents: [undefined],
+    this.personalGuaranteeCompany = this.formBuilder.group({
+      grandParentsName: [undefined],
       parentsName: [undefined],
       permanentProvince: [undefined],
       permanentZone: [undefined],
@@ -78,32 +58,40 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
       temporaryDistrict: [undefined],
       temporaryMunicipality: [undefined],
       temporaryWardNo: [undefined],
-      age: [undefined],
-      officialPersonName: [undefined],
+      loanHolderAge: [undefined],
+      loanHolderName: [undefined],
       citizenshipNo: [undefined],
       citizenshipIssuedDate: [undefined],
       citizenshipIssuedOffice: [undefined],
-      loanHolderCompany: [undefined],
-      loanApprovalDate: [undefined],
+      companyProvince: [undefined],
+      companyZone: [undefined],
+      companyDistrict: [undefined],
+      companyMunicipality: [undefined],
+      companyWardNo: [undefined],
+      govMinistryName: [undefined],
+      govOfficeName: [undefined],
+      companyRegisteredNo: [undefined],
+      companyRegisteredDate: [undefined],
+      registeredCompanyName: [undefined],
+      loanApprovedDate: [undefined],
+      loanType: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
-      accountNo: [undefined],
+      loanProviderName: [undefined],
+      loanProvidersAddress: [undefined],
       docWrittenYear: [undefined],
       docWrittenMonth: [undefined],
-      docWrittenDay: [undefined],
-      docWrittenWeek: [undefined],
+      docWrittenDate: [undefined],
+      docWrittenRoj: [undefined],
       subham: [undefined],
-      writersName: [undefined],
-      securityDetailsArray: this.formBuilder.array([this.buildSecurityDetails()]),
-      evidenceNameArray: this.formBuilder.array([this.buildEvidence()]),
-      loanApprovalSpecificationTable: this.formBuilder.array([this.buildLoanApproval()]),
+      evidenceArray: this.formBuilder.array([this.buildEvidenceArray()]),
     });
   }
 
   fillForm() {
     this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-    this.loanDeedHirePurchase.patchValue({
-      grandParents: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
+    this.personalGuaranteeCompany.patchValue({
+      grandParentsName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
       parentsName: this.nepData.fatherName ? this.nepData.fatherName : '',
       permanentProvince: this.nepData.permanentProvince ? this.nepData.permanentProvince : '',
       permanentDistrict: this.nepData.permanentDistrict ? this.nepData.permanentDistrict : '',
@@ -113,8 +101,8 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
       temporaryDistrict: this.nepData.temporaryDistrict ? this.nepData.temporaryDistrict : '',
       temporaryMunicipality: this.nepData.temporaryMunicipality ? this.nepData.temporaryMunicipality : '',
       temporaryWardNo: this.nepData.temporaryWard ? this.nepData.temporaryWard : '',
-      age: this.nepData.age ? this.nepData.age : '',
-      officialPersonName: this.nepData.name ? this.nepData.name : '',
+      loanHolderAge: this.nepData.age ? this.nepData.age : '',
+      loanHolderName: this.nepData.name ? this.nepData.name : '',
       citizenshipNo: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
       citizenshipIssuedDate: this.nepData.citizenshipIssueDate ? this.nepData.citizenshipIssueDate : '',
       citizenshipIssuedOffice: this.nepData.citizenshipIssueDistrict ? this.nepData.citizenshipIssueDistrict : '',
@@ -129,11 +117,9 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
             const initialInfo = JSON.parse(singleCadFile.initialInformation);
             this.initialInfoPrint = initialInfo;
             if (!ObjectUtil.isEmpty(initialInfo)) {
-              this.setSecurityDetails(initialInfo.securityDetailsArray);
-              this.setEvidenceData(initialInfo.evidenceNameArray);
-              this.setLoanApproval(initialInfo.loanApprovalSpecificationTable);
+              this.setEvidenceData(initialInfo.evidenceArray);
             }
-            this.loanDeedHirePurchase.patchValue(this.initialInfoPrint);
+            this.personalGuaranteeCompany.patchValue(this.initialInfoPrint);
           } else {
             this.fillForm();
           }
@@ -144,122 +130,49 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
     }
   }
 
-  buildSecurityDetails() {
+  buildEvidenceArray() {
     return this.formBuilder.group({
-      sNo: [undefined],
-      vehicleSpecification: [undefined],
-      engineNo: [undefined],
-      registeredNo: [undefined],
-      remark: [undefined],
+      evidenceName: [undefined],
     });
   }
 
-  addSecurityDetails() {
-    (this.loanDeedHirePurchase.get('securityDetailsArray') as FormArray).push(this.buildSecurityDetails());
+  addEvidence() {
+    (this.personalGuaranteeCompany.get('evidenceArray') as FormArray).push(this.buildEvidenceArray());
   }
 
-  removeSecurityDtails(index) {
-    (this.loanDeedHirePurchase.get('securityDetailsArray') as FormArray).removeAt(index);
-  }
-
-  setSecurityDetails(data) {
-    const formArray = this.loanDeedHirePurchase.get('securityDetailsArray') as FormArray;
-    (this.loanDeedHirePurchase.get('securityDetailsArray') as FormArray).clear();
-    if (data.length === 0) {
-      this.addSecurityDetails();
-      return;
-    }
-    data.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        sNo: [value.sNo],
-        vehicleSpecification: [value.vehicleSpecification],
-        engineNo: [value.engineNo],
-        registeredNo: [value.registeredNo],
-        remark: [value.remark],
-      }));
-    });
-  }
-
-  buildEvidence() {
-    return this.formBuilder.group({
-      evidenceName1: [undefined],
-    });
-  }
-
-  addEvidenceDetails() {
-    (this.loanDeedHirePurchase.get('evidenceNameArray') as FormArray).push(this.buildEvidence());
-  }
-
-  removeEvidenceDetails(index) {
-    (this.loanDeedHirePurchase.get('evidenceNameArray') as FormArray).removeAt(index);
+  removeEvidence(index) {
+    (this.personalGuaranteeCompany.get('evidenceArray') as FormArray).removeAt(index);
   }
 
   setEvidenceData(data) {
-    const formArray = this.loanDeedHirePurchase.get('evidenceNameArray') as FormArray;
-    (this.loanDeedHirePurchase.get('evidenceNameArray') as FormArray).clear();
+    const formArray = this.personalGuaranteeCompany.get('evidenceArray') as FormArray;
+    (this.personalGuaranteeCompany.get('evidenceArray') as FormArray).clear();
     if (data.length === 0) {
-      this.addEvidenceDetails();
+      this.addEvidence();
       return;
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        evidenceName1: [value.evidenceName1],
-      }));
-    });
-  }
-
-  buildLoanApproval() {
-    return this.formBuilder.group({
-      loanApprovalYear: [undefined],
-      tableLoanAmount: [undefined],
-      interestRate: [undefined],
-      serviceCharge: [undefined],
-      facilityAndPaymentDate: [undefined],
-    });
-  }
-
-  addLoanApproval() {
-    (this.loanDeedHirePurchase.get('loanApprovalSpecificationTable') as FormArray).push(this.buildLoanApproval());
-  }
-
-  removeLoanApproval(index) {
-    (this.loanDeedHirePurchase.get('loanApprovalSpecificationTable') as FormArray).removeAt(index);
-  }
-
-  setLoanApproval(data) {
-    const formArray = this.loanDeedHirePurchase.get('loanApprovalSpecificationTable') as FormArray;
-    (this.loanDeedHirePurchase.get('loanApprovalSpecificationTable') as FormArray).clear();
-    if (data.length === 0) {
-      this.addLoanApproval();
-      return;
-    }
-    data.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        loanApprovalYear: [value.loanApprovalYear],
-        tableLoanAmount: [value.tableLoanAmount],
-        interestRate: [value.interestRate],
-        serviceCharge: [value.serviceCharge],
-        facilityAndPaymentDate: [value.facilityAndPaymentDate],
+        evidenceName: [value.evidenceName],
       }));
     });
   }
 
   submit() {
-    console.log('Form Group Value', this.loanDeedHirePurchase.value);
+    console.log(this.personalGuaranteeCompany.value);
     this.spinner = true;
     let flag = true;
-
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.loanDeedHirePurchase.value);
+          singleCadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.loanDeedHirePurchase.value);
+        cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -268,7 +181,7 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.loanDeedHirePurchase.value);
+      cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -290,9 +203,9 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
   }
 
   convertAmountInWords(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedHirePurchase.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.personalGuaranteeCompany.get(numLabel).value);
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.loanDeedHirePurchase.get(wordLabel).patchValue(convertedVal);
+    this.personalGuaranteeCompany.get(wordLabel).patchValue(convertedVal);
   }
 
 }
