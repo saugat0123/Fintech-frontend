@@ -454,6 +454,7 @@
                             <th scope="col">Membership No.</th>
                             <th scope="col">Certificate of Practice</th>
                             <th scope="col">Class</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -465,6 +466,12 @@
                             <td>{{auditor['membershipNo']}}</td>
                             <td>{{auditor['certificateOfPractice']}}</td>
                             <td>{{auditor['class']}}</td>
+                            <td class="text-center">
+                                <button (click)="openFiscalYearModal(i)"
+                                        class="btn btn-sm btn-flat btn-info" value="Edit">
+                                    <em class="fa fa-edit" style="color:white;"></em>
+                                </button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

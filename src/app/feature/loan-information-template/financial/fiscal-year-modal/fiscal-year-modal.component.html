@@ -9,7 +9,7 @@
             <h4 class="modal-title pull-left">Financial statement options</h4>
         </nb-card-header>
         <nb-card-body>
-            <div class="row form-group">
+            <div *ngIf="!editAuditor" class="row form-group">
                 <div class="col-md-12 mb-2">
                     <label>Financial Statement</label>
                     <ng-select (change)="onFinancialStatementChange($event)"
@@ -108,7 +108,7 @@
         </nb-card-body>
         <nb-card-footer class="text-right">
             <button nbButton status="primary" type="submit">
-                Add
+                {{editAuditor ? 'Update' : 'Add'}}
             </button>
         </nb-card-footer>
     </nb-card>
