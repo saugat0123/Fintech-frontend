@@ -835,7 +835,6 @@
                                             </tr>
                                             </thead>
                                             <tbody *ngFor="let data of proposalForm.get('groupExposure')['controls']; let index = index" formArrayName="groupExposure">
-<!--                                            Data::: {{proposalForm.get('groupExposure')['controls'].}}-->
                                             <tr [formGroupName]="index">
                                                 <td>{{index + 1}}</td>
                                                 <td><input class="form-control text-center"

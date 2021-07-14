@@ -240,7 +240,6 @@ export class ProposalComponent implements OnInit {
       existInterestRate: [undefined],
       existCommissionPercentage: [undefined],
       settlementAmount: [undefined],
-      // groupExposure: this.formBuilder.array([]),
       groupExposure: this.formBuilder.array([]),
     });
   }
