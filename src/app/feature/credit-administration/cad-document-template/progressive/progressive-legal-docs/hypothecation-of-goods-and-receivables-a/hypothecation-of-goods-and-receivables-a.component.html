@@ -740,7 +740,11 @@
                         <th>परिमाण</th>
                         <th>प्रचलित मुल्य</th>
                         <th>कैफियत</th>
-                        <th width="5%"></th>
+                        <th width="5%">
+                            <span (click)="addEmptyAnusuchi()" nbButton size="small" status="info" type="button"
+                                  class="d-print-none float-right btn btn-sm btn-primary"><i
+                                    class="fa fa-plus"></i></span>
+                        </th>
                     </tr>
                     </thead>
                     <tbody *ngFor="let anusuchi of form.get('anusuchis')['controls']; index as i"
@@ -765,15 +769,10 @@
                             <input type="text" class="nepaliFont form-field form-control-sm"
                                    formControlName="remarks">
                         </td>
-                        <td>
-                            <span (click)="removeAnusuchi(i)" size="small"
-                                  class="float-right d-print-none ml-1 btn btn-sm btn-danger"
-                                  *ngIf="form.get('anusuchis')['length']>1"><i class="fa fa-trash"></i></span>
-                            <span (click)="addEmptyAnusuchi()" nbButton size="small" status="info" type="button"
-                                  class="d-print-none float-right btn btn-sm btn-primary"><i
-                                    class="fa fa-plus"></i></span>
-                        </td>
                     </tr>
+                    <span (click)="removeAnusuchi(i)" size="small"
+                          class="float-right d-print-none mb-1 ml-1 btn btn-sm btn-danger"
+                          *ngIf="form.get('anusuchis')['length']>1"><i class="fa fa-trash"></i></span>
                     </tbody>
                 </table>
                 <p> टर्म लोन भएमा मिल, मेशिनरी, पार्टपूर्जा ईत्यादिको पूरा विवरण उल्लेख गर्ने । चालु पूँजी कर्जा मात्र
