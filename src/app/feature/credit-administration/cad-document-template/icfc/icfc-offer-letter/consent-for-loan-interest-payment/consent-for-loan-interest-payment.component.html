@@ -47,7 +47,8 @@
              formControlName="loanAmount"
              (change)="convertAmountInWords('loanAmount', 'loanAmountInWords')">
       /— (अक्षरुपी
-      <input type="text"
+      <input readonly
+             type="text"
              class="form-field form-control-lg nepaliFont font-size-normal"
              formControlName="loanAmountInWords">
       मात्र) को मासिक/त्रैमासिक रुपमा
@@ -68,6 +69,7 @@
       मन्जुरीनामा दिनेको सहिछाप
       नाम:
       <input type="text"
+             readonly
              class="form-field form-control-sm nepaliFont"
              formControlName="customerName2"
              [value]="form.get('customerName').value">
@@ -159,6 +161,7 @@
   </button>
 </div>
 
-<app-consent-for-loan-interest-payment-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                                  hidden></app-consent-for-loan-interest-payment-print>
+<app-consent-for-loan-interest-payment-print *ngIf="initialInfoPrint"
+                                             [printDocForm]="initialInfoPrint"
+                                             hidden></app-consent-for-loan-interest-payment-print>
 

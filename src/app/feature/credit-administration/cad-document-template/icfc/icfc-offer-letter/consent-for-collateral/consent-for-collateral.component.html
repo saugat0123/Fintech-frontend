@@ -1,1 +1,205 @@
-<p>consent-for-collateral works!</p>
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.CONSENT_FOR_COLLATERAL}}">
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <p class="text-right">मिति :
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="date">
+    </p>
+    <p>
+      श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड <br>
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="branch">
+      ,
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="branchAddress">
+      ।
+    </p>
+
+    <p class="text-center">
+      <b>
+        विषय: मन्जुरीनामा गरी दिएको बारे ।
+      </b>
+    </p>
+    <p>
+      महोदय,
+    </p>
+    <p>
+      त्यस फाइनान्स लिमिटेडबाट
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="customerName">
+      को नाममा स्विकृत भएको
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="loanType">
+      कर्जा शिर्षक अन्तर्गत ऋण रकम रु.
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="loanAmount"
+             (change)="convertAmountInWords('loanAmount', 'loanAmountInWords')">
+      /— (अक्षरुपी
+      <input readonly
+             type="text"
+             class="form-control-sm form-field nepaliFont font-size-normal"
+             formControlName="loanAmountInWords">
+      मात्र) को सुरक्षण वापत श्री
+      <input type="text"
+             class="form-control-sm form-field nepaliFont"
+             formControlName="customerName1"
+             [value]="form.get('customerName').value">
+      को नाममा एकलौटी/संयुक्त दर्ता रहेको तपसिल बमोजिमको
+      जग्गा/घरजग्गा/फल्याट त्यस फाइनान्समा सुरक्षण वापत धितो राख्न मन्जुर गरी यो मञ्जुरनामाको कागज
+      गरी
+      दिएको छु । निज ऋणीले उक्त कर्जा र त्यसमा लाग्ने ब्याज तथा जरिवाना नतीरे, नबुझाएमा वा
+      फाइनान्ससँग
+      गरेको शर्त सम्झौता उल्लंघन गरेमा बैंक तथा वित्तिय संस्था सम्बन्धी ऐन, २०७३ तथा अन्य प्रचलित ऐन
+      कानून बमोजिम तपसिलको जग्गा/घरजग्गा/फल्याट समेतको सम्पतीबाट फाइनान्सले आफ्नो नीति नियम अनुसार
+      लिलाम
+      बिक्री गरी गराई लेना रकम असूल उपर गरी लिएमा मेरो पूर्ण मन्जुरी छ । पछि उक्त सम्पत्तिमा मेरो
+      पनि
+      हक
+      लाग्ने हो, एकाले खाएको ऋण कर्जामा मेरो समेत हक लाग्ने सम्पत्ति लिलाम बिक्री गरी फाइनान्सले
+      असूल
+      उपर गर्न पाउने होईन भनि कहिंकतै कुनै उजुर वाजुर दावि विरोध गर्ने छैन, गरे यसै कागजले बदर गरी
+      दिनु
+      भनी मेरो मनोमान खुसीराजीसँग यो मन्जुरीनामाको कागज लेखी आइ.सि.एफ.सि. फाइनान्स लिमिटेडलाई दिएँ ।
+    </p>
+    <br><br>
+    <p class="text-center"><b>तपसिल</b></p>
+    <br>
+    <table>
+      <thead>
+      <tr>
+        <th>जग्गाधनिको नाम</th>
+        <th> जिल्ला</th>
+        <th> न.पा./ गा.पा.</th>
+        <th> वडा नं.</th>
+        <th> सिट नं.</th>
+        <th> कि.नं.</th>
+        <th> क्षेत्रफल</th>
+        <th> [+ जग्गाधनी]</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          नाम:
+
+          <br>पिता:
+          <br>बाजे:
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+    <br><br>
+    <p><b>मन्जुरीनामा दिनेको सहिछाप</b></p>
+    नाम :
+    <input type="text"
+           readonly
+           class="form-control-sm form-field nepaliFont"
+           formControlName="customerName2"
+           [value]="form.get('customerName').value">
+    <br>
+    ना.प्र.प.नं.
+    <input type="text"
+           readonly
+           class="form-control-sm form-field nepaliFont font-size-normal"
+           formControlName="citizenshipNum">
+    मिति :
+    <input type="text"
+           readonly
+           class="form-control-sm form-field nepaliFont"
+           formControlName="citizenshipIssueDate">
+    जारी जिल्ला :
+    <input type="text"
+           readonly
+           class="form-control-sm form-field nepaliFont"
+           formControlName="citizenshipIssuePlace">
+    <br>
+    पति/पिता :
+    <input type="text"
+           readonly
+           class="form-control-sm form-field nepaliFont"
+           formControlName="spouseName">
+    <br>
+    ससुरा/बाजे :
+    <input type="text"
+           readonly
+           class="form-control-sm form-field nepaliFont"
+           formControlName="grandParentName">
+    <br>
+    <p class="clearfix">
+      <b class="float-left">साक्षीहरु :</b>
+      <span (click)="addEmptyGuarantor()" nbButton size="small" status="info" type="button"
+            class="float-right d-print-none btn btn-sm btn-primary">+साक्षी थप्नुहोस्</span>
+    </p>
+    <div class="guarantorList">
+      <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
+           formArrayName="guarantors" class="mt-4">
+        <div [formGroupName]="i">
+          {{i + 1 | nepaliWord: 'unicode'}}) नागरिकता नं
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="citizenNumber">
+          , मिति
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="issuedYear">
+          , जारी जिल्ला
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="issuedPlace">
+          भै
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="guarantorLegalDocumentAddress">
+          बस्ने वर्ष
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="age">
+          को
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="name">
+          <i (click)="removeGuarantor(i)" size="small" class="float-right fa fa-trash"
+             *ngIf="form.get('guarantors')['length']>1"></i>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+    <p>
+      यो मन्जुरीनामा म स्वयंले लेखी आइ.सि.एफ.सि. फाइनान्स लिमिटेडलाई दिएँ ।
+    </p>
+    <br><br>
+    मिति :
+    <input type="text"
+           class="form-control-sm form-field nepaliFont"
+           formControlName="date1">
+    <div>
+      <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+        Save
+      </button>
+    </div>
+  </form>
+  <button class="btn btn-primary d-print-none"
+          [useExistingCss]="true"
+          [disabled]="!initialInfoPrint"
+          printSectionId="print-section-{{ offerLetterConst.CONSENT_FOR_LOAN }}"
+          ngxPrint>print
+  </button>
+</div>
+<!--<app-consent-for-loan-interest-payment-print *ngIf="initialInfoPrint"-->
+<!--                                             [printDocForm]="initialInfoPrint"-->
+<!--                                             hidden></app-consent-for-loan-interest-payment-print>-->
+
