@@ -376,7 +376,92 @@
           <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
         </tr>
       </ng-container>
-
     </table>
+
+    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+      <thead>
+      <tr class="sb-bg-dark text-white">
+        <th class="sn">S.N</th>
+        <th>Client Name</th>
+        <th>Facility Type</th>
+        <th>Loan Limit(NPR)</th>
+        <th>O/S limit (NPR)</th>
+        <th>Proposed Limit(NPR)</th>
+        <th>FMV/DV</th>
+        <th>Exposure(%)</th>
+        <th>Remarks</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let groupExposure of proposalAllData?.groupExposure; let i = index">
+        <td>{{i + 1}}</td>
+        <td class="text-left pl-1">{{groupExposure?.clientName}}</td>
+        <td class="text-left pl-1">{{groupExposure?.facilityType}}</td>
+        <td class="text-right pr-1">{{groupExposure?.loanLimit}}</td>
+        <td class="text-right pr-1">{{groupExposure?.osLimit}}</td>
+        <td class="text-right pr-1">{{groupExposure?.proposedLimit}}</td>
+        <td class="text-right pr-1">{{groupExposure?.fmvDv}}</td>
+        <td class="text-right pr-1">{{groupExposure?.exposure}}</td>
+        <td class="text-left pl-1">{{groupExposure?.remarks}}</td>
+      </tr>
+      </tbody>
+    </table>
+<!--    <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"-->
+<!--           class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
+<!--      <tr>-->
+<!--        <th colspan="6">Current Assets Inspection - Receivables-->
+<!--        </th>-->
+<!--      </tr>-->
+<!--      <tr class="text-white sb-bg-dark">-->
+<!--        <th class="sn">S.N</th>-->
+<!--        <th>Party</th>-->
+<!--        <th>Within 3 Months</th>-->
+<!--        <th>6 Month</th>-->
+<!--        <th>One year</th>-->
+<!--        <th>1+ year</th>-->
+<!--      </tr>-->
+<!--      <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">-->
+<!--        <td>{{i + 1}}</td>-->
+<!--        <td class="text-left pl-1">{{parties?.party}}</td>-->
+<!--        <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>-->
+<!--        <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>-->
+<!--        <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>-->
+<!--        <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>-->
+
+<!--      </tr>-->
+<!--      <tr class="text-right">-->
+<!--        <td></td>-->
+<!--        <td class="text-left pl-1">Total</td>-->
+<!--        <td class="pr-1">-->
+<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b>-->
+<!--        </td>-->
+<!--        <td class="pr-1">-->
+<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b>-->
+<!--        </td>-->
+<!--        <td class="pr-1">-->
+<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b>-->
+<!--        </td>-->
+<!--        <td class="pr-1">-->
+<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td></td>-->
+<!--        <td class="text-left pl-1">Grand Total</td>-->
+<!--        <td colspan="4" class="text-right pr-1">-->
+<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b>-->
+<!--        </td>-->
+<!--      </tr>-->
+
+<!--      <tr class="text-white sb-bg-dark">-->
+<!--        <td colspan="6">Findings & Comments-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td colspan="6" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.findingsAndCommentsForCurrentAssetsInspection}}</td>-->
+<!--      </tr>-->
+<!--    </table>-->
+
+
+
   </div>
 </div>

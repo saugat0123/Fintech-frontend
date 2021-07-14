@@ -609,7 +609,7 @@ export class ProposalComponent implements OnInit {
   addGroupExposureData() {
     this.checkGroupExposureNull();
     if (this.isAllExposureFieldNull) {
-      this.toastService.show(new Alert(AlertType.ERROR, 'Please Fill all Exposure field'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Please fill at least one field'));
     } else {
       (this.proposalForm.get('groupExposure') as FormArray).push (
           this.formBuilder.group({
