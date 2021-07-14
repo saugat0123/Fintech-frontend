@@ -39,6 +39,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
   currentRoleOrder: number;
   currentRoleType: string;
   arrow = ' >> ';
+  isFileUnderCurrentToUser: any;
 
   constructor(
       private route: ActivatedRoute,
@@ -64,6 +65,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
           f.isCurrentRole = true;
           this.currentRole = f.role.roleName;
           this.currentRoleOrder = f.role.roleOrder;
+          this.isFileUnderCurrentToUser = this.loanDataHolder.currentStage.toUser;
         }
           this.popUpTitle = 'Transfer';
       });
@@ -112,6 +114,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
       docAction: DocAction.value(DocAction.TRANSFER),
       documentStatus: DocStatus.PENDING,
       toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
+      isFileUnderCurrentToUser: this.isFileUnderCurrentToUser,
     };
     if (ObjectUtil.isEmpty(this.combinedLoanId)) {
       this.dialogRef = this.nbDialogService.open(RoleHierarchyModelComponent, {
