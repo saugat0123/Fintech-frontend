@@ -1,1 +1,164 @@
-<p>consent-for-loan-interest-payment works!</p>
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.CONSENT_FOR_LOAN}}">
+  <!--div class="row">-->
+  <form (ngSubmit)="submit()" [formGroup]="form">
+    <p class="text-right">मिति :
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="date">
+    </p>
+    <p>
+      श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड <br>
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="branch">
+      ,
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="branchAddress">
+      ।
+    </p>
+    <p class="text-center">
+      <b>
+        विषय: कर्जाकोे साँवा ब्याज तिर्न मन्जुरी रहेको बारे ।
+      </b>
+    </p>
+
+    <p>
+      महोदय,
+    </p>
+    <p>
+      त्यस फाइनान्स लिमिटेडबाट
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="loanType">
+      कर्जा शिर्षक अन्तर्गत मेरो एकाघर
+      परिवारको
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="pariwar">
+      श्री
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="customerName">
+      ले लिन
+      लागेको ऋण रकम रु.
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="loanAmount"
+             (change)="convertAmountInWords('loanAmount', 'loanAmountInWords')">
+      /— (अक्षरुपी
+      <input type="text"
+             class="form-field form-control-lg nepaliFont font-size-normal"
+             formControlName="loanAmountInWords">
+      मात्र) को मासिक/त्रैमासिक रुपमा
+      बुझाउनु पर्ने किस्ता (साँवा ब्याज)/ब्याज म
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="customerName1"
+             [value]="form.get('customerName').value">
+      ले
+      तिर्ने बुझाउने छु । उक्त कर्जाको सम्पूर्ण साँवा ब्याज कर्जाको लिखत तमसुक एवं शर्त सम्झौतामा
+      तोकिएको समयभित्र चुक्ता भुक्तान गर्नेछु । तोकिएको समयभित्र नतीरे नबुझाएमा वा शर्त उलंघन गरेमा
+      त्यस फाइनान्सले बैंक तथा वित्तिय संस्था सम्बन्धी ऐन, २०७३ तथा अन्य प्रचलित ऐन कानून बमोजिम
+      कर्जाको सुरक्षण वापत लेखिदिएको सम्पत्ति धितो लिलाम गरी गराई असूल उपर गरी लिएमा मेरो पूर्ण
+      मन्जुरी छ भनी मनोमान खुसीराजीसँग यो मन्जुरीनामाको कागज लेखी सहिछाप गरि तपाईं आइ.सि.एफ.सि.
+      फाइनान्स लिमिटेडलाई दिएँ ।
+    </p>
+    <p class="text-right">
+      मन्जुरीनामा दिनेको सहिछाप
+      नाम:
+      <input type="text"
+             class="form-field form-control-sm nepaliFont"
+             formControlName="customerName2"
+             [value]="form.get('customerName').value">
+      <br>
+      ना.प्र.प.नं
+      <input type="text"
+             readonly
+             class="form-field form-control-sm nepaliFont font-size-normal"
+             formControlName="citizenshipNum">
+      मिति
+      <input type="text"
+             readonly
+             class="form-field form-control-sm nepaliFont"
+             formControlName="citizenshipIssueDate">
+      <br>
+      पति/पिता
+      <input type="text"
+             readonly
+             class="form-field form-control-sm nepaliFont"
+             formControlName="spouseName">
+      <br>
+      ससुरा/बाजे
+      <input type="text"
+             readonly
+             class="form-field form-control-sm nepaliFont"
+             formControlName="grandParentName">
+      <br>
+    </p>
+    <p class="clearfix">
+      <b class="float-left">साक्षीहरु :</b>
+      <span (click)="addEmptyGuarantor()" nbButton size="small" status="info" type="button"
+            class="float-right d-print-none btn btn-sm btn-primary">+साक्षी थप्नुहोस्</span>
+    </p>
+    <div class="guarantorList">
+
+      <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
+           formArrayName="guarantors" class="mt-4">
+        <div [formGroupName]="i">
+          {{i + 1 | nepaliWord: 'unicode'}}) नागरिकता नं
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="citizenNumber">
+          , मिति
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="issuedYear">
+          , जारी जिल्ला
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="issuedPlace">
+          भै
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="guarantorLegalDocumentAddress">
+          बस्ने वर्ष
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="age">
+          को
+          <input class="form-control-sm-sm form-field nepaliFont"
+                 type="text"
+                 formControlName="name">
+          <i (click)="removeGuarantor(i)" size="small" class="float-right fa fa-trash"
+             *ngIf="form.get('guarantors')['length']>1"></i>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+    <p>
+      यो मन्जुरीनामा म स्वयंले लेखी आइ.सि.एफ.सि. फाइनान्स लिमिटेडलाई दिएँ ।
+    </p>
+    <br><br>
+    मिति :
+    <input type="text"
+           class="form-control-sm form-field nepaliFont"
+           formControlName="date1">
+    <div>
+      <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+        Save
+      </button>
+    </div>
+  </form>
+  <button class="btn btn-primary d-print-none"
+          [useExistingCss]="true"
+          [disabled]="!initialInfoPrint"
+          printSectionId="print-section-{{ offerLetterConst.CONSENT_FOR_LOAN }}"
+          ngxPrint>print
+  </button>
+</div>
+
+<app-consent-for-loan-interest-payment-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  hidden></app-consent-for-loan-interest-payment-print>
+
