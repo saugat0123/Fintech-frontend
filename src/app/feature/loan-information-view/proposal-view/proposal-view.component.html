@@ -378,7 +378,8 @@
       </ng-container>
     </table>
 
-    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+    <table *ngIf="client === clientName?.SHINE_RESUNGA"
+           class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
       <thead>
       <tr class="sb-bg-dark text-white">
         <th class="sn">S.N</th>
@@ -406,62 +407,5 @@
       </tr>
       </tbody>
     </table>
-<!--    <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"-->
-<!--           class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">-->
-<!--      <tr>-->
-<!--        <th colspan="6">Current Assets Inspection - Receivables-->
-<!--        </th>-->
-<!--      </tr>-->
-<!--      <tr class="text-white sb-bg-dark">-->
-<!--        <th class="sn">S.N</th>-->
-<!--        <th>Party</th>-->
-<!--        <th>Within 3 Months</th>-->
-<!--        <th>6 Month</th>-->
-<!--        <th>One year</th>-->
-<!--        <th>1+ year</th>-->
-<!--      </tr>-->
-<!--      <tr *ngFor="let parties of formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.parties; let i=index">-->
-<!--        <td>{{i + 1}}</td>-->
-<!--        <td class="text-left pl-1">{{parties?.party}}</td>-->
-<!--        <td class="text-right pr-1">Rs. {{parties?.withinThreeMonths | currencyFormatter}}</td>-->
-<!--        <td class="text-right pr-1">Rs. {{parties?.sixMonth | currencyFormatter}}</td>-->
-<!--        <td class="text-right pr-1">Rs. {{parties?.oneYear | currencyFormatter}}</td>-->
-<!--        <td class="text-right pr-1">Rs. {{parties?.oneYearPlus | currencyFormatter}}</td>-->
-
-<!--      </tr>-->
-<!--      <tr class="text-right">-->
-<!--        <td></td>-->
-<!--        <td class="text-left pl-1">Total</td>-->
-<!--        <td class="pr-1">-->
-<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.threeMonthTotal | currencyFormatter}}</b>-->
-<!--        </td>-->
-<!--        <td class="pr-1">-->
-<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.sixMonthTotal | currencyFormatter}}</b>-->
-<!--        </td>-->
-<!--        <td class="pr-1">-->
-<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.oneYearTotal | currencyFormatter}}</b>-->
-<!--        </td>-->
-<!--        <td class="pr-1">-->
-<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.moreThanOneYearTotal | currencyFormatter}}</b>-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td></td>-->
-<!--        <td class="text-left pl-1">Grand Total</td>-->
-<!--        <td colspan="4" class="text-right pr-1">-->
-<!--          <b>Rs. {{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.grandTotal | currencyFormatter}}</b>-->
-<!--        </td>-->
-<!--      </tr>-->
-
-<!--      <tr class="text-white sb-bg-dark">-->
-<!--        <td colspan="6">Findings & Comments-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td colspan="6" class="text-left pl-1">{{formData?.currentAssetsInspectionDetails?.receivablesAndPayables?.findingsAndCommentsForCurrentAssetsInspection}}</td>-->
-<!--      </tr>-->
-<!--    </table>-->
-
-
-
   </div>
 </div>
