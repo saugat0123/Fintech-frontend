@@ -87,7 +87,6 @@
       <br>
       पति/पिता
       <input type="text"
-             readonly
              class="form-field form-control-sm nepaliFont"
              formControlName="spouseName">
       <br>
@@ -109,27 +108,27 @@
            formArrayName="guarantors" class="mt-4">
         <div [formGroupName]="i">
           {{i + 1 | nepaliWord: 'unicode'}}) नागरिकता नं
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="citizenNumber">
           , मिति
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="issuedYear">
           , जारी जिल्ला
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="issuedPlace">
           भै
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="guarantorLegalDocumentAddress">
           बस्ने वर्ष
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="age">
           को
-          <input class="form-control-sm-sm form-field nepaliFont"
+          <input class="form-control-sm form-field nepaliFont"
                  type="text"
                  formControlName="name">
           <i (click)="removeGuarantor(i)" size="small" class="float-right fa fa-trash"

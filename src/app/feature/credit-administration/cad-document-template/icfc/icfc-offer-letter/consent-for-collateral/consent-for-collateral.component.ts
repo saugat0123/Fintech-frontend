@@ -60,12 +60,15 @@ export class ConsentForCollateralComponent implements OnInit {
       customerName: this.nepData.name ? this.nepData.name : '',
       citizenshipNum: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
       citizenshipIssueDate: this.nepData.citizenshipIssueDate ? this.nepData.citizenshipIssueDate : '',
+      citizenshipIssuePlace: this.nepData.citizenshipIssueDistrict ? this.nepData.citizenshipIssueDistrict : '',
       spouseName: this.nepData.husbandName ? this.nepData.husbandName : '',
       grandParentName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
     });
 
-    this.setGuarantors(this.nepData.guarantorDetails);
-    this.setTapsils(this.nepData.tapsils);
+    if (!ObjectUtil.isEmpty(this.nepData.guarantorDetails)) {
+      this.setGuarantors(this.nepData.guarantorDetails);
+    }
+
 
   }
 
@@ -73,10 +76,12 @@ export class ConsentForCollateralComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       if (this.cadData.cadFileList.length > 0) {
         this.cadData.cadFileList.forEach(singleCadFile => {
-          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === 1515) {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
             const initialInfo = JSON.parse(singleCadFile.initialInformation);
             this.initialInfoPrint = initialInfo;
             console.log(initialInfo);
+            this.setTapsils(initialInfo.tapsils);
+            this.setGuarantors(initialInfo.guarantors);
             this.form.patchValue(this.initialInfoPrint);
           } else {
             this.fillForm();
@@ -210,12 +215,15 @@ export class ConsentForCollateralComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        citizenNumber: [value.citizenNumber],
-        issuedYear: [value.issuedYear],
-        issuedPlace: [value.issuedPlace],
-        guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
-        age: [value.age],
-        name: [value.name],
+        jaggadhaniName: [value.jaggadhaniName],
+        jaggadhaniParentName: [value.jaggadhaniParentName],
+        jaggadhaniGrandParentName: [value.jaggadhaniGrandParentName],
+        jaggaDistrict: [value.jaggaDistrict],
+        jaggaMunicipality: [value.jaggaMunicipality],
+        jaggaWardNum: [value.jaggaWardNum],
+        jaggaSeatNum: [value.jaggaSeatNum],
+        jaggaKittaNum: [value.jaggaKittaNum],
+        jaggaArea: [value.jaggaArea],
       }));
     });
   }
