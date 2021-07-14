@@ -647,7 +647,7 @@
             <div *ngIf="productUtils.CBS_ENABLE">
                 <div class="row mt-5">
                     <div class="col-md-12">
-                        <p><strong> {{loanCategory === 'INDIVIDUAL'  ? '4. ' : '3. '}} Group Details</strong>
+                        <p><strong> {{loanCategory === 'INDIVIDUAL'  ? '4. ' : '3. '}} Group Exposure</strong>
                         </p>
                     </div>
                     <div class="col-md-12">
@@ -698,6 +698,7 @@
 
             <!--Reporting Info-->
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+                <span><strong>9. Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="true"
                         *ngIf="loanDataHolder?.reportingInfoLog"
@@ -755,22 +756,41 @@
 <!--            </div>-->
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>12. Group Exposure and SOL</strong></p>
-                    <table>
+                    <p><strong>12. Single limit Obligor Details</strong></p>
+                    <table class="table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
-                        <tr>
-                            <th></th>
+                        <tr class="sb-bg-dark text-white">
+                            <th class="sn">S.N</th>
+                            <th>Client Name</th>
+                            <th>Facility Type</th>
+                            <th>Loan Limit(NPR)</th>
+                            <th>O/S limit (NPR)</th>
+                            <th>Proposed Limit(NPR)</th>
+                            <th>FMV/DV</th>
+                            <th>Exposure(%)</th>
+                            <th>Remarks</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <tr *ngFor="let groupExposure of proposalAllData?.groupExposure; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td class="text-left pl-1">{{groupExposure?.clientName}}</td>
+                            <td class="text-left pl-1">{{groupExposure?.facilityType}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.loanLimit}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.osLimit}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.proposedLimit}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.fmvDv}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.exposure}}</td>
+                            <td class="text-left pl-1">{{groupExposure?.remarks}}</td>
+                        </tr>
+                        <tr class="text-white sb-bg-dark">
+                            <th colspan="9">Single Obligor Limit</th>
+                        </tr>
                         <tr>
-                            <td></td>
+                            <td colspan="9" class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
                         </tr>
                         </tbody>
                     </table>
-                    <tr>
-                        <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
-                    </tr>
                 </div>
             </div>
             <!-- End Group Exposure -->

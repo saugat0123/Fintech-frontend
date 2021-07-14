@@ -24,31 +24,6 @@
     </nb-card-header>
     <nb-card-body>
         <ng-container *ngIf="loanSummaryActive && loanDataHolder?.id">
-       <ng-container [ngSwitch]="loanConfig.loanTag">
-<!--           <app-micro-loan-summary-->
-<!--                   *ngSwitchCase="'MICRO_LOAN'"-->
-<!--                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
-<!--                   [loanConfig]="loanConfig"-->
-<!--                   [loanData]="loanDataHolder"-->
-<!--                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>-->
-<!--           <app-loan-summary *ngSwitchDefault-->
-<!--                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
-<!--                             [loanConfig]="loanConfig"-->
-<!--                             [loanData]="loanDataHolder"-->
-<!--                             [nepaliDate]="nepaliDate">-->
-<!--           </app-loan-summary>-->
-
-
-
-<!--           <app-gamma-loan-summary *ngIf="type"-->
-<!--                                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
-<!--                                   [loanConfig]="loanConfig"-->
-<!--                                   [loanData]="loanDataHolder"-->
-<!--                                   [nepaliDate]="nepaliDate">-->
-<!--           </app-gamma-loan-summary>-->
-
-       </ng-container>
-
             <!-- Micro Summary-->
             <app-micro-loan-summary
                     *ngIf="loanConfig.loanTag === 'MICRO_LOAN'"
