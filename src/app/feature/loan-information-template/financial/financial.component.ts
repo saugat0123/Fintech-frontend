@@ -371,10 +371,18 @@ export class FinancialComponent implements OnInit {
         this.refreshComponent();
     }
 
-    openFiscalYearModal() {
+    openFiscalYearModal(editIndexForAuditor?) {
         const fiscalYearModalRef = this.modalService.open(FiscalYearModalComponent, {backdrop: 'static', size: 'lg'});
+        if (!ObjectUtil.isEmpty(editIndexForAuditor)) {
+            fiscalYearModalRef.componentInstance.editAuditorInstance = this.auditorList[editIndexForAuditor];
+            fiscalYearModalRef.componentInstance.editAuditor = true;
+        }
         fiscalYearModalRef.result.then(closeParams => {
-            this.addFiscalYear(closeParams.fiscalYearValue, closeParams.auditorDetails);
+            if (!ObjectUtil.isEmpty(editIndexForAuditor)) {
+                this.auditorList[editIndexForAuditor] = closeParams.auditorDetails;
+            } else {
+                this.addFiscalYear(closeParams.fiscalYearValue, closeParams.auditorDetails);
+            }
         }, dismiss => {
             console.log(dismiss);
         });

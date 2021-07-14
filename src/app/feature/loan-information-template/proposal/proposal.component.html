@@ -817,10 +817,74 @@
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
-                                                 [checked]="solChecked"><b>Single
-                                        Obligor Limit</b>
+                                                 [checked]="solChecked"><b>Single Obligor Limit</b>
                                     </nb-checkbox>
                                     <div *ngIf="solChecked">
+                                        <div *ngIf="client === clientName?.SHINE_RESUNGA">
+                                            <table
+                                                    class="table table-bordered table-responsive table-hover" style="overflow-x: hidden">
+                                                <thead class="font-weight-bold">
+                                                <tr>
+                                                    <th>S.N</th>
+                                                    <th>Client's Name</th>
+                                                    <th>Facility Type</th>
+                                                    <th>Loan Limit(NPR)</th>
+                                                    <th>O/S Limit (NPR)</th>
+                                                    <th>Proposed Limit(NPR)</th>
+                                                    <th>FMV/DV</th>
+                                                    <th>Exposure(%)</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody *ngFor="let data of proposalForm.get('groupExposure')['controls']; let index = index" formArrayName="groupExposure">
+                                                <tr [formGroupName]="index">
+                                                    <td>{{index + 1}}</td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="clientName"
+                                                               placeholder="Client's Name"
+                                                               type="text"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="facilityType"
+                                                               placeholder="Facility Type"
+                                                               type="text"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="loanLimit"
+                                                               placeholder="Loan Limit(NPR)"
+                                                               type="number"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="osLimit"
+                                                               placeholder="O/S Limit(NPR)"
+                                                               type="number"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="proposedLimit"
+                                                               placeholder="Proposed Limit(NPR)"
+                                                               type="number"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="fmvDv"
+                                                               placeholder="FMV/DV"
+                                                               type="number"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="exposure"
+                                                               placeholder="Exposure(%)"
+                                                               type="text"/></td>
+                                                    <td><input class="form-control text-center"
+                                                               formControlName="remarks"
+                                                               placeholder="Remarks"
+                                                               type="text"/></td>
+                                                    <div>
+                                                        <button (click)="removeGroupExposureData(index)"
+                                                                *ngIf="index > 0"
+                                                                class="btn btn-success" nbButton size="small"
+                                                                status="primary">Delete </button>
+                                                    </div>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="text-right">
+                                                <input (click)="addGroupExposureData()" class="btn btn-sm btn-flat btn-primary"
+                                                       type="button" value="Add More"/>
+                                            </div>
+                                        </div>
                                         <ckeditor formControlName="solConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>
