@@ -1,7 +1,7 @@
 export class ApiConfig {
   public static TOKEN = 'http://localhost:8086/oauth/token';
   public static URL = 'http://localhost:8086';
-
+  //
   // public static TOKEN = 'http://3.17.141.198:8080/LAS/oauth/token';
   // public static URL = 'http://3.17.141.198:8080/LAS';
 
