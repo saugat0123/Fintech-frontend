@@ -1,26 +1,26 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
+import {NbDialogRef} from '@nebular/theme';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ToastService} from '../../../../../../@core/utils';
-import {NbDialogRef} from '@nebular/theme';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-promissory-note',
-  templateUrl: './promissory-note.component.html',
-  styleUrls: ['./promissory-note.component.scss']
+  selector: 'app-promissory-note-icfc',
+  templateUrl: './promissory-note-icfc.component.html',
+  styleUrls: ['./promissory-note-icfc.component.scss']
 })
-export class PromissoryNoteComponent implements OnInit {
+export class PromissoryNoteIcfcComponent implements OnInit {
 
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
@@ -33,7 +33,7 @@ export class PromissoryNoteComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterConst = LegalDocumentCheckListEnum;
 
-  constructor(private dialogRef: NbDialogRef<PromissoryNoteComponent>,
+  constructor(private dialogRef: NbDialogRef<PromissoryNoteIcfcComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,

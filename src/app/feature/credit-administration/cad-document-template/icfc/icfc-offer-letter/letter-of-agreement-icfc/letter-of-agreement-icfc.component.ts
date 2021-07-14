@@ -1,29 +1,26 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
+import {Router} from '@angular/router';
 import {ToastService} from '../../../../../../@core/utils';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterConfigurationComponent} from '../../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
-import {Router} from '@angular/router';
-import {OfferDocument} from '../../../../model/OfferDocument';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
-import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-letter-of-agreement',
-  templateUrl: './letter-of-agreement.component.html',
-  styleUrls: ['./letter-of-agreement.component.scss']
+  selector: 'app-letter-of-agreement-icfc',
+  templateUrl: './letter-of-agreement-icfc.component.html',
+  styleUrls: ['./letter-of-agreement-icfc.component.scss']
 })
-export class LetterOfAgreementComponent implements OnInit {
-  // @Input() offerLetterType;
+export class LetterOfAgreementIcfcComponent implements OnInit {
+// @Input() offerLetterType;
   // @Input() cadOfferLetterApprovedDoc;
 
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
@@ -44,7 +41,7 @@ export class LetterOfAgreementComponent implements OnInit {
               private toastService: ToastService,
               private administrationService: CreditAdministrationService,
               private routerUtilsService: RouterUtilsService,
-              private dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) { }
+              private dialogRef: NbDialogRef<LetterOfAgreementIcfcComponent>) { }
 
   ngOnInit() {
     this.buildForm();

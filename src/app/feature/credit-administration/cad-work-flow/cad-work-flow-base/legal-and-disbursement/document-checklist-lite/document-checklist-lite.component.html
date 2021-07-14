@@ -18,52 +18,49 @@
             Document Name
           </th>
 
-          <th>
-            Upload
-          </th>
-          <th>Preview</th>
-          <th *ngIf="client === clientList.MEGA || client === clientList.ICFC || client === clientList.PROGRESSIVE">
-            Generate
-          </th>
-          <th>Amount</th>
-          <th>Remarks</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container>
-          <tr *ngFor="let data of document;let i =index">
-            <td>{{i + 1}}</td>
-            <td class="text-left px-2">{{data?.name}}</td>
-            <td>
-              <button
-                  (click)="openDocUploadModal(uploadModal , cadData?.loanHolder?.id,0,data.id,data.name)"
-                  [nbTooltip]="'upload '+ data?.displayName"
-                  nbButton
-                  outline
-                  size="tiny">
-                <em [nbTooltip]="'upload '+ data?.displayName" class="fa fa-upload"></em>
-              </button>
+                    <th>
+                        Upload
+                    </th>
+                    <th>Preview</th>
+                    <th *ngIf="client === clientList.MEGA || client === clientList.PROGRESSIVE || client === clientList.ICFC">Generate</th>
+                    <th>Amount</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container>
+                    <tr *ngFor="let data of document;let i =index">
+                        <td>{{i + 1}}</td>
+                        <td class="text-left px-2">{{data?.name}}</td>
+                        <td>
+                            <button
+                                    (click)="openDocUploadModal(uploadModal , cadData?.loanHolder?.id,0,data.id,data.name)"
+                                    [nbTooltip]="'upload '+ data?.displayName"
+                                    nbButton
+                                    outline
+                                    size="tiny">
+                                <em [nbTooltip]="'upload '+ data?.displayName" class="fa fa-upload"></em>
+                            </button>
 
-            </td>
-            <td><i (click)="previewDoc(data.url,data.name)" *ngIf="data.url"
-                   class="fas fa-eye cursor"></i>
-              <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
-                 class="fas fa-times-circle text-danger"></i>
-            </td>
-            <td *ngIf="client === clientList.MEGA || client === clientList.ICFC  || client === clientList.PROGRESSIVE">
-              <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate"
-                      class="align-items-center" nbButton
-                      size="tiny" status="primary">
-                Generate
-              </button>
-            </td>
-            <td>{{data.amount}}</td>
-            <td>{{data.remarks}}</td>
-            <td class="cursor"><i
-                (click)="openSaveEditForm(saveEditOtherDocInfo,0,data.id,data.amount,data.remarks)"
-                class="fa fa-edit"></i>
-            </td>
+                        </td>
+                        <td><i (click)="previewDoc(data.url,data.name)" *ngIf="data.url" class="fas fa-eye cursor"></i>
+                            <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
+                               class="fas fa-times-circle text-danger"></i>
+                        </td>
+                        <td *ngIf="client === clientList.MEGA || client === clientList.PROGRESSIVE || client == clientList.ICFC">
+                            <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate"
+                                    class="align-items-center" nbButton
+                                    size="tiny" status="primary">
+                                Generate
+                            </button>
+                        </td>
+                        <td>{{data.amount}}</td>
+                        <td>{{data.remarks}}</td>
+                        <td class="cursor"><i
+                                (click)="openSaveEditForm(saveEditOtherDocInfo,0,data.id,data.amount,data.remarks)"
+                                class="fa fa-edit"></i>
+                        </td>
 
           </tr>
         </ng-container>

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
+import {LegalDocumentCheckListEnum} from '../../../../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-letter-of-set-off-print',
@@ -8,7 +8,7 @@ import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
 })
 export class LetterOfSetOffPrintComponent implements OnInit {
   @Input() letter;
-  offerLetterConst = IcfcOfferLetterConst;
+  offerLetterConst = LegalDocumentCheckListEnum;
   constructor() { }
 
   ngOnInit() {

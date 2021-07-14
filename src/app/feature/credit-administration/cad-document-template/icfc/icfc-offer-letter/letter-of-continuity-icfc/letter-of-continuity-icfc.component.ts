@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
@@ -8,18 +9,17 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-letter-of-continuity',
-  templateUrl: './letter-of-continuity.component.html',
-  styleUrls: ['./letter-of-continuity.component.scss']
+  selector: 'app-letter-of-continuity-icfc',
+  templateUrl: './letter-of-continuity-icfc.component.html',
+  styleUrls: ['./letter-of-continuity-icfc.component.scss']
 })
-export class LetterOfContinuityComponent implements OnInit {
-  // @Input() offerLetterType;
+export class LetterOfContinuityIcfcComponent implements OnInit {
+// @Input() offerLetterType;
   // @Input() cadOfferLetterApprovedDoc;
 
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
@@ -42,7 +42,7 @@ export class LetterOfContinuityComponent implements OnInit {
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
               private customerOfferLetterService: CustomerOfferLetterService,
-              private dialogRef: NbDialogRef<LetterOfContinuityComponent>) { }
+              private dialogRef: NbDialogRef<LetterOfContinuityIcfcComponent>) { }
 
   ngOnInit() {
     this.buildForm();

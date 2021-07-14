@@ -2,13 +2,15 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LegalDocumentCheckListEnum} from '../../../../../../admin/modal/legalDocumentCheckListEnum';
 
 @Component({
-  selector: 'app-letter-of-continuity-print',
-  templateUrl: './letter-of-continuity-print.component.html',
-  styleUrls: ['./letter-of-continuity-print.component.scss']
+  selector: 'app-letter-of-agreement-icfc-print',
+  templateUrl: './letter-of-agreement-icfc-print.component.html',
+  styleUrls: ['./letter-of-agreement-icfc-print.component.scss']
 })
-export class LetterOfContinuityPrintComponent implements OnInit {
+export class LetterOfAgreementIcfcPrintComponent implements OnInit {
   @Input() letter;
+  @Input() nepaliData;
   offerLetterConst = LegalDocumentCheckListEnum;
+
   constructor() { }
 
   ngOnInit() {

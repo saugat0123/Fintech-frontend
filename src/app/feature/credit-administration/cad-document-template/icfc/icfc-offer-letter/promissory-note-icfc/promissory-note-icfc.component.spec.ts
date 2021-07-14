@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LetterOfContinuityComponent } from './letter-of-continuity.component';
+import { PromissoryNoteIcfcComponent } from './promissory-note-icfc.component';
 
-describe('LetterOfContinuityComponent', () => {
-  let component: LetterOfContinuityComponent;
-  let fixture: ComponentFixture<LetterOfContinuityComponent>;
+describe('PromissoryNoteIcfcComponent', () => {
+  let component: PromissoryNoteIcfcComponent;
+  let fixture: ComponentFixture<PromissoryNoteIcfcComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LetterOfContinuityComponent ]
+      declarations: [ PromissoryNoteIcfcComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LetterOfContinuityComponent);
+    fixture = TestBed.createComponent(PromissoryNoteIcfcComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
