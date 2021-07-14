@@ -25,7 +25,7 @@
                 <div class="col-md-12 form-group">
                     <label class="toUser" for="toUser">To User</label>
                     <select class="form-control form-control-sm" formControlName="toUser" id="toUser"
-                            name="toUser" (change)="getSelectedUser(form.get('toUser').value)">
+                            name="toUser">
                         <option *ngFor="let user of userList"
                                 [ngValue]="user">
                             {{user.username}}
@@ -62,8 +62,7 @@
                                 name="toRole">
                             <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                    [ngValue]="forwardBackward.role"
-                                    [selected]="forwardBackward.role.id === customerLoanHolder?.solUser?.role.id">
+                                    [ngValue]="forwardBackward.role">
                                 {{forwardBackward.role?.roleName}}
                             </option>
                         </select>
