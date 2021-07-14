@@ -76,6 +76,8 @@ export class ProposalComponent implements OnInit {
     {value: 'Agriculture Business Loan (Term)'},
     {value: 'Others'},
   ];
+  groupExposureData;
+  isAllExposureFieldNull = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -94,7 +96,6 @@ export class ProposalComponent implements OnInit {
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
-      // this.setTableData();
       this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.interestLimit = this.formDataForEdit['interestRate'];
       /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
@@ -102,8 +103,14 @@ export class ProposalComponent implements OnInit {
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
       this.existInterestLimit = this.formDataForEdit['existInterestRate'];
+      if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
+        this.groupExposureData = JSON.parse(this.formValue.groupExposure);
+        this.proposalForm.patchValue(this.groupExposureData);
+        this.setGroupExposureData(this.groupExposureData);
+      }
     } else {
       this.setActiveBaseRate();
+      this.addGroupExposureData();
     }
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
@@ -164,7 +171,6 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
-    this.addTableData();
   }
 
   buildForm() {
@@ -234,6 +240,7 @@ export class ProposalComponent implements OnInit {
       existInterestRate: [undefined],
       existCommissionPercentage: [undefined],
       settlementAmount: [undefined],
+      // groupExposure: this.formBuilder.array([]),
       groupExposure: this.formBuilder.array([]),
     });
   }
@@ -316,7 +323,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existCashMargin = this.proposalForm.get('existCashMargin').value;
     this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
     this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
-    // this.proposalData.groupExposure = this.proposalForm.get('groupExposure').value;
+    this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
   }
 
   get formControls() {
@@ -599,43 +606,65 @@ export class ProposalComponent implements OnInit {
     }
   }
 
-  addTableData() {
-    (this.proposalForm.get('groupExposure') as FormArray).push(
-        this.formBuilder.group({
-          clientName: undefined,
-          facilityType: undefined,
-          loanLimit: undefined,
-          osLimit: undefined,
-          purposedLimit: undefined,
-          fmvDv: undefined,
-          exposure: undefined,
-          remarks: undefined,
-        })
-    );
-  }
-
-  setTableData(data) {
-    const formArray = this.proposalForm.get('loanData') as FormArray;
-    if (ObjectUtil.isEmpty(data)) {
-      this.addTableData();
-      return;
+  addGroupExposureData() {
+    this.checkGroupExposureNull();
+    if (this.isAllExposureFieldNull) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Please Fill all Exposure field'));
+    } else {
+      (this.proposalForm.get('groupExposure') as FormArray).push (
+          this.formBuilder.group({
+            clientName: [undefined],
+            facilityType: [undefined],
+            loanLimit: [undefined],
+            osLimit: [undefined],
+            proposedLimit: [undefined],
+            fmvDv: [undefined],
+            exposure: [undefined],
+            remarks: [undefined],
+          })
+      );
     }
-    data.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        clientName: [value.clientName],
-        facilityType: [value.facilityType],
-        loanLimit: [value.loanLimit],
-        osLimit: [value.osLimit],
-        purposedLimit: [value.purposedLimit],
-        fmvDv: [value.fmvDv],
-        exposure: [value.exposure],
-        remarks: [value.remarks],
-      }));
-    });
   }
 
-  removeLoanDetail(index) {
-    (this.proposalForm.get('groupExposure') as FormArray).removeAt(index);
+  setGroupExposureData(data) {
+    const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
+    if (!ObjectUtil.isEmpty(data)) {
+      data.forEach(singleData => {
+        groupExposuresArray.push(this.formBuilder.group({
+          clientName: [singleData.clientName],
+          facilityType: [singleData.facilityType],
+          loanLimit: [singleData.loanLimit],
+          osLimit: [singleData.osLimit],
+          proposedLimit: [singleData.proposedLimit],
+          fmvDv: [singleData.fmvDv],
+          exposure: [singleData.exposure],
+          remarks: [singleData.remarks],
+        }));
+      });
+    }
+  }
+
+  removeGroupExposureData(index: number) {
+    (<FormArray>this.proposalForm.get('groupExposure')).removeAt(index);
+  }
+
+  checkGroupExposureNull() {
+    const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
+    groupExposuresArray.controls.forEach((data) => {
+      const clientName = data.get('clientName').value;
+      const facilityType = data.get('facilityType').value;
+      const loanLimit = data.get('loanLimit').value;
+      const osLimit = data.get('osLimit').value;
+      const proposedLimit = data.get('proposedLimit').value;
+      const fmvDv = data.get('fmvDv').value;
+      const exposure = data.get('exposure').value;
+      if (ObjectUtil.isEmpty(clientName) && ObjectUtil.isEmpty(facilityType) && ObjectUtil.isEmpty(loanLimit) && ObjectUtil.isEmpty(osLimit)
+          && ObjectUtil.isEmpty(proposedLimit) && ObjectUtil.isEmpty(fmvDv) && ObjectUtil.isEmpty(exposure)) {
+        this.isAllExposureFieldNull = true;
+      } else {
+        this.isAllExposureFieldNull = false;
+      }
+    });
   }
 
 }
