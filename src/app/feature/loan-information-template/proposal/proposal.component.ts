@@ -316,6 +316,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existCashMargin = this.proposalForm.get('existCashMargin').value;
     this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
     this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
+    // this.proposalData.groupExposure = this.proposalForm.get('groupExposure').value;
   }
 
   get formControls() {
@@ -601,9 +602,14 @@ export class ProposalComponent implements OnInit {
   addTableData() {
     (this.proposalForm.get('groupExposure') as FormArray).push(
         this.formBuilder.group({
-          description: undefined,
-          sumInsured: undefined,
-          riskBearer: undefined,
+          clientName: undefined,
+          facilityType: undefined,
+          loanLimit: undefined,
+          osLimit: undefined,
+          purposedLimit: undefined,
+          fmvDv: undefined,
+          exposure: undefined,
+          remarks: undefined,
         })
     );
   }
@@ -616,9 +622,14 @@ export class ProposalComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        description: [value.description],
-        sumInsured: [value.sumInsured],
-        riskBearer: [value.riskBearer],
+        clientName: [value.clientName],
+        facilityType: [value.facilityType],
+        loanLimit: [value.loanLimit],
+        osLimit: [value.osLimit],
+        purposedLimit: [value.purposedLimit],
+        fmvDv: [value.fmvDv],
+        exposure: [value.exposure],
+        remarks: [value.remarks],
       }));
     });
   }

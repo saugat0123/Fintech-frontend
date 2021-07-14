@@ -823,44 +823,64 @@
                                         <table class="table table-bordered table-responsive table-hover" style="overflow-x: hidden">
                                             <thead class="font-weight-bold">
                                             <tr>
-                                                <th >क्र.सं (S.N)</th>
-                                                <th >विवरण (Details)</th>
-                                                <th >विमा रकम (Amount)</th>
-                                                <th >जोखिम वहन (Risks Coverage)</th>
+                                                <th>S.N</th>
+                                                <th>Client's Name</th>
+                                                <th>Facility Type</th>
+                                                <th>Loan Limit(NPR)</th>
+                                                <th>O/S Limit (NPR)</th>
+                                                <th>Purposed Limit(NPR)</th>
+                                                <th>FMV/DV</th>
+                                                <th>Exposure(%)</th>
+                                                <th>Remarks</th>
                                             </tr>
                                             </thead>
                                             <tbody *ngFor="let data of proposalForm.get('groupExposure')['controls']; let index = index" formArrayName="groupExposure" >
                                             <tr [formGroupName]="index">
                                                 <td>{{index + 1}}</td>
-                                                <td>
-                                                    <div>
-                                                        <input class="form-fields  nepaliFont"
-                                                               formControlName="description"
-                                                               placeholder="भवन"
-                                                               type="text"/>
-                                                    </div>
-                                                </td>
-                                                <td><input class="form-fields  nepaliFont"
-                                                           formControlName="sumInsured"
-                                                           placeholder="रु ३०,००,०००"
-                                                           type="text"/>
-                                                </td>
-                                                <td><input class="form-fields  nepaliFont"
-                                                           formControlName="riskBearer"
-                                                           placeholder="रग्रहस्थ बीमालेख ।"
-                                                           type="text"/>
-                                                </td>
-                                                <td>
+                                                <td><input class="form-control text-center"
+                                                               formControlName="clientName"
+                                                               placeholder="Client's Name"
+                                                               type="text"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="facilityType"
+                                                           placeholder="Facility Type"
+                                                           type="text"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="loanLimit"
+                                                           placeholder="Loan Limit(NPR)"
+                                                           type="number"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="osLimit"
+                                                           placeholder="O/S Limit(NPR)"
+                                                           type="number"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="purposedLimit"
+                                                           placeholder="Purposed Limit(NPR)"
+                                                           type="number"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="fmvDv"
+                                                           placeholder="FMV/DV"
+                                                           type="number"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="exposure"
+                                                           placeholder="Exposure(%)"
+                                                           type="text"/></td>
+                                                <td><input class="form-control text-center"
+                                                           formControlName="remarks"
+                                                           placeholder="Remarks"
+                                                           type="text"/></td>
+                                                <div>
                                                     <button
-                                                        (click)="removeLoanDetail(index)"
-                                                        *ngIf="index > 0"
-                                                        class="mt-3" nbButton
-                                                        status="primary">Delete
+                                                            (click)="removeLoanDetail(index)"
+                                                            *ngIf="index > 0"
+                                                            class="btn btn-success" nbButton size="small"
+                                                            status="primary">Delete
                                                     </button>
-                                                </td>
+                                                </div>
                                             </tr>
                                             </tbody>
                                         </table>
+
                                         <div class="text-right">
                                             <input (click)="addTableData()" class="btn btn-sm btn-flat btn-primary"
                                                    type="button" value="Add More"/>
