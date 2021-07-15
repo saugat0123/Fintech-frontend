@@ -18,6 +18,7 @@ import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
+import {ObtainableDoc} from '../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -51,6 +52,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaGrade;
     isJointInfo = false;
     jointInfo = [];
+    obtainableDocuments = Array<ObtainableDoc>();
+    otherObtainableDocuments = Array<string>();
 
 
     constructor(private loanConfigService: LoanConfigService,
@@ -67,6 +70,25 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.customerLoanService.detail(res.customerId).subscribe(response => {
+                const details = JSON.parse(response.detail.data);
+                if(!ObjectUtil.isEmpty(details.documents)){
+                    details.documents.forEach( resData => {
+                        this.obtainableDocuments.push(resData);
+                    });
+                }
+                if(!ObjectUtil.isEmpty(details.OtherDocuments)) {
+                    details.OtherDocuments.split(',').forEach(splitData => {
+                        if (splitData !== '') {
+                            this.otherObtainableDocuments.push(splitData);
+                        }
+                        console.log(this.otherObtainableDocuments);
+                    });
+                }
+            });
+
+        });
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
