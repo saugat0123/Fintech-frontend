@@ -829,18 +829,19 @@
             <div>
                 <p><strong>Other Documents to be Completed</strong>
 
+                <div>
 
                 <ol class="row" type="1">
                     <li style="font-size: 12.60px"
                         class="col-md-4" *ngFor="let doc of obtainableDocuments;
                         let i=index">{{doc.name}}</li>
-                <li style="font-size: 12.60px"
-                    class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                    <li style="font-size: 12.60px"
+                        class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
                         let i=index">{{otherDoc}}</li>
 
                 </ol>
 
-
+            </div>
             </div>
             <div *ngIf="!productUtils.CBS_ENABLE">
                 <app-collateral-summary

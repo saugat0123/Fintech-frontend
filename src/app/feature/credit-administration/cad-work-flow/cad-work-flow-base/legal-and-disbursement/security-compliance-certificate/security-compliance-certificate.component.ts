@@ -55,6 +55,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   setSccRefNumber() {
     const exposureHistoryData = JSON.parse(this.cadFile.exposure.historyData);
+    // @ts-ignore
     this.sccRefNumber = String().concat(this.affiliatedId.toString()).concat('-cad-').concat(this.cadFile.id.toString()).
     concat('-dis-').concat( exposureHistoryData ? exposureHistoryData.length : 0);
   }
