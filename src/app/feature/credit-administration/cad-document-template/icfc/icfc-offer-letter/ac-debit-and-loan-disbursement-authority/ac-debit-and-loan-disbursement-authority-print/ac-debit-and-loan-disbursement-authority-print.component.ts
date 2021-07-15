@@ -15,16 +15,14 @@ export class AcDebitAndLoanDisbursementAuthorityPrintComponent implements OnInit
   constructor() { }
 
   ngOnInit() {
-    // this.letter.subjectSelectedValue.forEach(value => {
-    //
-    // });
-    const value = this.letter.subjectSelectedValue;
-    switch (value) {
-      case 'Loan Disbursement': this.loanDisbursementSelected = true;
-        break;
-      case 'Account Debit Authority': this.accountDebitSelected = true;
-      break;
-    }
+    this.letter.subjectSelectedValue.forEach(value => {
+      switch (value) {
+        case 'Loan Disbursement': this.loanDisbursementSelected = true;
+          break;
+        case 'Account Debit Authority': this.accountDebitSelected = true;
+          break;
+      }
+    });
   }
 
 }

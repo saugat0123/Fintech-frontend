@@ -27,7 +27,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
 
   acDebitAndLoanDisbursementAuthority: FormGroup;
   offerLetterConst = LegalDocumentCheckListEnum;
-  selectedData = 'Loan Disbursement';
+  selectedData = [];
   subjectType = ['Loan Disbursement', 'Account Debit Authority'];
   initialInfoPrint;
   loanDisbursementSelected: boolean;
@@ -52,6 +52,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   checkOfferLetter() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.loanDisbursementSelected = true;
+      this.selectedData.push('Loan Disbursement');
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
@@ -65,7 +66,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.acDebitAndLoanDisbursementAuthority.value);
+    // console.log(this.acDebitAndLoanDisbursementAuthority.value);
     this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -74,6 +75,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
           flag = false;
           this.acDebitAndLoanDisbursementAuthority.get('subjectSelectedValue').patchValue(this.selectedData);
           singleCadFile.initialInformation = JSON.stringify(this.acDebitAndLoanDisbursementAuthority.value);
+          console.log(singleCadFile.initialInformation);
         }
       });
       if (flag) {
@@ -85,6 +87,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
         this.cadData.cadFileList.push(cadFile);
+        console.log(cadFile.initialInformation);
       }
     } else {
       const cadFile = new CadFile();
@@ -95,6 +98,7 @@ export class AcDebitAndLoanDisbursementAuthorityComponent implements OnInit {
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
       this.cadData.cadFileList.push(cadFile);
+      console.log(cadFile.initialInformation);
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
