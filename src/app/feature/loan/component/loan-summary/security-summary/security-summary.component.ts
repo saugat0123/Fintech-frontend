@@ -7,6 +7,7 @@ import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SummaryType} from '../../SummaryType';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {SiteVisitDocument} from '../../../../loan-information-template/security/
 })
 export class SecuritySummaryComponent implements OnInit {
     @Input() formData: Object;
+    @Input() count;
     @Input() shareSecurity;
     landSelected = false;
     apartmentSelected = false;
@@ -51,6 +53,8 @@ export class SecuritySummaryComponent implements OnInit {
     isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
+    type = environment.summaryType;
+    summaryType = SummaryType;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }

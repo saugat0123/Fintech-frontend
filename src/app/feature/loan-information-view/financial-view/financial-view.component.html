@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <p *ngIf="!isBusinessLoan" class="float-left"><strong>Income & Expenses</strong></p>
+        <p *ngIf="!isBusinessLoan" class="float-left"><strong>{{summaryType === summaryTypeName?.GAMMA ? '13. Income & Expenses' : 'Income & Expenses'}}</strong></p>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
@@ -99,18 +99,10 @@
                 <th colspan="7">Other Detail Of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <td>
-                    Major Source Of Income
-                </td>
-                <td>
-                  Numbers Of years
-                </td>
-                <td>
-                   Alternative Source Of Income
-                </td>
-                <td>
-                    Source Amount
-                </td>
+                <td>Major Source Of Income</td>
+                <td>Numbers Of years</td>
+                <td>Alternative Source Of Income</td>
+                <td>Source Amount</td>
             </tr>
             </thead>
             <tbody>
@@ -142,14 +134,12 @@
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
                 <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
                 <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>
-
             </tr>
-
             </tbody>
 
         </table>
         <div *ngIf="isBusinessLoan">
-            <p class="float-left"><strong>Financial Details</strong></p>
+            <p class="float-left"><strong>{{summaryType === summaryTypeName?.GAMMA ? '13. Financial Details' : 'Financial Details'}}</strong></p>
             <table *ngIf="!disableCrgAlphaParams"
                 class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
@@ -157,7 +147,6 @@
                     <th colspan="2">Risk Factor</th>
                 </tr>
                 </thead>
-
                 <tr>
                     <th  class="text-white sb-bg-dark">Sales - Projection Vs Achievement</th>
                     <td class="text-left pl-1">{{financialData?.initialForm?.salesProjectionVsAchievement}}</td>
@@ -170,7 +159,6 @@
                 <tr>
                     <th  class="text-white sb-bg-dark">Tax Compliance</th>
                     <td>{{financialData?.initialForm?.taxCompliance}}</td>
-
             </table>
             <br>
 

@@ -6,6 +6,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-credit-checklist-view',
@@ -18,9 +19,11 @@ export class CreditChecklistViewComponent implements OnInit {
   @Input() fromProfile;
   @Input() calendarType: CalendarType;
   @Input() customerType: CustomerType;
-  @Input()
+  @Input() loanCategory;
   client = environment.client;
   clientName = Clients;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   formGroupCheckList: FormGroup;
   dataForEdit;

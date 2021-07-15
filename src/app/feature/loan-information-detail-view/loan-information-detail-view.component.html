@@ -156,14 +156,23 @@
 
             <hr>
             <div>
-                <p><strong>Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
+                <p><strong>{{summaryType ===summaryTypeName?.GAMMA ? '1. ' : ''}}Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
                     ? 'Authorized Company'
                     : 'Borrower'}}</strong></p>
             </div>
-            <app-detail-view-base *ngIf="loanHolder && loanHolder && !isMicro"
+            <!-- Normal Detail View-->
+            <app-detail-view-base *ngIf="loanHolder && loanHolder && !isMicro && (summaryType === summaryTypeName.GENERAL)"
                                   [calendarType]="calendarType"
                                   [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
                                   [loanId]="id"></app-detail-view-base>
+
+            <!-- Gamma Detail View-->
+            <app-gamma-detail-view *ngIf="loanHolder && loanHolder && !isMicro && (summaryType === summaryTypeName.GAMMA)"
+                                   [calendarType]="calendarType"
+                                   [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
+                                   [loanId]="id"></app-gamma-detail-view>
+
+            <!-- Micro Detail View-->
             <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
                                              [calendarType]="calendarType"
                                              [customerAllLoanList]="customerAllLoanList"
@@ -176,9 +185,7 @@
             </ng-template>
             <div *ngIf="client === clientList.ICFC">
                 <p><strong>Other Documents to be Completed</strong>
-
                 <div>
-
                     <ol class="row" type="1">
                         <li style="font-size: 12.60px"
                             class="col-md-4" *ngFor="let doc of obtainableDocuments;
@@ -186,13 +193,11 @@
                         <li style="font-size: 12.60px"
                             class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
                         let i=index">{{otherDoc}}</li>
-
                     </ol>
-
                 </div>
             </div>
             <app-proposal-terms-and-condition-summery
-                    *ngIf="loanDataHolder && customerAllLoanList"
+                    *ngIf="loanDataHolder && customerAllLoanList && summaryType === summaryTypeName?.GENERAL"
                     [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
             <div class="row mt-3">
@@ -205,9 +210,7 @@
                             <th>S.N</th>
                             <th>Date</th>
                             <th>From User</th>
-
                             <th>To User</th>
-
                             <th>Status</th>
                             <th class="cmt-width">Remarks</th>
                         </tr>
@@ -224,7 +227,6 @@
                                 <div class="pl-1">
                                     <span>({{previousList?.fromRole?.roleName}})</span>
                                 </div>
-
                             </td>
 
                             <td class="text-left">

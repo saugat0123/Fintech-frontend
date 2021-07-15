@@ -18,6 +18,7 @@ import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
+import {SummaryType} from '../loan/component/SummaryType';
 import {ObtainableDoc} from '../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
@@ -54,7 +55,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     jointInfo = [];
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
-
+    summaryType = environment.summaryType;
+    summaryTypeName = SummaryType;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
