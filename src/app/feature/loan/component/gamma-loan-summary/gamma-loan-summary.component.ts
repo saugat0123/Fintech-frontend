@@ -230,7 +230,6 @@ export class GammaLoanSummaryComponent implements OnInit {
     if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
       this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
     }
-    console.log('InputData:::', this.loanDataHolder);
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();

@@ -50,8 +50,6 @@ export class GammaDetailViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('loanDataHolder', this.loanDataHolder);
-    console.log('loanHolder', this.loanHolder);
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
@@ -65,7 +63,6 @@ export class GammaDetailViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
       this.individualJsonData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
-      console.log('individualJsonData', this.individualJsonData);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
