@@ -12,6 +12,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-company-info-view',
@@ -37,6 +38,8 @@ export class CompanyInfoViewComponent implements OnInit {
   disableCrgAlpha = environment.disableCrgAlpha;
   client = environment.client;
   clientName = Clients;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor() {
   }

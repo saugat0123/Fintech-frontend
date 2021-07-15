@@ -18,6 +18,7 @@ import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
 import {Clients} from '../../../environments/Clients';
+import {SummaryType} from '../loan/component/SummaryType';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -51,7 +52,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaGrade;
     isJointInfo = false;
     jointInfo = [];
-
+    summaryType = environment.summaryType;
+    summaryTypeName = SummaryType;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,

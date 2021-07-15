@@ -507,7 +507,7 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
             </tr>
         </table>
-        <table
+        <table *ngIf="summaryType === summaryTypeName?.GENERAL"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Group’s background</th>

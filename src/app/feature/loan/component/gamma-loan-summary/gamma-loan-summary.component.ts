@@ -253,9 +253,9 @@ export class GammaLoanSummaryComponent implements OnInit {
           });
     }
   }
-  ngOnDestroy(): void {
-    this.navigationSubscription.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.navigationSubscription.unsubscribe();
+  // }
 
   loadSummary() {
     this.getLoanDataHolder();
