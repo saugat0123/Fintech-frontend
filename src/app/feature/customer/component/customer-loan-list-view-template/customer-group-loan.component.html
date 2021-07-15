@@ -38,14 +38,11 @@
                                 class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : ''">
-                                <a nbTooltip="change loan" (click)="changeLoan(model.id,model?.loanId)"
-                                   *ngIf="!model?.combinedLoans && model?.parentId === null && model?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
+                                <a nbTooltip="change loan"  (click)="changeLoan(model.id,model?.loanId)" *ngIf="!model?.combinedLoans && model?.parentId === null && model?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
                                         class="fa fa-cog"></em></a>&nbsp;
-                                <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)"
-                                   *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
+                                <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                         class="fa fa-trash"></em></a>&nbsp;
-                                <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)"
-                                   *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
+                                <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(model?.id)" *ngIf="!model?.combinedLoans  && model?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
                                         class="fa fa-trash"></em></a>&nbsp;
                             </td>
                         </tr>
@@ -67,14 +64,11 @@
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
                                 <td>
 
-                                    <a nbTooltip="change loan" (click)="changeLoan(single.id,single?.loanId)"
-                                       *ngIf=" single?.parentId === null && single?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
+                                    <a nbTooltip="change loan" (click)="changeLoan(single.id,single?.loanId)" *ngIf=" single?.parentId === null && single?.currentStage?.toUser?.id.toString()===currentUserId && currentUserRoleType === 'MAKER'"><em
                                             class="fa fa-cog"></em></a>&nbsp;
-                                    <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)"
-                                       *ngIf="single?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
+                                    <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)" *ngIf="single?.currentStage?.toUser?.id.toString()===currentUserId && (currentUserRoleType === 'MAKER')"><em
                                             class="fa fa-trash"></em></a>&nbsp;
-                                    <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)"
-                                       *ngIf="single?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
+                                    <a nbTooltip="Delete loan" class="text-danger" (click)="deleteLoan(single?.id)"  *ngIf="single?.currentStage?.toRole?.roleType.toString()==='MAKER' && (currentUserRoleType === 'ADMIN')"><em
                                             class="fa fa-trash"></em></a>&nbsp;
 
                                 </td>
