@@ -16,7 +16,6 @@ export class DecimalNumberDirective {
     }
     const current: string = this.el.nativeElement.value;
     const next: string = current.concat(event.key);
-    // @ts-ignore
     if (next && !String(next).match(this.regex)) {
       event.preventDefault();
     }
