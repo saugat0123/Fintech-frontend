@@ -174,7 +174,23 @@
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
             </ng-template>
+            <div *ngIf="client === clientList.ICFC">
+                <p><strong>Other Documents to be Completed</strong>
 
+                <div>
+
+                    <ol class="row" type="1">
+                        <li style="font-size: 12.60px"
+                            class="col-md-4" *ngFor="let doc of obtainableDocuments;
+                        let i=index">{{doc.name}}</li>
+                        <li style="font-size: 12.60px"
+                            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                        let i=index">{{otherDoc}}</li>
+
+                    </ol>
+
+                </div>
+            </div>
             <app-proposal-terms-and-condition-summery
                     *ngIf="loanDataHolder && customerAllLoanList"
                     [customerAllLoanList]="customerAllLoanList"
