@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <p class="text-left"><strong>{{(summaryType !== summaryTypeName.GENERAL && loanCategory === 'INDIVIDUAL') ? '14. CICL' :
-            (summaryType !== summaryTypeName.GENERAL && loanCategory === 'INSTITUTION') ? '15. CICL' : 'CICL'}}</strong></p>
+    <p class="text-left"><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '14. CICL' :
+            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '15. CICL' : 'CICL'}}</strong></p>
     <p class="text-center sb-small"><b>Cib Charge:</b> Rs {{ciclValue?.cibCharge | currencyFormatter}}</p>
     <div *ngIf="ciclList.length !== 0">
       <table

@@ -1,7 +1,7 @@
 <div class="row mt-1">
     <div class="col-md-12 sb-small">
-        <p><strong>{{(summaryType !== summaryTypeName.GENERAL && loanCategory === 'INDIVIDUAL') ? '3. Proposal Details' :
-            (summaryType !== summaryTypeName.GENERAL && loanCategory === 'INSTITUTION') ? '2. Proposal Details' : 'Proposal Details'}}</strong>
+        <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '3. Proposal Details' :
+            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '2. Proposal Details' : 'Proposal Details'}}</strong>
             <em class="text-danger sb-small"> &nbsp;Bold row indicates current loan proposal</em></p>
         <ul>
             <li class="sb-medium"><i class="fas fa-check-circle"></i> = Approved

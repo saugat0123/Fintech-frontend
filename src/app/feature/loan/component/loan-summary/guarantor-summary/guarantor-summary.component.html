@@ -1,8 +1,8 @@
 
 <div *ngIf="guarantorData" class="row mt-2">
   <div class="col-md-12">
-    <p><strong>{{(summaryType !== summaryTypeName.GENERAL && loanCategory === 'INDIVIDUAL') ? '16. Guarantor Details' :
-            (summaryType !== summaryTypeName.GENERAL && loanCategory === 'INSTITUTION') ? '17. Guarantor Details' : 'Guarantor Details'}}</strong></p>
+    <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '16. Guarantor Details' :
+            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '17. Guarantor Details' : 'Guarantor Details'}}</strong></p>
     <table
            class="table table-condensed table-bordered table-responsive-md table-sm text-center sb-small">
       <thead>

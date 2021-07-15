@@ -1,7 +1,7 @@
 <div *ngIf="!isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p><strong>{{count}} {{summaryType !== summaryTypeName?.GENERAL ? '. Financial Position and Repayment Capacity of the Borrower':
+      <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. Financial Position and Repayment Capacity of the Borrower':
               'Financial Position and Repayment Capacity of the Borrower'}}</strong></p>
       <div class="row">
         <div class="col-md-12">
@@ -134,7 +134,7 @@
 <div *ngIf="isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p><strong>{{count}}{{summaryType !== summaryTypeName?.GENERAL ? '. Financial Highlights of the Entity':
+      <p><strong>{{count}}{{summaryType === summaryTypeName?.GAMMA ? '. Financial Highlights of the Entity':
               'Financial Highlights of the Entity'}}</strong></p>
       <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tr>

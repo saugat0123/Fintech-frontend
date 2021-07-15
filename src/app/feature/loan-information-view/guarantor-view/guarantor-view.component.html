@@ -1,7 +1,7 @@
 <div *ngIf="guarantorData?.length > 0" class="row">
   <div class="col-md-12 text-center">
-    <p class="float-left"><strong>{{(summaryType !== summaryTypeName.GENERAL && loanCategory === 'INDIVIDUAL') ? '16. Guarantor Details' :
-            (summaryType !== summaryTypeName.GENERAL && loanCategory === 'INSTITUTION') ? '17. Guarantor Details' : 'Guarantor Details'}}</strong></p>
+    <p class="float-left"><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '16. Guarantor Details' :
+            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '17. Guarantor Details' : 'Guarantor Details'}}</strong></p>
     <table *ngFor="let guarantor of guarantorData; let i= index"
            class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
       <thead>
