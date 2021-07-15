@@ -217,9 +217,9 @@ export class LoanFormComponent implements OnInit {
     loanTypeKeyValue = LoanType;
     loanType;
 
-    financialDocuments = {
+    cadObtainableDocuments = {
         documents: Array<ObtainableDoc>(),
-        OtherDocuments: String
+        OtherDocuments: null
     };
 
     constructor(
@@ -384,7 +384,7 @@ export class LoanFormComponent implements OnInit {
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Obtained Document'){
+                    if ( value.name === 'Obtained Document') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -628,9 +628,9 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
         if (name === 'Obtainable Documents' && action) {
-            this.financialDocuments.documents = this.obtainedDocument.obtainabledDocument;
-            this.financialDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
-            this.loanDocument.data = JSON.stringify(this.financialDocuments);
+            this.cadObtainableDocuments.documents = this.obtainedDocument.obtainabledDocument;
+            this.cadObtainableDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
+            this.loanDocument.data = JSON.stringify(this.cadObtainableDocuments);
         }
         // if (name === 'CICL' && action) {
         //   if (this.cicl.ciclForm.invalid ) {
