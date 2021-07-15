@@ -188,9 +188,6 @@ export class SecurityInitialFormComponent implements OnInit {
             console.error(error);
         });
         if (this.formData !== undefined) {
-            this.ownerKycRelationInfoCheckedForLand = true;
-            this.ownerKycRelationInfoCheckedForLandBuilding = true;
-            this.ownerKycRelationInfoCheckedForHypothecation = true;
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
@@ -452,6 +449,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
+                    kycCheckForLand: [singleData.kycCheckForLand],
                 })
             );
         });
@@ -470,6 +468,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         description: [singleData.description],
                         hypothecationOwnerRelationship: [singleData.hypothecationOwnerRelationship],
                         ownerKycApplicableData: [singleData.ownerKycApplicableData],
+                        kycCheckForHypthecation: [singleData.kycCheckForHypthecation],
 
                     })
                 );
@@ -675,7 +674,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     progessCost: [singleData.progessCost],
-                    landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked]
+                    landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked],
+                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding]
                 })
             );
         });
@@ -1067,6 +1067,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 description: [undefined],
                 hypothecationOwnerRelationship: [undefined],
                 ownerKycApplicableData: [undefined],
+                kycCheckForHypthecation: [false],
 
             }
         );
@@ -1152,6 +1153,7 @@ export class SecurityInitialFormComponent implements OnInit {
             roadAccessDescribe: undefined,
             ownerKycApplicableData: [undefined],
             landOtherBranchChecked: [undefined],
+            kycCheckForLand: [false],
         });
     }
 
@@ -1245,7 +1247,8 @@ export class SecurityInitialFormComponent implements OnInit {
             roadAccessDescribe: [undefined],
             ownerKycApplicableData: [undefined],
             progessCost: [undefined],
-            landBuildingOtherBranchChecked: [undefined]
+            landBuildingOtherBranchChecked: [undefined],
+            kycCheckForLandAndBuilding: [false]
         });
     }
 
@@ -1951,8 +1954,8 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
-    ownerKycRelationInfoCheck(kycCheck, kycCheckId) {
-        if (!kycCheck) {
+    ownerKycRelationInfoCheck(kycCheck, kycCheckId, index) {
+        if (kycCheck && !ObjectUtil.isEmpty(kycCheck)) {
             this.ownerKycRelationInfoCheckedForLand = false;
             this.ownerKycRelationInfoCheckedForLandBuilding = false;
             this.ownerKycRelationInfoCheckedForHypothecation = false;
