@@ -89,6 +89,9 @@ import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summar
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import { RoleHierarchyCombinedModelComponent } from './loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { GammaLoanSummaryComponent } from './component/gamma-loan-summary/gamma-loan-summary.component';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
+import {ApprovalSheetComponent} from './component/loan-summary/approval-sheet/approval-sheet.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -151,7 +154,9 @@ const COMPONENTS = [
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
     MarketingActivitiesSummaryComponent,
-    RoleHierarchyCombinedModelComponent
+    RoleHierarchyCombinedModelComponent,
+    GammaLoanSummaryComponent,
+    ApprovalSheetComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -164,7 +169,8 @@ const ENTRY_COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorDetailComponent,
     RoleHierarchyModelComponent,
-    RoleHierarchyCombinedModelComponent
+    RoleHierarchyCombinedModelComponent,
+    ApprovalSheetComponent,
 ];
 
 const modules = {
@@ -219,7 +225,8 @@ const modules = {
         LoanInformationDetailViewModule,
         NbTooltipModule,
         MicroLoanModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        CbsGroupModule
     ],
 
     providers: [
@@ -232,8 +239,9 @@ const modules = {
     exports: [
         KycInfoComponent,
         MicroProposalSummaryComponent,
-        MicroBaselRiskExposureSummaryComponent
-        , CustomerWiseLoanPullComponent
+        MicroBaselRiskExposureSummaryComponent,
+        CustomerWiseLoanPullComponent,
+        ApprovalSheetComponent
     ]
 })
 export class LoanModule {

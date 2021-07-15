@@ -10,6 +10,7 @@ import {CollateralSiteVisitService} from '../../loan-information-template/securi
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {flatten} from '@angular/compiler';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-security-view',
@@ -55,6 +56,8 @@ export class SecurityViewComponent implements OnInit {
   fileType = '.jpg';
   isPrintable = 'YES';
   random;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }

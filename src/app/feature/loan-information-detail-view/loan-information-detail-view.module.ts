@@ -14,10 +14,11 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
+import { GammaDetailViewComponent } from './gamma-detail-view/gamma-detail-view.component';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent],
+    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, GammaDetailViewComponent],
     exports: [
         CreditChecklistViewComponent
     ],

@@ -153,6 +153,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     showApprovalSheetInfo = false;
     isJointInfo = false;
     jointInfo = [];
+    proposalAllData;
+    companyInfo: any;
 
     constructor(
         private userService: UserService,
@@ -189,6 +191,9 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
             this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
             this.isJointInfo = true;
+        }
+        if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
+            this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.prepareAuthoritySection();
@@ -370,6 +375,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
+            this.proposalAllData = JSON.parse(this.proposalData.data);
             this.proposalSummary = true;
         }
 
