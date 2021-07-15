@@ -21,11 +21,10 @@ import {SummaryType} from '../../loan/component/SummaryType';
 })
 export class CompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
-  customerType = CustomerType;
-
   @Input() calendarType: CalendarType;
   @Input() customerInfo: CustomerInfoData;
   @Input() loanId: any;
+  customerType = CustomerType;
   companyJsonData: CompanyJsonData;
   additionalInfoJsonData;
   contactPersonJsonData;

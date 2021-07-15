@@ -227,9 +227,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <table
-            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-
+    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
         <th *ngIf="isFixedDeposit">Coupon Rate</th>
         <th *ngIf="isFixedDeposit">Premium On Coupon Rate</th>
@@ -294,7 +292,7 @@
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
       </tr>
     </table>
-    <table *ngIf="productUtils.CBS_ENABLE"
+    <table *ngIf="productUtils.CBS_ENABLE && summaryType === summaryTypeName?.GENERAL"
            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
         <tr class="text-white sb-bg-dark">
           <th>Disbursement Criteria </th>
@@ -317,8 +315,9 @@
         </tr>
     </table>
 
-    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
+    <table *ngIf="summaryType === summaryTypeName?.GENERAL"
+           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
+      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA ">
         <th>
           <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
             Prepayment/Commitment/Swap Charge Description</div>
@@ -352,20 +351,12 @@
       <tr>
         <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
       </tr>
-      <ng-container *ngIf="checkedData?.waiverChecked">
+      <ng-container *ngIf="checkedData?.waiverChecked ">
         <tr class="text-white sb-bg-dark">
           <th>Waiver/Deviation</th>
         </tr>
         <tr>
           <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
-      <ng-container *ngIf="checkedData?.solChecked">
-        <tr class="text-white sb-bg-dark">
-          <th>Single Obligor Limit</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
         </tr>
       </ng-container>
       <ng-container *ngIf="checkedData?.riskChecked">
@@ -378,42 +369,9 @@
         </tr>
       </ng-container>
     </table>
-
-    <table *ngIf="client === clientName?.SHINE_RESUNGA && checkedData?.solChecked"
+    <table *ngIf="checkedData?.solChecked && summaryType === summaryTypeName?.GENERAL"
            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-      <thead>
-      <tr class="sb-bg-dark text-white">
-        <th colspan="9">Single Obligor Limit Details</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="sb-bg-dark text-white">
-        <th class="sn">S.N</th>
-        <th>Client Name</th>
-        <th>Facility Type</th>
-        <th>Loan Limit(NPR)</th>
-        <th>O/S limit (NPR)</th>
-        <th>Proposed Limit(NPR)</th>
-        <th>FMV/DV</th>
-        <th>Exposure(%)</th>
-        <th>Remarks</th>
-      </tr>
-      <tr *ngFor="let groupExposure of proposalAllData?.groupExposure; let i = index">
-        <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{groupExposure?.clientName}}</td>
-        <td class="text-left pl-1">{{groupExposure?.facilityType}}</td>
-        <td class="text-right pr-1">{{groupExposure?.loanLimit}}</td>
-        <td class="text-right pr-1">{{groupExposure?.osLimit}}</td>
-        <td class="text-right pr-1">{{groupExposure?.proposedLimit}}</td>
-        <td class="text-right pr-1">{{groupExposure?.fmvDv}}</td>
-        <td class="text-right pr-1">{{groupExposure?.exposure}}</td>
-        <td class="text-left pl-1">{{groupExposure?.remarks}}</td>
-      </tr>
-      </tbody>
-    </table>
-    <table *ngIf="client === clientName?.SHINE_RESUNGA && checkedData?.solChecked"
-           class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-      <ng-container *ngIf="checkedData?.solChecked">
+      <ng-container>
         <tr class="text-white sb-bg-dark">
           <th>Single Obligor Limit</th>
         </tr>

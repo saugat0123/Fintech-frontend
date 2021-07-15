@@ -11,6 +11,7 @@ import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
+import {CompanyInfo} from '../../admin/modal/company-info';
 
 @Component({
   selector: 'app-gamma-detail-view',
@@ -38,6 +39,9 @@ export class GammaDetailViewComponent implements OnInit {
   showCadDoc = false;
   securityId: number;
   proposalAllData;
+  companyInfo = CompanyInfo;
+  companyJsonData;
+  individualJsonData;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -46,6 +50,8 @@ export class GammaDetailViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('loanDataHolder', this.loanDataHolder);
+    console.log('loanHolder', this.loanHolder);
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
@@ -53,13 +59,14 @@ export class GammaDetailViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
       this.proposalData = this.loanDataHolder.proposal;
       this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
-      console.log('proposalAllData', this.proposalAllData);
     }
-    // if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
-    //   this.proposalData = this.loanDataHolder.proposal;
-    //   this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
-    //   console.log('proposalAllData', this.proposalAllData);
-    // }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
+      this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+      this.individualJsonData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
+      console.log('individualJsonData', this.individualJsonData);
+    }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
       this.dataFromComments = JSON.parse(this.loanDataHolder.loanHolder.data);
       this.commentsSummary = true;

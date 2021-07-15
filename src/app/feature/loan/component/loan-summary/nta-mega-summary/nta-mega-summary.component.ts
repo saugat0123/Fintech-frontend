@@ -3,6 +3,7 @@ import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {FiscalYear} from '../../../../admin/modal/FiscalYear';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-nta-mega-summary',
@@ -19,6 +20,8 @@ export class NtaMegaSummaryComponent implements OnInit {
   prevYearData;
   prevFiscalYearIndex: number;
   fiscalYearArray = new Array<FiscalYear>();
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   // Client
   client = environment.client;

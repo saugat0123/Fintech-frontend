@@ -58,7 +58,7 @@
         <p><strong>5. Group Background</strong></p>
     </div>
     <div class="col-md-12">
-<!--        <p class="text-justify pl-1 pr-1" [innerHTML]="companyInfo?.groupsBackGround || 'N/A' | safeHtml"></p>-->
+        <p class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.groupsBackGround || 'N/A' | safeHtml"></p>
     </div>
 </div>
 
@@ -209,6 +209,7 @@
         [formData]="loanDataHolder?.crgGamma" [loanCategory]="loanDataHolder?.loanCategory"></app-crg-gamma-detail-view>
 <!-- End Gamma Details-->
 
+<!--Start Risk and Mitigation-->
 <div class="row">
     <div class="col-md-12">
         <p><strong>{{loanDataHolder?.loanCategory === 'INDIVIDUAL'  ? '18. ' : '19. '}} Risk & Mitigation</strong></p>
@@ -216,7 +217,56 @@
             <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></td>
         </tr>
     </div>
+    <div class="col-md-12">
+        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+
+            <tr class="sb-bg-dark text-white">
+                <th>Succession Risk & Mitigation</th>
+            </tr>
+            <tr>
+                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A' | safeHtml"></td>
+                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'" class="text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.companyInfo?.successionPlanning || 'N/A' | safeHtml"></td>
+            </tr>
+            <tr  class="sb-bg-dark text-white">
+                <th>Security Risk & Mitigation</th>
+            </tr>
+            <tr>
+                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
+                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'" class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.securityRisk || 'N/A' | safeHtml"></td>
+            </tr>
+            <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">
+                <tr class="text-white sb-bg-dark">
+                    <th>Income Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">
+                <tr class="text-white sb-bg-dark">
+                    <th>Industry/Market Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.BusinessIndustryOutlook || 'N/A' | safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Business/Management Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.technicalAspect || 'N/A' | safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Financial and Cash Flow Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.financialAndCashFlowRisk || 'N/A' | safeHtml"></td>
+                </tr>
+            </ng-container>
+        </table>
+    </div>
 </div>
+<!--End Risk and Mitigation-->
+
 <div class="row">
     <div class="col-md-12">
         <p><strong>{{loanDataHolder?.loanCategory === 'INDIVIDUAL'  ? '19. ' : '20. '}} Waiver/Deviation</strong></p>
