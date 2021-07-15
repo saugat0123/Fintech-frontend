@@ -9,10 +9,10 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {OfferDocument} from '../../../../model/OfferDocument';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-personal-guarantee-personal-both',

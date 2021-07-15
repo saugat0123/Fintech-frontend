@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProgressiveOfferLetterConst} from '../../../../progressive/progressive-offer-letter/progressive-offer-letter-const';
-import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
-import {LegalDocumentCheckListEnum} from '../../../../../../admin/modal/legalDocumentCheckListEnum';
+import {LegalDocumentCheckListEnum} from '../../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-consent-for-loan-interest-payment-print',

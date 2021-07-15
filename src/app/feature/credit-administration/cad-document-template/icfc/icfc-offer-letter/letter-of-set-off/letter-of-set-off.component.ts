@@ -10,10 +10,10 @@ import {CustomerOfferLetterService} from '../../../../../loan/service/customer-o
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -29,7 +29,6 @@ export class LetterOfSetOffComponent implements OnInit {
   @Input() customerLoanId: number;
 
   letterOfSetOff: FormGroup;
-  // offerLetterConst = IcfcOfferLetterConst;
   offerLetterConst = LegalDocumentCheckListEnum;
   customerOfferLetter: CustomerOfferLetter;
   initialInfoPrint;

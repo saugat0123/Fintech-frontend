@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
@@ -12,6 +11,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-letter-of-continuity-icfc',
@@ -27,7 +27,6 @@ export class LetterOfContinuityIcfcComponent implements OnInit {
   @Input() customerLoanId: number;
 
   letterOfContinuity: FormGroup;
-  // offerLetterConst = IcfcOfferLetterConst;
   offerLetterConst = LegalDocumentCheckListEnum;
   // customerOfferLetter: CustomerOfferLetter;
   initialInfoPrint;

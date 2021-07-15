@@ -11,7 +11,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
+import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-corporate-guarantee',
@@ -19,8 +19,6 @@ import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocume
   styleUrls: ['./corporate-guarantee.component.scss']
 })
 export class CorporateGuaranteeComponent implements OnInit {
-  // @Input() offerLetterType;
-  // @Input() cadOfferLetterApprovedDoc;
 
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
@@ -46,19 +44,6 @@ export class CorporateGuaranteeComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    // this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-    //     === this.offerLetterConst.value(this.offerLetterConst.CORPORATE_GUARANTEE).toString())[0];
-    // if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-    //   this.offerLetterDocument = new OfferDocument();
-    //   this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CORPORATE_GUARANTEE);
-    //   this.fillForm();
-    // } else {
-    //   const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-    //   this.initialInfoPrint = initialInfo;
-    //   this.existingOfferLetter = true;
-    //   if (!ObjectUtil.isEmpty(initialInfo)) {}
-    //   this.corporateGuarantee.patchValue(this.initialInfoPrint);
-    // }
 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -71,31 +56,9 @@ export class CorporateGuaranteeComponent implements OnInit {
     }
   }
 
-  // fillForm() {
-  //   this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-  //   this.corporateGuarantee.patchValue({
-  //     date: this.nepData.date ? this.nepData.date : '',
-  //     address: this.nepData.address ? this.nepData.address : '',
-  //   });
-  // }
-
   onSubmit() {
     this.spinner = true;
     let flag = true;
-    // if (this.existingOfferLetter) {
-    //   this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-    //     if (offerLetterPath.docName.toString() ===
-    //         this.offerLetterConst.value(this.offerLetterConst.CORPORATE_GUARANTEE).toString()) {
-    //       offerLetterPath.initialInformation = JSON.stringify(this.corporateGuarantee.value);
-    //     }
-    //   });
-    // } else {
-    //   const offerDocument = new OfferDocument();
-    //   offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CORPORATE_GUARANTEE);
-    //   offerDocument.initialInformation = JSON.stringify(this.corporateGuarantee.value);
-    //   this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
-    //   console.log('This is cad offer letter : ', this.cadOfferLetterApprovedDoc);
-    // }
 
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LegalDocumentCheckListEnum} from '../../../../../../admin/modal/legalDocumentCheckListEnum';
+import {LegalDocumentCheckListEnum} from '../../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-letter-of-set-off-print',

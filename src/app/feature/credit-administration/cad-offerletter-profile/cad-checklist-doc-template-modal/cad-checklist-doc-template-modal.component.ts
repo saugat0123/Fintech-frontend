@@ -12,7 +12,7 @@ import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
 import {NepaliNumberAndWords} from '../../model/nepaliNumberAndWords';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ProgressiveLegalDocConst} from '../../cad-document-template/progressive/progressive-legal-docs/progressive-legal-doc-const';
-import {LegalDocumentCheckListEnum} from '../../../admin/modal/legalDocumentCheckListEnum';
+import {LegalDocumentCheckListEnum} from '../../cad-document-template/icfc/legalDocumentCheckListEnum';
 
 @Component({
     selector: 'app-cad-checklist-doc-template-modal',
