@@ -15,7 +15,8 @@ import {BranchService} from '../../branch/branch.service';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {Router} from '@angular/router';
 import {Status} from '../../../modal/eligibility';
-import {trendingUp} from 'ionicons/icons';
+import {EligibilityLoanConfigService} from "../eligibility-loan-config/eligibility-loan-config-service";
+import {EligibilityLoanConfiguration} from "../eligibility-loan-config/EligibilityLoanConfiguration";
 
 @Component({
     selector: 'app-new-requests',
@@ -31,7 +32,7 @@ export class NewRequestsComponent implements OnInit {
     applicantList: Array<Applicant> = new Array<Applicant>();
     filterForm: FormGroup;
     isFilterCollapsed = true;
-
+    loanType: boolean=false;
     page = 1;
     search: any = {
         branchIds: undefined,
@@ -83,6 +84,9 @@ export class NewRequestsComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
 
+
+
+
         NewRequestsComponent.loadData(this);
     }
 
@@ -107,6 +111,7 @@ export class NewRequestsComponent implements OnInit {
             this.filterForm.get('branch').value;
         this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
             this.filterForm.get('loanType').value;
+        console.log(this.filterForm.value, 'New Test');
         NewRequestsComponent.loadData(this);
     }
 

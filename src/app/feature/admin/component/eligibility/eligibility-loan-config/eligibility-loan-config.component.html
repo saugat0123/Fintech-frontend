@@ -1,0 +1,39 @@
+<nb-card [nbSpinner]="spinner">
+    <nb-card-header>
+        <div class="col-md-12">
+            <div class="float-right">
+                <button nbButton outline status="success" size="small" (click)="add()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-sm table-bordered table-hover sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th  scope="col">SN</th>
+                <th  scope="col">Name</th>
+                <th  scope="col">Nature type</th>
+                <th  scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of eligibilityLoanConfig; let i=index" >
+                <td>{{i+1}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.eligibilityConfigLoanNature}}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm"
+                       data-placement="top"
+                       data-toggle="tooltip" title="Edit" (click)="update(data.id, data)">
+                        <em class="fa fa-edit" style="color:white"></em>
+                    </a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+    </nb-card-body>
+</nb-card>

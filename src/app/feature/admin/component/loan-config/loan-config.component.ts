@@ -47,7 +47,7 @@ export class LoanConfigComponent implements OnInit {
 
     static loadData(other: LoanConfigComponent) {
         other.spinner = true;
-        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObjectD(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
 
                 other.pageable = PaginationUtils.getPageable(response.detail);

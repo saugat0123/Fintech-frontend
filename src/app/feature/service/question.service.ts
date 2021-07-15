@@ -3,14 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../@core/utils/api/ApiUtils';
 
+
 @Injectable({
     providedIn: 'root'
 })
 export class QuestionService {
     loanConfigApi = 'v1/loan-configs/';
-    questionApi = '/questions';
-
+    questionApi = '/questions'
+    loanType:boolean=false;
     constructor(private http: HttpClient) {
+
     }
 
     saveQuestionList(model: Object, loanConfigId): Observable<Object> {

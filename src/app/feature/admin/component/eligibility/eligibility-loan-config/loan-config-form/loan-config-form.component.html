@@ -1,0 +1,57 @@
+<nb-card class="mb-0 sb-small" [nbSpinner]="spinner">
+    <nb-card-header class="sb-bg-dark text-white">
+        <div class="row">
+            <div class="col-md-6">{{action}} Loan Config</div>
+            <div class="col-md-6">
+                <a class="close cursor" aria-label="Close" (click)="onClose()">
+                    <span aria-hidden="true" class="text-white">×</span></a>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="col-md-12">
+            <form [formGroup]="loanConfig" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6 form-group ">
+                        <label>Name</label>
+                        <input type="text" class="form-control"
+                               formControlName="name" name="loanName"
+                               placeholder="Loan Name">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Nature</label>
+                        <select formControlName="nature"
+                                class="custom-select">
+                            <option value="" hidden>Select Nature of Loan</option>
+                            <option value="OD">OD</option>
+                            <option value=""> </option>
+                        </select>
+                    </div>
+                </div>
+
+                <h6> Choose Documents</h6>
+
+                <span (click)="nbUpdateCheckBoxInitial($event, true)"
+                      class="btn btn-primary btn-sm">Select All
+                                    </span>
+                <span (click)="nbUpdateCheckBoxInitial($event, false)"
+                      class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
+                <div class="row">
+                    <div class="col-md-4"
+                         *ngFor="let initialDocument of documents; let documentIndex = index">
+                        <nb-checkbox
+                                (change)="updateDocument($event, initialDocument,finalInitialDocument)"
+                                [checked]="initialDocument.checked"
+                                id="{{'initialDocument'+documentIndex}}"
+                                status="primary">
+                            {{initialDocument.displayName}}
+                        </nb-checkbox>
+                    </div>
+                </div>
+                  <button type="submit" class="btn btn-info float-right">Save</button>
+
+            </form>
+        </div>
+    </nb-card-body>
+</nb-card>

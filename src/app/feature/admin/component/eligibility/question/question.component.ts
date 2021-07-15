@@ -9,6 +9,9 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {QuestionService} from '../../../../service/question.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {EligibilityLoanConfigService} from "../eligibility-loan-config/eligibility-loan-config-service";
+import {EligibilityLoanConfiguration} from "../eligibility-loan-config/EligibilityLoanConfiguration";
+import {EligibilityLoanConfigQuestion} from "../../../modal/eligibilityLoanConfigQuestion";
 
 @Component({
     selector: 'app-question',
@@ -27,7 +30,7 @@ export class QuestionComponent implements OnInit {
     qsnContent: Questions = new Questions();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
-
+    loanType: boolean;
     private modalRef: NgbModalRef;
 
     constructor(private formBuilder: FormBuilder,
@@ -35,7 +38,8 @@ export class QuestionComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private router: Router,
                 private modalService: NgbModal,
-                private toastService: ToastService) {}
+                private toastService: ToastService) {
+    }
 
     ngOnInit() {
         this.questionAnswerForm = this.formBuilder.group({
@@ -45,6 +49,7 @@ export class QuestionComponent implements OnInit {
         this.getSchemeList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
+
     }
 
     getSchemeList() {
@@ -93,11 +98,13 @@ export class QuestionComponent implements OnInit {
         this.loanConfigId = this.questionAnswerForm.get('loanConfigId').value;
 
         this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
+            console.log(response);
             this.questionList = response.detail;
 
-            this.questionList.forEach(qsn => {
-                this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
-            });
+                this.questionList.forEach(qsn => {
+                    this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
+                });
+
 
             if (this.questionList.length !== 0) {
                 this.existingQuestionList = true;
@@ -185,13 +192,15 @@ export class QuestionComponent implements OnInit {
     }
 
     onSave() {
-        if (this.questionAnswerForm.invalid) { return; }
+        if (this.questionAnswerForm.invalid) {
+            return;
+        }
         this.questionList = this.questionAnswerForm.value.questionForm;
         this.questionService.saveQuestionList(this.questionList, this.loanConfigId).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
 
-                this.questionList = new Array<Questions>();
+            this.questionList = new Array<Questions>();
 
                 this.onChangeSchemeOption();
 
@@ -200,17 +209,19 @@ export class QuestionComponent implements OnInit {
 
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
 
-                this.questionList = new Array<Questions>();
+            this.questionList = new Array<Questions>();
             }
         );
     }
 
     onUpdate(newQsnContent) {
-        if (newQsnContent.invalid) { return; }
+        if (newQsnContent.invalid) {
+            return;
+        }
         this.questionService.editQuestion(newQsnContent, this.loanConfigId, newQsnContent.id).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
-                this.questionList = new Array<Questions>();
+            this.questionList = new Array<Questions>();
                 this.qsnContent = new Questions();
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');
@@ -218,7 +229,7 @@ export class QuestionComponent implements OnInit {
             }, error => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Question'));
-                this.questionList = new Array<Questions>();
+            this.questionList = new Array<Questions>();
             }
         );
     }
@@ -240,16 +251,18 @@ export class QuestionComponent implements OnInit {
             this.questionService.deleteQuestion(this.loanConfigId, qsnContent.id).subscribe(() => {
 
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Questions'));
-                    this.questionList = new Array<Questions>();
+                this.questionList = new Array<Questions>();
                     this.qsnContent = new Questions();
                     this.onChangeSchemeOption();
 
                 }, error => {
                     console.log(error);
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Question'));
-                    this.questionList = new Array<Questions>();
+                this.questionList = new Array<Questions>();
                 }
             );
         }
     }
+
+
 }
