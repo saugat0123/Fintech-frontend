@@ -12,6 +12,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-company-info-view',
@@ -20,11 +21,10 @@ import {Clients} from '../../../../environments/Clients';
 })
 export class CompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
-  customerType = CustomerType;
-
   @Input() calendarType: CalendarType;
   @Input() customerInfo: CustomerInfoData;
   @Input() loanId: any;
+  customerType = CustomerType;
   companyJsonData: CompanyJsonData;
   additionalInfoJsonData;
   contactPersonJsonData;
@@ -37,6 +37,8 @@ export class CompanyInfoViewComponent implements OnInit {
   disableCrgAlpha = environment.disableCrgAlpha;
   client = environment.client;
   clientName = Clients;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor() {
   }

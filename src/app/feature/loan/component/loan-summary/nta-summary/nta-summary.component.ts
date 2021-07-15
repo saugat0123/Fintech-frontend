@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {FiscalYear} from '../../../../admin/modal/FiscalYear';
+import {environment} from '../../../../../../environments/environment';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-nta-summary',
@@ -15,6 +17,9 @@ export class NtaSummaryComponent implements OnInit {
   currentYearData;
   prevYearData;
   prevFiscalYearIndex: number;
+  @Input() count;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   fiscalYearArray = new Array<FiscalYear>();
 
