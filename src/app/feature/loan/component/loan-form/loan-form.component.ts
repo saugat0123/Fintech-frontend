@@ -219,7 +219,7 @@ export class LoanFormComponent implements OnInit {
 
     financialDocuments = {
         documents: Array<ObtainableDoc>(),
-        OtherDocuments: String
+        OtherDocuments: null
     };
 
     constructor(

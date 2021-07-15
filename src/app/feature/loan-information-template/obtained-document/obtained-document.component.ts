@@ -16,7 +16,7 @@ export class ObtainedDocumentComponent implements OnInit {
     showOtherDocuments = false;
     documents = Array<ObtainableDoc>();
     obtainabledDocument = Array<ObtainableDoc>();
-    otherDocument: string;
+    otherDocument: any;
     otherDocValue: string;
     constructor(
         private docService: DocumentService,
@@ -25,7 +25,7 @@ export class ObtainedDocumentComponent implements OnInit {
     ) {
     }
     ngOnInit() {
-        ObtainableDocuments.data.forEach(res =>{
+        ObtainableDocuments.data.forEach(res => {
             const doc = new ObtainableDoc();
             doc.name = res;
             doc.checked = false;
@@ -48,7 +48,7 @@ export class ObtainedDocumentComponent implements OnInit {
                     });
                 });
 
-                if (!ObjectUtil.isEmpty(details.OtherDocuments)){
+                if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
                    this.showOtherDocuments = true;
                    this.otherDocValue = details.OtherDocuments;
                 }
@@ -58,25 +58,25 @@ export class ObtainedDocumentComponent implements OnInit {
 
     }
 
-    setObtainedDocument( event, document: ObtainableDoc){
+    setObtainedDocument( event, document: ObtainableDoc) {
       if (event.target.checked === true) {
           const  documents = new ObtainableDoc();
           documents.name = document.name;
           documents.checked = true;
         this.obtainabledDocument.push(documents);
         console.log(this.obtainabledDocument);
-      } else if(event.target.checked === false) {
+      } else if (event.target.checked === false) {
         const removeInxdex = this.obtainabledDocument.findIndex( index => index.name === document.name);
-        if(removeInxdex !== -1){
-          this.obtainabledDocument.splice(removeInxdex,1);
+        if (removeInxdex !== -1) {
+          this.obtainabledDocument.splice(removeInxdex, 1);
         }
       }
     }
 
 
 
-    setOtherDocuments(event){
-      if(event.target.checked === true){
+    setOtherDocuments(event) {
+      if (event.target.checked === true) {
         this.showOtherDocuments = true;
       } else {
         this.showOtherDocuments = false;
