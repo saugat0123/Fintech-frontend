@@ -11,6 +11,8 @@ import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {environment} from '../../../../environments/environment';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 
 @Component({
@@ -28,6 +30,8 @@ export class AllDocumentViewComponent implements OnInit {
   showCadDoc;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   affiliatedId;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
