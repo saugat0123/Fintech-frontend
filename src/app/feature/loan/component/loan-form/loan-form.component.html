@@ -218,6 +218,12 @@
                                                     [reportingInfoLevels]="loanDocument?.reportingInfoLevels">
                         </app-reporting-info-tagging>
                     </ng-template>
+
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Obtainable Documents'">
+                        <app-obtained-document #obtainedDocument>
+                        </app-obtained-document>
+                    </ng-template>
+
                     <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
                         <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
                         <!--            </app-insurance>-->

@@ -139,8 +139,8 @@ export class PersonalTermLoanComponent implements OnInit {
       footerLetterDay: [undefined],
       year2: [undefined],
 
-      loanSecurityTable: this.formBuilder.array([]),
-      loanFacilityTable: this.formBuilder.array([]),
+      loanSecurityTable: this.formBuilder.array([this.buildLandSecurity()]),
+      loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
     });
   }
 
@@ -234,7 +234,7 @@ export class PersonalTermLoanComponent implements OnInit {
 
   buildLandSecurity() {
     return this.formBuilder.group({
-      snNo: [undefined],
+      // snNo: [undefined],
       dhaniName: [undefined],
       district2: [undefined],
       munVdc: [undefined],
@@ -255,13 +255,14 @@ export class PersonalTermLoanComponent implements OnInit {
 
   setLoanSecurityTableData(data) {
     const formArray = this.personalTermLoan.get('loanSecurityTable') as FormArray;
+    (this.personalTermLoan.get('loanSecurityTable') as FormArray).clear();
     if (data.length === 0) {
       this.addTableData();
       return;
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        snNo: [value.snNo],
+        // snNo: [value.snNo],
         dhaniName: [value.dhaniName],
         district2: [value.district2],
         munVdc: [value.munVdc],
@@ -279,14 +280,16 @@ export class PersonalTermLoanComponent implements OnInit {
     $event.includes('OD Nature Loan') ? this.odNatureLoanSelected = true : this.odNatureLoanSelected = false;
   }
 
+  buildLoanFacilityTable() {
+    return this.formBuilder.group({
+      purpose: [undefined],
+      depositApprovedLoanAmount: [undefined],
+      loanTitle: [undefined],
+    });
+  }
+
   addLoanFacilityTable() {
-    (this.personalTermLoan.get('loanFacilityTable') as FormArray).push(
-        this.formBuilder.group({
-          purpose: [undefined],
-          depositApprovedLoanAmount: [undefined],
-          loanTitle: [undefined],
-        })
-    );
+    (this.personalTermLoan.get('loanFacilityTable') as FormArray).push(this.buildLoanFacilityTable());
   }
 
   removeLoanFacilityData(index) {
@@ -295,6 +298,7 @@ export class PersonalTermLoanComponent implements OnInit {
 
   setLoanFacilityTable(data) {
     const formArray = this.personalTermLoan.get('loanFacilityTable') as FormArray;
+    (this.personalTermLoan.get('loanFacilityTable') as FormArray).clear();
     if (data.length === 0) {
       this.addLoanFacilityTable();
       return;
@@ -332,7 +336,7 @@ export class PersonalTermLoanComponent implements OnInit {
     const finalCalcValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedRate));
     this.personalTermLoan.get(chargeRate).patchValue(finalCalcValue);
     this.personalTermLoan.get(swapfeeTwo).patchValue(finalCalcValue);
-    const calcFiveYears = ( parseFloat(servCharge) / 100) * 25;
+    const calcFiveYears = ( parseFloat(servCharge) / 100) * 20;
     const finalFiveYearsValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calcFiveYears));
     this.personalTermLoan.get(afterFiveRate).patchValue(finalFiveYearsValue);
     this.personalTermLoan.get(afterFiveRate2).patchValue(finalFiveYearsValue);
@@ -341,11 +345,11 @@ export class PersonalTermLoanComponent implements OnInit {
 
   }
 
-  setValue() {
-    const regValue = this.personalTermLoan.get('regNo').value;
-    console.log('This is reg Value: ', regValue);
-    this.personalTermLoan.get('regNo2').patchValue(regValue);
-  }
+  // setValue() {
+  //   const regValue = this.personalTermLoan.get('regNo').value;
+  //   console.log('This is reg Value: ', regValue);
+  //   this.personalTermLoan.get('regNo2').patchValue(regValue);
+  // }
 
   removeOptionalField(formGroup, fieldControlName) {
     formGroup.get(fieldControlName).patchValue(false);

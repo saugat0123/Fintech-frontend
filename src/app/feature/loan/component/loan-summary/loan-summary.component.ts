@@ -48,6 +48,7 @@ import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
     selector: 'app-loan-summary',
@@ -185,8 +186,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    refId: number;
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
-
-
+    obtainableDocuments = Array<ObtainableDoc>();
+    otherObtainableDocuments = Array<string>();
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -218,6 +219,26 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe((res) => {
+           this.customerLoanService.detail(res.customerId).subscribe(response => {
+            const details = JSON.parse(response.detail.data);
+           if(!ObjectUtil.isEmpty(details.documents)){
+               details.documents.forEach( resData => {
+                   this.obtainableDocuments.push(resData);
+               });
+           }
+            if(!ObjectUtil.isEmpty(details.OtherDocuments)) {
+                details.OtherDocuments.split(',').forEach(splitData => {
+                    if (splitData !== '') {
+                        this.otherObtainableDocuments.push(splitData);
+                    }
+                    console.log(this.otherObtainableDocuments);
+                });
+            }
+           });
+
+        });
+
         this.loanDataHolder = this.loanData;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {

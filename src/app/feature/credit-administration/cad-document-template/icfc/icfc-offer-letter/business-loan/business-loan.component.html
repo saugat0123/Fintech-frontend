@@ -5,11 +5,16 @@
             <div class="logo-container">
                 <div>
                     च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont" formControlName="branch" type="text"/>
-                     —कर्जा/०७६—७७/ <input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text"/>
+                     —कर्जा/<input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text"/>
 
-                    <p class="text-right">मिति : २०७६/ <input class="form-field form-control-sm nepaliFont" formControlName="month" type="text"/>
-                         / <input class="form-field form-control-sm nepaliFont" formControlName="day" type="text"/>
-                         </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-right">मिति : <input class="form-field form-control-sm nepaliFont" formControlName="letterYear" type="text"/>
+                                / <input class="form-field form-control-sm nepaliFont shortInput" size="2" formControlName="month" type="text"/>
+                                / <input class="form-field form-control-sm nepaliFont shortInput" size="2" formControlName="day" type="text"/>
+                            </p>
+                        </div>
+                    </div>
                     श्री <input class="form-field form-control-sm nepaliFont" formControlName="name" type="text"/>
                     <br>
                     <input class="form-field form-control-sm nepaliFont" formControlName="field" type="text"/>
@@ -19,9 +24,9 @@
                 </div>
             </div>
             <h6 class="text-center">
-                <strong>विषय : <u>व्यवसायिक <input class="form-field form-control-sm nepaliFont" formControlName="subject" type="text"/>
+                <strong>विषय : <u> <input class="form-field form-control-sm nepaliFont" formControlName="subject" type="text"/>
                      कर्जा स्वीकृति पत्र ।</u></strong>
-            </h6>
+            </h6>व्यवसायिक
             <p>
                 <p>महोदय,</p>
                 <p><strong><u>व्यापार व्यवसाय विस्तार गर्ने/व्यवसायिक कारोबार बृद्धि गर्ने/नयाँ व्यवसाय संचालन गर्ने</u></strong> प्रयोजनका लागि व्यवसायिक कर्जा सुविधा माग गर्दै तपाईले मिति <input class="form-field form-control-sm nepaliFont" formControlName="year" type="text"/>
@@ -29,7 +34,7 @@
                      / <input class="form-field form-control-sm nepaliFont" formControlName="day2" type="text"/>
                      मा आइ.सि.एफ.सि. फाइनान्स लिमिटेड (यसपछि फाइनान्स भनिने छ) समक्ष पेश गर्नु भएको निवेदनका सम्बन्धमा लेखिंदैछ । प्रस्तुत सन्दर्भमा, फाइनान्सले निम्न शर्त बन्देजको अधिनमा रहने गरी तपाईका नाममा निम्न बमोजिम कर्जा सुविधा सीमा स्वीकृत गर्ने निर्णय गरेको व्यहोरा जानकारी गराउँदछौं ।</p>
             <p><strong>१. <u>कर्जा सुविधाः</u></strong></p>
-            <table border="1" width="100%">
+            <table border="1" width="100%" class="text-center">
                 <tr class="text-center">
                     <th style="padding: 10px">शिर्षक</th>
                     <th style="padding: 10px">प्रयोजन तथा उद्देश्य</th>
@@ -37,8 +42,9 @@
                 </tr>
                 <tbody *ngFor="let data of businessLoan.get('loanFacilityTable')['controls']; let index = index" formArrayName="loanFacilityTable">
                 <tr [formGroupName]="index">
-                    <td style="padding: 10px">व्यवसायिक <input class="form-field form-control-sm nepaliFont" formControlName="credit" type="text"/>
-                        कर्जा</td>
+                    <td style="padding: 10px">
+                        <input class="form-field form-control-sm nepaliFont" formControlName="credit" type="text"/>
+                    </td>
                     <td><input class="form-field form-control-sm nepaliFont" formControlName="purpose" type="text"/></td>
                     <td><input class="form-field form-control-sm nepaliFont" formControlName="depositApprovedLoanAmount" type="text"/></td>
                 </tr>
@@ -46,6 +52,7 @@
                     <button
                             (click)="removeLoanFacilityData(index)"
                             *ngIf="index > 0"
+                            size="small"
                             class="mt-3 mb-3" nbButton
                             status="primary">हटाउनुहोस्
                     </button>
@@ -108,7 +115,7 @@
                                                'premiumRate3',
                                                'annualRate3')"/>
              %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="month3" type="text"/>
-             मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (change)="getNumAmountWord('amount','amountInWords')"/>
+             मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (input)="getNumAmountWord('amount','amountInWords')"/>
              (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords" placeholder="" type="text" readonly/>
              ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।</p>
             </ng-container>
@@ -146,7 +153,15 @@
             <table border="1">
                 <tr>
                     <td width="20%" style="vertical-align:top;">सेवा शुल्क</td>
-                    <td>जम्मा कर्जा रकमको <input class="form-field form-control-sm nepaliFont" formControlName="serviceChargeRate" type="text"/>
+                    <td>जम्मा कर्जा रकमको <input class="form-field form-control-sm nepaliFont"
+                                                 (input)="calcOtherRate('serviceChargeRate',
+                                                 'sawa2',
+                                                 'twoToFiveRate',
+                                                 'afterFiveRate',
+                                                 'prePaymentChargeFive'
+                                                 )"
+                                                 formControlName="serviceChargeRate"
+                                                 type="text"/>
                          % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="serviceCharge" type="text"/>
                          ऋणीलाई फिर्ता हुने छैन ।)
                     </td>
@@ -177,17 +192,32 @@
                 <tr>
                     <td style="vertical-align:top;">कर्जा स्थानान्तरण शुल्क (Swap Fee)</td>
                     <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="biAnnualRate" type="text"/>
-                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="twoToFiveRate" type="text"/>
-                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm nepaliFont" formControlName="afterFiveRate" type="text"/>
+                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm" formControlName="twoToFiveRate" type="text"/>
+                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm" formControlName="afterFiveRate" type="text"/>
                          %</td>
                 </tr>
-                <tr>
-                    <td style="vertical-align:top;">कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)</td>
-                    <td>कर्जा दर्ता भएको मिति देखि २ वर्षभित्र पूर्ण वा आंशिक सावाँ पूर्व भुक्तानी गर्दा पूर्व भुक्तानी गर्ने सावाँको <input class="form-field form-control-sm nepaliFont" formControlName="sawa" type="text"/>
-                         % सम्मका दरले पूर्व भुक्तानी शुल्क लाग्ने छ । त्यस्तै कर्जा दर्ता भएको मितिले २ वर्ष पश्चात् पूर्ण वा आंशिक सावाँ भुक्तानी गर्दा भुक्तानी गर्ने सावाँको <input class="form-field form-control-sm nepaliFont" formControlName="sawa2" type="text"/>
-                         % सम्मका दरले पूर्व भुक्तानी शुल्क लाग्ने छ ।</td>
+                <tr *ngIf="businessLoan.get('prePaymentFlag').value">
+                    <td style="vertical-align:top;">
+                        कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)
+                        <a (click)="removeOptionalFields(businessLoan, 'prePaymentFlag')"
+                           class="text-danger cursor">
+                            <i class="fa fa-ban pr-2"> हटाउनुहोस् </i>
+                        </a>
+                    </td>
+                    <td>कर्जा दर्ता भएको मिति देखि २ वर्षभित्र <input class="form-field form-control-sm nepaliFont" formControlName="sawa" type="text"/>
+                        % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm" formControlName="sawa2" type="text"/>
+                        % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm" formControlName="prePaymentChargeFive" type="text"/>
+                        % सम्मका दरले पूर्व भुक्तानी शुल्क लाग्ने छ ।</td>
                 </tr>
             </table>
+            <div class="row mr-lg-5 mt-3" *ngIf="!businessLoan.get('prePaymentFlag').value">
+                <div class="col-md-12">
+                    <a (click)="undoFieldRemove(businessLoan, 'prePaymentFlag')"
+                       class="text-info cursor">
+                        <i class="fa fa-undo-alt pr-2"> पूर्व भुक्तानी शुल्क थप्नुहोस् </i>
+                    </a>
+                </div>
+            </div>
             <div class="row mt-3">
                 <div class="col-md-12">
             <p><strong>७. <u>कर्जाको सुरक्षणः</u></strong></p>
@@ -207,7 +237,10 @@
                 <tbody>
                 <ng-container *ngFor="let data of businessLoan.get('loanSecurityTable')['controls']; let index = index" formArrayName="loanSecurityTable">
                     <tr [formGroupName]="index">
-                        <td><input class="form-field form-control-sm nepaliFont shortInput" formControlName="snNo" type="text"/></td>
+                        <td>
+<!--                            <input class="form-field form-control-sm nepaliFont shortInput" formControlName="snNo" type="text"/>-->
+                            {{index + 1 | nepaliNumber: 'unicode'}}
+                        </td>
                         <td><input class="form-field form-control-sm nepaliFont" formControlName="dhaniName" type="text"/></td>
                         <td><input class="form-field form-control-sm nepaliFont" formControlName="district2" type="text"/></td>
                         <td><input class="form-field form-control-sm nepaliFont" formControlName="munVdc" type="text"/></td>
@@ -220,6 +253,7 @@
                         <button
                                 (click)="removeTable(index)"
                                 *ngIf="index > 0"
+                                size="small"
                                 class="mt-3 mb-3" nbButton
                                 status="primary">हटाउनुहोस्
                         </button>
@@ -249,18 +283,33 @@
             <p><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
             <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
             <p>ग) श्री <input class="form-field form-control-sm nepaliFont" formControlName="name2" type="text"/>
-                 बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (change)="getNumAmountWord('amount2','amountInWords2')"/>
+                 बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (input)="getNumAmountWord('amount2','amountInWords2')"/>
                  (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords2" type="text" readonly/>
                  मात्र) बराबरको व्यक्तिगत जमानी ।</p>
-            <p>घ) <input class="form-field form-control-sm nepaliFont" formControlName="from" type="text"/>
-                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।</p>
+            <p *ngIf="businessLoan.get('inApprovalFlag').value">
+                घ)
+                <input class="form-field form-control-sm nepaliFont" formControlName="from" type="text"/>
+                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।
+                <a (click)="removeOptionalFields(businessLoan, 'inApprovalFlag')"
+                   class="text-danger cursor">
+                    <i class="fa fa-ban pr-2"> हटाउनुहोस् </i>
+                </a>
+            </p>
+            <div class="row mr-lg-5" *ngIf="!businessLoan.get('inApprovalFlag').value">
+                <div class="col-md-12">
+                    <a (click)="undoFieldRemove(businessLoan, 'inApprovalFlag')"
+                       class="text-warning cursor">
+                        <i class="fa fa-undo-alt pr-2"> मञ्जुरीनामा थप्नुहोस्</i>
+                    </a>
+                </div>
+            </div>
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (change)="getNumAmountWord('amount3','amountInWords3')"/>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (input)="getNumAmountWord('amount3','amountInWords3')"/>
                      (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords3" type="text" readonly/>
                      मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount4" type="text" (change)="getNumAmountWord('amount4','amountInWords4')"/>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount4" type="text" (input)="getNumAmountWord('amount4','amountInWords4')"/>
                      (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords4" type="text" readonly/>
                      मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
                 <li>धितोबन्धक कागज ।</li>
@@ -444,31 +493,37 @@
             <br> <br><br>
             <p>महोदय,</p>
             <br> <br><br>
-            <p>त्यस फाइनान्सको मिति २०७<input class="form-field form-control-sm nepaliFont" formControlName="year2" type="text"/>
-                /<input class="form-field form-control-sm nepaliFont" formControlName="month4" type="text"/>
-                /<input class="form-field form-control-sm nepaliFont" formControlName="day3" type="text"/>
-                , च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont" formControlName="branch2" type="text"/>
-                —कर्जा/०७६—७७/<input class="form-field form-control-sm nepaliFont" formControlName="regNo2" type="text"/>
+            <p>त्यस फाइनान्सको मिति
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="year2" type="text"/>-->
+                <span class="nepaliFont form-field"> {{businessLoan.get('letterYear').value}}</span>
+                /<span class="nepaliFont form-field"> {{businessLoan.get('month').value}}</span>
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="month4" type="text"/>-->
+                /<span class="nepaliFont form-field"> {{businessLoan.get('day').value}}</span>
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="day3" type="text"/>-->
+                , च.नं.: आइ.सि.एफ.सि.—शाखा
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="branch2" type="text"/>-->
+                <span class="nepaliFont form-field"> {{businessLoan.get('branch').value}}</span>
+                —कर्जा/<span class="nepaliFont form-field"> {{businessLoan.get('regNo').value}}</span>
+<!--                ०७६—७७/<input class="form-field form-control-sm nepaliFont" formControlName="regNo2" type="text"/>-->
                  को व्यवसायिक ओभरड्राफ्ट कर्जा स्वीकृति पत्र मैले/हामीले प्राप्त गरें/गर्यौं । उक्त पत्रमा उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण सुरक्षण कागजातहरु समयभित्रै नै गरिदिने छु/छौं ।</p>
-            <div>
-                <br> <br><br>
-                <div style="width:50%;float:left;">
+            <div class="d-flex justify-content-between">
+                <div>
                     <p>हस्ताक्षरः	......................................</p>
                     <br>
                     <p><strong>ऋणीको नामः</strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName" type="text"/>
-                        </p>
+                    </p>
                     <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date" type="text"/>
-                        </p>
+                </p>
                     <br><br><br><p>___________________________</p>
                 </div>
 
-                <div style="width:50%;float:left;">
+                <div>
                     <p>हस्ताक्षरः	......................................</p>
                     <br>
                     <p><strong>जमानी दिनेको नामः </strong> <input class="form-field form-control-sm nepaliFont" formControlName="guarantorName" type="text"/>
-                        </p>
+                    </p>
                     <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date2" type="text"/>
-                        </p>
+                </p>
 
                 </div>
             </div>

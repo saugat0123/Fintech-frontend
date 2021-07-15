@@ -2,11 +2,11 @@
     <!--div class="row">-->
     <form class="bodyConfig" id="acDebitAndLoanDisbursementAuthorityPrint">
         <div class="form-group align text-justify">
-
+            <ng-container *ngIf="loanDisbursementSelected">
                 <div>
                     <p class="text-right">Date: <span class="font-weight-bold">{{letter?.date}}</span>
                     </p>
-                    <ng-container *ngIf="loanDisbursementSelected">
+                    <ng-container>
                         The Manager
                     </ng-container>
                     <br/>
@@ -14,8 +14,7 @@
                     <span class="font-weight-bold">{{letter?.address}}</span>
                 </div>
 
-            <br>
-            <ng-container *ngIf="loanDisbursementSelected">
+                <br>
                 <h6 class="text-center">
                     <p>
                         <strong>Sub: <u>Loan Disbursement</u></strong>
@@ -40,8 +39,19 @@
                 <br><br>
                 <p>Authorized Signature</p>
             </ng-container>
+            <ng-container style="margin-top: 10px;" *ngIf="loanDisbursementSelected && accountDebitSelected">
+                <hr>
+            </ng-container>
             <ng-container *ngIf="accountDebitSelected">
-                <div>
+                <div style="margin-top: 10px;">
+                    <div>
+                        <div>
+                            <p class="text-right mt-5">Date: <span class="font-weight-bold">{{letter?.date2}}</span>
+                            </p>
+                            ICFC Finance Limited<br/>
+                            <span class="font-weight-bold">{{letter?.address2}}</span>
+                        </div>
+                    </div>
                     <br>
                     <h6 class="text-center">
                         <p>
