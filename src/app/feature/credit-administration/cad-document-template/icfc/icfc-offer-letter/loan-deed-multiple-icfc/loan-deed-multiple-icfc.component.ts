@@ -7,12 +7,14 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
-import {OfferDocument} from '../../../../model/OfferDocument';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-loan-deed-multiple-icfc',
@@ -20,18 +22,19 @@ import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor
   styleUrls: ['./loan-deed-multiple-icfc.component.scss']
 })
 export class LoanDeedMultipleIcfcComponent implements OnInit {
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
 
-  loanDeedMultiple: FormGroup;
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
+
+  loanDeedShareLoan: FormGroup;
   multipleData;
   spinner;
   nepData;
-  offerLetterDocument: OfferDocument;
-  offerLetterConst = IcfcOfferLetterConst;
+  offerLetterConst = LegalDocumentCheckListEnum;
   initialInfoPrint;
   editor = NepaliEditor.CK_CONFIG;
-  existingOfferLetter = false;
   guarantorData;
 
   constructor(private formBuilder: FormBuilder,
@@ -50,7 +53,7 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
 
 
   buildForm() {
-    this.loanDeedMultiple = this.formBuilder.group({
+    this.loanDeedShareLoan = this.formBuilder.group({
       branchName: [undefined],
       grandFatherName: [undefined],
       parentsName: [undefined],
@@ -87,8 +90,8 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
   }
 
   fillForm() {
-    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    this.loanDeedMultiple.patchValue({
+    this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
+    this.loanDeedShareLoan.patchValue({
       grandFatherName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
       parentsName: this.nepData.fatherName ? this.nepData.fatherName : '',
       provinceName: this.nepData.permanentProvince ? this.nepData.permanentProvince : '',
@@ -108,21 +111,24 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SHARE_LOAN).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SHARE_LOAN);
-      this.fillForm();
-    } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.initialInfoPrint = initialInfo;
-      this.existingOfferLetter = true;
-      if (!ObjectUtil.isEmpty(initialInfo)) {
-        this.setLoanApprovalTable(initialInfo.loanApprovalSpecificationTable);
-        this.setEvidenceData(initialInfo.evidenceNameArray);
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      if (this.cadData.cadFileList.length > 0) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            const initialInfo = JSON.parse(singleCadFile.initialInformation);
+            this.initialInfoPrint = initialInfo;
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+              this.setLoanApprovalTable(initialInfo.loanApprovalSpecificationTable);
+              this.setEvidenceData(initialInfo.evidenceNameArray);
+            }
+            this.loanDeedShareLoan.patchValue(this.initialInfoPrint);
+          } else {
+            this.fillForm();
+          }
+        });
+      } else {
+        this.fillForm();
       }
-      this.loanDeedMultiple.patchValue(this.initialInfoPrint);
     }
   }
 
@@ -137,12 +143,12 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
   }
 
   addTableData() {
-    (this.loanDeedMultiple.get('loanApprovalSpecificationTable') as FormArray).push(this.buildLoanApprovalSpecification());
+    (this.loanDeedShareLoan.get('loanApprovalSpecificationTable') as FormArray).push(this.buildLoanApprovalSpecification());
   }
 
   setLoanApprovalTable(data) {
-    const formArray = this.loanDeedMultiple.get('loanApprovalSpecificationTable') as FormArray;
-    (this.loanDeedMultiple.get('loanApprovalSpecificationTable') as FormArray).clear();
+    const formArray = this.loanDeedShareLoan.get('loanApprovalSpecificationTable') as FormArray;
+    (this.loanDeedShareLoan.get('loanApprovalSpecificationTable') as FormArray).clear();
     if (data.length === 0) {
       this.addTableData();
       return;
@@ -159,7 +165,7 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
   }
 
   removeTableData(index) {
-    (this.loanDeedMultiple.get('loanApprovalSpecificationTable') as FormArray).removeAt(index);
+    (this.loanDeedShareLoan.get('loanApprovalSpecificationTable') as FormArray).removeAt(index);
   }
 
   buildEvidenceDetails() {
@@ -169,16 +175,16 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
   }
 
   addEvidenceData() {
-    (this.loanDeedMultiple.get('evidenceNameArray') as FormArray).push(this.buildEvidenceDetails());
+    (this.loanDeedShareLoan.get('evidenceNameArray') as FormArray).push(this.buildEvidenceDetails());
   }
 
   removeEvideneData(i) {
-    (this.loanDeedMultiple.get('evidenceNameArray') as FormArray).removeAt(i);
+    (this.loanDeedShareLoan.get('evidenceNameArray') as FormArray).removeAt(i);
   }
 
   setEvidenceData(data) {
-    const formArray = this.loanDeedMultiple.get('evidenceNameArray') as FormArray;
-    (this.loanDeedMultiple.get('evidenceNameArray') as FormArray).clear();
+    const formArray = this.loanDeedShareLoan.get('evidenceNameArray') as FormArray;
+    (this.loanDeedShareLoan.get('evidenceNameArray') as FormArray).clear();
     if (data.length === 0) {
       this.addTableData();
       return;
@@ -192,42 +198,53 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
 
 
   submit() {
-    console.log(this.loanDeedMultiple.value);
+    console.log(this.loanDeedShareLoan.value);
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-        this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SHARE_LOAN).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.loanDeedMultiple.value);
+    let flag = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
+          singleCadFile.initialInformation = JSON.stringify(this.loanDeedShareLoan.value);
         }
       });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        cadFile.initialInformation = JSON.stringify(this.loanDeedShareLoan.value);
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+      }
     } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LOAN_DEED_SHARE_LOAN);
-      offerDocument.initialInformation = JSON.stringify(this.loanDeedMultiple.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      const cadFile = new CadFile();
+      const document = new Document();
+      cadFile.initialInformation = JSON.stringify(this.loanDeedShareLoan.value);
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      this.cadData.cadFileList.push(cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     });
   }
 
   convertAmountInWords(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedMultiple.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedShareLoan.get(numLabel).value);
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.loanDeedMultiple.get(wordLabel).patchValue(convertedVal);
+    this.loanDeedShareLoan.get(wordLabel).patchValue(convertedVal);
   }
 
 }

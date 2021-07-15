@@ -1,0 +1,144 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.CONSENT_LETTER_FOR_HP_LOAN}}">
+  <!--div class="row">-->
+  <form (ngSubmit)="submit()" [formGroup]="form">
+
+    <div class="form-group align">
+      <div class="text-right">
+        मिति :
+        <input type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               formControlName="date">
+      </div>
+      <div class="text-left">
+        श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड <br>
+        <input type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               formControlName="branch">
+        ,
+        <input type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               formControlName="branchAddress">
+        <br>
+        काठमाण्डौैं, नेपाल ।
+      </div>
+
+      <div class="text-center m-3">
+        <b>विषय : मञ्जुरीनामा सम्बन्धमा ।</b>
+      </div>
+      <p>
+        महोदय,
+      </p>
+      <p>
+        उपरोक्त सम्बन्धमा
+        <input readonly type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               formControlName="customerName">
+        ले त्यस
+        फाइनान्सबाट निम्न विवरणको सवारी साधन खरीद गर्न हायर पर्चेज कर्जा लिई सवारी साधन खरीद गरेको
+        हो
+        । फाइनान्स र
+        <input type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               [value]="form.get('customerName').value"
+               formControlName="customerName1">
+        विचमा
+        भएको शर्त सम्झौता अनुसार लगातार ३ (तीन) महिनासम्म कर्जाको किस्ता रकम तथा ब्याज पुरा चुक्ता
+        भुक्तान नभै किस्ता खिलाप गरेमा वा किस्ता खिलाप गरी फाइनान्सको सम्पर्कमा नआई बसेमा वा अन्य
+        कुनैपनि कारणबाट फाइनान्सको कर्जा रकम नियमित नभएमा फाइनान्सले उल्लेखित सवारी साधन कुनै पनि
+        समयमा आफ्नो अधिनमा लिन सक्नेछ ।
+        <input type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               [value]="form.get('customerName').value"
+               formControlName="customerName2">
+        ले हायर
+        पर्चेज कर्जा सुविधामा लिएको तपसिलको विवरणको सवारी साधन फाइनान्सलाई उपयुक्त लागेको तेश्रो
+        ब्यक्ति वा संगठित संस्थाबाट बाँकी कर्जा रकम असूल उपर गरी वा फाइनान्सलाई उपयुक्त लागेको शर्त
+        सम्झौता गराई तेश्रो ब्यक्ति वा संगठित संस्थालाई सवारी साधन नामसारी÷दर्ता दाखेल खारेज गरीदिने
+        पूर्ण अधिकार रहेको छ र यसमा पूर्ण मञ्जुरी छ । कर्जाको किस्ता खिलाप भएको कारणबाट
+
+        <input type="text"
+               class="form-field form-control-sm nepaliFont font-size-normal"
+               [value]="form.get('customerName').value"
+               formControlName="customerName3">
+        को हक लाग्ने
+        सवारी साधन तेश्रो ब्यक्ति वा संगठित संस्थाका नाममा नामसारी÷दर्ता दाखेल खारेज गरी दिन पाउने
+        होईन भनि कुनै पनि दाबि बिरोध उजुर वाजुर समेत गर्ने छैन ।
+      </p>
+      <p>
+        <b>सवारी साधनको विवरण</b>
+      </p>
+      किसिम :
+      <input type="text"
+             class="form-field form-control-sm nepaliFont font-size-normal"
+             formControlName="vehicleType">
+      <br>
+      मोडल :
+      <input type="text"
+             class="form-field form-control-sm nepaliFont font-size-normal"
+             formControlName="vehicleModel">
+      <br>
+      इन्जिन नं. :
+      <input type="text"
+             class="form-field form-control-sm nepaliFont font-size-normal"
+             formControlName="vehicleEngineNo">
+      <br>
+      च्यासीस नं. :
+      <input type="text"
+             class="form-field form-control-sm nepaliFont font-size-normal"
+             formControlName="vehicleChasisNo">
+      <br>
+      सवारी दर्ता नं. :
+      <input type="text"
+             class="form-field form-control-sm nepaliFont font-size-normal"
+             formControlName="vehicleRegNo">
+      <br>
+      <div class="clearfix">
+        <div class="text-right float-right">
+          आवेदक
+          <br>
+          <table class="table table-borderless text-center col-md-6">
+            <tr>
+              <th>दाँ.</th>
+              <th>बाँ.</th>
+            </tr>
+            <tr>
+              <td><span class="signature-area"></span></td>
+              <td><span class="signature-area"></span></td>
+            </tr>
+          </table>
+          दस्तखत:- ..................................................
+          <br>
+          नाम :
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont font-size-normal"
+                 [value]="form.get('customerName').value"
+                 formControlName="applicantName">
+          <br>
+          ठेगाना :
+          <input type="text"
+                 class="form-field form-control-sm nepaliFont font-size-normal"
+                 formControlName="applicantAddress">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button nbButton status="success">Save</button>
+      </div>
+    </div>
+  </form>
+  <!--</div>-->
+  <div class="row mt-2">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary d-print-none"
+              [useExistingCss]="true"
+              [disabled]="!initialInfoPrint"
+              printSectionId="print-section-{{offerLetterConst.CONSENT_LETTER_FOR_HP_LOAN}}"
+              ngxPrint>
+        PRINT
+      </button>
+    </div>
+  </div>
+</div>
+<app-consent-letter-for-hp-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                                      hidden></app-consent-letter-for-hp-loan-print>

@@ -3,34 +3,50 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="acDebitAndLoanDisbursementAuthority" id="acDebitAndLoanDisbursementAuthority">
         <div class="form-group align">
             <div class="logo-container">
-                <div>
-                    <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
-                        </p>
-                    <ng-container *ngIf="loanDisbursementSelected">
-                        The Manager
-                    </ng-container>
-                    <br/>
-                    ICFC Finance Limited<br/>
-                    <input class="form-field form-control-sm" formControlName="address" type="text"/>
-                </div>
-            </div>
-            <br>
-            <h6 class="text-center">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Sub:</label>
-                            <nb-select (selectedChange)="changeType($event)"
-                                       [(selected)]="selectedData"
-                                       placeholder="कृपया छान्नुहोस्">
-                                <nb-option *ngFor="let type of subjectType" [value]="type">
-                                    {{type}}
-                                </nb-option>
-                            </nb-select>
+                <h6 class="text-center">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Sub:</label>
+                                <nb-select (selectedChange)="changeType($event)"
+                                           [(selected)]="selectedData"
+                                           multiple
+                                           placeholder="कृपया छान्नुहोस्">
+                                    <nb-option *ngFor="let type of subjectType" [value]="type">
+                                        {{type}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </h6>
+                </h6>
+                <hr>
+                <ng-container *ngIf="loanDisbursementSelected">
+                    <div>
+                        <p class="text-right">Date: <input class="form-field form-control-sm" formControlName="date" type="text"/>
+                        </p>
+                        <ng-container *ngIf="loanDisbursementSelected">
+                            The Manager
+                        </ng-container>
+                        <br/>
+                        ICFC Finance Limited<br/>
+                        <input class="form-field form-control-sm" formControlName="address" type="text"/>
+                    </div>
+                    <br>
+                    <h6 class="text-center">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h6>
+                                    <p>
+                                        <strong>Sub: <u>Loan Disbursement</u></strong>
+                                    </p>
+                                </h6>
+                            </div>
+                        </div>
+                    </h6>
+                    <br>
+                </ng-container>
+            </div>
             <ng-container *ngIf="loanDisbursementSelected">
                 <p>Sir/Madam,</p>
                 <p>
@@ -50,20 +66,31 @@
                 <p>Thanking You</p>
                 <br><br>
                 <p>Authorized Signature</p>
+                <br>
+                <hr>
             </ng-container>
-<!--            <br>-->
-<!--            <hr>-->
             <ng-container *ngIf="accountDebitSelected">
                 <div>
-<!--                    <div>-->
-<!--                        <div>-->
-<!--                            <p class="text-right mt-5">Date: <input class="form-field form-control-sm" formControlName="date2" type="text"/>-->
-<!--                            </p>-->
-<!--                            ICFC Finance Limited<br/>-->
-<!--                            <input class="form-field form-control-sm" formControlName="address2" type="text"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <br>-->
+                    <div>
+                        <div>
+                            <p class="text-right mt-5">Date: <input class="form-field form-control-sm" formControlName="date2" type="text"/>
+                            </p>
+                            ICFC Finance Limited<br/>
+                            <input class="form-field form-control-sm" formControlName="address2" type="text"/>
+                        </div>
+                    </div>
+                    <br>
+                    <h6 class="text-center">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h6>
+                                    <p>
+                                        <strong>Sub: <u>Account Debit Authority</u></strong>
+                                    </p>
+                                </h6>
+                            </div>
+                        </div>
+                    </h6>
 <!--                    <h6 class="text-center">-->
 <!--                        <p>-->
 <!--                            <strong>Sub: <u>Account Debit Authority</u></strong>-->
