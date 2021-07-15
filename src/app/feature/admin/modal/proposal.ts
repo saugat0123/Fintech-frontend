@@ -27,5 +27,6 @@ export class Proposal {
     existCashMargin: number;
     existCashMarginMethod: string;
     existCommissionPercentage: number;
+    groupExposure: string;
 
 }
