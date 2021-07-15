@@ -51,6 +51,7 @@ export class ObtainedDocumentComponent implements OnInit {
                 if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
                    this.showOtherDocuments = true;
                    this.otherDocValue = details.OtherDocuments;
+                   this.otherDocument = details.OtherDocuments;
                 }
             });
         });
@@ -64,7 +65,6 @@ export class ObtainedDocumentComponent implements OnInit {
           documents.name = document.name;
           documents.checked = true;
         this.obtainabledDocument.push(documents);
-        console.log(this.obtainabledDocument);
       } else if (event.target.checked === false) {
         const removeInxdex = this.obtainabledDocument.findIndex( index => index.name === document.name);
         if (removeInxdex !== -1) {
@@ -80,6 +80,8 @@ export class ObtainedDocumentComponent implements OnInit {
         this.showOtherDocuments = true;
       } else {
         this.showOtherDocuments = false;
+        this.otherDocument = null;
+        this.otherDocValue = null;
       }
     }
 
