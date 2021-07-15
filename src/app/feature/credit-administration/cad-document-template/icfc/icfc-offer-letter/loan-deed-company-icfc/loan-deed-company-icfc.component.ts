@@ -93,7 +93,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
       month: [undefined],
       day: [undefined],
       time: [undefined],
-      propertyDetailsTable: this.formBuilder.array([]),
+      propertyDetailsTable: this.formBuilder.array([this.buildPropertyDetails()]),
       note: [undefined],
       ministryName: [undefined],
       registrarOffice: [undefined],
@@ -207,18 +207,20 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
     });
   }
 
+  buildPropertyDetails() {
+    return this.formBuilder.group({
+      year3: [undefined],
+      month3: [undefined],
+      day3: [undefined],
+      creditAmount: [undefined],
+      interestRate: [undefined],
+      serviceCharge: [undefined],
+      bankingServiceAndDate: [undefined]
+    });
+  }
+
   addTableData() {
-    (this.loanDeedCompany.get('propertyDetailsTable') as FormArray).push(
-        this.formBuilder.group({
-          year3: [undefined],
-          month3: [undefined],
-          day3: [undefined],
-          creditAmount: [undefined],
-          interestRate: [undefined],
-          serviceCharge: [undefined],
-          bankingServiceAndDate: [undefined]
-        })
-    );
+    (this.loanDeedCompany.get('propertyDetailsTable') as FormArray).push(this.buildPropertyDetails());
   }
 
   removeTableData(index) {
@@ -227,6 +229,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
 
   setPropertyDetailsTable(data) {
     const formArray = this.loanDeedCompany.get('propertyDetailsTable') as FormArray;
+    (this.loanDeedCompany.get('propertyDetailsTable') as FormArray).clear();
     if (data.length === 0) {
       this.addTableData();
       return;

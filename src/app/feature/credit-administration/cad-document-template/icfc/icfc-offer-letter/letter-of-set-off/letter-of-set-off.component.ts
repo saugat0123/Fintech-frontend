@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
@@ -10,7 +9,6 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LegalDocumentCheckListEnum} from '../../../../../admin/modal/legalDocumentCheckListEnum';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
@@ -169,6 +167,22 @@ export class LetterOfSetOffComponent implements OnInit {
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     });
 
+  }
+
+  setName(name) {
+    const tempArray = ['name4', 'name5', 'name6', 'name7', 'name8'];
+    const tempName = this.letterOfSetOff.get(name).value;
+    tempArray.forEach(value => {
+      this.letterOfSetOff.get(value).patchValue(tempName);
+    });
+  }
+
+  setAcNo(accountNumber) {
+    const tempAcArray = ['accountNo3', 'accountNo4', 'accountNo5', 'accountNo6'];
+    const tempAcNo = this.letterOfSetOff.get(accountNumber).value;
+    tempAcArray.forEach(value => {
+      this.letterOfSetOff.get(value).patchValue(tempAcNo);
+    });
   }
 
 

@@ -1,6 +1,6 @@
 .bodyConfig {
   font-size: 18px;
-  line-height: 1.9;
+  line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
   margin: 50px 70px;
@@ -14,7 +14,7 @@
 
 table {
   font-size: 18px;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 .loanWords {
@@ -50,4 +50,8 @@ footer {
     bottom: 0;
     width: 100%;
   }
+}
+
+.page-break {
+  page-break-after: always;
 }
