@@ -26,7 +26,7 @@
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
                                 status="primary" nbTooltip="Configure Approval Role Hierarchy"
                                 (click)="SetRoleHierarchy(loanDataHolder?.id)">
-<!--                            <i class="fa fa-user-shield"></i>-->
+                            <!--                            <i class="fa fa-user-shield"></i>-->
                             Set Role Hierarchy
                         </button>
                     </div>
@@ -48,19 +48,19 @@
                         </span>
                         <em class="fas fa-forward"></em>
                     </button>
-                  <!--
-                  uncomment if needed
-                  <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
-                            nbButton
-                            shape="rectangle"
-                            status="success"
-                            class="float-right"
-                            size="tiny" (click)="openApprovalSheetInfoModal()">
-                        <span class="text-right">
-                            Approval Doc Info
-                        </span>
-                        <em class="fas fa-forward"></em>
-                    </button>-->
+                    <!--
+                    uncomment if needed
+                    <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
+                              nbButton
+                              shape="rectangle"
+                              status="success"
+                              class="float-right"
+                              size="tiny" (click)="openApprovalSheetInfoModal()">
+                          <span class="text-right">
+                              Approval Doc Info
+                          </span>
+                          <em class="fas fa-forward"></em>
+                      </button>-->
                 </div>
             </div>
             <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
@@ -105,7 +105,8 @@
                                     <br/>
                                     <span class="sb-small"> for </span>
                                 </div>
-                                <div class="report-header-sub-heading" *ngIf="!isJointInfo"><span class="sb-medium"><strong>
+                                <div class="report-header-sub-heading" *ngIf="!isJointInfo"><span
+                                        class="sb-medium"><strong>
                                     {{loanCategory === 'INSTITUTION' ?
                                     loanDataHolder?.companyInfo?.companyName
                                     : loanDataHolder?.customerInfo?.customerName}}
@@ -120,7 +121,8 @@
                                     </div>
                                 </div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
-                                    {{loanDataHolder?.branch?.province?.name}}</div> <div class="badge badge-warning">Summary</div>
+                                    {{loanDataHolder?.branch?.province?.name}}</div>
+                                <div class="badge badge-warning">Summary</div>
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
@@ -374,7 +376,8 @@
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
+                        )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
+                        ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
 
                     </span>
 
@@ -426,8 +429,8 @@
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
                     <app-company-info-summary [approveSheet]="notApprove"
-                            [companyInfo]="loanDataHolder?.companyInfo"
-                            [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                                              [companyInfo]="loanDataHolder?.companyInfo"
+                                              [loanDataHolder]="loanDataHolder"></app-company-info-summary>
                 </div>
             </div>
 
@@ -454,8 +457,11 @@
                             <tbody>
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}} ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})</td>
-                                <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years</td>
+                                <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}
+                                    ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})
+                                </td>
+                                <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}}years
+                                </td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
@@ -472,8 +478,10 @@
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
-                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                                <td class="pl-1"
+                                    *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                                <td class="pl-1"
+                                    *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
@@ -533,9 +541,13 @@
                                     {{relative.citizenshipNumber}}
                                 </td>
                                 <td class="text-left pl-1">
-                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
+                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}}
+                                    ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}}
+                                    )
                                 </td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
+                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}}
+                                    years
+                                </td>
 
                             </tr>
                             </tbody>
@@ -576,48 +588,65 @@
                                     <td class="pl-1">{{info?.occupation || 'NA'}}</td>
                                     <td class="pl-1">{{info?.incomeSource || 'NA'}}</td>
                                 </tr>
-                                <tr><th colspan="5">Family Detail</th></tr>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Name</th>
-                                <th>Relation Name</th>
-                                <th>Citizenship no.</th>
-                                <th>Citizenship Issued District</th>
-                                <th>Citizenship Issued Date(AD/BS)</th>
-                            </tr>
+                                <tr>
+                                    <th colspan="5">Family Detail</th>
+                                </tr>
+                                <tr class="text-white sb-bg-dark">
+                                    <th>Name</th>
+                                    <th>Relation Name</th>
+                                    <th>Citizenship no.</th>
+                                    <th>Citizenship Issued District</th>
+                                    <th>Citizenship Issued Date(AD/BS)</th>
+                                </tr>
                                 <tr *ngIf="info?.customerRelativeName1">
                                     <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}})</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}}
+                                        ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}}
+                                        )
+                                    </td>
                                 </tr>
                                 <tr *ngIf="info?.customerRelativeName2">
                                     <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}})</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}}
+                                        ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}}
+                                        )
+                                    </td>
                                 </tr>
                                 <tr *ngIf="info?.customerRelativeName3">
                                     <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}})</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}}
+                                        ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}}
+                                        )
+                                    </td>
                                 </tr>
                                 <tr *ngIf="info?.customerRelativeName4">
                                     <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}})</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}}
+                                        ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}}
+                                        )
+                                    </td>
                                 </tr>
                                 <tr *ngIf="info?.customerRelativeName5">
                                     <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
                                     <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}} ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}})</td>
+                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}}
+                                        ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}}
+                                        )
+                                    </td>
                                 </tr>
                             </ng-container>
                             </tbody>
@@ -796,6 +825,24 @@
                     </div>
                 </div>
             </div>
+
+            <div *ngIf="client === clientName.ICFC">
+                <p><strong>Other Documents to be Completed</strong>
+
+                <div>
+
+                <ol class="row" type="1">
+                    <li style="font-size: 12.60px"
+                        class="col-md-4" *ngFor="let doc of obtainableDocuments;
+                        let i=index">{{doc.name}}</li>
+                    <li style="font-size: 12.60px"
+                        class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                        let i=index">{{otherDoc}}</li>
+
+                </ol>
+
+            </div>
+            </div>
             <div *ngIf="!productUtils.CBS_ENABLE">
                 <app-collateral-summary
                         *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
@@ -807,10 +854,10 @@
             </div>
             <app-security-summary *ngIf="securitySummary"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
-            [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                                  [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
                                   [siteVisitDocuments]="siteVisitDocuments"
-            [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
+                                  [isCollateralSiteVisit]="isCollateralSiteVisit"></app-security-summary>
 
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
@@ -833,8 +880,9 @@
             <br>
             <div *ngIf="client === clientName?.MEGA">
                 <app-comments-summary *ngIf="commentsSummary"
-                                             [formData]="dataFromComments"></app-comments-summary>
-                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+                                      [formData]="dataFromComments"></app-comments-summary>
+                <app-previous-security-summary *ngIf="previousSecuritySummary"
+                                               [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
             </div>
 
             <br>
@@ -883,7 +931,8 @@
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
             <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
-                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
+                               [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
             <div class="row">
                 <div class="col-md-12 disable-print">
@@ -1184,14 +1233,15 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
+                                {{previousList?.lastModifiedAt | date}}
+                                ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{previousList?.fromUser?.name}}</div>
                                 <div class="pl-1">
                                     <span>({{previousList?.fromRole?.roleName}})</span>
-                                    </div>
+                                </div>
                             </td>
 
                             <td class="text-left">
@@ -1213,13 +1263,16 @@
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>
+                                    <span class="pl-1 print-only justify-content"
+                                          [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
+                            </td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
@@ -1247,7 +1300,8 @@
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
                                    class="text-left pl-1 disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                                    <span class="pl-1 print-only text-justify pr-1"
+                                          [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
@@ -1276,8 +1330,11 @@
                         </div>
                         <div class="text-center signature-detail sb-bg-secondary text-white">
                             <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                            <p class="m-0 sb-small">
+                                ({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}}
+                                )</p>
+                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
+                                ({{previous?.lastModifiedAt | engNepDate: false}})</p>
                         </div>
                     </div>
                 </div>
