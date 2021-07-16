@@ -123,7 +123,6 @@
                         <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
                         <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
-                    <ng-container *ngIf="landDetails?.kycCheckForLand === true">
                     <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                         <ng-container *ngIf="kyc?.ownerRelationship != null">
                             <tr class="sb-bg-secondary text-white">
@@ -172,7 +171,6 @@
                                 <td class="text-left pl-1">{{kyc?.remark}}</td>
                             </tr>
                         </ng-container>
-                    </ng-container>
                     </ng-container>
                   <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
                       <tr>
@@ -269,7 +267,6 @@
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
                         <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
-                    <ng-container *ngIf="landBuilding?.kycCheckForLandAndBuilding === true">
                     <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                         <ng-container *ngIf="kyc?.ownerRelationship != null">
                             <tr class="sb-bg-secondary text-white">
@@ -297,7 +294,6 @@
                                 </tr>
                             </ng-container>
                         </ng-container>
-                    </ng-container>
                     </ng-container>
 
                     <tr class="text-center sb-bg-dark text-white">
@@ -674,7 +670,6 @@
                         <td class="text-left pl-1" colspan="2">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
                     </tr>
                     <!-- owner Kyc hypothecation -->
-                    <ng-container *ngIf="hypothecationOfStock?.kycCheckForHypthecation === true">
                     <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                         <ng-container *ngIf="kyc?.ownerRelationship != null">
                             <tr class="sb-bg-secondary text-white">
@@ -700,7 +695,6 @@
                                 <td class="text-left pl-1">{{kyc?.remark}}</td>
                             </tr>
                         </ng-container>
-                    </ng-container>
                     </ng-container>
                 </table>
             </div>

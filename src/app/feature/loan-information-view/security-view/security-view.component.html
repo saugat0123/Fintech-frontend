@@ -45,7 +45,6 @@
           <th>Address</th>
           <th>Remarks</th>
         </tr>
-        <ng-container *ngIf="landDetails?.kycCheckForLand === true">
         <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
@@ -58,7 +57,6 @@
             <td class="text-left pl-1">{{kyc?.address}}</td>
             <td class="text-left pl-1">{{kyc?.remark}}</td>
           </tr>
-        </ng-container>
         </ng-container>
       </ng-container>
 
@@ -230,7 +228,6 @@
           <th>Address</th>
           <th>Remarks</th>
         </tr>
-        <ng-container *ngIf="landBuilding?.kycCheckForLandAndBuilding === true">
         <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
@@ -243,7 +240,6 @@
             <td class="text-left pl-1">{{kyc?.address}}</td>
             <td class="text-left pl-1">{{kyc?.remark}}</td>
           </tr>
-        </ng-container>
         </ng-container>
 
         <tr class="text-center sb-bg-dark text-white">
@@ -420,7 +416,6 @@
           <th>Address</th>
           <th>Remarks</th>
         </tr>
-        <ng-container *ngIf="hypothecationOfStock?.kycCheckForHypthecation === true">
         <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
@@ -433,7 +428,6 @@
             <td class="text-left pl-1">{{kyc?.address}}</td>
             <td class="text-left pl-1">{{kyc?.remark}}</td>
           </tr>
-        </ng-container>
         </ng-container>
       </table>
     </div>
