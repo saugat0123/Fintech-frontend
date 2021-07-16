@@ -1705,12 +1705,15 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityData.customerShareData = this.getShareDataList();
 
         if (this.ownerKycRelationInfoCheckedForLand) {
+            console.log('inside land');
             this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
         }
         if (this.ownerKycRelationInfoCheckedForLandBuilding) {
+            console.log('inside land and building');
             this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
         }
         if (this.ownerKycRelationInfoCheckedForHypothecation) {
+            console.log('inside hypothecation');
             this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
         }
 
@@ -1726,7 +1729,11 @@ export class SecurityInitialFormComponent implements OnInit {
     fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
         this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
             const comp: any = list.filter(item => item.kycId === (securityId + index))[0];
-            control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
+            if (ObjectUtil.isEmpty(comp)) {
+                control.get('ownerKycApplicableData').setValue(null);
+            } else {
+                control.get('ownerKycApplicableData').setValue(comp.ownerKycForm.value);
+            }
         });
     }
 
