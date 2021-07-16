@@ -501,14 +501,14 @@
                 उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण
                 सुरक्षण कागजातहरु समयभित्रै नै गरिदिने छु/छौं ।</p>
            <br> <br><br>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between" style="margin-bottom: 75px;">
                 <div>
                     <p>हस्ताक्षरः	.....................................</p><br>
                     <p><strong>ऋणीको नामः</strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName" type="text"/>
                         </p>
                    <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date" type="text"/>
                         </p>
-                    <br><br><br><p>___________________________</p>
+<!--                    <br><br><br><p>___________________________</p>-->
                 </div>
                 <div>
                     <p>हस्ताक्षरः	.....................................</p>
@@ -516,6 +516,38 @@
                         </p>
                     <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date2" type="text"/>
                         </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="guarantorColumn" *ngFor = "let personalData of personalTermLoan.get('guarantorDetails')['controls']; let index = index;" formArrayName="guarantorDetails">
+                    <div class="col-md-12 mr-2" [formGroupName]="index" id="GuarantorDetails">
+                        <p>हस्ताक्षरः	.....................................</p>
+                        <br>
+                        <p>
+                            <strong>जमानी दिनेको नामः </strong>
+                        </p>
+                        <p>
+                            <input class="form-field form-control-sm nepaliFont" formControlName="debtorName3" type="text"/>
+                        </p>
+                        <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date3" type="text"/>
+                    </p>
+                        <div class="col-md-12">
+                            <button
+                                    (click)="removeAddedGuarantor(index)"
+                                    *ngIf="index > -1"
+                                    class="mt-3 mb-3" nbButton
+                                    size="small"
+                                    status="primary">हटाउनुहोस्
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mr-1 mt-3" style="margin-bottom: 50px;">
+                <div class="col-md-12 text-right">
+                    <button (click)="addNewGuarantor()" nbButton size="small" status="info" type="Button">
+                        जमानी कर्ता थप्नुहोस्
+                    </button>
                 </div>
             </div>
         </div>

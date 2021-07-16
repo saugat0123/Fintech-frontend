@@ -101,6 +101,25 @@ input::-webkit-input-placeholder {
   max-height: 186px;
 }
 
+.guarantorRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.guarantorColumn {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+//@media screen and (max-width: 100px) {
+//  .guarantorColumn {
+//    width: 30%;
+//    display: block;
+//    margin-bottom: 20px;
+//  }
+//}
 @page {
   size: A4;
   margin: 17mm 17mm 17mm 17mm;

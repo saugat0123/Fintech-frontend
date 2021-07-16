@@ -410,8 +410,8 @@
                 च.नं.: आइ.सि.एफ.सि.—शाखा <span class="font-weight-bold nepaliFont">{{letter?.branch}}</span>-कर्जा/
                 <span class="font-weight-bold nepaliFont">{{letter?.regNo}}</span> को व्यक्तिगत ओभरड्राफ्ट कर्जा स्वीकृति पत्र मैले/हामीले प्राप्त गरें/गर्यौं । उक्त पत्रमा उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण सुरक्षण कागजातहरु समयभित्रै नै गरिदिने छु/छौं ।</p>
             <br> <br><br>
-            <div>
-                <div style="width:50%;float:left;">
+            <div class="d-flex justify-content-between" style="margin-bottom: 75px;">
+                <div>
                     <p>हस्ताक्षरः	.....................................</p><br>
                     <p><strong>ऋणीको नामः</strong> <span class="font-weight-bold nepaliFont">{{letter?.debtorName}}</span>
                     </p>
@@ -421,10 +421,31 @@
                 </div>
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	.....................................</p>
-                    <br><p><strong>ऋणीको नामः </strong> <span class="font-weight-bold nepaliFont">{{letter?.debtorName2}}</span>
+                    <br><p><strong>ऋणीको नामः </strong> <span class="font-weight-bold nepaliFont">{{letter?.debtorName3}}</span>
                 </p>
                     <br><p>मितिः <span class="font-weight-bold nepaliFont">{{letter?.date2}}</span>
                 </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="guarantorColumn" *ngFor = "let guarantorData of letter?.guarantorDetails; let index = index;">
+                <div class="col-md-12 mr-2" id="GuarantorDetails">
+                    <p>हस्ताक्षरः	.....................................</p>
+                    <br>
+                    <p>
+                        <strong>
+                            जमानी दिनेको नामः
+                        </strong>
+                    </p>
+                    <p>
+                        <span class="nepaliFont">{{guarantorData?.debtorName3}}</span>
+                    </p>
+                    <p>
+                    <br>
+                    <p>
+                        मितिः <span class="font-weight-bold nepaliFont">{{guarantorData?.date3}}</span>
+                    </p>
                 </div>
             </div>
         </div>
