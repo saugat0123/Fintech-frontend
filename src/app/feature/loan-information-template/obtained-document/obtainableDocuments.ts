@@ -7,7 +7,7 @@ export class ObtainableDocuments {
         'Letter of Set-Off',
         'Account Debit Authority',
        ' Loan Disbursement Authority',
-        'Acceptance Of Loan Saction Letter',
+        'Acceptance Of Loan Sanction Letter',
         'Internal Loan Deed',
         'Mortgage Deed Personal',
         'Guarantee Of Wife and Son',

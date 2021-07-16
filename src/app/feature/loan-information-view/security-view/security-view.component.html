@@ -30,7 +30,7 @@
         <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{landDetails?.distressValue | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{landDetails?.marketValue | currencyFormatter}}</td>
-        <td class="text-right pr-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
+        <td class="text-left pl-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
       </tr>
 
       <ng-container>
@@ -406,7 +406,7 @@
           <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.owner}}</td>
           <td class="text-left pl-1" colspan="2">{{hypothecationOfStock?.stock}}</td>
           <td class="text-right pr-1" colspan="2">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
-          <td class="text-right pr-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
+          <td class="text-left pl-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
         </tr>
         <!-- owner Kyc hypothecation -->
         <tr class="text-center sb-bg-dark text-white">
