@@ -529,7 +529,7 @@
             </div>
             <div class="row">
                 <div class="guarantorColumn" *ngFor = "let personalData of businessLoan.get('guarantorDetails')['controls']; let index = index;" formArrayName="guarantorDetails">
-                    <div class="col-md-12 mr-2" [formGroupName]="index" id="GuarantorDetails">
+                    <div class="col-md-12 mr-2" style="margin-bottom: 75px;" [formGroupName]="index" id="GuarantorDetails">
                         <p>हस्ताक्षरः	.....................................</p>
                         <br>
                         <p>

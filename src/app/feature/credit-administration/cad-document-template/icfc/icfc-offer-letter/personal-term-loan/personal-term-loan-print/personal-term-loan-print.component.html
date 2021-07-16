@@ -417,7 +417,6 @@
                     </p>
                     <br><p>मितिः <span class="font-weight-bold nepaliFont">{{letter?.date}}</span>
                 </p>
-                    <br><br><br><p>___________________________</p>
                 </div>
                 <div style="width:50%;float:left;">
                     <p>हस्ताक्षरः	.....................................</p>
@@ -430,7 +429,7 @@
         </div>
         <div class="row">
             <div class="guarantorColumn" *ngFor = "let guarantorData of letter?.guarantorDetails; let index = index;">
-                <div class="col-md-12 mr-2" id="GuarantorDetails">
+                <div class="col-md-12 mr-2" style="margin-bottom: 50px;" id="GuarantorDetails">
                     <p>हस्ताक्षरः	.....................................</p>
                     <br>
                     <p>
@@ -446,6 +445,9 @@
                     <p>
                         मितिः <span class="font-weight-bold nepaliFont">{{guarantorData?.date3}}</span>
                     </p>
+                </div>
+                <div class="col-md-12">
+                    <br><br><br><p>___________________________</p>
                 </div>
             </div>
         </div>
