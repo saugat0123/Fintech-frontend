@@ -1705,15 +1705,12 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareSecurityData.customerShareData = this.getShareDataList();
 
         if (this.ownerKycRelationInfoCheckedForLand) {
-            console.log('inside land');
             this.fetchOwnerKycValue('landDetails', this.ownerKycApplicable, SecurityIds.landId);
         }
         if (this.ownerKycRelationInfoCheckedForLandBuilding) {
-            console.log('inside land and building');
             this.fetchOwnerKycValue('landBuilding', this.ownerKycApplicableLandBuilding, SecurityIds.land_buildingId);
         }
         if (this.ownerKycRelationInfoCheckedForHypothecation) {
-            console.log('inside hypothecation');
             this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
         }
 
