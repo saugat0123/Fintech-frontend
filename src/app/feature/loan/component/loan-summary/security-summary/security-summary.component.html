@@ -683,7 +683,7 @@
                                 <th>Address</th>
                                 <th>Remark</th>
                             </tr>
-                            <tr>
+                            <tr><td *ngIf="j>0"></td>
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
