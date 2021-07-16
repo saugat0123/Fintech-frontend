@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-insurance-view',
@@ -7,6 +9,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class InsuranceViewComponent implements OnInit {
   @Input() insurance;
+  @Input() loanCategory;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor() {
   }

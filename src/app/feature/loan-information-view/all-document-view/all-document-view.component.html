@@ -1,11 +1,8 @@
-<nb-card class="modal-dialog-scrollable">
-  <nb-card-header>
-          <span>
-            <b>All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white"  (click)=getDocPath()> Download All Document</button>
-          </span>
-  </nb-card-header>
-  <nb-card-body>
+<span><b>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '24. All Documents' :
+        (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '25. All Documents' : 'All Documents'}}</b>
+  <button class="float-right sb-small sb-bg-dark text-white"  (click)=getDocPath()> Download All Document</button>
+</span>
+<hr>
   <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row">
     <div class="col-md-12">
       <p><strong>Loan Documents</strong></p>
@@ -152,6 +149,3 @@
       </table>
     </div>
   </div>
-  </nb-card-body>
-
-</nb-card>
