@@ -686,7 +686,7 @@
                             </tr>
                             <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index; let last = last;">
                             <tr>
-                                <td *ngIf="j>0 && last"></td>
+                                <td *ngIf="j>=2"></td>
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
