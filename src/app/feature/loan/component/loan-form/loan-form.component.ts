@@ -60,6 +60,9 @@ import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
+import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
+import {Document} from '../../../admin/modal/document';
+import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
     selector: 'app-loan-form',
@@ -206,11 +209,18 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('microProposalInfo', {static: false})
     microProposalInfo: MicroProposalComponent;
 
+    @ViewChild('obtainedDocument', {static: false})
+    obtainedDocument: ObtainedDocumentComponent;
+
     loanTag: string;
     loanHolder = new CustomerInfoData();
     loanTypeKeyValue = LoanType;
     loanType;
 
+    cadObtainableDocuments = {
+        documents: Array<ObtainableDoc>(),
+        OtherDocuments: null
+    };
 
     constructor(
         private loanDataService: LoanDataService,
@@ -236,6 +246,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
+
         console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
@@ -372,6 +383,11 @@ export class LoanFormComponent implements OnInit {
                         this.templateList.splice(index, 1);
                     }
                 });
+                this.templateList.forEach((value, index) => {
+                    if ( value.name === 'Obtained Document') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
             }
 
             if (environment.disableCrgAlpha) {
@@ -452,6 +468,13 @@ export class LoanFormComponent implements OnInit {
     }
 
     pushProposalTemplateToLast() {
+       if (this.client === Clients.ICFC) {
+           this.templateList.push({
+               active: false,
+               name: 'Obtainable Documents',
+               templateUrl: null
+           });
+       }
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
                 this.templateList.push(this.templateList.splice(index, 1)[0]);
@@ -604,7 +627,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
-
+        if (name === 'Obtainable Documents' && action) {
+            this.cadObtainableDocuments.documents = this.obtainedDocument.obtainabledDocument;
+            this.cadObtainableDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
+            this.loanDocument.data = JSON.stringify(this.cadObtainableDocuments);
+        }
         // if (name === 'CICL' && action) {
         //   if (this.cicl.ciclForm.invalid ) {
         //     this.cicl.submitted = true;

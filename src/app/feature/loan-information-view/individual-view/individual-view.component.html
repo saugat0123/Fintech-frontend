@@ -151,30 +151,32 @@
   <div class="col-md-12 text-center">
     <table
         class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-      <tr class="text-white sb-bg-dark">
-        <th colspan="2">Introduction</th>
-      </tr>
-      <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individual?.introduction | safeHtml"></td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th colspan="2">Income Risk & Mitigation</th>
-      </tr>
-      <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th colspan="2">Security Risk & Mitigation</th>
-      </tr>
-      <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th colspan="2">Succession Risk & Mitigation</th>
-      </tr>
-      <tr>
-        <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A'  | safeHtml"></td>
-      </tr>
+      <ng-container *ngIf="summaryType === summaryTypeName?.GENERAL">
+        <tr class="text-white sb-bg-dark">
+          <th colspan="2">Introduction</th>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-left pl-1" [innerHTML]="individual?.introduction | safeHtml"></td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="2">Income Risk & Mitigation</th>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="2">Security Risk & Mitigation</th>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="2">Succession Risk & Mitigation</th>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-left pl-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A'  | safeHtml"></td>
+        </tr>
+      </ng-container>
       <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
         <th>Banking Relationship</th>
         <th>Net Worth</th>
@@ -225,6 +227,8 @@
           <th>Income Source</th>
           <th>Client Type</th>
           <th>Subsector</th>
+          <th>Grand Father Name</th>
+          <th>Father Name</th>
         </tr>
         <tr class="text-left">
           <td class="pl-1">{{info?.contactNumber}}</td>
@@ -234,8 +238,12 @@
           <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
           <td class="pl-1">{{clientType}}</td>
           <td class="pl-1">{{subsectorDetail}}</td>
+          <td class="text-left pl-1">{{info?.grandFatherName}}</td>
+          <td class="text-left pl-1">{{info?.fatherName}}</td>
         </tr>
-        <tr><th colspan="5">Family Detail</th></tr>
+        <tr>
+          <th colspan="5">Family Detail</th>
+        </tr>
         <tr class="text-white sb-bg-dark">
           <th>Name</th>
           <th>Relation Name</th>
@@ -335,30 +343,32 @@
 <div *ngIf="isJointInfo" class="col-md-12 text-center">
   <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
     <tbody>
-    <tr class="text-white sb-bg-dark">
-      <th colspan="2">Introduction</th>
-    </tr>
-    <tr>
-      <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-      <th colspan="2">Income Risk & Mitigation</th>
-    </tr>
-    <tr>
-      <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-      <th colspan="2">Security Risk & Mitigation</th>
-    </tr>
-    <tr>
-      <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
-    </tr>
-    <tr class="text-white sb-bg-dark">
-      <th colspan="2">Succession Risk & Mitigation</th>
-    </tr>
-    <tr>
-      <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
-    </tr>
+    <ng-container *ngIf="summaryType === summaryTypeName?.GENERAL">
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Introduction</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Income Risk & Mitigation</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Security Risk & Mitigation</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Succession Risk & Mitigation</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
+      </tr>
+    </ng-container>
     <tr class="text-white sb-bg-dark">
       <th>Banking Relationship</th>
       <th>Net Worth</th>

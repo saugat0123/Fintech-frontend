@@ -1,0 +1,41 @@
+<div class="tab-pane fade active show" id="proposal">
+    <div class="row">
+        <div class="col-md-12">
+            <nb-card>
+                <nb-card-body>
+                 <div class="col-md-12">
+
+                         <span style="background-color: wheat">Choose from listed Document below that are Mandatory Legal Documents before Disbursement</span>
+                     <br>
+                     <div class="row" style="padding-top: 10px">
+
+                         <div class="col-md-4"
+                              *ngFor="let initialDocument of documents; let documentIndex = index">
+                             <nb-checkbox
+                                     (change)="setObtainedDocument($event, initialDocument)"
+                                     [checked]="initialDocument.checked"
+                                     id="{{'initialDocument'+documentIndex}}"
+                                     status="primary">
+                                 {{initialDocument.name}}
+                             </nb-checkbox>
+                         </div>
+
+                     </div>
+                     <nb-checkbox (change)="setOtherDocuments($event)"
+                     [checked]="showOtherDocuments">
+                         Others
+                     </nb-checkbox>
+
+                     <div class="col-md-12" *ngIf="showOtherDocuments">
+                         <br>
+                         <span>*Input other documents separated by comma</span>
+                         <input  [value]="otherDocValue ? otherDocValue : ''" (input)="insertOtherDocuments($event)"   type="text" class="form-control" placeholder="Eg: DocumentA,DocumentB,DocumentC....">
+                     </div>
+                    </div>
+
+                </nb-card-body>
+            </nb-card>
+        </div>
+    </div>
+</div>
+
