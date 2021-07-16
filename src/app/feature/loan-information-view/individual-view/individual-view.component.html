@@ -227,6 +227,8 @@
           <th>Income Source</th>
           <th>Client Type</th>
           <th>Subsector</th>
+          <th>Grand Father Name</th>
+          <th>Father Name</th>
         </tr>
         <tr class="text-left">
           <td class="pl-1">{{info?.contactNumber}}</td>
@@ -236,8 +238,12 @@
           <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
           <td class="pl-1">{{clientType}}</td>
           <td class="pl-1">{{subsectorDetail}}</td>
+          <td class="text-left pl-1">{{info?.grandFatherName}}</td>
+          <td class="text-left pl-1">{{info?.fatherName}}</td>
         </tr>
-        <tr><th colspan="5">Family Detail</th></tr>
+        <tr>
+          <th colspan="5">Family Detail</th>
+        </tr>
         <tr class="text-white sb-bg-dark">
           <th>Name</th>
           <th>Relation Name</th>
