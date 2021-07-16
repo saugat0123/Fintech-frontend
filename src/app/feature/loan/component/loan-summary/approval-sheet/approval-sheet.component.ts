@@ -146,6 +146,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     approveSheet = 'approveSheet';
 
     riskOfficerLevel = false;
+    riskOfficerLevelComment = false;
+
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
@@ -386,16 +388,27 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
         let lastIndex;
         let riskOfficerIndex;
+        let riskOfficerIndexComment;
 
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
             this.signatureList.forEach((v, i) => {
-                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
                     riskOfficerIndex = i;
                 }
             });
 
-            if (!ObjectUtil.isEmpty(riskOfficerIndex)) {
+            this.signatureList.forEach((v, i) => {
+                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                    riskOfficerIndexComment = i;
+                }
+            });
+
+            if (!ObjectUtil.isEmpty(riskOfficerIndexComment)) {
+                this.riskOfficerLevelComment = true;
+            }
+
+            if (riskOfficerIndex) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
             }
