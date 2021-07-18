@@ -274,7 +274,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         //
         // CFS calculation --
         if (index > 0) {
-            console.log('I am insisde index');
             cashFlowStatement.increaseDecreaseInInventory[index].value =
                 (Number(((this.balanceSheetForm.get('inventories') as FormArray).controls[index - 1] as FormGroup).controls['value'].value)
                 - Number(inventories.controls['value'].value)).toFixed(2);

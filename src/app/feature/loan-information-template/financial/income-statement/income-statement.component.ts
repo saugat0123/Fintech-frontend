@@ -296,11 +296,10 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
 
-        // if (!(this.isSRDB && index === 0)) {
             cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
             cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
             cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
-        // }
+
 
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
         this.financialService.netCashFlowTotal(cashFlowStatement, index);
