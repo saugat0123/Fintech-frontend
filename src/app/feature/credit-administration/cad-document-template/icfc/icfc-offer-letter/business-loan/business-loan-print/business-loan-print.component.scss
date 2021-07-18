@@ -16,6 +16,18 @@
   margin-top: 375px;
 }
 
+.guarantorRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.guarantorColumn {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
 table {
   font-size: 14pt;
   line-height: 1.4;
