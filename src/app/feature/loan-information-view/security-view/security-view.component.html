@@ -34,7 +34,7 @@
       </tr>
 
       <ng-container>
-        <tr class="sb-bg-dark text-white">
+        <tr *ngIf="landDetails?.ownerKycApplicableData !== null" class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
           <th *ngIf="client === clientName?.SHINE_RESUNGA">Age</th>
@@ -217,7 +217,7 @@
           <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
         </tr>
 
-        <tr class="sb-bg-dark text-white">
+        <tr *ngIf="landBuilding?.ownerKycApplicableData !== null" class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
           <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
@@ -405,7 +405,7 @@
           <td class="text-left pl-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
         </tr>
         <!-- owner Kyc hypothecation -->
-        <tr class="text-center sb-bg-dark text-white">
+        <tr *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null" class="text-center sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
           <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
@@ -416,8 +416,9 @@
           <th>Address</th>
           <th>Remarks</th>
         </tr>
-        <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+        <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index; let last = last;">
           <tr>
+            <td *ngIf="j>=2"></td>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
             <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
