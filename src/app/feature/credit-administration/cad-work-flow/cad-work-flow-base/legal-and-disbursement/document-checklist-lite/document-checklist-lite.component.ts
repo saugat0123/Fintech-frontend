@@ -87,7 +87,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                     });
                 }
             }, error => {
-                console.log(error);
+                console.error(error);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to load document '));
 
             });
@@ -214,6 +214,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
     }
 
     responseFromAdditionalDocument(event) {
+        this.ngOnInit();
         this.responseCadData.emit(event);
     }
 
