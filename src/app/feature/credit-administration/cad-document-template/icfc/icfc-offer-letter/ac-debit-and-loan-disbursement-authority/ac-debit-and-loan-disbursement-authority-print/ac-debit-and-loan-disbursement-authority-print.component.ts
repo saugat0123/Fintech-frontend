@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
+import {LegalDocumentCheckListEnum} from '../../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-ac-debit-and-loan-disbursement-authority-print',
@@ -8,23 +8,21 @@ import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
 })
 export class AcDebitAndLoanDisbursementAuthorityPrintComponent implements OnInit {
   @Input() letter;
-  offerLetterConst = IcfcOfferLetterConst;
+  offerLetterConst = LegalDocumentCheckListEnum;
   loanDisbursementSelected = false;
   accountDebitSelected =  false;
 
   constructor() { }
 
   ngOnInit() {
-    // this.letter.subjectSelectedValue.forEach(value => {
-    //
-    // });
-    const value = this.letter.subjectSelectedValue;
-    switch (value) {
-      case 'Loan Disbursement': this.loanDisbursementSelected = true;
-        break;
-      case 'Account Debit Authority': this.accountDebitSelected = true;
-      break;
-    }
+    this.letter.subjectSelectedValue.forEach(value => {
+      switch (value) {
+        case 'Loan Disbursement': this.loanDisbursementSelected = true;
+          break;
+        case 'Account Debit Authority': this.accountDebitSelected = true;
+          break;
+      }
+    });
   }
 
 }
