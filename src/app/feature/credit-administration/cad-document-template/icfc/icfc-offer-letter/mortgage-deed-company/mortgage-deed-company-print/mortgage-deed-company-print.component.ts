@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
+import {LegalDocumentCheckListEnum} from '../../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-mortgage-deed-company-print',
@@ -9,7 +9,7 @@ import {IcfcOfferLetterConst} from '../../../icfc-offer-letter-const';
 export class MortgageDeedCompanyPrintComponent implements OnInit {
   @Input() letter;
   @Input() nepaliData;
-  offerLetterConst = IcfcOfferLetterConst;
+  offerLetterConst = LegalDocumentCheckListEnum;
 
   constructor() { }
 

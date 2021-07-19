@@ -105,6 +105,14 @@ export class RelationshipList {
       name: 'Brother in law',
     },
     {
+      id: 'Nephew',
+      name: 'Nephew',
+    },
+    {
+      id: 'Proprietor',
+      name: 'Proprietor',
+    },
+    {
       id: 'Other',
       name: 'Other',
     }
