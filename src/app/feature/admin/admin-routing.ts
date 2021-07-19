@@ -33,6 +33,8 @@ import {EligibilitySummaryComponent} from './component/eligibility/eligibility-s
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
 import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
 import {PreferenceComponent} from './component/preference/preference.component';
+import {CreditMemoTypeComponent} from "../credit-memo/component/credit-memo-type/credit-memo-type.component";
+
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -64,7 +66,10 @@ export const adminRoutes: Routes = [
             {path: 'new-requests', component: NewRequestsComponent},
             {path: 'eligible', component: EligibleRequestsComponent},
             {path: 'non-eligible', component: NonEligibleRequestsComponent},
-            {path: 'eligibility-summary', component: EligibilitySummaryComponent}
+            {path: 'eligibility-summary', component: EligibilitySummaryComponent},
+            {path: 'credit-memo-type', component: CreditMemoTypeComponent},
+
+
         ]
     },
     {path: 'role', component: RolePermissionComponent},

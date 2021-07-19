@@ -67,6 +67,10 @@ const routes: Routes = [
         loadChildren: () => import('./credit-administration/credit-administration.module').then(m => m.CreditAdministrationModule)
       },
       {
+        path: 'credit-memo',
+        loadChildren: () => import('./credit-memo/credit-memo.module').then(m => m.CreditMemoModule)
+      },
+      {
         path: 'error',
         component: ErrorPageComponent
       },

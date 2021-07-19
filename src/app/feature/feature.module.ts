@@ -18,6 +18,8 @@ import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.compone
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {CreditMemoModule} from "./credit-memo/credit-memo.module";
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import {ErrorPageComponent} from './error-page/error-page.component';
         NbDatepickerModule.forRoot(),
         NgSelectModule,
         DragDropModule,
-        NepaliCalendarModule
+        NepaliCalendarModule,
+          CreditMemoModule
       ],
       declarations: [
         FeatureComponent,

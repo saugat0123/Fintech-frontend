@@ -1,0 +1,69 @@
+<div class="modal-header" [nbSpinner]="spinner">
+    <h4 class="modal-title pull-left">{{action}} Memo Type</h4>
+    <button (click)="close()" aria-label="Close" class="close pull-right" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form (ngSubmit)="save()" [formGroup]="modelForm">
+    <div class="modal-body">
+
+        <app-validation-error [errors]="errors"></app-validation-error>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="name">Name</label>
+                    <input class="form-control" formControlName="id" placeholder="id" type="hidden">
+                    <input id="name" class="form-control" formControlName="name" placeholder="Name"
+                           required
+                           type="text"
+                           [ngClass]="{
+                                'is-invalid': name.invalid && (name.dirty || name.touched),
+                                'is-valid': !name.invalid && (name.dirty || name.touched)
+                                }"
+                    >
+                </div>
+            </div>
+            <div *ngIf="model.id" class="row">
+                <div class="col-md-12">
+                    <label for="status">Status</label>
+                    <select id="status" class="form-control" formControlName="status" required
+                            [ngClass]="
+                            {'is-invalid': status.invalid && (status.dirty || status.touched),
+                            'is-valid': !status.invalid && (status.dirty || status.touched)}"
+                    >
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                        <option value="DELETED">DELETED</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <h6> Choose Documents</h6>
+
+        <span (click)="nbUpdateCheckBoxInitial($event, true)"
+              class="btn btn-primary btn-sm">Select All
+                                    </span>
+        <span (click)="nbUpdateCheckBoxInitial($event, false)"
+              class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
+        <div class="row">
+            <div class="col-md-4"
+                 *ngFor="let initialDocument of documents; let documentIndex = index">
+                <nb-checkbox
+                        (change)="updateDocument($event, initialDocument,finalInitialDocument)"
+                        [checked]="initialDocument.checked"
+                        id="{{'initialDocument'+documentIndex}}"
+                        status="primary">
+                    {{initialDocument.displayName}}
+                </nb-checkbox>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" [disabled]="!modelForm.valid || spinner">Save</button>
+    </div>
+</form>
