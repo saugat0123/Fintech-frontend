@@ -92,4 +92,9 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${UserService.API}/update-roles/${id}`);
         return this.http.post(req.url, obj, {headers: req.header});
     }
+
+    public getActiveUserListByRoleId(roleId): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/active-users-by-role-id/${roleId}`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }
