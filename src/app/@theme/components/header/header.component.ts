@@ -109,7 +109,12 @@ export class HeaderComponent implements OnInit {
         ).subscribe((value) => {
             if (value === HeaderComponent.LOGOUT) {
                 LocalStorageUtil.clearStorage();
+        try {
+        if (this.socketService.isCustomSocketOpened) {
                 this.socketService.closeSocket();
+        }} catch (e) {
+
+        }
                 this.router.navigate(['/login']);
             } else if (value === HeaderComponent.PROFILE) {
                 this.modalService.dismissAll();

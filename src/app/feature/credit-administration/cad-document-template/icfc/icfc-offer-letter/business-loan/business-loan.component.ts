@@ -149,6 +149,7 @@ export class BusinessLoanComponent implements OnInit {
 
       loanSecurityTable: this.formBuilder.array([this.buildLandSecurity()]),
       loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
+      guarantorDetails: this.formBuilder.array([]),
     });
   }
 
@@ -183,6 +184,7 @@ export class BusinessLoanComponent implements OnInit {
       if (!ObjectUtil.isEmpty(initialInfo)) {
         this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
         this.setLoanFacilityTable(initialInfo.loanFacilityTable);
+        this.setGuarantorDetails(initialInfo.guarantorDetails);
       }
       this.businessLoan.patchValue(this.initialInfoPrint);
     }
@@ -309,6 +311,36 @@ export class BusinessLoanComponent implements OnInit {
         purpose: [value.purpose],
         depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
         credit: [value.credit],
+      }));
+    });
+  }
+
+  buildGuarantor() {
+    return this.formBuilder.group({
+      guarantorName1: [undefined],
+      date3: [undefined],
+    });
+  }
+
+  addNewGuarantor() {
+    (this.businessLoan.get('guarantorDetails') as FormArray).push(this.buildGuarantor());
+  }
+
+  removeAddedGuarantor(index) {
+    (this.businessLoan.get('guarantorDetails') as FormArray).removeAt(index);
+  }
+
+  setGuarantorDetails(data) {
+    const formArray = this.businessLoan.get('guarantorDetails') as FormArray;
+    (this.businessLoan.get('guarantorDetails') as FormArray).clear();
+    if (data.length === 0) {
+      this.addLoanFacilityTable();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        guarantorName1: [value.guarantorName1],
+        date3: [value.date3],
       }));
     });
   }
