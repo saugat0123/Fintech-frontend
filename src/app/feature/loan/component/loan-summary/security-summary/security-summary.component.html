@@ -124,8 +124,8 @@
                         <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
 
-                    <ng-container *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
-                        <ng-container *ngIf="kyc?.ownerRelationship != null">
+                    <ng-container>
+                        <ng-container *ngIf="landDetails?.ownerKycApplicableData !== null">
                             <tr class="sb-bg-secondary text-white">
                                 <th>Relation</th>
                                 <th>Name</th>
@@ -149,7 +149,7 @@
                                 <th>Remark</th>
                             </tr>
 
-                            <tr>
+                            <tr *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
@@ -270,8 +270,8 @@
                         <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
 
-                    <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
-                        <ng-container *ngIf="kyc?.ownerRelationship != null">
+                    <ng-container>
+                        <ng-container *ngIf="landBuilding?.ownerKycApplicableData !== null">
                             <tr class="sb-bg-secondary text-white">
                                 <th>Relation</th>
                                 <th>Name</th>
@@ -283,7 +283,7 @@
                                 <th>Address</th>
                                 <th>Remark</th>
                             </tr>
-                            <ng-container>
+                            <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                                 <tr>
                                     <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                     <td class="text-left pl-1">{{kyc?.relationName}}</td>
@@ -673,8 +673,8 @@
                         <td class="text-right pr-1" colspan="2">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
                     </tr>
                     <!-- owner Kyc hypothecation -->
-                    <ng-container *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
-                        <ng-container *ngIf="kyc?.ownerRelationship != null">
+                    <ng-container>
+                        <ng-container *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null">
                             <tr class="sb-bg-secondary text-white">
                                 <th>Relation</th>
                                 <th>Name</th>
@@ -686,7 +686,8 @@
                                 <th>Address</th>
                                 <th>Remark</th>
                             </tr>
-                            <tr>
+                            <tr *ngFor="let kyc of hypothecationOfStock?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+                                <td *ngIf="j>=2"></td>
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
