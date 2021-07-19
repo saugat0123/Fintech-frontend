@@ -17,7 +17,6 @@ import {DocumentService} from '../../../../../admin/component/document/document.
 import {Status} from '../../../../../../@core/Status';
 import {environment} from '../../../../../../../environments/environment';
 import {Clients} from '../../../../../../../environments/Clients';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-document-checklist-lite',
@@ -50,15 +49,13 @@ export class DocumentChecklistLiteComponent implements OnInit {
     document: Array<Document> = [];
     client = environment.client;
     clientList = Clients;
-    cadDocumentId: number;
 
     constructor(private creditAdministrationService: CreditAdministrationService,
                 private toastService: ToastService,
                 private nbDialogService: NbDialogService,
                 private routerUtilsService: RouterUtilsService,
                 private modelService: NgbModal,
-                private documentService: DocumentService,
-                private router: Router) {
+                private documentService: DocumentService) {
     }
 
     ngOnInit() {
@@ -73,7 +70,6 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 this.document = res.detail;
                 if (!ObjectUtil.isEmpty(this.cadData) && !(ObjectUtil.isEmpty(this.document))) {
                     this.customerLoanList = this.cadData.assignedLoan;
-                    this.cadDocumentId = this.cadData.id;
                     this.cadData.cadFileList.forEach(singleCadFile => {
                         this.document.forEach(singleDocument => {
                             if (singleDocument.id === singleCadFile.cadDocument.id) {
