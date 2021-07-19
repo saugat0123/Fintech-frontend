@@ -146,6 +146,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     approveSheet = 'approveSheet';
 
     riskOfficerLevel = false;
+    riskOfficerLevelComment = false;
+
     private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
@@ -153,6 +155,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     showApprovalSheetInfo = false;
     isJointInfo = false;
     jointInfo = [];
+    proposalAllData;
+    companyInfo: any;
 
     constructor(
         private userService: UserService,
@@ -190,6 +194,9 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
             this.isJointInfo = true;
         }
+        if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
+            this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+        }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.prepareAuthoritySection();
         this.loadSummary();
@@ -209,7 +216,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             this.rolesForRisk = res.detail.map( e => {
                 return e.role.roleName;
             }).filter( e => {
-                if (e === envSrdb.RISK_INITIAL_ROLE) {
+                if (e === envSrdb.RISK_INITIAL_ROLE_SME || e === envSrdb.RISK_INITIAL_ROLE_CORPORATE) {
                     aboveRisk = false;
                     return true;
                 }
@@ -223,8 +230,11 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                         this.currentAuthorityList.push(...
                             ([...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                                 .slice(previousBackIndex, i + 1)
-                                .some( v => v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE ||
-                                    v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE))
+                                .some( v => (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                                    v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
+                                    ||
+                                    (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                                        v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)))
                                 ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                                     .slice(previousBackIndex, i + 1)
                                     .filter( v => {
@@ -240,8 +250,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                 const activeAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                     .splice(previousBackIndex);
                 this.currentAuthorityList.push(...(activeAuthorityList
-                    .some( v => v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE ||
-                        v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE))
+                    .some( v => (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                        v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
+                        ||
+                        (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                            v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
+                    ))
                     ? activeAuthorityList
                         .filter( v => {
                             return this.rolesForRisk.includes(v.fromRole.roleName) ||
@@ -249,8 +263,11 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                         }) : []);
             }  else {
                 this.currentAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                    .some( v => v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE ||
-                        v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE)
+                    .some( v => (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                        v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
+                        ||
+                        (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                            v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE))
                     ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                         .filter( v => {
                             return this.rolesForRisk.includes(v.fromRole.roleName) ||
@@ -370,6 +387,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
+            this.proposalAllData = JSON.parse(this.proposalData.data);
             this.proposalSummary = true;
         }
 
@@ -386,16 +404,29 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
 
         let lastIndex;
         let riskOfficerIndex;
+        let riskOfficerIndexComment;
 
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
             this.signatureList.forEach((v, i) => {
-                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE) {
+                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                    v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE) {
                     riskOfficerIndex = i;
                 }
             });
 
-            if (!ObjectUtil.isEmpty(riskOfficerIndex)) {
+            this.signatureList.forEach((v, i) => {
+                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
+                    v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE) {
+                    riskOfficerIndexComment = i;
+                }
+            });
+
+            if (!ObjectUtil.isEmpty(riskOfficerIndexComment)) {
+                this.riskOfficerLevelComment = true;
+            }
+
+            if (riskOfficerIndex) {
                 this.riskOfficerLevel = true;
                 this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
             }

@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {environment} from '../../../../../../environments/environment';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-guarantor-summary',
@@ -7,6 +9,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class GuarantorSummaryComponent implements OnInit {
   @Input() guarantorData;
+  @Input() loanCategory;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
   constructor() { }
 
   ngOnInit() {

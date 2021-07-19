@@ -117,8 +117,6 @@ export class PersonalTermLoanComponent implements OnInit {
       amount5: [undefined],
       amountInWords5: [undefined],
       insuranceAmount: [undefined],
-      debtorName2: [undefined],
-      date2: [undefined],
       dhaniName: [undefined],
       district2: [undefined],
       munVdc: [undefined],
@@ -138,9 +136,12 @@ export class PersonalTermLoanComponent implements OnInit {
       footerLetterMonth: [undefined],
       footerLetterDay: [undefined],
       year2: [undefined],
+      debtorName2: [undefined],
+      date2: [undefined],
 
       loanSecurityTable: this.formBuilder.array([this.buildLandSecurity()]),
       loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
+      guarantorDetails: this.formBuilder.array([]),
     });
   }
 
@@ -162,6 +163,7 @@ export class PersonalTermLoanComponent implements OnInit {
       if (!ObjectUtil.isEmpty(initialInfo)) {
         this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
         this.setLoanFacilityTable(initialInfo.loanFacilityTable);
+        this.setGuarantorDetails(initialInfo.guarantorDetails);
       }
       this.personalTermLoan.patchValue(this.initialInfoPrint);
     }
@@ -308,6 +310,37 @@ export class PersonalTermLoanComponent implements OnInit {
         purpose: [value.purpose],
         depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
         loanTitle: [value.loanTitle],
+      }));
+    });
+  }
+
+  buildGuarantorDetails() {
+    return this.formBuilder.group({
+      debtorName3: [undefined],
+      date3: [undefined],
+    });
+  }
+
+  addNewGuarantor() {
+    (this.personalTermLoan.get('guarantorDetails') as FormArray).push(this.buildGuarantorDetails());
+  }
+
+  removeAddedGuarantor(index) {
+    (this.personalTermLoan.get('guarantorDetails') as FormArray).removeAt(index);
+  }
+
+  setGuarantorDetails(data) {
+    const formArray = this.personalTermLoan.get('guarantorDetails') as FormArray;
+    // (this.personalTermLoan.get('guarantorDetails') as FormArray).clear();
+    if (data.length === 0) {
+      this.addTableData();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        // snNo: [value.snNo],
+        debtorName3: [value.debtorName3],
+        date3: [value.date3],
       }));
     });
   }

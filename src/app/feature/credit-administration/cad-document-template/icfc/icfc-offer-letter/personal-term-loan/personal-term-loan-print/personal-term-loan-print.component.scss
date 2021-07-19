@@ -11,7 +11,17 @@
   height: 30%;
   width: 48%;
 }
+.guarantorRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
+.guarantorColumn {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
 .extendedMargin {
   margin-top: 375px;
 }
