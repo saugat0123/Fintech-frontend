@@ -62,7 +62,6 @@ export class ListRoleComponent implements OnInit {
     }
 
     onStatusChange(data) {
-        console.log('data.status:::{}', data);
         if (data.status === Status.ACTIVE) {
             this.updateStatus(data);
             return;

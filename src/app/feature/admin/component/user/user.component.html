@@ -168,7 +168,7 @@
                                     </button>
                                     <button nbButton status="danger" size="tiny" class="m-1" *ngIf="!allList?.primaryUserId"
                                             (click)="addRole(allList)"
-                                            title="Add Role">
+                                            title="Add Role" [disabled]=true>
                                         <i class="fa fa-plus-circle"></i>
                                     </button>
                                 </ng-container>
