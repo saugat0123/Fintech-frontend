@@ -15,6 +15,7 @@
                 <th>Branch</th>
                 <th>Province</th>
                 <th>Customer Name</th>
+                <th>Priority</th>
                 <th>Type</th>
                 <th>Status</th>
                 <th>From</th>
@@ -35,6 +36,16 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">
+                        <ng-container *ngIf="model?.assignedLoan.length > 1; else elseSection">
+                            {{prioritySection(model?.assignedLoan)}}
+                        </ng-container>
+                        <ng-template #elseSection>
+                            <ng-container *ngFor="let priorityData of model?.assignedLoan; let index = index;">
+                                {{priorityData?.priority}}
+                            </ng-container>
+                        </ng-template>
+                    </td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
