@@ -88,10 +88,10 @@ export class IncomeFromAccountComponent implements OnInit {
 
   buildAccountTransactionForm() {
     return this.formBuilder.group({
-      creditTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
-      creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
-      debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
-      debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_ONLY)]],
+      creditTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      creditTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      debitTransactionNumber: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+      debitTransactionValue: [undefined, [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
       repaymentTrackWithCurrentBank: [undefined, !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
     });
   }
@@ -99,24 +99,24 @@ export class IncomeFromAccountComponent implements OnInit {
   calculateTotalIncomeDuringReview() {
     let totalIncomeDuringReview = 0;
     totalIncomeDuringReview =
-        this.incomeFormGroup.get('interestDuringReview').value +
+        (this.incomeFormGroup.get('interestDuringReview').value +
         this.incomeFormGroup.get('commissionDuringReview').value +
         this.incomeFormGroup.get('otherChargesDuringReview').value +
         this.incomeFormGroup.get('loanProcessingDuringReview').value +
         this.incomeFormGroup.get('lcCommissionDuringReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value;
+        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value).toFixed(2);
     this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
   }
 
   calculateTotalIncomeAfterReview() {
     let totalIncomeAfterNextReview = 0;
     totalIncomeAfterNextReview =
-        this.incomeFormGroup.get('interestAfterNextReview').value +
+        (this.incomeFormGroup.get('interestAfterNextReview').value +
         this.incomeFormGroup.get('commissionAfterNextReview').value +
         this.incomeFormGroup.get('otherChargesAfterNextReview').value +
         this.incomeFormGroup.get('loanProcessingAfterNextReview').value +
         this.incomeFormGroup.get('lcCommissionAfterNextReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value;
+        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
     this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
   }
   scrollToFirstInvalidControl() {
