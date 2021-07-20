@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoleHierarchyModelComponent } from './role-hierarchy-model.component';
+import { VerificationComponent } from './verification.component';
 
-describe('RoleHierarchyModelComponent', () => {
-  let component: RoleHierarchyModelComponent;
-  let fixture: ComponentFixture<RoleHierarchyModelComponent>;
+describe('VerificationComponent', () => {
+  let component: VerificationComponent;
+  let fixture: ComponentFixture<VerificationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoleHierarchyModelComponent ]
+      declarations: [ VerificationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoleHierarchyModelComponent);
+    fixture = TestBed.createComponent(VerificationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
