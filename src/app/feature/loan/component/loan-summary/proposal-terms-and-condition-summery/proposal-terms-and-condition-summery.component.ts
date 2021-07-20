@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-proposal-terms-and-condition-summery',
@@ -11,8 +12,11 @@ import {Clients} from '../../../../../../environments/Clients';
 export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   @Input() customerAllLoanList: Array<LoanDataHolder>;
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() loanCategory;
   client = environment.client;
   clientName = Clients;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
   constructor() { }
 
   ngOnInit() {

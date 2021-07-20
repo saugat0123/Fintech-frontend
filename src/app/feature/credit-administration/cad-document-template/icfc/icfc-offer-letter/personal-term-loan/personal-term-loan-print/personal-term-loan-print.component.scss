@@ -1,9 +1,9 @@
 .bodyConfig {
-  font-size: 18px;
-  line-height: 1.9;
+  font-size: 14pt;
+  line-height: 1.6;
   text-align: justify;
   text-justify: inter-word;
-  margin: 50px 70px;
+  margin: 50px 30px;
 }
 
 .signatureTable {
@@ -11,21 +11,41 @@
   height: 30%;
   width: 48%;
 }
-
-table {
-  font-size: 18px;
-  line-height: 1.8;
+.guarantorRow:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
+.guarantorColumn {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
 .extendedMargin {
-  margin-top: 30%;
+  margin-top: 375px;
+}
+
+table {
+  font-size: 14pt;
+  line-height: 1.4;
 }
 
 .loanWords {
-  font-size: 16px;
+  font-size: 13pt;
 }
 span {
-  font-size: 21px;
+  font-size: 20pt;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 14pt;
+  line-height: 1.2;
+}
+
+.uniWords {
+  font-size: 14pt;
 }
 
 li {
@@ -61,3 +81,8 @@ footer {
     font-size: 18px;
   }
 }
+
+.page-break {
+  page-break-after: always;
+}
+

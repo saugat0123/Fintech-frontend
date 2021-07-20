@@ -55,7 +55,7 @@ const COMPONENTS = [
     CollateralSummaryComponent,
     NtaSummaryComponent,
     ProposalTermsAndConditionSummeryComponent,
-    ApprovalSheetComponent,
+    // ApprovalSheetComponent,
     RoleHierarchyChainComponent,
     NtaMegaSummaryComponent
 ];
@@ -83,9 +83,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         IncomeFromAccountSummeryComponent,
         NtaSummaryComponent,
         ProposalTermsAndConditionSummeryComponent,
-        ApprovalSheetComponent,
         NtaMegaSummaryComponent,
-        ApprovalSheetComponent,
+        // ApprovalSheetComponent,
         CollateralSummaryComponent,
         ProposalJustificationSummaryComponent,
         SecuritySummaryComponent,
@@ -97,7 +96,9 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         MGroupSummaryComponent,
         CommentsSummaryComponent,
         PreviousSecuritySummaryComponent,
-        RoleHierarchyChainComponent
+        RoleHierarchyChainComponent,
+        CompanyInfoSummaryComponent,
+        ApprovalSheetDocumentListComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

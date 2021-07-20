@@ -3,15 +3,16 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {ToastService} from '../../../../../../@core/utils';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
-import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {OfferDocument} from '../../../../model/OfferDocument';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NbDialogRef} from '@nebular/theme';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {CadFile} from '../../../../model/CadFile';
+import {Document} from '../../../../../admin/modal/document';
+import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
 
 @Component({
   selector: 'app-mortgage-deed-company',
@@ -19,14 +20,14 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
   styleUrls: ['./mortgage-deed-company.component.scss']
 })
 export class MortgageDeedCompanyComponent implements OnInit {
-  @Input() offerLetterType;
-  @Input() cadOfferLetterApprovedDoc;
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
 
   mortgageDeedCompany: FormGroup;
   spinner;
-  offerLetterDocument: OfferDocument;
-  offerLetterConst = IcfcOfferLetterConst;
-  customerOfferLetter: CustomerOfferLetter;
+  offerLetterConst = LegalDocumentCheckListEnum;
   initialInfoPrint;
   existingOfferLetter = false;
   customVar;
@@ -129,12 +130,10 @@ export class MortgageDeedCompanyComponent implements OnInit {
 
 
   removeTableDetail(index) {
-    // getting the form array from form group:
     (this.mortgageDeedCompany.get('propertyEvaluation') as FormArray).removeAt(index);
   }
 
   addTableDate() {
-    // building or adding / pushing value of the form in array:
     (this.mortgageDeedCompany.get('propertyEvaluation') as FormArray).push(
         this.formBuilder.group({
           districtName: [undefined],
@@ -165,7 +164,7 @@ export class MortgageDeedCompanyComponent implements OnInit {
         MunicipalityOrVdc: [value.MunicipalityOrVdc],
         wardNo: [value.wardNo],
         seatNo: [value.seatNo],
-        KittaNo: [value.kittaNo],
+        KittaNo: [value.KittaNo],
         area: [value.area],
         propertyDetails: [value.propertyDetails],
         propertyRight: [value.propertyRight],
@@ -184,7 +183,7 @@ export class MortgageDeedCompanyComponent implements OnInit {
   }
 
   fillForm() {
-    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     // console.log(this.nepData);
     const customerAddress =
         this.nepData.permanentMunicipality + ' j8f g ' +
@@ -210,53 +209,68 @@ export class MortgageDeedCompanyComponent implements OnInit {
   }
 
   checkOfferLetter() {
-    this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-        === this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_COMPANY).toString())[0];
-    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-      this.offerLetterDocument = new OfferDocument();
-      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_COMPANY);
-      this.fillForm();
-    } else {
-      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-      this.initialInfoPrint = initialInfo;
-      this.existingOfferLetter = true;
-      if (!ObjectUtil.isEmpty(initialInfo)) {
-        this.setPropertyEvaluationTable(initialInfo.propertyEvaluation);
+
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      if (this.cadData.cadFileList.length > 0) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            const initialInfo = JSON.parse(singleCadFile.initialInformation);
+            this.initialInfoPrint = initialInfo;
+            this.mortgageDeedCompany.patchValue(this.initialInfoPrint);
+            if (!ObjectUtil.isEmpty(initialInfo)) {
+              this.setPropertyEvaluationTable(initialInfo.propertyEvaluation);
+            }
+          } else {
+            this.fillForm();
+          }
+        });
+      } else {
+        this.fillForm();
       }
-      this.mortgageDeedCompany.patchValue(this.initialInfoPrint);
     }
   }
 
   submit() {
     console.log(this.mortgageDeedCompany.value);
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
-    if (this.existingOfferLetter) {
-      this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-        this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_COMPANY).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.mortgageDeedCompany.value);
+    let flag = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          flag = false;
+          singleCadFile.initialInformation = JSON.stringify(this.mortgageDeedCompany.value);
         }
       });
+      if (flag) {
+        const cadFile = new CadFile();
+        const document = new Document();
+        cadFile.initialInformation = JSON.stringify(this.mortgageDeedCompany.value);
+        document.id = this.documentId;
+        cadFile.cadDocument = document;
+        cadFile.customerLoanId = this.customerLoanId;
+        this.cadData.cadFileList.push(cadFile);
+      }
     } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.MORTGAGE_DEED_COMPANY);
-      offerDocument.initialInformation = JSON.stringify(this.mortgageDeedCompany.value);
-      this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
+      const cadFile = new CadFile();
+      const document = new Document();
+      cadFile.initialInformation = JSON.stringify(this.mortgageDeedCompany.value);
+      document.id = this.documentId;
+      cadFile.cadDocument = document;
+      cadFile.customerLoanId = this.customerLoanId;
+      this.cadData.cadFileList.push(cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.log(error);
       this.toastService.show(new Alert(AlertType.DANGER, 'Failed to save offer letter !'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     });
   }
 
