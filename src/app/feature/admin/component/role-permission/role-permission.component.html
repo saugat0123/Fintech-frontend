@@ -29,8 +29,9 @@
                         <label for="configureRole">Configure Permissions for Role</label>
                         <select (change)="roleChanged($event.target.value)" class="form-control"
                                 id="configureRole">
-                            <option [ngValue]="null" hidden>---Select Role---</option>
-                            <option *ngFor="let role of roleList" value="{{role.id}}" [selected]="role.id == roleId">{{role.roleName}}</option>
+                            <option [ngValue]="null" hidden>Select Role</option>
+                            <option *ngFor="let role of roleList" value="{{role.id}}" [selected]="role.id == roleId">
+                                {{role.roleName}}</option>
                         </select>
                     </div>
                     <div class="col-md-9 d-flex justify-content-end">
@@ -68,7 +69,8 @@
                                     <!--*ngFor="let api of permission.apiList;let i=index">-->
                                     <!--<input class="big-checkbox {{permission.id+api.type}}"-->
                                     <!--[checked]="api.checked"-->
-                                    <!--(change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"-->
+                                    <!--(change)="updateCheckapiOptions(permission.id,$event.target.value,
+                                    $event.target.checked,i)"-->
                                     <!--type="checkbox" value="{{api.id}}"/>-->
                                     <!--<span>{{api.apis}}</span></div>-->
 
@@ -83,8 +85,8 @@
                                                            id="{{'api-' + permission.id}}"
                                                            value="{{api.id}}"
                                                            [checked]="api.checked"
-                                                           (change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"
-                                                    />
+                                                           (change)="updateCheckapiOptions(permission.id,
+                                                           $event.target.value, $event.target.checked, i)"/>
                                                     <label class="form-check-label"
                                                            for="{{'api-' + permission.id}}">{{api.type}}</label>
                                                 </div>

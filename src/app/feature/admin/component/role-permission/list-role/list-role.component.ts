@@ -6,6 +6,9 @@ import {UpdateModalComponent} from '../../../../../@theme/components';
 import {RoleService} from '../role.service';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {RoleEditComponent} from './role-edit/role-edit.component';
+import {UserService} from '../../user/user.service';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Status} from '../../../../../@core/Status';
 
 
 @Component({
@@ -24,7 +27,9 @@ export class ListRoleComponent implements OnInit {
     constructor(
         private service: RoleService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private userService: UserService,
+        private toastService: ToastService
     ) {
     }
 
@@ -54,6 +59,47 @@ export class ListRoleComponent implements OnInit {
         }
         event.preventDefault();
         this.modalService.open(UpdateModalComponent);
+    }
+
+    onStatusChange(data) {
+        console.log('data.status:::{}', data);
+        if (data.status === Status.ACTIVE) {
+            this.updateStatus(data);
+            return;
+        }
+        const roleId = data.id;
+        this.userService.getActiveUserListByRoleId(roleId).subscribe((response: any) => {
+            if (response.detail.length > 0) {
+                const activeUserCount = response.detail.length;
+                this.toastService.show(new Alert(AlertType.ERROR,
+                    'Can not change status, ' + activeUserCount + ' user(s) active in ' +
+                    data.roleName + ' role.'));
+                ListRoleComponent.loadData(this);
+            } else {
+                this.updateStatus(data);
+            }
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            ListRoleComponent.loadData(this);
+            }
+        );
+    }
+
+    private updateStatus (data) {
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+        event.preventDefault();
+        const modalRef = this.modalService.open(UpdateModalComponent);
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
+        modalRef.result.then(
+            close => {
+                ListRoleComponent.loadData(this);
+            }, dismiss => {
+                ListRoleComponent.loadData(this);
+            }
+        );
     }
 
     openEditRole(role: Role) {
