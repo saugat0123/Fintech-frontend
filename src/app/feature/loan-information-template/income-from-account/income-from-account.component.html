@@ -26,7 +26,7 @@
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
                          class="form-control text-center"
                          formControlName="interestDuringReview"
-                         type="number" appDecimalNumber>
+                         type="number">
                 <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
                      class="invalid-feedback">
                   <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
@@ -35,7 +35,7 @@
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
                          class="form-control text-center"
                          formControlName="interestAfterNextReview"
-                         type="number" appDecimalNumber>
+                         type="number">
                 <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
                      class="invalid-feedback">
                   <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
@@ -47,12 +47,12 @@
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
                          class="form-control text-center"
                          formControlName="commissionDuringReview"
-                         type="number" appDecimalNumber>
+                         type="number">
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
                          class="form-control text-center"
                          formControlName="commissionAfterNextReview"
-                         type="number" appDecimalNumber>
+                         type="number">
               </td>
             </tr>
             <tr>
@@ -60,12 +60,12 @@
               <td><input (keyup)="calculateTotalIncomeDuringReview()"
                          class="form-control text-center"
                          formControlName="loanProcessingDuringReview"
-                         type="number" appDecimalNumber>
+                         type="number">
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()"
                          class="form-control text-center"
                          formControlName="loanProcessingAfterNextReview"
-                         type="number" appDecimalNumber>
+                         type="number">
               </td>
             </tr>
             <ng-container *ngIf="srdbAffiliatedId">
@@ -74,12 +74,12 @@
                 <td><input (keyup)="calculateTotalIncomeDuringReview()"
                            class="form-control text-center"
                            formControlName="lcCommissionDuringReview"
-                           type="number" appDecimalNumber>
+                           type="number">
                 </td>
                 <td><input (keyup)="calculateTotalIncomeAfterReview()"
                            class="form-control text-center"
                            formControlName="lcCommissionAfterNextReview"
-                           type="number" appDecimalNumber>
+                           type="number">
                 </td>
               </tr>
               <tr>
@@ -87,12 +87,12 @@
                 <td><input (keyup)="calculateTotalIncomeDuringReview()"
                            class="form-control text-center"
                            formControlName="guaranteeCommissionDuringReview"
-                           type="number" appDecimalNumber>
+                           type="number">
                 </td>
                 <td><input (keyup)="calculateTotalIncomeAfterReview()"
                            class="form-control text-center"
                            formControlName="guaranteeCommissionAfterNextReview"
-                           type="number" appDecimalNumber>
+                           type="number">
                 </td>
               </tr>
             </ng-container>
@@ -101,12 +101,12 @@
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
                          class="form-control text-center"
                          formControlName="otherChargesDuringReview"
-                         type="number" appDecimalNumber>
+                         type="number">
               </td>
               <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
                          class="form-control text-center"
                          formControlName="otherChargesAfterNextReview"
-                         type="number" appDecimalNumber>
+                         type="number">
               </td>
             </tr>
             <tr class="font-weight-bold">
@@ -164,7 +164,7 @@
                     <input class="text-center form-control"
                            formControlName="creditTransactionNumber"
                            [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionNumber?.invalid }"
-                           appDecimalNumber>
+                           [pattern]="pattern.NUMBER_ONLY">
                   <div *ngIf="(submitted) && transactionForm?.creditTransactionNumber?.invalid"
                        class="invalid-feedback">
                     <span>Invalid Credit Transaction Number.</span>
@@ -173,7 +173,8 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="creditTransactionValue"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionValue?.invalid}" appDecimalNumber>
+                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionValue?.invalid }"
+                    >
                   <div *ngIf="(submitted) && transactionForm?.creditTransactionValue?.invalid"
                        class="invalid-feedback">
                     <span>Invalid Credit Transaction Value.</span>
@@ -185,7 +186,8 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="debitTransactionNumber"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionNumber?.invalid }" appDecimalNumber>
+                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionNumber?.invalid }"
+                            >
                   <div *ngIf="(submitted) && transactionForm?.debitTransactionNumber?.invalid"
                        class="invalid-feedback">
                     <span>Invalid Debit Transaction Number.</span>
@@ -194,7 +196,8 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="debitTransactionValue"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionValue?.invalid }" appDecimalNumber>
+                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionValue?.invalid }"
+                    >
                     <div *ngIf="(submitted) && transactionForm?.debitTransactionValue?.invalid"
                          class="invalid-feedback">
                       <span>Invalid Debit Transaction Value.</span>
