@@ -21,6 +21,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {UserHistoryComponent} from './user-history/user-history.component';
 import {RoleType} from '../../modal/roleType';
 import {RoleAddComponent} from './role-add/role-add.component';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-user',
@@ -67,7 +68,8 @@ export class UserComponent implements OnInit {
         private toastService: ToastService,
         private formBuilder: FormBuilder,
         private branchService: BranchService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private loanService: LoanFormService
     ) {
     }
 
@@ -152,6 +154,29 @@ export class UserComponent implements OnInit {
     }
 
     onChange(data) {
+        if (data.status === Status.ACTIVE) {
+            this.updateStatus(data);
+            return;
+        }
+        const userId = data.id;
+        this.loanService.getLoanStatusApi(userId).subscribe((response: any) => {
+            if (response.detail.status === 'false') {
+                this.updateStatus(data);
+            } else {
+                const activeLoanCount = response.detail.count;
+                this.toastService.show(new Alert(AlertType.ERROR,
+                    'Can not change status, this user has ' + activeLoanCount + ' customer loan(s).' +
+                    ' Please transfer loan to proceed.'));
+                UserComponent.loadData(this);
+            }
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            UserComponent.loadData(this);
+            }
+        );
+    }
+
+    private updateStatus (data) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
