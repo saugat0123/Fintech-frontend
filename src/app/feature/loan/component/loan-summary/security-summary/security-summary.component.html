@@ -19,11 +19,9 @@
                         <th>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</th>
                         <th>Down Payment</th>
                         <th>Remaining Amount</th>
-                        <th>Loan Exposure %</th>
                         <th>Registration Number</th>
                         <th>Registration Date(AD/BS)</th>
                         <th>Engine Number</th>
-
                     </tr>
                     <tr>
                         <td>{{i + 1}}</td>
@@ -31,7 +29,6 @@
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.valuationAmount | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.downPayment | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{vehicleDetails?.remainingAmount | currencyFormatter}}</td>
-                        <td class="text-right pr-1">{{vehicleDetails?.loanExposure}}</td>
                         <td class="text-right pr-1">{{vehicleDetails?.registrationNumber}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.registrationDate | date}} ({{vehicleDetails?.registrationDate | engNepDate: false}})</td>
                         <td class="text-right pr-1">{{vehicleDetails?.engineNumber}}</td>
