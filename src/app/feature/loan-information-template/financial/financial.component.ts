@@ -654,9 +654,15 @@ export class FinancialComponent implements OnInit {
         //     Number(this.financialForm.get('totalExpense').value)).toFixed(2);
         // this.financialForm.get('grossMonthlyObligation').patchValue(totalGrossMonthly);
 
-        const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
-            Number(this.financialForm.get('totalIncome').value)).toFixed(2);
-        this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
+        if (this.client === this.clientName.ICFC) {
+            const totalEMIInterestForICFC = ((Number(this.financialForm.get('emiWithProposal').value) /
+                Number(this.financialForm.get('totalIncome').value)) * 100).toFixed(2);
+            this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterestForICFC);
+        }  else {
+            const totalEMIInterest = (Number(this.financialForm.get('emiWithProposal').value) /
+                Number(this.financialForm.get('totalIncome').value)).toFixed(2);
+            this.financialForm.get('totalEMIInterest').patchValue(totalEMIInterest);
+        }
     }
 
     methodListeners() {
