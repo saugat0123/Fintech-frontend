@@ -435,7 +435,8 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange) {
+    onChange(data, onActionChange, event) {
+        this.tempLoanType = event;
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {

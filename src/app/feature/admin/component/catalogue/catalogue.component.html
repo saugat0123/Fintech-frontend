@@ -230,8 +230,8 @@
                 <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
-                    <select [(ngModel)]="tempLoanType" class="form-control form-control-tiny py-0"
-                            (ngModelChange)="onChange(model,onActionChange)">
+                    <select  class="form-control form-control-tiny py-0"
+                            (change)="onChange(model,onActionChange,$event.target.value)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
                             <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information
