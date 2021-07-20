@@ -185,6 +185,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    refId: number;
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    restUrl = ApiConfig.URL;
 
 
     constructor(

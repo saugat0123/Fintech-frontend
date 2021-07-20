@@ -83,8 +83,8 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-3">
+                    <div class="row border">
+                        <div class="col-md-2 border">
 
                             <div>
                                 <strong> Priority:</strong>
@@ -97,7 +97,11 @@
                                       style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2 text-right border">
+                            <img class="report-log img-thumbnail border-0" alt="logo"
+                                 src="../../../../../assets/img/logo.png">
+                        </div>
+                        <div class="col-md-5 border">
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
@@ -123,9 +127,9 @@
                                     {{loanDataHolder?.branch?.province?.name}}</div> <div class="badge badge-warning">Summary</div>
                             </div>
                         </div>
-                        <div class="col-md-3 text-right">
-                            <img class="report-log img-thumbnail border-0" alt="logo"
-                                 src="../../../../../assets/img/logo.png">
+                        <div class="col-md-3 text-right border">
+                            <img class="img-thumbnail w-75 h-75" alt="picture"
+                                 src="{{restUrl+'/'+loanDataHolder?.loanHolder?.profilePic}}">
                         </div>
                     </div>
                 </div>
