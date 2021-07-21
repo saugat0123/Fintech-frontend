@@ -828,8 +828,7 @@
                 </div>
             </div>-->
             <div class="col-md-12">
-<!--                (loanDataHolder?.currentStage?.toUser.id === userId)-->
-                <button  *ngIf="(loanDataHolder?.currentStage.toUser.id === userId) && (loggedUserAccess == 'ALL' || loggedUserAccess == 'SPECIFIC')" (click)="openTermsAndCommentModal(termsConditionModel)"
+                <button  *ngIf="riskOfficerLevelComment && (loggedUserAccess == 'ALL' || loggedUserAccess == 'SPECIFIC')" (click)="openTermsAndCommentModal(termsConditionModel)"
                         nbButton
                         size="tiny"
                         shape="rectangle"

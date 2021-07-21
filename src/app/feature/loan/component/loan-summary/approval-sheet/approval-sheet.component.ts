@@ -157,7 +157,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     jointInfo = [];
     proposalAllData;
     companyInfo: any;
-    userId;
 
     constructor(
         private userService: UserService,
@@ -199,7 +198,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
-        this.userId = Number(LocalStorageUtil.getStorage().userId);
         this.prepareAuthoritySection();
         this.loadSummary();
         this.checkDocUploadConfig();
