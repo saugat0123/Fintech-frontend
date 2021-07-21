@@ -153,6 +153,7 @@ export class SecurityInitialFormComponent implements OnInit {
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];
+    selectSecurityArray = [];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -218,6 +219,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.landBuildingOtherBank(this.formData['landBuildingOtherBranchChecked']);
             this.vehicleOtherBank(this.formData['vehicleOtherBranchChecked']);
             this.plantOtherBank(this.formData['plantOtherBranchChecked']);
+            this.selectSecurityArray = this.formData['selectSecurityArray'];
 
         } else {
             this.addMoreLand();
@@ -246,6 +248,9 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
+        console.log('selectedArray::::', this.selectedArray);
+        console.log('selectedSecurity At Initital:::', this.selectedSecurity);
+        console.log('Before selectSecurityArray:::::', this.selectSecurityArray);
 
     }
 
@@ -876,11 +881,14 @@ export class SecurityInitialFormComponent implements OnInit {
             this.insurancePolicySelected = this.hypothecationOfStock = this.assignmentOfReceivable =
                 this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
                     this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
-                        this.plantOtherBranchChecked = false;
+                        this.plantOtherBranchChecked = this.assignments = this.securityOther = false;
         if (this.selectedArray !== undefined && this.selectedArray.indexOf(arraySelected) === -1 && arraySelected !== null) {
             this.selectedArray.push(arraySelected);
         }
         selectedSecurity.push(arraySelected);
+        console.log('Change in selected Array::::', this.selectedArray);
+        console.log('selectedSecurity::::', selectedSecurity);
+        console.log('Chnage selectSecurityArray:::::', this.selectSecurityArray);
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -928,6 +936,7 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         });
     }
+
     clearValidationAtInitialStage() {
         if (this.selectedSecurity === undefined) {
             const landDetailsFormControls = this.securityForm.get('landDetails') as FormArray;
@@ -987,80 +996,81 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         }
     }
+
     clearValidationState() {
-        if (this.selectedSecurity !== 'LandSecurity') {
+        if (!this.selectSecurityArray.includes('LandSecurity')) {
             const formControls = this.securityForm.get('landDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'VehicleSecurity') {
+        if (!this.selectSecurityArray.includes('VehicleSecurity')) {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'ApartmentSecurity') {
+        if (!this.selectSecurityArray.includes('ApartmentSecurity')) {
             const formControls = this.securityForm.get('buildingDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('buildArea').clearValidators();
                 f.get('buildArea').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'Land and Building Security') {
+        if (!this.selectSecurityArray.includes('Land and Building Security')) {
             const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'PlantSecurity') {
+        if (!this.selectSecurityArray.includes('PlantSecurity')) {
             const formControls = this.securityForm.get('plantDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'FixedDeposit') {
+        if (!this.selectSecurityArray.includes('FixedDeposit')) {
             const formControls = this.securityForm.get('fixedDepositDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('accountNumber').clearValidators();
                 f.get('accountNumber').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'HypothecationOfStock') {
+        if (!this.selectSecurityArray.includes('HypothecationOfStock')) {
             const formControls = this.securityForm.get('hypothecationOfStock') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'CorporateGuarantee') {
+        if (!this.selectSecurityArray.includes('CorporateGuarantee')) {
             const formControls = this.securityForm.get('corporateGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('name').clearValidators();
                 f.get('name').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'PersonalGuarantee') {
+        if (!this.selectSecurityArray.includes('PersonalGuarantee')) {
             const formControls = this.securityForm.get('personalGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('name').clearValidators();
                 f.get('name').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'InsurancePolicySecurity') {
+        if (!this.selectSecurityArray.includes('InsurancePolicySecurity')) {
             const formControls = this.securityForm.get('insurancePolicy') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('insuredAmount').clearValidators();
                 f.get('insuredAmount').updateValueAndValidity();
             });
         }
-        if (this.selectedSecurity !== 'AssignmentOfReceivables') {
+        if (!this.selectSecurityArray.includes('AssignmentOfReceivables')) {
             const formControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('amount').clearValidators();
                 f.get('amount').updateValueAndValidity();
             });
@@ -2074,5 +2084,70 @@ export class SecurityInitialFormComponent implements OnInit {
         const index = this.ownershipTransferEnumPair.indexOf(other[0]);
         this.ownershipTransferEnumPair.splice(index, 1);
         this.newOwnerShipTransfer = this.ownershipTransferEnumPair.concat(other);
+    }
+
+    addSelectedSecurityArray(arraySelected) {
+        if (this.selectSecurityArray !== undefined && this.selectSecurityArray.indexOf(arraySelected) === -1 && arraySelected !== null) {
+            this.selectSecurityArray.push(arraySelected);
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Added ' + arraySelected + ' Successfully'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('LandSecurity')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('VehicleSecurity')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('ApartmentSecurity')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('Land and Building Security')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('PlantSecurity')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('HypothecationOfStock')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('FixedDeposit')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('CorporateGuarantee')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('PersonalGuarantee')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('InsurancePolicySecurity')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('AssignmentOfReceivables')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('LeaseAssignment')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+        if (this.selectSecurityArray.includes('OtherSecurity')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'This security is already added'));
+            return;
+        }
+    }
+
+    deleteSelectedSecurityArray(arraySelected) {
+        this.selectSecurityArray = this.selectSecurityArray.filter(f => f !== arraySelected);
+        this.toastService.show(new Alert(AlertType.SUCCESS, 'Deleted ' + arraySelected));
     }
 }

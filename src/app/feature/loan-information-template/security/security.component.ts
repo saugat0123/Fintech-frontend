@@ -274,7 +274,8 @@ export class SecurityComponent implements OnInit {
             facCategory: this.securityForm.get('facCategory').value,
             securityCoverageAutoPrivate: this.securityForm.get('securityCoverageAutoPrivate').value,
             securityCoverageAutoCommercial: this.securityForm.get('securityCoverageAutoCommercial').value,
-            vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
+            vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value,
+            selectSecurityArray: this.initialSecurity.selectSecurityArray
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
