@@ -117,4 +117,20 @@ export class OfferLetterListComponent implements OnInit {
         }
     }
 
+    prioritySection(priorityValue) {
+        const tempArr = [];
+        priorityValue.forEach( value => {
+            tempArr.push(value.priority);
+        });
+        if (tempArr.includes('HIGH')) {
+            return 'HIGH';
+        } else {
+            if (tempArr.includes('MEDIUM')) {
+                return 'MEDIUM';
+            } else {
+                return 'LOW';
+            }
+        }
+    }
+
 }
