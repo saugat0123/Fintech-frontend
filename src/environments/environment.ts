@@ -14,7 +14,7 @@ import {SummaryType} from '../app/feature/loan/component/SummaryType';
  command to build client related product:
  ng build --configuration= 'client name'
 
- // SummaryType = GENERAL except SRDB bank
+ SummaryType = GENERAL except SRDB bank
 
  active client name in current repo: 'srdb' , 'tinau' , 'mega'
  */
