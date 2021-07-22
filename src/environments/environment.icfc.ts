@@ -1,4 +1,5 @@
 import {Clients} from './Clients';
+import {SummaryType} from '../app/feature/loan/component/SummaryType';
 
 export const environment = {
     production: false,
@@ -12,4 +13,5 @@ export const environment = {
     microLoan: false,
     SBS_GROUP: false,
     MEGA_GROUP: false,
+    summaryType: SummaryType.GENERAL
 };
