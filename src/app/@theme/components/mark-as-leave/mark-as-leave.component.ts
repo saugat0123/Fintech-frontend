@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanFormService} from '../../../feature/loan/component/loan-form/service/loan-form.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
@@ -29,10 +29,11 @@ export class MarkAsLeaveComponent implements OnInit {
   }
 
   private getActiveLoan(): void {
-    this.loanService.getLoanStatusApi(this.userId).subscribe((response: any) => {
-      this.activeLoanCount = response.detail.count;
+    this.loanService.getStatus().subscribe((response: any) => {
+      console.log(response.detail);
+      this.activeLoanCount = response.detail.pending;
       this.loanStatus = response.detail.status;
-      if (Number(this.activeLoanCount) === 0 ) {
+      if (this.activeLoanCount === 0 ) {
         this.noActiveLoan = true;
       }
     });
