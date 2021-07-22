@@ -1221,7 +1221,7 @@
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
             <div class="row mt-3">
-                <div class="col-md-12">
+                <div [ngClass]="clientName.ICFC === client? 'col-md-12 disable-print': 'col-md-12'">
                     <p><strong>Authority Section</strong></p>
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
