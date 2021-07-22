@@ -198,8 +198,7 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <div *ngIf='model?.combinedLoan?.id ===null &&
-                     (model?.documentStatus.toString()==="PENDING" ||
+                    <div *ngIf='(model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
@@ -212,9 +211,6 @@
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         NA
-                    </div>
-                    <div *ngIf='model?.combinedLoan?.id !==null'>
-                        Combined Loan {{model?.combinedLoan?.id}}
                     </div>
                 </td>
                 <td>
