@@ -34,18 +34,19 @@ export class UnassignedLoanComponent implements OnInit {
   }
 
   static loadData(other: UnassignedLoanComponent) {
-    other.spinnerService.show();
+   // other.spinnerService.show();
     other.spinner = true;
     other.toggleArray = [];
+    other.loanList = [];
     other.service.getPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.loanList = res.detail.content;
       other.pageable = PaginationUtils.getPageable(res.detail);
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
-      other.spinnerService.hide();
+    //  other.spinnerService.hide();
       other.spinner = false;
 
     }, error => {
-      other.spinnerService.hide();
+     // other.spinnerService.hide();
       other.spinner = false;
     });
   }
