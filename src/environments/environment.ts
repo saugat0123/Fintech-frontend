@@ -25,6 +25,8 @@ export const environment = {
   disableCrgAlpha: false,
   disableCrgLambda: false,
   disableApprovalSheet: false,
+  RISK_INITIAL_ROLE_SME: 'RISK OFFICER ( SME )',
+  RISK_INITIAL_ROLE_CORPORATE: 'RISK OFFICER ( CORPORATE )',
   microLoan: true,
   SBS_GROUP: false,
   MEGA_GROUP: true,
