@@ -51,6 +51,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaGrade;
     isJointInfo = false;
     jointInfo = [];
+    restUrl = ApiConfig.URL;
 
 
     constructor(private loanConfigService: LoanConfigService,

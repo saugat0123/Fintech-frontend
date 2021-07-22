@@ -24,7 +24,7 @@
             <div class="row text-center ">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
 
                             <div>
                                 Priority:
@@ -37,7 +37,11 @@
                                       style="font-size: 11px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2 text-right">
+                            <img class="report-log img-thumbnail border-0"
+                                 src="../../../../../assets/img/logo.png">
+                        </div>
+                        <div class="col-md-5">
                             <div class="report-header">
                                 <div class="report-header-heading"><strong>{{client}}</strong></div>
                                 <div class="report-header-sub-heading">
@@ -64,9 +68,18 @@
 
                             </div>
                         </div>
-                        <div class="col-md-3 text-right">
-                            <img class="report-log img-thumbnail border-0"
-                                 src="../../../../../assets/img/logo.png">
+                        <div class="col-md-3 mt-2 text-right">
+                            <img *ngIf="loanDataHolder?.loanHolder?.profilePic !== null;" class="img-thumbnail" style="width: 65%" alt="picture"
+                                 src="{{restUrl+'/'+loanDataHolder?.loanHolder?.profilePic}}">
+                            <div class="row justify-content-end m-2 h-75" *ngIf="loanDataHolder?.loanHolder?.profilePic === null || loanDataHolder?.loanHolder?.profilePic === undefined">
+                                <div class="col-md-6 my-auto text-center">
+                                        <span class="font-weight-bold">
+                                            NO
+                                            <br>
+                                            PHOTO/IMAGE
+                                        </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
