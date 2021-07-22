@@ -73,6 +73,7 @@ import {ChartModule} from '../chart/chart.module';
 import {ChatModule} from '../chat/chat.module';
 import { JsonParsePipe } from './pipes/json-parse.pipe';
 import { RolesSwitchComponent } from './components/roles-switch/roles-switch.component';
+import { MarkAsLeaveComponent } from './components/mark-as-leave/mark-as-leave.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -145,6 +146,7 @@ const ENTRY_COMPONENTS = [
     ChangePasswordComponent,
     UpdateModalComponent,
     DeleteModalComponent,
+    MarkAsLeaveComponent
 
 ];
 
@@ -179,7 +181,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
     imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, ChatModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
-    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent],
+    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent, MarkAsLeaveComponent],
     entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {

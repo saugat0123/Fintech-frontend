@@ -13,6 +13,8 @@ import {NotificationService} from '../notification/service/notification.service'
 import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {PushNotificationsService} from '../../../@core/service/push-notification.service';
+import {Alert} from '../../model/Alert';
+import {MarkAsLeaveComponent} from '../mark-as-leave/mark-as-leave.component';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +26,7 @@ export class HeaderComponent implements OnInit {
   static LOGOUT = 'Log out';
   static PROFILE = 'Profile';
   static CHANGE_PASSWORD = 'Change Password';
+  static MARK_AS_LEAVE = 'Mark as Leave';
   contextMenuTag = 'user-context-menu';
 
   @Input() position = 'normal';
@@ -34,7 +37,8 @@ export class HeaderComponent implements OnInit {
   userProfilePicture;
   roleName;
 
-  userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}];
+  userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.MARK_AS_LEAVE},
+    {title: HeaderComponent.LOGOUT}];
 
   notificationCount;
 
@@ -105,7 +109,8 @@ export class HeaderComponent implements OnInit {
         filter((title) =>
             title === HeaderComponent.LOGOUT ||
             title === HeaderComponent.PROFILE ||
-            title === HeaderComponent.CHANGE_PASSWORD)
+            title === HeaderComponent.CHANGE_PASSWORD ||
+            title === HeaderComponent.MARK_AS_LEAVE)
     ).subscribe((value) => {
       if (value === HeaderComponent.LOGOUT) {
         LocalStorageUtil.clearStorage();
@@ -122,6 +127,8 @@ export class HeaderComponent implements OnInit {
       } else if (value === HeaderComponent.CHANGE_PASSWORD) {
         this.modalService.dismissAll();
         this.modalService.open(ChangePasswordComponent, {size: 'lg', backdrop: 'static'});
+      } else if (value === HeaderComponent.MARK_AS_LEAVE) {
+        this.modalService.open(MarkAsLeaveComponent, {size: 'lg', backdrop: 'static'});
       }
     });
   }

@@ -1,0 +1,26 @@
+<nb-card>
+    <nb-card-header>
+        <strong>Mark as Leave</strong>
+        <a (click)="onClose()" class="float-right cursor text-danger">
+            <strong>X</strong>
+        </a>
+    </nb-card-header>
+    <nb-card-body>
+        <div *ngIf="!noActiveLoan" class="row col-md-12 justify-content-center">
+            <strong>You have <span class="text-danger">{{activeLoanCount}}</span> active loan files under you.</strong>
+            <strong>Please transfer file before you go on leave</strong>
+        </div>
+        <div *ngIf="!noActiveLoan" class="row col-md-12 justify-content-center mt-lg-2">
+            <strong class="mt-1" [ngClass]="{'text-success': isTransferEnable,
+            'text-primary': !isTransferEnable}">{{!isTransferEnable? 'Click here to transfer' : 'Ready to go on leave'}}</strong>
+            <nb-toggle status="{{!isTransferEnable ?  'basic' : 'success'}}" class="ml-2" (checkedChange)="enableDisable($event)"></nb-toggle>
+        </div>
+        <div *ngIf="noActiveLoan" class="row col-md-12">
+            <strong>You do not have any active loan file under you</strong>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton size="small" class="float-right"
+                status="{{!isTransferEnable ?  'basic' : 'success'}}" [disabled]="!isTransferEnable" (click)="goOnLeave()">Go On Leave</button>
+    </nb-card-footer>
+</nb-card>
