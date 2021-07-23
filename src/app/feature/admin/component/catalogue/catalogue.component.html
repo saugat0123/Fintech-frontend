@@ -212,7 +212,7 @@
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
                          model?.documentStatus.toString()==="VALUATION"'>
                         <button nbButton status="warning" size="tiny"
-                                (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id,model?.branch?.id)">
+                                (click)="transferLoanFile(model?.id, model?.loan?.id, model?.id, model?.branch?.id, model?.combinedLoan?.id, model)">
                             <em class="fa fa-arrow-circle-right"></em></button>
                     </div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
