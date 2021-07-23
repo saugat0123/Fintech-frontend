@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {LoanConfig} from '../../modal/loan-config';
@@ -27,12 +27,15 @@ import {SocketService} from '../../../../@core/service/socket.service';
 import {CatalogueSearch, CatalogueService} from './catalogue.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {NbTrigger} from '@nebular/theme';
+import {NbDialogRef, NbDialogService, NbTrigger} from '@nebular/theme';
 import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
 import {Province} from '../../modal/province';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
+import {ApprovalRoleHierarchyService} from '../../../loan/approval/approval-role-hierarchy.service';
+import {SingleLoanTransferModelComponent} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {CombinedLoanTransferModelComponent} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
 
 @Component({
     selector: 'app-catalogue',
@@ -94,6 +97,18 @@ export class CatalogueComponent implements OnInit {
     reInitiateLoanFacilityName: string;
     reInitiateLoanBranchName: string;
     reInitiateLoanType: string;
+    isOpen = false;
+    private dialogRef: NbDialogRef<any>;
+    approvalType: string;
+    defaultRoleHierarchies = [];
+    approvalRoleHierarchies = [];
+    currentRole: string;
+    popUpTitle: string;
+    currentRoleOrder: number;
+    currentRoleType: string;
+    roleTypeMaker: string;
+    length = false;
+    isFileUnderCurrentToUser: any;
 
     constructor(
         private branchService: BranchService,
@@ -109,7 +124,9 @@ export class CatalogueComponent implements OnInit {
         private roleService: RoleService,
         private socketService: SocketService,
         private catalogueService: CatalogueService,
-        private location: AddressService) {
+        private location: AddressService,
+        private nbDialogService: NbDialogService,
+        private service: ApprovalRoleHierarchyService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -130,6 +147,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
@@ -342,22 +360,6 @@ export class CatalogueComponent implements OnInit {
         this.buildFilterForm();
     }
 
-    onTransferClick(template, customerLoanId, userId, branchId) {
-        this.transferSpinner = true;
-        this.userService.getUserListForTransfer(userId, branchId).subscribe((res: any) => {
-            this.transferUserList = res.detail;
-            this.transferSpinner = false;
-        });
-        this.formAction.patchValue({
-                customerLoanId: customerLoanId,
-                docAction: DocAction.value(DocAction.TRANSFER),
-                documentStatus: DocStatus.PENDING,
-                comment: 'TRANSFER'
-            }
-        );
-        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
-    }
-
     onClose() {
         this.buildActionForm();
         this.modalService.dismissAll();
@@ -549,6 +551,77 @@ export class CatalogueComponent implements OnInit {
                     this.modalService.dismissAll();
                 });
             }
+        });
+    }
+
+    public close(): void {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
+    }
+
+    public transferLoanFile(refId: number, loanConfigId: number, customerLoanId: number,
+                            branchId: number, combinedLoanId: number, loanDataHolder: any): void {
+        this.roleHierarchyList(refId, loanDataHolder);
+        this.close();
+        let context;
+        context = {
+            approvalType: this.approvalType,
+            refId: refId,
+            isMaker: this.roleTypeMaker,
+            currentRole: this.currentRole,
+            loanConfigId: loanConfigId,
+            customerLoanId: customerLoanId,
+            branchId: branchId,
+            customerLoanHolder: loanDataHolder,
+            popUpTitle: this.popUpTitle,
+            isTransfer: true,
+            currentRoleOrder: this.currentRoleOrder,
+            docAction: DocAction.value(DocAction.TRANSFER),
+            documentStatus: DocStatus.PENDING,
+            toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
+            isFileUnderCurrentToUser: loanDataHolder.currentStage.toUser,
+        };
+        if (ObjectUtil.isEmpty(combinedLoanId)) {
+            this.dialogRef = this.nbDialogService.open(SingleLoanTransferModelComponent, {
+                context,
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
+        } else {
+            context.combinedLoanId = combinedLoanId;
+            context.isMaker = this.roleTypeMaker;
+            context.branchId =  branchId;
+            this.dialogRef = this.nbDialogService.open(CombinedLoanTransferModelComponent, {
+                context,
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
+        }
+        this.isOpen = true;
+    }
+
+    private roleHierarchyList(refId: number, loanDataHolder: any): void {
+        this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
+            this.defaultRoleHierarchies = response.detail;
+            this.length = this.defaultRoleHierarchies.length > 0;
+            this.approvalRoleHierarchies = this.defaultRoleHierarchies.reverse();
+            const currentRoleId = loanDataHolder.currentStage.toUser.role.id;
+            this.roleTypeMaker = loanDataHolder.currentStage.toUser.role.roleType;
+            this.defaultRoleHierarchies.filter((f) => {
+                const roleId = f.role.id;
+                f.isCurrentRole = false;
+                if (currentRoleId === roleId) {
+                    f.isCurrentRole = true;
+                    this.currentRole = f.role.roleName;
+                    this.currentRoleOrder = f.role.roleOrder;
+                    this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
+                }
+                this.popUpTitle = 'Transfer';
+            });
         });
     }
 }
