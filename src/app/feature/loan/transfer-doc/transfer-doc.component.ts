@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TransferDocService, Transfersearch} from './transfer-doc.service';
-import {NbTrigger} from '@nebular/theme';
+import {NbDialogRef, NbDialogService, NbTrigger} from '@nebular/theme';
 import {Branch} from '../../admin/modal/branch';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {LoanDataHolder} from '../model/loanData';
@@ -31,6 +31,10 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 import {DocAction} from '../model/docAction';
+import {AddressService} from '../../../@core/service/baseservice/address.service';
+import {ApprovalRoleHierarchyService} from '../approval/approval-role-hierarchy.service';
+import {SingleLoanTransferModelComponent} from '../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {CombinedLoanTransferModelComponent} from '../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
 
 @Component({
     selector: 'app-transfer-doc',
@@ -70,6 +74,18 @@ export class TransferDocComponent implements OnInit {
     selectedUserForTransfer;
     transferSpinner = false;
     showHideTransferRespectToStatus: { toggled: boolean }[] = [];
+    isOpen = false;
+    private dialogRef: NbDialogRef<any>;
+    approvalType: string;
+    defaultRoleHierarchies = [];
+    approvalRoleHierarchies = [];
+    currentRole: string;
+    popUpTitle: string;
+    currentRoleOrder: number;
+    currentRoleType: string;
+    roleTypeMaker: string;
+    length = false;
+    isFileUnderCurrentToUser: any;
 
     constructor(
         private branchService: BranchService,
@@ -84,7 +100,10 @@ export class TransferDocComponent implements OnInit {
         private userService: UserService,
         private roleService: RoleService,
         private socketService: SocketService,
-        private transferdocservice: TransferDocService) {
+        private transferdocservice: TransferDocService,
+        private location: AddressService,
+        private nbDialogService: NbDialogService,
+        private service: ApprovalRoleHierarchyService) {
     }
 
     static loadData(other: TransferDocComponent) {
@@ -107,6 +126,7 @@ export class TransferDocComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
@@ -462,6 +482,77 @@ export class TransferDocComponent implements OnInit {
                 return true;
         }
 
+    }
+
+    public close(): void {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
+    }
+
+    public transferLoanFile(refId: number, loanConfigId: number, customerLoanId: number,
+                            branchId: number, combinedLoanId: number, loanDataHolder: any): void {
+        this.roleHierarchyList(refId, loanDataHolder);
+        this.close();
+        let context;
+        context = {
+            approvalType: this.approvalType,
+            refId: refId,
+            isMaker: this.roleTypeMaker,
+            currentRole: this.currentRole,
+            loanConfigId: loanConfigId,
+            customerLoanId: customerLoanId,
+            branchId: branchId,
+            customerLoanHolder: loanDataHolder,
+            popUpTitle: this.popUpTitle,
+            isTransfer: true,
+            currentRoleOrder: this.currentRoleOrder,
+            docAction: DocAction.value(DocAction.TRANSFER),
+            documentStatus: DocStatus.PENDING,
+            toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
+            isFileUnderCurrentToUser: loanDataHolder.currentStage.toUser,
+        };
+        if (ObjectUtil.isEmpty(combinedLoanId)) {
+            this.dialogRef = this.nbDialogService.open(SingleLoanTransferModelComponent, {
+                context,
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
+        } else {
+            context.combinedLoanId = combinedLoanId;
+            context.isMaker = this.roleTypeMaker;
+            context.branchId =  branchId;
+            this.dialogRef = this.nbDialogService.open(CombinedLoanTransferModelComponent, {
+                context,
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
+        }
+        this.isOpen = true;
+    }
+
+    private roleHierarchyList(refId: number, loanDataHolder: any): void {
+        this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
+            this.defaultRoleHierarchies = response.detail;
+            this.length = this.defaultRoleHierarchies.length > 0;
+            this.approvalRoleHierarchies = this.defaultRoleHierarchies.reverse();
+            const currentRoleId = loanDataHolder.currentStage.toUser.role.id;
+            this.roleTypeMaker = loanDataHolder.currentStage.toUser.role.roleType;
+            this.defaultRoleHierarchies.filter((f) => {
+                const roleId = f.role.id;
+                f.isCurrentRole = false;
+                if (currentRoleId === roleId) {
+                    f.isCurrentRole = true;
+                    this.currentRole = f.role.roleName;
+                    this.currentRoleOrder = f.role.roleOrder;
+                    this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
+                }
+                this.popUpTitle = 'Transfer';
+            });
+        });
     }
 }
 
