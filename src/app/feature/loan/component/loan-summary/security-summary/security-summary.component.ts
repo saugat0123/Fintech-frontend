@@ -62,7 +62,7 @@ export class SecuritySummaryComponent implements OnInit {
     ngOnInit() {
         // land security
         this.formData['initialForm']['landDetails'].filter(f => {
-            if (f.owner !== null) {
+            if (f.owner !== '') {
                 this.showTitle = true;
                 this.landSelected = true;
             }
