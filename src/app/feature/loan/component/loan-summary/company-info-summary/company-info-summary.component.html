@@ -7,10 +7,10 @@
           <td>{{companyJsonData?.majorProductService}}</td>
           <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
         </tr>
-        <tr>
-          <td><b>Sister Concerns</b></td>
-          <td colspan="2">{{companyJsonData?.sisterConcern || 'N/A'}}</td>
-        </tr>
+<!--        <tr>-->
+<!--          <td><b>Sister Concerns</b></td>-->
+<!--          <td colspan="2">{{companyJsonData?.sisterConcern || 'N/A'}}</td>-->
+<!--        </tr>-->
         <tr>
           <td rowspan="5"><b>RegistrationDetail</b></td>
           <td><b>Dept/office</b></td>
@@ -48,14 +48,14 @@
             </div>
           </td>
         </tr>
-        <tr>
-          <td>
-            <b>Tax Clearance Till</b>
-          </td>
-          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill || 'N/A'}}</td>
-          <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
-            :'N/A'}}</td>
-        </tr>
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <b>Tax Clearance Till</b>-->
+<!--          </td>-->
+<!--          <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill || 'N/A'}}</td>-->
+<!--          <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark-->
+<!--            :'N/A'}}</td>-->
+<!--        </tr>-->
 
         <tr>
           <td>

@@ -6,7 +6,7 @@ import {Proprietors} from './proprietors';
 export class CompanyJsonData {
 
   otherCompanyDetail: OtherCompanyDetail = undefined;
-  sisterConcern: string = undefined;
+  // sisterConcern: string = undefined;
   majorProductService: string = undefined;
   relationshipSince: string = undefined;
   companyBackground: string = undefined;
@@ -15,7 +15,6 @@ export class CompanyJsonData {
   rawMaterialSourcing: string = undefined;
   rawMaterialAvailability: string = undefined;
   marketScenario: string = undefined;
-  groupsBackGround: string = undefined;
   legalReviewRemark: string = undefined;
   businessGiven: string = undefined;
   managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();

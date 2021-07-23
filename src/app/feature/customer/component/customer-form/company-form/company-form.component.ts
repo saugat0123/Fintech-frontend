@@ -126,11 +126,11 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('bankingRelationComponent', {static: false})
     bankingRelationComponent: BankingRelationComponent;
 
-    @ViewChild('companyOtherDetailComponent', {static: false})
-    companyOtherDetailComponent: CompanyOtherDetailComponent;
+    // @ViewChild('companyOtherDetailComponent', {static: false})
+    // companyOtherDetailComponent: CompanyOtherDetailComponent;
 
-    @ViewChild('marketScenarioComponent', {static: false})
-    marketScenarioComponent: MarketScenarioComponent;
+    // @ViewChild('marketScenarioComponent', {static: false})
+    // marketScenarioComponent: MarketScenarioComponent;
 
     @ViewChild('microCompanyFormComponent', {static: false})
     microCompanyFormComponent: MicroCompanyFormComponentComponent;
@@ -429,35 +429,36 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName],
             address: [undefined],
             // swot
-            strength: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.strength, Validators.required],
-
-            weakness: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.weakness, Validators.required],
-
-            opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.opportunity, Validators.required],
-
-            threats: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.threats, Validators.required],
+            // strength: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.strength, Validators.required],
+            //
+            // weakness: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.weakness, Validators.required],
+            //
+            // opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
+            // tslint:disable-next-line:max-line-length
+            //     || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.opportunity, Validators.required],
+            //
+            // threats: [(ObjectUtil.isEmpty(this.companyInfo)
+            //     || ObjectUtil.isEmpty(this.companyJsonData.swot)) ? undefined : this.companyJsonData.swot.threats, Validators.required],
 
             // Success Planning
-            successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
-                this.companyInfo.successionPlanning],
+            // successionPlanning: [ObjectUtil.isEmpty(this.companyInfo) ? undefined :
+            //     this.companyInfo.successionPlanning],
 
             // Business Objective
             businessObjective: [ObjectUtil.isEmpty(this.companyJsonData.businessObjective) ? undefined :
                 this.companyJsonData.businessObjective],
 
             // Raw Materials
-            rawMaterialSourcing: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialSourcing) ? undefined :
-                this.companyJsonData.rawMaterialSourcing],
-            rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
-                this.companyJsonData.rawMaterialAvailability],
+            // rawMaterialSourcing: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialSourcing) ? undefined :
+            //     this.companyJsonData.rawMaterialSourcing],
+            // rawMaterialAvailability: [ObjectUtil.isEmpty(this.companyJsonData.rawMaterialAvailability) ? undefined :
+            //     this.companyJsonData.rawMaterialAvailability],
 
             // Sister concert
-            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.sisterConcern],
+            // sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+            //     this.companyJsonData.sisterConcern],
 
             // company background
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
@@ -510,10 +511,10 @@ export class CompanyFormComponent implements OnInit {
             || ObjectUtil.isEmpty(this.companyInfo.succession) ? undefined :
                 this.companyInfo.succession, (this.disableCrgAlpha || this.microCustomer) ? undefined : Validators.required],
 
-            /** Groups BackGround*/
-            groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
-            || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
-                this.companyJsonData.groupsBackGround],
+            /** Groups BackGround todo remove*/
+            // groupsBackGround: [ObjectUtil.isEmpty(this.companyJsonData)
+            // || ObjectUtil.isEmpty(this.companyJsonData.groupsBackGround) ? undefined :
+            //     this.companyJsonData.groupsBackGround],
 
             /** legal Review Remark*/
             legalReviewRemark: [ObjectUtil.isEmpty(this.companyJsonData)
@@ -836,8 +837,8 @@ export class CompanyFormComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        this.marketScenarioComponent.onSubmit();
-        this.companyOtherDetailComponent.onSubmit();
+        // this.marketScenarioComponent.onSubmit();
+        // this.companyOtherDetailComponent.onSubmit();
         if (!this.disableCrgAlpha && !this.microCustomer) {
             this.bankingRelationComponent.onSubmit();
         }
@@ -849,8 +850,7 @@ export class CompanyFormComponent implements OnInit {
             }
         }
         this.companyLocation.onSubmit();
-        if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid ||
+        if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             console.log(this.companyInfoFormGroup);
@@ -903,10 +903,10 @@ export class CompanyFormComponent implements OnInit {
         this.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
         this.companyInfo.capital = this.capital;
         // swot
-        this.swot.strength = this.companyInfoFormGroup.get('strength').value;
-        this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
-        this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
-        this.swot.threats = this.companyInfoFormGroup.get('threats').value;
+        // this.swot.strength = this.companyInfoFormGroup.get('strength').value;
+        // this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
+        // this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
+        // this.swot.threats = this.companyInfoFormGroup.get('threats').value;
 
         // management Team Note
         this.companyJsonData.managementTeamNote = this.companyInfoFormGroup.get('managementTeamNote').value;
@@ -918,7 +918,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.additionalCompanyInfo = JSON.stringify(this.companyInfoFormGroup.get('additionalCompanyInfo').value);
 
         // succession planning
-        this.companyInfo.successionPlanning = this.companyInfoFormGroup.get('successionPlanning').value;
+        // this.companyInfo.successionPlanning = this.companyInfoFormGroup.get('successionPlanning').value;
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
@@ -1004,10 +1004,10 @@ export class CompanyFormComponent implements OnInit {
             submitData[k] = this.companyInfoFormGroup.value[k];
         });
         /** other company detail */
-        submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
-        submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
+        // submitData.otherCompanyDetail = this.companyOtherDetailComponent.submitData;
+        // submitData.rawMaterialSourcing = this.companyInfoFormGroup.get('rawMaterialSourcing').value;
         /** Market Scenario detail */
-        submitData.marketScenario = this.marketScenarioComponent.submitData;
+        // submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
@@ -1152,7 +1152,7 @@ export class CompanyFormComponent implements OnInit {
 
     microCustomerValidation(micro: boolean) {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
-        this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
+        this.controlValidation(['strength', 'weakness', 'opportunity'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
         console.log(micro, this.disableCrgAlpha);
         if (micro || !this.disableCrgAlpha) {

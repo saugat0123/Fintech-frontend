@@ -191,46 +191,46 @@
             </tr>
             </tbody>
         </table>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th>Sister Concern</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>
-            </tr>
-            </thead>
-        </table>
+<!--        <table-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Sister Concern</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">{{companyJsonData?.sisterConcern}}</td>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--        </table>-->
 
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="8">Other Details</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Tax Clearance Till</th>
-                <th>Tax Clearance Remark</th>
-                <th *ngIf="client !== clientName?.SHINE_RESUNGA">Customer Negative List Checked</th>
-                <th *ngIf="client !== clientName?.SHINE_RESUNGA">Negative List Remark</th>
-                <th>Classification as per NRB directive</th>
-                <th></th>
-                <th></th>
+<!--        <table-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th colspan="8">Other Details</th>-->
+<!--            </tr>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Tax Clearance Till</th>-->
+<!--                <th>Tax Clearance Remark</th>-->
+<!--                <th *ngIf="client !== clientName?.SHINE_RESUNGA">Customer Negative List Checked</th>-->
+<!--                <th *ngIf="client !== clientName?.SHINE_RESUNGA">Negative List Remark</th>-->
+<!--                <th>Classification as per NRB directive</th>-->
+<!--                <th></th>-->
+<!--                <th></th>-->
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark}}</td>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeList}}</td>
-                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeListRemark}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>-->
+<!--                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.taxClearanceRemark}}</td>-->
+<!--                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeList}}</td>-->
+<!--                <td class="text-left pl-1" *ngIf="client !== clientName?.SHINE_RESUNGA">{{companyJsonData?.otherCompanyDetail?.negativeListRemark}}</td>-->
+<!--                <td class="text-left pl-1">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>-->
 
-            </tr>
-            </tbody>
-        </table>
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
 
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -393,37 +393,39 @@
             </tr>
             </tbody>
         </table>-->
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="4">SWOT Analysis</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Strength</th>
-                <th>Weakness</th>
-                <th>Opportunity</th>
-                <th>Threats</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
-            </tr>
-            </tbody>
-        </table>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Succession Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
-            </tr>
-        </table>
+<!--       todo remove
+ <table-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th colspan="4">SWOT Analysis</th>-->
+<!--            </tr>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Strength</th>-->
+<!--                <th>Weakness</th>-->
+<!--                <th>Opportunity</th>-->
+<!--                <th>Threats</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>-->
+<!--                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>-->
+<!--                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>-->
+<!--                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--      todo remove
+  <table-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Succession Risk & Mitigation</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>-->
+<!--            </tr>-->
+<!--        </table>-->
 
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -433,20 +435,21 @@
             <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
         </table>
 
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th colspan="2">Raw Materials</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Raw Material Sourcing</th>
-                <th>Raw Materials Availability</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>
-            </tr>
-        </table>
+<!--        todo remove
+<table-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th colspan="2">Raw Materials</th>-->
+<!--            </tr>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Raw Material Sourcing</th>-->
+<!--                <th>Raw Materials Availability</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">{{companyJsonData?.rawMaterialSourcing}}</td>-->
+<!--                <td class="text-left pl-1">{{companyJsonData?.rawMaterialAvailability}}</td>-->
+<!--            </tr>-->
+<!--        </table>-->
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
@@ -507,15 +510,16 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
             </tr>
         </table>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Group’s background</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
-            </tr>
-        </table>
+<!--        // todo remove-->
+<!--        <table-->
+<!--                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>Group’s background</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>-->
+<!--            </tr>-->
+<!--        </table>-->
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">

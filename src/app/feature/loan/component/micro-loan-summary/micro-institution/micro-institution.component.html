@@ -10,10 +10,11 @@
                 <td>{{companyJsonData?.majorProductService}}</td>
                 <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
             </tr>
-            <tr>
-                <td><b>Sister Concerns</b></td>
-                <td colspan="2">{{companyJsonData?.sisterConcern}}</td>
-            </tr>
+<!--          todo remove
+  <tr>-->
+<!--                <td><b>Sister Concerns</b></td>-->
+<!--                <td colspan="2">{{companyJsonData?.sisterConcern}}</td>-->
+<!--            </tr>-->
             <tr>
                 <td rowspan="5"><b>RegistrationDetail</b></td>
                 <td><b>Dept/office</b></td>
@@ -46,14 +47,14 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <b>Tax Clearance Till</b>
-                </td>
-                <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
-                <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
-                    :'N/A'}}</td>
-            </tr>
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <b>Tax Clearance Till</b>-->
+<!--                </td>-->
+<!--                <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>-->
+<!--                <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark-->
+<!--                    :'N/A'}}</td>-->
+<!--            </tr>-->
 
             <tr>
                 <td><b>Business Operation Since(if Other than registration date)(AD/BS)</b></td>
@@ -268,21 +269,22 @@
         </tbody>
     </table>
 </div>
-<div class="row col-md-12">
-    <div><strong>SWOT Analysis</strong></div>
-    <table class="table table-bordered text-center table-sm sb-small">
-        <thead class="sb-bg-dark text-white">
-        <th>Strengths</th>
-        <th>Weakness</th>
-        <th>Opportunities</th>
-        <th>Threats</th>
-        </thead>
-        <tbody>
-        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
-        </tbody>
-    </table>
-</div>
+<!--todo remove
+<div class="row col-md-12">-->
+<!--    <div><strong>SWOT Analysis</strong></div>-->
+<!--    <table class="table table-bordered text-center table-sm sb-small">-->
+<!--        <thead class="sb-bg-dark text-white">-->
+<!--        <th>Strengths</th>-->
+<!--        <th>Weakness</th>-->
+<!--        <th>Opportunities</th>-->
+<!--        <th>Threats</th>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>-->
+<!--        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>-->
+<!--        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>-->
+<!--        <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
 
