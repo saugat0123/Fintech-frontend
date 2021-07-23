@@ -13,8 +13,6 @@ import {Clients} from './Clients';
  command to build client related product:
  ng build --configuration= 'client name'
 
- SummaryType = GENERAL except SRDB bank
-
  active client name in current repo: 'srdb' , 'tinau' , 'mega'
  */
 export const environment = {
