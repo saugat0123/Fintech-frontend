@@ -934,7 +934,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.assignmentOfReceivable = true;
                     break;
             }
-            console.log('Change vehich:::;', this.vehicleSelected);
+            console.log('Change vehich:::;', this.apartmentSelected);
+            this.clearValidationState();
         });
     }
 
@@ -999,24 +1000,30 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     clearValidationState() {
-        if (this.selectedSecurity !== 'LandSecurity') {
+        if (this.selectedArray.includes('LandSecurity')) {
             const formControls = this.securityForm.get('landDetails') as FormArray;
+            console.log(this.selectedSecurity , formControls.length, formControls);
             formControls.controls.forEach( f => {
-                if (formControls.length > 1) {
-                    console.log('I am inside landDetails');
+                if (formControls.length === 1 && this.landSelected) {
+                    f.get('owner').enable();
+                    // this.landDetailsFormGroup();
+                } else if (formControls.length > 1) {
                     f.get('owner').enable();
                 } else {
-                    console.log('I am Outside landDetails');
                     f.get('owner').clearValidators();
                     f.get('owner').updateValueAndValidity();
                 }
             });
         }
-        if (this.selectedSecurity !== 'VehicleSecurity') {
+        if (this.selectedArray.includes('VehicleSecurity')) {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
+            console.log(this.selectedSecurity , formControls.length, formControls);
             formControls.controls.forEach( f => {
-                if (formControls.length > 1) {
-                    console.log('I am inside vehicleDetails');
+                if (formControls.length === 1 && this.vehicleSelected) {
+                    console.log('I am here', this.selectedSecurity);
+                    f.get('model').enable();
+                    // this.vehicleDetailsFormGroup();
+                } else if (formControls.length > 1) {
                     f.get('model').enable();
                 } else {
                     console.log('I am Outside vehicleDetails');
@@ -1025,32 +1032,46 @@ export class SecurityInitialFormComponent implements OnInit {
                 }
             });
         }
-        if (this.selectedSecurity !== 'ApartmentSecurity') {
+        if (this.selectedArray.includes('ApartmentSecurity')) {
             const formControls = this.securityForm.get('buildingDetails') as FormArray;
-            console.log('Apartment formControls', formControls);
+            console.log(this.selectedSecurity , formControls.length, formControls);
             formControls.controls.forEach( f => {
-                if (formControls.length > 1) {
-                    console.log('I am inside buildingDetails');
+                if (this.apartmentSelected) {
+                    console.log('I am here', this.selectedSecurity);
+                    f.get('buildArea').enable();
+                    // this.buildingDetailsFormGroup();
+                } else if (formControls.length > 1) {
+                    console.log('I inside', this.selectedSecurity);
                     f.get('buildArea').enable();
                 } else {
-                    console.log('I am Outside buildingDetails');
+                    console.log('I outside', this.selectedSecurity);
                     f.get('buildArea').clearValidators();
                     f.get('buildArea').updateValueAndValidity();
                 }
             });
         }
-        if (this.selectedSecurity !== 'Land and Building Security') {
+        if (this.selectedArray.includes('Land and Building Security')) {
+            console.log('I am inside landBuilding');
             const formControls = this.securityForm.get('landBuilding') as FormArray;
+            console.log(this.selectedSecurity , formControls.length, formControls);
             formControls.controls.forEach( f => {
-                if (formControls.length > 1) {
-                    console.log('I am inside landBuilding');
+                if (formControls.length === 1 && this.landBuilding) {
+                    console.log('I am here', this.selectedSecurity);
                     f.get('owner').enable();
+                    return;
+                    // this.LandBuildingDetailsFormGroup();
+                } else if (formControls.length > 1) {
+                    console.log('I am landBuilding');
+                    f.get('owner').enable();
+                    return;
                 } else {
                     console.log('I am Outside landBuilding');
                     f.get('owner').clearValidators();
                     f.get('owner').updateValueAndValidity();
+                    return;
                 }
             });
+            console.log('landBuilding', this.landBuilding);
         }
         if (this.selectedSecurity !== 'PlantSecurity') {
             const formControls = this.securityForm.get('plantDetails') as FormArray;
@@ -1233,10 +1254,11 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     buildingDetailsFormGroup(): FormGroup {
+        console.log('Buidld Apartment', this.apartmentSelected);
         return this.formBuilder.group({
             buildingName: [''],
             buildingDescription: [''],
-            buildArea: ['', this.apartmentSelected ? Validators.required : undefined],
+            buildArea: ['', Validators.required],
             buildRate: [''],
             totalCost: [''],
             floorName: [''],
@@ -1264,12 +1286,12 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
         });
-        console.log('Buidld Apartment', this.apartmentSelected);
+        console.log('After Buidld Apartment', this.apartmentSelected);
     }
 
     LandBuildingDetailsFormGroup() {
         return this.formBuilder.group({
-            owner: [undefined, Validators.required],
+            owner: [undefined, this.landBuilding ? Validators.required : undefined],
             location: undefined,
             plotNumber: undefined,
             areaFormat: undefined,
@@ -1345,6 +1367,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     plantDetailsFormGroup(): FormGroup {
+        console.log('Buidld plantSelected', this.plantSelected);
         return this.formBuilder.group({
             model: ['', Validators.required],
             quotation: [''],
@@ -1498,7 +1521,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     vehicleDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
-            model: [undefined, this.vehicleSelected ? Validators.required : undefined],
+            model: ['', Validators.required],
             registrationNumber: [''],
             registrationDate: [''],
             engineNumber: [''],
