@@ -65,6 +65,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     calendarType = 'AD';
     microCustomer = false;
+    samePerAddress = false;
     microEnabled: boolean = env.microLoan;
 
     basicInfo: FormGroup;
@@ -638,21 +639,39 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         }
 
     }
-    sameAsPermanent() {
+    sameAsPermanent(value) {
         // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
         //     return true;
         // }
-        this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
-        this.customer.temporaryDistrict = this.basicInfo.get('district').value;
-        this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
-        this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
-        this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
-        this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
-        this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
-        this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
-
+        if (value) {
+            this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
+            this.customer.temporaryDistrict = this.basicInfo.get('district').value;
+            this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
+            this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
+            this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
+            this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+            this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
+            this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
+            this.samePerAddress = value;
+        } else {
+            this.resetValue();
+            this.samePerAddress = value;
+        }
+        console.log('Button event triggered ! ', value);
     }
+
+            resetValue()  {
+                this.basicInfo.get('temporaryAddressLine1').patchValue(null);
+                this.basicInfo.get('temporaryAddressLine2').patchValue(null);
+                this.basicInfo.get('temporaryProvince').patchValue(null);
+                this.basicInfo.get('temporaryDistrict').patchValue(null);
+                this.basicInfo.get('temporaryMunicipalities').patchValue(null);
+                this.basicInfo.get('temporaryWardNumber').patchValue(null);
+    }
+
+
+
 
     /** @Param validate --- true for add validation and false for remove validation
      * @Param controlNames --- list of formControlName**/
