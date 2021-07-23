@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {ApprovalRoleHierarchyService} from '../../../approval/approval-role-hierarchy.service';
 import {LoanDataHolder} from '../../../model/loanData';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {RoleHierarchyModelComponent} from '../../../loan-action/role-hierarchy-model/role-hierarchy-model.component';
 import {CustomerLoanFlag} from '../../../../../@core/model/customer-loan-flag';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -11,7 +10,8 @@ import {ToastService} from '../../../../../@core/utils';
 import {DocStatus} from '../../../model/docStatus';
 import {DocAction} from '../../../model/docAction';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {RoleHierarchyCombinedModelComponent} from '../../../loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
+import {SingleLoanTransferModelComponent} from '../../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {CombinedLoanTransferModelComponent} from '../../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
 
 @Component({
   selector: 'app-role-heirarchy-chain',
@@ -117,7 +117,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
       isFileUnderCurrentToUser: this.isFileUnderCurrentToUser,
     };
     if (ObjectUtil.isEmpty(this.combinedLoanId)) {
-      this.dialogRef = this.nbDialogService.open(RoleHierarchyModelComponent, {
+      this.dialogRef = this.nbDialogService.open(SingleLoanTransferModelComponent, {
         context,
         closeOnBackdropClick: false,
         hasBackdrop: false,
@@ -127,7 +127,7 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
       context.combinedLoanId = this.combinedLoanId;
       context.isMaker = this.isMaker;
       context.branchId =  this.branchId;
-      this.dialogRef = this.nbDialogService.open(RoleHierarchyCombinedModelComponent, {
+      this.dialogRef = this.nbDialogService.open(CombinedLoanTransferModelComponent, {
         context,
         closeOnBackdropClick: false,
         hasBackdrop: false,
