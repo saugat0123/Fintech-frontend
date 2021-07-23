@@ -1754,7 +1754,7 @@
                    </nb-tab>
                    <!--micro customer detail-->
                    <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                       <app-micro-individual-form #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
+                       <app-micro-company-form-component #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
                    </nb-tab>
                </nb-tabset>
             </form>
