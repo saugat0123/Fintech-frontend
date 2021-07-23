@@ -196,6 +196,12 @@
                     </ol>
                 </div>
             </div>
+
+            <app-collateral-summary
+                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [security]="loanDataHolder?.security"></app-collateral-summary>
+
             <app-proposal-terms-and-condition-summery
                     *ngIf="loanDataHolder && customerAllLoanList && summaryType === summaryTypeName?.GENERAL"
                     [customerAllLoanList]="customerAllLoanList"
