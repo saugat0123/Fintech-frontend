@@ -14,6 +14,8 @@ import {SummaryType} from '../app/feature/loan/component/SummaryType';
  command to build client related product:
  ng build --configuration= 'client name'
 
+ SummaryType = GENERAL except SRDB bank
+
  active client name in current repo: 'srdb' , 'tinau' , 'mega'
  */
 export const environment = {
@@ -26,6 +28,8 @@ export const environment = {
   disableCrgAlpha: true,
   disableCrgLambda: true,
   disableApprovalSheet: false,
+  RISK_INITIAL_ROLE_SME: 'RISK OFFICER ( SME )',
+  RISK_INITIAL_ROLE_CORPORATE: 'RISK OFFICER ( CORPORATE )',
   microLoan: false,
   SBS_GROUP: false,
   MEGA_GROUP: false,
