@@ -132,7 +132,8 @@ export class LetterOfDisbursementComponent implements OnInit {
       itiSambatDate: [undefined],
       itiSambatTime: [undefined],
       itiSambatRojSumbham: [undefined],
-      guarantorDetails: this.formBuilder.array([])
+      guarantorDetails: this.formBuilder.array([]),
+      customerName: [undefined]
 
     });
   }
