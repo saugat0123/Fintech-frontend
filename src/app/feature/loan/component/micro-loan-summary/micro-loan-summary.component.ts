@@ -4,7 +4,6 @@ import {LoanConfig} from '../../../admin/modal/loan-config';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {environment as envSrdb} from '../../../../../environments/environment.srdb';
 import {environment} from '../../../../../environments/environment';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
