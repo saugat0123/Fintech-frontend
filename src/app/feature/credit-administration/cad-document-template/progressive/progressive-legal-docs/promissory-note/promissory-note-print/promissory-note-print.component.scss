@@ -2,6 +2,15 @@
   max-height: 85vh;
   text-align: justify;
 }
+*{
+margin-left:20px;
+margin-right:10px;
+  justify-content: center;
+line-height:1.5rem;
+}
+@media print {
+  .page-break { page-break-before: always; }
+}
 
 .fingerXap {
   width: 500px;
@@ -9,6 +18,8 @@
   text-align: center;
 }
 
+
 table {
+margin-left:20px;
   width: 100%;
 }

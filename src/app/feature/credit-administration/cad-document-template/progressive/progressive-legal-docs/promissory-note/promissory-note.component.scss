@@ -5,6 +5,10 @@
   margin: auto;
   text-align: center;
 }
+.fingerXap .signature-area{
+width:100%;
+border-style: none
+}
 
 .guaranter {
   display: flex;
@@ -19,4 +23,9 @@
 .guaranter2 {
   width: 50%;
   margin-left: 100px;
+}
+
+.fingerXap textarea {
+    border: none;
+    outline: none;
 }
