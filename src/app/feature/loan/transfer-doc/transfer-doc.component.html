@@ -198,23 +198,19 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <div *ngIf='model?.combinedLoan?.id ===null &&
-                     (model?.documentStatus.toString()==="PENDING" ||
+                    <div *ngIf='(model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
                          model?.documentStatus.toString()==="VALUATION")'>
                         <button nbButton status="warning" size="tiny"
-                                (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id,model?.branch?.id)">
+                                (click)="transferLoanFile(model?.id, model?.loan?.id, model?.id, model?.branch?.id, model?.combinedLoan?.id, model)">
                             <em class="fa fa-arrow-circle-right"></em></button>
                     </div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         NA
-                    </div>
-                    <div *ngIf='model?.combinedLoan?.id !==null'>
-                        Combined Loan {{model?.combinedLoan?.id}}
                     </div>
                 </td>
                 <td>
