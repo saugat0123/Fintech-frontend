@@ -4,6 +4,10 @@
     <nb-card-header>
         <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
         (click)="microCustomerValidation(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
+        <strong>Micro Customer Type</strong>
+        <select>
+            <option *ngFor="let data of microCustomerTypes " [ngValue]="data" [selected]="'DIRECT'">{{data}}</option>
+        </select>
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>

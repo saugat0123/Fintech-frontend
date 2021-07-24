@@ -57,6 +57,7 @@ import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {mic} from 'ionicons/icons';
+import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
 
 @Component({
     selector: 'app-company-form',
@@ -80,6 +81,8 @@ export class CompanyFormComponent implements OnInit {
     customerId;
     spinner = false;
     submitted = false;
+
+    microCustomerTypes = MicroCustomerType.values();
 
     companyFormField = {
         showFormField: false,
