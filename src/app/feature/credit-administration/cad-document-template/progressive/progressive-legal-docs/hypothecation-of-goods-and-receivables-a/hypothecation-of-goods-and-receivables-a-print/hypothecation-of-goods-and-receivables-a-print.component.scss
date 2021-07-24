@@ -1,1 +1,9 @@
 @import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component";
+*{
+margin-left:10px;
+margin-right:5px;
+justify-content:center;
+}
+@media print {
+  .page-break { page-break-before: always; }
+}

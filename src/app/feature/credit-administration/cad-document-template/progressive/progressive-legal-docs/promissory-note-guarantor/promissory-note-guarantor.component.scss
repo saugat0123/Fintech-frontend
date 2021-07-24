@@ -4,10 +4,14 @@
   margin-left: 50px;
 }
 
-#fingerXap {
+.fingerXap {
   width: 500px;
-  margin-left: 10px;
+  margin: auto;
   text-align: center;
+}
+.fingerXap .signature-area{
+width:100%;
+border-style: none
 }
 
 #guarantor {

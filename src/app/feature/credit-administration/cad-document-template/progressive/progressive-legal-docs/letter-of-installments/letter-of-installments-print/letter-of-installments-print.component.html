@@ -5,23 +5,35 @@
       <h6 class="text-center">किस्ताबन्दी–पत्र<br>
         (Letter of Installments)</h6>
       <p class="text-right"> मिति:
-        <span class="nepaliFont">{{printDocForm?.date}}</span>
+        <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
       </p>
       <b> श्री प्रोग्रेशिभ फाइनान्स लि.</b>
       <br>
-      <b> <span class="nepaliFont">{{printDocForm?.branchName}}</span> शाखा ।</b>
+      <b>  <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+</span> शाखा ।</b>
       <br>
       <div class="row col-md-12">
         <p>महोदय,</p>
         <br>
-        <p>त्यस वित्तीय संस्थाबाट म/हामी <span
-            class="nepaliFont">{{printDocForm?.customerName}}</span>
-          लाई जारी गरिएको रु. <span class="nepaliFont">{{printDocForm?.karjaAmount}}</span> कर्जाको
+        <p>त्यस वित्तीय संस्थाबाट म/हामी <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+</span>
+          लाई जारी गरिएको रु. <span [ngClass]="{'nepaliFont' : printDocForm?.karjaAmount !== null && printDocForm?.karjaAmount !== ''}">
+    {{printDocForm?.karjaAmount === null || printDocForm?.karjaAmount === '' ? '_________________' : printDocForm?.karjaAmount}}
+</span> कर्जाको
           सन्दर्भमा त्यस वित्तीय संस्थाबाट कुनै पनि समयभित्र कर्जा
-          चुक्ता गर्न मागगरिएको अवस्थामा कुनै पूर्वाग्रह नराखि <span
-              class="nepaliFont">{{printDocForm?.timePeriod}}</span> महिना/वर्षको अवधि भित्र रु.
-          <span class="nepaliFont">{{printDocForm?.kistaAmount}}</span>
-          को प्रत्येक <span class="nepaliFont">{{printDocForm?.kista}}</span> मा किस्तावन्दी स्वरुप
+          चुक्ता गर्न मागगरिएको अवस्थामा कुनै पूर्वाग्रह नराखि<span [ngClass]="{'nepaliFont' : printDocForm?.timePeriod !== null && printDocForm?.timePeriod !== ''}">
+    {{printDocForm?.timePeriod === null || printDocForm?.timePeriod === '' ? '_________________' : printDocForm?.timePeriod}}
+</span> महिना/वर्षको अवधि भित्र रु.
+          <span [ngClass]="{'nepaliFont' : printDocForm?.kistaAmount !== null && printDocForm?.kistaAmount !== ''}">
+    {{printDocForm?.kistaAmount === null || printDocForm?.kistaAmount === '' ? '_________________' : printDocForm?.kistaAmount}}
+</span>
+          को प्रत्येक <span [ngClass]="{'nepaliFont' : printDocForm?.kista !== null && printDocForm?.kista !== ''}">
+    {{printDocForm?.kista === null || printDocForm?.kista === '' ? '_________________' : printDocForm?.kista}}
+</span> मा किस्तावन्दी स्वरुप
           पूर्ण कर्जा भुक्तानी गर्न म÷हामीदृढ छु÷छौं । यदि कुनै किस्ता तोकिएको मितिमा भुक्तानी
           नभएमा त्यस वित्तीय संस्थालाई सम्पूर्ण कर्जा तुरुन्तभुक्तानीको माग गर्ने अधिकार हुनेछ र
           म/हामी उपर त्यस वित्तीय संस्थाले सम्पूर्ण हक तथा उपाय कार्यान्वयनगर्न
@@ -57,13 +69,17 @@
         <div class="row">
           <p>भवदीय,
 <br><br>
-            <span class="nepaliFont"> {{printDocForm?.debtorSign}}</span>  <span>.......................</span>
+            <span [ngClass]="{'nepaliFont' : printDocForm?.debtorSign !== null && printDocForm?.debtorSign !== ''}">
+    {{printDocForm?.debtorSign === null || printDocForm?.debtorSign === '' ? '_________________' : printDocForm?.debtorSign}}
+</span>  <span>.......................</span>
           </p>
           <br>
 
           <p>ऋणीको तर्फबाट आधिकारीक दस्तखत <br>
 
-            दस्तखत गर्नेको नाम : <span class="nepaliFont">{{printDocForm?.debtorName}} </span>
+            दस्तखत गर्नेको नाम :  <span [ngClass]="{'nepaliFont' : printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
+    {{printDocForm?.debtorName === null || printDocForm?.debtorName === '' ? '_________________' : printDocForm?.debtorName}}
+</span>
             संस्थाको छाप : <span class="nepaliFont">{{printDocForm?.InstitutionStamp}}</span>
             <br>
             म/हामी उपरोक्त व्यहोराको दृढ गर्दछु/छौं र त्यस बैंकले मुख्य ऋणीहरुलाई कुनै पनि समय
@@ -81,9 +97,13 @@
           <br>
           दस्तखत : .............
           <br>
-          नाम : <span class="nepaliFont">{{printDocForm?.guarantorName}}</span>
+          नाम : <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorName !== null && printDocForm?.guarantorName !== ''}">
+    {{printDocForm?.guarantorName === null || printDocForm?.guarantorName === '' ? '_________________' : printDocForm?.guarantorName}}
+</span>
           <br>
-          ठेगाना : <span class="nepaliFont">{{printDocForm?.guarantorAddress}}</span>
+          ठेगाना : <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorAddress !== null && printDocForm?.guarantorAddress !== ''}">
+    {{printDocForm?.guarantorAddress === null || printDocForm?.guarantorAddress === '' ? '_________________' : printDocForm?.guarantorAddress}}
+</span>
         </p>
         <div class=col>
           <div class="float-right">
