@@ -78,6 +78,10 @@ export class PromissoryNoteComponent implements OnInit {
 
   onSubmit(): void {
     let flag = true;
+    if (this.form.value.grandParentName == "")
+        {
+            this.form.controls['grandParentName'].setValue('Hello World');
+        }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
