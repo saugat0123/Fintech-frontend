@@ -277,7 +277,6 @@ export class CompanyFormComponent implements OnInit {
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
         this.calculateSharePercent('proprietors', 'totalSharePercent');
-        this.reArrangeEnumType();
     }
 
     buildForm() {
@@ -1183,12 +1182,5 @@ export class CompanyFormComponent implements OnInit {
             }
             this.companyInfoFormGroup.get(s).updateValueAndValidity();
         });
-    }
-
-    reArrangeEnumType() {
-        const other = this.registeredOffice.filter(value => value.value.toString() === 'Other');
-        const index = this.registeredOffice.indexOf(other[0]);
-        this.registeredOffice.splice(index, 1);
-        this.registeredOffice = this.registeredOffice.concat(other);
     }
 }
