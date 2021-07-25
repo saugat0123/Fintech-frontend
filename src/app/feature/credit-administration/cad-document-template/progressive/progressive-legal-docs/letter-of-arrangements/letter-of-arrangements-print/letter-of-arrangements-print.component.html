@@ -9,54 +9,66 @@
         </div>
         <div class="text-right">
           मितिः
-          <span class="nepaliFont">{{printDocForm?.date}}</span>
+          <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
         </div>
         <br>
         <b>
-          प्रोग्रेशिभफाईनान्स लिमिटेड,
+          प्रोग्रेशिभ फाईनान्स लिमिटेड,
           <br>
-          <span class="nepaliFont">{{printDocForm?.branch}}</span> शाखा ।
+          <span [ngClass]="{'nepaliFont' : printDocForm?.branch !== null && printDocForm?.branch !== ''}">
+    {{printDocForm?.branch === null || printDocForm?.branch === '' ? '_________________' : printDocForm?.branch}}
+</span> शाखा ।
         </b>
         <br>
         <br>
         <b class="text-center">
-          विषयः– त्यस वित्तीय संस्थाले म÷हाम्रो निमित्त
-          <span class="nepaliFont">{{printDocForm?.subject}}</span>
-          को रिभल्भिङ÷
+          विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त
+          <span [ngClass]="{'nepaliFont' : printDocForm?.subject !== null && printDocForm?.subject !== ''}">
+    {{printDocForm?.subject === null || printDocForm?.subject === '' ? '_________________' : printDocForm?.subject}}
+</span>
+          को रिभल्भिङ/
           चालु
-          पूँजी÷
-          <span class="nepaliFont">{{printDocForm?.punji}}</span>
+          पूँजी/
+          <span [ngClass]="{'nepaliFont' : printDocForm?.punji !== null && printDocForm?.punji !== ''}">
+    {{printDocForm?.punji === null || printDocForm?.punji === '' ? '_________________' : printDocForm?.punji}}
+</span>
           हद सम्म स्विकृत गरिएको सम्बन्धमा ।
         </b>
         <br>
         <br>
         <p>
           उपरोक्त विषय सम्बन्धि
-          <span class="nepaliFont">{{printDocForm?.customerName}}</span>
-          लाई उपरोक्तऋणको सिमा उपलब्ध
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+</span>
+          लाई उपरोक्त ऋणको सिमा उपलब्ध
           गराईएकोमा सो को
-          लागि मैले÷हामीले आजका दिनमा प्रतिज्ञा पत्र तथा अन्य कागजातमा सहिछाप गरि जारी गरि दिएकोमा
-          म÷हामी त्यस
+          लागि मैले/हामीले आजका दिनमा प्रतिज्ञा पत्र तथा अन्य कागजातमा सहीछाप गरि जारी गरि दिएकोमा
+          म/हामी त्यस
           वित्तीय
-          संस्थाबाटउपलब्ध गराइएको सुविधाकुनै पनि समयमाम÷हामीलाई पूर्व सूचनानदिई रद्द गर्न सक्ने
+          संस्थाबाट उपलब्ध गराइएको सुविधा कुनै पनि समयमाम/हामीलाई पूर्व सूचनानदिई रद्द गर्न सक्ने
           अधिकारको पालना
-          गर्ने छु ÷छौं ।
+          गर्ने छु/छौं ।
         </p>
         <p>
-          कथम् कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म÷हामी त्यस
+          कथम् कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म/हामी त्यस
           वित्तीय
           संस्थाले माग गरेमा
           सम्पूर्ण बाँकी ऋण तथा अन्य कुनै दस्तुर, व्याजवा पेनाल्टी रकम समेत तुरुन्त भुक्तानी गर्ने
           बचन यसै
           पत्रद्वारा अवगत
-          गर्दछु÷छौं ।
+          गर्दछु/छौं ।
         </p>
         भवदीय, <br><br>
 
         ..............................................
         <br>
         ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
-        दस्तखत गर्नेको नामः <span class="nepaliFont">{{printDocForm?.customerName}}</span><br>
+        दस्तखत गर्नेको नामः <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+</span><br>
       </div>
     </form>
   </div>
