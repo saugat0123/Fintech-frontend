@@ -200,6 +200,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, path, {headers: req.header});
     }
 
+    public getCustomerAllPendingLoans(): Observable<any> {
+        const api = `${this.getApi()}/pending`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }

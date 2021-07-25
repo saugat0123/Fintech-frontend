@@ -26,6 +26,9 @@ export class MarkAsLeaveComponent implements OnInit {
   ngOnInit() {
     this.userId = LocalStorageUtil.getStorage().userId;
     this.getActiveLoan();
+    this.loanService.getCustomerAllPendingLoans().subscribe((response: any) => {
+      console.log(response.detail);
+    });
   }
 
   private getActiveLoan(): void {

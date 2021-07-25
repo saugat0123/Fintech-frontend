@@ -105,8 +105,9 @@ export class CustomerWisePendingComponent implements OnInit {
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
         other.loanHolderLoanListTemp = [];
-        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
+        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 100).subscribe(
             (response: any) => {
+                console.log('loans list', response);
                 other.loanHolderLoanList = response.detail.content;
                 other.loanHolderLoanListTemp = response.detail.content;
                 other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
