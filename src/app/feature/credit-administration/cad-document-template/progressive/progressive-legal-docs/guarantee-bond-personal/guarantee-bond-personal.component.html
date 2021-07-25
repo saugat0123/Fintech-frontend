@@ -2,8 +2,8 @@
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <div class="nep">
-        <div class="text-center">
-          बिषयः व्यक्तिगत जमानत
+        <div class="text-center" style="margin-top:20px;">
+          बिषयः व्यक्तिगत जमान
         </div>
         <br>
         <p>
@@ -183,7 +183,26 @@
           आफ्नो स्वतन्त्र मञ्ज’रीले यो
           ब्यक्तिगत जमानतको कागजमा सहिछ्ाप गरी तपाई धनी वित्तीय संस्थालाई दिए¤ ।
         </p>
+        <br>
+        औठा छाप
 
+        <div>
+          <table class="table  table-bordered" id="fingerXap">
+            <thead>
+            <tr>
+              <th>दाँ.</th>
+              <th>बाँ.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><span class="signature-area"></span></td>
+              <td><span class="signature-area"></span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
         <p>
           <b>जमानीका थप शर्तहरुः </b><br>
           यस जमानीको लिखतबाट म/हामी उपर सृजना ह’ने क’नै पनि दायित्व ऋणीको दायित्व सरह ह’ने तथा धनी
