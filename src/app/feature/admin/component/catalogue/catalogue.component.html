@@ -206,12 +206,11 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <div *ngIf='model?.combinedLoan?.id ===null &&
-                     (model?.documentStatus.toString()==="PENDING" ||
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
-                         model?.documentStatus.toString()==="VALUATION")'>
+                         model?.documentStatus.toString()==="VALUATION"'>
                         <button nbButton status="warning" size="tiny"
                                 (click)="transferLoanFile(model?.id, model?.loan?.id, model?.id, model?.branch?.id, model?.combinedLoan?.id, model)">
                             <em class="fa fa-arrow-circle-right"></em></button>
@@ -221,9 +220,7 @@
                         model?.documentStatus.toString()==="APPROVED")'>
                         NA
                     </div>
-                    <div *ngIf='model?.combinedLoan?.id !==null'>
-                        Combined Loan {{model?.combinedLoan?.id}}
-                    </div>
+
                 </td>
                 <td>
                     <div (click)="onClick(model?.loan?.id,model?.id)">
@@ -282,7 +279,7 @@
                  [nbSpinner]="transferSpinner"
                  nbSpinnerStatus="primary"
                  nbSpinnerSize="large"
-                 nbSpinnerMessage="Loading users for transfer...">
+                 nbSpinnerMessage="loading users for transfer....">
             <nb-card-header>
                 <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
                     <span aria-hidden="true">&times;</span>

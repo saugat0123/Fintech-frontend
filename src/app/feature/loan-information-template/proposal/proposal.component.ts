@@ -441,24 +441,21 @@ export class ProposalComponent implements OnInit {
     let interestAmount = 0;
     const rate = Number(this.proposalForm.get('interestRate').value) / 100;
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
-    const tenure = this.proposalForm.get('tenureDurationInMonths').value;
+    const tenure = this.proposalForm.get('tenureDurationInMonths').value / 12;
+    const calculatedInterestAmount = this.proposalForm.get('interestAmount').value;
     if (proposedAmount) {
       switch (repaymentMode) {
         case 'MONTHLY':
-          interestAmount = (proposedAmount * rate) / 12;
-          principleAmount = (proposedAmount / tenure);
+          interestAmount = (proposedAmount * rate * tenure) / 12;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 12;
           break;
         case 'QUARTERLY':
-          interestAmount = ((proposedAmount * rate) / 12) * 3;
-          principleAmount = (proposedAmount / tenure) * 3;
+          interestAmount = (proposedAmount * rate * tenure) / 4;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 4;
           break;
         case 'SEMI-ANNUALLY' :
-          interestAmount = ((proposedAmount * rate) / 12) * 6;
-          principleAmount = (proposedAmount / tenure) * 6;
-          break;
-        case 'ANNUALLY':
-          interestAmount = (proposedAmount * rate);
-          principleAmount = (proposedAmount / tenure) * 12;
+          interestAmount = (proposedAmount * rate * tenure) / 2;
+          principleAmount = (calculatedInterestAmount / (tenure * rate)) * 2;
           break;
         case 'AT MATURITY':
           principleAmount = proposedAmount;

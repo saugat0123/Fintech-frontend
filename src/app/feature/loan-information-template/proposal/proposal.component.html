@@ -384,7 +384,6 @@
                                             <option value="MONTHLY">Monthly</option>
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="SEMI-ANNUALLY">Semi-Annually</option>
-                                            <option value="ANNUALLY">Annually</option>
                                         </select>
 
                                         <div *ngIf="(submitted) && formControls.repaymentModeInterest.invalid"
@@ -408,7 +407,6 @@
                                             <option value="MONTHLY">Monthly</option>
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="SEMI-ANNUALLY">Semi-Annually</option>
-                                            <option value="ANNUALLY">Annually</option>
                                             <option value="AT MATURITY" *ngIf="client === clientName?.ICFC">AT Maturity</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
@@ -439,7 +437,7 @@
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
                                            && (showInterestAmount || client !== clientName?.ICFC)">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Interest Amount</strong></label>
+                                            <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="interestAmount"
                                                     id="interestAmount"
@@ -452,7 +450,7 @@
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
                                            && (showInterestAmount || client !== clientName?.ICFC)">
                                         <div class="form-group>">
-                                            <label class="title"> <strong>Principal Amount</strong></label>
+                                            <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
                                                     class="form-control" formControlName="principalAmount"
                                                     id="principalAmount"
