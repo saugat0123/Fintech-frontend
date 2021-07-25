@@ -65,38 +65,44 @@ export class SecurityViewComponent implements OnInit {
     this.securityData = JSON.parse(this.security.data);
     // land security
     this.securityData['initialForm']['landDetails'].filter(f => {
-      if (f.owner !== '') {
+      const value = f.owner;
+      if (!ObjectUtil.isEmpty(value)) {
         this.landSelected = true;
       }
     });
 
     // apartment security
     this.securityData['initialForm']['buildingDetails'].filter(f => {
-      if (f.buildArea !== '') {
+      const value = f.buildArea;
+      if (!ObjectUtil.isEmpty(value)) {
         this.apartmentSelected = true;
       }
     });
     // land and building security
     this.securityData['initialForm']['landBuilding'].filter(f => {
-      if (f.owner !== null) {
+      const value = f.owner;
+      if (!ObjectUtil.isEmpty(value)) {
         this.landBuilding = true;
       }
     });
     // plant and machinery security
     this.securityData['initialForm']['plantDetails'].filter(f => {
-      if (f.model !== '') {
+      const value = f.model;
+      if (!ObjectUtil.isEmpty(value)) {
         this.plantSelected = true;
       }
     });
     // // vehicle security
     this.securityData['initialForm']['vehicleDetails'].filter(f => {
-      if (f.model !== '') {
+      const value = f.model;
+      if (!ObjectUtil.isEmpty(value)) {
         this.vehicleSelected = true;
       }
     });
     // fixed deposit receipt security
     this.securityData['initialForm']['fixedDepositDetails'].filter(f => {
-      if (f.accountNumber !== null) {
+      const value = f.accountNumber;
+      if (!ObjectUtil.isEmpty(value)) {
         this.depositSelected = true;
       }
     });
@@ -107,43 +113,50 @@ export class SecurityViewComponent implements OnInit {
     }
     // hypothecation of stock security
     this.securityData['initialForm']['hypothecationOfStock'].filter(f => {
-      if (f.owner !== null) {
+      const value = f.owner;
+      if (!ObjectUtil.isEmpty(value)) {
         this.hypothecation = true;
       }
     });
     // assignment of receivables
     this.securityData['initialForm']['assignmentOfReceivables'].filter(f => {
-      if (f.amount !== null) {
+      const value = f.amount;
+      if (!ObjectUtil.isEmpty(value)) {
         this.assignment = true;
       }
     });
     // lease assignment
     this.securityData['initialForm']['leaseAssignment'].filter(f => {
-      if (f.otherDetail !== '') {
+      const value = f.otherDetail;
+      if (!ObjectUtil.isEmpty(value)) {
         this.assignments = true;
       }
     });
     // other security
     this.securityData['initialForm']['otherSecurity'].filter(f => {
-      if (f.otherDetail !== '') {
+      const value = f.otherDetail;
+      if (!ObjectUtil.isEmpty(value)) {
         this.securityOther = true;
       }
     });
     // corporate guarantee
     this.securityData['initialForm']['corporateGuarantee'].filter(f => {
-      if (f.name !== null) {
+      const value = f.name;
+      if (!ObjectUtil.isEmpty(value)) {
         this.corporate = true;
       }
     });
     // personal guarantee
     this.securityData['initialForm']['personalGuarantee'].filter(f => {
-      if (f.name !== null) {
+      const value = f.name;
+      if (!ObjectUtil.isEmpty(value)) {
         this.personal = true;
       }
     });
     // insurance policy
     this.securityData['initialForm']['insurancePolicy'].filter(f => {
-      if (f.insuredAmount !== null) {
+      const value = f.insuredAmount;
+      if (!ObjectUtil.isEmpty(value)) {
         this.insurancePolicySelected = true;
       }
     });
