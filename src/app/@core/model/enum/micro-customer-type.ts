@@ -1,6 +1,6 @@
 export enum MicroCustomerType {
-    DIRECT = 'Direct Customer',
-    INDIRECT = 'Indirect Customer'
+    DIRECT = 'DIRECT',
+    INDIRECT = 'INDIRECT'
 }
 
 export namespace MicroCustomerType {

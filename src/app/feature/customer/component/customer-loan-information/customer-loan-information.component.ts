@@ -40,6 +40,7 @@ import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
+import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -151,6 +152,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     clientName = Clients;
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
+    microCustomerTypeEnum = MicroCustomerType;
 
 
     constructor(
@@ -238,6 +240,14 @@ export class CustomerLoanInformationComponent implements OnInit {
             if (!ObjectUtil.isEmpty(secParseJson.securityDetails)) {
                 this.checkedPreviousSecurity = true;
             }
+        }
+    }
+
+    get otherMicroDetailsVisibility() {
+        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
+            return true;
+        } else { return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+            this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }
 
