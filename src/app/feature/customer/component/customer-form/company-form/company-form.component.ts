@@ -82,7 +82,7 @@ export class CompanyFormComponent implements OnInit {
     spinner = false;
     submitted = false;
 
-    microCustomerTypes = MicroCustomerType.values();
+    microCustomerTypes = MicroCustomerType.enumObject();
 
     companyFormField = {
         showFormField: false,
@@ -348,6 +348,11 @@ export class CompanyFormComponent implements OnInit {
             clientType:
                 [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
                     this.clientTypeInput, Validators.required],
+
+            microCustomerType:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.microCustomerType)) ? MicroCustomerType.INDIRECT :
+                    this.companyInfo.microCustomerType],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -864,6 +869,8 @@ export class CompanyFormComponent implements OnInit {
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
+        console.log(this.companyInfoFormGroup.get('microCustomerType').value);
+        this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -1153,6 +1160,16 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
     }
 
+    microRestData(micro: boolean) {
+        const microCustomerTypeControl = this.companyInfoFormGroup.get('microCustomerType');
+        if (micro) {
+            microCustomerTypeControl.patchValue(MicroCustomerType.INDIRECT);
+            microCustomerTypeControl.enable();
+        } else {
+            microCustomerTypeControl.patchValue(null);
+            microCustomerTypeControl.disable();
+        }
+    }
     microCustomerValidation(micro: boolean) {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
@@ -1161,7 +1178,6 @@ export class CompanyFormComponent implements OnInit {
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
-                clientTypeControl.disable();
                 this.controlValidation(alphaFields , false);
             } else {
                 this.controlValidation(alphaFields , true);

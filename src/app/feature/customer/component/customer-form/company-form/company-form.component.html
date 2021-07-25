@@ -3,11 +3,15 @@
     nbSpinnerSize="giant">
     <nb-card-header>
         <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
-        (click)="microCustomerValidation(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
-        <strong>Micro Customer Type</strong>
-        <select>
-            <option *ngFor="let data of microCustomerTypes " [ngValue]="data" [selected]="'DIRECT'">{{data}}</option>
-        </select>
+        (click)="microCustomerValidation(!micro_checked.checked); microRestData(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
+
+<!--      <div class="ml-5">-->
+<!--            <strong>Micro Customer Type: </strong>-->
+<!--        <ng-select  [(ngModel)]="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" >-->
+<!--            <ng-option *ngFor="let data of microCustomerTypes" [value]="data">{{data}}</ng-option>-->
+<!--        </ng-select>-->
+<!--      </div>-->
+
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -31,6 +35,15 @@
                            <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
+                                       <label><strong>Micro Customer Type</strong></label>
+                                       <ng-select bindLabel="value" bindValue="key"
+                                               formControlName="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" >
+                                           <ng-option *ngFor="let data of microCustomerTypes" [value]="data.key">{{data.value}}</ng-option>
+                                       </ng-select>
+                                   </div>
+                                   </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
                                        <label><strong>Customer Client Type</strong></label>
                                        <select
                                                [ngClass]="{ 'is-invalid':submitted && form.clientType.errors }"
@@ -45,7 +58,7 @@
                                        </div>
                                    </div>
                                    </div>
-                               <div class="col-md-6">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label ><strong>SubSector</strong></label>
                                        <select class="custom-select" formControlName="subsectorDetail">
