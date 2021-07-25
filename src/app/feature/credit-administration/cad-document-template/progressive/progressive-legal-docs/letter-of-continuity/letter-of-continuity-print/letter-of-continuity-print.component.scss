@@ -1,8 +1,10 @@
-*{
-margin-left:20px;
-margin-right:10px;
+@import '../../progressive-legal-docs.component';
 
-}
+//*{
+//margin-left:20px;
+//margin-right:10px;
+//
+//}
 @media print {
   .page-break { page-break-before: always; }
 }
