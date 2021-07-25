@@ -21,6 +21,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {UserHistoryComponent} from './user-history/user-history.component';
 import {RoleType} from '../../modal/roleType';
 import {RoleAddComponent} from './role-add/role-add.component';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-user',
@@ -67,7 +68,8 @@ export class UserComponent implements OnInit {
         private toastService: ToastService,
         private formBuilder: FormBuilder,
         private branchService: BranchService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private loanService: LoanFormService
     ) {
     }
 
@@ -75,15 +77,10 @@ export class UserComponent implements OnInit {
         other.spinner = true;
         other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
             other.dataList = response.detail.content;
-
             other.pageable = PaginationUtils.getPageable(response.detail);
-
             other.spinner = false;
-
         }, error => {
-
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-
             other.spinner = false;
         });
 
@@ -95,30 +92,22 @@ export class UserComponent implements OnInit {
             this.branchList = response.detail;
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Branch!'));
         });
-        this.roleService.getAll().subscribe(
+        this.roleService.getActiveRoles().subscribe( // getActiveRoles already excludes admin role
             (response: any) => {
                 this.roleList = response.detail;
-                this.roleList.splice(0, 1); // removes ADMIN
             }, error => {
                 console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Role!'));
             }
         );
         this.breadcrumbService.notify(this.title);
-
         UserComponent.loadData(this);
-
-        // this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-        //     this.user = response.detail.user;
-        // });
         this.service.getStatus().subscribe((response: any) => {
-
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.users = response.detail.users;
-
         });
     }
 
@@ -133,7 +122,6 @@ export class UserComponent implements OnInit {
 
     changePage(page: number) {
         this.page = page;
-
         UserComponent.loadData(this);
     }
 
@@ -156,18 +144,39 @@ export class UserComponent implements OnInit {
     edit(user: User) {
         const modalRef = this.modalService.open(UserFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = user;
-
         ModalUtils.resolve(modalRef.result, UserComponent.loadData, this);
     }
 
     add() {
         const modalRef = this.modalService.open(UserFormComponent, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.model = new User();
-
         ModalUtils.resolve(modalRef.result, UserComponent.loadData, this);
     }
 
     onChange(data) {
+        if (data.status === Status.ACTIVE) {
+            this.updateStatus(data);
+            return;
+        }
+        const userId = data.id;
+        this.loanService.getLoanStatusApi(userId).subscribe((response: any) => {
+            if (response.detail.status === 'false') {
+                this.updateStatus(data);
+            } else {
+                const activeLoanCount = response.detail.count;
+                this.toastService.show(new Alert(AlertType.ERROR,
+                    'Can not change status, this user has ' + activeLoanCount + ' customer loan(s).' +
+                    ' Please transfer loan to proceed.'));
+                UserComponent.loadData(this);
+            }
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            UserComponent.loadData(this);
+            }
+        );
+    }
+
+    private updateStatus (data) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
@@ -218,7 +227,6 @@ export class UserComponent implements OnInit {
 
 
     getCsv() {
-
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';

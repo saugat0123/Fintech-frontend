@@ -75,7 +75,7 @@ export class OwnerKycApplicableComponent implements OnInit {
         return this.formBuilder.group({
                 ownerRelationship: [undefined],
                 relationName: [undefined],
-                citizenshipNumber: [undefined, Validators.required],
+                citizenshipNumber: [undefined],
                 issuedLocation: [undefined],
                 issuedDate: [undefined],
                 mobileNumber: [undefined, Validators.pattern(Pattern.NUMBER_MOBILE)],

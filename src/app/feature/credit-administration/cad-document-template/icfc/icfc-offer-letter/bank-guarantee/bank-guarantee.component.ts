@@ -47,7 +47,7 @@ export class BankGuaranteeComponent implements OnInit {
     if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
       this.offerLetterDocument = new OfferDocument();
       this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.BANK_GUARANTEE);
-      this.fillForm();
+      // this.fillForm();
     } else {
       const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
       this.initialInfoPrint = initialInfo;
@@ -57,13 +57,13 @@ export class BankGuaranteeComponent implements OnInit {
     }
   }
 
-  fillForm() {
-    this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    this.bankGuarantee.patchValue({
-      date: this.nepData.date ? this.nepData.date : '',
-      address: this.nepData.address ? this.nepData.address : '',
-    });
-  }
+  // fillForm() {
+  //   this.nepData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+  //   this.bankGuarantee.patchValue({
+  //     date: this.nepData.date ? this.nepData.date : '',
+  //     address: this.nepData.address ? this.nepData.address : '',
+  //   });
+  // }
 
   onSubmit() {
     this.spinner = true;

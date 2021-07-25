@@ -73,6 +73,7 @@ export class BusinessLoanComponent implements OnInit {
     this.businessLoan = this.formBuilder.group({
       branch: [undefined],
       regNo: [undefined],
+      letterYear: [undefined],
       month: [undefined],
       day: [undefined],
       name: [undefined],
@@ -142,9 +143,13 @@ export class BusinessLoanComponent implements OnInit {
       details: [undefined],
       interestTypeSelectedArray: [undefined],
       loanTermSelectedArray: [undefined],
+      prePaymentFlag: [true],
+      inApprovalFlag: [true],
+      prePaymentChargeFive: [undefined],
 
-      loanSecurityTable: this.formBuilder.array([]),
-      loanFacilityTable: this.formBuilder.array([]),
+      loanSecurityTable: this.formBuilder.array([this.buildLandSecurity()]),
+      loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
+      guarantorDetails: this.formBuilder.array([]),
     });
   }
 
@@ -179,6 +184,7 @@ export class BusinessLoanComponent implements OnInit {
       if (!ObjectUtil.isEmpty(initialInfo)) {
         this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
         this.setLoanFacilityTable(initialInfo.loanFacilityTable);
+        this.setGuarantorDetails(initialInfo.guarantorDetails);
       }
       this.businessLoan.patchValue(this.initialInfoPrint);
     }
@@ -252,6 +258,7 @@ export class BusinessLoanComponent implements OnInit {
 
   setLoanSecurityTableData(data) {
     const formArray = this.businessLoan.get('loanSecurityTable') as FormArray;
+    (this.businessLoan.get('loanSecurityTable') as FormArray).clear();
     if (data.length === 0) {
       this.addTableData();
       return;
@@ -276,14 +283,16 @@ export class BusinessLoanComponent implements OnInit {
     $event.includes('Term Loan') ? this.termLoanSelected = true : this.termLoanSelected = false;
   }
 
+  buildLoanFacilityTable() {
+    return this.formBuilder.group({
+      purpose: [undefined],
+      depositApprovedLoanAmount: [undefined],
+      credit: [undefined],
+    });
+  }
+
   addLoanFacilityTable() {
-    (this.businessLoan.get('loanFacilityTable') as FormArray).push(
-        this.formBuilder.group({
-          purpose: [undefined],
-          depositApprovedLoanAmount: [undefined],
-          credit: [undefined],
-        })
-    );
+    (this.businessLoan.get('loanFacilityTable') as FormArray).push(this.buildLoanFacilityTable());
   }
 
   removeLoanFacilityData(index) {
@@ -292,6 +301,7 @@ export class BusinessLoanComponent implements OnInit {
 
   setLoanFacilityTable(data) {
     const formArray = this.businessLoan.get('loanFacilityTable') as FormArray;
+    (this.businessLoan.get('loanFacilityTable') as FormArray).clear();
     if (data.length === 0) {
       this.addLoanFacilityTable();
       return;
@@ -305,6 +315,36 @@ export class BusinessLoanComponent implements OnInit {
     });
   }
 
+  buildGuarantor() {
+    return this.formBuilder.group({
+      guarantorName1: [undefined],
+      date3: [undefined],
+    });
+  }
+
+  addNewGuarantor() {
+    (this.businessLoan.get('guarantorDetails') as FormArray).push(this.buildGuarantor());
+  }
+
+  removeAddedGuarantor(index) {
+    (this.businessLoan.get('guarantorDetails') as FormArray).removeAt(index);
+  }
+
+  setGuarantorDetails(data) {
+    const formArray = this.businessLoan.get('guarantorDetails') as FormArray;
+    (this.businessLoan.get('guarantorDetails') as FormArray).clear();
+    if (data.length === 0) {
+      this.addLoanFacilityTable();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        guarantorName1: [value.guarantorName1],
+        date3: [value.date3],
+      }));
+    });
+  }
+
   changeInterestType($event) {
     this.selectedInterestArray = $event;
     $event.includes('Business Overdraft Loan (Quarterly)') ?
@@ -312,6 +352,29 @@ export class BusinessLoanComponent implements OnInit {
     $event.includes('Business Overdraft Loan (Monthly)') ?
         this.businessOverdraftLoanMSelected = true : this.businessOverdraftLoanMSelected = false;
     $event.includes('Business Term Loan') ? this.businessTermLoanSelected = true : this.businessTermLoanSelected = false;
+  }
+
+  removeOptionalFields(formGroup, fieldControlName) {
+    formGroup.get(fieldControlName).patchValue(false);
+  }
+
+  undoFieldRemove(formGroup, fieldControlName) {
+    formGroup.get(fieldControlName).patchValue(true);
+  }
+
+  calcOtherRate(serviceCharge, chargeRate, swapfeeTwo, afterFiveRate, afterFiveRate2) {
+    const servCharge = this.nepToEngNumberPipe.transform(this.businessLoan.get(serviceCharge).value);
+    const calculatedRate = ( parseFloat(servCharge) / 100) * 50;
+    const finalCalcValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedRate));
+    this.businessLoan.get(chargeRate).patchValue(finalCalcValue);
+    this.businessLoan.get(swapfeeTwo).patchValue(finalCalcValue);
+    const calcFiveYears = ( parseFloat(servCharge) / 100) * 20;
+    const finalFiveYearsValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calcFiveYears));
+    this.businessLoan.get(afterFiveRate).patchValue(finalFiveYearsValue);
+    this.businessLoan.get(afterFiveRate2).patchValue(finalFiveYearsValue);
+    this.businessLoan.get('sawa').patchValue(this.businessLoan.get(serviceCharge).value);
+    this.businessLoan.get('biAnnualRate').patchValue(this.businessLoan.get(serviceCharge).value);
+
   }
 
 }

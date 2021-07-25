@@ -11,6 +11,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-proposal-view',
@@ -47,6 +48,9 @@ export class ProposalViewComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showInterestAmount = false;
   prepaymentCharge;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
+  @Input() loanCategory;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {

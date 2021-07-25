@@ -64,24 +64,16 @@ export class UserFormComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.roleService.getAll().subscribe((response: any) => {
-            this.roleList = response.detail;
-        });
-
         this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
-
         this.addressService.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
         }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Error while loading province'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while loading province!'));
             console.log(error);
         });
-
         this.getEdit();
-
     }
 
 
@@ -125,7 +117,7 @@ export class UserFormComponent implements OnInit {
                 this.activeModal.close(ModalResponse.SUCCESS);
             } else {
                 this.model = new User();
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated User'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated User!'));
                 this.activeModal.close(ModalResponse.SUCCESS);
             }
             }, error => {

@@ -10,11 +10,39 @@ td{
   width: 100%;
 }
 
+.longInput{
+  width: 400px;
+}
+
+.extendedLongInput{
+  width: 600px;
+}
+
+.mediumInputField{
+  width: 270px;
+}
+
+.shortInput{
+  width: 50px;
+}
+
 .nepali {
   font-size: 16px;
   line-height: 40px;
   margin: 10px 50px;
   @extend .text-justify;
+}
+
+.guarantorRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.guarantorColumn {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
 }
 
 .text-justify,

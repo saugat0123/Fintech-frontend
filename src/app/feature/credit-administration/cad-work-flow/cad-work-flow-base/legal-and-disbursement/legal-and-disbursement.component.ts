@@ -50,13 +50,14 @@ export class LegalAndDisbursementComponent implements OnInit {
             other.cadOfferLetterApprovedDoc = res.detail;
             other.customerInfoData = other.cadOfferLetterApprovedDoc.loanHolder;
             other.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => other.toggleArray.push({toggled: false}));
+            console.log(res.detail);
             if (!ObjectUtil.isEmpty(other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser)) {
             if (other.cadOfferLetterApprovedDoc.cadCurrentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
                 other.isInCurrentUser = true;
             }}
             other.spinner = false;
         }, error => {
-            console.error(error);
+            console.log(error);
             other.spinner = false;
         });
     }
@@ -97,6 +98,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     }
 
     changeCssOfCad(value) {
+        console.log(value);
         this.layoutFlag = value;
     }
 

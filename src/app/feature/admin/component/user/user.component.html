@@ -52,7 +52,7 @@
                                 <div class="col-md-3">
                                     <input fieldSize="medium" formControlName="name" name="name"
                                            nbInput
-                                           placeholder="name..."
+                                           placeholder="Name"
                                            type="text">
                                 </div>
                                 <div class="col-md-3">
@@ -157,18 +157,18 @@
                                             title="History">
                                         <i class="fas fa-history"></i>
                                     </button>
-                                    <button *ngIf="!allList?.primaryUserId" nbButton status="info" size="tiny" class="m-1" (click)="edit(allList)"
-                                            title="Edit">
+                                    <button *ngIf="!allList?.primaryUserId" nbButton status="info" size="tiny"
+                                            class="m-1" (click)="edit(allList)" title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button nbButton status="danger" size="tiny" class="m-1"
                                             (click)="dismiss(allList,dismissAll)"
-                                            title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
+                                            title="Dismiss  Branch & Role" *ngIf="allList.role !== null;">
                                         <i class="fa fa-ban"></i>
                                     </button>
                                     <button nbButton status="danger" size="tiny" class="m-1" *ngIf="!allList?.primaryUserId"
                                             (click)="addRole(allList)"
-                                            title="add role">
+                                            title="Add Role" [disabled]=true>
                                         <i class="fa fa-plus-circle"></i>
                                     </button>
                                 </ng-container>
@@ -193,7 +193,7 @@
         <div class="modal-content">
             <div class="modal-header" style="display:block">
                 <div>
-                    <h4 class="">Do You want to Dismiss Branch and Role ?</h4>
+                    <h4 class="">Do you want to Dismiss Branch and Role?</h4>
                     <form>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary  btn-flat" (click)="setDismissBranch(true)">
