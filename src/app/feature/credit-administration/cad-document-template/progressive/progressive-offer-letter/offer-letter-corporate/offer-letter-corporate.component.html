@@ -13,14 +13,12 @@
                     <p>श्री
 
                         <input class="form-control-sm form-field nepaliFont"
-                               readonly
                                formControlName="customerName"
                                type="text">
                         (ऋणीको नाम)
                     </p>
                     <p>
                         <input class="form-control-sm form-field nepaliFont"
-                               readonly
                                formControlName="customerAddress"
                                type="text">
                         ऋणीको ठेगाना
@@ -64,7 +62,6 @@
                     तपाइ
 
                     <input class="form-control-sm form-field nepaliFont"
-                           readonly
                            [value]="form.get('customerName').value"
                            type="text">
                     (उप्रान्त ऋणी भनिएको) ले श्री प्रोग्रेशिभ फाइनान्स लिमिटेड (उप्रान्त फाइनान्स भनिएको)मा
@@ -76,7 +73,6 @@
                     १.१ श्री
 
                     <input class="form-control-sm form-field nepaliFont"
-                           readonly
                            [value]="form.get('customerName').value"
                            type="text">
                     (यस पछि “ऋणी” भनिएको)<br>
@@ -1088,25 +1084,21 @@
                                 <td>
                                     श्री
                                     <input class="form-control-sm form-field nepaliFont"
-                                           readonly
                                            [value]="form.get('customerName').value"
                                            type="text">
                                     <br>
 
                                     <input class="form-control-sm form-field nepaliFont"
-                                           readonly
                                            formControlName="customerMunicipality"
                                            type="text">
                                     वडा न.
 
                                     <input class="form-control-sm form-field nepaliFont"
-                                           readonly
                                            formControlName="customerWardNum"
                                            type="text">
                                     ,
 
                                     <input class="form-control-sm form-field nepaliFont"
-                                           readonly
                                            formControlName="customerDistrict"
                                            type="text">
                                     जिल्ला ।<br>
@@ -1224,21 +1216,18 @@
                 <br>
                 औठा छाप दाँ. बाँ.
 
-                <table id="fingerXap" class="table table-bordered">
+                <table id="fingerXap" style="width: 35%;" class="table  table-bordered text-center">
+
                     <thead>
                     <tr>
-                        <th>दाँ.</th>
-                        <th>बाँ.</th>
+                        <th style="border: none;">दाँ.</th>
+                        <th style="border: none;">बाँ.</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <span class="signature-area"></span>
-                        </td>
-                        <td>
-                            <span class="signature-area"></span>
-                        </td>
+                    <tr style="height: 130px;">
+                        <td></td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>
@@ -1377,9 +1366,8 @@
                                [value]="initialInfoPrint?.bottomPatraNum ? initialInfoPrint?.bottomPatraNum : form.get('patraNum').value"
                                type="text"
                                formControlName="bottomPatraNum">
-                        बमोजिमश्री
+                        बमोजिम श्री
                         <input class="form-control-sm form-field nepaliFont"
-                               readonly
                                [value]="form.get('customerName').value"
                                type="text">
                         लाई दिने/दिएकोे कर्जा/सुबिधा स्वीकृती

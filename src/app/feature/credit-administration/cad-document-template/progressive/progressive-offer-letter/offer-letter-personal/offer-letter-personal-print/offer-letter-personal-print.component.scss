@@ -1,8 +1,15 @@
 @import "../../progressive-offer-letter.component";
 
+.nepaliConfig {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 6px 20px;
+  @extend .text-justify;
+}
+
 .bodyParagraphTable {
   text-align: justify;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 p {
