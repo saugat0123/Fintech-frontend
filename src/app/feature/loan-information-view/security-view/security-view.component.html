@@ -87,7 +87,7 @@
         <th colspan="2">Address as per Legal Document</th>
         <th>Ownership transfer date(AD/BS)</th>
         <th class="text-left pl-1">Ownership transfer Through</th>
-        <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
+        <th *ngIf="landDetails.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
         <th  *ngIf="landDetails.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
@@ -266,7 +266,7 @@
           <th>Address as per Legal Document</th>
           <th>Ownership transfer date(AD/BS)</th>
           <th> Ownership transfer Through</th>
-          <th *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
+          <th *ngIf="landBuilding.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs  plus 35 days? </th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
           <th  *ngIf="landBuilding.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
