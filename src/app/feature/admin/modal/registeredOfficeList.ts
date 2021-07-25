@@ -25,6 +25,7 @@ OFFICE_OF_COTTAGE_AND_SMALL_INDUSTRY= 'Office of Cottage & Small Industry ',
 TRIBHUWAN_UNIVERSITY= 'Tribhuwan University',
 VDC_OFFICE= 'VDC Office',
 OTHER= 'Other',
+  DEPARTMENT_OF_COMMERCE_SUPPLIES_AND_CUNSUMER_PROTECTION_MANAGEMENT= 'Department of Commerce, Supplies & Consumer Protection Management',
 }
 
 export namespace RegisteredOfficeList {
