@@ -151,6 +151,7 @@ export class CompanyFormComponent implements OnInit {
     companyAddress;
     srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
+    microCustomerType: string;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -194,6 +195,9 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
+            if (this.microCustomer) {
+                this.microCustomerType = this.formValue.microCustomerType;
+            }
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
@@ -1170,8 +1174,17 @@ export class CompanyFormComponent implements OnInit {
             microCustomerTypeControl.disable();
         }
     }
+
+    microCustomerTypeValidation(microCustomerType) {
+        const microDirectExcludeFields = ['sisterConcern', 'strength', 'weakness', 'opportunity', 'threats'];
+        if (microCustomerType === MicroCustomerType.INDIRECT.toString()) {
+
+        } else {
+
+        }
+    }
     microCustomerValidation(micro: boolean) {
-        const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
+        const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'successionPlanning'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
         console.log(micro, this.disableCrgAlpha);
