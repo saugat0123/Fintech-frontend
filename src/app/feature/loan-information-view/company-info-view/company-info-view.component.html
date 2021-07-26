@@ -415,7 +415,7 @@
             </tr>
             </tbody>
         </table>
-        <table
+        <table *ngIf="summaryType === summaryTypeName.GENERAL"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Succession Risk & Mitigation</th>
@@ -477,37 +477,39 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview']"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Industry/Market Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
                 <th>Marketing Strategies</th>
             </tr>
             <tr>
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies']"></td>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Business/Management Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Security Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Financial and Cash Flow Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
-            </tr>
+            <ng-container *ngIf="summaryType === summaryTypeName?.GENERAL">
+                <tr class="text-white sb-bg-dark">
+                    <th>Industry/Market Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook']"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Business/Management Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect']"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Security Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk']"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Financial and Cash Flow Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk']"></td>
+                </tr>
+            </ng-container>
         </table>
-        <table
+        <table *ngIf="summaryType === summaryTypeName?.GENERAL"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Group’s background</th>

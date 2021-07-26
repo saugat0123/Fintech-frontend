@@ -7,6 +7,7 @@ import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SummaryType} from '../../SummaryType';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {SiteVisitDocument} from '../../../../loan-information-template/security/
 })
 export class SecuritySummaryComponent implements OnInit {
     @Input() formData: Object;
+    @Input() count;
     @Input() shareSecurity;
     landSelected = false;
     apartmentSelected = false;
@@ -51,6 +53,8 @@ export class SecuritySummaryComponent implements OnInit {
     isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
+    type = environment.summaryType;
+    summaryType = SummaryType;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -58,7 +62,8 @@ export class SecuritySummaryComponent implements OnInit {
     ngOnInit() {
         // land security
         this.formData['initialForm']['landDetails'].filter(f => {
-            if (f.owner !== null) {
+            const value = f.owner;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.landSelected = true;
             }
@@ -66,35 +71,40 @@ export class SecuritySummaryComponent implements OnInit {
 
         // apartment security
         this.formData['initialForm']['buildingDetails'].filter(f => {
-            if (f.buildArea !== '') {
+            const value = f.buildArea;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.apartmentSelected = true;
             }
         });
         // land and building security
         this.formData['initialForm']['landBuilding'].filter(f => {
-            if (f.owner !== null) {
+            const value = f.owner;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.landBuilding = true;
             }
         });
         // plant and machinery security
         this.formData['initialForm']['plantDetails'].filter(f => {
-            if (f.model !== '') {
+            const value = f.model;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.plantSelected = true;
             }
         });
         // // vehicle security
         this.formData['initialForm']['vehicleDetails'].filter(f => {
-            if (f.model !== '') {
+            const value = f.model;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.vehicleSelected = true;
             }
         });
         // fixed deposit receipt security
         this.formData['initialForm']['fixedDepositDetails'].filter(f => {
-            if (f.accountNumber !== null) {
+            const value = f.accountNumber;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.depositSelected = true;
             }
@@ -102,56 +112,64 @@ export class SecuritySummaryComponent implements OnInit {
         //
         // // shared security
         if (!ObjectUtil.isEmpty(this.shareSecurity.shareSecurityDetails)) {
-            if (this.shareSecurity.avgDaysForPrice !== '') {
+            const value = this.shareSecurity.avgDaysForPrice;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.shareSelected = true;
             }
         }
         // hypothecation of stock security
         this.formData['initialForm']['hypothecationOfStock'].filter(f => {
-            if (f.owner !== null) {
+            const value = f.owner;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.hypothecation = true;
             }
         });
         // assignment of receivables
         this.formData['initialForm']['assignmentOfReceivables'].filter(f => {
-            if (f.amount !== null) {
+            const value = f.amount;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.assignment = true;
             }
         });
         // lease assignment
         this.formData['initialForm']['leaseAssignment'].filter(f => {
-            if (f.otherDetail !== '') {
+            const value = f.otherDetail;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.assignments = true;
             }
         });
         // other security
         this.formData['initialForm']['otherSecurity'].filter(f => {
-            if (f.otherDetail !== '') {
+            const value = f.otherDetail;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.securityOther = true;
             }
         });
         // corporate guarantee
         this.formData['initialForm']['corporateGuarantee'].filter(f => {
-            if (f.name !== null) {
+            const value = f.name;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.corporate = true;
             }
         });
         // personal guarantee
         this.formData['initialForm']['personalGuarantee'].filter(f => {
-            if (f.name !== null) {
+            const value = f.name;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.personal = true;
             }
         });
         // insurance policy
         this.formData['initialForm']['insurancePolicy'].filter(f => {
-            if (f.insuredAmount !== null) {
+            const value = f.insuredAmount;
+            if (!ObjectUtil.isEmpty(value)) {
                 this.showTitle = true;
                 this.insurancePolicySelected = true;
             }

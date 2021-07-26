@@ -16,7 +16,6 @@ import {RelationshipList} from '../../../../loan/model/relationshipList';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {Gender} from '../../../../../@core/model/enum/gender';
 import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {Clients} from '../../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
@@ -201,6 +200,8 @@ export class JointFormComponent implements OnInit {
             citizenshipIssuedDate5: [ObjectUtil.isEmpty(jointDetail.citizenshipIssuedDate5) ?
                 undefined : new Date(jointDetail.citizenshipIssuedDate5), DateValidator.isValidBefore],
             age5: [jointDetail.age5],
+            fatherName: [jointDetail.fatherName],
+            grandFatherName: [jointDetail.grandFatherName],
           })
       );
     });
@@ -442,6 +443,8 @@ export class JointFormComponent implements OnInit {
       citizenshipIssuedPlace5: [undefined],
       citizenshipIssuedDate5: [undefined],
       age5: [undefined],
+        fatherName: [undefined],
+        grandFatherName: [undefined],
     });
   }
 

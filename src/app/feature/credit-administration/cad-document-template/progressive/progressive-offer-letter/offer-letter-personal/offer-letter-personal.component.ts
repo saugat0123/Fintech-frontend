@@ -282,6 +282,25 @@ export class OfferLetterPersonalComponent implements OnInit {
             docMonth: [undefined],
             docDate: [undefined],
             docRoj: [undefined],
+            officeType: [undefined],
+            branchName: [undefined],
+            secondLetterDate: [undefined],
+            secondPatraNo: [undefined],
+            loanHolderName: [undefined],
+            jamanikartaName: [undefined],
+            guarantorCitizenshipNo: [undefined],
+            guarantorIssuedDate: [undefined],
+            guarantorCitizenIssuedOffice: [undefined],
+            guarantorDistrict: [undefined],
+            municipalityName: [undefined],
+            guarantorWardNo: [undefined],
+            guarantorRelation: [undefined],
+            fatherInLawName: [undefined],
+            spouseOrFatherName: [undefined],
+            guarantorMobileNo: [undefined],
+            guarantorEmail: [undefined],
+            letterSubmittedDate: [undefined],
+
         });
     }
 

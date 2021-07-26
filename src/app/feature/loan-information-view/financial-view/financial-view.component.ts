@@ -6,6 +6,7 @@ import {Clients} from '../../../../environments/Clients';
 import {KeyIndicatorsHeaderMap} from '../../loan-information-template/financial/constants/key-indicators-constants';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-financial-view',
@@ -20,15 +21,15 @@ export class FinancialViewComponent implements OnInit {
   @Input() microFormData;
   @Input() microCustomer;
   isMicro = false;
-
   financialData: any;
-
   isBusinessLoan = false;
   activeTab: string;
   disableCrgAlphaParams = environment.disableCrgAlpha;
   client = environment.client;
   clientName = Clients;
   auditorList = [];
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   // selected ratio
   summaryCheckedList = [];

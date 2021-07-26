@@ -45,6 +45,10 @@
   }
 }
 
+.unicodeSize {
+  font-size: 18px;
+}
+
 
 .form-field {
   background: yellow;
@@ -78,6 +82,9 @@ input::-webkit-input-placeholder {
 @page {
   size: A4;
   margin: 17mm 17mm 17mm 17mm;
+}
+body {
+  padding-top:15mm;
 }
 
 .page-break {

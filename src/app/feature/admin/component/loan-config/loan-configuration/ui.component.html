@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-5 row">
                         <div class="col-md-9 form-group">
-                            <label><h6>Nature of Assets financed</h6></label>
+                            <label><h6>Nature of Assets Financed</h6></label>
                             <div class="row ml-2">
                                 <nb-radio-group name="financedAssets" class="d-inline-flex"
                                                 [(ngModel)]="loanConfig.financedAssets">
@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <label><h6>Loan Short Name</h6></label>
                             <input type="text" class="form-control" name="shortNames" required
-                                   placeholder="e.g. WCL for Working capital Loan"
+                                   placeholder="e.g. WCL for Working Capital Loan"
                                    [(ngModel)]="loanConfig.shortNames" #shortNames="ngModel"
                                    [ngClass]="{ 'is-invalid': loanConfigForm.submitted && shortNames.invalid }">
                             <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && shortNames.invalid">
@@ -104,10 +104,10 @@
                                        bindLabel="key"
                                        [(ngModel)]="selectedLoanCategory"
                                        name="category"
-                                       placeholder="Select category">
+                                       placeholder="Select Category">
                             </ng-select>
                             <div *ngIf="loanConfigForm.submitted && !selectedLoanCategory">
-                                <small class="text-danger">Loan categoy is required</small>
+                                <small class="text-danger">Loan category is required</small>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                             <input #interestRate="ngModel"
                                    [ngClass]=" { 'is-invalid': loanConfigForm.submitted && interestRate.invalid }"
                                    class="form-control" name="interestRate"
-                                   placeholder="Interest rate"
+                                   placeholder="Interest Rate"
                                    [(ngModel)]="loanConfig.interestRate" app-positive-decimal-number
                                    required
                                    type="number"/>
@@ -135,7 +135,7 @@
                                        [required]="true"
                                        [(ngModel)]="selectedLoanTag"
                                        (change)="onLoanTagChange()"
-                                       placeholder="Select Loan tag">
+                                       placeholder="Select Loan Tag">
                             </ng-select>
                             <div *ngIf="loanConfigForm.submitted && loanTag.invalid">
                                 <small class="text-danger">Invalid loan tag!</small>

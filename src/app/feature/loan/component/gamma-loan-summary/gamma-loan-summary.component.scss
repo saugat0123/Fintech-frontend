@@ -1,0 +1,164 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  .report-header {
+    text-align: center;
+
+    .report-header-heading {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+
+    .report-header-sub-heading {
+      font-size: 14pt;
+    }
+  }
+
+  .signature-height {
+    height: 50px;
+  }
+  .signature-width{
+    width: 50px;
+  }
+  .report-logo {
+    width: 100px;
+  }
+
+  .print-only {
+    display: none;
+  }
+
+  .signature-block {
+    padding: 0.5rem;
+    border: 1px solid #8c8b8b;
+
+    .signature-detail {
+      border-top: 1px dashed;
+      padding-top: 0.5rem;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .padding-0-125 {
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
+  }
+
+  .cmt-height {
+    max-height: 36px;
+    overflow: hidden;
+  }
+
+  .read-margin {
+    margin-top: 5px;
+  }
+
+  .vertical-line {
+    border-left: thick solid #414141;
+  }
+
+  .gauge-label-padding {
+    //padding-top: 90px;
+  }
+
+  @media print {
+
+    nb-card {
+      background: none;
+      border: none;
+      box-shadow: none;
+      position: absolute;
+      overflow: visible;
+      display: flex;
+
+      span.badge {
+        border: none;
+        color: black;
+        font-weight: normal;
+      }
+
+      hr.print-line {
+        border-top: 2px solid black;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+      }
+
+      div {
+        font-size: 12pt;
+        color: black;
+        //line-height: 1.5;
+
+        p {
+          font-size: 12pt;
+          margin-bottom: 5px;
+        }
+      }
+
+      .print-only {
+        display: block;
+      }
+
+      .disable-print {
+        display: inline;
+      }
+
+      #print-document {
+        display: none;
+      }
+
+      .table th, .table td {
+        padding: 0.2rem;
+      }
+
+      .report-header {
+        line-height: 1;
+
+        .report-header-heading, .report-header-sub-heading {
+          font-size: 16pt;
+        }
+      }
+
+      .cmt-width {
+        width: 70%;
+      }
+
+      #print-borrower-table tbody td {
+        width: 400px;
+      }
+
+      #print-block {
+        margin-top: -6rem;
+        margin-left: 2rem;
+        margin-right: -1rem;
+        padding-top: 3rem;
+
+        .signature-block {
+          border: 1px solid #8c8b8b;
+          margin-top: 0.2rem;
+        }
+
+        .mt-3 {
+          margin-top: 0 !important;
+        }
+
+        table {
+          margin-bottom: .2rem;
+        }
+
+        p {
+          margin-bottom: 0.2rem;
+        }
+      }
+    }
+
+    table { page-break-after:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    td    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+
+  }
+}

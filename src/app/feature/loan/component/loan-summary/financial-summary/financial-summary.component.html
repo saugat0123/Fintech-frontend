@@ -1,7 +1,8 @@
 <div *ngIf="!isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p><strong>Financial Position and Repayment Capacity of the Borrower</strong></p>
+      <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. Financial Position and Repayment Capacity of the Borrower':
+              'Financial Position and Repayment Capacity of the Borrower'}}</strong></p>
       <div class="row">
         <div class="col-md-12">
           <table class="table table-bordered text-right table-sm sb-small text-center">
@@ -80,7 +81,11 @@
               <td class="text-left pl-1" colspan="3"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
                       : 'EMI / Gross Monthly Income'}}</strong></td>
               <td colspan="2" class="text-right pr-1">
-                <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
+                <strong *ngIf="client === clientName.ICFC; else other">{{financialData?.initialForm?.totalEMIInterest}} %</strong>
+                <ng-template #other>
+                  <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
+                </ng-template>
+
               </td>
             </tr>
             <tr>
@@ -133,7 +138,8 @@
 <div *ngIf="isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p><strong>Financial Highlights of the Entity</strong></p>
+      <p><strong>{{count}}{{summaryType === summaryTypeName?.GAMMA ? '. Financial Highlights of the Entity':
+              'Financial Highlights of the Entity'}}</strong></p>
       <table *ngIf="auditorList.length > 0" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tr>
           <th class="text-center sb-bg-dark text-white" colspan="7">Financial Auditor Detail Information</th>

@@ -87,6 +87,9 @@ import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-sum
 import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { GammaLoanSummaryComponent } from './component/gamma-loan-summary/gamma-loan-summary.component';
+import {CbsGroupModule} from '../cbs-group/cbs-group.module';
+import {ApprovalSheetComponent} from './component/loan-summary/approval-sheet/approval-sheet.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 
 const COMPONENTS = [
@@ -149,6 +152,8 @@ const COMPONENTS = [
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
     MarketingActivitiesSummaryComponent,
+    GammaLoanSummaryComponent,
+    ApprovalSheetComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -160,6 +165,7 @@ const ENTRY_COMPONENTS = [
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorDetailComponent,
+    ApprovalSheetComponent,
 ];
 
 const modules = {
@@ -215,6 +221,7 @@ const modules = {
         NbTooltipModule,
         MicroLoanModule,
         NepaliPatroModule,
+        CbsGroupModule,
         TransferLoanModule
     ],
 
@@ -228,8 +235,9 @@ const modules = {
     exports: [
         KycInfoComponent,
         MicroProposalSummaryComponent,
-        MicroBaselRiskExposureSummaryComponent
-        , CustomerWiseLoanPullComponent
+        MicroBaselRiskExposureSummaryComponent,
+        CustomerWiseLoanPullComponent,
+        ApprovalSheetComponent
     ]
 })
 export class LoanModule {

@@ -5,9 +5,10 @@
 
                 <div>
                     च.नं.: आइ.सि.एफ.सि.—शाखा <span class="font-weight-bold nepaliFont">{{letter?.branch}}</span>
-                    —कर्जा/०७६—७७/ <span class="font-weight-bold nepaliFont">{{letter?.regNo}}</span>
+                    —कर्जा/ <span class="font-weight-bold nepaliFont">{{letter?.regNo}}</span>
 
-                    <p class="text-right">मिति : २०७६/ <span class="font-weight-bold nepaliFont">{{letter?.month}}</span>
+                    <p class="text-right">मिति : <span class="font-weight-bold nepaliFont">{{letter?.letterYear}}</span>
+                        / <span class="font-weight-bold nepaliFont">{{letter?.month}}</span>
                         / <span class="font-weight-bold nepaliFont">{{letter?.day}}</span>
                     </p>
                     श्री <span class="font-weight-bold nepaliFont">{{letter?.name}}</span>
@@ -36,35 +37,36 @@
                     <th style="padding: 10px">जम्मा स्वीकृत कर्जा रकम</th>
                 </tr>
                 <tr *ngFor="let loanFacilityDetails of letter?.loanFacilityTable; let i = index">
-                    <td style="padding: 10px">व्यवसायिक <span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.credit}}</span>
-                        कर्जा</td>
+                    <td style="padding: 10px">
+                        <span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.credit}}</span>
+                    </td>
                     <td><span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.purpose}}</span></td>
                     <td><span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.depositApprovedLoanAmount}}</span></td>
                 </tr>
             </table><br>
             <p><strong>२.	<u>ब्याजदरः</u></strong><br></p>
             <ng-container *ngIf="businessOverdraftLoanQSelected">
-            <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate}}</span>
+            <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont loanWords">{{letter?.annualRate}}</span>
                 प्रतिशत [Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate}}</span>
                 %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate}}</span>
                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
             </ng-container>
                 <!--<p class="text-center"><strong>वा</strong></p>-->
             <ng-container *ngIf="businessOverdraftLoanMSelected">
-            <p>प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate2}}</span>
+            <p>प्रति वर्ष <span class="font-weight-bold nepaliFont loanWords">{{letter?.annualRate2}}</span>
                 प्रतिशत [Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate2}}</span>
                 %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate2}}</span>
                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
             </ng-container>
             <!--<p class="text-center"><strong>वा</strong></p>-->
             <ng-container *ngIf="businessTermLoanSelected">
-                <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont">{{letter?.annualRate3}}</span>
+                <p><strong>क)</strong>	प्रति वर्ष <span class="font-weight-bold nepaliFont loanWords">{{letter?.annualRate3}}</span>
 
                 प्रतिशत[Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate3}}</span>
-                %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate3}}</span>
+                    ९. वीम%) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate3}}</span>
                 %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <span class="font-weight-bold nepaliFont">{{letter?.month3}}</span>
                 मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold nepaliFont">{{letter?.amount}}</span>
-                (अक्षरुपी <span class="font-weight-bold nepaliFont">{{letter?.amountInWords}}</span>
+                (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords}}</span>
                 ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।</p>
             </ng-container>
             <p>तालिका बमोजिम बुझाउनु पर्ने किस्ता रकम (ब्याज तथा सावाँ र ब्याज) तालिकामा उल्लेखित मितिभित्र नबुझाएमा ऋणीले विलम्ब शुल्क वापत प्रति किस्ता रु.५००/– तिर्नु बुझाउनु पर्नेछ ।</p>
@@ -83,6 +85,7 @@
             <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <span class="font-weight-bold nepaliFont">{{letter?.years}}</span>
                 वर्षको लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
             </ng-container>
+            <div class="page-break"></div>
             <p><strong>५.	<u>शुल्क तथा कमिशनः</u></strong></p>
             <table border="1">
                 <tr>
@@ -104,7 +107,6 @@
                         % प्रतिबद्धता शुल्क लिइने छ ।</td>
                 </tr>
             </table>
-
             <p><strong>६. <u>अन्य शुल्कहरुः</u></strong></p>
             <table border="1">
                 <tr>
@@ -118,14 +120,15 @@
                 <tr>
                     <td style="vertical-align:top;">कर्जा स्थानान्तरण शुल्क (Swap Fee)</td>
                     <td>कर्जा सिमा रकमको २ वर्ष सम्म <span class="font-weight-bold nepaliFont">{{letter?.biAnnualRate}}</span>
-                        % सम्म, २ देखी ५ वर्ष सम्म <span class="font-weight-bold nepaliFont">{{letter?.twoToFiveRate}}</span>
-                        % सम्म, ५ वर्ष पश्चात <span class="font-weight-bold nepaliFont">{{letter?.afterFiveRate}}</span>
+                        % सम्म, २ देखी ५ वर्ष सम्म <span class="font-weight-bold" style="font-size: 14pt;">{{letter?.twoToFiveRate}}</span>
+                        % सम्म, ५ वर्ष पश्चात <span class="font-weight-bold" style="font-size: 14pt;">{{letter?.afterFiveRate}}</span>
                         %</td>
                 </tr>
-                <tr>
+                <tr *ngIf="letter?.prePaymentFlag">
                     <td style="vertical-align:top;">कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)</td>
-                    <td>कर्जा दर्ता भएको मिति देखि २ वर्षभित्र पूर्ण वा आंशिक सावाँ पूर्व भुक्तानी गर्दा पूर्व भुक्तानी गर्ने सावाँको <span class="font-weight-bold nepaliFont">{{letter?.sawa}}</span>
-                        % सम्मका दरले पूर्व भुक्तानी शुल्क लाग्ने छ । त्यस्तै कर्जा दर्ता भएको मितिले २ वर्ष पश्चात् पूर्ण वा आंशिक सावाँ भुक्तानी गर्दा भुक्तानी गर्ने सावाँको <span class="font-weight-bold nepaliFont">{{letter?.sawa2}}</span>
+                    <td>कर्जा दर्ता भएको मिति देखि २ वर्षभित्र <span class="font-weight-bold nepaliFont">{{letter?.sawa}}</span>
+                        % सम्म, २ देखी ५ वर्ष सम्म <span class="font-weight-bold nepaliFont" style="font-size: 14pt;">{{letter?.sawa2}}</span>
+                        % सम्म, ५ वर्ष पश्चात <span class="font-weight-bold nepaliFont" style="font-size: 14pt">{{letter?.prePaymentChargeFive}}</span>
                         % सम्मका दरले पूर्व भुक्तानी शुल्क लाग्ने छ ।</td>
                 </tr>
             </table>
@@ -146,7 +149,7 @@
                 </tr>
                 <tr *ngFor="let tableData of letter?.loanSecurityTable; let i = index">
                     <td class="text-center">
-                        <span class="font-weight-bold nepaliFont">{{tableData?.snNo}}</span>
+                        <span class="font-weight-bold" style="font-size: 14pt;">{{i + 1 | nepaliNumber: 'unicode'}}</span>
                     </td>
                     <td>
                         <span class="font-weight-bold nepaliFont">{{tableData?.dhaniName}}</span>
@@ -185,18 +188,20 @@
             <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
             <p>ग) श्री <span class="font-weight-bold nepaliFont">{{letter?.name2}}</span>
                 बाट स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount2}}</span>
-                (अक्षरुपी <span class="font-weight-bold nepaliFont">{{letter?.amountInWords2}}</span>
+                (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords2}}</span>
                 मात्र) बराबरको व्यक्तिगत जमानी ।</p>
-            <p>घ) <span class="font-weight-bold nepaliFont">{{letter?.from}}</span>
-                बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।</p>
+            <p *ngIf="letter?.inApprovalFlag">
+                घ) <span class="font-weight-bold nepaliFont">{{letter?.from}}</span>
+                बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।
+            </p>
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
                 <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount3}}</span>
-                    (अक्षरुपी <span class="font-weight-bold nepaliFont">{{letter?.amountInWords3}}</span>
+                    (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords3}}</span>
                     मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
                 <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount4}}</span>
-                    (अक्षरुपी <span class="font-weight-bold nepaliFont">{{letter?.amountInWords4}}</span>
+                    (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords4}}</span>
                     मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
                 <li>धितोबन्धक कागज ।</li>
                 <li>ऋणी तथा जमानतकर्ताको पारिवारिक र खुद सम्पत्ती विवरण ।</li>
@@ -268,7 +273,10 @@
                     <td>ऋणीले मुलुकको प्रचलित नियम कानूनको पूर्ण पालना गर्नु पर्नेछ ।</td>
                 </tr>
             </table>
-            <p><strong>१३. <u>निम्न अवस्था मध्ये कुनै पनि अवस्था सृजना भएमा शर्तहरु उल्लंघन गरेको (EVENT OF DEFAULT) मानिने छः</u></strong></p>
+            <div class="page-break">
+
+            </div>
+            <p style="margin-top: 25px"><strong>१३. <u>निम्न अवस्था मध्ये कुनै पनि अवस्था सृजना भएमा शर्तहरु उल्लंघन गरेको (EVENT OF DEFAULT) मानिने छः</u></strong></p>
             <table>
                 <tr>
                     <td style="vertical-align: top">१३.१)</td>
@@ -359,7 +367,7 @@
             <p>यो कर्जा स्वीकृतिपत्र बुझीलिई यसमा उल्लेखित सम्पूर्ण शर्तबन्देजहरु पढी बाची सोको मतलव तथा परिणाम समेत बुझी ऋणी तथा जमानतकर्ताको पूर्ण मन्जुरी तथा स्वीकृति सहित निजहरुको हस्ताक्षर गरी गराई यसै बमोजिमको एक प्रति फाइनान्स समक्ष यो स्वीकृत पत्र जारी भएको मितिबाट ७ दिनभित्र फिर्ता गरिदिन हुन अनुरोध छ, अन्यथा यस पत्र मार्फत स्वीकृत गरिएका कर्जा सुविधाहरु स्वतः रद्द भएको मानिने समेत जानकारी गराउँदछौं । साथै, यो स्वीकृत पत्र जारी भएको ३० दिनभित्र कर्जा उपभोग नगरेमा यसमा उल्लेखित शर्तअनुसार कर्जा प्रवाह गर्र्र्न फाइनान्स बाध्य हुने छैन ।</p>
             <br><br> <br><br> <p style="margin-left: 100px">भवदीय,</p>
             <br> <br><br>
-            <div>
+            <div style="margin-bottom: 85px;">
                 <div style="width:50%;float:left;">
                     <p style="margin-left:50px">............................................</p>
                     <p style="margin-left:60px">आइ.सि.एफ.सि. फाइनान्स</p>
@@ -371,7 +379,8 @@
                     <p style="text-align:right;margin-right: 80px">लिमिटेडको तर्फबाट</p>
                 </div>
             </div>
-            <p><strong>श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड,</strong></p>
+
+            <p style="margin-top: 85px;"><strong>श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड,</strong></p>
             <p><span class="font-weight-bold nepaliFont">{{letter?.address}}</span>
             </p>
             <p><span class="font-weight-bold nepaliFont">{{letter?.district}}</span>
@@ -379,15 +388,15 @@
             <br> <br><br>
             <p>महोदय,</p>
             <br> <br><br>
-            <p>त्यस फाइनान्सको मिति २०७<span class="font-weight-bold nepaliFont">{{letter?.year2}}</span>
-                /<span class="font-weight-bold nepaliFont">{{letter?.month4}}</span>
-                /<span class="font-weight-bold nepaliFont">{{letter?.day3}}</span>
-                , च.नं.: आइ.सि.एफ.सि.—शाखा <span class="font-weight-bold nepaliFont">{{letter?.branch2}}</span>
-                —कर्जा/०७६—७७/<span class="font-weight-bold nepaliFont">{{letter?.regNo2}}</span>
+            <p>त्यस फाइनान्सको मिति <span class="font-weight-bold nepaliFont">{{letter?.letterYear}}</span>
+                /<span class="font-weight-bold nepaliFont">{{letter?.month}}</span>
+                /<span class="font-weight-bold nepaliFont">{{letter?.day}}</span>
+                , च.नं.: आइ.सि.एफ.सि.—शाखा <span class="font-weight-bold nepaliFont">{{letter?.branch}}</span>
+                —कर्जा/<span class="font-weight-bold nepaliFont">{{letter?.regNo}}</span>
                 को व्यवसायिक ओभरड्राफ्ट कर्जा स्वीकृति पत्र मैले/हामीले प्राप्त गरें/गर्यौं । उक्त पत्रमा उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण सुरक्षण कागजातहरु समयभित्रै नै गरिदिने छु/छौं ।</p>
-            <div>
-                <br> <br><br>
-                <div style="width:50%;float:left;">
+            <br> <br><br>
+            <div class="d-flex justify-content-around" style="margin-bottom: 75px;">
+                <div>
                     <p>हस्ताक्षरः	......................................</p>
                     <br>
                     <p><strong>ऋणीको नामः</strong> <span class="font-weight-bold nepaliFont">{{letter?.debtorName}}</span>
@@ -397,13 +406,33 @@
                     <br><br><br><p>___________________________</p>
                 </div>
 
-                <div style="width:50%;float:left;">
+                <div>
                     <p>हस्ताक्षरः	......................................</p>
                     <br>
                     <p><strong>जमानी दिनेको नामः </strong> <span class="font-weight-bold nepaliFont">{{letter?.guarantorName}}</span>
                     </p>
                     <br><p>मितिः <span class="font-weight-bold nepaliFont">{{letter?.date2}}</span>
                 </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="guarantorColumn" *ngFor = "let guarantorData of letter?.guarantorDetails; let index = index;">
+                <div class="col-md-12 mr-2" style="margin-bottom: 65px;" id="GuarantorDetails">
+                    <p>हस्ताक्षरः	.....................................</p>
+                    <br>
+                    <p>
+                        <strong>
+                            जमानी दिनेको नामः
+                        </strong>
+                    </p>
+                    <p>
+                        <span class="nepaliFont">{{guarantorData?.guarantorName1}}</span>
+                    </p>
+                    <p>
+                    <p>
+                        मितिः <span class="font-weight-bold nepaliFont">{{guarantorData?.date3}}</span>
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <div class="row" id="print-section-{{offerLetterConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES}}">
     <div class="col-md-12 viewFull">
-        <form>
+        <form class="nepali">
             <div class="text-center"><b>
                 हाइपोथिकेशनलिखत (प्लान्६ र मेसिनरी सामानहरु समेत)<br>
                 Hypothecation Deed (Plant & Machineries)</b>
@@ -256,19 +256,21 @@
             </div>
             <br>
 
-            <div class="text-center">
-                भवदीय,
-            </div>
+            <div class="page-break"></div>
             <div class="row">
                 <div class="col-md-12">
+                    <div class="text-center">
+                        भवदीय,
+                    </div>
                     <table class="table  table-bordered">
                         <tbody>
                         <tr>
                             <td>दस्तखत र संस्थाको ५ाप :-</td>
+                            <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td>दस्तखत गर्नेको नाम :-</td>
-                            <td><span class="nepaliFont">{{printDocForm?.signName}}</span>
+                            <td colspan="2"><span class="nepaliFont">{{printDocForm?.signName}}</span>
                                        (ना.प्र.नं.<span class="nepaliFont">{{printDocForm?.signCitizenNo}}</span>
 
                                 मिति.<span class="nepaliFont">{{printDocForm?.signDate}}</span>
@@ -280,7 +282,7 @@
                             <td>ठेगाना :-स्थायी <br>
                                
                             </td>
-                            <td><span class="nepaliFont">{{printDocForm?.permDistrict}}</span>
+                            <td colspan="2"><span class="nepaliFont">{{printDocForm?.permDistrict}}</span>
                                        जिल्ला
                                 <span class="nepaliFont">{{printDocForm?.permMunicipality}}</span>
                                        गा.पा./न.पा.वडा नं.
@@ -294,7 +296,7 @@
                         </tr>
                         <tr>
                            <td> हालको ठेगाना :-</td> 
-                            <td><span class="nepaliFont">{{printDocForm?.currentDistrict}}</span>जिल्ला
+                            <td colspan="2"><span class="nepaliFont">{{printDocForm?.currentDistrict}}</span>जिल्ला
                                 <span class="nepaliFont">{{printDocForm?.currentMunicipality}}</span>गा.पा./न.पा.
                                 वडा नं. <span class="nepaliFont">{{printDocForm?.currentWard}}</span></td>
                         </tr>
@@ -327,19 +329,18 @@
                     </table>
                     <div>
                         औठा छाप
-                        <table id="fingerXap" class="table  table-bordered text-center">
+                        <table style="width: 35%;" class="table  table-bordered text-center">
+
                             <thead>
                             <tr>
-                                <th>दाँ.</th>
-                                <th>बाँ.</th>
+                                <th style="border: none;">दाँ.</th>
+                                <th style="border: none;">बाँ.</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td><textarea style="background-color: transparent;resize:none" name="" id=""
-                                              cols="30" rows="10"></textarea></td>
-                                <td><textarea style="background-color: transparent;resize:none" name="" id=""
-                                              cols="30" rows="10"></textarea></td>
+                            <tr style="height: 130px;">
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>

@@ -51,12 +51,10 @@ import {CommonAddressComponent} from '../../../../common-address/common-address.
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
-import {mic} from 'ionicons/icons';
 
 @Component({
     selector: 'app-company-form',

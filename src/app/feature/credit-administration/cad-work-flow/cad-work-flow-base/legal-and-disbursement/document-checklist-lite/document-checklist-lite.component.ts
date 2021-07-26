@@ -70,6 +70,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 this.document = res.detail;
                 if (!ObjectUtil.isEmpty(this.cadData) && !(ObjectUtil.isEmpty(this.document))) {
                     this.customerLoanList = this.cadData.assignedLoan;
+
                     this.cadData.cadFileList.forEach(singleCadFile => {
                         this.document.forEach(singleDocument => {
                             if (singleDocument.id === singleCadFile.cadDocument.id) {
@@ -83,7 +84,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                     });
                 }
             }, error => {
-                console.error(error);
+                console.log(error);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to load document '));
 
             });
@@ -109,7 +110,6 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
                 this.responseCadData.emit(res.detail);
-                this.ngOnInit();
             }, error => {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, error));
@@ -210,7 +210,6 @@ export class DocumentChecklistLiteComponent implements OnInit {
     }
 
     responseFromAdditionalDocument(event) {
-        this.ngOnInit();
         this.responseCadData.emit(event);
     }
 
