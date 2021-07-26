@@ -3,7 +3,15 @@
     nbSpinnerSize="giant">
     <nb-card-header>
         <nb-checkbox [hidden]="!microEnabled" [(ngModel)]="microCustomer"
-        (click)="microCustomerValidation(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
+        (click)="microCustomerValidation(!micro_checked.checked); microRestData(!micro_checked.checked)" #micro_checked>Micro Customer</nb-checkbox>
+
+<!--      <div class="ml-5">-->
+<!--            <strong>Micro Customer Type: </strong>-->
+<!--        <ng-select  [(ngModel)]="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" >-->
+<!--            <ng-option *ngFor="let data of microCustomerTypes" [value]="data">{{data}}</ng-option>-->
+<!--        </ng-select>-->
+<!--      </div>-->
+
         <div class="d-flex justify-content-end">
             <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
@@ -27,6 +35,15 @@
                            <div class="row">
                                <div class="col-md-4">
                                    <div class="form-group">
+                                       <label><strong>Micro Customer Type</strong></label>
+                                       <select  (change)="microCustomerTypeValidation(microType?.value)" #microType
+                                               formControlName="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" class="form-control">
+                                           <option *ngFor="let data of microCustomerTypes" [value]="data.key">{{data.value}}</option>
+                                       </select>
+                                   </div>
+                                   </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
                                        <label><strong>Customer Client Type</strong></label>
                                        <select
                                                [ngClass]="{ 'is-invalid':submitted && form.clientType.errors }"
@@ -41,7 +58,7 @@
                                        </div>
                                    </div>
                                    </div>
-                               <div class="col-md-6">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label ><strong>SubSector</strong></label>
                                        <select class="custom-select" formControlName="subsectorDetail">
@@ -832,26 +849,28 @@
                        </div>
                        <hr>
                        <!--sister concern starts-->
-                       <div>
-                           <h5>5. Sister Concern</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="sisterConcern"><strong></strong></label>
-                                   <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
+                      <ng-container *ngIf="microCustomerType != 'DIRECT'">
+                          <div>
+                              <h5>5. Sister Concern</h5>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="sisterConcern"><strong></strong></label>
+                                      <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
                                              class="form-control" placeholder="Sister Concern"/>
-<!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
-<!--                                        class="invalid-feedback">-->
-<!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
-<!--                                           Sister Concern is required-->
-<!--                                       </div>-->
-<!--                                   </div>-->
-                               </div>
-                           </div>
-                       </div>
+                                      <!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
+                                      <!--                                        class="invalid-feedback">-->
+                                      <!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
+                                      <!--                                           Sister Concern is required-->
+                                      <!--                                       </div>-->
+                                      <!--                                   </div>-->
+                                  </div>
+                              </div>
+                          </div>
+                      </ng-container>
                        <hr>
-                      <app-company-other-detail [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
+                      <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
                        <hr>
                        <div>
                            <h5>7. Company Background</h5>
@@ -1292,90 +1311,92 @@
 
                        <hr>
                        <!--10. SWOT Analysis-->
-                       <div class="box-header with-border">
-                           <h5 class="box-title">10. SWOT Analysis</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="strength"><strong>Strength</strong></label>
-                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"
-                                             formControlName="strength" id="strength"
-                                             name="strength" [config]="ckeConfig"
-                                             type="text"></ckeditor>
-                                   <div *ngIf="(submitted) && form.strength.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="form.strength.errors.required">
-                                           Strength is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="weakness"><strong>Weakness</strong></label>
-                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"
-                                             formControlName="weakness" id="weakness"
-                                             name="weakness" [config]="ckeConfig"
-                                             type="text"></ckeditor>
-                                   <div *ngIf="(submitted) && form.weakness.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="form.weakness.errors.required">
-                                           Weakness is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="opportunity"><strong>Opportunity</strong></label>
-                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"
-                                             formControlName="opportunity" id="opportunity"
-                                             name="opportunity" [config]="ckeConfig"></ckeditor>
-                                   <div *ngIf="(submitted) && form.opportunity.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="form.opportunity.errors.required">
-                                           Opportunity is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="threats"><strong>Threats</strong></label>
-                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }" formControlName="threats"
-                                             id="threats"
-                                             name="threats" [config]="ckeConfig"></ckeditor>
-                                   <div *ngIf="(submitted) && form.threats.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="form.threats.errors.required">
-                                           Threats is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <hr>
-                       <div class="box-header with-border">
-                           <h5 class="box-title">11. Succession Risk & Mitigation</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-12">
-                               <div class="form-group">
-                                   <label for="successionPlanning"><strong></strong></label>
-                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
-                                             formControlName="successionPlanning" id="successionPlanning"
-                                             name="successionPlanning"
-                                             [config]="ckeConfig"></ckeditor>
-                                   <div *ngIf="(submitted) && form.successionPlanning.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.successionPlanning.errors.required">
-                                           Succession Risk & Mitigation is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+                  <ng-container *ngIf="microCustomerType != 'DIRECT'">
+                      <div class="box-header with-border">
+                          <h5 class="box-title">10. SWOT Analysis</h5>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="strength"><strong>Strength</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"
+                                            formControlName="strength" id="strength"
+                                            name="strength" [config]="ckeConfig"
+                                            type="text"></ckeditor>
+                                  <div *ngIf="(submitted) && form.strength.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.strength.errors.required">
+                                          Strength is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="weakness"><strong>Weakness</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"
+                                            formControlName="weakness" id="weakness"
+                                            name="weakness" [config]="ckeConfig"
+                                            type="text"></ckeditor>
+                                  <div *ngIf="(submitted) && form.weakness.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.weakness.errors.required">
+                                          Weakness is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="opportunity"><strong>Opportunity</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"
+                                            formControlName="opportunity" id="opportunity"
+                                            name="opportunity" [config]="ckeConfig"></ckeditor>
+                                  <div *ngIf="(submitted) && form.opportunity.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.opportunity.errors.required">
+                                          Opportunity is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="threats"><strong>Threats</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }" formControlName="threats"
+                                            id="threats"
+                                            name="threats" [config]="ckeConfig"></ckeditor>
+                                  <div *ngIf="(submitted) && form.threats.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.threats.errors.required">
+                                          Threats is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <hr>
+                      <div class="box-header with-border">
+                          <h5 class="box-title">11. Succession Risk & Mitigation</h5>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="form-group">
+                                  <label for="successionPlanning"><strong></strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
+                                            formControlName="successionPlanning" id="successionPlanning"
+                                            name="successionPlanning"
+                                            [config]="ckeConfig"></ckeditor>
+                                  <div *ngIf="(submitted) && form.successionPlanning.invalid"
+                                       class="invalid-feedback">
+                                      <div *ngIf="form.successionPlanning.errors.required">
+                                          Succession Risk & Mitigation is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </ng-container>
                        <hr>
                        <!--Business Objective-->
                        <div class="box-header with-border">
@@ -1400,62 +1421,65 @@
                        </div>
                        <hr>
                        <!--Raw materials-->
-                       <div class="box-header with-border">
-                           <h5 class="box-title">13. Raw Materials</h5>
-                       </div>
-                       <div class="row">
-                           <div class="col-md-3">
-                                   <label for="rawMaterialSourcing"><strong>Raw Material
-                                       Sourcing</strong></label> <br>
-                               <nb-select
-                                       [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
-                                       formControlName="rawMaterialSourcing" id="rawMaterialSourcing" name="rawMaterialSourcing"
-                                       placeholder="Select raw material" multiple fullWidth>
-                                   <nb-option value="local">Local</nb-option>
-                                   <nb-option value="imported">Imported</nb-option>
-                               </nb-select>
-<!--                                   <nb-radio-group class="close d-inline-flex float-left"-->
-<!--                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"-->
-<!--                                                   formControlName="rawMaterialSourcing"-->
-<!--                                                   id="rawMaterialSourcing"-->
-<!--                                                   name="rawMaterialSourcing">-->
-<!--                                       <nb-radio value="local">Local</nb-radio>-->
-<!--                                       <nb-radio value="imported">Imported</nb-radio>-->
-<!--                                   </nb-radio-group>-->
-                                   <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
+                    <ng-container *ngIf="microCustomerType != 'DIRECT'">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">13. Raw Materials</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="rawMaterialSourcing"><strong>Raw Material
+                                    Sourcing</strong></label> <br>
+                                <nb-select
+                                        [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
+                                        formControlName="rawMaterialSourcing" id="rawMaterialSourcing" name="rawMaterialSourcing"
+                                        placeholder="Select raw material" multiple fullWidth>
+                                    <nb-option value="local">Local</nb-option>
+                                    <nb-option value="imported">Imported</nb-option>
+                                </nb-select>
+                                <!--                                   <nb-radio-group class="close d-inline-flex float-left"-->
+                                <!--                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"-->
+                                <!--                                                   formControlName="rawMaterialSourcing"-->
+                                <!--                                                   id="rawMaterialSourcing"-->
+                                <!--                                                   name="rawMaterialSourcing">-->
+                                <!--                                       <nb-radio value="local">Local</nb-radio>-->
+                                <!--                                       <nb-radio value="imported">Imported</nb-radio>-->
+                                <!--                                   </nb-radio-group>-->
+                                <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
                                       class="help-block" >
                                        <span class="small text-danger" *ngIf="form.rawMaterialSourcing?.errors.required">
                                            Raw Material Sourcing is required
                                        </span>
                                    </span>
-                           </div>
-                           <div class="col-md-3">
-                               <div class="form-group">
-                                   <label for="rawMaterialAvailability"><strong>Raw material
-                                       availability</strong></label> <br>
-                                   <nb-radio-group class="close d-inline-flex float-left"
-                                                   formControlName="rawMaterialAvailability"
-                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
-                                                   id="rawMaterialAvailability"
-                                                   name="rawMaterialAvailability">
-                                       <nb-radio value="Easily available">Easily available</nb-radio>
-                                       <nb-radio value="Difficult">Difficult</nb-radio>
-                                   </nb-radio-group><br>
-                                   <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
-                                        class="small text-danger">
-                                       <div *ngIf="form.rawMaterialAvailability?.errors.required">
-                                           RawMaterial Availability is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="rawMaterialAvailability"><strong>Raw material
+                                        availability</strong></label> <br>
+                                    <nb-radio-group class="close d-inline-flex float-left"
+                                                    formControlName="rawMaterialAvailability"
+                                                    [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
+                                                    id="rawMaterialAvailability"
+                                                    name="rawMaterialAvailability">
+                                        <nb-radio value="Easily available">Easily available</nb-radio>
+                                        <nb-radio value="Difficult">Difficult</nb-radio>
+                                    </nb-radio-group><br>
+                                    <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
+                                         class="small text-danger">
+                                        <div *ngIf="form.rawMaterialAvailability?.errors.required">
+                                            RawMaterial Availability is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                        <hr>
                        <!--market scenario-->
-                       <app-market-scenario [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
+                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
+                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
                        <hr>
                        <div class="row">
-                           <div class="col-md-12">
+                           <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
                                <div class="form-group">
                                    <h5 class="box-title">15. Group’s
                                        background</h5>
@@ -1754,7 +1778,9 @@
                    </nb-tab>
                    <!--micro customer detail-->
                    <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                       <app-micro-company-form-component #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
+                       <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'" #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
+                       <app-micro-individual-form *ngIf="microCustomerType == 'DIRECT'" #microIndividualFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
+
                    </nb-tab>
                </nb-tabset>
             </form>
