@@ -36,10 +36,10 @@
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label><strong>Micro Customer Type</strong></label>
-                                       <ng-select bindLabel="value" bindValue="key"
-                                               formControlName="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" >
-                                           <ng-option *ngFor="let data of microCustomerTypes" [value]="data.key">{{data.value}}</ng-option>
-                                       </ng-select>
+                                       <select  (change)="microCustomerTypeValidation(microType?.value)" #microType
+                                               formControlName="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" class="form-control">
+                                           <option *ngFor="let data of microCustomerTypes" [value]="data.key">{{data.value}}</option>
+                                       </select>
                                    </div>
                                    </div>
                                <div class="col-md-4">
@@ -1778,7 +1778,9 @@
                    </nb-tab>
                    <!--micro customer detail-->
                    <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                       <app-micro-company-form-component #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
+                       <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'" #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
+                       <app-micro-individual-form *ngIf="microCustomerType == 'DIRECT'" #microIndividualFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
+
                    </nb-tab>
                </nb-tabset>
             </form>

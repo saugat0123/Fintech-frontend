@@ -58,6 +58,7 @@ import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {mic} from 'ionicons/icons';
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
+import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 
 @Component({
     selector: 'app-company-form',
@@ -137,6 +138,9 @@ export class CompanyFormComponent implements OnInit {
 
     @ViewChild('microCompanyFormComponent', {static: false})
     microCompanyFormComponent: MicroCompanyFormComponentComponent;
+
+    @ViewChild('microIndividualFormComponent', {static: false})
+    microIndividualFormComponent: MicroIndividualFormComponent;
 
 
     experiences = Experience.enumObject();
@@ -853,16 +857,21 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha && !this.microCustomer) {
             this.bankingRelationComponent.onSubmit();
         }
+
         if (this.microCustomer) {
-            this.microCompanyFormComponent.onSubmit();
-            if (this.microCompanyFormComponent.microCustomerForm.invalid) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
-                return;
+            if (this.microCustomerType === MicroCustomerType.INDIRECT) {
+                this.microCompanyFormComponent.onSubmit();
+            } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
+                this.microIndividualFormComponent.onSubmit();
+                if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                    this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                    return;
+                }
             }
         }
+
         this.companyLocation.onSubmit();
-        if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid ||
+        if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             console.log(this.companyInfoFormGroup);
@@ -1030,7 +1039,11 @@ export class CompanyFormComponent implements OnInit {
 
         if (this.microCustomer) {
             /** micro data **/
-            submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+            if (this.microCustomerType === MicroCustomerType.INDIRECT) {
+                submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+            } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
+                submitData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
+            }
         }
 
 
@@ -1176,6 +1189,7 @@ export class CompanyFormComponent implements OnInit {
     }
 
     microCustomerTypeValidation(microCustomerType) {
+        this.microCustomerType = microCustomerType;
         const microDirectExcludeFields = ['sisterConcern', 'strength', 'weakness', 'opportunity', 'threats'];
         if (microCustomerType === MicroCustomerType.INDIRECT.toString()) {
 
