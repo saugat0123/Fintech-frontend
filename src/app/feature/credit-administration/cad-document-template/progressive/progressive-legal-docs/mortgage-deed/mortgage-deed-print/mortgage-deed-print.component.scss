@@ -14,3 +14,17 @@
 @media print {
   .page-break { page-break-before: always; }
 }
+
+.signature-area2 {
+  display: block;
+  background-color: transparent;
+  border: 1px solid #3c3c3c;
+  max-width: 291px;
+  width: 180px;
+  height: 186px;
+  max-height: 186px;
+}
+
+.span-paragraph {
+  line-height: 1.5;
+}
