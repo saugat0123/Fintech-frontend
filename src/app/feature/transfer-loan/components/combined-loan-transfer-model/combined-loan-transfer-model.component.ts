@@ -18,7 +18,7 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 import {RoleType} from '../../../admin/modal/roleType';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import { LoanType } from 'src/app/feature/loan/model/loanType';
-import {LoanActionVerificationComponent} from '../../../loan/loan-action/loan-action-verification/loan-action-verification.component';
+import {VerificationActionModelComponent} from '../verification-action-model/verification-action-model.component';
 
 @Component({
   selector: 'app-combined-loan-transfer-model',
@@ -200,7 +200,7 @@ export class CombinedLoanTransferModelComponent implements OnInit {
       if (this.individualType.form.invalid) {
         return;
       }
-      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
+      const dialogRef = this.nbDialogService.open(VerificationActionModelComponent,
           {
             context: {
               individualCombine: this.individualType.form.value,
@@ -229,7 +229,7 @@ export class CombinedLoanTransferModelComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Cannot transfer file to same user'));
         return;
       }
-      const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+      const dialogRef = this.nbDialogService.open(VerificationActionModelComponent, {
         context: {
           toUser: this.combinedType.form.get('toUser').value,
           toRole: this.combinedType.form.get('toRole').value, action: this.docAction,
