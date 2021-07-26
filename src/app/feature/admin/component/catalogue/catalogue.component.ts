@@ -360,22 +360,6 @@ export class CatalogueComponent implements OnInit {
         this.buildFilterForm();
     }
 
-    onTransferClick(template, customerLoanId, userId, branchId) {
-        this.transferSpinner = true;
-        this.userService.getUserListForTransfer(userId, branchId).subscribe((res: any) => {
-            this.transferUserList = res.detail;
-            this.transferSpinner = false;
-        });
-        this.formAction.patchValue({
-                customerLoanId: customerLoanId,
-                docAction: DocAction.value(DocAction.TRANSFER),
-                documentStatus: DocStatus.PENDING,
-                comment: 'TRANSFER'
-            }
-        );
-        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
-    }
-
     onClose() {
         this.buildActionForm();
         this.modalService.dismissAll();
