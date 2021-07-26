@@ -19,11 +19,13 @@ export class MicroInstitutionComponent implements OnInit {
     contact = [];
     additionalInfoJsonData;
     companyLocationData;
+    microCustomerType = null;
 
     constructor() {
     }
 
     ngOnInit() {
+        this.microCustomerType = this.companyInfo.microCustomerType;
         if (!ObjectUtil.isEmpty(this.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
             this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
