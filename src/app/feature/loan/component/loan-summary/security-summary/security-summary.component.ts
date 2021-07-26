@@ -55,6 +55,7 @@ export class SecuritySummaryComponent implements OnInit {
     siteVisitJson = [];
     type = environment.summaryType;
     summaryType = SummaryType;
+    @Input() loanCategory;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }

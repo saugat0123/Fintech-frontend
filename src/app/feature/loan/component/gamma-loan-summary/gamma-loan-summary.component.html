@@ -753,15 +753,15 @@
             <!-- End site Visit-->
 
             <!-- Start Single limit Obligor Details -->
-<!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
-<!--                <app-collateral-summary-->
-<!--                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"-->
-<!--                        [customerAllLoanList]="customerAllLoanList"-->
-<!--                        [security]="loanDataHolder?.security"></app-collateral-summary>-->
+            <div>
+                <app-collateral-summary
+                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
+                        [customerAllLoanList]="customerAllLoanList"
+                        [security]="loanDataHolder?.security"></app-collateral-summary>
 <!--                <app-proposal-justification-summary *ngIf="proposalSummary"-->
 <!--                                                    [customerAllLoanList]="customerAllLoanList"-->
 <!--                                                    [proposalData]="proposalData"></app-proposal-justification-summary>-->
-<!--            </div>-->
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <p><strong>12. Single limit Obligor Details</strong></p>
