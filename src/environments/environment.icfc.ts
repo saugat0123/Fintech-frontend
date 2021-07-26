@@ -11,5 +11,5 @@ export const environment = {
     disableCrgLambda: true,
     microLoan: false,
     SBS_GROUP: false,
-    MEGA_GROUP: false,
+    MEGA_GROUP: true,
 };
