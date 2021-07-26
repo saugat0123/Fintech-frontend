@@ -6,13 +6,19 @@
       <h6 class="text-center">भूक्तानी–पत्र<br>
         (Letter of Disbursement)</h6>
       <p class="text-right"> मिति:
-        <span class="nepaliFont">{{printDocForm?.date}}</span>
+        <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
       </p>
-      <b> प्रोग्रेशिभफाईनान्स लिमिटेड,</b>
+      <b> प्रोग्रेशिभ फाईनान्स लिमिटेड,</b>
       <br>
-      <b>बनेपा शाखा कार्यालय ।</b>
+      <b>  <span [ngClass]="{'nepaliFont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
+    {{printDocForm?.BranchName === null || printDocForm?.BranchName === '' ? '_________________' : printDocForm?.BranchName}}
+</span> शाखा कार्यालय ।</b>
       <br>
-      <p class="text-center"><b>विषय :- रु. <span class="nepaliFont">{{printDocForm?.amount}}</span>
+      <p class="text-center"><b>विषय :- रु. <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+    {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
+</span>
         /–(अक्षरुपी रु. <span class="nepaliFont">{{printDocForm?.amountInWord}}</span> ।)– को ऋण रकम
         भूक्तानी गरी पाउं ।</b>
       </p>
@@ -22,9 +28,13 @@
         <br>
         <p>
           महोदय,<br>
-          उपरोक्तसम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाछ स्वीकृत भएको
-          कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो गोपालअधिकारीको नाममा रहेको चल्ति/बचतखाता नं.
-          <span class="nepaliFont">{{printDocForm?.accNumber}}</span>
+          उपरोक्त सम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाट स्वीकृत भएको
+          कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो <span [ngClass]="{'nepaliFont' : printDocForm?.clientName !== null && printDocForm?.clientName !== ''}">
+    {{printDocForm?.clientName === null || printDocForm?.clientName === '' ? '_________________' : printDocForm?.clientName}}
+</span> को नाममा रहेको चल्ति/बचतखाता नं.
+            <span [ngClass]="{'nepaliFont' : printDocForm?.accNumber !== null && printDocForm?.accNumber !== ''}">
+    {{printDocForm?.accNumber === null || printDocForm?.accNumber === '' ? '_________________' : printDocForm?.accNumber}}
+</span>
           मा रकमान्तर
           गरि दिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं ।
         </p>
