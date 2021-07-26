@@ -43,7 +43,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="owner"><strong>Owner</strong></label>
-                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors) }"
+                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors || land.get('owner').invalid) }"
                                         class="form-control form-control-sm-error rounded" formControlName="owner"
                                         id="owner" name="owner" placeholder="Owner Name" type="text" required/>
                                 <div *ngIf="(landSelected) && (land.get('owner').invalid)"
