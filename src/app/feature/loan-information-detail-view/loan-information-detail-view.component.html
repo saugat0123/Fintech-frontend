@@ -205,6 +205,12 @@
                     *ngIf="loanDataHolder && customerAllLoanList && summaryType === summaryTypeName?.GENERAL"
                     [customerAllLoanList]="customerAllLoanList"
                     [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+
+            <app-collateral-summary
+                    *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security && summaryType === summaryTypeName?.GENERAL"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [security]="loanDataHolder?.security"></app-collateral-summary>
+
             <div class="row mt-3">
                 <div [ngClass]="clientList.ICFC === client ? 'col-md-12 disable-print' : 'col-md-12'">
                     <p><strong>Authority Section</strong></p>
