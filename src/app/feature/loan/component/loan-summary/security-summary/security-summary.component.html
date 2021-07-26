@@ -1,6 +1,11 @@
 <div class="row mt-3">
     <div class="col-md-12">
-        <p><strong>{{count}} {{loanCategory === 'INDIVIDUAL' ? '9. ' : '8. '}} Security Details</strong></p>
+        <div *ngIf="approveSheet === 'approveSheet'; else notApproveSheet">
+            <p><strong>{{loanCategory === 'INDIVIDUAL' ? '9. ' : '8. '}} Security Details</strong></p>
+        </div>
+        <ng-template #notApproveSheet>
+            <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. ' : ''}} Security Details</strong></p>
+        </ng-template>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
                 <div class="d-flex justify-content-sm-end">
