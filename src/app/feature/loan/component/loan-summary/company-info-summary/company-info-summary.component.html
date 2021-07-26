@@ -188,4 +188,44 @@
     </tbody>
   </table>
   </div>
+
+  <div class="col-md-12" *ngIf="approveSheet === 'approveSheet'">
+    <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
+      <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <thead class="sb-bg-dark text-white">
+        <tr class="sb-bg-secondary text-white">
+          <th colspan="10">Family details of {{holder?.name}}</th>
+        </tr>
+        <tr>
+          <th class="sn">S.N</th>
+          <th>Owner Relationship</th>
+          <th>Relation Name</th>
+          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+          <th>Citizenship Number</th>
+          <th>Issued Location</th>
+          <th>Issued Date(AD/BS)</th>
+          <th>Mobile Number</th>
+          <th>Address</th>
+          <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
+          <tr>
+            <td>{{j+1}}</td>
+            <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
+            <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-right pr-1">{{d?.age || 'N/A' }}</td>
+            <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}} ({{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}})</td>
+            <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
+            <td class="text-left pl-1">{{d?.remark ? d?.remark : 'N/A'}}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
 </div>
