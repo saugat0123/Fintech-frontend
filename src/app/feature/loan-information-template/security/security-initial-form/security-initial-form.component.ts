@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -33,7 +33,6 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
-import {Valuator} from '../../../admin/modal/valuator';
 
 
 @Component({
@@ -47,6 +46,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() loanTag: string;
     @Input() shareSecurity;
     @Input() customerSecurityId;
+    securityEmitValue: string;
 
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
@@ -248,6 +248,28 @@ export class SecurityInitialFormComponent implements OnInit {
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
 
+    }
+
+    public resetSecurityForm(event): void {
+        if (event === 'shareSecurityDetails') {
+            console.log('inside share security', event);
+            const shareSecurityFormControl = this.shareSecurityForm.get(event) as FormArray;
+            console.log('value before::', shareSecurityFormControl.value);
+            shareSecurityFormControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+            });
+            console.log('value after::', shareSecurityFormControl.value);
+        } else {
+            const formControl = this.securityForm.get(event) as FormArray;
+            formControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+            });
+        }
+        this.toastService.show(new Alert(AlertType.INFO, 'Please save security to make changes'));
     }
 
     eventLandSecurity($event) {
@@ -1139,7 +1161,6 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'ShareSecurity') {
             const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
-            console.log('share security controls', formControls);
             formControls.controls.forEach( f => {
                 f.get('companyName').setValidators(Validators.required);
                 f.get('companyName').updateValueAndValidity();

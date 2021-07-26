@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -9,6 +9,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class SecurityTableComponent implements OnInit {
   @Input() formDataForEdit: Object;
   @Input() shareSecurity: any;
+  @Output() securityEmitter = new EventEmitter<any>();
   isLandSecurity = false;
   landSecurity: any;
   isApartmentSecurity = false;
@@ -45,7 +46,8 @@ export class SecurityTableComponent implements OnInit {
   ngOnInit() {
     // land security
       this.formDataForEdit['landDetails'].filter(f => {
-        if (f.owner !== '') {
+        const value = f.owner;
+        if (!ObjectUtil.isEmpty(value)) {
           this.landSecurity = this.formDataForEdit['landDetails'];
           this.isLandSecurity = true;
         }
@@ -53,35 +55,40 @@ export class SecurityTableComponent implements OnInit {
 
     // apartment security
     this.formDataForEdit['buildingDetails'].filter(f => {
-      if (f.buildArea !== '') {
+      const value = f.buildArea;
+      if (!ObjectUtil.isEmpty(value)) {
         this.apartmentSecurity = this.formDataForEdit['buildingDetails'];
         this.isApartmentSecurity = true;
       }
     });
     // land and building security
     this.formDataForEdit['landBuilding'].filter(f => {
-      if (f.owner !== null) {
+      const value = f.owner;
+      if (!ObjectUtil.isEmpty(value)) {
         this.landAndBuilding = this.formDataForEdit['landBuilding'];
         this.isLandAndBuilding = true;
       }
     });
     // plant and machinery security
     this.formDataForEdit['plantDetails'].filter(f => {
-      if (f.model !== '') {
+      const value = f.model;
+      if (!ObjectUtil.isEmpty(value)) {
         this.plantAndMachinery = this.formDataForEdit['plantDetails'];
         this.isPlantAndMachinery = true;
       }
     });
     // // vehicle security
     this.formDataForEdit['vehicleDetails'].filter(f => {
-      if (f.model !== '') {
+      const value = f.model;
+      if (!ObjectUtil.isEmpty(value)) {
         this.vehicleSecurity = this.formDataForEdit['vehicleDetails'];
         this.isVehicle = true;
       }
     });
     // fixed deposit receipt security
     this.formDataForEdit['fixedDepositDetails'].filter(f => {
-      if (f.accountNumber !== null) {
+      const value = f.accountNumber;
+      if (!ObjectUtil.isEmpty(value)) {
         this.fixedDeposit = this.formDataForEdit['fixedDepositDetails'];
         this.isFixedDeposit = true;
       }
@@ -90,59 +97,116 @@ export class SecurityTableComponent implements OnInit {
     // // shared security
     if (!ObjectUtil.isEmpty(this.shareSecurity)) {
       this.shareSecurityData = JSON.parse(this.shareSecurity.data);
-      if (this.shareSecurityData.avgDaysForPrice !== '') {
-        this.isShareSecurity = true;
-      }
+      const shareControlValue = this.shareSecurityData.shareSecurityDetails;
+      shareControlValue.forEach(f => {
+        const value = f.companyName;
+        if (!ObjectUtil.isEmpty(value)) {
+          this.isShareSecurity = true;
+        }
+      });
     }
     // hypothecation of stock security
     this.formDataForEdit['hypothecationOfStock'].filter(f => {
-      if (f.owner !== null) {
+      const value = f.owner;
+      if (!ObjectUtil.isEmpty(value)) {
         this.hypothecation = this.formDataForEdit['hypothecationOfStock'];
         this.isHypothecation = true;
       }
     });
     // assignment of receivables
     this.formDataForEdit['assignmentOfReceivables'].filter(f => {
-      if (f.amount !== null) {
+      const value = f.amount;
+      if (!ObjectUtil.isEmpty(value)) {
         this.assignmentOfReceivables = this.formDataForEdit['assignmentOfReceivables'];
         this.isAssignmentOfReceivables = true;
       }
     });
     // lease assignment
     this.formDataForEdit['leaseAssignment'].filter(f => {
-      if (f.otherDetail !== '') {
+      const value = f.otherDetail;
+      if (!ObjectUtil.isEmpty(value)) {
         this.leaseAssignment = this.formDataForEdit['leaseAssignment'];
         this.isleaseAssignment = true;
       }
     });
     // other security
     this.formDataForEdit['otherSecurity'].filter(f => {
-      if (f.otherDetail !== '') {
+      const value = f.otherDetail;
+      if (!ObjectUtil.isEmpty(value)) {
         this.otherSecurity = this.formDataForEdit['otherSecurity'];
         this.isOtherSecurity = true;
       }
     });
     // corporate guarantee
     this.formDataForEdit['corporateGuarantee'].filter(f => {
-      if (f.name !== null) {
+      const value = f.name;
+      if (!ObjectUtil.isEmpty(value)) {
         this.corporateGuarantee = this.formDataForEdit['corporateGuarantee'];
         this.isCorporateGuarantee = true;
       }
     });
     // personal guarantee
     this.formDataForEdit['personalGuarantee'].filter(f => {
-      if (f.name !== null) {
+      const value = f.name;
+      if (!ObjectUtil.isEmpty(value)) {
         this.personalGuarantee = this.formDataForEdit['personalGuarantee'];
         this.isPersonalGuarantee = true;
       }
     });
     // insurance policy
     this.formDataForEdit['insurancePolicy'].filter(f => {
-      if (f.insuredAmount !== null) {
+      const value = f.insuredAmount;
+      if (!ObjectUtil.isEmpty(value)) {
         this.insurancePolicy = this.formDataForEdit['insurancePolicy'];
         this.isInsurancePolicy = true;
       }
     });
+  }
+
+  public sendSecurityName(formArrayName: string) {
+    this.securityEmitter.emit(formArrayName);
+    if (formArrayName === 'landDetails') {
+      this.isLandSecurity = false;
+    }
+    if (formArrayName === 'buildingDetails') {
+      this.isApartmentSecurity = false;
+    }
+    if (formArrayName === 'landBuilding') {
+      this.isLandAndBuilding = false;
+    }
+    if (formArrayName === 'plantDetails') {
+      this.isPlantAndMachinery = false;
+    }
+    if (formArrayName === 'vehicleDetails') {
+      this.isVehicle = false;
+    }
+    if (formArrayName === 'fixedDepositDetails') {
+      this.isFixedDeposit = false;
+    }
+    if (formArrayName === 'shareSecurityDetails') {
+      this.isShareSecurity = false;
+    }
+    if (formArrayName === 'hypothecationOfStock') {
+      this.isHypothecation = false;
+    }
+    if (formArrayName === 'assignmentOfReceivables') {
+      this.isAssignmentOfReceivables = false;
+    }
+    if (formArrayName === 'leaseAssignment') {
+      this.isleaseAssignment = false;
+    }
+    if (formArrayName === 'otherSecurity') {
+      this.isOtherSecurity = false;
+    }
+    if (formArrayName === 'corporateGuarantee') {
+      this.isCorporateGuarantee = false;
+    }
+    if (formArrayName === 'personalGuarantee') {
+      this.isPersonalGuarantee = false;
+    }
+    if (formArrayName === 'insurancePolicy') {
+      this.isInsurancePolicy = false;
+    }
   }
 
 }

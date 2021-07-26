@@ -1,5 +1,6 @@
 <div *ngIf="formDataForEdit !== undefined" class="row col-md-12">
-    <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"></app-security-table>
+    <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"
+                        (securityEmitter)="resetSecurityForm($event)"></app-security-table>
 </div>
 <div class="form-group">
     <form [formGroup]="securityForm">
