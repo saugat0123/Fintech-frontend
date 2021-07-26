@@ -2,7 +2,7 @@
 
   <div class="col-md-12 viewFull">
     <form class="nepali">
-      <h6 class="text-center" style="margin-top:5px;"><strong>िषयःकर्जा तमसुक</strong>ब<br>
+      <h6 class="text-center">बिषयःकर्जा तमसुक<br>
       </h6>
 
       <br>
@@ -10,20 +10,40 @@
         <p>
           लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
           बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२स्थित
-          रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभ फाईनान्स लिमिटेडको <span
-            class="nepaliFont">{{printDocForm?.district}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.municipality}}</span>
-          गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं. <span
-            class="nepaliFont">{{printDocForm?.wadNo}}</span>
-          स्थित <span class="nepaliFont">{{printDocForm?.branchName}}</span>
+          रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभ फाईनान्स लिमिटेडको <span [ngClass]="{'nepaliFont' : printDocForm?.district !== null && printDocForm?.district !== ''}">
+    {{printDocForm?.district === null || printDocForm?.district === '' ? '_________________' : printDocForm?.district}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.municipality !== null && printDocForm?.municipality !== ''}">
+    {{printDocForm?.municipality === null || printDocForm?.municipality === '' ? '_________________' : printDocForm?.municipality}}
+</span>
+          गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.wadNo !== null && printDocForm?.wadNo !== ''}">
+    {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '_________________' : printDocForm?.wadNo}}
+</span>
+          स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+</span>
           शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको)लिखत
-          गरी दिनेका नाम <span class="nepaliFont">{{printDocForm?.grandParentName}}</span> को
-          नाति/नातिनि <span class="nepaliFont">{{printDocForm?.parentName}}</span>
-          को छोरा/छोरी <span class="nepaliFont">{{printDocForm?.husbandWifeName}}</span> को
-          पति/पत्नी <span class="nepaliFont">{{printDocForm?.likhitDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.likhitMunicipalty}}</span>
-          गा.पा./न.पा./म.न.पा.वडा नं. <span class="nepaliFont">{{printDocForm?.likhitWadNo}}</span>
-          (साबिक <span class="nepaliFont">{{printDocForm?.sabikVDC}}</span>
+          गरी दिनेका नाम <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
+    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
+</span> को
+          नाति/नातिनि <span [ngClass]="{'nepaliFont' : printDocForm?.parentName !== null && printDocForm?.parentName !== ''}">
+    {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '_________________' : printDocForm?.parentName}}
+</span>
+          को छोरा/छोरी <span [ngClass]="{'nepaliFont' : printDocForm?.husbandWifeName !== null && printDocForm?.husbandWifeName !== ''}">
+    {{printDocForm?.husbandWifeName === null || printDocForm?.husbandWifeName === '' ? '_________________' : printDocForm?.husbandWifeName}}
+</span> को
+          पति/पत्नी <span [ngClass]="{'nepaliFont' : printDocForm?.likhitDistrict !== null && printDocForm?.likhitDistrict !== ''}">
+    {{printDocForm?.likhitDistrict === null || printDocForm?.likhitDistrict === '' ? '_________________' : printDocForm?.likhitDistrict}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.likhitMunicipality !== null && printDocForm?.likhitMunicipality !== ''}">
+    {{printDocForm?.likhitMunicipality === null || printDocForm?.likhitMunicipality === '' ? '_________________' : printDocForm?.likhitMunicipality}}
+</span>
+          गा.पा./न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.likhitWadNo !== null && printDocForm?.likhitWadNo !== ''}">
+    {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '_________________' : printDocForm?.likhitWadNo}}
+</span>
+          (साबिक <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.likhitWadNo !== ''}">
+    {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '_________________' : printDocForm?.likhitWadNo}}
+</span>
           गा.बि.स./न.पा.वडा न. <span class="nepaliFont">{{printDocForm?.sabikWadNo}}</span> ),
           स्थायी ठेगानाभई हाल <span class="nepaliFont">{{printDocForm?.tempVDC}}</span>
           गा.पा./न.पा./म.न.पा.वडा नं. <span class="nepaliFont">{{printDocForm?.tempWadNo}}</span> )
