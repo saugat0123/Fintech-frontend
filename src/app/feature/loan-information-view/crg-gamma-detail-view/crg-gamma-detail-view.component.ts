@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
   selector: 'app-crg-gamma-detail-view',
@@ -8,6 +10,9 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CrgGammaDetailViewComponent implements OnInit {
 
   @Input() formData;
+  @Input() loanCategory;
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
   crgGammaList = [];
   crgGammaData;
 

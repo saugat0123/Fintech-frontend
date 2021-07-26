@@ -17,16 +17,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./approval-sheet-info.component.scss']
 })
 export class ApprovalSheetInfoComponent implements OnInit {
-  @Input()
-  loanConfig: LoanConfig = new LoanConfig();
-
+  @Input() loanConfig: LoanConfig = new LoanConfig();
   @Input() loanDataHolder: LoanDataHolder;
 
   ckeConfig;
-
   postApprovalDocIdList;
-  authorityReviewComments;
-
   isCommittee = LocalStorageUtil.getStorage().roleType === RoleType.COMMITTEE;
   spinner = false;
 
@@ -53,10 +48,8 @@ export class ApprovalSheetInfoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.postApprovalDocIdList);
     this.spinner = true;
     this.loanDataHolder.postApprovalDocIdList = JSON.stringify(this.postApprovalDocIdList);
-    this.loanDataHolder.authorityReviewComments = this.authorityReviewComments;
     this.loanFormService.save(this.loanDataHolder).subscribe(() => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully Saved Approval Info`));

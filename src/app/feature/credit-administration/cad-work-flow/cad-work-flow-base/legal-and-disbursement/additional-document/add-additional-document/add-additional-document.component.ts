@@ -62,6 +62,7 @@ export class AddAdditionalDocumentComponent implements OnInit {
                 return;
             }
         }
+        console.log(this.uploadFile)
         if (!ObjectUtil.isEmpty(this.uploadFile)) {
             if (ObjectUtil.isEmpty(name)) {
                 this.spinner = false;

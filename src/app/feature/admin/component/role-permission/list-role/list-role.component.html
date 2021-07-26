@@ -35,12 +35,14 @@
                         <th>Authority Label</th>
                         <th>Created By</th>
                         <th>Last Modified By</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr *ngFor="let allList of roleList;let i=index">
+                    <tr *ngFor="let allList of roleList;let i=index"
+                        [className]="allList.status=='ACTIVE' ? 'alert-success' : 'alert-danger'">
                         <div *ngIf="!roleList?.length > 0">
                             <p>No Content Found</p>
                         </div>
@@ -65,11 +67,27 @@
                         <ng-template #lastModifiedBy>
                             <td>{{allList.modifiedByName}}</td>
                         </ng-template>
-                        <td *ngIf="allList.roleName !== 'admin'">
+                        <td *ngIf="allList !== null && allList?.roleName !== 'admin'; else status"
+                            [className]="allList.status=='ACTIVE' ? 'alert-success' : 'alert-danger'">
+                            <select [(ngModel)]="allList.status" name="status" class="cursor"
+                                    (change)="onStatusChange(allList)">
+                                <option value="ACTIVE">ACTIVE</option>
+                                <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                        </td>
+                        <ng-template #status>
+                            <td [className]="allList.status=='ACTIVE' ? 'alert-success' : 'alert-danger'">
+                                {{allList.status}}
+                            </td>
+                        </ng-template>
+                        <td *ngIf="allList.roleName !== 'admin'; else editRoleAction">
                             <button nbButton size="tiny" status="info" (click)="openEditRole(allList)">
                                 <i class="fa fa-edit"></i>
                             </button>
                         </td>
+                        <ng-template #editRoleAction>
+                            <td>NA</td>
+                        </ng-template>
                     </tr>
                     </tbody>
                 </table>

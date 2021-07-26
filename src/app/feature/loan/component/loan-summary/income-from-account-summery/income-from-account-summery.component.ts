@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
+import {environment} from '../../../../../../environments/environment';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-income-from-account-summery',
@@ -10,9 +12,12 @@ import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 })
 export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
+  @Input() count;
   incomeFromAccount;
   srdbAffiliatedId = false;
   newCustomerFlag: boolean[];
+  summaryType = environment.summaryType;
+  summaryTypeName = SummaryType;
 
   constructor() {
   }
