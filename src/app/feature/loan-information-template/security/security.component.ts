@@ -256,6 +256,10 @@ export class SecurityComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             return;
         }
+        if (this.initialSecurity.shareSecurityForm.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            return;
+        }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
         }

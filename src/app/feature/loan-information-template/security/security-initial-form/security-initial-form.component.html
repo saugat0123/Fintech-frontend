@@ -2607,17 +2607,16 @@
                                 <div class="form-group">
                                     <label for="companyName">Select Company Name :: Company Code</label>
                                     <select (change)="setShareValueByCompany(shareFieldIndex)"
-                                            [ngClass]="{ 'is-invalid': (submitted) && shareField.get('companyName').errors }"
+                                            [ngClass]="{ 'is-invalid': (shareSelected) && (shareField.get('companyName').errors || shareField.get('companyName').invalid) }"
                                             class="custom-select"
                                             formControlName="companyName" id="companyName"
                                             name="companyName">
-                                        <option [value]="null" disabled selected>--Select Company Name--</option>
+                                        <option value="" selected hidden>--Select Company Name--</option>
                                         <option *ngFor="let nepse of nepseList"
                                                 value="{{nepse.companyName }}">{{nepse.companyName}}
                                             :: {{nepse.companyCode}}</option>
                                     </select>
-                                    <div *ngIf="submitted && shareField.get('companyName').errors"
-                                         class="invalid-feedback">
+                                    <div *ngIf="(shareSelected) && (shareField.get('companyName').invalid)" class="invalid-feedback">
                                         <div *ngIf="shareField.get('companyName').errors.required">
                                             Company name is required
                                         </div>

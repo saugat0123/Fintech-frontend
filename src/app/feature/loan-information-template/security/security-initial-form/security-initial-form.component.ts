@@ -986,6 +986,11 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('amount').clearValidators();
                 f.get('amount').updateValueAndValidity();
             });
+            const shareSecurityControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            shareSecurityControls.controls.forEach( f => {
+                f.get('companyName').clearValidators();
+                f.get('companyName').updateValueAndValidity();
+            });
         }
     }
     clearValidationState() {
@@ -1130,6 +1135,20 @@ export class SecurityInitialFormComponent implements OnInit {
             formControls.controls.forEach( f => {
                 f.get('amount').clearValidators();
                 f.get('amount').updateValueAndValidity();
+            });
+        }
+        if (this.selectedSecurity === 'ShareSecurity') {
+            const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            console.log('share security controls', formControls);
+            formControls.controls.forEach( f => {
+                f.get('companyName').setValidators(Validators.required);
+                f.get('companyName').updateValueAndValidity();
+            });
+        } else {
+            const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+            formControls.controls.forEach( f => {
+                f.get('companyName').clearValidators();
+                f.get('companyName').updateValueAndValidity();
             });
         }
     }
@@ -1745,7 +1764,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             id: undefined,
             version: undefined,
-            companyName: [''],
+            companyName: ['', Validators.required],
             companyCode: [undefined],
             shareType: undefined,
             totalShareUnit: [''],
