@@ -19,7 +19,7 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DocAction} from '../../../loan/model/docAction';
 import {LoanStage} from '../../../loan/model/loanStage';
-import {LoanActionVerificationComponent} from '../../../loan/loan-action/loan-action-verification/loan-action-verification.component';
+import {VerificationActionModelComponent} from '../verification-action-model/verification-action-model.component';
 
 @Component({
   selector: 'app-single-loan-transfer-model',
@@ -195,7 +195,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
         return;
       }
     }
-    const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+    const dialogRef = this.nbDialogService.open(VerificationActionModelComponent, {
       context: {
         // send context to Loan Action Verification Component for authentication
         toUser: this.form.get('toUser').value,

@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ThemeModule} from '../../@theme/theme.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbTooltipModule} from '@nebular/theme';
+import { VerificationActionModelComponent } from './components/verification-action-model/verification-action-model.component';
 
 
 
@@ -14,6 +15,7 @@ import {NbTooltipModule} from '@nebular/theme';
   declarations: [
       SingleLoanTransferModelComponent,
       CombinedLoanTransferModelComponent,
+      VerificationActionModelComponent,
   ],
     imports: [
         ThemeModule,
@@ -25,6 +27,7 @@ import {NbTooltipModule} from '@nebular/theme';
         NbTooltipModule
     ],
     entryComponents: [SingleLoanTransferModelComponent,
-        CombinedLoanTransferModelComponent]
+        CombinedLoanTransferModelComponent,
+    VerificationActionModelComponent]
 })
 export class TransferLoanModule { }
