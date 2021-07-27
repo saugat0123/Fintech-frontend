@@ -1,0 +1,37 @@
+<div *ngIf="microDetail?.microCustomerDetail?.isBlBAgent === 'yes'">
+    <div>
+        <p><strong>BLB Agent</strong></p>
+    </div>
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+            <th>S.N</th>
+            <th>Name of BLB agent</th>
+            <th>BC Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>1 </td>
+        <td class="text-left pl-1">{{microDetail?.microCustomerDetail['blbAgentName']}}</td>
+        <td class="text-left pl-1">{{microDetail?.microCustomerDetail['blbAgentCode']}}</td>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="microDetail?.microCustomerDetail?.isDeprive === 'yes'">
+    <div>
+        <p><strong> Categorization of customer as per NRB Directive 17.  </strong> </p>
+    </div>
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+            <th>Deprive Sector</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-left pl-1">{{microDetail?.microCustomerDetail['depriveSector']}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

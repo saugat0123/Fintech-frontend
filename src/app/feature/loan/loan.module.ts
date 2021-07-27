@@ -88,6 +88,7 @@ import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summar
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
+import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -149,6 +150,7 @@ const COMPONENTS = [
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
     MarketingActivitiesSummaryComponent,
+    MicroCommonDetailComponent
 ];
 
 const ENTRY_COMPONENTS = [
