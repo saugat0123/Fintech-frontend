@@ -13,4 +13,5 @@ export class FiscalYear extends BaseEntity {
     qThreeEndDate: Date;
     qFourStartDate: Date;
     qFourEndDate: Date;
+    ntaRemarks: string;
 }

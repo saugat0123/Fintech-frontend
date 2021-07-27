@@ -7,6 +7,7 @@ import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CalendarType} from '../../../@core/model/calendar-type';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-net-trading-assets',
@@ -35,7 +36,7 @@ export class NetTradingAssetsComponent implements OnInit {
     parentForm: FormGroup;
     netTradingAssetsFormArray: FormArray;
     fiscalYearArray = new Array<FiscalYear>();
-
+    ckeConfig = Editor.CK_CONFIG;
     spinner = false;
 
     constructor(protected formBuilder: FormBuilder,
@@ -135,7 +136,8 @@ export class NetTradingAssetsComponent implements OnInit {
                     drawingPower: this.formBuilder.group(this.setNestedFormValues(v.drawingPower)),
                     drawingPowerAmount: this.formBuilder.group(this.setNestedFormValues(v.drawingPowerAmount)),
                     loanFromUs: this.formBuilder.group(this.setNestedFormValues(v.loanFromUs)),
-                    surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit))
+                    surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit)),
+                    ntaRemarks: v.ntaRemarks,
                 };
                 this.netTradingAssetsFormArray.push(
                     this.formBuilder.group(formObjectData)
@@ -150,6 +152,7 @@ export class NetTradingAssetsComponent implements OnInit {
             this.fiscalYearArray.forEach(fiscalYearObj => {
                 const formObjectData = {
                     id: fiscalYearObj.id,
+                    ntaRemarks: fiscalYearObj.ntaRemarks,
                     isCurrentYear: fiscalYearObj.isCurrentYear,
                     valueOfStock: this.formBuilder.group(this.quarterCalculationObject),
                     valueOfDebtors: this.formBuilder.group(this.quarterCalculationObject),
