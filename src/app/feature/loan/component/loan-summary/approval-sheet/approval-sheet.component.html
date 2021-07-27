@@ -129,60 +129,6 @@
                 </div>
             </div>
 
-            <!--            CRG Gamma-->
-            <div *ngIf="crgGammaSummary" class="col-md-12">
-                <nb-card>
-                    <nb-card-header>
-                        <h6>Credit Risk Gauge (Gamma)</h6>
-                    </nb-card-header>
-                    <nb-card-body>
-                        <div class="row">
-                            <div class="col-md-6 text-right">
-                                <app-gauge-chart [chartHeight]="180"
-                                                 [chartWidth]="275"
-                                                 [maxValue]="100"
-                                                 [obtainedValue]="crgGammaScore"></app-gauge-chart>
-                            </div>
-                            <div class="col-md-6 gauge-label-padding">
-                                <div class="vertical-line">
-                                    <div class="text-left pl-2">
-                                        <h5> Gamma </h5> <br>
-                                        Credit Risk Grade:
-                                        <span [class]="crgGammaGradeStatusBadge">  {{crgGammaGrade | titlecase}} </span>
-                                    </div>
-                                    <br>
-                                    <div class="text-left pl-2">
-                                        Credit Risk Score:
-                                        <span><strong> {{crgGammaScore}} </strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </nb-card-body>
-                </nb-card>
-            </div>
-
-            <!-- CRG Gamma score-->
-            <div *ngIf="crgGammaSummary">
-                <p><strong>Credit Risk Grading</strong></p>
-                <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>Credit Risk Grading (Flavour)</th>
-                        <th>Credit Risk Grade</th>
-                        <th>Credit Risk Scrore</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Gamma</td>
-                        <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}} </span></td>
-                        <td><span><strong> {{crgGammaScore}} </strong></span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
             <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
                 <div class="col-md-12">
                     <p><strong>1. Details of Authorised Company</strong></p>
@@ -486,15 +432,6 @@
             </div>
 
             <!-- Start Group Exposure -->
-            <!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
-            <!--                <app-collateral-summary-->
-            <!--                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"-->
-            <!--                        [customerAllLoanList]="customerAllLoanList"-->
-            <!--                        [security]="loanDataHolder?.security"></app-collateral-summary>-->
-            <!--                <app-proposal-justification-summary *ngIf="proposalSummary"-->
-            <!--                                                    [customerAllLoanList]="customerAllLoanList"-->
-            <!--                                                    [proposalData]="proposalData"></app-proposal-justification-summary>-->
-            <!--            </div>-->
             <div class="row">
                 <div class="col-md-12">
                     <p><strong> {{loanCategory === 'INDIVIDUAL' ? '5. ' : '4. '}} Obligor Limit Details</strong></p>

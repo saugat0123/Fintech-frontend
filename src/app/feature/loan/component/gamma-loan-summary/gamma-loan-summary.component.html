@@ -461,10 +461,6 @@
                                   [loanDataHolder]="loanDataHolder"
                                   [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-summary>
 
-<!--            <div *ngIf="megaGroupEnabled">-->
-<!--                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>-->
-<!--            </div>-->
-
             <div *ngIf="productUtils.CBS_ENABLE">
                 <div class="row mt-5">
                     <div class="col-md-12">
@@ -481,7 +477,7 @@
             <!-- Start Single limit Obligor Details -->
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '5. ' : '4. '}}</strong></p>
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '5. ' : '4. '}} Obligor Limit Details</strong></p>
                     <table class="table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
                         <tr class="sb-bg-dark text-white">
@@ -607,13 +603,6 @@
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
             <!-- Start Income & Expenses -->
 
-            <!-- Start Insurance Details -->
-            <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                                   [insurance]="loanDataHolder?.insurance"
-                                   [loanCategory]="loanDataHolder?.loanCategory"
-                                   [loanSummary] = "loanSummary"></app-insurance-summary>
-            <!-- End Insurance Details -->
-
             <!-- Start NTA-->
             <ng-container *ngIf="(client === clientName?.ICFC); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
@@ -630,6 +619,13 @@
             </ng-template>
             <br>
             <!-- End NTA-->
+
+            <!-- Start Insurance Details -->
+            <app-insurance-summary *ngIf="loanDataHolder?.insurance"
+                                   [insurance]="loanDataHolder?.insurance"
+                                   [loanCategory]="loanDataHolder?.loanCategory"
+                                   [loanSummary] = "loanSummary"></app-insurance-summary>
+            <!-- End Insurance Details -->
 
             <!-- Start Guarantors Details -->
             <app-guarantor-summary *ngIf="checkGuarantorData"
