@@ -120,15 +120,20 @@
                    [securityId]="securityId"></app-security-view>
 <!-- End Security Details-->
 
+<!-- Start SiteVisit Details-->
+<app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+<!-- End SiteVisit Details-->
+
 <!-- Start Insurance Details-->
 <app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
                     [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
 <!-- End Insurance Details-->
 
-<!-- Start SiteVisit Details-->
-<app-site-visit-view *ngIf="loanHolder?.siteVisit"
-                     [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-<!-- End SiteVisit Details-->
+<!--Start Guarantor Details-->
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+<!--End Guarantor Details-->
 
 <!-- Start Financial Details-->
 <app-financial-view *ngIf="loanHolder?.financial"
