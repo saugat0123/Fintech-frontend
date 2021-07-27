@@ -163,8 +163,9 @@ export class SecurityTableComponent implements OnInit {
     });
   }
 
-  public sendSecurityName(formArrayName: string) {
-    this.securityEmitter.emit(formArrayName);
+  public sendSecurityName(formArrayName: string, securityName: string) {
+    const valueToEmit = {formArrayName, securityName};
+    this.securityEmitter.emit(valueToEmit);
     if (formArrayName === 'landDetails') {
       this.isLandSecurity = false;
     }

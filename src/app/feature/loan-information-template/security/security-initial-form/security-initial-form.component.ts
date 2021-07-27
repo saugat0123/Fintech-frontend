@@ -250,28 +250,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
-    public resetSecurityForm(event): void {
-        if (event === 'shareSecurityDetails') {
-            console.log('inside share security', event);
-            const shareSecurityFormControl = this.shareSecurityForm.get(event) as FormArray;
-            console.log('value before::', shareSecurityFormControl.value);
-            shareSecurityFormControl.controls.forEach(f => {
-                f.reset();
-                f.clearValidators();
-                f.updateValueAndValidity();
-            });
-            console.log('value after::', shareSecurityFormControl.value);
-        } else {
-            const formControl = this.securityForm.get(event) as FormArray;
-            formControl.controls.forEach(f => {
-                f.reset();
-                f.clearValidators();
-                f.updateValueAndValidity();
-            });
-        }
-        this.toastService.show(new Alert(AlertType.INFO, 'Please save security to make changes'));
-    }
-
     eventLandSecurity($event) {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
@@ -2182,5 +2160,41 @@ export class SecurityInitialFormComponent implements OnInit {
         const index = this.ownershipTransferEnumPair.indexOf(other[0]);
         this.ownershipTransferEnumPair.splice(index, 1);
         this.newOwnerShipTransfer = this.ownershipTransferEnumPair.concat(other);
+    }
+
+    public resetSecurityForm(event): void {
+        const securityIndex = this.selectedArray.indexOf(event.securityName);
+        if (securityIndex > -1) {
+            this.selectedArray.splice(securityIndex, 1);
+        }
+        let index = 1;
+        if (event === 'shareSecurityDetails') {
+            const shareSecurityFormControl = this.shareSecurityForm.get(event.formArrayName) as FormArray;
+            shareSecurityFormControl.controls.forEach((f) => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+                index++;
+            });
+            for (let i = 1; i <= index; i++, index--) {
+                shareSecurityFormControl.removeAt(i);
+                index--;
+                i--;
+            }
+        } else {
+            const formControl = this.securityForm.get(event.formArrayName) as FormArray;
+            formControl.controls.forEach(f => {
+                f.reset();
+                f.clearValidators();
+                f.updateValueAndValidity();
+                index++;
+            });
+            for (let i = 1; i <= index; i++) {
+                formControl.removeAt(i);
+                index--;
+                i--;
+            }
+        }
+        this.toastService.show(new Alert(AlertType.INFO, 'Please save security to make changes'));
     }
 }

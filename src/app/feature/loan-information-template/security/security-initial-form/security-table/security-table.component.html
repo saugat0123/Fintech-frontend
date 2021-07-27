@@ -15,7 +15,8 @@
             <td><strong>Owner:</strong>{{landSecurity[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landSecurity[0]?.area || 'NA'}},
                 <strong>Location: </strong>{{landSecurity[0]?.location }}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('landDetails')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('landDetails', 'LandSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -27,7 +28,8 @@
                 {{apartmentSecurity[0]?.buildArea || 'NA'}} (Sq.ft),
                 <strong>Total Cost: </strong>Rs.{{apartmentSecurity[0]?.totalCost | currencyFormatter }}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('buildingDetails')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('buildingDetails', 'ApartmentSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -38,7 +40,8 @@
             <td><strong>Owner:</strong>{{landAndBuilding[0]?.owner || 'NA'}}, <strong>Area:</strong> {{landAndBuilding[0]?.area || 'NA'}},
                 <strong>Location </strong>{{landAndBuilding[0]?.location }}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('landBuilding')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('landBuilding', 'Land and Building Security')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -50,7 +53,8 @@
                 {{plantAndMachinery[0]?.quotation | currencyFormatter}},
                 <strong>Supplier: </strong>{{plantAndMachinery[0]?.supplier || 'NA'}}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('plantDetails')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('plantDetails', 'PlantSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -62,7 +66,8 @@
                 {{vehicleSecurity[0]?.registrationNumber || 'NA'}},
                 <strong>Down Payment: </strong>Rs.{{vehicleSecurity[0]?.downPayment | currencyFormatter}}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('vehicleDetails')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('vehicleDetails', 'VehicleSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -74,7 +79,8 @@
                 {{fixedDeposit[0]?.accountNumber || 'NA'}},
                 <strong>Amount: </strong>Rs.{{fixedDeposit[0]?.amount | currencyFormatter}}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('fixedDepositDetails')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('fixedDepositDetails', 'FixedDeposit')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -86,7 +92,8 @@
                 <strong>Security Offered:</strong>
                 {{shareSecurityData?.securityOffered || 'NA'}}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('shareSecurityDetails')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('shareSecurityDetails', 'ShareSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -98,7 +105,8 @@
                 {{hypothecation[0]?.stock || 'NA'}},
                 <strong>Value: </strong>Rs.{{hypothecation[0]?.value | currencyFormatter}}</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('hypothecationOfStock')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('hypothecationOfStock', 'HypothecationOfStock')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -110,7 +118,8 @@
                 <strong>Other Detail: </strong><span [innerHTML]="assignmentOfReceivables[0]?.otherDetail || 'NA' | safeHtml"></span>
                 </td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('assignmentOfReceivables')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('assignmentOfReceivables', 'AssignmentOfReceivables')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -120,7 +129,8 @@
             <td>{{leaseAssignment.length}}</td>
             <td> <strong>Other Detail: </strong><span [innerHTML]="leaseAssignment[0]?.otherDetail || 'NA' | safeHtml"></span></td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('leaseAssignment')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('leaseAssignment', 'LeaseAssignment')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -130,7 +140,8 @@
             <td>{{otherSecurity.length}}</td>
             <td> <strong>Other Detail: </strong><p [innerHTML]="otherSecurity[0]?.otherDetail || 'NA' | safeHtml"></p></td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('otherSecurity')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('otherSecurity', 'OtherSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -141,7 +152,8 @@
             <td><strong>Name:</strong>{{corporateGuarantee[0]?.name || 'NA'}}, <strong>Address:</strong>
                 {{corporateGuarantee[0]?.address || 'NA'}},</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('corporateGuarantee')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('corporateGuarantee', 'CorporateGuarantee')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -152,7 +164,8 @@
             <td><strong>Name:</strong>{{personalGuarantee[0]?.name || 'NA'}}, <strong>Address:</strong>
                 {{personalGuarantee[0]?.address || 'NA'}},</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('personalGuarantee')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('personalGuarantee', 'PersonalGuarantee')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
@@ -163,7 +176,8 @@
             <td><strong>Insurance Amount:</strong>Rs.{{insurancePolicy[0]?.insuredAmount | currencyFormatter}},
                 <strong>Company Name:</strong>{{insurancePolicy[0]?.insuranceCompanyName || 'NA'}},</td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
-                   (click)="sendSecurityName('insurancePolicy')"><i class="fa fa-trash fa-1x"></i></a></td>
+                   (click)="sendSecurityName('insurancePolicy', 'InsurancePolicySecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
 
