@@ -46,6 +46,7 @@ export class AlphaDetailViewComponent implements OnInit {
   individualJsonData;
   obtainableDocuments = Array<ObtainableDoc>();
   otherObtainableDocuments = Array<string>();
+  businessGiven;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -65,6 +66,8 @@ export class AlphaDetailViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
       this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+      this.businessGiven = JSON.parse(this.loanDataHolder.companyInfo.businessGiven);
+      console.log('Company Data:::', this.businessGiven);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
       this.individualJsonData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
@@ -113,11 +116,6 @@ export class AlphaDetailViewComponent implements OnInit {
           // push current loan if not fetched from staged spec response
           if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
             this.customerAllLoanList.push(this.loanDataHolder);
-          }
-          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-          } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList

@@ -527,7 +527,7 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.legalReviewRemark"></td>
             </tr>
         </table>
-        <table *ngIf="!srdbAffiliatedId"
+        <table *ngIf="!srdbAffiliatedId && (summaryType === summaryTypeName?.GENERAL)"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr>
                 <th colspan="2">Business given</th>
@@ -559,57 +559,31 @@
             </tr>
             <tr>
                 <td class="text-left pl-1">Saving Account</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>
-                        <ng-template #notMega>
-                            <div class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>
-                        </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Payroll Account</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Debit Cards</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Credit Cards</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Locker</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <th class="text-left pl-1">Total</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
             </tr>
             <tr>
                 <th class="text-left pl-1">Total</th>

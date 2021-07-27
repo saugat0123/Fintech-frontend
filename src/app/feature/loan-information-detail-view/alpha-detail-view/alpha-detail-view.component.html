@@ -50,116 +50,67 @@
 </div>
 <!-- End Justification of proposal-->
 
-<ng-container *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
-    <div class="row">
-        <div class="col-md-12">
-            <p><strong>Disbursement Criteria</strong></p>
-        </div>
-        <div class="col-md-12">
-            <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.disbursementCriteria || 'N/A' | safeHtml"></p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p><strong>Repayment</strong></p>
-        </div>
-        <div class="col-md-12">
-            <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></p>
-        </div>
-    </div>
-</ng-container>
-
 <!-- Start Income From Account Details-->
 <app-income-from-account-summery *ngIf="loanHolder?.incomeFromAccount"
                                  [formData]="loanHolder?.incomeFromAccount"></app-income-from-account-summery>
 
-<table
+<table *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
     <tr>
         <th colspan="2">Business given</th>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Particular</th>
-        <th>{{client === clientName?.MEGA ? 'Amount(Rs/value)' : 'Amount(Rs)'}}</th>
+        <th>Amount(Rs)</th>
     </tr>
     <tr>
-<!--        <td class="text-left pl-1">Interest Income</td>[innerHTML]="loanDataHolder?.companyInfo?.successionPlanning || 'N/A' | safeHtml"-->
-        <th class="text-right pr-1">Rs. {{loanDataHolder?.companyInfo?.interestIncomeDuringReview | currencyFormatter}}</th>
+        <td class="text-left pl-1">Interest Income</td>
+        <th class="text-right pr-1">Rs. {{businessGiven?.interestIncomeDuringReview | currencyFormatter}}</th>
     </tr>
     <tr>
         <td class="text-left pl-1">Loan Processing Fee</td>
-        <th class="text-right pr-1">Rs. {{loanDataHolder?.businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
     </tr>
     <tr>
         <td class="text-left pl-1">LC Commission</td>
-        <th class="text-right pr-1">Rs. {{loanDataHolder?.businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.lcCommissionDuringReview | currencyFormatter}}</th>
     </tr>
     <tr>
         <td class="text-left pl-1">Guarantee Commission</td>
-        <th class="text-right pr-1">Rs. {{loanDataHolder?.businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
     </tr>
     <tr>
         <td class="text-left pl-1">Other Commission</td>
-        <th class="text-right pr-1">Rs. {{loanDataHolder?.businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.otherCommissionDuringReview | currencyFormatter}}</th>
     </tr>
     <tr>
         <td class="text-left pl-1">Saving Account</td>
-        <th>
-            <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{loanDataHolder?.businessGiven?.savingAccountDuringReview}}</div>
-            <ng-template #notMega>
-                <div class="text-right pr-1">Rs. {{loanDataHolder?.businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>
-            </ng-template>
-        </th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
     </tr>
     <tr>
         <td class="text-left pl-1">Payroll Account</td>
-        <th>
-            <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{loanDataHolder?.businessGiven?.payrollAccountDuringReview}}</div>
-            <ng-template #notMega>
-                <div class="text-right pr-1">Rs. {{loanDataHolder?.businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>
-            </ng-template>
-        </th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
     </tr>
-<!--    <tr>-->
-<!--        <td class="text-left pl-1">Debit Cards</td>-->
-<!--        <th>-->
-<!--            <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>-->
-<!--            <ng-template #notMega>-->
-<!--                <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>-->
-<!--            </ng-template>-->
-<!--        </th>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td class="text-left pl-1">Credit Cards</td>-->
-<!--        <th>-->
-<!--            <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>-->
-<!--            <ng-template #notMega>-->
-<!--                <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>-->
-<!--            </ng-template>-->
-<!--        </th>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td class="text-left pl-1">Mobile Bank / Internet Banking</td>-->
-<!--        <th>-->
-<!--            <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>-->
-<!--            <ng-template #notMega>-->
-<!--                <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>-->
-<!--            </ng-template>-->
-<!--        </th>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td class="text-left pl-1">Locker</td>-->
-<!--        <th>-->
-<!--            <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>-->
-<!--            <ng-template #notMega>-->
-<!--                <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>-->
-<!--            </ng-template>-->
-<!--        </th>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th class="text-left pl-1">Total</th>-->
-<!--        <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>-->
-<!--    </tr>-->
+    <tr>
+        <td class="text-left pl-1">Debit Cards</td>
+        <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
+    </tr>
+    <tr>
+        <td class="text-left pl-1">Credit Cards</td>
+        <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
+    </tr>
+    <tr>
+        <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
+        <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
+    </tr>
+    <tr>
+        <td class="text-left pl-1">Locker</td>
+        <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
+    </tr>
+    <tr>
+        <th class="text-left pl-1">Total</th>
+        <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
+    </tr>
 </table>
 <!-- End Income From Account Details-->
 
