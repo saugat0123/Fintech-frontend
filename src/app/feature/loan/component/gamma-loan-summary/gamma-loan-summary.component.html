@@ -495,14 +495,14 @@
                         <tbody>
                         <tr *ngFor="let groupExposure of proposalAllData?.groupExposure; let i = index">
                             <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{groupExposure?.clientName}}</td>
-                            <td class="text-left pl-1">{{groupExposure?.facilityType}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.loanLimit}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.osLimit}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.proposedLimit}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.fmvDv}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.exposure}}</td>
-                            <td class="text-left pl-1">{{groupExposure?.remarks}}</td>
+                            <td class="text-left pl-1">{{groupExposure?.clientName || 'N/A'}}</td>
+                            <td class="text-left pl-1">{{groupExposure?.facilityType || 'N/A'}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.loanLimit || 'N/A'}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.osLimit || 'N/A'}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.proposedLimit || 'N/A'}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.fmvDv || 'N/A'}}</td>
+                            <td class="text-right pr-1">{{groupExposure?.exposure || 'N/A'}}</td>
+                            <td class="text-left pl-1">{{groupExposure?.remarks || 'N/A'}}</td>
                         </tr>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="9">Single Obligor Limit</th>
