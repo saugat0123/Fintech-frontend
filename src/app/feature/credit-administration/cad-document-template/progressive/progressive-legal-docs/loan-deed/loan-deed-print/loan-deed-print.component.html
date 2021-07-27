@@ -22,7 +22,7 @@
           स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
 </span>
-          शाखाकार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको)लिखत
+          शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको)लिखत
           गरी दिनेका नाम <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
     {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
 </span> को
@@ -44,96 +44,161 @@
           (साबिक <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.likhitWadNo !== ''}">
     {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '_________________' : printDocForm?.likhitWadNo}}
 </span>
-          गा.बि.स./न.पा.वडा न. <span class="nepaliFont">{{printDocForm?.sabikWadNo}}</span> ),
-          स्थायी ठेगानाभई हाल <span class="nepaliFont">{{printDocForm?.tempVDC}}</span>
-          गा.पा./न.पा./म.न.पा.वडा नं. <span class="nepaliFont">{{printDocForm?.tempWadNo}}</span> )
-          बस्ने वर्ष <span class="nepaliFont">{{printDocForm?.age}}</span>
-          को <span class="nepaliFont">{{printDocForm?.customerName}}</span>
-          (ना.प्र.नं. <span class="nepaliFont">{{printDocForm?.citizenshipNo}}</span>
-          मिति <span class="nepaliFont">{{printDocForm?.date}}</span>
-          जि.प्र.का.) <span class="nepaliFont">{{printDocForm?.cdoOffice}}</span> )
-          वानेपाल सरकार, <span class="nepaliFont">{{printDocForm?.mantralayaName}}</span>
-          मन्त्रालय <span class="nepaliFont">{{printDocForm?.biBhag}}</span> विभाग/कम्पनी
-          रजिष्ट्रारको कार्यालय <span class="nepaliFont">{{printDocForm?.regOffice}}</span>
-          मा <span class="nepaliFont">{{printDocForm?.act}}</span>
-          ऐन <span class="nepaliFont">{{printDocForm?.underName}}</span>
-          अन्तर्गत मिति <span class="nepaliFont">{{printDocForm?.underDate}}</span>
-          मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <span
-            class="nepaliFont">{{printDocForm?.praliNo}}</span>
-          मादर्ता भई करदता सेवाकार्यालय <span
-            class="nepaliFont">{{printDocForm?.sewaKaryalaya}}</span>
-          बाट मिति <span class="nepaliFont">{{printDocForm?.lekhaNumDate}}</span> मा
-          स्थायी लेखानम्बर (पान) दर्ता प्रमाणपत्र न <span
-            class="nepaliFont">{{printDocForm?.certficateNo}}</span> को प्रमाणपत्र प्राप्त.
-          <span class="nepaliFont">{{printDocForm?.certifiedDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.certifiedMunicipality}}</span>
-          गा.पा./न.पा./म.न.पा. वडा नं. <span
-            class="nepaliFont">{{printDocForm?.certifiedWadNo}}</span>
+          गा.बि.स./न.पा.वडा न. <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWadNo !== null && printDocForm?.sabikWadNo !== ''}">
+    {{printDocForm?.sabikWadNo === null || printDocForm?.sabikWadNo === '' ? '_________________' : printDocForm?.sabikWadNo}}
+</span> ),
+          स्थायी ठेगानाभई हाल <span [ngClass]="{'nepaliFont' : printDocForm?.tempVDC !== null && printDocForm?.tempVDC !== ''}">
+    {{printDocForm?.tempVDC === null || printDocForm?.tempVDC === '' ? '_________________' : printDocForm?.tempVDC}}
+</span>
+          गा.पा./न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.tempWadNO !== null && printDocForm?.tempWadNO !== ''}">
+    {{printDocForm?.tempWadNO === null || printDocForm?.tempWadNO === '' ? '_________________' : printDocForm?.tempWadNO}}
+</span> )
+          बस्ने वर्ष <span [ngClass]="{'nepaliFont' : printDocForm?.age !== null && printDocForm?.age !== ''}">
+    {{printDocForm?.age === null || printDocForm?.age === '' ? '_________________' : printDocForm?.age}}
+</span>
+            को <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+</span>
+          (ना.प्र.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.citizenshipNo !== null && printDocForm?.citizenshipNo !== ''}">
+    {{printDocForm?.citizenshipNo === null || printDocForm?.citizenshipNo === '' ? '_________________' : printDocForm?.citizenshipNo}}
+</span>
+          मिति <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
+          जि.प्र.का.) <span [ngClass]="{'nepaliFont' : printDocForm?.cdoOffice !== null && printDocForm?.cdoOffice !== ''}">
+    {{printDocForm?.cdoOffice === null || printDocForm?.cdoOffice === '' ? '_________________' : printDocForm?.cdoOffice}}
+</span>)
+          वानेपाल सरकार, <span [ngClass]="{'nepaliFont' : printDocForm?.mantralayaName !== null && printDocForm?.mantralayaName !== ''}">
+    {{printDocForm?.mantralayaName === null || printDocForm?.mantralayaName === '' ? '_________________' : printDocForm?.mantralayaName}}
+</span>
+          मन्त्रालय <span [ngClass]="{'nepaliFont' : printDocForm?.biBhag !== null && printDocForm?.biBhag !== ''}">
+    {{printDocForm?.biBhag === null || printDocForm?.biBhag === '' ? '_________________' : printDocForm?.biBhag}}
+</span> विभाग/कम्पनी
+          रजिष्ट्रारको कार्यालय <span [ngClass]="{'nepaliFont' : printDocForm?.regoffice !== null && printDocForm?.regoffice !== ''}">
+    {{printDocForm?.regoffice === null || printDocForm?.regoffice === '' ? '_________________' : printDocForm?.regoffice}}
+</span>
+          मा <span [ngClass]="{'nepaliFont' : printDocForm?.act !== null && printDocForm?.act !== ''}">
+    {{printDocForm?.act === null || printDocForm?.act === '' ? '_________________' : printDocForm?.act}}
+</span>
+          ऐन <span [ngClass]="{'nepaliFont' : printDocForm?.underName !== null && printDocForm?.underName !== ''}">
+    {{printDocForm?.underName === null || printDocForm?.underName === '' ? '_________________' : printDocForm?.underName}}
+</span>
+          अन्तर्गत मिति <span [ngClass]="{'nepaliFont' : printDocForm?.underDate !== null && printDocForm?.underDate !== ''}">
+    {{printDocForm?.underDate === null || printDocForm?.underDate === '' ? '_________________' : printDocForm?.underDate}}
+</span>
+          मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.praliNo !== null && printDocForm?.praliNo !== ''}">
+    {{printDocForm?.praliNo === null || printDocForm?.praliNo === '' ? '_________________' : printDocForm?.praliNo}}
+</span>
+          मादर्ता भई करदता सेवाकार्यालय<span [ngClass]="{'nepaliFont' : printDocForm?.sewaKaryalaya !== null && printDocForm?.sewaKaryalaya !== ''}">
+    {{printDocForm?.sewaKaryalaya === null || printDocForm?.sewaKaryalaya === '' ? '_________________' : printDocForm?.sewaKaryalaya}}
+</span>
+          बाट मिति <span [ngClass]="{'nepaliFont' : printDocForm?.lekhaNumDate !== null && printDocForm?.lekhaNumDate !== ''}">
+    {{printDocForm?.lekhaNumDate === null || printDocForm?.lekhaNumDate === '' ? '_________________' : printDocForm?.lekhaNumDate}}
+</span> मा
+          स्थायी लेखानम्बर (पान) दर्ता प्रमाणपत्र न <span [ngClass]="{'nepaliFont' : printDocForm?.certificateNo !== null && printDocForm?.certificateNo !== ''}">
+    {{printDocForm?.certificateNo === null || printDocForm?.certificateNo === '' ? '_________________' : printDocForm?.certificateNo}}
+</span> को प्रमाणपत्र प्राप्त.
+            <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedDistrict !== null && printDocForm?.certifiedDistrict !== ''}">
+    {{printDocForm?.certifiedDistrict === null || printDocForm?.certifiedDistrict === '' ? '_________________' : printDocForm?.certifiedDistrict}}
+</span>
+          जिल्ला  <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedMunicipality !== null && printDocForm?.certifiedMunicipality !== ''}">
+    {{printDocForm?.certifiedMunicipality === null || printDocForm?.certifiedMunicipality === '' ? '_________________' : printDocForm?.certifiedMunicipality}}
+</span>
+          गा.पा./न.पा./म.न.पा. वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedWadNo !== null && printDocForm?.certifiedWadNo !== ''}">
+    {{printDocForm?.certifiedWadNo === null || printDocForm?.certifiedWadNo === '' ? '_________________' : printDocForm?.certifiedWadNo}}
+</span>
           मा रजिष्टर्ड कार्यालय
-          रहेको <span class="nepaliFont">{{printDocForm?.certifiedRegOffice}}</span>
+          रहेको <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedRegOffice !== null && printDocForm?.certifiedRegOffice !== ''}">
+    {{printDocForm?.certifiedRegOffice === null || printDocForm?.certifiedRegOffice === '' ? '_________________' : printDocForm?.certifiedRegOffice}}
+</span>
           (जसलाई यसउप्रान्त यस लिखत मा ऋणी भनिएको छ) कातर्पmबाटअधिकार प्राप्त
-          संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि <span
-            class="nepaliFont">{{printDocForm?.certifiedGrandParentName}}</span>
-          को नाति/नातिनि <span class="nepaliFont">{{printDocForm?.certifiedParentName}}</span> को
-          छोरा/छोरी <span class="nepaliFont">{{printDocForm?.certifiedHusbandWifeName}}</span> को
-          पति/पत्नी <span class="nepaliFont">{{printDocForm?.certifiedPersonDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.certifiedPersonMunicipality}}</span>
-          गा.पा./न.पा./म.न.पा.वडा नं <span
-            class="nepaliFont">{{printDocForm?.certifiedPersonWadNo}}</span>
-          स्थायी ठेगानाभई हाल <span
-            class="nepaliFont">{{printDocForm?.certifiedPersonTempDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.certifiedPersonTempVDC}}</span>
-          गा.पा./न.पा./म.न.पा.वडा न. <span
-            class="nepaliFont">{{printDocForm?.certifiedPersonTempWadNo}}</span>
-          बस्ने वर्ष <span class="nepaliFont">{{printDocForm?.certifiedPersonAge}}</span>
-          को <span class="nepaliFont">{{printDocForm?.certifiedPersonName}}</span>
-          (ना.प्र.नं. <span class="nepaliFont">{{printDocForm?.certifiedPersonCitizenshipNo}}</span>
-          मिति <span class="nepaliFont">{{printDocForm?.certifiedDate}}</span>
-          जि.प्र.का. <span class="nepaliFont">{{printDocForm?.certifiedCdoOffice}}</span>
+          संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedGrandParentName !== null && printDocForm?.certifiedGrandParentName !== ''}">
+    {{printDocForm?.certifiedGrandParentName === null || printDocForm?.certifiedGrandParentName === '' ? '_________________' : printDocForm?.certifiedGrandParentName}}
+</span>
+          को नाति/नातिनि <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedParentName !== null && printDocForm?.certifiedParentName !== ''}">
+    {{printDocForm?.certifiedParentName === null || printDocForm?.certifiedParentName === '' ? '_________________' : printDocForm?.certifiedParentName}}
+</span>को
+          छोरा/छोरी <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedHusbandWifeName !== null && printDocForm?.certifiedHusbandWifeName !== ''}">
+    {{printDocForm?.certifiedHusbandWifeName === null || printDocForm?.certifiedHusbandWifeName === '' ? '_________________' : printDocForm?.certifiedHusbandWifeName}}
+</span> को
+          पति/पत्नी <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonDistrict !== null && printDocForm?.certifiedPersonDistrict !== ''}">
+    {{printDocForm?.certifiedPersonDistrict === null || printDocForm?.certifiedPersonDistrict === '' ? '_________________' : printDocForm?.certifiedPersonDistrict}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonMunicipality !== null && printDocForm?.certifiedPersonMunicipality !== ''}">
+    {{printDocForm?.certifiedPersonMunicipality === null || printDocForm?.certifiedPersonMunicipality === '' ? '_________________' : printDocForm?.certifiedPersonMunicipality}}
+</span>
+          गा.पा./न.पा./म.न.पा.वडा नं <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonWadNo !== null && printDocForm?.certifiedPersonWadNo !== ''}">
+    {{printDocForm?.certifiedPersonWadNo === null || printDocForm?.certifiedPersonWadNo === '' ? '_________________' : printDocForm?.certifiedPersonWadNo}}
+</span>
+          स्थायी ठेगानाभई हाल<span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonWadNo !== null && printDocForm?.certifiedPersonWadNo !== ''}">
+    {{printDocForm?.certifiedPersonWadNo === null || printDocForm?.certifiedPersonWadNo === '' ? '_________________' : printDocForm?.certifiedPersonWadNo}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonTempDistrict !== null && printDocForm?.certifiedPersonTempDistrict !== ''}">
+    {{printDocForm?.certifiedPersonTempDistrict === null || printDocForm?.certifiedPersonTempDistrict === '' ? '_________________' : printDocForm?.certifiedPersonTempDistrict}}
+</span>
+          गा.पा./न.पा./म.न.पा.वडा न.<span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonTempWadNo !== null && printDocForm?.certifiedPersonTempWadNo !== ''}">
+    {{printDocForm?.certifiedPersonTempWadNo === null || printDocForm?.certifiedPersonTempWadNo === '' ? '_________________' : printDocForm?.certifiedPersonTempWadNo}}
+</span>
+          बस्ने वर्ष <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonAge !== null && printDocForm?.certifiedPersonAge !== ''}">
+    {{printDocForm?.certifiedPersonAge === null || printDocForm?.certifiedPersonAge === '' ? '_________________' : printDocForm?.certifiedPersonAge}}
+</span>
+          को <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonName !== null && printDocForm?.certifiedPersonName !== ''}">
+    {{printDocForm?.certifiedPersonName === null || printDocForm?.certifiedPersonName === '' ? '_________________' : printDocForm?.certifiedPersonName}}
+</span>
+          (ना.प्र.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedPersonCitizenshipNo !== null && printDocForm?.certifiedPersonCitizenshipNo !== ''}">
+    {{printDocForm?.certifiedPersonCitizenshipNo === null || printDocForm?.certifiedPersonCitizenshipNo === '' ? '_________________' : printDocForm?.certifiedPersonCitizenshipNo}}
+</span>
+          मिति <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedDate !== null && printDocForm?.certifiedDate !== ''}">
+    {{printDocForm?.certifiedDate === null || printDocForm?.certifiedDate === '' ? '_________________' : printDocForm?.certifiedDate}}
+</span>
+          जि.प्र.का. <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedCdoOffice !== null && printDocForm?.certifiedCdoOffice !== ''}">
+    {{printDocForm?.certifiedCdoOffice === null || printDocForm?.certifiedCdoOffice === '' ? '_________________' : printDocForm?.certifiedCdoOffice}}
+</span>
           )आगे म/हामीऋणीको व्यापार/व्यवसाय सञ्चालनगर्न
           ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनीवित्तीय संस्थासंग लिखितअनुरोध
           गरेको मा तपाई
-          धनीवित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति <span
-            class="nepaliFont">{{printDocForm?.namjariDate}}</span>
-          को ऋण स्वीकृतीपत्र अनुसार स्वीकृत निम्नाअनुसारका
-          ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृतीपत्र मा उल्लिखित तरिका बमोजिम प्राप्तगर्ने गरी यो
-          ऋणकर्जाको तमसुक गरी दिएको ठीक साँचो हो ।
-          तपाई धनीवित्तीय संस्थाबाट प्राप्त ऋणकर्जा तथा बैंकिङ्ग सूविधाहरुमालाग्ने व्याज, कमिशन,
-          शूल्क आदि तल उल्लेखित स्वीकृत सम्बन्धित ऋणकर्जा तथा
-          बैंकिङ्ग सुविधाखण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको
-          मितिभित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिङ्ग
-          सूविधा नविकरण भएमा नविकरण हूं‘दाकाबखत तपाई धनीवित्तीय संस्थाले म/हामी ऋणीका नाममा जारी गर्ने ऋण
-          स्वीकृतिपत्र मा तोकिएको
-          मिति भित्रमा ऋणकर्जाको सम्पूर्ण साँ वा व्याज चूक्ता भूक्तान गर्नेछु/छौं । म/हामी ऋणीका नाममा
-          स्वीकृत बैंकिङ्ग सुविधा(ग्यारेन्टी बण्ड तथा अन्य विभिन्न शीर्षक अन्तर्गत)
-          को कर्जा उपभोग गर्दा तपाई धनीवित्तीय संस्था उपर कुनै थप दायित्व श्रृजना भएमा त्यस्तो
-          थपदायित्व तपाई धनीवित्तीय संस्थाले मागगर्नासाथ तिर्ने बूझाउने छु/छौं ।
-          स्वीकृत ऋणकर्जा तथा भविष्यमा तपाई धनीवित्तीय संस्थाले उपलव्ध गराउने थपऋणकर्जा तथा सूविधा
-          समेतको सुरक्षणबापत म/हामी ऋणीको निजीश्रोतबाट खरिद
-          गरेको, श्रृजनाभएको र तपाई धनीवित्तीय संस्थाबाट प्राप्त ऋणकर्जा बाट खरिद वाआयात गरेको/श्रृजना
-          गरेको लगायत म/हामी ऋणीको नाममा रहे/भएको सम्पूर्ण
-          चल/अचल सम्पत्ति तथा भविष्यमा म/हामी ऋणीको नाममा कायम हुने श्री सम्पत्तितथा म/हामी ऋणीले
-          भूक्तानीप् राप्तगर्न बाँकी
-          रकमहरु (Accounts Receivable) समेत यसै लिखतबाट तपाई धनीवित्तीय संस्थाको नाममा
-          सुरक्षण लेखिदिएको छु/छौं ।
-          सोको अलावातपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाट तपाई धनीवित्तीय संस्थाको
-          नाममा धितोबन्धकलिखत गरिदिएकोछु/गरिदिनेछु ।
-          प्राप्त ऋणकर्जाको तपाई धनीवित्तीय संस्थालाई तिर्नुपर्ने साँवा, व्याज, थपब्याज,
-          कमिशनशुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृतीपत्रानूसार
-          तोकिएको तरिकाबमोजिम नतिरे/नबुझाएमा वा बुझाउनआलटाल गरेमा वाकिस्ताखिलाफी गरेमा वा ऋण
-          स्वीकृतिपत्रतथा यसै लिखतको कुनै सर्त उल्लंघन गरेमा
-          समेत म/हामी ऋणीको नाममा तपाई धनीवित्तीय संस्थामा खोलेको निक्षेप खातामाजम्मा रहेको रकमबाटकट्टा
-          गरी तथाधितो लेखिदिएको
-          सुरक्षणप्रचलित कानूनबमोजिम लिलाम बिक्री वा अन्य व्यवस्था गरी तपाई धनीवित्तीय संस्थाको सम्पूर्ण
-          लेनाअसूलउपर गरि लिनूहोला । कथमकदाचित धितो
-          लेखिदिएको सम्पत्तिकच्चानकरा ठहरी लिलाम बिक्री हुन नसकेमा वा लिलाम बिक्री हुँदा समेत तपाई
-          धनीवित्तीय संस्थाको सम्पूर्ण लेनाअसूलउपर नभएमा
-          मेरो/हाम्रो/ऋणीको घरघरानाको श्रीसम्पत्तिबाट असूलउपर गरि लिनुहोला । नेपाल राष्ट्र बैंकद्धारा
-          बैंकतथावित्तीय संस्थाहरुलाई जारी गरिएको कर्जा
-          सूचना तथा कालो सूची व्यवस्थासम्बन्धी निर्देशन बमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा
-          मेरो/हाम्रो/ऋणीको मञ्जुरी छ भनी किनाराका साक्षीका
-          रोहबरमा तपाई धनीवित्तीय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय
-          संस्थालाई दिया/दियौं ।
+          धनीवित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति <span [ngClass]="{'nepaliFont' : printDocForm?.namjariDate !== null && printDocForm?.namjariDate !== ''}">
+    {{printDocForm?.namjariDate === null || printDocForm?.namjariDate === '' ? '_________________' : printDocForm?.namjariDate}}
+</span>
+            को ऋण स्वीकृतीपत्र अनुसार स्वीकृत निम्नाअनुसारका
+            ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृतीपत्र मा उल्लिखित तरिका बमोजिम प्राप्तगर्ने गरी यो
+            ऋणकर्जाको तमसुक गरी दिएको ठीक साँचो हो ।
+            तपाई धनीवित्तीय संस्थाबाट प्राप्त ऋणकर्जा तथा बैंकिङ्ग सूविधाहरुमा लाग्ने व्याज, कमिशन,
+            शूल्क आदि तल उल्लेखित स्वीकृत सम्बन्धित ऋणकर्जा तथा
+            बैंकिङ्ग सुविधाखण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोहीखण्डमा लेखिएको
+            मितिभित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिङ्ग
+            सूविधा नविकरण भएमा नविकरण हूं‘दाकाबखत तपाई धनीवित्तीय संस्थाले म/हामी ऋणीका नाममा जारी गर्ने ऋण
+            स्वीकृतिपत्र मा तोकिएको
+            मिति भित्रमा ऋणकर्जाको सम्पूर्ण साँ वा व्याज चूक्ता भूक्तान गर्नेछु/छौं । म/हामी ऋणीका नाममा
+            स्वीकृत बैंकिङ्ग सुविधा(ग्यारेन्टी बण्ड तथा अन्य विभिन्न शीर्षक अन्तर्गत)
+            को कर्जा उपभोग गर्दा तपाई धनीवित्तीय संस्था उपर कुनै थप दायित्व श्रृजना भएमा त्यस्तो
+            थपदायित्व तपाई धनीवित्तीय संस्थाले मागगर्नासाथ तिर्ने बूझाउने छु/छौं ।
+            स्वीकृत ऋणकर्जा तथा भविष्यमा तपाई धनीवित्तीय संस्थाले उपलव्ध गराउने थप ऋणकर्जा तथा सूविधा
+            समेतको सुरक्षण बापत म/हामी ऋणीको निजीश्रोतबाट खरिद
+            गरेको, श्रृजनाभएको र तपाई धनीवित्तीय संस्थाबाट प्राप्त ऋणकर्जा बाट खरिद वा आयात गरेको/श्रृजना
+            गरेको लगायत म/हामी ऋणीको नाममा रहे/भएको सम्पूर्ण
+            चल/अचल सम्पत्ति तथा भविष्यमा म/हामी ऋणीको नाममा कायम हुने श्री सम्पत्ति तथा म/हामी ऋणीले
+            भूक्तानीप् राप्तगर्न बाँकी
+            रकमहरु (Accounts Receivable) समेत यसै लिखतबाट तपाई धनीवित्तीय संस्थाको नाममा
+            सुरक्षण लेखिदिएको छु/छौं ।
+            सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाट तपाई धनीवित्तीय संस्थाको
+            नाममा धितोबन्धक लिखत गरिदिएको छु/गरिदिनेछु ।
+            प्राप्त ऋणकर्जाको तपाई धनीवित्तीय संस्थालाई तिर्नुपर्ने साँवा, व्याज, थपब्याज,
+            कमिशनशुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृतीपत्रानूसार
+            तोकिएको तरिका बमोजिम नतिरे/नबुझाएमा वा बुझाउनआलटाल गरेमा वा किस्ता खिलाफी गरेमावा ऋण
+            स्वीकृतिपत्र तथा यसै लिखतको कुनै सर्त उल्लंघन गरेमा
+            समेत म/हामी ऋणीको नाममा तपाई धनीवित्तीय संस्थामा खोलेको निक्षेप खातामा जम्मा रहेको रकमबाट कट्टा
+            गरी तथा धितो लेखिदिएको
+            सुरक्षणप्रचलित कानून बमोजिम लिलाम बिक्री वा अन्य व्यवस्था गरी तपाई धनीवित्तीय संस्थाको सम्पूर्ण
+            लेनाअसूलउपर गरि लिनूहोला । कथमकदाचित धितो
+            लेखिदिएको सम्पत्तिकच्चानकरा ठहरी लिलाम बिक्रीहुन नसकेमा वा लिलाम बिक्री हुँदा समेत तपाई
+            धनीवित्तीय संस्थाको सम्पूर्ण लेना असूलउपर नभएमा
+            मेरो/हाम्रो/ऋणीको घरघरानाको श्रीसम्पत्तिबाट असूलउपर गरि लिनुहोला । नेपाल राष्ट्र बैंकद्धारा
+            बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा
+            सूचना तथा कालो सूची व्यवस्थासम्बन्धी निर्देशन बमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा
+            मेरो/हाम्रो/ऋणीको मञ्जुरी छ भनी किनाराका साक्षीका
+            रोहबरमा तपाई धनीवित्तीय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय
+            संस्थालाई दिया/दियौं ।
         </p>
       </div>
       <br>
@@ -155,7 +220,11 @@
           <tbody>
           <tr>
             <td><span class="nepaliFont">{{printDocForm?.approvedSubidhakisim}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.approvedAmount}}</span></td>
+              <td><span [ngClass]="{nepaliFont: printDocForm.approvedAmount!==null && printDocForm.approvedAmount!==''}">
+                                {{printDocForm?.approvedAmount===null || printDocForm===''?'रु..........(अक्षरेपि..............)':printDocForm?.approvedAmount}}
+
+              </span>
+              </td>
             <td><span class="nepaliFont">{{printDocForm?.approvedCommision}}</span></td>
             <td><span class="nepaliFont">{{printDocForm?.approvedLoanTime}}</span></td>
           </tr>
@@ -205,7 +274,7 @@
         साल <span class="nepaliFont">{{printDocForm?.itiSambatMonth}}</span>
         महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
         गते <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-        रोज शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatRoj}}</span> ।
+        रोज शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatRoj}}</span>.................. ।
       </p>
 
     </form>
