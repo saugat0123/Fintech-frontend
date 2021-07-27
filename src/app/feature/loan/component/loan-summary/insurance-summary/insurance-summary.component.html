@@ -1,7 +1,13 @@
 <div class="row mt-4" *ngIf="insurance.length !== 0">
   <div class="col-md-12">
-    <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '15. Insurance Detail' :
-            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '16. Insurance Detail' : 'Insurance Detail'}}</strong></p>
+    <div *ngIf="loanSummary === 'loanSummary'; else detailView">
+      <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '13. Insurance Detail' :
+              (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '14. Insurance Detail' : 'Insurance Detail'}}</strong></p>
+    </div>
+    <ng-template #detailView>
+      <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '15. Insurance Detail' :
+              (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '16. Insurance Detail' : 'Insurance Detail'}}</strong></p>
+    </ng-template>
     <table class="table table-bordered text-center table-sm sb-small">
       <thead>
       <tr class="sb-bg-dark text-white">

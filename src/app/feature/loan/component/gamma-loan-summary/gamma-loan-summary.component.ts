@@ -188,6 +188,7 @@ export class GammaLoanSummaryComponent implements OnInit {
   type = environment.summaryType;
   summaryTypeName = SummaryType;
   companyInfo: any;
+  loanSummary = 'loanSummary';
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,

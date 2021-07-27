@@ -17,6 +17,8 @@ export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   clientName = Clients;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  @Input() loanSummary;
+
   constructor() { }
 
   ngOnInit() {
