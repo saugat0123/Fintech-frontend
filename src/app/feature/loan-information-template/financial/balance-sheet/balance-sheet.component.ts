@@ -343,10 +343,9 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                 'Short Term Loan', (index - 1)))).toFixed(2);
             cashFlowStatement.longTermLoanReceived[index].value =
-                (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('longTermLoanCategory'),
-                    'Term Loan', index))
-                    - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('longTermLoanCategory'),
-                        'Term Loan', (index - 1)))).toFixed(2);
+                (Number(longTermLoan.controls['value'].value)
+                - Number(((this.balanceSheetForm.get('longTermLoan') as FormArray).controls[index - 1] as FormGroup)
+                        .controls['value'].value)).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
         } else {
             if (!this.isSRDB) {
