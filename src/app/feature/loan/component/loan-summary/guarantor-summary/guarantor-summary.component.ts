@@ -10,6 +10,7 @@ import {SummaryType} from '../../SummaryType';
 export class GuarantorSummaryComponent implements OnInit {
   @Input() guarantorData;
   @Input() loanCategory;
+  @Input() approveSheet;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
   constructor() { }

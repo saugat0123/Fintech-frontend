@@ -11,6 +11,7 @@ import {SummaryType} from '../../SummaryType';
 export class InsuranceSummaryComponent implements OnInit {
   @Input() insurance: Array<Insurance>;
   @Input() loanCategory;
+  @Input() loanSummary;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
 
