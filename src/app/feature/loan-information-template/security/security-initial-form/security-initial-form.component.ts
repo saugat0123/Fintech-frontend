@@ -2183,7 +2183,7 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         } else {
             const formControl = this.securityForm.get(event.formArrayName) as FormArray;
-            formControl.controls.forEach(f => {
+            formControl.controls.forEach((f) => {
                 f.reset();
                 f.clearValidators();
                 f.updateValueAndValidity();
