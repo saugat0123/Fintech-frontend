@@ -5,17 +5,23 @@
       <h6 class="text-center">क्षतिपूर्र्ती लिखतर<br>
         (Indemnity Deed)</h6>
       <p class="text-right"> मिति:
-        <span class="nepaliFont">{{printDocForm?.date}}</span>
+        <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
       </p>
       <b> श्री प्रोग्रेशिभ फाइनान्स लि.</b>
       <br>
-      <b> <span class="nepaliFont">{{printDocForm?.branchName}}</span> शाखा ।</b>
+      <b> <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+</span> शाखा ।</b>
       <br>
       <div class="row col-md-12">
         <p>महोदय,</p>
         <p>
           त्यस वित्तीय संस्थाले एकल वा संयुक्त रुपमा
-          <span class="nepaliFont">{{printDocForm?.customerName}}</span>
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+</span>
           लाई यस संलग्न/समर्थन गरिएको लिखत बमोजिम र मैले/हामीले पहिचानको निमित्त हस्ताक्षर गरेको)
           निर्णयानुसार क्षतिपूर्ति
           (Indemnity)/ग्यारेण्टी(Guarantee)जारी गरिएकोमा, म/हामी एक्लै वा संयुक्त रुपमा त्यस वित्तीय
@@ -24,7 +30,9 @@
           भुक्तानी, नोक्सानी, लागत र गरिएका खर्चहरु
           वात्यसबाट उपज तथा व्यहोर्नु परेको नोक्सानी तथा घाटा र यसै सम्बन्धमा यस्ता सबै
           किसिमका भुक्तानी, नोक्सानी, लागत र खर्चहरु मेरो/हाम्रो
-          चल्ति/<span class="nepaliFont">{{printDocForm?.chaltiKhata}}</span> खाताबाट कट्टि गर्न
+          चल्ति/<span [ngClass]="{'nepaliFont' : printDocForm?.chaltiKhata !== null && printDocForm?.chaltiKhata !== ''}">
+    {{printDocForm?.chaltiKhata === null || printDocForm?.chaltiKhata === '' ? '_________________' : printDocForm?.chaltiKhata}}
+</span> खाताबाट कट्टि गर्न
           त्यस वित्तीय संस्थालाई अपरिवर्तनीय अधिकार
           प्रत्यायोजन यसै पत्रद्वारा गर्दछू/छौं ।
           <br>
@@ -43,14 +51,18 @@
           <br>
           म/हामी त्यस वित्तीय संस्थाले सेवा दिए वापत रु.<span
             class="nepaliFont">{{printDocForm?.amount}}</span>/–
-          (अक्षरेपी <span class="nepaliFont">{{printDocForm?.amountInWord}}</span> )
+          (अक्षरेपी <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+    {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
+</span> )
           रकमको भुक्तानी गर्न मन्जुर गर्दछू/छौं, र क्षतिपूर्ति/ग्यारेण्टी अन्तर्गत कुनै दावीमा
           भुक्तानी गरिएको खण्डमा त्यस वित्तीय संस्थालाई थप शुल्क तथा
           सो मा हुने व्याज सहित माग गरिएमा भुक्तानी गर्न मन्जूर गर्दछु/छौं ।
           <br>
           <br>
           यो क्षतिपूर्ति लिखत आजै त्यस वित्तीय संस्थाको
-          <span class="nepaliFont">{{printDocForm?.middleBranchNAme}}</span>
+          <span [ngClass]="{'nepaliFont' : printDocForm?.middleBranchNAme !== null && printDocForm?.middleBranchNAme !== ''}">
+    {{printDocForm?.middleBranchNAme === null || printDocForm?.middleBranchNAme === '' ? '_________________' : printDocForm?.middleBranchNAme}}
+</span>
           शाखा कार्यालयमा बसी सहिछाप गरी दिएको छू/छौ ।
         </p>
 
@@ -65,31 +77,60 @@
                         </textarea>
 
           <br>
-          दस्तखत गर्नेको नाम :-<span class="nepaliFont">{{printDocForm?.sincerlyName}}</span>
-          (ना.प्र.नं. <span class="nepaliFont">{{printDocForm?.sincerlyCitizenshipNo}}</span>
-          मिति <span class="nepaliFont">{{printDocForm?.sincerlyDate}}</span>
-          जि.प्र.का. <span class="nepaliFont">{{printDocForm?.sincerlyCdOoffice}}</span> )
+          दस्तखत गर्नेको नाम :-<span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyname !== null && printDocForm?.sincerlyname !== ''}">
+    {{printDocForm?.sincerlyname === null || printDocForm?.sincerlyname === '' ? '_________________' : printDocForm?.sincerlyname}}
+</span>
+          (ना.प्र.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyCitizenshipNo !== null && printDocForm?.sincerlyCitizenshipNo !== ''}">
+    {{printDocForm?.sincerlyCitizenshipNo === null || printDocForm?.sincerlyCitizenshipNo === '' ? '_________________' : printDocForm?.sincerlyCitizenshipNo}}
+</span>
+          मिति <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyDate !== null && printDocForm?.sincerlyDate !== ''}">
+    {{printDocForm?.sincerlyDate === null || printDocForm?.sincerlyDate === '' ? '_________________' : printDocForm?.sincerlyDate}}
+</span>
+          जि.प्र.का. <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyCdOoffice !== null && printDocForm?.sincerlyCdOoffice !== ''}">
+    {{printDocForm?.sincerlyCdOoffice === null || printDocForm?.sincerlyCdOoffice === '' ? '_________________' : printDocForm?.sincerlyCdOoffice}}
+</span> )
           <br>
-          ठेगाना :-स्थायी <span
-            class="nepaliFont">{{printDocForm?.sincerlyPermanentDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.sincerlyPermanentMunicipality}}</span>
+          ठेगाना :-स्थायी <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentDistrict !== null && printDocForm?.sincerlyPermanentDistrict !== ''}">
+    {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '_________________' : printDocForm?.sincerlyPermanentDistrict}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
+    {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '_________________' : printDocForm?.sincerlyPermanentMunicipality}}
+</span>
           गा.पा./न.पा.वडा नं.
-          <span class="nepaliFont">{{printDocForm?.sincerlyPermanentWadNo}}</span> (साबिक
-          <span class="nepaliFont">{{printDocForm?.sabikVDC}}</span> .गा.बि.स./न.पा.वडा नं.
-          <span class="nepaliFont">{{printDocForm?.sabikWadNo}}</span> )
+          <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentWadNo !== null && printDocForm?.sincerlyPermanentWadNo !== ''}">
+    {{printDocForm?.sincerlyPermanentWadNo === null || printDocForm?.sincerlyPermanentWadNo === '' ? '_________________' : printDocForm?.sincerlyPermanentWadNo}}
+</span> (साबिक
+          <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.sabikVDC !== ''}">
+    {{printDocForm?.sabikVDC === null || printDocForm?.sabikVDC === '' ? '_________________' : printDocForm?.sabikVDC}}
+</span> .गा.बि.स./न.पा.वडा नं.
+          <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWadNo !== null && printDocForm?.sabikWadNo !== ''}">
+    {{printDocForm?.sabikWadNo === null || printDocForm?.sabikWadNo === '' ? '_________________' : printDocForm?.sabikWadNo}}
+</span> )
           <br>
-          हालको ठेगानाः <span class="nepaliFont">{{printDocForm?.sinserlyTempDistrict}}</span>
+          हालको ठेगानाः <span [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
+    {{printDocForm?.sinserlyTempDistrict === null || printDocForm?.sinserlyTempDistrict === '' ? '_________________' : printDocForm?.sinserlyTempDistrict}}
+</span>
           जिल्ला
-          <span class="nepaliFont">{{printDocForm?.sinserlyTempMunicipality}}</span> गा.पा./न.पा.वडा
+          <span [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
+    {{printDocForm?.sinserlyTempMunicipality === null || printDocForm?.sinserlyTempMunicipality === '' ? '_________________' : printDocForm?.sinserlyTempMunicipality}}
+</span> गा.पा./न.पा.वडा
           नं.
-          <span class="nepaliFont">{{printDocForm?.sinserlyTempWadNo}}</span>
+          <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyTemporaryWadNo !== null && printDocForm?.sincerlyTemporaryWadNo !== ''}">
+    {{printDocForm?.sincerlyTemporaryWadNo === null || printDocForm?.sincerlyTemporaryWadNo === '' ? '_________________' : printDocForm?.sincerlyTemporaryWadNo}}
+</span>
           <br>
           <br>
-          वावु/आमाको नाम :- <span class="nepaliFont">{{printDocForm?.parentName}}</span>
+          वावु/आमाको नाम :- <span [ngClass]="{'nepaliFont' : printDocForm?.parentName !== null && printDocForm?.parentName !== ''}">
+    {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '_________________' : printDocForm?.parentName}}
+</span>
           <br>
-          वाजे/बजैको नाम :- <span class="nepaliFont">{{printDocForm?.grandParentName}}</span>
+          वाजे/बजैको नाम :- <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
+    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
+</span>
           <br>
-          पति/पत्निको नाम :- <span class="nepaliFont">{{printDocForm?.husbandWifeName}}</span>
+          पति/पत्निको नाम :- <span [ngClass]="{'nepaliFont' : printDocForm?.husbandWifeName !== null && printDocForm?.husbandWifeName !== ''}">
+    {{printDocForm?.husbandWifeName === null || printDocForm?.husbandWifeName === '' ? '_________________' : printDocForm?.husbandWifeName}}
+</span>
 
         </p>
       </div>
@@ -158,16 +199,30 @@
         <br>
         <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनीवित्तीय
           संस्थामाकार्यरत कर्मचारी
-          <span class="nepaliFont">{{printDocForm?.sanakhatSakxiName}}</span>
+          <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatSakxiName !== null && printDocForm?.sanakhatSakxiName !== ''}">
+    {{printDocForm?.sanakhatSakxiName === null || printDocForm?.sanakhatSakxiName === '' ? '_________________' : printDocForm?.sanakhatSakxiName}}
+</span>
 
-          (कर्मचारी संकेत नं.<span class="nepaliFont">{{printDocForm?.sanakhatSakxiSymbNo}}</span>)
+          (कर्मचारी संकेत नं.<span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatSakxiSymbNo !== null && printDocForm?.sanakhatSakxiSymbNo !== ''}">
+    {{printDocForm?.sanakhatSakxiSymbNo === null || printDocForm?.sanakhatSakxiSymbNo === '' ? '_________________' : printDocForm?.sanakhatSakxiSymbNo}}
+</span>)
         </p>
         <br>
-        ईतिसम्बत <span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
-        साल <span class="nepaliFont">{{printDocForm?.itiSambatMonth}}</span>
-        महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
-        गते <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-        रोज शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatRojSubham}}</span>।
+        ईतिसम्बत <span [ngClass]="{'nepaliFont' : printDocForm?.itsisambatYear !== null && printDocForm?.itsisambatYear !== ''}">
+    {{printDocForm?.itsisambatYear === null || printDocForm?.itsisambatYear === '' ? '_________________' : printDocForm?.itsisambatYear}}
+</span>
+        साल <span [ngClass]="{'nepaliFont' : printDocForm?.itsisambatMonth !== null && printDocForm?.itsisambatMonth !== ''}">
+    {{printDocForm?.itsisambatMonth === null || printDocForm?.itsisambatMonth === '' ? '_________________' : printDocForm?.itsisambatMonth}}
+</span>
+        महिना <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatDate !== null && printDocForm?.itiSambatDate !== ''}">
+    {{printDocForm?.itiSambatDate === null || printDocForm?.itiSambatDate === '' ? '_________________' : printDocForm?.itiSambatDate}}
+</span>
+        गते <span [ngClass]="{'nepaliFont' : printDocForm?.itisambatTime !== null && printDocForm?.itisambatTime !== ''}">
+    {{printDocForm?.itisambatTime === null || printDocForm?.itisambatTime === '' ? '_________________' : printDocForm?.itisambatTime}}
+</span>
+        रोज शुभम् <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatRojSumbham !== null && printDocForm?.itiSambatRojSumbham !== ''}">
+    {{printDocForm?.itiSambatRojSumbham === null || printDocForm?.itiSambatRojSumbham === '' ? '_________________' : printDocForm?.itiSambatRojSumbham}}
+</span>।
       </div>
 
 
