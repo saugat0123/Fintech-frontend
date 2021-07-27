@@ -1782,7 +1782,6 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     submit() {
-        console.log(this.securityForm);
         this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
         this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
         this.setRevaluationData('landBuilding', this.revaluationComponentLandBuilding, SecurityIds.land_buildingId);
