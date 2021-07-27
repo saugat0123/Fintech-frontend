@@ -119,13 +119,12 @@ export class LetterOfContinuityComponent implements OnInit {
     this.form = this.formBuilder.group({
     nepalSarkar:[undefined],
       amount: [undefined],
-      amountInWord: [undefined],
       sincerlyName: [undefined],
       sincerlyPermanentAddress: [undefined],
       sincerlyTempAdress: [undefined],
       ParentsName: [undefined],
       grandParentsName: [undefined],
-      husbanWifeName: [undefined],
+
       IdentifiedGuarantorName: [undefined],
       IdentifiedHintNo: [undefined],
       ItisambatYear: [undefined],
@@ -168,7 +167,15 @@ export class LetterOfContinuityComponent implements OnInit {
       buttonGrandParentName: [undefined],
       buttonHusbandWifeName: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      secguarantorDetails: this.formBuilder.array([])
+      secguarantorDetails: this.formBuilder.array([]),
+      shakhaName: [undefined],
+      naPraNaName: [undefined],
+      mitiName: [undefined],
+      jiPrakaName: [undefined],
+      jillaName: [undefined],
+      jagaName: [undefined],
+      jillaName1: [undefined],
+      jagaName1: [undefined]
     });
   }
 
