@@ -12,6 +12,8 @@ import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
+import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -42,10 +44,13 @@ export class AlphaDetailViewComponent implements OnInit {
   companyInfo = CompanyInfo;
   companyJsonData;
   individualJsonData;
+  obtainableDocuments = Array<ObtainableDoc>();
+  otherObtainableDocuments = Array<string>();
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
-              private fiscalYearService: FiscalYearService) {
+              private fiscalYearService: FiscalYearService,
+              private activatedRoute: ActivatedRoute) {
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
   }
 
@@ -76,6 +81,25 @@ export class AlphaDetailViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
     }
+
+    this.activatedRoute.queryParams.subscribe((res) => {
+      this.customerLoanService.detail(res.customerId).subscribe(response => {
+        const details = JSON.parse(response.detail.data);
+        if (!ObjectUtil.isEmpty(details.documents)) {
+          details.documents.forEach( resData => {
+            this.obtainableDocuments.push(resData);
+          });
+        }
+        if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+          details.OtherDocuments.split(',').forEach(splitData => {
+            if (splitData !== '') {
+              this.otherObtainableDocuments.push(splitData);
+            }
+            console.log(this.otherObtainableDocuments);
+          });
+        }
+      });
+    });
   }
 
   getAllLoans(customerInfoId: number): void {

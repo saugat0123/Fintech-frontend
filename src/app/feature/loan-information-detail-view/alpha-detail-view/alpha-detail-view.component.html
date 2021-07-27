@@ -1,3 +1,19 @@
+<!--Start Individual Details-->
+<app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
+                     [calendarType]="calendarType"
+                     [customerInfoData]="loanDataHolder?.loanHolder"
+                     [individual]="loanDataHolder?.customerInfo"
+                     [loanId]="loanId" [customerInfo]="loanHolder"></app-individual-view>
+<div class="row" *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'">
+    <div class="col-md-12" >
+        <p><strong>Introduction</strong></p>
+        <tr>
+            <td class="text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.customerInfo?.introduction | safeHtml"></td>
+        </tr>
+    </div>
+</div>
+<!--End Individual Details-->
+
 <!--Start Company Details-->
 <app-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                        [calendarType]="calendarType"
@@ -206,6 +222,17 @@
 <!-- Start All Document Details-->
 <app-all-document-view *ngIf="loanDataHolder"
                        [loanDataHolder]="loanDataHolder"></app-all-document-view>
+<span><strong>Obtainable Document</strong></span>
+<div>
+    <ol class="row" type="1">
+        <li style="font-size: 12.60px"
+            class="col-md-4" *ngFor="let doc of obtainableDocuments;
+            let i = index">{{doc.name}}</li>
+        <li style="font-size: 12.60px"
+            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                        let i=index">{{otherDoc}}</li>
+    </ol>
+</div>
 <!-- End All Document Details-->
 
 <!-- Start Credit Checklist Details-->
