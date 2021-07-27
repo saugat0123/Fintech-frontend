@@ -9,60 +9,122 @@
         <p>
           लिखितम् जमानीको लिखत गराई लिनेका नाम बैंक तथा वित्तीय संस्था सम्बन्धी ऐन, द्दण्ठघ बमोजिम
           सञ्चालनमा रहेको
-          <span class="nepaliFont">{{printDocForm?.districtName}}</span>
-          जिल्ला, <span class="nepaliFont">{{printDocForm?.municipalityName}}</span>
-          म.न.पा./न.पा./गा..पा व८ा नं. <span class="nepaliFont">{{printDocForm?.wadNo}}</span>
-          स्थित प्रोग्रेशिभ फाइनान्स लि. <span
-            class="nepaliFont">{{printDocForm?.branchName}}</span> प्रधान/शाखा कार्यालय निमित्त
+          <span [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
+    {{printDocForm?.districtName === null || printDocForm?.districtName === '' ? '_________________' : printDocForm?.districtName}}
+</span>
+          जिल्ला, <span [ngClass]="{'nepaliFont' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
+    {{printDocForm?.municipalityName === null || printDocForm?.municipalityName === '' ? '_________________' : printDocForm?.municipalityName}}
+</span>
+          म.न.पा./न.पा./गा..पा व८ा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.wadNo !== null && printDocForm?.wadNo !== ''}">
+    {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '_________________' : printDocForm?.wadNo}}
+</span>
+          स्थित प्रोग्रेशिभ फाइनान्स लि. <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+</span> प्रधान/शाखा कार्यालय निमित्त
           प्रोग्रेशिभ फाइनान्स लिमिटेड (जसलाई यस उप्रान्त यस लिखतमा धनी फाइनान्स भनिएको छ)
-          जमानीको लिखत गरी दिनेका नाम नेपाल सरकार, <span
-            class="nepaliFont">{{printDocForm?.registerCompanyName}}</span> विभाग/कम्पनी
-          रजिस्टरको कार्यालयमा मिति <span class="nepaliFont">{{printDocForm?.date}}</span>
-          मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <span
-            class="nepaliFont">{{printDocForm?.ltdNo}}</span> मा
-          दर्ता भई <span class="nepaliFont">{{printDocForm?.registerDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.regsiterMunicipality}}</span>
+          जमानीको लिखत गरी दिनेका नाम नेपाल सरकार, <span [ngClass]="{'nepaliFont' : printDocForm?.registerCompanyName !== null && printDocForm?.registerCompanyName !== ''}">
+    {{printDocForm?.registerCompanyName === null || printDocForm?.registerCompanyName === '' ? '_________________' : printDocForm?.registerCompanyName}}
+</span> विभाग/कम्पनी
+          रजिस्टरको कार्यालयमा मिति <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
+          मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.ltdNo !== null && printDocForm?.ltdNo !== ''}">
+    {{printDocForm?.ltdNo === null || printDocForm?.ltdNo === '' ? '_________________' : printDocForm?.ltdNo}}
+</span> मा
+          दर्ता भई <span [ngClass]="{'nepaliFont' : printDocForm?.registerDistrict !== null && printDocForm?.registerDistrict !== ''}">
+    {{printDocForm?.registerDistrict === null || printDocForm?.registerDistrict === '' ? '_________________' : printDocForm?.registerDistrict}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.regsiterMunicipality !== null && printDocForm?.regsiterMunicipality !== ''}">
+    {{printDocForm?.regsiterMunicipality === null || printDocForm?.regsiterMunicipality === '' ? '_________________' : printDocForm?.regsiterMunicipality}}
+</span>
           गा.पा./न.पा./म.न.पा.वडा
-          नं. <span class="nepaliFont">{{printDocForm?.registerWadNo}}</span>
-          मा रजिस्टरको कार्यालय रहेको आन्तरिक राजश्व कार्यालय/करदाता सेवा केन्द्र <span
-            class="nepaliFont">{{printDocForm?.sewaKendra}}</span>
+          नं. <span [ngClass]="{'nepaliFont' : printDocForm?.registerWadNo !== null && printDocForm?.registerWadNo !== ''}">
+    {{printDocForm?.registerWadNo === null || printDocForm?.registerWadNo === '' ? '_________________' : printDocForm?.registerWadNo}}
+</span>
+          मा रजिस्टरको कार्यालय रहेको आन्तरिक राजश्व कार्यालय/करदाता सेवा केन्द्र <span [ngClass]="{'nepaliFont' : printDocForm?.sewakendra !== null && printDocForm?.sewakendra !== ''}">
+    {{printDocForm?.sewakendra === null || printDocForm?.sewakendra === '' ? '_________________' : printDocForm?.sewakendra}}
+</span>
           मा स्थायी लेखा नम्बर (पान)
-          दर्ता प्रमाण्पत्र नंं. <span class="nepaliFont">{{printDocForm?.certificateNo}}</span>
-          मिति <span class="nepaliFont">{{printDocForm?.registerDate}}</span>
-          मा दर्ता भएको <span class="nepaliFont">{{printDocForm?.guaranterName}}</span>
-          आगे, तपाई धनी फाइनान्सले मेरो अनूरोध तथा जमानी बसी दिने शर्तमा <span
-            class="nepaliFont">{{printDocForm?.grandParentName}}</span>
+          दर्ता प्रमाण्पत्र नंं. <span [ngClass]="{'nepaliFont' : printDocForm?.certificateNo !== null && printDocForm?.certificateNo !== ''}">
+    {{printDocForm?.certificateNo === null || printDocForm?.certificateNo === '' ? '_________________' : printDocForm?.certificateNo}}
+</span>
+          मिति <span [ngClass]="{'nepaliFont' : printDocForm?.registerDate !== null && printDocForm?.registerDate !== ''}">
+    {{printDocForm?.registerDate === null || printDocForm?.registerDate === '' ? '_________________' : printDocForm?.registerDate}}
+</span>
+          मा दर्ता भएको <span [ngClass]="{'nepaliFont' : printDocForm?.guaranterName !== null && printDocForm?.guaranterName !== ''}">
+    {{printDocForm?.guaranterName === null || printDocForm?.guaranterName === '' ? '_________________' : printDocForm?.guaranterName}}
+</span>
+          आगे, तपाई धनी फाइनान्सले मेरो अनूरोध तथा जमानी बसी दिने शर्तमा <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
+    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
+</span>
           को
-          नाति/नातिनि/बूहारी <span class="nepaliFont">{{printDocForm?.grandChildName}}</span> को
+          नाति/नातिनि/बूहारी <span [ngClass]="{'nepaliFont' : printDocForm?.grandChildName !== null && printDocForm?.grandChildName !== ''}">
+    {{printDocForm?.grandChildName === null || printDocForm?.grandChildName === '' ? '_________________' : printDocForm?.grandChildName}}
+</span> को
           छोरा/छोरी/पत्नी
-          <span class="nepaliFont">{{printDocForm?.middleDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.middleMunicipality}}</span>
-          गा.पा./न.पा./म.न.पा. व८ा न. <span class="nepaliFont">{{printDocForm?.middleWadNo}}</span>
-          बस्ने वर्ष <span class="nepaliFont">{{printDocForm?.age}}</span>
-          को <span class="nepaliFont">{{printDocForm?.customerName}}</span>
-          (नागरिकता नं. <span class="nepaliFont">{{printDocForm?.citizenshipNo}}</span>
-          जारी मिति <span class="nepaliFont">{{printDocForm?.citizenshipRegDate}}</span>
-          र नागरिकता प्रदान गर्ने कार्यालय (स्थान) <span
-            class="nepaliFont">{{printDocForm?.pradanKaryalaya}}</span> )
-          वा नेपाल सरकार, <span class="nepaliFont">{{printDocForm?.regOffice}}</span>
-          विभाग/कम्पनी रजिस्टरको कार्यालयमा मिति <span
-            class="nepaliFont">{{printDocForm?.regDate}}</span>
-          मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <span
-            class="nepaliFont">{{printDocForm?.praliNo}}</span>
-          मा दर्ता भई <span class="nepaliFont">{{printDocForm?.rajaswaDistrict}}</span>
-          जिल्ला <span class="nepaliFont">{{printDocForm?.rajaswaMunicipality}}</span>
-          गा.पा./न.पा./म.न.पा. व८ा नं. <span
-            class="nepaliFont">{{printDocForm?.rajaswaWadNo}}</span>
+          <span [ngClass]="{'nepaliFont' : printDocForm?.middleDistrict !== null && printDocForm?.middleDistrict !== ''}">
+    {{printDocForm?.middleDistrict === null || printDocForm?.middleDistrict === '' ? '_________________' : printDocForm?.middleDistrict}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.middleMunicipality !== null && printDocForm?.middleMunicipality !== ''}">
+    {{printDocForm?.middleMunicipality === null || printDocForm?.middleMunicipality === '' ? '_________________' : printDocForm?.middleMunicipality}}
+</span>
+          गा.पा./न.पा./म.न.पा. व८ा न. <span [ngClass]="{'nepaliFont' : printDocForm?.middleWadNo !== null && printDocForm?.middleWadNo !== ''}">
+    {{printDocForm?.middleWadNo === null || printDocForm?.middleWadNo === '' ? '_________________' : printDocForm?.middleWadNo}}
+</span>
+          बस्ने वर्ष <span [ngClass]="{'nepaliFont' : printDocForm?.age !== null && printDocForm?.age !== ''}">
+    {{printDocForm?.age === null || printDocForm?.age === '' ? '_________________' : printDocForm?.age}}
+</span>
+          को <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+</span>
+          (नागरिकता नं. <span [ngClass]="{'nepaliFont' : printDocForm?.citizenshipNo !== null && printDocForm?.citizenshipNo !== ''}">
+    {{printDocForm?.citizenshipNo === null || printDocForm?.citizenshipNo === '' ? '_________________' : printDocForm?.citizenshipNo}}
+</span>
+          जारी मिति <span [ngClass]="{'nepaliFont' : printDocForm?.citizenshipRegDate !== null && printDocForm?.citizenshipRegDate !== ''}">
+    {{printDocForm?.citizenshipRegDate === null || printDocForm?.citizenshipRegDate === '' ? '_________________' : printDocForm?.citizenshipRegDate}}
+</span>
+          र नागरिकता प्रदान गर्ने कार्यालय (स्थान) <span [ngClass]="{'nepaliFont' : printDocForm?.pradanKaryalaya !== null && printDocForm?.pradanKaryalaya !== ''}">
+    {{printDocForm?.pradanKaryalaya === null || printDocForm?.pradanKaryalaya === '' ? '_________________' : printDocForm?.pradanKaryalaya}}
+</span> )
+          वा नेपाल सरकार, <span [ngClass]="{'nepaliFont' : printDocForm?.regOffice !== null && printDocForm?.regOffice !== ''}">
+    {{printDocForm?.regOffice === null || printDocForm?.regOffice === '' ? '_________________' : printDocForm?.regOffice}}
+</span>
+          विभाग/कम्पनी रजिस्टरको कार्यालयमा मिति <span [ngClass]="{'nepaliFont' : printDocForm?.regDate !== null && printDocForm?.regDate !== ''}">
+    {{printDocForm?.regDate === null || printDocForm?.regDate === '' ? '_________________' : printDocForm?.regDate}}
+</span>
+          मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.praliNo !== null && printDocForm?.praliNo !== ''}">
+    {{printDocForm?.praliNo === null || printDocForm?.praliNo === '' ? '_________________' : printDocForm?.praliNo}}
+</span>
+          मा दर्ता भई <span [ngClass]="{'nepaliFont' : printDocForm?.rajaswaDistrict !== null && printDocForm?.rajaswaDistrict !== ''}">
+    {{printDocForm?.rajaswaDistrict === null || printDocForm?.rajaswaDistrict === '' ? '_________________' : printDocForm?.rajaswaDistrict}}
+</span>
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.rajaswaMunicipality !== null && printDocForm?.rajaswaMunicipality !== ''}">
+    {{printDocForm?.rajaswaMunicipality === null || printDocForm?.rajaswaMunicipality === '' ? '_________________' : printDocForm?.rajaswaMunicipality}}
+</span>
+          गा.पा./न.पा./म.न.पा. व८ा नं.<span [ngClass]="{'nepaliFont' : printDocForm?.rajaswaWadNo !== null && printDocForm?.rajaswaWadNo !== ''}">
+    {{printDocForm?.rajaswaWadNo === null || printDocForm?.rajaswaWadNo === '' ? '_________________' : printDocForm?.rajaswaWadNo}}
+</span>
           मा रजिस्टरको कार्यालय रहेको आन्तरिक राजश्व कार्यालय/करदाता
-          सेवा केन्द्र <span class="nepaliFont">{{printDocForm?.sewakendra}}</span>
-          मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र नंं. <span
-            class="nepaliFont">{{printDocForm?.PanNo}}</span>
-          मिति <span class="nepaliFont">{{printDocForm?.PaNoRegDate}}</span>
-          मा दर्ता भएको< <span class="nepaliFont">{{printDocForm?.registered}}</span>
+          सेवा केन्द्र <span [ngClass]="{'nepaliFont' : printDocForm?.sewaKendra !== null && printDocForm?.sewaKendra !== ''}">
+    {{printDocForm?.sewaKendra === null || printDocForm?.sewaKendra === '' ? '_________________' : printDocForm?.sewaKendra}}
+</span>
+          मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र नंं. <span [ngClass]="{'nepaliFont' : printDocForm?.PanNo !== null && printDocForm?.PanNo !== ''}">
+    {{printDocForm?.PanNo === null || printDocForm?.PanNo === '' ? '_________________' : printDocForm?.PanNo}}
+</span>
+          मिति <span [ngClass]="{'nepaliFont' : printDocForm?.PaNoRegDate !== null && printDocForm?.PaNoRegDate !== ''}">
+    {{printDocForm?.PaNoRegDate === null || printDocForm?.PaNoRegDate === '' ? '_________________' : printDocForm?.PaNoRegDate}}
+</span>
+          मा दर्ता भएको< <span [ngClass]="{'nepaliFont' : printDocForm?.registered !== null && printDocForm?.registered !== ''}">
+    {{printDocForm?.registered === null || printDocForm?.registered === '' ? '_________________' : printDocForm?.registered}}
+</span>
           (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ ) लाई यस अ३ि समय समयमा प्रदान गरेको/गर्दै आएको र
           साथै
-          भविष्यमा प्रदान गर्ने जम्मा रु. <span class="nepaliFont">{{printDocForm?.amount}}</span>
-          (अक्षेरुपी रु. <span class="nepaliFont">{{printDocForm?.amountInWord}}</span> ) सम्मको
+          भविष्यमा प्रदान गर्ने जम्मा रु. <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+    {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
+</span>
+          (अक्षेरुपी रु. <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+    {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
+</span>) सम्मको
           विभिन्न
           नगदी कर्जा, बैंक जमानत आदि अन्य बैंकिङ्ग कारोवार सूविधा र सोमा तपाई धनी फाइनान्स र ऋणीका
           विच सम्पन्न सम्झौता तथा अन्य लिखत कागजात तथा सो
@@ -185,8 +247,12 @@
             <br>
             ज्ञण्.माथी प्रकरण्, प्रकरण्मा जे जस्तो उल्लेख भएता पनि यस लिखत बमोजिम मेरो दायित्व
             तपाई धनी फाइनान्सले ऋणीलाई प्रदान गर्ने रु.
-            <span class="nepaliFont">{{printDocForm?.middleAmount}}</span>
-            (अक्षेरुपी रु. <span class="nepaliFont">{{printDocForm?.middleAmountInWord}}</span> )
+            <span [ngClass]="{'nepaliFont' : printDocForm?.middleAmount !== null && printDocForm?.middleAmount !== ''}">
+    {{printDocForm?.middleAmount === null || printDocForm?.middleAmount === '' ? '_________________' : printDocForm?.middleAmount}}
+</span>
+            (अक्षेरुपी रु. <span [ngClass]="{'nepaliFont' : printDocForm?.middleAmountInWord !== null && printDocForm?.middleAmountInWord !== ''}">
+    {{printDocForm?.middleAmountInWord === null || printDocForm?.middleAmountInWord === '' ? '_________________' : printDocForm?.middleAmountInWord}}
+</span> )
             सम्मको ऋण कर्जा तथा बैंकिङ्ग कारोवार सूविधाको रकम कलमको हद सम्म सिमित रहने छ ।
             <br>
             <br>
@@ -242,30 +308,57 @@
         </div>
         <div class="row col-md-12">
           <p>दस्तखत र संस्थाको छाप :—............... <br>
-            जमानी दिनेको नाम :— <span class="nepaliFont">{{printDocForm?.GuaranteeName}}</span>
-            (ना.प्र.नं. <span class="nepaliFont">{{printDocForm?.GuaranteeCitizenshipNo}}</span>
-            मिति <span class="nepaliFont">{{printDocForm?.GuaranteeDate}}</span>
-            जि.प्र.का. <span class="nepaliFont">{{printDocForm?.GuaranteeCDOoffice}}</span> )
+            जमानी दिनेको नाम :— <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeName !== null && printDocForm?.GuaranteeName !== ''}">
+    {{printDocForm?.GuaranteeName === null || printDocForm?.GuaranteeName === '' ? '_________________' : printDocForm?.GuaranteeName}}
+</span>
+            (ना.प्र.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeCitizenshipNo !== null && printDocForm?.GuaranteeCitizenshipNo !== ''}">
+    {{printDocForm?.GuaranteeCitizenshipNo === null || printDocForm?.GuaranteeCitizenshipNo === '' ? '_________________' : printDocForm?.GuaranteeCitizenshipNo}}
+</span>
+            मिति <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeDate !== null && printDocForm?.GuaranteeDate !== ''}">
+    {{printDocForm?.GuaranteeDate === null || printDocForm?.GuaranteeDate === '' ? '_________________' : printDocForm?.GuaranteeDate}}
+</span>
+            जि.प्र.का. <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeCDOoffice !== null && printDocForm?.GuaranteeCDOoffice !== ''}">
+    {{printDocForm?.GuaranteeCDOoffice === null || printDocForm?.GuaranteeCDOoffice === '' ? '_________________' : printDocForm?.GuaranteeCDOoffice}}
+</span> )
             <br>
-            ठेगाना ः—स्थायी <span
-                class="nepaliFont">{{printDocForm?.GuaranteePermanentDistrict}}</span>
-            जिल्ला <span class="nepaliFont">{{printDocForm?.GuaranteePermanentMunicipality}}</span>
-            गा.पा./न.पा.वडा नं. <span
-                class="nepaliFont">{{printDocForm?.GuaranteePermanentWadNo}}</span>
-            (साबिक <span class="nepaliFont">{{printDocForm?.sabikVDC}}</span>
-            गा.बि.स./न.पा.वडा नं. <span class="nepaliFont">{{printDocForm?.sabikWadNo}}</span> )
+            ठेगाना ः—स्थायी <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteePermanentDistrict !== null && printDocForm?.GuaranteePermanentDistrict !== ''}">
+    {{printDocForm?.GuaranteePermanentDistrict === null || printDocForm?.GuaranteePermanentDistrict === '' ? '_________________' : printDocForm?.GuaranteePermanentDistrict}}
+</span>
+            जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteePermanentMunicipality !== null && printDocForm?.GuaranteePermanentMunicipality !== ''}">
+    {{printDocForm?.GuaranteePermanentMunicipality === null || printDocForm?.GuaranteePermanentMunicipality === '' ? '_________________' : printDocForm?.GuaranteePermanentMunicipality}}
+</span>
+            गा.पा./न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteePermanentWadNo !== null && printDocForm?.GuaranteePermanentWadNo !== ''}">
+    {{printDocForm?.GuaranteePermanentWadNo === null || printDocForm?.GuaranteePermanentWadNo === '' ? '_________________' : printDocForm?.GuaranteePermanentWadNo}}
+</span>
+            (साबिक <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.sabikVDC !== ''}">
+    {{printDocForm?.sabikVDC === null || printDocForm?.sabikVDC === '' ? '_________________' : printDocForm?.sabikVDC}}
+</span>
+            गा.बि.स./न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWadNo !== null && printDocForm?.sabikWadNo !== ''}">
+    {{printDocForm?.sabikWadNo === null || printDocForm?.sabikWadNo === '' ? '_________________' : printDocForm?.sabikWadNo}}
+</span> )
             <br>
             हालको ठेगानाः-
-            <span class="nepaliFont">{{printDocForm?.GuaranteeTempDistrict}}</span>
-            जिल्ला <span class="nepaliFont">{{printDocForm?.GuaranteeTempMunicipality}}</span>
-            गा.पा./न.पा.वडा नं. <span class="nepaliFont">{{printDocForm?.GuaranteeTempWadNo}}</span>
+            <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeTempDistrict !== null && printDocForm?.GuaranteeTempDistrict !== ''}">
+    {{printDocForm?.GuaranteeTempDistrict === null || printDocForm?.GuaranteeTempDistrict === '' ? '_________________' : printDocForm?.GuaranteeTempDistrict}}
+</span>
+            जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeTempMunicipality !== null && printDocForm?.GuaranteeTempMunicipality !== ''}">
+    {{printDocForm?.GuaranteeTempMunicipality === null || printDocForm?.GuaranteeTempMunicipality === '' ? '_________________' : printDocForm?.GuaranteeTempMunicipality}}
+</span>
+            गा.पा./न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.GuaranteeTempWadNo !== null && printDocForm?.GuaranteeTempWadNo !== ''}">
+    {{printDocForm?.GuaranteeTempWadNo === null || printDocForm?.GuaranteeTempWadNo === '' ? '_________________' : printDocForm?.GuaranteeTempWadNo}}
+</span>
             <br>
-            बुवा/आमाको नाम :- <span class="nepaliFont">{{printDocForm?.sicerlyFatherName}}</span>
+            बुवा/आमाको नाम :- <span [ngClass]="{'nepaliFont' : printDocForm?.sicerlyFatherName !== null && printDocForm?.sicerlyFatherName !== ''}">
+    {{printDocForm?.sicerlyFatherName === null || printDocForm?.sicerlyFatherName === '' ? '_________________' : printDocForm?.sicerlyFatherName}}
+</span>
             <br>
-            बाजे/बजैको नाम :- <span
-                class="nepaliFont">{{printDocForm?.sicerlyGrandFatherName}}</span>
+            बाजे/बजैको नाम :- <span [ngClass]="{'nepaliFont' : printDocForm?.sicerlyGrandFatherName !== null && printDocForm?.sicerlyGrandFatherName !== ''}">
+    {{printDocForm?.sicerlyGrandFatherName === null || printDocForm?.sicerlyGrandFatherName === '' ? '_________________' : printDocForm?.sicerlyGrandFatherName}}
+</span>
             <br>
-            पति/पत्निको नामः- <span class="nepaliFont">{{printDocForm?.sicerlyHusbandName}}</span>
+            पति/पत्निको नामः- <span [ngClass]="{'nepaliFont' : printDocForm?.sicerlyHusbandName !== null && printDocForm?.sicerlyHusbandName !== ''}">
+    {{printDocForm?.sicerlyHusbandName === null || printDocForm?.sicerlyHusbandName === '' ? '_________________' : printDocForm?.sicerlyHusbandName}}
+</span>
           </p>
           <br>
           <p>औठा छाप:
@@ -331,16 +424,29 @@
           <br>
           <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनीवित्तीय
             संस्थामाकार्यरत कर्मचारी
-            <span class="nepaliFont">{{printDocForm?.sanakhatPersonNAme}}</span>
+            <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatPersonNAme !== null && printDocForm?.sanakhatPersonNAme !== ''}">
+    {{printDocForm?.sanakhatPersonNAme === null || printDocForm?.sanakhatPersonNAme === '' ? '_________________' : printDocForm?.sanakhatPersonNAme}}
+</span>
 
-            (कर्मचारी संकेत नं. <span
-                class="nepaliFont">{{printDocForm?.sanakhatPersonSymbNo}}</span> )</p>
+            (कर्मचारी संकेत नं. <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatPersonSymbNo !== null && printDocForm?.sanakhatPersonSymbNo !== ''}">
+    {{printDocForm?.sanakhatPersonSymbNo === null || printDocForm?.sanakhatPersonSymbNo === '' ? '_________________' : printDocForm?.sanakhatPersonSymbNo}}
+</span> )</p>
           <br>
-          ईतिसम्बत <span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
-          साल <span class="nepaliFont">{{printDocForm?.itiSambaMonth}}</span>
-          महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
-          गते <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-          रोज शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatRojSubham}}</span> ।
+          ईतिसम्बत <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatYear !== null && printDocForm?.itiSambatYear !== ''}">
+    {{printDocForm?.itiSambatYear === null || printDocForm?.itiSambatYear === '' ? '_________________' : printDocForm?.itiSambatYear}}
+</span>
+          साल <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatMonth !== null && printDocForm?.itiSambatMonth !== ''}">
+    {{printDocForm?.itiSambatMonth === null || printDocForm?.itiSambatMonth === '' ? '_________________' : printDocForm?.itiSambatMonth}}
+</span>
+          महिना <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatDate !== null && printDocForm?.itiSambatDate !== ''}">
+    {{printDocForm?.itiSambatDate === null || printDocForm?.itiSambatDate === '' ? '_________________' : printDocForm?.itiSambatDate}}
+</span>
+          गते <span [ngClass]="{'nepaliFont' : printDocForm?.itisambatTime !== null && printDocForm?.itisambatTime !== ''}">
+    {{printDocForm?.itisambatTime === null || printDocForm?.itisambatTime === '' ? '_________________' : printDocForm?.itisambatTime}}
+</span>
+          रोज शुभम् <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatRojSumbham !== null && printDocForm?.itiSambatRojSumbham !== ''}">
+    {{printDocForm?.itiSambatRojSumbham === null || printDocForm?.itiSambatRojSumbham === '' ? '_________________' : printDocForm?.itiSambatRojSumbham}}
+</span> ।
         </div>
 
       </div>

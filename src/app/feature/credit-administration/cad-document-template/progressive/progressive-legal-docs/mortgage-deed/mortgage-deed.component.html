@@ -1,4 +1,4 @@
-<div [nbSpinner]="spinner" class="row nepali" class="row" id="{{offerLetterConst.MORTGAGE_DEED}}">
+<div [nbSpinner]="spinner" class="row" class="row" id="{{offerLetterConst.MORTGAGE_DEED}}">
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <div class="row justify-content-end">
@@ -728,7 +728,7 @@
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <td><b>लेखिएको वमोजिमश्रेस्ताकायम छ/छैन:-</b><br>
+              <td><b>लेखिएको वमोजिम श्रेस्ताकायम छ/छैन:-</b><br>
                 कर्मचारीको दस्तखत:-...........................
                 नाम:- <input class="form-control-sm form-field nepaliFont"
                              formControlName="karmachariName1"
@@ -778,11 +778,11 @@
           </table>
         </div>
         <br><br>
-        <div class="col-md-4">
+        <div class="col-md-12">
           <table class="table  table-bordered text-center">
             <tbody>
             <tr>
-              <td>
+              <td width="35%">
                 रजिष्ट्रेशन नं. <input class="form-control-sm form-field nepaliFont"
                                        formControlName="regNo2"
                                        type="text"><br>
@@ -812,21 +812,25 @@
                                 type="text">
 
               </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+              <td class="text-center" width="35%">
+                <b class="text-center">नेपाल सरकार<br>
+                  भूमि व्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>
+                  भूमि व्यवस्थापन तथा अभिलेख विभाग।</b><br>
 
-        <div class="col-md-4" style="margin-left: 500px">
-          <table class="table  table-bordered">
-            <tbody>
-            <tr>
+                मालपोत कार्यालय:- <input class="form-control-sm form-field nepaliFont"
+                                         formControlName="malpotKaryalaya"
+                                         type="text"><br>
+
+                डोरमुकाम:- <input class="form-control-sm form-field nepaliFont"
+                                  formControlName="doormukam"
+                                  type="text">
+              </td>
               <td>
                 <b> स्वीकृत (पारित) गर्नेको</b><br>
                 दस्तखत र मिति :- ......................<input
-                  class="form-control-sm form-field nepaliFont"
-                  formControlName="paritMiti"
-                  type="text"><br>
+                      class="form-control-sm form-field nepaliFont"
+                      formControlName="paritMiti"
+                      type="text"><br>
 
                 नाम :- <input class="form-control-sm form-field nepaliFont"
                               formControlName="paritName"
@@ -841,9 +845,9 @@
                 लिखतपारित (स्वीकृत) गर्नको लागि पेश गरेको छु ।<br>
                 <b>फाँटवालाको</b><br>
                 दस्तखत र मिति :- .......................<input
-                  class="form-control-sm form-field nepaliFont"
-                  formControlName="fatwalaMiti"
-                  type="text"><br>
+                      class="form-control-sm form-field nepaliFont"
+                      formControlName="fatwalaMiti"
+                      type="text"><br>
 
                 नाम :- <input class="form-control-sm form-field nepaliFont"
                               formControlName="fatwalaName"
@@ -858,24 +862,65 @@
           </table>
         </div>
 
+<!--        <div class="col-md-4" style="margin-left: 480px">-->
+<!--          <table class="table  table-bordered">-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <b> स्वीकृत (पारित) गर्नेको</b><br>-->
+<!--                दस्तखत र मिति :- ......................<input-->
+<!--                  class="form-control-sm form-field nepaliFont"-->
+<!--                  formControlName="paritMiti"-->
+<!--                  type="text"><br>-->
+
+<!--                नाम :- <input class="form-control-sm form-field nepaliFont"-->
+<!--                              formControlName="paritName"-->
+<!--                              type="text"><br>-->
+
+<!--                पद :- <input class="form-control-sm form-field nepaliFont"-->
+<!--                             formControlName="paritPosition"-->
+<!--                             type="text"><br>-->
+
+<!--                यो लिखतको व्यहोरा लिने दिने दुवै पक्षलाई पढेर सुनाउ दालिखत बमोजिम कारोबार गरेको मञ्जुर-->
+<!--                गरेकोले-->
+<!--                लिखतपारित (स्वीकृत) गर्नको लागि पेश गरेको छु ।<br>-->
+<!--                <b>फाँटवालाको</b><br>-->
+<!--                दस्तखत र मिति :- .......................<input-->
+<!--                  class="form-control-sm form-field nepaliFont"-->
+<!--                  formControlName="fatwalaMiti"-->
+<!--                  type="text"><br>-->
+
+<!--                नाम :- <input class="form-control-sm form-field nepaliFont"-->
+<!--                              formControlName="fatwalaName"-->
+<!--                              type="text"><br>-->
+
+<!--                पद :- <input class="form-control-sm form-field nepaliFont"-->
+<!--                             formControlName="fatwalaPosition"-->
+<!--                             type="text"><br>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+<!--        </div>-->
+
 
       </div>
-      <div class="col-md-4" id="lastDiv">
-        <div class="text-center" style="margin-top:50px">
-          <b class="text-center">नेपाल सरकार<br>
-            भूमि व्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>
-            भूमि व्यवस्थापन तथा अभिलेख विभाग।</b><br>
+<!--      <div class="col-md-4" id="lastDiv">-->
+<!--        <div class="text-center" style="margin-top:50px">-->
+<!--          <b class="text-center">नेपाल सरकार<br>-->
+<!--            भूमि व्यवस्था, सहकारी तथा गरिबि निवारण मन्त्रालय<br>-->
+<!--            भूमि व्यवस्थापन तथा अभिलेख विभाग।</b><br>-->
 
-          मालपोत कार्यालय:- <input class="form-control-sm form-field nepaliFont"
-                                   formControlName="malpotKaryalaya"
-                                   type="text"><br>
+<!--          मालपोत कार्यालय:- <input class="form-control-sm form-field nepaliFont"-->
+<!--                                   formControlName="malpotKaryalaya"-->
+<!--                                   type="text"><br>-->
 
-          डोरमुकाम:- <input class="form-control-sm form-field nepaliFont"
-                            formControlName="doormukam"
-                            type="text">
-        </div>
+<!--          डोरमुकाम:- <input class="form-control-sm form-field nepaliFont"-->
+<!--                            formControlName="doormukam"-->
+<!--                            type="text">-->
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
       <div class="col-md-12">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
           Save
