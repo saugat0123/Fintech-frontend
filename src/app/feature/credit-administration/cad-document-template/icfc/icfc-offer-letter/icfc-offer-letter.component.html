@@ -83,6 +83,10 @@
                     [offerLetterType]="offerLetterType"
                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
                     *ngSwitchCase="offerLetterConst.LOAN_DEED_HIRE_PURCHASE"></app-loan-deed-hire-purchase>
+            <app-personal-guarantee-company
+                    [offerLetterType]="offerLetterType"
+                    [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                    *ngSwitchCase="offerLetterConst.PERSONAL_GUARANTEE_COMPANY"></app-personal-guarantee-company>
         </div>
     </nb-card-body>
 </nb-card>
