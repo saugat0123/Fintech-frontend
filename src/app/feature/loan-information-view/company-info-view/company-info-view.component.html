@@ -509,7 +509,7 @@
                 </tr>
             </ng-container>
         </table>
-        <table *ngIf="summaryType === summaryTypeName?.GENERAL"
+        <table *ngIf="(summaryType === summaryTypeName?.GENERAL) || (summaryType === summaryTypeName?.ALPHA)"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Group’s background</th>

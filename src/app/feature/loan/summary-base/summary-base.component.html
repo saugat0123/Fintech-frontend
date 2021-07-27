@@ -33,7 +33,7 @@
                     [nepaliDate]="nepaliDate"></app-micro-loan-summary>
 
             <!-- Normal Summary-->
-            <app-loan-summary *ngIf="loanConfig.loanTag !== 'MICRO_LOAN' && summaryType === summaryTypeName?.GENERAL"
+            <app-loan-summary *ngIf="loanConfig.loanTag !== 'MICRO_LOAN' && summaryType !== summaryTypeName?.GENERAL"
                               (changeToApprovalSheetActive)="activeApprovalSheet()"
                               [loanConfig]="loanConfig"
                               [loanData]="loanDataHolder"
