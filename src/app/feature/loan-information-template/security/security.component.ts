@@ -292,7 +292,7 @@ export class SecurityComponent implements OnInit {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
         } else {
-            this.securityData.share = null;
+            this.securityData.share = this.initialSecurity.shareSecurityData;
         }
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
