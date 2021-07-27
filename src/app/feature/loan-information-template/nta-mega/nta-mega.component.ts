@@ -9,6 +9,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-nta-mega',
@@ -41,7 +42,7 @@ export class NtaMegaComponent implements OnInit {
   // Client
   client = environment.client;
   clientName = Clients;
-
+  ckeConfig = Editor.CK_CONFIG;
   spinner = false;
 
   constructor(protected formBuilder: FormBuilder,
@@ -139,7 +140,8 @@ export class NtaMegaComponent implements OnInit {
           netTradingAssets: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssets)),
           deRatio: this.formBuilder.group(this.setNestedFormValues(v.deRatio)),
           ytdSales: this.formBuilder.group(this.setNestedFormValues(v.ytdSales)),
-          wcLoanOrLimit: this.formBuilder.group(this.setNestedFormValues(v.wcLoanOrLimit))
+          wcLoanOrLimit: this.formBuilder.group(this.setNestedFormValues(v.wcLoanOrLimit)),
+          ntaRemarks: v.ntaRemarks,
         };
         this.netTradingAssetsFormArray.push(
             this.formBuilder.group(formObjectData)
@@ -154,6 +156,7 @@ export class NtaMegaComponent implements OnInit {
       this.fiscalYearArray.forEach(fiscalYearObj => {
         const formObjectData = {
           id: fiscalYearObj.id,
+          ntaRemarks: fiscalYearObj.ntaRemarks,
           isCurrentYear: fiscalYearObj.isCurrentYear,
           valueOfStock: this.formBuilder.group(this.quarterCalculationObject),
           valueOfReceivables: this.formBuilder.group(this.quarterCalculationObject),
