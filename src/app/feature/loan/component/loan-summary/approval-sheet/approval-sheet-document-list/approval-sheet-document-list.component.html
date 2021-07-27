@@ -6,15 +6,14 @@
                 <th>Security Documents</th>
             </tr>
             <tr>
-<!--                <td class="sb-bg-secondary text-white">Facilities</td>-->
                 <td class="text-center"><strong>{{loanConfig?.name}}</strong></td>
             </tr>
-            <ng-container *ngIf="postApprovalDocIdList && postApprovalDocIdList?.length>0">
-           <ng-container *ngFor="let a of loanConfig?.approvedDocument" >
-               <tr [hidden]="suspendedId(a?.id)">
-                   <td>{{a?.displayName}}</td>
-               </tr>
-           </ng-container>
+            <ng-container *ngIf="postApprovalDocIdList && postApprovalDocIdList?.length > 0">
+                <ng-container *ngFor="let a of loanConfig?.approvedDocument" >
+                    <tr [hidden]="suspendedId(a?.id)">
+                        <td class="text-left pl-1">{{a?.displayName}}</td>
+                    </tr>
+                </ng-container>
             </ng-container>
         </table>
     </div>
