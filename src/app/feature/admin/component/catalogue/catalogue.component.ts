@@ -201,7 +201,9 @@ export class CatalogueComponent implements OnInit {
             this.transferDoc = true;
         }
 
-        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN'
+            || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
+            || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.canReInitiateLoan = true;
         }
 
@@ -360,6 +362,22 @@ export class CatalogueComponent implements OnInit {
         this.buildFilterForm();
     }
 
+    onTransferClick(template, customerLoanId, userId, branchId) {
+        this.transferSpinner = true;
+        this.userService.getUserListForTransfer(userId, branchId).subscribe((res: any) => {
+            this.transferUserList = res.detail;
+            this.transferSpinner = false;
+        });
+        this.formAction.patchValue({
+                customerLoanId: customerLoanId,
+                docAction: DocAction.value(DocAction.TRANSFER),
+                documentStatus: DocStatus.PENDING,
+                comment: 'TRANSFER'
+            }
+        );
+        this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
+    }
+
     onClose() {
         this.buildActionForm();
         this.modalService.dismissAll();
@@ -419,8 +437,7 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange, event) {
-        this.tempLoanType = event;
+    onChange(data, onActionChange) {
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {
