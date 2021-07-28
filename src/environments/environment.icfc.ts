@@ -13,5 +13,5 @@ export const environment = {
     microLoan: false,
     SBS_GROUP: false,
     MEGA_GROUP: true,
-    summaryType: SummaryType.GENERAL
+    summaryType: SummaryType.ALPHA
 };
