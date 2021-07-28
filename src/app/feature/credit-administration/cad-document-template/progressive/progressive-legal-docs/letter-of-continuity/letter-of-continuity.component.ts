@@ -117,7 +117,7 @@ export class LetterOfContinuityComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-    nepalSarkar:[undefined],
+      nepalSarkar: [undefined],
       amount: [undefined],
       sincerlyName: [undefined],
       sincerlyPermanentAddress: [undefined],
@@ -175,7 +175,8 @@ export class LetterOfContinuityComponent implements OnInit {
       jillaName: [undefined],
       jagaName: [undefined],
       jillaName1: [undefined],
-      jagaName1: [undefined]
+      jagaName1: [undefined],
+      amountInWord: [undefined]
     });
   }
 
