@@ -206,12 +206,11 @@
                     </div>
                 </td>
                 <td *ngIf="transferDoc">
-                    <div *ngIf='model?.combinedLoan?.id ===null &&
-                     (model?.documentStatus.toString()==="PENDING" ||
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
-                         model?.documentStatus.toString()==="VALUATION")'>
+                         model?.documentStatus.toString()==="VALUATION"'>
                         <button nbButton status="warning" size="tiny"
                                 (click)="transferLoanFile(model?.id, model?.loan?.id, model?.id, model?.branch?.id, model?.combinedLoan?.id, model)">
                             <em class="fa fa-arrow-circle-right"></em></button>
@@ -220,9 +219,6 @@
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         NA
-                    </div>
-                    <div *ngIf='model?.combinedLoan?.id !==null'>
-                        Combined Loan {{model?.combinedLoan?.id}}
                     </div>
                 </td>
                 <td>
@@ -233,8 +229,8 @@
                 <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
-                    <select  class="form-control form-control-tiny py-0"
-                            (change)="onChange(model,onActionChange,$event.target.value)">
+                    <select [(ngModel)]="tempLoanType" class="form-control form-control-tiny py-0"
+                            (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
                             <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information
