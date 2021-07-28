@@ -162,30 +162,67 @@
       </table>
     </div>
 
-  <div class="col-md-12" *ngIf="client === clientName?.MEGA">
-  <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-    <thead>
-    <tr class="text-white sb-bg-dark">
-      <th class="sn">S.No</th>
-      <th>Shareholder/Promoters</th>
-      <th>Designation</th>
-      <th>Share holding(%)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let share of companyJsonData.proprietorList; let i=index">
-      <tr>
-        <td>{{i+1}}</td>
-        <td class="text-left pl-1">{{share?.name}}</td>
-        <td class="text-left pl-1">{{share?.type}}</td>
-        <td class="text-right pr-1">{{share?.share}}%</td>
+  <div class="col-md-12" *ngIf="client === clientName?.SHINE_RESUNGA">
+    <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th class="sn">S.No</th>
+        <th>Shareholder/Promoters</th>
+        <th>Designation</th>
+        <th>Share holding(%)</th>
       </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let share of companyJsonData.proprietorList; let i=index">
+        <tr>
+          <td>{{i+1}}</td>
+          <td class="text-left pl-1">{{share?.name}}</td>
+          <td class="text-left pl-1">{{share?.type}}</td>
+          <td class="text-right pr-1">{{share?.share}}%</td>
+        </tr>
+      </ng-container>
+      <tr>
+        <th colspan="3" class="text-left pl-1">Total</th>
+        <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
+      </tr>
+      </tbody>
+    </table>
+    <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
+      <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <thead class="sb-bg-dark text-white">
+        <tr class="sb-bg-secondary text-white">
+          <th colspan="10">Family details of {{holder?.name}}</th>
+        </tr>
+        <tr>
+          <th class="sn">S.N</th>
+          <th>Owner Relationship</th>
+          <th>Relation Name</th>
+          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+          <th>Citizenship Number</th>
+          <th>Issued Location</th>
+          <th>Issued Date(AD/BS)</th>
+          <th>Mobile Number</th>
+          <th>Address</th>
+          <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
+          <tr>
+            <td>{{j+1}}</td>
+            <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
+            <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-right pr-1">{{d?.age || 'N/A' }}</td>
+            <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}} ({{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}})</td>
+            <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
+            <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
+            <td class="text-left pl-1">{{d?.remark ? d?.remark : 'N/A'}}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
     </ng-container>
-    <tr>
-      <th colspan="3" class="text-left pl-1">Total</th>
-      <th class="text-right pr-1">{{companyJsonData?.totalSharePercent}}%</th>
-    </tr>
-    </tbody>
-  </table>
   </div>
 </div>
