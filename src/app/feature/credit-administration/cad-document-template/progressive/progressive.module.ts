@@ -45,6 +45,8 @@ import {OfferLetterPersonalPrintComponent} from './progressive-offer-letter/offe
 import {HypothecationOfGoodsAndReceivablesAComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a.component';
 import {HypothecationOfGoodsAndReceivablesAPrintComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a-print/hypothecation-of-goods-and-receivables-a-print.component';
 import {ProgressiveLegalDocsComponent} from './progressive-legal-docs/progressive-legal-docs.component';
+import {LetterOfContinuityInstitutionalComponent} from './progressive-legal-docs/letter-of-continuity-institutional/letter-of-continuity-institutional.component';
+import { LetterOfContinuityInstitutionalPrintComponent } from './progressive-legal-docs/letter-of-continuity-institutional/letter-of-continuity-institutional-print/letter-of-continuity-institutional-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -91,6 +93,8 @@ const COMPONENTS = [
     OfferLetterPersonalComponent,
     HypothecationOfGoodsAndReceivablesBPrintComponent,
     MortgageDeedPrintComponent,
+      LetterOfContinuityInstitutionalComponent,
+      LetterOfContinuityInstitutionalPrintComponent,
 
   ],
   exports: [
@@ -109,7 +113,8 @@ const COMPONENTS = [
     GuaranteeBondPersonalComponent,
     HypothecationOfGoodsAndReceivablesAComponent,
     HypothecationOfGoodsAndReceivablesBComponent,
-    MortgageDeedComponent
+    MortgageDeedComponent,
+      LetterOfContinuityInstitutionalComponent
   ],
   imports: [
     ThemeModule,
