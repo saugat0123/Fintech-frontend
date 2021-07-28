@@ -101,6 +101,12 @@
             *ngSwitchCase=offerLetterConst.MORTGAGE_DEED>
 
         </app-mortgage-deed>
+        <app-promisory-note-institutional
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+                *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE_INSTITUTIONAL
+        >
+        </app-promisory-note-institutional>
       </div>
     </div>
     <div *ngIf="client === clientList.MEGA">

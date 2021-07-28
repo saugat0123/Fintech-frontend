@@ -9,8 +9,8 @@
       <div class="row">
         <p>
           लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
-          बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२स्थित
-          रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभ फाईनान्स लिमिटेडको <span [ngClass]="{'nepaliFont' : printDocForm?.district !== null && printDocForm?.district !== ''}">
+          बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२ स्थित
+          रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong> <span [ngClass]="{'nepaliFont' : printDocForm?.district !== null && printDocForm?.district !== ''}">
     {{printDocForm?.district === null || printDocForm?.district === '' ? '_________________' : printDocForm?.district}}
 </span>
           जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.municipality !== null && printDocForm?.municipality !== ''}">
@@ -22,37 +22,38 @@
           स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
 </span>
-          शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको)लिखत
+          शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <strong> “धनीवित्तीय संस्था” </strong>भनिएको) लिखत
           गरी दिनेका नाम <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
     {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
-</span> को
+</span> <strong>को</strong>
           नाति/नातिनि <span [ngClass]="{'nepaliFont' : printDocForm?.parentName !== null && printDocForm?.parentName !== ''}">
     {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '_________________' : printDocForm?.parentName}}
 </span>
-          को छोरा/छोरी <span [ngClass]="{'nepaliFont' : printDocForm?.husbandWifeName !== null && printDocForm?.husbandWifeName !== ''}">
+            <strong>को</strong> छोरा/छोरी <span [ngClass]="{'nepaliFont' : printDocForm?.husbandWifeName !== null && printDocForm?.husbandWifeName !== ''}">
     {{printDocForm?.husbandWifeName === null || printDocForm?.husbandWifeName === '' ? '_________________' : printDocForm?.husbandWifeName}}
 </span> को
           पति/पत्नी <span [ngClass]="{'nepaliFont' : printDocForm?.likhitDistrict !== null && printDocForm?.likhitDistrict !== ''}">
     {{printDocForm?.likhitDistrict === null || printDocForm?.likhitDistrict === '' ? '_________________' : printDocForm?.likhitDistrict}}
 </span>
-          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.likhitMunicipality !== null && printDocForm?.likhitMunicipality !== ''}">
-    {{printDocForm?.likhitMunicipality === null || printDocForm?.likhitMunicipality === '' ? '_________________' : printDocForm?.likhitMunicipality}}
+          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.likhitMunicipalty !== null && printDocForm?.likhitMunicipalty !== ''}">
+    {{printDocForm?.likhitMunicipalty === null || printDocForm?.likhitMunicipalty === '' ? '_________________' : printDocForm?.likhitMunicipalty}}
 </span>
           गा.पा./न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.likhitWadNo !== null && printDocForm?.likhitWadNo !== ''}">
     {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '_________________' : printDocForm?.likhitWadNo}}
 </span>
-          (साबिक <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.likhitWadNo !== ''}">
-    {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '_________________' : printDocForm?.likhitWadNo}}
-</span>
-          गा.बि.स./न.पा.वडा न. <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWadNo !== null && printDocForm?.sabikWadNo !== ''}">
-    {{printDocForm?.sabikWadNo === null || printDocForm?.sabikWadNo === '' ? '_________________' : printDocForm?.sabikWadNo}}
-</span> ),
           स्थायी ठेगानाभई हाल <span [ngClass]="{'nepaliFont' : printDocForm?.tempVDC !== null && printDocForm?.tempVDC !== ''}">
     {{printDocForm?.tempVDC === null || printDocForm?.tempVDC === '' ? '_________________' : printDocForm?.tempVDC}}
 </span>
+            जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.staDistrict !== null && printDocForm?.staDistrict !== ''}">
+    {{printDocForm?.staDistrict === null || printDocForm?.staDistrict === '' ? '_________________' : printDocForm?.staDistrict}}
+</span>
           गा.पा./न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.tempWadNO !== null && printDocForm?.tempWadNO !== ''}">
     {{printDocForm?.tempWadNO === null || printDocForm?.tempWadNO === '' ? '_________________' : printDocForm?.tempWadNO}}
-</span> )
+</span>
+            स्थित
+            <span [ngClass]="{'nepaliFont' : printDocForm?.sthit !== null && printDocForm?.sthit !== ''}">
+    {{printDocForm?.sthit === null || printDocForm?.sthit === '' ? '_________________' : printDocForm?.sthit}}
+</span>
           बस्ने वर्ष <span [ngClass]="{'nepaliFont' : printDocForm?.age !== null && printDocForm?.age !== ''}">
     {{printDocForm?.age === null || printDocForm?.age === '' ? '_________________' : printDocForm?.age}}
 </span>
@@ -154,50 +155,48 @@
           जि.प्र.का. <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedCdoOffice !== null && printDocForm?.certifiedCdoOffice !== ''}">
     {{printDocForm?.certifiedCdoOffice === null || printDocForm?.certifiedCdoOffice === '' ? '_________________' : printDocForm?.certifiedCdoOffice}}
 </span>
-          )आगे म/हामीऋणीको व्यापार/व्यवसाय सञ्चालनगर्न
-          ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनीवित्तीय संस्थासंग लिखितअनुरोध
-          गरेको मा तपाई
-          धनीवित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति <span [ngClass]="{'nepaliFont' : printDocForm?.namjariDate !== null && printDocForm?.namjariDate !== ''}">
-    {{printDocForm?.namjariDate === null || printDocForm?.namjariDate === '' ? '_________________' : printDocForm?.namjariDate}}
-</span>
-            को ऋण स्वीकृतीपत्र अनुसार स्वीकृत निम्नाअनुसारका
-            ऋणकर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृतीपत्र मा उल्लिखित तरिका बमोजिम प्राप्तगर्ने गरी यो
-            ऋणकर्जाको तमसुक गरी दिएको ठीक साँचो हो ।
+          )आगे म/हामी बेय्क्तिगत  एंब  घरयासि प्रायोजनकने लागि
+            ऋण कर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनी वित्तीय संस्थासंग लिखित अनुरोध
+            गरेकोमा तपाई
+            धनी वित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति       /       /
+            को ऋण स्वीकृती पत्र अनुसार स्वीकृत निम्नाअनुसारका
+            ऋण कर्जा तथा बैंकिङ्ग सुविधाहरु सोहीऋण स्वीकृतीपत्रमा उल्लिखित तरिका बमोजिम प्राप्तगर्ने गरी यो
+            ऋण कर्जाको तमसुक गरी दिएको ठीक साँचो हो ।
             तपाई धनीवित्तीय संस्थाबाट प्राप्त ऋणकर्जा तथा बैंकिङ्ग सूविधाहरुमा लाग्ने व्याज, कमिशन,
             शूल्क आदि तल उल्लेखित स्वीकृत सम्बन्धित ऋणकर्जा तथा
-            बैंकिङ्ग सुविधाखण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोहीखण्डमा लेखिएको
-            मितिभित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिङ्ग
-            सूविधा नविकरण भएमा नविकरण हूं‘दाकाबखत तपाई धनीवित्तीय संस्थाले म/हामी ऋणीका नाममा जारी गर्ने ऋण
+            बैंकिङ्ग सुविधाखण्ड–खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको
+            मिति भित्रमा वा स्वीकृत ऋण कर्जा तथा बैंकिङ्ग
+            सूविधा नविकरण भएमा नविकरण हूं‘दाकाबखत तपाई धनी वित्तीय संस्थाले म/हामी ऋणीका नाममा जारी गर्ने ऋण
             स्वीकृतिपत्र मा तोकिएको
-            मिति भित्रमा ऋणकर्जाको सम्पूर्ण साँ वा व्याज चूक्ता भूक्तान गर्नेछु/छौं । म/हामी ऋणीका नाममा
+            मिति भित्रमा ऋण कर्जाको सम्पूर्ण साँवा व्याज चूक्ता भूक्तान गर्नेछु/छौं । म/हामी ऋणीका नाममा
             स्वीकृत बैंकिङ्ग सुविधा(ग्यारेन्टी बण्ड तथा अन्य विभिन्न शीर्षक अन्तर्गत)
             को कर्जा उपभोग गर्दा तपाई धनीवित्तीय संस्था उपर कुनै थप दायित्व श्रृजना भएमा त्यस्तो
             थपदायित्व तपाई धनीवित्तीय संस्थाले मागगर्नासाथ तिर्ने बूझाउने छु/छौं ।
-            स्वीकृत ऋणकर्जा तथा भविष्यमा तपाई धनीवित्तीय संस्थाले उपलव्ध गराउने थप ऋणकर्जा तथा सूविधा
-            समेतको सुरक्षण बापत म/हामी ऋणीको निजीश्रोतबाट खरिद
-            गरेको, श्रृजनाभएको र तपाई धनीवित्तीय संस्थाबाट प्राप्त ऋणकर्जा बाट खरिद वा आयात गरेको/श्रृजना
+            स्वीकृत ऋण कर्जा तथा भविष्यमा तपाई धनी वित्तीय संस्थाले उपलव्ध गराउने थप ऋण कर्जा तथा सूविधा
+            समेतको सुरक्षण बापत म/हामी ऋणीको निजी श्रोतबाट खरिद
+            गरेको, श्रृजना भएको र तपाई धनी वित्तीय संस्थाबाट प्राप्त ऋण कर्जाबाट खरिद वा आयात गरेको/श्रृजना
             गरेको लगायत म/हामी ऋणीको नाममा रहे/भएको सम्पूर्ण
             चल/अचल सम्पत्ति तथा भविष्यमा म/हामी ऋणीको नाममा कायम हुने श्री सम्पत्ति तथा म/हामी ऋणीले
-            भूक्तानीप् राप्तगर्न बाँकी
-            रकमहरु (Accounts Receivable) समेत यसै लिखतबाट तपाई धनीवित्तीय संस्थाको नाममा
+            भूक्तानी प्राप्त गर्न बाँकी
+            रकमहरु (Accounts Receivable) समेत यसै लिखतबाट तपाई धनी वित्तीय संस्थाको नाममा
             सुरक्षण लेखिदिएको छु/छौं ।
-            सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाट तपाई धनीवित्तीय संस्थाको
+            सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छूट्टै लिखतबाट तपाई धनी वित्तीय संस्थाको
             नाममा धितोबन्धक लिखत गरिदिएको छु/गरिदिनेछु ।
-            प्राप्त ऋणकर्जाको तपाई धनीवित्तीय संस्थालाई तिर्नुपर्ने साँवा, व्याज, थपब्याज,
-            कमिशनशुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृतीपत्रानूसार
-            तोकिएको तरिका बमोजिम नतिरे/नबुझाएमा वा बुझाउनआलटाल गरेमा वा किस्ता खिलाफी गरेमावा ऋण
+            प्राप्त ऋण कर्जाको तपाई धनी वित्तीय संस्थालाई तिर्नुपर्ने साँवा, व्याज, थप ब्याज,
+            कमिशन शुल्क आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृती पत्रानूसार
+            तोकिएको तरिका बमोजिम नतिरे/नबुझाएमा वा बुझाउन आलटाल गरेमा वा किस्ता खिलाफी गरेमावा ऋण
             स्वीकृतिपत्र तथा यसै लिखतको कुनै सर्त उल्लंघन गरेमा
             समेत म/हामी ऋणीको नाममा तपाई धनीवित्तीय संस्थामा खोलेको निक्षेप खातामा जम्मा रहेको रकमबाट कट्टा
             गरी तथा धितो लेखिदिएको
-            सुरक्षणप्रचलित कानून बमोजिम लिलाम बिक्री वा अन्य व्यवस्था गरी तपाई धनीवित्तीय संस्थाको सम्पूर्ण
-            लेनाअसूलउपर गरि लिनूहोला । कथमकदाचित धितो
-            लेखिदिएको सम्पत्तिकच्चानकरा ठहरी लिलाम बिक्रीहुन नसकेमा वा लिलाम बिक्री हुँदा समेत तपाई
+            सुरक्षण प्रचलित कानून बमोजिम लिलाम बिक्री वा अन्य व्यवस्था गरी तपाई धनीवित्तीय संस्थाको सम्पूर्ण
+            लेना रकम  असूल उपर गरि लिनूहोला । कथमकदाचित धितो
+            लेखिदिएको सम्पत्ति कच्चा नकरा ठहरी लिलाम बिक्रीहुन नसकेमा वा लिलाम बिक्री हुँदा समेत तपाई
             धनीवित्तीय संस्थाको सम्पूर्ण लेना असूलउपर नभएमा
             मेरो/हाम्रो/ऋणीको घरघरानाको श्रीसम्पत्तिबाट असूलउपर गरि लिनुहोला । नेपाल राष्ट्र बैंकद्धारा
             बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा
-            सूचना तथा कालो सूची व्यवस्थासम्बन्धी निर्देशन बमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा
+            सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन बमोजिमम/हामी/ऋणीलाई कालोसुचीमा समावेश गरेमा
             मेरो/हाम्रो/ऋणीको मञ्जुरी छ भनी किनाराका साक्षीका
-            रोहबरमा तपाई धनीवित्तीय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय
+            रोहबरमा तपाई धनीव ित्तीय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय
             संस्थालाई दिया/दियौं ।
         </p>
       </div>

@@ -78,10 +78,6 @@ export class PromissoryNoteComponent implements OnInit {
 
   onSubmit(): void {
     let flag = true;
-    if (this.form.value.grandParentName == "")
-        {
-            this.form.controls['grandParentName'].setValue('Hello World');
-        }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -123,6 +119,7 @@ export class PromissoryNoteComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      address:[undefined],
       grandParentName: [undefined],
       fatherName: [undefined],
       motherName: [undefined],
@@ -165,63 +162,8 @@ export class PromissoryNoteComponent implements OnInit {
       ItisambatDay: [undefined],
       ItisambatTime: [undefined],
       ItisambatRojSubham: [undefined],
-      MinistryOffice: [undefined],
-      DepartmentName: [undefined],
-      RegisterOffice: [undefined],
-      Act: [undefined],
-      UnderName: [undefined],
-      UnderDate: [undefined],
-      PraliNo: [undefined],
-      ServiceOfficeName: [undefined],
-      CertifiedCompany: [undefined],
-      certificateNo: [undefined],
-      CertifiedDistrict: [undefined],
-      CertifiedMunicipality: [undefined],
-      CertifiedWadNo: [undefined],
-      bottomGrandfatherName: [undefined],
-      bottomGrandMotherName: [undefined],
-      bottomFatherName: [undefined],
-      bottomMotherName: [undefined],
-      bottomHusbandName: [undefined],
-      bottomDistrictName: [undefined],
-      bottomMunicipalityName: [undefined],
-      bottomWadNo: [undefined],
-      bottomTempDistrict: [undefined],
-      bottomTempMunicipality: [undefined],
-      bottomTempWadNo: [undefined],
-      bottomAge: [undefined],
-      bottoCustomerName: [undefined],
-      bottoCustomerCizenshipNo: [undefined],
-      bottomDate: [undefined],
-      bottomCDOoffice: [undefined],
-      bottomBranchName: [undefined],
-      bottomAmount: [undefined],
-      bottomAmountInWord: [undefined],
-      bottomSincerlySign: [undefined],
-      AkhtiyarName: [undefined],
-      bottomSincerlyCitizenShipNo: [undefined],
-      bottomSincerlyDate: [undefined],
-      bottomSincerlyCDOoffice: [undefined],
-      AkhtiyarPermanentDistrict: [undefined],
-      AkhtiyarPermanentVDC: [undefined],
-      AkhtiyarPermanentWadNo: [undefined],
-      SabikVDC: [undefined],
-      SabikWadNo: [undefined],
-      AkhtiyarTempDistrict: [undefined],
-      AkhtiyarTempVDC: [undefined],
-      AkhtiyarTempWadNo: [undefined],
-      buttomSincerlyParentName: [undefined],
-      buttomSincerlyGrandParentName: [undefined],
-      buttomSincerlyHusbandName: [undefined],
-      buttomIdentifiedGuarantorName: [undefined],
-      buttomIdentifiedHintNo: [undefined],
-      buttomItisambatYear: [undefined],
-      buttomItisambatMonth: [undefined],
-      buttomItisambatDay: [undefined],
-      buttomItisambatTime: [undefined],
-      buttomItisambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      secguarantorDetails: this.formBuilder.array([])
+      secguarantorDetails: this.formBuilder.array([]),
 
     });
   }

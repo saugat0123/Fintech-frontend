@@ -180,7 +180,9 @@ export class LoanDeedComponent implements OnInit {
       itiSambatMonth: [undefined],
       itiSambatDate: [undefined],
       itiSambatTime: [undefined],
-      itiSambatRoj: [undefined]
+      itiSambatRoj: [undefined],
+      sthit:[undefined],
+      staDistrict:[undefined]
 
     });
   }
