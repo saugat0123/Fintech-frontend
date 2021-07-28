@@ -220,9 +220,6 @@
                         model?.documentStatus.toString()==="APPROVED")'>
                         NA
                     </div>
-                    <div *ngIf='model?.combinedLoan?.id !==null'>
-                        Combined Loan {{model?.combinedLoan?.id}}
-                    </div>
                 </td>
                 <td>
                     <div (click)="onClick(model?.loan?.id,model?.id)">
