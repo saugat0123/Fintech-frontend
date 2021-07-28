@@ -152,7 +152,7 @@ export class NetTradingAssetsComponent implements OnInit {
             this.fiscalYearArray.forEach(fiscalYearObj => {
                 const formObjectData = {
                     id: fiscalYearObj.id,
-                    ntaRemarks: fiscalYearObj.ntaRemarks,
+                    ntaRemarks: this.formBuilder.group(this.ckeConfig),
                     isCurrentYear: fiscalYearObj.isCurrentYear,
                     valueOfStock: this.formBuilder.group(this.quarterCalculationObject),
                     valueOfDebtors: this.formBuilder.group(this.quarterCalculationObject),
