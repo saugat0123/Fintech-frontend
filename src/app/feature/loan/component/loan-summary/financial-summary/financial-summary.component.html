@@ -95,10 +95,10 @@
               </td>
             </tr>
 
-            <tr class="text-white sb-bg-dark">
+            <tr *ngIf="client === clientName?.SHINE_RESUNGA" class="text-white sb-bg-dark">
               <th colspan="4">Note</th>
             </tr>
-            <tr>
+            <tr *ngIf="client === clientName?.SHINE_RESUNGA">
               <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
             </tr>
 
