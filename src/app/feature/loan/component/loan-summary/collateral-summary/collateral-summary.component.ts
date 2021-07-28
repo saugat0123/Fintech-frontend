@@ -15,16 +15,16 @@ import {Clients} from '../../../../../../environments/Clients';
 export class CollateralSummaryComponent implements OnInit {
   @Input() customerAllLoanList;
   @Input() security: Security;
+  @Input() loanCategory;
+  @Input() approveSheet;
+
   client = environment.client;
   clientName = Clients;
-
   fundedList: LoanDataHolder[];
   nonFundedList: LoanDataHolder[];
   loanType = LoanType;
   proposalUtil = ProposalCalculationUtils;
-
   loanDataKey = LoanDataKey;
-
   totalProposedAmount = 0;
   totalRequiredCollateral = 0;
 
