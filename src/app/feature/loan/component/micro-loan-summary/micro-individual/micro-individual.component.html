@@ -96,43 +96,9 @@
         </div>
     </div>
     <br>
-    <div *ngIf="individualJsonData?.microCustomerDetail?.isBlBAgent === 'yes'" class="col-md-12">
-        <div>
-            <p><strong>BLB Agent</strong></p>
-        </div>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th>S.N</th>
-                <th>Name of BLB agent</th>
-                <th>BC Code</th>
-            </tr>
-            </thead>
-            <tbody>
-            <td>1 </td>
-            <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail['blbAgentName']}}</td>
-            <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail['blbAgentCode']}}</td>
-            </tbody>
-        </table>
-    </div>
-
-    <div *ngIf="individualJsonData?.microCustomerDetail?.isDeprive === 'yes'" class="col-md-12">
-        <div>
-            <p><strong> Categorization of customer as per NRB Directive 17.  </strong> </p>
-        </div>
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>Deprive Sector</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1">{{individualJsonData?.microCustomerDetail['depriveSector']}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="col-md-12">
+      <app-micro-common-detail [microDetail]="individualJsonData"></app-micro-common-detail>
+  </div>
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead class="sb-bg-dark text-white">

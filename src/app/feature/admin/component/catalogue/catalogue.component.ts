@@ -201,7 +201,9 @@ export class CatalogueComponent implements OnInit {
             this.transferDoc = true;
         }
 
-        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN'
+            || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
+            || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.canReInitiateLoan = true;
         }
 
@@ -419,8 +421,7 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange, event) {
-        this.tempLoanType = event;
+    onChange(data, onActionChange) {
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {
