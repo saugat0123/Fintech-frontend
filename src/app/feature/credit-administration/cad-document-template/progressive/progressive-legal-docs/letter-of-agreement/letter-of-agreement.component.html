@@ -1,78 +1,159 @@
-<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.LETTER_OF_AGREEMENT}}">
+<div [nbSpinner]="spinner" class="row nepali" id="{{offerLetterConst.LETTER_OF_AGREEMENT}}">
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
 
-
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h5>
+            <u>
+              अधिकारनामा
+            </u>
+          </h5>
+        </div>
+      </div>
       <div class="container-fluid row">
+
+<!--        <p>-->
+<!--          लिखितम् <input class="form-field form-control-sm nepaliFont " formControlName="district"-->
+<!--                         placeholder="" type="text"/> जिल्ला <input-->
+<!--            class="form-field form-control-sm nepaliFont " formControlName="municipality"-->
+<!--            placeholder="" type="text"/>-->
+<!--          गा.पा./न.पा./म.न.पा. वडा न <input class="form-field form-control-sm nepaliFont "-->
+<!--                                        formControlName="wadNo" placeholder="" type="text"/>-->
+<!--          बस्ने <input class="form-field form-control-sm nepaliFont "-->
+<!--                       formControlName="grandParentName" placeholder="" type="text"/>-->
+<!--          को नाती/नातीनि <input class="form-field form-control-sm nepaliFont "-->
+<!--                                formControlName="parentName" placeholder="" type="text"/>-->
+<!--          को छोरा/छोरी वर्ष <input class="form-field form-control-sm nepaliFont "-->
+<!--                                   formControlName="age" placeholder="" type="text"/>-->
+<!--          को <input class="form-field form-control-sm nepaliFont " formControlName="customerName"-->
+<!--                    placeholder="" type="text"/>-->
+<!--          आगे मैले का.जि.का.म.न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont "-->
+<!--                                                 formControlName="municipalityWadNo" placeholder=""-->
+<!--                                                 type="text"/> ,-->
+<!--          <input class="form-field form-control-sm nepaliFont " formControlName="tolName"-->
+<!--                 placeholder="" type="text"/>-->
+<!--          (टोल)स्थित प्रोग्रेशिभ फाइनान्स लि., शाखाकार्यालयको-->
+<!--          नाममामालपोत कार्यालय <input class="form-field form-control-sm nepaliFont "-->
+<!--                                      formControlName="malpotOffice" placeholder="" type="text"/>-->
+<!--          मार्फत रजिष्टे«शन नं. <input class="form-field form-control-sm nepaliFont "-->
+<!--                                       formControlName="regNo" placeholder="" type="text"/>-->
+<!--          मिति <input class="form-field form-control-sm nepaliFont " formControlName="date"-->
+<!--                      placeholder="" type="text"/>-->
+<!--          मा पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको-->
+<!--          आधारमा <input class="form-field form-control-sm nepaliFont "-->
+<!--                        formControlName="PassedDistrict" placeholder="" type="text"/>-->
+<!--          जिल्ला <input class="form-field form-control-sm nepaliFont "-->
+<!--                        formControlName="PassedMunicipality" placeholder="" type="text"/>-->
+<!--          न.पा./गा.वि.स. वडा नं.<input class="form-field form-control-sm nepaliFont "-->
+<!--                                       formControlName="PassedWadNo" placeholder="" type="text"/>-->
+<!--          स्थित/बस्ने <input class="form-field form-control-sm nepaliFont "-->
+<!--                             formControlName="companyName" placeholder="" type="text"/>-->
+<!--          फर्म/कम्पनीआफैले-->
+<!--          वा उल्लेखित व्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्यव्यक्तिर वाफर्म/कम्पनीहरुले-->
+<!--          प्रोग्रेशिभ फाइनान्स लि. सँग रु. <input (change)="getNumAmountWord('amount','amountInWord')"-->
+<!--                                                 class="form-field form-control-sm nepaliFont " formControlName="amount" placeholder=""-->
+<!--                                                 type="text"/>-->
+<!--          अक्षेरुपी रु. <input class="form-field form-control-sm nepaliFont " formControlName="amountInWord"-->
+<!--                               placeholder="" readonly type="text"/>-->
+<!--          सम्मको बैंक बाट जमानीपत्र जारी गर्न गराउन र वाविल्स परचेज/नेगोसिएशन-->
+<!--          सुविधा र वास्थिर पूँजीकर्जा र वाचालू पूँजीकर्जा र वारिभल्भिङ्ग. कर्जा र वाअन्यकुनै-->
+<!--          बैंकिंङ्ग सुविधाहरु तथा ऋणकर्जा सुविधाहरुको कारोवार-->
+<!--          समेत गर्न गराउनपाउने गरी यो अख्तियारनामा दिएको छु । मैले प्रोग्रेशिभ फाइनान्स लि. लाई पारित-->
+<!--          गरिदिएको माथिउल्लेखित सुरक्षणको-->
+<!--          लिखतका शर्तहरु वा बैंक जमानीपत्रका शर्तहरु वाकर्जाको लिखतकाशर्तहरु अख्तियारवालाले भंग गरे-->
+<!--          गराएमा उल्लेखित सुरक्षणको लिखतअनुसार-->
+<!--          प्रोग्रेशिभ फाइनान्स लि. ले कानूनअनुसार कारवाही गरी उक्त सुरक्षणबाट बैंकको लेना असुल उपर-->
+<!--          गरेमा मलाई मञ्जुर छ भनी खुशीराजी सँग प्रोग्रेशिभ फाइनान्स-->
+<!--          लि. को शाखाकार्यालय मा बसी यो अधिकारनामा मा सहीछाप गरी दिएको छु ।-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          ईति सम्बत २०<input class="form-field form-control-sm nepaliFont "-->
+<!--                             formControlName="itiYear" placeholder="" type="text"/>-->
+<!--          साल <input class="form-field form-control-sm nepaliFont " formControlName="itiMonth"-->
+<!--                     placeholder="" type="text"/>-->
+<!--          महिना <input class="form-field form-control-sm nepaliFont " formControlName="itiDate"-->
+<!--                       placeholder="" type="text"/>-->
+<!--          गते रोज <input class="form-field form-control-sm nepaliFont " formControlName="itiSambat"-->
+<!--                         placeholder="" type="text"/>शुभम् ।-->
+<!--        </p>-->
         <p>
-          लिखितम् <input class="form-field form-control-sm nepaliFont " formControlName="district"
-                         placeholder="" type="text"/> जिल्ला <input
-            class="form-field form-control-sm nepaliFont " formControlName="municipality"
-            placeholder="" type="text"/>
-          न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont "
-                                        formControlName="wadNo" placeholder="" type="text"/>
-          बस्ने <input class="form-field form-control-sm nepaliFont "
-                       formControlName="grandParentName" placeholder="" type="text"/>
-          को नाती/नातीनि <input class="form-field form-control-sm nepaliFont "
-                                formControlName="parentName" placeholder="" type="text"/>
-          को छोरा/छोरी वर्ष <input class="form-field form-control-sm nepaliFont "
-                                   formControlName="age" placeholder="" type="text"/>
-          को <input class="form-field form-control-sm nepaliFont " formControlName="customerName"
-                    placeholder="" type="text"/>
-          आगे मैले का.जि.का.म.न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont "
-                                                 formControlName="municipalityWadNo" placeholder=""
-                                                 type="text"/> ,
-          <input class="form-field form-control-sm nepaliFont " formControlName="tolName"
+          लिखितम्  <input class="form-field form-control-sm nepaliFont " formControlName="perDistrict"
+                          placeholder="" type="text"/>
+          जिल्ला
+          <input class="form-field form-control-sm nepaliFont " formControlName="perMunicipality"
                  placeholder="" type="text"/>
-          (टोल)स्थित प्रोग्रेशिभ फाइनान्स लि., शाखाकार्यालयको
-          नाममामालपोत कार्यालय <input class="form-field form-control-sm nepaliFont "
-                                      formControlName="malpotOffice" placeholder="" type="text"/>
-          मार्फत रजिष्टे«शन नं. <input class="form-field form-control-sm nepaliFont "
-                                       formControlName="regNo" placeholder="" type="text"/>
-          मिति <input class="form-field form-control-sm nepaliFont " formControlName="date"
-                      placeholder="" type="text"/>
-          मा पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको
-          आधारमा <input class="form-field form-control-sm nepaliFont "
-                        formControlName="PassedDistrict" placeholder="" type="text"/>
-          जिल्ला <input class="form-field form-control-sm nepaliFont "
-                        formControlName="PassedMunicipality" placeholder="" type="text"/>
-          न.पा./गा.वि.स. वडा नं.<input class="form-field form-control-sm nepaliFont "
-                                       formControlName="PassedWadNo" placeholder="" type="text"/>
-          स्थित/बस्ने <input class="form-field form-control-sm nepaliFont "
-                             formControlName="companyName" placeholder="" type="text"/>
-          फर्म/कम्पनीआफैले
-          वा उल्लेखित व्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्यव्यक्तिर वाफर्म/कम्पनीहरुले
-          प्रोग्रेशिभ फाइनान्स लि. सँग रु. <input (change)="getNumAmountWord('amount','amountInWord')"
-                                                 class="form-field form-control-sm nepaliFont " formControlName="amount" placeholder=""
-                                                 type="text"/>
-          अक्षेरुपी रु. <input class="form-field form-control-sm nepaliFont " formControlName="amountInWord"
-                               placeholder="" readonly type="text"/>
-          सम्मको बैंक बाट जमानीपत्र जारी गर्न गराउन र वाविल्स परचेज/नेगोसिएशन
-          सुविधा र वास्थिर पूँजीकर्जा र वाचालू पूँजीकर्जा र वारिभल्भिङ्ग. कर्जा र वाअन्यकुनै
-          बैंकिंङ्ग सुविधाहरु तथा ऋणकर्जा सुविधाहरुको कारोवार
-          समेत गर्न गराउनपाउने गरी यो अख्तियारनामा दिएको छु । मैले प्रोग्रेशिभ फाइनान्स लि. लाई पारित
-          गरिदिएको माथिउल्लेखित सुरक्षणको
-          लिखतका शर्तहरु वा बैंक जमानीपत्रका शर्तहरु वाकर्जाको लिखतकाशर्तहरु अख्तियारवालाले भंग गरे
-          गराएमा उल्लेखित सुरक्षणको लिखतअनुसार
-          प्रोग्रेशिभ फाइनान्स लि. ले कानूनअनुसार कारवाही गरी उक्त सुरक्षणबाट बैंकको लेना असुल उपर
-          गरेमा मलाई मञ्जुर छ भनी खुशीराजी सँग प्रोग्रेशिभ फाइनान्स
-          लि. को शाखाकार्यालय मा बसी यो अधिकारनामा मा सहीछाप गरी दिएको छु ।
-          <br>
-          <br>
-          <br>
-          <br>
-          ईति सम्बत २०<input class="form-field form-control-sm nepaliFont "
-                             formControlName="itiYear" placeholder="" type="text"/>
-          साल <input class="form-field form-control-sm nepaliFont " formControlName="itiMonth"
-                     placeholder="" type="text"/>
-          महिना <input class="form-field form-control-sm nepaliFont " formControlName="itiDate"
-                       placeholder="" type="text"/>
-          गते रोज <input class="form-field form-control-sm nepaliFont " formControlName="itiSambat"
-                         placeholder="" type="text"/>शुभम् ।
+          गा.पा./न.पा./म.न.पा.वडा नं.
+          <input class="form-field form-control-sm nepaliFont shortInput" formControlName="perWardNo"
+                 placeholder="" type="text"/>
+          भै हाल
+          <input class="form-field form-control-sm nepaliFont " formControlName="temporaryDistrict"
+                 placeholder="" type="text"/>
+          जिल्ला
+          <input class="form-field form-control-sm nepaliFont " formControlName="temporaryMunicipalityVDC"
+                 placeholder="" type="text"/>
+          गा.पा./न.पा./म.न.पा.वडा नं.
+          <input class="form-field form-control-sm nepaliFont shortInput" formControlName="temporaryWardNo"
+                 placeholder="" type="text"/>
+          ,स्थित
+          <input class="form-field form-control-sm nepaliFont " formControlName="temporaryAddress"
+                 placeholder="" type="text"/>  बस्ने
+          <input class="form-field form-control-sm nepaliFont " formControlName="grandFatherName"
+                 placeholder="" type="text"/> को
+          नाती,
+          <input class="form-field form-control-sm nepaliFont " formControlName="fatherName"
+                 placeholder="" type="text"/>
+          को छोरा वर्ष
+          <input class="form-field form-control-sm nepaliFont shortInput" formControlName="loanHolderAge"
+                 placeholder="" type="text"/>
+          को
+          <input class="form-field form-control-sm nepaliFont " formControlName="loanHolderName"
+                 placeholder="" type="text"/> आगे
+          मैले का.जि.का.म.न.पा.वडा नं.
+          <input class="form-field form-control-sm nepaliFont shortInput" formControlName="financeWardNo"
+                 placeholder="" type="text"/> , स्थित प्रोग्रेशिभ फाइनान्स लि., शाखा कार्यालयको नाममा मालपोत कार्यालय
+          <input class="form-field form-control-sm nepaliFont " formControlName="financeBranchName"
+                 placeholder="" type="text"/> मार्फत
+          रजिष्टे«शन नं. <input class="form-field form-control-sm nepaliFont " formControlName="officeRegNo"
+                                placeholder="" type="text"/>
+          मिति <input class="form-field form-control-sm nepaliFont " formControlName="financeRegistrationDate"
+                      placeholder="" type="text"/>  मा पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको आधारमा
+          <input class="form-field form-control-sm nepaliFont " formControlName="districtName"
+                 placeholder="" type="text"/>
+          जिल्ला
+          <input class="form-field form-control-sm nepaliFont " formControlName="municipalityName"
+                 placeholder="" type="text"/> गा.पा./न.पा./म.न.पा.वडा नं.
+          <input class="form-field form-control-sm nepaliFont shortInput" formControlName="wardNo"
+                 placeholder="" type="text"/> स्थित/बस्ने
+          <input class="form-field form-control-sm nepaliFont " formControlName="companyName"
+                 placeholder="" type="text"/> फर्म/कम्पनी
+          आफैले वा उल्लेखित व्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्य व्यक्ति र वा फर्म/कम्पनीहरुले प्रोग्रेशिभ फाइनान्स लि. सँग रु.
+          <input class="form-field form-control-sm nepaliFont " formControlName="loanAmount"
+                 placeholder="" type="text"
+                 (input)="getNumAmountWord('loanAmount', 'loanAmountWords')" />
+          अक्षेरुपी रु. <input class="form-field form-control-sm nepaliFont" style="width: 400px; font-size: 14px;" formControlName="loanAmountWords"
+                               placeholder="" type="text"/>
+          सम्मको बैंक जमानी पत्र जारी गर्न गराउन र वा विल्स परचेज/नेगोसिएशन सुविधा र वा स्थिर पूँजी कर्जा र वा
+          चालू पूँजी कर्जा र वा रिभल्भिङ्ग. कर्जा र वा अन्य कुनै बैंकिंङ्ग सुविधाहरु तथा ऋण कर्जा सुविधाहरुको कारोवार समेत गर्न गराउन पाउने गरी यो अख्तियारनामा
+          दिएको छु । मैले प्रोग्रेशिभ फाइनान्स लि. लाई पारित गरिदिएको माथि उल्लेखित सुरक्षणको लिखतका शर्तहरु वा बैंक जमानी पत्रका शर्तहरु वा कर्जाको लिखतका
+          शर्तहरु अख्तियारवालाले भंग गरे गराएमा उल्लेखित सुरक्षणको लिखत अनुसार प्रोग्रेशिभ फाइनान्स लि. ले कानून अनुसार कारवाही गरी उक्त सुरक्षणबाट बैंकको लेना
+          असुल उपर गरेमा मलाई मञ्जुर छ भनी खुशीराजीसँग प्रोग्रेशिभ फाइनान्स लि. को शाखा कार्यालयमा बसी यो अधिकारनामा मा सहीछाप गरी दिएको छु ।
         </p>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12 mt-lg-5 text-center">
+        ईति सम्बत २०<input class="form-field form-control-sm nepaliFont "
+                           formControlName="itiYear" placeholder="" type="text"/>
+        साल <input class="form-field form-control-sm nepaliFont " formControlName="itiMonth"
+                   placeholder="" type="text"/>
+        महिना <input class="form-field form-control-sm nepaliFont " formControlName="itiDate"
+                     placeholder="" type="text"/>
+        गते रोज <input class="form-field form-control-sm nepaliFont " formControlName="itiSambat"
+                       placeholder="" type="text"/>शुभम् ।
+      </div>
+      <div class="col-md-12 mt-lg-4">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
           Save
         </button>

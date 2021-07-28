@@ -3,87 +3,128 @@
   <div class="col-md-12 viewFull">
     <form class="nepali">
 
-
       <div class="container-fluid row">
-        <p>
-          लिखितम् <span [ngClass]="{'nepaliFont' : printDocForm?.district !== null && printDocForm?.district !== ''}">
-    {{printDocForm?.district === null || printDocForm?.district === '' ? '_________________' : printDocForm?.district}}
-</span> जिल्ला
-          <span [ngClass]="{'nepaliFont' : printDocForm?.municipality !== null && printDocForm?.municipality !== ''}">
-    {{printDocForm?.municipality === null || printDocForm?.municipality === '' ? '_________________' : printDocForm?.municipality}}
-</span>
-          न.पा./गा.वि.स. वडा नं.  <span [ngClass]="{'nepaliFont' : printDocForm?.wadNo !== null && printDocForm?.wadNo !== ''}">
-    {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '_________________' : printDocForm?.wadNo}}
-</span>
-          बस्ने <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
-    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
-</span>
-          को नाती/नातीनि <span [ngClass]="{'nepaliFont' : printDocForm?.parentName !== null && printDocForm?.parentName !== ''}">
-    {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '_________________' : printDocForm?.parentName}}
-</span>
-          को छोरा/छोरी वर्ष <span [ngClass]="{'nepaliFont' : printDocForm?.age !== null && printDocForm?.age !== ''}">
-    {{printDocForm?.age === null || printDocForm?.age === '' ? '_________________' : printDocForm?.age}}
-</span>
-          को <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
-    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-</span>
-          आगे मैले का.जि.का.म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.municipalityWadNo !== null && printDocForm?.municipalityWadNo !== ''}">
-    {{printDocForm?.municipalityWadNo === null || printDocForm?.municipalityWadNo === '' ? '_________________' : printDocForm?.municipalityWadNo}}
-</span> ,
-          <span [ngClass]="{'nepaliFont' : printDocForm?.tolName !== null && printDocForm?.tolName !== ''}">
-    {{printDocForm?.tolName === null || printDocForm?.tolName === '' ? '_________________' : printDocForm?.tolName}}
-</span>
-          (टोल)स्थित प्रोग्रेशिभ फाइनान्स लि., शाखाकार्यालयको
-          नाममा मालपोत कार्यालय <span [ngClass]="{'nepaliFont' : printDocForm?.malpotOffice !== null && printDocForm?.malpotOffice !== ''}">
-    {{printDocForm?.malpotOffice === null || printDocForm?.malpotOffice === '' ? '_________________' : printDocForm?.malpotOffice}}
-</span>
-          मार्फत रजिष्टे«शन नं. <span [ngClass]="{'nepaliFont' : printDocForm?.regNo !== null && printDocForm?.regNo !== ''}">
-    {{printDocForm?.regNo === null || printDocForm?.regNo === '' ? '_________________' : printDocForm?.regNo}}
-</span>
-          मिति <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
-    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
-</span>
-          मा पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको
-          आधारमा <span [ngClass]="{'nepaliFont' : printDocForm?.PassedDistrict !== null && printDocForm?.PassedDistrict !== ''}">
-    {{printDocForm?.PassedDistrict === null || printDocForm?.PassedDistrict === '' ? '_________________' : printDocForm?.PassedDistrict}}
-</span>
-          जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.PassedMunicipality !== null && printDocForm?.PassedMunicipality !== ''}">
-    {{printDocForm?.PassedMunicipality === null || printDocForm?.PassedMunicipality === '' ? '_________________' : printDocForm?.PassedMunicipality}}
-</span>
-          न.पा./गा.वि.स. वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.PassedWadNo !== null && printDocForm?.PassedWadNo !== ''}">
-    {{printDocForm?.PassedWadNo === null || printDocForm?.PassedWadNo === '' ? '_________________' : printDocForm?.PassedWadNo}}
-</span>
-          स्थित/बस्ने <span [ngClass]="{'nepaliFont' : printDocForm?.companyName !== null && printDocForm?.companyName !== ''}">
-    {{printDocForm?.companyName === null || printDocForm?.companyName === '' ? '_________________' : printDocForm?.companyName}}
-</span>
-          फर्म/कम्पनीआफैले
-          वा उल्लेखि तव्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्यव्यक्तिर वाफर्म/कम्पनीहरुले
-          प्रोग्रेशिभ फाइनान्स लि. सँग रु. <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
-    {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
-</span>
-          अक्षेरुपी रु.  <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
-    {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
-</span>
-          सम्मको बैंक जमानीपत्र जारी गर्न गराउन र वा विल्स परचेज/नेगोसिएशन
-          सुविधा र वास्थिर पूँजीकर्जा र वाचालू पूँजीकर्जा र वारिभल्भिङ्ग. कर्जा र वाअन्यकुनै
-          बैंकिंङ्ग सुविधाहरु तथा ऋणकर्जा सुविधाहरुको कारोवार
-          समेत गर्न गराउनपाउने गरी यो अख्तियारनामा दिएको छु । मैले प्रोग्रेशिभ फाइनान्स लि. लाई पारित
-          गरिदिएको माथि उल्लेखित सुरक्षणको
-          लिखतका शर्तहरु वा बैंक जमानीपत्रका शर्तहरु वाकर्जाको लिखतकाशर्तहरु अख्तियारवालाले भंग गरे
-          गराएमा उल्लेखित सुरक्षणको लिखतअनुसार
-          प्रोग्रेशिभ फाइनान्स लि. ले कानूनअनुसार कारवाही गरी उक्त सुरक्षणबाट बैंकको लेना असुल उपर
-          गरेमा मलाई मञ्जुर छ भनी खुशीराजी सँग प्रोग्रेशिभ फाइनान्स
-          लि. को शाखाकार्यालय मा बसी यो अधिकारनामा मा सहीछाप गरी दिएको छु ।
-          <br>
-          <br>
-          <br>
-          <br>
-          ईति सम्बत २० <span class="nepaliFont">{{printDocForm?.itiYear}}</span>
-          साल <span class="nepaliFont">{{printDocForm?.itiMonth}}</span>
-          महिना <span class="nepaliFont">{{printDocForm?.itiDate}}</span>
-          गते रोज <span class="nepaliFont">{{printDocForm?.itiSambat}}</span> शुभम् ।
-        </p>
+          <div class="col-md-12 text-center">
+              <h5 class="mb-1">
+                  <u>अधिकारनामा</u>
+              </h5>
+          </div>
+          <p>
+              लिखितम्
+              <span [ngClass]="{'nepaliFont' : printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
+                  {{printDocForm?.perDistrict === null || printDocForm?.perDistrict === '' ? '_________________' : printDocForm?.perDistrict}}
+              </span>
+              जिल्ला
+              <span [ngClass]="{'nepaliFont' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
+                  {{printDocForm?.perMunicipality === null || printDocForm?.perMunicipality === '' ? '_________________' : printDocForm?.perMunicipality}}
+              </span>
+              गा.पा./न.पा./म.न.पा.वडा नं.
+              <span [ngClass]="{'nepaliFont' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
+                  {{printDocForm?.perWardNo === null || printDocForm?.perWardNo === '' ? '_________________' : printDocForm?.perWardNo}}
+              </span>
+              भै हाल
+              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryDistrict !== null && printDocForm?.temporaryDistrict !== ''}">
+                  {{printDocForm?.temporaryDistrict === null || printDocForm?.temporaryDistrict === '' ? '_________________' : printDocForm?.temporaryDistrict}}
+              </span>
+              जिल्ला
+              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryMunicipalityVDC !== null && printDocForm?.temporaryMunicipalityVDC !== ''}">
+                  {{printDocForm?.temporaryMunicipalityVDC === null || printDocForm?.temporaryMunicipalityVDC === '' ? '_________________' : printDocForm?.temporaryMunicipalityVDC}}
+              </span>
+              गा.पा./न.पा./म.न.पा.वडा नं.
+              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryWardNo !== null && printDocForm?.temporaryWardNo !== ''}">
+                  {{printDocForm?.temporaryWardNo === null || printDocForm?.temporaryWardNo === '' ? '_________________' : printDocForm?.temporaryWardNo}}
+              </span>
+              ,स्थित
+              <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryAddress !== null && printDocForm?.temporaryAddress !== ''}">
+                  {{printDocForm?.temporaryAddress === null || printDocForm?.temporaryAddress === '' ? '_________________' : printDocForm?.temporaryAddress}}
+              </span>
+              बस्ने
+              <span [ngClass]="{'nepaliFont' : printDocForm?.grandFatherName !== null && printDocForm?.grandFatherName !== ''}">
+                  {{printDocForm?.grandFatherName === null || printDocForm?.grandFatherName === '' ? '_________________' : printDocForm?.grandFatherName}}
+              </span>
+              को
+              नाती,
+              <span [ngClass]="{'nepaliFont' : printDocForm?.fatherName !== null && printDocForm?.fatherName !== ''}">
+                  {{printDocForm?.fatherName === null || printDocForm?.fatherName === '' ? '_________________' : printDocForm?.fatherName}}
+              </span>
+              को छोरा वर्ष
+              <span [ngClass]="{'nepaliFont' : printDocForm?.loanHolderAge !== null && printDocForm?.loanHolderAge !== ''}">
+                  {{printDocForm?.loanHolderAge === null || printDocForm?.loanHolderAge === '' ? '_________________' : printDocForm?.loanHolderAge}}
+              </span>
+              को
+              <span [ngClass]="{'nepaliFont' : printDocForm?.loanHolderName !== null && printDocForm?.loanHolderName !== ''}">
+                  {{printDocForm?.loanHolderName === null || printDocForm?.loanHolderName === '' ? '_________________' : printDocForm?.loanHolderName}}
+              </span>
+              आगे
+              मैले का.जि.का.म.न.पा.वडा नं.
+              <span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
+                  {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '_________________' : printDocForm?.financeWardNo}}
+              </span>
+              , स्थित प्रोग्रेशिभ फाइनान्स लि., शाखा कार्यालयको नाममा मालपोत कार्यालय
+              <span [ngClass]="{'nepaliFont' : printDocForm?.financeBranchName !== null && printDocForm?.financeBranchName !== ''}">
+                  {{printDocForm?.financeBranchName === null || printDocForm?.financeBranchName === '' ? '_________________' : printDocForm?.financeBranchName}}
+              </span>
+              मार्फत
+              रजिष्टे«शन नं.
+              <span [ngClass]="{'nepaliFont' : printDocForm?.officeRegNo !== null && printDocForm?.officeRegNo !== ''}">
+                  {{printDocForm?.officeRegNo === null || printDocForm?.officeRegNo === '' ? '_________________' : printDocForm?.officeRegNo}}
+              </span>
+              मिति
+              <span [ngClass]="{'nepaliFont' : printDocForm?.financeRegistrationDate !== null && printDocForm?.financeRegistrationDate !== ''}">
+                  {{printDocForm?.financeRegistrationDate === null || printDocForm?.financeRegistrationDate === '' ? '_________________' : printDocForm?.financeRegistrationDate}}
+              </span>
+              मा पारित गरिदिएको सुरक्षणको लिखतको अधिनमा रही सो सुरक्षणको आधारमा
+              <span [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
+                  {{printDocForm?.districtName === null || printDocForm?.districtName === '' ? '_________________' : printDocForm?.districtName}}
+              </span>
+              जिल्ला
+              <span [ngClass]="{'nepaliFont' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
+                  {{printDocForm?.municipalityName === null || printDocForm?.municipalityName === '' ? '_________________' : printDocForm?.municipalityName}}
+              </span>
+               गा.पा./न.पा./म.न.पा.वडा नं.
+              <span [ngClass]="{'nepaliFont' : printDocForm?.wardNo !== null && printDocForm?.wardNo !== ''}">
+                  {{printDocForm?.wardNo === null || printDocForm?.wardNo === '' ? '_________________' : printDocForm?.wardNo}}
+              </span>
+               स्थित/बस्ने
+              <span [ngClass]="{'nepaliFont' : printDocForm?.companyName !== null && printDocForm?.companyName !== ''}">
+                  {{printDocForm?.companyName === null || printDocForm?.companyName === '' ? '_________________' : printDocForm?.companyName}}
+              </span>
+              फर्म/कम्पनी
+              आफैले वा उल्लेखित व्यक्ति/फर्म/कम्पनीको अनुरोधमा अन्य व्यक्ति र वा फर्म/कम्पनीहरुले प्रोग्रेशिभ फाइनान्स लि. सँग रु.
+              <span [ngClass]="{'nepaliFont' : printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
+                  {{printDocForm?.loanAmount === null || printDocForm?.loanAmount === '' ? '_________________' : printDocForm?.loanAmount}}
+              </span>
+              अक्षेरुपी रु.
+              <span [ngClass]="{'nepaliFont unicodeSize' : printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
+                  {{printDocForm?.loanAmountWords === null || printDocForm?.loanAmountWords === '' ? '_________________' : printDocForm?.loanAmountWords}}
+              </span>
+              सम्मको बैंक जमानी पत्र जारी गर्न गराउन र वा विल्स परचेज/नेगोसिएशन सुविधा र वा स्थिर पूँजी कर्जा र वा
+              चालू पूँजी कर्जा र वा रिभल्भिङ्ग. कर्जा र वा अन्य कुनै बैंकिंङ्ग सुविधाहरु तथा ऋण कर्जा सुविधाहरुको कारोवार समेत गर्न गराउन पाउने गरी यो अख्तियारनामा
+              दिएको छु । मैले प्रोग्रेशिभ फाइनान्स लि. लाई पारित गरिदिएको माथि उल्लेखित सुरक्षणको लिखतका शर्तहरु वा बैंक जमानी पत्रका शर्तहरु वा कर्जाको लिखतका
+              शर्तहरु अख्तियारवालाले भंग गरे गराएमा उल्लेखित सुरक्षणको लिखत अनुसार प्रोग्रेशिभ फाइनान्स लि. ले कानून अनुसार कारवाही गरी उक्त सुरक्षणबाट बैंकको लेना
+              असुल उपर गरेमा मलाई मञ्जुर छ भनी खुशीराजीसँग प्रोग्रेशिभ फाइनान्स लि. को शाखा कार्यालयमा बसी यो अधिकारनामा मा सहीछाप गरी दिएको छु ।
+          </p>
       </div>
+        <div class="col-md-12 mt-lg-4 text-center">
+            <p>
+                ईति सम्बत २०
+                <span [ngClass]="{'nepaliFont' : printDocForm?.itiYear !== null && printDocForm?.itiYear !== ''}">
+                  {{printDocForm?.itiYear === null || printDocForm?.itiYear === '' ? '___________' : printDocForm?.itiYear}}
+                </span>
+                साल
+                <span [ngClass]="{'nepaliFont' : printDocForm?.itiMonth !== null && printDocForm?.itiMonth !== ''}">
+                  {{printDocForm?.itiYear === null || printDocForm?.itiMonth === '' ? '_______' : printDocForm?.itiMonth}}
+                </span>
+                महिना
+                <span [ngClass]="{'nepaliFont' : printDocForm?.itiDate !== null && printDocForm?.itiDate !== ''}">
+                  {{printDocForm?.itiYear === null || printDocForm?.itiDate === '' ? '_______' : printDocForm?.itiDate}}
+                </span>
+                गते रोज
+                <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambat !== null && printDocForm?.itiSambat !== ''}">
+                  {{printDocForm?.itiSambat === null || printDocForm?.itiSambat === '' ? '_______' : printDocForm?.itiSambat}}
+                </span> शुभम् ।
+            </p>
+        </div>
 
     </form>
 
