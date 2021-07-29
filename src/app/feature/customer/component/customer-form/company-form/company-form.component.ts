@@ -1198,7 +1198,7 @@ export class CompanyFormComponent implements OnInit {
         }
     }
     microCustomerValidation(micro: boolean) {
-        const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'successionPlanning'];
+        const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
         console.log(micro, this.disableCrgAlpha);
@@ -1206,15 +1206,16 @@ export class CompanyFormComponent implements OnInit {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
                 this.controlValidation(alphaFields , false);
+                clientTypeControl.disable();
             } else {
                 this.controlValidation(alphaFields , true);
+                clientTypeControl.enable();
             }
         } else {
             this.controlValidation(alphaFields , false);
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
                 this.clientTypeInput);
-            clientTypeControl.enable();
         }
     }
 
