@@ -15,10 +15,12 @@ import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
 import {NepaliPatroModule} from 'nepali-patro';
 import { GammaDetailViewComponent } from './gamma-detail-view/gamma-detail-view.component';
+import { AlphaDetailViewComponent } from './alpha-detail-view/alpha-detail-view.component';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, GammaDetailViewComponent],
+    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, GammaDetailViewComponent,
+        AlphaDetailViewComponent],
     exports: [
         CreditChecklistViewComponent
     ],

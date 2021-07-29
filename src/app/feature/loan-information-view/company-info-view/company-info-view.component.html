@@ -232,8 +232,7 @@
             </tbody>
         </table>
 
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Company Background</th>
             </tr>
@@ -241,39 +240,17 @@
                 <td class="text-left pl-1"><span [innerHTML]="companyJsonData?.companyBackground | safeHtml"></span></td>
             </tr>
         </table>
-
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
+        <table *ngIf="(summaryType === summaryTypeName?.GENERAL) || (summaryType === summaryTypeName?.ALPHA)"
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th colspan="8">Management Team</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th class="sn">S.N</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Address as per Legal Document</th>
-            </tr>
-            </thead>
-            <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
-            <tr>
-                <td>{{i + 1}}</td>
-                <td class="text-left pl-1">{{management?.name}}</td>
-                <td class="text-left pl-1">{{management?.designation}}</td>
-                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
-            </tr>
-
-            </tbody>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="3">Note</th>
+                <th>Group’s background</th>
             </tr>
             <tr>
-                <td colspan="3" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
             </tr>
         </table>
 
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="100%">Information of Proprietor/Shareholder/Partner with holder %</th>
@@ -393,27 +370,39 @@
             </tr>
             </tbody>
         </table>-->
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="4">SWOT Analysis</th>
+                <th colspan="8">Management Team</th>
             </tr>
             <tr class="text-white sb-bg-dark">
-                <th>Strength</th>
-                <th>Weakness</th>
-                <th>Opportunity</th>
-                <th>Threats</th>
+                <th class="sn">S.N</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Address as per Legal Document</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let management of companyJsonData.managementTeamList; let i=index">
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
+                <td>{{i + 1}}</td>
+                <td class="text-left pl-1">{{management?.name}}</td>
+                <td class="text-left pl-1">{{management?.designation}}</td>
+                <td class="text-left pl-1">{{management?.companyLegalDocumentAddress}}</td>
             </tr>
+
             </tbody>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="4">Note</th>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
+            </tr>
+        </table>
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th>Business Objective</th>
+            </tr>
+            <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
         </table>
         <table *ngIf="summaryType === summaryTypeName.GENERAL"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -423,14 +412,6 @@
             <tr>
                 <td class="text-left pl-1"><span [innerHTML]="formValue?.successionPlanning | safeHtml"></span></td>
             </tr>
-        </table>
-
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Business Objective</th>
-            </tr>
-            <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective"></tr>
         </table>
 
         <table
@@ -509,15 +490,6 @@
                 </tr>
             </ng-container>
         </table>
-        <table *ngIf="summaryType === summaryTypeName?.GENERAL"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Group’s background</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.groupsBackGround | safeHtml"></td>
-            </tr>
-        </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
@@ -527,7 +499,29 @@
                 <td class="text-left pl-1" [innerHTML]="companyJsonData?.legalReviewRemark"></td>
             </tr>
         </table>
-        <table *ngIf="!srdbAffiliatedId"
+        <table
+                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th colspan="4">SWOT Analysis</th>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Strength</th>
+                <th>Weakness</th>
+                <th>Opportunity</th>
+                <th>Threats</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.strength | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.weakness | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.opportunity | safeHtml"></td>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.swot?.threats | safeHtml"></td>
+            </tr>
+            </tbody>
+        </table>
+        <table *ngIf="!srdbAffiliatedId && (summaryType === summaryTypeName?.GENERAL)"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr>
                 <th colspan="2">Business given</th>
@@ -559,63 +553,36 @@
             </tr>
             <tr>
                 <td class="text-left pl-1">Saving Account</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>
-                        <ng-template #notMega>
-                            <div class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>
-                        </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Payroll Account</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Debit Cards</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Credit Cards</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Locker</td>
-                <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>
-                    <ng-template #notMega>
-                        <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>
-                    </ng-template>
-                </th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <th class="text-left pl-1">Total</th>
                 <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
             </tr>
-
+            <tr>
+                <th class="text-left pl-1">Total</th>
+                <th class="text-right pr-1">Rs. {{businessGiven?.total | currencyFormatter}}</th>
+            </tr>
         </table>
         <table *ngIf="!disableCrgAlpha"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
