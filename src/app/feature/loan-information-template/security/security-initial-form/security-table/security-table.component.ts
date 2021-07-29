@@ -46,7 +46,7 @@ export class SecurityTableComponent implements OnInit {
   ngOnInit() {
     // land security
       this.formDataForEdit['landDetails'].filter(f => {
-        const value = f.owner;
+        const value = {owner: f.owner, considerValue: f.considerValue, fairMarketValue: f.fairMarketValue};
         if (!ObjectUtil.isEmpty(value)) {
           this.landSecurity = this.formDataForEdit['landDetails'];
           this.isLandSecurity = true;
@@ -55,7 +55,8 @@ export class SecurityTableComponent implements OnInit {
 
     // apartment security
     this.formDataForEdit['buildingDetails'].filter(f => {
-      const value = f.buildArea;
+      const value = {buildArea: f.buildArea, buildingFairMarketValue: f.buildingFairMarketValue,
+        buildingDistressValue: f.buildingDistressValue};
       if (!ObjectUtil.isEmpty(value)) {
         this.apartmentSecurity = this.formDataForEdit['buildingDetails'];
         this.isApartmentSecurity = true;
@@ -63,7 +64,7 @@ export class SecurityTableComponent implements OnInit {
     });
     // land and building security
     this.formDataForEdit['landBuilding'].filter(f => {
-      const value = f.owner;
+      const value = {owner: f.owner, landConsideredValue: f.landConsideredValue, marketValue: f.marketValue};
       if (!ObjectUtil.isEmpty(value)) {
         this.landAndBuilding = this.formDataForEdit['landBuilding'];
         this.isLandAndBuilding = true;
@@ -71,7 +72,8 @@ export class SecurityTableComponent implements OnInit {
     });
     // plant and machinery security
     this.formDataForEdit['plantDetails'].filter(f => {
-      const value = f.model;
+      const value = {model: f.model, quotation: f.quotation, supplier: f.supplier,
+        downPay: f.downPay, loanExp: f.loanExp};
       if (!ObjectUtil.isEmpty(value)) {
         this.plantAndMachinery = this.formDataForEdit['plantDetails'];
         this.isPlantAndMachinery = true;
@@ -79,7 +81,9 @@ export class SecurityTableComponent implements OnInit {
     });
     // // vehicle security
     this.formDataForEdit['vehicleDetails'].filter(f => {
-      const value = f.model;
+      const value = {model: f.model, valuationAmount: f.valuationAmount,
+        registrationNumber: f.registrationNumber, engineNumber: f.engineNumber,
+        downPayment: f.downPayment};
       if (!ObjectUtil.isEmpty(value)) {
         this.vehicleSecurity = this.formDataForEdit['vehicleDetails'];
         this.isVehicle = true;
@@ -87,7 +91,8 @@ export class SecurityTableComponent implements OnInit {
     });
     // fixed deposit receipt security
     this.formDataForEdit['fixedDepositDetails'].filter(f => {
-      const value = f.accountNumber;
+      const value = {accountNumber: f.accountNumber, amount: f.amount, receiptNumber: f.receiptNumber,
+        accountHolderName: f.accountHolderName};
       if (!ObjectUtil.isEmpty(value)) {
         this.fixedDeposit = this.formDataForEdit['fixedDepositDetails'];
         this.isFixedDeposit = true;
@@ -99,7 +104,7 @@ export class SecurityTableComponent implements OnInit {
       this.shareSecurityData = JSON.parse(this.shareSecurity.data);
       const shareControlValue = this.shareSecurityData.shareSecurityDetails;
       shareControlValue.forEach(f => {
-        const value = f.companyName;
+        const value = {companyName: f.companyName, totalShareUnit: f.totalShareUnit};
         if (!ObjectUtil.isEmpty(value)) {
           this.isShareSecurity = true;
         }
@@ -107,7 +112,8 @@ export class SecurityTableComponent implements OnInit {
     }
     // hypothecation of stock security
     this.formDataForEdit['hypothecationOfStock'].filter(f => {
-      const value = f.owner;
+      const value = {owner: f.owner, description: f.description, stock: f.stock,
+        value: f.value, otherDetail: f.otherDetail};
       if (!ObjectUtil.isEmpty(value)) {
         this.hypothecation = this.formDataForEdit['hypothecationOfStock'];
         this.isHypothecation = true;
@@ -115,7 +121,7 @@ export class SecurityTableComponent implements OnInit {
     });
     // assignment of receivables
     this.formDataForEdit['assignmentOfReceivables'].filter(f => {
-      const value = f.amount;
+      const value = {amount: f.amount, otherDetail: f.otherDetail};
       if (!ObjectUtil.isEmpty(value)) {
         this.assignmentOfReceivables = this.formDataForEdit['assignmentOfReceivables'];
         this.isAssignmentOfReceivables = true;
@@ -139,7 +145,8 @@ export class SecurityTableComponent implements OnInit {
     });
     // corporate guarantee
     this.formDataForEdit['corporateGuarantee'].filter(f => {
-      const value = f.name;
+      const value = {name: f.name, address: f.address, keyPerson: f.keyPerson,
+        otherDetail: f.otherDetail};
       if (!ObjectUtil.isEmpty(value)) {
         this.corporateGuarantee = this.formDataForEdit['corporateGuarantee'];
         this.isCorporateGuarantee = true;
@@ -147,7 +154,7 @@ export class SecurityTableComponent implements OnInit {
     });
     // personal guarantee
     this.formDataForEdit['personalGuarantee'].filter(f => {
-      const value = f.name;
+      const value = {name: f.name, address: f.address, otherDetail: f.otherDetail};
       if (!ObjectUtil.isEmpty(value)) {
         this.personalGuarantee = this.formDataForEdit['personalGuarantee'];
         this.isPersonalGuarantee = true;
@@ -155,7 +162,9 @@ export class SecurityTableComponent implements OnInit {
     });
     // insurance policy
     this.formDataForEdit['insurancePolicy'].filter(f => {
-      const value = f.insuredAmount;
+      const value = {insuredAmount: f.insuredAmount, insuranceCompanyName: f.insuranceCompanyName,
+        surrenderValue: f.surrenderValue, consideredValue: f.consideredValue,
+        cashBackAmount: f.cashBackAmount};
       if (!ObjectUtil.isEmpty(value)) {
         this.insurancePolicy = this.formDataForEdit['insurancePolicy'];
         this.isInsurancePolicy = true;
