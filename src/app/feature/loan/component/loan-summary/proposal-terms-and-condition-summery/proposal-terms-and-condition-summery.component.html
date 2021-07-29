@@ -1,9 +1,9 @@
 <div class="py-2">
-    <div *ngIf="client === clientName.MEGA; else otherBank">
-        <span><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '21. Terms And Condition / Special Covenant' :
-            (summaryType === summaryTypeName.GENERAL && loanCategory === 'INSTITUTION') ? '22. Terms And Condition / Special Covenant' : 'Terms And Condition / Special Covenant'}}</strong></span>
+    <div *ngIf="loanSummary === 'loanSummary'; else detailView">
+        <span><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '17. Terms And Condition' :
+            (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '18. Terms And Condition' : 'Terms And Condition'}}</strong></span>
     </div>
-    <ng-template #otherBank>
+    <ng-template #detailView>
         <span><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '21. Terms And Condition' :
             (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '22. Terms And Condition' : 'Terms And Condition'}}</strong></span>
     </ng-template>

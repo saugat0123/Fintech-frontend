@@ -841,7 +841,6 @@
 
             <div *ngIf="client === clientName.ICFC">
                 <p><strong>Other Documents to be Completed</strong>
-
                 <div>
 
                 <ol class="row" type="1">
@@ -851,9 +850,7 @@
                     <li style="font-size: 12.60px"
                         class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
                         let i=index">{{otherDoc}}</li>
-
                 </ol>
-
             </div>
             </div>
             <div *ngIf="!productUtils.CBS_ENABLE">

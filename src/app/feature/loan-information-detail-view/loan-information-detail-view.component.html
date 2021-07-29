@@ -166,13 +166,13 @@
                     : 'Borrower'}}</strong></p>
             </div>
             <!-- Normal Detail View-->
-            <app-detail-view-base *ngIf="loanHolder && loanHolder && !isMicro && (summaryType === summaryTypeName.GENERAL)"
+            <app-detail-view-base *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName.GENERAL)"
                                   [calendarType]="calendarType"
                                   [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
                                   [loanId]="id"></app-detail-view-base>
 
             <!-- Gamma Detail View-->
-            <app-gamma-detail-view *ngIf="loanHolder && loanHolder && !isMicro && (summaryType === summaryTypeName.GAMMA)"
+            <app-gamma-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName.GAMMA)"
                                    [calendarType]="calendarType"
                                    [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
                                    [loanId]="id"></app-gamma-detail-view>
@@ -185,22 +185,29 @@
                                              [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
                                              [loanId]="id"></app-micro-loan-detail-view-base>
 
+            <!-- Alpha or ICFC Summay Page-->
+            <app-alpha-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName?.ALPHA)"
+                                   [calendarType]="calendarType"
+                                   [loanDataHolder]="loanDataHolder"
+                                   [loanHolder]="loanHolder"
+                                   [loanId]="id"></app-alpha-detail-view>
+
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
             </ng-template>
-            <div *ngIf="client === clientList.ICFC">
-                <p><strong>Other Documents to be Completed</strong>
-                <div>
-                    <ol class="row" type="1">
-                        <li style="font-size: 12.60px"
-                            class="col-md-4" *ngFor="let doc of obtainableDocuments;
-                        let i=index">{{doc.name}}</li>
-                        <li style="font-size: 12.60px"
-                            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
-                        let i=index">{{otherDoc}}</li>
-                    </ol>
-                </div>
-            </div>
+<!--            <div *ngIf="client === clientList.ICFC">-->
+<!--                <p><strong>Other Documents to be Completed</strong>-->
+<!--                <div>-->
+<!--                    <ol class="row" type="1">-->
+<!--                        <li style="font-size: 12.60px"-->
+<!--                            class="col-md-4" *ngFor="let doc of obtainableDocuments;-->
+<!--                        let i=index">{{doc.name}}</li>-->
+<!--                        <li style="font-size: 12.60px"-->
+<!--                            class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;-->
+<!--                        let i=index">{{otherDoc}}</li>-->
+<!--                    </ol>-->
+<!--                </div>-->
+<!--            </div>-->
             <app-proposal-terms-and-condition-summery
                     *ngIf="loanDataHolder && customerAllLoanList && summaryType === summaryTypeName?.GENERAL"
                     [customerAllLoanList]="customerAllLoanList"

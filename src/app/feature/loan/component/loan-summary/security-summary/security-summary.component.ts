@@ -53,8 +53,10 @@ export class SecuritySummaryComponent implements OnInit {
     isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
-    type = environment.summaryType;
-    summaryType = SummaryType;
+    summaryType = environment.summaryType;
+    summaryTypeName = SummaryType;
+    @Input() loanCategory;
+    @Input() approveSheet;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
