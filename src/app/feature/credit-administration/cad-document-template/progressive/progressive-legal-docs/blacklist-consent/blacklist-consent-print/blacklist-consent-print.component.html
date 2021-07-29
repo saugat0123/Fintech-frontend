@@ -88,6 +88,8 @@
                         {{printDocForm?.sincerlyKarja===null || printDocForm?.sincerlyKarja ===''?'___________________':printDocForm?.sincerlyKarja}}
                     </span>
                     </p>
+                    <br>
+                    <br>
                     <p>औठा छाप
                     <div class="text-center">
                         <table class="table  table-bordered fingerXap">
@@ -157,6 +159,8 @@
                         {{printDocForm?.jamanatSasuraName===null || printDocForm?.jamanatSasuraName ===''?'___________________':printDocForm?.jamanatSasuraName}}
                     </span>
                 </div>
+            </div>
+                <p class="page-break"></p>
                     <p>औठा छाप</p>
                     <div class="text-center">
                         <table class="table  table-bordered fingerXap">
@@ -181,7 +185,7 @@
                     <div>
                         <b class="text-left">साक्षी :</b>
                         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
-                            <div>
+                            <div >
                                 <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
 
                                 <table border="1" width="100%">
@@ -256,11 +260,7 @@
                        {{printDocForm.itiSambatRojSubham===null || printDocForm.itiSambatRojSubham===''?'_______________':printDocForm.itiSambatRojSubham}}
                    </span>।
 
-
-
                 <br>
-
-            </div>
         </form>
     </div>
 
