@@ -107,6 +107,12 @@
                 *ngSwitchCase=offerLetterConst.PROMISSORY_NOTE_INSTITUTIONAL
         >
         </app-promisory-note-institutional>
+        <app-blacklist-consent
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+                *ngSwitchCase=offerLetterConst.BLACKLIST_CONSENT
+        >
+        </app-blacklist-consent>
       </div>
     </div>
     <div *ngIf="client === clientList.MEGA">

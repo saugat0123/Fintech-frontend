@@ -1,0 +1,287 @@
+<div [nbSpinner]="spinner" class="container text-justify row nepali"
+     id="{{offerLetterConst.BLACKLIST_CONSENT}}">
+
+    <div class="col-md-12 viewFull">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <h6 class="text-center">
+                श्री प्रोग्रेशिभ फाइनान्स लिमिटेड
+                <br>
+                ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा
+            </h6>
+            <div class="row">
+                <p>
+                    नेपाल राट्र बैंकद्धारा बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन मलाई/हामीलाई प
+                    ूर्ण जानकारी छ । सो निर्देशन बमोजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा सो
+                    वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृत पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि, कमिशन, दस्तुर आदि
+                    जे जस्तो बुभmाउनू पर्छ सो नबुभmाएमा वा बुभmाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको कर्जा सूचना तथा
+                    कालोसूची व्यवस्था सम्बन्धी निर्देशनको  अवस्था सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियमअनुसार कर्जा सूचना केन्द« लि.को कालोसूचीमा
+                    समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ । पछि त्यसरी कालोसूचीमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको उजूर वाजूर गर्ने छैन, गरे यसै
+                    कागजले बदर गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन वमोजिम यो मञ्जुरीनामाको कागज
+                    सही–छाप गरी तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ ।
+                </p>
+                <br>
+                <p class="text-center">तपसील,</p>
+                <br>
+                <div>
+                    <p>
+
+                        दस्तखत :-..........
+                        <br>
+                        दस्तखत गर्नेको नाम :- <input class="form-field nepaliFont form-control-sm"
+                                                     formControlName="sincerlyName"
+                                                     type="text">
+                        (ना.प्र.नं.<input class="form-field nepaliFont form-control-sm"
+                                          formControlName="sincerlyCitizenshipNo"
+                                          type="text">
+                        मिति <input class="form-field nepaliFont form-control-sm" formControlName="sincerlyDate"
+                                    type="text">
+                        जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
+                                          formControlName="sincerlyCDOoffice"
+                                          type="text">
+                       <br> <strong>कम्पनीको हकमा:</strong> (रजिष्टेशन नं.<input class="form-field nepaliFont form-control-sm"
+                                                                            formControlName="sincerlyRegNo"
+                                                                            type="text">
+                        मिति <input class="form-field nepaliFont form-control-sm" formControlName="regDate"
+                                    type="text">
+                        दर्ता गर्ने कार्यालय
+                        <input class="form-field nepaliFont form-control-sm" formControlName="regKaryalaya"
+                               type="text">
+                        )
+
+                        <br>
+                        ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm"
+                                              formControlName="sincerlyPermanentDistrict"
+                                              type="text">
+                        जिल्ला <input class="form-field nepaliFont form-control-sm"
+                                      formControlName="sincerlyPermanentMunicipality"
+                                      type="text">
+                        गा.पा./न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm"
+                                                  formControlName="sincerlyPermanentWadNo"
+                                                  type="text">
+                        <br>
+                        हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                                            formControlName="sincerlyTemporaryDistrict"
+                                            type="text">
+                        जिल्ला <input class="form-field nepaliFont form-control-sm"
+                                      formControlName="sincerlyTemporaryVDCname"
+                                      type="text">
+                        गा.पा./न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm"
+                                                  formControlName="sincerlyTemporaryWadNo"
+                                                  type="text">
+
+                    </p>
+                    <p>
+                        बाबुको नाम :- <input class="form-field nepaliFont form-control-sm"
+                                                 formControlName="sincerlyParentName"
+                                                 type="text">
+                        <br>
+                        बाजेको नाम:-<input class="form-field nepaliFont form-control-sm"
+                                               formControlName="sincerlyGrandParentName"
+                                               type="text">
+                        <br>
+                        स्थायी लेखा नं.:-<input class="form-field nepaliFont form-control-sm"
+                                                formControlName="sincerlyLekhaNo"
+                                                type="text">
+                        <br>
+                        कर्जा सूबिधाहरु:-<input class="form-field nepaliFont form-control-sm"
+                                                formControlName="sincerlyKarja"
+                                                type="text">
+                        <br>
+
+                    </p>
+                    <p>औठा छाप</p>
+                    <div class="text-center">
+                        <table class="table  table-bordered fingerXap">
+                            <thead>
+                            <tr>
+                                <th>दाँ.</th>
+                                <th>बाँ.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><span class="signature-area"></span></td>
+                                <td><span class="signature-area"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <br>
+                    दस्तखत:-_________________।
+                    <br>
+
+                    जमानत कर्ताको नाम ः— <input class="form-field nepaliFont form-control-sm"
+                                                formControlName="jamanatName"
+                                                type="text">
+                    (ना.प्र.न <input class="form-field nepaliFont form-control-sm"
+                                     formControlName="jamanatNPN"
+                                     type="text">
+                    मिति<input class="form-field nepaliFont form-control-sm"
+                               formControlName="jamanatDate"
+                               type="text">
+                    जि प्र.का<input class="form-field nepaliFont form-control-sm"
+                                    formControlName="jamanatJPK"
+                                    type="text"> )
+                    कम्पनीको हकमा ः – (रजिष्टे«शन नं<input class="form-field nepaliFont form-control-sm"
+                                                           formControlName="jamanatRegNo"
+                                                           type="text">
+                    मिति<input class="form-field nepaliFont form-control-sm"
+                               formControlName="jamanatRegDate"
+                               type="text">
+                    दर्ता गर्ने कार्यालय<input class="form-field nepaliFont form-control-sm"
+                                               formControlName="jamanatRegCDO"
+                                               type="text"> )
+                    ठेगाना ः—स्थायी <input class="form-field nepaliFont form-control-sm"
+                                           formControlName="jamanatPermanentAddress"
+                                           type="text">
+                    जिल्ला <input class="form-field nepaliFont form-control-sm"
+                                  formControlName="jamanatDistrict"
+                                  type="text">
+                    गा.पा.÷न.पा.वडा नं <input class="form-field nepaliFont form-control-sm"
+                                              formControlName="jamanatWadNo"
+                                              type="text">
+                    हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                                        formControlName="jamanatTemporaryAddress"
+                                        type="text">
+                    जिल्ला <input class="form-field nepaliFont form-control-sm"
+                                  formControlName="jamanatTemporaryDistrict"
+                                  type="text">
+                    गा.पा.÷न.पा.वडा नं <input class="form-field nepaliFont form-control-sm"
+                                              formControlName="jamanatTemporaryWadNo"
+                                              type="text">
+                    पतिको नाम ः—  <input class="form-field nepaliFont form-control-sm"
+                                         formControlName="jamanatHusbandName"
+                                         type="text">
+                    ससुराको नाम ः— <input class="form-field nepaliFont form-control-sm"
+                                          formControlName="jamanatSasuraName"
+                                          type="text">
+                    <p>औठा छाप</p>
+                    <div class="text-center">
+                        <table class="table  table-bordered fingerXap">
+                            <thead>
+                            <tr>
+                                <th>दाँ.</th>
+                                <th>बाँ.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><span class="signature-area"></span></td>
+                                <td><span class="signature-area"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <br>
+
+                    <b class="text-left">साक्षी :</b>
+                    <br>
+                    <div class="col-md-12 float-right">
+                        <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
+                                type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
+                    </div>
+                    <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
+                         formArrayName="guarantorDetails">
+                        <div [formGroupName]="i">
+
+                            <div>
+                                <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+
+
+                                <table class="table-bordered table text-center ">
+                                    <thead>
+                                    <tr>
+                                        <th width="10%">नाम</th>
+                                        <th width="10%">ना.प्र.नं.</th>
+                                        <th width="15%">मिति</th>
+                                        <th width="15%">जि.प्र.का.</th>
+                                        <th width="15%">जिल्ला</th>
+                                        <th width="25%">गा.पा./न.पा.</th>
+                                        <th width="10%">वडा नं.</th>
+
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><input class="form-field nepaliFont form-control" formControlName="name"
+                                                   type="text"></td>
+                                        <td><input class="form-field nepaliFont form-control"
+                                                   formControlName="citizenNumber"
+                                                   type="text"></td>
+                                        <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
+                                                   type="text"></td>
+                                        <td><input class="form-field nepaliFont form-control"
+                                                   formControlName="guarantorCDOoffice"
+                                                   type="text"></td>
+                                        <td><input class="form-field  nepaliFont form-control"
+                                                   formControlName="guarantorDistrict"
+                                                   type="text"></td>
+                                        <td><input class="form-field nepaliFont form-control"
+                                                   formControlName="guarantorMunicipality"
+                                                   type="text"></td>
+                                        <td><input class="form-field nepaliFont form-control"
+                                                   formControlName="guarantorWadNo"
+                                                   type="text"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
+                                    <button (click)="removeGuarantor(i)"
+                                            class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                            value="Delete">
+                                        <em class="fas fa-trash" style="color: white;">
+                                            Delete Guarantor
+                                        </em>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+               <p><strong> सनाखत साक्षी</strong></p><br>
+                ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
+                <input class="form-field nepaliFont form-control-sm"
+                       formControlName="karmachari"
+                       type="text">कर्मचारी संकेत नं)
+                <input class="form-field nepaliFont form-control-sm"
+                                                             formControlName="karmachariNo"
+                                                             type="text">
+<br>
+
+
+                    ईति सम्बत <input class="form-field nepaliFont form-control-sm"
+                                     formControlName="ItisambatYear"
+                                     type="text">
+                    साल <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatMonth"
+                               type="text">
+                    महिना <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatDay"
+                                 type="text">
+                    गते <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatTime"
+                               type="text">
+                    रोज शुभम् <input class="form-field nepaliFont form-control-sm"
+                                     formControlName="ItisambatRojSubham"
+                                     type="text">।
+
+
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button [disabled]="!initialInfoPrint"
+                [useExistingCss]="true"
+                class="btn btn-primary d-print-none"
+                ngxPrint
+                printSectionId="print-section-{{ offerLetterConst.BLACKLIST_CONSENT }}"> Print
+        </button>
+    </div>
+</div>
+<app-blacklist-consent-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                           hidden></app-blacklist-consent-print>

@@ -48,6 +48,7 @@ import {ProgressiveLegalDocsComponent} from './progressive-legal-docs/progressiv
 import { PromisoryNoteInstitutionalComponent } from './progressive-legal-docs/promisory-note-institutional/promisory-note-institutional.component';
 import { PromisoryNoteInstitutionalPrintComponent } from './progressive-legal-docs/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import { BlacklistConsentComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent.component';
+import { BlacklistConsentPrintComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent-print/blacklist-consent-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -97,6 +98,7 @@ const COMPONENTS = [
     PromisoryNoteInstitutionalComponent,
     PromisoryNoteInstitutionalPrintComponent,
     BlacklistConsentComponent,
+    BlacklistConsentPrintComponent,
 
   ],
   exports: [
@@ -116,7 +118,8 @@ const COMPONENTS = [
     HypothecationOfGoodsAndReceivablesAComponent,
     HypothecationOfGoodsAndReceivablesBComponent,
     MortgageDeedComponent,
-    PromisoryNoteInstitutionalComponent
+    PromisoryNoteInstitutionalComponent,
+    BlacklistConsentComponent
   ],
   imports: [
     ThemeModule,
