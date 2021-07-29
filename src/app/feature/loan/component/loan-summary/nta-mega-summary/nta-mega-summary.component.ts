@@ -32,13 +32,18 @@ export class NtaMegaSummaryComponent implements OnInit {
   ngOnInit() {
     this.currentFiscalYearIndex = this.fiscalYears.indexOf(
         this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
+    this.prevFiscalYearIndex = this.currentFiscalYearIndex + 1;
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
     this.ntaData.forEach((value , index) => {
       if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
         this.currentYearData = value;
-        if (this.ntaData[index + 1].id > this.fiscalYears[this.currentFiscalYearIndex].id) {
-          this.prevFiscalYearIndex = this.currentFiscalYearIndex + 1;
-          this.prevYearData = this.ntaData[index + 1]; // Projected year index
+      }
+    });
+
+    this.ntaData.forEach( value => {
+      if (this.fiscalYears[this.currentFiscalYearIndex].id < this.fiscalYears[this.prevFiscalYearIndex].id) {
+        if (value.id === this.fiscalYears[this.prevFiscalYearIndex].id) {
+          this.prevYearData = value;
         }
       }
     });
