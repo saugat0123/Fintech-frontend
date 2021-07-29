@@ -45,6 +45,10 @@ import {OfferLetterPersonalPrintComponent} from './progressive-offer-letter/offe
 import {HypothecationOfGoodsAndReceivablesAComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a.component';
 import {HypothecationOfGoodsAndReceivablesAPrintComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a-print/hypothecation-of-goods-and-receivables-a-print.component';
 import {ProgressiveLegalDocsComponent} from './progressive-legal-docs/progressive-legal-docs.component';
+import {LetterOfContinuityInstitutionalComponent} from './progressive-legal-docs/letter-of-continuity-institutional/letter-of-continuity-institutional.component';
+import { LetterOfContinuityInstitutionalPrintComponent } from './progressive-legal-docs/letter-of-continuity-institutional/letter-of-continuity-institutional-print/letter-of-continuity-institutional-print.component';
+import { AuthorityToDebtAccountComponent } from './progressive-legal-docs/authority-to-debt-account/authority-to-debt-account.component';
+import { AuthorityToDebtAccountPrintComponent } from './progressive-legal-docs/authority-to-debt-account/authority-to-debt-account-print/authority-to-debt-account-print.component';
 import { PromisoryNoteInstitutionalComponent } from './progressive-legal-docs/promisory-note-institutional/promisory-note-institutional.component';
 import { PromisoryNoteInstitutionalPrintComponent } from './progressive-legal-docs/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import { BlacklistConsentComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent.component';
@@ -99,6 +103,10 @@ const COMPONENTS = [
     PromisoryNoteInstitutionalPrintComponent,
     BlacklistConsentComponent,
     BlacklistConsentPrintComponent,
+      LetterOfContinuityInstitutionalComponent,
+      LetterOfContinuityInstitutionalPrintComponent,
+      AuthorityToDebtAccountComponent,
+      AuthorityToDebtAccountPrintComponent,
 
   ],
   exports: [
@@ -119,7 +127,10 @@ const COMPONENTS = [
     HypothecationOfGoodsAndReceivablesBComponent,
     MortgageDeedComponent,
     PromisoryNoteInstitutionalComponent,
-    BlacklistConsentComponent
+    BlacklistConsentComponent,
+    MortgageDeedComponent,
+      LetterOfContinuityInstitutionalComponent,
+    AuthorityToDebtAccountComponent
   ],
   imports: [
     ThemeModule,

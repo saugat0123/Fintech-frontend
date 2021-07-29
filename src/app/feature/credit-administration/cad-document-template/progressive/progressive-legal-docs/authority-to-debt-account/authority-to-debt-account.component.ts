@@ -1,27 +1,28 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
-import {NbDialogRef} from '@nebular/theme';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
+import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {AuthorityToDebtAccountPrintComponent} from './authority-to-debt-account-print/authority-to-debt-account-print.component';
 
 @Component({
-  selector: 'app-letter-of-installments',
-  templateUrl: './letter-of-installments.component.html',
-  styleUrls: ['./letter-of-installments.component.scss']
+  selector: 'app-authority-to-debt-account',
+  templateUrl: './authority-to-debt-account.component.html',
+  styleUrls: ['./authority-to-debt-account.component.scss']
 })
-export class LetterOfInstallmentsComponent implements OnInit {
+export class AuthorityToDebtAccountComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -31,7 +32,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
   customerOfferLetter: CustomerOfferLetter;
   initialInfoPrint;
   existingOfferLetter = false;
-  offerLetterDocument: Document;
+  offerLetterDocument: OfferDocument;
   nepaliData;
 
   constructor(private formBuilder: FormBuilder,
@@ -41,12 +42,13 @@ export class LetterOfInstallmentsComponent implements OnInit {
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
               private customerOfferLetterService: CustomerOfferLetterService,
-              private dialogRef: NbDialogRef<LetterOfInstallmentsComponent>) {
+              private dialogRef: NbDialogRef<AuthorityToDebtAccountPrintComponent>) {
   }
 
   ngOnInit() {
     this.buildForm();
     this.fillForm();
+
   }
 
   fillForm() {
@@ -55,7 +57,6 @@ export class LetterOfInstallmentsComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantorDetails(initialInfo.guarantorData);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -63,13 +64,15 @@ export class LetterOfInstallmentsComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
       });
     }
   }
 
-  onSumbit(): void {
+
+  onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -110,58 +113,40 @@ export class LetterOfInstallmentsComponent implements OnInit {
     });
   }
 
+
   buildForm() {
     this.form = this.formBuilder.group({
       date: [undefined],
-      branchName: [undefined],
-      customerName: [undefined],
-      karjaAmount: [undefined],
-      timePeriod: [undefined],
-      kistaAmount: [undefined],
-      kista: [undefined],
-      debtorSign: [undefined],
-      debtorName: [undefined],
-      InstitutionStamp: [undefined],
-      guarantorName: [undefined],
-      guarantorAddress: [undefined],
-      guarantorData: this.formBuilder.array([]),
-
-    });
-  }
-  addGuarantor(): void {
-    const formArray = this.form.get('guarantorData') as FormArray;
-    formArray.push(this.guarantorFormGroup());
-  }
-
-  removeGuarantor(index: number): void {
-    const formArray = this.form.get('guarantorData') as FormArray;
-    formArray.removeAt(index);
-  }
-
-  guarantorFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      guarantorName: [undefined],
-      guarantorAddress: [undefined],
-    });
-  }
-  setGuarantorDetails(data) {
-    const formArray = this.form.get('guarantorData') as FormArray;
-    if (data.length === 0) {
-      this.addGuarantor();
-      return;
-    }
-    data.forEach((value) => {
-      formArray.push(this.formBuilder.group({
-        guarantorName: [value.guarantorName],
-        guarantorAddress: [value.guarantorAddress],
-      }));
+      amount: [undefined],
+      amountInWord: [undefined],
+      accNumber: [undefined],
+      sincerlyname: [undefined],
+      sincerlyPermanentAddress: [undefined],
+      sincerlytempAddress: [undefined],
+      parentName: [undefined],
+      grandParentName: [undefined],
+      clientName: [undefined],
+      BranchName: [undefined],
+      itisambatYear: [undefined],
+      itisambatMonth: [undefined],
+      itisambatDate: [undefined],
+      itisambatTime: [undefined],
+      itisambatSubham: [undefined],
+      shakhaName: [undefined],
+      naPraNaName: [undefined],
+      mitiName: [undefined],
+      jiPrakaName: [undefined],
+      jillaName: [undefined],
+      jagaName: [undefined],
+      jillaName1: [undefined],
+      jagaName1: [undefined],
+      grandParentsName: [undefined],
+      ItisambatYear: [undefined],
+      ItisambatMonth: [undefined],
+      ItisambatDay: [undefined],
+      ItisambatTime: [undefined]
     });
   }
 
-  getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(returnVal);
-  }
 }
 

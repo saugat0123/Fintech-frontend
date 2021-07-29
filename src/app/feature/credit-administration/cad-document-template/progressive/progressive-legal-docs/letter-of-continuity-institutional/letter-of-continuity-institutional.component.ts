@@ -16,26 +16,32 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+
+class CustomerOfferLetterInstitutional {
+}
 
 @Component({
-  selector: 'app-guarantee-bond-personal',
-  templateUrl: './guarantee-bond-personal.component.html',
-  styleUrls: ['./guarantee-bond-personal.component.scss']
+  selector: 'app-letter-of-continuity-institutional',
+  templateUrl: './letter-of-continuity-institutional.component.html',
+  styleUrls: ['./letter-of-continuity-institutional.component.scss']
 })
-export class GuaranteeBondPersonalComponent implements OnInit {
+export class LetterOfContinuityInstitutionalComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  @Input() nepaliAmount: NepaliNumberAndWords;
+
   spinner;
   form: FormGroup;
   offerLetterConst = ProgressiveLegalDocConst;
-  customerOfferLetter: CustomerOfferLetter;
+  customerOfferLetter: CustomerOfferLetterInstitutional;
   initialInfoPrint;
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
 
-  constructor(private dialogRef: NbDialogRef<GuaranteeBondPersonalComponent>,
+  constructor(private dialogRef: NbDialogRef<LetterOfContinuityInstitutionalComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -57,6 +63,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
           this.setGuarantors(initialInfo.guarantorDetails);
+          this.setsecGuarantors(initialInfo.secguarantorDetails);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -113,114 +120,104 @@ export class GuaranteeBondPersonalComponent implements OnInit {
     });
   }
 
-
-  buildForm(): void {
+  buildForm() {
     this.form = this.formBuilder.group({
-      grandParentName: [undefined],
-      parentName: [undefined],
-      husbandName: [undefined],
-      sasuSasura: [undefined],
-      district: [undefined],
-      municipality: [undefined],
-      wadNo: [undefined],
-      tempDistrict: [undefined],
-      tempMunicipality: [undefined],
-      tempWadNo: [undefined],
-      date: [undefined],
-      cdoOffice: [undefined],
-      citizenshipNo: [undefined],
-      age: [undefined],
-      buttonGrandParentName: [undefined],
-      buttonParentName: [undefined],
-      buttonhusbandName: [undefined],
-      buttonSasuSasura: [undefined],
-      buttonDistrict: [undefined],
-      buttonMunicipalityt: [undefined],
-      buttonWadNo: [undefined],
-      buttonTempDistrict: [undefined],
-      buttonTempMuniciplity: [undefined],
-      buttonTempWadNo: [undefined],
-      buttonDate: [undefined],
-      buttonCdoOffice: [undefined],
-      buttonCitizenshipNo: [undefined],
-      buttonAge: [undefined],
-      guaranteeNAme: [undefined],
-      guaranteeCitizenshipNo: [undefined],
-      guaranteeIssueDate: [undefined],
-      guaranteeCdoOffice: [undefined],
-      guaranteePermanentDistrict: [undefined],
-      guaranteePermanentMunicipality: [undefined],
-      guaranteePermanentWadNo: [undefined],
+      nepalSarkar: [undefined],
+      amount: [undefined],
+      sincerlyName: [undefined],
+      sincerlyPermanentAddress: [undefined],
+      sincerlyTempAdress: [undefined],
+      ParentsName: [undefined],
+      grandParentsName: [undefined],
+
+      IdentifiedGuarantorName: [undefined],
+      IdentifiedHintNo: [undefined],
+      ItisambatYear: [undefined],
+      ItisambatMonth: [undefined],
+      ItisambatDay: [undefined],
+      ItisambatTime: [undefined],
+      ItisambatRojSubham: [undefined],
+      branchName: [undefined],
+      udhyogBibhag: [undefined],
+      praliNo: [undefined],
+      underDate: [undefined],
+      sewaKendra: [undefined],
+      certificateNo: [undefined],
+      regDate: [undefined],
+      registeredName: [undefined],
+      debtorName: [undefined],
+      pratiNidhi: [undefined],
+      belowAmount: [undefined],
+      belowAmountInWord: [undefined],
+      signaturePersonName: [undefined],
+      signaturePersonCitizenshipNo: [undefined],
+      signaturePersonCitizenshipIssueDate: [undefined],
+      signaturePersonCDOoffice: [undefined],
+      signaturePersonPermanentDistrict: [undefined],
+      signaturePersonPermanentMuniciplity: [undefined],
+      signaturePersonPermanentWadNo: [undefined],
       sabikVDC: [undefined],
-      sabikWaNo: [undefined],
-      guaranteeTempDistrict: [undefined],
-      guaranteeTempMunicipality: [undefined],
-      guaranteeTempWadNo: [undefined],
-      fatherMotherName: [undefined],
-      grandFatherGrandmomName: [undefined],
-      husbandWifeName: [undefined],
-      karmachariName: [undefined],
-      karmachariSanketNo: [undefined],
-      itiSambatYear: [undefined],
-      itiSambatMonth: [undefined],
-      itiSambatDate: [undefined],
-      itiSambatRojSubham: [undefined],
+      sabikWadNo: [undefined],
+      signaturePersonTempDistrict: [undefined],
+      signaturePersonTempMunicipality: [undefined],
+      signaturePersonTempWadNo: [undefined],
+      sanakhatPersonName: [undefined],
+      sanakhatPersonSymNo: [undefined],
+      itisambatYear: [undefined],
+      itisambatMonth: [undefined],
+      itisambatDate: [undefined],
+      itisambatTime: [undefined],
+      itisambatSubham: [undefined],
+      buttonParentName: [undefined],
+      buttonGrandParentName: [undefined],
+      buttonHusbandWifeName: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      locationName: [undefined],
-      sahiName: [undefined],
-      sthiName: [undefined],
-      namName: [undefined],
-      newName: [undefined],
-      sriName: [undefined],
-      sriiName: [undefined],
-      parName: [undefined],
-      husName: [undefined],
-      saSura: [undefined],
-      districtName: [undefined],
-      municipalityName: [undefined],
-      wadNoName: [undefined],
-      tempDistrictName: [undefined],
-      buttonDateName: [undefined],
-      buttonCdoOfficeName: [undefined],
-      buttonCitizenshipNoName: [undefined],
-      buttonAgeName: [undefined],
-      sirName: [undefined]
+      secguarantorDetails: this.formBuilder.array([]),
+      shakhaName: [undefined],
+      naPraNaName: [undefined],
+      mitiName: [undefined],
+      jiPrakaName: [undefined],
+      jillaName: [undefined],
+      jagaName: [undefined],
+      jillaName1: [undefined],
+      jagaName1: [undefined]
     });
   }
+
 
   guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [undefined],
+      guarantorName: [undefined],
+      issuedPlace: [undefined]
+
+    });
+  }
+  secaddGuarantor(): void {
+    const formArray = this.form.get('secguarantorDetails') as FormArray;
+    formArray.push(this.secguarantorFormGroup());
+  }
+
+  secguarantorFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      guarantorName: [undefined],
       citizenNumber: [undefined],
       issuedYear: [undefined],
       guarantorCDOoffice: [undefined],
-      guarantorDistrict: [undefined],
+      guarantorDistrictara: [undefined],
       guarantorMunicipality: [undefined],
       guarantorWadNo: [undefined]
+
     });
-
   }
-
-  setGuarantors(data) {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
+  secguarantorDetails(data) {
+    const formArray = this.form.get('secguarantorDetails') as FormArray;
     if (data.length === 0) {
-      this.addMoreGuarantor();
+      this.secaddGuarantor();
       return;
     }
-    data.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        name: [value.name],
-        citizenNumber: [value.citizenNumber],
-        issuedYear: [value.issuedYear],
-        guarantorCDOoffice: [value.guarantorCDOoffice],
-        guarantorDistrict: [value.guarantorDistrict],
-        guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
-      }));
-    });
   }
 
-  addMoreGuarantor(): void {
+  addGuarantor(): void {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.push(this.guarantorFormGroup());
   }
@@ -229,5 +226,61 @@ export class GuaranteeBondPersonalComponent implements OnInit {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.removeAt(index);
   }
+
+  setGuarantors(data) {
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    if (data.length === 0) {
+      this.addGuarantor();
+      return;
+    }
+
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        guarantorName: [value.name],
+        issuedPlace: [value.issuedPlace]
+      }));
+    });
+
+
+  }
+
+  setsecGuarantors(data) {
+    const formArray = this.form.get('secguarantorDetails') as FormArray;
+    if (data.length === 0) {
+      this.addGuarantor();
+      return;
+    }
+
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        guarantorName: [value.name],
+        citizenNumber: [value.citizenNumber],
+        issuedYear: [value.issuedYear],
+        guarantorCDOoffice: [value.guarantorCDOoffice],
+        guarantorDistrictara: [value.guarantorDistrictara],
+        guarantorMunicipality: [value.guarantorMunicipality],
+        guarantorWadNo: [value.guarantorWadNo]
+      }));
+    });
+
+
+  }
+
+  addsecGuarantor(): void {
+    const formArray = this.form.get('secguarantorDetails') as FormArray;
+    formArray.push(this.secguarantorFormGroup());
+  }
+
+  removesecGuarantor(index: number): void {
+    const formArray = this.form.get('secguarantorDetails') as FormArray;
+    formArray.removeAt(index);
+  }
+
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+  }
+
 
 }

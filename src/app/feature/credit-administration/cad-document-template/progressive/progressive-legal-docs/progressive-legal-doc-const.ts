@@ -17,8 +17,9 @@ export enum ProgressiveLegalDocConst {
   A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2015',
   B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2016',
   PROMISSORY_NOTE_INSTITUTIONAL = '2017',
-  BLACKLIST_CONSENT ='2020'
-
+  LETTER_OF_CONTINUITY_INSTITUTIONAL = '2018',
+  BLACKLIST_CONSENT ='2020',
+  AUTHORITY_TO_DEBT_ACCOUNT = '2021'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -58,10 +59,6 @@ export namespace ProgressiveLegalDocConst {
         return 'A Hypothecation of Goods and Receivables';
       case ProgressiveLegalDocConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES:
         return 'B Hypothecation of Goods and Receivables';
-      case ProgressiveLegalDocConst.PROMISSORY_NOTE_INSTITUTIONAL:
-        return 'Promissory Note Institutional';
-      case ProgressiveLegalDocConst.BLACKLIST_CONSENT:
-        return 'Blacklist Consent';
     }
   }
 

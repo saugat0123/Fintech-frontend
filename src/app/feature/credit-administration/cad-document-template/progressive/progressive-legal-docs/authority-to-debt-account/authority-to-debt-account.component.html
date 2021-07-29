@@ -1,0 +1,165 @@
+<div [nbSpinner]="spinner" class="container text-justify row nepali"
+     id="{{offerLetterConst.AUTHORITY_TO_DEBT_ACCOUNT}}">
+
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+            <h6 class="text-center">भूक्तानी–पत्र<br>
+                (Authority to Debt Account)</h6>
+            <p class="text-right"> मिति:
+                <input class="form-field form-control-sm nepaliFont "
+                       formControlName="date"
+                       placeholder=""
+                       type="text"/>
+            </p>
+            <b> प्रोग्रेशिभ फाईनान्स लिमिटेड,</b>
+            <br>
+            <b><input class="form-field form-control-sm nepaliFont "
+                      formControlName="BranchName"
+                      placeholder=""
+                      type="text"/> शाखा कार्यालय ।</b>
+            <br>
+            <p class="text-center"><b>विषय :- त्यस वित्तीय संस्थामा संचालन गरेको मेरो/ हाम्रो चल्ति/बचतखाताको सीमा
+                रकमकट्टि गर्न विनाशर्त अपरिवर्तनिय अख्तियारी प्रदान गरेको ।
+            </b>
+            </p>
+            <div class="row col-md-12">
+
+                <br>
+                <br>
+                <p>
+                    महोदय,<br>
+                    म/हामीलाई त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो लागि खोलेको मेरो/हाम्रो नाममा बिभिन्न शिर्षक
+                    अन्तर्गत स्वीकृत भएका कर्जा (Funded/Nonfunded) शिर्षक अन्तर्गत वित्तीय संस्थाले लिनु पर्ने रकम र
+                    त्यस्तो कर्जामा कुनै संशोधन भई त्यसमा लाग्ने कमिशन, शुल्क, दस्तुर तथा पत्राचारको खर्च समेत केहि भएमा
+                    मेरो/हाम्रो उपरोक्त खाताहरु बाट आवश्यक रकमकट्टि गर्न यसै पत्रद्वारा पूर्ण तथा अपरिवर्तनीय अख्तियार
+                    प्रदान गर्दछू/छौ ।
+                    <br>
+                    चल्ति/बचतखाता नं.
+                    <input class="form-field form-control-sm nepaliFont "
+                           formControlName="accNumber"
+                           placeholder=""
+                           type="text"/>
+                </p>
+                <p>
+                    यसको अतिरिक्तम/हामी त्यस वित्तीय संस्था संग मेरो/हाम्रो नाममा र/वा मेरो/हाम्रो सहायक/भागिनी संस्थाको
+                    नाममा कायम रहेको वा बांकी रहेको सम्पूर्ण वक्यौता र/वा दायित्वहरु मेरो/हाम्रो उपरोक्त खाता(हरु) बाट
+                    त्यस बैंकले उपयुक्त ठानेको आंशिक/पूरा रकम कट्टि गरी लेनाकर्जा मिलान गर्न थप अख्तियारी प्रदान
+                    गर्दछू/छौं ।
+                </p>
+                <br>
+                <p>
+                    म/हामी त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो कुनै बैकिङ्गकार्य गरिएको रहेमा सोको सम्बन्धमा हुने
+                    वाभएको लागत खर्चको भुक्तानी पनि मेरो/हाम्रो चल्ती/बचत खाता बाट त्यस वित्तीय संस्थाले कट्टि गर्न
+                    पूर्ण अपरिवर्तनिय अधिकार प्रत्यायोजन गर्दछू/छौं ।
+                </p>
+
+            </div>
+            <br>
+            <div class="row" id="signature">
+                औठा छाप:
+                <table class="table  table-bordered" id="fingerXap">
+                    <thead>
+                    <tr>
+                        <th>दाँ.</th>
+                        <th>बाँ.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span class="signature-area"
+                                  style="background-color: transparent;resize:none;outline:none;border:none;"></span>
+                        </td>
+                        <td><span class="signature-area"
+                                  style="background-color: transparent;resize:none;outline:none;border:none;"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <br>
+            <p class="text-center"><b>भवदीय,</b></p>
+            <div class="row col-md-12" id="Sincerely">
+
+                <br>
+                <p>
+                    दस्तखत :-.............
+                    <br>
+                    <br>
+                    दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont "
+                                                formControlName="sincerlyname"
+                                                placeholder=""
+                                                type="text"/>(ना.प्र.न <input
+                        class="form-field form-control-sm nepaliFont"
+                        formControlName="naPraNaName"
+                        placeholder=""
+                        type="text"/> मिति <input class="form-field form-control-sm nepaliFont"
+                                                  formControlName="mitiName"
+                                                  placeholder=""
+                                                  type="text"/>
+                    जि.प्र.का <input class="form-field form-control-sm nepaliFont"
+                                     formControlName="jiPrakaName"
+                                     placeholder=""
+                                     type="text"/> )
+                    <br>
+                    स्थायीठेगाना :-<input class="form-field form-control-sm nepaliFont "
+                                          formControlName="sincerlyPermanentAddress"
+                                          placeholder=""
+                                          type="text"/>
+                    जिल्ला<input class="form-field form-control-sm nepaliFont"
+                                 formControlName="jillaName"
+                                 placeholder=""
+                                 type="text"/>
+                    गा.पा./न.पा.वडा नं <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="jagaName"
+                                              placeholder=""
+                                              type="text"/>
+                    <br>
+                    हालको ठेगाना :-<input class="form-field form-control-sm nepaliFont "
+                                          formControlName="sincerlytempAddress"
+                                          placeholder=""
+                                          type="text"/>
+                    जिल्ला<input class="form-field form-control-sm nepaliFont"
+                                 formControlName="jillaName1"
+                                 placeholder=""
+                                 type="text"/>
+                    गा.पा./न.पा.वडा नं <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="jagaName1"
+                                              placeholder=""
+                                              type="text"/>
+                    <br>
+
+                    वावुको नाम :-<input class="form-field form-control-sm nepaliFont "
+                                        formControlName="parentName"
+                                        placeholder=""
+                                        type="text"/>
+                    <br>
+                    बाजेको नाम :- <input class="form-field form-control-sm nepaliFont"
+                                         formControlName="grandParentsName"
+                                         placeholder=""
+                                         type="text"/>
+
+
+                </p>
+            </div>
+            <br>
+
+
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button [disabled]="!initialInfoPrint"
+                [useExistingCss]="true"
+                class="btn btn-primary d-print-none"
+                ngxPrint
+                printSectionId="print-section-{{ offerLetterConst.AUTHORITY_TO_DEBT_ACCOUNT}}"> Print
+        </button>
+    </div>
+</div>
+<app-authority-to-debt-account-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                  hidden></app-authority-to-debt-account-print>
+
+
