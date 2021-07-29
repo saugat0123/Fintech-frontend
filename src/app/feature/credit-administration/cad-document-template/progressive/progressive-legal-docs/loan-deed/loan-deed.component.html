@@ -95,82 +95,124 @@
           रोहबरमा तपाई धनीव ित्तीय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनीवित्तीय
           संस्थालाई दिया/दियौं ।
         </p>
-      </div>
+
       <br>
       <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
-      <div>
-        <table class="table-responsive-md table table-bordered text-center">
-          <thead>
-          <tr>
-            <th>ऋणकर्जा वा बैंकिङ्ग
-              सूबिधाकिसिम
-            </th>
-            <th>
-              रकम
-            </th>
-            <th>व्याज/कमिशन</th>
-            <th>कर्जाको अबधि</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedSubidhakisim"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedCommision"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedLoanTime"
-                       type="text"></td>
-          </tr>
-          </tbody>
-        </table>
+
+      <div class="col-md-12 float-right">
+        <button (click)="addSwikriti()" class="btn btn-primary btn-sm float-right " size="tiny"
+                type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button>
+      </div>
+      <div *ngFor="let guarantor of form.get('swikritiBibaran')['controls']; let i=index"
+           formArrayName="swikritiBibaran">
+        <div [formGroupName]="i">
+          <div>
+            <table class="table-bordered table text-center ">
+              <thead>
+              <tr>
+                <th>ऋणकर्जा वा बैंकिङ्ग
+                  सूबिधाकिसिम
+                </th>
+                <th>
+                  रकम
+                </th>
+                <th>व्याज/कमिशन</th>
+                <th>कर्जाको अबधि</th>
+              </tr>
+
+              </thead>
+              <tbody>
+              <tr>
+                <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedSubidhakisim"
+                           type="text"></td>
+                <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedAmount"
+                           type="text"></td>
+                <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedCommision"
+                           type="text"></td>
+                <td><input class="form-field nepaliFont form-control-sm" formControlName="approvedLoanTime"
+                           type="text"></td>
+              </tr>
+              </tbody>
+            </table>
+            <div *ngIf="form.get('swikritiBibaran')['length']>1" class="col-md-3 float-right">
+              <button (click)="removeSwikriti(i)"
+                      class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                      value="Delete">
+                <em class="fas fa-trash" style="color: white;">
+                  Delete Guarantor
+                </em>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       <br>
       <p class="text-center"><b>धितोसुरक्षणबापत रहेको/रहने सम्पत्तीको विवरण</b></p>
       <div>
-        <table class="table table-bordered text-center table-responsive-md">
-          <thead>
-          <tr>
-            <th width="5%">सि.नं.</th>
-            <th>धितोको बिवरण
-            </th>
-            <th width="10%">जिल्ला</th>
-            <th width="10%">गा.पा./न.पा./ <br>
-              म.न.पा.
-            </th>
-            <th width="7%">वडा नं.</th>
-            <th width="10%">
-              कि.नं
-            </th>
-            <th width="10%">क्षेत्रफल</th>
-            <th width="10%">रजिष्टे«शन नं.</th>
-            <th width="28%">धनीको नाम थर र वतन</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSNBibaran"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesDistrict"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesMunicipality"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesWadNo"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesKeyNo"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesArea"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesRegNo"
-                       type="text"></td>
-            <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesOwnerName"
-                       type="text"></td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="col-md-12 float-right">
+          <button (click)="addSecurity()" class="btn btn-primary btn-sm float-right " size="tiny"
+                  type="button">स्वीकृत थप्नुहोस्<i class="fas fa-plus"></i></button>
+        </div>
+        <div *ngFor="let guarantor of form.get('security')['controls']; let i=index"
+             formArrayName="security">
+          <div [formGroupName]="i">
+            <div>
+              <table class="table table-bordered text-center table-responsive-md">
+                <thead>
+                <tr>
+                  <th width="5%">सि.नं.</th>
+                  <th>धितोको बिवरण
+                  </th>
+                  <th width="10%">जिल्ला</th>
+                  <th width="10%">गा.पा./न.पा./ <br>
+                    म.न.पा.
+                  </th>
+                  <th width="7%">वडा नं.</th>
+                  <th width="10%">
+                    कि.नं
+                  </th>
+                  <th width="10%">क्षेत्रफल</th>
+                  <th width="10%">रजिष्टे«शन नं.</th>
+                  <th width="28%">धनीको नाम थर र वतन</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSN"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesSNBibaran"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesDistrict"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesMunicipality"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesWadNo"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesKeyNo"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesArea"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesRegNo"
+                             type="text"></td>
+                  <td><input class="form-field nepaliFont form-control" formControlName="SecuritiesOwnerName"
+                             type="text"></td>
+                </tr>
+                </tbody>
+              </table>
+
+              <div *ngIf="form.get('security')['length']>1" class="col-md-3 float-right">
+                <button (click)="removeSecurity(i)"
+                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                        value="Delete">
+                  <em class="fas fa-trash" style="color: white;">
+                    Delete Guarantor
+                  </em>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <br>
       <p>
@@ -185,6 +227,7 @@
         रोज शुभम् <input class="form-field nepaliFont form-control-sm" formControlName="itiSambatRoj"
                          type="text"> ।
       </p>
+
       <div class="col-md-12">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
           Save

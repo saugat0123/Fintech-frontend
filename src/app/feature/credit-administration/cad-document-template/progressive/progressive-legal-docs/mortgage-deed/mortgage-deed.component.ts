@@ -56,6 +56,9 @@ export class MortgageDeedComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
+          if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
+            this.setGuarantorDetails(initialInfo.guarantorDetails);
+          }
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -70,7 +73,24 @@ export class MortgageDeedComponent implements OnInit {
     }
   }
 
-
+  setGuarantorDetails(data) {
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    if (data.length === 0) {
+      this.addGuarantor();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        name: [value.name],
+        citizenNumber: [value.citizenNumber],
+        issuedYear: [value.issuedYear],
+        guarantorCDOoffice: [value.guarantorCDOoffice],
+        guarantorDistrict: [value.guarantorDistrict],
+        guarantorMunicipality: [value.guarantorMunicipality],
+        guarantorWadNo: [value.guarantorWadNo]
+      }));
+    });
+  }
   onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {

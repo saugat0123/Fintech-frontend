@@ -160,6 +160,9 @@
                     ससुराको नाम ः— <span [ngClass]="{nepaliFont: printDocForm?.jamanatSasuraName!==null && printDocForm?.jamanatSasuraName!==''}">
                         {{printDocForm?.jamanatSasuraName===null || printDocForm?.jamanatSasuraName ===''?'___________________':printDocForm?.jamanatSasuraName}}
                     </span>
+                </div>
+
+
                     <p>औठा छाप</p>
                     <div class="text-center">
                         <table class="table  table-bordered fingerXap">
@@ -181,7 +184,7 @@
 
                     </div>
                     <br>
-                    <div class="">
+                    <div>
                         <b class="text-left">साक्षी :</b>
                         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
                             <div>
@@ -260,7 +263,7 @@
                    </span>।
 
 
-                </div>
+
                 <br>
 
             </div>

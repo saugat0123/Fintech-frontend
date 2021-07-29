@@ -202,71 +202,80 @@
       </div>
       <br>
       <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
-      <div style="overflow-x: auto">
-        <table class="table-responsive-md table table-bordered text-center">
-          <thead>
-          <tr>
-            <th>ऋणकर्जा वा बैंकिङ्ग
-              सूबिधाकिसिम
-            </th>
-            <th>
-              रकम
-            </th>
-            <th>व्याज/कमिशन</th>
-            <th>कर्जाको अबधि</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><span class="nepaliFont">{{printDocForm?.approvedSubidhakisim}}</span></td>
-              <td><span [ngClass]="{nepaliFont: printDocForm.approvedAmount!==null && printDocForm.approvedAmount!==''}">
-                                {{printDocForm?.approvedAmount===null || printDocForm===''?'रु..........(अक्षरेपि..............)':printDocForm?.approvedAmount}}
+        <div *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
+            <div>
+                <table border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th>ऋणकर्जा वा बैंकिङ्ग
+                            सूबिधाकिसिम
+                        </th>
+                        <th>
+                            रकम
+                        </th>
+                        <th>व्याज/कमिशन</th>
+                        <th>कर्जाको अबधि</th>
 
-              </span>
-              </td>
-            <td><span class="nepaliFont">{{printDocForm?.approvedCommision}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.approvedLoanTime}}</span></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span [ngClass]="{nepaliFont: guarantor.approvedSubidhakisim!==null && guarantor.approvedSubidhakisim!==''}">
+                            {{guarantor?.approvedSubidhakisim===null || guarantor.approvedSubidhakisim===''?'      ':guarantor?.approvedSubidhakisim }}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.approvedAmount}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.approvedCommision}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.approvedLoanTime}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+            </div>
+  </div>
       <br>
       <p class="text-center"><b>धितोसुरक्षणबापत रहेको/रहने सम्पत्तीको विवरण</b></p>
-      <div class="table-responsive-md" style="overflow-x: auto">
-        <table class="table table-bordered text-center ">
-          <thead>
-          <tr>
-            <th width="5%">सि.नं.</th>
-            <th>धितोको बिवरण
-            </th>
-            <th width="10%">जिल्ला</th>
-            <th width="10%">गा.पा./न.पा./ <br>
-              म.न.पा.
-            </th>
-            <th width="7%">वडा नं.</th>
-            <th width="10%">
-              कि.नं
-            </th>
-            <th width="10%">क्षेत्रफल</th>
-            <th width="10%">रजिष्टे«शन नं.</th>
-            <th width="28%">धनीको नाम थर र वतन</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesSN}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesSNBibaran}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesDistrict}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesMunicipality}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesWadNo}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesKeyNo}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesArea}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesRegNo}}</span></td>
-            <td><span class="nepaliFont">{{printDocForm?.SecuritiesOwnerName}}</span></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+        <div *ngFor="let guarantor of printDocForm?.security; let i=index">
+            <div>
+                <table class="table table-bordered text-center ">
+                    <thead>
+                    <tr>
+                        <th width="5%">सि.नं.</th>
+                        <th>धितोको बिवरण
+                        </th>
+                        <th width="10%">जिल्ला</th>
+                        <th width="10%">गा.पा./न.पा./ <br>
+                            म.न.पा.
+                        </th>
+                        <th width="7%">वडा नं.</th>
+                        <th width="10%">
+                            कि.नं
+                        </th>
+                        <th width="10%">क्षेत्रफल</th>
+                        <th width="10%">रजिष्टे«शन नं.</th>
+                        <th width="28%">धनीको नाम थर र वतन</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesSN}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesSNBibaran}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesDistrict}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesMunicipality}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesWadNo}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesKeyNo}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesArea}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesRegNo}}</span></td>
+                        <td><span class="nepaliFont">{{guarantor?.SecuritiesOwnerName}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br>
+            </div>
+        </div>
+
+
       <br>
       <p>
         ईतिसम्बत <span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
