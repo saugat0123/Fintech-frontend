@@ -141,7 +141,6 @@ export class NtaMegaComponent implements OnInit {
           deRatio: this.formBuilder.group(this.setNestedFormValues(v.deRatio)),
           ytdSales: this.formBuilder.group(this.setNestedFormValues(v.ytdSales)),
           wcLoanOrLimit: this.formBuilder.group(this.setNestedFormValues(v.wcLoanOrLimit)),
-          ntaRemarks: v.ntaRemarks,
         };
         this.netTradingAssetsFormArray.push(
             this.formBuilder.group(formObjectData)
@@ -156,7 +155,6 @@ export class NtaMegaComponent implements OnInit {
       this.fiscalYearArray.forEach(fiscalYearObj => {
         const formObjectData = {
           id: fiscalYearObj.id,
-          ntaRemarks: this.formBuilder.group(this.ckeConfig),
           isCurrentYear: fiscalYearObj.isCurrentYear,
           valueOfStock: this.formBuilder.group(this.quarterCalculationObject),
           valueOfReceivables: this.formBuilder.group(this.quarterCalculationObject),

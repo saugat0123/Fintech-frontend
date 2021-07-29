@@ -45,12 +45,19 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('Assets Data::', this.netTradingAssetsData);
         this.parentForm = this.formBuilder.group({
-            netTradingAssetsFormArray: this.formBuilder.array([])
+            netTradingAssetsFormArray: this.formBuilder.array([]),
+            ntaRemarks: [ObjectUtil.isEmpty(this.netTradingAssetsData.ntaRemarks) ? '' : this.netTradingAssetsData.ntaRemarks],
+            // ntaRemarks: '',
         });
         this.netTradingAssetsFormArray = this.parentForm.get('netTradingAssetsFormArray') as FormArray;
         this.getFiscalYears();
     }
+
+    // get ntaRemarks() {
+    //     return this.parentForm.get('ntaRemarks');
+    // }
 
     verifyDataWithFiscalYear(fiscalYearArray: Array<FiscalYear>) {
         if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
@@ -137,7 +144,6 @@ export class NetTradingAssetsComponent implements OnInit {
                     drawingPowerAmount: this.formBuilder.group(this.setNestedFormValues(v.drawingPowerAmount)),
                     loanFromUs: this.formBuilder.group(this.setNestedFormValues(v.loanFromUs)),
                     surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit)),
-                    ntaRemarks: v.ntaRemarks,
                 };
                 this.netTradingAssetsFormArray.push(
                     this.formBuilder.group(formObjectData)
@@ -152,7 +158,6 @@ export class NetTradingAssetsComponent implements OnInit {
             this.fiscalYearArray.forEach(fiscalYearObj => {
                 const formObjectData = {
                     id: fiscalYearObj.id,
-                    ntaRemarks: this.formBuilder.group(this.ckeConfig),
                     isCurrentYear: fiscalYearObj.isCurrentYear,
                     valueOfStock: this.formBuilder.group(this.quarterCalculationObject),
                     valueOfDebtors: this.formBuilder.group(this.quarterCalculationObject),
@@ -285,7 +290,9 @@ export class NetTradingAssetsComponent implements OnInit {
             this.netTradingAssetSubmitData = this.netTradingAssetsData;
         }
         this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
+        this.netTradingAssetSubmitData.ntaRemarks = this.parentForm.get('ntaRemarks').value;
+        console.log('ntaDATA:::::', this.parentForm.get('ntaRemarks').value);
+        console.log('SubmitData::::', this.netTradingAssetSubmitData);
         this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
     }
-
 }

@@ -483,18 +483,14 @@
 
                             </tbody>
                         </table>
-                        <div class="row">
-                            <div class="col-md-12 form-group">
-                                <label for="ntaRemarks"><b>Remarks</b></label>
-                                <!--          <textarea class="form-control" id="ciclRemarks" name="ciclRemarks"  formControlName="ciclRemarks"-->
-                                <!--                    placeholder="remarks" rows="5" -->
-                                <!--          ></textarea>-->
-                                <ckeditor id="ntaRemarks" formControlName="ntaRemarks" [config]="ckeConfig"></ckeditor>
-                            </div>
-                        </div>
                     </form>
                 </ng-container>
-
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="ntaRemarks"><b>Remarks</b></label>
+                    <ckeditor id="ntaRemarks" formControlName="ntaRemarks" [config]="ckeConfig"></ckeditor>
+                </div>
             </div>
         </div>
     </nb-card-body>
