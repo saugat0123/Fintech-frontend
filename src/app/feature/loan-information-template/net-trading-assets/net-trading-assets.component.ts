@@ -45,19 +45,13 @@ export class NetTradingAssetsComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('Assets Data::', this.netTradingAssetsData);
         this.parentForm = this.formBuilder.group({
             netTradingAssetsFormArray: this.formBuilder.array([]),
-            ntaRemarks: [ObjectUtil.isEmpty(this.netTradingAssetsData.ntaRemarks) ? '' : this.netTradingAssetsData.ntaRemarks],
-            // ntaRemarks: '',
+            ntaRemarks: [ObjectUtil.isEmpty(this.netTradingAssetsData) ? '' : this.netTradingAssetsData.ntaRemarks],
         });
         this.netTradingAssetsFormArray = this.parentForm.get('netTradingAssetsFormArray') as FormArray;
         this.getFiscalYears();
     }
-
-    // get ntaRemarks() {
-    //     return this.parentForm.get('ntaRemarks');
-    // }
 
     verifyDataWithFiscalYear(fiscalYearArray: Array<FiscalYear>) {
         if (!ObjectUtil.isEmpty(this.netTradingAssetsData)) {
@@ -291,8 +285,6 @@ export class NetTradingAssetsComponent implements OnInit {
         }
         this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
         this.netTradingAssetSubmitData.ntaRemarks = this.parentForm.get('ntaRemarks').value;
-        console.log('ntaDATA:::::', this.parentForm.get('ntaRemarks').value);
-        console.log('SubmitData::::', this.netTradingAssetSubmitData);
         this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
     }
 }

@@ -30,11 +30,9 @@ export class NtaMegaSummaryComponent implements OnInit {
         this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
     this.prevFiscalYearIndex = this.currentFiscalYearIndex + 1;
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
-    console.log('NtaData::::', this.ntaData);
     this.ntaData.forEach((value , index) => {
       if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
         this.currentYearData = value;
-        console.log('CurentYeardata:::', this.currentYearData);
         if (this.ntaData[index + 1] !== undefined) {
           this.prevYearData = this.ntaData[index + 1]; // prev year index
         }

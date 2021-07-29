@@ -52,7 +52,8 @@ export class NtaMegaComponent implements OnInit {
 
   ngOnInit() {
     this.parentForm = this.formBuilder.group({
-      netTradingAssetsFormArray: this.formBuilder.array([])
+      netTradingAssetsFormArray: this.formBuilder.array([]),
+      ntaRemarks: [ObjectUtil.isEmpty(this.netTradingAssetsData) ? '' : this.netTradingAssetsData.ntaRemarks],
     });
     this.netTradingAssetsFormArray = this.parentForm.get('netTradingAssetsFormArray') as FormArray;
     this.getFiscalYears();
@@ -271,6 +272,7 @@ export class NtaMegaComponent implements OnInit {
       this.netTradingAssetSubmitData = this.netTradingAssetsData;
     }
     this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
+    this.netTradingAssetSubmitData.ntaRemarks = this.parentForm.get('ntaRemarks').value;
     this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
   }
 }

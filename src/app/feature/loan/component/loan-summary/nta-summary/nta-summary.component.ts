@@ -14,7 +14,6 @@ export class NtaSummaryComponent implements OnInit {
   currentFiscalYearIndex: number;
   currentYearData;
   prevYearData;
-  ntaRemarks;
   prevFiscalYearIndex: number;
 
   fiscalYearArray = new Array<FiscalYear>();
@@ -25,11 +24,9 @@ export class NtaSummaryComponent implements OnInit {
     this.currentFiscalYearIndex = this.fiscalYears.indexOf(
        this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
-    console.log('Summary', this.netTradingAssetsData);
     this.ntaData.forEach((value , index) => {
       if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
         this.currentYearData = value;
-        console.log('CurrentDtata', this.currentYearData);
       }
     });
 
@@ -41,5 +38,4 @@ export class NtaSummaryComponent implements OnInit {
         }}
     });
   }
-
 }
