@@ -16,7 +16,8 @@ export enum ProgressiveLegalDocConst {
   CROSS_GUARANTEE_BOND = '2014',
   A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2015',
   B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2016',
-  LETTER_OF_CONTINUITY_INSTITUTIONAL = '2018'
+  LETTER_OF_CONTINUITY_INSTITUTIONAL = '2018',
+  AUTHORITY_TO_DEBT_ACCOUNT = '2021'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -58,6 +59,8 @@ export namespace ProgressiveLegalDocConst {
         return 'B Hypothecation of Goods and Receivables';
       case ProgressiveLegalDocConst.LETTER_OF_CONTINUITY_INSTITUTIONAL:
         return 'Letter Of Continuity Institutional';
+      case ProgressiveLegalDocConst.AUTHORITY_TO_DEBT_ACCOUNT:
+        return 'Authority to Debt Account';
     }
   }
 

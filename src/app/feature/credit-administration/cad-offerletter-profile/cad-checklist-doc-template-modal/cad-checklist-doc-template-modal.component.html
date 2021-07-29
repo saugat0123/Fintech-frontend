@@ -105,6 +105,11 @@
           [customerLoanId]="customerLoanId"
           *ngSwitchCase=offerLetterConst.LETTER_OF_CONTINUITY_INSTITUTIONAL>
         </app-letter-of-continuity-institutional>
+        <app-authority-to-debt-account
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+                *ngSwitchCase=offerLetterConst.AUTHORITY_TO_DEBT_ACCOUNT>
+        </app-authority-to-debt-account>
       </div>
     </div>
     <div *ngIf="client === clientList.MEGA">

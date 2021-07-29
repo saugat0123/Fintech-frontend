@@ -47,6 +47,8 @@ import {HypothecationOfGoodsAndReceivablesAPrintComponent} from './progressive-l
 import {ProgressiveLegalDocsComponent} from './progressive-legal-docs/progressive-legal-docs.component';
 import {LetterOfContinuityInstitutionalComponent} from './progressive-legal-docs/letter-of-continuity-institutional/letter-of-continuity-institutional.component';
 import { LetterOfContinuityInstitutionalPrintComponent } from './progressive-legal-docs/letter-of-continuity-institutional/letter-of-continuity-institutional-print/letter-of-continuity-institutional-print.component';
+import { AuthorityToDebtAccountComponent } from './progressive-legal-docs/authority-to-debt-account/authority-to-debt-account.component';
+import { AuthorityToDebtAccountPrintComponent } from './progressive-legal-docs/authority-to-debt-account/authority-to-debt-account-print/authority-to-debt-account-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -95,6 +97,8 @@ const COMPONENTS = [
     MortgageDeedPrintComponent,
       LetterOfContinuityInstitutionalComponent,
       LetterOfContinuityInstitutionalPrintComponent,
+      AuthorityToDebtAccountComponent,
+      AuthorityToDebtAccountPrintComponent,
 
   ],
   exports: [
@@ -114,7 +118,8 @@ const COMPONENTS = [
     HypothecationOfGoodsAndReceivablesAComponent,
     HypothecationOfGoodsAndReceivablesBComponent,
     MortgageDeedComponent,
-      LetterOfContinuityInstitutionalComponent
+      LetterOfContinuityInstitutionalComponent,
+    AuthorityToDebtAccountComponent
   ],
   imports: [
     ThemeModule,

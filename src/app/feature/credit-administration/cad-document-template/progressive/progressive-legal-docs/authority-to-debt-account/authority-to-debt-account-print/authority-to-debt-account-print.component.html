@@ -1,0 +1,138 @@
+<div class="container text-justify row nepali"
+     id="print-section-{{offerLetterConst.AUTHORITY_TO_DEBT_ACCOUNT}}">
+
+    <div class="col-md-12 viewFull">
+        <form class="nepali">
+            <h6 class="text-center">भूक्तानी–पत्र<br>
+                (Authority to Debt Account)</h6>
+            <p class="text-right"> मिति:
+                <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+    {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+</span>
+            </p>
+            <b> प्रोग्रेशिभ फाईनान्स लिमिटेड,</b>
+            <br>
+            <b>  <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
+    {{printDocForm?.BranchName === null || printDocForm?.BranchName === '' ? '_________________' : printDocForm?.BranchName}}
+</span> शाखा कार्यालय ।</b>
+            <br>
+            <p class="text-center"><b> विषय :- त्यस वित्तीय संस्थामा संचालन गरेको मेरो/ हाम्रो चल्ति/बचतखाताको सीमा
+                रकमकट्टि गर्न विनाशर्त अपरिवर्तनिय अख्तियारी प्रदान गरेको । </b>
+            </p>
+            <div class="row col-md-12">
+
+                <br>
+                <br>
+                <p>
+                    महोदय,<br>
+                    म/हामीलाई त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो लागि खोलेको मेरो/हाम्रो नाममा बिभिन्न शिर्षक
+                    अन्तर्गत स्वीकृत भएका कर्जा (Funded/Nonfunded) शिर्षक अन्तर्गत वित्तीय संस्थाले लिनु पर्ने रकम र
+                    त्यस्तो कर्जामा कुनै संशोधन भई त्यसमा लाग्ने कमिशन, शुल्क, दस्तुर तथा पत्राचारको खर्च समेत केहि भएमा
+                    मेरो/हाम्रो उपरोक्त खाताहरु बाट आवश्यक रकमकट्टि गर्न यसै पत्रद्वारा पूर्ण तथा अपरिवर्तनीय अख्तियार
+                    प्रदान गर्दछू/छौ ।
+                    <br>
+                    चल्ति/बचतखाता नं.
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.accNumber !== null && printDocForm?.accNumber !== ''}">
+    {{printDocForm?.accNumber === null || printDocForm?.accNumber === '' ? '_________________' : printDocForm?.accNumber}}
+</span>
+                </p>
+                <p>
+                    यसको अतिरिक्तम/हामी त्यस वित्तीय संस्था संग मेरो/हाम्रो नाममा र/वा मेरो/हाम्रो सहायक/भागिनी संस्थाको
+                    नाममा कायम रहेको वा बांकी रहेको सम्पूर्ण वक्यौता र/वा दायित्वहरु मेरो/हाम्रो उपरोक्त खाता(हरु) बाट
+                    त्यस बैंकले उपयुक्त ठानेको आंशिक/पूरा रकम कट्टि गरी लेनाकर्जा मिलान गर्न थप अख्तियारी प्रदान
+                    गर्दछू/छौं ।
+                </p>
+                <br>
+                <p>
+                    म/हामी त्यस वित्तीय संस्था मार्फत मेरो/हाम्रो कुनै बैकिङ्गकार्य गरिएको रहेमा सोको सम्बन्धमा हुने
+                    वाभएको लागत खर्चको भुक्तानी पनि मेरो/हाम्रो चल्ती/बचत खाता बाट त्यस वित्तीय संस्थाले कट्टि गर्न
+                    पूर्ण अपरिवर्तनिय अधिकार प्रत्यायोजन गर्दछू/छौं ।
+                </p>
+
+            </div>
+            <br>
+
+    <br>
+    <div class="row" id="signature">
+        औठा छाप:
+        <table class="table  table-bordered" id="fingerXap">
+            <thead>
+            <tr>
+                <th>दाँ.</th>
+                <th>बाँ.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><textarea cols="30" name="" rows="10"
+                              style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
+                </td>
+                <td><textarea cols="30" name="" rows="10"
+                              style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <p class="text-center"><b>भवदीय,</b></p>
+    <div class="row col-md-12" id="Sincerely">
+
+        <br>
+        <p>
+            दस्तखत :-.............
+            <br>
+            <br>
+            दस्तखत गर्नेको नाम :- <span class="nepaliFont">{{printDocForm?.sincerlyname}}
+        </span>(ना.प्र.न<span
+                [ngClass]="{'nepaliFont' : printDocForm?.naPraNaName !== null && printDocForm?.naPraNaName !== ''}">
+    {{printDocForm?.naPraNaName === null || printDocForm?.naPraNaName === '' ? '_______________' : printDocForm?.naPraNaName}}
+</span>मिति<span [ngClass]="{'nepaliFont' : printDocForm?.mitiName !== null && printDocForm?.mitiName !== ''}">
+    {{printDocForm?.mitiName === null || printDocForm?.mitiName === '' ? '_______________' : printDocForm?.mitiName}}
+</span>जि.प्र.का<span
+                [ngClass]="{'nepaliFont' : printDocForm?.jiPrakaName !== null && printDocForm?.jiPrakaName !== ''}">
+    {{printDocForm?.jiPrakaName === null || printDocForm?.jiPrakaName === '' ? '_______________' : printDocForm?.jiPrakaName}}
+
+
+        </span>
+            <br>
+            स्थायीठेगाना :- <span class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+            जिल्ला <span
+                [ngClass]="{'nepaliFont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+    {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
+</span>गा.पा./न.पा.वडा नं<span
+                [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
+    {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
+</span>
+            <br>
+            हालको ठेगाना :- <span class="nepaliFont">{{printDocForm?.sincerlytempAddress}}</span>
+            जिल्ला <span
+                [ngClass]="{'nepaliFont' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
+    {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
+</span>गा.पा./न.पा.वडा नं<span
+                [ngClass]="{'nepaliFont' : printDocForm?.jagaName1 !== null && printDocForm?.jagaName1 !== ''}">
+    {{printDocForm?.jagaName1 === null || printDocForm?.jagaName1 === '' ? '________________' : printDocForm?.jagaName1}}
+</span>
+            <br>
+            <br>
+
+            बाबुको नाम :- <span
+                [ngClass]="{'nepaliFont' : printDocForm?.ParentsName !== null && printDocForm?.ParentsName !== ''}">
+    {{printDocForm?.ParentsName === null || printDocForm?.ParentsName === '' ? '_________________' : printDocForm?.ParentsName}}
+</span>
+            <br>
+            बाजेको नाम :- <span
+                [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
+    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
+</span>
+
+
+        </p>
+    </div>
+        </form>
+
+    </div>
+</div>
+
+
