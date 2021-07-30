@@ -464,7 +464,14 @@
                 </ng-container>
 
             </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="ntaRemarks"><b>Remarks</b></label>
+                    <ckeditor id="ntaRemarks" formControlName="ntaRemarks" [config]="ckeConfig"></ckeditor>
+                </div>
+            </div>
         </div>
+
     </nb-card-body>
     <nb-card-footer>
         <div *ngIf="fromProfile && netTradingAssetsFormArray.controls?.length > 0" class="d-flex justify-content-end">
