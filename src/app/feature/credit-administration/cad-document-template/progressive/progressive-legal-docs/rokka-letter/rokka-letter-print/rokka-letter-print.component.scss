@@ -1,11 +1,4 @@
-@import "../../progressive-offer-letter.component";
-
-.nepaliConfig {
-  font-size: 17px;
-  line-height: 1.6;
-  margin: 6px 20px;
-  @extend .text-justify;
-}
+@import '../../progressive-legal-docs.component';
 
 * {
   margin-top: 23px;
@@ -23,5 +16,9 @@ p {
 
 span {
   font-size: 25px;
+  line-height: 1.5;
 }
 
+table {
+  line-height: 1.1;
+}

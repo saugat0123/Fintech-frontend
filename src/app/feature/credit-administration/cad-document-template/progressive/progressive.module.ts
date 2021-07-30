@@ -53,6 +53,8 @@ import { PromisoryNoteInstitutionalComponent } from './progressive-legal-docs/pr
 import { PromisoryNoteInstitutionalPrintComponent } from './progressive-legal-docs/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import { BlacklistConsentComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent.component';
 import { BlacklistConsentPrintComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent-print/blacklist-consent-print.component';
+import { RokkaLetterComponent } from './progressive-legal-docs/rokka-letter/rokka-letter.component';
+import { RokkaLetterPrintComponent } from './progressive-legal-docs/rokka-letter/rokka-letter-print/rokka-letter-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -107,6 +109,8 @@ const COMPONENTS = [
       LetterOfContinuityInstitutionalPrintComponent,
       AuthorityToDebtAccountComponent,
       AuthorityToDebtAccountPrintComponent,
+    RokkaLetterComponent,
+    RokkaLetterPrintComponent,
 
   ],
   exports: [
@@ -130,7 +134,8 @@ const COMPONENTS = [
     BlacklistConsentComponent,
     MortgageDeedComponent,
       LetterOfContinuityInstitutionalComponent,
-    AuthorityToDebtAccountComponent
+    AuthorityToDebtAccountComponent,
+    RokkaLetterComponent,
   ],
   imports: [
     ThemeModule,

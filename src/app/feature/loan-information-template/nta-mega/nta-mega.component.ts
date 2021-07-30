@@ -42,7 +42,7 @@ export class NtaMegaComponent implements OnInit {
   // Client
   client = environment.client;
   clientName = Clients;
-
+  ckeConfig = Editor.CK_CONFIG;
   spinner = false;
 
   constructor(protected formBuilder: FormBuilder,
@@ -52,7 +52,8 @@ export class NtaMegaComponent implements OnInit {
 
   ngOnInit() {
     this.parentForm = this.formBuilder.group({
-      netTradingAssetsFormArray: this.formBuilder.array([])
+      netTradingAssetsFormArray: this.formBuilder.array([]),
+      ntaRemarks: [ObjectUtil.isEmpty(this.netTradingAssetsData) ? '' : this.netTradingAssetsData.ntaRemarks],
     });
     this.netTradingAssetsFormArray = this.parentForm.get('netTradingAssetsFormArray') as FormArray;
     this.getFiscalYears();
@@ -140,7 +141,7 @@ export class NtaMegaComponent implements OnInit {
           netTradingAssets: this.formBuilder.group(this.setNestedFormValues(v.netTradingAssets)),
           deRatio: this.formBuilder.group(this.setNestedFormValues(v.deRatio)),
           ytdSales: this.formBuilder.group(this.setNestedFormValues(v.ytdSales)),
-          wcLoanOrLimit: this.formBuilder.group(this.setNestedFormValues(v.wcLoanOrLimit))
+          wcLoanOrLimit: this.formBuilder.group(this.setNestedFormValues(v.wcLoanOrLimit)),
         };
         this.netTradingAssetsFormArray.push(
             this.formBuilder.group(formObjectData)
@@ -271,6 +272,7 @@ export class NtaMegaComponent implements OnInit {
       this.netTradingAssetSubmitData = this.netTradingAssetsData;
     }
     this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
+    this.netTradingAssetSubmitData.ntaRemarks = this.parentForm.get('ntaRemarks').value;
     this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
   }
 }

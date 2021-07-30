@@ -123,6 +123,11 @@
                 [customerLoanId]="customerLoanId"
                 *ngSwitchCase=offerLetterConst.AUTHORITY_TO_DEBT_ACCOUNT>
         </app-authority-to-debt-account>
+        <app-rokka-letter
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+                *ngSwitchCase=offerLetterConst.ROKKA_LETTER>
+        </app-rokka-letter>
       </div>
     </div>
     <div *ngIf="client === clientList.MEGA">

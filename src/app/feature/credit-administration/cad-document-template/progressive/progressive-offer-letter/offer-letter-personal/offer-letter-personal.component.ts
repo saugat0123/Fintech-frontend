@@ -60,9 +60,14 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
             this.nepaliData.permanentWard + ' , ' +
             this.nepaliData.permanentDistrict;
+        const customerTempAddress =
+            this.nepaliData.temporaryMunicipality + ' j8f g. ' +
+            this.nepaliData.temporaryWard + ' , ' +
+            this.nepaliData.temporaryDistrict;
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
             customerAddress: customerAddress ? customerAddress : '',
+            customerTemporaryAddress: customerTempAddress ? customerTempAddress : '',
             customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
@@ -194,6 +199,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             date: [undefined],
             customerName: [undefined],
             customerAddress: [undefined],
+            customerTemporaryAddress: [undefined],
             customerMobile: [undefined],
 
             loanTypeNepali: [undefined],
