@@ -43,5 +43,4 @@ export class NtaSummaryComponent implements OnInit {
         }}
     });
   }
-
 }
