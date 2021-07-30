@@ -190,6 +190,7 @@
 
     </div>
     <br>
+    <div class="page-break">
     <div>
         <b class="text-left">साक्षी :</b>
         <div *ngFor="let guarantor of printDocForm?.secguarantorDetails; let i=index">
@@ -197,7 +198,7 @@
                 <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
 
 
-                <table border="1">
+                <table border="1" width="100%"  class="table-bordered table text-center">
                     <thead>
                     <tr>
                         <th>नाम</th>
@@ -242,7 +243,7 @@
           {{printDocForm.buttomIdentifiedHintNo===null || printDocForm.buttomIdentifiedHintNo===''?'_______________' :printDocForm?.buttomIdentifiedHintNo}}
         </span> )</p>
         <br>
-        ईतिसम्बत<span [ngClass]="{'nepaliFont':printDocForm?.buttomItisambatYear!==null && printDocForm?.buttomItisambatYear!==''}">
+       <p> ईतिसम्बत<span [ngClass]="{'nepaliFont':printDocForm?.buttomItisambatYear!==null && printDocForm?.buttomItisambatYear!==''}">
           {{printDocForm.buttomItisambatYear===null || printDocForm.buttomItisambatYear===''?'_______________' :printDocForm?.buttomItisambatYear}}
         </span>
         साल <span [ngClass]="{'nepaliFont':printDocForm?.buttomItisambatMonth!==null && printDocForm?.buttomItisambatMonth!==''}">
@@ -256,7 +257,8 @@
         </span>
         रोज शुभम् <span [ngClass]="{'nepaliFont':printDocForm?.buttomItisambatRojSubham!==null && printDocForm?.buttomItisambatRojSubham!==''}">
           {{printDocForm.buttomItisambatRojSubham===null || printDocForm.buttomItisambatRojSubham===''?'_______________' :printDocForm?.buttomItisambatRojSubham}}
-        </span> ।
+        </span> ।</p>
+    </div>
     </div>
 
 </form>

@@ -53,6 +53,8 @@ import { PromisoryNoteInstitutionalComponent } from './progressive-legal-docs/pr
 import { PromisoryNoteInstitutionalPrintComponent } from './progressive-legal-docs/promisory-note-institutional/promisory-note-institutional-print/promisory-note-institutional-print.component';
 import { BlacklistConsentComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent.component';
 import { BlacklistConsentPrintComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent-print/blacklist-consent-print.component';
+import { ConsentLetterIndividualComponent } from './progressive-legal-docs/consent-letter-individual/consent-letter-individual.component';
+import { ConsentLetterIndividualPrintComponent } from './progressive-legal-docs/consent-letter-individual/consent-letter-individual-print/consent-letter-individual-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -107,31 +109,34 @@ const COMPONENTS = [
       LetterOfContinuityInstitutionalPrintComponent,
       AuthorityToDebtAccountComponent,
       AuthorityToDebtAccountPrintComponent,
+      ConsentLetterIndividualComponent,
+      ConsentLetterIndividualPrintComponent,
 
   ],
-  exports: [
-    ...COMPONENTS,
-    LetterOfLeinComponent,
-    PromissoryNoteComponent,
-    LoanDeedComponent,
-    PromissoryNoteGuarantorComponent,
-    LetterOfAgreementComponent,
-    HirePurchaseDeedComponent,
-    IndemnityDeedComponent,
-    LetterOfDisbursementComponent,
-    GuaranteeBondCorporateComponent,
-    LetterOfContinuityComponent,
-    CrossGuaranteeBondComponent,
-    GuaranteeBondPersonalComponent,
-    HypothecationOfGoodsAndReceivablesAComponent,
-    HypothecationOfGoodsAndReceivablesBComponent,
-    MortgageDeedComponent,
-    PromisoryNoteInstitutionalComponent,
-    BlacklistConsentComponent,
-    MortgageDeedComponent,
-      LetterOfContinuityInstitutionalComponent,
-    AuthorityToDebtAccountComponent
-  ],
+    exports: [
+        ...COMPONENTS,
+        LetterOfLeinComponent,
+        PromissoryNoteComponent,
+        LoanDeedComponent,
+        PromissoryNoteGuarantorComponent,
+        LetterOfAgreementComponent,
+        HirePurchaseDeedComponent,
+        IndemnityDeedComponent,
+        LetterOfDisbursementComponent,
+        GuaranteeBondCorporateComponent,
+        LetterOfContinuityComponent,
+        CrossGuaranteeBondComponent,
+        GuaranteeBondPersonalComponent,
+        HypothecationOfGoodsAndReceivablesAComponent,
+        HypothecationOfGoodsAndReceivablesBComponent,
+        MortgageDeedComponent,
+        PromisoryNoteInstitutionalComponent,
+        BlacklistConsentComponent,
+        MortgageDeedComponent,
+        LetterOfContinuityInstitutionalComponent,
+        AuthorityToDebtAccountComponent,
+        ConsentLetterIndividualComponent
+    ],
   imports: [
     ThemeModule,
     CommonModule,

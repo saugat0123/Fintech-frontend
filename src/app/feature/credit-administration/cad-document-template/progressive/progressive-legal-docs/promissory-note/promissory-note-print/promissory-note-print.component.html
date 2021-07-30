@@ -144,10 +144,9 @@
 
         </div>
       </div>
-
       <br>
       <div>
-        <p class="page-break"></p>
+        <div class="row page-break">
         <b class="text-left">साक्षी :</b>
         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
           <div>
@@ -183,9 +182,8 @@
             <br>
           </div>
         </div>
-      </div>
+
       <br>
-      <div class="text-left" style="margin-left:20px;">
         <br>
         <b>सनाखत साक्षी</b>
         <br>
@@ -199,7 +197,7 @@
         </span> )
         </p>
         <br>
-        ईति सम्बत <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatYear!==null && printDocForm?.ItisambatYear!==''}">
+        <p>ईति सम्बत <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatYear!==null && printDocForm?.ItisambatYear!==''}">
           {{printDocForm.ItisambatYear===null || printDocForm.ItisambatYear===''?'_______________' :printDocForm?.ItisambatYear}}
         </span>
         साल <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatMonth!==null && printDocForm?.ItisambatMonth!==''}">
@@ -213,9 +211,10 @@
         </span>
         रोज शुभम् <span [ngClass]="{'nepaliFont':printDocForm?.ItisambatRojSubham!==null && printDocForm?.ItisambatRojSubham!==''}">
           {{printDocForm.ItisambatRojSubham===null || printDocForm.ItisambatRojSubham===''?'_______________' :printDocForm?.ItisambatRojSubham}}
-        </span> ।
-      </div>
+        </span> ।</p>
+        </div>
       <br>
+      </div>
 
     </form>
   </div>
