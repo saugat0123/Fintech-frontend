@@ -217,4 +217,14 @@
         </tr>
         </thead>
     </table>
+    <table class="table table-bordered table-hover table-sm sb-small">
+        <thead class="text-right">
+        <tr class="sb-bg-dark text-white text-center">
+            <th>Remarks</th>
+        </tr>
+        </thead>
+        <tr>
+            <td class="text-left pl-1" [innerHTML]="netTradingAssetsData?.ntaRemarks | safeHtml"></td>
+        </tr>
+    </table>
 </div>
