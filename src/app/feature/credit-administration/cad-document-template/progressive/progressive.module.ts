@@ -45,6 +45,8 @@ import {OfferLetterPersonalPrintComponent} from './progressive-offer-letter/offe
 import {HypothecationOfGoodsAndReceivablesAComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a.component';
 import {HypothecationOfGoodsAndReceivablesAPrintComponent} from './progressive-legal-docs/hypothecation-of-goods-and-receivables-a/hypothecation-of-goods-and-receivables-a-print/hypothecation-of-goods-and-receivables-a-print.component';
 import {ProgressiveLegalDocsComponent} from './progressive-legal-docs/progressive-legal-docs.component';
+import { RokkaLetterComponent } from './progressive-legal-docs/rokka-letter/rokka-letter.component';
+import { RokkaLetterPrintComponent } from './progressive-legal-docs/rokka-letter/rokka-letter-print/rokka-letter-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -91,26 +93,29 @@ const COMPONENTS = [
     OfferLetterPersonalComponent,
     HypothecationOfGoodsAndReceivablesBPrintComponent,
     MortgageDeedPrintComponent,
+    RokkaLetterComponent,
+    RokkaLetterPrintComponent,
 
   ],
-  exports: [
-    ...COMPONENTS,
-    LetterOfLeinComponent,
-    PromissoryNoteComponent,
-    LoanDeedComponent,
-    PromissoryNoteGuarantorComponent,
-    LetterOfAgreementComponent,
-    HirePurchaseDeedComponent,
-    IndemnityDeedComponent,
-    LetterOfDisbursementComponent,
-    GuaranteeBondCorporateComponent,
-    LetterOfContinuityComponent,
-    CrossGuaranteeBondComponent,
-    GuaranteeBondPersonalComponent,
-    HypothecationOfGoodsAndReceivablesAComponent,
-    HypothecationOfGoodsAndReceivablesBComponent,
-    MortgageDeedComponent
-  ],
+    exports: [
+        ...COMPONENTS,
+        LetterOfLeinComponent,
+        PromissoryNoteComponent,
+        LoanDeedComponent,
+        PromissoryNoteGuarantorComponent,
+        LetterOfAgreementComponent,
+        HirePurchaseDeedComponent,
+        IndemnityDeedComponent,
+        LetterOfDisbursementComponent,
+        GuaranteeBondCorporateComponent,
+        LetterOfContinuityComponent,
+        CrossGuaranteeBondComponent,
+        GuaranteeBondPersonalComponent,
+        HypothecationOfGoodsAndReceivablesAComponent,
+        HypothecationOfGoodsAndReceivablesBComponent,
+        MortgageDeedComponent,
+        RokkaLetterComponent
+    ],
   imports: [
     ThemeModule,
     CommonModule,

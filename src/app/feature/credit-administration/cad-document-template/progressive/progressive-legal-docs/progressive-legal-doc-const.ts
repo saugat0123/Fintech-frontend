@@ -16,6 +16,7 @@ export enum ProgressiveLegalDocConst {
   CROSS_GUARANTEE_BOND = '2014',
   A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2015',
   B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2016',
+  ROKKA_LETTER = '2019',
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -55,6 +56,8 @@ export namespace ProgressiveLegalDocConst {
         return 'A Hypothecation of Goods and Receivables';
       case ProgressiveLegalDocConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES:
         return 'B Hypothecation of Goods and Receivables';
+      case ProgressiveLegalDocConst.ROKKA_LETTER:
+        return 'Rokka Letter';
     }
   }
 

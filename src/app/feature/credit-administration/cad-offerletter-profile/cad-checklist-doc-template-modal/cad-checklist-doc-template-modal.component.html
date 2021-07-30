@@ -101,6 +101,11 @@
             *ngSwitchCase=offerLetterConst.MORTGAGE_DEED>
 
         </app-mortgage-deed>
+        <app-rokka-letter
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+                *ngSwitchCase=offerLetterConst.ROKKA_LETTER>
+        </app-rokka-letter>
       </div>
     </div>
     <div *ngIf="client === clientList.MEGA">
