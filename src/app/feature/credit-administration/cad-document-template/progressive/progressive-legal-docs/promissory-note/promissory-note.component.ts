@@ -163,7 +163,7 @@ export class PromissoryNoteComponent implements OnInit {
       ItisambatTime: [undefined],
       ItisambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      secguarantorDetails: this.formBuilder.array([]),
+      secguarantorDetails: this.formBuilder.array([])
 
     });
   }

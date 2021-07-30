@@ -106,88 +106,114 @@
 
         <p><b>ऋणीको विवरणर सहीछाप :- ब्यक्तिको हकमा</b></p>
         <div>
-          <table class="table  table-bordered text-center">
-            <tbody>
-            <tr>
-              <th>ऋणीको नाम थर (देवनागरीमा) :-<input class="form-control-sm form-field nepaliFont"
-                                                     formControlName="creditorNameNepali2"
-                                                     type="text"></th>
-              <th>नाम थर (अंग्रेजीमा) :- <input class="form-control-sm form-field "
-                                                formControlName="creditorNameEnglish2"
-                                                type="text"></th>
-              <th>जन्ममिति :- <input class="form-control-sm form-field nepaliFont"
-                                     formControlName="dateOfBirth1"
-                                     type="text"></th>
-              <th rowspan="4">
-                <div>
-                  <table class="table  table-bordered text-center" id="fingerXap">
-                    <tbody>
-                    <tr>
-                      <td>दस्तखत:- .....................</td>
-                    <tr>
-                      <th>दाँ.</th>
-                      <th>बाँ.</th>
-                    </tr>
-                    <tr>
-                      <td><textarea cols="30" name=""
-                                    rows="10"  style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-                      <td><textarea cols="30" name=""
-                                    rows="10"  style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-                    </tr>
+          <div class="col-md-12 float-right">
+            <button (click)="addRinBibaran()" class="btn btn-primary btn-sm float-right " size="tiny"
+                    type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
+          </div>
 
-                    </tbody>
-                  </table>
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <td colspan="2">ठेगाना:- <input class="form-control-sm form-field nepaliFont"
-                                              formControlName="address1"
-                                              type="text"></td>
-              <td>लिङ्ग :- <input class="form-control-sm form-field nepaliFont"
-                                  formControlName="sex1"
-                                  type="text"></td>
-            </tr>
 
-            <tr>
-              <td>नागरिकता नं. र जारी मिति <input class="form-control-sm form-field nepaliFont"
-                                                  formControlName="creditorCitizenshipNo1"
-                                                  type="text">
-                <input class="form-control-sm form-field nepaliFont"
-                       formControlName="creditorCitizenshipIssueDate1"
-                       type="text">
-              </td>
-              <td>नागरिकता जारी गर्ने कार्यालय र स्थान:- <input
-                  class="form-control-sm form-field nepaliFont"
-                  formControlName="creditorCitizenshipIssueOffice1"
-                  type="text">
-                <input class="form-control-sm form-field nepaliFont"
-                       formControlName="creditorCitizenshipOfficeAddress1"
-                       type="text"></td>
-              <td>मोबाईल नम्बर :-<input class="form-control-sm form-field nepaliFont"
-                                        formControlName="creditorMobileNo1"
+          <div *ngFor="let guarantor of form.get('rinBibaran')['controls']; let i=index"
+               formArrayName="rinBibaran">
+            <div [formGroupName]="i">
+
+              <div>
+
+                <table class="table-bordered table text-center ">
+                  <tbody>
+                  <tr>
+                    <th>ऋणीको नाम थर (देवनागरीमा) :-<input class="form-control-sm form-field nepaliFont"
+                                                           formControlName="creditorNameNepali2"
+                                                           type="text"></th>
+                    <th>नाम थर (अंग्रेजीमा) :- <input class="form-control-sm form-field "
+                                                      formControlName="creditorNameEnglish2"
+                                                      type="text"></th>
+                    <th>जन्ममिति :- <input class="form-control-sm form-field nepaliFont"
+                                           formControlName="dateOfBirth1"
+                                           type="text"></th>
+                    <th rowspan="4">
+                      <div>
+                        <table class="table  table-bordered text-center" id="fingerXap">
+                          <tbody>
+                          <tr>
+                            <td>दस्तखत:- .....................</td>
+                          <tr>
+                            <th>दाँ.</th>
+                            <th>बाँ.</th>
+                          </tr>
+                          <tr>
+                            <td><textarea cols="30" name=""
+                                          rows="10"  style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
+                            <td><textarea cols="30" name=""
+                                          rows="10"  style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
+                          </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td colspan="2">ठेगाना:- <input class="form-control-sm form-field nepaliFont"
+                                                    formControlName="address1"
+                                                    type="text"></td>
+                    <td>लिङ्ग :- <input class="form-control-sm form-field nepaliFont"
+                                        formControlName="sex1"
                                         type="text"></td>
+                  </tr>
 
-            <tr>
-              <td>पति/पत्निको नाम :- <input class="form-control-sm form-field nepaliFont"
-                                            formControlName="creditorSpouse1"
-                                            type="text"></td>
-              <td>बाबुको नाम :-<input class="form-control-sm form-field nepaliFont"
-                                      formControlName="creditorFatherName1"
-                                      type="text"><br>
-                आमाको नाम :-<input class="form-control-sm form-field nepaliFont"
-                                   formControlName="creditorMotherName1"
-                                   type="text"></td>
-              <td>बाजेको नाम :-<input class="form-control-sm form-field nepaliFont"
-                                      formControlName="creditorGrandFatherName1"
-                                      type="text"><br>
-                बजैको नाम :-<input class="form-control-sm form-field nepaliFont"
-                                   formControlName="creditorGrandMotherName1"
-                                   type="text">
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                  <tr>
+                    <td>नागरिकता नं. र जारी मिति <input class="form-control-sm form-field nepaliFont"
+                                                        formControlName="creditorCitizenshipNo1"
+                                                        type="text">
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="creditorCitizenshipIssueDate1"
+                             type="text">
+                    </td>
+                    <td>नागरिकता जारी गर्ने कार्यालय र स्थान:- <input
+                            class="form-control-sm form-field nepaliFont"
+                            formControlName="creditorCitizenshipIssueOffice1"
+                            type="text">
+                      <input class="form-control-sm form-field nepaliFont"
+                             formControlName="creditorCitizenshipOfficeAddress1"
+                             type="text"></td>
+                    <td>मोबाईल नम्बर :-<input class="form-control-sm form-field nepaliFont"
+                                              formControlName="creditorMobileNo1"
+                                              type="text"></td>
+
+                  <tr>
+                    <td>पति/पत्निको नाम :- <input class="form-control-sm form-field nepaliFont"
+                                                  formControlName="creditorSpouse1"
+                                                  type="text"></td>
+                    <td>बाबुको नाम :-<input class="form-control-sm form-field nepaliFont"
+                                            formControlName="creditorFatherName1"
+                                            type="text"><br>
+                      आमाको नाम :-<input class="form-control-sm form-field nepaliFont"
+                                         formControlName="creditorMotherName1"
+                                         type="text"></td>
+                    <td>बाजेको नाम :-<input class="form-control-sm form-field nepaliFont"
+                                            formControlName="creditorGrandFatherName1"
+                                            type="text"><br>
+                      बजैको नाम :-<input class="form-control-sm form-field nepaliFont"
+                                         formControlName="creditorGrandMotherName1"
+                                         type="text">
+                    </td>
+                  </tr>
+                  </tbody>
+
+                </table>
+                <div *ngIf="form.get('rinBibaran')['length']>1" class="col-md-3 float-right">
+                  <button (click)="removeRinBibaran(i)"
+                          class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                          value="Delete">
+                    <em class="fas fa-trash" style="color: white;">
+                      Delete Guarantor
+                    </em>
+
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <br><br>
 
