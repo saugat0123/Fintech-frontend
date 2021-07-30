@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -57,10 +57,18 @@ export class LoanDeedComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
+
+          if (!ObjectUtil.isEmpty(initialInfo.swikritiBibaran)) {
+            this.setSwikriti(initialInfo.swikritiBibaran);
+          }
+          if (!ObjectUtil.isEmpty(initialInfo.security)) {
+            this.setSecurity(initialInfo.security);
+          }
           this.form.patchValue(this.initialInfoPrint);
         }
       });
     }
+
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
@@ -71,6 +79,41 @@ export class LoanDeedComponent implements OnInit {
     }
   }
 
+  setSwikriti(data) {
+    const formArray = this.form.get('swikritiBibaran') as FormArray;
+    if (data.length === 0) {
+      this.addSwikriti();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        approvedSubidhakisim: [value.approvedSubidhakisim],
+        approvedAmount: [value.approvedAmount],
+        approvedCommision: [value.approvedCommision],
+        approvedLoanTime: [value.approvedLoanTime],
+      }));
+    });
+  }
+  setSecurity(data) {
+    const formArray = this.form.get('security') as FormArray;
+    if (data.length === 0) {
+      this.addSwikriti();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        SecuritiesSN: [undefined],
+        SecuritiesSNBibaran: [undefined],
+        SecuritiesDistrict: [undefined],
+        SecuritiesMunicipality: [undefined],
+        SecuritiesWadNo: [undefined],
+        SecuritiesKeyNo: [undefined],
+        SecuritiesArea: [undefined],
+        SecuritiesRegNo: [undefined],
+        SecuritiesOwnerName: [undefined],
+      }));
+    });
+  }
   onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -163,10 +206,30 @@ export class LoanDeedComponent implements OnInit {
       certifiedDate: [undefined],
       certifiedCdoOffice: [undefined],
       namjariDate: [undefined],
-      approvedSubidhakisim: [undefined],
-      approvedAmount: [undefined],
-      approvedCommision: [undefined],
-      approvedLoanTime: [undefined],
+      itiSambatYear: [undefined],
+      itiSambatMonth: [undefined],
+      itiSambatDate: [undefined],
+      itiSambatTime: [undefined],
+      itiSambatRoj: [undefined],
+      sthit:[undefined],
+      staDistrict:[undefined],
+      swikritiBibaran:this.formBuilder.array([]),
+      security:this.formBuilder.array([])
+
+    });
+  }
+
+  addSecurity():void{
+    const formArray = this.form.get('security') as FormArray
+    formArray.push(this.securityFormGroup())
+
+  }
+  removeSecurity(index):void{
+    const formArray = this.form.get('security') as FormArray;
+    formArray.removeAt(index);
+  }
+  securityFormGroup():FormGroup{
+    return this.formBuilder.group({
       SecuritiesSN: [undefined],
       SecuritiesSNBibaran: [undefined],
       SecuritiesDistrict: [undefined],
@@ -176,14 +239,27 @@ export class LoanDeedComponent implements OnInit {
       SecuritiesArea: [undefined],
       SecuritiesRegNo: [undefined],
       SecuritiesOwnerName: [undefined],
-      itiSambatYear: [undefined],
-      itiSambatMonth: [undefined],
-      itiSambatDate: [undefined],
-      itiSambatTime: [undefined],
-      itiSambatRoj: [undefined]
-
     });
+
   }
 
+  addSwikriti(): void {
+    const formArray = this.form.get('swikritiBibaran') as FormArray;
+    formArray.push(this.swikritiFormGroup());
+  }
+
+  removeSwikriti(index: number): void {
+    const formArray = this.form.get('swikritiBibaran') as FormArray;
+    formArray.removeAt(index);
+  }
+
+  swikritiFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      approvedSubidhakisim: [undefined],
+      approvedAmount: [undefined],
+      approvedCommision: [undefined],
+      approvedLoanTime: [undefined],
+    });
+  }
 
 }

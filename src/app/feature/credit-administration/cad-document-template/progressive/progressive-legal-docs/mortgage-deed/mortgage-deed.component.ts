@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -56,6 +56,9 @@ export class MortgageDeedComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
+          if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
+            this.setGuarantorDetails(initialInfo.guarantorDetails);
+          }
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -70,7 +73,24 @@ export class MortgageDeedComponent implements OnInit {
     }
   }
 
-
+  setGuarantorDetails(data) {
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    if (data.length === 0) {
+      this.addGuarantor();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        name: [value.name],
+        citizenNumber: [value.citizenNumber],
+        issuedYear: [value.issuedYear],
+        guarantorCDOoffice: [value.guarantorCDOoffice],
+        guarantorDistrict: [value.guarantorDistrict],
+        guarantorMunicipality: [value.guarantorMunicipality],
+        guarantorWadNo: [value.guarantorWadNo]
+      }));
+    });
+  }
   onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -260,6 +280,8 @@ export class MortgageDeedComponent implements OnInit {
       fatwalaMiti: [undefined],
       fatwalaName: [undefined],
       fatwalaPosition: [undefined],
+      guarantorDetails: this.formBuilder.array([]),
+
     });
   }
 
@@ -268,4 +290,29 @@ export class MortgageDeedComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
   }
+
+  addGuarantor(): void {
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    formArray.push(this.guarantorFormGroup());
+  }
+
+  removeGuarantor(index: number): void {
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    formArray.removeAt(index);
+  }
+
+
+  guarantorFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      name: [undefined],
+      citizenNumber: [undefined],
+      issuedYear: [undefined],
+      guarantorCDOoffice: [undefined],
+      guarantorDistrict: [undefined],
+      guarantorMunicipality: [undefined],
+      guarantorWadNo: [undefined]
+    });
+  }
+
 }
+

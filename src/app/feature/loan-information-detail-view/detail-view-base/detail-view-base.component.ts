@@ -105,5 +105,4 @@ export class DetailViewBaseComponent implements OnInit {
           console.error(error);
         });
   }
-
 }

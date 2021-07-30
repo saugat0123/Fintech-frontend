@@ -9,6 +9,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-nta-mega',
