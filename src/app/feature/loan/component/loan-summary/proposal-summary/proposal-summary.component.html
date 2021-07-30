@@ -252,7 +252,7 @@
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
-                <th colspan="7">Information of Subsidized Loan</th>
+                <th colspan="7" *ngIf="checkedData?.subsidizedLoanChecked">Information of Subsidized Loan</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>
