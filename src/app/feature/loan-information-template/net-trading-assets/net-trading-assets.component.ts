@@ -7,6 +7,7 @@ import {FiscalYear} from '../../admin/modal/FiscalYear';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {CalendarType} from '../../../@core/model/calendar-type';
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-net-trading-assets',
@@ -35,7 +36,7 @@ export class NetTradingAssetsComponent implements OnInit {
     parentForm: FormGroup;
     netTradingAssetsFormArray: FormArray;
     fiscalYearArray = new Array<FiscalYear>();
-
+    ckeConfig = Editor.CK_CONFIG;
     spinner = false;
 
     constructor(protected formBuilder: FormBuilder,
@@ -45,7 +46,8 @@ export class NetTradingAssetsComponent implements OnInit {
 
     ngOnInit() {
         this.parentForm = this.formBuilder.group({
-            netTradingAssetsFormArray: this.formBuilder.array([])
+            netTradingAssetsFormArray: this.formBuilder.array([]),
+            ntaRemarks: [ObjectUtil.isEmpty(this.netTradingAssetsData) ? '' : this.netTradingAssetsData.ntaRemarks],
         });
         this.netTradingAssetsFormArray = this.parentForm.get('netTradingAssetsFormArray') as FormArray;
         this.getFiscalYears();
@@ -135,7 +137,7 @@ export class NetTradingAssetsComponent implements OnInit {
                     drawingPower: this.formBuilder.group(this.setNestedFormValues(v.drawingPower)),
                     drawingPowerAmount: this.formBuilder.group(this.setNestedFormValues(v.drawingPowerAmount)),
                     loanFromUs: this.formBuilder.group(this.setNestedFormValues(v.loanFromUs)),
-                    surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit))
+                    surplusDeficit: this.formBuilder.group(this.setNestedFormValues(v.surplusDeficit)),
                 };
                 this.netTradingAssetsFormArray.push(
                     this.formBuilder.group(formObjectData)
@@ -282,7 +284,7 @@ export class NetTradingAssetsComponent implements OnInit {
             this.netTradingAssetSubmitData = this.netTradingAssetsData;
         }
         this.netTradingAssetSubmitData.data = JSON.stringify(this.netTradingAssetsFormArray.value);
+        this.netTradingAssetSubmitData.ntaRemarks = this.parentForm.get('ntaRemarks').value;
         this.netTradingAssetsEventEmitter.emit(this.netTradingAssetSubmitData);
     }
-
 }

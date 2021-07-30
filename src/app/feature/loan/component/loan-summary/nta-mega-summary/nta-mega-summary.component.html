@@ -7,7 +7,8 @@
         <thead class="text-right">
         <tr class="sb-bg-dark text-white text-center">
             <td></td>
-            <td colspan="5">Projected Year({{fiscalYears[prevFiscalYearIndex]?.year}})</td>
+            <td colspan="5">Projected Year({{fiscalYears[prevFiscalYearIndex]?.id > fiscalYears[currentFiscalYearIndex].id ?
+                fiscalYears[prevFiscalYearIndex]?.year : ''}})</td>
             <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
         </tr>
         <tr class="sb-bg-dark text-white text-center">
@@ -215,5 +216,15 @@
             <td class="pr-1">Rs. {{currentYearData?.ytdSales?.average |currencyFormatter}}</td>
         </tr>
         </thead>
+    </table>
+    <table class="table table-bordered table-hover table-sm sb-small">
+        <thead class="text-right">
+        <tr class="sb-bg-dark text-white text-center">
+            <th>Remarks</th>
+        </tr>
+        </thead>
+        <tr>
+            <td class="text-left pl-1" [innerHTML]="netTradingAssetsData?.ntaRemarks | safeHtml"></td>
+        </tr>
     </table>
 </div>
