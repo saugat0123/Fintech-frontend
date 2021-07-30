@@ -33,11 +33,11 @@
                    <nb-tab tabTitle="Company Detail">
                        <div>
                            <div class="row">
-                               <div class="col-md-4">
+                               <div class="col-md-4" *ngIf="microCustomer">
                                    <div class="form-group">
                                        <label><strong>Micro Customer Type</strong></label>
                                        <select  (change)="microCustomerTypeValidation(microType?.value)" #microType
-                                               formControlName="microCustomerType" [disabled]="!microCustomer" id="microCustomerType" class="form-control">
+                                               formControlName="microCustomerType" id="microCustomerType" class="form-control">
                                            <option *ngFor="let data of microCustomerTypes" [value]="data.key">{{data.value}}</option>
                                        </select>
                                    </div>
