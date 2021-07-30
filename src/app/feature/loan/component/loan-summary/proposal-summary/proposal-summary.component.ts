@@ -169,6 +169,6 @@ export class ProposalSummaryComponent implements OnInit {
         const baseRate = Number(this.proposalAllData.baseRate);
         const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
         const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
-        return interestRate;
+        return interestRate.toFixed(2);
     }
 }
