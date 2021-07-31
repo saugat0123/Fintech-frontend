@@ -44,24 +44,24 @@
             न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको <strong> प्रोग्रेशिभ फाइनान्स लिमिटेडको</strong>
             चितवन जिल्ला भरतपुर न.पा.÷गा.पा.वडा नं ३,
             स्थित भरतपुर शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा“धनीवित्तीय संस्था”भनिएको), लिखत गरि धितो सुरक्षण लेखिदिनेको नाम
-            <span [ngClass]="{nepaliFont:printDocForm?.dhitoName!==null && printDocForm.dhitoName!==''}" >
+            <span [ngClass]="{'nepaliFont':printDocForm?.dhitoName!==null && printDocForm?.dhitoName!==''}" >
             {{printDocForm?.dhitoName===null||printDocForm?.dhitoName===''?'________________':printDocForm.dhitoName }}
           </span>
-            (जसलाई यस उप्रान्त यस लिखतमा “धितो सुरक्षणकर्ता” भनिएको) आगे <span [ngClass]="{nepaliFont:printDocForm?.aageChreditor!==null && printDocForm.aageChreditor!==''}" >
+            (जसलाई यस उप्रान्त यस लिखतमा “धितो सुरक्षणकर्ता” भनिएको) आगे <span [ngClass]="{'nepaliFont':printDocForm?.aageChreditor!==null && printDocForm.aageChreditor!==''}" >
             {{printDocForm?.aageChreditor===null||printDocForm?.aageChreditor===''?'________________':printDocForm.aageChreditor }}
           </span>
             (जसलाई यस उप्रान्त यस लिखतमा “ऋणी” भनिएको) को नाममा जम्मा स्वीकृत भएको स्वीकृत भई उपभोग
             गर्ने
-            रु.<span [ngClass]="{nepaliFont:printDocForm?.upabhogRu!==null && printDocForm.upabhogRu!==''}" >
+            रु.<span [ngClass]="{'nepaliFont':printDocForm?.upabhogRu!==null && printDocForm.upabhogRu!==''}" >
             {{printDocForm?.upabhogRu===null||printDocForm?.upabhogRu===''?'________________':printDocForm.upabhogRu }}
           </span>।–
-            (अक्षेरेपी <span [ngClass]="{nepaliFont:printDocForm?.upabhogRuWord!==null && printDocForm.upabhogRuWord!==''}" >
+            (अक्षेरेपी <span [ngClass]="{'nepaliFont':printDocForm?.upabhogRuWord!==null && printDocForm.upabhogRuWord!==''}" >
             {{printDocForm?.upabhogRuWord===null||printDocForm?.upabhogRuWord===''?'________________':printDocForm.upabhogRuWord }}
           </span>मात्र)
-            सम्मको कर्जा सीमा मध्ये प्रस्तुत जायजेथा रु <span [ngClass]="{nepaliFont:printDocForm?.jyayeJethaRu!==null && printDocForm.jyayeJethaRu!==''}" >
+            सम्मको कर्जा सीमा मध्ये प्रस्तुत जायजेथा रु <span [ngClass]="{'nepaliFont':printDocForm?.jyayeJethaRu!==null && printDocForm.jyayeJethaRu!==''}" >
             {{printDocForm?.jyayeJethaRu===null||printDocForm?.jyayeJethaRu===''?'________________':printDocForm.jyayeJethaRu }}
           </span>।–
-            (अक्षेरेपी <span [ngClass]="{nepaliFont:printDocForm?.jyayeJethaRuWord!==null && printDocForm.jyayeJethaRuWord!==''}" >
+            (अक्षेरेपी <span [ngClass]="{'nepaliFont':printDocForm?.jyayeJethaRuWord!==null && printDocForm.jyayeJethaRuWord!==''}" >
             {{printDocForm?.jyayeJethaRuWord===null||printDocForm?.jyayeJethaRuWord===''?'________________':printDocForm.jyayeJethaRuWord }}
           </span>मात्र)
             सम्म वा धितोको मुल्यले खामे सम्मको चालुपूंजि (Working Capital), डिमाण्डलोन (Demand Loan)
@@ -99,7 +99,7 @@
           <br>
           <div *ngFor="let guarantor of printDocForm?.rinBibaran; let i=index">
             <div class="col-lg-12">
-              <table border="1" width="100%">
+              <table border="1" width="100%" class="table-bordered table text-center">
                 <tbody>
                 <tr>
                   <th>ऋणीको नाम थर (देवनागरीमा) :-<span
@@ -381,11 +381,15 @@
           </div>
         </div>
         <br><br>
-        <p>उक्तकित्ता नं. <span class="nepaliFont">{{printDocForm?.kittaNo}}</span>
+        <p>उक्तकित्ता नं.<span [ngClass]="{'nepaliFont':printDocForm?.kittaNo!==null && printDocForm.kittaNo!==''}" >
+            {{printDocForm?.kittaNo===null||printDocForm?.kittaNo===''?'________________':printDocForm.kittaNo }}
+          </span>
           को घर/जग्गातथा सो घर/जग्गाले चर्चेको सम्पूर्ण लिगलगापात समेत ।</p>
 
         <p>संलग्नप्रमाणहरु :-</p><br>
-          <p>(क) चालु आ.व. <span class="nepaliFont">{{printDocForm?.chaluArthikBarsa}}</span>.को मालपोत
+          <p>(क) चालु आ.व. <span [ngClass]="{'nepaliFont':printDocForm?.chaluArthikBarsa!==null && printDocForm.chaluArthikBarsa!==''}" >
+            {{printDocForm?.chaluArthikBarsa===null||printDocForm?.chaluArthikBarsa===''?'________________':printDocForm.chaluArthikBarsa }}
+          </span>.को मालपोत
           तिरेको रसिदको प्रतिलिपीथान–१<br>
           (ख) जग्गाधनीदर्ता प्रमाणपूर्जाको प्रतिलिपीथान–१<br>
           (ग) लिखत गरिदिनेको नागरिकताको प्रमाणपत्रको प्रतिलिपीथान–१<br>
@@ -433,16 +437,35 @@
         </div>
           <br>
 
-        <p>  ईति सम्वत् २०<span class="nepaliFont">{{printDocForm?.itisambatYear}}</span>
-          साल<span class="nepaliFont">{{printDocForm?.itisambatMonth}}</span>
-          महिना<span class="nepaliFont">{{printDocForm?.itisambatDay}}</span>
-          गते<span class="nepaliFont">{{printDocForm?.itisambatTime}}</span>
-          रोज शुभम्<span class="nepaliFont">{{printDocForm?.itisambatShubam}}</span>।
+        <p>
+          ईति सम्बत २०
+          <span [ngClass]="{'nepaliFont':printDocForm?.itisambatYear!==null && printDocForm.itisambatYear!==''}" >
+            {{printDocForm?.itisambatYear===null||printDocForm?.itisambatYear===''?'________________':printDocForm.itisambatYear }}
+          </span>.
+          साल   <span [ngClass]="{'nepaliFont':printDocForm?.itisambatMonth!==null && printDocForm.itisambatMonth!==''}" >
+            {{printDocForm?.itisambatMonth===null||printDocForm?.itisambatMonth===''?'________________':printDocForm.itisambatMonth }}
+          </span>
+          महिना <span [ngClass]="{'nepaliFont':printDocForm?.itisambatDay!==null && printDocForm.itisambatDay!==''}" >
+            {{printDocForm?.itisambatDay===null||printDocForm?.itisambatDay===''?'________________':printDocForm.itisambatDay }}
+          </span>
+          गते <span [ngClass]="{'nepaliFont':printDocForm?.itisambatTime!==null && printDocForm.itisambatTime!==''}" >
+            {{printDocForm?.itisambatTime===null||printDocForm?.itisambatTime===''?'________________':printDocForm.itisambatTime }}
+          </span>
+          रोज शुभम् <span [ngClass]="{'nepaliFont':printDocForm?.itisambatShubam!==null && printDocForm.itisambatShubam!==''}" >
+            {{printDocForm?.itisambatShubam===null||printDocForm?.itisambatShubam===''?'________________':printDocForm.itisambatShubam }}
+          </span>।
+          <br>
 
           यो लिखतमैले भने बमोजिम/म धितो सुरक्षण कर्ता <span
-                  class="nepaliFont">{{printDocForm?.dhitoSurakchanKarta}}</span>
+                [ngClass]="{'nepaliFont':printDocForm?.dhitoSurakchanKarta!==null && printDocForm?.dhitoSurakchanKarta!==''}">
+
+                       {{printDocForm?.dhitoSurakchanKarta === null || printDocForm?.dhitoSurakchanKarta === '' ? '_______________' : printDocForm?.dhitoSurakchanKarta}}
+                   </span>
           स्वयंले तयार गरेको हो भनी सही गर्नेको नाम:- <span
-                  class="nepaliFont">{{printDocForm?.dhitoSurakchanKartaName}}</span>
+                [ngClass]="{'nepaliFont':printDocForm.dhitoSurakchanKartaName!==null && printDocForm?.dhitoSurakchanKartaName!==''}">
+
+                       {{printDocForm.dhitoSurakchanKartaName === null || printDocForm.dhitoSurakchanKartaName === '' ? '_______________' : printDocForm?.dhitoSurakchanKartaName}}
+                   </span>
           हस्ताक्षर ........................ ।
         </p><br><br>
       </div>

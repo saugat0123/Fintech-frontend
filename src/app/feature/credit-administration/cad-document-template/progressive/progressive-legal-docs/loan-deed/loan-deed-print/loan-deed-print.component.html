@@ -205,7 +205,7 @@
       <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
         <div *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
             <div>
-                <table border="1" width="100%">
+                <table border="1" width="100%" class="table-bordered table text-center ">
                     <thead>
                     <tr>
                         <th>ऋणकर्जा वा बैंकिङ्ग
@@ -279,11 +279,22 @@
 
       <br>
       <p>
-        ईतिसम्बत <span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
-        साल <span class="nepaliFont">{{printDocForm?.itiSambatMonth}}</span>
-        महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
-        गते <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-        रोज शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatRoj}}</span>.................. ।
+        ईतिसम्बत <span [ngClass]="{'nepaliFont':printDocForm.itiSambatYear!==null && printDocForm.itiSambatYear!==''}">
+          {{printDocForm?.itiSambatYear===null || printDocForm?.itiSambatYear===null ?'________________':printDocForm.itiSambatYear}}
+      </span>
+        साल <span [ngClass]="{'nepaliFont':printDocForm.itiSambatMonth!==null && printDocForm.itiSambatMonth!==''}">
+          {{printDocForm?.itiSambatMonth===null || printDocForm?.itiSambatMonth===null ?'________________':printDocForm.itiSambatMonth}}
+      </span>
+        महिना <span [ngClass]="{'nepaliFont':printDocForm.itiSambatDate!==null && printDocForm.itiSambatDate!==''}">
+          {{printDocForm?.itiSambatDate===null || printDocForm?.itiSambatDate===null ?'________________':printDocForm.itiSambatDate}}
+      </span>
+        गते <span [ngClass]="{'nepaliFont':printDocForm.itiSambatTime!==null && printDocForm.itiSambatTime!==''}">
+          {{printDocForm?.itiSambatTime===null || printDocForm?.itiSambatTime===null ?'________________':printDocForm.itiSambatTime}}
+      </span>
+        रोज शुभम्
+          <span [ngClass]="{'nepaliFont':printDocForm.itiSambatRoj!==null && printDocForm.itiSambatRoj!==''}">
+          {{printDocForm?.itiSambatRoj===null || printDocForm?.itiSambatRoj===null ?'________________':printDocForm.itiSambatRoj}}
+      </span>.................. ।
       </p>
 
     </form>
