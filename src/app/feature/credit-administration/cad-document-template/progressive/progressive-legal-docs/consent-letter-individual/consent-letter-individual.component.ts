@@ -137,7 +137,7 @@ export class ConsentLetterIndividualComponent implements OnInit {
             itisambatDay: [undefined],
             itisambatTime: [undefined],
             itisambatRojSubham: [undefined],
-            sahamati: this.formBuilder.array([]),
+            sahamati: this.formBuilder.array([this.Sahamati()]),
             guarantorDetails:this.formBuilder.array([])
         })
     }
@@ -206,7 +206,8 @@ export class ConsentLetterIndividualComponent implements OnInit {
     }
 
     setSahamati(data) {
-        const formArray = this.form.get("sahamati") as FormArray
+        const formArray = this.form.get("sahamati") as FormArray;
+        (this.form.get('sahamati') as FormArray).clear();
         if (data.length === 0) {
             this.addSahamati()
             return;
