@@ -21,6 +21,7 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {Role} from '../../../admin/modal/role';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {DocAction} from '../../model/docAction';
+import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 
 @Component({
     selector: 'app-loan-action-combined-modal',
@@ -38,6 +39,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() isMaker: boolean;
     @Input() branchId: number;
     @Input() toRole: Role;
+    @Input() customerLoanHolder: LoanDataHolder;
     ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
@@ -59,12 +61,15 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isUserPresent = [];
     isSolUserPresent = [];
     preSelectedSolUser = [];
+    combinedProposedLimit: number;
     showSolUser = [];
     showHideCombineSolUser = false;
     submitted = false;
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
+    isApprovalLimitExceeded: boolean = false;
+
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -76,7 +81,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
         private nbDialogService: NbDialogService,
         private loanFormService: LoanFormService,
         private router: Router,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private approvalLimitService: ApprovalLimitService,
     ) {
     }
 
@@ -88,6 +94,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 this.isUserPresent[i] = true;
                 this.isSolUserPresent[i] = true;
                 this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
+                this.combinedProposedLimit += l.proposal.proposedLimit;
             });
         }, error => {
             console.error(error);
@@ -97,6 +104,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     public changeStageType(value: 'individually' | 'combined'): void {
+        this.isApprovalLimitExceeded = false;
         if (value === 'individually') {
             this.individualType.form = this.buildIndividualForm();
             this.individualType.users = new Map<number, User[]>();
@@ -125,6 +133,12 @@ export class LoanActionCombinedModalComponent implements OnInit {
     public getCombinedUserList(role) {
         this.isUserNotPresentForCombine = false;
         this.showUserList = true;
+        if (this.stageType === 'combined') {
+            this.combinedLoan.loans.forEach((l, i) => {
+                this.checkApprovalLimit(role.id, l);
+            });
+        }
+
         this.roleService.detail(role.id).subscribe((res: any) => {
             role = res.detail;
         });
@@ -160,7 +174,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
         });
     }
 
-    public getIndividualUserList(role, i: number) {
+    public getIndividualUserList(role, i: number, loan) {
+        this.checkApprovalLimit(role.id, loan, i);
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.individualType.users.set(i, response.detail);
             const users: User[] = response.detail;
@@ -296,7 +311,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     // sol logic starts here
     // individual
-    public getIndividualUserSolList(role, i: number) {
+    public getIndividualUserSolList(role, i: number, loan) {
+        this.checkApprovalLimit(role.id, loan, i);
         if (!ObjectUtil.isEmpty(role)) {
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
                 this.individualType.solUsers.set(i, response.detail);
@@ -321,6 +337,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     showHideSol(event: boolean, i: number) {
         const val = {index: i, value: event};
         const checkIndexPresent = this.showSolUser.filter(s => s.index === i);
+        // this.checkApprovalLimit()
         if (checkIndexPresent.length === 0) {
             this.showSolUser.push(val);
         } else {
@@ -342,6 +359,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
     // combineSol
     public getCombinedSolUserList(role) {
         this.isSolUserPresentForCombine = true;
+        this.combinedLoan.loans.forEach((l, i) => {
+            this.checkApprovalLimit(role.id, l);
+        });
         this.combinedType.form.patchValue({
             solUser: null
         });
@@ -384,6 +404,19 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
+
+    async checkApprovalLimit(roleId, loan, i = null) {
+        if (!i) {
+            this.isApprovalLimitExceeded = false;
+        }
+        this.approvalLimitService.getLimitWithRoleAndLoan(roleId, loan.loan.id, loan.loanCategory)
+            .subscribe((res: any) => {
+                if (loan.proposal !== null &&
+                    loan.proposal.proposedLimit > res.detail.amount) {
+                    this.isApprovalLimitExceeded = true;
+                }
+            });
     }
 
 

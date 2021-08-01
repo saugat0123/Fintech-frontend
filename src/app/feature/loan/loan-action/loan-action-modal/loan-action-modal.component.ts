@@ -20,6 +20,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {Editor} from '../../../../@core/utils/constants/editor';
+import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -52,6 +53,7 @@ export class LoanActionModalComponent implements OnInit {
     isNoUserSol = false;
     isNoUserSelectedSol = false;
     isEmptyUser = false;
+    isApprovalLimitExceeded = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
 
@@ -67,7 +69,8 @@ export class LoanActionModalComponent implements OnInit {
         private router: Router,
         private socketService: SocketService,
         private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private approvalLimitService: ApprovalLimitService,
     ) {
     }
 
@@ -83,6 +86,7 @@ export class LoanActionModalComponent implements OnInit {
     public getUserList(role) {
         this.isEmptyUser = false;
         this.showUserList = true;
+        this.checkApprovalLimit(role.id);
         this.roleService.detail(role.id).subscribe((res: any) => {
             role = res.detail;
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
@@ -173,7 +177,7 @@ export class LoanActionModalComponent implements OnInit {
                     .subscribe((response: any) => {
                         this.sendForwardBackwardList = [];
                         // this.sendForwardBackwardList = response.detail;
-                        this.sendForwardBackwardList = response.detail.sort(function(a, b) {
+                        this.sendForwardBackwardList = response.detail.sort(function (a, b) {
                             return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
                         if (this.sendForwardBackwardList.length > 0) {
@@ -245,6 +249,7 @@ export class LoanActionModalComponent implements OnInit {
         this.formAction.patchValue({
             solUser: [undefined]
         });
+        this.checkApprovalLimit(role.id);
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             this.solUserList = response.detail;
             this.isNoUserSol = false;
@@ -289,4 +294,15 @@ export class LoanActionModalComponent implements OnInit {
         }
     }
 
+    checkApprovalLimit(roleId) {
+        this.isApprovalLimitExceeded = false;
+        this.approvalLimitService.getLimitWithRoleAndLoan(roleId, this.customerLoanHolder.loan.id, this.customerLoanHolder.loanCategory)
+            .subscribe((res: any) => {
+                if (this.customerLoanHolder.proposal !== null &&
+                    this.customerLoanHolder.proposal.proposedLimit > res.detail.amount) {
+                    this.isApprovalLimitExceeded = true;
+                }
+            });
+
+    }
 }
