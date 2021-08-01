@@ -50,7 +50,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         return this.basicInfo.controls;
     }
 
-    @ViewChild('microIndividualFormComponent' , {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
+    @ViewChild('microIndividualFormComponent', {static: false}) microIndividualFormComponent: MicroIndividualFormComponent;
 
     @Input() formValue: Customer = new Customer();
     @Input() clientTypeInput: any;
@@ -90,7 +90,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-
+    temporaryAddressShow = true;
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -181,13 +181,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.municipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                            this.basicInfo.controls.municipalities.setValue(municipality);
+                        this.basicInfo.controls.municipalities.setValue(municipality);
                     }
                 });
             }
         );
 
     }
+
     getTemporaryDistricts(province: Province) {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
@@ -207,11 +208,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
-                this.temporaryMunicipalitiesList.sort((a,b) => a.name.localeCompare(b.name));
+                this.temporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
-                            this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
+                        this.basicInfo.controls.temporaryMunicipalities.setValue(municipality);
                     }
                 });
             }
@@ -447,7 +448,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
-        return  JSON.stringify(individualJsonData);
+        return JSON.stringify(individualJsonData);
     }
 
     createRelativesArray() {
@@ -547,13 +548,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (houseWifeSelected) {
             this.tempFlag.hideIncomeSource = true;
             this.basicInfo.get('incomeSource').clearValidators();
-        }  else {
+        } else {
             this.tempFlag.hideIncomeSource = false;
             this.basicInfo.get('incomeSource').setValidators(Validators.required);
         }
         this.basicInfo.get('incomeSource').updateValueAndValidity();
 
     }
+
     ngDoCheck(): void {
         if (this.formValue.id == null) {
             this.formLabel = 'Add';
@@ -624,19 +626,41 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         }
 
     }
-    sameAsPermanent() {
+
+    sameAsPermanent(event) {
         // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
         //     return true;
         // }
-        this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
-        this.customer.temporaryDistrict = this.basicInfo.get('district').value;
-        this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
-        this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
-        this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
-        this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
-        this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
-        this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
+
+        const temporaryFields = [
+            'temporaryProvince',
+            'temporaryDistrict',
+            'temporaryProvince',
+            'temporaryMunicipalities',
+            'temporaryAddressLine1',
+            'temporaryAddressLine2',
+            'temporaryWardNumber'
+        ];
+
+
+        if (event.target.checked) {
+            this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
+            this.customer.temporaryDistrict = this.basicInfo.get('district').value;
+            this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
+            this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
+            this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
+            this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+            this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
+            this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
+
+            this.temporaryAddressShow = false;
+        } else {
+            this.temporaryAddressShow = true;
+            temporaryFields.forEach(t => {
+                this.basicInfo.get(t).patchValue('');
+            });
+        }
 
     }
 
