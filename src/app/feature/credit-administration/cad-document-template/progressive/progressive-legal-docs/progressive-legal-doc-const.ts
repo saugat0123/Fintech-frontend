@@ -21,6 +21,7 @@ export enum ProgressiveLegalDocConst {
   BLACKLIST_CONSENT ='2020',
   AUTHORITY_TO_DEBT_ACCOUNT = '2021',
   ROKKA_LETTER = '2019',
+  CONSENT_LETTER_INDIVIDUAL = '2022'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -62,6 +63,8 @@ export namespace ProgressiveLegalDocConst {
         return 'B Hypothecation of Goods and Receivables';
       case ProgressiveLegalDocConst.ROKKA_LETTER:
         return 'Rokka Letter';
+      case ProgressiveLegalDocConst.CONSENT_LETTER_INDIVIDUAL:
+        return 'Consent Letter Individual';
     }
   }
 

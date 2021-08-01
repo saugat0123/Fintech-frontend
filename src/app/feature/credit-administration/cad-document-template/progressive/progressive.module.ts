@@ -55,6 +55,8 @@ import { BlacklistConsentComponent } from './progressive-legal-docs/blacklist-co
 import { BlacklistConsentPrintComponent } from './progressive-legal-docs/blacklist-consent/blacklist-consent-print/blacklist-consent-print.component';
 import { RokkaLetterComponent } from './progressive-legal-docs/rokka-letter/rokka-letter.component';
 import { RokkaLetterPrintComponent } from './progressive-legal-docs/rokka-letter/rokka-letter-print/rokka-letter-print.component';
+import { ConsentLetterIndividualComponent } from './progressive-legal-docs/consent-letter-individual/consent-letter-individual.component';
+import { ConsentLetterIndividualPrintComponent } from './progressive-legal-docs/consent-letter-individual/consent-letter-individual-print/consent-letter-individual-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -105,12 +107,14 @@ const COMPONENTS = [
     PromisoryNoteInstitutionalPrintComponent,
     BlacklistConsentComponent,
     BlacklistConsentPrintComponent,
-      LetterOfContinuityInstitutionalComponent,
-      LetterOfContinuityInstitutionalPrintComponent,
-      AuthorityToDebtAccountComponent,
-      AuthorityToDebtAccountPrintComponent,
+    LetterOfContinuityInstitutionalComponent,
+    LetterOfContinuityInstitutionalPrintComponent,
+    AuthorityToDebtAccountComponent,
+    AuthorityToDebtAccountPrintComponent,
     RokkaLetterComponent,
     RokkaLetterPrintComponent,
+    ConsentLetterIndividualComponent,
+    ConsentLetterIndividualPrintComponent,
 
   ],
   exports: [
@@ -133,9 +137,10 @@ const COMPONENTS = [
     PromisoryNoteInstitutionalComponent,
     BlacklistConsentComponent,
     MortgageDeedComponent,
-      LetterOfContinuityInstitutionalComponent,
+    LetterOfContinuityInstitutionalComponent,
     AuthorityToDebtAccountComponent,
     RokkaLetterComponent,
+    ConsentLetterIndividualComponent
   ],
   imports: [
     ThemeModule,

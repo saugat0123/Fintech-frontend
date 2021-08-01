@@ -59,6 +59,9 @@ export class MortgageDeedComponent implements OnInit {
           if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
             this.setGuarantorDetails(initialInfo.guarantorDetails);
           }
+          if (!ObjectUtil.isEmpty(initialInfo.rinBibaran)) {
+            this.setRinBibaran(initialInfo.rinBibaran);
+          }
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -165,21 +168,6 @@ export class MortgageDeedComponent implements OnInit {
       propCitizenJariDate1: [undefined],
       propCitizenJariOffice1: [undefined],
       propAddress1: [undefined],
-      creditorNameNepali2: [undefined],
-      creditorNameEnglish2: [undefined],
-      dateOfBirth1: [undefined],
-      address1: [undefined],
-      sex1: [undefined],
-      creditorCitizenshipNo1: [undefined],
-      creditorCitizenshipIssueDate1: [undefined],
-      creditorCitizenshipIssueOffice1: [undefined],
-      creditorCitizenshipOfficeAddress1: [undefined],
-      creditorMobileNo1: [undefined],
-      creditorFatherName1: [undefined],
-      creditorMotherName1: [undefined],
-      creditorSpouse1: [undefined],
-      creditorGrandFatherName1: [undefined],
-      creditorGrandMotherName1: [undefined],
       creditorNameNepali3: [undefined],
       creditorNameEnglish3: [undefined],
       dartaDate2: [undefined],
@@ -281,6 +269,7 @@ export class MortgageDeedComponent implements OnInit {
       fatwalaName: [undefined],
       fatwalaPosition: [undefined],
       guarantorDetails: this.formBuilder.array([]),
+      rinBibaran:this.formBuilder.array([])
 
     });
   }
@@ -311,6 +300,63 @@ export class MortgageDeedComponent implements OnInit {
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
       guarantorWadNo: [undefined]
+    });
+  }
+
+
+  addRinBibaran(): void {
+    const formArray = this.form.get('rinBibaran') as FormArray;
+    formArray.push(this.rinBibaranFormGroup());
+  }
+
+  removeRinBibaran(index: number): void {
+    const formArray = this.form.get('rinBibaran') as FormArray;
+    formArray.removeAt(index);
+  }
+  rinBibaranFormGroup():FormGroup{
+    return this.formBuilder.group({
+      creditorNameNepali2: [undefined],
+      creditorNameEnglish2: [undefined],
+      dateOfBirth1: [undefined],
+      address1: [undefined],
+      sex1: [undefined],
+      creditorCitizenshipNo1: [undefined],
+      creditorCitizenshipIssueDate1: [undefined],
+      creditorCitizenshipIssueOffice1: [undefined],
+      creditorCitizenshipOfficeAddress1: [undefined],
+      creditorMobileNo1: [undefined],
+      creditorFatherName1: [undefined],
+      creditorMotherName1: [undefined],
+      creditorSpouse1: [undefined],
+      creditorGrandFatherName1: [undefined],
+      creditorGrandMotherName1: [undefined],
+    })
+
+  }
+  setRinBibaran(data) {
+    const formArray = this.form.get('rinBibaran') as FormArray;
+    if (data.length === 0) {
+      this.addRinBibaran();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        creditorNameNepali2: [value.creditorNameNepali2],
+        creditorNameEnglish2: [value.creditorNameEnglish2],
+        dateOfBirth1: [value.dateOfBirth1],
+        address1: [value.address1],
+        sex1: [value.sex1],
+        creditorCitizenshipNo1: [value.creditorCitizenshipNo1],
+        creditorCitizenshipIssueDate1: [value.creditorCitizenshipIssueDate1],
+        creditorCitizenshipIssueOffice1: [value.creditorCitizenshipIssueOffice1],
+        creditorCitizenshipOfficeAddress1: [value.creditorCitizenshipOfficeAddress1],
+        creditorMobileNo1: [value.creditorMobileNo1],
+        creditorFatherName1: [value.creditorFatherName1],
+        creditorMotherName1: [value.creditorMotherName1],
+        creditorSpouse1: [value.creditorSpouse1],
+        creditorGrandFatherName1: [value.creditorGrandFatherName1],
+        creditorGrandMotherName1: [value.creditorGrandMotherName1],
+      }));
     });
   }
 

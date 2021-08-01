@@ -112,7 +112,15 @@
                 [customerLoanId]="customerLoanId"
                 *ngSwitchCase=offerLetterConst.BLACKLIST_CONSENT
         >
+
         </app-blacklist-consent>
+        <app-consent-letter-individual
+                [cadData]="cadData" [documentId]="documentId"
+                [customerLoanId]="customerLoanId"
+                *ngSwitchCase=offerLetterConst.CONSENT_LETTER_INDIVIDUAL
+        >
+
+        </app-consent-letter-individual>
         <app-letter-of-continuity-institutional
           [cadData]="cadData" [documentId]="documentId"
           [customerLoanId]="customerLoanId"
