@@ -130,7 +130,7 @@
 </table>
 
 
-<div *ngIf="isBusinessLoan && (loanDataHolder?.companyInfo?.microCustomerType == 'DIRECT')">
+<div *ngIf="isBusinessLoan && (loanDataHolder?.companyInfo?.microCustomerType != 'DIRECT')">
   <div class="row mt-3">
     <div class="col-md-12">
       <p><strong>Financial Highlights of the Entity</strong></p>
