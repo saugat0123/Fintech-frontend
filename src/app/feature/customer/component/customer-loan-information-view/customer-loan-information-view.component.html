@@ -34,21 +34,89 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      {{customerInfo?.financial}}
+      <nb-accordion-item *ngIf="customerInfo?.borrowerPortFolio" #itemBorrowerLoanPortFolid>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>LOAN PORTFOLIO OF BORROWERS</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-borrower-portfolio-view *ngIf="itemBorrowerLoanPortFolid.expanded"
+                                       [borrowerData]="customerInfo?.borrowerPortFolio"></app-borrower-portfolio-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.microBorrowerFinancial" #itemFinancialHisghlight>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>FINANCIAL HIGHLIGHTS OF BORROWERS</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+<!--          <app-borrower-portfolio-view *ngIf="itemFinancialHisghlight?.expanded"-->
+<!--                                       [borrowerData]="customerInfo?.borrowerPortFolio"></app-borrower-portfolio-view>-->
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.marketingActivities" #itemMarketing>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>MARKETING ACTIVITIES</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-marketing-activities-view *ngIf="itemMarketing?.expanded"
+                                         [marketingActivityData]="customerInfo?.marketingActivities"></app-marketing-activities-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.microBaselRiskExposure" #ietmBaselwise>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>BASEL WISE RISK WEIGHTED EXPOSURE</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-micro-basel-risk-exposure-view *ngIf="ietmBaselwise?.expanded"
+                                              [baselRiskData]="customerInfo?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
+
+        </nb-accordion-item-body>
+      </nb-accordion-item>
 
       <nb-accordion-item *ngIf="customerInfo?.financial" #itemFinancial>
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>FINANCIAL</span>
+              <span>{{customerInfo?.customerType === 'INDIVIDUAL' ? 'INCOME & EXPENSES' : 'FINANCIAL'}}</span>
             </div>
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <app-financial-view *ngIf="itemFinancial.expanded"
                               [formData]="customerInfo?.financial"
-                              [customerType]="customerInfo?.customerType"
-          ></app-financial-view>
+                              [customerType]="customerInfo?.customerType"></app-financial-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.microOtherParameters" #itemOtherDetails>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>OTHER DETAILS (MANDATORY FOR MICRO CRG)</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-financial-view *ngIf="itemOtherDetails.expanded"
+                              [microFormData]="customerInfo?.microOtherParameters"></app-financial-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
@@ -132,6 +200,21 @@
                             [insurance]="customerInfo?.insurance"></app-insurance-view>
       </nb-accordion-item-body>
     </nb-accordion-item>
+
+<!--      <nb-accordion-item #Synopsis *ngIf="customerInfo?.synopsisCreditworthiness">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>SYNOPSIS OF CREDITWORTHINESS</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-micro-synopsis-creditworthiness *ngIf="Synopsis?.expanded"-->
+<!--                                               [synopsisData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis-creditworthiness>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
     </nb-accordion>
   </nb-card-body>
 </nb-card>

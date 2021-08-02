@@ -62,6 +62,9 @@ import {NepaliPatroModule} from 'nepali-patro';
         MicroLoanDetailViewBaseComponent,
         BorrowerFinancialComponent,
         MicroCrgParamsComponent,
+        BorrowerPortfolioViewComponent,
+        MarketingActivitiesViewComponent,
+        MicroBaselRiskExposureViewComponent,
     ],
     imports: [
         CommonModule,
