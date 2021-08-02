@@ -3,7 +3,7 @@
          nbSpinnerSize="giant" style="width: 100vw;">
     <nb-card-header class="sb-bg-dark">
 
-        <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+        <a (click)="changeAction(closeForm)" aria-label="Close" class="close cursor pull-right"
            data-dismiss="modal">
             <span aria-hidden="true" class="text-white">×</span></a>
 
@@ -828,12 +828,25 @@
        </div>
     </nb-card-body>
     <nb-card-footer class="py-4">
-
-
         <div class="d-flex justify-content-end">
-            <button nbButton status="info" (click)="close()" class=" mr-2">close</button>
+            <button nbButton status="info" (click)="changeAction(closeForm)" class=" mr-2">close</button>
             <button nbButton (click)="onSubmit()">save</button>
         </div>
-
     </nb-card-footer>
 </nb-card>
+<ng-template #closeForm let-ref="dialogRef">
+    <nb-card class="m-0 confirm-close" [nbSpinner]="onActionChangeSpinner">
+        <nb-card-header>
+            <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+                <span aria-hidden="true">&times;</span>
+            </a>
+            <h5>Are you sure you want to close?</h5>
+        </nb-card-header>
+        <nb-card-footer>
+            <div class="d-flex justify-content-end">
+                <button (click)="onCloseCreateCustomer(); close()" nbButton status="primary" type="submit">YES</button>
+                <button (click)="onCloseCreateCustomer()" nbButton status="warning" type="button">NO</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
