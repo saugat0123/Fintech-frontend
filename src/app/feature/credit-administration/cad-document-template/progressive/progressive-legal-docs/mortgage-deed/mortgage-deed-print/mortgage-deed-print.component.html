@@ -90,10 +90,9 @@
           </p><br><br>
         </div>
       </div>
-
+      <p class="page-break"></p>
       <div class="row mt-5 ">
         <br><br>
-
         <div style="margin-top: 35px;">
           <p><b>ऋणीको विवरणर सहीछाप :- ब्यक्तिको हकमा</b></p>
           <br>
@@ -407,7 +406,7 @@
           <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
             <div>
               <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
-              <table border="1" width="100%">
+              <table border="1" width="100%" class="table-bordered text-center">
                 <thead>
                 <tr>
                   <th>नाम</th>
@@ -469,7 +468,7 @@
           हस्ताक्षर ........................ ।
         </p><br><br>
       </div>
-
+<p class="page-break"></p>
       <div class="row">
         <div class="col-md-12" style="margin-top: 50px;">
           <table class="table  table-bordered text-center">

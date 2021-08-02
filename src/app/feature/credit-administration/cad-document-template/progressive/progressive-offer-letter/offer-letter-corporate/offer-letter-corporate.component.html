@@ -80,183 +80,201 @@
                 </p>
                 <div class="row">
                     <div class=" col-md-12">
+                        <i (click)="addLoan()" size="large"
+                           class="d-print-none fa fa-plus-square"></i>
+                        <div *ngFor="let load of form.get('loan')['controls']; let i=index" formArrayName="loan">
+                            <div [formGroupName]="i">
+
+                                <table class="table table-borderless" width="100%">
+
+                                    <tr>
+                                        <td rowspan="9" width="5%">१.( {{i + 1 | nepaliWord: 'unicode'}})</td>
+                                        <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
+                                        <td><i (click)="removeLoan(i)" size="small"
+                                               class="d-print-none fa fa-trash"
+                                               *ngIf="form.get('loan')['length']>1"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>कर्जा सुविधाको किसिम :</b></td>
+                                        <td>
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="loanTypeNepali"
+                                                   type="text">
+                                            कर्जा
+
+                                            <input class="form-control-sm form-field"
+                                                   formControlName="loanTypeEnglish"
+                                                   type="text">
+                                            (loan)<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%"><b>कर्जा सिमा :</b></td>
+                                        <td>
+                                            अधिकतम रु.
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   (change)="getNumAmountWord('amount', 'amountInWords')"
+                                                   formControlName="amount"
+                                                   type="text">
+                                            ।–
+                                            (अक्षरेपी:
+
+                                            <input class="form-control-lg form-field nepaliFont font-size-normal"
+                                                   readonly
+                                                   formControlName="amountInWords"
+                                                   type="text">
+                                            मात्र ) ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>उदेश्य :</b></td>
+                                        <td>
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="loanPurpose"
+                                                   type="text">
+                                            लगानीगर्न ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>व्याजदर :</b></td>
+                                        <td>
+                                            स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="interestRate"
+                                                   type="text">
+                                            प्रतिशतब बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि आश्वीन, पौष, चैत्र र
+                                            आषाढ
+                                            महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय
+                                            समयमा
+                                            नेपाल राष्ट्र बैंक वा फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="interestRepayMonths"
+                                                   type="text">
+                                            महिनाको आधार दर (Base Rate) :
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="interestBaseRate"
+                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate',i)"
+                                                   type="text">
+                                            प्रतिशत
+                                            प्रिमियम दर (Premium Rate) :
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="interestPremiumRate"
+                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate',i)"
+                                                   type="text">
+                                            प्रतिशत
+                                            अस्थाई छुट (Temporary Discount) :
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="interestTempDiscountRate"
+                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate',i)"
+                                                   type="text">
+                                            प्रतिशत
+                                            ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   readonly
+                                                   [value]="form.get(['loan', i, 'interestBaseRate']).value"
+                                                   type="text">
+                                            %
+                                            +
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   readonly
+                                                   [value]="form.get(['loan', i, 'interestPremiumRate']).value"
+                                                   type="text">
+                                            %
+                                            –
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   readonly
+                                                   [value]="form.get(['loan', i, 'interestTempDiscountRate']).value"
+                                                   type="text">
+                                            % =
+
+                                            <input class="form-control-sm form-field nepaliFont font-size-normal"
+                                                   readonly
+                                                   formControlName="interestFinalRate"
+                                                   type="text">
+                                            %
+                                            (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>व्याज किस्ता तिर्ने</td>
+                                        <td><select formControlName="interestRepayPlan"
+                                                    class="form-field form-control-sm nepaliFont font-size-normal">
+                                            <option value="मासिक">मासिक</option>
+                                            <option value="मासिक">त्रैमासिक</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>कर्जाको अवधि</td>
+                                        <td>ई.स
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="loanLimitYearAD"
+                                                   type="text">
+                                            /
+                                            वि.स.
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="loanLimitYearBS">
+                                            सम्म जम्मा
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   type="text"
+                                                   formControlName="loanLimitMonths"> महिना सम्म
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>प्रतिवद्धता शुल्क</td>
+                                        <td>रु.
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="pratibadhataAmount"
+                                                   type="text">
+                                            को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
+                                            अग्रिम भुक्तानी गरेमा वाकर्जा
+                                            चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकममा थप
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="pratibadhataAdditionalAmount"
+                                                   type="text">
+                                            प्रतिशत अग्रिम भुक्तानी शुल्क असुल उपर गरिनेछ । वाचालु पूँजीको हकमाबार्षिक
+                                            औषतकर्जा
+                                            सिमाको
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="pratibadhataRate"
+                                                   type="text">
+                                            % प्रयोग नगरेमा प्रयोग नगरेको रकममा बार्षिक
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="pratibadhataYearlyRate"
+                                                   type="text">
+                                            % ले लाग्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>स्थानतरण शुल्क:</b></td>
+                                        <td>ऋणीले आफनो श्रोत बाहेक यस फाइनान्सको सहयोग बाट कर्जा स्थानतरण गर्नुपरेमा<br>
+                                            चुक्त गर्नुपर्ने रकममाथप
+
+                                            <input class="form-control-sm form-field nepaliFont"
+                                                   formControlName="sthantarandRate"
+                                                   type="text">
+                                            प्रतिशत स्थानतरण शुल्क असुलउपर गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+
                         <table class="table table-borderless">
-                            <tr>
-                                <td rowspan="9" width="5%">१.</td>
-                                <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
-                            </tr>
-                            <tr>
-                                <td><b>कर्जा सुविधाको किसिम :</b></td>
-                                <td>
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="loanTypeNepali"
-                                           type="text">
-                                    कर्जा
-
-                                    <input class="form-control-sm form-field"
-                                           formControlName="loanTypeEnglish"
-                                           type="text">
-                                    (loan)<br></td>
-                            </tr>
-                            <tr>
-                                <td width="15%"><b>कर्जा सिमा :</b></td>
-                                <td>
-                                    अधिकतम रु.
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           (change)="getNumAmountWord('amount', 'amountInWords')"
-                                           formControlName="amount"
-                                           type="text">
-                                    ।–
-                                    (अक्षरेपी:
-
-                                    <input class="form-control-lg form-field nepaliFont font-size-normal"
-                                           readonly
-                                           formControlName="amountInWords"
-                                           type="text">
-                                    मात्र ) ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>उदेश्य :</b></td>
-                                <td>
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="loanPurpose"
-                                           type="text">
-                                    लगानीगर्न ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>व्याजदर :</b></td>
-                                <td>
-                                    स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="interestRate"
-                                           type="text">
-                                    प्रतिशतब बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि आश्वीन, पौष, चैत्र र आषाढ
-                                    महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय समयमा
-                                    नेपाल राष्ट्र बैंक वा फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="interestRepayMonths"
-                                           type="text">
-                                    महिनाको आधार दर (Base Rate) :
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="interestBaseRate"
-                                           (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate')"
-                                           type="text">
-                                    प्रतिशत
-                                    प्रिमियम दर (Premium Rate) :
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="interestPremiumRate"
-                                           (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate')"
-                                           type="text">
-                                    प्रतिशत
-                                    अस्थाई छुट (Temporary Discount) :
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="interestTempDiscountRate"
-                                           (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate')"
-                                           type="text">
-                                    प्रतिशत
-                                    ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           readonly
-                                           [value]="form.get('interestBaseRate').value"
-                                           type="text">
-                                    %
-                                    +
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           readonly
-                                           [value]="form.get('interestPremiumRate').value"
-                                           type="text">
-                                    %
-                                    –
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           readonly
-                                           [value]="form.get('interestTempDiscountRate').value"
-                                           type="text">
-                                    % =
-
-                                    <input class="form-control-sm form-field nepaliFont font-size-normal"
-                                           readonly
-                                           formControlName="interestFinalRate"
-                                           type="text">
-                                    %
-                                    (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>व्याज किस्ता तिर्ने</td>
-                                <td><select formControlName="interestRepayPlan"
-                                            class="form-field form-control-sm nepaliFont font-size-normal">
-                                    <option value="मासिक">मासिक</option>
-                                    <option value="मासिक">त्रैमासिक</option>
-                                </select></td>
-                            </tr>
-                            <tr>
-                                <td>कर्जाको अवधि</td>
-                                <td>ई.स
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="loanLimitYearAD"
-                                           type="text">
-                                    /
-                                    वि.स.
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           type="text"
-                                           formControlName="loanLimitYearBS">
-                                    सम्म जम्मा
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           type="text"
-                                           formControlName="loanLimitMonths"> महिना सम्म
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>प्रतिवद्धता शुल्क</td>
-                                <td>रु.
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="pratibadhataAmount"
-                                           type="text">
-                                    को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
-                                    अग्रिम भुक्तानी गरेमा वाकर्जा
-                                    चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकममा थप
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="pratibadhataAdditionalAmount"
-                                           type="text">
-                                    प्रतिशत अग्रिम भुक्तानी शुल्क असुल उपर गरिनेछ । वाचालु पूँजीको हकमाबार्षिक औषतकर्जा
-                                    सिमाको
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="pratibadhataRate"
-                                           type="text">
-                                    % प्रयोग नगरेमा प्रयोग नगरेको रकममा बार्षिक
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="pratibadhataYearlyRate"
-                                           type="text">
-                                    % ले लाग्नेछ ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>स्थानतरण शुल्क:</b></td>
-                                <td>ऋणीले आफनो श्रोत बाहेक यस फाइनान्सको सहयोग बाट कर्जा स्थानतरण गर्नुपरेमा<br>
-                                    चुक्त गर्नुपर्ने रकममाथप
-
-                                    <input class="form-control-sm form-field nepaliFont"
-                                           formControlName="sthantarandRate"
-                                           type="text">
-                                    प्रतिशत स्थानतरण शुल्क असुलउपर गरिनेछ ।
-                                </td>
-                            </tr>
                             <tr>
                                 <td rowspan="3">२.</td>
                                 <td colspan="2"><b>धितो सुरक्षणविवरण (Security Detail):</b></td>
@@ -438,7 +456,8 @@
                             </tr>
                             <tr>
                                 <td>२.४</td>
-                                <td colspan="2"> ऋणीले वानिजले सस्थापन गरेको कुनै पनि सगठित सस्थाले फाइनान्सवाट लिएको अरु
+                                <td colspan="2"> ऋणीले वानिजले सस्थापन गरेको कुनै पनि सगठित सस्थाले फाइनान्सवाट लिएको
+                                    अरु
                                     कुनै कर्जा
                                     सुविधाको सुरक्षण स्वरुप फाइनान्सलाई उपलव्ध
                                     गराएको धितो सुरक्षण समेत यसै कर्जाको सुरक्षणको लागि समेत धितो दिएको मानिने छ । यो
@@ -461,12 +480,14 @@
                                             दरले
                                             बांकी
                                             रहेको कर्जामा दैनिक व्याज गणना गरी
-                                            सांवा तथा पाकेको व्याजको किस्ता भुक्तानी तालिका बमोजिम वा प्रत्येक त्रैमासकोे
+                                            सांवा तथा पाकेको व्याजको किस्ता भुक्तानी तालिका बमोजिम वा प्रत्येक
+                                            त्रैमासकोे
                                             अन्तमा
                                             असुलउपर
                                             गरिने
                                             छ । कर्जा समयमा भुक्तानी नभएको
-                                            अवस्थामा वा यस कर्जा स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको उल्लंघन भएमा
+                                            अवस्थामा वा यस कर्जा स्वीकृतिपत्रमा उल्लेखित शर्त तथा वन्देजहरुको उल्लंघन
+                                            भएमा
                                             वा
                                             स्वीकृत
                                             सीमा भन्दा वढी कर्जा उपभोग गरेमा विना पूर्व
@@ -486,7 +507,8 @@
                                             आधार दर र स्वीकृत प्रिमियम दरको योगसम्म ब्याजदर समायोजन गर्न सक्नेछ ।
                                             अपरिवर्तनिय ब्याजदरको
                                             हकमा स्थिर अवधि सम्म ब्याजदरमा
-                                            कुनैपनि परिवर्तन हुनेछैन । तत्पश्चात् आधार दर प्रिमियमको योगसम्म ब्याजदर कायम
+                                            कुनैपनि परिवर्तन हुनेछैन । तत्पश्चात् आधार दर प्रिमियमको योगसम्म ब्याजदर
+                                            कायम
                                             गरिनेछ
                                             । आधार
                                             दरमा ०.५ प्रतिशत वा सो
@@ -527,7 +549,8 @@
                                     गरेका
                                     वा धितो
                                     सुरक्षण दिएका सम्पत्तिहरुको निरिक्षण गर्न फाइनान्स
-                                    अधिकृत रहको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने छ
+                                    अधिकृत रहको छ । यसरी नीरिक्षण गर्दा लाग्ने सवै किसिमका खर्चहरु ऋणीले व्यहोर्नु पर्ने
+                                    छ
                                     ।
                                 </td>
                             </tr>
@@ -535,7 +558,8 @@
                                 <td>
                                     ६.
                                 </td>
-                                <td colspan="2">शर्त वन्देजहरु : सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु वाँकी रहे
+                                <td colspan="2">शर्त वन्देजहरु : सुविधा समाप्त नभएसम्म वा कुनै रकम कलम वा दायित्वहरु
+                                    वाँकी रहे
                                     सम्म
                                     ऋणीले
                                     निम्न वमोजिमको शर्त वन्देजहरु अविच्छिन्न
