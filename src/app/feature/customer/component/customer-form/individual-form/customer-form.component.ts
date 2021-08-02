@@ -1,4 +1,4 @@
-import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -33,6 +33,7 @@ import {Editor} from '../../../../../@core/utils/constants/editor';
     styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit, DoCheck {
+    onActionChangeSpinner = false;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -141,6 +142,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     }
 
+    onCloseCreateCustomer() {
+        this.onClose();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
     addRelatives() {
         (this.basicInfo.get('customerRelatives') as FormArray).push(
             this.formBuilder.group({
@@ -207,7 +216,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.temporaryMunicipalitiesList = response.detail;
-                this.temporaryMunicipalitiesList.sort((a,b) => a.name.localeCompare(b.name));
+                this.temporaryMunicipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.temporaryMunicipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.temporaryMunicipalities) &&
                         municipality.id === this.customer.temporaryMunicipalities.id) {
@@ -532,6 +541,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.ref.close();
     }
 
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+    }
+
     occupationChange() {
         const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
         if (isOtherSelected) {
@@ -671,5 +685,4 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             clientTypeControl.enable();
         }
     }
-
 }
