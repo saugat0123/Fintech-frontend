@@ -6,6 +6,8 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../environments/environment';
+import {Clients} from '../../../../../environments/Clients';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -15,6 +17,8 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   companyInfo = new CompanyInfo();
+  client = environment.client;
+  clientName = Clients;
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService, ) {
   }
