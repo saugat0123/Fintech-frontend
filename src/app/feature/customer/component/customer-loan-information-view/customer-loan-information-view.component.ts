@@ -8,6 +8,8 @@ import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
+import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
+import {FiscalYear} from '../../../admin/modal/FiscalYear';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -19,15 +21,20 @@ export class CustomerLoanInformationViewComponent implements OnInit {
   companyInfo = new CompanyInfo();
   client = environment.client;
   clientName = Clients;
+  fiscalYearArray: Array<FiscalYear>;
 
-  constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService, ) {
+  constructor(private companyInfoService: CompanyInfoService,
+              private toastService: ToastService,
+              private  fiscalYearService: FiscalYearService) {
   }
 
   ngOnInit() {
+    this. fiscalYearService.getAll().subscribe( res => {
+      this.fiscalYearArray = res.detail;
+    });
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }
-
   }
 
   checkCustomerType() {
