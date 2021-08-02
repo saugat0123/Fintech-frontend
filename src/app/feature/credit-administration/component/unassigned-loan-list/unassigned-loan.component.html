@@ -55,6 +55,7 @@
                         *ngIf="model?.customerLoanDtoList?.length > 0 ">
                         <td colspan="1">SN</td>
                         <td>Loan Facility</td>
+                        <td>Loan Type</td>
                         <td>Approved On</td>
                         <td>Approved By</td>
                         <td>Proposed Amount</td>
@@ -65,15 +66,16 @@
                         *ngFor="let data of model?.customerLoanDtoList;let j=index">
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{j + 1}}</td>
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.loan?.name}}</td>
-                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.lastModifiedAt | date}}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.loanType | replace:'_':' '}}</td>
+                        <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.lastModifiedAt | date:'medium'}}</td>
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)">{{data?.currentStage?.toUser?.name }}</td>
                         <td (click)="routerUtils.routeToLoanSummary(data?.loan?.id,data?.id)" class="text-right px-2">
                             Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
                     </tr>
-                    <tr>
-                        <td colspan="2"><Strong>Total</Strong></td>
+                    <tr class="bg-light">
+                        <td colspan="3"><Strong>Total</Strong></td>
                         <td colspan="3" class="text-right px-2">
-                            Rs. {{getTotal('proposal?.proposedLimit', model?.customerLoanDtoList) | currencyFormatter}}</td>
+                            <strong>Rs. {{getTotal('proposal?.proposedLimit', model?.customerLoanDtoList) | currencyFormatter}}</strong></td>
                     </tr>
                     <tr class="sb-bg-dark">
                         <td colspan="9">.</td>
@@ -85,7 +87,7 @@
             </tbody>
         </table>
         <!-- ===================table-pagination==================== -->
-        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
 
     </nb-card-body>
