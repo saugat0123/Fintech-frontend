@@ -1,5 +1,6 @@
 <div *ngIf="formDataForEdit !== undefined" class="row col-md-12">
-    <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"></app-security-table>
+    <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"
+                        (securityEmitter)="resetSecurityForm($event)" [selectedArray]="this.formData['selectedArray']"></app-security-table>
 </div>
 <div class="form-group">
     <form [formGroup]="securityForm">
@@ -43,7 +44,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="owner"><strong>Owner</strong></label>
-                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors) }"
+                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors || land.get('owner').invalid) }"
                                         class="form-control form-control-sm-error rounded" formControlName="owner"
                                         id="owner" name="owner" placeholder="Owner Name" type="text" required/>
                                 <div *ngIf="(landSelected) && (land.get('owner').invalid)"
@@ -100,9 +101,17 @@
                             <div class="form-group">
                                 <label for="landConsideredValue">Considered Value</label>
                                 <input (change)="updateLandSecurityTotal()"
+                                       [ngClass]="{ 'is-invalid': (landSelected) && (land.get('landConsideredValue').errors ||
+                                    land.get('landConsideredValue').invalid) }"
                                        class="form-control"
                                        formControlName="landConsideredValue"
                                        id="landConsideredValue" name="total" placeholder="Considered Value">
+                                <div *ngIf="(landSelected) && (land.get('landConsideredValue').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="land.get('landConsideredValue').errors.required">
+                                        Considered value is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -673,11 +682,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildingFairMarketValue">Apartment Fair Market Value</label>
-                                        <input class="form-control rounded"
+                                        <input [ngClass]="{ 'is-invalid': (apartmentSelected) && (building.get('buildingFairMarketValue').errors ||
+                                                building.get('buildingFairMarketValue').invalid) }"
+                                                class="form-control rounded"
                                                formControlName="buildingFairMarketValue"
                                                id="buildingFairMarketValue"
                                                name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
                                                type="text"/>
+                                        <div *ngIf="(apartmentSelected) && (building.get('buildingFairMarketValue').invalid)"
+                                             class="invalid-feedback">
+                                            <div *ngIf="building.get('buildingFairMarketValue').errors.required">
+                                                Fair market value is required
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -1306,9 +1323,9 @@
                                            formControlName="owner"
                                            name="owner" placeholder="Owner Name"
                                            type="text" required/>
-                                    <div *ngIf="(landBuilding) && (landAndBuilding.get('owner').invalid)">
-                                        <div *ngIf="landAndBuilding.get('owner').errors.required"
-                                        class="invalid-feedback">
+                                    <div *ngIf="(landBuilding) && (landAndBuilding.get('owner').invalid)"
+                                         class="invalid-feedback">
+                                        <div *ngIf="landAndBuilding.get('owner').errors.required">
                                             Owner name is required
                                         </div>
                                     </div>
@@ -1357,9 +1374,16 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="landConsideredValue">Considered Value</label>
-                                    <input class="form-control" formControlName="landConsideredValue"
+                                    <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
+                                            class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
                                            type="number">
+                                    <div *ngIf="(landBuilding) && (landAndBuilding.get('landConsideredValue').invalid)"
+                                         class="invalid-feedback">
+                                        <div *ngIf="landAndBuilding.get('landConsideredValue').errors.required">
+                                            Considered value is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1969,10 +1993,16 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="quotation">Quotation/Valuation Amount</label>
-                                <input class="form-control rounded" formControlName="quotation"
+                                <input [ngClass]="{ 'is-invalid': (plantSelected) && (plant.get('quotation').errors ||
+                                    plant.get('quotation').invalid) }"
+                                        class="form-control rounded" formControlName="quotation"
                                        id="quotation"
                                        name="quotation" placeholder="Quotation/Valuation Amount"
                                        type="text"/>
+                                <div *ngIf="(plantSelected) && (plant.get('quotation').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="plant.get('quotation').errors.required">Quotation amount is required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -2227,12 +2257,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="valuationAmount"><strong>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</strong></label>
-                                <input
+                                <input  [ngClass]="{ 'is-invalid': (vehicleSelected) && (addMoreVehicle.get('valuationAmount').errors ||
+                                        addMoreVehicle.get('valuationAmount').invalid) }"
                                         (keyup)="vehicleRemainingAmount(i)"
                                         class="form-control" formControlName="valuationAmount" id="valuationAmount"
                                         name="valuationAmount"
                                         [placeholder]="(client === clientName?.ICFC) ? 'Quotation/Valuation Amount' : 'Valuation Amount'"
                                         type="number">
+                                <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('valuationAmount').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="addMoreVehicle.get('valuationAmount').errors.required">
+                                        Valuation amount is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -2516,7 +2553,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title">Amount<strong></strong></label>
-                                <input class="form-control" formControlName="amount" placeholder="Amount" type="number">
+                                <input class="form-control"
+                                       [ngClass]="{'is-invalid': (depositSelected) && (deposit.get('amount').errors)}"
+                                       formControlName="amount" placeholder="Amount" type="number">
+                                <div *ngIf="(depositSelected) && (deposit.get('amount').invalid)" class="invalid-feedback">
+                                    <div *ngIf="deposit.get('amount').errors.required">
+                                        Amount is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2607,17 +2651,16 @@
                                 <div class="form-group">
                                     <label for="companyName">Select Company Name :: Company Code</label>
                                     <select (change)="setShareValueByCompany(shareFieldIndex)"
-                                            [ngClass]="{ 'is-invalid': (submitted) && shareField.get('companyName').errors }"
+                                            [ngClass]="{ 'is-invalid': (shareSelected) && (shareField.get('companyName').errors || shareField.get('companyName').invalid) }"
                                             class="custom-select"
                                             formControlName="companyName" id="companyName"
                                             name="companyName">
-                                        <option [value]="null" disabled selected>--Select Company Name--</option>
+                                        <option value="" selected hidden>--Select Company Name--</option>
                                         <option *ngFor="let nepse of nepseList"
                                                 value="{{nepse.companyName }}">{{nepse.companyName}}
                                             :: {{nepse.companyCode}}</option>
                                     </select>
-                                    <div *ngIf="submitted && shareField.get('companyName').errors"
-                                         class="invalid-feedback">
+                                    <div *ngIf="(shareSelected) && (shareField.get('companyName').invalid)" class="invalid-feedback">
                                         <div *ngIf="shareField.get('companyName').errors.required">
                                             Company name is required
                                         </div>
@@ -2637,15 +2680,15 @@
                                 <div class="form-group">
                                     <label for="totalShareUnit">Number of Share Unit</label>
                                     <input (change)="calculateShareFieldsValues(shareFieldIndex)"
-                                           [ngClass]="{ 'is-invalid': (submitted) && shareField.get('totalShareUnit').errors }"
+                                           [ngClass]="{ 'is-invalid': (shareSelected) && (shareField.get('totalShareUnit').errors
+                                           || shareField.get('totalShareUnit').invalid) }"
                                            class="form-control" formControlName="totalShareUnit"
                                            id="totalShareUnit"
                                            name="totalShareUnit"
                                            type="number" placeholder="Number of Share Unit">
-                                    <div *ngIf="submitted && shareField.get('totalShareUnit').errors"
-                                         class="invalid-feedback">
+                                    <div *ngIf="(shareSelected) && (shareField.get('totalShareUnit').invalid)" class="invalid-feedback">
                                         <div *ngIf="shareField.get('totalShareUnit').errors.required">
-                                            No. of share unit is required
+                                            Number of share unit is required
                                         </div>
                                     </div>
                                 </div>
@@ -3117,12 +3160,20 @@
                                 <!--                                       placeholder="Insurance Company Name"-->
                                 <!--                                       type="text"/>-->
                                 <label for="insuranceCompanyName"><strong>Insurance Company</strong></label>
-                                <select class="form-control" formControlName="insuranceCompanyName"
+                                <select class="form-control"
+                                        [ngClass]="{'is-invalid': (insurancePolicySelected) && (insurancePolicy.get('insuranceCompanyName').errors)}"
+                                        formControlName="insuranceCompanyName"
                                         id="insuranceCompanyName">
                                     <option [ngValue]="null">--Select Insurance Company--</option>
                                     <option *ngFor="let insuranceCompany of insuranceCompanyList"
                                             [ngValue]="insuranceCompany.id">{{insuranceCompany.name}}</option>
                                 </select>
+                                <div *ngIf="(insurancePolicySelected) && (insurancePolicy.get('insuranceCompanyName').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="insurancePolicy.get('insuranceCompanyName').errors.required">
+                                        Insured amount is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
