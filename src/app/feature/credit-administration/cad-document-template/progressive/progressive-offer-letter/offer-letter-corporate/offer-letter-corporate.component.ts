@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ProgressiveOfferLetterConst} from '../progressive-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -130,6 +130,7 @@ export class OfferLetterCorporateComponent implements OnInit {
 
     setSecurityDetails(data) {
         const formArray = this.form.get('securityDetails') as FormArray;
+        (this.form.get('securityDetails') as FormArray).clear();
         if (data.length === 0) {
             this.addEmptySecurityDetail();
             return;
@@ -149,19 +150,22 @@ export class OfferLetterCorporateComponent implements OnInit {
         });
     }
 
+    buildSecurityDetail() {
+        return this.formBuilder.group({
+            name: [undefined],
+            parentName: [undefined],
+            grandParentName: [undefined],
+            address: [undefined],
+            jaggaDistrict: [undefined],
+            jaggaWard: [undefined],
+            jaggaKittaNum: [undefined],
+            jaggaArea: [undefined],
+            jaggaSiNum: [undefined],
+        });
+    }
+
     addEmptySecurityDetail() {
-        (this.form.get('securityDetails') as FormArray).push(
-            this.formBuilder.group({
-                name: [undefined],
-                parentName: [undefined],
-                grandParentName: [undefined],
-                address: [undefined],
-                jaggaDistrict: [undefined],
-                jaggaWard: [undefined],
-                jaggaKittaNum: [undefined],
-                jaggaArea: [undefined],
-                jaggaSiNum: [undefined],
-            }));
+        (this.form.get('securityDetails') as FormArray).push(this.buildSecurityDetail());
     }
 
     removeSecurityDetail(index) {
@@ -205,7 +209,7 @@ export class OfferLetterCorporateComponent implements OnInit {
 
 
 
-            securityDetails: this.formBuilder.array([]),
+            securityDetails: this.formBuilder.array([this.buildSecurityDetail()]),
 
             dhitoDate: [undefined],
             dhitoAuditor: [undefined],
