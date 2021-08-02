@@ -89,10 +89,17 @@
                                 </p>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-borderless">
+                                <div class="col-md-12"
+                                     *ngFor="let loanFacilityData of form.get('loanFacilityTable')['controls']; let i = index;"
+                                     formArrayName="loanFacilityTable">
+                                    <table [formGroupName]="i" class="table table-borderless">
                                         <tr>
-                                            <td rowspan="11">१.</td>
+                                            <td rowspan="11">
+                                                <span *ngIf="i === 0">
+                                                    १.
+                                                </span>
+                                                ({{i + 1 | nepaliWord}})
+                                            </td>
                                             <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
                                         </tr>
                                         <tr>
@@ -113,7 +120,7 @@
                                             <td>अधिकतम रु.
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       (input)="getNumAmountWord('amount','amountInWords')"
+                                                       (input)="getNumAmountFormArray('amount','amountInWords', i)"
                                                        formControlName="amount">
                                                 /– (अक्षरेपी:
 
@@ -158,7 +165,7 @@
                                                            (change)="calcYearlyRate('interestBaseRate',
                                                'interestPremiumRate',
                                                'interestTempDiscountRate',
-                                               'interestFinalRate')"
+                                               'interestFinalRate', i)"
                                                            formControlName="interestBaseRate">
 
                                                     प्रतिशत
@@ -171,7 +178,7 @@
                                                            (change)="calcYearlyRate('interestBaseRate',
                                                'interestPremiumRate',
                                                'interestTempDiscountRate',
-                                               'interestFinalRate')"
+                                               'interestFinalRate', i)"
                                                            formControlName="interestPremiumRate">
 
                                                     प्रतिशत
@@ -184,7 +191,7 @@
                                                            (change)="calcYearlyRate('interestBaseRate',
                                                'interestPremiumRate',
                                                'interestTempDiscountRate',
-                                               'interestFinalRate')"
+                                               'interestFinalRate', i)"
                                                            formControlName="interestTempDiscountRate">
                                                     प्रतिशत
                                                 </p>
@@ -194,19 +201,19 @@
                                                             class="form-control-sm form-field nepaliFont"
                                                             readonly
                                                             type="text"
-                                                            [value]="form.get('interestBaseRate').value">
+                                                            [value]="form.get(['loanFacilityTable', i, 'interestBaseRate']).value">
                                                     %
                                                     +
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            readonly
                                                            type="text"
-                                                           [value]="form.get('interestPremiumRate').value">
+                                                           [value]="form.get(['loanFacilityTable', i, 'interestPremiumRate']).value">
                                                     %
                                                     –
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            readonly
                                                            type="text"
-                                                           [value]="form.get('interestTempDiscountRate').value">
+                                                           [value]="form.get(['loanFacilityTable', i, 'interestTempDiscountRate']).value">
                                                     % =
 
                                                     <input
@@ -313,7 +320,27 @@
                                                 प्रतिशत स्थानतरण शुल्क असुलउपर गरिनेछ ।
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="col-md-12">
+                                                    <button
+                                                            (click)="removeLoanFacilityTable(i)"
+                                                            *ngIf="form.get('loanFacilityTable')['length'] > 1"
+                                                            class="mt-3 mb-3" nbButton
+                                                            size="small"
+                                                            status="primary"> हटाउनुहोस्
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </table>
+                                </div>
+                            </div>
+                            <div class="row mr-1 mb-3">
+                                <div class="col-md-12 text-right">
+                                    <button (click)="addMoreLoanFacility()" nbButton size="small" status="info" type="Button">
+                                        कर्जा सुविधा थप्नुहोस्
+                                    </button>
                                 </div>
                             </div>
                             <table class="table table-borderless">
@@ -337,7 +364,7 @@
                                                 <th>जग्गाको न.पा.र गा.वि.स.,वडा नं.</th>
                                                 <th>कि.नं.</th>
                                                 <th>क्षेत्रफल रोपनी/ब.मी.</th>
-                                                <th>सि६ नं.</th>
+                                                <th>सि6 नं.</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
