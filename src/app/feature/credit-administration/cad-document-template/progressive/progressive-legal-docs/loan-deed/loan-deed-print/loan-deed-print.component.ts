@@ -14,6 +14,7 @@ export class LoanDeedPrintComponent implements OnInit {
   }
 
   ngOnInit() {
+console.log(this.printDocForm.swikritiBibaran.length,"Hello")
   }
 
 }
