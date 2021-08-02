@@ -74,172 +74,178 @@
                 </p>
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table table-borderless bodyParagraphTable" style="width: 100%">
-                            <tr>
-                                <td rowspan="9">१.</td>
-                                <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
-                            </tr>
-                            <tr>
-                                <td><b>कर्जा सुविधाको किसिम :</b></td>
-                                <td>
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.loanTypeNepali !== null && printDocForm?.loanTypeNepali !== ''}">
-                                        {{printDocForm?.loanTypeNepali === null || printDocForm?.loanTypeNepali === '' ? '_________________' : printDocForm?.loanTypeNepali}}
-                                    </span>
-                                    कर्जा
-                                    <span style="font-size: 18px;">
-                                        {{printDocForm?.loanTypeEnglish === null || printDocForm?.loanTypeEnglish === '' ? '_________________' : printDocForm?.loanTypeEnglish}}
-                                    </span>
-                                    (loan)<br></td>
-                            </tr>
-                            <tr>
-                                <td width="15%"><b>कर्जा सिमा :</b></td>
-                                <td>
-                                    अधिकतम रु.
+                        <div *ngFor="let loan of printDocForm?.loan; index as i"
+                             style="overflow-x: auto">
+                            <table class="table table-borderless bodyParagraphTable" style="width: 100%">
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
-                                        {{printDocForm?.amount === null || printDocForm?.amount === '' ? '______________' : printDocForm?.amount}}
-                                    </span>
-                                    ।–
-                                    (अक्षरेपी:
-                                    <span [ngClass]="{'nepaliFont font-size-normal' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
-                                        {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '______________________' : printDocForm?.amountInWords}}
-                                    </span>
-                                    मात्र ) ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>उदेश्य :</b></td>
-                                <td>
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.loanPurpose !== null && printDocForm?.loanPurpose !== ''}">
-                                        {{printDocForm?.loanPurpose === null || printDocForm?.loanPurpose === '' ? '_________________' : printDocForm?.loanPurpose}}
-                                    </span>
-                                    लगानीगर्न ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>व्याजदर :</b></td>
-                                <td>
-                                    स्वीकृत लिमिट मध्ये बाटउपभोग गरिएको हदसम्म तोकिएको
+                                <tr>
+                                    <td rowspan="9">१.({{i + 1 | nepaliWord: 'unicode'}})</td>
+                                    <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
+                                </tr>
+                                <tr>
+                                    <td><b>कर्जा सुविधाको किसिम :</b></td>
+                                    <td>
+            <span [ngClass]="{'nepaliFont' : loan?.loanTypeNepali !== null && loan?.loanTypeNepali !== ''}">
+                {{loan?.loanTypeNepali === null || loan?.loanTypeNepali === '' ? '_________________' : loan?.loanTypeNepali}}
+            </span>
+                                        कर्जा
+                                        <span style="font-size: 18px;">
+                {{loan?.loanTypeEnglish === null || loan?.loanTypeEnglish === '' ? '_________________' : loan?.loanTypeEnglish}}
+            </span>
+                                        (loan)<br></td>
+                                </tr>
+                                <tr>
+                                    <td width="15%"><b>कर्जा सिमा :</b></td>
+                                    <td>
+                                        अधिकतम रु.
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestRate !== null && printDocForm?.interestRate !== ''}">
-                                        {{printDocForm?.interestRate === null || printDocForm?.interestRate === '' ? '_________________' : printDocForm?.interestRate}}
-                                    </span>
-                                    प्रतिशतब बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि आश्वीन, पौष, चैत्र र आषाढ
-                                    महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय समयमा
-                                    नेपाल राष्ट्र बैंक वा फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
+                                        <span [ngClass]="{'nepaliFont' : loan?.amount !== null && loan?.amount !== ''}">
+                {{loan?.amount === null || loan?.amount === '' ? '______________' : loan?.amount}}
+            </span>
+                                        ।–
+                                        (अक्षरेपी:
+                                        <span [ngClass]="{'nepaliFont font-size-normal' : loan?.amountInWords !== null && loan?.amountInWords !== ''}">
+                {{loan?.amountInWords === null || loan?.amountInWords === '' ? '______________________' : loan?.amountInWords}}
+            </span>
+                                        मात्र ) ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>उदेश्य :</b></td>
+                                    <td>
+            <span [ngClass]="{'nepaliFont' : loan?.loanPurpose !== null && loan?.loanPurpose !== ''}">
+                {{loan?.loanPurpose === null || loan?.loanPurpose === '' ? '_________________' : loan?.loanPurpose}}
+            </span>
+                                        लगानीगर्न ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>व्याजदर :</b></td>
+                                    <td>
+                                        स्वीकृत लिमिट मध्ये बाटउपभोग गरिएको हदसम्म तोकिएको
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestRepayMonths !== null && printDocForm?.interestRepayMonths !== ''}">
-                                        {{printDocForm?.interestRepayMonths === null || printDocForm?.interestRepayMonths === '' ? '_________________' : printDocForm?.interestRepayMonths}}
-                                    </span>
-                                    महिनाको आधार दर (Base Rate) :
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestRate !== null && loan?.interestRate !== ''}">
+                {{loan?.interestRate === null || loan?.interestRate === '' ? '_________________' : loan?.interestRate}}
+            </span>
+                                        प्रतिशतब बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि आश्वीन, पौष, चैत्र र आषाढ
+                                        महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय समयमा
+                                        नेपाल राष्ट्र बैंक वा फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestBaseRate !== null && printDocForm?.interestBaseRate !== ''}">
-                                        {{printDocForm?.interestBaseRate === null || printDocForm?.interestBaseRate === '' ? '_____' : printDocForm?.interestBaseRate}}
-                                    </span>
-                                    प्रतिशत
-                                    प्रिमियम दर (Premium Rate) :
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestRepayMonths !== null && loan?.interestRepayMonths !== ''}">
+                {{loan?.interestRepayMonths === null || loan?.interestRepayMonths === '' ? '_________________' : loan?.interestRepayMonths}}
+            </span>
+                                        महिनाको आधार दर (Base Rate) :
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestPremiumRate !== null && printDocForm?.interestPremiumRate !== ''}">
-                                        {{printDocForm?.interestPremiumRate === null || printDocForm?.interestPremiumRate === '' ? '_____' : printDocForm?.interestPremiumRate}}
-                                    </span>
-                                    प्रतिशत
-                                    अस्थाई छुट (Temporary Discount) :
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestBaseRate !== null && loan?.interestBaseRate !== ''}">
+                {{loan?.interestBaseRate === null || loan?.interestBaseRate === '' ? '_____' : loan?.interestBaseRate}}
+            </span>
+                                        प्रतिशत
+                                        प्रिमियम दर (Premium Rate) :
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestTempDiscountRate !== null && printDocForm?.interestTempDiscountRate !== ''}">
-                                        {{printDocForm?.interestTempDiscountRate === null || printDocForm?.interestTempDiscountRate === '' ? '_____' : printDocForm?.interestTempDiscountRate}}
-                                    </span>
-                                    प्रतिशत
-                                    ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestPremiumRate !== null && loan?.interestPremiumRate !== ''}">
+                {{loan?.interestPremiumRate === null || loan?.interestPremiumRate === '' ? '_____' : loan?.interestPremiumRate}}
+            </span>
+                                        प्रतिशत
+                                        अस्थाई छुट (Temporary Discount) :
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestBaseRate !== null && printDocForm?.interestBaseRate !== ''}">
-                                        {{printDocForm?.interestBaseRate === null || printDocForm?.interestBaseRate === '' ? '_____' : printDocForm?.interestBaseRate}}
-                                    </span>
-                                    %
-                                    +
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestTempDiscountRate !== null && loan?.interestTempDiscountRate !== ''}">
+                {{loan?.interestTempDiscountRate === null || loan?.interestTempDiscountRate === '' ? '_____' : loan?.interestTempDiscountRate}}
+            </span>
+                                        प्रतिशत
+                                        ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestPremiumRate !== null && printDocForm?.interestPremiumRate !== ''}">
-                                        {{printDocForm?.interestPremiumRate === null || printDocForm?.interestPremiumRate === '' ? '_____' : printDocForm?.interestPremiumRate}}
-                                    </span>
-                                    %
-                                    –
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestBaseRate !== null && loan?.interestBaseRate !== ''}">
+                {{loan?.interestBaseRate === null || loan?.interestBaseRate === '' ? '_____' : loan?.interestBaseRate}}
+            </span>
+                                        %
+                                        +
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.interestTempDiscountRate !== null && printDocForm?.interestTempDiscountRate !== ''}">
-                                        {{printDocForm?.interestTempDiscountRate === null || printDocForm?.interestTempDiscountRate === '' ? '_____' : printDocForm?.interestTempDiscountRate}}
-                                    </span>
-                                    % =
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestPremiumRate !== null && loan?.interestPremiumRate !== ''}">
+                {{loan?.interestPremiumRate === null || loan?.interestPremiumRate === '' ? '_____' : loan?.interestPremiumRate}}
+            </span>
+                                        %
+                                        –
 
-                                    <span [ngClass]="{'nepaliFont font-size-normal' : printDocForm?.interestFinalRate !== null && printDocForm?.interestFinalRate !== ''}">
-                                        {{printDocForm?.interestFinalRate === null || printDocForm?.interestFinalRate === '' ? '_____' : printDocForm?.interestFinalRate}}
-                                    </span>
-                                    %
-                                    (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>व्याज किस्ता तिर्ने</td>
-                                <td>
-                                    {{printDocForm?.interestRepayPlan}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>कर्जाको अवधि</td>
-                                <td>ई.स
+                                        <span [ngClass]="{'nepaliFont' : loan?.interestTempDiscountRate !== null && loan?.interestTempDiscountRate !== ''}">
+                {{loan?.interestTempDiscountRate === null || loan?.interestTempDiscountRate === '' ? '_____' : loan?.interestTempDiscountRate}}
+            </span>
+                                        % =
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.loanLimitYearAD !== null && printDocForm?.loanLimitYearAD !== ''}">
-                                        {{printDocForm?.loanLimitYearAD === null || printDocForm?.loanLimitYearAD === '' ? '___________' : printDocForm?.loanLimitYearAD}}
-                                    </span>
-                                    /
-                                    वि.स.
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.loanLimitYearBS !== null && printDocForm?.loanLimitYearBS !== ''}">
-                                        {{printDocForm?.loanLimitYearBS === null || printDocForm?.loanLimitYearBS === '' ? '___________' : printDocForm?.loanLimitYearBS}}
-                                    </span>
-                                    सम्म जम्मा
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.loanLimitMonths !== null && printDocForm?.loanLimitMonths !== ''}">
-                                        {{printDocForm?.loanLimitMonths === null || printDocForm?.loanLimitMonths === '' ? '___________' : printDocForm?.loanLimitMonths}}
-                                    </span>
-                                    महिना सम्म
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>प्रतिवद्धता शुल्क</td>
-                                <td>रु.
+                                        <span [ngClass]="{'nepaliFont font-size-normal' : loan?.interestFinalRate !== null && loan?.interestFinalRate !== ''}">
+                {{loan?.interestFinalRate === null || loan?.interestFinalRate === '' ? '_____' : loan?.interestFinalRate}}
+            </span>
+                                        %
+                                        (Base Rate + Risk Premium - Temporary Discount = Interest Rate)<br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>व्याज किस्ता तिर्ने</td>
+                                    <td>
+                                        {{loan?.interestRepayPlan}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>कर्जाको अवधि</td>
+                                    <td>ई.स
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.pratibadhataAmount !== null && printDocForm?.pratibadhataAmount !== ''}">
-                                        {{printDocForm?.pratibadhataAmount === null || printDocForm?.pratibadhataAmount === '' ? '___________' : printDocForm?.pratibadhataAmount}}
-                                    </span>
-                                    को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
-                                    अग्रिम भुक्तानी गरेमा वाकर्जा
-                                    चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकम माथप
+                                        <span [ngClass]="{'nepaliFont' : loan?.loanLimitYearAD !== null && loan?.loanLimitYearAD !== ''}">
+                {{loan?.loanLimitYearAD === null || loan?.loanLimitYearAD === '' ? '___________' : loan?.loanLimitYearAD}}
+            </span>
+                                        /
+                                        वि.स.
+                                        <span [ngClass]="{'nepaliFont' : loan?.loanLimitYearBS !== null && loan?.loanLimitYearBS !== ''}">
+                {{loan?.loanLimitYearBS === null || loan?.loanLimitYearBS === '' ? '___________' : loan?.loanLimitYearBS}}
+            </span>
+                                        सम्म जम्मा
+                                        <span [ngClass]="{'nepaliFont' : loan?.loanLimitMonths !== null && loan?.loanLimitMonths !== ''}">
+                {{loan?.loanLimitMonths === null || loan?.loanLimitMonths === '' ? '___________' : loan?.loanLimitMonths}}
+            </span>
+                                        महिना सम्म
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>प्रतिवद्धता शुल्क</td>
+                                    <td>रु.
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.pratibadhataAdditionalAmount !== null && printDocForm?.pratibadhataAdditionalAmount !== ''}">
-                                        {{printDocForm?.pratibadhataAdditionalAmount === null || printDocForm?.pratibadhataAdditionalAmount === '' ? '_____' : printDocForm?.pratibadhataAdditionalAmount}}
-                                    </span>
-                                    प्रतिशत अग्रिम भुक्तानी शुल्क असुल उपर गरिनेछ । वाचालु पूँजीको हकमाबार्षिक औषतकर्जा
-                                    सिमाको
+                                        <span [ngClass]="{'nepaliFont' : loan?.pratibadhataAmount !== null && loan?.pratibadhataAmount !== ''}">
+                {{loan?.pratibadhataAmount === null || loan?.pratibadhataAmount === '' ? '___________' : loan?.pratibadhataAmount}}
+            </span>
+                                        को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
+                                        अग्रिम भुक्तानी गरेमा वाकर्जा
+                                        चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकम माथप
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.pratibadhataRate !== null && printDocForm?.pratibadhataRate !== ''}">
-                                        {{printDocForm?.pratibadhataRate === null || printDocForm?.pratibadhataRate === '' ? '___________' : printDocForm?.pratibadhataRate}}
-                                    </span>
-                                    % प्रयोग नगरेमा प्रयोग नगरेको रकममाबार्षिक
+                                        <span [ngClass]="{'nepaliFont' : loan?.pratibadhataAdditionalAmount !== null && loan?.pratibadhataAdditionalAmount !== ''}">
+                {{loan?.pratibadhataAdditionalAmount === null || loan?.pratibadhataAdditionalAmount === '' ? '_____' : loan?.pratibadhataAdditionalAmount}}
+            </span>
+                                        प्रतिशत अग्रिम भुक्तानी शुल्क असुल उपर गरिनेछ । वाचालु पूँजीको हकमाबार्षिक औषतकर्जा
+                                        सिमाको
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.pratibadhataYearlyRate !== null && printDocForm?.pratibadhataYearlyRate !== ''}">
-                                        {{printDocForm?.pratibadhataYearlyRate === null || printDocForm?.pratibadhataYearlyRate === '' ? '___________' : printDocForm?.pratibadhataYearlyRate}}
-                                    </span>
-                                    % ले लाग्नेछ ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>स्थानतरण शुल्क:</b></td>
-                                <td>ऋणीले आफनो श्रोत बाहेक यस फाइनान्सको सहयोग बाट कर्जा स्थानतरण गर्नुपरेमा<br>
-                                    चुक्त गर्नुपर्ने रकममा थप
+                                        <span [ngClass]="{'nepaliFont' : loan?.pratibadhataRate !== null && loan?.pratibadhataRate !== ''}">
+                {{loan?.pratibadhataRate === null || loan?.pratibadhataRate === '' ? '___________' : loan?.pratibadhataRate}}
+            </span>
+                                        % प्रयोग नगरेमा प्रयोग नगरेको रकममाबार्षिक
 
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.sthantarandRate !== null && printDocForm?.sthantarandRate !== ''}">
-                                        {{printDocForm?.sthantarandRate === null || printDocForm?.sthantarandRate === '' ? '___________' : printDocForm?.sthantarandRate}}
-                                    </span>
-                                    प्रतिशत स्थानतरणशुल्क असुलउपर गरिनेछ ।
-                                </td>
-                            </tr>
-                        </table>
+                                        <span [ngClass]="{'nepaliFont' : loan?.pratibadhataYearlyRate !== null && loan?.pratibadhataYearlyRate !== ''}">
+                {{loan?.pratibadhataYearlyRate === null || loan?.pratibadhataYearlyRate === '' ? '___________' : loan?.pratibadhataYearlyRate}}
+            </span>
+                                        % ले लाग्नेछ ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>स्थानतरण शुल्क:</b></td>
+                                    <td>ऋणीले आफनो श्रोत बाहेक यस फाइनान्सको सहयोग बाट कर्जा स्थानतरण गर्नुपरेमा<br>
+                                        चुक्त गर्नुपर्ने रकममा थप
+
+                                        <span [ngClass]="{'nepaliFont' : loan?.sthantarandRate !== null && loan?.sthantarandRate !== ''}">
+                {{loan?.sthantarandRate === null || loan?.sthantarandRate === '' ? '___________' : loan?.sthantarandRate}}
+            </span>
+                                        प्रतिशत स्थानतरणशुल्क असुलउपर गरिनेछ ।
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
                     </div>
                 </div>
                 <div class="row">
