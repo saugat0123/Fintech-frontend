@@ -256,6 +256,10 @@ export class SecurityComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             return;
         }
+        if (this.initialSecurity.shareSecurityForm.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            return;
+        }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
         }
@@ -288,7 +292,7 @@ export class SecurityComponent implements OnInit {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
         } else {
-            this.securityData.share = null;
+            this.securityData.share = this.initialSecurity.shareSecurityData;
         }
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
