@@ -357,7 +357,7 @@
                         <ng-container>
                             <div class="col-md-12"
                                  *ngIf="securityForm.get(['landDetails' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
-                                <strong>Has transfer date elapsed by 6 months plus 35 days? </strong>
+                                <strong>Has transfer date elapsed by 1 Yrs  35 days? </strong>
                                 <input class="ml-md-3" type="radio" value="Yes" formControlName="saleOwnershipTransfer"
                                        (input)="resetOtherTransferParameter('landDetails', i,true)">
                                 <label>Yes</label>
@@ -1674,7 +1674,7 @@
                             <ng-container>
                                 <div class="col-md-12"
                                      *ngIf="securityForm.get(['landBuilding' , i,'ownershipTransferThrough']).value === ownershipTransfers.id(ownershipTransfers.SALE)">
-                                    <strong>Has transfer date elapsed by 6 months plus 35 days? </strong>
+                                    <strong>Has transfer date elapsed by 1 Yrs  plus 35 days? </strong>
                                     <input class="ml-md-3" type="radio" value="Yes"
                                            formControlName="saleOwnershipTransfer"
                                            (input)="resetOtherTransferParameter('landBuilding', i,true)">

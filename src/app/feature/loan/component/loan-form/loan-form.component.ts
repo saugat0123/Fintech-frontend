@@ -60,6 +60,7 @@ import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
+import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
 @Component({
     selector: 'app-loan-form',
@@ -423,7 +424,8 @@ export class LoanFormComponent implements OnInit {
                                 this.templateList.splice(index, 1);
                             }
                         } else {
-                            if (value.name === 'Credit Risk Grading - Micro') {
+                            if (this.loanDocument.companyInfo.microCustomerType !== MicroCustomerType.DIRECT
+                                && value.name === 'Credit Risk Grading - Micro') {
                                 this.templateList.splice(index, 1);
                             }
                         }
