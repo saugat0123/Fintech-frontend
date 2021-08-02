@@ -51,10 +51,15 @@ import {CommonAddressComponent} from '../../../../common-address/common-address.
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
+import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
+import {mic} from 'ionicons/icons';
+import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
+import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-company-form',
@@ -62,6 +67,7 @@ import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-co
     styleUrls: ['./company-form.component.scss']
 })
 export class CompanyFormComponent implements OnInit {
+    onActionChangeSpinner = false;
     @Input() formValue: CompanyInfo;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
@@ -78,6 +84,8 @@ export class CompanyFormComponent implements OnInit {
     customerId;
     spinner = false;
     submitted = false;
+
+    microCustomerTypes = MicroCustomerType.enumObject();
 
     companyFormField = {
         showFormField: false,
@@ -133,6 +141,9 @@ export class CompanyFormComponent implements OnInit {
     @ViewChild('microCompanyFormComponent', {static: false})
     microCompanyFormComponent: MicroCompanyFormComponentComponent;
 
+    @ViewChild('microIndividualFormComponent', {static: false})
+    microIndividualFormComponent: MicroIndividualFormComponent;
+
 
     experiences = Experience.enumObject();
     successionList = Succession.enumObject();
@@ -146,6 +157,7 @@ export class CompanyFormComponent implements OnInit {
     companyAddress;
     srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
+    microCustomerType: string;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -153,6 +165,7 @@ export class CompanyFormComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
         private toastService: ToastService,
+        private modalService: NgbModal,
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
@@ -189,6 +202,9 @@ export class CompanyFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
+            if (this.microCustomer) {
+                this.microCustomerType = this.formValue.microCustomerType;
+            }
         }
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
@@ -343,6 +359,11 @@ export class CompanyFormComponent implements OnInit {
             clientType:
                 [ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
                     this.clientTypeInput, Validators.required],
+
+            microCustomerType:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.microCustomerType)) ? MicroCustomerType.INDIRECT :
+                    this.companyInfo.microCustomerType],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
@@ -600,6 +621,19 @@ export class CompanyFormComponent implements OnInit {
         (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
     }
 
+    onCloseCreateCustomer() {
+        this.onClose();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+    }
+
     addManagementTeam() {
         const controls = this.companyInfoFormGroup.controls.managementTeams as FormArray;
         if (FormUtils.checkEmptyProperties(controls)) {
@@ -839,16 +873,21 @@ export class CompanyFormComponent implements OnInit {
         if (!this.disableCrgAlpha && !this.microCustomer) {
             this.bankingRelationComponent.onSubmit();
         }
+
         if (this.microCustomer) {
-            this.microCompanyFormComponent.onSubmit();
-            if (this.microCompanyFormComponent.microCustomerForm.invalid) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
-                return;
+            if (this.microCustomerType === MicroCustomerType.INDIRECT) {
+                this.microCompanyFormComponent.onSubmit();
+            } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
+                this.microIndividualFormComponent.onSubmit();
+                if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                    this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
+                    return;
+                }
             }
         }
+
         this.companyLocation.onSubmit();
-        if (this.companyInfoFormGroup.invalid || this.companyOtherDetailComponent.companyOtherDetailGroupForm.invalid
-            || this.marketScenarioComponent.marketScenarioForm.invalid ||
+        if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
             console.log(this.companyInfoFormGroup);
@@ -859,6 +898,8 @@ export class CompanyFormComponent implements OnInit {
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
+        console.log(this.companyInfoFormGroup.get('microCustomerType').value);
+        this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -1014,7 +1055,11 @@ export class CompanyFormComponent implements OnInit {
 
         if (this.microCustomer) {
             /** micro data **/
-            submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+            if (this.microCustomerType === MicroCustomerType.INDIRECT) {
+                submitData.microCustomerDetail = this.microCompanyFormComponent.microCustomerForm.value;
+            } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
+                submitData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
+            }
         }
 
 
@@ -1148,6 +1193,26 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoFormGroup.get(resultControllerName).setValue(total);
     }
 
+    microRestData(micro: boolean) {
+        const microCustomerTypeControl = this.companyInfoFormGroup.get('microCustomerType');
+        if (micro) {
+            microCustomerTypeControl.patchValue(MicroCustomerType.INDIRECT);
+            microCustomerTypeControl.enable();
+        } else {
+            microCustomerTypeControl.patchValue(null);
+            microCustomerTypeControl.disable();
+        }
+    }
+
+    microCustomerTypeValidation(microCustomerType) {
+        this.microCustomerType = microCustomerType;
+        const microDirectExcludeFields = ['sisterConcern', 'strength', 'weakness', 'opportunity', 'threats'];
+        if (microCustomerType === MicroCustomerType.INDIRECT.toString()) {
+
+        } else {
+
+        }
+    }
     microCustomerValidation(micro: boolean) {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
@@ -1156,17 +1221,17 @@ export class CompanyFormComponent implements OnInit {
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
-                clientTypeControl.disable();
                 this.controlValidation(alphaFields , false);
+                clientTypeControl.disable();
             } else {
                 this.controlValidation(alphaFields , true);
+                clientTypeControl.enable();
             }
         } else {
             this.controlValidation(alphaFields , false);
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(ObjectUtil.isEmpty(this.clientTypeInput) ? undefined :
                 this.clientTypeInput);
-            clientTypeControl.enable();
         }
     }
 
