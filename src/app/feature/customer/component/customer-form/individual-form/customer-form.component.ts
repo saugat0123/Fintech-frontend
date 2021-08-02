@@ -64,7 +64,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     calendarType = 'AD';
     microCustomer = false;
-    samePerAddress = false;
     microEnabled: boolean = env.microLoan;
 
     basicInfo: FormGroup;
@@ -91,7 +90,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-
+    sameAddress = false;
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -129,6 +128,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
+            console.log('Customer Data ', this.customer);
+            this.sameAddress = this.customer.sameAddress;
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
@@ -318,7 +319,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
                     this.customer.isMicroCustomer = this.microCustomer;
-
+                    this.customer.sameAddress = this.basicInfo.get('sameAddress').value;
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -429,7 +430,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.maritalStatus, Validators.required],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress, Validators.required],
-
+            sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress]
         });
         this.onCustomerTypeChange(this.microCustomer);
     }
@@ -495,6 +496,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const citizenShipIssuedDate = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         const citizenShipNo = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
         const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
+        this.sameAddress = this.customer.sameAddress;
+
         if (ObjectUtil.isEmpty(customerName) || ObjectUtil.isEmpty(citizenShipIssuedDate
             || ObjectUtil.isEmpty(citizenShipNo))) {
             modalRef.componentInstance.model = undefined;
@@ -639,10 +642,10 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
             this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
             this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
-            this.samePerAddress = value;
+            this.sameAddress = value;
         } else {
             this.resetValue();
-            this.samePerAddress = value;
+            this.sameAddress = value;
         }
         console.log('Button event triggered ! ', value);
     }
