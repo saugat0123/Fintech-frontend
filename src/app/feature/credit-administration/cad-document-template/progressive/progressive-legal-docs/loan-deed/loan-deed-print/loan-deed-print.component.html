@@ -9,7 +9,11 @@
       <div class="row">
         <p>
           लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
-          बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२ स्थित
+          बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं.
+            <span [ngClass]="{'nepaliFont' : printDocForm?.financeWardNo !== null && printDocForm?.financeWardNo !== ''}">
+                {{printDocForm?.financeWardNo === null || printDocForm?.financeWardNo === '' ? '_________________' : printDocForm?.financeWardNo}}
+            </span>
+            स्थित
           रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong> <span [ngClass]="{'nepaliFont' : printDocForm?.district !== null && printDocForm?.district !== ''}">
     {{printDocForm?.district === null || printDocForm?.district === '' ? '_________________' : printDocForm?.district}}
 </span>
@@ -69,7 +73,7 @@
           जि.प्र.का.) <span [ngClass]="{'nepaliFont' : printDocForm?.cdoOffice !== null && printDocForm?.cdoOffice !== ''}">
     {{printDocForm?.cdoOffice === null || printDocForm?.cdoOffice === '' ? '_________________' : printDocForm?.cdoOffice}}
 </span>)
-          वानेपाल सरकार, <span [ngClass]="{'nepaliFont' : printDocForm?.mantralayaName !== null && printDocForm?.mantralayaName !== ''}">
+          वा नेपाल सरकार, <span [ngClass]="{'nepaliFont' : printDocForm?.mantralayaName !== null && printDocForm?.mantralayaName !== ''}">
     {{printDocForm?.mantralayaName === null || printDocForm?.mantralayaName === '' ? '_________________' : printDocForm?.mantralayaName}}
 </span>
           मन्त्रालय <span [ngClass]="{'nepaliFont' : printDocForm?.biBhag !== null && printDocForm?.biBhag !== ''}">

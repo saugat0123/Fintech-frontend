@@ -81,6 +81,7 @@ export class LoanDeedComponent implements OnInit {
 
   setSwikriti(data) {
     const formArray = this.form.get('swikritiBibaran') as FormArray;
+    (this.form.get('swikritiBibaran') as FormArray).clear();
     if (data.length === 0) {
       this.addSwikriti();
       return;
@@ -97,7 +98,7 @@ export class LoanDeedComponent implements OnInit {
   setSecurity(data) {
     const formArray = this.form.get('security') as FormArray;
     if (data.length === 0) {
-      this.addSwikriti();
+      this.addSecurity();
       return;
     }
     data.forEach((value) => {
@@ -158,6 +159,7 @@ export class LoanDeedComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      financeWardNo: [undefined],
       district: [undefined],
       municipality: [undefined],
       wadNo: [undefined],
@@ -213,7 +215,7 @@ export class LoanDeedComponent implements OnInit {
       itiSambatRoj: [undefined],
       sthit:[undefined],
       staDistrict:[undefined],
-      swikritiBibaran:this.formBuilder.array([]),
+      swikritiBibaran:this.formBuilder.array([this.swikritiFormGroup()]),
       security:this.formBuilder.array([])
 
     });

@@ -1,6 +1,6 @@
-<div class="row nepali" id="print-section-{{offerLetterConst.CONSENT_LETTER_INDIVIDUAL}}">
+<div class="row" id="print-section-{{offerLetterConst.CONSENT_LETTER_INDIVIDUAL}}">
 
-    <form>
+    <form class="nepali">
         <p>श्री प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
             <span [ngClass]="{'nepaliFont':printDocForm?.branch!==null && printDocForm?.branch!==''}">
           {{printDocForm.branch === null || printDocForm.branch === '' ? '_______________' : printDocForm?.branch}}
@@ -92,7 +92,7 @@
                             <th width="30%">सहमति दिनेहरुको विवरण</th>
                             <th width="15%">धितोधनि संगको नाता.</th>
                             <th width="15%">दस्तखत</th>
-                            <th width="40%">औंठाछाप</th>
+                            <th width="30%">औंठाछाप</th>
                         </tr>
 
                         </thead>
@@ -102,22 +102,18 @@
                             <td><span class="nepaliFont">{{guarantor?.relationship}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.signature}}</span></td>
                             <td>
+                                <table style="width: 80%;" class="table  table-bordered text-center">
 
-                                <table class="table  table-bordered fingerXap">
                                     <thead>
                                     <tr>
-                                        <th>दाँ.</th>
-                                        <th>बाँ.</th>
+                                        <th style="border: none;">दाँ.</th>
+                                        <th style="border: none;">बाँ.</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td><textarea cols="43" id="" name="" rows="10"
-                                                      style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
-                                        </td>
-                                        <td><textarea cols="43" id="" name="" rows="10"
-                                                      style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
-                                        </td>
+                                    <tr style="height: 130px;">
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     </tbody>
                                 </table>
