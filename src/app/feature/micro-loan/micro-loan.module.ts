@@ -10,6 +10,7 @@ import {MicroSynopsisComponent} from './form-component/micro-synopsis/micro-syno
 import {MicroSummaryComponent} from './summary/micro-summary/micro-summary.component';
 import {NgxPrintModule} from 'ngx-print';
 import {MicroLoanDetailViewBaseComponent} from './detail-view/micro-loan-detail-view-base/micro-loan-detail-view-base.component';
+// tslint:disable-next-line:max-line-length
 import {MicroIndividualViewComponent} from './detail-view/micro-loan-detail-view-base/micro-individual-view/micro-individual-view.component';
 import {CoreModule} from '../../@core/core.module';
 import {MicroCompanyInfoViewComponent} from './detail-view/micro-loan-detail-view-base/micro-company-info-view/micro-company-info-view.component';
@@ -19,7 +20,6 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {MicroBaselRiskExposureViewComponent} from './detail-view/micro-loan-detail-view-base/micro-basel-risk-exposure-view/micro-basel-risk-exposure-view.component';
-import {MicroSynopsisCreditworthinessViewComponent} from './detail-view/micro-loan-detail-view-base/micro-synopsis-creditworthiness-view/micro-synopsis-creditworthiness.component';
 import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-view-base/borrower-portfolio-summary-view/borrower-portfolio-view.component';
 import {BorrowerFinancialComponent} from './template/borrower-financial/borrower-financial.component';
 import {MarketingActivitiesViewComponent} from './detail-view/micro-loan-detail-view-base/marketing-activities-view/marketing-activities-view.component';
@@ -30,6 +30,7 @@ import {MicroChecklistComponent} from './detail-view/micro-loan-detail-view-base
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NepaliPatroModule} from 'nepali-patro';
+import {MicroSynopsisCreditworthinessComponent} from '../loan/component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
 
 
 @NgModule({
@@ -45,12 +46,12 @@ import {NepaliPatroModule} from 'nepali-patro';
       MicroIndividualViewComponent,
       MicroCompanyInfoViewComponent,
       MicroBaselRiskExposureViewComponent,
-      MicroSynopsisCreditworthinessViewComponent,
       BorrowerPortfolioViewComponent,
       MicroProposalViewComponent,
       BorrowerFinancialComponent,
       MarketingActivitiesViewComponent,
       MicroChecklistComponent,
+      MicroSynopsisCreditworthinessComponent,
       MicroCrgParamsComponent],
     exports: [
         MicroCompanyFormComponentComponent,
@@ -62,6 +63,10 @@ import {NepaliPatroModule} from 'nepali-patro';
         MicroLoanDetailViewBaseComponent,
         BorrowerFinancialComponent,
         MicroCrgParamsComponent,
+        BorrowerPortfolioViewComponent,
+        MarketingActivitiesViewComponent,
+        MicroBaselRiskExposureViewComponent,
+        MicroSynopsisCreditworthinessComponent
     ],
     imports: [
         CommonModule,

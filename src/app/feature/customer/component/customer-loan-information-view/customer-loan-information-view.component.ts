@@ -6,6 +6,7 @@ import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -15,11 +16,20 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   companyInfo = new CompanyInfo();
+  fiscalYearArray = [];
 
-  constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService, ) {
+  constructor(private companyInfoService: CompanyInfoService,
+              private toastService: ToastService,
+              private fiscalYearService: FiscalYearService) {
   }
 
   ngOnInit() {
+    this.fiscalYearService.getAll().subscribe(response => {
+      this.fiscalYearArray = response.detail;
+    }, error => {
+      console.log(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
+    });
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
       this.checkCustomerType();
     }
