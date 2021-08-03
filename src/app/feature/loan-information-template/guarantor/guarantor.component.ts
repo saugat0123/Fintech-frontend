@@ -114,7 +114,7 @@ export class GuarantorComponent implements OnInit {
     }
 
     addGuarantorDetails(data: Guarantor) {
-        this.sameAsCurrentChecked = data.checkedSameAsCurrent;
+        // this.sameAsCurrentChecked = data.checkedSameAsCurrent;
         return this.formBuilder.group({
             id: [
                 ObjectUtil.setUndefinedIfNull(data.id)
