@@ -59,6 +59,7 @@ import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-co
 import {mic} from 'ionicons/icons';
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-company-form',
@@ -66,6 +67,7 @@ import {MicroIndividualFormComponent} from '../../../../micro-loan/form-componen
     styleUrls: ['./company-form.component.scss']
 })
 export class CompanyFormComponent implements OnInit {
+    onActionChangeSpinner = false;
     @Input() formValue: CompanyInfo;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
@@ -163,6 +165,7 @@ export class CompanyFormComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
         private toastService: ToastService,
+        private modalService: NgbModal,
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
@@ -616,6 +619,19 @@ export class CompanyFormComponent implements OnInit {
 
     removeManagementTeam(index: number) {
         (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
+    }
+
+    onCloseCreateCustomer() {
+        this.onClose();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
     }
 
     addManagementTeam() {
