@@ -162,7 +162,7 @@
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <app-guarantor-view *ngIf="guarantor.expanded"
-                              [guarantorData]="customerInfo?.guarantors"></app-guarantor-view>
+                              [guarantorData]="customerInfo?.guarantors?.guarantorList"></app-guarantor-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
@@ -191,6 +191,20 @@
         <nb-accordion-item-body>
           <app-micro-synopsis-creditworthiness *ngIf="Synopsis?.expanded"
                                                [synopsisData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis-creditworthiness>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #checklist *ngIf="customerInfo?.creditChecklist">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT CHECKLIST</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-checklist-view *ngIf="checklist?.expanded"
+                                     [formData]="customerInfo?.creditChecklist"></app-credit-checklist-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
