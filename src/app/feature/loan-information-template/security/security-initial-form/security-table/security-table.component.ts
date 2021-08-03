@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {environment} from '../../../../../../environments/environment';
+import {Clients} from '../../../../../../environments/Clients';
+import {any} from 'codelyzer/util/function';
 
 @Component({
   selector: 'app-security-table',
@@ -11,6 +14,8 @@ export class SecurityTableComponent implements OnInit {
   @Input() shareSecurity: any;
   @Output() securityEmitter = new EventEmitter<any>();
   @Input() selectedArray = [];
+  clients = environment.client;
+  clientName = Clients;
   isLandSecurity = false;
   landSecurity: any;
   isApartmentSecurity = false;
@@ -41,6 +46,8 @@ export class SecurityTableComponent implements OnInit {
   insurancePolicy: any;
   isShareSecurity = false;
   shareSecurityData: any;
+  isBondSecurity = false;
+  bondSecurity: any;
 
   constructor() { }
 
@@ -144,6 +151,12 @@ export class SecurityTableComponent implements OnInit {
           this.isInsurancePolicy = true;
         }
       });
+      this.selectedArray.filter(f => {
+        if (f.indexOf('BondSecurity') !== -1) {
+          this.bondSecurity = this.formDataForEdit['bondSecurity'];
+          this.isBondSecurity = true;
+        }
+      });
     }
   }
 
@@ -191,6 +204,9 @@ export class SecurityTableComponent implements OnInit {
     }
     if (formArrayName === 'insurancePolicy') {
       this.isInsurancePolicy = false;
+    }
+    if (formArrayName === 'bondSecurity') {
+      this.isBondSecurity = false;
     }
   }
 
