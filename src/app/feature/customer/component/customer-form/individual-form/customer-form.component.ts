@@ -128,8 +128,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
-            console.log('Customer Data ', this.customer);
-            this.sameAddress = this.customer.sameAddress;
+            // console.log('Customer Data ', this.customer.sameAddress);
+            // console.log('Customer Data ----->', this.sameAddress);
+            // this.sameAddress = this.customer.sameAddress;
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
