@@ -3,6 +3,7 @@ import {Financial} from '../../../model/financial';
 import {FinancialService} from '../../../../loan-information-template/financial/financial.service';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {LoanDataHolder} from '../../../model/loanData';
 
 @Component({
   selector: 'app-financial-summary',
@@ -12,6 +13,7 @@ import {Clients} from '../../../../../../environments/Clients';
 export class FinancialSummaryComponent implements OnInit {
   @Input() formData: Financial;
   @Input() loanType: any;
+  @Input() loanDataHolder: LoanDataHolder;
 
   financialData: any;
 

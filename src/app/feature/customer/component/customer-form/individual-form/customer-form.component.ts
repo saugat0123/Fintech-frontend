@@ -33,6 +33,7 @@ import {Editor} from '../../../../../@core/utils/constants/editor';
     styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit, DoCheck {
+    onActionChangeSpinner = false;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -142,6 +143,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.createRelativesArray();
         }
 
+    }
+
+    onCloseCreateCustomer() {
+        this.onClose();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
     }
 
     addRelatives() {
@@ -537,6 +546,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.ref.close();
     }
 
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+    }
+
     occupationChange() {
         const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
         if (isOtherSelected) {
@@ -694,5 +708,4 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             clientTypeControl.enable();
         }
     }
-
 }
