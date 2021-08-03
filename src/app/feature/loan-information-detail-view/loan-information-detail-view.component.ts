@@ -114,17 +114,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.isJointInfo = true;
             }
 
-            // if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
-            //     this.rootDocLength = this.loanDataHolder.loan.initial.length;
-            // }
-            // if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
-            //     this.rootDocLength = this.loanDataHolder.loan.renew.length;
-            // }
-            //
-            // if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
-            //     this.rootDocLength = this.loanDataHolder.loan.closure.length;
-            // }
-
         });
         this.getFiscalYears();
 

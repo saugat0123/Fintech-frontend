@@ -266,6 +266,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                    }
                });
         }
+        console.log('Loandata::', this.loanDataHolder);
     }
 
     ngOnDestroy(): void {
