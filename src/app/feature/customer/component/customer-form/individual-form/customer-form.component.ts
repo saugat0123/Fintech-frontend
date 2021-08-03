@@ -143,7 +143,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         } else {
             this.createRelativesArray();
         }
-
+         this.sameAddress = this.customer.sameAddress;
+         console.log('Customer Data ', this.customer.sameAddress);
     }
 
     onCloseCreateCustomer() {
