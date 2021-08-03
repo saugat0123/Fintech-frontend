@@ -59,7 +59,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
     loanType = LoanType;
-    rootDocLength;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -75,25 +74,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.activatedRoute.queryParams.subscribe((res) => {
-        //     this.customerLoanService.detail(res.customerId).subscribe(response => {
-        //         const details = JSON.parse(response.detail.data);
-        //         if(!ObjectUtil.isEmpty(details.documents)){
-        //             details.documents.forEach( resData => {
-        //                 this.obtainableDocuments.push(resData);
-        //             });
-        //         }
-        //         if(!ObjectUtil.isEmpty(details.OtherDocuments)) {
-        //             details.OtherDocuments.split(',').forEach(splitData => {
-        //                 if (splitData !== '') {
-        //                     this.otherObtainableDocuments.push(splitData);
-        //                 }
-        //                 console.log(this.otherObtainableDocuments);
-        //             });
-        //         }
-        //     });
-        //
-        // });
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
@@ -134,16 +114,16 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 this.isJointInfo = true;
             }
 
-            if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
-                this.rootDocLength = this.loanDataHolder.loan.initial.length;
-            }
-            if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
-                this.rootDocLength = this.loanDataHolder.loan.renew.length;
-            }
-
-            if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
-                this.rootDocLength = this.loanDataHolder.loan.closure.length;
-            }
+            // if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
+            //     this.rootDocLength = this.loanDataHolder.loan.initial.length;
+            // }
+            // if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+            //     this.rootDocLength = this.loanDataHolder.loan.renew.length;
+            // }
+            //
+            // if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+            //     this.rootDocLength = this.loanDataHolder.loan.closure.length;
+            // }
 
         });
         this.getFiscalYears();
