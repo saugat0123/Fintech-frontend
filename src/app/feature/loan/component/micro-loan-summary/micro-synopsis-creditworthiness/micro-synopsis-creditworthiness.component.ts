@@ -9,6 +9,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class MicroSynopsisCreditworthinessComponent implements OnInit {
   @Input() synopsisData;
   synopsisCreditworthiness;
+  test;
 
   constructor() {
   }
