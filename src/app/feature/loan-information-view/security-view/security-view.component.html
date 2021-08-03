@@ -1460,4 +1460,33 @@
     </div>
     </div>
   </div>
+  <div class="row" *ngIf="bondSecurity && client === clientName.ICFC">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr>
+          <th class="text-center sb-bg-dark text-white" colspan="12">Bond Security Detail</th>
+        </tr>
+        <tr class="sb-bg-secondary text-white">
+          <th>S.N</th>
+          <th>Bond Name</th>
+          <th>Coupon Rate</th>
+          <th>Amount</th>
+          <th>Expiry Date</th>
+          <th>Tenure Validity</th>
+        </tr>
+        <tr *ngFor="let bond of securityData['initialForm']['bondSecurity']; let i= index">
+          <td class="align-middle">{{bond?.bondSerialNumber}}</td>
+          <td class="text-right pl-1">{{bond?.nameOfBond}}</td>
+          <td class="text-right pl-1">{{bond?.couponRate}}</td>
+          <td class="text-right pr-1">Rs. {{bond?.bondValue | currencyFormatter}}</td>
+          <td class="text-right pl-1">{{bond?.expiryDate | date}} ({{bond?.expiryDate | engNepDate: false}})</td>
+          <td class="text-right pr-1">{{bond?.validityOfBond}}</td>
+        </tr>
+        <tr>
+          <th colspan="3" class="text-right">Total</th>
+          <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue | currencyFormatter}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>

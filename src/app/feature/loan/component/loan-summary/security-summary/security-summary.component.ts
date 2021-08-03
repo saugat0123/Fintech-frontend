@@ -44,6 +44,7 @@ export class SecuritySummaryComponent implements OnInit {
     assignment = false;
     otherDetail: any;
     assignments = false;
+    bondSecurity = false;
     leaseAssignment: any;
     @Input() securityId: number;
     @Input() collateralSiteVisitDetail = [];
@@ -57,6 +58,7 @@ export class SecuritySummaryComponent implements OnInit {
     summaryTypeName = SummaryType;
     @Input() loanCategory;
     @Input() approveSheet;
+    totalBondSecurityValue = 0;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -163,6 +165,13 @@ export class SecuritySummaryComponent implements OnInit {
                     this.insurancePolicySelected = true;
                 }
             });
+            // bond security
+            this.formData['selectedArray'].filter(f => {
+                if (f.indexOf('BondSecurity') !== -1) {
+                    this.showTitle = true;
+                    this.bondSecurity = true;
+                }
+            });
         }
 
         if (this.depositSelected) {
@@ -187,6 +196,9 @@ export class SecuritySummaryComponent implements OnInit {
                     }
                 });
         }
+        if (this.bondSecurity) {
+            this.calculateTotalBondSecurityAmount();
+        }
     }
 
     calculateTotal() {
@@ -201,6 +213,13 @@ export class SecuritySummaryComponent implements OnInit {
         shareList.forEach(share => {
             this.shareTotalValue += share.total;
             this.totalConsideredValue += share.consideredValue;
+        });
+    }
+
+    private calculateTotalBondSecurityAmount(): void {
+        const bondSecurity = this.formData['initialForm']['bondSecurity'];
+        bondSecurity.forEach(value => {
+            this.totalBondSecurityValue += value.bondValue;
         });
     }
 }
