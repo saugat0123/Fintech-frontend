@@ -66,6 +66,7 @@ export class GuarantorComponent implements OnInit {
         this.getAllDistrict();
         this.relationList = this.relationshipList.relation;
         const formArray = this.form.get('guarantorDetails') as FormArray;
+
     }
 
     buildForm() {
@@ -98,6 +99,8 @@ export class GuarantorComponent implements OnInit {
                     }
                 }
                 formArray.push(this.addGuarantorDetails(v));
+                this.sameAsCurrentChecked = v.checkedSameAsCurrent;
+                // console.log(v.checkedSameAsCurrent, 'Current Value');
             });
         }
     }
@@ -114,7 +117,6 @@ export class GuarantorComponent implements OnInit {
     }
 
     addGuarantorDetails(data: Guarantor) {
-        // this.sameAsCurrentChecked = data.checkedSameAsCurrent;
         return this.formBuilder.group({
             id: [
                 ObjectUtil.setUndefinedIfNull(data.id)
@@ -207,6 +209,7 @@ export class GuarantorComponent implements OnInit {
                 Validators.required],
             checkedSameAsCurrent: [ObjectUtil.isEmpty(data.checkedSameAsCurrent) ? false : data.checkedSameAsCurrent],
         });
+
     }
 
     removeGuarantorDetails(index: number) {
