@@ -17,6 +17,7 @@ import {DocumentService} from '../../../../../admin/component/document/document.
 import {Status} from '../../../../../../@core/Status';
 import {environment} from '../../../../../../../environments/environment';
 import {Clients} from '../../../../../../../environments/Clients';
+import {errorObject} from 'rxjs/internal-compatibility';
 
 @Component({
     selector: 'app-document-checklist-lite',
@@ -112,7 +113,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 this.ngOnInit();
             }, error => {
                 this.spinner = false;
-                this.toastService.show(new Alert(AlertType.ERROR, 'File size is larger than 5MB'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'File size is larger than 5MB' + error));
             }
         );
 
