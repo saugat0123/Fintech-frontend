@@ -465,15 +465,15 @@
 
                             </tr>
                             <tr class="text-white sb-bg-dark">
-                                <th *ngIf="client !== clientName.MEGA">Father's Name</th>
-                                <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
+                                <th *ngIf="client !== clientName.LAXMI">Father's Name</th>
+                                <th *ngIf="client !== clientName.LAXMI">Grandfather's Name</th>
                                 <th>Customer Client Type</th>
                                 <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
-                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.LAXMI">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                                <td class="pl-1" *ngIf="client !== clientName.LAXMI">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
@@ -816,7 +816,7 @@
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMI); else otherBank">
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
@@ -831,18 +831,18 @@
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.LAXMI">
                 <app-comments-summary *ngIf="commentsSummary"
                                              [formData]="dataFromComments"></app-comments-summary>
                 <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
             </div>
 
             <br>
-            <div *ngIf="client !== clientName?.MEGA">
+            <div *ngIf="client !== clientName?.LAXMI">
                 <app-guarantor-summary *ngIf="checkGuarantorData"
                                        [guarantorData]="guarantorData"></app-guarantor-summary>
             </div>
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.LAXMI">
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>
@@ -882,7 +882,7 @@
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
-            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
+            <div *ngIf="client === clientName?.LAXMI || clientName?.SHINE_RESUNGA">
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
             <div class="row">

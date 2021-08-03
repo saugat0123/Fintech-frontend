@@ -74,7 +74,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.initial();
         switch (this.client) {
-            case this.clientList.MEGA:
+            case this.clientList.LAXMI:
                 this.offerLetterTypes = MegaOfferLetterConst.enumObject();
                 this.offerLetterConst = MegaOfferLetterConst;
                 this.component = CadOfferLetterModalComponent;

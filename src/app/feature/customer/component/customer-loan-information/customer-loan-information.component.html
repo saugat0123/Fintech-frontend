@@ -242,7 +242,7 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMI); else otherBank">
             <app-nta-mega
                     (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
                     [fromProfile]=true
@@ -469,7 +469,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #commentsFromAccount *ngIf="client === clientName?.MEGA">
+      <nb-accordion-item #commentsFromAccount *ngIf="client === clientName?.LAXMI">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -501,7 +501,7 @@
       </nb-accordion-item>
 
 
-      <nb-accordion-item #dataFromPreviousSecurity *ngIf="client === clientName?.MEGA">
+      <nb-accordion-item #dataFromPreviousSecurity *ngIf="client === clientName?.LAXMI">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">

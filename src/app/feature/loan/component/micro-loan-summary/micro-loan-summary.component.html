@@ -357,7 +357,7 @@
                     [loanDataHolder]="loanDataHolder"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMI); else otherBank">
             <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                   [fiscalYears]="fiscalYearArray"
                                   [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
@@ -370,7 +370,7 @@
             </ng-template>
 
             <br>
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.LAXMI">
                 <app-comments-summary *ngIf="commentsSummary"
                                       [formData]="dataFromComments"></app-comments-summary>
                 <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
@@ -379,11 +379,11 @@
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
-            <div *ngIf="client !== clientName?.MEGA">
+            <div *ngIf="client !== clientName?.LAXMI">
                 <app-guarantor-summary *ngIf="checkGuarantorData"
                                        [guarantorData]="guarantorData"></app-guarantor-summary>
             </div>
-            <div *ngIf="client === clientName?.MEGA">
+            <div *ngIf="client === clientName?.LAXMI">
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>

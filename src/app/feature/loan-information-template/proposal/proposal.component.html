@@ -640,7 +640,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group" *ngIf="(client !== clientName?.MEGA) && (client !== clientName?.SHINE_RESUNGA)">
+                                <div class="col-md-4 form-group" *ngIf="(client !== clientName?.LAXMI) && (client !== clientName?.SHINE_RESUNGA)">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -659,7 +659,7 @@
                                     </div>
                                 </div>
 
-                                <div *ngIf="client !== clientName?.MEGA">
+                                <div *ngIf="client !== clientName?.LAXMI">
                                     <nb-checkbox class="ml-3" (change)="checkChecked($event.target.checked,'subsidizedLoan')"
                                                  [checked]="subsidizedLoanChecked"><b>Subsidized Loan<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -696,7 +696,7 @@
 
 
                                 <!--                end of Moratorium Period amount div-->
-                                <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
+                                <div class="col-md-12 form-group" *ngIf="client !== clientName?.LAXMI">
                                     <label class="title" for="prepaymentSwapCommitment"
                                            *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
                                         <strong>Prepayment/Commitment/Swap Charge Description</strong>
@@ -721,7 +721,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Loan background' }}</strong>
+                                        <strong>{{client === clientName?.LAXMI ? 'Justification of limit' : 'Loan background' }}</strong>
                                         <ckeditor formControlName="borrowerInformation"
                                                   [style]="{height:'250px !important;'}"
                                                   placeholder="Background"
@@ -735,11 +735,11 @@
                                 <div class="col-md-12" style="padding-top: 70px;">
                                     <div *ngIf="submitted">
                                         <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                                            <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Loan background Information is required.' }}
+                                            <sup>*</sup> {{client === clientName?.LAXMI ? 'Justification of limit is required!' : 'Loan background Information is required.' }}
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-12" *ngIf="client != clientName.MEGA">
+                                <div class="col-md-12" *ngIf="client != clientName.LAXMI">
                                     <div class="form-group">
                                         <label class="title"><b>Purpose of Loan</b></label>
                                         <ckeditor formControlName="purposeOfLoan"></ckeditor>

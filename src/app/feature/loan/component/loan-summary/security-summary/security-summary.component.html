@@ -132,7 +132,7 @@
                                 <th>Issued Date(AD/BS)</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
-                                <ng-container *ngIf="client === clientName.MEGA">
+                                <ng-container *ngIf="client === clientName.LAXMI">
                                     <th>Ownership Transfer Date(AD/BS)</th>
                                     <th class="text-left pl-1">Ownership Transfer Through</th>
                                     <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
@@ -155,7 +155,7 @@
                                 <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
-                                <ng-container *ngIf="client === clientName.MEGA">
+                                <ng-container *ngIf="client === clientName.LAXMI">
                                     <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
                                     <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
                                     <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
@@ -298,7 +298,7 @@
 
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Address as per Legal Document</th>
-                        <ng-container *ngIf="client === clientName.MEGA">
+                        <ng-container *ngIf="client === clientName.LAXMI">
                             <th>Ownership Transfer Date(AD/BS)</th>
                             <th class="text-left pl-1">Ownership Transfer Through</th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
@@ -313,7 +313,7 @@
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
-                        <ng-container *ngIf="client === clientName.MEGA">
+                        <ng-container *ngIf="client === clientName.LAXMI">
                             <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
                             <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
                             <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>

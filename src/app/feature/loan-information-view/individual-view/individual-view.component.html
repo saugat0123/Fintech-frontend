@@ -33,8 +33,8 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th *ngIf="client !== clientName.MEGA">Father's Name</th>
-        <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
+        <th *ngIf="client !== clientName.LAXMI">Father's Name</th>
+        <th *ngIf="client !== clientName.LAXMI">Grandfather's Name</th>
         <th>Mobile Number</th>
         <th>LandLine Number</th>
         <th>Email</th>
@@ -45,8 +45,8 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName.LAXMI">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+        <td class="text-left pl-1" *ngIf="client !== clientName.LAXMI">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
         <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
         <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
         <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>

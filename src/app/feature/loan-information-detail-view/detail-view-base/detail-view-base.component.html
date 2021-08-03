@@ -61,7 +61,7 @@
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
-<ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+<ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMI); else otherBank">
     <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                           [fiscalYears]="fiscalYearArray"
                           [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
@@ -72,7 +72,7 @@
                      [fiscalYears]="fiscalYearArray"
                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
 </ng-template>
-<div *ngIf="client === clientName?.MEGA">
+<div *ngIf="client === clientName?.LAXMI">
     <app-comments-summary
             [formData]="dataFromComments"></app-comments-summary>
     <app-previous-security-summary *ngIf="previousSecuritySummary"

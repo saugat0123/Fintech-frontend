@@ -302,7 +302,7 @@
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
                 </tr>
-                <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.MEGA">
+                <tr class="text-white sb-bg-dark" *ngIf="client !== clientName.LAXMI">
                     <th></th>
                     <th>Father's Name</th>
                     <th>Grandfather's Name</th>
@@ -311,7 +311,7 @@
                     <th>Issued place</th>
                     <th>Date of birth(AD/BS)</th>
                 </tr>
-                <tr *ngIf="client !== clientName.MEGA">
+                <tr *ngIf="client !== clientName.LAXMI">
                     <td></td>
                     <td class="text-left pl-1"><strong>{{holder?.fatherName}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.grandFatherName}}</strong></td>
@@ -321,7 +321,7 @@
                     <td class="text-left pl-1"><strong>{{holder?.dateOfBirth | date}} ({{holder?.dateOfBirth|engNepDate: false}})</strong></td>
                 </tr>
 
-                <tr *ngIf="client != clientName.MEGA">
+                <tr *ngIf="client != clientName.LAXMI">
                     <td colspan="9">
                         <br>
                         <table class="table border-dark">
@@ -532,8 +532,8 @@
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Particular</th>
-                <th *ngIf="client === clientName?.MEGA">Amount(Rs/value)</th>
-                <th *ngIf="client !== clientName?.MEGA">Amount(Rs)</th>
+                <th *ngIf="client === clientName?.LAXMI">Amount(Rs/value)</th>
+                <th *ngIf="client !== clientName?.LAXMI">Amount(Rs)</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Interest Income</td>
@@ -558,7 +558,7 @@
             <tr>
                 <td class="text-left pl-1">Saving Account</td>
                 <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>
+                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.savingAccountDuringReview}}</div>
                         <ng-template #notMega>
                             <div class="text-right pr-1">Rs. {{businessGiven?.savingAccountDuringReview | currencyFormatter}}</div>
                         </ng-template>
@@ -567,7 +567,7 @@
             <tr>
                 <td class="text-left pl-1">Payroll Account</td>
                 <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>
+                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.payrollAccountDuringReview}}</div>
                     <ng-template #notMega>
                         <div class="text-right pr-1">Rs. {{businessGiven?.payrollAccountDuringReview | currencyFormatter}}</div>
                     </ng-template>
@@ -576,7 +576,7 @@
             <tr>
                 <td class="text-left pl-1">Debit Cards</td>
                 <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>
+                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.debitCardsDuringReview}}</div>
                     <ng-template #notMega>
                         <div class="text-right pr-1">Rs. {{businessGiven?.debitCardsDuringReview | currencyFormatter}}</div>
                     </ng-template>
@@ -585,7 +585,7 @@
             <tr>
                 <td class="text-left pl-1">Credit Cards</td>
                 <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>
+                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.creditCardsDuringReview}}</div>
                     <ng-template #notMega>
                         <div class="text-right pr-1">Rs. {{businessGiven?.creditCardsDuringReview | currencyFormatter}}</div>
                     </ng-template>
@@ -594,7 +594,7 @@
             <tr>
                 <td class="text-left pl-1">Mobile Bank / Internet Banking</td>
                 <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>
+                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.mobileBankingDuringReview}}</div>
                     <ng-template #notMega>
                         <div class="text-right pr-1">Rs. {{businessGiven?.mobileBankingDuringReview | currencyFormatter}}</div>
                     </ng-template>
@@ -603,7 +603,7 @@
             <tr>
                 <td class="text-left pl-1">Locker</td>
                 <th>
-                    <div *ngIf="client === clientName?.MEGA; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>
+                    <div *ngIf="client === clientName?.LAXMI; else notMega" class="text-right pr-1">{{businessGiven?.lockerDuringReview}}</div>
                     <ng-template #notMega>
                         <div class="text-right pr-1">Rs. {{businessGiven?.lockerDuringReview | currencyFormatter}}</div>
                     </ng-template>
