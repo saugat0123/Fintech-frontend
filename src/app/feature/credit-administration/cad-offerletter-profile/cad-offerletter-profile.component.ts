@@ -167,7 +167,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     previewClick(file) {
         let fileName = this.uploadFile;
         if (file !== null) {
-            fileName = ApiConfig.URL + '/' + file;
+            fileName = `${ApiConfig.URL}/${file}?${Math.floor(Math.random() * 100) + 1}`;
 
             const link = document.createElement('a');
             link.href = fileName;
