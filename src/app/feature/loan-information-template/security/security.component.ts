@@ -383,6 +383,12 @@ export class SecurityComponent implements OnInit {
                         totalSecurityAmount += value.consideredValue;
                     });
                     break;
+                case 'BondSecurity':
+                    const bondSecurityArray = securityData.initialForm.bondSecurity as Array<any>;
+                    for (let i = 0; i < bondSecurityArray.length; i++) {
+                        totalSecurityAmount += Number(bondSecurityArray[i].bondValue);
+                    }
+                    break;
                 default:
                     totalSecurityAmount += 0;
                     break;
