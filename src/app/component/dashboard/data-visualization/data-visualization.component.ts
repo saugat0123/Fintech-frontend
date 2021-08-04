@@ -112,7 +112,7 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   getWidth(): void {
-    this.workingWidth = document.getElementsByClassName('sb-bar-chart-container').item(0).clientWidth;
+    //this.workingWidth = document.getElementsByClassName('sb-bar-chart-container').item(0).clientWidth;
   }
 
   private updateSelectedBranch() {
