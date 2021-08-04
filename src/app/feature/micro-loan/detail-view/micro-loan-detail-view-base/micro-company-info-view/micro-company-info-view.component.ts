@@ -51,6 +51,7 @@ export class MicroCompanyInfoViewComponent implements OnInit {
       this.companyLocationData = JSON.parse(this.formValue.companyLocations.address);
     }
     this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
+    console.log('microCustomerDetail:::', this.companyJsonData);
   }
 
 

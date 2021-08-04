@@ -248,7 +248,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
     // Setting micro financial data---
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microOtherParameters)) {
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.isMicroCustomer)) {
       this.financialData = this.loanDataHolder.loanHolder.microOtherParameters;
       this.financialSummary = true;
     }

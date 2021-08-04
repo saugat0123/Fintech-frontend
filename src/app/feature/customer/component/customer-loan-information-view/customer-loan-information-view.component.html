@@ -208,6 +208,48 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
+      <nb-accordion-item #customerReporting *ngIf="customerInfo?.creditChecklist">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>REPORTING INFORMATION</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-report-summary *ngIf="customerReporting?.expanded"
+                              [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-report-summary>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #comment *ngIf="customerInfo?.creditChecklist">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>COMMENTS</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-comments-summary *ngIf="comment?.expanded"
+                                [formData]="customerInfo?.comments"></app-comments-summary>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #previousSecurity *ngIf="customerInfo?.comments">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>PREVIOUS SECURITY</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-previous-security-summary *ngIf="previousSecurity?.expanded"
+                                         [formData]="customerInfo?.comments"></app-previous-security-summary>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
     </nb-accordion>
   </nb-card-body>
 </nb-card>
