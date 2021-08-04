@@ -61,9 +61,6 @@ import {MicroSynopsisCreditworthinessComponent} from '../loan/component/micro-lo
         MicroLoanDetailViewBaseComponent,
         BorrowerFinancialComponent,
         MicroCrgParamsComponent,
-        BorrowerPortfolioViewComponent,
-        MarketingActivitiesViewComponent,
-        MicroBaselRiskExposureViewComponent,
         MicroSynopsisCreditworthinessComponent
     ],
     imports: [
