@@ -73,6 +73,11 @@ export class UserService extends BaseService<User> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getUserForChat(): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/chat`);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     public getUserListByRoleIdAndBranchIdForDocumentAction(id, bId): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/${id}/users/branch/${bId}`);
         return this.http.get(req.url, {headers: req.header});
