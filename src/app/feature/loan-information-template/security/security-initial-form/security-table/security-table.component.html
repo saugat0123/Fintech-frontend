@@ -183,6 +183,17 @@
                 <i class="fa fa-trash fa-1x"></i></a></td>
         </tr>
         </tbody>
+        <tbody *ngIf="isBondSecurity">
+        <tr>
+            <td>{{'Bond Security'}}</td>
+            <td>{{bondSecurity.length}}</td>
+            <td><strong>Bond Name:</strong>Rs.{{bondSecurity[0]?.nameOfBond || 'NA'}},
+                <strong>Amount:</strong>{{bondSecurity[0]?.bondValue || 'NA'  | currencyFormatter}},</td>
+            <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
+                   (click)="sendSecurityName('bondSecurity', 'BondSecurity')">
+                <i class="fa fa-trash fa-1x"></i></a></td>
+        </tr>
+        </tbody>
 
     </table>
 </div>
