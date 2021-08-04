@@ -119,7 +119,7 @@
         </p>
       </div>
       <br>
-        <p [ngClass]="{'page-break': printDocForm.swikritiBibaran.length > 4}"></p>
+        <p [ngClass]="{'page-break': length > 4}"></p>
 
         <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
         <div *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
