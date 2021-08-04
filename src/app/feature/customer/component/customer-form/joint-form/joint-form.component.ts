@@ -30,6 +30,7 @@ import {Editor} from '../../../../../@core/utils/constants/editor';
   styleUrls: ['./joint-form.component.scss']
 })
 export class JointFormComponent implements OnInit {
+    onActionChangeSpinner = false;
   @Input() formValue: Customer = new Customer();
   @Input() clientTypeInput: any;
   @Input() subSectorInput: any;
@@ -457,6 +458,19 @@ export class JointFormComponent implements OnInit {
 
   close() {
     this.ref.close();
+  }
+
+  changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+  }
+
+  onCloseJointCustomer() {
+        this.onClose();
+  }
+
+  onClose() {
+        this.modalService.dismissAll();
   }
 
   occupationChange(index) {
