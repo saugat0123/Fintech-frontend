@@ -132,7 +132,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.customer = this.formValue;
             // console.log('Customer Data ', this.customer.sameAddress);
             // console.log('Customer Data ----->', this.sameAddress);
-            // this.sameAddress = this.customer.sameAddress;
+            // tslint:disable-next-line:max-line-length
+            // this.sameAddress = this.customer.sameAddress === undefined || this.customer.sameAddress === null ? false : this.customer.sameAddress;
+            console.log('Customer Address : ', this.customer.sameAddress);
+            if (this.customer.sameAddress !== undefined) {
+                this.sameAddress = this.customer.sameAddress;
+            }
+            console.log('sameAddress: ', this.sameAddress);
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
@@ -144,7 +150,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.createRelativesArray();
         }
          this.sameAddress = this.customer.sameAddress;
-         console.log('Customer Data ', this.customer.sameAddress);
+         // console.log('Customer Data ', this.customer.sameAddress);
     }
 
     onCloseCreateCustomer() {
@@ -331,7 +337,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
                     this.customer.isMicroCustomer = this.microCustomer;
-                    this.customer.sameAddress = this.basicInfo.get('sameAddress').value;
+                    this.customer.sameAddress = this.sameAddress;
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -650,6 +656,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
         //     return true;
         // }
+        console.log('Button event triggered ! ', value);
         if (value) {
             this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
             this.customer.temporaryDistrict = this.basicInfo.get('district').value;
@@ -664,9 +671,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.resetValue();
             this.sameAddress = value;
         }
-        console.log('Button event triggered ! ', value);
-    }
 
+    }
             resetValue()  {
                 this.basicInfo.get('temporaryAddressLine1').patchValue(null);
                 this.basicInfo.get('temporaryAddressLine2').patchValue(null);
