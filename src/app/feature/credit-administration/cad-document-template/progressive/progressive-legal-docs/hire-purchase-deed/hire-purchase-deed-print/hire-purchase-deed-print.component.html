@@ -2,13 +2,12 @@
 
   <div class="col-md-12  viewFull">
     <form class="nepali">
-      <h6 class="text-center">किस्ताबन्दी खरीद प्रणाली (हायरपर्चेज) सम्झौतापत्र<br>
+      <h6 class="text-center mt-2">किस्ताबन्दी खरीद प्रणाली (हायरपर्चेज) सम्झौतापत्र<br>
         (Hire Purchase Deed)</h6>
-      <br>
       <div class="row">
-        <p style="margin-bottom: -15px">लिखितम् धनीकानाम प्रचलित बैंक तथाव ित्तीय संस्था सम्बन्धी ऐन, बमोजिम दर्ता भई काठमाण्डौ
+        <p style="margin-bottom: -30px">लिखितम् धनीकानाम प्रचलित बैंक तथाव ित्तीय संस्था सम्बन्धी ऐन, बमोजिम दर्ता भई काठमाण्डौ
           जिल्ला, काठमाण्डौ महानगरपालिका
-          वडा नं. ३२ स्थित रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभफाईनान्स लिमिटेडको
+          वडा नं. ३२ स्थित रजिष्टर्ड कार्यालय रहेको प्रोग्रेशिभ फाईनान्स लिमिटेडको
           <span [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
     {{printDocForm?.districtName === null || printDocForm?.districtName === '' ? '_________________' : printDocForm?.districtName}}
 </span>
@@ -35,11 +34,11 @@
           को पति/पत्नी <span [ngClass]="{'nepaliFont' : printDocForm?.customerDistrict !== null && printDocForm?.customerDistrict !== ''}">
     {{printDocForm?.customerDistrict === null || printDocForm?.customerDistrict === '' ? '_________________' : printDocForm?.customerDistrict}}
 </span>
-          िल्ला
+            जिल्ला
           <span [ngClass]="{'nepaliFont' : printDocForm?.customerMunicipality !== null && printDocForm?.customerMunicipality !== ''}">
     {{printDocForm?.customerMunicipality === null || printDocForm?.customerMunicipality === '' ? '_________________' : printDocForm?.customerMunicipality}}
 </span>
-          गा.पा./न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.customerWadNo !== null && printDocForm?.customerWadNo !== ''}">
+            गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.customerWadNo !== null && printDocForm?.customerWadNo !== ''}">
     {{printDocForm?.customerWadNo === null || printDocForm?.customerWadNo === '' ? '_________________' : printDocForm?.customerWadNo}}
 </span>
           (साबिक <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.sabikVDC !== ''}">
@@ -51,7 +50,7 @@
           स्थायी ठेगानाभई हाल <span [ngClass]="{'nepaliFont' : printDocForm?.tempMunicipality !== null && printDocForm?.tempMunicipality !== ''}">
     {{printDocForm?.tempMunicipality === null || printDocForm?.tempMunicipality === '' ? '_________________' : printDocForm?.tempMunicipality}}
 </span>
-          गा.पा./न.पा./म.न.पा.वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.tempWadNo !== null && printDocForm?.tempWadNo !== ''}">
+            गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.tempWadNo !== null && printDocForm?.tempWadNo !== ''}">
     {{printDocForm?.tempWadNo === null || printDocForm?.tempWadNo === '' ? '_________________' : printDocForm?.tempWadNo}}
 </span>
           ) बस्ने वर्ष <span [ngClass]="{'nepaliFont' : printDocForm?.age !== null && printDocForm?.age !== ''}">
@@ -109,7 +108,7 @@
                         जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedMunicipality !== null && printDocForm?.certifiedMunicipality !== ''}">
     {{printDocForm?.certifiedMunicipality === null || printDocForm?.certifiedMunicipality === '' ? '_________________' : printDocForm?.certifiedMunicipality}}
 </span>
-                           गा.पा./न.पा./म.न.पा. वडा नं.  <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedWadNo !== null && printDocForm?.certifiedWadNo !== ''}">
+                           गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.  <span [ngClass]="{'nepaliFont' : printDocForm?.certifiedWadNo !== null && printDocForm?.certifiedWadNo !== ''}">
     {{printDocForm?.certifiedWadNo === null || printDocForm?.certifiedWadNo === '' ? '_________________' : printDocForm?.certifiedWadNo}}
 </span>
                            मा रजिष्टर्ड कार्यालय
@@ -120,7 +119,7 @@
                         संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiGrandParent !== null && printDocForm?.pratinidhiGrandParent !== ''}">
     {{printDocForm?.pratinidhiGrandParent === null || printDocForm?.pratinidhiGrandParent === '' ? '_________________' : printDocForm?.pratinidhiGrandParent}}
 </span>
-                        को नाति/नातिनि< <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiParent !== null && printDocForm?.pratinidhiParent !== ''}">
+                        को नाति/नातिनि <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiParent !== null && printDocForm?.pratinidhiParent !== ''}">
     {{printDocForm?.pratinidhiParent === null || printDocForm?.pratinidhiParent === '' ? '_________________' : printDocForm?.pratinidhiParent}}
 </span>
                            को छोरा/छोरी  <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiHusbandWifeName !== null && printDocForm?.pratinidhiHusbandWifeName !== ''}">
@@ -132,7 +131,7 @@
                            जिल्ला <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiMunicipality !== null && printDocForm?.pratinidhiMunicipality !== ''}">
     {{printDocForm?.pratinidhiMunicipality === null || printDocForm?.pratinidhiMunicipality === '' ? '_________________' : printDocForm?.pratinidhiMunicipality}}
 </span>
-                           गा.पा./न.पा./म.न.पा.वडा नं.  <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiWadNo !== null && printDocForm?.pratinidhiWadNo !== ''}">
+                           गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.  <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiWadNo !== null && printDocForm?.pratinidhiWadNo !== ''}">
     {{printDocForm?.pratinidhiWadNo === null || printDocForm?.pratinidhiWadNo === '' ? '_________________' : printDocForm?.pratinidhiWadNo}}
 </span>
                            स्थायी ठेगानाभई
@@ -142,7 +141,7 @@
                            जिल्ला  <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiTempMunicipality !== null && printDocForm?.pratinidhiTempMunicipality !== ''}">
     {{printDocForm?.pratinidhiTempMunicipality === null || printDocForm?.pratinidhiTempMunicipality === '' ? '_________________' : printDocForm?.pratinidhiTempMunicipality}}
 </span>
-                           गा.पा./न.पा./म.न.पा. वडा न.   <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiTempWadNo !== null && printDocForm?.pratinidhiTempWadNo !== ''}">
+                           गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा न.   <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiTempWadNo !== null && printDocForm?.pratinidhiTempWadNo !== ''}">
     {{printDocForm?.pratinidhiTempWadNo === null || printDocForm?.pratinidhiTempWadNo === '' ? '_________________' : printDocForm?.pratinidhiTempWadNo}}
 </span> ,
                            बस्ने वर्ष  <span [ngClass]="{'nepaliFont' : printDocForm?.pratinidhiAge !== null && printDocForm?.pratinidhiAge !== ''}">
@@ -197,9 +196,9 @@
                           <p>
                               सामान/वस्तु/वाहन ऋणीको संरक्षण, नियन्त्रण र उपयोगमा रहने छ । निवेदनमा उल्लेख गरेको
                               प्रयोजन बाहेक अन्य प्रयोजनको निमित्त प्रयोग गर्ने छैन र अरु कसैलाई यो सामान/वस्तु/वाहनउपभोग
-                              गर्न दिने, प्रत्यक्ष वा अप्रत्यक्ष कुनै तवरबाट पनि अरुलाई बेचविखन गर्ने बन्धकीमादिने वाहक
+                              गर्न दिने, प्रत्यक्ष वा अप्रत्यक्ष कुनै तवरबाट पनि अरुलाई बेचविखन गर्ने बन्धकीमा दिने वाहक
                               हस्तान्तरण गर्ने छैन । ऋणीले वित्तीय संस्थाको पूर्व लिखित स्वीकृति बेगर
-                              सामान/वस्तु/वाहनमाकुनै प्रकारको भार र दायित्वहरु श्रृजना गराउने छैन ।
+                              सामान/वस्तु/वाहनमा कुनै प्रकारको भार र दायित्वहरु श्रृजना गराउने छैन ।
                           </p>
                       </li>
                       <li>
@@ -245,7 +244,7 @@
                               समेत असुलउपर गरी वित्तीय संस्थाले आफ्नो लगानी असुल गरि लिएमा ऋणी मञ्जुर गर्दछ ।
                           </p>
                       </li>
-                      <li class="page-break">
+                      <li>
                           <p>
                               ऋणमा प्राप्त गरिएको सामान/वस्तु/वाहनका पार्टपूर्जा वा मिशिनरीलाई खराव नियतलिई तोडफोड वा
                               साटफेर गर्ने जस्ता काम गरी वित्तीय संस्थालाई हानीनोक्सानी गर्ने नियत भएको वा यो
@@ -430,7 +429,7 @@
         <table class="table  table-bordered border-dark text-center">
           <thead>
           <tr>
-            <th>
+            <th >
               क्र.सं.
             </th>
             <th>
@@ -541,28 +540,25 @@
         </p>
         <p>संस्थाको छाप/औठा छाप
         <div class="text-center">
-          <table class="table  table-bordered" id="fingerXap">
-            <thead>
-            <tr>
-              <th>दाँ.</th>
-              <th>बाँ.</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><textarea cols="30" id="" name=""
-                            rows="10"
-                            style="background-color: transparent;resize:none; border:none; outline:none"></textarea></td>
-              <td><textarea cols="30" id="" name=""
-                            rows="10"
-                            style="background-color: transparent;resize:none;border:none; outline:none"></textarea></td>
-            </tr>
-            </tbody>
+          <table style="width: 35%;" class="table  table-bordered text-center">
+              <thead>
+              <tr>
+                  <th style="border: none;">दाँ.</th>
+                  <th style="border: none;">बाँ.</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr style="height: 162px;">
+                  <td></td>
+                  <td></td>
+              </tr>
+              </tbody>
           </table>
         </div>
 
       </div>
-      <b class="text-left">साक्षी :</b>
+        <div [ngClass]="{'page-break mt-2' : printDocForm?.districtName === null || printDocForm?.districtName === ''}"></div>
+      <b class="text-left mt-1">साक्षी :</b>
 
 
       <div class="col-md-12 ">
