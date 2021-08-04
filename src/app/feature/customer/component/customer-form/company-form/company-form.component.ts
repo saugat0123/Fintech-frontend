@@ -55,6 +55,7 @@ import {OwnerKycApplicableComponent} from '../../../../loan-information-template
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-company-form',
@@ -62,6 +63,7 @@ import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-co
     styleUrls: ['./company-form.component.scss']
 })
 export class CompanyFormComponent implements OnInit {
+    onActionChangeSpinner = false;
     @Input() formValue: CompanyInfo;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
@@ -153,6 +155,7 @@ export class CompanyFormComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
         private toastService: ToastService,
+        private modalService: NgbModal,
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
@@ -600,6 +603,19 @@ export class CompanyFormComponent implements OnInit {
         (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
     }
 
+    onCloseCreateCustomer() {
+        this.onClose();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+    }
+
     addManagementTeam() {
         const controls = this.companyInfoFormGroup.controls.managementTeams as FormArray;
         if (FormUtils.checkEmptyProperties(controls)) {
@@ -755,7 +771,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalityVdcList = response.detail;
-                this.municipalityVdcList.sort((a, b) => a.name.localeCompare(b.name));
+                this.municipalityVdcList.sort((a,b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.municipalityVdcList.forEach(municipality => {
