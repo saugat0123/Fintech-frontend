@@ -112,7 +112,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 this.ngOnInit();
             }, error => {
                 this.spinner = false;
-                this.toastService.show(new Alert(AlertType.ERROR, error));
+                this.toastService.show(new Alert(AlertType.ERROR, 'File size is larger than 5MB  '  + error.statusText));
             }
         );
 
