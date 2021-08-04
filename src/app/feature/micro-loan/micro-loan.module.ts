@@ -19,17 +19,16 @@ import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.mod
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {MicroBaselRiskExposureViewComponent} from './detail-view/micro-loan-detail-view-base/micro-basel-risk-exposure-view/micro-basel-risk-exposure-view.component';
-import {MicroSynopsisCreditworthinessViewComponent} from './detail-view/micro-loan-detail-view-base/micro-synopsis-creditworthiness-view/micro-synopsis-creditworthiness.component';
 import {BorrowerPortfolioViewComponent} from './detail-view/micro-loan-detail-view-base/borrower-portfolio-summary-view/borrower-portfolio-view.component';
 import {BorrowerFinancialComponent} from './template/borrower-financial/borrower-financial.component';
 import {MarketingActivitiesViewComponent} from './detail-view/micro-loan-detail-view-base/marketing-activities-view/marketing-activities-view.component';
 import {MicroCrgParamsComponent} from './template/micro-crg-params/micro-crg-params.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-
 import {MicroChecklistComponent} from './detail-view/micro-loan-detail-view-base/micro-checklist/micro-checklist.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NepaliPatroModule} from 'nepali-patro';
+import {MicroSynopsisCreditworthinessComponent} from '../loan/component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
 
 
 @NgModule({
@@ -45,12 +44,12 @@ import {NepaliPatroModule} from 'nepali-patro';
       MicroIndividualViewComponent,
       MicroCompanyInfoViewComponent,
       MicroBaselRiskExposureViewComponent,
-      MicroSynopsisCreditworthinessViewComponent,
       BorrowerPortfolioViewComponent,
       MicroProposalViewComponent,
       BorrowerFinancialComponent,
       MarketingActivitiesViewComponent,
       MicroChecklistComponent,
+      MicroSynopsisCreditworthinessComponent,
       MicroCrgParamsComponent],
     exports: [
         MicroCompanyFormComponentComponent,
@@ -62,6 +61,7 @@ import {NepaliPatroModule} from 'nepali-patro';
         MicroLoanDetailViewBaseComponent,
         BorrowerFinancialComponent,
         MicroCrgParamsComponent,
+        MicroSynopsisCreditworthinessComponent
     ],
     imports: [
         CommonModule,
