@@ -129,18 +129,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
-            console.log('Customer Address : ', this.customer.sameAddress);
             if (this.customer.sameAddress !== undefined) {
                 this.sameAddress = this.customer.sameAddress;
             }
-            console.log('sameAddress: ', this.sameAddress);
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
-
         } else {
             this.createRelativesArray();
         }
@@ -329,7 +326,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
-
                     this.customer.isMicroCustomer = this.microCustomer;
                     this.customer.sameAddress = this.sameAddress;
                     this.customerService.save(this.customer).subscribe(res => {
