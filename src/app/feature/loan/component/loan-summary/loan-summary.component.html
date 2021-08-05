@@ -1326,8 +1326,8 @@
                     <p><strong>Approval Chain</strong></p>
                 </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
-                     class="padding-0-125">
-                    <div class="signature-block" *ngIf="!previous.fromUser.name.toLowerCase().includes('default')">
+                     class="col-md-2 padding-0-125">
+                    <div class="signature-block">
                         <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
                             <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
                         </div>
