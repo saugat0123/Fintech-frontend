@@ -1,0 +1,134 @@
+<nb-card>
+    <nb-card-header>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button
+                                (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="small">
+                            <em class="fa fa-filter"> Filter</em>
+                        </button>
+
+                    </div>
+                </div>
+<!--                <div class="col-md-6 d-flex justify-content-end">-->
+<!--                    <button nbButton outline status="success" class="mr-2" size="small"-->
+<!--                            (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">-->
+<!--                        <i class="fa fa-plus"></i>-->
+<!--                    </button>-->
+<!--                    <button (click)="download()" nbButton outline-->
+<!--                            status="info" size="small">-->
+<!--                        <i aria-hidden="true" class="fa fa-download"></i></button>-->
+<!--                </div>-->
+            </div>
+        </div>
+
+        <!--        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">-->
+        <!--            <form [formGroup]="filterForm">-->
+        <!--                <div class="row py-3">-->
+        <!--                    <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">-->
+        <!--                        <ng-select placeholder="branches" formControlName="branchIds">-->
+        <!--                            <ng-option *ngFor="let branch of branchList"-->
+        <!--                                       [value]="branch.id">{{branch.name}}</ng-option>-->
+        <!--                        </ng-select>-->
+        <!--                    </div>-->
+        <!---->
+        <!--                    <div class="col-md-3 mb-3">-->
+        <!--                        <ng-select placeholder="Province" formControlName="provinceId">-->
+        <!--                            <ng-option *ngFor="let province of provinces"-->
+        <!--                                       [value]="province.id">{{province.name}}</ng-option>-->
+        <!--                        </ng-select>-->
+        <!--                    </div>-->
+        <!---->
+        <!--                    <div class="col-md-3 mb-3">-->
+        <!--                        <input class="form-control rounded" formControlName="name" id="customerName"-->
+        <!--                               placeholder="Enter customer name">-->
+        <!--                    </div>-->
+        <!--                    <div class="col-md-3 mb-3">-->
+        <!--                        <ng-select formControlName="customerType" placeholder="Customer Type">-->
+        <!--                            <ng-option value="INSTITUTION">INSTITUTION</ng-option>-->
+        <!--                            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>-->
+        <!--                        </ng-select>-->
+        <!--                    </div>-->
+        <!--                    <div class="col-md-3 mb-3">-->
+        <!--                        <ng-select [multiple]="false"-->
+        <!--                                   [appendTo]="'body'"-->
+        <!--                                   formControlName="idRegPlace"-->
+        <!--                                   id="idRegPlace"-->
+        <!--                                   placeholder="Id Registration place"-->
+        <!--                                   type="text">-->
+        <!--                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
+        <!--                                {{district?.name}}-->
+        <!--                            </ng-option>-->
+        <!--                        </ng-select>-->
+        <!--                    </div>-->
+        <!---->
+        <!--                    <div class="col-md-3 mb-3">-->
+        <!--                        <ng-select [multiple]="false"-->
+        <!--                                   [appendTo]="'body'"-->
+        <!--                                   formControlName="groupId"-->
+        <!--                                   id="groupId"-->
+        <!--                                   placeholder="Group"-->
+        <!--                        >-->
+        <!--                            <ng-option *ngFor="let group of customerGroupList" [value]="group?.id">-->
+        <!--                                {{group?.groupCode}}-->
+        <!--                            </ng-option>-->
+        <!--                        </ng-select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+        <!--                <div class="col-md-12 p-0">-->
+        <!--                    <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton-->
+        <!--                            shape="rectangle"-->
+        <!--                            status="info"-->
+        <!--                            size="small">Search-->
+        <!--                    </button>-->
+        <!--                    <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--            </form>-->
+        <!--        </div>-->
+
+    </nb-card-header>
+    <nb-card-body>
+        <br>
+        <table class="table table-sm table-bordered table-hover sb-small text-center" id="add-branch-table">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>S.No.</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Loan Amount</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let model of customerList;let i=index" class="cursor">
+                <td>{{model?.id}}</td>
+                <td>{{model?.name}}</td>
+                <td>{{model?.phoneNo || 'NA'}}</td>
+                <td>{{model?.email || 'NA'}}</td>
+                <td>{{model?.loanAmount}}</td>
+                <td>{{model?.address || 'NA'}}</td>
+                <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
+<!--                                <td>-->
+<!--                                    <div>-->
+<!--                                        <button nbButton status="warning" size="tiny"-->
+<!--                                                (click)="onTransferClick(transferCust, model)">-->
+<!--                                            <em class="fa fa-arrow-circle-right"></em></button>-->
+<!--                                    </div>-->
+<!---->
+<!--                                </td>-->
+            </tr>
+
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>

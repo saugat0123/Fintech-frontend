@@ -93,6 +93,7 @@ import { CbsGroupExecutorComponent } from './component/preference/cbs-group-exec
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import {RemitLoanHeirarchyComponent} from "./component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component";
+import {RemitCustomerListComponent} from "./component/remit-customer-list/remit-customer-list.component";
 
 @NgModule({
     declarations: [
@@ -148,6 +149,7 @@ import {RemitLoanHeirarchyComponent} from "./component/role-hierarchy/remit-loan
         RoleEditComponent,
         EligibilitySummaryComponent,
         AccountTypeConfigComponent,
+        RemitCustomerListComponent,
         AccountCategoryConfigComponent,
         AccountTypeFormComponent,
         AccountCategoryFormComponent,
