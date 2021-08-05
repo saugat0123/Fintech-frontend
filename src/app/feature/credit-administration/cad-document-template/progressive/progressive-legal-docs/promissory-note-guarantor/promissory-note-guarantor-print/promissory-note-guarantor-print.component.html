@@ -22,7 +22,7 @@
     {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
 </span>
           ) र सो रकममा बैंक नियमानुसार लाग्ने ब्याज समेत बैंकले
-          भुक्तानीे माग गरेका बखत तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/ौं ।</p>
+          भुक्तानीे माग गरेका बखत तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/छौं।</p>
       </div>
       <div class="row col-md-12" id="detail">
         <p>दस्तखत :-<span [ngClass]="{'nepaliFont' : printDocForm?.signature !== null && printDocForm?.signature !== ''}">
@@ -109,13 +109,13 @@
             सही छाप गरेको ठीक साँचो हो भनी सही छाप
             गर्ने धनी बैंकमा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatGuarantorName !== null && printDocForm?.sanakhatGuarantorName !== ''}">
     {{printDocForm?.sanakhatGuarantorName === null || printDocForm?.sanakhatGuarantorName === '' ? '_________________' : printDocForm?.sanakhatGuarantorName}}
-</span>१
+</span>
             <br>
-            इति सम्बत २०६<span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
-            साल <span class="nepaliFont">{{printDocForm?.itiSambatMoth}}</span>
-            महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
-            गते रोज <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-            शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatSubham}}</span> ।
+            इति सम्बत <span class="nepaliFont">{{ printDocForm?.itiSambatYear }}</span>
+            साल <span class="nepaliFont">{{ printDocForm?.itiSambatMoth }}</span>
+            महिना <span class="nepaliFont">{{ printDocForm?.itiSambatDate }}</span>
+            गते रोज <span class="nepaliFont">{{ printDocForm?.itiSambatTime }}</span>
+            शुभम् <span class="nepaliFont">{{ printDocForm?.itiSambatSubham }}</span> ।
           </p>
         </div>
       </div>
