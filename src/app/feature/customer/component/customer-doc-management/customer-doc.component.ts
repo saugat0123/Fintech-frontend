@@ -86,9 +86,10 @@ export class CustomerDocComponent implements OnInit {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Customer Name Cannot Be Empty'));
             return;
-        } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+        } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_15MB) {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
+            this.spinner = false;
             return;
         }
         this.customerGeneralDocumentService.uploadDoc(formData).subscribe((res: any) => {

@@ -33,8 +33,8 @@ export class TemplateDocumentComponent implements OnInit {
 
   fileUpload(file) {
     const doc = file.target.files[0];
-    if (doc.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
-      this.toast.show(new Alert(AlertType.INFO, 'Maximum File Size is 5MB'));
+    if (doc.size > DmsLoanFileComponent.FILE_SIZE_15MB) {
+      this.toast.show(new Alert(AlertType.INFO, 'Maximum File Size is 15MB'));
       return;
     }
     const formData: FormData = new FormData();
