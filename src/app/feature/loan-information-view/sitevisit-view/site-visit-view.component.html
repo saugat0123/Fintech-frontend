@@ -299,11 +299,8 @@
 <!-- ============================================================= Current Asset Inspection:Stock form Start ==============================================================-->
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
-    <tr *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
+    <tr>
         <td colspan="7"><b>Current Asset Inspection: Stock</b></td>
-    </tr>
-    <tr *ngIf="!formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'">
-        <td colspan="4"><b>Current Asset Inspection: Stock</b></td>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Date of Inspection(AD/BS)</th>
@@ -325,8 +322,6 @@
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
         <td *ngIf="formData['currentAssetsInspectionDetails']['rents'] === 'Rented/Leased'" class="text-left pl-1">{{formData['currentAssetsInspectionDetails']['isRentReceiptShown']}}</td>
     </tr>
-
-
 </table>
 
 <!-- ============================================================= Current Asset Inspection form End ==============================================================-->
