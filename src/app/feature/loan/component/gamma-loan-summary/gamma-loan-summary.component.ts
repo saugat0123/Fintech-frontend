@@ -641,18 +641,16 @@ export class GammaLoanSummaryComponent implements OnInit {
         }
         const signatureList = new Array<LoanStage>();
         const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
-        stages.forEach((loanStage, index) => {
-                if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-                    if (!loanStage.fromUser.name.toLowerCase().includes('default') ) {
-                        if (addedStages.has(loanStage.fromUser.id)) {
-                            signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-                        } else {
-                            signatureList.push(loanStage);
-                            addedStages.set(loanStage.fromUser.id, index);
-                        }
-                    }
-                }
-        });
+      stages.forEach((loanStage, index) => {
+        if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
+          if (addedStages.has(loanStage.fromUser.id)) {
+            signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
+          } else {
+            signatureList.push(loanStage);
+            addedStages.set(loanStage.fromUser.id, index);
+          }
+        }
+      });
 
         return signatureList;
     }
