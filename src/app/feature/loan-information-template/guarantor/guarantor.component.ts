@@ -99,7 +99,6 @@ export class GuarantorComponent implements OnInit {
                 }
                 formArray.push(this.addGuarantorDetails(v));
                 this.sameAsCurrentChecked = v.checkedSameAsCurrent;
-                // console.log(v.checkedSameAsCurrent, 'Current Value');
             });
         }
     }
@@ -324,7 +323,6 @@ export class GuarantorComponent implements OnInit {
     }
 
     sameAsAbove(i, event) {
-        console.log('Event value: ', event);
         if (event === true) {
             console.log('Value of temporaryAddress', this.form.get('guarantorDetails'));
             this.form.get(['guarantorDetails', i]).patchValue({checkedSameAsCurrent: true});
@@ -351,8 +349,6 @@ export class GuarantorComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
             return;
         }
-
-        console.log('Button event triggered ! ', i);
     }
     resetValue(index)  {
         this.form.get(['guarantorDetails', index, 'provinceTemporary']).patchValue(null);
