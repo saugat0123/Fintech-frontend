@@ -176,7 +176,13 @@ export class SecurityViewComponent implements OnInit {
 
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                this.siteVisitDocuments = [];
+                item.siteVisitDocuments.forEach( doc => {
+                  this.siteVisitDocuments.push(doc);
+                  this.siteVisitDocuments = this.siteVisitDocuments.filter(f => f.isPrintable === this.isPrintable);
+                });
               });
+
               if (response.detail.length > 0) {
                 this.isCollateralSiteVisit = true;
               }

@@ -173,6 +173,10 @@ export class SecuritySummaryComponent implements OnInit {
                     this.collateralSiteVisits = response.detail;
                     this.collateralSiteVisits.filter(item => {
                         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                        this.siteVisitDocuments = [];
+                        item.siteVisitDocuments.forEach( doc => {
+                            this.siteVisitDocuments.push(doc);
+                        });
                     });
                     if (response.detail.length > 0) {
                         this.isCollateralSiteVisitPresent = true;
