@@ -129,10 +129,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
-            // console.log('Customer Data ', this.customer.sameAddress);
-            // console.log('Customer Data ----->', this.sameAddress);
-            // tslint:disable-next-line:max-line-length
-            // this.sameAddress = this.customer.sameAddress === undefined || this.customer.sameAddress === null ? false : this.customer.sameAddress;
             console.log('Customer Address : ', this.customer.sameAddress);
             if (this.customer.sameAddress !== undefined) {
                 this.sameAddress = this.customer.sameAddress;
@@ -149,7 +145,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.createRelativesArray();
         }
          this.sameAddress = this.customer.sameAddress;
-         // console.log('Customer Data ', this.customer.sameAddress);
     }
 
     onCloseCreateCustomer() {
@@ -651,11 +646,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     }
     sameAsPermanent(value) {
-        // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
-        //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
-        //     return true;
-        // }
-        console.log('Button event triggered ! ', value);
         if (value) {
             this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
             this.customer.temporaryDistrict = this.basicInfo.get('district').value;
