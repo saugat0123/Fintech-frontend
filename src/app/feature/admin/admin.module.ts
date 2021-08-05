@@ -92,6 +92,7 @@ import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-h
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
+import {RemitLoanHeirarchyComponent} from "./component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component";
 
 @NgModule({
     declarations: [
@@ -131,6 +132,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         RoleFormComponent,
         ListRoleComponent,
         RoleHierarchyComponent,
+        RemitLoanHeirarchyComponent,
         QuestionComponent,
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
