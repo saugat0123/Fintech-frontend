@@ -9,7 +9,7 @@ export class ObtainableDocuments {
        ' Loan Disbursement Authority',
         'Acceptance Of Loan Sanction Letter',
         'Internal Loan Deed',
-        'Mortgage Deed Personal',
+        'Mortgage Deed',
         'Guarantee Of Wife and Son',
         'Loan Deed For Housing Loan',
         'Corporate Guarantee Of The Entity For Proposed Business Loan Personal',
