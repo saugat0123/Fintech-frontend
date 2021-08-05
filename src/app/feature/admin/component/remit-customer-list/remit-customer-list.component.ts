@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-remit-customer-component',
@@ -6,6 +7,9 @@ import {Component, OnInit} from "@angular/core";
     styleUrls: ['./remit-customer-list.component.scss']
 })
 export class RemitCustomerListComponent implements OnInit {
+
+    constructor(private router: Router) {
+    }
 
     customerList = [{
         id: 1,
@@ -23,5 +27,14 @@ export class RemitCustomerListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('customer list', this.customerList);
+    }
+
+    customerProfile(associateId, id, customerType) {
+            this.router.navigate(['/home/customer/profile/' + associateId], {
+                queryParams: {
+                    customerType: customerType,
+                    customerInfoId: id
+                }
+            });
     }
 }

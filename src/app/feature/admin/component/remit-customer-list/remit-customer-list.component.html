@@ -111,12 +111,12 @@
             </thead>
             <tbody>
             <tr *ngFor="let model of customerList;let i=index" class="cursor">
-                <td>{{model?.id}}</td>
-                <td>{{model?.name}}</td>
-                <td>{{model?.phoneNo || 'NA'}}</td>
-                <td>{{model?.email || 'NA'}}</td>
-                <td>{{model?.loanAmount}}</td>
-                <td>{{model?.address || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.id}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.name}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.phoneNo || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.email || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.loanAmount}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.address || 'NA'}}</td>
                 <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
 <!--                                <td>-->
 <!--                                    <div>-->
