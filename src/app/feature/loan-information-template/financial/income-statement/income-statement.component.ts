@@ -227,8 +227,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         // Calculating profitBeforeTaxesValue --
         const profitBeforeTaxesValue = Number(profitBeforeTaxAndStaffBonus.controls['value'].value)
             - Number(staffBonus.controls['value'].value);
-        console.log('profitBeforeTaxesValue', profitBeforeTaxesValue);
-        console.log('staff bonus', staffBonus.controls['value'].value);
         profitBeforeTaxes.controls['value'].setValue(profitBeforeTaxesValue);
 
         // Calculating profitAfterTaxValue --
@@ -791,7 +789,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
     // staffBonus
     setStaffBonus(currentData) {
-        console.log('Staff Bonus', currentData);
         const controls = this.incomeStatementForm.get('staffBonus') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
