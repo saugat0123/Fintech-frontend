@@ -2,7 +2,7 @@
     <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"
                         (securityEmitter)="resetSecurityForm($event)" [selectedArray]="this.formData['selectedArray']"></app-security-table>
 </div>
-<div class="form-group">
+<div class="form-group" [nbSpinner]="spinner">
     <form [formGroup]="securityForm">
         <!--START ROW-->
         <div class="font-weight-bold">
