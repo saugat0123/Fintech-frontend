@@ -582,7 +582,8 @@ export class GammaLoanSummaryComponent implements OnInit {
             {
               queryParams: {
                 loanConfigId: loanId,
-                customerId: id
+                customerId: id,
+                catalogue: true,
               }
             });
       }
