@@ -41,6 +41,8 @@ export class PersonalTermLoanComponent implements OnInit {
   loanCondition = ['All Term Loan', 'OD Nature Loan'];
   allTermLoanSelected: boolean;
   odNatureLoanSelected: boolean;
+  transformData;
+  translateBtn = false;
 
 
   constructor(private dialogRef: NbDialogRef<PersonalTermLoanComponent>,
@@ -108,10 +110,9 @@ export class PersonalTermLoanComponent implements OnInit {
       evaluationDate: [undefined],
       fmv: [undefined],
       dv: [undefined],
-      name2: [undefined],
       from: [undefined],
       amount3: [undefined],
-      amountInWords3: [undefined],
+      // amountInWords3: [undefined],
       amount4: [undefined],
       amountInWords4: [undefined],
       amount5: [undefined],
@@ -142,6 +143,8 @@ export class PersonalTermLoanComponent implements OnInit {
       loanSecurityTable: this.formBuilder.array([this.buildLandSecurity()]),
       loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
       guarantorDetails: this.formBuilder.array([]),
+      personalGarntAmt: this.formBuilder.array([this.buildPersonalGuaratorAmnt()]),
+      btnEvntValue: [false],
     });
   }
 
@@ -164,8 +167,10 @@ export class PersonalTermLoanComponent implements OnInit {
         this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
         this.setLoanFacilityTable(initialInfo.loanFacilityTable);
         this.setGuarantorDetails(initialInfo.guarantorDetails);
+        this.setPersonalGuarantorAmt(initialInfo.personalGarntAmt);
       }
       this.personalTermLoan.patchValue(this.initialInfoPrint);
+      this.translateBtn = this.initialInfoPrint.btnEvntValue;
     }
   }
 
@@ -195,6 +200,7 @@ export class PersonalTermLoanComponent implements OnInit {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
     const flagCheck = this.personalTermLoan.get('inApprovalFlag').value;
+    // this.personalTermLoan.get('btnEvntValue').patchValue(this.translateBtn);
     if (flagCheck === false) {
       this.personalTermLoan.get('inApprovalFlag').patchValue(null);
     }
@@ -234,9 +240,15 @@ export class PersonalTermLoanComponent implements OnInit {
     });
   }
 
+  convertAmountInWordsArray(numLabel, wordLabel, index) {
+    const numValue = this.personalTermLoan.get(['personalGarntAmt', index, numLabel]).value;
+    const wordLabelVar = this.nepToEngNumberPipe.transform(numValue);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.personalTermLoan.get(['personalGarntAmt', index, wordLabel]).patchValue(convertedVal);
+  }
+
   buildLandSecurity() {
     return this.formBuilder.group({
-      // snNo: [undefined],
       dhaniName: [undefined],
       district2: [undefined],
       munVdc: [undefined],
@@ -333,7 +345,7 @@ export class PersonalTermLoanComponent implements OnInit {
     const formArray = this.personalTermLoan.get('guarantorDetails') as FormArray;
     // (this.personalTermLoan.get('guarantorDetails') as FormArray).clear();
     if (data.length === 0) {
-      this.addTableData();
+      this.addNewGuarantor();
       return;
     }
     data.forEach(value => {
@@ -341,6 +353,39 @@ export class PersonalTermLoanComponent implements OnInit {
         // snNo: [value.snNo],
         debtorName3: [value.debtorName3],
         date3: [value.date3],
+      }));
+    });
+  }
+
+  buildPersonalGuaratorAmnt() {
+    return this.formBuilder.group({
+      name2: [undefined],
+      amount3: [undefined],
+      amountInWords3: [undefined],
+    });
+  }
+
+  addPersonalGuarantorAmt() {
+    (this.personalTermLoan.get('personalGarntAmt') as FormArray).push(this.buildPersonalGuaratorAmnt());
+  }
+
+  removePersonalGuarantorAmt(index) {
+    (this.personalTermLoan.get('personalGarntAmt') as FormArray).removeAt(index);
+  }
+
+  setPersonalGuarantorAmt(data) {
+    const formArray = (this.personalTermLoan.get('personalGarntAmt') as FormArray);
+    (this.personalTermLoan.get('personalGarntAmt') as FormArray).clear();
+    if (data.length === 0) {
+      this.addPersonalGuarantorAmt();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        // snNo: [value.snNo],
+        amountInWords3: [value.amountInWords3],
+        name2: [value.amountInWords3],
+        amount3: [value.amountInWords3],
       }));
     });
   }
@@ -361,6 +406,15 @@ export class PersonalTermLoanComponent implements OnInit {
     const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
     const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
     this.personalTermLoan.get(annual).patchValue(finalValue);
+  }
+
+  btnNepEngToggle(event) {
+    console.log('Event Value: ', event);
+    if (event) {
+      this.translateBtn = event;
+    } else {
+      this.translateBtn = event;
+    }
   }
 
   calcOtherRate(serviceCharge, chargeRate, swapfeeTwo, afterFiveRate, afterFiveRate2) {

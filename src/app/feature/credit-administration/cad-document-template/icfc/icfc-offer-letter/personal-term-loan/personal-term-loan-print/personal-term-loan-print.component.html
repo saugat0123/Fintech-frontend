@@ -211,14 +211,15 @@
             </table>
             <p><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
             <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
-            <p>ग) श्री <span class="font-weight-bold nepaliFont">{{letter?.name2}}</span>
-                बाट स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount3}}</span>
-                (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords3}}</span>
-                मात्र) बराबरको व्यक्तिगत जमानी ।</p>
             <p *ngIf="letter?.inApprovalFlag">
-                घ) <span class="font-weight-bold nepaliFont">{{letter?.from}}</span>
+                ग) <span class="font-weight-bold nepaliFont">{{letter?.from}}</span>
                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।
             </p>
+            <p *ngFor="let personalGuarantorAmount of letter?.personalGarntAmt; let i = index;">
+                {{i + 4 | nepaliWord}}) श्री <span class="font-weight-bold nepaliFont">{{personalGuarantorAmount?.name2}}</span>
+                बाट स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{personalGuarantorAmount?.amount3}}</span>
+                (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{personalGuarantorAmount?.amountInWords3}}</span>
+                मात्र) बराबरको व्यक्तिगत जमानी ।</p>
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
