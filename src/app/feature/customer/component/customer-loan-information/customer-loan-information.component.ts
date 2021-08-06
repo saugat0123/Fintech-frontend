@@ -254,6 +254,20 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
     }
 
+    get isMicroInDirectCustomer() {
+        if (!this.isMicroCustomer) {
+            return true;
+        }
+        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL) {
+            return true;
+        } else {
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+            this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+        }
+    }
+
+
+
     public saveSiteVisit(data: string) {
         if (ObjectUtil.isEmpty(this.siteVisit)) {
             this.siteVisit = new SiteVisit();

@@ -4,6 +4,8 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {CustomerType} from '../../../customer/model/customerType';
+import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
 @Component({
     selector: 'app-micro-loan-detail-view-base',
@@ -24,11 +26,13 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     dataFromComments;
     previousSecuritySummary = false;
     dataFromPreviousSecurity;
+    isMicroCustomer: Boolean;
 
     constructor() {
     }
 
     ngOnInit() {
+        this.isMicroCustomer = this.loanHolder.isMicroCustomer;
         console.log(this.loanHolder);
         if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
             this.securityId = this.loanHolder.security.id;
@@ -43,6 +47,17 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.data)) {
             this.dataFromPreviousSecurity = JSON.parse(this.loanDataHolder.loanHolder.data);
             this.previousSecuritySummary = true;
+        }
+    }
+
+    get otherMicroDetailsVisibility() {
+        if (this.loanHolder.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
+            return true;
+        } else {
+            console.log((this.loanHolder.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+                this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT));
+            return this.loanHolder.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+                this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }
 

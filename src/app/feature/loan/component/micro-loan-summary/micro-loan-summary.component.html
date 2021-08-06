@@ -336,10 +336,10 @@
             <!--                    [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>-->
             <!--            </div>-->
 
-            <app-borrower-portfolio-summary *ngIf="borrowerPortfolio"
+            <app-borrower-portfolio-summary *ngIf="borrowerPortfolio && !otherMicroDetailsVisibility"
                                             [borrowerData]="borrowerPortfolioDetail"></app-borrower-portfolio-summary>
 
-            <app-marketing-activities-summary *ngIf="marketingActivity"
+            <app-marketing-activities-summary *ngIf="marketingActivity && !otherMicroDetailsVisibility"
                                               [marketingActivity]="marketingActivityDetail"></app-marketing-activities-summary>
 
             <app-collateral-summary
@@ -395,7 +395,7 @@
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"
                                             [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
-            <nb-card *ngIf="customerType === 'INSTITUTION'">
+            <nb-card *ngIf="customerType === 'INSTITUTION' && !otherMicroDetailsVisibility">
                 <nb-card-header>
                     <h6>BASEL wise Risk Exposure</h6>
                 </nb-card-header>
@@ -418,7 +418,7 @@
                     <h6>Synopsis of Creditworthiness</h6>
                 </nb-card-header>
                 <nb-card-body>
-                    <app-micro-synopsis-creditworthiness *ngIf="synopsis"
+                    <app-micro-synopsis-creditworthiness *ngIf="synopsis && !otherMicroDetailsVisibility"
                                                          [synopsisData]="synopsisCreditWorthiness"></app-micro-synopsis-creditworthiness>
                 </nb-card-body>
             </nb-card>
