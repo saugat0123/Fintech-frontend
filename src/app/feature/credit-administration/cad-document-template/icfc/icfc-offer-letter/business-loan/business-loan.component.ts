@@ -43,6 +43,7 @@ export class BusinessLoanComponent implements OnInit {
   businessOverdraftLoanQSelected;
   businessOverdraftLoanMSelected;
   businessTermLoanSelected;
+  translateBtn = false;
 
 
 
@@ -148,6 +149,7 @@ export class BusinessLoanComponent implements OnInit {
       loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
       guarantorDetails: this.formBuilder.array([]),
       personalGarntAmt: this.formBuilder.array([this.buildPersonalGuarantorAmount()]),
+      btnToggleVal: [false],
     });
   }
 
@@ -186,6 +188,7 @@ export class BusinessLoanComponent implements OnInit {
         this.setGuarantorDetails(initialInfo.guarantorDetails);
       }
       this.businessLoan.patchValue(this.initialInfoPrint);
+      this.translateBtn = this.initialInfoPrint.btnToggleVal;
     }
   }
 
@@ -286,6 +289,7 @@ export class BusinessLoanComponent implements OnInit {
     return this.formBuilder.group({
       purpose: [undefined],
       depositApprovedLoanAmount: [undefined],
+      depositAmountWords: [undefined],
       credit: [undefined],
     });
   }
@@ -308,6 +312,7 @@ export class BusinessLoanComponent implements OnInit {
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         purpose: [value.purpose],
+        depositAmountWords: [value.depositAmountWords],
         depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
         credit: [value.credit],
       }));
@@ -332,10 +337,6 @@ export class BusinessLoanComponent implements OnInit {
   setGuarantorDetails(data) {
     const formArray = this.businessLoan.get('guarantorDetails') as FormArray;
     (this.businessLoan.get('guarantorDetails') as FormArray).clear();
-    if (data.length === 0) {
-      this.addLoanFacilityTable();
-      return;
-    }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         guarantorName1: [value.guarantorName1],
@@ -393,11 +394,20 @@ export class BusinessLoanComponent implements OnInit {
     formGroup.get(fieldControlName).patchValue(true);
   }
 
-  convertAmountArrayVal(numLabel, wordLabel, index) {
-    const numValue = this.businessLoan.get(['personalGarntAmt', index, numLabel]).value;
+  convertAmountArrayVal(numLabel, wordLabel, index, formArray) {
+    const numValue = this.businessLoan.get([formArray, index, numLabel]).value;
     const wordLabelVar = this.nepToEngNumberPipe.transform(numValue);
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.businessLoan.get(['personalGarntAmt', index, wordLabel]).patchValue(convertedVal);
+    this.businessLoan.get([formArray, index, wordLabel]).patchValue(convertedVal);
+  }
+
+  btnTranslateToggle(event) {
+    console.log('Event Value: ', event);
+    if (event) {
+      this.translateBtn = event;
+    } else {
+      this.translateBtn = event;
+    }
   }
 
   calcOtherRate(serviceCharge, chargeRate, swapfeeTwo, afterFiveRate, afterFiveRate2) {

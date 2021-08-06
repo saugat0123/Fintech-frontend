@@ -46,7 +46,10 @@
                         <input class="form-field form-control-sm nepaliFont" formControlName="credit" type="text"/>
                     </td>
                     <td><input class="form-field form-control-sm nepaliFont" formControlName="purpose" type="text"/></td>
-                    <td><input class="form-field form-control-sm nepaliFont" formControlName="depositApprovedLoanAmount" type="text"/></td>
+                    <td>
+                        रु. <input class="form-field form-control-sm nepaliFont" (input)="convertAmountArrayVal('depositApprovedLoanAmount', 'depositAmountWords', index, 'loanFacilityTable')" formControlName="depositApprovedLoanAmount" type="text"/>/-
+                        अक्षरुपी <input class="form-field form-control-sm nepaliFont unicodeSize" formControlName="depositAmountWords" type="text"/>
+                    </td>
                 </tr>
                 <div class="col-md-12">
                     <button
@@ -115,7 +118,7 @@
                                                'premiumRate3',
                                                'annualRate3')"/>
              %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="month3" type="text"/>
-             मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (input)="getNumAmountWord('amount','amountInWords')"/>
+             मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (input)="getNumAmountWord('amount','amountInWords')"/> /-
              (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords" placeholder="" type="text" readonly/>
              ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।</p>
             </ng-container>
@@ -162,7 +165,7 @@
                                                  )"
                                                  formControlName="serviceChargeRate"
                                                  type="text"/>
-                         % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="serviceCharge" type="text"/>
+                         % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="serviceCharge" type="text"/>/-
                          ऋणीलाई फिर्ता हुने छैन ।)
                     </td>
                 </tr>
@@ -260,8 +263,14 @@
                     </div>
                 </ng-container>
                 <tr>
-                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <input class="form-field form-control-sm nepaliFont" formControlName="assessor" type="text"/>
-                        , मुल्यांकन मितिः <input class="form-field form-control-sm nepaliFont" formControlName="evaluationDate" type="text"/>
+                    <td colspan="8" style="border-bottom: none">
+                        <div class="row justify-content-end m-1">
+                            <p *ngIf="translateBtn" class="font-weight-bold text-right mr-1 mt-1">English</p>
+                            <p *ngIf="translateBtn === false" class="font-weight-bold text-right mr-1 mt-1">Nepali</p>
+                            <nb-toggle (checkedChange)="btnTranslateToggle($event)" formControlName="btnToggleVal"></nb-toggle>
+                        </div>
+                        मूल्यांकनकर्ताः <input [ngClass]="translateBtn === true ? 'form-field form-control-sm' : 'form-field form-control-sm nepaliFont'" formControlName="assessor" type="text"/>
+                        , मुल्यांकन मितिः <input [ngClass]="translateBtn === true ? 'form-field form-control-sm' : 'form-field form-control-sm nepaliFont' " formControlName="evaluationDate" type="text"/>
                     </td>
                 </tr>
                 <tr>
@@ -294,8 +303,8 @@
             <ng-container *ngFor="let personalGuarantorData of businessLoan.get('personalGarntAmt')['controls']; let i = index;" formArrayName="personalGarntAmt">
                 <p [formGroupName]="i">
                     {{i + 4 | nepaliWord}}) श्री <input class="form-field form-control-sm nepaliFont" formControlName="name2" type="text"/>
-                    बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (input)="convertAmountArrayVal('amount2','amountInWords2', i)"/>
-                    (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords2" type="text" readonly/>
+                    बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (input)="convertAmountArrayVal('amount2','amountInWords2', i, 'personalGarntAmt')"/> /-
+                    (अक्षरुपी <input class="form-field form-control-sm nepaliFont unicodeSize" formControlName="amountInWords2" type="text" readonly/>
                     मात्र) बराबरको व्यक्तिगत जमानी ।
                     <a *ngIf="i > 0" (click)="removePersonalGuarantorAmt(i)"
                        class="text-danger cursor">
@@ -321,7 +330,7 @@
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (input)="getNumAmountWord('amount3','amountInWords3')"/>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (input)="getNumAmountWord('amount3','amountInWords3')"/> /-
                      (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords3" type="text" readonly/>
                      मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
                 <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount4" type="text" (input)="getNumAmountWord('amount4','amountInWords4')"/>
@@ -332,8 +341,8 @@
             </ul>
 
             <p><strong>९. <u>वीमाः</u></strong></p>
-            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरणहरु जस्ता धितोसँग सम्बन्धित सम्पत्तिहरुको <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount5" type="text"/>
-                 बराबरको व्यापक वीमा तथा मालवस्तुहरु/सरसामानहरुको मौज्दात <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount6" type="text"/>
+            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरणहरु जस्ता धितोसँग सम्बन्धित सम्पत्तिहरुको <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount5" type="text"/> /-
+                 बराबरको व्यापक वीमा तथा मालवस्तुहरु/सरसामानहरुको मौज्दात <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount6" type="text"/> /-
                  बराबरको चोरी र आगलागी विमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्खित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
             <p><strong>१०.  <u>निरीक्षण तथा पुनरावलोकनः</u></strong></p>
                 <p>फाइनान्सले आवश्यकता अनुसार ऋणीलाई पूर्व सूचना दिई वा नदिई जुनसुकै बखत पटक पटक ऋणीको व्यवसाय स्थल, कार्यालय तथा खाता, बही, हिसाब, स्याहा, श्रेस्ता र धितोको निरीक्षण गर्ने अधिकार हुनेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा खर्च ऋणी स्वयंले व्यहोर्नु पर्नेछ । उल्लेखित ऋण कर्जा फाइनान्सले आवश्यक ठानेका बखत वा कर्जा नविकरणको समयमा पुनरावलोकन गर्नेछ ।</p>

@@ -200,7 +200,6 @@ export class PersonalTermLoanComponent implements OnInit {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
     const flagCheck = this.personalTermLoan.get('inApprovalFlag').value;
-    // this.personalTermLoan.get('btnEvntValue').patchValue(this.translateBtn);
     if (flagCheck === false) {
       this.personalTermLoan.get('inApprovalFlag').patchValue(null);
     }
@@ -240,11 +239,11 @@ export class PersonalTermLoanComponent implements OnInit {
     });
   }
 
-  convertAmountInWordsArray(numLabel, wordLabel, index) {
-    const numValue = this.personalTermLoan.get(['personalGarntAmt', index, numLabel]).value;
+  convertAmountInWordsArray(numLabel, wordLabel, index, formArrayName) {
+    const numValue = this.personalTermLoan.get([formArrayName, index, numLabel]).value;
     const wordLabelVar = this.nepToEngNumberPipe.transform(numValue);
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.personalTermLoan.get(['personalGarntAmt', index, wordLabel]).patchValue(convertedVal);
+    this.personalTermLoan.get([formArrayName, index, wordLabel]).patchValue(convertedVal);
   }
 
   buildLandSecurity() {
@@ -296,6 +295,7 @@ export class PersonalTermLoanComponent implements OnInit {
 
   buildLoanFacilityTable() {
     return this.formBuilder.group({
+      depositLoanAmount: [undefined],
       purpose: [undefined],
       depositApprovedLoanAmount: [undefined],
       loanTitle: [undefined],
@@ -319,6 +319,7 @@ export class PersonalTermLoanComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
+        depositLoanAmount: [value.depositLoanAmount],
         purpose: [value.purpose],
         depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
         loanTitle: [value.loanTitle],
@@ -344,10 +345,6 @@ export class PersonalTermLoanComponent implements OnInit {
   setGuarantorDetails(data) {
     const formArray = this.personalTermLoan.get('guarantorDetails') as FormArray;
     // (this.personalTermLoan.get('guarantorDetails') as FormArray).clear();
-    if (data.length === 0) {
-      this.addNewGuarantor();
-      return;
-    }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         // snNo: [value.snNo],
