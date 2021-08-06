@@ -39,7 +39,7 @@
     {{printDocForm?.accNumber === null || printDocForm?.accNumber === '' ? '_________________' : printDocForm?.accNumber}}
 </span>
                     मा रकमान्तर
-                    गरि दिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं ।
+                    गरिदिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं ।
                 </p>
 
             </div>
@@ -64,7 +64,7 @@
 
         </span>
                     <br>
-                    स्थायीठेगाना :- <span class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+                    स्थायी ठेगाना :- <span class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
                     जिल्ला <span
                         [ngClass]="{'nepaliFont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
     {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
@@ -155,7 +155,7 @@
     {{printDocForm?.IdentifiedGuarantorName === null || printDocForm?.IdentifiedGuarantorName === '' ? '_________________' : printDocForm?.IdentifiedGuarantorName}}
 </span>
 
-                    कर्मचारी <span
+                     <span
                             [ngClass]="{'nepaliFont' : printDocForm?.ItisambatYear !== null && printDocForm?.ItisambatYear !== ''}">
     {{printDocForm?.ItisambatYear === null || printDocForm?.ItisambatYear === '' ? '_________________' : printDocForm?.ItisambatYear}}
 </span>
@@ -172,7 +172,7 @@
                             [ngClass]="{'nepaliFont' : printDocForm?.ItisambatDay !== null && printDocForm?.ItisambatDay !== ''}">
     {{printDocForm?.ItisambatDay === null || printDocForm?.ItisambatDay === '' ? '_________________' : printDocForm?.ItisambatDay}}
 </span>
-                    गते < <span
+                    गते <span
                             [ngClass]="{'nepaliFont' : printDocForm?.ItisambatTime !== null && printDocForm?.ItisambatTime !== ''}">
     {{printDocForm?.ItisambatTime === null || printDocForm?.ItisambatTime === '' ? '_________________' : printDocForm?.ItisambatTime}}
 </span>
