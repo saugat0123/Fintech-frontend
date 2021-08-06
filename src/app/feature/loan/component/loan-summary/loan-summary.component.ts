@@ -652,12 +652,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
         stages.forEach((loanStage, index) => {
             if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-                if (addedStages.has(loanStage.fromUser.id)) {
-                    signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-                } else {
-                    signatureList.push(loanStage);
-                    addedStages.set(loanStage.fromUser.id, index);
-                }
+                    if (addedStages.has(loanStage.fromUser.id)) {
+                        signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
+                    } else {
+                        signatureList.push(loanStage);
+                        addedStages.set(loanStage.fromUser.id, index);
+                    }
             }
         });
 

@@ -623,37 +623,37 @@ export class GammaLoanSummaryComponent implements OnInit {
       }
   }*/
 
-  /**
-   * Get array of loan stage for authority signature array.
-   *
-   * @param stages Array of loan stages that must include previous stages and current stage.
-   */
-  private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
-    let lastBackwardIndex = 0;
-    stages.forEach((data, index) => {
-      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
-          || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
-        lastBackwardIndex = index;
-      }
-    });
-    if (lastBackwardIndex !== 0) {
-      stages.splice(0, lastBackwardIndex + 1);
-    }
-    const signatureList = new Array<LoanStage>();
-    const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
-    stages.forEach((loanStage, index) => {
-      if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-        if (addedStages.has(loanStage.fromUser.id)) {
-          signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-        } else {
-          signatureList.push(loanStage);
-          addedStages.set(loanStage.fromUser.id, index);
+    /**
+     * Get array of loan stage for authority signature array.
+     *
+     * @param stages Array of loan stages that must include previous stages and current stage.
+     */
+    private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
+        let lastBackwardIndex = 0;
+        stages.forEach((data, index) => {
+            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
+                lastBackwardIndex = index;
+            }
+        });
+        if (lastBackwardIndex !== 0) {
+            stages.splice(0, lastBackwardIndex + 1);
         }
-      }
-    });
+        const signatureList = new Array<LoanStage>();
+        const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
+        stages.forEach((loanStage, index) => {
+                if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
+                        if (addedStages.has(loanStage.fromUser.id)) {
+                            signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
+                        } else {
+                            signatureList.push(loanStage);
+                            addedStages.set(loanStage.fromUser.id, index);
+                        }
+                }
+        });
 
-    return signatureList;
-  }
+        return signatureList;
+    }
 
   goToCustomer() {
     const loanHolder = this.loanDataHolder.loanHolder;
