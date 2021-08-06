@@ -85,33 +85,15 @@ export class CustomerDocComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.customerInfo.name)) {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Customer Name Cannot Be Empty'));
+            this.spinner = false;
             return;
-        } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+        } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_15MB) {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
+            this.spinner = false;
             return;
         }
         this.customerGeneralDocumentService.uploadDoc(formData).subscribe((res: any) => {
-            // const customerGeneralDocument: CustomerGeneralDocument = res.detail;
-            // if (!ObjectUtil.isEmpty(this.customerInfo)) {
-            //     this.customerGeneralDoc.id = this.customerInfo.customerGeneralDocuments[index]
-            //         ? this.customerInfo.customerGeneralDocuments[index].id : null;
-            //     this.customerGeneralDoc.version = this.customerInfo.customerGeneralDocuments[index]
-            //         ? this.customerInfo.customerGeneralDocuments[index].version : null;
-            // }
-            // this.customerGeneralDoc.customerInfoId = this.customerInfo.id;
-            // this.customerGeneralDoc.docPath = customerGeneralDocument.docPath;
-            // this.customerGeneralDoc.document = customerGeneralDocument.document;
-            // this.customerGeneralDocumentService.save(this.customerGeneralDoc)
-            //     .subscribe(() => {
-            //         this.modelService.dismissAll();
-            //         this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
-            //         this.refreshCustomerInfo.emit(true);
-            //     }, error => {
-            //         this.modelService.dismissAll();
-            //         console.error(error);
-            //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save '.concat(documentName)));
-            //     });
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
             this.refreshCustomerInfo.emit(true);

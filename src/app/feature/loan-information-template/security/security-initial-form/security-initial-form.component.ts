@@ -110,7 +110,8 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
         {key: 'AssignmentOfReceivables', value: 'Assignment of Receivables'},
         {key: 'LeaseAssignment', value: 'Lease Assignment'},
-        {key: 'OtherSecurity', value: 'Other Security'}
+        {key: 'OtherSecurity', value: 'Other Security'},
+        {key: 'BondSecurity', value: 'Bond Security'}
     ];
 
     areaFormat = ['R-A-P-D', 'B-K-D', 'SQF', 'Sq.m'];
@@ -189,7 +190,6 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -2454,11 +2454,5 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('BondSecurity');
             }
         });
-    }
-
-    private pushNewSecurityType(): void {
-        if (this.client === this.clientName.ICFC) {
-            this.securityTypes.push({key: 'BondSecurity', value: 'Bond Security'});
-        }
     }
 }
