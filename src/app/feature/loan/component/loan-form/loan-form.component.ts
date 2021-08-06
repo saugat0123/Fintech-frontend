@@ -221,6 +221,7 @@ export class LoanFormComponent implements OnInit {
         documents: Array<ObtainableDoc>(),
         OtherDocuments: null
     };
+    nbSpinner = false;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -246,8 +247,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        console.log('productUtils', this.productUtils);
+        this.nbSpinner = true;
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
@@ -302,7 +302,9 @@ export class LoanFormComponent implements OnInit {
                             this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
                             this.populateTemplate();
                             this.loanDataReady = true;
+                            this.nbSpinner = false;
                         }, error => {
+                            this.nbSpinner = false;
                             console.log(error);
                             this.populateTemplate();
                             this.loanDataReady = true;
@@ -726,20 +728,25 @@ export class LoanFormComponent implements OnInit {
     }
 
     getCustomerInfo(id) {
+        this.nbSpinner = true;
         this.customerService.detail(id).subscribe((res: any) => {
             this.loanDocument.customerInfo = res.detail;
-        });
+        }, error => this.nbSpinner = false);
     }
 
     getCompanyInfo(id) {
+        this.nbSpinner = true;
         this.companyInfoService.detail(id).subscribe((res: any) => {
+            this.nbSpinner = false;
             this.loanDocument.companyInfo = res.detail;
-        });
+        }, error => this.nbSpinner = false);
     }
 
     getTemplateInfoFromCustomerInfo(id) {
+        this.nbSpinner = true;
         this.customerInfoService.detail(id)
             .subscribe((infoResponse) => {
+                this.nbSpinner = false;
                 this.loanHolder = infoResponse.detail;
                 this.loanDocument.loanHolder = this.loanHolder;
                 this.loanDocument.siteVisit = this.loanHolder.siteVisit;
@@ -760,6 +767,7 @@ export class LoanFormComponent implements OnInit {
                 this.loanDataReady = true;
             }, error => {
                 console.error(error);
+                this.nbSpinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));
             });
     }
