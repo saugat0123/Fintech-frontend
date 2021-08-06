@@ -2,7 +2,7 @@
     <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"
                         (securityEmitter)="resetSecurityForm($event)" [selectedArray]="this.formData['selectedArray']"></app-security-table>
 </div>
-<div class="form-group">
+<div class="form-group" [nbSpinner]="spinner">
     <form [formGroup]="securityForm">
         <!--START ROW-->
         <div class="font-weight-bold">
@@ -3305,7 +3305,7 @@
                                 <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('validityOfBond').errors)}"
                                        class="form-control rounded" formControlName="validityOfBond"
                                        placeholder="Tenure/Validity of Bond"
-                                       type="number" required/>
+                                       type="text" required/>
                                 <div *ngIf="(bondSecurity) && (bond.get('validityOfBond').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="bond.get('validityOfBond').errors.required">
