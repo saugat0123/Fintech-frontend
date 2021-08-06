@@ -11,7 +11,7 @@
 </span>
           स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-</span> ले त्यस प्रोग्रेशिभ
+</span>ले त्यस प्रोग्रेशिभ
           फाइनान्स लिमिटेड <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
 </span> शाखा
@@ -109,13 +109,14 @@
             सही छाप गरेको ठीक साँचो हो भनी सही छाप
             गर्ने धनी बैंकमा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatGuarantorName !== null && printDocForm?.sanakhatGuarantorName !== ''}">
     {{printDocForm?.sanakhatGuarantorName === null || printDocForm?.sanakhatGuarantorName === '' ? '_________________' : printDocForm?.sanakhatGuarantorName}}
-</span>
+    </span>
             <br>
-            इति सम्बत <span class="nepaliFont">{{ printDocForm?.itiSambatYear }}</span>
-            साल <span class="nepaliFont">{{ printDocForm?.itiSambatMoth }}</span>
-            महिना <span class="nepaliFont">{{ printDocForm?.itiSambatDate }}</span>
-            गते रोज <span class="nepaliFont">{{ printDocForm?.itiSambatTime }}</span>
-            शुभम् <span class="nepaliFont">{{ printDocForm?.itiSambatSubham }}</span> ।
+
+            इति सम्बत <span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
+            साल <span class="nepaliFont">{{printDocForm?.itiSambatMoth}}</span>
+            महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
+            गते रोज <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
+            शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatSubham}}</span>।
           </p>
         </div>
       </div>
