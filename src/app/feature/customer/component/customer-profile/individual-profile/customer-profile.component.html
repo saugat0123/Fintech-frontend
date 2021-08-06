@@ -452,7 +452,7 @@
             <div class="col-md-12">
                 <app-customer-loan-information
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
-                        *ngIf="customerInfo &&  isEditable"
+                        *ngIf="customerInfo && isEditable"
                         [customerInfoId]="customerInfoId"
                         [isMicroCustomer]="customer?.isMicroCustomer"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
@@ -462,7 +462,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"
+                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo && isEditable"
                                   (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
             </div>
         </div>
