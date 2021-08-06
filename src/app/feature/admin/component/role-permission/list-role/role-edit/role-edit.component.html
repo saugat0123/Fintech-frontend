@@ -20,6 +20,9 @@
                         <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
                             <div *ngIf="roleVal.errors.required">Role name is required</div>
                         </div>
+                        <div>
+                            <nb-checkbox  class="d-inline-flex" [checked]="checkedStatus"  (change)="checked($event)">Sign Approval Sheet</nb-checkbox>
+                        </div>
                     </div>
                     <div class="col-md-6" *ngIf="showAuthority">
                         <label>Authority Label</label>
