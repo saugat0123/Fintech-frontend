@@ -99,6 +99,7 @@ export class SecurityTableComponent implements OnInit {
       // shared security
       this.selectedArray.forEach(f => {
         if (f.indexOf('ShareSecurity') !== -1) {
+          this.shareSecurityData = JSON.parse(this.shareSecurity.data);
           this.isShareSecurity = true;
         }
       });
