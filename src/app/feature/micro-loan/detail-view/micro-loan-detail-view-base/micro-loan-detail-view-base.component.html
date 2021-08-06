@@ -9,9 +9,11 @@
                                      [formValue]="loanDataHolder?.companyInfo"
                                      [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
 
-        <app-micro-proposal-view *ngIf="loanDataHolder?.proposal"
-                                 [customerType]="loanHolder?.customerType"
-                                 [formData]="loanDataHolder?.proposal"></app-micro-proposal-view>
+        <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                           [customerAllLoanList]="customerAllLoanList"
+                           [proposalData]="loanDataHolder?.proposal"
+                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
+
         <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
             <nb-card-header>
                 <h6>BASEL wise Risk Exposure</h6>

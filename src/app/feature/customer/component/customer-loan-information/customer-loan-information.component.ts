@@ -246,7 +246,10 @@ export class CustomerLoanInformationComponent implements OnInit {
     get otherMicroDetailsVisibility() {
         if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
             return true;
-        } else { return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+        } else {
+            console.log((this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+                this.companyInfo.microCustomerType === MicroCustomerType.DIRECT));
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
             this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }
