@@ -33,8 +33,13 @@ export class NtaMegaSummaryComponent implements OnInit {
     this.ntaData.forEach((value , index) => {
       if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
         this.currentYearData = value;
-        if (this.ntaData[index + 1] !== undefined) {
-          this.prevYearData = this.ntaData[index + 1]; // prev year index
+      }
+    });
+
+    this.ntaData.forEach( value => {
+      if (this.fiscalYears[this.currentFiscalYearIndex].id < this.fiscalYears[this.prevFiscalYearIndex].id) {
+        if (value.id === this.fiscalYears[this.prevFiscalYearIndex].id) {
+          this.prevYearData = value;
         }
       }
     });
