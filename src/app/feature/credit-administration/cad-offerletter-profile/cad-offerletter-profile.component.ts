@@ -18,8 +18,6 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
-import {ExcelOfferLetterComponent} from '../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
-import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 
 
 
@@ -36,7 +34,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
     // change this on basis of bank
     offerLetterConst;
-    excelOfferLetterConst = ExcelOfferLetterConst;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -54,7 +51,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     customerInfoData: CustomerInfoData;
     component: any;
     offerLetterTypes = [];
-    excelOfferLetterTypes = [];
     client = environment.client;
     clientList = Clients;
     // todo move document upload to different to component
@@ -75,11 +71,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 this.offerLetterTypes = MegaOfferLetterConst.enumObject();
                 this.offerLetterConst = MegaOfferLetterConst;
                 this.component = CadOfferLetterModalComponent;
-                break;
-            case this.clientList.EXCEL:
-                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
-                this.offerLetterConst = ExcelOfferLetterConst;
-                this.component = ExcelOfferLetterComponent;
                 break;
         }
     }

@@ -11,10 +11,8 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {NbDialogService} from '@nebular/theme';
-import {ExcelOfferLetterConst} from '../../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {UpdateCustomerCadInfoComponent} from '../../cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
-import {ExcelOfferLetterComponent} from '../../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
 import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
 import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 
@@ -39,7 +37,7 @@ export class ProfileViewComponent implements OnInit {
     clientList = Clients;
     component: any;
     roleType = LocalStorageUtil.getStorage().roleType;
-    offerLetterConst = ExcelOfferLetterConst;
+    offerLetterConst;
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     constructor(
@@ -52,10 +50,6 @@ export class ProfileViewComponent implements OnInit {
 
     ngOnInit() {
         switch (this.client) {
-            case this.clientList.EXCEL:
-                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
-                this.component = ExcelOfferLetterComponent;
-                break;
         }
     }
 
