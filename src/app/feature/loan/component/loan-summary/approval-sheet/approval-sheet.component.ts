@@ -337,16 +337,18 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         let lastIndex;
         let riskOfficerIndex;
         let riskOfficerIndexComment;
+        console.log('currentStage', this.signatureList);
 
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
             try {
                 this.signatureList.forEach((v, i) => {
                     console.log(v, v.fromRole.signApprovalSheet, v.toRole.signApprovalSheet);
-                    if (v.fromRole.signApprovalSheet === true) {
-                        riskOfficerIndex = i;
-                        throw this.breakException;
-                        console.log('riskOfficerIndex:::', riskOfficerIndex);
+                    if (v.fromRole.signApprovalSheet === true ||
+                        (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
+                            this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')) {
+    riskOfficerIndex = i;
+    throw this.breakException;
                     }
                 });
             } catch (ex) {
@@ -355,8 +357,11 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                 }
             }
             this.signatureList.forEach((v, i) => {
-                if (v.toRole.signApprovalSheet === true) {
+                if (v.toRole.signApprovalSheet === true ||
+                    (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
+                        this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')) {
                     riskOfficerIndexComment = i;
+
                 }
             });
 
