@@ -486,7 +486,6 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
-        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
