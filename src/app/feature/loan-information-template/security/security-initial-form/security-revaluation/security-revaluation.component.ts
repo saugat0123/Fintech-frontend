@@ -7,6 +7,9 @@ import {SecurityIds} from '../SecurityIds';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
+import {RoleService} from '../../../../admin/component/role-permission/role.service';
 
 @Component({
     selector: 'app-security-revaluation',
@@ -23,16 +26,20 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     formGroup: FormGroup;
     submitValue;
     @Output() revaluationDataEmitter = new EventEmitter();
+    designationList = [];
 
     // client
     client = environment.client;
     clientName = Clients;
 
     constructor(private valuatorService: ValuatorService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private toastService: ToastService,
+                private roleService: RoleService,) {
     }
 
     ngOnInit() {
+        this.getRoleList();
         this.formGroup = this.formBuilder.group({
             isReValuated: [false],
             reValuationDate: [undefined, Validators.required],
@@ -43,6 +50,11 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInFmv: [undefined, Validators.required],
             changeInDv: [undefined, Validators.required],
             changeInConsideredValue: [undefined, Validators.required],
+            valuatorRepresentativeName: [undefined],
+            staffRepresentativeDesignation1: [undefined],
+            staffRepresentativeDesignation2: [undefined],
+            staffRepresentativeName1: [undefined],
+            staffRepresentativeName2: [undefined],
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
@@ -109,5 +121,13 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             index: index
         };
         this.revaluationDataEmitter.emit(revData);
+    }
+
+    getRoleList() {
+        this.roleService.getAll().subscribe(res => {
+            this.designationList = res.detail;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
+        });
     }
 }
