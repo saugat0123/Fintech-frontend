@@ -471,7 +471,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         keyIndicators.debtEquityRatioGeneral[index].value = ((Number(this.financialService
             .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                 'Short Term Loan', index)) + Number(longTermLoan.controls['value'].value)) /
-            (Number(netWorth.controls['value'].value))).toFixed(2);
+            (Number(netWorth.controls['value'].value)));
 
 
         keyIndicators.leverageRatio[index].value = ((Number(longTermLoan.controls['value'].value) + Number(currentLiabilities.controls['value'].value)) /
