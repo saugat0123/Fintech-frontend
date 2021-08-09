@@ -468,10 +468,13 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             - Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm
                 .get('currentLiabilitiesCategory'), 'Taxes Payable', index))));
         // calculate Debt Equity Ratio General
-        keyIndicators.debtEquityRatioGeneral[index].value = ((Number(this.financialService
-            .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
-                'Short Term Loan', index)) + Number(longTermLoan.controls['value'].value)) /
-            (Number(netWorth.controls['value'].value)));
+        const value = ((Number(this.financialService
+                .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
+                    'Short Term Loan', index)) + Number(longTermLoan.controls['value'].value)) /
+            (Number(netWorth.controls['value'].value))).toString();
+        console.log(value);
+        console.log(value.slice(0, (Number(value.indexOf('.')) + 3)));
+        keyIndicators.debtEquityRatioGeneral[index].value = value.slice(0, (Number(value.indexOf('.')) + 3));
 
 
         keyIndicators.leverageRatio[index].value = ((Number(longTermLoan.controls['value'].value) + Number(currentLiabilities.controls['value'].value)) /

@@ -450,10 +450,9 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     setDebtEquityRatioGeneral(currentData) {
         const controls = this.keyIndicatorsForm.get('debtEquityRatioGeneral') as FormArray;
         currentData.forEach(singleData => {
-            const value = singleData.value.toString();
             controls.push(
                 this.formBuilder.group({
-                    value: [value.slice(0, (Number(value.indexOf('.')) + 3))],
+                    value: [singleData.value],
                     year: [singleData.year]
                 })
             );
