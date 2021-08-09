@@ -20,6 +20,7 @@ export class ApprovedLoanListComponent implements OnInit {
   }
 
   routeToLoanSummary(loanConfigId: number, customerId: number) {
+    this.modalService.close();
     this.router.navigate(['/home/loan/summary'], {
       queryParams: {
         loanConfigId: loanConfigId,

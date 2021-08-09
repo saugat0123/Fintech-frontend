@@ -14,7 +14,7 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApprovedLoanListComponent} from '../component/approved-loan-list/approved-loan-list.component';
-import {NbDialogService} from '@nebular/theme';
+import {PreviewCadComponent} from '../component/preview-cad/preview-cad.component';
 
 @Injectable({
   providedIn: 'root'
@@ -165,7 +165,12 @@ export class RouterUtilsService {
 
 
   openLoanListModal(customerLoanList) {
-    const modelRef = this.nbModal.open(ApprovedLoanListComponent, { size: 'lg', backdrop: 'static' });
+    const modelRef = this.nbModal.open(ApprovedLoanListComponent, {size: 'lg', backdrop: 'static'});
     modelRef.componentInstance.customerLoanList = customerLoanList;
+  }
+
+  previewCadDoc(id) {
+    const modelRef = this.nbModal.open(PreviewCadComponent, {size: 'xl', backdrop: 'static'});
+    modelRef.componentInstance.cadDocumentId = id;
   }
 }

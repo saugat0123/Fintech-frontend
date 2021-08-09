@@ -13,6 +13,8 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RouterUtilsService} from '../../utils/router-utils.service';
+import {CadSummaryComponent} from '../../cad-work-flow/cad-summary/cad-summary.component';
+import {PreviewCadComponent} from '../preview-cad/preview-cad.component';
 
 @Component({
   selector: 'app-cad-document-list',
@@ -128,6 +130,7 @@ export class CadDocumentListComponent implements OnInit {
       CadDocumentListComponent.loadData(this);
     });
   }
+
 
 }
 

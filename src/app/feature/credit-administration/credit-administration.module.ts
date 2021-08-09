@@ -57,7 +57,8 @@ import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/exce
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 import {ApprovedLoanListComponent} from './component/approved-loan-list/approved-loan-list.component';
 import {RouterUtilsService} from './utils/router-utils.service';
-import { DisbursementModalComponent } from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
+import {DisbursementModalComponent} from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
+import {PreviewCadComponent} from './component/preview-cad/preview-cad.component';
 
 
 @NgModule({
@@ -104,7 +105,8 @@ import { DisbursementModalComponent } from './component/disbursement/disbursemen
     NepProposedAmountFormComponent,
     CadFileSetupComponent,
     ApprovedLoanListComponent,
-    DisbursementModalComponent],
+    DisbursementModalComponent,
+    PreviewCadComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -133,7 +135,7 @@ import { DisbursementModalComponent } from './component/disbursement/disbursemen
     SecurityComplianceCertificateComponent,
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
-    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent],
+    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent],
   exports: [CadFileSetupComponent],
   providers: [RouterUtilsService]
 })
