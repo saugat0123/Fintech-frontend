@@ -33,7 +33,8 @@ import {EligibilitySummaryComponent} from './component/eligibility/eligibility-s
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
 import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
 import {PreferenceComponent} from './component/preference/preference.component';
-import {RemitCustomerListComponent} from "./component/remit-customer-list/remit-customer-list.component";
+import {RemitCustomerListComponent} from './component/remit-customer-list/remit-customer-list.component';
+import {CustomerprofileComponent} from './component/customerprofile/customerprofile.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -57,6 +58,7 @@ export const adminRoutes: Routes = [
     {path: 'company', component: CompanyComponent},
     {path: 'user-guide', component: UserGuideComponent},
     {path: 'preference-master', component: PreferenceComponent},
+    {path: 'customer-profile', component: CustomerprofileComponent},
     {
         path: 'eligibility',
         children: [

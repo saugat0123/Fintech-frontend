@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbCheckBox, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BranchComponent} from './component/branch/branch.component';
@@ -86,14 +86,15 @@ import {AccountNumberModalComponent} from './component/opening-account/account-n
 import { GroupConfigComponent } from './component/preference/group-config/group-config.component';
 import { FinancialConfigComponent } from './component/preference/financial-config/financial-config.component';
 import { FinancialConfigModalComponent } from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
-import {NbDialogModule} from '@nebular/theme';
+import {NbDialogModule, NbLayoutModule, NbSidebarModule, NbButtonModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
-import {RemitLoanHeirarchyComponent} from "./component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component";
-import {RemitCustomerListComponent} from "./component/remit-customer-list/remit-customer-list.component";
+import {RemitLoanHeirarchyComponent} from './component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component';
+import {RemitCustomerListComponent} from './component/remit-customer-list/remit-customer-list.component';
+import {CustomerprofileComponent} from './component/customerprofile/customerprofile.component';
 
 @NgModule({
     declarations: [
@@ -172,6 +173,7 @@ import {RemitCustomerListComponent} from "./component/remit-customer-list/remit-
         CadRoleHierarchyComponent,
         CbsGroupExecutorComponent,
         RoleAddComponent,
+        CustomerprofileComponent
         // SecurityComponent
     ],
   imports: [
@@ -185,6 +187,10 @@ import {RemitCustomerListComponent} from "./component/remit-customer-list/remit-
     DragDropModule,
     NgSelectModule,
     NgxPrintModule,
+      RouterModule, // RouterModule.forRoot(routes, { useHash: true }), if this is your app.module
+      NbLayoutModule,
+      NbSidebarModule, // NbSidebarModule.forRoot(), //if this is your app.module
+      NbButtonModule,
     NbDialogModule.forRoot(),
     CoreModule,
     AgmCoreModule,

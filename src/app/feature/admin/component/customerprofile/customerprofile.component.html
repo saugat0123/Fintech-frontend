@@ -1,0 +1,114 @@
+<nb-card status="success">
+    <nb-card-header style="text-align: center">New Loan</nb-card-header>
+<nb-card-body>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="profile-img">
+                <label class="container">
+                    <img *ngIf="customerInfo?.profilePic !==null " class="image"
+                         src=""/>
+                    <div *ngIf="customerInfo?.profilePic == null || customerInfo?.profilePic == undefined"
+                         class="bg-info no-img">
+                        <div>
+                            <span class="text">NA</span>
+                        </div>
+
+                    </div>
+
+                </label>
+
+            </div>
+        </div>
+        <div  class="col-md-9 sb-small">
+
+            <div class="row">
+                <span> <strong>Name :</strong> Test User</span></div>
+            <div class="row">
+                <span> <strong>Age :</strong> 18</span>
+            </div>
+            <div class="row">
+                <span> <strong>Email :</strong> test@gmail.com</span>
+            </div>
+
+            <div class="row">
+                    <span> <strong>Address :</strong>
+                         Dillibazar</span></div>
+            <div class="row">
+                <span> <strong>PAN number :</strong> 88888</span></div>
+            <div class="row">
+                <span> <strong>CitizenShipNo:</strong> 88888</span></div>
+            <div class="row">
+                <span> <strong>DOB :</strong>1999/9/1</span></div>
+            <div class="row">
+                <span> <strong>Mobile Number :</strong> +97711111</span></div>
+
+
+        </div>
+
+        <div class="col-md-12">
+            <nb-card>
+                <nb-card-body>
+                    <form>
+                        <div class="p-1 row">
+                        <div class="row">
+                        <div class="col-md-3">
+                            <label for="KycSender" class="label">Video KYC Sender</label>
+                            <button type="submit" id="KycSender" nbButton status="danger">Generate</button>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="required" class="label">Required</label>&nbsp;
+                            <nb-checkbox id="required">Yes</nb-checkbox>&nbsp;
+                            <nb-checkbox>No</nb-checkbox>
+                        </div>
+                            <div class="col-md-7">
+                                <label for="Meetinglink" class="label">Meeting Link</label>
+                                <input type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                            </div>
+                        </div>
+                            <div class="col-md-6">
+                                <label for="recordedmeeting" class="label">Recorded Meeting</label>
+                                <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
+
+                            </div>
+                        </div>
+                        <div class="p-1 row">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="beneficiary" class="label">Video KYC Beneficiary</label>
+                                    <button type="submit" id="beneficiary" nbButton status="danger">Generate</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="required1" class="label">Required</label>&nbsp;
+                                    <nb-checkbox id="required1">Yes</nb-checkbox>&nbsp;
+                                    <nb-checkbox>No</nb-checkbox>
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="Meetinglink1" class="label">Meeting Link</label>
+                                    <input type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="recordedmeeting1" class="label">Recorded Meeting</label>
+                                <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
+
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="p-3 row">
+                        <div class="col-md-6">
+                            <button type="submit" nbButton status="danger">Generate DOC</button>
+                        </div>
+                        <br>
+                        <div class="col-md-6">
+                            <button type="submit" nbButton status="danger">Send to Branch</button>
+                        </div>
+                    </div>
+                    </nb-card-body>
+            </nb-card>
+        </div>
+
+
+    </div>
+</nb-card-body>
+</nb-card>

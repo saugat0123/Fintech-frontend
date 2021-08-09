@@ -1,0 +1,92 @@
+nb-checkbox {
+  margin-bottom: 1rem;
+}
+
+.form-inline [fullWidth] {
+  flex: 1;
+}
+
+.form-inline > * {
+  margin: 0 1.5rem 1.5rem 0;
+}
+
+nb-card.inline-form-card nb-card-body {
+  padding-bottom: 0;
+}
+tr td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+sup {
+  color: red;
+}
+
+.img :hover {
+  cursor: pointer;
+}
+
+.image {
+  opacity: 1;
+
+  /* transition: .5s ease; */
+  backface-visibility: hidden;
+}
+
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+
+.no-img {
+
+  width: 10rem;
+  height: 10rem;
+  /* width: 120px;
+  height: 120px; */
+  margin-right: 25px;
+  border-radius: 50%;
+
+  padding-top: 40%;
+
+  color: whitesmoke;
+  font-size: 60px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.image {
+  width: 10rem;
+  height: 10rem;
+  /* width: 120px;
+  height: 120px; */
+  margin-right: 25px;
+  border-radius: 50%;
+
+  text-align: center;
+}
+
+
+
+input,
+textarea, select , ng-select {
+  background: transparent;
+
+  border: none;
+
+
+  border-bottom: 1px solid black;
+
+}
+
+.white-color{
+  color: white;
+}

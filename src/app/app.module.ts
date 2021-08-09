@@ -12,7 +12,7 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {NbDatepickerModule} from '@nebular/theme';
+import {NbCheckboxModule, NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
 import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
 import {ResentForgotPasswordComponent} from './component/resent-forgot-password/resent-forgot-password.component';
@@ -53,6 +53,7 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         AppRoutingModule,
         DragDropModule,
         NgxPrintModule,
+        NbCheckboxModule,
         NbDatepickerModule.forRoot(),
         CKEditorModule,
         TranslateModule.forRoot({
