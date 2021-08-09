@@ -21,6 +21,7 @@
                 <th>Approved On</th>
                 <th *ngIf="isMaker">Add Exposure</th>
                 <th>Comments</th>
+                <th>Preview</th>
 
 
             </tr>
@@ -43,6 +44,13 @@
                            nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
                         </a></td>
+                    <td>
+                        <a class="px-2 cursor"
+                           (click)="routeService.previewCadDoc(model?.id)"
+                           nbTooltip="click to view detail ">
+                            <em class="fas fa-file"></em>
+                        </a>
+                    </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
                     <tr>
