@@ -201,7 +201,9 @@ export class SingleLoanTransferModelComponent implements OnInit  {
         toUser: this.form.get('toUser').value,
         toRole: this.form.get('toRole').value,
         action: this.docAction,
-        isSolUserPresent: this.customerLoanHolder.isSol
+        isSolUserPresent:  this.customerLoanHolder.isSol ?
+          (this.customerLoanHolder.solUser.role.id === this.customerLoanHolder.currentStage.toRole.id &&
+              this.customerLoanHolder.solUser.id === this.customerLoanHolder.currentStage.toUser.id) : false
       }
     });
     dialogRef.onClose.subscribe((verified: boolean) => {
