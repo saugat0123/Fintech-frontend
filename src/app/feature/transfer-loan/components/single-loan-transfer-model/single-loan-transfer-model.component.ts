@@ -80,7 +80,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
   }
 
   ngOnInit() {
-    this.isSolUserPresent = this.customerLoanHolder.isSol;
+    this.checkLoanUnderSol();
     this.form = this.buildForm();
     // get and fetch roleId from local storage
     this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
@@ -201,7 +201,9 @@ export class SingleLoanTransferModelComponent implements OnInit  {
         toUser: this.form.get('toUser').value,
         toRole: this.form.get('toRole').value,
         action: this.docAction,
-        isSolUserPresent: this.customerLoanHolder.isSol
+        isSolUserPresent:  this.customerLoanHolder.isSol ?
+          (this.customerLoanHolder.solUser.role.id === this.customerLoanHolder.currentStage.toRole.id &&
+              this.customerLoanHolder.solUser.id === this.customerLoanHolder.currentStage.toUser.id) : false
       }
     });
     dialogRef.onClose.subscribe((verified: boolean) => {
@@ -313,6 +315,15 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       this.form.get('solUser').setValidators([]);
       this.form.get('solUser').clearValidators();
       this.form.get('solUser').updateValueAndValidity();
+    }
+  }
+  checkLoanUnderSol() {
+    if (this.customerLoanHolder.isSol) {
+      if (this.customerLoanHolder.solUser.role.id === this.customerLoanHolder.currentStage.toRole.id &&
+          this.customerLoanHolder.solUser.id === this.customerLoanHolder.currentStage.toUser.id) {
+        this.isSolUserPresent = true;
+      }
+      this.conditionalDataLoad();
     }
   }
 }
