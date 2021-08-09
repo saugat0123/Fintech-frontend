@@ -262,7 +262,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             return true;
         } else {
             return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-            this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+            this.companyInfo.microCustomerType === MicroCustomerType.INDIRECT;
         }
     }
 
