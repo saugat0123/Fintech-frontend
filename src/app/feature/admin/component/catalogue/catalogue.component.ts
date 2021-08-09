@@ -607,6 +607,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     private roleHierarchyList(refId: number, loanDataHolder: any): void {
+        this.popUpTitle = 'Transfer';
         this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
             this.defaultRoleHierarchies = response.detail;
             this.length = this.defaultRoleHierarchies.length > 0;
@@ -622,7 +623,6 @@ export class CatalogueComponent implements OnInit {
                     this.currentRoleOrder = f.role.roleOrder;
                     this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
                 }
-                this.popUpTitle = 'Transfer';
             });
         });
     }
