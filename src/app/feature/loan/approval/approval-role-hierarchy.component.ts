@@ -7,8 +7,6 @@ import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ApprovalRoleHierarchy} from './ApprovalRoleHierarchy';
 import {ActivatedRoute} from '@angular/router';
-import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
     selector: 'app-approval-role-hierarchy',
@@ -30,13 +28,11 @@ export class ApprovalRoleHierarchyComponent implements OnInit, OnChanges {
 
 
     constructor(
-        private dialogRef: NbDialogRef<ApprovalRoleHierarchyComponent>,
         private route: ActivatedRoute,
         private service: ApprovalRoleHierarchyService,
         private roleService: RoleService,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private nbDialogueService: NbDialogService,
     ) {
     }
     ngOnChanges(changes: SimpleChanges): void {
@@ -96,7 +92,6 @@ export class ApprovalRoleHierarchyComponent implements OnInit, OnChanges {
             this.spinner = false;
             this.defaultRoleHierarchies = response.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Approval Role Order!'));
-            this.dialogRef.close();
         }, error => {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while saving Approval Role Order'));
@@ -115,6 +110,5 @@ export class ApprovalRoleHierarchyComponent implements OnInit, OnChanges {
         });
     }
     onClose() {
-        this.dialogRef.close();
     }
 }

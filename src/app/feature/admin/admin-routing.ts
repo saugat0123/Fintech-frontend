@@ -69,9 +69,9 @@ export const adminRoutes: Routes = [
         ]
     },
     {
-        path: 'remit-loan',
+        path: 'remitLoan',
         children: [
-            {path: 'customer', component: RemitCustomerListComponent}
+            {path: 'incoming', component: RemitCustomerListComponent}
         ]
     },
     {path: 'role', component: RolePermissionComponent},
