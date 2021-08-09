@@ -180,9 +180,9 @@
             </thead>
             <tbody>
             <tr>
-                <td><textarea cols="30" id="" name="" rows="10"
+                <td><textarea cols="30" name="" rows="10"
                               style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-                <td><textarea cols="30" id="" name="" rows="10"
+                <td><textarea cols="30" name="" rows="10"
                               style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
             </tr>
             </tbody>
@@ -190,9 +190,9 @@
 
     </div>
     <br>
-    <div class="page-break">
+
     <div>
-        <b class="text-left">साक्षी :</b>
+        <b>साक्षी :</b>
         <div *ngFor="let guarantor of printDocForm?.secguarantorDetails; let i=index">
             <div style="overflow-x: auto">
                 <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
@@ -259,7 +259,5 @@
           {{printDocForm.buttomItisambatRojSubham===null || printDocForm.buttomItisambatRojSubham===''?'_______________' :printDocForm?.buttomItisambatRojSubham}}
         </span> ।</p>
     </div>
-    </div>
-
 </form>
 </div>

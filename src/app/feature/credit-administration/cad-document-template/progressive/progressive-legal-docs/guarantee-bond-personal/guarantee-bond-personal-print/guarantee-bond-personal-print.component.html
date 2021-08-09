@@ -138,7 +138,7 @@
                     बर्ष <span
                         [ngClass]="{'nepaliFont' : printDocForm?.buttonAge !== null && printDocForm?.buttonAge !== ''}">
     {{printDocForm?.buttonAge === null || printDocForm?.buttonAge === '' ? '_________________' : printDocForm?.buttonAge}}
-</span> को श्री <b> को नाति/नातिनी
+                </span> को श्री <b> को नाति/नातिनी </b>
 
                     <span
                             [ngClass]="{'nepaliFont' : printDocForm?.parName !== null && printDocForm?.parName !== ''}">
@@ -242,7 +242,6 @@
                     समेत बुझी
                     आफ्नो स्वतन्त्र मञ्ज’रीले यो
                     ब्यक्तिगत जमानतको कागजमा सहिछाप गरी तपाई धनी वित्तीय संस्थालाई दिए।
-                </b>
                 </p>
                 <br>
 
@@ -449,7 +448,7 @@
                     </table>
                 </div>
                 <br>
-                <b> साक्षी ः </b><br>
+                <b> साक्षी: </b><br>
 
                 <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i"
                      style="overflow-x: auto">
