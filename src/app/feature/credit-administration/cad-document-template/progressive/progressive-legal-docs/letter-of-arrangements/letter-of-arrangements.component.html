@@ -20,7 +20,7 @@
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="branch"
                  type="text">
-          शाखा ।
+          शाखा।
         </b>
         <br>
         <br>
@@ -35,7 +35,7 @@
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="punji"
                  type="text">
-          हद सम्म स्विकृत गरिएको सम्बन्धमा ।</strong>
+          हद सम्म स्विकृत गरिएको सम्बन्धमा।</strong>
         </b>
         <br>
         <br>
@@ -43,7 +43,6 @@
           उपरोक्त विषय सम्बन्धि
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="customerName"
-                 readonly
                  type="text">
           लाई उपरोक्त ऋणको सिमा उपलब्ध
           गराईएकोमा सो को
@@ -52,7 +51,7 @@
           वित्तीय
           संस्थाबाट उपलब्ध गराइएको सुविधा कुनै पनि समयमा म/हामीलाई पूर्व सूचना नदिई रद्द गर्न सक्ने
           अधिकारको पालना
-          गर्ने छु /छौं ।
+          गर्ने छु /छौं।
         </p>
         <p>
           कथम्कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म/हामी त्यस
@@ -61,14 +60,14 @@
           सम्पूर्ण बाँकी ऋण तथा अन्य कुनै दस्तुर, ब्याज वा जरिवाना शुल्क (पेनाल्टी) रकम समेत तुरुन्त भुक्तानी गर्ने
           बचन यसै
           पत्रद्वारा अवगत
-          गर्दछु/छौं ।
+          गर्दछु/छौं।
         </p>
         <strong>भवदीय,</strong> <br><br>
 
         ..............................................
         <br>
         ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
-        दस्तखत गर्नेको नामः <span class="nepaliFont">{{form.get('customerName').value}}</span><br>
+        दस्तखत गर्नेको नामः <span class="nepaliFont" hidden>{{form.get('customerName').value}}</span><br>
       </div>
       <div class="col-md-12">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
