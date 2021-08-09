@@ -133,7 +133,8 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 documentId: documentId,
                 cadData: this.cadData,
                 customerLoanId: loanId
-            }
+            },
+            closeOnBackdropClick: false,
         });
     }
 
