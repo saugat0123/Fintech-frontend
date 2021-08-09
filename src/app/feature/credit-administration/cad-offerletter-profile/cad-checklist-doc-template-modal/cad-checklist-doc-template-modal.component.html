@@ -124,11 +124,11 @@
 <!--                      [customerLoanId]="customerLoanId"-->
 <!--                      *ngSwitchCase=offerLetterConst.CONSENT_LETTER_INSTITUTIONAL>-->
 <!--              </app-consent-letter-institutional>-->
-              <app-blacklist-consent-institutional
+              <app-blacklist-consent-corporate
                       [cadData]="cadData" [documentId]="documentId"
                       [customerLoanId]="customerLoanId"
-                      *ngSwitchCase=offerLetterConst.BLACKLIST_CONSENT_INSTITUTIONAL>
-              </app-blacklist-consent-institutional>
+                      *ngSwitchCase=offerLetterConst.BLACKLIST_CONSENT_CORPORATE>
+              </app-blacklist-consent-corporate>
             </div>
         </div>
         <div *ngIf="client === clientList.MEGA">

@@ -57,8 +57,8 @@ import { RokkaLetterComponent } from './progressive-legal-docs/rokka-letter/rokk
 import { RokkaLetterPrintComponent } from './progressive-legal-docs/rokka-letter/rokka-letter-print/rokka-letter-print.component';
 import { ConsentLetterIndividualComponent } from './progressive-legal-docs/consent-letter-individual/consent-letter-individual.component';
 import { ConsentLetterIndividualPrintComponent } from './progressive-legal-docs/consent-letter-individual/consent-letter-individual-print/consent-letter-individual-print.component';
-import { BlacklistConsentInstitutionalComponent } from './progressive-legal-docs/blacklist-consent-institutional/blacklist-consent-institutional.component';
-import { BlacklistConsentInstitutionalPrintComponent } from './progressive-legal-docs/blacklist-consent-institutional/blacklist-consent-institutional-print/blacklist-consent-institutional-print.component';
+import { BlacklistConsentCorporateComponent } from './progressive-legal-docs/blacklist-consent-corporate/blacklist-consent-corporate.component';
+import { BlacklistConsentCorporatePrintComponent } from './progressive-legal-docs/blacklist-consent-corporate/blacklist-consent-corporate-print/blacklist-consent-corporate-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -117,8 +117,8 @@ const COMPONENTS = [
     RokkaLetterPrintComponent,
     ConsentLetterIndividualComponent,
     ConsentLetterIndividualPrintComponent,
-    BlacklistConsentInstitutionalComponent,
-    BlacklistConsentInstitutionalPrintComponent,
+    BlacklistConsentCorporateComponent,
+    BlacklistConsentCorporatePrintComponent,
 
   ],
     exports: [
@@ -145,7 +145,7 @@ const COMPONENTS = [
         AuthorityToDebtAccountComponent,
         RokkaLetterComponent,
         ConsentLetterIndividualComponent,
-        BlacklistConsentInstitutionalComponent
+        BlacklistConsentCorporateComponent
     ],
   imports: [
     ThemeModule,

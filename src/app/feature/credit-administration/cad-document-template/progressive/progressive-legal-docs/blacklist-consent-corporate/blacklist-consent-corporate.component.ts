@@ -17,11 +17,11 @@ import {Document} from "../../../../../admin/modal/document";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
 
 @Component({
-  selector: 'app-blacklist-consent-institutional',
-  templateUrl: './blacklist-consent-institutional.component.html',
-  styleUrls: ['./blacklist-consent-institutional.component.scss']
+  selector: 'app-blacklist-consent-corporate',
+  templateUrl: './blacklist-consent-corporate.component.html',
+  styleUrls: ['./blacklist-consent-corporate.component.scss']
 })
-export class BlacklistConsentInstitutionalComponent implements OnInit {
+export class BlacklistConsentCorporateComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -34,7 +34,7 @@ export class BlacklistConsentInstitutionalComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
 
-  constructor(private dialogRef: NbDialogRef<BlacklistConsentInstitutionalComponent>,
+  constructor(private dialogRef: NbDialogRef<BlacklistConsentCorporateComponent>,
               private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,

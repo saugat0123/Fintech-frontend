@@ -23,7 +23,7 @@ export enum ProgressiveLegalDocConst {
   AUTHORITY_TO_DEBT_ACCOUNT = '2021',
   CONSENT_LETTER_INDIVIDUAL = '2022',
   // CONSENT_LETTER_INSTITUTIONAL = '2023',
-  BLACKLIST_CONSENT_INSTITUTIONAL = '2024'
+  BLACKLIST_CONSENT_CORPORATE = '2024'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -71,8 +71,8 @@ export namespace ProgressiveLegalDocConst {
       //   return 'Consent Letter Institutional';
       case ProgressiveLegalDocConst.BLACKLIST_CONSENT:
         return 'Blacklist Consent';
-      case ProgressiveLegalDocConst.BLACKLIST_CONSENT_INSTITUTIONAL:
-        return 'Blacklist Consent Institutional';
+      case ProgressiveLegalDocConst.BLACKLIST_CONSENT_CORPORATE:
+        return 'Blacklist Consent Corporate';
     }
   }
 
