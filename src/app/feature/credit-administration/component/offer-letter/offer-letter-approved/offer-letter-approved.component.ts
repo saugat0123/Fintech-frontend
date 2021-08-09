@@ -33,7 +33,7 @@ export class OfferLetterApprovedComponent implements OnInit {
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private userService: UserService,
-                private routeService: RouterUtilsService,
+                public routeService: RouterUtilsService,
                 private spinnerService: NgxSpinnerService) {
     }
 
