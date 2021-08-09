@@ -13,9 +13,22 @@
     <h6> Exposure Detail</h6>
   </nb-card-header>
   <nb-card-body>
-    <app-exposure-view [cadOfferLetterApprovedDoc]="cadData"
-                       *ngIf="loadCurrentDisbursement" [displayHistory]="true"
-                       [fromScc]="false"></app-exposure-view>
+    <nb-accordion  *ngIf="loadCurrentDisbursement">
+      <nb-accordion-item>
+        <nb-accordion-item-header>Disbursement History</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-exposure-view [cadOfferLetterApprovedDoc]="cadData"
+                             *ngIf="loadCurrentDisbursement" [displayHistory]="true"
+                             [fromScc]="false"></app-exposure-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+    <hr/>
+    <div class="row">
+      <div class="col-md-12">
+        <label  class="float-left"><strong>Add Exposure</strong></label>
+      </div>
+    </div>
     <div class="form" [formGroup]="exposureForm">
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>

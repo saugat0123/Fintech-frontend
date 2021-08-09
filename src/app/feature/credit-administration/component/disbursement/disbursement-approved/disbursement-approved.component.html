@@ -18,6 +18,7 @@
                 <th>Type</th>
                 <th>Business Unit</th>
                 <th>Loan Document No</th>
+                <th>Approved On</th>
                 <th *ngIf="isMaker">Add Exposure</th>
                 <th>Comments</th>
 
@@ -34,6 +35,7 @@
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
                     <td *ngIf="isMaker"><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
                     <td>
                         <a class="px-2 cursor"

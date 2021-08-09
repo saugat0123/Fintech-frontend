@@ -57,6 +57,7 @@ import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/exce
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 import {ApprovedLoanListComponent} from './component/approved-loan-list/approved-loan-list.component';
 import {RouterUtilsService} from './utils/router-utils.service';
+import { DisbursementModalComponent } from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import {RouterUtilsService} from './utils/router-utils.service';
     CadOfferLetterConfigurationComponent,
     NepProposedAmountFormComponent,
     CadFileSetupComponent,
-    ApprovedLoanListComponent],
+    ApprovedLoanListComponent,
+    DisbursementModalComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -131,9 +133,9 @@ import {RouterUtilsService} from './utils/router-utils.service';
     SecurityComplianceCertificateComponent,
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
-    CadFileSetupComponent, ApprovedLoanListComponent],
+    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent],
   exports: [CadFileSetupComponent],
-  providers:[RouterUtilsService]
+  providers: [RouterUtilsService]
 })
 export class CreditAdministrationModule {
 }

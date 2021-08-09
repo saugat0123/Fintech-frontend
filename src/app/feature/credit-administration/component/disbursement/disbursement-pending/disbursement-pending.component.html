@@ -19,9 +19,11 @@
                 <th>Business Unit</th>
                 <th>Loan Document No</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
+                <th>Last Modified On</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
                     Action
                 </th>
+                <th>Disbursement Detail</th>
                 <th>Comments</th>
 
 
@@ -38,10 +40,12 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
                     <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
                            nbTooltip="click to assign"><em
                             class="fa fa-user"></em></a>
                     </td>
+                    <td (click)="openDisbursementDetail(model?.id)"><em class="fa fa-cash-register text-success"></em></td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
@@ -67,7 +71,7 @@
                     <tr *ngFor="let previousList of model?.previousList ; let j = index">
                         <td>{{j + 1}}</td>
                         <td>
-                            {{previousList?.lastModifiedAt | date}}
+                            {{previousList?.lastModifiedAt | date : 'medium'}}
                         </td>
                         <td>
                             <div class="col-md-12">
@@ -103,7 +107,7 @@
                     </tr>
                     <tr>
                         <td>{{currentIndexArray[i].currentIndex + 1 }}</td>
-                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date}}</td>
+                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
                         <td>
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-center">
