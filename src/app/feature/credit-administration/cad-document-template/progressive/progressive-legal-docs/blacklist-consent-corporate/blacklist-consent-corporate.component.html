@@ -1,5 +1,5 @@
 <div [nbSpinner]="spinner" class="container text-justify row nepali"
-     id="{{offerLetterConst.BLACKLIST_CONSENT_INSTITUTIONAL}}">
+     id="{{offerLetterConst.BLACKLIST_CONSENT_CORPORATE}}">
 
     <div class="col-md-12 viewFull">
         <form [formGroup]="form" (ngSubmit)="submit()">
@@ -30,45 +30,43 @@
                 <p class="text-center">तपसील,</p>
                 <br>
                 <div>
-                    <p>
-                        <br>
-                        दस्तखत :-..........
-                        <br>
-                        अख्तियार प्राप्त व्यक्ति :- <input class="form-field nepaliFont form-control-sm"
-                                                           formControlName="sincerlyName"
-                                                           type="text">
-                        ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm"
-                                              formControlName="sincerlyPermanentDistrict"
-                                              type="text">
-                        <br>
-                        हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
-                                            formControlName="sincerlyTemporaryDistrict"
-                                            type="text">
-
-                    </p>
-                    <p>
-                        बाबु/आमाको नाम :- <input class="form-field nepaliFont form-control-sm"
-                                                 formControlName="sincerlyParentName"
-                                                 type="text">
-                        <br>
-                        बाजेको/बजैको नाम:-<input class="form-field nepaliFont form-control-sm"
-                                                 formControlName="sincerlyGrandParentName"
-                                                 type="text">
-                        <br>
-                        पति/पत्निको नाम:-<input class="form-field nepaliFont form-control-sm"
-                                                formControlName="sincerlyLekhaNo"
-                                                type="text">
-                        <br>
-                        कर्जा रकम:-<input class="form-field nepaliFont form-control-sm"
-                                          formControlName="sincerlyLekhaRs"
+                    <br>
+                    दस्तखत :-..........
+                    <br>
+                    अख्तियार प्राप्त व्यक्ति :- <input class="form-field nepaliFont form-control-sm"
+                                                       formControlName="sincerlyName"
+                                                       type="text">
+                    <br>
+                    ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm"
+                                          formControlName="sincerlyPermanentDistrict"
                                           type="text">
-                        <br>
-                        कर्जा सूबिधाहरु:-<input class="form-field nepaliFont form-control-sm"
-                                                formControlName="sincerlyKarja"
-                                                type="text">
-                        <br>
+                    <br>
+                    हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                                        formControlName="sincerlyTemporaryDistrict"
+                                        type="text">
 
-                    </p>
+                    <br>
+                    बाबु/आमाको नाम :- <input class="form-field nepaliFont form-control-sm"
+                                             formControlName="sincerlyParentName"
+                                             type="text">
+                    <br>
+                    बाजेको/बजैको नाम:-<input class="form-field nepaliFont form-control-sm"
+                                             formControlName="sincerlyGrandParentName"
+                                             type="text">
+                    <br>
+                    पति/पत्निको नाम:-<input class="form-field nepaliFont form-control-sm"
+                                            formControlName="sincerlyLekhaNo"
+                                            type="text">
+                    <br>
+                    कर्जा रकम:-<input class="form-field nepaliFont form-control-sm"
+                                      formControlName="sincerlyLekhaRs"
+                                      type="text">
+                    <br>
+                    कर्जा सूबिधाहरु:-<input class="form-field nepaliFont form-control-sm"
+                                            formControlName="sincerlyKarja"
+                                            type="text">
+                    <br>
+
                     <p>औठा छाप</p>
                     <div class="text-center">
                         <table class="table  table-bordered fingerXap">
@@ -87,23 +85,21 @@
                         </table>
 
                     </div>
-
-
-                    <div class="col-md-12">
-                        <button class="btn btn-primary float-lg-right" nbButton status="success" type="submit">
-                            Save
-                        </button>
-                    </div>
                 </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+                    Save
+                </button>
             </div>
         </form>
         <button [disabled]="!initialInfoPrint"
                 [useExistingCss]="true"
-                class="btn btn-primary d-print-none"
+                class="btn btn-primary d-print-none float-left"
                 ngxPrint
-                printSectionId="print-section-{{ offerLetterConst.BLACKLIST_CONSENT_INSTITUTIONAL }}"> Print
+                printSectionId="print-section-{{ offerLetterConst.BLACKLIST_CONSENT_CORPORATE }}"> Print
         </button>
     </div>
 </div>
-<app-blacklist-consent-institutional-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                                           hidden></app-blacklist-consent-institutional-print>
+<app-blacklist-consent-corporate-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                           hidden></app-blacklist-consent-corporate-print>
