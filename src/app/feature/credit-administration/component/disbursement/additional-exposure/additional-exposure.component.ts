@@ -117,7 +117,11 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
         this.addDisbursementDetail();
       }
       this.spinner = false;
-    }, error => this.spinner = false);
+    }, error => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, 'OOPS something went Wrong ! Please Click Again ::' + error.error.message));
+      this.close();
+    });
   }
 
   buildForm() {
