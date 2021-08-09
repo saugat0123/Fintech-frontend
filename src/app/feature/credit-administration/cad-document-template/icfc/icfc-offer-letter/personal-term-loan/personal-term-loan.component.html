@@ -277,9 +277,9 @@
                         <tr>
                             <td colspan="8" style="border-bottom: none;">
                                 <div class="row justify-content-end m-1">
-                                    <p *ngIf="translateBtn" class="font-weight-bold text-right mr-1 mt-1">English</p>
-                                    <p *ngIf="translateBtn === false" class="font-weight-bold text-right mr-1 mt-1">Nepali</p>
-                                    <nb-toggle (checkedChange)="btnNepEngToggle($event)" formControlName="btnEvntValue"></nb-toggle>
+                                    <p *ngIf="translateBtn" class="font-weight-bold text-right mr-1 mt-2">English</p>
+                                    <p *ngIf="translateBtn === false" class="font-weight-bold text-right mr-1 mt-2">Nepali</p>
+                                    <nb-toggle style="zoom: 70%;" (checkedChange)="btnNepEngToggle($event)" formControlName="btnEvntValue"></nb-toggle>
                                 </div>
                                 मूल्यांकनकर्ताः <input [ngClass]="translateBtn === true ? 'form-field form-control-sm' : 'form-field form-control-sm nepaliFont'" formControlName="assessor" type="text"/>
                                 , मुल्यांकन मितिः <input [ngClass]="translateBtn === true ? 'form-field form-control-sm' : 'form-field form-control-sm nepaliFont'" formControlName="evaluationDate" type="text"/>

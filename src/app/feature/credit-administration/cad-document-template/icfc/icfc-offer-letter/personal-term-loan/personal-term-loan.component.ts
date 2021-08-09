@@ -406,7 +406,6 @@ export class PersonalTermLoanComponent implements OnInit {
   }
 
   btnNepEngToggle(event) {
-    console.log('Event Value: ', event);
     if (event) {
       this.translateBtn = event;
     } else {

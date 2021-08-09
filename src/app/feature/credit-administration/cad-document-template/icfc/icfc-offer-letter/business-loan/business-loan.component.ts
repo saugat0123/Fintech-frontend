@@ -402,7 +402,6 @@ export class BusinessLoanComponent implements OnInit {
   }
 
   btnTranslateToggle(event) {
-    console.log('Event Value: ', event);
     if (event) {
       this.translateBtn = event;
     } else {
