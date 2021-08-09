@@ -186,7 +186,7 @@
                                                 id="commissionFrequency" name="commissionFrequency">
                                             <option [ngValue]="null" hidden>Select Commission Frequency</option>
                                             <option value="MONTH">Per Month</option>
-                                            <option value="QUATER">Per Quarter</option>
+                                            <option value="QUARTER">Per Quarter</option>
                                             <option value="ANNUM">Per Annum</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.commissionFrequency.invalid"
@@ -606,7 +606,7 @@
                                             <option [ngValue]="undefined" hidden selected>Select</option>
                                             <option value="DAY">Day(s)</option>
                                             <option value="MONTH">Month(s)</option>
-                                            <option value="QUATER">Quarter(s)</option>
+                                            <option value="QUARTER">Quarter(s)</option>
                                             <option value="YEAR">Year(s)</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.frequency.invalid"
