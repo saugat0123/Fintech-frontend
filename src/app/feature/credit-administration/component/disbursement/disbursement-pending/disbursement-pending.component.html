@@ -1,4 +1,6 @@
-<nb-card [nbSpinner]="spinner" accent="primary">
+<nb-card [nbSpinner]="spinner" accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large">
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
@@ -57,7 +59,7 @@
                         <a class="px-2 cursor"
                            (click)="routeService.previewCadDoc(model?.id)"
                            nbTooltip="click to view detail ">
-                            <em class="fas fa-file"></em>
+                            <em class="fas fa-info-circle text-info"></em>
                         </a>
                     </td>
                 </tr>

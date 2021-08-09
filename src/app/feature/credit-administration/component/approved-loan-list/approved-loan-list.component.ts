@@ -21,13 +21,15 @@ export class ApprovedLoanListComponent implements OnInit {
 
   routeToLoanSummary(loanConfigId: number, customerId: number) {
     this.modalService.close();
-    this.router.navigate(['/home/loan/summary'], {
-      queryParams: {
-        loanConfigId: loanConfigId,
-        customerId: customerId,
-        catalogue: true
-      }
-    });
+    const url = this.router.createUrlTree(['/home/loan/summary'],
+        {
+          queryParams: {
+            loanConfigId: loanConfigId,
+            customerId: customerId,
+            catalogue: true
+          }
+        }).toString();
+    window.open('#' + url, '_blank');
   }
 
   public getTotal(key: string, loanList: LoanDataHolder[]): number {
