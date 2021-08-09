@@ -816,17 +816,16 @@
         </div>
         <div *ngIf="isCollateralSiteVisitPresent" class="col-md-12">
             <span><strong>Security Collateral Site Visit</strong></span>
-            <ng-container>
-             <ng-container *ngFor="let siteVisit of siteVisitJson; let k = index">
-                <table *ngIf="k == siteVisitJson.length-1" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+             <ng-container>
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security</th>
                         <th>Site Visit Date(AD/BS)</th>
                         <th>Comments about FAC</th>
                     </tr>
-                    <tr>
-                        <td>{{1}}</td>
+                    <tr *ngFor="let siteVisit of uniqueSiteVisitJson; let k = index">
+                        <td>{{k+1}}</td>
                         <td class="text-left pl-1">{{siteVisit?.securityName.slice(0, -2)}}</td>
                         <td class="text-left pl-1">{{siteVisit?.date| date}} ({{siteVisit?.date| engNepDate: false}})</td>
                         <td class="text-left pl-1">{{siteVisit?.commentAboutFAC || 'NA'}}</td>
@@ -834,23 +833,24 @@
                 </table>
                  </ng-container>
                 <strong *ngIf="siteVisitDocuments">Collateral Site Visit Documents</strong>
-                <ng-container *ngFor="let siteVisit of siteVisitJson; let i = index">
-                <table *ngIf="i == siteVisitJson.length-1" class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <tr class="sb-bg-dark text-white">
                             <th>S.N</th>
                             <th>Security Name</th>
                             <th>Document Name</th>
                             <th>Is Printable?</th>
                         </tr>
-                        <tr *ngFor="let doc of siteVisitDocuments; let i=index;">
-                            <td>{{1}}</td>
+                    <ng-container>
+                        <tbody *ngFor="let doc of tmpSiteVisitDocuments; let i = index">
+                        <tr>
+                            <td>{{i+1}}</td>
                             <td>{{doc?.securityName.slice(0, -2)}}</td>
                             <td>{{doc?.docName}}</td>
                             <td>{{doc?.isPrintable}}</td>
                         </tr>
-                         </table>
+                        </tbody>
                     </ng-container>
-            </ng-container>
+                </table>
         </div>
         <div *ngIf="formData['initialForm']['remark']" class="row">
             <div class="col-md-12">
