@@ -48,7 +48,27 @@ export class ObtainedDocumentComponent implements OnInit {
                     });
                 });
 
-                if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+                const tempDoc = JSON.parse(localStorage.getItem('obtainabledDocument'));
+                tempDoc.forEach(doc => {
+                        console.log('documentssss::::' + doc);
+                        this.documents.forEach(prevDoc => {
+                            if (doc.name === prevDoc.name) {
+                                prevDoc.checked = true;
+                                const document = new ObtainableDoc();
+                                document.name = prevDoc.name;
+                                document.checked = true;
+                                this.obtainabledDocument.push(document);
+                            }
+                        });
+                    });
+
+
+                const tempOtherDoc = JSON.parse(localStorage.getItem('otherDocument'));
+                if (!ObjectUtil.isEmpty(tempOtherDoc)) {
+                    this.showOtherDocuments = true;
+                    this.otherDocValue = tempOtherDoc.name;
+                    this.otherDocument = tempOtherDoc.name;
+                } else {
                    this.showOtherDocuments = true;
                    this.otherDocValue = details.OtherDocuments;
                    this.otherDocument = details.OtherDocuments;
@@ -65,10 +85,12 @@ export class ObtainedDocumentComponent implements OnInit {
           documents.name = document.name;
           documents.checked = true;
         this.obtainabledDocument.push(documents);
+        localStorage.setItem('obtainabledDocument', JSON.stringify(this.obtainabledDocument));
       } else if (event.target.checked === false) {
         const removeInxdex = this.obtainabledDocument.findIndex( index => index.name === document.name);
         if (removeInxdex !== -1) {
           this.obtainabledDocument.splice(removeInxdex, 1);
+          localStorage.setItem('obtainabledDocument', JSON.stringify(this.obtainabledDocument));
         }
       }
     }
@@ -87,6 +109,11 @@ export class ObtainedDocumentComponent implements OnInit {
 
     insertOtherDocuments(event) {
         this.otherDocument = event.target.value;
+        const otherTempDoc = {
+            name: this.otherDocument,
+            checked: true
+        };
+        localStorage.setItem('otherDocument', JSON.stringify(otherTempDoc));
     }
 
 
