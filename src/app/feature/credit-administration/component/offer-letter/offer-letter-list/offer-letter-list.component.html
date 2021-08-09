@@ -16,6 +16,7 @@
                 <th>Province</th>
                 <th>Customer Name</th>
                 <th>Type</th>
+                <th>Business Unit</th>
                 <th>Status</th>
                 <th>From</th>
                 <th>Date</th>
@@ -36,10 +37,11 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date:'medium'}} </td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.loanStage?.fromUser?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.loanStage?.lastModifiedAt | date}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-{{model?.cadCurrentStage?.toRole?.roleName}}</td>

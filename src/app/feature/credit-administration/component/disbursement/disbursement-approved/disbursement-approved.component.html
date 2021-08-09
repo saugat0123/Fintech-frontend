@@ -16,6 +16,7 @@
                 <th>Province</th>
                 <th>Customer Name</th>
                 <th>Type</th>
+                <th>Business Unit</th>
                 <th>Loan Document No</th>
                 <th *ngIf="isMaker">Add Exposure</th>
                 <th>Comments</th>
@@ -31,6 +32,7 @@
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadSummary(model)">{{model?.assignedLoan?.length}}</td>
                     <td *ngIf="isMaker"><em class="fas fa-plus-circle" (click)="addExposure(model)"></em></td>
                     <td>

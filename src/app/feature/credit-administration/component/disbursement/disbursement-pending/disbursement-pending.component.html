@@ -16,6 +16,7 @@
                 <th>Province</th>
                 <th>Customer Name</th>
                 <th>Type</th>
+                <th>Business Unit</th>
                 <th>Loan Document No</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
@@ -34,6 +35,7 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}</td>
                     <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
