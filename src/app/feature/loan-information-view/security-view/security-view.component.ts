@@ -115,9 +115,6 @@ export class SecurityViewComponent implements OnInit {
           this.shareSelected = true;
         }
       });
-      if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
-        this.shareSelected = true;
-      }
       // hypothecation of stock security
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('HypothecationOfStock') !== -1) {
