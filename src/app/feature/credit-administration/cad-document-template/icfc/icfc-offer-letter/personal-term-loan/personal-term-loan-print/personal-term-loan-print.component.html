@@ -45,7 +45,8 @@
                         <span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.purpose}}</span>
                     </td>
                     <td>
-                       <span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.depositApprovedLoanAmount}}</span>
+                        रु. <span class="font-weight-bold nepaliFont">{{loanFacilityDetails?.depositApprovedLoanAmount}}</span>/-
+                        अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{loanFacilityDetails?.depositLoanAmount}}</span>
                     </td>
                 </tr>
             </table><br>
@@ -56,7 +57,7 @@
                     प्रतिशत[Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate}}</span>
                     %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate}}</span>
                     %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <span class="font-weight-bold nepaliFont">{{letter?.sawa}}</span>
-                    मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold nepaliFont">{{letter?.amount}}</span>
+                    मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold nepaliFont">{{letter?.amount}}</span> /-
                     (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords}}</span>
                     ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । आइ.सि.एफ.सि. र/वा नेपाल राष्ट्र बैंकले समय–समयमा निर्धारण गरे अनुसार समय समयमा ब्याज दर परिवर्तन हुन सक्नेछ । यस्तो परिवर्तित ब्याजदर तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ । </p>
 <!--                <p class="text-center"><strong>वा</strong></p>-->
@@ -67,7 +68,7 @@
                     प्रतिशत[Base Rate ( <span class="font-weight-bold nepaliFont">{{letter?.baseRate2}}</span>
                     %) + Premium Rate ( <span class="font-weight-bold nepaliFont">{{letter?.premiumRate2}}</span>
                     %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <span class="font-weight-bold nepaliFont">{{letter?.sawa2}}</span>
-                    मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold nepaliFont">{{letter?.amount2}}</span>
+                    मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <span class="font-weight-bold nepaliFont">{{letter?.amount2}}</span> /-
                     (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords2}}</span>
                     ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ । यस्तो Fixed Interest Rate तिर्न बुझाउन ऋणीको सदैव मञ्जुरी रहेको सम्झनु पर्दछ ।</p>
             </ng-container>
@@ -114,7 +115,7 @@
                 <tr>
                     <td width="20%" style="vertical-align:top;">सेवा शुल्क</td>
                     <td>जम्मा कर्जा रकमको <span class="font-weight-bold nepaliFont">{{letter?.rate}}</span>
-                        % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.serviceCharge}}</span>
+                        % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.serviceCharge}}</span> /-
                         ऋणीलाई फिर्ता हुने छैन ।)
                     </td>
                 </tr>
@@ -131,7 +132,7 @@
                 </tr>
             </table>
 
-            <p><strong>६. <u>अन्य शुल्कहरुः</u></strong></p>
+            <p class="mt-2"><strong>६. <u>अन्य शुल्कहरुः</u></strong></p>
             <table border="1">
                 <tr>
                     <td width="50%">आंशिक धितो फुकुवा</td>
@@ -199,8 +200,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <span class="font-weight-bold nepaliFont">{{letter?.assessor}}</span>
-                        , मुल्यांकन मितिः <span class="font-weight-bold nepaliFont">{{letter?.evaluationDate}}</span>
+                    <td colspan="8" style="border-bottom: none">
+                        मूल्यांकनकर्ताः <span [ngClass]="letter?.btnEvntValue === true? 'font-weight-bold translatedWord' : 'font-weight-bold nepaliFont'">{{letter?.assessor}}</span>
+                        , मुल्यांकन मितिः <span [ngClass]="letter?.btnEvntValue === true? 'font-weight-bold translatedWord' : 'font-weight-bold nepaliFont'">{{letter?.evaluationDate}}</span>
                     </td>
                 </tr>
                 <tr>
@@ -209,32 +211,53 @@
                     </td>
                 </tr>
             </table>
-            <p><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
+            <p style="margin-top: 15px;"><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
             <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
-            <p>ग) श्री <span class="font-weight-bold nepaliFont">{{letter?.name2}}</span>
-                बाट स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount3}}</span>
-                (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords3}}</span>
-                मात्र) बराबरको व्यक्तिगत जमानी ।</p>
             <p *ngIf="letter?.inApprovalFlag">
-                घ) <span class="font-weight-bold nepaliFont">{{letter?.from}}</span>
+                ग) <span class="font-weight-bold nepaliFont">{{letter?.from}}</span>
                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।
             </p>
+            <p *ngFor="let personalGuarantorAmount of letter?.personalGarntAmt; let i = index;">
+                {{i + 4 | nepaliWord}}) श्री <span class="font-weight-bold nepaliFont">{{personalGuarantorAmount?.name2}}</span>
+                बाट स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{personalGuarantorAmount?.amount3}}</span> /-
+                (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{personalGuarantorAmount?.amountInWords3}}</span>
+                मात्र) बराबरको व्यक्तिगत जमानी ।</p>
             <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
             <ul>
                 <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount4}}</span>
+                <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount4}}</span> /-
                     (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInWords4}}</span>
                     मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
-                <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount5}}</span>
+                <li>स्वीकृत कर्जा रकम रु. <span class="font-weight-bold nepaliFont">{{letter?.amount5}}</span> /-
                     (अक्षरुपी <span class="font-weight-bold nepaliFont loanWords">{{letter?.amountInwords5}}</span>
                     मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
                 <li>धितोबन्धक कागज ।</li>
                 <li>ऋणी तथा जमानतकर्ताको पारिवारिक र खुद सम्पत्ती विवरण ।</li>
             </ul>
 
+            <div *ngIf="loanSecurityLength > 1 || personalGuaranteeLength > 1" class="page-break">
+            </div>
+            <div *ngIf="loanSecurityLength > 1 || personalGuaranteeLength > 1" class="row mt-3">
+                <div class="col-md-12"></div>
+            </div>
             <p><strong>९. <u>वीमाः</u></strong></p>
-            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरण/मालवस्तुहरु/सरसामानहरुको मौज्दात तथा धितोसँग सम्बन्धित सबै सम्पत्तिहरुको <strong>रु. </strong> <span class="font-weight-bold nepaliFont">{{letter?.insuranceAmount}}</span>
-                बराबरको व्यापक वीमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
+            <p>
+                फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरण/मालवस्तुहरु/सरसामानहरुको मौज्दात तथा धितोसँग सम्बन्धित सबै सम्पत्तिहरुको <strong>रु. </strong> <span class="font-weight-bold nepaliFont">{{letter?.insuranceAmount}}</span> /-
+                बराबरको व्यापक वीमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्ेखित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा
+                <span style="font-size: 14pt;" *ngIf="loanSecurityLength > 1 || personalGuaranteeLength > 1; else elseContents">
+                    तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर,
+                    फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न
+                    जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
+                </span>
+            </p>
+            <ng-template #elseContents>
+                <div class="page-break"></div>
+                <p class="mt-1">
+                    तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर,
+                    फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न
+                    जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
+                </p>
+            </ng-template>
             <p><strong>१०.  <u>निरीक्षण तथा पुनरावलोकनः</u></strong></p>
             <p>फाइनान्सले आवश्यकता अनुसार ऋणीलाई पूर्व सूचना दिई वा नदिई जुनसुकै बखत पटक पटक ऋणीको व्यवसाय स्थल, कार्यालय तथा खाता, बही, हिसाब, स्याहा, श्रेस्ता र धितोको निरीक्षण गर्ने अधिकार हुनेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा खर्च ऋणी स्वयंले व्यहोर्नु पर्नेछ । उल्लेखित ऋण कर्जा फाइनान्सले आवश्यक ठानेका बखत वा कर्जा नविकरणको समयमा पुनरावलोकन गर्नेछ ।</p>
             <p><strong>११.  <u>उपयोगः</u></strong></p>
