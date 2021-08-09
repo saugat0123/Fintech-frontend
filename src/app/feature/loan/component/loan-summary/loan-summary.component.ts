@@ -591,7 +591,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     {
                         queryParams: {
                             loanConfigId: loanId,
-                            customerId: id
+                            customerId: id,
+                            catalogue: true,
                         }
                     });
             }
