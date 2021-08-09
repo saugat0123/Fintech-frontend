@@ -357,9 +357,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                 }
             }
             this.signatureList.forEach((v, i) => {
-                if (v.toRole.signApprovalSheet === true ||
+                if ((v.toRole.signApprovalSheet === true && v.docAction.toString() !== 'APPROVED') ||
                     (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
-                        this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')) {
+                        this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')
+                ) {
                     riskOfficerIndexComment = i;
 
                 }
