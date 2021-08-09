@@ -37,7 +37,7 @@
           {{printDocForm.tempWadNo===null || printDocForm.tempWadNo===''?'_______________' :printDocForm?.tempWadNo}}
         </span>
 
-          स्तिथ <span [ngClass]="{'nepaliFont':printDocForm?.address!==null && printDocForm?.address!==''}">
+          स्थित <span [ngClass]="{'nepaliFont':printDocForm?.address!==null && printDocForm?.address!==''}">
           {{printDocForm.address===null || printDocForm.address===''?'_______________' :printDocForm?.address}}
         </span>
 
@@ -133,9 +133,9 @@
             </thead>
             <tbody>
             <tr>
-              <td><textarea cols="30" id="" name=""
+              <td><textarea cols="30"  name=""
                             rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-              <td><textarea cols="30" id="" name=""
+              <td><textarea cols="30"  name=""
                             rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
             </tr>
             </tbody>
@@ -145,7 +145,7 @@
       </div>
       <br>
       <div>
-        <div class="row page-break">
+        <div>
         <b class="text-left">साक्षी :</b>
         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
           <div>
@@ -186,7 +186,7 @@
         <br>
         <b>सनाखत साक्षी</b>
         <br>
-        <p>ऋणीले मेरो  मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने
+        <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने
           धनीवित्तीय संस्थामाकार्यरत कर्मचारी <span [ngClass]="{'nepaliFont':printDocForm?.IdentifiedGuarantorName!==null && printDocForm?.IdentifiedGuarantorName!==''}">
           {{printDocForm.IdentifiedGuarantorName===null || printDocForm.IdentifiedGuarantorName===''?'_______________' :printDocForm?.IdentifiedGuarantorName}}
         </span>
