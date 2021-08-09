@@ -472,8 +472,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 .fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                     'Short Term Loan', index)) + Number(longTermLoan.controls['value'].value)) /
             (Number(netWorth.controls['value'].value))).toString();
-        console.log(value);
-        console.log(value.slice(0, (Number(value.indexOf('.')) + 3)));
         keyIndicators.debtEquityRatioGeneral[index].value = value.slice(0, (Number(value.indexOf('.')) + 3));
 
 
