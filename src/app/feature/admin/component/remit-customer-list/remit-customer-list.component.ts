@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NbToastrService} from '@nebular/theme';
 
 @Component({
     selector: 'app-remit-customer-component',
@@ -8,7 +10,15 @@ import {Router} from "@angular/router";
 })
 export class RemitCustomerListComponent implements OnInit {
 
-    constructor(private router: Router) {
+    onBoardData;
+    onBoardSpinner = false;
+
+
+
+    constructor(private router: Router,
+                public modalService: NgbModal,
+                private toastService: NbToastrService,
+    ) {
     }
 
     customerList = [{
@@ -27,6 +37,29 @@ export class RemitCustomerListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('customer list', this.customerList);
+    }
+
+    addMember(event, data, template) {
+        this.onBoardData = data;
+        console.log('on board data', data);
+        event.stopPropagation();
+        this.modalService.open(template);
+
+    }
+
+    onBoardMember() {
+        console.log('member onboarded');
+        this.modalService.dismissAll();
+        // this.onBoardSpinner = true;
+        // ((this.onBoardData.memberId, this.onBoardData.memId, this.onBoardData.fullName, this.onBoardData.branchId)).subscribe(() => {
+            // this.getData();
+            // this.onBoardSpinner = false;
+            // this.toastService.success('Successfully Onboard Member', 'Member');
+        // }, err => {
+        //     this.onBoardSpinner = false;
+        //     this.toastService.danger(('Already Onboard in System'), 'Member');
+        //     throw err;
+        // });
     }
 
     customerProfile(associateId, id, customerType) {
