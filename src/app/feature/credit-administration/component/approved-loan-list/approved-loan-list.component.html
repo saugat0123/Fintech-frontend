@@ -31,13 +31,13 @@
           Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
       </tr>
         <tr class="bg-light">
-          <td colspan="3"><Strong>Total</Strong></td>
-          <td colspan="3" class="text-right px-2">
+          <td colspan="2"><Strong>Total</Strong></td>
+          <td colspan="4" class="text-right px-2">
             <strong>Rs. {{getTotal('proposal?.proposedLimit', customerLoanList) | currencyFormatter}}</strong></td>
         </tr>
       <tr class="bg-light">
-        <td colspan="3"><Strong>In Words</Strong></td>
-        <td colspan="3" class="text-right px-2">
+        <td colspan="2"><Strong>In Words</Strong></td>
+        <td colspan="4" class="text-right px-2">
           <strong>{{getTotal('proposal?.proposedLimit', customerLoanList) | amountWordPipe}}   only/-</strong></td>
       </tr>
     </table>

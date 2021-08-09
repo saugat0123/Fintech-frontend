@@ -37,7 +37,7 @@ export class DisbursementPendingComponent implements OnInit {
 
     constructor(private service: CreditAdministrationService,
                 private router: Router,
-                private routeService: RouterUtilsService,
+                public routeService: RouterUtilsService,
                 private userService: UserService,
                 private modalService: NgbModal,
                 private spinnerService: NgxSpinnerService) {

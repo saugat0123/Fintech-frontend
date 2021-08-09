@@ -32,7 +32,7 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
