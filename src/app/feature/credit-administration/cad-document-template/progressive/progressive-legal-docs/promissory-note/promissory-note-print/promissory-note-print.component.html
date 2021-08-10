@@ -9,7 +9,7 @@
         <p>
           लिखितम् <span [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
     {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
-</span> <strong>को</strong>
+</span> को
           नाति/नातिनि ,<span [ngClass]="{'nepaliFont':printDocForm?.fatherName!==null && printDocForm?.fatherName!==''}">
           {{printDocForm.fatherName ===null || printDocForm.fatherName ===''?'_______________' :printDocForm?.fatherName}}
         </span>को
