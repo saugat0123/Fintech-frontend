@@ -25,7 +25,7 @@
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
                     Action
                 </th>
-                <th>Disbursement Detail</th>
+                <th>Additional Disbursement</th>
                 <th>Comments</th>
                 <th>Preview</th>
 
@@ -48,7 +48,8 @@
                            nbTooltip="click to assign"><em
                             class="fa fa-user"></em></a>
                     </td>
-                    <td (click)="openDisbursementDetail(model?.id)"><em class="fa fa-cash-register text-success"></em></td>
+                    <td><span *ngIf="model?.isAdditionalDisbursement">True</span>
+                        <span *ngIf="!model?.isAdditionalDisbursement">False</span></td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
@@ -160,7 +161,7 @@
             </tbody>
         </table>
         <!-- ===================table-pagination==================== -->
-        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
 
     </nb-card-body>
