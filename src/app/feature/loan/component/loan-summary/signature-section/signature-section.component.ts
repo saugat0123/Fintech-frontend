@@ -22,7 +22,6 @@ export class SignatureSectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('Loan Data holder ho hai', this.loanDataHolder);
     this.signatureList = this.getSignatureList(new Array<LoanStage>
     (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
   }
