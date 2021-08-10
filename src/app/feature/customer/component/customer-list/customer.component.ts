@@ -251,6 +251,17 @@ export class CustomerComponent implements OnInit {
 
     }
 
+    editCustomerOrCheckEditable(model) {
+        this.customerLoanService.isCustomerEditable(model.id).subscribe((res: any) => {
+            if (res.detail === true) {
+                this.editCustomer(model);
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, model.name + ' is not editable. There are pending loans.'));
+                CustomerComponent.loadData(this);
+            }
+        });
+    }
+
     editCustomer(model) {
         if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
             this.customerService.detail(model.associateId).subscribe((res: any) => {
