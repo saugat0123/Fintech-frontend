@@ -15,14 +15,14 @@
             <b>  <span
                     [ngClass]="{'nepaliFont' : printDocForm?.BranchName !== null && printDocForm?.BranchName !== ''}">
     {{printDocForm?.BranchName === null || printDocForm?.BranchName === '' ? '_________________' : printDocForm?.BranchName}}
-</span> शाखा कार्यालय ।</b>
+</span> शाखा कार्यालय।</b>
             <br>
             <p class="text-center"><b>विषय :- रु. <span
                     [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
 </span>
-                /–(अक्षरुपी रु. <span class="nepaliFont">{{printDocForm?.amountInWord}}</span> ।)– को ऋण रकम
-                भूक्तानी गरी पाउं ।</b>
+                /–(अक्षरुपी रु. <span class="nepaliFont">{{printDocForm?.amountInWord}}</span> ।)–को ऋण रकम
+                भूक्तानी गरी पाउं।</b>
             </p>
             <div class="row col-md-12">
 
@@ -34,12 +34,12 @@
                     कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो <span
                         [ngClass]="{'nepaliFont' : printDocForm?.clientName !== null && printDocForm?.clientName !== ''}">
     {{printDocForm?.clientName === null || printDocForm?.clientName === '' ? '_________________' : printDocForm?.clientName}}
-</span> को नाममा रहेको चल्ति/बचतखाता नं.
+</span>को नाममा रहेको चल्ति/बचतखाता नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.accNumber !== null && printDocForm?.accNumber !== ''}">
     {{printDocForm?.accNumber === null || printDocForm?.accNumber === '' ? '_________________' : printDocForm?.accNumber}}
 </span>
                     मा रकमान्तर
-                    गरिदिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं ।
+                    गरिदिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं।
                 </p>
 
             </div>
@@ -151,7 +151,7 @@
                 <b>सनाखत साक्षी</b>
                 <br>
                 <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने
-                    धनीवित्तीय संस्थामाकार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.IdentifiedGuarantorName !== null && printDocForm?.IdentifiedGuarantorName !== ''}">
+                    धनीवित्तीय संस्थामा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.IdentifiedGuarantorName !== null && printDocForm?.IdentifiedGuarantorName !== ''}">
     {{printDocForm?.IdentifiedGuarantorName === null || printDocForm?.IdentifiedGuarantorName === '' ? '_________________' : printDocForm?.IdentifiedGuarantorName}}
 </span>
 

@@ -13,7 +13,7 @@
       <br>
       <b>  <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
-</span> शाखा ।</b>
+</span> शाखा।</b>
       <br>
       <div class="row col-md-12">
         <p>महोदय,</p>
@@ -47,11 +47,11 @@
 <br><br>
             <span [ngClass]="{'nepaliFont' : printDocForm?.debtorSign !== null && printDocForm?.debtorSign !== ''}">
     {{printDocForm?.debtorSign === null || printDocForm?.debtorSign === '' ? '_________________' : printDocForm?.debtorSign}}
-</span>  <span>.......................</span>
+</span>  <span> </span>
           </p>
           <br>
 
-          <p>ऋणीको तर्फबाट आधिकारीक दस्तखत <br>
+          <p>ऋणीको तर्फबाट आधिकारीक दस्तखत<br>
 
             दस्तखत गर्नेको नाम :  <span [ngClass]="{'nepaliFont' : printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
     {{printDocForm?.debtorName === null || printDocForm?.debtorName === '' ? '_________________' : printDocForm?.debtorName}}
