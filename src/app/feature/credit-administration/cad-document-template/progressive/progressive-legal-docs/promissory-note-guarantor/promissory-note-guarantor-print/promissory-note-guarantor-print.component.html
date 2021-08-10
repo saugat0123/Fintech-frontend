@@ -110,13 +110,22 @@
             गर्ने धनी बैंकमा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatGuarantorName !== null && printDocForm?.sanakhatGuarantorName !== ''}">
     {{printDocForm?.sanakhatGuarantorName === null || printDocForm?.sanakhatGuarantorName === '' ? '_________________' : printDocForm?.sanakhatGuarantorName}}
     </span>
-            <br>
 
-            इति सम्बत <span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
-            साल <span class="nepaliFont">{{printDocForm?.itiSambatMoth}}</span>
-            महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
-            गते रोज <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-            शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatSubham}}</span>।
+            इति सम्बत <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatYear !== null && printDocForm?.itiSambatYear !== ''}">
+    {{printDocForm?.itiSambatYear === null || printDocForm?.itiSambatYear === '' ? '_________________' : printDocForm?.itiSambatYear}}
+    </span>
+            साल <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatMoth !== null && printDocForm?.itiSambatMoth !== ''}">
+    {{printDocForm?.itiSambatMoth === null || printDocForm?.itiSambatMoth === '' ? '_________________' : printDocForm?.itiSambatMoth}}
+    </span>
+            महिना <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatDate !== null && printDocForm?.itiSambatDate !== ''}">
+    {{printDocForm?.itiSambatDate === null || printDocForm?.itiSambatDate === '' ? '_________________' : printDocForm?.itiSambatDate}}
+    </span>
+            गते रोज <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatTime !== null && printDocForm?.itiSambatTime !== ''}">
+    {{printDocForm?.itiSambatTime === null || printDocForm?.itiSambatTime === '' ? '_________________' : printDocForm?.itiSambatTime}}
+    </span>
+            शुभम् <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatSubham !== null && printDocForm?.itiSambatSubham !== ''}">
+    {{printDocForm?.itiSambatSubham === null || printDocForm?.itiSambatSubham === '' ? '_________________' : printDocForm?.itiSambatSubham}}
+    </span>।
           </p>
         </div>
       </div>
