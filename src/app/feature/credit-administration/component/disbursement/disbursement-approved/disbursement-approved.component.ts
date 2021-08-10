@@ -93,10 +93,6 @@ export class DisbursementApprovedComponent implements OnInit {
     DisbursementApprovedComponent.loadData(this);
   }
 
-  sortFilter(sortBy, dir) {
-    this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_APPROVED', sortBy: sortBy, sortOrder: dir});
-    DisbursementApprovedComponent.loadData(this);
-  }
 
   loadSummary(model) {
     this.router.navigate(['/home/credit/cad-summary/', this.encryptUrl(model.id)],
@@ -108,4 +104,10 @@ export class DisbursementApprovedComponent implements OnInit {
     const i = CryptoJS.AES.encrypt(id.toString(), 'id').toString();
     return i;
   }
+
+  sortFilter(sortBy, dir) {
+    this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_APPROVED', sortBy: sortBy, sortOrder: dir});
+    DisbursementApprovedComponent.loadData(this);
+  }
+
 }
