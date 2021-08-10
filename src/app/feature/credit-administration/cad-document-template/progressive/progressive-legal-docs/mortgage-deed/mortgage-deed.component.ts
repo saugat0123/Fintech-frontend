@@ -269,7 +269,11 @@ export class MortgageDeedComponent implements OnInit {
       fatwalaName: [undefined],
       fatwalaPosition: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      rinBibaran:this.formBuilder.array([])
+      rinBibaran:this.formBuilder.array([]),
+      jillaName: [undefined],
+      cityName: [undefined],
+      wodaNum: [undefined],
+      jillaName2: [undefined]
 
     });
   }

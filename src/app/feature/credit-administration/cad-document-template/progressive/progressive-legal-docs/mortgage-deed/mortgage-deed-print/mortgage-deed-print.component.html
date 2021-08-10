@@ -40,10 +40,18 @@
             <b>विषय :- धितोबन्धक लिखत ।</b><br>
           </p>
           <p style="line-height: 1.8">
-            लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. २२,
+            लिखितम लिखत गराई लिने धनिकानाम का.जि.का.म.न.पा.वडा नं. ३२,
             न्यूरोडस्थित रजिष्टर्ड कार्यालय भएको <strong> प्रोग्रेशिभ फाइनान्स लिमिटेडको</strong>
-            चितवन जिल्ला भरतपुर न.पा./गा.पा.वडा नं ३,
-            स्थित भरतपुर शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखिदिनेको नाम
+            <span [ngClass]="{'nepaliFont':printDocForm?.cityName!==null && printDocForm?.cityName!==''}" >
+            {{printDocForm?.cityName===null||printDocForm?.cityName===''?'________________':printDocForm.cityName }}
+          </span> जिल्ला <span [ngClass]="{'nepaliFont':printDocForm?.jillaName!==null && printDocForm?.jillaName!==''}" >
+            {{printDocForm?.jillaName===null||printDocForm?.jillaName===''?'________________':printDocForm.jillaName }}
+          </span> न.पा./गा.पा.वडा नं <span [ngClass]="{'nepaliFont':printDocForm?.wodaNum!==null && printDocForm?.wodaNum!==''}" >
+            {{printDocForm?.wodaNum===null||printDocForm?.wodaNum===''?'________________':printDocForm.wodaNum }}
+          </span>,
+            स्थित <span [ngClass]="{'nepaliFont':printDocForm?.jillaName2!==null && printDocForm?.jillaName2!==''}" >
+            {{printDocForm?.jillaName2===null||printDocForm?.jillaName2===''?'________________':printDocForm.jillaName2 }}
+          </span> शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा “धनीवित्तीय संस्था” भनिएको), लिखत गरि धितो सुरक्षण लेखिदिनेको नाम
             <span [ngClass]="{'nepaliFont':printDocForm?.dhitoName!==null && printDocForm?.dhitoName!==''}" >
             {{printDocForm?.dhitoName===null||printDocForm?.dhitoName===''?'________________':printDocForm.dhitoName }}
           </span>
