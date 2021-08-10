@@ -133,7 +133,7 @@
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{(model?.createdAt|date) || 'NA'}}</td>
         <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
-        <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model)"><em class="fa fa-edit"></em></button></td>
+        <td *ngIf="isMaker"><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>
         <td *ngIf="transferCustomer">
           <div>
             <button nbButton status="warning" size="tiny"
