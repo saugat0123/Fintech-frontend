@@ -1,4 +1,5 @@
-7<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_INDEMNITY}}">
+7
+<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_INDEMNITY}}">
 
     <div class="col-md-12 viewFull">
         <form class="nepali">
@@ -23,19 +24,22 @@
                     <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                         {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                     </span>लाई यस सलग्न/समर्थन गरिएको लिखत बमोजिम र मैले/हामीले पहिचानको निमित्त हस्ताक्षर गरेको)
-                    निर्णयानुसार क्षतिपूर्ति (Indemnity) /ग्यारेण्टी (Guarantee) जारी गरिएकोमा, म/हामी एक्लै वा संयुक्त रुपमा त्यस वित्तीय
-                    संस्थालाई सबै प्रकारको दावीहरु विरुद्ध क्षतिपूर्ति भराउन मञ्जुर गर्दछु/छौं र त्यस वित्तीय संस्थालाई हरेक प्रकारको
-                    भुक्तानी, नोक्सानी, लागत र गरिएका खर्चहरु वा त्यसबाट उपज तथा व्यहोर्नु परेको नोक्सानी तथा घाटा र यसै सम्बन्धमा यस्ता सबै
+                    निर्णयानुसार क्षतिपूर्ति (Indemnity) /ग्यारेण्टी (Guarantee) जारी गरिएकोमा, म/हामी एक्लै वा संयुक्त
+                    रुपमा त्यस वित्तीय
+                    संस्थालाई सबै प्रकारको दावीहरु विरुद्ध क्षतिपूर्ति भराउन मञ्जुर गर्दछु/छौं र त्यस वित्तीय संस्थालाई
+                    हरेक प्रकारको
+                    भुक्तानी, नोक्सानी, लागत र गरिएका खर्चहरु वा त्यसबाट उपज तथा व्यहोर्नु परेको नोक्सानी तथा घाटा र यसै
+                    सम्बन्धमा यस्ता सबै
                     किसिमका भुक्तानी, नोक्सानी, लागत र खर्चहरु मेरो/हाम्रो
-                    चल्ति/
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.chaltiKhata !== null && printDocForm?.chaltiKhata !== ''}">
+                    चल्ति /<span
+                        [ngClass]="{'nepaliFont' : printDocForm?.chaltiKhata !== null && printDocForm?.chaltiKhata !== ''}">
                         {{printDocForm?.chaltiKhata === null || printDocForm?.chaltiKhata === '' ? '_________________' : printDocForm?.chaltiKhata}}
                     </span> खाताबाट कट्टि गर्न
                     त्यस वित्तीय संस्थालाई अपरिवर्तनीय अधिकार
                     प्रत्यायोजन यसै पत्रद्वारा गर्दछू/छौं।
                     <br>
                     <br>
-                    म/हामीलाई कुनै सम्पर्क नगरी वा थप अख्तियारी प्राप्त नभएतापनि त्यस वित्तीय संस्था उपर कुनै
+                    म/हामीलाई कुनै सम्पर्क नगरी वा थप अख्तियारी प्राप्त नभएता पनि त्यस वित्तीय संस्था उपर कुनै
                     किसिमको दावी वा यस क्षतिपूर्ति/ग्यारेण्टी
                     अन्तरगत कुनै भुक्तानी गर्न र दावी अनुसारको सम्पत्ति दिन म/हामी त्यस वित्तीय संस्थालाई
                     अख्तियारी प्रदान गर्दछू/छौं र क्षतिपूर्ति/ग्यारेण्टी
@@ -108,7 +112,8 @@
                         {{printDocForm?.sabikWadNo === null || printDocForm?.sabikWadNo === '' ? '_________________' : printDocForm?.sabikWadNo}}
                     </span> )
                     <br>
-                    हालको ठेगानाः <span [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
+                    हालको ठेगानाः <span
+                        [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
                     {{printDocForm?.sinserlyTempDistrict === null || printDocForm?.sinserlyTempDistrict === '' ? '_________________' : printDocForm?.sinserlyTempDistrict}}
                 </span>
                     जिल्ला
@@ -138,24 +143,7 @@
                 </p>
                 <div class="col-md-12" id="signature">
                     <p>औठा छाप:
-<!--                    <table class="table  table-bordered" id="fingerXap">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th>दाँ.</th>-->
-<!--                            <th>बाँ.</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr>-->
-<!--                            <td><textarea cols="30" name="" rows="10"-->
-<!--                                          style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>-->
-<!--                            </td>-->
-<!--                            <td><textarea cols="30" name="" rows="10"-->
-<!--                                          style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
+
                     <table id="fingerXap" style="width: 35%;" class="table  table-bordered text-center">
                         <thead>
                         <tr>
