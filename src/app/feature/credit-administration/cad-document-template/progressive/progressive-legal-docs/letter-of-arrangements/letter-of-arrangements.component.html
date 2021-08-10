@@ -25,16 +25,11 @@
         <br>
         <br>
         <b class="text-center">
-        <strong>  विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त
+        <strong>  विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त रु.
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="subject"
-                 type="text">
-          को रिभल्भिङ/
-          चालु
-          पूँजी/
-          <input class="form-control-sm form-field nepaliFont"
-                 formControlName="punji"
-                 type="text">
+                 type="text">/-
+          को रिभल्भिङ/चालु पूँजी/ब्यक्तिगत कर्जा
           हद सम्म स्विकृत गरिएको सम्बन्धमा।</strong>
         </b>
         <br>
@@ -67,7 +62,7 @@
         ..............................................
         <br>
         ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
-        दस्तखत गर्नेको नामः <span class="nepaliFont" hidden>{{form.get('customerName').value}}</span><br>
+        दस्तखत गर्नेको नामः <span class="nepaliFont">{{form.get('customerName').value}}</span><br>
       </div>
       <div class="col-md-12">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
