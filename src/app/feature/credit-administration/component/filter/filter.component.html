@@ -58,6 +58,14 @@
             <option *ngFor="let status of cadDocStatus" [ngValue]="status">{{status | replace:'_':' ' | titlecase}}</option>
           </select>
         </div>
+        <div class="col-md-3 mb-3" >
+          <label class="form-group">Business Unit</label>
+          <select class="form-control rounded" formControlName="clientType" id="clientType">
+            <option [ngValue]="null" hidden>Select Business Unit</option>
+            <option *ngFor="let type of clientType" [ngValue]="type">{{type | replace:'_':' '}}</option>
+          </select>
+        </div>
+
       </div>
       <div class="col-md-12 p-0">
         <button (click)="onSearch()" class="mr-2" nbButton
