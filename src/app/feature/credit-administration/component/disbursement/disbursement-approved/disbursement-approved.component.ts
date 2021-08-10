@@ -31,6 +31,7 @@ export class DisbursementApprovedComponent implements OnInit {
   toggleArray: { toggled: boolean }[] = [];
   encryptUrlArray: { url: string }[] = [];
   currentIndexArray: { currentIndex: number }[] = [];
+  asc = false;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -89,6 +90,11 @@ export class DisbursementApprovedComponent implements OnInit {
 
   setSearchValue(value) {
     this.searchObj = Object.assign(value, {docStatus: 'DISBURSEMENT_APPROVED'});
+    DisbursementApprovedComponent.loadData(this);
+  }
+
+  sortFilter(sortBy, dir) {
+    this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_APPROVED', sortBy: sortBy, sortOrder: dir});
     DisbursementApprovedComponent.loadData(this);
   }
 
