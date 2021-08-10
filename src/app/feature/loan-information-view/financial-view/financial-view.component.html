@@ -9,6 +9,7 @@
             <tr class="text-white sb-bg-dark">
                 <th class="sn">S.N</th>
                 <th>Income Source</th>
+                <th>Type</th>
                 <th>Organization</th>
                 <th>Amount</th>
                 <th>Age Of Income Generated</th>
@@ -20,6 +21,7 @@
                 <td>{{i + 1}}</td>
                 <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
                 <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
+                <td class="text-left pl-1">{{incomeOfBorrower.organizationType}}</td>
                 <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
                 <td>{{incomeOfBorrower.ageOfIncomeGenerated || '0'}} months</td>
                 <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
