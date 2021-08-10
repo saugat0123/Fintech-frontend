@@ -57,7 +57,7 @@
         ..............................................
         <br>
         ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
-        दस्तखत गर्नेको नामः <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}" hidden>
+        दस्तखत गर्नेको नामः <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
 </span><br>
       </div>
