@@ -16,12 +16,12 @@
                 <th>S.N</th>
                 <th>Branch</th>
                 <th>Province</th>
-                <th>Customer Name</th>
+                <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
                 <th>Type</th>
                 <th>Business Unit</th>
                 <th>Loan Document No</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
-                <th>Last Modified On</th>
+                <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Last Modified On <em class="fas fa-sort"></em></th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
                     Action
                 </th>

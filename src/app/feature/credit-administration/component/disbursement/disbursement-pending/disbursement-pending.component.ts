@@ -36,7 +36,7 @@ export class DisbursementPendingComponent implements OnInit {
 
   user: User = new User();
   roleType = RoleType;
-
+  asc = false;
   constructor(private service: CreditAdministrationService,
               private router: Router,
               public routeService: RouterUtilsService,
@@ -120,5 +120,8 @@ export class DisbursementPendingComponent implements OnInit {
     modelRef.componentInstance.displayHistory = true;
     modelRef.componentInstance.fromScc = false;
   }
-
+  sortFilter(sortBy, dir) {
+    this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_PENDING', sortBy: sortBy, sortOrder: dir});
+    DisbursementPendingComponent.loadData(this);
+  }
 }
