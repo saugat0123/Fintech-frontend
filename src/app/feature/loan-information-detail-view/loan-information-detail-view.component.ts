@@ -51,6 +51,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaGrade;
     isJointInfo = false;
     jointInfo = [];
+    transferLoanDataHolder: LoanDataHolder;
 
 
     constructor(private loanConfigService: LoanConfigService,
@@ -70,6 +71,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            console.log('Loan Data from customer Service< ', this.loanDataHolder);
+            this.transferLoanDataHolder = response.detail;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder.loanHolder;
             this.loanCategory = this.loanDataHolder.loanCategory;
@@ -109,6 +112,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
         });
         this.getFiscalYears();
+        console.log('From the bottom side of the application! ', this.loanDataHolder);
 
     }
 

@@ -92,7 +92,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     customerId;
     loanConfigId;
     RootUrl = ApiConfig.URL;
-    signatureList: Array<LoanStage> = new Array<LoanStage>();
+    // signatureList: Array<LoanStage> = new Array<LoanStage>();
     previousList: Array<LoanStage> = new Array<LoanStage>();
     currentDocAction = '';
     loanCategory;
@@ -404,9 +404,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loanCategory = this.loanDataHolder.loanCategory;
         this.currentIndex = this.loanDataHolder.previousList.length;
 
-        this.signatureList = this.getSignatureList(new Array<LoanStage>
-        (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
-
+        // this.signatureList = this.getSignatureList(new Array<LoanStage>
+        // (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
         this.previousList = this.loanDataHolder.previousList;
         this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
         this.id = this.loanDataHolder.id;
@@ -534,30 +533,30 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
     }
 
-    loanHandler(index: number, length: number, label: string) {
-        if (index === length - 1 && index !== 0) {
-            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-                return 'APPROVED BY:';
-            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-                return 'REJECTED BY:';
-            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
-                return 'CLOSED BY:';
-            }
-        }
-        if (!ObjectUtil.isEmpty(label)) {
-            return label;
-        } else {
-            if (index === 0) {
-                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
-                    return 'RE INITIATED:';
-                } else {
-                    return 'INITIATED BY:';
-                }
-            } else {
-                return 'SUPPORTED BY:';
-            }
-        }
-    }
+    // loanHandler(index: number, length: number, label: string) {
+    //     if (index === length - 1 && index !== 0) {
+    //         if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+    //             return 'APPROVED BY:';
+    //         } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+    //             return 'REJECTED BY:';
+    //         } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
+    //             return 'CLOSED BY:';
+    //         }
+    //     }
+    //     if (!ObjectUtil.isEmpty(label)) {
+    //         return label;
+    //     } else {
+    //         if (index === 0) {
+    //             if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
+    //                 return 'RE INITIATED:';
+    //             } else {
+    //                 return 'INITIATED BY:';
+    //             }
+    //         } else {
+    //             return 'SUPPORTED BY:';
+    //         }
+    //     }
+    // }
 
     open(comments) {
         const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
@@ -617,32 +616,32 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
      *
      * @param stages Array of loan stages that must include previous stages and current stage.
      */
-    private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
-        let lastBackwardIndex = 0;
-        stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
-                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
-                lastBackwardIndex = index;
-            }
-        });
-        if (lastBackwardIndex !== 0) {
-            stages.splice(0, lastBackwardIndex + 1);
-        }
-        const signatureList = new Array<LoanStage>();
-        const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
-        stages.forEach((loanStage, index) => {
-            if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-                if (addedStages.has(loanStage.fromUser.id)) {
-                    signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-                } else {
-                    signatureList.push(loanStage);
-                    addedStages.set(loanStage.fromUser.id, index);
-                }
-            }
-        });
-
-        return signatureList;
-    }
+    // private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
+    //     let lastBackwardIndex = 0;
+    //     stages.forEach((data, index) => {
+    //         if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
+    //             || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
+    //             lastBackwardIndex = index;
+    //         }
+    //     });
+    //     if (lastBackwardIndex !== 0) {
+    //         stages.splice(0, lastBackwardIndex + 1);
+    //     }
+    //     const signatureList = new Array<LoanStage>();
+    //     const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
+    //     stages.forEach((loanStage, index) => {
+    //         if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
+    //             if (addedStages.has(loanStage.fromUser.id)) {
+    //                 signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
+    //             } else {
+    //                 signatureList.push(loanStage);
+    //                 addedStages.set(loanStage.fromUser.id, index);
+    //             }
+    //         }
+    //     });
+    //
+    //     return signatureList;
+    // }
 
     goToCustomer() {
         const loanHolder = this.loanDataHolder.loanHolder;
