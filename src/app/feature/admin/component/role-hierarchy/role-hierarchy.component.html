@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="row">
-            <div [ngClass]="isOfferLetter ? 'col-md-4':'col-md-12'">
+            <div [ngClass]="isOfferLetter ? 'col-md-6':'col-md-12'">
                 <nb-card>
                     <nb-card-header class="sb-bg-dark text-white">
                         Role Order
@@ -53,11 +53,8 @@
                     </nb-card-footer>
                 </nb-card>
             </div>
-            <div class="col-md-4" *ngIf="isOfferLetter">
+            <div class="col-md-6" *ngIf="isOfferLetter">
                <app-cad-role-hierarchy></app-cad-role-hierarchy>
-            </div>
-            <div class="col-md-4" *ngIf="isOfferLetter">
-                <app-remit-loan-hierarchy></app-remit-loan-hierarchy>
             </div>
         </div>
     </div>

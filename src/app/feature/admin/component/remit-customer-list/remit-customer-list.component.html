@@ -112,7 +112,7 @@
             <tbody>
             <tr *ngFor="let model of customerList;let i=index" class="cursor">
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.id}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.name}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.customerName}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.phoneNo || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.email || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.loanAmount}}</td>

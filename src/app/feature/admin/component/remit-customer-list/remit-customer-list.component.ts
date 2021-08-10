@@ -2,6 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NbToastrService} from '@nebular/theme';
+import {CustomerService} from "../../../customer/service/customer.service";
+import {Customer} from "../../modal/customer";
 
 @Component({
     selector: 'app-remit-customer-component',
@@ -17,22 +19,24 @@ export class RemitCustomerListComponent implements OnInit {
 
     constructor(private router: Router,
                 public modalService: NgbModal,
+                private customerService: CustomerService,
                 private toastService: NbToastrService,
     ) {
     }
 
     customerList = [{
         id: 1,
-        name: 'Test 1',
+        customerName: 'Test 1',
         phoneNo: '12345',
         email: 'test@gmail.com',
         loanAmount: '2345',
-        address: 'Test'
+        address: 'Test',
+        citizenshipNumber: '12345'
     },
-        {id: 2, name: 'Test 2', phoneNo: '12345', email: 'test2@gmail.com', loanAmount: '2345', address: 'Test'},
-        {id: 3, name: 'Test 3', phoneNo: '12345', email: 'test3@gmail.com', loanAmount: '2345', address: 'Test'},
-        {id: 4, name: 'Test 4', phoneNo: '12345', email: 'test4@gmail.com', loanAmount: '2345', address: 'Test'},
-        {id: 5, name: 'Test 5', phoneNo: '12345', email: 'test5@gmail.com', loanAmount: '2345', address: 'Test'}
+        {id: 2, customerName: 'Test 2', phoneNo: '12345', email: 'test2@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
+        {id: 3, customerName: 'Test 3', phoneNo: '12345', email: 'test3@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
+        {id: 4, customerName: 'Test 4', phoneNo: '12345', email: 'test4@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
+        {id: 5, customerName: 'Test 5', phoneNo: '12345', email: 'test5@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'}
     ];
 
     ngOnInit(): void {
@@ -48,18 +52,20 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     onBoardMember() {
+        console.log('onboard data', this.onBoardData);
         console.log('member onboarded');
         this.modalService.dismissAll();
-        // this.onBoardSpinner = true;
-        // ((this.onBoardData.memberId, this.onBoardData.memId, this.onBoardData.fullName, this.onBoardData.branchId)).subscribe(() => {
+        this.onBoardSpinner = true;
+        let customer : Customer;
+        this.customerService.onBoardRemitCustoer(this.onBoardData).subscribe(() => {
             // this.getData();
-            // this.onBoardSpinner = false;
-            // this.toastService.success('Successfully Onboard Member', 'Member');
-        // }, err => {
-        //     this.onBoardSpinner = false;
-        //     this.toastService.danger(('Already Onboard in System'), 'Member');
-        //     throw err;
-        // });
+            this.onBoardSpinner = false;
+            this.toastService.success('Successfully Onboard Remit Customer', 'Customer');
+        }, err => {
+            this.onBoardSpinner = false;
+            this.toastService.danger(('Already Onboard in System'), 'Customer');
+            throw err;
+        });
     }
 
     customerProfile(associateId, id, customerType) {
