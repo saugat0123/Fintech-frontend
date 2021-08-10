@@ -43,6 +43,9 @@ export class DisbursementApprovedComponent implements OnInit {
 
   static loadData(other: DisbursementApprovedComponent) {
     other.spinner = true;
+    other.currentIndexArray = [];
+    other.toggleArray = [];
+    other.loanList = [];
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.loanList = res.detail.content;
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
