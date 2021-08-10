@@ -147,7 +147,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     riskOfficerLevel = false;
     riskOfficerLevelComment = false;
 
-    private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
     disableApprovalSheetFlag = environment.disableApprovalSheet;
@@ -361,7 +360,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                     (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
                         this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')
                 ) {
-                    riskOfficerIndexComment = i;
+                    if (this.signatureList[this.signatureList.length - 1].docAction.toString() !== 'APPROVED') {
+                        riskOfficerIndexComment = i;
+
+                    }
                 }
             });
 
