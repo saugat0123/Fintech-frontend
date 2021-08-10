@@ -30,6 +30,8 @@ export class OfferLetterApprovedComponent implements OnInit {
     user: User = new User();
     roleType = RoleType;
 
+
+
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private userService: UserService,

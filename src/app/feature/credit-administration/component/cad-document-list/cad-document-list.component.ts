@@ -13,8 +13,6 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 import {AssignPopUpComponent} from '../assign-pop-up/assign-pop-up.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RouterUtilsService} from '../../utils/router-utils.service';
-import {CadSummaryComponent} from '../../cad-work-flow/cad-summary/cad-summary.component';
-import {PreviewCadComponent} from '../preview-cad/preview-cad.component';
 
 @Component({
   selector: 'app-cad-document-list',
@@ -35,6 +33,7 @@ export class CadDocumentListComponent implements OnInit {
   currentIndexArray: { currentIndex: number }[] = [];
   user: User = new User();
   roleType = RoleType;
+  asc = false;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -131,6 +130,10 @@ export class CadDocumentListComponent implements OnInit {
     });
   }
 
+  sortFilter(sortBy, dir) {
+    this.searchObj = Object.assign(this.searchObj, {isCadFile: 'true', sortBy: sortBy, sortOrder: dir});
+    CadDocumentListComponent.loadData(this);
+  }
 
 }
 
