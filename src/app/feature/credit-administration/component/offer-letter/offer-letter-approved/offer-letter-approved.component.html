@@ -1,4 +1,7 @@
-<nb-card [nbSpinner]="spinner" accent="primary">
+<nb-card [nbSpinner]="spinner" accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+>
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
@@ -16,11 +19,14 @@
                 <th>Province</th>
                 <th>Customer Name</th>
                 <th>Type</th>
+                <th>Business Unit</th>
                 <th>Loan Document No</th>
+                <th>Offer Approved On</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType?.CAD_SUPERVISOR)">
                     Current Possession
                 </th>
                 <th>Comments</th>
+                <th>Preview</th>
 
 
             </tr>
@@ -33,7 +39,9 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
+                    <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date: 'medium'}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-{{model?.cadCurrentStage?.toRole?.roleName}}</td>
 
 
@@ -43,6 +51,13 @@
                            nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
                         </a></td>
+                    <td>
+                        <a class="px-2 cursor"
+                           (click)="routeService.previewCadDoc(model?.id)"
+                           nbTooltip="click to view detail ">
+                            <em class="fas fa-info-circle text-info"></em>
+                        </a>
+                    </td>
                </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
                     <tr>

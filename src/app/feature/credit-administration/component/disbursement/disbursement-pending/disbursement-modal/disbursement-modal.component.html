@@ -1,0 +1,14 @@
+<nb-card accent="primary" [nbSpinner]="spinner">
+  <nb-card-header>
+    <em class="fas fa-info-circle text-info "></em>&nbsp; <strong>Disbursement Request of {{cadData?.loanHolder?.name}}</strong>
+    <a  aria-label="Close" class="close cursor"
+        data-dismiss="modal" (click)="ngbModalService.close()">
+      <span aria-hidden="true">×</span></a>
+  </nb-card-header>
+  <nb-card-body>
+<app-exposure-view [cadOfferLetterApprovedDoc]="cadData"
+                   [fromScc]="fromScc"
+                   [displayHistory]="displayHistory"
+*ngIf="cadData"></app-exposure-view>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,47 @@
+
+    <div class="card">
+    <div class="card-header">
+      <em class="fas fa-check-circle text-success"></em>&nbsp; <strong>Loan Facility of {{customerLoanList[0]?.loanHolder?.name}}</strong>
+      <a  aria-label="Close" class="close cursor"
+         data-dismiss="modal" (click)="modalService.close()">
+        <span aria-hidden="true">×</span></a>
+    </div>
+      <div class="col-md-12 py-4" style="padding-bottom: 5px !important;">
+
+    <table class="table table-sm sb-small table-bordered">
+
+      <tr class="text-white sb-bg-dark">
+        <td colspan="1">SN</td>
+        <td>Loan Facility</td>
+        <td>Loan Type</td>
+        <td>Approved On</td>
+        <td>Approved By</td>
+        <td class="text-right">Proposed Amount</td>
+
+
+      </tr>
+      <tr class=" text-center cursor" nbTooltip="click to view detail Loan "
+          *ngFor="let data of customerLoanList;let j=index">
+        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{j + 1}}</td>
+        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.loan?.name}}</td>
+        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.loanType | replace:'_':' '}}</td>
+        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.currentStage?.lastModifiedAt | date:'medium'}}</td>
+        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-left">{{data?.currentStage?.toUser?.name }}</td>
+        <td (click)="routeToLoanSummary(data?.loan?.id,data?.id)" class="text-right px-2">
+          Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}</td>
+      </tr>
+        <tr class="bg-light">
+          <td colspan="2"><Strong>Total</Strong></td>
+          <td colspan="4" class="text-right px-2">
+            <strong>Rs. {{getTotal('proposal?.proposedLimit', customerLoanList) | currencyFormatter}}</strong></td>
+        </tr>
+      <tr class="bg-light">
+        <td colspan="2"><Strong>In Words</Strong></td>
+        <td colspan="4" class="text-right px-2">
+          <strong>{{getTotal('proposal?.proposedLimit', customerLoanList) | amountWordPipe}}   only/-</strong></td>
+      </tr>
+    </table>
+
+      </div>
+    </div>
+
