@@ -32,8 +32,6 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isMicroCustomer = this.loanHolder.isMicroCustomer;
-        console.log(this.loanHolder);
         if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
             this.securityId = this.loanHolder.security.id;
         }
@@ -54,9 +52,7 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
         if (this.loanHolder.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
             return true;
         } else {
-            console.log((this.loanHolder.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-                this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT));
-            return this.loanHolder.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+            return this.loanHolder.customerType === CustomerType.INSTITUTION &&
                 this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }

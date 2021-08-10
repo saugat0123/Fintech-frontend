@@ -51,7 +51,6 @@ import {CustomerInfoData} from '../../model/customerInfoData';
 })
 export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   @Output() changeToApprovalSheetActive = new EventEmitter<string>();
-
   @Input() loanData;
   loanDataHolder: LoanDataHolder;
   customerInfoData: CustomerInfoData;
@@ -183,7 +182,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   private dialogRef: NbDialogRef<any>;
   isOpen: false;
   securityId: number;
-  private isMicroCustomer: boolean;
+  isMicroCustomer: boolean;
+
 
 
   constructor(
@@ -218,7 +218,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loanDataHolder = this.loanData;
     this.customerInfoData = this.loanDataHolder.loanHolder;
-    this.isMicroCustomer = this.customerInfoData.isMicroCustomer;
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.customerType = this.loanDataHolder.loanHolder.customerType;
@@ -252,6 +251,11 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getLoanDataHolder() {
+    if (this.loanDataHolder.loanHolder.customerType === CustomerType.INSTITUTION) {
+      this.isMicroCustomer = this.loanDataHolder.companyInfo.isMicroCustomer;
+    } else {
+      this.isMicroCustomer = this.loanDataHolder.customerInfo.isMicroCustomer;
+    }
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
     // Setting micro financial data---
@@ -717,9 +721,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     if (this.customerInfoData.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
       return true;
     } else {
-      console.log((this.customerInfoData.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-          this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT));
-      return this.customerInfoData.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+    return this.customerInfoData.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
           this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
     }
   }

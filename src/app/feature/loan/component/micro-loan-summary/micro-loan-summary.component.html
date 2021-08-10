@@ -413,12 +413,12 @@
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
 
-            <nb-card *ngIf="customerType === 'INSTITUTION'">
+            <nb-card *ngIf="!otherMicroDetailsVisibility">
                 <nb-card-header>
                     <h6>Synopsis of Creditworthiness</h6>
                 </nb-card-header>
                 <nb-card-body>
-                    <app-micro-synopsis-creditworthiness *ngIf="synopsis && !otherMicroDetailsVisibility"
+                    <app-micro-synopsis-creditworthiness *ngIf="synopsis "
                                                          [synopsisData]="synopsisCreditWorthiness"></app-micro-synopsis-creditworthiness>
                 </nb-card-body>
             </nb-card>
