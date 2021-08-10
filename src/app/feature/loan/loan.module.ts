@@ -75,7 +75,6 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
 import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-letter/assigned-offer-letter.component';
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
-import { RoleHierarchyModelComponent } from './loan-action/role-hierarchy-model/role-hierarchy-model.component';
 import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
 import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
 import {MicroSynopsisCreditworthinessComponent} from './component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
@@ -87,8 +86,9 @@ import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {MicroBaselRiskExposureSummaryComponent} from './component/micro-loan-summary/micro-basel-risk-exposure-summary/micro-basel-risk-exposure-summary.component';
 import {MarketingActivitiesSummaryComponent} from './component/micro-loan-summary/marketing-activities-summary/marketing-activities-summary.component';
 import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise-loan-pull/customer-wise-loan-pull.component';
-import { RoleHierarchyCombinedModelComponent } from './loan-action/role-hierarchy-combined-model/role-hierarchy-combined-model.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
+import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -142,7 +142,6 @@ const COMPONENTS = [
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
     GuarantorDetailComponent,
-    RoleHierarchyModelComponent,
     MicroLoanSummaryComponent,
     MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
@@ -151,7 +150,7 @@ const COMPONENTS = [
     BorrowerPortfolioSummaryComponent,
     MicroBaselRiskExposureSummaryComponent,
     MarketingActivitiesSummaryComponent,
-    RoleHierarchyCombinedModelComponent
+    MicroCommonDetailComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -163,8 +162,6 @@ const ENTRY_COMPONENTS = [
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorDetailComponent,
-    RoleHierarchyModelComponent,
-    RoleHierarchyCombinedModelComponent
 ];
 
 const modules = {
@@ -219,7 +216,8 @@ const modules = {
         LoanInformationDetailViewModule,
         NbTooltipModule,
         MicroLoanModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        TransferLoanModule
     ],
 
     providers: [

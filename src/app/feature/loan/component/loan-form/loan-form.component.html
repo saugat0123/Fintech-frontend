@@ -1,263 +1,270 @@
-<nb-card appMouseScrollDisable>
+<nb-card [nbSpinner]="nbSpinner">
 
-    <nb-card-header>
-        <button nbButton
-                shape="rectangle"
-                status="primary"
-                size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span class="px-2">customer Profile</span>
-        </button>
-        <p><b>Loan Type:</b>{{loanTypeKeyValue[loanType]}}</p>
-        <h2 class="d-flex justify-content-center">{{loanTitle}}
-        </h2>
-        <h3 class="d-flex justify-content-center">of</h3>
-        <h3 class="d-flex justify-content-center">{{loanDocument?.loanHolder?.name}}</h3>
-        <hr>
+  <nb-card-header>
 
-        <div #container class="row">
+    <button nbButton
+            shape="rectangle"
+            status="primary"
+            size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
+        class="px-2">customer Profile</span>
+    </button>
+    <p class="py-2"><b>Loan Type:</b>&nbsp;<span
+        class="badge badge-success">{{loanTypeKeyValue[loanType]}}</span></p>
 
-            <div class="col-md-3">
-                <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
-                    <label><strong>Priority</strong></label>
-                    <ng-select [items]="dropdownPriorities"
-                               [multiple]="false"
-                               bindLabel="name"
-                               bindValue="id"
-                               formControlName="priority"
-                    >
-                    </ng-select>
-                    <div *ngIf="priorityForm.get('priority').errors">
-                        <small class="text-danger">
-                            Priority is required!
-                        </small>
-                    </div>
-                </form>
+
+    <h3 class="d-flex justify-content-center">{{loanTitle}}
+    </h3>
+    <h4 class="d-flex justify-content-center">of</h4>
+    <h4 class="d-flex justify-content-center">{{loanDocument?.loanHolder?.name}}</h4>
+    <hr>
+
+    <div #container class="row">
+
+      <div class="col-md-3">
+        <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
+          <label><strong>Priority</strong></label>
+          <ng-select [items]="dropdownPriorities"
+                     [multiple]="false"
+                     bindLabel="name"
+                     bindValue="id"
+                     formControlName="priority"
+          >
+          </ng-select>
+          <div *ngIf="priorityForm.get('priority').errors">
+            <small class="text-danger">
+              Priority is required!
+            </small>
+          </div>
+        </form>
+      </div>
+
+
+      <div *ngIf="showDocStatusDropDown" class="col-md-3">
+        <form [formGroup]="docStatusForm">
+          <label><strong>
+            <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
+          </strong></label>
+          <ng-select [items]="docStatusMakerList"
+                     [multiple]="false"
+                     bindLabel="name"
+                     bindValue="name"
+                     formControlName="documentStatus">
+          </ng-select>
+        </form>
+      </div>
+      <!--      <div class="col-md-3">-->
+      <!--        <label for="masterCalendarType">Calendar Type</label>-->
+      <!--        <div>-->
+      <!--          <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"-->
+      <!--                          id="masterCalendarType" name="masterCalendarType">-->
+      <!--            <nb-radio value="AD">AD</nb-radio>-->
+      <!--            <nb-radio value="BS">BS</nb-radio>-->
+      <!--          </nb-radio-group>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      todo uncomment this if nepali form is required-->
+      <!--      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">-->
+      <!--        <div class=" d-flex justify-content-end py-4">-->
+      <!--          <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">-->
+      <!--            नेपाली फारम-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+    </div>
+
+
+    <span class="d-flex justify-content-end cus-fixed" id="nep-date" >{{currentNepDate}}</span>
+  </nb-card-header>
+  <nb-card-body>
+    <section *ngIf="loanDocument && templateList" class="cus-fixed">
+      <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
+        <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
+                 [id]="i.toString(10)" [disabled]="isBlackListed">
+          <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
+
+            <div class="py-4">
+              <app-individual-view [individual]="loanDocument?.customerInfo"
+                                   [calendarType]="calendarType"
+                                   [loanId]="id"></app-individual-view>
             </div>
-
-
-            <div *ngIf="showDocStatusDropDown" class="col-md-3">
-                <form [formGroup]="docStatusForm">
-                    <label><strong>
-                        <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
-                        Loan Type: {{loanType}}
-                    </strong></label>
-                    <ng-select [items]="docStatusMakerList"
-                               [multiple]="false"
-                               bindLabel="name"
-                               bindValue="name"
-                               formControlName="documentStatus">
-                    </ng-select>
-                </form>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
+            <app-kyc-info [formValue]="loanDocument?.customerInfo" #kycInfo>
+            </app-kyc-info>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'General'">
+            <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
+            <!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
+            <!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
+            <!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
+            <!--                              #companyInfo></app-company-info>-->
+            <div class="py-4">
+              <app-company-info-view [formValue]="loanDocument?.companyInfo"
+                                     [calendarType]="calendarType"
+                                     [loanId]="id"></app-company-info-view>
             </div>
-            <!--      <div class="col-md-3">-->
-            <!--        <label for="masterCalendarType">Calendar Type</label>-->
-            <!--        <div>-->
-            <!--          <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"-->
-            <!--                          id="masterCalendarType" name="masterCalendarType">-->
-            <!--            <nb-radio value="AD">AD</nb-radio>-->
-            <!--            <nb-radio value="BS">BS</nb-radio>-->
-            <!--          </nb-radio-group>-->
-            <!--        </div>-->
-            <!--      </div>-->
-            <!--      todo uncomment this if nepali form is required-->
-            <!--      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">-->
-            <!--        <div class=" d-flex justify-content-end py-4">-->
-            <!--          <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">-->
-            <!--            नेपाली फारम-->
-            <!--          </button>-->
-            <!--        </div>-->
-            <!--      </div>-->
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
+            <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()"
+                          [loanType]="loanType" #proposalInfo></app-proposal>
+            <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()"
+                                [loanType]="loanType" #microProposalInfo></app-micro-proposal>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
+            <div class="py-4">
+              <app-cicl-view #cicl
 
+                             [ciclValue]="loanDocument?.loanHolder?.cicl"
+              ></app-cicl-view>
+            </div>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
+            <app-credit-grading #creditGrading
+                                [fromProfile]="false"
+                                [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
+          </ng-template>
+
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
+            <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+            <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
+                                           [fromProfile]="true"
+                                           [loanConfigId]="id"
+                                           [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
+          </ng-template>
+
+          <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
+            <div class="py-4">
+              <app-financial-view #financial
+                                  [customerType]="loanHolder?.customerType"
+                                  [formData]="loanHolder?.financial"
+                                  *ngIf="loanHolder?.financial"
+              ></app-financial-view>
+            </div>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
+            <div class="py-4">
+              <app-site-visit-view #siteVisit
+                                   [siteVisit]="loanHolder?.siteVisit"
+                                   *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
+            </div>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
+            <!--            <app-security #security [securityValue]="loanDocument?.security"-->
+            <!--                          [calendarType]="calendarType"-->
+            <!--                          [loanTag]="loanTag"-->
+            <!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
+            <div class="py-4">
+              <app-security-view [security]="loanHolder?.security"
+                                 [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+            </div>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Loan Document'">
+            <app-customer-loan-document #customerDocument
+                                        [loanDataHolder]="loanDocument"
+                                        [loanType]="loanType"></app-customer-loan-document>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
+            <app-group #group [groupValue]="loanDocument?.group"
+                       [proposalDataHolder]="loanDocument?.proposal"></app-group>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
+            <div class="py-4">
+              <app-guarantor-adder #guarantor
+                                   [taggedGuarantors]="loanDocument?.taggedGuarantors"
+                                   [guarantorData]="loanHolder?.guarantors">
+
+              </app-guarantor-adder>
+            </div>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
+            <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+            <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
+                                           [financialData]="loanDocument?.financial?.data"
+                                           [security]="loanDocument?.security"
+                                           [formData]="loanDocument?.creditRiskGradingAlpha"
+                                           [companyInfo]="loanDocument?.companyInfo"
+                                           [customerInfo]="loanDocument?.loanHolder"
+                                           [loanTag]="loanTag"
+                                           [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
+          </ng-template>
+
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
+            <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+            <app-credit-risk-grading-lambda *ngIf="loanDataReady" #creditRiskGradingLambda
+                                            [customer]="loanDocument?.customerInfo"
+                                            [customerInfoData]="loanDocument?.loanHolder"
+                                            [formData]="loanDocument?.creditRiskGradingLambda"
+                                            [security]="loanDocument?.security"
+                                            [ciCl]="loanDocument?.loanHolder?.cicl"
+                                            [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
+                                            [proposedLimit]="loanDocument?.proposal?.proposedLimit"
+                                            [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
+          </ng-template>
+
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
+            <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+            <app-crg-micro *ngIf="loanDataReady" #crgMicro
+                           [formData]="loanDocument?.crgMicro"
+                           [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
+                           [security]="loanDocument?.security"
+                           [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
+          </ng-template>
+
+          <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
+            <app-reporting-info-tagging #reportingInfoTagging
+                                        [type]="'f'"
+                                        [reportingInfoLevels]="loanDocument?.reportingInfoLevels">
+            </app-reporting-info-tagging>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
+            <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
+            <!--            </app-insurance>-->
+            <div class="py-4">
+              <app-insurance-view [insurance]="loanHolder?.insurance"
+                                  *ngIf="loanHolder?.insurance"></app-insurance-view>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+
+      <div class="justify-content-center" style="padding-bottom: 20px">
+        <div class="col-md-12">
+          <div class="row text-center">
+            <div class="col-md-6 d-flex justify-content-start">
+              <button nbButton status="primary"
+                      *ngIf="nextTabId > 1"
+                      (click)="tabSet.select(previousTabId.toString(10));scrollToTop()">Previous
+              </button>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+
+              <button nbButton
+                      shape="rectangle"
+                       status="info" (click)="goToCustomer()" class=" mr-2">
+                Close
+              </button>
+
+              <button nbButton status="primary"
+                      shape="rectangle"
+                      (click)="nextButtonActionFxn(tabSet);scrollToTop()"
+                      *ngIf="nextTabId !== totalTabCount">Next
+              </button>
+
+              <button nbButton status="info"
+                      shape="rectangle"
+                      (click)="save()" *ngIf="nextTabId === totalTabCount"
+                      [disabled]="isBlackListed">
+                Save
+              </button>
+            </div>
+          </div>
         </div>
-
-
-        <span class="d-flex justify-content-end">{{currentNepDate}}</span>
-    </nb-card-header>
-    <nb-card-body>
-        <section *ngIf="loanDocument && templateList">
-            <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
-                <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
-                         [id]="i.toString(10)" [disabled]="isBlackListed">
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
-                        <!--            <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
-                        <!--                            [formValue]="loanDocument?.customerInfo"-->
-                        <!--                            [calendarType]="calendarType"-->
-                        <!--                            [disableForm]="allId?.customerProfileId"-->
-                        <!--                            #basicInfo>-->
-                        <!--            </app-basic-info>-->
-                        <div class="py-4">
-                            <app-individual-view [individual]="loanDocument?.customerInfo"
-                                                 [calendarType]="calendarType"
-                                                 [loanId]="id"></app-individual-view>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
-                        <app-kyc-info [formValue]="loanDocument?.customerInfo" #kycInfo>
-                        </app-kyc-info>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'General'">
-                        <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-                        <!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
-                        <!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
-                        <!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
-                        <!--                              #companyInfo></app-company-info>-->
-                        <div class="py-4">
-                            <app-company-info-view [formValue]="loanDocument?.companyInfo"
-                                                   [calendarType]="calendarType"
-                                                   [loanId]="id"></app-company-info-view>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
-                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
-                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
-                        <div class="py-4">
-                            <app-cicl-view #cicl
-
-                                           [ciclValue]="loanDocument?.loanHolder?.cicl"
-                            ></app-cicl-view>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
-                        <app-credit-grading #creditGrading
-                                            [fromProfile]="false"
-                                            [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
-                    </ng-template>
-
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
-                                                       [fromProfile]="true"
-                                                       [loanConfigId]="id"
-                                                       [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
-                    </ng-template>
-
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
-                        <div class="py-4">
-                            <app-financial-view #financial
-                                                [customerType]="loanHolder?.customerType"
-                                                [formData]="loanHolder?.financial"
-                                                *ngIf="loanHolder?.financial"
-                            ></app-financial-view>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
-                        <div class="py-4">
-                            <app-site-visit-view #siteVisit
-                                                 [siteVisit]="loanHolder?.siteVisit"
-                                                 *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
-                        <!--            <app-security #security [securityValue]="loanDocument?.security"-->
-                        <!--                          [calendarType]="calendarType"-->
-                        <!--                          [loanTag]="loanTag"-->
-                        <!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
-                        <div class="py-4">
-                            <app-security-view [security]="loanHolder?.security"
-                                               [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Loan Document'">
-                        <app-customer-loan-document #customerDocument
-                                                    [loanDataHolder]="loanDocument"
-                        [loanType]="loanType"></app-customer-loan-document>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
-                        <app-group #group [groupValue]="loanDocument?.group"
-                                   [proposalDataHolder]="loanDocument?.proposal"></app-group>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
-                        <div class="py-4">
-                            <app-guarantor-adder #guarantor
-                                                 [taggedGuarantors]="loanDocument?.taggedGuarantors"
-                                                 [guarantorData]="loanHolder?.guarantors">
-
-                            </app-guarantor-adder>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
-                                                       [financialData]="loanDocument?.financial?.data"
-                                                       [security]="loanDocument?.security"
-                                                       [formData]="loanDocument?.creditRiskGradingAlpha"
-                                                       [companyInfo]="loanDocument?.companyInfo"
-                                                       [customerInfo]="loanDocument?.loanHolder"
-                                                       [loanTag]="loanTag"
-                                                       [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
-                    </ng-template>
-
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-credit-risk-grading-lambda *ngIf="loanDataReady" #creditRiskGradingLambda
-                                                        [customer]="loanDocument?.customerInfo"
-                                                        [customerInfoData]="loanDocument?.loanHolder"
-                                                        [formData]="loanDocument?.creditRiskGradingLambda"
-                                                        [security]="loanDocument?.security"
-                                                        [ciCl]="loanDocument?.loanHolder?.cicl"
-                                                        [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
-                                                        [proposedLimit]="loanDocument?.proposal?.proposedLimit"
-                                                       [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
-                    </ng-template>
-
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-crg-micro *ngIf="loanDataReady" #crgMicro
-                                       [formData]="loanDocument?.crgMicro"
-                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
-                                       [security]="loanDocument?.security"
-                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
-                    </ng-template>
-
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
-                        <app-reporting-info-tagging #reportingInfoTagging
-                                                    [type]="'f'"
-                                                    [reportingInfoLevels]="loanDocument?.reportingInfoLevels">
-                        </app-reporting-info-tagging>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
-                        <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
-                        <!--            </app-insurance>-->
-                        <div class="py-4">
-                            <app-insurance-view [insurance]="loanHolder?.insurance"
-                                                *ngIf="loanHolder?.insurance"></app-insurance-view>
-                        </div>
-                    </ng-template>
-
-                </ngb-tab>
-            </ngb-tabset>
-
-            <div class="justify-content-center" style="padding-bottom: 20px">
-                <div class="col-md-12">
-                    <div class="row text-center">
-                        <div class="col-md-6 d-flex justify-content-start">
-                            <button nbButton status="primary"
-                                    *ngIf="nextTabId > 1"
-                                    (click)="tabSet.select(previousTabId.toString(10));scrollToTop()">Previous
-                            </button>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end">
-
-                            <button nbButton status="info" (click)="goToCustomer()" class=" mr-2">Close</button>
-
-                            <button nbButton status="primary"
-                                    (click)="nextButtonActionFxn(tabSet);scrollToTop()"
-                                    *ngIf="nextTabId !== totalTabCount">Next
-                            </button>
-
-                            <button nbButton status="info"
-                                    (click)="save()" *ngIf="nextTabId === totalTabCount"
-                                    [disabled]="isBlackListed">
-                                Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </nb-card-body>
+      </div>
+    </section>
+  </nb-card-body>
 </nb-card>
 <app-overlay-spinner></app-overlay-spinner>
+

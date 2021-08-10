@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoleHierarchyModelComponent } from './role-hierarchy-model.component';
+import { MicroCommonDetailComponent } from './micro-common-detail.component';
 
-describe('RoleHierarchyModelComponent', () => {
-  let component: RoleHierarchyModelComponent;
-  let fixture: ComponentFixture<RoleHierarchyModelComponent>;
+describe('MicroCommonDetailComponent', () => {
+  let component: MicroCommonDetailComponent;
+  let fixture: ComponentFixture<MicroCommonDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoleHierarchyModelComponent ]
+      declarations: [ MicroCommonDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoleHierarchyModelComponent);
+    fixture = TestBed.createComponent(MicroCommonDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
