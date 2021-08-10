@@ -2,7 +2,7 @@
     <app-security-table [shareSecurity]="shareSecurity" [formDataForEdit]="this.formData['initialForm']"
                         (securityEmitter)="resetSecurityForm($event)" [selectedArray]="this.formData['selectedArray']"></app-security-table>
 </div>
-<div class="form-group">
+<div class="form-group" [nbSpinner]="spinner">
     <form [formGroup]="securityForm">
         <!--START ROW-->
         <div class="font-weight-bold">
@@ -318,10 +318,10 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title">Type of property</label>
+                                <label class="title">{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</label>
                                 <select class="form-control rounded" formControlName="typeOfProperty"
                                         name="typeOfProperty">
-                                    <option [value]="null">Select Type of property</option>
+                                    <option [value]="null">Select {{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</option>
                                     <option *ngFor="let property of typeOfProperty"
                                             [value]="property">{{property}}</option>
                                 </select>
@@ -1649,10 +1649,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title">Type of property</label>
+                                    <label class="title">{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</label>
                                     <select class="form-control rounded" formControlName="typeOfProperty"
                                             name="typeOfProperty">
-                                        <option [value]="null">Select Type of property</option>
+                                        <option [value]="null">Select {{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</option>
                                         <option *ngFor="let property of typeOfProperty"
                                                 [value]="property">{{property}}</option>
                                     </select>
@@ -3266,6 +3266,129 @@
                 <div class="text-right">
                     <input (click)="addInsurancePolicy()" class="btn btn-sm btn-flat btn-primary" type="button"
                            value="Add More Insurance Policy"/>
+                </div>
+
+            </div>
+            <hr>
+        </nb-card>
+
+        <!--        Bond Security Security -->
+        <nb-card [hidden]="!bondSecurity" class="p-3">
+            <div class="box-header with-border">
+                <h2 class="box-title title">Bond Security</h2>
+            </div>
+            <hr>
+            <div *ngFor="let bond of securityForm.get('bondSecurity')['controls']; let i = index"
+                 class="font-weight-bold"
+                 formArrayName="bondSecurity">
+                <div [formGroupName]="i">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Name Of Bond</label>
+                                <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('nameOfBond').errors)}"
+                                       class="form-control rounded" formControlName="nameOfBond"
+                                       placeholder="Name of bond"
+                                       type="text" required/>
+                                <div *ngIf="(bondSecurity) && (bond.get('nameOfBond').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="bond.get('nameOfBond').errors.required">
+                                        Bond name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Tenure/Validity of Bond</label>
+                                <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('validityOfBond').errors)}"
+                                       class="form-control rounded" formControlName="validityOfBond"
+                                       placeholder="Tenure/Validity of Bond"
+                                       type="number" required/>
+                                <div *ngIf="(bondSecurity) && (bond.get('validityOfBond').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="bond.get('validityOfBond').errors.required">
+                                        Tenure/Validity is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Coupon Rate (%)</label>
+                                <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('couponRate').errors)}"
+                                       class="form-control rounded" formControlName="couponRate"
+                                       placeholder="Tenure/Validity of Bond"
+                                       type="number" required/>
+                                <div *ngIf="(bondSecurity) && (bond.get('couponRate').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="bond.get('couponRate').errors.required">
+                                        Coupon rate is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Bond Value</label>
+                                <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('bondValue').errors)}"
+                                       class="form-control rounded" formControlName="bondValue"
+                                       placeholder="Bond Value"
+                                       type="number" required/>
+                                <div *ngIf="(bondSecurity) && (bond.get('bondValue').invalid)"
+                                     class="invalid-feedback">
+                                    <div *ngIf="bond.get('bondValue').errors.required">
+                                        Bond Value is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Bond Serial Number</label>
+                                <input class="form-control rounded" formControlName="bondSerialNumber"
+                                       placeholder="Bond serial number"
+                                       type="number"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Issuer</label>
+                                <input class="form-control rounded" formControlName="issuer"
+                                       placeholder="Bond Value"
+                                       type="number"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Expiry Date</label>
+                                <input class="form-control rounded" formControlName="expiryDate"
+                                       name="expiryDate" placeholder="Expiry Date" [nbDatepicker]="expiryDate"
+                                       *ngIf="calendarType === 'AD'">
+                                <app-calendar
+                                        (messageToEmit)="securityForm.get(['bondSecurity',i,'expiryDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['bondSecurity',i,'expiryDate']).value"></app-calendar>
+                                <nb-datepicker #expiryDate></nb-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="securityForm.get('bondSecurity') ['length'] > 1" class="text-right">
+                        <input (click)="removeBondSecurity(i)"
+                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                               type="button" value="Delete"/>
+                    </div>
+                    <br>
+                </div>
+                <div class="text-right">
+                    <input (click)="addMoreBondSecurity()" class="btn btn-sm btn-flat btn-primary" type="button"
+                           value="Add More Bond"/>
                 </div>
 
             </div>

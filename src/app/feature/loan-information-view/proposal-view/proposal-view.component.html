@@ -315,6 +315,26 @@
         </tr>
     </table>
 
+    <table *ngIf="summaryType !== summaryTypeName?.GENERAL"
+           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+      <thead>
+      <th>
+        <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
+          Prepayment/Commitment/Swap Charge Description</div>
+        <ng-template #commitmentDescription>
+          <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
+            Commitment/Swap Charge Description</div>
+        </ng-template>
+        <ng-template #swapChargeDescription>
+          Swap Charge Description
+        </ng-template>
+      </th>
+      </thead>
+      <tbody>
+      <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
+      </tbody>
+    </table>
+
     <table *ngIf="summaryType === summaryTypeName?.GENERAL"
            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
       <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA ">

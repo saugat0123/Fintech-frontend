@@ -83,7 +83,7 @@
       </tr>
       <tr>
       <tr class="text-white sb-bg-dark">
-        <th colspan="2">Type of Property</th>
+        <th colspan="2">{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</th>
         <th colspan="2">Address as per Legal Document</th>
         <th>Ownership transfer date(AD/BS)</th>
         <th class="text-left pl-1">Ownership transfer Through</th>
@@ -201,7 +201,7 @@
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
           <th>Total cost</th>
-          <th>Type of Property</th>
+          <th>{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</th>
           <th>Collateral Owner Relationship</th>
         </tr>
         </thead>
@@ -341,7 +341,6 @@
         <tr class="text-center sb-bg-dark text-white" *ngIf="landBuilding.underConstructionChecked === true">
           <th></th>
           <th>Fair Market Value</th>
-          <th>Type of Property</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
@@ -351,7 +350,6 @@
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th></th>
           <td class="text-right pr-1">Rs. {{landBuilding?.marketValueConstruction | currencyFormatter}}</td>
-          <td class="text-left pl-1">{{landBuilding?.typeOfPropertyConstruction}}</td>
           <td class="text-right pr-1">{{landBuilding?.houseNumberConstruction}}</td>
           <td class="text-right pr-1">{{landBuilding?.totalBuildingAreaConstruction}}</td>
           <td class="text-right pr-1">Rs.{{landBuilding?.costPerSquareConstruction | currencyFormatter}}</td>
@@ -1253,6 +1251,9 @@
         <th>Prominent Place</th>
         <th>Approach Distance</th>
         <th>Road Access From</th>
+        <th>Type of Property</th>
+        <th>Shape of Land</th>
+        <th>Does the location & shape of land appear consistent with Blue Print?</th>
       </tr>
       </thead>
       <tbody>
@@ -1264,6 +1265,9 @@
         <td class="text-left pl-1">{{siteVisit?.prominentPlace}}</td>
         <td class="text-right pr-1">{{siteVisit?.approachDistance}}</td>
         <td class="text-left pl-1">{{siteVisit?.roadAccessFrom}}</td>
+        <td class="text-left pl-1">{{siteVisit?.typeOfProperty}}</td>
+        <td class="text-left pl-1">{{siteVisit?.shapeOfLand}}</td>
+        <td class="text-left pl-1">{{siteVisit?.locationAndShapeOfLand}}</td>
       </tr>
       </tbody>
     </table>
@@ -1458,6 +1462,35 @@
         <span class="ml-2">Document for {{doc?.securityName.slice(0, -2)}}</span>
       </div>
     </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="bondSecurity && client === clientName.ICFC">
+    <div class="col-md-12">
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr>
+          <th class="text-center sb-bg-dark text-white" colspan="12">Bond Security Detail</th>
+        </tr>
+        <tr class="sb-bg-secondary text-white">
+          <th>S.N</th>
+          <th>Bond Name</th>
+          <th>Coupon Rate</th>
+          <th>Amount</th>
+          <th>Expiry Date</th>
+          <th>Tenure Validity</th>
+        </tr>
+        <tr *ngFor="let bond of securityData['initialForm']['bondSecurity']; let i= index">
+          <td class="align-middle">{{bond?.bondSerialNumber}}</td>
+          <td class="text-right pl-1">{{bond?.nameOfBond}}</td>
+          <td class="text-right pl-1">{{bond?.couponRate}}</td>
+          <td class="text-right pr-1">Rs. {{bond?.bondValue | currencyFormatter}}</td>
+          <td class="text-right pl-1">{{bond?.expiryDate | date}} ({{bond?.expiryDate | engNepDate: false}})</td>
+          <td class="text-right pr-1">{{bond?.validityOfBond}}</td>
+        </tr>
+        <tr>
+          <th colspan="3" class="text-right">Total</th>
+          <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue | currencyFormatter}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
