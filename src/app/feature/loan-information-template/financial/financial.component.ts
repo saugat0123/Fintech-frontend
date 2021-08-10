@@ -298,6 +298,7 @@ export class FinancialComponent implements OnInit {
                     amount: [singleData.amount],
                     remarks: [singleData.remarks],
                     ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated],
+                    organizationType: [singleData.organizationType],
                 })
             );
         });
@@ -490,10 +491,11 @@ export class FinancialComponent implements OnInit {
         control.push(
             this.formBuilder.group({
                 incomeSource: [undefined, Validators.required],
-                organization: [undefined, Validators.required],
+                organization: [undefined],
                 amount: [undefined, Validators.required],
                 remarks: [undefined, Validators.required],
-                ageOfIncomeGenerated: [undefined, Validators.required],
+                ageOfIncomeGenerated: [undefined],
+                organizationType: [undefined],
             })
         );
     }
