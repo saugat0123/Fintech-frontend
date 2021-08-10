@@ -69,20 +69,26 @@
         <br>
         <p>
           जमानीवाला
+        </p>
           <br>
           <br>
+            <div class="row col-md-12" *ngFor="let guarantor of printDocForm?.guarantorData; index as i">
+                <br>
+                <p>
           दस्तखत : .............
           <br>
-          नाम : <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorName !== null && printDocForm?.guarantorName !== ''}">
-    {{printDocForm?.guarantorName === null || printDocForm?.guarantorName === '' ? '_________________' : printDocForm?.guarantorName}}
+          नाम : <span [ngClass]="{'nepaliFont' : guarantor?.guarantorName !== null && guarantor?.guarantorName !== ''}">
+    {{guarantor?.guarantorName === null || guarantor?.guarantorName === '' ? '_________________' : guarantor?.guarantorName}}
 </span>
           <br>
-          ठेगाना : <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorAddress !== null && printDocForm?.guarantorAddress !== ''}">
-    {{printDocForm?.guarantorAddress === null || printDocForm?.guarantorAddress === '' ? '_________________' : printDocForm?.guarantorAddress}}
+          ठेगाना : <span [ngClass]="{'nepaliFont' : guarantor?.guarantorAddress !== null && guarantor?.guarantorAddress !== ''}">
+    {{guarantor?.guarantorAddress === null || guarantor?.guarantorAddress === '' ? '_________________' : guarantor?.guarantorAddress}}
 </span>
-        </p>
-
-
+                    <br>
+                </p>
+                <br>
+      </div>
+          <br>
       </div>
 
 
