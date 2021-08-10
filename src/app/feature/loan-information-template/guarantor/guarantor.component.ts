@@ -13,8 +13,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
-import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
-import {Occupation} from '../../admin/modal/occupation';
 
 @Component({
   selector: 'app-guarantor',
@@ -49,7 +47,7 @@ export class GuarantorComponent implements OnInit {
   relationList;
   docTitle = 'Net Worth Document';
   docFolderName = 'guarantorDoc';
-  occupation = Occupation.enumObject();
+
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,

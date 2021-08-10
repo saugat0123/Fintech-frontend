@@ -211,14 +211,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Profession</strong></label>
-                                        <select class="form-control form-control-sm-error rounded"
+                                        <input class="form-control form-control-sm-error rounded"
                                                formControlName="profession"
                                                id="profession"
-                                                name="profession">
-                                            <option [value]="null">Select Profession</option>
-                                            <option [value]="profession.key" *ngFor="let profession of occupation">{{profession.value}}</option>
-
-                                        </select>
+                                               name="profession"
+                                               placeholder="Profession"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
