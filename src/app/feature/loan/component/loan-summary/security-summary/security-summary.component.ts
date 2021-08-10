@@ -175,11 +175,11 @@ export class SecuritySummaryComponent implements OnInit {
                     this.collateralSiteVisits = response.detail;
                     this.collateralSiteVisits.filter(item => {
                         this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-                        this.collateralSiteVisits.reverse();
-                        this.arraySecurityName = this.collateralSiteVisits
-                            .filter(
-                                (thing, i, arrCollateral) => arrCollateral.findIndex(t => t.securityName === thing.securityName) === i);
                     });
+                    this.collateralSiteVisits.reverse();
+                    this.arraySecurityName = this.collateralSiteVisits
+                        .filter(
+                            (thing, i, arrCollateral) => arrCollateral.findIndex(t => t.securityName === thing.securityName) === i);
                     this.siteVisitDocuments = [];
                     this.arraySecurityName.forEach(item => {
                         this.uniqueSiteVisitJson.push(JSON.parse(item.siteVisitJsonData));
