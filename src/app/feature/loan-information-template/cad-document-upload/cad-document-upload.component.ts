@@ -34,6 +34,7 @@ export class CadDocumentUploadComponent implements OnInit {
     documentId;
     initialDocIndex;
     deleteDocument = [];
+    initialDocuments1 = [];
 
     constructor(private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
@@ -61,12 +62,13 @@ export class CadDocumentUploadComponent implements OnInit {
                 console.log(this.loanDataHolder);
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
                     this.docList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
+                    console.log('docList::::', this.docList);
                 }
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.data)) {
                     this.data = JSON.parse(this.loanDataHolder.data);
                     this.form.patchValue(this.data);
                 }
-                console.log(this.loanDataHolder, 'ld');
+                // console.log(this.loanDataHolder, 'ld');
                 this.loanDataHolder.id = response.detail.id;
                 this.getLoanData();
             });
@@ -85,9 +87,13 @@ export class CadDocumentUploadComponent implements OnInit {
                 this.loanConfig = response.detail;
                 this.loanName = this.loanConfig.name;
                 this.initialDocuments = this.loanConfig.approvedDocument;
+                this.sortDocument();
+                console.log('initialDocuments', this.initialDocuments);
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.cadDocument)) {
                     this.customerDocumentArray = this.loanDataHolder.cadDocument;
+                    console.log('customerDocumentArray::::', this.customerDocumentArray);
                     const savedCADDocumentIds = this.customerDocumentArray.map(v => v.document.id);
+                    console.log('savedCADDocumentIds', savedCADDocumentIds);
                     this.initialDocuments.forEach(initDoc =>
                         initDoc.checked = savedCADDocumentIds.includes(initDoc.id)
                     );
@@ -99,6 +105,7 @@ export class CadDocumentUploadComponent implements OnInit {
 
     suspendedId(id) {
         if (this.docList.length > 0) {
+            // this.sortDocument();
             return !(this.docList.includes(id));
         }
     }
@@ -189,5 +196,27 @@ export class CadDocumentUploadComponent implements OnInit {
             }
         });
         this.modelService.dismissAll();
+    }
+
+    sortDocument() {
+        this.docList.forEach(a => {
+            this.initialDocuments.forEach(b => {
+                if (b.id === a) {
+                    this.initialDocuments1.push(b.name);
+                }
+            });
+        });
+        this.initialDocuments1.sort( (a, b) => {
+            if (a > b) {
+                return 1;
+            }
+            if (a < b) {
+                return -1;
+            }
+            return 0;
+        });
+        // this.initialDocuments = this.initialDocuments1;
+
+        console.log('initialDocuments1', this.initialDocuments1);
     }
 }

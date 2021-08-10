@@ -12,6 +12,7 @@ import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.
 import {CustomerDocuments} from '../../loan/model/customerDocuments';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -98,7 +99,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     default:
                         this.initialDocuments = this.loanConfig.initial;
                 }
-
+                this.sortDocument();
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.customerDocument)) {
                     this.customerDocumentArray = this.loanDataHolder.customerDocument;
                     this.customerDocumentArray.forEach((singleDoc, i) => {
@@ -110,6 +111,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     });
                 }
                 this.deleteDocument = this.customerDocumentArray;
+                console.log('customerDocumentArray::::', this.customerDocumentArray);
             }
         );
 
@@ -185,6 +187,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         + error.error.message));
                 }
             );
+            console.log('Upload::', this.customerDocumentArray);
         }
     }
 
@@ -219,5 +222,30 @@ export class CustomerLoanDocumentComponent implements OnInit {
             }
         });
         this.modelService.dismissAll();
+    }
+
+    sortDocument() {
+        this.initialDocuments.sort( (a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return  -1;
+            }
+            return 0;
+        });
+    }
+
+    previewDocument(url: string, name: string): void {
+        const link = document.createElement('a');
+        this.customerDocumentArray.forEach(a => {
+            if (a.documentPath === url && a.document.displayName === name) {
+                link.target = '_blank';
+                link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
+                link.download = name;
+                link.setAttribute('visibility', 'hidden');
+                link.click();
+            }
+        });
     }
 }
