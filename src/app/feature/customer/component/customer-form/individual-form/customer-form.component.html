@@ -508,9 +508,9 @@
                        </div>
                        <div class="row ml-1">
                            <div class="col-md-12">
-                               <nb-checkbox (change)="sameAsPermanent()"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
-                           </div>
+                               <nb-checkbox (checkedChange)="sameAsPermanent($event)" [checked]="sameAddress" formControlName="sameAddress"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>                           </div>
                        </div>
+                   <ng-container *ngIf="sameAddress === false">
                        <div class="row ml-1">
                            <div class="col-md-12">
                                <h5>Temporary Address</h5>
@@ -613,7 +613,10 @@
                                </div>
                            </div>
                        </div>
+                   </ng-container>
+
                        <hr>
+
                        <div>
                            <h5>Relation</h5>
                            <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
