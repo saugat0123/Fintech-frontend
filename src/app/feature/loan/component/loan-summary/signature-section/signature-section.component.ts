@@ -31,19 +31,26 @@ export class SignatureSectionComponent implements OnInit {
     console.log(' Signature', this.signatureList);
     console.log(' Signature', this.signatureList[this.lastIndex - 1]);
     if (this.signApprovalOn === true) {
-      this.signatureList.forEach((v, i) => {
-        if ((v.toRole.signApprovalSheet === true && v.docAction.toString() !== 'APPROVED') ||
-            (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
-                this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')
-        ) {
-          if (this.signatureList[this.signatureList.length - 1].docAction.toString() !== 'APPROVED') {
-            this.commentApproval.emit(true);
 
+      try {
+        this.signatureList.forEach((v, i) => {
+          if ((v.toRole.signApprovalSheet === true && v.docAction.toString() !== 'APPROVED') ||
+              (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
+                  this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')
+          ) {
+            if (this.signatureList[this.signatureList.length - 1].docAction.toString() !== 'APPROVED') {
+              this.commentApproval.emit(true);
+              throw this.breakException;
+            }
           }
+
+
+        });
+      } catch (ex) {
+        if (ex !== this.breakException) {
+          throw ex;
         }
-
-
-      });
+      }
       let lastIndex;
       let riskOfficerIndex;
       lastIndex = this.signatureList.length;
