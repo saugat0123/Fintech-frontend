@@ -4,9 +4,6 @@ import {CreditAdministrationService} from '../../../../service/credit-administra
 import {ToastService} from '../../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
-import {OfferDocument} from '../../../../model/OfferDocument';
-import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
