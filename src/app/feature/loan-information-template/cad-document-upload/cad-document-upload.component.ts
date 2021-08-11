@@ -211,6 +211,7 @@ export class CadDocumentUploadComponent implements OnInit {
     }
 
     previewDocument(id: number): void {
+        // tslint:disable-next-line:prefer-const
         let url;
         const link = document.createElement('a');
         this.customerDocumentArray.forEach(a => {
