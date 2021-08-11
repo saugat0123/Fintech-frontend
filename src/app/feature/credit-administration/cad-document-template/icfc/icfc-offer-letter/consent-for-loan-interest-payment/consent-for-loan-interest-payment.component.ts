@@ -55,7 +55,6 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
   fillForm() {
     this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     const customerAddress = this.nepData.permanentMunicipality + '-' + this.nepData.permanentWard + ', ' + this.nepData.permanentDistrict + ', ' + this.nepData.permanentProvince;
-    // this.setGuarantors(this.nepData.guarantorDetails);
     this.form.patchValue({
       customerName: this.nepData.name ? this.nepData.name : '',
       citizenshipNum: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
