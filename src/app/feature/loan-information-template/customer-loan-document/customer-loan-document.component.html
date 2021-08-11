@@ -44,22 +44,10 @@
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
               </td>
-              checked?:::{{document?.checked}}
 
               <td *ngIf="document?.checked">
-<!--                <span>-->
-<!--                  <i (click)="previewDocument(customerDocumentArray[]?.documentPath, customerDocumentArray[i]?.document?.displayName)"-->
-<!--                     class="fas fa-eye"></i>-->
-<!--                </span>-->
-                <span *ngFor="let doc of customerDocumentArray; let in = index">
-                  <i (click)="previewDocument(doc?.documentPath, doc?.document?.displayName)"
-                     class="fas fa-eye"></i>
-                  <i *ngIf="!document.checked || document.checked === null" class="fas fa-times-circle"></i>
-<!--                <span *ngFor="let doc of customerDocumentArray.">-->
-<!--                <i (click)="previewDocument(doc?.documentPath, doc?.document?.displayName)"-->
-<!--                   class="fas fa-eye"></i>-->
-<!--                  </span>-->
-                </span>
+                <i (click)="previewDocument(document.id)"
+                   class="fas fa-eye"></i>
               </td>
 
               <td class="cursor">

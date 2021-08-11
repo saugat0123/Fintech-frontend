@@ -73,6 +73,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
         this.loanConfigService.detail(loanId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
+                console.log('loanConfig', this.loanConfig);
                 this.loanName = this.loanConfig.name;
                 switch (LoanType[this.loanType]) {
                     case LoanType.NEW_LOAN:
@@ -112,6 +113,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
                 }
                 this.deleteDocument = this.customerDocumentArray;
                 console.log('customerDocumentArray::::', this.customerDocumentArray);
+                console.log('initialDocuments', this.initialDocuments);
             }
         );
 
@@ -236,10 +238,12 @@ export class CustomerLoanDocumentComponent implements OnInit {
         });
     }
 
-    previewDocument(url: string, name: string): void {
+    previewDocument(id: number): void {
+        let url;
         const link = document.createElement('a');
         this.customerDocumentArray.forEach(a => {
-            if (a.documentPath === url && a.document.displayName === name) {
+            if (a.document.id === id) {
+                url = a.documentPath;
                 link.target = '_blank';
                 link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
                 link.download = name;
