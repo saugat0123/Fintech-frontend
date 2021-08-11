@@ -1,6 +1,6 @@
 <div class="row p-3">
     <div class="col-md-12">
-        <p class="float-left"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></p>
+        <p class="float-left"><b>Net Trading Assets</b></p>
     </div>
     <table
             class="table table-bordered table-hover table-sm sb-small">
@@ -13,7 +13,7 @@
 
         </tr>
         <tr class="sb-bg-dark text-white text-center">
-            <th scope="col">{{client === clientName?.ICFC ? 'Net Trading Current Assets (NTCA)' : 'Net Trading Assets (NTA)'}}</th>
+            <th scope="col">Net Trading Current Assets (NTCA)</th>
             <th scope="col">Q1</th>
             <th scope="col">Q2</th>
             <th scope="col">Q3</th>
@@ -157,7 +157,7 @@
             <td class="pr-1">Rs. {{prevYearData?.otherCurrentLiability?.average |currencyFormatter}}</td>
         </tr>
         <tr>
-            <td class="text-left pl-1"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></td>
+            <td class="text-left pl-1"><b>Net Trading Current Assets</b></td>
 
             <!-- current year-->
             <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q1 |currencyFormatter}}</td>
@@ -191,7 +191,7 @@
             <td class="pr-1">Rs. {{prevYearData?.wcLoanOrLimit?.average |currencyFormatter}}</td>
         </tr>
         <tr>
-            <td class="text-left pl-1"><strong>{{client === clientName?.ICFC ? 'Loan To NTCA (%)' : 'D:E ratio (%)'}}</strong></td>
+            <td class="text-left pl-1"><strong>Loan To NTCA (%)</strong></td>
 
             <!-- current year-->
             <td class="pr-1">{{currentYearData?.deRatio?.q1 |currencyFormatter}}</td>
