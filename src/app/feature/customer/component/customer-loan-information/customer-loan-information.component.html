@@ -75,7 +75,7 @@
                          [fromProfile]="true"></app-financial>
         </nb-accordion-item-body>
       </nb-accordion-item>
-        <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+        <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer && isMicroInDirectCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -100,7 +100,7 @@
             ></app-borrower-loan-portofolio>
           </nb-accordion-item-body>
         </nb-accordion-item>
-      <nb-accordion-item #borrowerFinancialHighlight *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+      <nb-accordion-item #borrowerFinancialHighlight *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer && isMicroInDirectCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -152,7 +152,7 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-        <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
+        <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer && isMicroInDirectCustomer">
           <nb-accordion-item-header>
             <div class="row col-md-12">
               <div class="col-md-8">
@@ -177,7 +177,7 @@
             ></app-marketing-activities>
           </nb-accordion-item-body>
         </nb-accordion-item>
-      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer && isMicroInDirectCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -418,7 +418,7 @@
           ></app-credit-checklist-general>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
+      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer && isMicroInDirectCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">

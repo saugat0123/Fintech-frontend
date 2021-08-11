@@ -40,6 +40,9 @@ import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
+import {CustomerType} from '../../../customer/model/customerType';
+import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {CustomerInfoData} from '../../model/customerInfoData';
 
 @Component({
   selector: 'app-micro-loan-summary',
@@ -48,9 +51,9 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 })
 export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   @Output() changeToApprovalSheetActive = new EventEmitter<string>();
-
   @Input() loanData;
   loanDataHolder: LoanDataHolder;
+  customerInfoData: CustomerInfoData;
 
   @Input()
   loanConfig: LoanConfig = new LoanConfig();
@@ -179,6 +182,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   private dialogRef: NbDialogRef<any>;
   isOpen: false;
   securityId: number;
+  isMicroCustomer: boolean;
+
 
 
   constructor(
@@ -212,6 +217,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loanDataHolder = this.loanData;
+    this.customerInfoData = this.loanDataHolder.loanHolder;
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.customerType = this.loanDataHolder.loanHolder.customerType;
@@ -245,6 +251,11 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getLoanDataHolder() {
+    if (this.loanDataHolder.loanHolder.customerType === CustomerType.INSTITUTION) {
+      this.isMicroCustomer = this.loanDataHolder.companyInfo.isMicroCustomer;
+    } else {
+      this.isMicroCustomer = this.loanDataHolder.customerInfo.isMicroCustomer;
+    }
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
     // Setting micro financial data---
@@ -704,6 +715,15 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
 
   public customSafePipe(val) {
     return val.replace(/(<([^>]+)>)/gi, ' ');
+  }
+
+  get otherMicroDetailsVisibility() {
+    if (this.customerInfoData.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
+      return true;
+    } else {
+    return this.customerInfoData.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+          this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+    }
   }
 
 }
