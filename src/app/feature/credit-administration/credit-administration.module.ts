@@ -52,7 +52,7 @@ import {CadOfferLetterConfigurationComponent} from './cad-offerletter-profile/ca
 import {AngularDraggableModule} from 'angular2-draggable';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offer-letter-configuration/nep-proposed-amount-form/nep-proposed-amount-form.component';
-import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';d-document-template/progressive/progressive.module';
+import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ApprovedLoanListComponent} from './component/approved-loan-list/approved-loan-list.component';
 import {RouterUtilsService} from './utils/router-utils.service';
 import {DisbursementModalComponent} from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
