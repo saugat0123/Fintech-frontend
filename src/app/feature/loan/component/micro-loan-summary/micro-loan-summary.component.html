@@ -354,6 +354,7 @@
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"
+                    [loanDataHolder]="loanDataHolder"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">

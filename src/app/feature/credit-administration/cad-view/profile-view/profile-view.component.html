@@ -4,7 +4,7 @@
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
     <nb-card-header>
-        <div class="clearfix">
+        <div class="clearfix" *ngIf="!disableEditBasicData">
             <div>
                 <button nbButton size="tiny" nbTooltip="click to open config modal"
                         (click)="openOfferLetterConfigModal()"><em
