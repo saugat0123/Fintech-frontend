@@ -105,7 +105,6 @@ export class CadDocumentUploadComponent implements OnInit {
 
     suspendedId(id) {
         if (this.docList.length > 0) {
-            // this.sortDocument();
             return !(this.docList.includes(id));
         }
     }
