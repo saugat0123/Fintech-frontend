@@ -56,7 +56,7 @@ export class BusinessLoanComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
-              private nepToEngNumberPipe: NepaliToEngNumberPipe
+              private nepToEngNumberPipe: NepaliToEngNumberPipe,
               ) { }
 
   ngOnInit() {
