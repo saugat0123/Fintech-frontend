@@ -29,7 +29,6 @@ import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
-import {RemoveNumberCommaPipe} from "./@core/pipe/remove-number-comma.pipe";
 
 
 @NgModule({
@@ -70,7 +69,7 @@ import {RemoveNumberCommaPipe} from "./@core/pipe/remove-number-comma.pipe";
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
         DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
-        NepaliPercentWordPipe, RemoveNumberCommaPipe],
+        NepaliPercentWordPipe],
     bootstrap: [AppComponent],
     exports: [
 
