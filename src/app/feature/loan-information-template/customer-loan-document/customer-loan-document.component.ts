@@ -73,7 +73,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
         this.loanConfigService.detail(loanId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
-                console.log('loanConfig', this.loanConfig);
                 this.loanName = this.loanConfig.name;
                 switch (LoanType[this.loanType]) {
                     case LoanType.NEW_LOAN:
@@ -112,8 +111,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                     });
                 }
                 this.deleteDocument = this.customerDocumentArray;
-                console.log('customerDocumentArray::::', this.customerDocumentArray);
-                console.log('initialDocuments', this.initialDocuments);
             }
         );
 
@@ -189,7 +186,6 @@ export class CustomerLoanDocumentComponent implements OnInit {
                         + error.error.message));
                 }
             );
-            console.log('Upload::', this.customerDocumentArray);
         }
     }
 

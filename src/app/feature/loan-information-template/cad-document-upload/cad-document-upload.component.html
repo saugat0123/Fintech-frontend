@@ -43,6 +43,7 @@
               <th>Document Type</th>
               <th>Upload</th>
               <th>Upload Status</th>
+              <th>Preview</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -53,29 +54,28 @@
                 <td>
                   {{i + 1}}
                 </td>
-                <td>{{document.name}}</td>
+                <td>{{document?.name}}</td>
 
-                <td><input (change)="documentUploader($event, document.name, document.id, i)"
+                <td><input (change)="documentUploader($event, document?.name, document?.id, i)"
                            class="form-control-file"
                            id="uploadDocument{{i}}" multiple=""
                            type="file">
-                  <!--<div *ngIf="submitted && form.file.errors"
-                       class="invalid-feedback">
-                    <div *ngIf="form.file.errors.required">Please upload the
-                      required
-                      documents
-                    </div>
-                  </div>-->
                 </td>
-                <td>
-                <span *ngIf="document.checked" style="color:limegreen">
+                <td align="center">
+                <span *ngIf="document?.checked" style="color:limegreen">
                   <i class="fas fa-check-circle"></i></span>
-                  <span *ngIf="!document.checked || document.checked === null"
+                  <span *ngIf="!document?.checked || document?.checked === null"
                         style="color:red"><i class="fas fa-times-circle"></i></span>
                 </td>
-                <td class="cursor">
-                <span *ngIf="document.checked">
-                  <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
+
+                <td *ngIf="document?.checked" align="center">
+                  <i (click)="previewDocument(document?.id)" class="fas fa-eye"></i>
+                  <i *ngIf="!document?.checked || document?.checked === null" class="fas fa-times-circle"></i>
+                </td>
+
+                <td class="cursor" align="center">
+                <span *ngIf="document?.checked">
+                  <i (click)="openModel(confirmation, document?.name, document?.id, i)" class="fas fa-trash"></i>
                 </span>
                 </td>
               </tr>
@@ -83,9 +83,6 @@
             </ng-container>
             </tbody>
           </table>
-          <!--<div *ngFor="let path of imageUrl">
-            <img [src]="path" id="image" width="100%"/>
-          </div>-->
         </div>
       </div>
       <div class="col-md-12 text-right">

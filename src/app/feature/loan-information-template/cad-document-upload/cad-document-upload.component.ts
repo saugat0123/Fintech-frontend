@@ -13,6 +13,7 @@ import {CustomerLoanDocumentComponent} from '../customer-loan-document/customer-
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-cad-document-upload',
@@ -88,7 +89,6 @@ export class CadDocumentUploadComponent implements OnInit {
                 this.loanName = this.loanConfig.name;
                 this.initialDocuments = this.loanConfig.approvedDocument;
                 this.sortDocument();
-                console.log('initialDocuments', this.initialDocuments);
                 if (!ObjectUtil.isEmpty(this.loanDataHolder.cadDocument)) {
                     this.customerDocumentArray = this.loanDataHolder.cadDocument;
                     console.log('customerDocumentArray::::', this.customerDocumentArray);
@@ -199,24 +199,28 @@ export class CadDocumentUploadComponent implements OnInit {
     }
 
     sortDocument() {
-        this.docList.forEach(a => {
-            this.initialDocuments.forEach(b => {
-                if (b.id === a) {
-                    this.initialDocuments1.push(b.name);
-                }
-            });
-        });
-        this.initialDocuments1.sort( (a, b) => {
-            if (a > b) {
+        this.initialDocuments.sort( (a, b) => {
+            if (a.name > b.name) {
                 return 1;
             }
-            if (a < b) {
+            if (a.name < b.name) {
                 return -1;
             }
             return 0;
         });
-        // this.initialDocuments = this.initialDocuments1;
+    }
 
-        console.log('initialDocuments1', this.initialDocuments1);
+    previewDocument(id: number): void {
+        let url;
+        const link = document.createElement('a');
+        this.customerDocumentArray.forEach(a => {
+            if (a.document.id === id) {
+                link.target = '_blank';
+                link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
+                link.download = name;
+                link.setAttribute('visibility', 'hidden');
+                link.click();
+            }
+        });
     }
 }

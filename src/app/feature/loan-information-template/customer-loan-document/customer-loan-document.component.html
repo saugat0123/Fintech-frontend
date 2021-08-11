@@ -38,19 +38,19 @@
                          id="uploadDocument{{i}}" multiple=""
                          type="file">
               </td>
-              <td>
+              <td align="center">
                 <span *ngIf="document.checked" style="color:limegreen">
                   <i class="fas fa-check-circle"></i></span>
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
               </td>
 
-              <td *ngIf="document?.checked">
-                <i (click)="previewDocument(document.id)"
-                   class="fas fa-eye"></i>
+              <td *ngIf="document?.checked" align="center">
+                <i (click)="previewDocument(document.id)" class="fas fa-eye"></i>
+                <i *ngIf="!document?.checked || document?.checked === null" class="fas fa-times-circle"></i>
               </td>
 
-              <td class="cursor">
+              <td class="cursor" align="center">
                 <span *ngIf="document.checked">
                   <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
                 </span>
