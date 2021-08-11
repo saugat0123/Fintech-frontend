@@ -15,6 +15,7 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-loan-deed-multiple-icfc',
@@ -44,7 +45,8 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private nepaliPercentWordPipe: NepaliPercentWordPipe) { }
+              private nepaliPercentWordPipe: NepaliPercentWordPipe,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -243,7 +245,8 @@ export class LoanDeedMultipleIcfcComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedShareLoan.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const commaValue = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(commaValue);
     this.loanDeedShareLoan.get(wordLabel).patchValue(convertedVal);
   }
 

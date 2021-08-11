@@ -15,6 +15,7 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-loan-deed-hire-purchase',
@@ -45,7 +46,8 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private dialogRef: NbDialogRef<LoanDeedHirePurchaseComponent>) { }
+              private dialogRef: NbDialogRef<LoanDeedHirePurchaseComponent>,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -291,7 +293,8 @@ export class LoanDeedHirePurchaseComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedHirePurchase.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
     this.loanDeedHirePurchase.get(wordLabel).patchValue(convertedVal);
   }
 

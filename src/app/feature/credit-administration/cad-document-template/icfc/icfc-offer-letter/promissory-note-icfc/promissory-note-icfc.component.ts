@@ -14,6 +14,7 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-promissory-note-icfc',
@@ -40,7 +41,8 @@ export class PromissoryNoteIcfcComponent implements OnInit {
               private toastService: ToastService,
               private administrationService: CreditAdministrationService,
               private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) { }
+              private customerOfferLetterService: CustomerOfferLetterService,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -64,7 +66,8 @@ export class PromissoryNoteIcfcComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.promissoryNote.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
     this.promissoryNote.get(wordLabel).patchValue(convertedVal);
   }
 

@@ -4,9 +4,6 @@ import {CreditAdministrationService} from '../../../../service/credit-administra
 import {ToastService} from '../../../../../../@core/utils';
 import {NbDialogRef} from '@nebular/theme';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
-import {OfferDocument} from '../../../../model/OfferDocument';
-import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
@@ -18,6 +15,7 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 
 @Component({
@@ -48,7 +46,8 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
               private toastService: ToastService,
               private dialogRef: NbDialogRef<LoanDeedCompanyIcfcComponent>,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService,
+              private removeCommaPipe: RemoveNumberCommaPipe,) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -255,7 +254,8 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedCompany.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
     this.loanDeedCompany.get(wordLabel).patchValue(convertedVal);
   }
 

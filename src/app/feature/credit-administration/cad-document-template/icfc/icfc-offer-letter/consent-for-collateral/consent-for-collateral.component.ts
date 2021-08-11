@@ -15,6 +15,7 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-consent-for-collateral',
@@ -43,7 +44,8 @@ export class ConsentForCollateralComponent implements OnInit {
               private toastService: ToastService,
               private dialogRef: NbDialogRef<ConsentForCollateralComponent>,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private routerUtilsService: RouterUtilsService) {
+              private routerUtilsService: RouterUtilsService,
+              private removeCommaPipe: RemoveNumberCommaPipe) {
   }
 
   ngOnInit(): void {
@@ -65,9 +67,9 @@ export class ConsentForCollateralComponent implements OnInit {
       grandParentName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
     });
 
-    if (!ObjectUtil.isEmpty(this.nepData.guarantorDetails)) {
-      this.setGuarantors(this.nepData.guarantorDetails);
-    }
+    // if (!ObjectUtil.isEmpty(this.nepData.guarantorDetails)) {
+    //   this.setGuarantors(this.nepData.guarantorDetails);
+    // }
 
 
   }
@@ -249,7 +251,8 @@ export class ConsentForCollateralComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
     this.form.get(wordLabel).patchValue(convertedVal);
   }
 

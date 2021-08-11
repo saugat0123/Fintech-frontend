@@ -13,6 +13,7 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-mortgage-deed-company',
@@ -39,7 +40,8 @@ export class MortgageDeedCompanyComponent implements OnInit {
               private toastService: ToastService,
               private administrationService: CreditAdministrationService,
               private dialogRef: NbDialogRef<MortgageDeedCompanyComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -178,7 +180,8 @@ export class MortgageDeedCompanyComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.mortgageDeedCompany.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanValue = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanValue);
     this.mortgageDeedCompany.get(wordLabel).patchValue(convertedVal);
   }
 
