@@ -9,4 +9,5 @@ export class Role {
     version?: number;
     name?: string;
     authorityLabel?: string;
+    signApprovalSheet?: boolean;
 }

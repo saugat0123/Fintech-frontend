@@ -91,7 +91,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-
+    sameAddress = false;
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -129,17 +129,19 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
+            if (this.customer.sameAddress !== undefined) {
+                this.sameAddress = this.customer.sameAddress;
+            }
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
-
         } else {
             this.createRelativesArray();
         }
-
+         this.sameAddress = this.customer.sameAddress;
     }
 
     onCloseCreateCustomer() {
@@ -324,9 +326,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
-
                     this.customer.isMicroCustomer = this.microCustomer;
-
+                    this.customer.sameAddress = this.sameAddress;
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -437,7 +438,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.maritalStatus, Validators.required],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress, Validators.required],
-
+            sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress]
         });
         this.onCustomerTypeChange(this.microCustomer);
     }
@@ -503,6 +504,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const citizenShipIssuedDate = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         const citizenShipNo = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
         const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
+        this.sameAddress = this.customer.sameAddress;
+
         if (ObjectUtil.isEmpty(customerName) || ObjectUtil.isEmpty(citizenShipIssuedDate
             || ObjectUtil.isEmpty(citizenShipNo))) {
             modalRef.componentInstance.model = undefined;
@@ -638,21 +641,34 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         }
 
     }
-    sameAsPermanent() {
-        // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
-        //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
-        //     return true;
-        // }
-        this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
-        this.customer.temporaryDistrict = this.basicInfo.get('district').value;
-        this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
-        this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
-        this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
-        this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
-        this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
-        this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
+    sameAsPermanent(value) {
+        if (value) {
+            this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
+            this.customer.temporaryDistrict = this.basicInfo.get('district').value;
+            this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
+            this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
+            this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
+            this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+            this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
+            this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
+            this.sameAddress = value;
+        } else {
+            this.resetValue();
+            this.sameAddress = value;
+        }
 
     }
+            resetValue()  {
+                this.basicInfo.get('temporaryAddressLine1').patchValue(null);
+                this.basicInfo.get('temporaryAddressLine2').patchValue(null);
+                this.basicInfo.get('temporaryProvince').patchValue(null);
+                this.basicInfo.get('temporaryDistrict').patchValue(null);
+                this.basicInfo.get('temporaryMunicipalities').patchValue(null);
+                this.basicInfo.get('temporaryWardNumber').patchValue(null);
+    }
+
+
+
 
     /** @Param validate --- true for add validation and false for remove validation
      * @Param controlNames --- list of formControlName**/
