@@ -247,8 +247,6 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
             return true;
         } else {
-            console.log((this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-                this.companyInfo.microCustomerType === MicroCustomerType.DIRECT));
             return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
             this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
