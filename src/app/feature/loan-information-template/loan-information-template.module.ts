@@ -79,7 +79,6 @@ const COMPONENTS = [
     SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
-    NtaMegaComponent,
     PreviousSecurityComponent,
     FixAssetCollateralComponent,
     SecurityTableComponent,
