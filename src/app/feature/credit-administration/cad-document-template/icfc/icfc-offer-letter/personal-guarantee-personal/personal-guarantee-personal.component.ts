@@ -13,6 +13,7 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-personal-guarantee-personal',
@@ -36,7 +37,8 @@ export class PersonalGuaranteePersonalComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private dialogRef: NbDialogRef<PersonalGuaranteePersonalComponent>) { }
+              private dialogRef: NbDialogRef<PersonalGuaranteePersonalComponent>,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -212,7 +214,8 @@ export class PersonalGuaranteePersonalComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.personalGuaranteePersonal.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanValue = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanValue);
     this.personalGuaranteePersonal.get(wordLabel).patchValue(convertedVal);
   }
 

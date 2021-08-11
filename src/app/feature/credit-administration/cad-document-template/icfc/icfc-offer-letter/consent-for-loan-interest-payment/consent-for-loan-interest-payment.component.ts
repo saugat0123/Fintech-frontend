@@ -15,6 +15,7 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-consent-for-loan-interest-payment',
@@ -43,7 +44,8 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
               private toastService: ToastService,
               private dialogRef: NbDialogRef<ConsentForLoanInterestPaymentComponent>,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private routerUtilsService: RouterUtilsService) {
+              private routerUtilsService: RouterUtilsService,
+              private removeCommaPipe: RemoveNumberCommaPipe) {
   }
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
   fillForm() {
     this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     const customerAddress = this.nepData.permanentMunicipality + '-' + this.nepData.permanentWard + ', ' + this.nepData.permanentDistrict + ', ' + this.nepData.permanentProvince;
-    this.setGuarantors(this.nepData.guarantorDetails);
+    // this.setGuarantors(this.nepData.guarantorDetails);
     this.form.patchValue({
       customerName: this.nepData.name ? this.nepData.name : '',
       citizenshipNum: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
@@ -72,9 +74,9 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
           if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
             const initialInfo = JSON.parse(singleCadFile.initialInformation);
             this.initialInfoPrint = initialInfo;
+            this.setGuarantors(this.initialInfoPrint.guarantors);
             this.form.patchValue(this.initialInfoPrint);
           } else {
-            this.addEmptyGuarantor();
             this.fillForm();
           }
         });
@@ -198,7 +200,8 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanValue = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanValue);
     this.form.get(wordLabel).patchValue(convertedVal);
   }
 

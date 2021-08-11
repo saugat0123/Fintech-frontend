@@ -15,6 +15,7 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-mrtg-deed-individual-different',
@@ -42,7 +43,8 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private routerUtilService: RouterUtilsService,
               private customerOfferLetterService: CustomerOfferLetterService,
-              private dialogRef: NbDialogRef<MrtgDeedIndividualDifferentComponent>) { }
+              private dialogRef: NbDialogRef<MrtgDeedIndividualDifferentComponent>,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -138,7 +140,8 @@ export class MrtgDeedIndividualDifferentComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.mrtgIndividualDifferent.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
     this.mrtgIndividualDifferent.get(wordLabel).patchValue(convertedVal);
   }
 

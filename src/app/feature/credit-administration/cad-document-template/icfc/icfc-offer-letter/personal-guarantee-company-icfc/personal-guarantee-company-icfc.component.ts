@@ -13,6 +13,7 @@ import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-personal-guarantee-company-icfc',
@@ -37,7 +38,8 @@ export class PersonalGuaranteeCompanyIcfcComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              private dialogRef: NbDialogRef<PersonalGuaranteeCompanyIcfcComponent>) { }
+              private dialogRef: NbDialogRef<PersonalGuaranteeCompanyIcfcComponent>,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -204,7 +206,8 @@ export class PersonalGuaranteeCompanyIcfcComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.personalGuaranteeCompany.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
     this.personalGuaranteeCompany.get(wordLabel).patchValue(convertedVal);
   }
 

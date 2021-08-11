@@ -14,6 +14,7 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
     selector: 'app-margin-call-deed-share-loan',
@@ -41,7 +42,8 @@ export class MarginCallDeedShareLoanComponent implements OnInit {
                 private administrationService: CreditAdministrationService,
                 private routerUtilsService: RouterUtilsService,
                 private nepPercentWordPipe: NepaliPercentWordPipe,
-                private dialogRef: NbDialogRef<MarginCallDeedShareLoanComponent>) {
+                private dialogRef: NbDialogRef<MarginCallDeedShareLoanComponent>,
+                private removeCommaPipe: RemoveNumberCommaPipe) {
     }
 
     ngOnInit() {
@@ -171,7 +173,8 @@ export class MarginCallDeedShareLoanComponent implements OnInit {
 
     convertAmountInWords(numLabel, wordLabel) {
         const wordLabelVar = this.nepToEngNumberPipe.transform(this.marginShareLoan.get(numLabel).value);
-        const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
+        const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
         this.marginShareLoan.get(wordLabel).patchValue(convertedVal);
     }
 

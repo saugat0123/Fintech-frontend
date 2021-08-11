@@ -15,6 +15,7 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
+import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-loan-deed-personal-loan-home-loan-icfc',
@@ -42,7 +43,8 @@ export class LoanDeedPersonalLoanHomeLoanIcfcComponent implements OnInit {
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private removeCommaPipe: RemoveNumberCommaPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -217,7 +219,8 @@ export class LoanDeedPersonalLoanHomeLoanIcfcComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedPersonalLoanHomeLoan.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const commaRemovedVal = this.removeCommaPipe.transform(wordLabelVar);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(commaRemovedVal);
     this.loanDeedPersonalLoanHomeLoan.get(wordLabel).patchValue(convertedVal);
   }
 
