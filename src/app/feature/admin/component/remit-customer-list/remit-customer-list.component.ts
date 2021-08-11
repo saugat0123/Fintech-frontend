@@ -56,7 +56,9 @@ export class RemitCustomerListComponent implements OnInit {
         {id: 22, customerName: 'Test 22', phoneNo: '12345', email: 'test22@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '108'},
         {id: 23, customerName: 'Test 23', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '109'},
         {id: 24, customerName: 'Test 23', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '110'},
-        {id: 25, customerName: 'Test 23', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '111'}
+        {id: 25, customerName: 'Test 23', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '111'},
+        {id: 26, customerName: 'Test 26', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '112'},
+        {id: 27, customerName: 'Test 27', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '113'}
     ];
 
     ngOnInit(): void {
