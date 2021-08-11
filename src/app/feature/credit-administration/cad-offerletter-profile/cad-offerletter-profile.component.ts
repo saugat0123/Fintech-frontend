@@ -23,8 +23,7 @@ import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel
 import {ProgressiveOfferLetterConst} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
 import {ProgressiveOfferLetterComponent} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 
-import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
-import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
+
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -88,11 +87,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
                 this.offerLetterConst = ProgressiveOfferLetterConst;
                 this.component = ProgressiveOfferLetterComponent;
-                break;
-            case this.clientList.ICFC:
-                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
-                this.offerLetterConst = IcfcOfferLetterConst;
-                this.component = IcfcOfferLetterComponent;
                 break;
         }
     }

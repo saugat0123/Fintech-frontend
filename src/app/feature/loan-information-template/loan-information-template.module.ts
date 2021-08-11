@@ -40,7 +40,6 @@ import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upl
 import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
-import {NtaMegaComponent} from './nta-mega/nta-mega.component';
 import { MicroProposalComponent } from '../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import { CommentsComponent } from './comments/comments.component';
 import { PreviousSecurityComponent } from './previous-security/previous-security.component';
