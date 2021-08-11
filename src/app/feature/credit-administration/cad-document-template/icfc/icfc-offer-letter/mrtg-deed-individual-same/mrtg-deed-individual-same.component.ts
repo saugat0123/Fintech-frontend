@@ -13,7 +13,6 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
-import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-mrtg-deed-individual-same',
@@ -40,8 +39,7 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private toastService: ToastService,
               private administrationService: CreditAdministrationService,
-              private routerUtilService: RouterUtilsService,
-              private removeCommaPipe: RemoveNumberCommaPipe) { }
+              private routerUtilService: RouterUtilsService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -124,8 +122,7 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(convertedVal);
   }
 

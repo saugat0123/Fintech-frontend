@@ -15,7 +15,6 @@ import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {LegalDocumentCheckListEnum} from '../../legalDocumentCheckListEnum';
-import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 
 @Component({
@@ -46,8 +45,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
               private toastService: ToastService,
               private dialogRef: NbDialogRef<LoanDeedCompanyIcfcComponent>,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              private routerUtilsService: RouterUtilsService,
-              private removeCommaPipe: RemoveNumberCommaPipe,) { }
+              private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -254,8 +252,7 @@ export class LoanDeedCompanyIcfcComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.loanDeedCompany.get(numLabel).value);
-    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.loanDeedCompany.get(wordLabel).patchValue(convertedVal);
   }
 

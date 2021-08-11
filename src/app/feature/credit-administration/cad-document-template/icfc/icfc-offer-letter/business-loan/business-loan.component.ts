@@ -15,7 +15,6 @@ import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {Router} from '@angular/router';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 
 
@@ -57,8 +56,7 @@ export class BusinessLoanComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
-              private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private removeCommaPipe: RemoveNumberCommaPipe,
+              private nepToEngNumberPipe: NepaliToEngNumberPipe
               ) { }
 
   ngOnInit() {
@@ -157,8 +155,7 @@ export class BusinessLoanComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.businessLoan.get(numLabel).value);
-    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.businessLoan.get(wordLabel).patchValue(convertedVal);
   }
 
@@ -400,8 +397,7 @@ export class BusinessLoanComponent implements OnInit {
   convertAmountArrayVal(numLabel, wordLabel, index, formArray) {
     const numValue = this.businessLoan.get([formArray, index, numLabel]).value;
     const wordLabelVar = this.nepToEngNumberPipe.transform(numValue);
-    const cleanVal = this.removeCommaPipe.transform(wordLabelVar);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.businessLoan.get([formArray, index, wordLabel]).patchValue(convertedVal);
   }
 

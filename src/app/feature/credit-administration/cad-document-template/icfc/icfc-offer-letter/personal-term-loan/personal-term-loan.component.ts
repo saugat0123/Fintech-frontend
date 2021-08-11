@@ -14,7 +14,6 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {IcfcOfferLetterConst} from '../../icfc-offer-letter-const';
 import {Router} from '@angular/router';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {RemoveNumberCommaPipe} from "../../../../../../@core/pipe/remove-number-comma.pipe";
 
 @Component({
   selector: 'app-personal-term-loan',
@@ -55,8 +54,7 @@ export class PersonalTermLoanComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
-              private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private removeNumberCommaPipe: RemoveNumberCommaPipe) { }
+              private nepToEngNumberPipe: NepaliToEngNumberPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -193,8 +191,7 @@ export class PersonalTermLoanComponent implements OnInit {
 
   convertAmountInWords(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.personalTermLoan.get(numLabel).value);
-    const cleanVal = this.removeNumberCommaPipe.transform(wordLabelVar);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.personalTermLoan.get(wordLabel).patchValue(convertedVal);
   }
 
@@ -245,8 +242,7 @@ export class PersonalTermLoanComponent implements OnInit {
   convertAmountInWordsArray(numLabel, wordLabel, index, formArrayName) {
     const numValue = this.personalTermLoan.get([formArrayName, index, numLabel]).value;
     const wordLabelVar = this.nepToEngNumberPipe.transform(numValue);
-    const cleanVal = this.removeNumberCommaPipe.transform(wordLabelVar);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(cleanVal);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.personalTermLoan.get([formArrayName, index, wordLabel]).patchValue(convertedVal);
   }
 
