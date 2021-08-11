@@ -39,7 +39,8 @@ export class ProfileViewComponent implements OnInit {
     roleType = LocalStorageUtil.getStorage().roleType;
     offerLetterConst;
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
-
+    @Input()
+    disableEditBasicData: boolean;
     constructor(
         public commonService: CommonService,
         public routerUtilsService: RouterUtilsService,
