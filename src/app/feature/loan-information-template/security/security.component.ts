@@ -385,7 +385,7 @@ export class SecurityComponent implements OnInit {
                 case 'ShareSecurity':
                     const shareSecurity: Array<CustomerShareData> = this.initialSecurity.shareSecurityData.customerShareData;
                     shareSecurity.forEach(value => {
-                        totalSecurityAmount += value.consideredValue;
+                        totalSecurityAmount += value.total;
                     });
                     break;
                 case 'BondSecurity':

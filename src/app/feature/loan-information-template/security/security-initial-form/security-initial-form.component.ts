@@ -1843,7 +1843,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     get totalConsideredValue() {
         let total = 0;
-        this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
+        this.shareField.controls.forEach(c => total += Number(c.get('total').value));
         return total.toFixed(2);
     }
 
