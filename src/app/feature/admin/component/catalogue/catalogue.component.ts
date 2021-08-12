@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {LoanConfig} from '../../modal/loan-config';
@@ -126,7 +126,8 @@ export class CatalogueComponent implements OnInit {
         private catalogueService: CatalogueService,
         private location: AddressService,
         private nbDialogService: NbDialogService,
-        private service: ApprovalRoleHierarchyService) {
+        private service: ApprovalRoleHierarchyService,
+        private cdr: ChangeDetectorRef) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -448,6 +449,7 @@ export class CatalogueComponent implements OnInit {
             return;
         }
         this.loanDataHolder = data;
+        console.log(this.loanDataHolder.loanType);
         this.modalService.open(onActionChange);
     }
 
@@ -643,4 +645,5 @@ export class CatalogueComponent implements OnInit {
             });
         });
     }
+
 }
