@@ -176,6 +176,13 @@ export class ValuatorComponent implements OnInit {
         }
     }
 
+    editValuatingType() {
+        const modalRef = this.modalService.open(ValuatorFormComponent, {size: 'lg'});
+        modalRef.componentInstance.model = new Valuator();
+
+        ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);
+    }
+
     buildFilterForm() {
         this.filterForm = this.formBuilder.group({
             name: [undefined],
