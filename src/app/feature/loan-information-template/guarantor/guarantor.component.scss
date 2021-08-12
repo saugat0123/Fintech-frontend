@@ -1,0 +1,21 @@
+nb-card{
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.fix-header{
+  position: fixed;
+  background-color: white;
+  margin-top: -15px;
+}
+
+.fix-footer{
+  position: fixed;
+  background-color: white;
+  z-index: 1000;
+
+}
+
+.card-height {
+  height: 270px;
+}

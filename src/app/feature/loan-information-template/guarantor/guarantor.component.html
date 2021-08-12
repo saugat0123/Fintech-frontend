@@ -489,8 +489,9 @@
                                     </div>
 
                                 <div class="col-md-12">
-                                    <nb-checkbox (change)="sameAsAbove(i)"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
+                                    <nb-checkbox #tempAddress (change)="sameAsAbove(i,tempAddress.checked)" formControlName="checkedSameAsCurrent"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
                                 </div>
+                            <ng-container *ngIf="sameAsCurrentChecked === false">
                                 <div class="col-md-12">
                                     <h6><b>Current Address</b></h6>
                                 </div>
@@ -618,6 +619,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </ng-container>
+
 
                             </div>
                             <div class="row">
