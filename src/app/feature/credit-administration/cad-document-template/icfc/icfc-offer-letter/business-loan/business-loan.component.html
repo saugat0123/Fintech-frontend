@@ -1,0 +1,585 @@
+<div class="container bodyConfig text-justify" id="{{offerLetterConst.BUSINESS_LOAN}}">
+    <!--div class="row">-->
+    <form (ngSubmit)="onSubmit()" [formGroup]="businessLoan" id="businessLoan">
+        <div class="form-group align">
+            <div class="logo-container">
+                <div>
+                    च.नं.: आइ.सि.एफ.सि.—शाखा <input class="form-field form-control-sm nepaliFont" formControlName="branch" type="text"/>
+                     —कर्जा/<input class="form-field form-control-sm nepaliFont" formControlName="regNo" type="text"/>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-right">मिति : <input class="form-field form-control-sm nepaliFont" formControlName="letterYear" type="text"/>
+                                / <input class="form-field form-control-sm nepaliFont shortInput" size="2" formControlName="month" type="text"/>
+                                / <input class="form-field form-control-sm nepaliFont shortInput" size="2" formControlName="day" type="text"/>
+                            </p>
+                        </div>
+                    </div>
+                    श्री <input class="form-field form-control-sm nepaliFont" formControlName="name" type="text"/>
+                    <br>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="field" type="text"/>
+                    <br>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="field2" type="text"/>
+                    ।
+                </div>
+            </div>
+            <h6 class="text-center">
+                <strong>विषय : <u> <input class="form-field form-control-sm nepaliFont" formControlName="subject" type="text"/>
+                     कर्जा स्वीकृति पत्र ।</u></strong>
+            </h6>व्यवसायिक
+            <p>
+                <p>महोदय,</p>
+                <p><strong><u>व्यापार व्यवसाय विस्तार गर्ने/व्यवसायिक कारोबार बृद्धि गर्ने/नयाँ व्यवसाय संचालन गर्ने</u></strong> प्रयोजनका लागि व्यवसायिक कर्जा सुविधा माग गर्दै तपाईले मिति <input class="form-field form-control-sm nepaliFont" formControlName="year" type="text"/>
+                     / <input class="form-field form-control-sm nepaliFont" formControlName="month2" type="text"/>
+                     / <input class="form-field form-control-sm nepaliFont" formControlName="day2" type="text"/>
+                     मा आइ.सि.एफ.सि. फाइनान्स लिमिटेड (यसपछि फाइनान्स भनिने छ) समक्ष पेश गर्नु भएको निवेदनका सम्बन्धमा लेखिंदैछ । प्रस्तुत सन्दर्भमा, फाइनान्सले निम्न शर्त बन्देजको अधिनमा रहने गरी तपाईका नाममा निम्न बमोजिम कर्जा सुविधा सीमा स्वीकृत गर्ने निर्णय गरेको व्यहोरा जानकारी गराउँदछौं ।</p>
+            <p><strong>१. <u>कर्जा सुविधाः</u></strong></p>
+            <table border="1" width="100%" class="text-center">
+                <tr class="text-center">
+                    <th style="padding: 10px">शिर्षक</th>
+                    <th style="padding: 10px">प्रयोजन तथा उद्देश्य</th>
+                    <th style="padding: 10px">जम्मा स्वीकृत कर्जा रकम</th>
+                </tr>
+                <tbody *ngFor="let data of businessLoan.get('loanFacilityTable')['controls']; let index = index" formArrayName="loanFacilityTable">
+                <tr [formGroupName]="index">
+                    <td style="padding: 10px">
+                        <input class="form-field form-control-sm nepaliFont" formControlName="credit" type="text"/>
+                    </td>
+                    <td><input class="form-field form-control-sm nepaliFont" formControlName="purpose" type="text"/></td>
+                    <td><input class="form-field form-control-sm nepaliFont" formControlName="depositApprovedLoanAmount" type="text"/></td>
+                </tr>
+                <div class="col-md-12">
+                    <button
+                            (click)="removeLoanFacilityData(index)"
+                            *ngIf="index > 0"
+                            size="small"
+                            class="mt-3 mb-3" nbButton
+                            status="primary">हटाउनुहोस्
+                    </button>
+                </div>
+                </tbody>
+            </table><br>
+            <div class="row mr-1 mt-3 mb-3">
+                <div class="col-md-12 text-right">
+                    <button (click)="addLoanFacilityTable()" nbButton size="small" status="info" type="Button">
+                        थप्नुहोस्..
+                    </button>
+                </div>
+            </div>
+            <br>
+            <p><strong>२.	<u>ब्याजदरः</u></strong><br></p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">कृपया छान्नुहोस्</label>
+                        <nb-select #interestRateTypes (selectedChange)="changeInterestType($event)"
+                                   [selected]="selectedInterestArray"
+                                   multiple placeholder="कृपया छान्नुहोस्">
+                            <nb-option *ngFor="let type of loanRateOptions" [value]="type">
+                                {{type}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="businessOverdraftLoanQSelected">
+            <p><strong>क)</strong>	प्रति वर्ष <input class="form-field form-control-sm nepaliFont" formControlName="annualRate" type="text" readonly/>
+            प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate" type="text" (change)="calcYearlyRate('baseRate',
+                                               'premiumRate',
+                                               'annualRate')"/>
+             %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate" type="text" (change)="calcYearlyRate('baseRate',
+                                               'premiumRate',
+                                               'annualRate')"/>
+             %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार त्रैमासिक रुपमा अर्थात् असार, असोज, पौष र चैत्र मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
+            </ng-container>
+                <!--<p class="text-center"><strong>वा</strong></p>-->
+            <ng-container *ngIf="businessOverdraftLoanMSelected">
+            <p>प्रति वर्ष <input class="form-field form-control-sm nepaliFont" formControlName="annualRate2" type="text" readonly/>
+             प्रतिशत [Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate2" type="text" (change)="calcYearlyRate('baseRate2',
+                                               'premiumRate2',
+                                               'annualRate2')"/>
+             %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate2" type="text" (change)="calcYearlyRate('baseRate2',
+                                               'premiumRate2',
+                                               'annualRate2')"/>
+             %)] का दरले दैनिक रुपममा ब्याज गणना गरि विक्रम संवत् अनुसार मासिक रुपमा अर्थात् प्रत्येक महिनाको मसान्तमा तथा साँवा र बाँकी समयावधिको ब्याज एकमुष्ठ भुक्तानी अन्तिम मितिमा गर्नुपर्नेछ ।</p>
+
+            </ng-container>
+            <!--<p class="text-center"><strong>वा</strong></p>-->
+            <ng-container *ngIf="businessTermLoanSelected">
+            <p><strong>क)</strong>	प्रति वर्ष <input class="form-field form-control-sm nepaliFont" formControlName="annualRate3" type="text" readonly/>
+
+            प्रतिशत[Base Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="baseRate3" type="text" (change)="calcYearlyRate('baseRate3',
+                                               'premiumRate3',
+                                               'annualRate3')"/>
+             %) + Premium Rate ( <input class="form-field form-control-sm nepaliFont" formControlName="premiumRate3" type="text" (change)="calcYearlyRate('baseRate3',
+                                               'premiumRate3',
+                                               'annualRate3')"/>
+             %)] का दरले दैनिक रुपममा ब्याज गणना गरि ब्याज तथा सावाँ समान <input class="form-field form-control-sm nepaliFont" formControlName="month3" type="text"/>
+             मासिक/त्रैमासिक अनुमानित किस्ता रकम      रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount" type="text" (input)="getNumAmountWord('amount','amountInWords')"/>
+             (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords" placeholder="" type="text" readonly/>
+             ) का दरले ईश्वी सम्वत् अनुसारको महिनाको १३ तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।</p>
+            </ng-container>
+            <p>तालिका बमोजिम बुझाउनु पर्ने किस्ता रकम (ब्याज तथा सावाँ र ब्याज) तालिकामा उल्लेखित मितिभित्र नबुझाएमा ऋणीले विलम्ब शुल्क वापत प्रति किस्ता रु.५००/– तिर्नु बुझाउनु पर्नेछ ।</p>
+            <p><strong>ख)</strong>	वार्षिक व्याजदरको निर्धारण आधारदरमा प्रिमियम थप गरि निर्धारण गरिएकोछ । आधारदर ऋण प्रवाह हँुदाको समयको अघिल्लो त्रयमासको प्रकाशित आधारदरलाई कायम गरिएकोछ । फाइनान्सले त्रैमासिक रुपमा प्रकाशित गर्ने आधारदर परिवर्तन भएमा सोही बमोजिम त्रैमासिक रुपमा थप÷घट गरि कर्जा सुविधाको ब्याजदर समायोजन गर्न सक्नेछ । यसरी ब्याजदर समायोजन गरिएको खण्डमा सम्बन्धित ऋणको भुक्तानी अवधि अथवा भुक्तानी रकममा पनि समायोजन गरिनेछ । ऋणमा लाग्ने प्रिमियमदर ऋणको प्रकृति, भुक्तानी अवधि, ऋणीको कर्जा जोखिम वर्गिकरणको आधारमा फाइनान्सको नियमानुसार गरिएको छ । फाइनान्सले कुनै पनि बेला ऋणीलाई सूचित गरी निजकोे सहमतिमा प्रिमियमदरमा हेरफेर गर्न सक्नेछ ।</p>
+            <p><strong>ग)</strong>	ऋणीले उपभोग गरेको कर्जाको तालिका अनुरुप ब्याज तथा साँवा रकम बुझाउनु पर्ने दिनमा सार्वजनिक बिदा परेमा सोको अघिल्लो दिन ऋणीले कर्जासँग सम्बन्धित खातामा आवश्यक रकम जम्मा गर्नुपर्नेछ ।</p>
+            <p><strong>घ)</strong>	ऋणीले निर्धारित किस्ता वा ब्याज भाखाभित्र नबुझाए वा नतिरेमा भाखा नाघेको सावाँमा २% का दरले हर्जाना ब्याज समेत लाग्नेछ ।</p>
+            <p><strong>ङ)</strong>	कर्जाको भुक्तानी तालिका बमोजिम बुझाउनु पर्ने साँवा, ब्याज तथा किस्ता रकम बर्खिलाफ गरि तोकिएको समयभित्र नतिरे नबुझाएमा ऋणीलाई जानकारी गराई वा नगराई कर्जामा तोकेको प्रिमियम ब्याजदरमा कर्जा जोखिम वापत एकैपटक वा पटक पटक गरि ३ प्रतिशतसम्म ब्याजदर थप गर्न सक्ने लगायत सम्पूर्ण अधिकार फाइनान्ससँग निहित रहने कुरामा ऋणी सदैव मञ्जुर गर्दछ ।</p>
+            <p><strong>३.	<u>कर्जा प्रवाह (डिस्बर्समेन्ट):</u></strong></p>
+            <p>यस कर्जा स्वीकृतिपत्रमा उल्लेख भए बमोजिम ऋणीले गर्नु गराउनु पर्ने सम्पूर्ण सुरक्षण लिखत कागजातहरु फाइनान्स समक्ष पेश गरेपश्चात् मात्र स्वीकृत कर्जा वा सुविधा उपलब्ध गराइनेछ ।</p>
+            <p><strong>४.	<u>कर्जाको भाखा / बहाल रहने अवधिः</u></strong></p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">कृपया छान्नुहोस्</label>
+                        <nb-select #loanTermConditions (selectedChange)="changeType($event)"
+                                   [selected]="selectedArray"
+                                   multiple placeholder="कृपया छान्नुहोस्">
+                            <nb-option *ngFor="let type of loanCondition" [value]="type">
+                                {{type}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="overdraftLoanSelected">
+            <p>यस कर्जा सुविधा रिभल्भिङ्ग (Revolving) प्रकृतिको हुनेछ र आवश्यकता अनुरुप रकम राख्न र निकाल्न सकिनेछ । यो कर्जाको समयावधि कर्जा दर्ता हुने मितिदेखि १ वर्षको लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ । कर्जाको कारोबार चित्तबुझ्दो भएमा फाइनान्सले ऋणीको निवेदनको आधारमा कर्जा नविकरण गर्न सक्नेछ । कर्जा नविकरण गर्ने वा नगर्ने सम्पूर्ण अधिकार फाइनान्समा निहित हुनेछ । कर्जा नविकरण गर्दा फाइनान्सको नियमानुसार नविकरण शुल्क लिई कर्जा नविकरण गरिनेछ ।</p>
+            </ng-container>
+                <!--<p class="text-center"><strong><u>वा</u></strong></p>-->
+            <ng-container *ngIf="termLoanSelected">
+            <p>यस कर्जा सुविधामा एक पटक कर्जाको सावाँ चुक्ता भएपछि पुनः निकाल्न मिल्ने छैन । यो कर्जाको बहाल अवधि कर्जा दर्ता हुने मितिदेखि <input class="form-field form-control-sm nepaliFont" formControlName="years" type="text"/>
+                 वर्षको लागि कायम गरिएको छ । फाइनान्सले चाहेको अवस्थामा उक्त मितिभित्र कर्जा पुनरावलोकन गर्न सक्नेछ । पुनरावलोकन गरेको समयमा वा सो समय अगावै फाइनान्सले कुनै पनि समयमा माग गर्नासाथ सम्पूर्ण बाँकी बक्यौता रकम माग गरिएको समयभित्र चुक्ता भुक्तान गर्नु पर्नेछ ।</p>
+            </ng-container>
+                <p><strong>५.	<u>शुल्क तथा कमिशनः</u></strong></p>
+            <table border="1">
+                <tr>
+                    <td width="20%" style="vertical-align:top;">सेवा शुल्क</td>
+                    <td>जम्मा कर्जा रकमको <input class="form-field form-control-sm nepaliFont"
+                                                 (input)="calcOtherRate('serviceChargeRate',
+                                                 'sawa2',
+                                                 'twoToFiveRate',
+                                                 'afterFiveRate',
+                                                 'prePaymentChargeFive'
+                                                 )"
+                                                 formControlName="serviceChargeRate"
+                                                 type="text"/>
+                         % (यदि ऋणीले स्वीकृत भएको यस कर्जा वापतको रकम कुनै पनि कारणले नलिएमा सेवा शुल्क वापत खातामा जम्मा गरेको रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="serviceCharge" type="text"/>
+                         ऋणीलाई फिर्ता हुने छैन ।)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" style="vertical-align:top;">कर्जा सूचना शुल्क</td>
+                    <td>रु. <input class="form-field form-control-sm nepaliFont" formControlName="creditInformationFee" type="text"/>
+                         /—</td>
+                </tr>
+                <tr>
+                    <td width="20%"style="vertical-align:top;">कर्जा प्रतिबद्धता शुल्क</td>
+                    <td>स्वीकृत कर्जा सीमाको वार्षिक औषत ६०% कर्जा उपयोग नभएमा कम उपयोग गरेको कर्जाको सावाँ रकममा वार्षिक <input class="form-field form-control-sm nepaliFont" formControlName="creditCommitmentFeeAnnualRate" type="text"/>
+                         % सम्मका दरले प्रतिबद्धता शुल्क लाग्ने छ । कर्जाको उपयोग भए नभएको सम्बन्धमा कर्जाको समयावधि समाप्त हुने मितिसम्मको कारोबार अनुगमन गरि प्रतिबद्धता शुल्क लिइने छ । साथै, कर्जा स्वीकृत गर्दाको बखत तोकिएको कर्जाको समयसीमावधि अर्थात् ऋणीले यस स्वीकृति पत्र मार्फत कर्जा प्रयोगका लागि प्रतिबद्धता जाहेर गरेको समयावधिको प्रावधान उल्लंघन गरेमा समेत स्वीकृत कर्जा सीमाको <input class="form-field form-control-sm nepaliFont" formControlName="creditCommitmentFeeRate" type="text"/>
+                         % प्रतिबद्धता शुल्क लिइने छ ।</td>
+                </tr>
+            </table>
+
+            <p><strong>६. <u>अन्य शुल्कहरुः</u></strong></p>
+            <table border="1">
+                <tr>
+                    <td width="50%" style="vertical-align:top;">आंशिक धितो फुकुवा</td>
+                    <td width="50%">फाइनान्सको नियमानुसार</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top;">कालोसूचीमा समावेश गर्न एवं कालोसूचीबाट हटाउन आवश्यक प्रक्रियाहरु अघि बढाउनु परेमा</td>
+                    <td>कर्जा सूचना केन्द्रद्वारा तोकिएको शुल्क अनुसार</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top;">कर्जा स्थानान्तरण शुल्क (Swap Fee)</td>
+                    <td>कर्जा सिमा रकमको २ वर्ष सम्म <input class="form-field form-control-sm nepaliFont" formControlName="biAnnualRate" type="text"/>
+                         % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm" formControlName="twoToFiveRate" type="text"/>
+                         % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm" formControlName="afterFiveRate" type="text"/>
+                         %</td>
+                </tr>
+                <tr *ngIf="businessLoan.get('prePaymentFlag').value">
+                    <td style="vertical-align:top;">
+                        कर्जा पूर्व भुक्तानी शुल्क (Prepayment Charge)
+                        <a (click)="removeOptionalFields(businessLoan, 'prePaymentFlag')"
+                           class="text-danger cursor">
+                            <i class="fa fa-ban pr-2"> हटाउनुहोस् </i>
+                        </a>
+                    </td>
+                    <td>कर्जा दर्ता भएको मिति देखि २ वर्षभित्र <input class="form-field form-control-sm nepaliFont" formControlName="sawa" type="text"/>
+                        % सम्म, २ देखी ५ वर्ष सम्म <input class="form-field form-control-sm" formControlName="sawa2" type="text"/>
+                        % सम्म, ५ वर्ष पश्चात <input class="form-field form-control-sm" formControlName="prePaymentChargeFive" type="text"/>
+                        % सम्मका दरले पूर्व भुक्तानी शुल्क लाग्ने छ ।</td>
+                </tr>
+            </table>
+            <div class="row mr-lg-5 mt-3" *ngIf="!businessLoan.get('prePaymentFlag').value">
+                <div class="col-md-12">
+                    <a (click)="undoFieldRemove(businessLoan, 'prePaymentFlag')"
+                       class="text-info cursor">
+                        <i class="fa fa-undo-alt pr-2"> पूर्व भुक्तानी शुल्क थप्नुहोस् </i>
+                    </a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+            <p><strong>७. <u>कर्जाको सुरक्षणः</u></strong></p>
+            <p>क) देहाय बमोजिमको अचल सम्पत्ति कर्जा चुक्ता नभएसम्मका लागि ऋणीले फाइनान्सको पक्षमा धितो बन्धकीको तमसूक रजिष्ट्रेशन गरिदिनुपर्नेछ ।</p>
+
+            <table border="1" width="100%" >
+                <tr class="text-center">
+                    <th>सि.नं.</th>
+                    <th>धनिको नाम</th>
+                    <th>जिल्ला</th>
+                    <th>गा.वि.स./ न.पा.</th>
+                    <th>वडा नं.</th>
+                    <th>कि.नं.</th>
+                    <th>क्षेत्रफल</th>
+                    <th>विवरण</th>
+                </tr>
+                <tbody>
+                <ng-container *ngFor="let data of businessLoan.get('loanSecurityTable')['controls']; let index = index" formArrayName="loanSecurityTable">
+                    <tr [formGroupName]="index">
+                        <td>
+<!--                            <input class="form-field form-control-sm nepaliFont shortInput" formControlName="snNo" type="text"/>-->
+                            {{index + 1 | nepaliNumber: 'unicode'}}
+                        </td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="dhaniName" type="text"/></td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="district2" type="text"/></td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="munVdc" type="text"/></td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="wardNo" type="text"/></td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="kiNo" type="text"/></td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="area" type="text"/></td>
+                        <td><input class="form-field form-control-sm nepaliFont" formControlName="details" type="text"/></td>
+                    </tr>
+                    <div class="col-md-12">
+                        <button
+                                (click)="removeTable(index)"
+                                *ngIf="index > 0"
+                                size="small"
+                                class="mt-3 mb-3" nbButton
+                                status="primary">हटाउनुहोस्
+                        </button>
+                    </div>
+                </ng-container>
+                <tr>
+                    <td colspan="8" style="border-bottom: none">मूल्यांकनकर्ताः <input class="form-field form-control-sm nepaliFont" formControlName="assessor" type="text"/>
+                        , मुल्यांकन मितिः <input class="form-field form-control-sm nepaliFont" formControlName="evaluationDate" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="border-top: none;vertical-align: center">धितोको मूल्यांकन रकम <strong>FMV</strong> : रु <input class="form-field form-control-sm nepaliFont" formControlName="fmv" type="text"/>
+                        , <strong>DV</strong> : रु <input class="form-field form-control-sm nepaliFont" formControlName="dv" type="text"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+                </div>
+            </div>
+            <div class="row mr-1 mb-3 mt-3">
+                <div class="col-md-12 text-right">
+                    <button (click)="addTableData()" nbButton size="small" status="info" type="Button">
+                        थप्नुहोस्..
+                    </button>
+                </div>
+            </div>
+            <p><strong>नोट </strong>: फाइनान्सको सूचीकृत मूल्यांकनकर्ताबाट भएको धितो सम्पत्तिको मूल्यांकन वापत लाग्ने सम्पूर्ण खर्च ऋणी स्वयंले तिर्नु बुझाउनु पर्नेछ । जुनसुकै कारणबाट यदि ऋणीले स्वीकृत भएको कर्जा नलिएमा मूल्यांकनकर्तालाई बुझाउनु पर्ने शुल्क अनिवार्य बुझाउनु पर्ने छ र बुझाईसकेको भए उक्त रकम फिर्ता माग गर्न पाइने छैन ।</p>
+            <p>ख) ऋणी वा ऋणीको एकाघर परिवार वा ऋणीको कम्पनी/संस्था/फर्मले अन्य कर्जा सुविधाको लागि यो बाहेकको अन्य चल अचल सम्पत्ति फाइनान्सलाई धितो सुरक्षण पारित गरिदिई राखेको भएमा अथवा भविष्यमा लिने कर्जाको धितो सुरक्षण सहितमा यो कर्जाको लागि समेत (पूर्ण वा आंशिक) सुरक्षण मानिने विषयमा ऋणीले मञ्जुरी जनाएको छ । ऋणीले कर्जा तिर्न असफल भई डिफल्ट भएको अवस्थामा फाइनान्सले कानूनी प्रकृया अपनाई कर्जा असूल गर्नका निमित्त एउटा कर्जा शिर्षकको लागि धितो सुरक्षण पारित चल अचल सम्पत्ति अर्को कर्जाको सुरक्षण स्वरुप लिन पाईने होईन भनि कहिंकतै कुनै उजुर वाजुर गर्न पाउने छैन ।</p>
+            <p>ग) श्री <input class="form-field form-control-sm nepaliFont" formControlName="name2" type="text"/>
+                 बाट स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount2" type="text" (input)="getNumAmountWord('amount2','amountInWords2')"/>
+                 (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords2" type="text" readonly/>
+                 मात्र) बराबरको व्यक्तिगत जमानी ।</p>
+            <p *ngIf="businessLoan.get('inApprovalFlag').value">
+                घ)
+                <input class="form-field form-control-sm nepaliFont" formControlName="from" type="text"/>
+                 बाट धितो सुरक्षणको लागि मञ्जुरीनामा ।
+                <a (click)="removeOptionalFields(businessLoan, 'inApprovalFlag')"
+                   class="text-danger cursor">
+                    <i class="fa fa-ban pr-2"> हटाउनुहोस् </i>
+                </a>
+            </p>
+            <div class="row mr-lg-5" *ngIf="!businessLoan.get('inApprovalFlag').value">
+                <div class="col-md-12">
+                    <a (click)="undoFieldRemove(businessLoan, 'inApprovalFlag')"
+                       class="text-warning cursor">
+                        <i class="fa fa-undo-alt pr-2"> मञ्जुरीनामा थप्नुहोस्</i>
+                    </a>
+                </div>
+            </div>
+            <p><strong>८. <u>सुरक्षणका अन्य कागजातहरुः</u></strong></p>
+            <ul>
+                <li>ऋणीले स्वीकार गरेको कर्जा स्वीकृतिपत्र ।</li>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount3" type="text" (input)="getNumAmountWord('amount3','amountInWords3')"/>
+                     (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords3" type="text" readonly/>
+                     मात्र) बराबरको कर्जा तमसूक (Loan Deed) ।</li>
+                <li>स्वीकृत कर्जा रकम रु. <input class="form-field form-control-sm nepaliFont" formControlName="amount4" type="text" (input)="getNumAmountWord('amount4','amountInWords4')"/>
+                     (अक्षरुपी <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords4" type="text" readonly/>
+                     मात्र) बराबरको प्रतिज्ञापत्र (Promissory Note) ।</li>
+                <li>धितोबन्धक कागज ।</li>
+                <li>ऋणी तथा जमानतकर्ताको पारिवारिक र खुद सम्पत्ती विवरण ।</li>
+            </ul>
+
+            <p><strong>९. <u>वीमाः</u></strong></p>
+            <p>फाइनान्सलाई मान्य हुने कुनै वीमा कम्पनीबाट धितो सम्पत्ती (जग्गा बाहेक) भवनहरु/सवारी साधन/ मेशिनरी/उपकरणहरु जस्ता धितोसँग सम्बन्धित सम्पत्तिहरुको <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount5" type="text"/>
+                 बराबरको व्यापक वीमा तथा मालवस्तुहरु/सरसामानहरुको मौज्दात <strong>रु. </strong> <input class="form-field form-control-sm nepaliFont" formControlName="amount6" type="text"/>
+                 बराबरको चोरी र आगलागी विमा वर्ष/वर्षमा नविकरण हुने गरि कर्जा चुक्ता नहुञ्जेल सम्मका लागि सबैखाले संभावित जोखिमहरुबाट फाइनान्सलाई मुक्त राख्न ऋणीले आफ्नै खर्चमा फाइनान्सको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति फाइनान्समा बुझाउनु पर्नेछ । त्यस्तो वीमा ऋणी र फाइनान्सको संयुक्त नाममा गर्नु पर्नेछ । साथै, प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि समयभित्रै नवीकरण गराई नवीकरण गरिएको सक्कल प्रति फाइनान्सलाई बुझाउनुु पर्नेछ । वीमा अवधि समाप्त हुनु अगावै ऋणीले वीमा नवीकरण गराई अवधि समाप्त हुनु भन्दा ७ दिन पहिल्यै सक्कल वीमा पोलिसि र रकम बुझाएको रसिद फाइनान्स समक्ष पेश गर्नुपर्नेछ । कथंकदाचित उल्ल्खित शर्तको पालना गर्न ऋणी चुकेमा वा नवीकरण गरिएको कागजातहरु समयभित्रै फाइनान्समा नबुझाएको पाइएमा फाइनान्सले सोको नवीकरण गराई नवीकरण गरे वापतको खर्च ऋणीको खाताबाट कट्टा गरि लिनेछ । खातामा रकम नभएको खण्डमा फाइनान्स आफैले वीमा रकम भुक्तानी गर्नेछ र उक्त रकममा फाइनान्सले ऋणीको कर्जा सुविधामा तोकिएको ब्याज प्रतिशतका दरले ब्याज गणना गरि रकम असूल उपर गर्नेछ । उक्त रकम जम्मा नगरेसम्मको तर, फाइनान्सले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नवीकरण गराएको कारणबाट पर्न जाने दोहोरो खर्च प्रति फाइनान्स जवाफदेही हुनै छैन ।
+            <p><strong>१०.  <u>निरीक्षण तथा पुनरावलोकनः</u></strong></p>
+                <p>फाइनान्सले आवश्यकता अनुसार ऋणीलाई पूर्व सूचना दिई वा नदिई जुनसुकै बखत पटक पटक ऋणीको व्यवसाय स्थल, कार्यालय तथा खाता, बही, हिसाब, स्याहा, श्रेस्ता र धितोको निरीक्षण गर्ने अधिकार हुनेछ । त्यसरी गरिने निरीक्षणको सम्पूर्ण व्यवस्था तथा खर्च ऋणी स्वयंले व्यहोर्नु पर्नेछ । उल्लेखित ऋण कर्जा फाइनान्सले आवश्यक ठानेका बखत वा कर्जा नविकरणको समयमा पुनरावलोकन गर्नेछ ।</p>
+            <p><strong>११.  <u>उपयोगः</u></strong></p>
+            <p>जुन प्रयोजन, योजना वा उद्देश्यका निम्ति कर्जा वा सुविधा स्वीकृत गरिएको हो, त्यस भन्दा फरक प्रयोजनका लागि कर्जाको पूरा रकम वा सोको कुनै पनि अंश उपयोग गर्न पाईने छैन ।</p>
+            <p><strong>१२.  <u>शर्त बन्देजहरुः</u></strong></p>
+            <table>
+                <tr>
+                    <td colspan="2">यो कर्जा सुविधा पूर्णरुपमा समाप्त नभएसम्म अथवा कुनै रकम वा शर्त बाँकी रहेसम्म ऋणीले निम्न बमोजिमका शर्तहरु मञ्जुर गर्दछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.१)</td>
+                    <td>फाइनान्सको धितो हकमा रहेको कुनै पनि सम्पत्ति कुनै पनि व्यहोराले बेचविखन वा हक हस्तान्तरण गर्न वा कुनै प्रकारको वन्धक वा चार्ज सृजना गर्न वा अन्य कसैको नाममा रोक्का स्थापित हुन दिइने छैन । साथै, यस फाइनान्सको धितो सुरक्षणमा रहेको जग्गामा घर बनाउनु परेमा वा भएको संरचनामा थपघट गर्नु परेमा फाइनान्ससँग पूर्व स्वीकृति लिनुपर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.२)</td>
+                    <td>ऋणीको व्यवसाय वा मुनाफा वा आयस्रोतमा उल्लेख्य असर पर्न सक्ने गरी कुनै घटना वा परिस्थिति सृजना भएमा सो सम्बन्धमा ऋणीले फाइनान्सलाई तत्कालै जानकारी गराउनु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.३)</td>
+                    <td>फाइनान्सबाट प्रदान गरिएको सुविधाको समीक्षा गर्न आवश्यक पर्न सक्ने ऋणीले उपभोग गरेको कर्जासँग सम्बन्धित आर्थिक वा अन्य सूचना वा जानकारी फाइनान्सलाई उपलब्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.४)</td>
+                    <td>प्रत्येक त्रैमासिक रुपमा ऋणीले आफ्नो व्यवसायको मौज्दात र उठाउन पर्ने हिसाब किताबहरुको विवरण नियमित रुपमा फाइनान्सलाई बुझाउनु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.५)</td>
+                    <td>ऋणीले लेखिदिएको चल अचल सम्पत्तीहरुको प्रचलित नेपाल कानून बमोजिम लाग्ने मालपोत, शुल्क, कर, राजश्व, दस्तुर, महसूल तथा सम्पूर्ण रकमहरु तिर्ने बुझाउने जिम्मा ऋणीको हुनेछ । यस्तो रकम बुझाई सोको निस्सा प्रत्येक आर्थिक वर्षको पहिलो त्रयमासभित्र फाइनान्समा पेश गर्नु ऋणीको कर्तव्य हुनेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.६)</td>
+                    <td>फाइनान्सले ऋणीलाई कुनै कुराको जानकारी वा सूचना पठाउँदा ऋणीले फाइनान्सलाई कर्जा लिंदाको बखत उपलब्ध गराएको ठेगाना वा ऋणीको कारोबार वा निवासको ठेगानामा छोडिदिएमा वा हुलाक मार्फत पठाईदिएमा वा कुनै राष्ट्रिय दैनिक पत्रिकामा प्रकाशित गरेमा वा टेलेक्स, फ्याक्स, ईमेल, एस.एम.एस लगायत यस्तै अन्य विद्युतीय सञ्चार माध्यम मार्फत पठाएमा सूचनाको रीतपूर्वक तामेली भएको तथा ऋणी र अन्य सम्बन्धित पक्षले प्राप्त गरेको मानिनेछ । यस्तो ठेगाना परिवर्तन भएमा अविलम्ब फाइनान्सलाई जानकारी गराउनु पर्नेछ । यस्तो ठेगानामा पठाएको सूचना प्राप्त भएन भनी ऋणीबाट कुनैपनि दाबी, बिरोध वा उजुरी गर्न पाईने छैन ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.७)</td>
+                    <td>जुन प्रयोजन तथा परियोजनाको लागि कर्जा प्रदान गरिएको हो, सो काम तथा परियोजनामा कर्जा प्रयोग भएको नदेखिएमा ऋणीलाई प्रदान गरिदै आएको ऋण कर्जा वा बैकिङ्ग सुबिधा प्रदान गर्ने कार्य फाइनान्सले कुनैपनि समयमा बन्द गर्ने वा रोक लगाउन सक्नेछ । यस्तो अवस्थामा ऋणीले फाइनान्सलाई तिर्नुपर्ने कर्जाको रकम वा अन्य रकमको भुक्तानी गर्ने भाखा पुग्नुभन्दा पहिला नै फाइनान्सले ऋणीसँग कर्जा वा अन्य लेना रकम अविलम्ब भुक्तानीको माग गर्न सक्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.८)</td>
+                    <td>ऋणी संस्था (प्रा.लि. कम्पनी, प्राइभेट फर्म, साझेदारी फर्म, प्रोप्राइटरसिप फर्म आदि) ले यस फाइनान्सको पूर्व स्वीकृती बिना कुनै पनि प्रकारले संस्थाको शेयर संरचनामा परिवर्तन, शेयरधनीहरुमा परिवर्तन तथा संस्थाको नाम परिवर्तन गर्न पाउने छैन । साथै, सञ्चालक समितिमा हेरफेर भएमा सोको जानकारी फाइनान्सलाई तुरुन्त दिनुपर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.९)</td>
+                    <td>ऋण कर्जाको रकम तथा पाकेको ब्याज वा अन्य लेना रकम र सोमा लागेको दस्तुर वापतको रकम समेत ऋणीले म्यादभित्र नतिरेमा यस्तो रकम ऋणीले फाइनान्सलाई लेखिदिएको धितो, ऋणीको अन्य जायजेथा तथा जमानत समेतबाट असूल उपर गर्ने अधिकार फाइनान्सलाई हुनेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.१०)</td>
+                    <td>ऋणीले कर्जा लिदाँ कर्जाको सुरक्षण वापत फाइनान्सलाई धितो उपलब्ध गराएको सम्पति उपर कुनै मुद्दा मामिला परेमा फाइनान्सको माग अनुसार थप धितो उपलब्ध गराउनु पर्नेछ वा सम्पूर्ण बक्यौता कर्जा रकम तत्काल नै चुक्ता भुक्तान गर्नु पर्नेछ । साथै कानूनी उपचारको लागि नेपालको कुनै पनि अडा अदालतमा कानूनी प्रतिनिधि नियुक्त गर्नु परेमा सो प्रतिनिधि नियुक्त गर्ने कानूनी उपचारको लागि कानून व्यवसायी नियुक्त गर्ने र कानूनी उपचारको क्रममा लाग्ने सम्पूर्ण खर्च ऋणीको खातामा खर्च लेखी हिसाब मिलान गर्ने अधिकार फाइनान्सलाई हुनेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.११)</td>
+                    <td>नेपाल राष्ट्र बैंकद्वारा कर्जा सूचना तथा कालोसूची सम्बन्धि निर्देशिका बमोजिम ऋणी, जमानतकर्ता तथा कर्जासँग सम्बन्धित कुनै पनि पक्षलाई कर्जा सूचना केन्द्रको कालोसूचीमा नाम समावेश गराउनुपर्ने अवस्था सृजना हुन गएमा सो सम्बन्धमा फाइनान्सले आवश्यक प्रक्रिया अवलम्बन गरि कर्जा सूचना केन्द्रलाई सिफारिस गर्न सक्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.१२)</td>
+                    <td>ऋण असूलीका क्रममा सूचना प्रकाशित गर्दा लाग्ने खर्च तथा धितो सम्पत्ति लिलाम बिक्री वा अन्य कुनै व्यवस्था गर्दा लाग्ने जुनसुकै खर्च ऋणीबाट फाइनान्सले लेना सरह असूलउपर गर्ने अधिकार राख्दछ ।</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">१२.१३)</td>
+                    <td>ऋणीले मुलुकको प्रचलित नियम कानूनको पूर्ण पालना गर्नु पर्नेछ ।</td>
+                </tr>
+            </table>
+            <p><strong>१३. <u>निम्न अवस्था मध्ये कुनै पनि अवस्था सृजना भएमा शर्तहरु उल्लंघन गरेको (EVENT OF DEFAULT) मानिने छः</u></strong></p>
+<table>
+            <tr>
+                <td style="vertical-align: top">१३.१)</td>
+                <td>यस स्वीकृतिपत्रमा उल्लेख गरिएका ऋण—कर्जा सुविधा तथा अन्य बैकिङ्ग सुविधा प्राप्त गर्नको लागि फाइनान्स समक्ष पेश गरिएको आवेदन फारम, कुनैपनि लिखत, विवरण वा ऋणी वा यसका आधारभुत शेयरधनी, सञ्चालक वा पदाधिकारी तथा कर्मचारीहरुले व्यक्त गरेको प्रतिबद्धता, आश्वासन, कबुलियत वा मन्जुरी वा सत्यताको ग्यारेन्टिमा लेखिएको कुरा, आयस्रोत समेतका वित्तिय विवरण/प्रक्षेपण वा तथ्यांकहरु असत्य, झुट्टा, आधारहिन, तथ्यहिन पाईएमा वा फाइनान्सलाई भ्रामक पार्ने नियतले गलत रुपमा प्रस्तुत गरेको पाईएमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.२)</td>
+                <td>यस स्वीकृतिपत्रमा लेखिएको शर्तहरुको पालना नगरेमा वा ऋणीले पुरा गर्नुपर्ने आफ्नो दायित्वहरु निर्धारित समयमा तथा निर्धारित तरिका बमोजिम पुरा नगरेमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.३)</td>
+                <td>भाखा नाघेको ७ (सात) दिनभित्र पनि ऋणको साँवा, ब्याज तथा दस्तुर वा अन्य लेना रकम चुक्ता भुक्तान नगरि बाँकी रहेको देखिएमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.४)</td>
+                <td>यस स्वीकृतिपत्र अनुसार पुरा गर्नुपर्ने दायित्व पुरा गर्न ऋणी सक्षम छैन भन्ने कुरा फाइनान्सले विश्वास गर्न सक्ने कुनै अवस्था उत्पन्न भएमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.५)</td>
+                <td>ऋणीले धितो लेखिदिएको चल अचल सम्पती कच्चा नखरा देखिएमा वा ऋणीले धितो दिएको सम्पती वा ऋणीको व्यवसायिक कारोबार सञ्चालनमा प्रत्यक्ष रुपमा असर पार्न सक्ने अन्य कुनैपनि अधिकार प्राप्त निकायबाट चलन चलाई लिएमा वा यस्तो सम्पत्ती माथि दाबी लिई आएमा वा रोक्का भई आएको पाईएमा वा फाइनान्स विरुद्ध कुनै अदालतमा मुद्दा दायर गरेमा वा कुनै कानूनी कारवाहिको प्रक्रिया सुरु गरेमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.६)</td>
+                <td>ऋणी संस्था (प्रा.लि. कम्पनी, प्राइभेट फर्म, साझेदारी फर्म, प्रोप्राइटरसिप फर्म आदि) ले फाइनान्सको पूर्व स्वीकृति बिना कुनै पनि प्रकारले संस्थाको शेयर संरचना तथा शेयरधनीहरुमा परिवर्तन गरेमा वा आफ्नो व्यवसायको सबै वा केही भाग बन्द गरेमा, व्यवसाय वा यसको संरचनाको प्रकृतिमा महत्वपूर्ण परिवर्तन गरेको पाईएमा अथवा कुनै पनि कारणले कुनै सरकारी निकाय वा कानूनी निकाय वा अन्य व्यक्ति वा संघसंस्थाले ऋणी संस्था कब्जामा लिएमा वा जफत गरेमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.७)</td>
+                <td>कर्जाको अवधिभर कुनै पनि समयमा धितो सुरक्षण गैर कानूनी कार्यको लागि प्रयोग भएको पाईएमा ।</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top">१३.८)</td>
+                <td>नेपाल राष्ट्र बैंकले जारी गरेको निर्देशिका तथा अन्य प्रचलित नियम कानूनमा भएको व्यवस्था बमोजिम ऋणीलाई कर्जा सूचना केन्द्र तथा त्यस्तै अन्य निकायमा कालोसूचीमा राख्नुपर्ने कुनै पनि अवस्था भएमा वा देखिएमा तथा कर्जासँग सम्बन्धित कुनै पनि पक्षको नाम कर्जा सूचान केन्द्रको कालोसूचीमा समावेश भएको पाईएमा ।</td>
+            </tr>
+        </table>
+            <p><strong>१४. <u>यस सम्झौताका शर्तहरु उल्लंघन (EVENT OF DEFAULT) भएमा फाइनान्सलाई देहाय बमोजिम थप अधिकार हुनेछः</u></strong></p>
+            <table>
+                <tr>
+                    <td colspan="2">ऋणीले यस स्वीकृतिपत्रमा उल्लेखित कुनै शर्त उल्लंघन गरेको अवस्थामा फाइनान्सलाई ऋणी उपर निम्न बमोजिमको कुनै एक वा सोभन्दा बढी कारवाही गर्ने अधिकार हुनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>१४.१)</td>
+                    <td>ऋणीको साँवा अथवा ब्याज भाखा नाघ्नु अगावै कुनैपनि समयमा ऋणीले तिर्न बाँकी रहेको ऋण कर्जा वा अन्य लेना रकमको साँवा तथा ब्याज समेत तुरुन्त तिर्न लगाउने / असूल उपर गर्ने प्रकृया अघि बढाउने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.२)</td>
+                    <td>प्रिमियमदर बृद्धि गर्ने तथा यस स्वीकृतिपत्रको शर्त बमोजिम थप दायित्व ऋणीलाई लगाउने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.३)</td>
+                    <td>ऋण कर्जाको सुरक्षणको लागि धितो लेखिदिएको सम्पतीहरु कब्जामा लिने, बिक्री गर्ने र प्राप्त रकमबाट धितो बिक्री गर्दा भएको खर्च, ऋणीले तिर्न बाँकी ब्याज, साँवा वा अन्य लेना रकम असूल उपर गर्ने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.४)</td>
+                    <td>ऋणीको अन्य चल अचल सम्पत्ती वा जमानत दिनेको सम्पत्ती समेत रोक्का गर्ने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.५)</td>
+                    <td>यस स्वीकृतिपत्र बमोजिम फाइनान्सले स्वीकार गरेका वा पूरा गर्नुपर्ने दायित्वबाट छुटकरा लिने वा कुनै शर्तहरु फिर्ता लिने वा कुनै शर्तमा परिवर्तन गर्ने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.६)</td>
+                    <td>ऋणीको कारणले फाइनान्सलाई हुन आउने वा भएको अरु कुनैपनि हानी नोक्सानीहरु भराउने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.७)</td>
+                    <td>फाइनान्सले कर्जा तिर्ने सम्बन्धमा ऋणी तथा जमानीकर्ताहरुलाई दिइएको वा फाइनान्ससँग उपलब्ध ठेगानामा छोडिदिएको वा विद्युतीय माध्यमबाट वा हुलाकबाट पठाइएको पत्रलाई समयमा कर्जा नतिरेको अनन्य प्रमाणका रुपमा लिई ऋणी/जमानीकर्ता तथा सम्बद्ध व्यक्तिहरु विरुद्ध बैंक तथा वित्तीय संस्था सम्बन्धी ऐन, बैंक तथा वित्तीय संस्थाको ऋण असूली ऐन, तथा अन्य प्रचलित कानून बमोजिम ऋण असूली सम्बन्धी कारवाही चलाउने ।</td>
+                </tr>
+                <tr>
+                    <td>१४.८)</td>
+                    <td>नेपाल राष्ट्र बैंकको कालोसूची सम्बन्धी निर्देशिका बमोजिम ऋणी, जमानतकर्ता तथा कर्जासँग सम्बन्धित कुनैपनि पक्षलाई कर्जा सूचना केन्द« लि.को कालोसूचीमा नाम समावेश गराउनुुपर्ने अवस्था सृजना हुन गएमा सो सम्बन्धमा फाइनान्सले आवश्यक प्रक्रिया अवलम्बन गर्ने ।</td>
+                </tr>
+            </table>
+
+
+
+
+
+
+
+
+
+
+            <p>***	<u>माथि जुनसुकै कुरा लेखिएको भएतापनि कर्जाको प्रकृति अनुसार यदि कुनै शर्त लागू नहुने देखिएमा सो बाहेकका लागू हुने प्रकृतिका अन्य शर्तहरु मात्र उक्त कर्जामा यथावत् रुपमा लागू हुनेछन् ।</u></p>
+
+            <p>यसमा उल्लेखित कुनैपनि कुराले ऋणीले फाइनान्सलाई तिर्नु बुझाउनुपर्ने वा व्यहोर्नुपर्ने कुनैपनि किसिमको बक्यौता वा दायित्वको सुरक्षणका लागि फाइनान्सलाई हाल उपलब्ध गराएको र भविष्यमा समेत उपलब्ध हुन सक्ने कुनै पनि सुरक्षण, जमानत, दायित्व बमोजिम वा अदालती निर्णय वा कानून बमोजिम फाइनान्स फाइनान्स लि.लाई प्राप्त कुनै पनि किसिमको हक, अधिकार, सहुलियत, सुविधा वा उपचारमा कुनै पनि हिसाबले प्रतिकूल असर पर्नेछैन ।</p>
+            <p>ऋणीका नाममा पूर्ववत् जारी ऋण स्वीकृतिपत्रमा उल्लिखित शर्तबन्देजहरु लागू हुनसक्ने हदसम्म यस ऋण स्वीकृतिपत्र मार्फत स्वीकृत कर्जा तथा सुविधाका सम्बन्धमा समेत लागू हुनेछन् ।</p>
+
+            <p>यो कर्जा स्वीकृतिपत्र बुझीलिई यसमा उल्लेखित सम्पूर्ण शर्तबन्देजहरु पढी बाची सोको मतलव तथा परिणाम समेत बुझी ऋणी तथा जमानतकर्ताको पूर्ण मन्जुरी तथा स्वीकृति सहित निजहरुको हस्ताक्षर गरी गराई यसै बमोजिमको एक प्रति फाइनान्स समक्ष यो स्वीकृत पत्र जारी भएको मितिबाट ७ दिनभित्र फिर्ता गरिदिन हुन अनुरोध छ, अन्यथा यस पत्र मार्फत स्वीकृत गरिएका कर्जा सुविधाहरु स्वतः रद्द भएको मानिने समेत जानकारी गराउँदछौं । साथै, यो स्वीकृत पत्र जारी भएको ३० दिनभित्र कर्जा उपभोग नगरेमा यसमा उल्लेखित शर्तअनुसार कर्जा प्रवाह गर्र्र्न फाइनान्स बाध्य हुने छैन ।</p>
+            <br><br> <br><br> <p style="margin-left: 100px">भवदीय,</p>
+            <br> <br><br>
+            <div>
+                <div style="width:50%;float:left;">
+                    <p style="margin-left:50px">............................................</p>
+                    <p style="margin-left:60px">आइ.सि.एफ.सि. फाइनान्स</p>
+                    <p style="margin-left:80px">लिमिटेडको तर्फबाट</p>
+                </div>
+                <div style="width:50%;float:left;">
+                    <p style="text-align:right;margin-right: 50px">.............................................</p>
+                    <p style="text-align:right;margin-right: 60px">आइ.सि.एफ.सि. फाइनान्स</p>
+                    <p style="text-align:right;margin-right: 80px">लिमिटेडको तर्फबाट</p>
+                </div>
+            </div>
+            <p><strong>श्री आइ.सि.एफ.सि. फाइनान्स लिमिटेड,</strong></p>
+            <p><input class="form-field form-control-sm nepaliFont" formControlName="address" type="text"/>
+                </p>
+            <p><input class="form-field form-control-sm nepaliFont" formControlName="district" type="text"/>
+                <strong>, नेपाल ।</strong></p>
+            <br> <br><br>
+            <p>महोदय,</p>
+            <br> <br><br>
+            <p>त्यस फाइनान्सको मिति
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="year2" type="text"/>-->
+                <span class="nepaliFont form-field"> {{businessLoan.get('letterYear').value}}</span>
+                /<span class="nepaliFont form-field"> {{businessLoan.get('month').value}}</span>
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="month4" type="text"/>-->
+                /<span class="nepaliFont form-field"> {{businessLoan.get('day').value}}</span>
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="day3" type="text"/>-->
+                , च.नं.: आइ.सि.एफ.सि.—शाखा
+<!--                <input class="form-field form-control-sm nepaliFont" formControlName="branch2" type="text"/>-->
+                <span class="nepaliFont form-field"> {{businessLoan.get('branch').value}}</span>
+                —कर्जा/<span class="nepaliFont form-field"> {{businessLoan.get('regNo').value}}</span>
+<!--                ०७६—७७/<input class="form-field form-control-sm nepaliFont" formControlName="regNo2" type="text"/>-->
+                 को व्यवसायिक ओभरड्राफ्ट कर्जा स्वीकृति पत्र मैले/हामीले प्राप्त गरें/गर्यौं । उक्त पत्रमा उल्लेखित सम्पूर्ण शर्त बन्देजहरु मलाई/हामीलाई मान्य रहेको हुँदा सोही बमोजिमको एक प्रतिमा हस्ताक्षर गरी फाइनान्स समक्ष पेश गरेको/का छु/छौं । कर्जासँग सम्बन्धित प्रतिज्ञापत्र तथा कर्जा तमसुक लगायत सम्पूर्ण सुरक्षण कागजातहरु समयभित्रै नै गरिदिने छु/छौं ।</p>
+            <div class="d-flex justify-content-between" style="margin-bottom: 75px;">
+                <div>
+                    <p>हस्ताक्षरः	......................................</p>
+                    <br>
+                    <p><strong>ऋणीको नामः</strong> <input class="form-field form-control-sm nepaliFont" formControlName="debtorName" type="text"/>
+                    </p>
+                    <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date" type="text"/>
+                </p>
+<!--                    <br><br><br><p>___________________________</p>-->
+                </div>
+
+                <div>
+                    <p>हस्ताक्षरः	......................................</p>
+                    <br>
+                    <p><strong>जमानी दिनेको नामः </strong> <input class="form-field form-control-sm nepaliFont" formControlName="guarantorName" type="text"/>
+                    </p>
+                    <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date2" type="text"/>
+                </p>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="guarantorColumn" *ngFor = "let personalData of businessLoan.get('guarantorDetails')['controls']; let index = index;" formArrayName="guarantorDetails">
+                    <div class="col-md-12 mr-2" style="margin-bottom: 75px;" [formGroupName]="index" id="GuarantorDetails">
+                        <p>हस्ताक्षरः	.....................................</p>
+                        <br>
+                        <p>
+                            <strong>जमानी दिनेको नामः </strong>
+                        </p>
+                        <p>
+                            <input class="form-field form-control-sm nepaliFont" formControlName="guarantorName1" type="text"/>
+                        </p>
+                        <br><p>मितिः <input class="form-field form-control-sm nepaliFont" formControlName="date3" type="text"/>
+                    </p>
+                        <div class="col-md-12">
+                            <button
+                                    (click)="removeAddedGuarantor(index)"
+                                    *ngIf="index > -1"
+                                    class="mt-3 mb-3" nbButton
+                                    size="small"
+                                    status="primary">हटाउनुहोस्
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mr-1 mt-3" style="margin-bottom: 50px;">
+                <div class="col-md-12 text-right">
+                    <button (click)="addNewGuarantor()" nbButton size="small" status="info" type="Button">
+                        जमानी कर्ता थप्नुहोस्
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button nbButton status="success">Save</button>
+            </div>
+        </div>
+    </form>
+    <!--</div>-->
+    <div class="row mt-2">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-primary d-print-none"
+                    [useExistingCss]="true"
+                    [disabled]="!initialInfoPrint"
+                    printSectionId="print-section-{{offerLetterConst.BUSINESS_LOAN}}"
+                    ngxPrint>
+                PRINT
+            </button>
+        </div>
+    </div>
+</div>
+<app-business-loan-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint"
+                          hidden></app-business-loan-print>
+
