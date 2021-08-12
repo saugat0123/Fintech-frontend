@@ -1,4 +1,4 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {LoanConfig} from '../../modal/loan-config';
@@ -126,8 +126,7 @@ export class CatalogueComponent implements OnInit {
         private catalogueService: CatalogueService,
         private location: AddressService,
         private nbDialogService: NbDialogService,
-        private service: ApprovalRoleHierarchyService,
-        private cdr: ChangeDetectorRef) {
+        private service: ApprovalRoleHierarchyService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -232,8 +231,7 @@ export class CatalogueComponent implements OnInit {
             showShareLoanExcessingLimit: [undefined],
             users: [undefined],
             showExpriringInsurance: [undefined],
-            provinceId: [undefined],
-            username: [undefined]
+            provinceId: [undefined]
         });
     }
 
@@ -320,8 +318,6 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('companyName').value;
         this.catalogueService.search.users = ObjectUtil.isEmpty(this.filterForm.get('users').value) ? undefined :
             this.filterForm.get('users').value;
-        this.catalogueService.search.username = ObjectUtil.isEmpty(this.filterForm.get('username').value) ? undefined :
-            this.filterForm.get('username').value;
         this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
             this.filterForm.get('provinceId').value;
         CatalogueComponent.loadData(this);
@@ -449,7 +445,6 @@ export class CatalogueComponent implements OnInit {
             return;
         }
         this.loanDataHolder = data;
-        console.log(this.loanDataHolder.loanType);
         this.modalService.open(onActionChange);
     }
 
@@ -626,7 +621,6 @@ export class CatalogueComponent implements OnInit {
     }
 
     private roleHierarchyList(refId: number, loanDataHolder: any): void {
-        this.popUpTitle = 'Transfer';
         this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
             this.defaultRoleHierarchies = response.detail;
             this.length = this.defaultRoleHierarchies.length > 0;
@@ -642,8 +636,8 @@ export class CatalogueComponent implements OnInit {
                     this.currentRoleOrder = f.role.roleOrder;
                     this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
                 }
+                this.popUpTitle = 'Transfer';
             });
         });
     }
-
 }
