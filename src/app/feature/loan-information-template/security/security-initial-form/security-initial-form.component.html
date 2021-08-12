@@ -2669,6 +2669,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="companyCode">Company Code</label>
+                                    <input class="form-control" formControlName="companyCode" id="companyCode"
+                                           name="companyCode" readonly type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="shareType">Select Share Type</label>
                                     <input class="form-control" formControlName="shareType" id="shareType"
                                            name="shareType" readonly type="text">
@@ -2719,6 +2726,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title">Price Earning Ratio</label>
@@ -2751,6 +2759,7 @@
                                                    placeholder="Dividend Payout Ratio" type="number">
                                         </div>
                                     </div>
+                        </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
                             <button (click)="removeShareList(shareFieldIndex)"

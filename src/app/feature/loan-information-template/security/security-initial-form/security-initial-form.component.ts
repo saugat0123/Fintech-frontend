@@ -118,6 +118,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     shareType = ShareType;
     activeNepseMaster: NepseMaster = new NepseMaster();
+    selectedCompanyCode: string;
     nepseList: Array<Nepse> = new Array<Nepse>();
     search: any = {
         status: 'ACTIVE',
@@ -1804,6 +1805,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 shareType: matchedNepse[0].shareType,
                 companyCode: matchedNepse[0].companyCode,
                 amountPerUnit: matchedNepse[0].amountPerUnit,
+                priceEarningRatio: matchedNepse[0].priceEarningRatio,
+                priceBookValue: matchedNepse[0].priceToBookValue,
+                dividendYeild: matchedNepse[0].dividendPayoutRatio,
+                dividendPayoutRatio: matchedNepse[0].dividendPayoutRatio,
                 total: this.calculateTotalShareAmount(companyName, totalShareUnit),
                 consideredValue: this.calculateConsideredAmount(
                     this.shareField.at(index).get('totalShareUnit').value,
@@ -1868,6 +1873,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     private setShareSecurityDetails(details) {
+        console.log('details', details);
         const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
         const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
         shareFields.forEach(share => {
