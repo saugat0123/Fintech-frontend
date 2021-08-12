@@ -26,14 +26,15 @@ import {StateService} from '../../../@core/utils';
                 <div class="chat">
                     <div class="d-flex flex-row-reverse">
                         <div class="p-2">
-                            
+                            <app-chat></app-chat>
                         </div>
                     </div>
                 </div>
 
             </nb-layout-column>
             <nb-layout-footer fixed>
-                
+
+
                 <app-footer></app-footer>
             </nb-layout-footer>
         </nb-layout>
