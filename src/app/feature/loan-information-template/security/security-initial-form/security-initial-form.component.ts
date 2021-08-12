@@ -1841,7 +1841,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    get totalConsideredValue() {
+    get totalShareValue() {
         let total = 0;
         this.shareField.controls.forEach(c => total += Number(c.get('total').value));
         return total.toFixed(2);
