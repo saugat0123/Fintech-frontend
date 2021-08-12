@@ -4,563 +4,651 @@
   </nb-card-header>
 
   <nb-card-body>
+
     <nb-accordion>
-      <nb-accordion-item #itemSiteVisit>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>SITE VISIT</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
+      <nb-accordion-item>
+        <nb-accordion-item-header>Video KYC</nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-site-visit #siteVisitComponent
-                          (siteVisitDataEmitter)="saveSiteVisit($event)"
-                          *ngIf="itemSiteVisit.expanded"
-                          [formValue]="customerInfo?.siteVisit"
-                          [fromProfile]="true"></app-site-visit>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #ciclComponent>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>CICL</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.cicl" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.cicl" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-cicl #ciclComponent  [ciclValue]="ciclResponse" [fromProfile]="true" (ciclDataEmitter)="saveCICL($event)"></app-cicl>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <nb-accordion-item #itemFinancial *ngIf="!isMicroCustomer">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.financial" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-financial #financialComponent
-                         (financialDataEmitter)="saveFinancial($event)"
-                         *ngIf="itemFinancial.expanded"
-                         [formData]="customerInfo?.financial"
-                         [fromProfile]="true"></app-financial>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-        <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-          <nb-accordion-item-header>
-            <div class="row col-md-12">
-              <div class="col-md-8">
-                <span>LOAN PORTFOLIO OF BORROWERS</span>
-              </div>
-              <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-                <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
-              </span>
-              </div>
-            </div>
-          </nb-accordion-item-header>
-          <nb-accordion-item-body>
-            <app-borrower-loan-portofolio #borrowerLoanPortfolioComponent
-                                          *ngIf="loanPortfolio.expanded"
-                                          (dataEmitter)="saveBorrowerPortFolio($event)"
-                                          [fromProfile]="true"
-                                          [borrowerPortfolioData]="customerInfo?.borrowerPortFolio"
-            ></app-borrower-loan-portofolio>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      <nb-accordion-item #borrowerFinancialHighlight *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="microBorrowerFinancial" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microBorrowerFinancial" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-borrower-financial #borrowerFinancialComponent
-                                        *ngIf="borrowerFinancialHighlight.expanded"
-                                        (dataEmitter)="saveBorrowerFinancial($event)"
-                                        [fromProfile]="true"
-                                        [microBorrowerFinancial]="customerInfo?.microBorrowerFinancial"
-          ></app-borrower-financial>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <nb-accordion-item #microCrgParamsComponent *ngIf="otherMicroDetailsVisibility">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-capitalize">Other details (Mandatory for Micro CRG)</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="microCrgParams" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microCrgParams" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-micro-crg-params #microCrgParamsComponent
-                                  *ngIf="microCrgParamsComponent.expanded"
-                                  (dataEmitter)="saveMicroCrgParams($event)"
-                                  [fromProfile]="true"
-                                  [microCrgParams]="customerInfo?.microOtherParameters"
-          ></app-micro-crg-params>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-        <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-          <nb-accordion-item-header>
-            <div class="row col-md-12">
-              <div class="col-md-8">
-                <span>MARKETING ACTIVITIES</span>
-              </div>
-              <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-                <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
-              </span>
-              </div>
-            </div>
-          </nb-accordion-item-header>
-          <nb-accordion-item-body>
-            <app-marketing-activities
-                    *ngIf="marketingActivitiesAccordian.expanded"
-                    (dataEmitter)="saveMarketingActivities($event)"
-                    [fromProfile]="true"
-                    [marketingActivitiesData]="customerInfo?.marketingActivities"
-            ></app-marketing-activities>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-uppercase">BASEL wise Risk Weighted Exposure</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="microBaselRiskExposure" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microBaselRiskExposure" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-basel-risk-exposure
-                  [formData]="customerInfo?.microBaselRiskExposure"
-                  *ngIf="baselRiskAccordion.expanded"
-                  (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #itemIncomeFromAccount>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>INCOME FROM ACCOUNT</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.incomeFromAccount" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.incomeFromAccount" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
-                                   [fromProfile]="true"
-                                   *ngIf="itemIncomeFromAccount.expanded"
-                                   (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
-          </app-income-from-account>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <nb-accordion-item #itemNetTradingAssets *ngIf="customerInfo?.customerType === 'INSTITUTION' || isMicroCustomer">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)' : 'NET TRADING ASSETS (NTA)'}}</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.netTradingAssets" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.netTradingAssets" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMI); else otherBank">
-            <app-nta-mega
-                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
-                    [fromProfile]=true
-                    *ngIf="itemNetTradingAssets.expanded"
-                    [netTradingAssetsData]="netTradingAssets">
-            </app-nta-mega>
-          </ng-container>
-
-          <ng-template #otherBank>
-            <app-net-trading-assets
-                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
-                    [fromProfile]=true
-                    *ngIf="itemNetTradingAssets.expanded"
-                    [netTradingAssetsData]="netTradingAssets">
-            </app-net-trading-assets>
-          </ng-template>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <nb-accordion-item #itemSecurity>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>SECURITY</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.security !== null" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span *ngIf="customerInfo?.security == null" style="color:red" title="Status :Not Saved">
-                <em class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-security *ngIf="itemSecurity.expanded"
-                        (securityDataEmitter)="saveSecurity($event)"
-                        [calendarType]="calendarType"
-                        [fromProfile]="true"
-                        [isMicroCustomer]="isMicroCustomer"
-                        [securityValue]="customerInfo?.security"
-                        [shareSecurity]="customerInfo?.shareSecurity"></app-security>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #itemGuarantor>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>GUARANTOR</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.guarantors !== null" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span *ngIf="customerInfo?.guarantors == null" style="color:red" title="Status :Not Saved">
-                <em class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-guarantor #guarantorComponent
-                         *ngIf="itemGuarantor.expanded"
-                         (guarantorDataEmitter)="saveGuarantor($event)"
-                         [calendarType]="calendarType"
-                         [fromProfile]="true"
-                         [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #itemInsurance>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>INSURANCE</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="insurance?.length>0" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="insurance?.length == 0" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-insurance
-                         (insuranceDataEmitter)="saveInsurance($event)"
-                         *ngIf="itemInsurance.expanded"
-                         [insuranceDataFromModel]="customerInfo?.insurance"
-                         [fromProfile]="true" [customerInfo]="customerInfo"></app-insurance>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <!--<nb-accordion-item #itemCrgAlpha>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>CREDIT RISK GRADING (ALPHA)</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.creditRiskGradingAlpha" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!customerInfo?.creditRiskGradingAlpha" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-credit-risk-grading-alpha #CrgAlphaComponent
-                         (crgAlphaDataEmitter)="saveCrgAlpha($event)"
-                         *ngIf="itemCrgAlpha.expanded"
-                         [creditRiskGradingAlpha]="customerInfo?.creditRiskGradingAlpha"
-                         [financial]="customerInfo?.financial"
-                         [companyInfo]="companyInfo"
-                         [fromProfile]="true"></app-credit-risk-grading-alpha>
-        </nb-accordion-item-body>
-      </nb-accordion-item>-->
-
-    <!--  DEFAULT CRG-->
-<!--      <nb-accordion-item #itemCrg>-->
-<!--        <nb-accordion-item-header>-->
-<!--          <div class="row col-md-12">-->
-<!--            <div class="col-md-8">-->
-<!--              <span>CREDIT RISK GRADING</span>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 d-flex justify-content-end">-->
-<!--              <span *ngIf="customerInfo?.creditRiskGrading" style="color:green" title="Status : Saved">-->
-<!--                <em class="fas fa-check-circle px-2"></em>-->
-<!--              </span>-->
-<!--              <span style="color:red" title="Status :Not Saved">-->
-<!--                <em *ngIf="!customerInfo?.creditRiskGrading" class="fas fa-times-circle px-2"></em>-->
-<!--              </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </nb-accordion-item-header>-->
-<!--        <nb-accordion-item-body>-->
-<!--          <app-credit-grading #CrgComponent-->
-<!--                              (crgDataEmitter)="saveCrg($event)"-->
-<!--                              *ngIf="itemCrg.expanded"-->
-<!--                              [formData]="customerInfo?.creditRiskGrading"-->
-<!--                              [fromProfile]="true"></app-credit-grading>-->
-<!--        </nb-accordion-item-body>-->
-<!--      </nb-accordion-item>-->
-      <!--  DEFAULT CRG-->
-      <nb-accordion-item #itemloanChecklist>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>CREDIT CHECKLIST</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="creditChecklistGeneral" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!creditChecklistGeneral" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-credit-checklist-general
-              (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"
-              *ngIf="itemloanChecklist.expanded"
-              [formData]="customerInfo?.creditChecklist"
-              [fromProfile]="true"
-              [calendarType]="calendarType"
-              [customerType]="customerInfo?.customerType"
-          ></app-credit-checklist-general>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-uppercase">Synopsis of Creditworthiness</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="microLoanSynopsis" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microLoanSynopsis" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-micro-synopsis
-                  (creditworthinessEmitter)="saveSynopsisCreditworthiness($event)"
-                  *ngIf="synopsisAccordion.expanded"
-                  [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #reportingInfoLevelAccordion *ngIf="client !== clientName?.SHINE_RESUNGA">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span class="text-uppercase">Customer Reporting Information</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span style="color: green" title="Status : Saved">
-                <em *ngIf="reportingInfoLevelCode && reportingInfoLevelDescription" class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color: red" title="Status : Not Saved">
-                <em *ngIf="!reportingInfoLevelCode && !reportingInfoLevelDescription" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-reporting-info-tagging #reportingInfoTagging
-                                      *ngIf="reportingInfoLevelAccordion.expanded"
-                                      (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"
-                                      [type]="'c'"
-                  [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-reporting-info-tagging>
+          <!-- Video KYC -->
           <div>
-            <button class="btn float-right d-flex justify-content-end" (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save</button>
+          <div class="row">
+          <div class="col-md-12">
+            <nb-card-header>
+              Video KYC Sender
+            </nb-card-header>
+            <form>
+                <div class="p-4 row">
+                  <div class="col-sm-2">
+                    <label for="required" class="label">Required</label><br>
+<!--                    <nb-checkbox id="required">Yes</nb-checkbox>&nbsp;-->
+<!--                    <nb-checkbox>No</nb-checkbox>-->
+                    <nb-radio-group>
+                      <nb-radio value="1">Yes</nb-radio>
+                      <nb-radio value="2">No</nb-radio>
+                    </nb-radio-group>
+                  </div>
+                  <div class="col-lg-5">
+                    <label for="Meetinglink" class="label">Meeting Link</label>
+                    <input type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                  </div>
+                  <div class="col-md-5">
+                    <label for="recordedmeeting" class="label">Recorded Meeting</label>
+                    <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
+                  </div>
+                </div>
+              <div id="generatebtn" class="row" style="margin-left:15px; margin-bottom: 15px" >
+                <button type="submit" id="sender" nbButton status="danger">Generate</button>
+              </div>
+            </form>
           </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <nb-card-header>
+                Video KYC Beneficiary
+              </nb-card-header>
+              <form>
+                <div class="p-4 row">
+                  <div class="col-sm-2">
+                    <label class="label">Required</label><br>
+                    <nb-radio-group>
+                      <nb-radio value="1">Yes</nb-radio>
+                      <nb-radio value="2">No</nb-radio>
+                    </nb-radio-group>
+                  </div>
+                  <div class="col-lg-5">
+                    <label for="Meetinglink1" class="label">Meeting Link</label>
+                    <input type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
+                  </div>
+                  <div class="col-md-5">
+                    <label for="recordedmeeting1" class="label">Recorded Meeting</label>
+                    <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
+                  </div>
+                </div>
+                <div id="generatebtn1" class="row" style="margin-left:15px; margin-bottom: 15px" >
+                  <button type="submit" id="sender1" nbButton status="danger">Generate</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+            <div class="p-3 row">
+
+              <div class="col-md-4">
+                <button type="submit" style="width: 65%" nbButton status="danger">Generate DOC</button>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" style="width: 65%" nbButton status="danger">Send to Branch</button>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" style="width: 65%" nbButton status="danger"> Save </button>
+              </div>
+            </div>
+          </div>
+
+
         </nb-accordion-item-body>
       </nb-accordion-item>
-
-      <nb-accordion-item #commentsFromAccount *ngIf="client === clientName?.LAXMI">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>COMMENTS</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="checkedPreviousComments" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!checkedPreviousComments" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-comments
-                  #commentsInfoTagging
-                  [commentsDataResponse]="commentsDataResponse"
-                  [commentData]="customerInfo?.data"
-                                   [fromProfile]="true"
-                                   *ngIf="commentsFromAccount.expanded"
-                                   (commentsDataEmitter)="saveDataFromComments($event)">
-          </app-comments>
-          <div>
-            <button class="btn float-right d-flex justify-content-end" (click)="commentsComponent.submitForm()" type="submit" nbButton>Save</button>
-          </div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-
-      <nb-accordion-item #dataFromPreviousSecurity *ngIf="client === clientName?.LAXMI">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>PREVIOUS SECURITY</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="checkedPreviousSecurity" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!checkedPreviousSecurity" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-previous-security
-                  #previousSecurityInfoTagging
-                  [securityDataResponse]="securityDataResponse"
-                  [securityData]="customerInfo?.data"
-                  [commentData]="customerInfo?.data"
-                  [fromProfile]="true"
-                  *ngIf="dataFromPreviousSecurity.expanded"
-                  (securityDataEmitter)="saveDataFromSecurity($event)">
-          </app-previous-security>
-          <div>
-            <button class="btn float-right d-flex justify-content-end" (click)="previousSecurityComponent.submitForm()" type="submit" nbButton>Save</button>
-          </div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <!--   CRG GAMMA-->
-<!--      <nb-accordion-item #itemCrgGamma>-->
-<!--        <nb-accordion-item-header>-->
-<!--          <div class="row col-md-12">-->
-<!--            <div class="col-md-8">-->
-<!--              <span>CREDIT RISK GRADING (GAMMA)</span>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 d-flex justify-content-end">-->
-<!--              <span *ngIf="customerInfo?.crgGamma" style="color:green" title="Status : Saved">-->
-<!--                <em class="fas fa-check-circle px-2"></em>-->
-<!--              </span>-->
-<!--              <span style="color:red" title="Status :Not Saved">-->
-<!--                <em *ngIf="!customerInfo?.crgGamma" class="fas fa-times-circle px-2"></em>-->
-<!--              </span>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </nb-accordion-item-header>-->
-<!--        <nb-accordion-item-body>-->
-<!--          <app-credit-risk-grading-gamma #CrgGammaComponent-->
-<!--                                         (crgDataEmitter)="saveCrgGamma($event)"-->
-<!--                                         *ngIf="itemCrgGamma.expanded"-->
-<!--                                         [formData]="customerInfo?.crgGamma"-->
-<!--                                         [fromProfile]="true"></app-credit-risk-grading-gamma>-->
-<!--        </nb-accordion-item-body>-->
-<!--      </nb-accordion-item>-->
-      <!--   CRG GAMMA-->
-
-
     </nb-accordion>
+
+<!--    <nb-accordion>-->
+<!--      <nb-accordion-item #itemSiteVisit>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>SITE VISIT</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.siteVisit" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.siteVisit" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-site-visit #siteVisitComponent-->
+<!--                          (siteVisitDataEmitter)="saveSiteVisit($event)"-->
+<!--                          *ngIf="itemSiteVisit.expanded"-->
+<!--                          [formValue]="customerInfo?.siteVisit"-->
+<!--                          [fromProfile]="true"></app-site-visit>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--      <nb-accordion-item #ciclComponent>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>CICL</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.cicl" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.cicl" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-cicl #ciclComponent  [ciclValue]="ciclResponse" [fromProfile]="true" (ciclDataEmitter)="saveCICL($event)"></app-cicl>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      <nb-accordion-item #itemFinancial *ngIf="!isMicroCustomer">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>-->
+<!--              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.financial" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.financial" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-financial #financialComponent-->
+<!--                         (financialDataEmitter)="saveFinancial($event)"-->
+<!--                         *ngIf="itemFinancial.expanded"-->
+<!--                         [formData]="customerInfo?.financial"-->
+<!--                         [fromProfile]="true"></app-financial>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--        <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">-->
+<!--          <nb-accordion-item-header>-->
+<!--            <div class="row col-md-12">-->
+<!--              <div class="col-md-8">-->
+<!--                <span>LOAN PORTFOLIO OF BORROWERS</span>-->
+<!--              </div>-->
+<!--              <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--                <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </nb-accordion-item-header>-->
+<!--          <nb-accordion-item-body>-->
+<!--            <app-borrower-loan-portofolio #borrowerLoanPortfolioComponent-->
+<!--                                          *ngIf="loanPortfolio.expanded"-->
+<!--                                          (dataEmitter)="saveBorrowerPortFolio($event)"-->
+<!--                                          [fromProfile]="true"-->
+<!--                                          [borrowerPortfolioData]="customerInfo?.borrowerPortFolio"-->
+<!--            ></app-borrower-loan-portofolio>-->
+<!--          </nb-accordion-item-body>-->
+<!--        </nb-accordion-item>-->
+<!--      <nb-accordion-item #borrowerFinancialHighlight *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="microBorrowerFinancial" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!microBorrowerFinancial" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-borrower-financial #borrowerFinancialComponent-->
+<!--                                        *ngIf="borrowerFinancialHighlight.expanded"-->
+<!--                                        (dataEmitter)="saveBorrowerFinancial($event)"-->
+<!--                                        [fromProfile]="true"-->
+<!--                                        [microBorrowerFinancial]="customerInfo?.microBorrowerFinancial"-->
+<!--          ></app-borrower-financial>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      <nb-accordion-item #microCrgParamsComponent *ngIf="otherMicroDetailsVisibility">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span class="text-capitalize">Other details (Mandatory for Micro CRG)</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="microCrgParams" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!microCrgParams" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-micro-crg-params #microCrgParamsComponent-->
+<!--                                  *ngIf="microCrgParamsComponent.expanded"-->
+<!--                                  (dataEmitter)="saveMicroCrgParams($event)"-->
+<!--                                  [fromProfile]="true"-->
+<!--                                  [microCrgParams]="customerInfo?.microOtherParameters"-->
+<!--          ></app-micro-crg-params>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--        <nb-accordion-item #marketingActivitiesAccordian *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">-->
+<!--          <nb-accordion-item-header>-->
+<!--            <div class="row col-md-12">-->
+<!--              <div class="col-md-8">-->
+<!--                <span>MARKETING ACTIVITIES</span>-->
+<!--              </div>-->
+<!--              <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--                <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </nb-accordion-item-header>-->
+<!--          <nb-accordion-item-body>-->
+<!--            <app-marketing-activities-->
+<!--                    *ngIf="marketingActivitiesAccordian.expanded"-->
+<!--                    (dataEmitter)="saveMarketingActivities($event)"-->
+<!--                    [fromProfile]="true"-->
+<!--                    [marketingActivitiesData]="customerInfo?.marketingActivities"-->
+<!--            ></app-marketing-activities>-->
+<!--          </nb-accordion-item-body>-->
+<!--        </nb-accordion-item>-->
+<!--      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span class="text-uppercase">BASEL wise Risk Weighted Exposure</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="microBaselRiskExposure" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!microBaselRiskExposure" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-basel-risk-exposure-->
+<!--                  [formData]="customerInfo?.microBaselRiskExposure"-->
+<!--                  *ngIf="baselRiskAccordion.expanded"-->
+<!--                  (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--      <nb-accordion-item #itemIncomeFromAccount>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>INCOME FROM ACCOUNT</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.incomeFromAccount" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.incomeFromAccount" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"-->
+<!--                                   [fromProfile]="true"-->
+<!--                                   *ngIf="itemIncomeFromAccount.expanded"-->
+<!--                                   (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">-->
+<!--          </app-income-from-account>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      <nb-accordion-item #itemNetTradingAssets *ngIf="customerInfo?.customerType === 'INSTITUTION' || isMicroCustomer">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)' : 'NET TRADING ASSETS (NTA)'}}</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.netTradingAssets" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.netTradingAssets" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMI); else otherBank">-->
+<!--            <app-nta-mega-->
+<!--                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"-->
+<!--                    [fromProfile]=true-->
+<!--                    *ngIf="itemNetTradingAssets.expanded"-->
+<!--                    [netTradingAssetsData]="netTradingAssets">-->
+<!--            </app-nta-mega>-->
+<!--          </ng-container>-->
+
+<!--          <ng-template #otherBank>-->
+<!--            <app-net-trading-assets-->
+<!--                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"-->
+<!--                    [fromProfile]=true-->
+<!--                    *ngIf="itemNetTradingAssets.expanded"-->
+<!--                    [netTradingAssetsData]="netTradingAssets">-->
+<!--            </app-net-trading-assets>-->
+<!--          </ng-template>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      <nb-accordion-item #itemSecurity>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>SECURITY</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.security !== null" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span *ngIf="customerInfo?.security == null" style="color:red" title="Status :Not Saved">-->
+<!--                <em class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-security *ngIf="itemSecurity.expanded"-->
+<!--                        (securityDataEmitter)="saveSecurity($event)"-->
+<!--                        [calendarType]="calendarType"-->
+<!--                        [fromProfile]="true"-->
+<!--                        [isMicroCustomer]="isMicroCustomer"-->
+<!--                        [securityValue]="customerInfo?.security"-->
+<!--                        [shareSecurity]="customerInfo?.shareSecurity"></app-security>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--      <nb-accordion-item #itemGuarantor>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>GUARANTOR</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.guarantors !== null" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span *ngIf="customerInfo?.guarantors == null" style="color:red" title="Status :Not Saved">-->
+<!--                <em class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-guarantor #guarantorComponent-->
+<!--                         *ngIf="itemGuarantor.expanded"-->
+<!--                         (guarantorDataEmitter)="saveGuarantor($event)"-->
+<!--                         [calendarType]="calendarType"-->
+<!--                         [fromProfile]="true"-->
+<!--                         [guarantorDetailValue]="customerInfo?.guarantors" [customerInfo]="customerInfo"></app-guarantor>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--      <nb-accordion-item #itemInsurance>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>INSURANCE</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="insurance?.length>0" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="insurance?.length == 0" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-insurance-->
+<!--                         (insuranceDataEmitter)="saveInsurance($event)"-->
+<!--                         *ngIf="itemInsurance.expanded"-->
+<!--                         [insuranceDataFromModel]="customerInfo?.insurance"-->
+<!--                         [fromProfile]="true" [customerInfo]="customerInfo"></app-insurance>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      &lt;!&ndash;<nb-accordion-item #itemCrgAlpha>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>CREDIT RISK GRADING (ALPHA)</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.creditRiskGradingAlpha" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!customerInfo?.creditRiskGradingAlpha" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-credit-risk-grading-alpha #CrgAlphaComponent-->
+<!--                         (crgAlphaDataEmitter)="saveCrgAlpha($event)"-->
+<!--                         *ngIf="itemCrgAlpha.expanded"-->
+<!--                         [creditRiskGradingAlpha]="customerInfo?.creditRiskGradingAlpha"-->
+<!--                         [financial]="customerInfo?.financial"-->
+<!--                         [companyInfo]="companyInfo"-->
+<!--                         [fromProfile]="true"></app-credit-risk-grading-alpha>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;  DEFAULT CRG&ndash;&gt;-->
+<!--&lt;!&ndash;      <nb-accordion-item #itemCrg>&ndash;&gt;-->
+<!--&lt;!&ndash;        <nb-accordion-item-header>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="row col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-8">&ndash;&gt;-->
+<!--&lt;!&ndash;              <span>CREDIT RISK GRADING</span>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-4 d-flex justify-content-end">&ndash;&gt;-->
+<!--&lt;!&ndash;              <span *ngIf="customerInfo?.creditRiskGrading" style="color:green" title="Status : Saved">&ndash;&gt;-->
+<!--&lt;!&ndash;                <em class="fas fa-check-circle px-2"></em>&ndash;&gt;-->
+<!--&lt;!&ndash;              </span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <span style="color:red" title="Status :Not Saved">&ndash;&gt;-->
+<!--&lt;!&ndash;                <em *ngIf="!customerInfo?.creditRiskGrading" class="fas fa-times-circle px-2"></em>&ndash;&gt;-->
+<!--&lt;!&ndash;              </span>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </nb-accordion-item-header>&ndash;&gt;-->
+<!--&lt;!&ndash;        <nb-accordion-item-body>&ndash;&gt;-->
+<!--&lt;!&ndash;          <app-credit-grading #CrgComponent&ndash;&gt;-->
+<!--&lt;!&ndash;                              (crgDataEmitter)="saveCrg($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;                              *ngIf="itemCrg.expanded"&ndash;&gt;-->
+<!--&lt;!&ndash;                              [formData]="customerInfo?.creditRiskGrading"&ndash;&gt;-->
+<!--&lt;!&ndash;                              [fromProfile]="true"></app-credit-grading>&ndash;&gt;-->
+<!--&lt;!&ndash;        </nb-accordion-item-body>&ndash;&gt;-->
+<!--&lt;!&ndash;      </nb-accordion-item>&ndash;&gt;-->
+<!--      &lt;!&ndash;  DEFAULT CRG&ndash;&gt;-->
+<!--      <nb-accordion-item #itemloanChecklist>-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>CREDIT CHECKLIST</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="creditChecklistGeneral" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!creditChecklistGeneral" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-credit-checklist-general-->
+<!--              (creditChecklistGeneralEmitter)="saveCreditChecklist($event)"-->
+<!--              *ngIf="itemloanChecklist.expanded"-->
+<!--              [formData]="customerInfo?.creditChecklist"-->
+<!--              [fromProfile]="true"-->
+<!--              [calendarType]="calendarType"-->
+<!--              [customerType]="customerInfo?.customerType"-->
+<!--          ></app-credit-checklist-general>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span class="text-uppercase">Synopsis of Creditworthiness</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="microLoanSynopsis" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!microLoanSynopsis" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-micro-synopsis-->
+<!--                  (creditworthinessEmitter)="saveSynopsisCreditworthiness($event)"-->
+<!--                  *ngIf="synopsisAccordion.expanded"-->
+<!--                  [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--      <nb-accordion-item #reportingInfoLevelAccordion *ngIf="client !== clientName?.SHINE_RESUNGA">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span class="text-uppercase">Customer Reporting Information</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span style="color: green" title="Status : Saved">-->
+<!--                <em *ngIf="reportingInfoLevelCode && reportingInfoLevelDescription" class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color: red" title="Status : Not Saved">-->
+<!--                <em *ngIf="!reportingInfoLevelCode && !reportingInfoLevelDescription" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-reporting-info-tagging #reportingInfoTagging-->
+<!--                                      *ngIf="reportingInfoLevelAccordion.expanded"-->
+<!--                                      (reportingInfoLevelsEmitter)="saveCustomerReportingInfo($event)"-->
+<!--                                      [type]="'c'"-->
+<!--                  [reportingInfoLevels]="customerInfo?.reportingInfoLevels"></app-reporting-info-tagging>-->
+<!--          <div>-->
+<!--            <button class="btn float-right d-flex justify-content-end" (click)="reportingInfoTaggingComponent.onSubmit()" type="submit" nbButton>Save</button>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      <nb-accordion-item #commentsFromAccount *ngIf="client === clientName?.LAXMI">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>COMMENTS</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="checkedPreviousComments" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!checkedPreviousComments" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-comments-->
+<!--                  #commentsInfoTagging-->
+<!--                  [commentsDataResponse]="commentsDataResponse"-->
+<!--                  [commentData]="customerInfo?.data"-->
+<!--                                   [fromProfile]="true"-->
+<!--                                   *ngIf="commentsFromAccount.expanded"-->
+<!--                                   (commentsDataEmitter)="saveDataFromComments($event)">-->
+<!--          </app-comments>-->
+<!--          <div>-->
+<!--            <button class="btn float-right d-flex justify-content-end" (click)="commentsComponent.submitForm()" type="submit" nbButton>Save</button>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+
+<!--      <nb-accordion-item #dataFromPreviousSecurity *ngIf="client === clientName?.LAXMI">-->
+<!--        <nb-accordion-item-header>-->
+<!--          <div class="row col-md-12">-->
+<!--            <div class="col-md-8">-->
+<!--              <span>PREVIOUS SECURITY</span>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="checkedPreviousSecurity" style="color:green" title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span style="color:red" title="Status :Not Saved">-->
+<!--                <em *ngIf="!checkedPreviousSecurity" class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body>-->
+<!--          <app-previous-security-->
+<!--                  #previousSecurityInfoTagging-->
+<!--                  [securityDataResponse]="securityDataResponse"-->
+<!--                  [securityData]="customerInfo?.data"-->
+<!--                  [commentData]="customerInfo?.data"-->
+<!--                  [fromProfile]="true"-->
+<!--                  *ngIf="dataFromPreviousSecurity.expanded"-->
+<!--                  (securityDataEmitter)="saveDataFromSecurity($event)">-->
+<!--          </app-previous-security>-->
+<!--          <div>-->
+<!--            <button class="btn float-right d-flex justify-content-end" (click)="previousSecurityComponent.submitForm()" type="submit" nbButton>Save</button>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+
+<!--      &lt;!&ndash;   CRG GAMMA&ndash;&gt;-->
+<!--&lt;!&ndash;      <nb-accordion-item #itemCrgGamma>&ndash;&gt;-->
+<!--&lt;!&ndash;        <nb-accordion-item-header>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="row col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-8">&ndash;&gt;-->
+<!--&lt;!&ndash;              <span>CREDIT RISK GRADING (GAMMA)</span>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="col-md-4 d-flex justify-content-end">&ndash;&gt;-->
+<!--&lt;!&ndash;              <span *ngIf="customerInfo?.crgGamma" style="color:green" title="Status : Saved">&ndash;&gt;-->
+<!--&lt;!&ndash;                <em class="fas fa-check-circle px-2"></em>&ndash;&gt;-->
+<!--&lt;!&ndash;              </span>&ndash;&gt;-->
+<!--&lt;!&ndash;              <span style="color:red" title="Status :Not Saved">&ndash;&gt;-->
+<!--&lt;!&ndash;                <em *ngIf="!customerInfo?.crgGamma" class="fas fa-times-circle px-2"></em>&ndash;&gt;-->
+<!--&lt;!&ndash;              </span>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </nb-accordion-item-header>&ndash;&gt;-->
+<!--&lt;!&ndash;        <nb-accordion-item-body>&ndash;&gt;-->
+<!--&lt;!&ndash;          <app-credit-risk-grading-gamma #CrgGammaComponent&ndash;&gt;-->
+<!--&lt;!&ndash;                                         (crgDataEmitter)="saveCrgGamma($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;                                         *ngIf="itemCrgGamma.expanded"&ndash;&gt;-->
+<!--&lt;!&ndash;                                         [formData]="customerInfo?.crgGamma"&ndash;&gt;-->
+<!--&lt;!&ndash;                                         [fromProfile]="true"></app-credit-risk-grading-gamma>&ndash;&gt;-->
+<!--&lt;!&ndash;        </nb-accordion-item-body>&ndash;&gt;-->
+<!--&lt;!&ndash;      </nb-accordion-item>&ndash;&gt;-->
+<!--      &lt;!&ndash;   CRG GAMMA&ndash;&gt;-->
+
+
+<!--    </nb-accordion>-->
   </nb-card-body>
 </nb-card>
