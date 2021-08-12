@@ -10,7 +10,7 @@ import {VerifyPopUpComponent} from './component/verify-pop-up/verify-pop-up.comp
 import {LegalAndDisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
 import {CadActionComponent} from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
 import {ExposureComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
-import {MegaOfferLetterTemplateModule} from './mega-offer-letter-template/mega-offer-letter-template.module';
+
 import {CadDocumentTemplateModule} from './cad-document-template/cad-document-template.module';
 import {NbDialogModule} from '@nebular/theme';
 import {OfferLetterListComponent} from './component/offer-letter/offer-letter-list/offer-letter-list.component';
@@ -34,7 +34,7 @@ import {FilterComponent} from './component/filter/filter.component';
 import {CustomerInsuranceComponent} from './cad-offerletter-profile/customer-document/cad-general-document/customer-insurance/customer-insurance.component';
 import {CadSummaryComponent} from './cad-work-flow/cad-summary/cad-summary.component';
 import {CadChecklistDocTemplateModalComponent} from './cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
-import {MegaModule} from './cad-document-template/mega/mega.module';
+
 import {ProfileViewComponent} from './cad-view/profile-view/profile-view.component';
 import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
 import {FeesCommissionsViewComponent} from './cad-view/fees-commissions-view/fees-commissions-view.component';
@@ -55,7 +55,7 @@ import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offe
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
-import {IcfcModule} from './cad-document-template/icfc/icfc.module';
+
 
 
 @NgModule({
@@ -105,18 +105,15 @@ import {IcfcModule} from './cad-document-template/icfc/icfc.module';
         ThemeModule,
         CommonModule,
         NbDialogModule.forRoot(),
-        MegaOfferLetterTemplateModule,
         ExcelOfferLetterTemplateModule,
         CadDocumentTemplateModule,
         RouterModule.forChild(routes),
         NgSelectModule,
         CoreModule,
-        MegaModule,
         NgxPrintModule,
         AngularDraggableModule,
         NepaliCalendarModule,
-        ProgressiveModule,
-        IcfcModule,
+        ProgressiveModule
     ],
     entryComponents: [
         AssignPopUpComponent,
