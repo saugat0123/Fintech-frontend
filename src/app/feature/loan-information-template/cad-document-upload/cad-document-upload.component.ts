@@ -210,11 +210,11 @@ export class CadDocumentUploadComponent implements OnInit {
     }
 
     previewDocument(id: number): void {
-        // tslint:disable-next-line:prefer-const
         let url;
         const link = document.createElement('a');
         this.customerDocumentArray.forEach(a => {
             if (a.document.id === id) {
+                url = a.documentPath;
                 link.target = '_blank';
                 link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
                 link.download = name;
