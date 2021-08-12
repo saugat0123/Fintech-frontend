@@ -1806,7 +1806,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 amountPerUnit: matchedNepse[0].amountPerUnit,
                 priceEarningRatio: matchedNepse[0].priceEarningRatio,
                 priceBookValue: matchedNepse[0].priceToBookValue,
-                dividendYeild: matchedNepse[0].dividendPayoutRatio,
+                dividendYeild: matchedNepse[0].dividendYield,
                 dividendPayoutRatio: matchedNepse[0].dividendPayoutRatio,
                 total: this.calculateTotalShareAmount(companyName, totalShareUnit),
                 consideredValue: this.calculateConsideredAmount(
