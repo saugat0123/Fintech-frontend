@@ -49,6 +49,21 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 })
 export class CustomerLoanInformationComponent implements OnInit {
 
+    sender = [{
+        name: 'Dummy' ,
+        address: 'Test 1',
+        gender: '12345',
+        email: 'test@gmail.com',
+        phone: '2345',
+        fatherName: 'Test',
+        clientName: 'as',
+        dob: 'sa',
+        citizenshipNumber: 'as',
+        occupation: 'sb',
+        incomeSource: 'tt',
+        maritalStatus: 'single'
+    }];
+
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;
@@ -605,4 +620,6 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Previous Security'));
             });
     }
+
+
 }
