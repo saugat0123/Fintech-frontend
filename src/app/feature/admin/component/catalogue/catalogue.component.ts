@@ -231,7 +231,8 @@ export class CatalogueComponent implements OnInit {
             showShareLoanExcessingLimit: [undefined],
             users: [undefined],
             showExpriringInsurance: [undefined],
-            provinceId: [undefined]
+            provinceId: [undefined],
+            username: [undefined]
         });
     }
 
@@ -318,6 +319,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('companyName').value;
         this.catalogueService.search.users = ObjectUtil.isEmpty(this.filterForm.get('users').value) ? undefined :
             this.filterForm.get('users').value;
+        this.catalogueService.search.username = ObjectUtil.isEmpty(this.filterForm.get('username').value) ? undefined :
+            this.filterForm.get('username').value;
         this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
             this.filterForm.get('provinceId').value;
         CatalogueComponent.loadData(this);
@@ -621,6 +624,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     private roleHierarchyList(refId: number, loanDataHolder: any): void {
+        this.popUpTitle = 'Transfer';
         this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
             this.defaultRoleHierarchies = response.detail;
             this.length = this.defaultRoleHierarchies.length > 0;
@@ -636,7 +640,6 @@ export class CatalogueComponent implements OnInit {
                     this.currentRoleOrder = f.role.roleOrder;
                     this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
                 }
-                this.popUpTitle = 'Transfer';
             });
         });
     }

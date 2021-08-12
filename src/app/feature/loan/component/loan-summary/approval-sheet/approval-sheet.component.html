@@ -646,33 +646,9 @@
                 </div>
                 <hr>
             </div>
-            <div *ngIf="riskOfficerLevel && signatureList.length > 0" class="row justify-content-between px-3"
-                 id="signatureDiv">
-                <div class="col-md-12 print-only">
-                    <p><strong>Approval Chain</strong></p>
-                </div>
-                <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-2 padding-0-125">
-                    <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
-                        </div>
-                        <hr class="border-dark m-0">
-                        <div class="row justify-content-center signature mx-auto">
-                            <div class="print-only signature-padding"></div>
-                            <img align="middle" alt="signature"
-                                 class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
-                        </div>
-                        <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                <app-signature-section  [loanDataHolder]="loanDataHolder"
+                                        [signApprovalOn]="true" (commentApproval)="setCommentApproval($event)"
+                ></app-signature-section>
         </nb-card-body>
     </nb-card>
 </section>
