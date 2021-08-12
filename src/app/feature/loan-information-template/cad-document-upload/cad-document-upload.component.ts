@@ -198,7 +198,7 @@ export class CadDocumentUploadComponent implements OnInit {
     }
 
     sortDocument() {
-        this.initialDocuments.sort( (a, b) => {
+        this.initialDocuments.sort((a, b) => {
             if (a.name > b.name) {
                 return 1;
             }
