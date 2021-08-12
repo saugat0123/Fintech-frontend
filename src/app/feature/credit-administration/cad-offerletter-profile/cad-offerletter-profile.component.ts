@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
+import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogService} from '@nebular/theme';
@@ -22,7 +23,8 @@ import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel
 import {ProgressiveOfferLetterConst} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
 import {ProgressiveOfferLetterComponent} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 
-
+import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
+import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -72,6 +74,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.initial();
         switch (this.client) {
+            case this.clientList.MEGA:
+                this.offerLetterTypes = MegaOfferLetterConst.enumObject();
+                this.offerLetterConst = MegaOfferLetterConst;
+                this.component = CadOfferLetterModalComponent;
+                break;
             case this.clientList.EXCEL:
                 this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
                 this.offerLetterConst = ExcelOfferLetterConst;
@@ -81,6 +88,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
                 this.offerLetterConst = ProgressiveOfferLetterConst;
                 this.component = ProgressiveOfferLetterComponent;
+                break;
+            case this.clientList.ICFC:
+                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
+                this.offerLetterConst = IcfcOfferLetterConst;
+                this.component = IcfcOfferLetterComponent;
                 break;
         }
     }

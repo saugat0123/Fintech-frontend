@@ -1,0 +1,377 @@
+<div class="container nep text-justify" id="">
+    <form (ngSubmit)="submit()" [formGroup]="hypoOfStock" class="nep" id="hypoOfStockPrint">
+        <div class="align">
+        <h6 class="text-center">
+            <strong>
+                हाइपोथिकेशन अन्तर्गत मेशिनरीको धितो सुरक्षण सम्बन्धी लिखत <br>
+                (Deed for Security of Goods under Hypothecation)
+            </strong>
+        </h6>
+        <div class="row text-center">
+            <p>
+                <strong>संकेत नम्बर <input class="form-field form-control-sm nepaliFont disable-print" formControlName="hintNumber" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('hintNumber').value ? hypoOfStock.get('hintNumber').value  : '========='}}</b></span></strong>
+            </p>
+        </div>
+        <div class="row text-center">
+            <p>
+                <strong>
+                    ऋण कर्जाको सीमा <b>रु</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimit" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanLimit').value ? hypoOfStock.get('loanLimit').value  : '========='}}</b></span>
+                    <b>(अक्षरुपी </b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="loanLimitInAlphabetical" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanLimitInAlphabetical').value ? hypoOfStock.get('loanLimitInAlphabetical').value  : '========='}}</b></span><b>)</b>
+                </strong>
+            </p>
+        </div>
+
+        <div class="row text-center">
+            <p>
+                <strong>व्याज दर <b>बार्षिक</b><input class="form-field form-control-sm nepaliFont disable-print" formControlName="interestRateAnnually" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('interestRateAnnually').value ? hypoOfStock.get('interestRateAnnually').value  : '========='}}</b></span><b>प्रतिशत</b>
+                    <input class="form-field form-control-sm nepaliFont" formControlName="percentage" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('percentage').value ? hypoOfStock.get('percentage').value  : '========='}}</b></span></strong>
+            </p>
+        </div>
+
+        <div class="row text-center">
+            <p>
+                <strong>मार्जिन	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="margin" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('margin').value ? hypoOfStock.get('margin').value  : '========='}}</b></span></strong>
+            </p>
+        </div>
+
+        <div class="row text-center">
+            <p>
+                <strong>ऋणीको नाम	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="debtorName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('debtorName').value ? hypoOfStock.get('debtorName').value  : '========='}}</b></span> ठेगाना
+                    <input class="form-field form-control-sm nepaliFont" formControlName="address" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('address').value ? hypoOfStock.get('address').value  : '========='}}</b></span></strong>
+            </p>
+        </div>
+
+        <div class="row text-center">
+            <p>
+                <strong>हाइपोथिकेशन मुल्यःरु	<input class="form-field form-control-sm nepaliFont disable-print" formControlName="hypothesisAmountInRupees" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('hypothesisAmountInRupees').value ? hypoOfStock.get('hypothesisAmountInRupees').value  : '========='}}</b></span> (अक्षेरुपी
+                    <input class="form-field form-control-sm nepaliFont" formControlName="loanAmountInWord" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('loanAmountInWord').value ? hypoOfStock.get('loanAmountInWord').value  : '========='}}</b></span> )</strong>
+            </p>
+        </div>
+
+        <div class="row">
+            <p>
+                लिखितम् जमानीको लिखत गराइ दिनेका नाम प्रचलित नेपाल कानून बमोजिम संस्थापित तथा संचालित मेगा बैंक नेपाल लिमिटेडका
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="branchOffice" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('branchOffice').value ? hypoOfStock.get('branchOffice').value  : '========='}}</b></span>
+                शाखा कार्यालय (जसलाई यस उप्रान्त लिखतमा धनी बैंक भनिएको छ) लिखत गरि दिनेका नाम नेपाल सरकार
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="ministry" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('ministry').value ? hypoOfStock.get('ministry').value  : '========='}}</b></span>
+                मन्त्रालय
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="department" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('department').value ? hypoOfStock.get('department').value  : '========='}}</b></span>
+                विभाग
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="office" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('office').value ? hypoOfStock.get('office').value  : '========='}}</b></span>
+                कार्यालय
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registrationNo" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('registrationNo').value ? hypoOfStock.get('registrationNo').value  : '========='}}</b></span>
+                ऐन बमोजिम दर्ता नं
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="date" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('date').value ? hypoOfStock.get('date').value  : '========='}}</b></span>
+                मिति
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="registeredDate" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('registeredDate').value ? hypoOfStock.get('registeredDate').value  : '========='}}</b></span>
+                मा दर्ता भएको
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="proprietaryPartner" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('proprietaryPartner').value ? hypoOfStock.get('proprietaryPartner').value  : '========='}}</b></span>
+                फर्म/प्रा.लि./लि./कम्पनी (जसलाई यस उप्रान्त ऋ०ाी भनिएको छ) का हकमा एवं तर्फबा६ ऐ. का अख्तियार प्राप्त संचालकरप्रतिनिधि,श्री
+                <strong class="nepaliFont"> {{nepData?.gender == 1 ? nepData?.grandFatherName : nepData?.relationMedium == 0 ? nepData?.grandFatherName : nepData?.fatherInLawName}}</strong>
+
+                को {{nepData?.gender == 1 ? 'नाति' : nepData?.relationMedium == 0 ? 'नातिनी' : 'बुहारी'}},
+
+                श्री <strong class="nepaliFont">{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? nepData?.fatherName : null }}</strong>{{nepData?.gender == 1 || nepData?.relationMedium == 0 ? ' को' : '' }}
+
+                {{nepData?.gender == 0 && nepData?.relationMedium == 0 ? 'छोरी' : nepData?.gender == 1 ? 'छोरा': null }}
+
+                <strong class="nepaliFont"> {{nepData?.gender == 0 && nepData?.relationMedium == 1 ? nepData?.husbandName : null }}</strong>{{nepData?.gender == 0 && nepData?.relationMedium == 1 ? ' कि पत्नी' : '' }}
+                जिल्ला
+                <strong class="nepaliFont"> {{nepData?.permanentMunicipality}}</strong>
+                {{nepData?.permanentMunType == 0 ? 'नगरपालिका' : 'गा बि स'}}
+                महानगरपालिका/नगरपालिका/उपमहानगरपालिका/गा.बि.स. वडा नं.
+                <strong class="nepaliFont">{{nepData?.permanentWard}}</strong>
+
+                बस्ने बर्ष
+                <strong class="nepaliFont">{{nepData?.age}}</strong>
+                को/कि श्री/श्रीमती/सूश्री
+                <strong class="nepaliFont">{{nepData?.name}}</strong>
+                (ना.प्र.प. नं
+                <strong class="nepaliFont">{{nepData?.citizenshipNo}}</strong>
+                , जिल्ला प्रशासन कार्यालय
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="officeName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('officeName').value ? hypoOfStock.get('officeName').value  : '========='}}</b></span>
+                बा६ जारी भएको) आगे, ऋ०ाीको अनुरोधमा बैंकले तपसीलमा उल्लेखित शर्त बन्देजहरुको अधिनमा रहने गरी हाइपोथिकेशन
+                अन्तर्गत ऋ०ाीको स्वामित्व तथा नाममा रहेको मालसामान, स्६क मौज्दातको स’रक्ष०ामा म/हामी ऋ०ाीलाई माथि उल्लेखित ऋ०ा
+                सीमा भित्र रही ऋ०ा कर्जा कारोबार गर्न दिन सहमत भएको र म/हामी ऋ०ाीले माथि उल्लेखित ऋ०ा सीमा भित्र रही यस अ३ि वा
+                यस लिखत गर्दा वा भविष्यमा बैंकबा६ प्राप्त गर्ने ओभर८«ाप्m६ कर्जा, नगदी तथा अन्य ऋ०ा कर्जा वा बैंकिङ्ग कारोबार सुबिधा समेत
+                वापत यस भन्दा पहिले ऋ०ाीले अन्य कुनै बैंक वा वित्तिय संस्थाको पक्षमा धितो हाइपोथिकेशन लेखी हक हस्तान्तर०ा नगरेको म/हामी
+                ऋ०ाीको स्वामित्व तथा नियन्त्र०ामा रहेको वा भविष्यमा कायम रहन आउने तपसिलको शर्तबन्देज बमोजिम सुरक्ष०ा लेखी दिएको मालसामानहरुमा
+                बैंकको तपसिलमा उल्लेख भए अन’सारको हक अधिकार रहने क’रामा म/हामी ऋ०ाीको मन्जुरी भएको र सो को अतिरिक्त तपसिलमा उल्लेखित
+                सम्प”र्०ा शर्त बन्देजहरु पालना गर्न र सो को अधिनमा रही ऋ०ा कर्जा कारोवार गर्न समेत म/हामी ऋ०ाीको मन्जुरी भएकोले बैंकको कार्यालयमा
+                बसी किनाराका साक्षीहरुको रोहवरमा म/हामी ऋ०ाीको मनोमान राजीख’शीले यो लिखतमा सहीछाप गरी बैंकलाई दिए/दियौ र यसको एक/एक प्रति
+                दोहरी ब’झी लिए/लियौ ।
+
+            </p>
+        </div>
+
+        <p class=" text-center"> तपसील </p>
+
+        <div>
+            <h6><strong>१: धितो सुरक्षणः</strong></h6>
+
+            <p class="ml-lg-5">ऋणीले यसै लिखतद्वारा आप्mनो स्वामित्व तथा हक भोगमा रहेको मेशिनरी सामानहरु बैंकको नाममा धितो सुरक्षण लेखि दिएको छ । </p>
+
+
+            <!-- Started nester li elements  -->
+            <div class="row form-group">
+                <div class="col-md-12" style="left: 32px;">
+                    <p>
+                        (क) ऋणीको आप्mनै वा वहाल, भाडा लिएको  <input class="form-field form-control-sm nepaliFont disable-print" formControlName="indebtedDistrict" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('indebtedDistrict').value ? hypoOfStock.get('indebtedDistrict').value  : '========='}}</b></span> जिल्ला
+                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="aIndebtedMetropolitan" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('aIndebtedMetropolitan').value ? hypoOfStock.get('aIndebtedMetropolitan').value  : '========='}}</b></span> महानगरपालिका/उपमहानगरपालिका/नगरपालिका/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print" formControlName="aIndebtedWardNo" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('aIndebtedWardNo').value ? hypoOfStock.get('aIndebtedWardNo').value  : '========='}}</b></span> मा अवस्थित कारखाना, गोदाम घर, पसल कवल, टहरा भित्र वा सो को परिसर, हातामा हाल भण्डार गरिएको वा राखिएको
+                        यस लिखतको अन’स”ची <input class="form-field form-control-sm nepaliFont disable-print" formControlName="aIndebtedAttached" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('aIndebtedAttached').value ? hypoOfStock.get('aIndebtedAttached').value  : '========='}}</b></span>
+                        तथा साथमा संलग्न अन’स”ची (यस पछि अन’स”ची भनिएको छ) मा उल्लेखित विवर०ा एवम् सोहीमा उल्लेखित तौल, परिमा०ा (ध्भष्नजत बलम त्तगबलतष्तथ) र मुल्य बराबरको मालसामानहरु ।
+                    </p>
+                    <p>
+                        (ख) माथि देहाय (क) मा उल्लेख गरेबमोजिम अन’स”चीमा उल्लेखित मालसामानको अतिरिक्त स’रक्ष०ा कायम रहे सम्मको अवधिभर, ऋ०ाीले समय समयमा पछि खरिद वा प्राप्त गरी माथि देहाय (क) मा उल्लेखित कारखाना, गोदाम ३र, पसलकवल, ६हरा भित्र वा सो को परिसर वा हातामा भ०८ार गर्ने र राख्ने सम्प”र्०ा मालसामानहरु ।
+                    </p>
+                    <p>
+                        (ग) माथि देहाय (क) र (ख)मा उल्लेखित मालसामानको अतिरिक्त ऋ०ाीको स्वामित्व तथा भोगको सम्प”र्०ा चल सम्पत्तिहरु ।
+                    </p>
+                    <p>
+                        (३) ऋ०ाीले समयसमयमा बैंकलाई उपलव्ध गराउने बिबर०ामा उल्लेखित सम्प”र्०ा मालसामान सम्पत्तिहरु ।
+                    </p>
+                    <p>
+                        (ङ) ऋ०ाीको माथि देहाय (क) को अतिरिक्त अन्य स्थान वा ७ेगानामा कारखाना ,गोदाम३र, पसल कवल र ६हरा रहेमा सो भित्र वा सो को परिसर र हातामा रहेको सम्प”र्०ा मालसामानहरु ।
+                    </p>
+                    <p>
+                        (च) माथि देहाय (क), (ख), (ग), (३) र (ङ) मा उल्लेखित मालसामान सम्पत्तिको समय समयमा तौल, परिमा०ा तथा मूल्य थप३६ वा परिवर्तन भएमा परिवर्तित तौल, परिमा०ा तथा म”ल्य वराबरको माल सामानहरु ।
+                    </p>
+
+
+                    <p>
+                        माथि देहाय (क) देखि (च) सम्म उल्लेखित हाल ऋ०ाीको स्वामित्व तथा हक भोगमा रहेका र स’रक्ष०ा कायम रहेसम्म सो अवधिभर समय समयमा ऋ०ाीले खरीदर प्राप्त र भ०८ार गर्ने सबै मालसामान र ऋ०ाीको कारखाना, गोदाम३र ,पसल कवल, ६हरा भित्र वा सो को परिसरमा रहेको वा रहने सम्प”र्०ा चल सम्पत्ति यसै लिखतको शर्त नं. द्द मा उल्लेख गरे मुताविक ऋ०ाीले बैंकलाई तिर्न‘ ब’झाउन’ पर्ने अतिशेष (म्गभ द्यबबिलअभ) को निरन्तर स’रक्ष०ा (ऋयलतष्लगष्लन क्भअगचष्तथ) को रुपमा बैंकको नाममा धितो स’रक्ष०ा कायम रहीरहने छ ।
+                    </p>
+
+                    <p>
+                        <strong class="text-underline">बैंकलाई तिर्नु ब’झाउन’पर्ने अतिशेष (द्यबबिलअभ म्गभ तय तजभ द्यबलप):</strong> <br>
+                        बैंकलाई तिर्न ब’झाउन’ पर्ने अतिशेष भन्नाले ऋ०ाीले बैंकबा६ प्राप्त गरेको र गर्ने ऋ०ा कर्जाको समय समयमा तिर्न ब’झाउन’ पर्ने सावाँ रकम र सो मा लाग्ने व्याज तथा चक्रबर्ति व्याज, कमिशन, मार्जिन र स’रक्ष०ाका सामान वापत बैंकले तिर्न‘ व्यहोर्न‘ परेको दस्तूर तथा खर्चहरु, कर्जा असुलीका सन्दर्भमा बैंकबा६ भएको खर्चहरु, बैंक४ारा निरीक्ष०ाका क्रममा भएका खर्च आदिलाई सम्झन’ पर्दछ ।
+                    </p>
+                </div>
+            </div>
+        </div> <!-- Nested div Closing -->
+
+        <div>
+            <h6><strong>(घ) बैंकले स’रक्ष०ा आप्mनो कव्जामा लिन सक्नेः</strong></h6>
+            <p  class="ml-lg-5">
+                ऋ०ाीले यस लिखतको शर्त बन्देज उल्लं३न गरेका वा ऋ०ा कर्जाको द’रुपयोग गरेमा वा भाखा भित्र ऋ०ा कर्जाको सावाँ, व्याज भ’क्तान नगरेमा वा अन्य क’नै पनि कार०ा बैंकलाई आप्mनो हित संरक्ष०ा गर्न स’रक्ष०ामा रहेको मालसामानहरु आप्mनो कव्जामा लिन उपय’क्त लागेमा ऋ०ाीलाई प”र्ब स”चना दिई वा नदिई बैंकले स’रक्ष०ामा रहेको मालसामानहरु ज’नस’कै वखत आप्mनो कव्जामा लिन सक्नेछ । उपरोक्त अवस्थामा ऋ०ाीले बैंकलाई आवश्यक म२त तथा स’बिधा प्रदान गनर्’ पर्नेछ र क’नै बाधा, अ८्चन ख८ा गर्न‘ ह’दैन ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>(द्ध) ऋ०ाीले स’रक्ष०ालाई भार ग्रस्त वा अलग गर्नमा बन्देजः</strong></h6>
+            <!-- Started nester li elements  -->
+            <div class="row form-group">
+                <div class="col-md-12" style="left: 32px;">
+                    <p>
+                        (क) यसै लिखतको शर्त नं. ज्ञ को देहाय (क) देखि (च) सम्म स’रक्ष०ाको निमित्त बिनियोजित धितो मालसामानहरु र उक्त मालसामानहरुको बिक्री, असुली र वीमा वापत प्राप्त रकमलाई पुर्०ातया बैंकको सम्पत्तीको रुपमा मानिनेछ । ऋ०ाीले बैंकको नाममा धितो स’रक्ष०ा लेखि दिएको उक्त मालसामानहरु वा सो को क’नै अंश वा भाग तथा सोमा बैंकको हक अधिकारलाई क’ं७ित वा प्रतिकुल प्रभाव पर्ने गरी क’नै पनि किसिमको बन्धकी, थपऋ०ा भार, लियन (ीष्भल) वा अन्य क’नै पनि प्रकारको दायित्व श्रृजना गर्ने तथा सो बमोजिमको सम्झौता,
+                        करारनामा वा लिखत गर्ने ैन र अन्य कसैको उक्त स’रक्ष०ामा हक अधिकार नरहने गरी स’रक्ष०ालाई दायित्वबा६ म’क्त राख्नेछ ।
+                    </p>
+
+
+                    <p>
+                        (ख) ऋ०ाीले सामान्य कारोवार, व्यवसायको सिलसिलामा वाहेक यस लिखत बमोजिम बैंकको नाममा धितो स’रक्ष०ा लेखी दिएका मालसामानहरु बेच बिखन गर्ने वा अन्य क’नै व्यहोराले हक छा८ी दिने जस्ता कार्य गर्ने छैन र बैंकले मालसामान बेच बिखन गर्न निषेध गरी लिखत स”चना दिएमा सो स”चना प्राप्त भए पश्चात क’नै पनि प्रकारले मालसामान बेच बिखन गर्ने छैन ।
+                    </p>
+                </div>
+            </div>
+        </div> <!-- Div Closing -->
+
+        <div>
+            <h6><strong>(छ) बिक्रीः	</strong></h6>
+            <p  class="ml-lg-5">
+                माथि शर्त नं द्ध को (ख)मा लेखिएको अवस्थामा बाहेक, बैंकको प”र्ब स्वीकृति नलिई वा सो बेगर ऋ०ाीले धितो स’रक्ष०ामा लेखि दिएको मालसामान वा सो को क’नै अंश बेच बिखन गर्न वा सो को भोग कब्जा तथा नियन्त्र०ा अन्यलाई हस्तान्तर०ा गर्न पाउने छैन ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>(ट) आवधिक बिबर०ाः </strong></h6>
+            <p class="ml-lg-5">
+                ऋ०ाीले बैंकका नाममा यस लिखत बमोजिम स’रक्ष०ा लेखिदिएको मालसामान, स्६क, मोैज्दातका तौल, परिमा०ा तथा मुल्य सहितको बिबर०ा मासिकरत्रैमासिकर अर्धवार्षिक रुपमा नियमित रुपले बैंकलाई ब’झाउन पर्नेछ । साथै बैंकले उपरोक्त अन’सारको बिबर०ा माग गरेमा माग गरेको ब९िमा ठ दिन भित्र त्यस्तो बिबर०ा बैंकलाई ऋ०ाीले उपलव्ध गराइ सक्न’ पर्नेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>(ठ)	निरीक्षण </strong></h6>
+            <!-- Started nester li elements  -->
+            <div class="row form-group">
+                <div class="col-md-12" style="left: 32px;">
+                    <p>
+                        (क) ज’नस’कै समयमा बिना प”र्ब स”चना ऋ०ाीले बैंकका अधिकृत तथा कर्मचारी र बैंक४ारा ख६ाइएका अभिकर्ता (एजेन्६)लाई धितो स’रक्ष०ामा रहेका मालसामानहरु वा सोको क’नै अंश रहेको कारखाना, गोदाम ३र, पसल कवल, ६हरा भित्र तथा सो को परिसरमा प्रबेश गर्न र मालसामानहरुको निरीक्ष०ा गरी
+                        सोको लगत लिन, मुल्याङ्कन गर्न अन’मति दिनेछ । बैंकले लिखित वा मौखिक सुचना४ारा बैंकलाई तिर्नु पर्ने अतिशेष तिर्न भनिएकोमा ऋ०ाीले तिर्न नसकेको अवस्थामा वा बैंकलाई प्राप्त स”चना वा प्रतिबेदनको आधारमा अर्थ वा निरीक्ष०ाको क्रममा ऋ०ाीले यस लिखत बमोजिम पालना गर्नु पर्ने क’नै शर्त बन्देज पालना
+                        नगरेको वा शर्तबन्देज उल्ल३ंन वा भंग गरेको पाइएमा वा ऋ०ाीले अन्य साह’हरुलाई तिर्न ब’झाउन पर्ने रकम तिर्ने कार्य स्थगित गरेको वा गर्न लागेको छ भन्ने क’रामा बैंक बिश्वस्त भएमा बैंकले धितो स’रक्ष०ामा रहेको मालसामानहरु आप्mनो कब्जामा तत्कालै लिन सक्ने छ र यस्तो अवस्थामा बैंकका अधिकृत, कर्मचारी,
+                        एजे०६लाई आवश्यक सम्प”र्०ा म२त तथा स’बिधा ऋ०ाी तथा निजका कर्मचारी तथा कामदारले प्रदान गर्न‘ पर्नेछ।
+                    </p>
+                    <p>
+                        (ख) माथि शर्त नं. घ र शर्त नं. द्ध को (ख) म’ताविक बैंकले धितो स’रक्ष०ामा रहेको मालसामान आप्mनो कव्जामा लिने प्रयोजनको लागि बैंकबा६ ख६ी आउने अधिकृत तथा कर्मचारी र अभिकर्ता (एजेन्६)ले धितो स’रक्ष०ा अन्तर्गतका मालसामान वा सो को क’नै अंश राखिएको वा भ०८ार गरिएकोे कारखाना,
+                        गोदाम३र, पसल कवल, ६हराको भित्री वा वाहिरी ९ोकामा लगाइएको ताल्चा फोर्न पाउने छन् र यसरी ताल्चा फोरेपछि वा ताल्चा नफोरिकनै पनि त्यस्तो कारखाना, गोदाम३र, पसल कवल÷६हरामा आप्mनो ताल्चा लगाउन पाउने छन् र साथै त्यस्तो कारखाना, गोदाम३र, पसल कवल, ६हरा भित्र वा सो को वरपर
+                        परिसरमा रहेका मालसामानहरु अन्यत्र नलैजान’ भनी ऋ०ाीलाई निर्देशन दिन सक्नेछन् र त्यस्तो निर्देशनको पालना ऋ०ाी तथा निजका कामदार, कर्मचारीले गर्नु पर्नेछ । माथि उल्लेख गरे अन’सार बैंकले ताल्चा फोरी खोलेका अवस्थामा तत्काल ३६नास्थलमा उपस्थित बैंकका अधिकृत, कर्मचारी तथा बैंक४ारा ख६ाइएको
+                        एजे०६लाई मालसामानको लगत तयार गरी सही गरी दिएको कागज सही, वास्तविकका साथै अन्तिम र निर्०ाायक प्रमा०ाका रुपमा मानिनेछ र यस्तो कागजमा लेखिए बमोजिमको माल सामान बाहेक ब९ी मालसामान वा फरक सामान वा अरु मालसामान त्यस्तो कारखाना, गोदाम३र, पसल कवल,६हरा भित्र वा सो को
+                        परिसरमा थियो भनी कसैले भन्न वा ऋबिष्m गर्न पाउने छैन ।
+                    </p>
+                </div>
+            </div>
+        </div> <!-- Div Closing -->
+
+
+        <div>
+            <h6><strong>ड. ऋ०ाीले बहाल, भा८ा तथा कर फछ्र्यो६ गनर्’ पर्नेः</strong></h6>
+            <p class="ml-lg-5">
+                धितो स’रक्ष०ा लेखिदिएको मालसामानहरु वा सो को अंश रहेको भ०८ार गरिएको कारखाना, गोदाम३र, पसल कवल, ६हरा आदिको वहाल किराया तदारुखताकासाथ तथा नियमित रुपमा ऋ०ाीले तिर्न ब’झाउन पर्ने छ र साथै तिर्नु पर्ने कर आदि सरकारी तथा अर्ध सरकारी दायित्वहरु यथा समयमा ऋ०ाीले तिर्न ब’झाउन पर्नेछ र
+                बैंकले माग गरेमा सो को सबूद प्रमा०ा बैंकलाई पेश गर्नु पर्नेछ र धितो स’रक्ष०ामा लेखि दिएको मालसामानहरुमा बैंक बाहेक अन्य कसैको हकदाबी  नलाग्ने गरी उक्त मालसामानहरुलाई दायित्व वा भार म’क्त गरि राख्न’ पर्नेछ । कथमकदाचित ऋ०ाीले ब’झाउन पर्ने मुल्य अभिबृ४िकर र अन्तश’ल्क आदि राजश्व वा कारखाना,
+                गोदाम३र, पसल कवल, ६हरा आदिको वहाल भा८ँ रकम कलम नतिरी नब’झाई बाँकी राखेको अवस्थामा बैंकले यस लिखत बमोजिम धितो स’रक्ष०ामा रहेका मालसामानहरु यसै लिखतमा उल्लेखित प्रावधान बमोजिम कव्जामा लिने भएमा उल्लेख गरे अन’सारको राजश्व तथा वहाल, भा८ा रकम ऋ०ाीको हकमा बैंकले तिरी ब’झाई
+                धितो स’रक्ष०ाका मालसामानहरु आप्mनो कव्जामा लिन सक्नेछ र उपरोक्त अन’सारको बाँकी वक्यौता ब’झाउने सन्दर्भमा फाराम, भरपाई र लिखत कागज तथा दस्तखत र सहिछाप गरी गराइ लिन’÷दिन’ पर्ने भएमा वा अन्य कारवाही, प्रकृया पुरा गनर्’ पर्ने भएमा उपरोक्त सम्प”र्०ा काम कारवाही गर्न यसै लिखत४ारा ऋ०ाीले
+                बैंकलाई अख्तियारी दिएको मानिनेछ र बैंकबा६ उपरोक्त काम कारवाही भएको अवस्थामा ऋ०ाी४ारा सो को प्रतिवाद गरिने छैन । साथै बैंकले ऋ०ाीका हकमा व्यहोर्नु परेको उल्लेख गरे अन’सारको राजश्व, वहाल इत्यादि रकम कलम र यस प्रकर०ा अन’सारको कार्यबिधि अपनाउंदा लागेको खर्च ऋ०ाी सँग सोधभर्नाका रुपमा दाबी गरी लिन सक्नेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ढ. वीमाः</strong></h6>
+            <p class="ml-lg-5">
+                बैंकले तोकि दिएको बीमा कम्पनीसँग ऋ०ाीले धितोमा रहेका सामानको अग्नी तथा अन्य जोखिम बिरु४ त्यस्तो सामानको अधिकतम बजार मुल्य वरावर बैंकको नाममा बैंकले नै पुरा फाइदा पाउने गरी (बैंकर्स क्लज अनूसार) वीमा गराउन’ पर्नेछ र बैंकले मागेको वखत सबै बीमालेख ऋ०ाीले बैंकलाई ब’झाउनेछ ।
+                ऋ०ाीलाई बैंकले आफु समक्ष पेश दाखिला गर्न भनी जारी गरेको स”चना तामेल भएको समयबा६ ज्ञद्द (बाह्र) ३०६ाभित्र ऋ०ाीले त्यस्तो वीमा लेख वापत वीमा श’ल्क (एचझष्गm) तिरेको सक्कल रसिद दाखिला नगरेमा बैंक र ऋ०ाीका विच भएको कर्जा स्वीकृति पत्रमा उल्लेखित शर्त बमोजिम बैंकले ऋ०ाीले व्यहोर्नु पर्ने गरी त्यस्तो बीमा गराउन सक्नेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञण्. सिमान्त (मार्जिन):</strong></h6>
+            <p class="ml-lg-5">
+                धितो स’रक्ष०ा सामानको बजार भाउ मुल्य र सो सामानको लागत तथा सोबा६ प्राप्त आम्दानीको बिस्तृत बिबर०ा (म्भतबष्भिम क्तबतझभलत) र सो सम्बन्धमा बैंक४ारा दाखिला गर्न भनिएका प्रमा०ाहरु ऋ०ाीले समय  समयमा बैंकले माग गरेका वखत बैंकलाई उपलव्ध गराउन पर्नेछ ।
+                बैंकलाई तिर्न बाँकी अतिशेष भन्दा तत्काल धितो स’रक्ष०ामा रहेका मालसामानहरुको बजारभाउ मुल्य ...... प्रतिशत ब९ी ह’ने गरी यस लिखतको शिर भागमा उल्लेखित सीमान्त स’रक्ष०ा अवधिभर बैंकको पक्षमा कायम रहेको ह’न’ पर्दछ । बैंकलाई तिर्न ब’झाउन बाँकी रकम र
+                सोमा उल्लेखित सीमान्त प्रतिशतका आधारमा हिसाव गर्दा ह’ने रकम द’बै जो८ी जम्मा ह’न आउने कुल रकम भन्दा तत्काल धितो संरक्ष०ामा रहेका सामानहरुको तत्कालिन बजार भाउ, मुल्य कम भएमा ऋ०ाीले तत्कालै बैंकले लिखितरुपमा स्वीकृत गरेका मालसामान धितो स’रक्ष०ामा
+                थपेर वा नगद भ’क्तान गरी उल्लेख गरे अन’सारको सीमान्त बैंकको पक्षमा कायम राखी रहन’ पर्नेछ । धितो स’रक्ष०ामा रहेका मालसामानको तत्कालिन बजारभाउको सन्दर्भमा बैंकका अधिकृत वा कर्मचारी तथा बैंक४ारा ख६ाइएको एजे०६ले आवश्यक जांचब’झ गरी प्रमा०िात गरी दिएको
+                बजार भाउलाईनै उपरोक्त सामानहरुको बास्तविक बजार भाउ मानिनेछ ।
+            </p>
+        </div>
+
+
+        <div>
+            <h6><strong>ज्ञज्ञ. व्याजदरः</strong></h6>
+            <p class="ml-lg-5">
+                यस लिखतको शिरमा लेखिएको व्याजदर प्रत्येक दिन बाँकी रहेको अतिशेष रकमका आधारमा हिसाव गरी लगाइनेछ र ऋ०ाीले प्रत्येक महिनामा वा तीन तीन महिनामा वा हिसावको समायोजन गर्दा ज’न पहिले ह’न्छ त्यो अथवा कर्जाको प्रकारमा बिशेष तोकिए बमोजिमको बेलामा तिर्न‘ पर्नेछ ।
+                यदि त्यस्तो व्याज नतिरेमा बैंकको अरु अधिकारमा प्रतिकुल प्रभाव नपर्ने गरी बैंकले त्यस्तो व्याजलाई हरेक महिनाको अन्त्यमा हिसाव जो८्ने छ र त्यस पछि त्यस्तो व्याज चक्रबृ४ि व्याज ह’नेछ । जसको समेत व्याज लाग्नेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञद्द. भूक्तानीः </strong></h6>
+            <p class="ml-lg-5">
+                ऋ०ाीले बैंकलाई तिनर्’ पर्ने अतिशेष रकम माग गर्नासाथ तिर्न‘ पर्नेछ । तर यस ख०८ले उही समयमा बैंकलाई तिनर्’पर्ने अतिशेष रकम तिर्नको लागि माग नगरी यस लिखतको शिरमा लेखिएको दरमा व्याज मात्र माग्न पाउने बैंकका अधिकारलाई रोक लगाएको मानिने छैन ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञघ. मालसामानको बिक्रीः</strong></h6>
+            <p class="ml-lg-5">
+                बैंकले माग गरेको अवस्थामा तिर्न बाँकी अतिशेष रकम वा लेखिए बमोजिमको व्याज ऋ०ाीले तिर्न नसकेको अवस्थामा वा स’राकीले लिखित वा मौखिक रुपमा दिएको स”चना अन’सार ऋ०ाीले यस बमोजिम पालना गर्न‘ पर्ने रकम नतिरी स्थगित गरेको छ वा स्थगित गर्न
+                लागेको छ भन्ने क’राको स”चना वा प्रतिबेदन प्राप्त भई सो क’रामा बैंक विश्वस्त भएमा क’नै लिखित स”चना नदिइकन ऋ०ाीको जोखिम तथा खर्चमा धितोको सामान रहेको क’नै पनि स्थानमा बैंकले प्रबेश गरी चलन गर्न, लिन’ पर्ने रकम असुल गर्न वा उ७ाउन यथोचित
+                परिवर्तन सहित लागु ह’नेछन् र सार्वजनिक रुपमा धितोका सामान लिलाम गरी वा कसैसँग ७ेक्का बन्दोबस्त गरी वा अन्य क’नै तरीकाले बन्दोबस्त गर्न र बैंकले ऋ०ाी माथि म’२ा गर्न पाउने आप्mनो हक अधिकारमा प्रतिकुल प्रभाव नपर्ने गरी लेखिएका कामहरु गर्नका लागि
+                क’नै क’रा लागु गर्न छिनोफानो गर्न, मिलापत्र गर्न वा अरुक’नै बन्दोबस्त गर्न बैंकको क’नै अधिकृत, एजे०६ वा अधिकृतहरुलाई धितोको सामानको आदाता (रिसिभर) को रुपमा बैंकले तोक्नेछ । यसरी प्राप्त भएको आम्दानी बैंकलाई तिर्न‘ पर्ने अतिशेष रकमको परिशोधन
+                (लिक्वी८ेशन)मा बैंकले लगाउनेछ । यसरी बिक्री वा असुल गरिएको क’रामा र सो गर्दा तिर्नु परेको खर्च दस्त’र आदि खर्चको र त्यस्तो बिक्रीको सिलसिलामा बैंकले गरेको सामान्य वा बिशेष सेवा बैंकको उपयुक्तता र शु४ताको लागि बैंकको क’नै अधिकृतले गरिदिएको प्रमा०ापत्र
+                निर्०ाायक प्रमा०ा मानिनेछ र सो प्रमा०ापत्र बमोजिम खातामा देखिएको अप”र्०ाता वा कमी भएको रकम ऋ०ाीले बैंकलाई त’रुन्त भ’क्तान गर्नु पर्नेछ । यस ख०८मा लेखिए बमोजिम वा कान”न बमोजिम बिक्री वा बन्दोबस्त गर्न पाउने बैंकको अधिकार प्रयोग गर्नको लागि समय
+                समयमा वा क’नै पनि समयमा ऋ०ाीको जोखिममा वा ऋ०ाीले व्यहोर्ने गरी बैंकको आप्mनो स्वविवेकमा आप्mनो हित रक्षाको लागि आफुले ७ीक ७हराए बमोजिमको तरीकाले नेपालमा वा कहि पनि (ज्भमनभ ऋयलतचबअत,ँयचधबचम ऋयलतचबअत० गर्न सक्नेछ र यस्तो ज्भमनभ, ँयचधबचम वा
+                अरु ऋयलतचबअत गरिएको कार०ाले वा त्यस्ता करार अन्तर्गत वा अरु किसिमको ऋयलतचबअत को तिर्नु पर्ने क’नै भए ऋ०ाीले बैंकलाई तिर्नु पर्नेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञद्ध. कमीः</strong></h6>
+            <p class="ml-lg-5">
+                यदि यस अ३ि लेखिए बमोजिम बिक्रिबा६ आएको रकमले बैंकलाई तिनर्’ पर्ने अतिशेष रकमलाई नखाम्ने भएमा, बैंकले आफुसंग भएको ऋ०ाीको क’नै पनि रकमबा६ आफुले लिन’ पर्ने अतिशेष रकम लिन सक्नेछ र यदि ऋ०ाीको त्यस्तो क’नै पनि रकम बैंक सँग नभएमा वा अतिशेष पुरा
+                गर्न त्यस्तो आफु सँग भएको ऋ०ाीको रकम नप’ग भएमा यसपछि यस लिखतमा लेखिए बमोजिम बैंकले तयार गरी दस्तखत समेत गरेको ऋ०ाीको खाताको हिसाव आफुले पाउने बित्तिकै आफुले तिनर्’ पर्ने देखिएको रकम तत्काल तिनर्’ पर्नेछ । तर, यसमा लेखिएको क’नै पनि क’राले
+                बैंकले यसमा लेखिएको क्यास क्रे८ि६ वा ओभर८«ाप्m६ र ऋ०ा हिसाव अन’सार बैंकले तत्काल लिन’ पर्ने देखिएको अतिशेष असुल गर्न धितोको सामान सबै वा केही असुल नभएको भएतापनि बैंकको अधिकार (यस लिखतले बैंकका अधिकार पनि स्पष्६ सँग स्वीकारेको) लाई ख०ि८त
+                गरेको वा सीमित गरेको वा अन्य तरीकाले प्रतिकुल पारेको मानिने छैन ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञछ. बचतः </strong></h6>
+            <p class="ml-lg-5">
+                यस अ३ि लेखिए बमोजिम बिक्रीबा६ प्राप्त भएको आम्दानीबा६ बैंकलाई तिनर्’ पर्ने अतिशेष रकमको पुरा भ’क्तानी भई अझै त्यस्तो आम्दानीको रकम बचत रहन गएमा त्यस्तो बचत रकम बैंक आफैले राखी बैंकमा रहेको ऋ०ाीको अरु ज’नस’कै हिसावको रकममा विनियोग गर्न सक्नेछ
+                र त्यस्तो वचत रकम, हालको वा भविष्यको सशर्त वा प्रासंगिक लिन’ पर्ने अवस्थाको भए पनि वा भैनसके पनि ऋ०ाी वा ऋ०ाीहरु मध्ये सवै वा ती मध्ये क’नै एकवा६ एक्लै वा अरु व्यक्ति, फर्म वा कम्पनी सँग संय’क्त भएर लिएको ऋ०ा, ८िष्काउ०६े८ विल, ले६र अफ क्रे८ि६ (प्रतितपत्र)
+                ग्यारे०६ी भार (चार्जेज) वा विल्स, नो६्स, क्रे८ि६ र अरु दायित्व लगायत अरु क’नै पाउने पारिश्रमिक वा अरु दस्त’र ऋ०ाीवा६ प्राप्त गर्न र असुल गर्न पाउने छ । यस्तो रिसिभर, एजे०६, मेनेजर वा अन्य व्यक्तिले (आफ्नो सामान्य कर्तव्यपालना गर्दाको अवस्थामा होस वा अन्य अवस्थामा होस)
+                गरेको क’नै कार्य त्र’६ी, हेलचेक्र्याई वा गल्ती समेतको फलस्वरुप भएको सबै नोक्सानी, क्षती, माग, मू२ा, कारवाही, खर्च चार्ज र भएको सबै खर्च प्रति बैंक जवाफ देही ह’ने छैन र ऋ०ाीबा६ सो वापतको क्षतिपुर्ति भराउनेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञट. बचाउः </strong></h6>
+            <p class="ml-lg-5">
+                ऋ०ाीको अरु क’नै किसिमबा६ गरिएको वा गरिने लगानीका सम्बन्धमा सो सम्झौतामा लेखिएको क’नैपनि क’राले बैंकको ऋ०ाी प्रति रहेको अधिकार वा उपचारका सम्बन्धमा क’नै प्रतिकुल प्रभाव पर्ने छैन ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञठ. ऋ०ाीको हेरफेर भएमाः</strong></h6>
+            <p class="ml-lg-5">
+                यदि ऋ०ाी क’नै कम्पनी वा फर्म वा फर्मको सदस्य रहेछ भने यो सम्झौता वहाल रहेसम्म त्यस्तो कम्पनी वा फर्मको संरचनामा भएको क’नै पनि परिवर्तनले ऋ०ाीहरु वा तिनीहरु मध्ये क’नै एक वा ब९ी व्यक्तिले पुरा गर्न पर्ने दायित्वलाई क’नै वाधा प’–याएको मानिने छैन ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञड. बैंकको नाममा धितोको प्रथम हक रहने ः</strong></h6>
+            <p class="ml-lg-5">
+                यस हाइपोथिकेशन लिखतमा उल्लेख गरिएका तथा यस बैंकलाई हाइपोथिकेशन अन्तर्गत धितो सुरक्ष०ा लेखिदिएका मेसिनरीसामानहरुमा बैंकको प्रथम र प”र्०ा अधिकार (ँष्चकत बलम भ्लतष्चभ च्ष्नजत) रहनेछ । प्रचलित सुरक्षित कारोवार ऐन अन्तर्गत तोकिएको निकायमा
+                गई बैंकको नाममा प्रथमाधिकार हुनेगरी बैंकको नाममा धितोको हक  दर्ता गरिदिनुु ९ऋचभबतष्यल या क्भअगचष्तथ क्ष्लतभचभकत ष्ल तजभ लबmभ या तजभ द्यबलप) ऋणीको कानुनी दायित्व हुनेछ ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>ज्ञढ. कालो स”चीः </strong></h6>
+            <p class="ml-lg-5">
+                नेपाल राष्६« बैंकबा६ समय समयमा जारी हुने कर्जा स”चना तथा कालो स”चि सम्बन्धी व्यवस्थाका सम्बन्धमा मलाई÷हामीलाई प”र्०ा जानकारी छ । कर्जाका शर्त उल्लं३न गर्ने ऋ०ाी उपरको कारबाहीका सम्बन्धमा नेपाल राष्६« बैंकबा६ जारी निर्देशन अन’सार ऋ०ाी कम्पनी,
+                ऋ०ाी  कम्पनीका सञ्चालक, शेयरधनी तथा ऋ०ा सँग सम्बन्धित अन्य पक्ष समेतलाई कर्जा स”चना केन्द्र लिमि६े८ वा अन्य क’नै निकायको कालो स”चिमा नाम समावेश गराउन’ पर्ने अवस्था सिर्जना भएको ख०८मा सो निर्देशन अन’रुप बैंकले कार्य गरेमा समेत ऋ०ाी कम्पनीको मञ्जुरी छ।
+            </p>
+        </div>
+
+        <div>
+            <h6><strong>द्दण्. स”चनाः</strong></h6>
+            <p class="ml-lg-5">
+                बैंकबा६ ऋ०ाीलाई दिइने सबै स”चनाहरु देहायमा लेखिएको ऋ०ाीको ७ेगाना वा समय समयमा बैंकको अभिलेखमा देखिएको ७ेगाना मध्ये क’नै ७ेगानामा हातैले वा ह’लाक४ारा ब’झाइनेछ । ह’लाकवा६ प७ाइएकोमा ऋ०ाीले त्यस्तो स”चना पाए पनि वा नपाए पनि ह’लाकलाई लाग्ने मनासिव समय पछि त्यस्तो सुचना ऋ०ाीले पाएको सरह मानिनेछ ।
+            </p>
+        </div>
+
+        <p> लिखतमा उल्लेख गरिएको मालसामानहरुको अनुसूची </p>
+
+        <p class="text-underline">मेशिनरी सामानको किसिम परिमाण तौल प्रचलित बजार मूल्य</p>
+        <br>
+        <div>
+            <p>ऋणीको नामः <input class="form-field form-control-sm nepaliFont disable-print" formControlName="indebtedName" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('indebtedName').value ? hypoOfStock.get('indebtedName').value  : '========='}}</b></span></p>
+            <p>ठेगानाः <input class="form-field form-control-sm nepaliFont disable-print" formControlName="indebtedAddress" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('indebtedAddress').value ? hypoOfStock.get('indebtedAddress').value  : '========='}}</b></span></p>
+            <p>अख्तियार प्राप्त प्रतिनिधिको दस्तखतः </p>
+            <br>
+            <p>कम्पनी / फर्मको छापः</p>
+            <p>
+                इति सम्बत् २० <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyYear" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('companyYear').value ? hypoOfStock.get('companyYear').value  : '========='}}</b></span>साल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyMonth" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('companyMonth').value ? hypoOfStock.get('companyMonth').value  : '========='}}</b></span> महिना
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="companyDay" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('companyDay').value ? hypoOfStock.get('companyDay').value  : '========='}}</b></span> गते रोज
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="company" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('company').value ? hypoOfStock.get('company').value  : '========='}}</b></span> शुभम् ।
+            </p>
+        </div>
+
+        <br>
+        <div>
+            <strong>साक्षीहरुः</strong>
+            <p class="ml-lg-5">
+                १.प्रस्तुत लिखत कारणीले मेरा सामन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका कर्मचारी<input class="form-field form-control-sm nepaliFont" formControlName="witnessYear" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessYear').value ? hypoOfStock.get('witnessYear').value  : '========='}}</b></span>साल
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessSignature" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessSignature').value ? hypoOfStock.get('witnessSignature').value  : '========='}}</b></span> <br>
+
+                २.<input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessDistrict" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessDistrict').value ? hypoOfStock.get('witnessDistrict').value  : '========='}}</b></span>जिल्ला
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessMetropolitan" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessMetropolitan').value ? hypoOfStock.get('witnessMetropolitan').value  : '========='}}</b></span>नगर/गा.वि.स. वडा नं
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessVdc" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessVdc').value ? hypoOfStock.get('witnessVdc').value  : '========='}}</b></span> बस्ने बर्ष
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessAge" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessAge').value ? hypoOfStock.get('witnessAge').value  : '========='}}</b></span>को/की
+                <input class="form-field form-control-sm nepaliFont disable-print" formControlName="witnessEvidence" type="text"><span class="print-only nepaliFont"><b>{{hypoOfStock.get('witnessEvidence').value ? hypoOfStock.get('witnessEvidence').value  : '========='}}</b></span>
+            </p>
+        </div>
+        <div class="row disable-print">
+            <div class="col-md-12 text-right">
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="hypoOfStockPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="hypoOfStockPrint" class="mr-2 custom-color" >Print</button>
+                <button nbButton status="success" (click)="submit()">Save</button>
+
+
+            </div>
+
+        </div>
+        </div>
+    </form>
+</div>

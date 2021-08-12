@@ -1,0 +1,44 @@
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
+.print-space{
+  margin-top: 0;
+  margin-bottom: 0;
+
+}
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+
+li {
+  list-style-type: none;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  margin: 10px 50px;
+}
+
+@media print{
+  div.divFooter{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
