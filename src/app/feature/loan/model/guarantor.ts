@@ -37,4 +37,5 @@ export class Guarantor {
     profession: string;
     background: string;
     guarantorLegalDocumentAddress: string;
+    checkedSameAsCurrent: boolean;
 }

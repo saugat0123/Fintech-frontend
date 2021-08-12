@@ -1,4 +1,4 @@
-<nb-card appMouseScrollDisable>
+<nb-card [nbSpinner]="nbSpinner">
 
     <nb-card-header>
         <button nbButton
@@ -38,7 +38,6 @@
                 <form [formGroup]="docStatusForm">
                     <label><strong>
                         <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
-                        Loan Type: {{loanType}}
                     </strong></label>
                     <ng-select [items]="docStatusMakerList"
                                [multiple]="false"

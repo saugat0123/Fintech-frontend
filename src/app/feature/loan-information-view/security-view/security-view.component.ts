@@ -60,6 +60,8 @@ export class SecurityViewComponent implements OnInit {
   random;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  bondSecurity = false;
+  totalBondSecurityValue = 0;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -113,9 +115,6 @@ export class SecurityViewComponent implements OnInit {
           this.shareSelected = true;
         }
       });
-      if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
-        this.shareSelected = true;
-      }
       // hypothecation of stock security
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('HypothecationOfStock') !== -1) {
@@ -158,6 +157,12 @@ export class SecurityViewComponent implements OnInit {
           this.insurancePolicySelected = true;
         }
       });
+      // bond security
+      this.securityData['selectedArray'].filter(f => {
+        if (f.indexOf('BondSecurity') !== -1) {
+          this.bondSecurity = true;
+        }
+      });
     }
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
       this.shareSecurity = JSON.parse(this.shareSecurityData.data);
@@ -170,6 +175,9 @@ export class SecurityViewComponent implements OnInit {
     }
     if (this.depositSelected) {
       this.calculateTotal();
+    }
+    if (this.bondSecurity) {
+      this.calculateTotalBondSecurityAmount();
     }
     if (this.securityId !== undefined) {
       this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
@@ -222,5 +230,12 @@ export class SecurityViewComponent implements OnInit {
 
   public onError(event): void {
     event.target.src = 'assets/img/noImage.png';
+  }
+
+  private calculateTotalBondSecurityAmount(): void {
+    const bondSecurity = this.securityData['initialForm']['bondSecurity'];
+    bondSecurity.forEach(value => {
+      this.totalBondSecurityValue += value.bondValue;
+    });
   }
 }
