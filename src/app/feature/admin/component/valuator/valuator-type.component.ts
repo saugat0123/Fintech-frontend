@@ -21,7 +21,7 @@ import {ValuatingField} from '../../../modal/valuatingField';
     selector: 'app-valuator-form',
     templateUrl: './add-valuator.component.html'
 })
-export class ValuatorFormComponent implements OnInit, DoCheck {
+export class valuatorTypeComponent implements OnInit, DoCheck {
 
     @Input()
     model: Valuator = new Valuator();
@@ -49,18 +49,18 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         this.spinner = true;
         this.buildForm();
 
-        // this.branchService.getAll().subscribe((response: any) => {
-        //     this.branchList = response.detail;
-        //     if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
-        //         this.valuatorForm.get('branch').patchValue(this.model.branch);
-        //         this.placeHolderValuatingType = '';
-        //     }
-        //     this.spinner = false;
-        // }, error => {
-        //     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load!'));
-        //     console.log(error);
-        //     this.spinner = false;
-        // });
+        this.branchService.getAll().subscribe((response: any) => {
+            this.branchList = response.detail;
+            if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
+                this.valuatorForm.get('branch').patchValue(this.model.branch);
+                this.placeHolderValuatingType = '';
+            }
+            this.spinner = false;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load!'));
+            console.log(error);
+            this.spinner = false;
+        });
     }
 
     buildForm() {

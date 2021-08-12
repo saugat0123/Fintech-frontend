@@ -19,6 +19,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {ValuatingField} from '../../modal/valuatingField';
+import {valuatorTypeComponent} from './valuator-type.component';
 
 @Component({
     selector: 'app-valuator',
@@ -177,7 +178,7 @@ export class ValuatorComponent implements OnInit {
     }
 
     editValuatingType() {
-        const modalRef = this.modalService.open(ValuatorFormComponent, {size: 'lg'});
+        const modalRef = this.modalService.open(valuatorTypeComponent , {size: 'lg'});
         modalRef.componentInstance.model = new Valuator();
 
         ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);
