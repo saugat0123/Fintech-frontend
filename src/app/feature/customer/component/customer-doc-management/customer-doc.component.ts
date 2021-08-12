@@ -126,6 +126,7 @@ export class CustomerDocComponent implements OnInit {
             }
             this.documentService.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((res: any) => {
                 this.generalDocumentReq = res.detail;
+                this.sortDocument();
                 if (!ObjectUtil.isEmpty(this.customerInfo.customerGeneralDocuments)) {
                     const customerDocumentArray = this.customerInfo.customerGeneralDocuments;
                     customerDocumentArray.forEach((singleDoc, i) => {
@@ -162,6 +163,18 @@ export class CustomerDocComponent implements OnInit {
         }, error => {
             // tslint:disable-next-line:max-line-length
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ? ' Successfully DELETED ' : error.error.message));
+        });
+    }
+
+    sortDocument() {
+        this.generalDocumentReq.sort( (a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return  -1;
+            }
+            return 0;
         });
     }
 

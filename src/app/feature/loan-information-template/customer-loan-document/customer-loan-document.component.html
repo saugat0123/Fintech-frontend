@@ -21,6 +21,7 @@
               <th>Type</th>
               <th>Upload</th>
               <th>Upload Status</th>
+              <th>Preview</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -36,21 +37,20 @@
                          class="form-control-file"
                          id="uploadDocument{{i}}" multiple=""
                          type="file">
-                <!--<div *ngIf="submitted && form.file.errors"
-                     class="invalid-feedback">
-                  <div *ngIf="form.file.errors.required">Please upload the
-                    required
-                    documents
-                  </div>
-                </div>-->
               </td>
-              <td>
+              <td align="center">
                 <span *ngIf="document.checked" style="color:limegreen">
                   <i class="fas fa-check-circle"></i></span>
                 <span *ngIf="!document.checked || document.checked === null"
                       style="color:red"><i class="fas fa-times-circle"></i></span>
               </td>
-              <td class="cursor">
+
+              <td *ngIf="document?.checked" align="center">
+                <i (click)="previewDocument(document.id)" class="fas fa-eye"></i>
+                <i *ngIf="!document?.checked || document?.checked === null" class="fas fa-times-circle"></i>
+              </td>
+
+              <td class="cursor" align="center">
                 <span *ngIf="document.checked">
                   <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
                 </span>
@@ -58,9 +58,6 @@
             </tr>
             </tbody>
           </table>
-          <!--<div *ngFor="let path of imageUrl">
-            <img [src]="path" id="image" width="100%"/>
-          </div>-->
         </div>
       </div>
     </div>
