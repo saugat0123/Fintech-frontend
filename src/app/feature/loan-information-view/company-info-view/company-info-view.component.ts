@@ -9,9 +9,7 @@ import {BusinessAndIndustry} from '../../admin/modal/businessAndIndustry';
 import {RegisteredOfficeList} from '../../admin/modal/registeredOfficeList';
 import {BusinessGiven} from '../../admin/modal/businessGiven';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-company-info-view',
@@ -33,18 +31,12 @@ export class CompanyInfoViewComponent implements OnInit {
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
   businessGiven: BusinessGiven;
   companyLocationData;
-  srdbAffiliatedId = false;
   disableCrgAlpha = environment.disableCrgAlpha;
-  client = environment.client;
-  clientName = Clients;
 
   constructor() {
   }
 
   ngOnInit() {
-    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-      this.srdbAffiliatedId = true;
-    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);

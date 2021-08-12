@@ -5,8 +5,6 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-fiscal-year-modal',
@@ -25,8 +23,6 @@ export class FiscalYearModalComponent implements OnInit {
     showAuditorDetailsForm = false;
 
     fiscalYearValueChanges: any;
-    client = environment.client;
-    clientName = Clients;
 
     constructor(private formBuilder: FormBuilder,
                 private activeModalService: NgbActiveModal,
@@ -50,9 +46,6 @@ export class FiscalYearModalComponent implements OnInit {
             this.financialStatementForm.setControl('auditorDetails', this.setAuditorDetailsValueWithGroup(this.editAuditorInstance));
             this.financialStatementForm.get('financialStatement').clearValidators();
             this.financialStatementForm.get('fiscalYear').clearValidators();
-        }
-        if (environment.client === this.clientName.SHINE_RESUNGA) {
-            this.financialStatementList.push('Management Certified');
         }
     }
 

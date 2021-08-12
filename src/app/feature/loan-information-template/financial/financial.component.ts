@@ -25,7 +25,6 @@ import {
 } from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 
 @Component({
     selector: 'app-financial',
@@ -53,8 +52,6 @@ export class FinancialComponent implements OnInit {
     financialData: Financial = new Financial();
     currentFormData: Object;
     submitted = false;
-    client = environment.client;
-    clientName = Clients;
 
     // Risk factors---
     salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();

@@ -145,26 +145,6 @@
                                    </div>
                                </div>
 
-                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">
-                                   <div class="form-group rounded">
-                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>
-                                       <div class="input-group mb-3">
-                                           <input [ngClass]="{ 'is-invalid':submitted && form.addressLegalDocument.errors }"
-                                                  class="form-control rounded"
-                                                  formControlName="addressLegalDocument"
-                                                  id="addressLegalDocument"
-                                                  min="0" placeholder="Enter legal Document Address"
-                                                  type="text"/>
-                                           <div *ngIf="submitted && form.addressLegalDocument.errors "
-                                                class="invalid-feedback">
-                                               <div *ngIf="form.addressLegalDocument.errors.required">
-                                                   Address as per legal document is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-
                            </div>
                            <div class="row">
                                <div class="col-md-4">
@@ -632,51 +612,7 @@
                        </div>
                        <!-- END ROW -->
                        <!-- START ROW -->
-                       <div class="row" *ngIf="client === clientName?.ICFC">
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="totalCapital"><strong>Total Capital</strong></label>
-                                   <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"
-                                          class="form-control" placeholder="Total Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }">
-                                   <div *ngIf="(submitted) && form.totalCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.totalCapital.errors.required">
-                                           Total Capital is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="fixedCapital"><strong>Fixed Capital</strong></label>
-                                   <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"
-                                          class="form-control" placeholder="Fixed Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }">
-                                   <div *ngIf="(submitted) && form.fixedCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.fixedCapital.errors.required">
-                                           Fixed Capital is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-4">
-                               <div class="form-group">
-                                   <label for="workingCapital"><strong>Working(Current) Capital</strong></label>
-                                   <input id="workingCapital" formControlName="workingCapital" name="workingCapital"
-                                          type="number"
-                                          class="form-control" placeholder="Working Capital"
-                                          [ngClass]="{ 'is-invalid': (submitted) && form.workingCapital.errors }">
-                                   <div *ngIf="(submitted) && form.workingCapital.invalid"
-                                        class="invalid-feedback">
-                                       <div *ngIf="form.workingCapital.errors.required">
-                                           Working Capital is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
+
                        <!-- END ROW -->
                        <!-- START ROW -->
                        <div class="row">
@@ -1181,124 +1117,15 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
-                                       <label><strong>Citizenship Number</strong></label>
-                                       <input [ngClass]="{'is-invalid': submitted && proprietor.get('citizenshipNum').errors}"
-                                              class="form-control"
-                                              formControlName="citizenshipNum"
-                                              placeholder="Citizenship Number"
-                                              type="text">
-                                       <div *ngIf="(submitted) && proprietor.get('citizenshipNum').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="proprietor.get('citizenshipNum').errors.required">
-                                               Citizenship Number is required!
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
-                                       <label><strong>Issued date</strong></label>
-                                       <input *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedDate"
-                                              [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedDate').errors}"
-                                              class="form-control rounded"
-                                              formControlName="issuedDate"
-                                              id="issuedDate" placeholder="Enter Issued date"
-                                              type="text"/>
-                                       <input formControlName="issuedDate" *ngIf="calendarType === 'BS'" hidden>
-                                       <app-calendar [ePreDate]="proprietor.get('issuedDate').value" *ngIf="calendarType === 'BS'"
-                                                     (messageToEmit)="proprietor.get('issuedDate').patchValue($event?.eDate)"></app-calendar>
-                                       <nb-datepicker #issuedDate></nb-datepicker>
-                                       <div *ngIf="(submitted) && proprietor.get('issuedDate').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="proprietor.get('issuedDate').errors.required">
-                                               Issued date is required!
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="row" *ngIf="client !== clientName.MEGA">
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label for="issuedPlace"><strong>Issue Place</strong></label>
-                                           <select formControlName="issuedPlace" id="issuedPlace"
-                                                   [ngClass]="{'is-invalid':submitted &&  proprietor.get('issuedPlace').errors}" class="form-control">
-                                               <option [value]="null">Select Issued Place</option>
-                                               <option  *ngFor="let district of allDistrict" [value]="district?.name">
-                                                   {{district?.name}}</option>
-                                           </select>
-
-                                           <div *ngIf="submitted && proprietor.get('issuedPlace').invalid"
-                                                class="invalid-feedback">
-                                               <div *ngIf="proprietor.get('issuedPlace').errors.required">
-                                                   Issued Place is required.
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
-                                       <label><strong>Date of birth</strong></label>
-                                       <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfBirth"
-                                              [ngClass]="{ 'is-invalid':submitted && proprietor.get('dateOfBirth').errors}"
-                                              class="form-control rounded"
-                                              formControlName="dateOfBirth"
-                                              id="dateOfBirth" placeholder="Enter Date Of Birth"
-                                              type="text"/>
-                                       <input formControlName="dateOfBirth" *ngIf="calendarType === 'BS'" hidden>
-                                       <app-calendar [ePreDate]="proprietor.get('dateOfBirth').value" *ngIf="calendarType === 'BS'"
-                                                     (messageToEmit)="proprietor.get('dateOfBirth').patchValue($event?.eDate)"></app-calendar>
-
-                                       <nb-datepicker #dateOfBirth></nb-datepicker>
-                                       <div *ngIf="(submitted) && proprietor.get('dateOfBirth').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="proprietor.get('dateOfBirth').errors.required">
-                                               Date of birth is required!
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
-                                       <div class="form-group">
-                                           <label for="contactNumber"><strong>Father's Name</strong></label>
-                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('fatherName').errors}"
-                                                  class="form-control" formControlName="fatherName" id="fatherName"
-                                                  name="fatherName"
-                                                  placeholder="Father Name"
-                                                  type="text">
-                                       </div>
-                                   </div>
                                </div>
                                <div class="row">
-                               <div class="col-md-4" *ngIf="client !== clientName.MEGA">
-                                       <div class="form-group">
-                                           <label for="contactNumber"><strong>Grandfather's Name</strong></label>
-                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('grandFatherName').errors}"
-                                                  class="form-control" formControlName="grandFatherName" id="grandFatherName"
-                                                  name="grandFatherName"
-                                                  placeholder="Grandfather Name"
-                                                  type="text">
-                                       </div>
-                                   </div>
                                </div>
                                <hr>
-                               <div *ngIf="client != clientName.MEGA">
-                               <div class="row">
-                                   <div class="col-md-12">
-                                       <h5 class="my-2">Kyc Detail</h5>
-                                       <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
-                                       <app-owner-kyc-applicable
-                                           #shareholderKyc
-                                           [calendarType]="calendarType.toString()"
-                                           [data]="companyJsonData?.proprietorList ?
-                                           companyJsonData?.proprietorList[proprietorIndex]?.kycInfo :
-                                           undefined"
-                                           [kycId]="proprietorIndex">
-                                       </app-owner-kyc-applicable>
-                                   </div>
-                               </div>
-                               </div>
                            </div>
                        </div>
 
                        <div class="row">
-                           <div class="col-md-6 pl-5" *ngIf="client === clientName?.MEGA">
+                           <div class="col-md-6 pl-5">
                                <label class="title"><strong>Total Share Percent :
                                    {{companyInfoFormGroup.get('totalSharePercent').value}}%</strong></label>
                            </div>
@@ -1517,7 +1344,7 @@
                        </div>
                        <!--  Business Given -->
                        <hr>
-                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">
+                       <ng-container class="box-header with-border">
                            <h5 class="box-title">17. Business given</h5>
                            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
                                <tr class="sb-bg-secondary text-white">

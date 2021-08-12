@@ -12,7 +12,6 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-proposal',
@@ -57,11 +56,8 @@ export class ProposalComponent implements OnInit {
   showRepaymentMode = false;
   swapChargeChecked = false;
   subsidizedLoanChecked = false;
-  client = environment.client;
-  clientName = Clients;
   othersSubsidyLoan = false;
   existInterestLimit: number;
-  showInterestAmount = true;
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -519,7 +515,6 @@ export class ProposalComponent implements OnInit {
       this.checkRepaymentMode();
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , false);
     } else if (this.proposalForm.get('repaymentMode').value === 'CUSTOM') {
-      this.showInterestAmount = false;
       this.showRepaymentMode = true;
       this.showInstallmentAmount = false;
       this.controlValidation(['repaymentModeInterest' , 'repaymentModePrincipal'] , true);
@@ -527,7 +522,6 @@ export class ProposalComponent implements OnInit {
       this.calculateInterestAmountForRepaymentMode();
       this.showInstallmentAmount = false;
       this.showRepaymentMode = false;
-      this.showInterestAmount = true;
     }
   }
 
@@ -615,7 +609,6 @@ export class ProposalComponent implements OnInit {
     } else {
       (this.proposalForm.get('groupExposure') as FormArray).push (
           this.formBuilder.group({
-            clientName: [undefined],
             facilityType: [undefined],
             loanLimit: [undefined],
             osLimit: [undefined],
@@ -633,7 +626,6 @@ export class ProposalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(data)) {
       data.forEach(singleData => {
         groupExposuresArray.push(this.formBuilder.group({
-          clientName: [singleData.clientName],
           facilityType: [singleData.facilityType],
           loanLimit: [singleData.loanLimit],
           osLimit: [singleData.osLimit],
@@ -653,14 +645,13 @@ export class ProposalComponent implements OnInit {
   checkGroupExposureNull() {
     const groupExposuresArray = this.proposalForm.get('groupExposure') as FormArray;
     groupExposuresArray.controls.forEach((data) => {
-      const clientName = data.get('clientName').value;
       const facilityType = data.get('facilityType').value;
       const loanLimit = data.get('loanLimit').value;
       const osLimit = data.get('osLimit').value;
       const proposedLimit = data.get('proposedLimit').value;
       const fmvDv = data.get('fmvDv').value;
       const exposure = data.get('exposure').value;
-      if (ObjectUtil.isEmpty(clientName) && ObjectUtil.isEmpty(facilityType) && ObjectUtil.isEmpty(loanLimit) && ObjectUtil.isEmpty(osLimit)
+      if (ObjectUtil.isEmpty(facilityType) && ObjectUtil.isEmpty(loanLimit) && ObjectUtil.isEmpty(osLimit)
           && ObjectUtil.isEmpty(proposedLimit) && ObjectUtil.isEmpty(fmvDv) && ObjectUtil.isEmpty(exposure)) {
         this.isAllExposureFieldNull = true;
       } else {

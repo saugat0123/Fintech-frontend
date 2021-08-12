@@ -14,8 +14,6 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {RouterUtilsService} from '../utils/router-utils.service';
 import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-customer-cad-info.component';
-import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 
@@ -51,8 +49,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     customerInfoData: CustomerInfoData;
     component: any;
     offerLetterTypes = [];
-    client = environment.client;
-    clientList = Clients;
     // todo move document upload to different to component
     documentName;
     documentId;
@@ -66,13 +62,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initial();
-        switch (this.client) {
-            case this.clientList.MEGA:
                 this.offerLetterTypes = MegaOfferLetterConst.enumObject();
                 this.offerLetterConst = MegaOfferLetterConst;
                 this.component = CadOfferLetterModalComponent;
-                break;
-        }
     }
 
     initial() {

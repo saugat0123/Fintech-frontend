@@ -4,8 +4,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
-import {Clients} from '../../../../environments/Clients';
-import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-credit-checklist-general',
@@ -19,8 +17,6 @@ export class CreditChecklistGeneralComponent implements OnInit {
   @Input() calendarType: CalendarType;
   @Input() customerType: CustomerType;
   @Input()
-  client = environment.client;
-  clientName = Clients;
 
   formGroupCheckList: FormGroup;
   dataForEdit;

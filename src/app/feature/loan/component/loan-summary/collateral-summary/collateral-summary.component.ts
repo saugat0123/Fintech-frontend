@@ -4,8 +4,6 @@ import {LoanType} from '../../../model/loanType';
 import {ProposalCalculationUtils} from '../ProposalCalculationUtils';
 import {LoanDataKey} from '../../../../../@core/utils/constants/loan-data-key';
 import {Security} from '../../../model/security';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-collateral-summary',
@@ -15,8 +13,6 @@ import {Clients} from '../../../../../../environments/Clients';
 export class CollateralSummaryComponent implements OnInit {
   @Input() customerAllLoanList;
   @Input() security: Security;
-  client = environment.client;
-  clientName = Clients;
 
   fundedList: LoanDataHolder[];
   nonFundedList: LoanDataHolder[];

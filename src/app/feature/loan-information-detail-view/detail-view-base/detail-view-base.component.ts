@@ -8,7 +8,6 @@ import {CombinedLoan} from '../../loan/model/combined-loan';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {CombinedLoanService} from '../../service/combined-loan.service';
 import {FiscalYearService} from '../../admin/service/fiscal-year.service';
-import {Clients} from '../../../../environments/Clients';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
@@ -34,8 +33,6 @@ export class DetailViewBaseComponent implements OnInit {
   commentsSummary = false;
   previousSecuritySummary = false;
   dataFromPreviousSecurity: any;
-  client = environment.client;
-  clientName = Clients;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showCadDoc = false;
   securityId: number;

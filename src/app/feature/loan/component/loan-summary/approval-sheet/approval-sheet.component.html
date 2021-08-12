@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="report-header">
-                                <div class="report-header-heading">{{client}}</div>
+                                <div class="report-header-heading">Mega Bank Nepal</div>
                                 <div class="report-header-sub-heading">
                                     <span class="sb-small"> Credit Appraisal </span>
                                     <br/>
@@ -236,14 +236,11 @@
                                 <td>Customer Client Type</td>
                                 <td>SubSector</td>
 
-<!--                                Obligor Code for SRDB only-->
-                                <td *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</td>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
-                                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{loanDataHolder?.loanHolder?.obligor}}</td>
                             </tr>
                             </tbody>
                         </table>

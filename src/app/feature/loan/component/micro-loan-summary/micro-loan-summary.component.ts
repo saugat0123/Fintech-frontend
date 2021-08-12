@@ -4,7 +4,6 @@ import {LoanConfig} from '../../../admin/modal/loan-config';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {environment as envSrdb} from '../../../../../environments/environment.srdb';
 import {environment} from '../../../../../environments/environment';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
@@ -36,7 +35,6 @@ import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component
 import {DocAction} from '../../model/docAction';
 import {Security} from '../../../admin/modal/security';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
-import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
@@ -60,8 +58,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
 
   @Input() nepaliDate;
 
-  client: string;
-  clientName = Clients;
   docMsg;
   rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
@@ -206,7 +202,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       private collateralSiteVisitService: CollateralSiteVisitService,
       private nbDialogService: NbDialogService,
   ) {
-    this.client = environment.client;
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {

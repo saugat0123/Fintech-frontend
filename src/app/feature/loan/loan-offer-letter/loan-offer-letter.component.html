@@ -137,7 +137,6 @@
                 <th>Possession</th>
                 <!--                <th>Action</th>-->
                 <th>Post Approval Doc No.</th>
-                <th *ngIf="srdbAffiliatedId">CBS Loan File Number</th>
                 <th>Action</th>
 
 
@@ -174,7 +173,6 @@
                     <td>
                         {{model.uploadedOfferLetterStat}} / {{model.offerLetterStat}}
                     </td>
-                    <td *ngIf="srdbAffiliatedId">{{model?.cbsLoanFileNumber || 'NA'}}</td>
                     <td>
                         <a (click)="openModel(assignCustomerLoan,model?.id,model?.branch?.id)"
                            nbTooltip="click to assign"><em
@@ -184,7 +182,6 @@
                            nbTooltip="click to view detail stage of Post Approval Document">
                             <em class="fa fa-eye"></em>
                         </a>
-                        <a *ngIf="srdbAffiliatedId && (model?.documentStatus.toString() == 'APPROVED')" (click)="openCadModel(cadTemplate,model?.id,model?.cbsLoanFileNumber)"><i class="fa fa-keyboard"></i></a>
                     </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">

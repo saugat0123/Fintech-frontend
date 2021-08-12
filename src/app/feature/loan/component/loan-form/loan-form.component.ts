@@ -56,7 +56,6 @@ import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-
 import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
@@ -83,9 +82,6 @@ export class LoanFormComponent implements OnInit {
       templateUrl: null
     }
   ];
-
-  client = environment.client;
-  clientName = Clients;
 
   customerId: number;
   id;

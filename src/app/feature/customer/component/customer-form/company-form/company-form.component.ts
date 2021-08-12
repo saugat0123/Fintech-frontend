@@ -50,11 +50,8 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {CommonAddressComponent} from '../../../../common-address/common-address.component';
 import {FormUtils} from '../../../../../@core/utils/form.utils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {OwnerKycApplicableComponent} from '../../../../loan-information-template/security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {mic} from 'ionicons/icons';
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
@@ -95,8 +92,6 @@ export class CompanyFormComponent implements OnInit {
     companySearch = {
         registrationNumber: undefined
     };
-    client = environment.client;
-    clientName = Clients;
     customer: Customer = new Customer();
     customerInfo: Customer;
     companyInfo: CompanyInfo;
@@ -155,7 +150,6 @@ export class CompanyFormComponent implements OnInit {
     registeredOffice = RegisteredOfficeList.enumObject();
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
-    srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
     constructor(
@@ -197,9 +191,6 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
-        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-            this.srdbAffiliatedId = true;
-        }
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.microCustomer = this.formValue.isMicroCustomer;
             if (this.microCustomer) {
@@ -994,10 +985,6 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if (this.client !== this.clientName.MEGA) {
-                proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
-                    proprietorsIndex.toString())[0].ownerKycForm.value;
-            }
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
         }
@@ -1159,27 +1146,13 @@ export class CompanyFormComponent implements OnInit {
 
     calculateTotalIncomeDuringReview() {
         let total = 0;
-        if (this.client !== this.clientName.MEGA) {
-            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
-                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('otherCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('savingAccountDuringReview').value +
-                this.companyInfoFormGroup.get('payrollAccountDuringReview').value +
-                this.companyInfoFormGroup.get('debitCardsDuringReview').value +
-                this.companyInfoFormGroup.get('creditCardsDuringReview').value +
-                this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
-                this.companyInfoFormGroup.get('lockerDuringReview').value;
-            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
-        } else {
             total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
                 this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
                 this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
                 this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
                 this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
             this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
-        }
+
         // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }

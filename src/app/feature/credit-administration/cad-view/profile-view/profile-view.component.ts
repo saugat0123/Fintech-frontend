@@ -5,8 +5,6 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CommonService} from '../../../../@core/service/common.service';
 import {RouterUtilsService} from '../../utils/router-utils.service';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
@@ -33,8 +31,6 @@ export class ProfileViewComponent implements OnInit {
     @Input()
     toggleArray: { toggled: boolean }[];
     offerLetterTypes = [];
-    client = environment.client;
-    clientList = Clients;
     component: any;
     roleType = LocalStorageUtil.getStorage().roleType;
     offerLetterConst;
@@ -50,8 +46,6 @@ export class ProfileViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        switch (this.client) {
-        }
     }
 
     updateBasicInfo() {

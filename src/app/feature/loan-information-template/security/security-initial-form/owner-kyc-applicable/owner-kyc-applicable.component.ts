@@ -6,8 +6,6 @@ import {District} from '../../../../admin/modal/district';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../../@core/utils/constants/pattern';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 
 @Component({
@@ -25,8 +23,6 @@ export class OwnerKycApplicableComponent implements OnInit {
     submitValue: any;
     @Input() kycId;
     @Input() calendarType = 'AD';
-    client = environment.client;
-    clientName = Clients;
     constructor(private formBuilder: FormBuilder,
                 private districtService: AddressService) {
     }

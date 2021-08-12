@@ -5,8 +5,6 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../../@core/utils/constants/pattern';
 import {NumberUtils} from '../../../../@core/utils/number-utils';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 import {ExpOfClient} from './model/ExpOfClient';
 import {OwnershipOfResidence} from './model/OwnershipOfResidence';
 import {RelationWithMega} from './model/RelationWithMega';
@@ -49,8 +47,6 @@ export class MicroCrgParamsComponent implements OnInit {
   majorSourceIncomeType = MultipleSourceIncomeType.enumObject();
 
   numberUtils = NumberUtils;
-  client = environment.client;
-  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder) {
   }

@@ -73,7 +73,6 @@ export class LoanOfferLetterComponent implements OnInit {
     errorMessage = null;
     filterUserList = [];
     isAssignSelected = false;
-    srdbAffiliatedId = false;
     cbsLoanFileNumber: string;
     loanId;
     docStatus = DocStatus;
@@ -155,9 +154,6 @@ export class LoanOfferLetterComponent implements OnInit {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
             this.accessAll = true;
-        }
-        if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-            this.srdbAffiliatedId = true;
         }
 
         if (this.accessSpecific || this.accessAll) {

@@ -6,8 +6,6 @@ import {ModalResponse} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-income-statement',
@@ -20,7 +18,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     incomeStatementForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
-    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,
@@ -276,7 +273,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
 
         } else {
-            if (!this.isSRDB) {
                 cashFlowStatement.changedInFixedAsset[index].value =
                     (Number(this.financialService
                             .fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory, 'Net Fixed Assets', index))
@@ -289,18 +285,16 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
                 /** Commented this because this made the 'addOpeningBalance' field editable being inexplicable **/
                 // cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
-            }
         }
 
         cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
 
         this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
 
-        if (!(this.isSRDB && index === 0)) {
+
             cashFlowStatement.dividendDrawing[index].value = (-Math.abs(Number(dividendOrDrawing.controls['value'].value))).toFixed(2);
             cashFlowStatement.interestExpensesCFSb[index].value = (-Math.abs(Number(interestExpenses.controls['value'].value))).toFixed(2);
             cashFlowStatement.otherAdjustments[index].value = (-Math.abs(Number(otherAdjustment.controls['value'].value))).toFixed(2);
-        }
 
         this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
         this.financialService.netCashFlowTotal(cashFlowStatement, index);

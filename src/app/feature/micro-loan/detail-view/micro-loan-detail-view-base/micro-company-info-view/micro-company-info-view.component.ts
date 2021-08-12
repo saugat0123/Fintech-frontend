@@ -32,16 +32,12 @@ export class MicroCompanyInfoViewComponent implements OnInit {
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
   businessGiven: BusinessGiven;
   companyLocationData;
-  srdbAffiliatedId = false;
   disableCrgAlpha = environment.disableCrgAlpha;
 
   constructor() {
   }
 
   ngOnInit() {
-    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-      this.srdbAffiliatedId = true;
-    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.companyJsonData = JSON.parse(this.formValue.companyJsonData);
       this.additionalInfoJsonData = JSON.parse(this.formValue.additionalCompanyInfo);

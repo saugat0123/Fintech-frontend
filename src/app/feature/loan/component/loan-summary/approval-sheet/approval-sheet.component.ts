@@ -28,7 +28,6 @@ import {CommonRoutingUtilsService} from '../../../../../@core/utils/common-routi
 import {ToastService} from '../../../../../@core/utils';
 import {FiscalYearService} from '../../../../admin/service/fiscal-year.service';
 import {environment} from '../../../../../../environments/environment';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../../model/combined-loan';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -38,7 +37,7 @@ import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
-import {Clients} from '../../../../../../environments/Clients';
+
 
 @Component({
     selector: 'app-approval-sheet',
@@ -56,9 +55,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     loanConfig: LoanConfig = new LoanConfig();
 
     @Input() nepaliDate;
-
-    client: string;
-    clientName = Clients;
 
     ckeConfig = Editor.CK_CONFIG;
     authorityReviewComments;
@@ -175,7 +171,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         private toastService: ToastService,
         private fiscalYearService: FiscalYearService
     ) {
-        this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -207,15 +202,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     * */
     prepareAuthoritySection() {
         this.roleHierarchyService.getAll().subscribe( res => {
-            let aboveRisk = true;
             this.rolesForRisk = res.detail.map( e => {
                 return e.role.roleName;
-            }).filter( e => {
-                if (e === envSrdb.RISK_INITIAL_ROLE_SME || e === envSrdb.RISK_INITIAL_ROLE_CORPORATE) {
-                    aboveRisk = false;
-                    return true;
-                }
-                return aboveRisk;
             });
 
             let previousBackIndex = 0;
@@ -224,12 +212,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                     if (i !== 0) {
                         this.currentAuthorityList.push(...
                             ([...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                                .slice(previousBackIndex, i + 1)
-                                .some( v => (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                                    v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
-                                    ||
-                                    (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                                        v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)))
+                                .slice(previousBackIndex, i + 1))
                                 ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                                     .slice(previousBackIndex, i + 1)
                                     .filter( v => {
@@ -244,13 +227,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             if (previousBackIndex !== 0) {
                 const activeAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                     .splice(previousBackIndex);
-                this.currentAuthorityList.push(...(activeAuthorityList
-                    .some( v => (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                        v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
-                        ||
-                        (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                            v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
-                    ))
+                this.currentAuthorityList.push(...(activeAuthorityList)
                     ? activeAuthorityList
                         .filter( v => {
                             return this.rolesForRisk.includes(v.fromRole.roleName) ||
@@ -258,11 +235,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
                         }) : []);
             }  else {
                 this.currentAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                    .some( v => (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                        v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE)
-                        ||
-                        (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                            v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE))
                     ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
                         .filter( v => {
                             return this.rolesForRisk.includes(v.fromRole.roleName) ||
@@ -397,33 +369,9 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
 
         let lastIndex;
-        let riskOfficerIndex;
-        let riskOfficerIndexComment;
 
         if (this.signatureList.length > 0) {
             lastIndex = this.signatureList.length;
-            this.signatureList.forEach((v, i) => {
-                if (v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                    v.fromRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE) {
-                    riskOfficerIndex = i;
-                }
-            });
-
-            this.signatureList.forEach((v, i) => {
-                if (v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_SME ||
-                    v.toRole.roleName === envSrdb.RISK_INITIAL_ROLE_CORPORATE) {
-                    riskOfficerIndexComment = i;
-                }
-            });
-
-            if (!ObjectUtil.isEmpty(riskOfficerIndexComment)) {
-                this.riskOfficerLevelComment = true;
-            }
-
-            if (riskOfficerIndex) {
-                this.riskOfficerLevel = true;
-                this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
-            }
         }
 
         this.previousList = this.loanDataHolder.previousList;

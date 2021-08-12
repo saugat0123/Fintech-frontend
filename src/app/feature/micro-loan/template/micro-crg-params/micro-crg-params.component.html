@@ -270,8 +270,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.MEGA"><strong>Total EMI and interest expenses to Gross income</strong></label>
-                        <label for="totalEMIInterest" *ngIf="client ===  clientName?.SHINE_RESUNGA"><strong>EMI / Gross Monthly Income</strong></label>
+                        <label for="totalEMIInterest"><strong>Total EMI and interest expenses to Gross income</strong></label>
                         <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
                                [ngClass]="{'is-invalid': submitted && microCrgParamsForm.get('totalEMIInterest').invalid}"
                                placeholder="Total EMI and Interest Expenses" readonly
@@ -289,12 +288,6 @@
                         </div>
                     </div>
 
-                </div>
-                <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
-                    <div class="col-md-12">
-                        <label><b>Note: </b></label>
-                        <textarea class="form-control" formControlName="note" rows="4" placeholder="Note"></textarea>
-                    </div>
                 </div>
 
             </nb-card-body>

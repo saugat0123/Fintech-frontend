@@ -34,7 +34,7 @@
         <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small" *ngIf="!isBusinessLoan">
             <thead>
             <tr>
-                <th colspan="4">{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</th>
+                <th colspan="4">Expenses of Borrower</th>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th class="sn">S.N</th>
@@ -51,7 +51,7 @@
                 <td  class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}}</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total Expense</strong></td>
                 <td class="text-right pr-1" colspan="2">
                     <strong>Rs. {{financialData['initialForm']['totalExpense'] | currencyFormatter}}</strong>
                 </td>
@@ -66,14 +66,13 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>Total EMI of client including present proposal</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total EMI of icfc including present proposal</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
                 </td>
             </tr>
             <tr>
-                <td class="text-left pl-1" colspan="2"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                    : 'EMI / Gross Monthly Income'}}</strong></td>
+                <td class="text-left pl-1" colspan="2"><strong>Total EMI and interest expenses to Gross income</strong></td>
                 <td colspan="2" class="text-right pr-1">
                     <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
                 </td>
@@ -595,253 +594,6 @@
                 </tr>
             </table>
 
-            <ng-container *ngIf="!activeClientIsMega">
-                <p class="float-left"><strong>Cashflow Statement</strong></p>
-                <table
-                        class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th scope="col" class="sn">S.No</th>
-                        <th scope="col">Particulars</th>
-                        <th *ngFor="let year of financialData['fiscalYear']">
-                            {{year}}</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td class="text-left pl-1"><b> Cash From Operating Activities</b></td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromOperatingActivities']" class="text-right pr-1">
-                            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">a</th>
-                        <td class="text-left pl-1">Net Profit for the Period</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['netProfitForThePeriod']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td class="text-left pl-1"><b>Adjustment for Non cash Expenses</b></td>
-                        <td *ngFor="let year of financialData['fiscalYear']"></td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">b</th>
-                        <td class="text-left pl-1">Depreciation</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['depreciation']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">c</th>
-                        <td class="text-left pl-1">Other Amortization and Non Cash Expenses</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAmortizationAndNonCashExpenses']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td class="text-left pl-1"><b>Adjustment for Non cash Expenses</b></td>
-                        <td *ngFor="let year of financialData['fiscalYear']"></td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">d</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Inventory</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInInventory']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">e</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Accounts Receivable</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInAccountsReceivable']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">f</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Short Term Investment</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInShortTermInvestment']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">g</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Advance and Deposit</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInAdvanceAndDeposit']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">h</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Other Current Assets</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentAssets']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">i</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Creditors</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInCreditors']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-
-                        <th scope="row">j</th>
-                        <td class="text-left pl-1">(Increase)/Decrease in Other Current Liabilities</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentLiabilities']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">k</th>
-                        <td class="text-left pl-1">Adjustment For Non Operating Income</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['adjustmentForNonOperatingIncome']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">l</th>
-                        <td class="text-left pl-1">Interest Expenses</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['interestExpensesCFSa']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td class="text-left pl-1"><b>	Cash From Investing Activities</b></td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromInvestingActivities']" class="text-right pr-1">
-                            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">a</th>
-                        <td class="text-left pl-1">Changed in Fixed Assets</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['changedInFixedAsset']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-
-                        <th scope="row">b</th>
-                        <td class="text-left pl-1">Non-Operating income/(Expenses)</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['nonOperatingIncomeExpenses']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">c</th>
-                        <td class="text-left pl-1">Change in Other Assets</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherAssets']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">d</th>
-                        <td class="text-left pl-1">Change in Other Long Term Liabilities</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherLongTermLiabilities']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">e</th>
-                        <td class="text-left pl-1">Change in Other Provisions</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherProvisions']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td class="text-left pl-1"><b>Cash From Financing Activities</b></td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromFinancingActivities']" class="text-right pr-1">
-                            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">a</th>
-                        <td class="text-left pl-1">Paid up Capital/Equity</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['paidUpCapitalEquity']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-
-                        <th scope="row">b</th>
-                        <td class="text-left pl-1">Short Term Loan</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['shortTermLoan']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">c</th>
-                        <td class="text-left pl-1">Long Term Loan Received/(Paid)</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['longTermLoanReceived']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">d</th>
-                        <td class="text-left pl-1">Dividend/Drawing</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['dividendDrawing']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">e</th>
-                        <td class="text-left pl-1">Interest Expenses</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['interestExpensesCFSb']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">f</th>
-                        <td class="text-left pl-1">Other Adjustments</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAdjustments']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td class="text-left pl-1"><b>Net Cash Flow</b></td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['netCashFlow']" class="text-right pr-1">
-                            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">a</th>
-                        <td class="text-left pl-1">Add::Opening Balance</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['addOpeningBalance']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td class="text-left pl-1"><b>Closing Cash</b></td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['closingCash']" class="text-right pr-1">
-                            <b>Rs. {{amount.value | currencyFormatter}}</b></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">a</th>
-                        <td class="text-left pl-1">Closing Balance</td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['closingBalance']" class="text-right pr-1">Rs. {{amount.value | currencyFormatter}}</td>
-                    </tr>
-
-                    <tbody>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td class="text-left pl-1"><b>Difference</b></td>
-                        <td *ngFor="let amount of financialData['cashFlowStatementData']['differenceCFS']" class="text-right pr-1"><b>Rs. {{amount.value | currencyFormatter}}</b></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </ng-container>
-
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                 <tr class="text-white sb-bg-dark">
                     <td><b>Justification</b></td>
@@ -853,7 +605,7 @@
             </table>
 
             <p class="float-left"><strong>Key Indicators</strong></p>
-            <ng-container *ngIf="client !== clientName?.ICFC">
+            <ng-container>
                 <table
                         class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
@@ -1034,24 +786,6 @@
                 </table>
             </ng-container>
 
-            <ng-container *ngIf="(client === clientName?.ICFC) && (summaryCheckedList.length > 0)">
-                <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>Particulars</th>
-                        <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let selectedParticular of summaryCheckedList; let i = index">
-                        <td class="text-left pl-2"><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
-                        <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]" class="text-right pr-1">
-                            {{amount.value}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </ng-container>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                 <tr class="text-white sb-bg-dark">
                     <td><b>Justification</b></td>

@@ -2,8 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
 import {CadCheckListTemplateEnum} from '../../../admin/modal/cadCheckListTemplateEnum';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 import {CurrencyFormatterPipe} from '../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-word.pipe';
@@ -21,8 +19,6 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
     @Input() documentId;
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() customerLoanId: number;
-    client = environment.client;
-    clientList = Clients;
     nepaliNumber = new NepaliNumberAndWords();
 
     cadTemplate = CadCheckListTemplateEnum;

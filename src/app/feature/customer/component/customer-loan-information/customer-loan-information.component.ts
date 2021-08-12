@@ -38,7 +38,6 @@ import {Comments} from '../../../admin/modal/comments';
 import {CommentsComponent} from '../../../loan-information-template/comments/comments.component';
 import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
-import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
@@ -148,8 +147,6 @@ export class CustomerLoanInformationComponent implements OnInit {
     public commentsData: string;
     public securityDataResponse: PreviousSecurity;
     private securityData: string;
-    client = environment.client;
-    clientName = Clients;
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     microCustomerTypeEnum = MicroCustomerType;

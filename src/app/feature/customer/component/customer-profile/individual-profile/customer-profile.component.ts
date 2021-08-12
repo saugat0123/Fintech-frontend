@@ -31,9 +31,6 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
-import {environment as envSrdb} from '../../../../../../environments/environment.srdb';
-import {Clients} from '../../../../../../environments/Clients';
-
 
 @Component({
     selector: 'app-customer-profile',
@@ -84,8 +81,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     crgLambdaDisabled = environment.disableCrgLambda;
-    client = environment.client;
-    clientName = Clients;
     isEditable = false;
     jointInfo = [];
     isJointInfo = false;

@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 import {CollateralSiteVisitService} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {CollateralSiteVisit} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
@@ -36,8 +34,6 @@ export class SecuritySummaryComponent implements OnInit {
     landBuilding = false;
     showTitle = false;
     insurancePolicySelected = false;
-    client = environment.client;
-    clientName = Clients;
     ownerShipTransfer = OwnershipTransfer;
     assignment = false;
     otherDetail: any;

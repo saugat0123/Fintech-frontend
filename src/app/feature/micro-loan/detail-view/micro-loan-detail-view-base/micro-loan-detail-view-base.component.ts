@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../customer/model/customerType';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
@@ -19,8 +17,6 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     @Input() loanId;
     @Input() customerAllLoanList;
     @Input() fiscalYearArray;
-    client = environment.client;
-    clientName = Clients;
     securityId: number;
     commentsSummary = false;
     dataFromComments;

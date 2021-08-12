@@ -24,7 +24,6 @@ export class IncomeFromAccountComponent implements OnInit {
   isNewCustomer = false;
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
-  srdbAffiliatedId = false;
 
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
@@ -43,9 +42,6 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-      this.srdbAffiliatedId = true;
-    }
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);

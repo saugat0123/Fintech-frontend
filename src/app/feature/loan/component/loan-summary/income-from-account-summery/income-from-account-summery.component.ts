@@ -11,16 +11,12 @@ import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() formData;
   incomeFromAccount;
-  srdbAffiliatedId = false;
   newCustomerFlag: boolean[];
 
   constructor() {
   }
 
   ngOnInit() {
-    if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
-      this.srdbAffiliatedId = true;
-    }
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.incomeFromAccount = JSON.parse(this.formData.data);
       this.newCustomerFlag = this.incomeFromAccount.newCustomerChecked;

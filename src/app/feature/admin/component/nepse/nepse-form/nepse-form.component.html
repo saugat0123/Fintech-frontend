@@ -75,23 +75,6 @@
               <div class="card-header">
                 <b>Upload Format</b>
               </div>
-              <div class="card-body" *ngIf="client === clientName?.ICFC">
-                <div class="row">
-                  <mark><strong>Follow below column order on Excel</strong></mark>
-                </div>
-                <div class="row sb-small">
-                  Company name|Value|Company code|Share type|Price Earning Ratio|Price to Book
-                  Value|Divident Yield|Dividend Payout Ratio
-                </div>
-                <div class="row">
-                  <img class="report-log img-thumbnail border-0"
-                       src="../../../../../assets/img/NepseUploadFormatwithRatio.png" width="100%">
-                </div>
-              </div>
-              <div class="card-body" *ngIf="client !== clientName?.ICFC">
-                <img class="report-log img-thumbnail border-0"
-                     src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
-              </div>
               <div class="modal-footer">
                 <input (click)="excelUpload(nepseFile)" class="btn btn-primary" type="submit">
               </div>

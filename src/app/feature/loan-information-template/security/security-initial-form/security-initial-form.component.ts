@@ -28,8 +28,6 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {InsuranceList} from '../../../loan/model/insuranceList';
 import {FormUtils} from '../../../../@core/utils/form.utils';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
@@ -148,8 +146,6 @@ export class SecurityInitialFormComponent implements OnInit {
     totalcv = 0;
 
     totalLandValueRemarks: any;
-    client = environment.client;
-    clientName = Clients;
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];

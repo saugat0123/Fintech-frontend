@@ -5,8 +5,6 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {SecurityIds} from '../SecurityIds';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-security-revaluation',
@@ -23,10 +21,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     formGroup: FormGroup;
     submitValue;
     @Output() revaluationDataEmitter = new EventEmitter();
-
-    // client
-    client = environment.client;
-    clientName = Clients;
 
     constructor(private valuatorService: ValuatorService,
                 private formBuilder: FormBuilder) {

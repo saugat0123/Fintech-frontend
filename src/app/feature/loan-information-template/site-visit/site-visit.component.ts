@@ -12,7 +12,6 @@ import {CommonAddressComponent} from '../../common-address/common-address.compon
 import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
 
 
@@ -57,8 +56,6 @@ export class SiteVisitComponent implements OnInit {
   designationList = [];
   insuranceList = InsuranceList.insuranceCompanyList;
   spinner = false;
-  client = environment.client;
-  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
