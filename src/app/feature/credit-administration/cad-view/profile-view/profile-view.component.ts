@@ -19,8 +19,8 @@ import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
 import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ProgressiveOfferLetterConst} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
 import {ProgressiveOfferLetterComponent} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
-
-
+import {IcfcOfferLetterConst} from '../../cad-document-template/icfc/icfc-offer-letter-const';
+import {IcfcOfferLetterComponent} from '../../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
 
 @Component({
     selector: 'app-profile-view',
@@ -62,6 +62,10 @@ export class ProfileViewComponent implements OnInit {
             case this.clientList.PROGRESSIVE:
                 this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
                 this.component = ProgressiveOfferLetterComponent;
+                break;
+            case this.clientList.ICFC:
+                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
+                this.component = IcfcOfferLetterComponent;
                 break;
         }
     }

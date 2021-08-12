@@ -1,0 +1,35 @@
+.nepali {
+  font-size: 20px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 70px;
+}
+
+.logo-container {
+  display: flex;
+  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  margin: 10px 70px;
+}
+
+@media print {
+  div.divFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
+}
+
+.pageBreak {
+  page-break-after: always;
+}
+
+.box {
+  border-style: solid;
+
+}

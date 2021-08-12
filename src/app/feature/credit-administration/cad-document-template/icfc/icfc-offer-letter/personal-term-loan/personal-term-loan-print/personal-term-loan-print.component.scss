@@ -1,0 +1,88 @@
+.bodyConfig {
+  font-size: 14pt;
+  line-height: 1.6;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 50px 30px;
+}
+
+.signatureTable {
+  margin-top: 30px;
+  height: 30%;
+  width: 48%;
+}
+.guarantorRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.guarantorColumn {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+.extendedMargin {
+  margin-top: 375px;
+}
+
+table {
+  font-size: 14pt;
+  line-height: 1.4;
+}
+
+.loanWords {
+  font-size: 13pt;
+}
+span {
+  font-size: 20pt;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 14pt;
+  line-height: 1.2;
+}
+
+.uniWords {
+  font-size: 14pt;
+}
+
+li {
+  list-style-type: none;
+}
+
+.logo-container {
+  display: flex;
+  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  margin: 10px 70px;
+}
+footer {
+  font-size: 9px;
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+@page {
+  size: A4;
+  margin: 17mm 17mm 17mm 17mm;
+}
+
+@media print {
+  footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.nepaliFont {
+  &.font-size-normal {
+    font-size: 18px;
+  }
+}
+
+.page-break {
+  page-break-after: always;
+}
+
