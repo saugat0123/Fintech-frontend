@@ -873,17 +873,10 @@
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
-                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                      [fiscalYears]="fiscalYearArray"
-                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
-            </ng-container>
 
-            <ng-template #otherBank>
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-            </ng-template>
+            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                             [fiscalYears]="fiscalYearArray"
+                             [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>

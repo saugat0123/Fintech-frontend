@@ -57,21 +57,10 @@
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                                  [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-            <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
-                                        [fromProfile]="false"
-                                        [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
-             -->
-        <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
-            <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                  [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-        </ng-container>
 
-        <ng-template #otherBank>
             <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                              [fiscalYears]="fiscalYearArray"
                              [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-        </ng-template>
         <div *ngIf="client === clientName?.MEGA">
             <app-comments-summary
                     [formData]="dataFromComments"></app-comments-summary>

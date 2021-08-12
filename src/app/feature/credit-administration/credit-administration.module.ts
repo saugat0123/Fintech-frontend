@@ -10,7 +10,6 @@ import {VerifyPopUpComponent} from './component/verify-pop-up/verify-pop-up.comp
 import {LegalAndDisbursementComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/legal-and-disbursement.component';
 import {CadActionComponent} from './cad-work-flow/cad-work-flow-base/cad-action/cad-action.component';
 import {ExposureComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/exposure/exposure.component';
-
 import {CadDocumentTemplateModule} from './cad-document-template/cad-document-template.module';
 import {NbDialogModule} from '@nebular/theme';
 import {OfferLetterListComponent} from './component/offer-letter/offer-letter-list/offer-letter-list.component';
@@ -55,7 +54,6 @@ import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offe
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
-
 
 
 @NgModule({

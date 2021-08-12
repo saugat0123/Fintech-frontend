@@ -142,16 +142,9 @@
 <!-- End Financial Details-->
 
 <!-- Start NTCA Details-->
-<ng-container *ngIf="client === clientName?.ICFC; else otherBank">
-    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                          [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-</ng-container>
-<ng-template #otherBank>
     <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                      [fiscalYears]="fiscalYearArray"
                      [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-</ng-template>
 <!-- End NTCA Details-->
 
 <!-- Start Group and Group security Details-->

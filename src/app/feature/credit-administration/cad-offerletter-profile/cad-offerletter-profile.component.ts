@@ -4,7 +4,6 @@ import {CreditAdministrationService} from '../service/credit-administration.serv
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogService} from '@nebular/theme';
-import {CadOfferLetterModalComponent} from './cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -21,7 +20,6 @@ import {ExcelOfferLetterComponent} from '../excel-offer-letter-template/excel-of
 import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 import {ProgressiveOfferLetterConst} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
 import {ProgressiveOfferLetterComponent} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
-
 
 
 @Component({

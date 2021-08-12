@@ -72,16 +72,9 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
-            <app-nta-mega-summary *ngIf="itemNetTrading?.expanded"
-                                  [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-mega-summary>
-          </ng-container>
-          <ng-template #otherBank>
             <app-nta-summary *ngIf="itemNetTrading?.expanded"
                              [fiscalYears]="fiscalYearArray"
                              [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-summary>
-          </ng-template>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
