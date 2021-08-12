@@ -118,7 +118,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     shareType = ShareType;
     activeNepseMaster: NepseMaster = new NepseMaster();
-    selectedCompanyCode: string;
     nepseList: Array<Nepse> = new Array<Nepse>();
     search: any = {
         status: 'ACTIVE',
