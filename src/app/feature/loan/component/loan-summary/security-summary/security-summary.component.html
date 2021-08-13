@@ -591,7 +591,7 @@
                         <td class="text-right pr-1">{{depositDetails?.receiptNumber}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.expiryDate | date}} ({{depositDetails?.expiryDate | engNepDate: false}})</td>
-                        <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
+                        <td class="text-right pr-1">{{depositDetails?.couponRate | currencyFormatter}}%</td>
                         <td class="text-left pl-1">{{depositDetails?.beneficiary}}</td>
                         <td class="text-left pl-1">{{depositDetails?.remarks}}</td>
                     </tr>
