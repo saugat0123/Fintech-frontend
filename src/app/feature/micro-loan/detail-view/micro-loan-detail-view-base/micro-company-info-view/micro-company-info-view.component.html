@@ -21,7 +21,9 @@
             <tr>
                 <td class="text-left pl-1">{{formValue?.companyName}}</td>
                 <td class="text-right pr-1">{{customerInfo['customerCode']}}</td>
-                <td class="text-left pl-1">{{formValue?.establishmentDate | date}} ({{formValue?.establishmentDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{formValue?.establishmentDate | date}}
+                    ({{formValue?.establishmentDate | engNepDate: false}})
+                </td>
                 <td class="text-right pr-1">{{formValue?.registrationNumber}}</td>
                 <td class="text-left pl-1">{{formValue?.issuePlace}}</td>
                 <td class="text-right pr1">{{formValue?.panNumber}}</td>
@@ -44,7 +46,9 @@
                 <td class="text-right pr-1">{{formValue?.contactNum}}</td>
                 <td class="text-right pr-1">{{formValue?.landLineNumber}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
-                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}}
+                    ({{companyJsonData?.relationshipSince | engNepDate: false}})
+                </td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
                 <td class="text-left pl-1">{{formValue?.microCustomerType?.toString() | titlecase}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
@@ -52,7 +56,7 @@
             </tr>
         </table>
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="5">Additional registration/license information
@@ -70,8 +74,12 @@
             <tr>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.registrationType}}</td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseHolderName}}</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}} ({{additionalInfoJsonData?.licenseIssuedDate | engNepDate:false}})</td>
-                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}} ({{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuedDate | date}}
+                    ({{additionalInfoJsonData?.licenseIssuedDate | engNepDate:false}})
+                </td>
+                <td class="text-left pl-1">{{additionalInfoJsonData?.licenseExpiryDate | date}}
+                    ({{additionalInfoJsonData?.licenseExpiryDate | engNepDate: false}})
+                </td>
                 <td class="text-left pl-1">{{additionalInfoJsonData?.licenseIssuePlace}}</td>
             </tr>
             <tr class="text-white sb-bg-dark">
@@ -104,10 +112,16 @@
                 <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
                 <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationDate | date}} ({{formValue?.legalStatus?.registrationDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationDate | date}}
+                    ({{formValue?.legalStatus?.registrationDate | engNepDate: false}})
+                </td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |date}} ({{formValue?.legalStatus?.panRegistrationDate | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}} ({{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate |date}}
+                    ({{formValue?.legalStatus?.panRegistrationDate | engNepDate: false}})
+                </td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}}
+                    ({{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}})
+                </td>
             </tr>
             </tbody>
         </table>
@@ -189,7 +203,7 @@
             </tbody>
         </table>
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th>Sister Concern</th>
@@ -201,7 +215,7 @@
         </table>
 
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="8">Other Details</th>
@@ -262,17 +276,17 @@
         </table>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="text-white sb-bg-dark">
-                <th>Management Team Note</th>
+            <th>Management Team Note</th>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
-                </tr>
+            <tr>
+                <td class="text-left pl-1" [innerHTML]="companyJsonData?.managementTeamNote | safeHtml"></td>
+            </tr>
             </tbody>
         </table>
 
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="9">Information of Proprietor/Shareholder/Partner with holder %</th>
@@ -291,12 +305,13 @@
             </thead>
             <ng-container *ngFor="let holder of companyJsonData.proprietorList;let i =index">
                 <tr>
-                    <td>{{i+1}}</td>
+                    <td>{{i + 1}}</td>
                     <td class="text-left pl-1"><strong>{{holder?.name}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.type}}</strong></td>
                     <td class="text-right pr-1"><strong>{{holder?.contactNo}}</strong></td>
                     <td class="text-right pr-1"><strong>{{holder?.share}}</strong></td>
-                    <td class="text-left pl-1"><strong>{{holder?.province?.name}}, {{holder?.district?.name}}, {{holder?.municipalityVdc?.name}}</strong></td>
+                    <td class="text-left pl-1"><strong>{{holder?.province?.name}}, {{holder?.district?.name}}
+                        , {{holder?.municipalityVdc?.name}}</strong></td>
                     <td class="text-right pr-1"><strong>{{holder?.holderPercentWardNumber}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine1}}</strong></td>
                     <td class="text-left pl-1"><strong>{{holder?.addressLine2}}</strong></td>
@@ -319,12 +334,14 @@
                             <tbody>
                             <ng-container *ngFor="let d of holder?.kycInfo?.ownerKycDetails; let j = index">
                                 <tr>
-                                    <td>{{j+1}}</td>
+                                    <td>{{j + 1}}</td>
                                     <td class="text-left pl-1">{{d?.ownerRelationship ? d?.ownerRelationship : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.relationName ? d?.relationName : 'N/A' }}</td>
                                     <td class="text-right pr-1">{{d?.citizenshipNumber ? d?.citizenshipNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.issuedLocation ? d?.issuedLocation : 'N/A' }}</td>
-                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}} ({{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}})</td>
+                                    <td class="text-left pl-1">{{d?.issuedDate ? (d?.issuedDate | date) : 'N/A'}}
+                                        ({{d?.issuedDate ? (d?.issuedDate | engNepDate: false) : 'N/A'}})
+                                    </td>
                                     <td class="text-right pr-1">{{d?.mobileNumber ? d?.mobileNumber : 'N/A' }}</td>
                                     <td class="text-left pl-1">{{d?.address ? d?.address : 'N/A'}}</td>
                                 </tr>
@@ -367,7 +384,7 @@
              </tbody>
          </table>-->
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th colspan="4">SWOT Analysis</th>
@@ -389,7 +406,7 @@
             </tbody>
         </table>
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Succession Risk & Mitigation</th>
             </tr>
@@ -407,7 +424,7 @@
         </table>
 
         <table *ngIf="otherMicroDetailsVisibility"
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+               class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="2">Raw Materials</th>
             </tr>
@@ -430,56 +447,65 @@
                     <th>Market demand of product/service</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['marketDemandService'] |safeHtml"></td>
                 </tr>
                 <tr class="text-white sb-bg-dark">
                     <th>Key Suppliers</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['keySupplier'] |safeHtml"></td>
                 </tr>
                 <tr class="text-white sb-bg-dark">
                     <th>Key Buyers</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['KeyBuyers'] |safeHtml"></td>
                 </tr>
                 <tr class="text-white sb-bg-dark">
                     <th>Competitors Overview</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['competitorsOverview'] |safeHtml"></td>
                 </tr>
                 <tr class="text-white sb-bg-dark">
                     <th>Industry/Market Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] |safeHtml"></td>
                 </tr>
                 <tr class="text-white sb-bg-dark">
                     <th>Marketing Strategies</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['marketingStrategies'] |safeHtml"></td>
                 </tr>
                 <tr class="text-white sb-bg-dark">
                     <th>Business/Management Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] |safeHtml"></td>
+                    <td class="text-left pl-1"
+                        [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] |safeHtml"></td>
                 </tr>
             </ng-container>
             <tr class="text-white sb-bg-dark">
                 <th>Security Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk'] | safeHtml"></td>
+                <td class="text-left pl-1"
+                    [innerHTML]="companyJsonData?.marketScenario['securityRisk'] | safeHtml"></td>
             </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Financial and Cash Flow Risk & Mitigation</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk'] | safeHtml"></td>
+                <td class="text-left pl-1"
+                    [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk'] | safeHtml"></td>
             </tr>
         </table>
         <table
@@ -515,7 +541,8 @@
             </tr>
             <tr>
                 <td class="text-left pl-1">Loan Processing Fee</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">
+                    Rs. {{businessGiven?.loanProcessingFeeDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">LC Commission</td>
@@ -523,7 +550,8 @@
             </tr>
             <tr>
                 <td class="text-left pl-1">Guarantee Commission</td>
-                <th class="text-right pr-1">Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
+                <th class="text-right pr-1">
+                    Rs. {{businessGiven?.guaranteeCommissionDuringReview | currencyFormatter}}</th>
             </tr>
             <tr>
                 <td class="text-left pl-1">Other Commission</td>
@@ -612,10 +640,11 @@
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark text-white">
-                <th>Loan products</th>
+            <th>Loan products</th>
             </thead>
             <tbody>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail ['loanProducts'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.microCustomerDetail ['loanProducts'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -627,7 +656,8 @@
             <th>Other Products</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail['otherProducts'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.microCustomerDetail['otherProducts'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -639,7 +669,8 @@
             <th>Repayment Schedule</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'| safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.microCustomerDetail['repaymentSchedule'] || 'NA'| safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -651,7 +682,8 @@
             <th>Saving Products</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.microCustomerDetail['savingProducts'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.microCustomerDetail['savingProducts'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>

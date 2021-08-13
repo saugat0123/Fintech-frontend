@@ -8,9 +8,11 @@
             <tr>
                 <td><b>Nature Of business</b></td>
                 <td>{{companyJsonData?.majorProductService}}</td>
-                <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince |engNepDate: false}})</td>
+                <td><b>Relationship Start Date(AD/BS)</b>: {{companyJsonData?.relationshipSince | date}}
+                    ({{companyJsonData?.relationshipSince |engNepDate: false}})
+                </td>
             </tr>
-            <tr  *ngIf="microCustomerType != 'DIRECT'">
+            <tr *ngIf="microCustomerType != 'DIRECT'">
                 <td><b>Sister Concerns</b></td>
                 <td colspan="2">{{companyJsonData?.sisterConcern}}</td>
             </tr>
@@ -26,7 +28,9 @@
             <tr>
 
                 <td><b>Date(AD/BS)</b></td>
-                <td>{{companyInfo?.legalStatus?.registrationDate | date}} ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})</td>
+                <td>{{companyInfo?.legalStatus?.registrationDate | date}}
+                    ({{companyInfo?.legalStatus?.registrationDate |engNepDate: false}})
+                </td>
             </tr>
             <tr>
                 <td><b>Regd. Number</b></td>
@@ -46,13 +50,14 @@
                     </div>
                 </td>
             </tr>
-            <tr  *ngIf="microCustomerType != 'DIRECT'">
+            <tr *ngIf="microCustomerType != 'DIRECT'">
                 <td>
                     <b>Tax Clearance Till</b>
                 </td>
                 <td>{{companyJsonData?.otherCompanyDetail?.taxClearanceTill}}</td>
-                <td><b>Remarks</b> , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
-                    :'N/A'}}</td>
+                <td><b>Remarks</b>
+                    , {{companyJsonData?.otherCompanyDetail.taxClearanceRemark !== undefined ? companyJsonData?.otherCompanyDetail?.taxClearanceRemark
+                        : 'N/A'}}</td>
             </tr>
 
             <tr>
@@ -67,19 +72,21 @@
             </tr>
             <tr>
                 <td><b>Business Address</b></td>
-                <td  colspan="2">({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}, {{companyLocationData?.municipalityVdc?.name}}),
-                    {{companyLocationData?.ward}},  {{companyLocationData?.address1}} , {{companyLocationData?.address2}}</td>
+                <td colspan="2">({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
+                    , {{companyLocationData?.municipalityVdc?.name}}),
+                    {{companyLocationData?.ward}},  {{companyLocationData?.address1}}
+                    , {{companyLocationData?.address2}}</td>
             </tr>
-           <ng-container *ngIf="microCustomerType == 'DIRECT'">
-               <tr>
-                   <th>Basel -2 Risk Classification (in %)</th>
-                   <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.riskClassificationPercent || 'NA'}}</td>
-               </tr>
-               <tr>
-                   <th>Base of Risk Classification: RRP</th>
-                   <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.riskClassificationBase || 'NA'}}</td>
-               </tr>
-           </ng-container>
+            <ng-container *ngIf="microCustomerType == 'DIRECT'">
+                <tr>
+                    <th>Basel -2 Risk Classification (in %)</th>
+                    <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.riskClassificationPercent || 'NA'}}</td>
+                </tr>
+                <tr>
+                    <th>Base of Risk Classification: RRP</th>
+                    <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.riskClassificationBase || 'NA'}}</td>
+                </tr>
+            </ng-container>
             <tr>
                 <td>
                     <div><b>Name</b></div>
@@ -97,7 +104,7 @@
                     </ng-container>
                 </td>
                 <td>
-                    <div> <b>Alternative Contact Person</b></div>
+                    <div><b>Alternative Contact Person</b></div>
                     <ng-container *ngIf="contact?.length > 1">
                         <div>{{contact[1]?.contactName}}</div>
                         <div>{{contact[1]?.contactNumber}}</div>
@@ -109,17 +116,20 @@
             </tr>
 
             <ng-container *ngIf="microCustomerType != 'DIRECT'">
-            <tr>
-                <td><b>Classification as per NRB Directive</b></td>
-                <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
-            </tr>
+                <tr>
+                    <td><b>Classification as per NRB Directive</b></td>
+                    <td colspan="2">{{companyJsonData?.otherCompanyDetail?.ClassificationByNRB}}</td>
+                </tr>
 
-            <tr>
-                <td><b>Customer Negative List Checked</b></td>
-                <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'" class="fas fa-check-circle"></i> )Checked</span>
-                    <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'" class="fas fa-check-circle"></i> )Not checked</span>
-                    <span class="ml-5">Remarks , {{companyJsonData?.otherCompanyDetail?.negativeListRemark != undefined ? companyJsonData?.otherCompanyDetail?.negativeListRemark : 'N/A'}}</span></td>
-            </tr>
+                <tr>
+                    <td><b>Customer Negative List Checked</b></td>
+                    <td colspan="2"><span>(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'checked'"
+                                              class="fas fa-check-circle"></i> )Checked</span>
+                        <span class="ml-2">(<i *ngIf="companyJsonData?.otherCompanyDetail?.negativeList === 'unchecked'"
+                                               class="fas fa-check-circle"></i> )Not checked</span>
+                        <span class="ml-5">Remarks , {{companyJsonData?.otherCompanyDetail?.negativeListRemark != undefined ? companyJsonData?.otherCompanyDetail?.negativeListRemark : 'N/A'}}</span>
+                    </td>
+                </tr>
             </ng-container>
 
             <tr>
@@ -147,19 +157,24 @@
                 </tr>
                 <tr>
                     <td><b>Loan products</b></td>
-                    <td colspan="2" [innerHTML]="companyJsonData?.microCustomerDetail?.loanProducts || 'NA' | safeHtml"></td>
+                    <td colspan="2"
+                        [innerHTML]="companyJsonData?.microCustomerDetail?.loanProducts || 'NA' | safeHtml"></td>
                 </tr>
                 <tr>
                     <td><b>Saving Products</b></td>
-                    <td colspan="2" [innerHTML]="companyJsonData?.microCustomerDetail?.savingProducts || 'NA' | safeHtml"></td>
+                    <td colspan="2"
+                        [innerHTML]="companyJsonData?.microCustomerDetail?.savingProducts || 'NA' | safeHtml"></td>
                 </tr>
                 <tr>
                     <td><b>Other products</b></td>
-                    <td colspan="2"><span [innerHTML]="companyJsonData?.microCustomerDetail?.otherProducts || 'NA' | safeHtml"></span></td>
+                    <td colspan="2"><span
+                            [innerHTML]="companyJsonData?.microCustomerDetail?.otherProducts || 'NA' | safeHtml"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><b>Repayment Schedule</b></td>
-                    <td colspan="2" [innerHTML]="companyJsonData?.microCustomerDetail?.repaymentSchedule || 'NA'| safeHtml"></td>
+                    <td colspan="2"
+                        [innerHTML]="companyJsonData?.microCustomerDetail?.repaymentSchedule || 'NA'| safeHtml"></td>
                 </tr>
             </ng-container>
 
@@ -167,7 +182,8 @@
     </div>
 
     <div class="col-md-12">
-        <app-micro-common-detail *ngIf="microCustomerType == 'DIRECT'" [microDetail]="companyJsonData"></app-micro-common-detail>
+        <app-micro-common-detail *ngIf="microCustomerType == 'DIRECT'"
+                                 [microDetail]="companyJsonData"></app-micro-common-detail>
     </div>
 
     <div *ngIf="loanDataHolder?.companyInfo?.withinLimitRemarks">
@@ -176,7 +192,8 @@
                 <th>Within Limit Remarks (if any)</th>
             </tr>
             <tr>
-                <td class="text-left pl-1" [innerHTML]="loanDataHolder?.companyInfo?.withinLimitRemarks | safeHtml"></td>
+                <td class="text-left pl-1"
+                    [innerHTML]="loanDataHolder?.companyInfo?.withinLimitRemarks | safeHtml"></td>
             </tr>
         </table>
     </div>
@@ -187,10 +204,10 @@
     <div class="col-md-12">
         <table class="table table-bordered text-center table-sm sb-small">
             <thead class="sb-bg-dark text-white">
-                <th>Background of Company</th>
+            <th>Background of Company</th>
             </thead>
             <tbody>
-                <td class="text-justify p-1" [innerHTML]="companyJsonData?.companyBackground | safeHtml"></td>
+            <td class="text-justify p-1" [innerHTML]="companyJsonData?.companyBackground | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -207,12 +224,12 @@
             <th>Share holding (%)</th>
             </thead>
             <tbody>
-                <tr *ngFor="let proprietor of companyJsonData.proprietorList; let i = index">
-                    <td>{{i + 1}}</td>
-                    <td class="text-left pl-1">{{proprietor?.name || 'NA'}}</td>
-                    <td class="text-left pl-1">{{proprietor?.type || 'NA'}}</td>
-                    <td class="text-right pr-1">{{proprietor?.share || 'NA'}}</td>
-                </tr>
+            <tr *ngFor="let proprietor of companyJsonData.proprietorList; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="text-left pl-1">{{proprietor?.name || 'NA'}}</td>
+                <td class="text-left pl-1">{{proprietor?.type || 'NA'}}</td>
+                <td class="text-right pr-1">{{proprietor?.share || 'NA'}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -229,12 +246,12 @@
             <th>Address as per Legal Document</th>
             </thead>
             <tbody>
-                <tr *ngFor="let managements of companyJsonData.managementTeamList; let j = index;">
-                    <td>{{j + 1}}</td>
-                    <td class="text-left pl-1">{{managements?.name || 'NA'}}</td>
-                    <td class="text-left pl-1">{{managements?.designation || 'NA'}}</td>
-                    <td class="text-left pl-1">{{managements?.companyLegalDocumentAddress || 'NA'}}</td>
-                </tr>
+            <tr *ngFor="let managements of companyJsonData.managementTeamList; let j = index;">
+                <td>{{j + 1}}</td>
+                <td class="text-left pl-1">{{managements?.name || 'NA'}}</td>
+                <td class="text-left pl-1">{{managements?.designation || 'NA'}}</td>
+                <td class="text-left pl-1">{{managements?.companyLegalDocumentAddress || 'NA'}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -256,7 +273,8 @@
             <th>Market Risk</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -266,7 +284,8 @@
             <th>Financial Risk</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.marketScenario['financialAndCashFlowRisk'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -276,7 +295,8 @@
             <th>Management Risk</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
@@ -286,12 +306,13 @@
             <th>Security Risk</th>
             </thead>
             <tbody>
-            <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['securityRisk'] || 'NA' | safeHtml"></td>
+            <td class="text-left pl-1"
+                [innerHTML]="companyJsonData?.marketScenario['securityRisk'] || 'NA' | safeHtml"></td>
             </tbody>
         </table>
     </div>
 </ng-container>
-<div class="row col-md-12"  *ngIf="microCustomerType != 'DIRECT'">
+<div class="row col-md-12" *ngIf="microCustomerType != 'DIRECT'">
     <div><strong>SWOT Analysis</strong></div>
     <table class="table table-bordered text-center table-sm sb-small">
         <thead class="sb-bg-dark text-white">
