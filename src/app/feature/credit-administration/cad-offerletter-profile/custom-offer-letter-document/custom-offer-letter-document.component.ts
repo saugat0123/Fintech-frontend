@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {MegaOfferLetterConst} from '../../../mega-offer-letter-const';
-import {OfferDocument} from '../../../model/OfferDocument';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {CreditAdministrationService} from '../../../service/credit-administration.service';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {ToastService} from '../../../../../@core/utils';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
+import {OfferDocument} from '../../model/OfferDocument';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {CreditAdministrationService} from '../../service/credit-administration.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {NbDialogRef} from '@nebular/theme';
-import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {OfferDocType} from '../../../model/OfferDocType';
+import {RouterUtilsService} from '../../utils/router-utils.service';
+import {OfferDocType} from '../../model/OfferDocType';
 
 @Component({
   selector: 'app-custom-offer-letter-document',

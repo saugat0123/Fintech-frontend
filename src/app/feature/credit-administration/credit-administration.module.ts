@@ -18,7 +18,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {DocumentChecklistComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/document-checklist/document-checklist.component';
 import {FeesCommissionComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/fees-commission/fees-commission.component';
 import {CoreModule} from '../../@core/core.module';
-import {CadOfferLetterModalComponent} from './cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {CommentComponent} from './comment/comment.component';
 import {OfferLetterDocumentUploadComponent} from './cad-offerletter-profile/offer-letter-document-upload/offer-letter-document-upload.component';
 import {OfferLetterApprovedComponent} from './component/offer-letter/offer-letter-approved/offer-letter-approved.component';
@@ -38,7 +37,6 @@ import {ProfileViewComponent} from './cad-view/profile-view/profile-view.compone
 import {ExposureViewComponent} from './cad-view/exposure-view/exposure-view.component';
 import {FeesCommissionsViewComponent} from './cad-view/fees-commissions-view/fees-commissions-view.component';
 import {DocumentChecklistViewComponent} from './cad-view/document-checklist-view/document-checklist-view.component';
-import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
 import {UpdateCustomerCadInfoComponent} from './cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
 import {AdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/additional-document.component';
 import {AddAdditionalDocumentComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/additional-document/add-additional-document/add-additional-document.component';
@@ -54,6 +52,7 @@ import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offe
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
+import {CustomOfferLetterDocumentComponent} from './cad-offerletter-profile/custom-offer-letter-document/custom-offer-letter-document.component';
 
 
 @NgModule({
@@ -68,7 +67,6 @@ import {ProgressiveModule} from './cad-document-template/progressive/progressive
         CadOfferLetterProfileComponent,
         DocumentChecklistComponent,
         FeesCommissionComponent,
-        CadOfferLetterModalComponent,
         CommentComponent,
         OfferLetterDocumentUploadComponent,
         OfferLetterApprovedComponent,
@@ -88,7 +86,6 @@ import {ProgressiveModule} from './cad-document-template/progressive/progressive
         ExposureViewComponent,
         FeesCommissionsViewComponent,
         DocumentChecklistViewComponent,
-        CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
         AdditionalDocumentComponent,
         AddAdditionalDocumentComponent,
@@ -98,6 +95,7 @@ import {ProgressiveModule} from './cad-document-template/progressive/progressive
         AdditionalExposureComponent,
         CadOfferLetterConfigurationComponent,
         NepProposedAmountFormComponent,
+        CustomOfferLetterDocumentComponent,
         CadFileSetupComponent],
     imports: [
         ThemeModule,
@@ -116,10 +114,8 @@ import {ProgressiveModule} from './cad-document-template/progressive/progressive
     entryComponents: [
         AssignPopUpComponent,
         VerifyPopUpComponent,
-        CadOfferLetterModalComponent,
         ExposureComponent,
         CadChecklistDocTemplateModalComponent,
-        CustomOfferLetterDocumentComponent,
         UpdateCustomerCadInfoComponent,
         AddAdditionalDocumentComponent,
         SecurityComplianceCertificateComponent,

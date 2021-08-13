@@ -10,7 +10,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {RouterUtilsService} from '../utils/router-utils.service';
-import {CustomOfferLetterDocumentComponent} from './cad-offer-letter-modal/custom-offer-letter-document/custom-offer-letter-document.component';
+import {CustomOfferLetterDocumentComponent} from './custom-offer-letter-document/custom-offer-letter-document.component';
 import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-customer-cad-info.component';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
