@@ -6,8 +6,6 @@ import {ModalResponse} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-income-statement',
@@ -20,7 +18,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     incomeStatementForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
-    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,
@@ -274,22 +271,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                     .fetchValuesForSubCategories(this.incomeStatementForm
                         .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index))).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
-
-        } else {
-            if (!this.isSRDB) {
-                cashFlowStatement.changedInFixedAsset[index].value =
-                    (Number(this.financialService
-                            .fetchValuesForJsonSubCategories(balanceSheet.fixedAssetsCategory, 'Net Fixed Assets', index))
-                        - Number(cashFlowStatement.depreciation[index].value)).toFixed(2);
-
-                cashFlowStatement.changeInOtherAssets[index].value = (Number(balanceSheet.otherAssets[index].value)
-                    - Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
-                        .get('operatingExpensesCategory'), 'Amortization/Other Non-Cash Expenses', index)))
-                    .toFixed(2);
-
-                /** Commented this because this made the 'addOpeningBalance' field editable being inexplicable **/
-                // cashFlowStatement.addOpeningBalance[index].value = Number(operatingProfit.controls['value'].value);
-            }
         }
 
         cashFlowStatement.nonOperatingIncomeExpenses[index].value = nonOperatingIncomeOrExpenses.controls['value'].value;
