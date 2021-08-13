@@ -36,6 +36,7 @@
                 <th>Major products/Service</th>
                 <th>Relationship Since(AD/BS)</th>
                 <th>Client Type</th>
+                <th>Micro Customer Type</th>
                 <th>Sub Sector</th>
             </tr>
             <tr>
@@ -45,11 +46,12 @@
                 <td class="text-left pl-1">{{companyJsonData?.majorProductService}}</td>
                 <td class="text-left pl-1">{{companyJsonData?.relationshipSince | date}} ({{companyJsonData?.relationshipSince | engNepDate: false}})</td>
                 <td class="text-left pl-1">{{customerInfo['clientType']}}</td>
+                <td class="text-left pl-1">{{formValue?.microCustomerType?.toString() | titlecase}}</td>
                 <td class="text-left pl-1">{{customerInfo['subsectorDetail']}}</td>
 
             </tr>
         </table>
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -186,7 +188,7 @@
             </tr>
             </tbody>
         </table>
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -198,7 +200,7 @@
             </thead>
         </table>
 
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -269,7 +271,7 @@
             </tbody>
         </table>
 
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -364,7 +366,7 @@
              </tr>
              </tbody>
          </table>-->
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -386,7 +388,7 @@
             </tr>
             </tbody>
         </table>
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th>Succession Risk & Mitigation</th>
@@ -404,7 +406,7 @@
             <tr class="text-left pl-1" [innerHTML]="companyJsonData?.businessObjective | safeHtml"></tr>
         </table>
 
-        <table
+        <table *ngIf="otherMicroDetailsVisibility"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="2">Raw Materials</th>
@@ -420,51 +422,53 @@
         </table>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th>Market Scenario</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Market demand of product/service</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService'] |safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Key Suppliers</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier'] |safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Key Buyers</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers'] |safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Competitors Overview</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview'] |safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Industry/Market Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] |safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Marketing Strategies</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies'] |safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th>Business/Management Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] |safeHtml"></td>
-            </tr>
+            <ng-container *ngIf="otherMicroDetailsVisibility">
+                <tr class="text-white sb-bg-dark">
+                    <th>Market Scenario</th>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Market demand of product/service</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketDemandService'] |safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Key Suppliers</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['keySupplier'] |safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Key Buyers</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['KeyBuyers'] |safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Competitors Overview</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['competitorsOverview'] |safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Industry/Market Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['BusinessIndustryOutlook'] |safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Marketing Strategies</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['marketingStrategies'] |safeHtml"></td>
+                </tr>
+                <tr class="text-white sb-bg-dark">
+                    <th>Business/Management Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td class="text-left pl-1" [innerHTML]="companyJsonData?.marketScenario['technicalAspect'] |safeHtml"></td>
+                </tr>
+            </ng-container>
             <tr class="text-white sb-bg-dark">
                 <th>Security Risk & Mitigation</th>
             </tr>

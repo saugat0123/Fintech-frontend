@@ -6,6 +6,7 @@
                                    [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-individual-view>
         <app-micro-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                                      [calendarType]="calendarType"
+                                     [isMicroDirect]="otherMicroDetailsVisibility"
                                      [formValue]="loanDataHolder?.companyInfo"
                                      [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
 
