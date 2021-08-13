@@ -5,8 +5,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -427,7 +425,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                     'Short Term Loan', index)) + Number(longTermLoan.controls['value'].value)) /
             (Number(netWorth.controls['value'].value))).toString();
         keyIndicators.debtEquityRatioGeneral[index].value = value.slice(0, (Number(value.indexOf('.')) + 3));
-
 
         keyIndicators.leverageRatio[index].value = ((Number(longTermLoan.controls['value'].value) + Number(currentLiabilities.controls['value'].value)) /
             (Number(longTermLoan.controls['value'].value) +
