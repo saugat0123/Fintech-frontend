@@ -124,6 +124,13 @@
                             title="Add">
                         <i class="fas fa-plus"></i>
                     </button>
+                    <button (click)="viewData($event, model,viewdetails)"
+                            class="m-1"
+                            nbButton size="tiny"
+                            status="info"
+                            title="View">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </td>
 <!--                <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>-->
 <!--                                <td>-->
@@ -174,5 +181,51 @@
                 </button>
             </div>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #viewdetails let-ref="dialogRef">
+    <div class="modal-content" [nbSpinner]="onBoardSpinner"
+         accent="primary"
+         nbSpinnerMessage="Please Wait . . ."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+        <div class="modal-header sb-bg" style="display:block">
+            <a (click)="modalService.dismissAll()" aria-label="Close"
+               class="close cursor" data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="nav  navbar-right pull-left text-white">Confirm</h4>
+        </div>
+        <div class="col-md-12">
+            <div class="p-5 row " *ngFor="let model of customerList;let i=index" >
+
+                <div class="col-md-6" >
+
+                        <span> <strong>Id :</strong> {{model?.id}}</span></div>
+                    <div class="p-1 row">
+                        <span> <strong>customerName :</strong>{{model?.customerName}}</span></div>
+                    <div class="p-1 row">
+                        <span> <strong>phoneNo :</strong>{{model?.phoneNo || 'NA'}}</span></div>
+                    <div class="p-1 row">
+                        <span> <strong>Email :</strong>{{model?.email || 'NA'}}</span></div>
+                    <div class="p-1 row">
+                        <span> <strong>loanAmount :</strong>{{model?.loanAmount}}</span></div>
+                    <div class="p-1 row">
+                        <span> <strong>address :</strong>{{model?.address || 'NA'}}</span></div>
+                    <div class="p-1 row">
+                        <span> <strong>citizenshipNumber :</strong>{{model?.citizenshipNumber || 'NA'}}</span></div>
+                </div>
+            <div class="d-flex justify-content-end pb-md-3">
+
+<!--                <button (click)=" " class="btn float-right"-->
+<!--                        nbButton size="small"-->
+<!--                        status="info"-->
+<!--                        shape="rectangle"-->
+<!--                        type="submit">-->
+<!--                    Yes-->
+<!--                </button>-->
+            </div>
+        </div>
+    </div>
     </div>
 </ng-template>
