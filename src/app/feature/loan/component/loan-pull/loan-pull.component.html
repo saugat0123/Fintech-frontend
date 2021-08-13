@@ -90,6 +90,7 @@
         <table id="add-branch-table" class="table table-bordered table-hover table-sm sb-small text-center">
             <thead>
             <tr class="text-white sb-bg-dark">
+                <th>S.No.</th>
                 <th>Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>
@@ -105,6 +106,7 @@
             </thead>
             <tbody *ngFor="let model of loanDataHolderList;let i=index" class="cursor">
             <tr>
+                <td>{{i + 1 }}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loanHolder?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
