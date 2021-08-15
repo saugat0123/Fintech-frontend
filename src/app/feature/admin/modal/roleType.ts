@@ -6,6 +6,7 @@ export enum RoleType {
     ADMIN = 'ADMIN',
     CAD_SUPERVISOR = 'CAD_SUPERVISOR',
     CAD_LEGAL = 'CAD_LEGAL',
+    HEAD_OFFICE = 'HO'
 
 }
 

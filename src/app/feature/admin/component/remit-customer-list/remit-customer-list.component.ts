@@ -69,8 +69,10 @@ export class RemitCustomerListComponent implements OnInit {
         {id: 35, customerName: 'Test 35', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '121'},
         {id: 36, customerName: 'Test 36', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '122'},
         {id: 37, customerName: 'Test 37', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '123'},
-        {id: 38, customerName: 'Test 37', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '124'},
-        {id: 39, customerName: 'Test 37', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '125'},
+        {id: 38, customerName: 'Test 38', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '124'},
+        {id: 39, customerName: 'Test 39', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '125'},
+        {id: 40, customerName: 'Test 40', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '126'},
+        {id: 41, customerName: 'Test 41', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '127'},
     ];
 
     ngOnInit(): void {
