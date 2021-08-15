@@ -1,9 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {NbToastrService} from '@nebular/theme';
-import {CustomerService} from "../../../customer/service/customer.service";
-import {Customer} from "../../modal/customer";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
+import {CustomerService} from '../../../customer/service/customer.service';
+import {Customer} from '../../modal/customer';
+
+
 
 @Component({
     selector: 'app-remit-customer-component',
@@ -14,15 +16,16 @@ export class RemitCustomerListComponent implements OnInit {
 
     onBoardData;
     onBoardSpinner = false;
-
-
+    selectedId: any;
+    selectedIdData: any;
 
     constructor(private router: Router,
-                public modalService: NgbModal,
+                public modalService: NgbModal,   private dialogService: NbDialogService,
                 private customerService: CustomerService,
                 private toastService: NbToastrService,
     ) {
     }
+
 
     customerList = [{
         id: 1,
@@ -41,6 +44,7 @@ export class RemitCustomerListComponent implements OnInit {
         {id: 7, customerName: 'Test 7', phoneNo: '12345', email: 'test7@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '333'},
         {id: 8, customerName: 'Test 8', phoneNo: '12345', email: 'test8@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '444'},
         {id: 9, customerName: 'Test 9', phoneNo: '12345', email: 'test9@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '555'},
+        // tslint:disable-next-line:max-line-length
         {id: 10, customerName: 'Test 10', phoneNo: '12345', email: 'test10@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '666'},
         {id: 11, customerName: 'Test 11', phoneNo: '12345', email: 'test11@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '777'},
         {id: 12, customerName: 'Test 12', phoneNo: '12345', email: 'test12@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '888'},
@@ -61,6 +65,7 @@ export class RemitCustomerListComponent implements OnInit {
         {id: 27, customerName: 'Test 27', phoneNo: '12345', email: 'test23@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '113'}
     ];
 
+
     ngOnInit(): void {
         console.log('customer list', this.customerList);
     }
@@ -72,13 +77,26 @@ export class RemitCustomerListComponent implements OnInit {
         this.modalService.open(template);
 
     }
+    viewData(event, Id, data, template) {
+        this.selectedId = Id;
+        this.selectedIdData = data;
+        event.stopPropagation();
+        this.dialogService.open(template,{
+            closeOnBackdropClick: false,
+            closeOnEsc: false,
+            hasBackdrop: false,
+            hasScroll: true
+        });
+        console.log('selected ID', this.selectedId);
+        console.log('selected data', this.selectedIdData);
+    }
 
     onBoardMember() {
         console.log('onboard data', this.onBoardData);
         console.log('member onboarded');
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
-        let customer : Customer;
+        let customer: Customer;
         this.customerService.onBoardRemitCustoer(this.onBoardData).subscribe(() => {
             // this.getData();
             this.onBoardSpinner = false;
