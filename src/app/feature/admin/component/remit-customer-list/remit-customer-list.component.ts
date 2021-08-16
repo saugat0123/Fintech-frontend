@@ -4,6 +4,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../modal/customer';
+import {LocalStorageUtil} from "../../../../@core/utils/local-storage-util";
+import {RoleType} from "../../modal/roleType";
 
 
 
@@ -18,6 +20,7 @@ export class RemitCustomerListComponent implements OnInit {
     onBoardSpinner = false;
     selectedId: any;
     selectedIdData: any;
+    transferDoc: any;
 
     constructor(private router: Router,
                 public modalService: NgbModal,   private dialogService: NbDialogService,
@@ -88,6 +91,11 @@ export class RemitCustomerListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('customer list', this.customerList);
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
+            this.transferDoc = true;
+            console.log('transfer doc',this.transferDoc);
+            console.log('user', LocalStorageUtil.getStorage().username);
+        }
     }
 
     addMember(event, data, template) {
@@ -97,6 +105,15 @@ export class RemitCustomerListComponent implements OnInit {
         this.modalService.open(template);
 
     }
+
+    transferCustomer(event,data,template){
+        console.log('transfer customer');
+        this.onBoardData = data;
+        console.log('on board data', data);
+        event.stopPropagation();
+        this.modalService.open(template);
+    }
+
     viewData(event, Id, data, template) {
         this.selectedId = Id;
         this.selectedIdData = data;
