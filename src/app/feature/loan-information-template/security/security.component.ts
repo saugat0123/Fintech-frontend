@@ -81,6 +81,7 @@ export class SecurityComponent implements OnInit {
 
     alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
     lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
+    spinner = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -245,8 +246,10 @@ export class SecurityComponent implements OnInit {
 
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         if (this.securityForm.invalid) {
+            this.spinner = false;
             return;
         }
         if (this.initialSecurity.selectedSecurity === undefined) {
@@ -254,6 +257,12 @@ export class SecurityComponent implements OnInit {
         }
         if (this.initialSecurity.securityForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            this.spinner = false;
+            return;
+        }
+        if (this.initialSecurity.shareSecurityForm.invalid) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            this.spinner = false;
             return;
         }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
@@ -288,7 +297,7 @@ export class SecurityComponent implements OnInit {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
         } else {
-            this.securityData.share = null;
+            this.securityData.share = this.initialSecurity.shareSecurityData;
         }
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
