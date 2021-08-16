@@ -2689,7 +2689,7 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row" *ngIf="client === clientName?.ICFC">
+                        <div class="row col-md-12">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title">Price Earning Ratio</label>
@@ -2722,7 +2722,7 @@
                                                    placeholder="Dividend Payout Ratio" type="number">
                                         </div>
                                     </div>
-                            </div>
+                        </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
                             <button (click)="removeShareList(shareFieldIndex)"
@@ -2734,8 +2734,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-sm-end">
-                    <p class="font-weight-bolder">Total Considered
-                        Value: {{totalConsideredValue}}</p>
+                    <p class="font-weight-bolder">Total Share
+                        Value: {{totalShareValue}}</p>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button (click)="addShareSecurity()" class="btn btn-sm btn-flat btn-primary"><i
