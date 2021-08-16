@@ -14,6 +14,8 @@ import {Role} from '../../../admin/modal/role';
 import {ApprovalRoleHierarchy} from '../../../loan/approval/ApprovalRoleHierarchy';
 import {RoleAccess} from '../../../admin/modal/role-access';
 import {CustomerService} from '../../../admin/service/customer.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CadReportComponent} from '../cad-report/cad-report.component';
 
 @Component({
   selector: 'app-filter',
@@ -42,6 +44,7 @@ export class FilterComponent implements OnInit {
               private routerUtils: RouterUtilsService,
               private service: ApprovalRoleHierarchyService,
               private customerService: CustomerService,
+              private modalService: NgbModal
   ) {
   }
 
@@ -131,5 +134,9 @@ export class FilterComponent implements OnInit {
         , error => {
           console.error(error);
         });
+  }
+
+  openReport() {
+    this.modalService.open(CadReportComponent, {size: 'xl'});
   }
 }

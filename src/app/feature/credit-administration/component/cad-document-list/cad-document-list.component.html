@@ -44,7 +44,7 @@
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
-                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}</td>
+                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}-<span *ngIf="model?.cadCurrentStage?.toUser?.name">{{model?.cadCurrentStage?.toRole?.roleName}}</span></td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date :'medium'}}</td>
                     <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
                     <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"

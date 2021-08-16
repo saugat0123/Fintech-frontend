@@ -15,6 +15,9 @@
   </div>
 
     <div class="col-md-6 d-flex justify-content-end">
+      <button (click)="openReport()" nbButton outline
+              status="success" size="small" *ngIf="fromCadDashboard">
+        <i aria-hidden="true" class="fas fa-file"></i></button>&nbsp;
       <button (click)="getReport()" nbButton outline
               status="info" size="small">
         <i aria-hidden="true" class="fa fa-download"></i></button>

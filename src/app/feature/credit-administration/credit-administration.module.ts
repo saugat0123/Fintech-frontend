@@ -59,6 +59,7 @@ import {ApprovedLoanListComponent} from './component/approved-loan-list/approved
 import {RouterUtilsService} from './utils/router-utils.service';
 import {DisbursementModalComponent} from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
 import {PreviewCadComponent} from './component/preview-cad/preview-cad.component';
+import {CadReportComponent} from './component/cad-report/cad-report.component';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import {PreviewCadComponent} from './component/preview-cad/preview-cad.component
     CadFileSetupComponent,
     ApprovedLoanListComponent,
     DisbursementModalComponent,
-    PreviewCadComponent],
+    PreviewCadComponent,
+    CadReportComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -135,7 +137,7 @@ import {PreviewCadComponent} from './component/preview-cad/preview-cad.component
     SecurityComplianceCertificateComponent,
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
-    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent],
+    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
   exports: [CadFileSetupComponent],
   providers: [RouterUtilsService]
 })
