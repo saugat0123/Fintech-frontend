@@ -1804,6 +1804,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 shareType: matchedNepse[0].shareType,
                 companyCode: matchedNepse[0].companyCode,
                 amountPerUnit: matchedNepse[0].amountPerUnit,
+                priceEarningRatio: matchedNepse[0].priceEarningRatio,
+                priceBookValue: matchedNepse[0].priceToBookValue,
+                dividendYeild: matchedNepse[0].dividendYield,
+                dividendPayoutRatio: matchedNepse[0].dividendPayoutRatio,
                 total: this.calculateTotalShareAmount(companyName, totalShareUnit),
                 consideredValue: this.calculateConsideredAmount(
                     this.shareField.at(index).get('totalShareUnit').value,
@@ -1841,9 +1845,9 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    get totalConsideredValue() {
+    get totalShareValue() {
         let total = 0;
-        this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
+        this.shareField.controls.forEach(c => total += Number(c.get('total').value));
         return total.toFixed(2);
     }
 
