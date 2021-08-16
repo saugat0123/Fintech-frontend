@@ -4,8 +4,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../modal/customer';
-import {LocalStorageUtil} from "../../../../@core/utils/local-storage-util";
-import {RoleType} from "../../modal/roleType";
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {RoleType} from '../../modal/roleType';
 
 
 
@@ -39,13 +39,7 @@ export class RemitCustomerListComponent implements OnInit {
         address: 'Test',
         citizenshipNumber: '12345'
     },
-        {id: 2, customerName: 'Test 2', phoneNo: '12345', email: 'test2@gmail.com', loanAmount: '2345', address:{
-            country: 'Nepal',
-                State: '3',
-                District: 'Bhaktapur',
-                Municpality: 'Suryabinayak',
-                WardNo: '5'
-            }, citizenshipNumber: '12345'},
+        {id: 2, customerName: 'Test 2', phoneNo: '12345', email: 'test2@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
         {id: 3, customerName: 'Test 3', phoneNo: '12345', email: 'test3@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
         {id: 4, customerName: 'Test 4', phoneNo: '12345', email: 'test4@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
         {id: 5, customerName: 'Test 5', phoneNo: '12345', email: 'test5@gmail.com', loanAmount: '2345', address: 'Test', citizenshipNumber: '12345'},
@@ -106,7 +100,7 @@ export class RemitCustomerListComponent implements OnInit {
 
     }
 
-    transferCustomer(event,data,template){
+    transferCustomer(event, data, template) {
         console.log('transfer customer');
         this.onBoardData = data;
         console.log('on board data', data);
