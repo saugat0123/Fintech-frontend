@@ -51,8 +51,15 @@ body{
 .shadow-none {
   box-shadow: none!important;
 }
-.viewcontent{
-  width: 1200px;
-  height: 100vh;
-  overflow-y: auto;
+//.viewcontent{
+//  width: 1200px;
+//  height: 100vh;
+//  overflow-y: auto;
+//}
+.viewcontent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom:0;
+  right:0;
 }
