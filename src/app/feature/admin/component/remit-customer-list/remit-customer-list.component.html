@@ -127,7 +127,7 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </ng-container>
-                    <button nbTooltip="Transfer to instuition" (click)="transferCustomer($event, model,confirmOnBoard)"
+                    <button nbTooltip="Transfer to instuition" (click)="transferCustomer($event, model,customerTransfer)"
                             class="m-1"
                             nbButton size="tiny"
                             status="info"
@@ -183,6 +183,43 @@
             <div class="d-flex justify-content-end pb-md-3">
 
                 <button (click)="onBoardMember()" class="btn float-right"
+                        nbButton size="small"
+                        status="info"
+                        shape="rectangle"
+                        type="submit">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #customerTransfer let-ref="dialogRef">
+    <div class="modal-content" [nbSpinner]="onBoardSpinner"
+         accent="primary"
+         nbSpinnerMessage="Please Wait . . ."
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+        <div class="modal-header sb-bg" style="display:block">
+            <a (click)="modalService.dismissAll()" aria-label="Close"
+               class="close cursor" data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="nav  navbar-right pull-left text-white">Confirm</h4>
+        </div>
+        <div class="col-md-12">
+            <label style="margin-top: 20px"> Select the instituition to transfer : </label>
+            <select
+                    class="form-control form-control-sm"
+                    placeholder="Select instituition"
+                    id="instituition"
+                    name="instituition">
+                <option [value]="null" hidden>Instituition</option>
+                <option value="Bank">Bank</option>
+                <option value="Micro finance">Micro Finance</option>
+            </select>
+            <div class="d-flex justify-content-end pb-md-3">
+
+                <button style="margin-top: 20px" (click)="customerTransferToInstituition()" class="btn float-right"
                         nbButton size="small"
                         status="info"
                         shape="rectangle"

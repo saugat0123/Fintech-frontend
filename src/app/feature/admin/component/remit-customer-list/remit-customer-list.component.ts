@@ -145,6 +145,10 @@ export class RemitCustomerListComponent implements OnInit {
         });
     }
 
+    customerTransferToInstituition(){
+        console.log('inside customer transfer');
+    }
+
     customerProfile(associateId, id, customerType) {
             this.router.navigate(['/home/customer/profile/' + associateId], {
                 queryParams: {
