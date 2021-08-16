@@ -54,7 +54,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.spinner = true;
         this.buildForm();
-
+        console.log('Valuator eeeeeee' ,this.model);
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
             if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
@@ -145,7 +145,10 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 this.model.isAllBranch],
             version: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.version)) ? undefined :
-                this.model.version]
+                this.model.version],
+            valuator: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.multipleValuator)) ? undefined :
+                this.model.multipleValuator],
         });
     }
 

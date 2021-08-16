@@ -24,4 +24,5 @@ export class Valuator {
   maxAmount: number;
   inactiveComment: string;
   isAllBranch: boolean;
+  multipleValuator: any;
 }

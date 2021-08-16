@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Valuator} from '../../modal/valuator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ValuatorFormComponent} from './valuator-form/valuator-form.component';
 import {UpdateModalComponent} from '../../../../@theme/components';
-import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {ModalResponse, ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ValuatorService} from './valuator.service';
@@ -14,12 +14,12 @@ import {InactiveValuatorCommentComponent} from './inactive-valuator-comment/inac
 import {Status} from '../../../../@core/Status';
 import {NbPopoverDirective} from '@nebular/theme';
 import {DeleteModalComponent} from '../../../../@theme/components/delete-modal/delete-modal.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {ValuatingField} from '../../modal/valuatingField';
-import {valuatorTypeComponent} from './valuator-type.component';
+import { NbIconModule} from '@nebular/theme';
 
 @Component({
     selector: 'app-valuator',
@@ -51,7 +51,11 @@ export class ValuatorComponent implements OnInit {
     filterForm: FormGroup;
     branchList: Array<Branch> = new Array<Branch>();
     valuatingFieldEnumObject = ValuatingField.enumObject();
+    valueEnum = ValuatingField;
 
+    valuatorForm: FormGroup;
+    sabmitted = false;
+    popValuator;
     constructor(
         private service: ValuatorService,
         private permissionService: PermissionService,
@@ -61,7 +65,6 @@ export class ValuatorComponent implements OnInit {
         private branchService: BranchService
     ) {
     }
-
     static loadData(other: ValuatorComponent) {
         other.spinner = true;
         other.service.getStatus().subscribe((response: any) => {
@@ -71,6 +74,7 @@ export class ValuatorComponent implements OnInit {
         });
         other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
+                console.log(response.detail)
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
@@ -82,6 +86,8 @@ export class ValuatorComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('valuator' ,this.valuatingFieldEnumObject);
+        console.log('valuator notTTTTTTTTTTTTTT' ,this.valueEnum);
         ValuatorComponent.loadData(this);
         this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
             this.branchList = response.detail;
@@ -141,7 +147,7 @@ export class ValuatorComponent implements OnInit {
                         }
                     );
                 }
-              ValuatorComponent.loadData(this);
+                ValuatorComponent.loadData(this);
             }
         );
     }
@@ -177,8 +183,20 @@ export class ValuatorComponent implements OnInit {
         }
     }
 
-    editValuatingType() {
-        const modalRef = this.modalService.open(valuatorTypeComponent , {size: 'lg'});
+    editValuatingType(valuator: Valuator, $event, id) {
+        this.popValuator = valuator.valuatingField;
+        console.log('STARTTTTTTTTTTT', this.popValuator);
+        valuator.multipleValuator = valuator.valuatingField;
+        // this.valuatorForm.get('valuator').patchValue(valuator.valuatingField);
+
+        console.log('popValuator',valuator.valuatingField);
+        const test = this.popValuator;
+        this.valuatorForm = this.formBuilder.group({
+            valuatingField: [(ObjectUtil.isEmpty(this.popValuator)
+                || ObjectUtil.isEmpty(this.popValuator.valuatingField)) ? undefined :
+                this.popValuator.valuatingField, [Validators.required]],
+        })
+        const modalRef = this.modalService.open($event , {size: 'lg'});
         modalRef.componentInstance.model = new Valuator();
 
         ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);

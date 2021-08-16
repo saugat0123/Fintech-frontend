@@ -192,7 +192,7 @@
                                     title="Delete">
                                 <em class="fa fa-ban"></em>
                             </button>
-                            <button (click)="editValuatingType(valuator)" class="m-1"
+                            <button (click)="editValuatingType(valuator, pop, valuator.id)" class="m-1"
                                     status="primary"
                                     title="AddValuatingType">
                                 <em class="fa fa-plus"></em>
@@ -210,6 +210,44 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #pop>
+
+    <nb-card class="mb-6">
+        <div class="col-md-12">
+            <form [formGroup]="valuatorForm">
+                <div class="form-group">
+                    <label>Valuating Type</label>
+<!--                    <nb-select [multiple]="true" [bindValue]="popValuator">-->
+<!--                        <nb-option *ngFor="let valuatingField of valuatingFieldEnumObject.values()"-->
+<!--                                   [value]="valuatingField">{{valuatingField.key}}</nb-option>-->
+<!--                    </nb-select>-->
+<!--                    <ng-select [items]="valuatingFieldEnumObject.values()"-->
+<!--                               [multiple]="true"-->
+<!--                               bindLabel="valuator"-->
+<!--                               formControlName="valuator"-->
+<!--                               [placeholder]="popValuator.valuatingField">-->
+<!--                        <ng-template let-index="index" let-item="item" let-search="searchTerm" ng-option-tmp>-->
+<!--                            {{item['valuatingField']}} | <strong>{{item['valuatingField']}}</strong>-->
+<!--                        </ng-template>-->
+<!--                    </ng-select>-->
+                    <ng-select formControlName="valuator"
+                               [multiple]="true"
+                               [bindValue]="popValuator">
+                        <ng-option  (select)="popValuator.valuatingField">{{popValuator.valuatingField}}</ng-option>
+                        <ng-option *ngFor="let valuatingField of valuatingFieldEnumObject.values()"
+                                   [value]="valuatingField">{{valuatingField.key}}
+                        </ng-option>
+                    </ng-select>
+
+                </div>
+            </form>
+            <div>
+                Select multiple field.
+            </div>
+        </div>
+    </nb-card>
+</ng-template>
 
 <ng-template #stateCodePopOver>
     <nb-card class="mb-0">

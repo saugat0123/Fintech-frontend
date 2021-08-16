@@ -91,8 +91,7 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
 import { RoleAddComponent } from './component/user/role-add/role-add.component';
-import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
-import { ValuatorType } from './component/valuator/valuator-type.component.ts/valuator-type.component.ts.component';
+import { TransferLoanModule } from '../transfer-loan/transfer-loan.module';
 
 @NgModule({
     declarations: [
@@ -169,7 +168,6 @@ import { ValuatorType } from './component/valuator/valuator-type.component.ts/va
         CadRoleHierarchyComponent,
         CbsGroupExecutorComponent,
         RoleAddComponent,
-        ValuatorType.Component.TsComponent,
         // SecurityComponent
     ],
   imports: [
