@@ -106,7 +106,7 @@
             </thead>
             <tbody *ngFor="let model of loanDataHolderList;let i=index" class="cursor">
             <tr>
-                <td>{{i + 1 }}</td>
+                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loanHolder?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
