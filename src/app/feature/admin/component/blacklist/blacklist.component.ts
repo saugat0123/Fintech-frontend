@@ -95,4 +95,8 @@ export class BlacklistComponent implements OnInit {
   clearSearch() {
     this.search.name = '';
   }
+
+  pop(event) {
+this.modalService.open(event);
+  }
 }
