@@ -7,6 +7,7 @@ import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCur
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
+import {Editor} from "../../../@core/utils/constants/editor";
 
 @Component({
   selector: 'app-income-from-account',
@@ -25,6 +26,7 @@ export class IncomeFromAccountComponent implements OnInit {
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
   srdbAffiliatedId = false;
+  ckeditorConfig = Editor.CK_CONFIG;
 
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;

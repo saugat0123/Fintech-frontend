@@ -99,7 +99,9 @@
       </tr>
       <tr>
         <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
-        <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+        <td colspan="2" class="text-left pl-1">
+          <span [innerHTML]="landDetails?.landSecurityLegalDocumentAddress | safeHtml"></span>
+        </td>
         <td class="text-left pl-1">{{landDetails?.ownershipTransferDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
@@ -145,7 +147,9 @@
         </tr>
         <tr>
           <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
-          <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
+          <td colspan="4">
+            <span [innerHTML]="landDetails?.roadAccessDescribe | safeHtml"></span>
+          </td>
         </tr>
       </table>
     </ng-container>
@@ -157,7 +161,9 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{securityData['initialForm']['description']}}</td>
+        <td>
+          <span [innerHTML]="securityData['initialForm']['description'] | safeHtml"></span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -276,7 +282,9 @@
           <th>Revaluation Done?</th>
         </tr>
         <tr>
-          <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
+          <td class="text-left pl-1">
+            <span [innerHTML]="landBuilding?.landAndBuildingSecurityLegalDocumentAddress | safeHtml"></span>
+          </td>
           <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
           <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
@@ -366,7 +374,9 @@
         </tr>
         <tr>
           <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
-          <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
+          <td colspan="4">
+            <span [innerHTML]="landBuilding?.roadAccessDescribe | safeHtml"></span>
+          </td>
         </tr>
       </table>
     </ng-container>
@@ -375,7 +385,9 @@
         <td>Remarks of land and building</td>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{securityData['initialForm']?.landBuildingDescription}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="securityData['initialForm']?.landBuildingDescription | safeHtml"></span>
+        </td>
       </tr>
     </table>
   </div>
@@ -669,7 +681,9 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1">{{securityData['initialForm']['buildingDetailsDescription']}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="securityData['initialForm']['buildingDetailsDescription'] | safeHtml"></span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -1002,7 +1016,9 @@
         <th colspan="6">Vehicle Remarks</th>
       </tr>
       <tr>
-        <td class="text-left pl-1" colspan="6">{{vehicleSecurity?.vehicleRemarks}}</td>
+        <td class="text-left pl-1" colspan="6">
+          <span [innerHTML]="vehicleSecurity?.vehicleRemarks | safeHtml"></span>
+        </td>
       </tr>
     </table>
   </div>
@@ -1102,7 +1118,9 @@
         </tr>
         <tr>
           <th class="text-white sb-bg-dark">Description</th>
-          <th colspan="12" class="text-left pl-1">{{shareSecurity['securityOffered']}}</th>
+          <th colspan="12" class="text-left pl-1">
+            <span [innerHTML]="shareSecurity['securityOffered'] | safeHtml"></span>
+          </th>
         </tr>
         </tbody>
       </table>

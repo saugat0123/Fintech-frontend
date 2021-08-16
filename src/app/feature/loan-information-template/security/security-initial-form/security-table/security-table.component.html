@@ -93,7 +93,8 @@
             <td>{{shareSecurityData?.shareSecurityDetails.length}}</td>
             <td><strong>Average price for days:</strong>{{shareSecurityData?.avgDaysForPrice | currencyFormatter}},
                 <strong>Security Offered:</strong>
-                {{shareSecurityData?.securityOffered || 'NA'}}</td>
+                <span [innerHTML]="shareSecurityData?.securityOffered || 'NA' | safeHtml"></span>
+                </td>
             <td><a nbButton status="primary" size="tiny" class="cursor" nbTooltip="Remove"
                    (click)="sendSecurityName('shareSecurityDetails', 'ShareSecurity')">
                 <i class="fa fa-trash fa-1x"></i></a></td>

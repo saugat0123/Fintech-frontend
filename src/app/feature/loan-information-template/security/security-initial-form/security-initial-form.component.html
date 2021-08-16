@@ -187,22 +187,13 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="roadAccessDescribeLand"><strong>Briefly describe the road access</strong></label>
-                            <textarea class="form-control"
-                                      formControlName="roadAccessDescribe"
-                                      id="roadAccessDescribeLand"
-                                      placeholder="Briefly describe the road access"
-                                      rows="5"
-                                      type="text"></textarea>
+                            <ckeditor formControlName="roadAccessDescribe"
+                                      id="roadAccessDescribeLand" [config]="ckeConfig"></ckeditor>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="landSecurityLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
-                            <textarea class="form-control"
-                                      formControlName="landSecurityLegalDocumentAddress"
-                                      id="landSecurityLegalDocumentAddress"
-                                      name="landSecurityLegalDocumentAddress"
-                                      placeholder="Address as per Legal Document"
-                                      rows="5"
-                                      type="text" maxlength="256"></textarea>
+                            <ckeditor formControlName="landSecurityLegalDocumentAddress"
+                                      id="landSecurityLegalDocumentAddress" [config]="ckeConfig"></ckeditor>
                         </div>
                     </div>
                     <div class="row">
@@ -447,10 +438,7 @@
                 <div class="form-group col-md-12">
                     <label class="title rounded" for="description">Description/Details of Security
                         Offered</label>
-                    <textarea class="form-control rounded" cols="150" formControlName="description"
-                              id="description"
-                              placeholder="details of security offered"
-                              rows="5"></textarea>
+                    <ckeditor formControlName="description" id="description" [config]="ckeConfig"></ckeditor>
                 </div>
             </div>
             <div class="row">
@@ -851,13 +839,11 @@
             </div>
 
             <div class="row">
-                <div class="form-group">
+                <div class="form-group col-md-12">
                     <label class="title ml-3" for="buildingDetailsDescription">Apartment Details
                         Description</label>
-                    <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
-                              id="buildingDetailsDescription"
-                              placeholder="Apartment Details Description"
-                              rows="5"></textarea>
+                    <ckeditor formControlName="buildingDetailsDescription"
+                              id="buildingDetailsDescription" [config]="ckeConfig"></ckeditor>
                 </div>
             </div>
 
@@ -1513,24 +1499,13 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="roadAccessDescribe"><strong>Briefly describe the road access</strong></label>
-                                <textarea class="form-control"
-                                          formControlName="roadAccessDescribe"
-                                          id="roadAccessDescribe"
-                                          name="roadAccessDescribe"
-                                          placeholder="Briefly describe the road access"
-                                          rows="5"
-                                          type="text"></textarea>
+                                <ckeditor formControlName="roadAccessDescribe" [config]="ckeConfig" id="roadAccessDescribe"></ckeditor>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="landAndBuildingSecurityLegalDocumentAddress"><strong>Address as per Legal
                                     Document</strong></label>
-                                <textarea class="form-control"
-                                          formControlName="landAndBuildingSecurityLegalDocumentAddress"
-                                          id="landAndBuildingSecurityLegalDocumentAddress"
-                                          name="landAndBuildingSecurityLegalDocumentAddress"
-                                          placeholder="Address as per Legal Document"
-                                          rows="5"
-                                          type="text" maxlength="256"></textarea>
+                                <ckeditor formControlName="landAndBuildingSecurityLegalDocumentAddress"
+                                    id="landAndBuildingSecurityLegalDocumentAddress" [config]="ckeConfig"></ckeditor>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -1946,12 +1921,8 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="title" for="area">Remarks of land and building</label>
-                        <textarea class="form-control rounded"
-                                  formControlName="landBuildingDescription"
-                                  name="remarksBuilding"
-                                  placeholder="Remarks of land and building"
-                                  [ngClass]="{ 'is-invalid':(submitted) &&  securityForm.get('landBuildingDescription').errors }"
-                                  rows="2" type="text"></textarea>
+                        <ckeditor formControlName="landBuildingDescription" [config]="ckeConfig"
+                                  [ngClass]="{ 'is-invalid':(submitted) &&  securityForm.get('landBuildingDescription').errors }"></ckeditor>
                         <div *ngIf="(submitted) && securityForm.get('landBuildingDescription').invalid"
                              class="small text-danger">
                             <div *ngIf="securityForm.get('landBuildingDescription').errors.required">
@@ -2475,8 +2446,7 @@
 
                         <div class="col-md-12 form-group">
                             <label><b>Vehicle Remarks</b></label>
-                            <textarea class="form-control" formControlName="vehicleRemarks" rows="4"
-                                      placeholder="Vehicle Remarks"></textarea>
+                            <ckeditor formControlName="vehicleRemarks" [config]="ckeConfig"></ckeditor>
                         </div>
 
                     </div>
@@ -2777,9 +2747,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="securityOffered">Description/Details of security offered</label>
-                            <textarea class="form-control text-area" formControlName="securityOffered"
-                                      placeholder="Description/Details of security offered"
-                                      id="securityOffered"></textarea>
+                            <ckeditor formControlName="securityOffered" [config]="ckeConfig" id="securityOffered"></ckeditor>
                         </div>
                     </div>
                 </nb-card-body>
@@ -2798,9 +2766,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="title" for="description">Description</label>
-                                <textarea class="form-control rounded" formControlName="description"
-                                          placeholder="Description" rows="5"
-                                          type="text"></textarea>
+                                <ckeditor formControlName="description" id="description" [config]="ckeConfig"></ckeditor>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -3398,8 +3364,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label><b>Remarks Common to all Security</b></label>
-                <textarea class="form-control" formControlName="remark" rows="4"
-                          placeholder="Remarks Common to all Security"></textarea>
+                <ckeditor formControlName="remark" [config]="ckeConfig"></ckeditor>
             </div>
         </div>
     </form>
