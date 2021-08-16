@@ -521,7 +521,7 @@
             </tr>
             </tbody>
         </table>
-        <table *ngIf="!srdbAffiliatedId && (summaryType === summaryTypeName?.GENERAL)"
+        <table *ngIf="!srdbAffiliatedId && (summaryType === summaryTypeName?.GENERAL || summaryType === summaryTypeName?.GAMMA)"
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr>
                 <th colspan="2">Business given</th>
