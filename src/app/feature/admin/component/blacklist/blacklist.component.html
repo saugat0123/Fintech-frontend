@@ -1,29 +1,12 @@
 <nb-card-header>
     <h6 class="text-center">Blacklisted Customers Details</h6><br>
     <div class="float-right">
-        <button nbButton outline status="success" class="mb-4 mt-0" (click)="pop(popUp)">
-            <i class="fa fa-file"></i>
+        <button nbButton outline status="success" class="mb-4 mt-0" (click)="addinformation()">
+            <i class="fa fa-plus"></i>
         </button>
         <!-- Starting of button -->
-
-        <ng-template #popUp>
-            <form>
-                <div class="modal-body">
-                    <div class="col-md-12 form-group">
-                        <input #blackListFile id="file" placeholder="Name" nbInput fullWidth
-                               type="" class="form-control-file"/>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button nbButton status="info" class="btn btn-primary" (click)="pop(blackListFile)">Save</button>
-                </div>
-            </form>
-
-
-        </ng-template>
         <button nbButton outline status="success" class="mb-4 mt-0" (click)="addExcelFile()">
-            <i class="fa fa-plus"></i>
+            <i class="fa fa-file"></i>
         </button>
     </div>
     <div class=row>

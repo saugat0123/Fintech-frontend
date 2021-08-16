@@ -79,6 +79,7 @@ import {BaseInterestComponent} from './component/base-interest/base-interest.com
 import {BaseInterestFormComponent} from './component/base-interest/base-interest-form/base-interest-form.component';
 import {BlacklistComponent} from './component/blacklist/blacklist.component';
 import {BlacklistFormComponent} from './component/blacklist/blacklist-form/blacklist-form.component';
+import {BlacklistFormComponents} from './component/blacklist/blacklist-forms/blacklist-form.component';
 import {NotificationMasterComponent} from './component/notification-master/notification-master.component';
 import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
 import {RemarkModalComponent} from './component/opening-account/remark-modal/remark-modal.component';
@@ -158,6 +159,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         BaseInterestFormComponent,
         BlacklistComponent,
         BlacklistFormComponent,
+        BlacklistFormComponents,
         NotificationMasterComponent,
         AccountDocumentFormComponent,
         RemarkModalComponent,
@@ -216,6 +218,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         ShareValueFormComponent,
         BaseInterestFormComponent,
         BlacklistFormComponent,
+        BlacklistFormComponents,
         AccountDocumentFormComponent,
         RemarkModalComponent,
         AccountNumberModalComponent,

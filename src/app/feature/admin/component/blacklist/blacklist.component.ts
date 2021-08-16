@@ -9,6 +9,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {DocType} from '../../modal/docType';
+import {BlacklistFormComponents} from './blacklist-forms/blacklist-form.component';
 
 @Component({
   selector: 'app-blacklist',
@@ -65,6 +66,14 @@ export class BlacklistComponent implements OnInit {
 
   addExcelFile() {
     const modalRef = this.modalService.open(BlacklistFormComponent);
+    modalRef.componentInstance.model = new BlackList();
+    modalRef.componentInstance.action = Action.ADD;
+    ModalUtils.resolve(modalRef.result, BlacklistComponent.loadData, this);
+
+    BlacklistComponent.loadData(this);
+  }
+  addinformation() {
+    const modalRef = this.modalService.open(BlacklistFormComponents);
     modalRef.componentInstance.model = new BlackList();
     modalRef.componentInstance.action = Action.ADD;
     ModalUtils.resolve(modalRef.result, BlacklistComponent.loadData, this);
