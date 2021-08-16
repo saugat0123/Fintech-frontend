@@ -40,6 +40,9 @@ import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
+import {CustomerType} from '../../../customer/model/customerType';
+import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {CustomerInfoData} from '../../model/customerInfoData';
 
 @Component({
   selector: 'app-micro-loan-summary',
@@ -48,9 +51,9 @@ import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hiera
 })
 export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   @Output() changeToApprovalSheetActive = new EventEmitter<string>();
-
   @Input() loanData;
   loanDataHolder: LoanDataHolder;
+  customerInfoData: CustomerInfoData;
 
   @Input()
   loanConfig: LoanConfig = new LoanConfig();
@@ -179,6 +182,8 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   private dialogRef: NbDialogRef<any>;
   isOpen: false;
   securityId: number;
+  isMicroCustomer: boolean;
+
 
 
   constructor(
@@ -212,6 +217,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loanDataHolder = this.loanData;
+    this.customerInfoData = this.loanDataHolder.loanHolder;
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.customerType = this.loanDataHolder.loanHolder.customerType;
@@ -245,6 +251,11 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getLoanDataHolder() {
+    if (this.loanDataHolder.loanHolder.customerType === CustomerType.INSTITUTION) {
+      this.isMicroCustomer = this.loanDataHolder.companyInfo.isMicroCustomer;
+    } else {
+      this.isMicroCustomer = this.loanDataHolder.customerInfo.isMicroCustomer;
+    }
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
     // Setting micro financial data---
@@ -410,9 +421,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     this.loanCategory = this.loanDataHolder.loanCategory;
     this.currentIndex = this.loanDataHolder.previousList.length;
 
-    this.signatureList = this.getSignatureList(new Array<LoanStage>
-    (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
-
     this.previousList = this.loanDataHolder.previousList;
     this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
     this.id = this.loanDataHolder.id;
@@ -539,32 +547,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
       this.previewOfferLetterDocument(res.detail, res.detail);
     }, error => this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
   }
-
-  loanHandler(index: number, length: number, label: string) {
-    if (index === length - 1 && index !== 0) {
-      if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-        return 'APPROVED BY:';
-      } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-        return 'REJECTED BY:';
-      } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
-        return 'CLOSED BY:';
-      }
-    }
-    if (!ObjectUtil.isEmpty(label)) {
-      return label;
-    } else {
-      if (index === 0) {
-        if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
-          return 'RE INITIATED:';
-        } else {
-          return 'INITIATED BY:';
-        }
-      } else {
-        return 'SUPPORTED BY:';
-      }
-    }
-  }
-
   open(comments) {
     const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
     modalRef.componentInstance.comments = comments;
@@ -617,38 +599,6 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
           }
       }
   }*/
-  /**
-   * Get array of loan stage for authority signature array.
-   *
-   * @param stages Array of loan stages that must include previous stages and current stage.
-   */
-  private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
-    let lastBackwardIndex = 0;
-    stages.forEach((data, index) => {
-      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
-          || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
-        lastBackwardIndex = index;
-      }
-    });
-    if (lastBackwardIndex !== 0) {
-      stages.splice(0, lastBackwardIndex + 1);
-    }
-    const signatureList = new Array<LoanStage>();
-    const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
-    stages.forEach((loanStage, index) => {
-      if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-        if (addedStages.has(loanStage.fromUser.id)) {
-          signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-        } else {
-          signatureList.push(loanStage);
-          addedStages.set(loanStage.fromUser.id, index);
-        }
-      }
-      console.log(loanStage);
-    });
-
-    return signatureList;
-  }
 
   goToCustomer() {
     const loanHolder = this.loanDataHolder.loanHolder;
@@ -704,6 +654,15 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
 
   public customSafePipe(val) {
     return val.replace(/(<([^>]+)>)/gi, ' ');
+  }
+
+  get otherMicroDetailsVisibility() {
+    if (this.customerInfoData.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
+      return true;
+    } else {
+    return this.customerInfoData.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+          this.loanDataHolder.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+    }
   }
 
 }

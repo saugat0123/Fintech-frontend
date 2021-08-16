@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner">
     <nb-card-header>
         Verification
         <button (click)="nbDialogRef.close(false)" aria-label="Close"
@@ -49,6 +49,6 @@
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button (click)="onLogin(lform)" [disabled]="lform.invalid" nbButton type="button">Verify</button>
+        <button (click)="onLogin(lform)" [disabled]="lform.invalid || spinner" nbButton type="button">Verify</button>
     </nb-card-footer>
 </nb-card>

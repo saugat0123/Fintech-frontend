@@ -18,13 +18,8 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
-import {ExcelOfferLetterComponent} from '../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
-import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
-import {ProgressiveOfferLetterConst} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
-import {ProgressiveOfferLetterComponent} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 
-import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
-import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
+
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -39,7 +34,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
     // change this on basis of bank
     offerLetterConst;
-    excelOfferLetterConst = ExcelOfferLetterConst;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -57,7 +51,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     customerInfoData: CustomerInfoData;
     component: any;
     offerLetterTypes = [];
-    excelOfferLetterTypes = [];
     client = environment.client;
     clientList = Clients;
     // todo move document upload to different to component
@@ -78,21 +71,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 this.offerLetterTypes = MegaOfferLetterConst.enumObject();
                 this.offerLetterConst = MegaOfferLetterConst;
                 this.component = CadOfferLetterModalComponent;
-                break;
-            case this.clientList.EXCEL:
-                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
-                this.offerLetterConst = ExcelOfferLetterConst;
-                this.component = ExcelOfferLetterComponent;
-                break;
-            case this.clientList.PROGRESSIVE:
-                this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
-                this.offerLetterConst = ProgressiveOfferLetterConst;
-                this.component = ProgressiveOfferLetterComponent;
-                break;
-            case this.clientList.ICFC:
-                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
-                this.offerLetterConst = IcfcOfferLetterConst;
-                this.component = IcfcOfferLetterComponent;
                 break;
         }
     }

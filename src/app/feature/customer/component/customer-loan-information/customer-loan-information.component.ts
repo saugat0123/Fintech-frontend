@@ -246,10 +246,25 @@ export class CustomerLoanInformationComponent implements OnInit {
     get otherMicroDetailsVisibility() {
         if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
             return true;
-        } else { return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+        } else {
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
             this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }
+
+    get isMicroInDirectCustomer() {
+        if (!this.isMicroCustomer) {
+            return true;
+        }
+        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL) {
+            return true;
+        } else {
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+            this.companyInfo.microCustomerType === MicroCustomerType.INDIRECT;
+        }
+    }
+
+
 
     public saveSiteVisit(data: string) {
         if (ObjectUtil.isEmpty(this.siteVisit)) {

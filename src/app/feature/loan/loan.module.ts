@@ -14,12 +14,8 @@ import {NbDatepickerModule, NbTooltipModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
-import {BirthMarkLetterNepaliComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
-import {BirthMarkLetterPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
-import {SuccessOfferLetterComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/success-offer-letter/success-offer-letter.component';
 // tslint:disable-next-line:max-line-length
-import {SuccessOfferLetterPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CoreModule} from '../../@core/core.module';
@@ -33,28 +29,14 @@ import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-actio
 import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
-import {DhitoLikhatManjurinamaComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
-import {DhristiBandhakComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/dhristi-bandhak/dhristi-bandhak.component';
-import {JamaniTamsukComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/jamani-tamsuk/jamani-tamsuk.component';
-import {KararnamaComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/kararnama/kararnama.component';
-import {KarjatamsukComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/karjatamsuk/karjatamsuk.component';
-import {ManjurinamaComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/manjurinama/manjurinama.component';
-import {PratigyaPatraComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/pratigya-patra/pratigya-patra.component';
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
-import {DhitoLikhatPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
 import {ApplicantFamilyInfoComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
-import {KarjaTamsukPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
-import {KararnamaPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/kararnama/kararnama-print/kararnama-print.component';
-import {DhristiBandhakPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/dhristi-bandhak/dhristi-bandhak-print/dhristi-bandhak-print.component';
-import {ManjurinamaLetterPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/manjurinama/manjurinama-letter-print/manjurinama-letter-print.component';
 import {JamaniBasekoComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
 import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
 import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
-import {PratigyaPatraPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
 
-import {JamaniTamsukLetterPrintComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
 import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import {CustomerAssociateComponent} from './component/loan-main-template/customer-associate/customer-associate.component';
@@ -97,11 +79,6 @@ const COMPONENTS = [
     KycInfoComponent,
     DmsLoanFileComponent,
     LoanActionComponent,
-    BirthMarkLetterNepaliComponent,
-    BirthMarkLetterPrintComponent,
-    SuccessOfferLetterComponent,
-    SuccessOfferLetterPrintComponent,
-    SuccessOfferLetterPrintComponent,
     ReadmoreModelComponent,
 
     LoanPullComponent,
@@ -111,28 +88,14 @@ const COMPONENTS = [
     GroupComponent,
     GroupDetailComponent,
     SecurityDetailComponent,
-    DhitoLikhatManjurinamaComponent,
-    DhristiBandhakComponent,
-    JamaniTamsukComponent,
-    KararnamaComponent,
-    KarjatamsukComponent,
-    ManjurinamaComponent,
-    PratigyaPatraComponent,
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
     LoanMainNepaliTemplateComponent,
-    DhitoLikhatPrintComponent,
-    PratigyaPatraPrintComponent,
     ApplicantFamilyInfoComponent,
-    KarjaTamsukPrintComponent,
-    KararnamaPrintComponent,
-    ManjurinamaLetterPrintComponent,
     JamaniBasekoComponent,
     JamaniBasekoPrintComponent,
-    DhristiBandhakPrintComponent,
     BikeKarjaComponent,
     HayarParchesKarjaNibedanComponent,
-    JamaniTamsukLetterPrintComponent,
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
