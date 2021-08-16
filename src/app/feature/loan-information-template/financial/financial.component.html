@@ -159,7 +159,7 @@
 
         <nb-card>
             <nb-card-header>
-                <h3><strong>{{client === clientName?.EXCEL ? 'Monthly Obligation of Borrower' : 'Expenses of Borrower'}}</strong></h3>
+                <h3><strong>Expenses of Borrower</strong></h3>
             </nb-card-header>
             <nb-card-body>
                 <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
@@ -217,7 +217,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 pl-5">
-                        <label class="title"><strong> {{client === clientName?.EXCEL ? 'Total Obligations' : 'Total Expense'}} :
+                        <label class="title"><strong>Total Expense :
                             Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
                     </div>
                     <div class="col-md-6 text-right">

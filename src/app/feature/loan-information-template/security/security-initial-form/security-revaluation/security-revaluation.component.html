@@ -63,12 +63,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="title" for="reValuatedDv">{{client === clientName?.EXCEL ? 'MV' : 'DV'}} as per Revaluation</label>
+                            <label class="title" for="reValuatedDv">DV as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    class="form-control rounded" formControlName="reValuatedDv"
                                    id="reValuatedDv"
                                    name="reValuatedDv"
-                                   [placeholder]="(client === clientName?.EXCEL) ? 'MV as per Revaluation' : 'DV as per Revaluation'"
+                                   placeholder="DV as per Revaluation"
                                    type="text"/>
                         </div>
                     </div>

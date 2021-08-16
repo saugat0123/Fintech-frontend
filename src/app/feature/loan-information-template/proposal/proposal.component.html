@@ -407,7 +407,7 @@
                                             <option value="MONTHLY">Monthly</option>
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="SEMI-ANNUALLY">Semi-Annually</option>
-                                            <option value="AT MATURITY" *ngIf="client === clientName?.ICFC">AT Maturity</option>
+                                            <option value="AT MATURITY">AT Maturity</option>
                                         </select>
                                         <div *ngIf="(submitted) && formControls.repaymentModePrincipal.invalid"
                                              class="invalid-feedback">
@@ -435,7 +435,7 @@
                                     <div class="col-md-4"
                                          *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
-                                           && (showInterestAmount || client !== clientName?.ICFC)">
+                                           && (showInterestAmount)">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Interest Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
@@ -448,7 +448,7 @@
                                     <div class="col-md-4"
                                          *ngIf="((this.proposalForm.get('repaymentMode').value != null) && (!showInstallmentAmount || showRepaymentMode) &&
                                            ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral)))
-                                           && (showInterestAmount || client !== clientName?.ICFC)">
+                                           && (showInterestAmount)">
                                         <div class="form-group>">
                                             <label class="title"> <strong>Principal Amount<em class="sb-medium">(in year)</em></strong></label>
                                             <input
@@ -474,7 +474,7 @@
                                 <!--                end of Moratorium Period amount div-->
 
                                 <div class="col-md-4"
-                                     *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
+                                     *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group">
                                         <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong></label>
                                         <input
@@ -509,7 +509,7 @@
 
                                 <!--                start of Prepayment charge  div-->
                                 <div class="col-md-4"
-                                     *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">
+                                     *ngIf="((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group>">
                                         <label class="title"> <strong>Prepayment Charge (in%) </strong></label>
                                         <input

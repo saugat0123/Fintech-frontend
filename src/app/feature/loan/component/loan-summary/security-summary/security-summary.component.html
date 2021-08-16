@@ -131,7 +131,7 @@
                             <tr class="sb-bg-secondary text-white">
                                 <th>Relation</th>
                                 <th>Name</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+
                                 <th>Citizenship Number</th>
                                 <th>Issued District</th>
                                 <th>Issued Date(AD/BS)</th>
@@ -154,7 +154,6 @@
                             <tr *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
                                 <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>

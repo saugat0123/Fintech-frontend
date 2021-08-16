@@ -11,14 +11,10 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {NbDialogService} from '@nebular/theme';
-import {ExcelOfferLetterConst} from '../../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
 import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {UpdateCustomerCadInfoComponent} from '../../cad-offerletter-profile/update-customer-cad-info/update-customer-cad-info.component';
-import {ExcelOfferLetterComponent} from '../../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
 import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
 import {CadOfferLetterModalComponent} from '../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {ProgressiveOfferLetterConst} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
-import {ProgressiveOfferLetterComponent} from '../../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 import {IcfcOfferLetterConst} from '../../cad-document-template/icfc/icfc-offer-letter-const';
 import {IcfcOfferLetterComponent} from '../../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
 
@@ -42,7 +38,6 @@ export class ProfileViewComponent implements OnInit {
     clientList = Clients;
     component: any;
     roleType = LocalStorageUtil.getStorage().roleType;
-    offerLetterConst = ExcelOfferLetterConst;
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
 
     constructor(
@@ -54,20 +49,11 @@ export class ProfileViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        switch (this.client) {
-            case this.clientList.EXCEL:
-                this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
-                this.component = ExcelOfferLetterComponent;
-                break;
-            case this.clientList.PROGRESSIVE:
-                this.offerLetterTypes = ProgressiveOfferLetterConst.enumObject();
-                this.component = ProgressiveOfferLetterComponent;
-                break;
-            case this.clientList.ICFC:
-                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
-                this.component = IcfcOfferLetterComponent;
-                break;
-        }
+
+        this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
+        this.component = IcfcOfferLetterComponent;
+
+
     }
 
     updateBasicInfo() {
@@ -110,10 +96,6 @@ export class ProfileViewComponent implements OnInit {
             return;
         }
         const cadOfferLetterApprovedDoc = this.cadOfferLetterApprovedDoc;
-        const a = isNaN(offerLetterType);
-        if (a) {
-            offerLetterType = this.offerLetterConst.keysEnum(offerLetterType);
-        }
         this.nbDialogService.open(this.component, {
             context: {
                 offerLetterType: offerLetterType,

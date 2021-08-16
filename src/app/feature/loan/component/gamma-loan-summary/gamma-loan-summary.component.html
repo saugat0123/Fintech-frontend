@@ -609,19 +609,13 @@
             <!-- Start Income & Expenses -->
 
             <!-- Start NTA-->
-            <ng-container *ngIf="(client === clientName?.ICFC); else otherBank">
+            <ng-container>
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"
                                       [count]="13"></app-nta-mega-summary>
             </ng-container>
 
-            <ng-template #otherBank>
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"
-                                 [count]="13"></app-nta-summary>
-            </ng-template>
             <br>
             <!-- End NTA-->
 

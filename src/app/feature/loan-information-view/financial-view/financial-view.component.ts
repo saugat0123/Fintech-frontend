@@ -17,7 +17,6 @@ export class FinancialViewComponent implements OnInit {
 
   @Input() formData: Financial;
   @Input() customerType: any;
-  activeClientIsMega = true;
   @Input() microFormData;
   @Input() microCustomer;
   isMicro = false;
@@ -39,7 +38,6 @@ export class FinancialViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeClientIsMega = environment.client === Clients.MEGA;
     if ((this.customerType === CustomerType.INDIVIDUAL) && this.microCustomer) {
       this.financialData = JSON.parse(this.microFormData.data);
       this.isMicro = true;

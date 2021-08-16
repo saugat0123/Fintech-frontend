@@ -22,7 +22,7 @@
                         Upload
                     </th>
                     <th>Preview</th>
-                    <th *ngIf="client === clientList.MEGA || client === clientList.PROGRESSIVE || client === clientList.ICFC">Generate</th>
+                    <th>Generate</th>
                     <th>Amount</th>
                     <th>Remarks</th>
                     <th>Action</th>
@@ -48,7 +48,7 @@
                             <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
                                class="fas fa-times-circle text-danger"></i>
                         </td>
-                        <td *ngIf="client === clientList.MEGA || client === clientList.PROGRESSIVE || client == clientList.ICFC">
+                        <td>
                             <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate"
                                     class="align-items-center" nbButton
                                     size="tiny" status="primary">

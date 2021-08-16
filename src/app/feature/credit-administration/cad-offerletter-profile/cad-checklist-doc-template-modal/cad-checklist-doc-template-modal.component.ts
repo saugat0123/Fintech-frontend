@@ -11,9 +11,8 @@ import {ProposalCalculationUtils} from '../../../loan/component/loan-summary/Pro
 import {LoanDataKey} from '../../../../@core/utils/constants/loan-data-key';
 import {NepaliNumberAndWords} from '../../model/nepaliNumberAndWords';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {ProgressiveLegalDocConst} from '../../cad-document-template/progressive/progressive-legal-docs/progressive-legal-doc-const';
 import {LegalDocumentCheckListEnum} from '../../cad-document-template/icfc/legalDocumentCheckListEnum';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-cad-checklist-doc-template-modal',
@@ -29,7 +28,6 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
     nepaliNumber = new NepaliNumberAndWords();
 
     cadTemplate = CadCheckListTemplateEnum;
-    offerLetterConst = ProgressiveLegalDocConst;
     legalTemplate = LegalDocumentCheckListEnum;
     onActionChangeSpinner = false;
 
@@ -37,7 +35,7 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-                private modalService: NgbModal,) {
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
