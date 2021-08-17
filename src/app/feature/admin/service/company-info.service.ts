@@ -27,9 +27,5 @@ export class CompanyInfoService extends BaseService<CompanyInfo> {
     return this.http.get(req.url, {headers: req.header});
   }
 
-  public getCompanyInfoWithPanNumber(id: String): Observable<any> {
-    const api = `${this.getApi()}/panNumber/${id}`;
-    const req = ApiUtils.getRequest(api);
-    return this.http.get(req.url, {headers: req.header});
-  }
+
 }
