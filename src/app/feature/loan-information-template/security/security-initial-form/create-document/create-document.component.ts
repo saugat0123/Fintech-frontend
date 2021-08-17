@@ -40,6 +40,10 @@ export class CreateDocumentComponent implements OnInit {
     siteVisitDoc.docName = this.docName;
     siteVisitDoc.isPrintable = this.isPrintable;
     siteVisitDoc.multipartFile = this.file;
+    if (ObjectUtil.isEmpty(this.docName)) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Document name cannot left empty'));
+      return;
+    }
     if (!ObjectUtil.isEmpty(this.file) && this.file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
       this.toastService.show(new Alert(AlertType.ERROR, 'Please upload file less than 5MB'));
       return;
