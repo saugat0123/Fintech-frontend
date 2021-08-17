@@ -41,7 +41,7 @@
         <app-financial-view *ngIf="financialView"
                             [formData]="financialData"
                             [customerType]="loanHolder?.customerType"
-                            [microCustomer]="loanDataHolder?.customerInfo?.isMicroCustomer"></app-financial-view>
+                            [microCustomer]="isMicro"></app-financial-view>
         <app-crg-gamma-detail-view
                 *ngIf="loanDataHolder?.crgGamma"
                 [formData]="loanDataHolder?.crgGamma">

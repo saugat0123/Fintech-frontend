@@ -29,6 +29,8 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     isMicroCustomer: Boolean;
     financialView = false;
     financialData;
+    // isMicro = false;
+    @Input() isMicro;
 
     constructor() {
     }
@@ -52,7 +54,6 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
         // Micro financial Data
         if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.microOtherParameters)) {
             this.financialData = this.loanDataHolder.loanHolder.microOtherParameters;
-            console.log('financialData:::', this.financialData);
             this.financialView = true;
         }
     }
