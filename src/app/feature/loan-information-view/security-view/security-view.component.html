@@ -406,7 +406,7 @@
           <th colspan="2">Stock Location</th>
           <th colspan="2">Value</th>
           <th>Collateral Owner Relationship</th>
-          <th>Other Details</th>
+          <th>Description</th>
         </tr>
         <tr>
           <td rowspan="4">{{i + 1}}</td>
@@ -415,9 +415,20 @@
           <td class="text-right pr-1" colspan="2">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
           <td class="text-left pl-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
           <td class="text-left pl-1">
-            <span [innerHTML]="hypothecationOfStock?.otherDetail | safeHtml"></span>
+            <span [innerHTML]="hypothecationOfStock?.description | safeHtml"></span>
           </td>
         </tr>
+        <!-- Hypothetication other Details -->
+       <ng-container *ngIf="hypothecationOfStock?.otherDetail">
+         <tr  class="text-center sb-bg-dark text-white">
+           <td colspan="9">Other Details</td>
+         </tr>
+         <tr>
+           <td colspan="9">
+             <span [innerHTML]="hypothecationOfStock?.otherDetail | safeHtml"></span>
+           </td>
+         </tr>
+       </ng-container>
         <!-- owner Kyc hypothecation -->
         <tr *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null" class="text-center sb-bg-dark text-white">
           <th>Relation</th>
@@ -476,7 +487,7 @@
              *ngFor="let assignments of securityData['initialForm']['leaseAssignment']; let i= index">
 
         <tr>
-          <th class="text-center" colspan="9">Other Security</th>
+          <th class="text-center" colspan="9">Lease Assignment</th>
         </tr>
         <tr class="text-center sb-bg-dark text-white">
           <th class="sn">S.N</th>
