@@ -318,10 +318,10 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title">{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</label>
+                                <label class="title">Type of property</label>
                                 <select class="form-control rounded" formControlName="typeOfProperty"
                                         name="typeOfProperty">
-                                    <option [value]="null">Select {{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</option>
+                                    <option [value]="null">Select Type of property</option>
                                     <option *ngFor="let property of typeOfProperty"
                                             [value]="property">{{property}}</option>
                                 </select>
@@ -1451,11 +1451,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                    <label class="title" for="distressValue">Distress Value</label>
                                     <input class="form-control rounded"
                                            formControlName="distressValue"
                                            name="distressValue"
-                                           [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                           placeholder="Distress Value"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1649,10 +1649,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title">{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</label>
+                                    <label class="title">Type of property</label>
                                     <select class="form-control rounded" formControlName="typeOfProperty"
                                             name="typeOfProperty">
-                                        <option [value]="null">Select {{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</option>
+                                        <option [value]="null">Select Type of property</option>
                                         <option *ngFor="let property of typeOfProperty"
                                                 [value]="property">{{property}}</option>
                                     </select>
@@ -1892,11 +1892,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                        <label class="title" for="distressValue">Distress Value</label>
                                         <input class="form-control rounded"
                                                formControlName="distressValueConstruction"
                                                name="distressValue"
-                                               [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                               placeholder="Distress Value"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -2256,13 +2256,13 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="valuationAmount"><strong>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</strong></label>
+                                <label class="title" for="valuationAmount"><strong>Quotation/Valuation Amount</strong></label>
                                 <input  [ngClass]="{ 'is-invalid': (vehicleSelected) && (addMoreVehicle.get('valuationAmount').errors ||
                                         addMoreVehicle.get('valuationAmount').invalid) }"
                                         (keyup)="vehicleRemainingAmount(i)"
                                         class="form-control" formControlName="valuationAmount" id="valuationAmount"
                                         name="valuationAmount"
-                                        [placeholder]="(client === clientName?.ICFC) ? 'Quotation/Valuation Amount' : 'Valuation Amount'"
+                                        placeholder="Quotation/Valuation Amount"
                                         type="number">
                                 <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('valuationAmount').invalid)"
                                      class="invalid-feedback">
@@ -2719,7 +2719,7 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row" *ngIf="client === clientName?.ICFC">
+                            <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title">Price Earning Ratio</label>

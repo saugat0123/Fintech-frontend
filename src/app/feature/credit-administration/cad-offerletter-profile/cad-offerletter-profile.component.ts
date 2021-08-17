@@ -67,18 +67,13 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initial();
-        switch (this.client) {
-            case this.clientList.MEGA:
-                this.offerLetterTypes = MegaOfferLetterConst.enumObject();
-                this.offerLetterConst = MegaOfferLetterConst;
-                this.component = CadOfferLetterModalComponent;
-                break;
-            case this.clientList.ICFC:
-                this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
-                this.offerLetterConst = IcfcOfferLetterConst;
-                this.component = IcfcOfferLetterComponent;
-                break;
-        }
+
+
+        this.offerLetterTypes = IcfcOfferLetterConst.enumObject();
+        this.offerLetterConst = IcfcOfferLetterConst;
+        this.component = IcfcOfferLetterComponent;
+
+
     }
 
     initial() {

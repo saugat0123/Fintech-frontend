@@ -174,13 +174,11 @@
                                 <td>SubSector</td>
 
 <!--                                Obligor Code for SRDB only-->
-                                <td *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</td>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail']}}</td>
-                                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{loanDataHolder?.loanHolder?.obligor}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -483,7 +481,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '7. ' : '6. '}} Repayment {{client === clientName?.SHINE_RESUNGA ? 'Mode' : ''}}</strong></p>
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '7. ' : '6. '}} Repayment</strong></p>
                 </div>
                 <div class="col-md-12">
                     <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></p>
@@ -506,7 +504,7 @@
                         *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
                         [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0">
                 <span><strong>{{loanCategory === 'INDIVIDUAL'  ? '8. ' : '7. '}} Customer Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"

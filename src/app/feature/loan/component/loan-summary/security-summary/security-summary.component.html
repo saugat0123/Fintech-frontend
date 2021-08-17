@@ -21,7 +21,7 @@
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>Model</th>
-                        <th>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</th>
+                        <th>Quotation/Valuation Amount</th>
                         <th>Down Payment</th>
                         <th>Remaining Amount</th>
                         <th>Registration Number</th>
@@ -87,7 +87,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Distress Value</th>
                         <th>Collateral Owner Relationship</th>
                         <th colspan="2">Address as per Legal Document</th>
                     </tr>
@@ -137,17 +137,7 @@
                                 <th>Issued Date(AD/BS)</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
-                                <ng-container *ngIf="client === clientName.MEGA">
-                                    <th>Ownership Transfer Date(AD/BS)</th>
-                                    <th class="text-left pl-1">Ownership Transfer Through</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">Other</th>
-                                </ng-container>
+
                                 <th>Remark</th>
                             </tr>
 
@@ -159,17 +149,6 @@
                                 <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
-                                <ng-container *ngIf="client === clientName.MEGA">
-                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
-                                    <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landDetails?.familyTransferOwnershipTransfer}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landDetails?.giftOwnershipTransfer}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.saleRegistrationAmount | currencyFormatter}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.familyRegistrationAmount}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.giftRegistrationAmount}}</td>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{landDetails?.otherOwnershipTransferValue}}</th>
-                                </ng-container>
                                 <td class="text-left pl-1">{{kyc?.remark}}</td>
                             </tr>
                         </ng-container>
@@ -183,10 +162,10 @@
                           <th>ReValuation Date(AD/BS)</th>
                           <th colspan="1">Valuator name</th>
                           <th colspan="1">ReValuation Considered Value</th>
-                          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                          <th colspan="1">ReValuation DV</th>
                           <th colspan="1">ReValuation Fmv</th>
                           <th colspan="1">Change in Considered Value</th>
-                          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                          <th colspan="1">Change in DV</th>
                           <th colspan="1">Change in Fmv</th>
                       </tr>
                       <tr>
@@ -235,7 +214,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th colspan="2">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th colspan="2">Distress Value</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -276,7 +255,7 @@
                             <tr class="sb-bg-secondary text-white">
                                 <th>Relation</th>
                                 <th>Name</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+
                                 <th>Citizenship Number</th>
                                 <th>Issued District</th>
                                 <th>Issued Date(AD/BS)</th>
@@ -288,8 +267,7 @@
                                 <tr>
                                     <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                     <td class="text-left pl-1">{{kyc?.relationName}}</td>
-                                    <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
-                                    <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+                                     <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
                                     <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
                                     <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
                                     <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
@@ -302,32 +280,11 @@
 
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Address as per Legal Document</th>
-                        <ng-container *ngIf="client === clientName.MEGA">
-                            <th>Ownership Transfer Date(AD/BS)</th>
-                            <th class="text-left pl-1">Ownership Transfer Through</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 6 months plus 35 days? </th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
-                        </ng-container>
+
                         <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
-                        <ng-container *ngIf="client === clientName.MEGA">
-                            <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
-                            <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landBuilding?.giftOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.saleRegistrationAmount | currencyFormatter}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{landBuilding?.otherOwnershipTransferValue}}</th>
-                        </ng-container>
                         <td class="text-left pl-1">{{landBuilding?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
                     <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
@@ -338,10 +295,10 @@
                             <th>ReValuation Date(AD/BS)</th>
                             <th colspan="1">Valuator name</th>
                             <th colspan="1">ReValuation Considered Value</th>
-                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation DV</th>
                             <th colspan="1">ReValuation Fmv</th>
                             <th colspan="2">Change in Considered Value</th>
-                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">Change in DV</th>
                             <th colspan="1">Change in Fmv</th>
                         </tr>
                         <tr>
@@ -367,7 +324,7 @@
                         <th>Total building area (Sqf)</th>
                         <th>Total cost</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Distress Value</th>
                         <th>Considered Value</th>
                     </tr>
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
@@ -414,7 +371,7 @@
                         <th>Build Rate</th>
                         <th>Total Cost</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Distress Value</th>
                     </tr>
                     <tr>
                         <td rowspan="3" class="align-middle">{{i + 1}}</td>
@@ -452,10 +409,10 @@
                             <th>ReValuation Date(AD/BS)</th>
                             <th colspan="1">Valuator name</th>
                             <th colspan="1">ReValuation Considered Value</th>
-                            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">ReValuation DV</th>
                             <th colspan="1">ReValuation Fmv</th>
                             <th colspan="1">Change in Considered Value</th>
-                            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+                            <th colspan="1">Change in DV</th>
                             <th colspan="1">Change in Fmv</th>
                         </tr>
                         <tr>
@@ -679,7 +636,6 @@
                             <tr class="sb-bg-secondary text-white">
                                 <th>Relation</th>
                                 <th>Name</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Issued District</th>
                                 <th>Issued Date(AD/BS)</th>
@@ -691,7 +647,6 @@
                                 <td *ngIf="j>=2"></td>
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
                                 <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
                                 <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
@@ -905,7 +860,7 @@
         </div>
 
         <!--        Bond Security -->
-        <div class="row" *ngIf="bondSecurity && client === clientName.ICFC">
+        <div class="row" *ngIf="bondSecurity">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr>

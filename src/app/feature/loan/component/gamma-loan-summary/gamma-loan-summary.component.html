@@ -208,15 +208,15 @@
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
-                                <th *ngIf="client !== clientName.MEGA">Father's Name</th>
-                                <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
+                                <th >Father's Name</th>
+                                <th >Grandfather's Name</th>
                                 <th>Customer Client Type</th>
                                 <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
-                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-                                <td class="pl-1" *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                                <td class="pl-1" >{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                                <td class="pl-1" >{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
@@ -236,7 +236,6 @@
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
                                 <th>Citizenship Issued Date (AD/BS)</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
 
                             </tr>
                             </thead>
@@ -255,7 +254,6 @@
                                 <td class="text-left pl-1">
                                     {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}} ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
                                 </td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
                             </tr>
                             </tbody>
@@ -553,7 +551,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>9. Repayment {{client === clientName?.SHINE_RESUNGA ? 'Mode' : ''}}</strong></p>
+                    <p><strong>9. Repayment </strong></p>
                 </div>
                 <div class="col-md-12">
                     <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></p>
@@ -579,7 +577,7 @@
                     <p>No any information tagged</p>
                 </ng-template>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0">
                 <span><strong>10. Customer Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"

@@ -380,9 +380,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
     }
 
-    openModel() {
-        this.nbDialogService.open(SecurityComplianceCertificateComponent, {context: {cadFile: this.cadOfferLetterApprovedDoc}});
-    }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.checkForwardValidMessage();

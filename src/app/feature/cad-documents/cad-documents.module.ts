@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CadDocumentCoreComponent} from './cad-document-core/cad-document-core.component';
-import {SrdbOfferLetterComponent} from './cad-document-core/srdb-offer-letter/srdb-offer-letter.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NbAccordionModule, NbDatepickerModule} from '@nebular/theme';
@@ -17,7 +16,6 @@ import {CadLoginComponent} from './cad-login/cad-login.component';
 
 const COMPONENTS = [
     CadDocumentCoreComponent,
-    SrdbOfferLetterComponent,
     OfferLetterUploadComponent,
     OfferLetterActionComponent,
 

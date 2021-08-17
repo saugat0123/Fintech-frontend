@@ -6,7 +6,7 @@
   </nb-card-header>
   <nb-card-body>
 
-    <div *ngIf="client === clientList.ICFC">
+    <div>
       <div [ngSwitch]="documentId">
         <app-ac-debit-and-loan-disbursement-authority *ngSwitchCase="legalTemplate.AC_DEBIT_AND_LOAN_DISBURSEMENT_AUTHORITY" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-ac-debit-and-loan-disbursement-authority>
         <app-corporate-guarantee *ngSwitchCase="legalTemplate.CORPORATE_GUARANTEE" [cadData]="cadData" [documentId]="documentId" [customerLoanId]="customerLoanId"></app-corporate-guarantee>

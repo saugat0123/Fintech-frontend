@@ -4,7 +4,6 @@ import {Clients} from '../../../../environments/Clients';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../loan/model/customer-offer-letter-path';
-import {OfferLetterConst} from './srdb-offer-letter/offer-letter-const';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 import {ToastService} from '../../../@core/utils';
@@ -29,7 +28,6 @@ export class CadDocumentCoreComponent implements OnInit {
   uploadFile;
   preview = false;
   customerOfferLetterPathList: Array<CustomerOfferLetterPath>;
-  offerLetterConst = OfferLetterConst;
 
 
   constructor(

@@ -265,8 +265,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="totalEMIInterest"><strong>{{client === clientName?.MEGA ? 'Total EMI and interest expenses to Gross income'
-                            : 'EMI / Gross Monthly Income'}}</strong></label>
+                        <label for="totalEMIInterest"><strong>EMI / Gross Monthly Income</strong></label>
                         <input class="form-control" formControlName="totalEMIInterest" id="totalEMIInterest" name
                                [ngClass]="{'is-invalid': submitted && financialForm.get('totalEMIInterest').invalid}"
                                placeholder="Total EMI and Interest Expenses" readonly
@@ -285,12 +284,7 @@
                     </div>
 
                 </div>
-                <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
-                    <div class="col-md-12">
-                        <label><b>Note: </b></label>
-                        <textarea class="form-control" formControlName="note" rows="4" placeholder="Note"></textarea>
-                    </div>
-                </div>
+
 
             </nb-card-body>
         </nb-card>

@@ -75,7 +75,7 @@
               <div class="card-header">
                 <b>Upload Format</b>
               </div>
-              <div class="card-body" *ngIf="client === clientName?.ICFC">
+              <div class="card-body">
                 <div class="row">
                   <mark><strong>Follow below column order on Excel</strong></mark>
                 </div>
@@ -87,10 +87,6 @@
                   <img class="report-log img-thumbnail border-0"
                        src="../../../../../assets/img/NepseUploadFormatwithRatio.png" width="100%">
                 </div>
-              </div>
-              <div class="card-body" *ngIf="client !== clientName?.ICFC">
-                <img class="report-log img-thumbnail border-0"
-                     src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
               </div>
               <div class="modal-footer">
                 <input (click)="excelUpload(nepseFile)" class="btn btn-primary" type="submit">

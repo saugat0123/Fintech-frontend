@@ -183,7 +183,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Father's Name</strong></label>
                                    <input class="form-control" formControlName="fatherName"
@@ -191,7 +191,7 @@
                                           type="text">
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Grandfather's Name</strong></label>
                                    <input class="form-control" formControlName="grandFatherName"
@@ -695,18 +695,6 @@
                                                <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
                                                     class="small text-danger">
                                                    Invalid Issued Date!
-                                               </div>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-2" *ngIf="client === clientName.SHINE_RESUNGA">
-                                           <div class="form-group">
-                                               <label for="age{{i}}"><strong>Age</strong></label>
-                                               <input class="form-control"
-                                                      formControlName="age"
-                                                      id="age{{i}}" type="number"
-                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
-                                               <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
-                                                   Age is required
                                                </div>
                                            </div>
                                        </div>

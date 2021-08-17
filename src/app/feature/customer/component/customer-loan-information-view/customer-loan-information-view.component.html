@@ -67,21 +67,17 @@
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)' : 'NET TRADING ASSETS (NTA)'}}</span>
+              <span>NET TRADING CURRENT ASSETS (NTCA)</span>
             </div>
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+          <ng-container>
             <app-nta-mega-summary *ngIf="itemNetTrading?.expanded"
                                   [fiscalYears]="fiscalYearArray"
                                   [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-mega-summary>
           </ng-container>
-          <ng-template #otherBank>
-            <app-nta-summary *ngIf="itemNetTrading?.expanded"
-                             [fiscalYears]="fiscalYearArray"
-                             [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-summary>
-          </ng-template>
+
         </nb-accordion-item-body>
       </nb-accordion-item>
 

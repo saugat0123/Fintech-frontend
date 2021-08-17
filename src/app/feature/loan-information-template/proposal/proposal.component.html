@@ -638,7 +638,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 form-group" *ngIf="(client !== clientName?.MEGA) && (client !== clientName?.SHINE_RESUNGA)">
+                                <div class="col-md-4 form-group">
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'swapCharge')"
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -657,7 +657,7 @@
                                     </div>
                                 </div>
 
-                                <div *ngIf="client !== clientName?.MEGA">
+                                <div>
                                     <nb-checkbox class="ml-3" (change)="checkChecked($event.target.checked,'subsidizedLoan')"
                                                  [checked]="subsidizedLoanChecked"><b>Subsidized Loan<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
@@ -694,7 +694,7 @@
 
 
                                 <!--                end of Moratorium Period amount div-->
-                                <div class="col-md-12 form-group" *ngIf="client !== clientName?.MEGA">
+                                <div class="col-md-12 form-group">
                                     <label class="title" for="prepaymentSwapCommitment"
                                            *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
                                         <strong>Prepayment/Commitment/Swap Charge Description</strong>
@@ -719,7 +719,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group" style="max-height: 300px !important;height: 250px;">
-                                        <strong>{{client === clientName?.MEGA ? 'Justification of limit' : 'Loan background' }}</strong>
+                                        <strong>Loan background</strong>
                                         <ckeditor formControlName="borrowerInformation"
                                                   [style]="{height:'250px !important;'}"
                                                   placeholder="Background"
@@ -733,11 +733,11 @@
                                 <div class="col-md-12" style="padding-top: 70px;">
                                     <div *ngIf="submitted">
                                         <span *ngIf="formControls.borrowerInformation.invalid" class="text-danger">
-                                            <sup>*</sup> {{client === clientName?.MEGA ? 'Justification of limit is required!' : 'Loan background Information is required.' }}
+                                            <sup>*</sup> Loan background Information is required
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-12" *ngIf="client != clientName.MEGA">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title"><b>Purpose of Loan</b></label>
                                         <ckeditor formControlName="purposeOfLoan" [config]="ckeConfig"></ckeditor>
@@ -774,7 +774,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="remark">
-                                            <strong>{{client === clientName?.SHINE_RESUNGA ? 'Account Strategy' : 'Remarks'}}</strong></label>
+                                            <strong>Remarks</strong></label>
                                         <ckeditor
                                                 formControlName="remark" id="remark"
                                                 [config]="ckeConfig"></ckeditor>
@@ -820,71 +820,6 @@
                                                  [checked]="solChecked"><b>Single Obligor Limit</b>
                                     </nb-checkbox>
                                     <div *ngIf="solChecked">
-                                        <div *ngIf="client === clientName?.SHINE_RESUNGA">
-                                            <table
-                                                    class="table table-bordered table-responsive table-hover" style="overflow-x: hidden">
-                                                <thead class="font-weight-bold">
-                                                <tr>
-                                                    <th>S.N</th>
-                                                    <th>Client's Name</th>
-                                                    <th>Facility Type</th>
-                                                    <th>Loan Limit(NPR)</th>
-                                                    <th>O/S Limit (NPR)</th>
-                                                    <th>Proposed Limit(NPR)</th>
-                                                    <th>FMV/DV</th>
-                                                    <th>Exposure(%)</th>
-                                                    <th>Remarks</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody *ngFor="let data of proposalForm.get('groupExposure')['controls']; let index = index" formArrayName="groupExposure">
-                                                <tr [formGroupName]="index">
-                                                    <td>{{index + 1}}</td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="clientName"
-                                                               placeholder="Client's Name"
-                                                               type="text"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="facilityType"
-                                                               placeholder="Facility Type"
-                                                               type="text"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="loanLimit"
-                                                               placeholder="Loan Limit(NPR)"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="osLimit"
-                                                               placeholder="O/S Limit(NPR)"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="proposedLimit"
-                                                               placeholder="Proposed Limit(NPR)"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="fmvDv"
-                                                               placeholder="FMV/DV"
-                                                               type="number"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="exposure"
-                                                               placeholder="Exposure(%)"
-                                                               type="text"/></td>
-                                                    <td><input class="form-control text-center"
-                                                               formControlName="remarks"
-                                                               placeholder="Remarks"
-                                                               type="text"/></td>
-                                                    <div>
-                                                        <button (click)="removeGroupExposureData(index)"
-                                                                *ngIf="index > 0"
-                                                                class="btn btn-success" nbButton size="small"
-                                                                status="primary">Delete </button>
-                                                    </div>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="text-right">
-                                                <input (click)="addGroupExposureData()" class="btn btn-sm btn-flat btn-primary"
-                                                       type="button" value="Add More"/>
-                                            </div>
-                                        </div>
                                         <ckeditor formControlName="solConclusionRecommendation"
                                                   [config]="ckeConfig"></ckeditor>
                                     </div>

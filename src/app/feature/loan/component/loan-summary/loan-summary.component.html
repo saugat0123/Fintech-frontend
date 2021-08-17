@@ -476,17 +476,15 @@
 
                             </tr>
                             <tr class="text-white sb-bg-dark">
-                                <th *ngIf="client !== clientName.MEGA">Father's Name</th>
-                                <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
+                                <th >Father's Name</th>
+                                <th >Grandfather's Name</th>
                                 <th>Customer Client Type</th>
                                 <th>SubSector</th>
                                 <!--<td>Address as per Legal Document</td>-->
                             </tr>
                             <tr>
-                                <td class="pl-1"
-                                    *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-                                <td class="pl-1"
-                                    *ngIf="client !== clientName.MEGA">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                                <td class="pl-1">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                                <td class="pl-1">{{(loanDataHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
                                 <td class="text-left pl-1">{{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
                                 <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
@@ -529,7 +527,7 @@
                                 <th>Relation Name</th>
                                 <th>Citizenship no.</th>
                                 <th>Citizenship Issued Date (AD/BS)</th>
-                                <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
+
 
                             </tr>
                             </thead>
@@ -550,9 +548,7 @@
                                     ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}}
                                     )
                                 </td>
-                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}}
-                                    years
-                                </td>
+
 
                             </tr>
                             </tbody>
@@ -839,7 +835,7 @@
                 </div>
             </div>
 
-            <div *ngIf="client === clientName.ICFC">
+            <div>
                 <p><strong>Other Documents to be Completed</strong>
                 <div>
 
@@ -873,36 +869,22 @@
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <hr>
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <ng-container>
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             </ng-container>
 
-            <ng-template #otherBank>
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-            </ng-template>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
-            <div *ngIf="client === clientName?.MEGA">
-                <app-comments-summary *ngIf="commentsSummary"
-                                      [formData]="dataFromComments"></app-comments-summary>
-                <app-previous-security-summary *ngIf="previousSecuritySummary"
-                                               [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
-            </div>
+
 
             <br>
-            <div *ngIf="client !== clientName?.MEGA">
+            <div>
                 <app-guarantor-summary *ngIf="checkGuarantorData"
                                        [guarantorData]="guarantorData"></app-guarantor-summary>
-            </div>
-            <div *ngIf="client === clientName?.MEGA">
-                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -930,7 +912,7 @@
                     <p>No any information tagged</p>
                 </ng-template>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
+            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0">
                 <span><strong>Customer Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
@@ -940,10 +922,6 @@
             <app-insurance-summary *ngIf="loanDataHolder?.insurance"
                                    [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
 
-            <div *ngIf="client === clientName?.MEGA || clientName?.SHINE_RESUNGA">
-                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"
-                               [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-            </div>
             <div class="row">
                 <div class="col-md-12 disable-print">
           <span>
@@ -1223,7 +1201,7 @@
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
             <div class="row mt-3">
-                <div [ngClass]="clientName.ICFC === client? 'col-md-12 disable-print': 'col-md-12'">
+                <div class="col-md-12 disable-print">
                     <p><strong>Authority Section</strong></p>
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">

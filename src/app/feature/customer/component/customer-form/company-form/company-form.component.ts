@@ -969,10 +969,8 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
-            if (this.client !== this.clientName.MEGA) {
                 proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
                     proprietorsIndex.toString())[0].ownerKycForm.value;
-            }
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
         }
@@ -1130,7 +1128,6 @@ export class CompanyFormComponent implements OnInit {
 
     calculateTotalIncomeDuringReview() {
         let total = 0;
-        if (this.client !== this.clientName.MEGA) {
             total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
                 this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
                 this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
@@ -1143,14 +1140,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfoFormGroup.get('mobileBankingDuringReview').value +
                 this.companyInfoFormGroup.get('lockerDuringReview').value;
             this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
-        } else {
-            total = this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-                this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value +
-                this.companyInfoFormGroup.get('lcCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('guaranteeCommissionDuringReview').value +
-                this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
-            this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
-        }
+
         // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
         //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }

@@ -1,247 +1,231 @@
-<div class="row py-2">
+<div class="row p-3">
     <div class="col-md-12">
-        <p class="float-left"><b>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. Net Trading Assets' :
-            'Net Trading Assets'}}</b></p>
-            <table
-                   class="table table-bordered table-hover table-sm sb-small">
-                <thead class="text-right">
-                <tr class="sb-bg-dark text-white text-center">
-                    <td></td>
-                    <td colspan="5">Previous Year({{fiscalYears[prevFiscalYearIndex]?.year}})</td>
-                    <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
-                </tr>
-                <tr class="sb-bg-dark text-white text-center">
-                    <th scope="col" >Net Trading Assets (NTA)</th>
-                    <th scope="col">Q1</th>
-                    <th scope="col">Q2</th>
-                    <th scope="col">Q3</th>
-                    <th scope="col">Q4</th>
-                    <th scope="col">Average</th>
+        <p class="float-left"><b>Net Trading Assets</b></p>
+    </div>
+    <table
+            class="table table-bordered table-hover table-sm sb-small">
+        <thead class="text-right">
+        <tr class="sb-bg-dark text-white text-center">
+            <td></td>
+            <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
+            <td colspan="5">Projected Year({{fiscalYears[prevFiscalYearIndex]?.id > fiscalYears[currentFiscalYearIndex].id ?
+                fiscalYears[prevFiscalYearIndex]?.year : ''}})</td>
 
-                    <th scope="col">Q1</th>
-                    <th scope="col">Q2</th>
-                    <th scope="col">Q3</th>
-                    <th scope="col">Q4</th>
-                    <th scope="col">Average</th>
-                </tr>
-                <tr class="text-center">
-                    <td class="text-left pl-1">As On</td>
-                    <!--previous year-->
-                    <td>{{prevYearData?.asOnDate?.q1 |engNepDate: false}}</td>
-                    <td>{{prevYearData?.asOnDate?.q2 |engNepDate: false}}</td>
-                    <td>{{prevYearData?.asOnDate?.q3 |engNepDate: false}}</td>
-                    <td>{{prevYearData?.asOnDate?.q4 |engNepDate: false}}</td>
-                    <td></td>
+        </tr>
+        <tr class="sb-bg-dark text-white text-center">
+            <th scope="col">Net Trading Current Assets (NTCA)</th>
+            <th scope="col">Q1</th>
+            <th scope="col">Q2</th>
+            <th scope="col">Q3</th>
+            <th scope="col">Q4</th>
+            <th scope="col">Average</th>
 
-                    <!-- current year-->
-                    <td>{{currentYearData?.asOnDate?.q1 |engNepDate: false}}</td>
-                    <td>{{currentYearData?.asOnDate?.q2 |engNepDate: false}}</td>
-                    <td>{{currentYearData?.asOnDate?.q3 |engNepDate: false}}</td>
-                    <td>{{currentYearData?.asOnDate?.q4 |engNepDate: false}}</td>
-                    <td></td>
+            <th scope="col">Q1</th>
+            <th scope="col">Q2</th>
+            <th scope="col">Q3</th>
+            <th scope="col">Q4</th>
+            <th scope="col">Average</th>
+        </tr>
+        <tr class="text-center">
+            <td class="text-left pl-1">As On</td>
 
-                    <td></td>
+            <!-- current year-->
+            <td>{{currentYearData?.asOnDate?.q1 |engNepDate: false}}</td>
+            <td>{{currentYearData?.asOnDate?.q2 |engNepDate: false}}</td>
+            <td>{{currentYearData?.asOnDate?.q3 |engNepDate: false}}</td>
+            <td>{{currentYearData?.asOnDate?.q4 |engNepDate: false}}</td>
+            <td></td>
 
+            <td></td>
 
+            <!--previous year-->
+            <td>{{prevYearData?.asOnDate?.q1 |engNepDate: false}}</td>
+            <td>{{prevYearData?.asOnDate?.q2 |engNepDate: false}}</td>
+            <td>{{prevYearData?.asOnDate?.q3 |engNepDate: false}}</td>
+            <td>{{prevYearData?.asOnDate?.q4 |engNepDate: false}}</td>
+            <td></td>
 
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">Value of Stock</td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">Value of Stock</td>
 
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.average |currencyFormatter}}</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.average |currencyFormatter}}</td>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">Value of Debtors/ Receivables/ Trade Advances</td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfDebtors?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.average |currencyFormatter}}</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfDebtors?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfDebtors?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfDebtors?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfDebtors?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfDebtors?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">Value of Receivables</td>
 
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.average |currencyFormatter}}</td>
 
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">Value of Goods in transit (If applicable)</td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfGoodsInTrans?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.valueOfReceivables?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfReceivables?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfReceivables?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfReceivables?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfReceivables?.average |currencyFormatter}}</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfGoodsInTrans?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfGoodsInTrans?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfGoodsInTrans?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfGoodsInTrans?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfGoodsInTrans?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">Advances & deposit</td>
 
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.average |currencyFormatter}}</td>
 
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">Value of Creditors</td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.average |currencyFormatter}}</td>
-
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.advancesAndDeposits?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.advancesAndDeposits?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.advancesAndDeposits?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.advancesAndDeposits?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.advancesAndDeposits?.average |currencyFormatter}}</td>
 
 
-                </tr>
-                <tr>
-                    <td class="text-left pl-1"><b>Net Trading Assets (Before other bank's financing)</b></td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsBefore?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">Other Current assets if any</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsBefore?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsBefore?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsBefore?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsBefore?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsBefore?.average |currencyFormatter}}</td>
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.average |currencyFormatter}}</td>
 
-
-                </tr>
-                <tr>
-                    <td class="text-left pl-1">Other banks' financing</td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.otherBanksFinancing?.average |currencyFormatter}}</td>
-
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.otherBanksFinancing?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.otherBanksFinancing?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.otherBanksFinancing?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.otherBanksFinancing?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.otherBanksFinancing?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentAssets?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentAssets?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentAssets?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentAssets?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentAssets?.average |currencyFormatter}}</td>
 
 
-                </tr>
-                <tr>
-                    <td class="text-left pl-1"><b>Net Trading Assets (After other bank's financing)</b></td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.netTradingAssetsAfter?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">Value of trade creditors</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsAfter?.q1 |currencyFormatter}}</td>
-                    <td >Rs. {{currentYearData?.netTradingAssetsAfter?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsAfter?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsAfter?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.netTradingAssetsAfter?.average |currencyFormatter}}</td>
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.average |currencyFormatter}}</td>
+
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.valueOfCreditors?.average |currencyFormatter}}</td>
 
 
-                </tr>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">Other current liability if any</td>
 
-                <tr>
-                    <td class="text-left pl-1"><b>Drawing Power (in %)</b></td>
-                    <!--previous year-->
-                    <td class="pr-1">{{prevYearData?.drawingPower?.q1}} %</td>
-                    <td class="pr-1">{{prevYearData?.drawingPower?.q2}} %</td>
-                    <td class="pr-1">{{prevYearData?.drawingPower?.q3}} %</td>
-                    <td class="pr-1">{{prevYearData?.drawingPower?.q4}} %</td>
-                    <td class="pr-1">{{prevYearData?.drawingPower?.average}} %</td>
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.average |currencyFormatter}}</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">{{currentYearData?.drawingPower?.q1}} %</td>
-                    <td class="pr-1">{{currentYearData?.drawingPower?.q2}} %</td>
-                    <td class="pr-1">{{currentYearData?.drawingPower?.q3}} %</td>
-                    <td class="pr-1">{{currentYearData?.drawingPower?.q4}} %</td>
-                    <td class="pr-1">{{currentYearData?.drawingPower?.average}} %</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentLiability?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentLiability?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentLiability?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentLiability?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.otherCurrentLiability?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1"><b>Net Trading Current Assets</b></td>
 
-                </tr>
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q1 |currencyFormatter}}</td>
+            <td >Rs. {{currentYearData?.netTradingAssets?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.average |currencyFormatter}}</td>
 
-                <tr>
-                    <td class="text-left pl-1"><b>Drawing Power (Amount)</b></td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.drawingPowerAmount?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">WC loan o/s or Limit</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.drawingPowerAmount?.average |currencyFormatter}}</td>
-                </tr>
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.average |currencyFormatter}}</td>
 
-                <tr>
-                    <td class="text-left pl-1"><b>Loan From Us</b></td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.loanFromUs?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.wcLoanOrLimit?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.wcLoanOrLimit?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.wcLoanOrLimit?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.wcLoanOrLimit?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.wcLoanOrLimit?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1"><strong>Loan To NTCA (%)</strong></td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.loanFromUs?.average |currencyFormatter}}</td>
-                </tr>
+            <!-- current year-->
+            <td class="pr-1">{{currentYearData?.deRatio?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">{{currentYearData?.deRatio?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">{{currentYearData?.deRatio?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">{{currentYearData?.deRatio?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">{{currentYearData?.deRatio?.average |currencyFormatter}}</td>
 
-                <tr>
-                    <td class="text-left pl-1"><b>Surplus/(Deficit)</b></td>
-                    <!--previous year-->
-                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{prevYearData?.surplusDeficit?.average |currencyFormatter}}</td>
+            <!--previous year-->
+            <td class="pr-1"> {{prevYearData?.deRatio?.q1 |currencyFormatter}}</td>
+            <td class="pr-1"> {{prevYearData?.deRatio?.q2 |currencyFormatter}}</td>
+            <td class="pr-1"> {{prevYearData?.deRatio?.q3 |currencyFormatter}}</td>
+            <td class="pr-1"> {{prevYearData?.deRatio?.q4 |currencyFormatter}}</td>
+            <td class="pr-1"> {{prevYearData?.deRatio?.average |currencyFormatter}}</td>
+        </tr>
+        <tr>
+            <td class="text-left pl-1">YTD Sales</td>
 
-                    <!-- current year-->
-                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q1 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q2 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q3 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.q4 |currencyFormatter}}</td>
-                    <td class="pr-1">Rs. {{currentYearData?.surplusDeficit?.average |currencyFormatter}}</td>
-                </tr>
+            <!-- current year-->
+            <td class="pr-1">Rs. {{currentYearData?.ytdSales?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.ytdSales?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.ytdSales?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.ytdSales?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{currentYearData?.ytdSales?.average |currencyFormatter}}</td>
 
-                </thead>
-            </table>
+            <!--previous year-->
+            <td class="pr-1">Rs. {{prevYearData?.ytdSales?.q1 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.ytdSales?.q2 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.ytdSales?.q3 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.ytdSales?.q4 |currencyFormatter}}</td>
+            <td class="pr-1">Rs. {{prevYearData?.ytdSales?.average |currencyFormatter}}</td>
+        </tr>
+        </thead>
+    </table>
     <table class="table table-bordered table-hover table-sm sb-small">
         <thead class="text-right">
         <tr class="sb-bg-dark text-white text-center">
@@ -252,5 +236,4 @@
             <td class="text-left pl-1" [innerHTML]="netTradingAssetsData?.ntaRemarks | safeHtml"></td>
         </tr>
     </table>
-    </div>
 </div>

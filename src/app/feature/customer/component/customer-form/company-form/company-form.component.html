@@ -128,25 +128,6 @@
                                    </div>
                                </div>
 
-                               <div class="col-md-4" *ngIf="client === clientName?.SHINE_RESUNGA">
-                                   <div class="form-group rounded">
-                                       <label for="addressLegalDocument"><strong>Address as Per Legal Document</strong></label>
-                                       <div class="input-group mb-3">
-                                           <input [ngClass]="{ 'is-invalid':submitted && form.addressLegalDocument.errors }"
-                                                  class="form-control rounded"
-                                                  formControlName="addressLegalDocument"
-                                                  id="addressLegalDocument"
-                                                  min="0" placeholder="Enter legal Document Address"
-                                                  type="text"/>
-                                           <div *ngIf="submitted && form.addressLegalDocument.errors "
-                                                class="invalid-feedback">
-                                               <div *ngIf="form.addressLegalDocument.errors.required">
-                                                   Address as per legal document is required
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
 
                            </div>
                            <div class="row">
@@ -615,7 +596,7 @@
                        </div>
                        <!-- END ROW -->
                        <!-- START ROW -->
-                       <div class="row" *ngIf="client === clientName?.ICFC">
+                       <div class="row">
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="totalCapital"><strong>Total Capital</strong></label>
@@ -1162,7 +1143,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
+                                   <div class="col-md-4 form-group" >
                                        <label><strong>Citizenship Number</strong></label>
                                        <input [ngClass]="{'is-invalid': submitted && proprietor.get('citizenshipNum').errors}"
                                               class="form-control"
@@ -1176,7 +1157,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
+                                   <div class="col-md-4 form-group">
                                        <label><strong>Issued date</strong></label>
                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedDate"
                                               [ngClass]="{ 'is-invalid':submitted && proprietor.get('issuedDate').errors}"
@@ -1196,7 +1177,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="row" *ngIf="client !== clientName.MEGA">
+                               <div class="row">
                                    <div class="col-md-4">
                                        <div class="form-group">
                                            <label for="issuedPlace"><strong>Issue Place</strong></label>
@@ -1215,7 +1196,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                   <div class="col-md-4">
                                        <label><strong>Date of birth</strong></label>
                                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfBirth"
                                               [ngClass]="{ 'is-invalid':submitted && proprietor.get('dateOfBirth').errors}"
@@ -1235,7 +1216,7 @@
                                            </div>
                                        </div>
                                    </div>
-                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                   <div class="col-md-4">
                                        <div class="form-group">
                                            <label for="contactNumber"><strong>Father's Name</strong></label>
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('fatherName').errors}"
@@ -1247,7 +1228,7 @@
                                    </div>
                                </div>
                                <div class="row">
-                               <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="col-md-4">
                                        <div class="form-group">
                                            <label for="contactNumber"><strong>Grandfather's Name</strong></label>
                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('grandFatherName').errors}"
@@ -1259,7 +1240,7 @@
                                    </div>
                                </div>
                                <hr>
-                               <div *ngIf="client != clientName.MEGA">
+                               <div >
                                <div class="row">
                                    <div class="col-md-12">
                                        <h5 class="my-2">Kyc Detail</h5>
@@ -1279,10 +1260,6 @@
                        </div>
 
                        <div class="row">
-                           <div class="col-md-6 pl-5" *ngIf="client === clientName?.MEGA">
-                               <label class="title"><strong>Total Share Percent :
-                                   {{companyInfoFormGroup.get('totalSharePercent').value}}%</strong></label>
-                           </div>
                            <div class="col-md-6 text-right">
                                <input [disabled]="!companyInfoFormGroup.get('proprietors').valid" (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
                                       type="button"
