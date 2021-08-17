@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../model/loanData';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 
 @Component({
   selector: 'app-company-info-summary',
@@ -23,6 +24,7 @@ export class CompanyInfoSummaryComponent implements OnInit {
   @Input() approveSheet;
   client = environment.client;
   clientName = Clients;
+  registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
 
 
   constructor() { }
