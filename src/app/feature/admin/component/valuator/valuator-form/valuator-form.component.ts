@@ -223,38 +223,37 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
 
 
     onSubmit() {
-        // this.submitted = true;
-        // if (this.valuatorForm.invalid) {
-        //     this.scrollToFirstInvalidControl();
-        //     return;
-        // }
-        // if (!this.validateMinMax()) {
-        //     this.valuatorForm.get('maxAmount').setErrors({'invalid': true});
-        //     return;
-        // } else {
-        //     this.valuatorForm.get('maxAmount').setErrors(null);
-        // }
-        // this.spinner = true;
-        // this.model = this.valuatorForm.value;
-        // this.service.save(this.model).subscribe(() => {
-        //     if (this.model.id == null) {
-        //         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
-        //         this.model = new Valuator();
-        //         this.activeModal.close(ModalResponse.SUCCESS);
-        //     } else {
-        //         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Valuator'));
-        //         this.model = new Valuator();
-        //         this.activeModal.close(ModalResponse.SUCCESS);
-        //     }
-        //     }, error => {
-        //
-        //         console.log(error);
-        //
-        //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Valuator!'));
-        //         this.activeModal.dismiss(error);
-        //     }
-        // );
-        console.log('Helamdklasndasd',this.valuatorForm.value);
+        this.submitted = true;
+        if (this.valuatorForm.invalid) {
+            this.scrollToFirstInvalidControl();
+            return;
+        }
+        if (!this.validateMinMax()) {
+            this.valuatorForm.get('maxAmount').setErrors({'invalid': true});
+            return;
+        } else {
+            this.valuatorForm.get('maxAmount').setErrors(null);
+        }
+        this.spinner = true;
+        this.model = this.valuatorForm.value;
+        this.service.save(this.model).subscribe(() => {
+            if (this.model.id == null) {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
+                this.model = new Valuator();
+                this.activeModal.close(ModalResponse.SUCCESS);
+            } else {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Valuator'));
+                this.model = new Valuator();
+                this.activeModal.close(ModalResponse.SUCCESS);
+            }
+            }, error => {
+
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Valuator!'));
+                this.activeModal.dismiss(error);
+            }
+        );
     }
 
     onClose() {
