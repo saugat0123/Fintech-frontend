@@ -65,7 +65,9 @@
                         <th colspan="9">Vehicle Remarks</th>
                     </tr>
                     <tr>
-                        <td class="text-left pl-1" colspan="9">{{vehicleDetails?.vehicleRemarks}}</td>
+                        <td class="text-left pl-1" colspan="9">
+                            <span [innerHTML]="vehicleDetails?.vehicleRemarks | safeHtml"></span>
+                        </td>
                     </tr>
 
                 </table>
@@ -101,7 +103,7 @@
                         <td class="text-right pr-1">Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
-                        <td class="text-left pl-1" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+                        <td class="text-left pl-1" colspan="2"><span [innerHTML]="landDetails?.landSecurityLegalDocumentAddress | safeHtml"></span></td>
                     </tr>
 
                     <tr class="sb-bg-secondary text-white">
@@ -211,7 +213,7 @@
                         </tr>
                         <tr>
                             <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
-                            <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
+                            <td colspan="4"><span [innerHTML]="landDetails?.roadAccessDescribe | safeHtml"></span></td>
                         </tr>
                     </table>
                 </ng-container>
@@ -317,7 +319,9 @@
                         <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
-                        <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
+                        <td class="text-left pl-1">
+                            <span [innerHTML]="landBuilding?.landAndBuildingSecurityLegalDocumentAddress | safeHtml"></span>
+                        </td>
                         <ng-container *ngIf="client === clientName.MEGA">
                             <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
                             <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
@@ -391,7 +395,9 @@
                         </tr>
                         <tr>
                             <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
-                            <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
+                            <td colspan="4">
+                                <span [innerHTML]="landBuilding?.roadAccessDescribe | safeHtml"></span>
+                            </td>
                         </tr>
                     </table>
                 </ng-container>
@@ -645,7 +651,9 @@
                     </tr>
                     <tr>
                         <th class="sb-bg-secondary text-white">Description</th>
-                        <td colspan="6" class="text-left pl-1">{{shareSecurity['securityOffered']}}</td>
+                        <td colspan="6" class="text-left pl-1">
+                            <span [innerHTML]="shareSecurity['securityOffered'] | safeHtml"></span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -864,7 +872,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-left pl-1">{{formData['initialForm']['remark']}}</td>
+                        <td class="text-left pl-1"><span [innerHTML]="formData['initialForm']['remark'] | safeHtml"></span></td>
                     </tr>
                     </tbody>
                 </table>

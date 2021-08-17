@@ -18,7 +18,6 @@ export class CashFlowStatementComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     cashFlowStatementForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
-    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal) {
