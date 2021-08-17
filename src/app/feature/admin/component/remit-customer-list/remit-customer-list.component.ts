@@ -23,6 +23,7 @@ export class RemitCustomerListComponent implements OnInit {
     transferDoc: any;
     remitCustomerList: any;
     searchObj = {};
+    shipped: any;
 
     constructor(private router: Router,
                 public modalService: NgbModal, private dialogService: NbDialogService,
@@ -50,6 +51,9 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     transferCustomer(event, data, template) {
+        console.log('event', event);
+        console.log('data', data);
+        console.log('template', template);
         this.onBoardData = data;
         event.stopPropagation();
         this.modalService.open(template);
@@ -84,6 +88,18 @@ export class RemitCustomerListComponent implements OnInit {
 
     customerTransferToInstituition() {
         console.log('inside customer transfer');
+        this.onBoardData.shipped = this.shipped;
+        console.log('customer final data', this.onBoardData);
+        this.modalService.dismissAll();
+        this.onBoardSpinner = true;
+        this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+            console.log('api called', res);
+            this.onBoardSpinner = false;
+            this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
+        }, error => {
+            this.onBoardSpinner = false;
+            this.toastService.success('Failed to transfer to');
+        });
     }
 
     customerProfile(associateId, id, customerType) {
@@ -93,5 +109,10 @@ export class RemitCustomerListComponent implements OnInit {
                 customerInfoId: id
             }
         });
+    }
+
+    onChange(value: any) {
+        this.shipped = value;
+        console.log('on change value', this.shipped);
     }
 }

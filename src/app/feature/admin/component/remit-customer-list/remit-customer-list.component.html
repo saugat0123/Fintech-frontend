@@ -212,14 +212,14 @@
         </div>
         <div class="col-md-12">
             <label style="margin-top: 20px"> Select the instituition to transfer : </label>
-            <select
+            <select (change)="onChange($event.target.value)"
                     class="form-control form-control-sm"
                     placeholder="Select instituition"
                     id="instituition"
                     name="instituition">
                 <option [value]="null" hidden>Instituition</option>
-                <option value="Bank">Bank</option>
-                <option value="Micro finance">Micro Finance</option>
+                <option value="BANK">Bank</option>
+                <option value="MICRO_FINANCE">Micro Finance</option>
             </select>
             <div class="d-flex justify-content-end pb-md-3">
 
