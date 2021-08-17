@@ -20,9 +20,7 @@ export class FinancialViewComponent implements OnInit {
   @Input() microFormData;
   @Input() microCustomer;
   isMicro = false;
-
   financialData: any;
-
   isBusinessLoan = false;
   activeTab: string;
   disableCrgAlphaParams = environment.disableCrgAlpha;
@@ -30,27 +28,14 @@ export class FinancialViewComponent implements OnInit {
   clientName = Clients;
   auditorList = [];
 
-  // selected ratio
-  summaryCheckedList = [];
-  keyIndicatorsHeaderParticularsMap = KeyIndicatorsHeaderMap.KeyIndicatorsHeaderParticularMap;
-
   constructor(protected toastService: ToastService) {
   }
 
   ngOnInit() {
     this.activeClientIsMega = environment.client === Clients.MEGA;
-    if ((this.customerType === CustomerType.INDIVIDUAL) && this.microCustomer) {
-      this.financialData = JSON.parse(this.microFormData.data);
-      this.isMicro = true;
-    }
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
       if (CustomerType[this.customerType] === CustomerType.INSTITUTION) {
-        try {
-          this.summaryCheckedList = this.financialData.keyIndicatorsData.summaryCheckList;
-        } catch (e) {
-          this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
-        }
         this.isBusinessLoan = true;
       }
     }

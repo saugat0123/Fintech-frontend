@@ -1034,24 +1034,6 @@
                 </table>
             </ng-container>
 
-            <ng-container *ngIf="(client === clientName?.ICFC) && (summaryCheckedList.length > 0)">
-                <table class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>Particulars</th>
-                        <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let selectedParticular of summaryCheckedList; let i = index">
-                        <td class="text-left pl-2"><strong>{{keyIndicatorsHeaderParticularsMap.get(selectedParticular)}}</strong></td>
-                        <td *ngFor="let amount of financialData['keyIndicatorsData'][selectedParticular]" class="text-right pr-1">
-                            {{amount.value}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </ng-container>
             <table class="table table-condensed table-sm table-bordered table-responsive-md text-center sb-small table-sm">
                 <tr class="text-white sb-bg-dark">
                     <td><b>Justification</b></td>
@@ -1063,7 +1045,7 @@
             </table>
         </div>
 
-        <ng-container *ngIf="isMicro && !isBusinessLoan" >
+        <ng-container *ngIf="microCustomer && !isBusinessLoan">
             <table class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
                 <tr class="">
