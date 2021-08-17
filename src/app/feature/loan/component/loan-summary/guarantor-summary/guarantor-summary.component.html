@@ -28,7 +28,9 @@
         <td class="text-right pr-1">{{guarantor?.citizenNumber}}</td>
         <td class="text-left pl-1">{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.contactNumber}}</td>
-        <td class="text-left pl-1">{{guarantor?.guarantorLegalDocumentAddress}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="guarantor?.guarantorLegalDocumentAddress | safeHtml"></span>
+        </td>
       </tr>
       </tbody>
     </table>
