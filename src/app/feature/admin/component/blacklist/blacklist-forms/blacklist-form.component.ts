@@ -12,7 +12,7 @@ import {BlacklistService} from '../blacklist.service';
   templateUrl: './blacklist-form.component.html',
   styleUrls: ['./blacklist-form.component.scss']
 })
-export class BlacklistFormComponents implements OnInit {
+export class BlacklistFormsComponent implements OnInit {
 
   @Input() action: Action = Action.ADD;
   @Input() model: BlackList;
@@ -21,6 +21,7 @@ export class BlacklistFormComponents implements OnInit {
   private submitted: boolean;
   formdata: FormData = new FormData();
   form: FormGroup;
+  blacklistForm: FormGroup;
 
   constructor(
       private activeModal: NgbActiveModal,
@@ -32,6 +33,7 @@ export class BlacklistFormComponents implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.buildModalForm();
   }
 
   buildForm() {
@@ -40,20 +42,21 @@ export class BlacklistFormComponents implements OnInit {
     });
   }
 
+  buildModalForm() {
+    this.blacklistForm = this.formBuilder.group({
+      name: [undefined],
+      ref: [undefined],
+      docType: [undefined]
+    });
+  }
+
   onClose() {
     this.activeModal.dismiss(ModalResponse.CANCEL);
   }
 
-  onSubmit(event) {
+  onSubmit() {
     this.submitted = true;
-    this.addinformation(event);
-  }
-
-  addinformation(event) {
-    const excelFile = <File>event.files[0];
-    this.formdata.append('excelFile', excelFile);
-    this.formdata.append('type', 'blackListFile');
-    this.blackListService.uploadBlackListFile(this.formdata).subscribe(() => {
+    this.blackListService.save(this.blacklistForm.value).subscribe((res) => {
       this.activeModal.close(ModalResponse.SUCCESS);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));
     }, error => {
@@ -61,5 +64,7 @@ export class BlacklistFormComponents implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
+
+
 
 }

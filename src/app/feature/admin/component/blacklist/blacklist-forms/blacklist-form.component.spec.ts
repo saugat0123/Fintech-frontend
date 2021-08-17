@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BlacklistFormComponents} from './blacklist-form.component';
+import {BlacklistFormsComponent} from './blacklist-form.component';
 
-describe('BlacklistFormComponents', () => {
-  let component: BlacklistFormComponents;
-  let fixture: ComponentFixture<BlacklistFormComponents>;
+describe('BlacklistFormsComponent', () => {
+  let component: BlacklistFormsComponent;
+  let fixture: ComponentFixture<BlacklistFormsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlacklistFormComponents ]
+      declarations: [ BlacklistFormsComponent ]
     })
         .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlacklistFormComponents);
+    fixture = TestBed.createComponent(BlacklistFormsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
