@@ -62,8 +62,6 @@ export class ProposalViewComponent implements OnInit {
     this.calculateInterestRate();
     this.getLoanConfig();
     this.checkInstallmentAmount();
-    console.log('proposalAllData', this.proposalAllData);
-    console.log('customerAllLoanList', this.customerAllLoanList);
   }
 
   public getTotal(key: string): number {
