@@ -117,7 +117,7 @@
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
-                                               type="text"/>
+                                                  type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
@@ -213,7 +213,7 @@
                                                formControlName="companyPAN"
                                                id="panNumber"
                                                placeholder="Enter PAN"
-                                               type="text" (input)="checkPanNumberNumber(PanNumber.value)"/>
+                                               type="number"/>
                                            <div *ngIf="submitted && form.companyPAN.errors"
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
