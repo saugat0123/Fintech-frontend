@@ -16,13 +16,15 @@ export class BlacklistFormsComponent implements OnInit {
 
   @Input() action: Action = Action.ADD;
   @Input() model: BlackList;
-
+  types = [
+    {id: 'c', name: 'Citizenship. No'},
+    {id: 'p', name: 'PAN.No'}];
   spinner = false;
   private submitted: boolean;
   formdata: FormData = new FormData();
   form: FormGroup;
   blacklistForm: FormGroup;
-
+  isCitizen = true;
   constructor(
       private activeModal: NgbActiveModal,
       private toastService: ToastService,
@@ -65,6 +67,11 @@ export class BlacklistFormsComponent implements OnInit {
     });
   }
 
-
+  show(data) {
+    console.log(data);
+    if (data.id === 'p') {
+      this.isCitizen = false;
+    }
+  }
 
 }
