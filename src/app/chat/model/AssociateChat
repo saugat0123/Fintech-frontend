@@ -1,6 +1,0 @@
-import {Chat} from './chat';
-
-export class AssociateChat {
-    associateId: string;
-    messageList: Array<Chat>;
-}
