@@ -15,6 +15,7 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {Occupation} from '../../admin/modal/occupation';
+import {Editor} from "../../../@core/utils/constants/editor";
 
 @Component({
     selector: 'app-guarantor',
@@ -51,6 +52,7 @@ export class GuarantorComponent implements OnInit {
     docFolderName = 'guarantorDoc';
     occupation = Occupation.enumObject();
     sameAsCurrentChecked = false;
+    ckEditorConfig = Editor.CK_CONFIG;
 
     constructor(
         private formBuilder: FormBuilder,
