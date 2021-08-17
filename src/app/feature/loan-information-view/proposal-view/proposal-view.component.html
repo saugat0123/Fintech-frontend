@@ -36,7 +36,6 @@
         <th>Enhance</th>
         <th>Settlement</th>
         <th>Proposed Limit</th>
-        <!--        <th>Existing INT/COM/CM</th>-->
         <!--        for non funded commision and cash margin combination to be view-->
         <th>Existing Proposed INT/COM/CM</th>
         <th>Proposed INT/COM/CM</th>
@@ -79,9 +78,7 @@
           <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span></td>
 
         <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
-        <!--                Existing INT/COM/CM-->
-        <!--        <td>-</td>-->
-        <td>
+        <td class="text-right pr-1">
           <span *ngIf="(loan?.loan?.isFundable) && ((loan?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
             IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}} %
           </span>
@@ -93,10 +90,10 @@
             <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCommissionPercentage > 0">
               COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
             </span>
-            <span *ngIf="((loan?.proposal?.data | jsonParse)?.existInterestRate) < 0
-            || ((loan?.proposal?.data | jsonParse)?.existCashMargin < 0)
-            || ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage < 0)">-</span>
           </span>
+          <span *ngIf="((loan?.proposal?.data | jsonParse)?.existInterestRate === null)
+            && ((loan?.proposal?.data | jsonParse)?.existCashMargin === null)
+            && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
         </td>
         <td>
           <span *ngIf="loan?.loan?.isFundable">
