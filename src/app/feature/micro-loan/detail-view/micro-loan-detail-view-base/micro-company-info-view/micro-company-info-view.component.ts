@@ -11,6 +11,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {environment} from '../../../../../../environments/environment';
+import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
 
 @Component({
   selector: 'app-micro-company-info-view',
@@ -19,6 +20,7 @@ import {environment} from '../../../../../../environments/environment';
 })
 export class MicroCompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
+  @Input() isMicroDirect: boolean;
   customerType = CustomerType;
 
   @Input() calendarType: CalendarType;
@@ -52,6 +54,10 @@ export class MicroCompanyInfoViewComponent implements OnInit {
     }
     this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
   }
+
+  get otherMicroDetailsVisibility() {
+          return this.formValue.microCustomerType === MicroCustomerType.INDIRECT;
+    }
 
 
 }
