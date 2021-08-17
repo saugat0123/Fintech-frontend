@@ -1092,16 +1092,15 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
-    checkPanNumberNumber(regNumber: String) {
-        this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {
-            if (regNumber.toLowerCase() === res.detail.panNumber.toLowerCase()) {
+    checkRegistrationNumber(regNumber: String) {
+        this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
+            if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
             }
         }, error => {
             console.error(error);
         });
     }
-
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
