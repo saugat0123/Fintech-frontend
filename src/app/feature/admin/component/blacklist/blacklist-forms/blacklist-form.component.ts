@@ -71,6 +71,8 @@ export class BlacklistFormsComponent implements OnInit {
     console.log(data);
     if (data.id === 'p') {
       this.isCitizen = false;
+    } else {
+      this.isCitizen = true;
     }
   }
 
