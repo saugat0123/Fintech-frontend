@@ -127,6 +127,7 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </ng-container>
+                    <ng-container *ngIf="transferDoc">
                     <button nbTooltip="Transfer to instuition" (click)="transferCustomer($event, model,customerTransfer)"
                             class="m-1"
                             nbButton size="tiny"
@@ -134,6 +135,7 @@
                             title="Trasnfer">
                         <i class="fas fa-share-square"></i>
                     </button>
+                    </ng-container>
                     <button nbTooltip="View Customer" (click)="viewData($event, model.id, model,viewdetails)"
                             class="m-1"
                             nbButton size="tiny"
