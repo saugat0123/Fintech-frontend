@@ -100,22 +100,24 @@
             <thead>
             <tr class="sb-bg-dark text-white">
                 <th>S.No.</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Loan Amount</th>
-                <th>Address</th>
+                <th>Beneficiary Name</th>
+                <th>Sender Name</th>
+                <th>Sender Country</th>
+                <th>Agent Name</th>
+                <th>Proposed Amount</th>
+                <th>Interest Rate</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let model of customerList;let i=index" class="cursor">
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.id}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.customerName}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.phoneNo || 'NA'}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.email || 'NA'}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.loanAmount}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.address || 'NA'}}</td>
+            <tr *ngFor="let model of remitCustomerList;let i=index" class="cursor">
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.beneficiaryId}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.beneficiaryName}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.senderName || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.senderCountry || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.agentName}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.proposedAmount || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.interestRate || 'NA'}}</td>
                 <td>
                     <ng-container *ngIf="!transferDoc">
                         <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
