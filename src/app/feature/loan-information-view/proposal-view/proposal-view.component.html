@@ -82,17 +82,20 @@
         <!--                Existing INT/COM/CM-->
         <!--        <td>-</td>-->
         <td>
-          <span *ngIf="(loan?.loan?.isFundable) && (proposalAllData?.existInterestRate) > 0 ">
-            IR: {{proposalAllData?.existInterestRate}} %
+          <span *ngIf="(loan?.loan?.isFundable) && ((loan?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
+            IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}} %
           </span>
           <span *ngIf="!loan?.loan?.isFundable">
-            <span *ngIf="(proposalAllData?.existCashMarginMethod == 'FLAT') && (proposalAllData?.existCashMargin > 0)">
-              CM: Rs. {{proposalAllData?.existCashMargin || 0 | currencyFormatter}} ,</span>
-            <span *ngIf="(proposalAllData?.existCashMarginMethod == 'PERCENT') && (proposalAllData?.existCashMargin > 0)">
-              CM: {{ (proposalAllData?.existCashMargin || 0)}} %,</span>
-            <span *ngIf="proposalAllData?.existCommissionPercentage > 0">
-              COM:{{proposalAllData?.existCommissionPercentage || '0'}} %
+            <span *ngIf="((loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT') && ((loan?.proposal?.data | jsonParse)?.existCashMargin > 0)">
+              CM: Rs. {{(loan?.proposal?.data | jsonParse)?.existCashMargin || 0 | currencyFormatter}} ,</span>
+            <span *ngIf="((loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT') && ((loan?.proposal?.data | jsonParse)?.existCashMargin > 0)">
+              CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}} %,</span>
+            <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCommissionPercentage > 0">
+              COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
             </span>
+            <span *ngIf="((loan?.proposal?.data | jsonParse)?.existInterestRate) < 0
+            || ((loan?.proposal?.data | jsonParse)?.existCashMargin < 0)
+            || ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage < 0)">-</span>
           </span>
         </td>
         <td>
