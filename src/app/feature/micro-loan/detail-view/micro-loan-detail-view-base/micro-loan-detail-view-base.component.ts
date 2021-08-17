@@ -29,7 +29,6 @@ export class MicroLoanDetailViewBaseComponent implements OnInit {
     isMicroCustomer: Boolean;
     financialView = false;
     financialData;
-    // isMicro = false;
     @Input() isMicro;
 
     constructor() {
