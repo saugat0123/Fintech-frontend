@@ -89,7 +89,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInInventory')['controls']; let j = index"
                     formArrayName="increaseDecreaseInInventory" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInInventory">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInInventory">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -110,7 +110,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInAccountsReceivable')['controls']; let j = index"
                     formArrayName="increaseDecreaseInAccountsReceivable" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInAccountsReceivable">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInAccountsReceivable">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -131,7 +131,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInShortTermInvestment')['controls']; let j = index"
                     formArrayName="increaseDecreaseInShortTermInvestment" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInShortTermInvestment">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInShortTermInvestment">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -152,7 +152,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInAdvanceAndDeposit')['controls']; let j = index"
                     formArrayName="increaseDecreaseInAdvanceAndDeposit" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInAdvanceAndDeposit">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInAdvanceAndDeposit">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -173,7 +173,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentAssets')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentAssets" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentAssets">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentAssets">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -194,7 +194,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInCreditors')['controls']; let j = index"
                     formArrayName="increaseDecreaseInCreditors" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInCreditors">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInCreditors">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -215,7 +215,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInOtherCurrentLiabilities')['controls']; let j = index"
                     formArrayName="increaseDecreaseInOtherCurrentLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentLiabilities">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_increaseDecreaseInOtherCurrentLiabilities">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -275,7 +275,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('changedInFixedAsset')['controls']; let j = index"
                     formArrayName="changedInFixedAsset" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_changedInFixedAsset">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_changedInFixedAsset">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -309,7 +309,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherAssets')['controls']; let j = index"
                     formArrayName="changeInOtherAssets" scope="col">
                     <div (change)="handleFirstYearInputChanges()" [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_changeInOtherAssets">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_changeInOtherAssets">
                             <input formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -330,7 +330,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherLongTermLiabilities')['controls']; let j = index"
                     formArrayName="changeInOtherLongTermLiabilities" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_changeInOtherLongTermLiabilities">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_changeInOtherLongTermLiabilities">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -351,7 +351,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('changeInOtherProvisions')['controls']; let j = index"
                     formArrayName="changeInOtherProvisions" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_changeInOtherProvisions">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_changeInOtherProvisions">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -385,7 +385,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('paidUpCapitalEquity')['controls']; let j = index"
                     formArrayName="paidUpCapitalEquity" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_paidUpCapitalEquity">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_paidUpCapitalEquity">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -406,7 +406,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('shortTermLoan')['controls']; let j = index"
                     formArrayName="shortTermLoan" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_shortTermLoan">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_shortTermLoan">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
@@ -427,7 +427,7 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('longTermLoanReceived')['controls']; let j = index"
                     formArrayName="longTermLoanReceived" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <ng-template [ngIf]="j == 0 && isSRDB" [ngIfElse]="subsequentYears_longTermLoanReceived">
+                        <ng-template [ngIf]="j == 0" [ngIfElse]="subsequentYears_longTermLoanReceived">
                             <input (change)="handleFirstYearInputChanges()" formControlName="value" class="text-center headingParticular" type="number"
                                    style="border: none; outline: none; " value="0">
                         </ng-template>
