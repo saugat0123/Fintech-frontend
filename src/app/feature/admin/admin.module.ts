@@ -79,18 +79,19 @@ import {BaseInterestComponent} from './component/base-interest/base-interest.com
 import {BaseInterestFormComponent} from './component/base-interest/base-interest-form/base-interest-form.component';
 import {BlacklistComponent} from './component/blacklist/blacklist.component';
 import {BlacklistFormComponent} from './component/blacklist/blacklist-form/blacklist-form.component';
+import {BlacklistFormsComponent} from './component/blacklist/blacklist-forms/blacklist-form.component';
 import {NotificationMasterComponent} from './component/notification-master/notification-master.component';
 import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
 import {RemarkModalComponent} from './component/opening-account/remark-modal/remark-modal.component';
 import {AccountNumberModalComponent} from './component/opening-account/account-no-modal/account-no-modal.component';
-import { GroupConfigComponent } from './component/preference/group-config/group-config.component';
-import { FinancialConfigComponent } from './component/preference/financial-config/financial-config.component';
-import { FinancialConfigModalComponent } from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
+import {GroupConfigComponent} from './component/preference/group-config/group-config.component';
+import {FinancialConfigComponent} from './component/preference/financial-config/financial-config.component';
+import {FinancialConfigModalComponent} from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
 import {NbDialogModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
-import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
-import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
-import { RoleAddComponent } from './component/user/role-add/role-add.component';
+import {CadRoleHierarchyComponent} from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
+import {CbsGroupExecutorComponent} from './component/preference/cbs-group-executor/cbs-group-executor.component';
+import {RoleAddComponent} from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 
 @NgModule({
@@ -158,6 +159,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         BaseInterestFormComponent,
         BlacklistComponent,
         BlacklistFormComponent,
+        BlacklistFormsComponent,
         NotificationMasterComponent,
         AccountDocumentFormComponent,
         RemarkModalComponent,
@@ -170,26 +172,26 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         RoleAddComponent,
         // SecurityComponent
     ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(adminRoutes),
-    ThemeModule,
-    DragDropModule,
-    NgSelectModule,
-    NgxPrintModule,
-    NbDialogModule.forRoot(),
-    CoreModule,
-    AgmCoreModule,
-    TransferLoanModule,
-    AgmCoreModule.forRoot({
-      apiKey: environment.GOOGLE_MAP_API_KEY
-    }),
-    NepaliCalendarModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(adminRoutes),
+        ThemeModule,
+        DragDropModule,
+        NgSelectModule,
+        NgxPrintModule,
+        NbDialogModule.forRoot(),
+        CoreModule,
+        AgmCoreModule,
+        TransferLoanModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        }),
+        NepaliCalendarModule
+    ],
 
     entryComponents: [
         ApprovalLimitFormComponent,
@@ -216,6 +218,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
         ShareValueFormComponent,
         BaseInterestFormComponent,
         BlacklistFormComponent,
+        BlacklistFormsComponent,
         AccountDocumentFormComponent,
         RemarkModalComponent,
         AccountNumberModalComponent,
