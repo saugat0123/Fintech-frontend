@@ -333,9 +333,9 @@ export class FixAssetCollateralComponent implements OnInit {
         this.security_id_for_delete = security_id_for_delete;
         this.modelHeader = 'DELETE';
         if (security_id_for_delete === 'single') {
-            this.modelBody = 'ARE YOU SURE YOU WANT TO DELETE';
+            this.modelBody = 'ARE YOU SURE YOU WANT TO DELETE ?';
         } else {
-            this.modelBody = 'ARE YOU SURE YOU WANT TO DELETE ALL';
+            this.modelBody = 'ARE YOU SURE YOU WANT TO DELETE ALL ?';
         }
         this.modelService.open(model);
     }
