@@ -197,10 +197,10 @@
                     <strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
                     <br>
                     <mark class="alert-warning">Coverage:</mark>
-                    <strong>{{collateralDtoData.coveragePercent |roundvalue |currencyFormatter}}%</strong>
+                    <strong>{{collateralDtoData.coveragePercent | number : '1.2-2'}}%</strong>
                     <br>
                     <mark class="alert-warning">Loan Exposure:</mark>
-                    <strong>{{collateralDtoData.loanExposure |roundvalue |currencyFormatter}}%</strong>
+                    <strong>{{collateralDtoData.loanExposure | number : '1.2-2'}}%</strong>
                 </div>
             </nb-card-footer>
         </nb-card>
