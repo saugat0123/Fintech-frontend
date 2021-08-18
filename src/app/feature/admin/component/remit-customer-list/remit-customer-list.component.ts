@@ -24,6 +24,7 @@ export class RemitCustomerListComponent implements OnInit {
     remitCustomerList: any;
     searchObj = {};
     shipped: any;
+    user: any;
 
     constructor(private router: Router,
                 public modalService: NgbModal, private dialogService: NbDialogService,
@@ -34,9 +35,18 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.user = LocalStorageUtil.getStorage();
+        console.log('username', this.user);
         this.remitCustomerService.getRemitCustomerList().subscribe(res => {
             this.remitCustomerList = res.detail;
             console.log('remit customer list', this.remitCustomerList);
+            if (this.user.roleType === 'COMMITTEE') {
+                this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
+                console.log('filtered list', this.remitCustomerList);
+            }
+            if(this.user.roleType === 'MAKER'){
+                this.remitCustomerList = [];
+            }
         });
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
@@ -57,6 +67,10 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardData = data;
         event.stopPropagation();
         this.modalService.open(template);
+    }
+
+    sendToBranch(event, data, template) {
+
     }
 
     viewData(event, Id, data, template) {
@@ -115,4 +129,5 @@ export class RemitCustomerListComponent implements OnInit {
         this.shipped = value;
         console.log('on change value', this.shipped);
     }
+
 }

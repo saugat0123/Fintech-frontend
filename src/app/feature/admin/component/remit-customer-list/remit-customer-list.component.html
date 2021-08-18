@@ -106,22 +106,22 @@
                 <th>Agent Name</th>
                 <th>Proposed Amount</th>
                 <th>Interest Rate</th>
-                <th>Trasnferred To</th>
+                <th *ngIf="transferDoc">Trasnferred To</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let model of remitCustomerList;let i=index" class="cursor">
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.beneficiaryId}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{i+1}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.beneficiaryName}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.senderName || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.senderCountry || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.agentName}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.proposedAmount || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.interestRate || 'NA'}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
+                <td *ngIf="transferDoc" (click)="customerProfile(model.id,model.id,'individual')">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
-                    <ng-container *ngIf="!transferDoc">
+                    <ng-container *ngIf="user.roleType ==='MAKER'">
                         <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
                                 *ngIf="!model?.alreadyOnboarded"
                                 class="m-1"
@@ -129,6 +129,16 @@
                                 status="info"
                                 title="Add">
                             <i class="fas fa-plus"></i>
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="user.roleType === 'COMMITTEE'">
+                        <button nbTooltip="Send to branch" (click)="sendToBranch($event, model,confirmOnBoard)"
+                                *ngIf="!model?.alreadyOnboarded"
+                                class="m-1"
+                                nbButton size="tiny"
+                                status="info"
+                                title="Add">
+                            <i class="fas fa-paper-plane"></i>
                         </button>
                     </ng-container>
                     <ng-container *ngIf="transferDoc">
