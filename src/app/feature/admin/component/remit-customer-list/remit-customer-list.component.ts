@@ -108,6 +108,7 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardSpinner = true;
         this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
             console.log('api called', res);
+            this.onBoardData.alreadyTransferred = true;
             this.onBoardSpinner = false;
             this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
         }, error => {

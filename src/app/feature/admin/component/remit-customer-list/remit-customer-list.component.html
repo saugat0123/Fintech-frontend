@@ -133,7 +133,6 @@
                     </ng-container>
                     <ng-container *ngIf="user.roleType === 'COMMITTEE'">
                         <button nbTooltip="Send to branch" (click)="sendToBranch($event, model,confirmOnBoard)"
-                                *ngIf="!model?.alreadyOnboarded"
                                 class="m-1"
                                 nbButton size="tiny"
                                 status="info"
@@ -141,7 +140,7 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </ng-container>
-                    <ng-container *ngIf="transferDoc">
+                    <ng-container *ngIf="transferDoc && !(model?.alreadyTransferred)">
                         <button nbTooltip="Transfer to instuition"
                                 (click)="transferCustomer($event, model,customerTransfer)"
                                 class="m-1"
