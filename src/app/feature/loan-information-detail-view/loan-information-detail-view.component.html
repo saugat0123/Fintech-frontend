@@ -169,7 +169,8 @@
                                              [customerAllLoanList]="customerAllLoanList"
                                              [fiscalYearArray]="fiscalYearArray"
                                              [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                             [loanId]="id"></app-micro-loan-detail-view-base>
+                                             [loanId]="id"
+                                             [isMicro]="isMicro"></app-micro-loan-detail-view-base>
 
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
