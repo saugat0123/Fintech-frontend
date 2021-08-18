@@ -29,6 +29,7 @@ import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
+import {EnumConverterPipe} from "./@core/pipe/enum-converter.pipe";
 
 
 @NgModule({
@@ -68,7 +69,7 @@ import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.com
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,
+        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,EnumConverterPipe,
         NepaliPercentWordPipe],
     bootstrap: [AppComponent],
     exports: [

@@ -21,6 +21,7 @@ import {FormsModule} from '@angular/forms';
 import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
+import {EnumConverterPipe} from "./pipe/enum-converter.pipe";
 
 
 const DATA_SERVICES = [];
@@ -34,6 +35,7 @@ export const NB_CORE_PROVIDERS = [
     PermissionService,
     LoanStatusPipe,
     EngToNepaliNumberPipe,
+    EnumConverterPipe,
     NepaliCurrencyWordPipe
 ];
 
@@ -61,6 +63,7 @@ const UTILITY_MODULES = [
         NepaliToEngNumberPipe,
         LoanStatusPipe,
         EngToNepaliNumberPipe,
+        EnumConverterPipe,
         NepaliCurrencyWordPipe,
         ...UTILITY_MODULES,
         LoginPopUp,
@@ -78,6 +81,7 @@ const UTILITY_MODULES = [
         NepaliToEngNumberPipe,
         LoanStatusPipe,
         EngToNepaliNumberPipe,
+        EnumConverterPipe,
         NepaliPercentWordPipe,
         NepaliCurrencyWordPipe,
         LoginPopUp,

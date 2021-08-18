@@ -106,6 +106,7 @@
                 <th>Agent Name</th>
                 <th>Proposed Amount</th>
                 <th>Interest Rate</th>
+                <th>Trasnferred To</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -118,6 +119,7 @@
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.agentName}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.proposedAmount || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.interestRate || 'NA'}}</td>
+                <td (click)="customerProfile(model.id,model.id,'individual')">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
                     <ng-container *ngIf="!transferDoc">
                         <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
@@ -130,13 +132,14 @@
                         </button>
                     </ng-container>
                     <ng-container *ngIf="transferDoc">
-                    <button nbTooltip="Transfer to instuition" (click)="transferCustomer($event, model,customerTransfer)"
-                            class="m-1"
-                            nbButton size="tiny"
-                            status="info"
-                            title="Trasnfer">
-                        <i class="fas fa-share-square"></i>
-                    </button>
+                        <button nbTooltip="Transfer to instuition"
+                                (click)="transferCustomer($event, model,customerTransfer)"
+                                class="m-1"
+                                nbButton size="tiny"
+                                status="info"
+                                title="Trasnfer">
+                            <i class="fas fa-share-square"></i>
+                        </button>
                     </ng-container>
                     <button nbTooltip="View Customer" (click)="viewData($event, model.id, model,viewdetails)"
                             class="m-1"
@@ -204,14 +207,14 @@
          nbSpinnerMessage="Please Wait . . ."
          nbSpinnerSize="giant"
          nbSpinnerStatus="primary">
-        <div class="modal-header sb-bg" style="display:block">
+        <div class="modal-header sb-bg">
+            <h4 class="modal-title">Transfer</h4>
             <a (click)="modalService.dismissAll()" aria-label="Close"
                class="close cursor" data-dismiss="modal">
                 <span aria-hidden="true">×</span></a>
-            <h4 class="nav  navbar-right pull-left text-white">Confirm</h4>
         </div>
         <div class="col-md-12">
-            <label style="margin-top: 20px"> Select the instituition to transfer : </label>
+            <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to: </label>
             <select (change)="onChange($event.target.value)"
                     class="form-control form-control-sm"
                     placeholder="Select instituition"
@@ -267,33 +270,33 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">
-                                Country
+                                        Country
                                     </h6>
                                     <span class="text-secondary">Nepal</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">
-                                       State
+                                        State
                                     </h6>
                                     <span class="text-secondary">Bagmati</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">
 
-                                       District
+                                        District
                                     </h6>
                                     <span class="text-secondary">Kathmandu</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">
-                                      Municipality
+                                        Municipality
                                     </h6>
                                     <span class="text-secondary">Kathmandu</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0">
 
-                                      Ward No
+                                        Ward No
                                     </h6>
                                     <span class="text-secondary">13</span>
                                 </li>
@@ -374,7 +377,7 @@
                                                 <label>:</label>
                                             </div>
                                             <div class="col-md-6 text-secondary">
-                                             Loan
+                                                Loan
                                             </div>
                                         </div>
                                         <hr>
@@ -386,10 +389,10 @@
                                                 <label>:</label>
                                             </div>
                                             <div class="col-md-6 text-secondary">
-                                              12121212
+                                                12121212
                                             </div>
                                         </div>
-<hr>
+                                        <hr>
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <label>Documents</label>
@@ -398,7 +401,7 @@
                                                 <label>:</label>
                                             </div>
                                             <div class="col-md-6 text-secondary">
-                                               Citizenship
+                                                Citizenship
                                             </div>
                                         </div>
                                     </div>
@@ -432,7 +435,7 @@
                                                 <label>:</label>
                                             </div>
                                             <div class="col-md-6 text-secondary">
-                                               Kathmandu
+                                                Kathmandu
                                             </div>
                                         </div>
                                         <hr>
@@ -444,7 +447,7 @@
                                                 <label>:</label>
                                             </div>
                                             <div class="col-md-6 text-secondary">
-                                             9841526322
+                                                9841526322
                                             </div>
                                         </div>
                                     </div>
