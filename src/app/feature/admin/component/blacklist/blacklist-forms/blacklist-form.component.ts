@@ -60,7 +60,7 @@ export class BlacklistFormsComponent implements OnInit {
     }
 
     onSubmit() {
-        this.blackListService.checkBlacklistByRef(this.blacklistForm.get('ref').value).subscribe((data) => {
+        this.blackListService.checkBlacklistByRef(this.blacklistForm.get('ref').value).subscribe((data: any) => {
             if (data.detail) {
                 this.toastService.show(new Alert(AlertType.ERROR, 'User Already Exist'));
                 return;
