@@ -54,7 +54,7 @@ export class KeyIndicatorsHeaderMap {
         [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_OVERALL, 'Debt-Equity Ratio (Overall)'],
         [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_LONG_TERM, 'Debt-Equity Ratio - Long Term (times)(in %)'],
         [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_WORKING_CAPITAL, 'Debt-Equity Ratio - Working Capital (times)(in %)'],
-        [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_GENERAL, 'Debt-Equity Ratio - General(in %)'],
+        [KeyIndicatorsConstantsEnum.DEBT_EQUITY_RATIO_GENERAL, 'Debt-Equity Ratio - General (times)'],
         [KeyIndicatorsConstantsEnum.LEVERAGE_RATIO, 'Leverage ratio'],
         [KeyIndicatorsConstantsEnum.OPERATING_CYCLE, 'Operating Cycle'],
         [KeyIndicatorsConstantsEnum.INVENTORY_TURNOVER_RATIO, 'Inventory Turnover Ratio (times)'],

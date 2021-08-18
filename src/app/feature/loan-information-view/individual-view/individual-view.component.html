@@ -118,9 +118,6 @@
       <tr class="text-white sb-bg-dark">
         <th>Name</th>
         <th>Relation</th>
-        <th>Citizenship no.</th>
-        <th>Citizenship Issued Date(AD/BS)</th>
-        <th>Citizenship Issued District</th>
         <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
 
 
@@ -135,13 +132,6 @@
         <td class="text-left pl-1">
           {{relative.customerRelation}}
         </td>
-        <td class="text-right pr-1">
-          {{relative.citizenshipNumber || 'N/A'}}
-        </td>
-        <td class="text-left pl-1">
-          {{relative.citizenshipIssuedDate | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})
-        </td>
-        <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
         <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
       </tr>
