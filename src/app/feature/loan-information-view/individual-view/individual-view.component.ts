@@ -4,7 +4,6 @@ import {CustomerType} from '../../customer/model/customerType';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {IndividualJsonData} from '../../admin/modal/IndividualJsonData';
-import {environment as envSrdb} from '../../../../environments/environment.srdb';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
