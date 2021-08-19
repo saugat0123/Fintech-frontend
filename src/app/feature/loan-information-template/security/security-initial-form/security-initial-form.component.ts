@@ -48,6 +48,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() customerSecurityId;
     securityEmitValue: string;
 
+
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -96,6 +97,7 @@ export class SecurityInitialFormComponent implements OnInit {
     insurancePolicySelected = false;
     assignmentOfReceivable = false;
     selectedSecurity: string;
+    basicInfo: FormGroup;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -530,6 +532,9 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addHypothecationOfStock();
         }
 
+    }
+    get basicInfoControls() {
+        return this.basicInfo.controls;
     }
 
     setAssignments(currentData) {
@@ -2395,7 +2400,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
         corporateGuarantee.controls.forEach(f => {
-            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail
+            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('CorporateGuarantee') === -1) {
                 this.selectedArray.push('CorporateGuarantee');
