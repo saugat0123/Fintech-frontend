@@ -85,7 +85,7 @@
                                                 </label>
                                             </a>
 
-                                            <div id="seperateAmountValuation"  style="display: inline">
+                                            <div id="seperateAmountPending"  style="display: inline">
                                                 <strong>&nbsp; {{ valuationProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
@@ -96,11 +96,11 @@
                                         <div >
                                             <a class="cursor" (click)="resolveToCatalogue('underReview')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Under Review <mark class="text-info rounded-pill"><strong> {{reviewFileCount}}</strong></mark>
+                                                    Under Review <mark class="text-info rounded-pill"><strong> {{valuationFileCount}}</strong></mark>
                                                 </label>
                                             </a>
 
-                                            <div id="seperateAmountUnderReview"  style="display: inline">
+                                            <div id="seperateAmountApproved"  style="display: inline">
                                                 &nbsp;<strong>&nbsp;{{reviewProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
@@ -113,7 +113,7 @@
                                         <div>
                                             <a class="cursor" (click)="resolveToCatalogue('pending')">
                                                 <label class="card-header bg-dark cursor">
-                                                    Pending <mark class="text-success rounded-pill"><strong> {{pendingFileCount}}</strong></mark>
+                                                    Pending <mark class="text-warning rounded-pill"><strong> {{pendingFileCount}}</strong></mark>
                                                 </label>
                                             </a>
                                             <div id="seperateAmountPending"  style="display: inline">
