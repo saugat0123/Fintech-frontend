@@ -46,8 +46,49 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button nbButton outline status="success" (click)="add()"  data-toggle="modal">
+                            <button class="mr-1" (click)="openForm(popup)" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fa fa-plus"></i>
+                            </button>
+                            <ng-template #popup>
+                                <div class="modal-document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="display:block">
+                                            <a class="close cursor" data-dismiss="modal" aria-label="Close"
+                                               (click)="onClose()">
+                                                <span aria-hidden="true">×</span></a>
+                                            <h4 class="modal-title pull-left"> Nepse</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form [formGroup]="NEPSE_FORM" (ngSubmit)="SubmitNEPSEFORM()">
+                                                <input type="hidden" formControlName="id"/>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Company Name</label>
+                                                    <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="SharePerUnit">Share Amount Per Unit</label>
+                                                    <input type="number" class="form-control" formControlName="amountPerUnit" id="SharePerUnit">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="CompanyCode">Company Code</label>
+                                                    <input type="text" class="form-control" id="CompanyCode" formControlName="companyCode">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="shareType">Share Type</label>
+                                                    <ng-select id="shareType" [items]="items"  formControlName="shareType">
+                                                    </ng-select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                            <button (click)="add()" data-toggle="modal">
+                                <i class="fas fa-file"></i>
                             </button>
                         </div>
 

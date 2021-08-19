@@ -4,12 +4,13 @@ import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NepseFormComponent} from './nepse-form/nepse-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {ModalResponse, ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NepseService} from './nepse.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {Status} from '../../../../@core/Status';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-nepse',
@@ -22,7 +23,7 @@ export class NepseComponent implements OnInit {
     title = 'Nepse';
     breadcrumb = 'Nepse > List';
     dataList: Array<Nepse>;
-
+    public items: Array<string> = ['ORDINARY', 'PROMOTER'];
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -33,13 +34,15 @@ export class NepseComponent implements OnInit {
     nepses: number;
     permissions = [];
     status = Status;
+    NEPSE_FORM: FormGroup;
 
     constructor(
         private service: NepseService,
         private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private form: FormBuilder
     ) {
     }
 
@@ -61,6 +64,14 @@ export class NepseComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.NEPSE_FORM = this.form.group({
+            id: [undefined],
+            companyName: [undefined],
+            amountPerUnit: [undefined],
+            companyCode: [undefined],
+            shareType: [undefined]
+        });
+
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/nepseCompany/get';
 
@@ -96,5 +107,36 @@ export class NepseComponent implements OnInit {
         const modalRef = this.modalService.open(NepseFormComponent);
         modalRef.componentInstance.model = new Nepse();
         ModalUtils.resolve(modalRef.result, NepseComponent.loadData, this);
+    }
+
+    openForm(event) {
+        const modalRef = this.modalService.open(event);
+    }
+
+    onClose() {
+        this.modalService.dismissAll(ModalResponse.CANCEL);
+    }
+
+    SubmitNEPSEFORM() {
+        this.search = {
+            'companyName': this.NEPSE_FORM.get('companyName').value,
+            'shareType': this.NEPSE_FORM.get('shareType').value,
+        };
+        this.service.findAllNepseCompanyData(this.search).subscribe((data) => {
+            if (data.detail.length > 0) {
+                this.NEPSE_FORM.patchValue({
+                    id: data.detail[0].id,
+                });
+            }
+            this.service.save(this.NEPSE_FORM.value).subscribe(() => {
+                this.modalService.dismissAll();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successed!'));
+                NepseComponent.loadData(this);
+            }, (error) => {
+                this.toastService.show((new Alert(AlertType.DANGER, 'Failed')));
+            });
+        }, error => {
+            console.log('error data');
+        });
     }
 }
