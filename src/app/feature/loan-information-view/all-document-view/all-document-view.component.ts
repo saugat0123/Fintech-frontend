@@ -32,6 +32,7 @@ export class AllDocumentViewComponent implements OnInit {
   affiliatedId;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  customerData;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -40,6 +41,7 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.customerData = 'AllDocument';
     this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.taggedGuarantors)) {
@@ -50,6 +52,7 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
       }
+      this.customerData = this.loanDataHolder.loanHolder.name;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
@@ -124,7 +127,7 @@ export class AllDocumentViewComponent implements OnInit {
   private downloadAll(documentUrls: string[]): void {
     const zip = new JSZip();
     let count = 0;
-    const zipFilename = 'AllDocument.zip';
+    const zipFilename = `${this.customerData}.zip`;
     const urls = [];
     if (documentUrls.length > 0) {
       documentUrls.map(d => {
