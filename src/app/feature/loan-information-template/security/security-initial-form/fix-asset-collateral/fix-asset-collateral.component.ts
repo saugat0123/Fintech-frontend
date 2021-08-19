@@ -146,7 +146,6 @@ export class FixAssetCollateralComponent implements OnInit {
         );
     }
     getRoleList() {
-        this.spinner = true;
         this.roleService.getAll().subscribe(res => {
             this.designationList = res.detail;
             this.spinner = false;
@@ -254,6 +253,7 @@ export class FixAssetCollateralComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        this.spinner = true;
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
@@ -293,10 +293,12 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
         if (this.fixedAssetsForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
+            this.spinner = false;
             return;
         }
         this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
+            this.spinner = false;
             this.nbDialogRef.close();
         }, error => {
             this.spinner = false;
