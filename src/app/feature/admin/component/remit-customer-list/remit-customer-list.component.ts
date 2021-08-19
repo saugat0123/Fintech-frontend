@@ -7,6 +7,7 @@ import {Customer} from '../../modal/customer';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../modal/roleType';
 import {RemitCustomerService} from "./service/remit-customer.service";
+import {BranchService} from "../branch/branch.service";
 
 
 @Component({
@@ -25,16 +26,22 @@ export class RemitCustomerListComponent implements OnInit {
     searchObj = {};
     shipped: any;
     user: any;
+    branchList: any;
 
     constructor(private router: Router,
                 public modalService: NgbModal, private dialogService: NbDialogService,
                 private customerService: CustomerService,
                 private remitCustomerService: RemitCustomerService,
                 private toastService: NbToastrService,
+                private branchService: BranchService
     ) {
     }
 
     ngOnInit(): void {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
+            this.branchList = res.detail;
+            console.log('get all branches', this.branchList);
+        });
         this.user = LocalStorageUtil.getStorage();
         console.log('username', this.user);
         this.remitCustomerService.getRemitCustomerList().subscribe(res => {
@@ -44,7 +51,7 @@ export class RemitCustomerListComponent implements OnInit {
                 this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
                 console.log('filtered list', this.remitCustomerList);
             }
-            if(this.user.roleType === 'MAKER'){
+            if (this.user.roleType === 'MAKER') {
                 this.remitCustomerList = [];
             }
         });
@@ -61,16 +68,18 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     transferCustomer(event, data, template) {
-        console.log('event', event);
-        console.log('data', data);
-        console.log('template', template);
         this.onBoardData = data;
         event.stopPropagation();
         this.modalService.open(template);
     }
 
     sendToBranch(event, data, template) {
-
+        console.log('branch event', event);
+        console.log('branch data', data);
+        console.log('branch template', template);
+        this.onBoardData = data;
+        event.stopPropagation();
+        this.modalService.open(template);
     }
 
     viewData(event, Id, data, template) {
