@@ -229,17 +229,19 @@
   <div class="col-md-12">
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
+        <th *ngIf="client === clientName?.SHINE_RESUNGA && isRevolving">Interest and Principal Repayment Frequency</th>
         <th *ngIf="isFixedDeposit">Coupon Rate</th>
         <th *ngIf="isFixedDeposit">Premium On Coupon Rate</th>
-        <th *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving">Tenure of each deal</th>
+        <th *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving && client !== clientName?.SHINE_RESUNGA">Tenure of each deal</th>
         <th *ngIf="((client === clientName?.ICFC) && (proposalAllData?.prepaymentCharge > 0)) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">Prepayment Charge</th>
         <th *ngIf="((client !== clientName?.SHINE_RESUNGA) && (client !== clientName?.ICFC)) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">Prepayment Charge</th>
         <th>Collateral requirement (in%)</th>
       </tr>
       <tr>
+        <td *ngIf="client === clientName?.SHINE_RESUNGA && isRevolving" class="text-left pl-1">{{proposalAllData?.interestPrincipalRepayment}}</td>
         <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalAllData?.couponRate}}</th>
         <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalAllData?.premiumOnCouponRate}}</th>
-        <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving" class="text-right pr-1">{{proposalAllData?.tenorOfEachDeal || 'N/A'}}</td>
+        <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving && client !== clientName?.SHINE_RESUNGA" class="text-right pr-1">{{proposalAllData?.tenorOfEachDeal || 'N/A'}}</td>
         <td *ngIf="((client === clientName?.ICFC) && (proposalAllData?.prepaymentCharge > 0)) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)" class="text-right pr-1">{{proposalAllData?.prepaymentCharge}}%</td>
         <td *ngIf="((client !== clientName?.SHINE_RESUNGA) && (client !== clientName?.ICFC)) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)" class="text-right pr-1">{{proposalAllData?.prepaymentCharge}}%</td>
         <td class="text-right pr-1">{{proposalAllData?.collateralRequirement}}%</td>
