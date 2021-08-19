@@ -158,7 +158,11 @@
                                 </nb-card>
                             </ng-template>
                         </td>
-                        <td>{{valuator?.valuatingField |  replace:'_':' & '}}</td>
+                        <td>
+                            <ul *ngFor="let data of valuator.valuatingFields" style="list-style: none">
+                                <li>{{data | replace:'_':' & '}}</li>
+                            </ul>
+                        </td>
                         <td>{{valuator?.bankAssociateDate | date}}</td>
                         <td class="text-right pr-1">Rs.{{valuator?.minAmount | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs.{{valuator?.maxAmount | currencyFormatter}}</td>
