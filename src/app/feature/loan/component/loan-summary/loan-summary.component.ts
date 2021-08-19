@@ -167,6 +167,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
+    customerData;
 
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
@@ -238,6 +239,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         });
 
         this.loanDataHolder = this.loanData;
+        this.customerData = this.loanDataHolder.loanHolder.name;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -704,7 +706,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     private downloadAll(documentUrls: string[]): void {
         const zip = new JSZip();
         let count = 0;
-        const zipFilename = 'AllDocument.zip';
+        const zipFilename = `${this.customerData}.zip`;
         const urls = [];
         if (documentUrls.length > 0) {
             documentUrls.map(d => {
