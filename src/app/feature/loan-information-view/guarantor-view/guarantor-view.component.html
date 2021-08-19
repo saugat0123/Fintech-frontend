@@ -51,7 +51,9 @@
       <tbody>
       <tr>
 
-        <td class="text-left pl-1">{{guarantor?.guarantorLegalDocumentAddress}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="guarantor?.guarantorLegalDocumentAddress | safeHtml"></span>
+        </td>
 
         <td class="text-left pl-1">{{guarantor?.municipalities?.name}}</td>
         <td class="text-right pr-1">{{guarantor?.wardNumber}}</td>
@@ -94,7 +96,7 @@
         <td colspan="10">BackGround</td>
       </tr>
       <tr>
-        <th colspan="10" class="text-left pl-1">{{guarantor?.background}}</th>
+        <th colspan="10" class="text-left pl-1" [innerHTML]="guarantor?.background | safeHtml"></th>
       </tr>
     </table>
   </div>

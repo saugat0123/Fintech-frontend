@@ -99,7 +99,9 @@
       </tr>
       <tr>
         <td colspan="2"class="text-left pl-1">{{landDetails?.typeOfProperty}}</td>
-        <td colspan="2" class="text-left pl-1">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+        <td colspan="2" class="text-left pl-1">
+          <span [innerHTML]="landDetails?.landSecurityLegalDocumentAddress | safeHtml"></span>
+        </td>
         <td class="text-left pl-1">{{landDetails?.ownershipTransferDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
         <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
@@ -145,7 +147,9 @@
         </tr>
         <tr>
           <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
-          <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
+          <td colspan="4">
+            <span [innerHTML]="landDetails?.roadAccessDescribe | safeHtml"></span>
+          </td>
         </tr>
       </table>
     </ng-container>
@@ -157,7 +161,9 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{securityData['initialForm']['description']}}</td>
+        <td>
+          <span [innerHTML]="securityData['initialForm']['description'] | safeHtml"></span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -199,8 +205,8 @@
           <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
-          <th>Cost per sqf</th>
-          <th>Total cost</th>
+          <th>Building Cost Per Sqf</th>
+          <th>Total Building Value</th>
           <th>{{client === clientName?.SHINE_RESUNGA ? 'Ownership Type' : 'Type of property'}}</th>
           <th>Collateral Owner Relationship</th>
         </tr>
@@ -276,7 +282,9 @@
           <th>Revaluation Done?</th>
         </tr>
         <tr>
-          <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
+          <td class="text-left pl-1">
+            <span [innerHTML]="landBuilding?.landAndBuildingSecurityLegalDocumentAddress | safeHtml"></span>
+          </td>
           <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
           <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
@@ -366,7 +374,9 @@
         </tr>
         <tr>
           <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
-          <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
+          <td colspan="4">
+            <span [innerHTML]="landBuilding?.roadAccessDescribe | safeHtml"></span>
+          </td>
         </tr>
       </table>
     </ng-container>
@@ -375,7 +385,9 @@
         <td>Remarks of land and building</td>
       </tr>
       <tr>
-        <td class="text-left pl-1">{{securityData['initialForm']?.landBuildingDescription}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="securityData['initialForm']?.landBuildingDescription | safeHtml"></span>
+        </td>
       </tr>
     </table>
   </div>
@@ -386,7 +398,7 @@
       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
              *ngFor="let hypothecationOfStock of securityData['initialForm']['hypothecationOfStock']; let i= index">
         <tr>
-          <th class="text-center" colspan="9">Hypothecation Of Stock</th>
+          <th class="text-center" colspan="10">Hypothecation Of Stock</th>
         </tr>
         <tr class="text-center sb-bg-dark text-white">
           <th class="sn">S.N</th>
@@ -394,14 +406,29 @@
           <th colspan="2">Stock Location</th>
           <th colspan="2">Value</th>
           <th>Collateral Owner Relationship</th>
+          <th>Description</th>
         </tr>
         <tr>
-          <td rowspan="4">{{i + 1}}</td>
+          <td rowspan="6">{{i + 1}}</td>
           <td class="text-left pl-1" colspan="3">{{hypothecationOfStock?.owner}}</td>
           <td class="text-left pl-1" colspan="2">{{hypothecationOfStock?.stock}}</td>
           <td class="text-right pr-1" colspan="2">Rs. {{hypothecationOfStock?.value | currencyFormatter}}</td>
           <td class="text-left pl-1">{{hypothecationOfStock?.hypothecationOwnerRelationship}}</td>
+          <td class="text-left pl-1">
+            <span [innerHTML]="hypothecationOfStock?.description | safeHtml"></span>
+          </td>
         </tr>
+        <!-- Hypothetication other Details -->
+       <ng-container *ngIf="hypothecationOfStock?.otherDetail">
+         <tr  class="text-center sb-bg-dark text-white">
+           <td colspan="9">Other Details</td>
+         </tr>
+         <tr>
+           <td colspan="9">
+             <span [innerHTML]="hypothecationOfStock?.otherDetail | safeHtml"></span>
+           </td>
+         </tr>
+       </ng-container>
         <!-- owner Kyc hypothecation -->
         <tr *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null" class="text-center sb-bg-dark text-white">
           <th>Relation</th>
@@ -460,7 +487,7 @@
              *ngFor="let assignments of securityData['initialForm']['leaseAssignment']; let i= index">
 
         <tr>
-          <th class="text-center" colspan="9">Other Security</th>
+          <th class="text-center" colspan="9">Lease Assignment</th>
         </tr>
         <tr class="text-center sb-bg-dark text-white">
           <th class="sn">S.N</th>
@@ -477,10 +504,10 @@
   <!--  Corporate Guarantee-->
   <div class="row" *ngIf="corporate">
     <div class="col-md-12">
-      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+             *ngFor="let corporateGuarantee of securityData['initialForm']['corporateGuarantee']; let i= index">
         <tr>
-          <th class="text-center" colspan="6">Corporate Guarantee</th>
+          <th class="text-center" colspan="6">{{i + 1 }}. Corporate Guarantee</th>
         </tr>
         <tr class="sb-bg-dark text-white">
           <th class="sn">S.N</th>
@@ -490,13 +517,23 @@
           <th>Email address</th>
           <th>Phone number</th>
         </tr>
-        <tr *ngFor="let corporateGuarantee of securityData['initialForm']['corporateGuarantee']; let i= index">
-          <td>{{i + 1}}</td>
+        <tr>
+          <td rowspan="3">{{i + 1}}</td>
           <td class="text-left pl-1">{{corporateGuarantee?.name}}</td>
           <td class="text-left pl-1">{{corporateGuarantee?.address}}</td>
           <td class="text-left pl-1">{{corporateGuarantee?.keyPerson}}</td>
           <td class="text-left pl-1">{{corporateGuarantee?.email}}</td>
           <td class="text-right pr-1">{{corporateGuarantee?.phoneNumber}}</td>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th class="text-center" colspan="5">
+            Other Detail
+          </th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1" colspan="5">
+            <span [innerHTML]="corporateGuarantee?.otherDetail | safeHtml"></span>
+          </td>
         </tr>
       </table>
     </div>
@@ -505,10 +542,10 @@
 <!--  Personal Guarantee-->
   <div class="row" *ngIf="personal">
     <div class="col-md-12">
-      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-
+      <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
+             *ngFor="let personalGuarantee of securityData['initialForm']['personalGuarantee']; let i= index">
         <tr>
-          <th class="text-center" colspan="5">Personal Guarantee</th>
+          <th class="text-center" colspan="5"> {{i + 1}}. Personal Guarantee</th>
         </tr>
         <tr class="sb-bg-dark text-white">
           <th class="sn">S.N</th>
@@ -517,12 +554,22 @@
           <th>Email address</th>
           <th>Phone number</th>
         </tr>
-        <tr *ngFor="let personalGuarantee of securityData['initialForm']['personalGuarantee']; let i= index">
-          <td>{{i + 1}}</td>
+        <tr>
+          <td rowspan="3">{{i + 1}}</td>
           <td class="text-left pl-1">{{personalGuarantee?.name}}</td>
           <td class="text-left pl-1">{{personalGuarantee?.address}}</td>
           <td class="text-left pl-1">{{personalGuarantee?.email}}</td>
           <td class="text-right pr-1">{{personalGuarantee?.phoneNumber}}</td>
+        </tr>
+        <tr class="sb-bg-dark text-white">
+          <th class="text-center" colspan="5">
+            Other Detail
+          </th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1" colspan="5">
+            <span [innerHTML]="personalGuarantee?.otherDetail | safeHtml"></span>
+          </td>
         </tr>
       </table>
     </div>
@@ -669,7 +716,9 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1">{{securityData['initialForm']['buildingDetailsDescription']}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="securityData['initialForm']['buildingDetailsDescription'] | safeHtml"></span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -1002,7 +1051,9 @@
         <th colspan="6">Vehicle Remarks</th>
       </tr>
       <tr>
-        <td class="text-left pl-1" colspan="6">{{vehicleSecurity?.vehicleRemarks}}</td>
+        <td class="text-left pl-1" colspan="6">
+          <span [innerHTML]="vehicleSecurity?.vehicleRemarks | safeHtml"></span>
+        </td>
       </tr>
     </table>
   </div>
@@ -1034,7 +1085,7 @@
         <td class="text-left pl-1">{{depositDetails?.tenureStartDate | date}} ({{depositDetails?.tenureStartDate | engNepDate: false}})</td>
         <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
         <td class="text-left pl-1">{{depositDetails?.expiryDate | date}} ({{depositDetails?.expiryDate | engNepDate: false}})</td>
-        <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
+        <td class="text-right pr-1">{{depositDetails?.couponRate}}%</td>
         <td class="text-right pr-1">{{depositDetails?.beneficiary}}</td>
         <td class="text-left pl-1">{{depositDetails?.remarks}}</td>
       </tr>
@@ -1102,7 +1153,9 @@
         </tr>
         <tr>
           <th class="text-white sb-bg-dark">Description</th>
-          <th colspan="12" class="text-left pl-1">{{shareSecurity['securityOffered']}}</th>
+          <th colspan="12" class="text-left pl-1">
+            <span [innerHTML]="shareSecurity['securityOffered'] | safeHtml"></span>
+          </th>
         </tr>
         </tbody>
       </table>
@@ -1490,6 +1543,23 @@
           <th colspan="3" class="text-right">Total</th>
           <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue | currencyFormatter}}</td>
         </tr>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="securityData['initialForm']['remark']" class="row">
+    <div class="col-md-12">
+      <p class="text-center"><b>Security Remark</b></p>
+      <table class="table table-responsive-md table-bordered sb-small text-center table-sm">
+        <thead>
+        <tr class="sb-bg-dark text-white">
+          <th>Remark</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="securityData['initialForm']['remark'] | safeHtml"></span></td>
+        </tr>
+        </tbody>
       </table>
     </div>
   </div>

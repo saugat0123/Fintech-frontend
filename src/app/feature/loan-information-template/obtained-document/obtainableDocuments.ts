@@ -12,7 +12,7 @@ export class ObtainableDocuments {
         'Mortgage Deed',
         'Guarantee Of Wife and Son',
         'Loan Deed For Housing Loan',
-        'Corporate Guarantee Of The Entity For Proposed Business Loan Personal',
+        'Corporate Guarantee Of The Entity For Proposed Business Loan',
         'Guarantee Of Family Members Personal',
        ' Guarantee Of Spouse Consent From Family Members Of Property Owner Consent From Property Owner',
         'Insurance Of Building Full',

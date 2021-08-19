@@ -3,7 +3,7 @@
         <p><strong>{{loanCategory === 'INDIVIDUAL' ? '10. ' : '9. '}} Group Security Details</strong></p>
     </div>
     <ng-template #notApproveSheet>
-        <p><strong>Group Security Details</strong></p>
+        <p><strong>Security Exposure Details</strong></p>
     </ng-template>
 </div>
 <div class="row mb-2">
@@ -78,19 +78,19 @@
     </div>
     <div class="col-md-2 sb-small">
         <mark class="alert-warning">Total FMV/Considered Value:</mark>
-        <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>
+        <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter }}</strong>
     </div>
     <div class="col-md-2 sb-small">
         <mark class="alert-warning">Surplus/(Deficit):</mark>
-        <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>
+        <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter }}</strong>
     </div>
     <div  class="col-md-2 sb-small">
         <mark class="alert-warning">Coverage%:</mark>
-        <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |roundvalue}}%</strong>
+        <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |number : '1.2-2'}}%</strong>
     </div>
     <div  class="col-md-2 sb-small">
         <mark class="alert-warning">Loan Exposure:</mark>
-        <strong>{{
-            ((totalProposedAmount) / security?.totalSecurityAmount) * 100 |roundvalue}}%</strong>
+        <strong >{{
+            ((totalProposedAmount) / security?.totalSecurityAmount) * 100 |number : '1.2-2'}}%</strong>
     </div>
 </div>
