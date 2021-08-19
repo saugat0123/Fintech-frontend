@@ -224,18 +224,16 @@
         </div>
         <div class="col-md-12">
             <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to branch: </label>
-            <select (change)="onChange($event.target.value)"
+            <select (change)="onBranchChange(branchList, $event)"
                     class="form-control form-control-sm"
-                    placeholder="Select instituition"
-                    id="branch"
-                    name="branch">
+                    placeholder="Select instituition">
                 <option value="null">Select branch</option>
                 <option *ngFor="let branch of branchList"
                         [value]="branch.id">{{branch.name}}</option>
             </select>
             <div class="d-flex justify-content-end pb-md-3">
 
-                <button style="margin-top: 20px" (click)="customerTransferToInstituition()" class="btn float-right"
+                <button style="margin-top: 20px" (click)="customerTransferToBranch()" class="btn float-right"
                         nbButton size="small"
                         status="info"
                         shape="rectangle"
@@ -261,7 +259,7 @@
         </div>
         <div class="col-md-12">
             <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to: </label>
-            <select (change)="onChange($event.target.value)"
+            <select (change)="onInstituitionChange($event.target.value)"
                     class="form-control form-control-sm"
                     placeholder="Select instituition"
                     id="instituition"

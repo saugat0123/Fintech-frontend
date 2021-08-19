@@ -5,7 +5,6 @@ import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../modal/customer';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {RoleType} from '../../modal/roleType';
 import {RemitCustomerService} from "./service/remit-customer.service";
 import {BranchService} from "../branch/branch.service";
 
@@ -27,6 +26,7 @@ export class RemitCustomerListComponent implements OnInit {
     shipped: any;
     user: any;
     branchList: any;
+    selectedValue: any;
 
     constructor(private router: Router,
                 public modalService: NgbModal, private dialogService: NbDialogService,
@@ -51,9 +51,6 @@ export class RemitCustomerListComponent implements OnInit {
                 this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
                 console.log('filtered list', this.remitCustomerList);
             }
-            if (this.user.roleType === 'MAKER') {
-                this.remitCustomerList = [];
-            }
         });
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
@@ -74,9 +71,6 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     sendToBranch(event, data, template) {
-        console.log('branch event', event);
-        console.log('branch data', data);
-        console.log('branch template', template);
         this.onBoardData = data;
         event.stopPropagation();
         this.modalService.open(template);
@@ -126,6 +120,10 @@ export class RemitCustomerListComponent implements OnInit {
         });
     }
 
+    customerTransferToBranch() {
+        this.onBoardMember();
+    }
+
     customerProfile(associateId, id, customerType) {
         this.router.navigate(['/home/customer/profile/' + associateId], {
             queryParams: {
@@ -135,7 +133,16 @@ export class RemitCustomerListComponent implements OnInit {
         });
     }
 
-    onChange(value: any) {
+    onBranchChange(branchList: any, branchId: any) {
+        let bId = branchId.target.value;
+        console.log('branch id', bId);
+        let branch = branchList.filter(b => b.id == bId);
+        this.onBoardData.branch = branch;
+        console.log('filtered branch', branch);
+        console.log('onboard data', this.onBoardData);
+    }
+
+    onInstituitionChange(value: any) {
         this.shipped = value;
         console.log('on change value', this.shipped);
     }
