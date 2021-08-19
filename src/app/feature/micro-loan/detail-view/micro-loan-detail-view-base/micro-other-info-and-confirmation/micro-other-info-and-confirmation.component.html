@@ -1,0 +1,81 @@
+<div class="col-md-12">
+    <div>
+        <p><strong>Other Information and Confirmation</strong></p>
+    </div>
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <thead class="sb-bg-dark text-white">
+        <th>S.N</th>
+        <th>Information</th>
+        <th>YES / NO</th>
+        <th>Remarks</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1.</td>
+            <td>Is the loan processing fee as per our standard charges?</td>
+            <td>{{proposalData?.loanProcessingFee}}</td>
+            <td>{{proposalData?.loanProcessingRemarks}}</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>Is the customer eligible for loan from Mega Bank as per prevailing law & NRB guidelines?</td>
+            <td>{{proposalData?.customerEligibile}}</td>
+            <td>{{proposalData?.customerEligibileRemarks}}</td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Has the customer taken consent from its family members for the proposal?</td>
+            <td>{{proposalData?.customerTakenConsent}}</td>
+            <td>{{proposalData?.customerTakenConsentRemarks}}</td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>Did you visit the business site? Can it be regularly monitored by the branch office?</td>
+            <td>{{proposalData?.businessSite}}</td>
+            <td>{{proposalData?.businessSiteRemarks}}</td>
+        </tr>
+        <tr>
+            <td>5.</td>
+            <td>Has the customer understand all the terms & conditions as per our PPG?</td>
+            <td>{{proposalData?.customerUnderstand}}</td>
+            <td>{{proposalData?.customerUnderstandRemarks}}</td>
+        </tr>
+        <tr>
+            <td>6.</td>
+            <td>Did the applicant submit all the required documents as per PPG and verified with true copy?</td>
+            <td>{{proposalData?.applicantSubmit}}</td>
+            <td>{{proposalData?.applicantSubmitRemarks}}</td>
+        </tr>
+        <tr>
+            <td>7.</td>
+            <td>Has the customer is experience in the same field more than 1 year</td>
+            <td>{{proposalData?.customerExperience}}</td>
+            <td>{{proposalData?.customerExperienceRemarks}}</td>
+        </tr>
+        <tr>
+            <td>8.</td>
+            <td>Please check whether followings are in defaulters' black list as published by CIB</td>
+            <td>{{proposalData?.checkWhether}}</td>
+            <td>{{proposalData?.checkWhetherRemarks}}</td>
+        </tr>
+        <tr>
+            <td>a.</td>
+            <td>Applicant</td>
+            <td>{{proposalData?.applicant}}</td>
+            <td>{{proposalData?.applicantRemarks}}</td>
+        </tr>
+        <tr>
+            <td>b.</td>
+            <td>Undivided family members of applicants</td>
+            <td>{{proposalData?.undividedFamily}}</td>
+            <td>{{proposalData?.undividedFamilyRemarks}}</td>
+        </tr>
+        <tr>
+            <td>c.</td>
+            <td>PG providers of applicant</td>
+            <td>{{proposalData?.providersApplicant}}</td>
+            <td>{{proposalData?.providersApplicantRemarks}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

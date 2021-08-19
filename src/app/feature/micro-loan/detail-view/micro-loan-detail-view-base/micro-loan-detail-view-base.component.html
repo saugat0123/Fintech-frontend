@@ -15,6 +15,8 @@
                            [proposalData]="loanDataHolder?.proposal"
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
 
+        <app-micro-other-info-and-confirmation *ngIf="loanDataHolder?.proposal" [proposal]="loanDataHolder?.proposal"></app-micro-other-info-and-confirmation>
+
         <nb-card *ngIf="!otherMicroDetailsVisibility">
             <nb-card-header>
                 <h6>BASEL wise Risk Exposure</h6>
