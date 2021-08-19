@@ -165,14 +165,17 @@
   <div class="col-md-12" *ngIf="client === clientName?.SHINE_RESUNGA">
     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
       <thead>
+      <tr class="sb-bg-dark text-white">
+        <th colspan="4">Information of Proprietor/Shareholder/Partner with holder %</th>
+      </tr>
+      </thead>
+      <tbody>
       <tr class="text-white sb-bg-dark">
         <th class="sn">S.No</th>
         <th>Shareholder/Promoters</th>
         <th>Designation</th>
         <th>Share holding(%)</th>
       </tr>
-      </thead>
-      <tbody>
       <ng-container *ngFor="let share of companyJsonData.proprietorList; let i=index">
         <tr>
           <td>{{i+1}}</td>
