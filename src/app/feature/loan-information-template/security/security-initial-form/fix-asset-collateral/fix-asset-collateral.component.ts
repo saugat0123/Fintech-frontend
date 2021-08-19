@@ -46,6 +46,10 @@ export class FixAssetCollateralComponent implements OnInit {
     collateralData: any;
     selectedSiteVisit: any;
     fileType = '.jpg';
+    modelHeader: string;
+    modelBody: string;
+    isSiteVisitPresent: boolean;
+    security_id_for_delete: string;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -104,6 +108,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
+            this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
             this.getDistrictsById(this.collateralData.province.id, null);
@@ -141,7 +146,6 @@ export class FixAssetCollateralComponent implements OnInit {
         );
     }
     getRoleList() {
-        this.spinner = true;
         this.roleService.getAll().subscribe(res => {
             this.designationList = res.detail;
             this.spinner = false;
@@ -249,6 +253,7 @@ export class FixAssetCollateralComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        this.spinner = true;
         if (ObjectUtil.isEmpty(this.collateralSiteVisit)) {
             this.collateralSiteVisit = new CollateralSiteVisit();
         }
@@ -292,6 +297,7 @@ export class FixAssetCollateralComponent implements OnInit {
         }
         this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
+            this.spinner = false;
             this.nbDialogRef.close();
         }, error => {
             this.spinner = false;
@@ -318,5 +324,46 @@ export class FixAssetCollateralComponent implements OnInit {
         link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
         link.setAttribute('visibility', 'hidden');
         link.click();
+    }
+
+    public onClose(model): void {
+        this.modelService.dismissAll(model);
+    }
+
+    public openModel(model, security_id_for_delete): void {
+        this.security_id_for_delete = security_id_for_delete;
+        this.modelHeader = 'DELETE';
+        if (security_id_for_delete === 'single') {
+            this.modelBody = 'ARE YOU SURE YOU WANT TO DELETE ?';
+        } else {
+            this.modelBody = 'ARE YOU SURE YOU WANT TO DELETE ALL ?';
+        }
+        this.modelService.open(model);
+    }
+
+    public deleteSiteVisit(deleteId, model): void {
+        if (deleteId === 'single') {
+            this.collateralSiteVisitService.deleteSiteVisit(this.collateralSiteVisit.id, this.collateralSiteVisit.siteVisitDate)
+                .subscribe((response: any) => {
+                    this.modelService.dismissAll(model);
+                    this.nbDialogRef.close(FixAssetCollateralComponent);
+                    this.toastService.show(new Alert(AlertType.SUCCESS, response.detail));
+            }, error => {
+                    this.modelService.dismissAll(model);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+                console.error(error);
+            });
+        } else {
+            this.collateralSiteVisitService.deleteAllSiteVisit(this.securityId, this.collateralSiteVisit.securityName)
+                .subscribe((res: any) => {
+                    this.modelService.dismissAll(model);
+                    this.nbDialogRef.close(FixAssetCollateralComponent);
+                    this.toastService.show(new Alert(AlertType.SUCCESS, res.detail));
+                }, error => {
+                    this.modelService.dismissAll(model);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Could not delete site visit'));
+                    console.error(error);
+                });
+        }
     }
 }
