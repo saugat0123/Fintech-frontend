@@ -132,6 +132,7 @@ export class NepseComponent implements OnInit {
                 this.modalService.dismissAll();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successed!'));
                 NepseComponent.loadData(this);
+                this.NEPSE_FORM.reset();
             }, (error) => {
                 this.toastService.show((new Alert(AlertType.DANGER, 'Failed')));
             });
