@@ -35,8 +35,6 @@ export class NepseComponent implements OnInit {
     permissions = [];
     status = Status;
     NEPSE_FORM: FormGroup;
-    disableSubmit = false;
-
     constructor(
         private service: NepseService,
         private permissionService: PermissionService,
@@ -119,7 +117,7 @@ export class NepseComponent implements OnInit {
     }
 
     SubmitNEPSEFORM() {
-        this.disableSubmit = true;
+        this.spinner = true;
         this.search = {
             'companyName': this.NEPSE_FORM.get('companyName').value,
             'shareType': this.NEPSE_FORM.get('shareType').value,
@@ -132,7 +130,7 @@ export class NepseComponent implements OnInit {
             }
 
             this.service.save(this.NEPSE_FORM.value).subscribe(() => {
-                this.disableSubmit = false;
+                this.spinner = false;
                 this.modalService.dismissAll();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successed!'));
                 NepseComponent.loadData(this);

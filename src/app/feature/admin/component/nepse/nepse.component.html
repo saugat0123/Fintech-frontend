@@ -50,7 +50,7 @@
                                 <i class="fa fa-plus"></i>
                             </button>
                             <ng-template #popup>
-                                <div class="modal-document">
+                                <div class="modal-document" [nbSpinner]="spinner">
                                     <div class="modal-content">
                                         <div class="modal-header" style="display:block">
                                             <a class="close cursor" data-dismiss="modal" aria-label="Close"
@@ -80,7 +80,7 @@
                                                     <ng-select id="shareType" [items]="items"  formControlName="shareType">
                                                     </ng-select>
                                                 </div>
-                                                <button [disabled]="disableSubmit" type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>
                                         </div>
                                     </div>
