@@ -159,9 +159,10 @@
                             </ng-template>
                         </td>
                         <td>
-                            <ul *ngFor="let data of valuator.valuatingFields" style="list-style: none">
-                                <li>{{data | replace:'_':' & '}}</li>
-                            </ul>
+                            <div class="col-md-12 justify-content-center" *ngFor="let data of valuator.valuatingFields;">
+                               {{data | replace:'_':' & '}}
+                                <br>
+                            </div>
                         </td>
                         <td>{{valuator?.bankAssociateDate | date}}</td>
                         <td class="text-right pr-1">Rs.{{valuator?.minAmount | currencyFormatter}}</td>
