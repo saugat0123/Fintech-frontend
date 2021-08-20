@@ -13,6 +13,7 @@ import {LoanType} from '../../loan/model/loanType';
 import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {LoanDataHolder} from "../../loan/model/loanData";
 
 @Component({
   selector: 'app-proposal',
@@ -26,6 +27,8 @@ export class ProposalComponent implements OnInit {
   @Input() formValue: Proposal;
   @Input() loanIds;
   @Input() loanType;
+  @Input() loanTitle;
+  @Input() loanData: LoanDataHolder;
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
   formDataForEdit: Object;
@@ -62,6 +65,8 @@ export class ProposalComponent implements OnInit {
   othersSubsidyLoan = false;
   existInterestLimit: number;
   showInterestAmount = true;
+  couponRate;
+  multiCouponRate = [];
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -163,10 +168,25 @@ export class ProposalComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
           });
         });
-    this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-    .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
-    this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-    .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
+
+    if (!(this.loanTitle !== 'LOAN AGAINST FDR')) {
+      this.couponRate = 0;
+      if (!ObjectUtil.isEmpty(this.loanData.security)) {
+        const securityData = JSON.parse(this.loanData.security.data);
+        const fixedSecurityData = securityData.initialForm.fixedDepositDetails;
+        for (let i = 0; i < fixedSecurityData.length; i++) {
+          this.multiCouponRate.push(fixedSecurityData[i].couponRate);
+        }
+        this.couponRate = this.multiCouponRate.reduce((previousVal, currentVal) => previousVal + currentVal, 0);
+      }
+      this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
+          .patchValue((Number(value) - Number(this.couponRate)).toFixed(2)));
+    } else {
+      this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
+          .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
+      this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
+          .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
+    }
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
