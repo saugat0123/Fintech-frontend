@@ -40,16 +40,12 @@ export class RemitCustomerListComponent implements OnInit {
     ngOnInit(): void {
         this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
             this.branchList = res.detail;
-            console.log('get all branches', this.branchList);
         });
         this.user = LocalStorageUtil.getStorage();
-        console.log('username', this.user);
         this.remitCustomerService.getRemitCustomerList().subscribe(res => {
             this.remitCustomerList = res.detail;
-            console.log('remit customer list', this.remitCustomerList);
             if (this.user.roleType === 'COMMITTEE') {
                 this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
-                console.log('filtered list', this.remitCustomerList);
             }
         });
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
@@ -59,7 +55,6 @@ export class RemitCustomerListComponent implements OnInit {
 
     addMember(event, data, template) {
         this.onBoardData = data;
-        console.log('on board data', data);
         event.stopPropagation();
         this.modalService.open(template);
     }
@@ -104,13 +99,10 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     customerTransferToInstituition() {
-        console.log('inside customer transfer');
         this.onBoardData.shipped = this.shipped;
-        console.log('customer final data', this.onBoardData);
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
         this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
-            console.log('api called', res);
             this.onBoardData.alreadyTransferred = true;
             this.onBoardSpinner = false;
             this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
@@ -121,7 +113,13 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     customerTransferToBranch() {
-        this.onBoardMember();
+        console.log('SEND TO BRANCH data', this.onBoardData);
+        this.modalService.dismissAll();
+        this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+            this.toastService.success('Successfully Send to branch');
+        }, error => {
+            this.toastService.success('Failed to send to branch');
+        });
     }
 
     customerProfile(associateId, id, customerType) {
@@ -135,16 +133,12 @@ export class RemitCustomerListComponent implements OnInit {
 
     onBranchChange(branchList: any, branchId: any) {
         let bId = branchId.target.value;
-        console.log('branch id', bId);
         let branch = branchList.filter(b => b.id == bId);
-        this.onBoardData.branch = branch;
-        console.log('filtered branch', branch);
-        console.log('onboard data', this.onBoardData);
+        this.onBoardData.branch = branch[0];
     }
 
     onInstituitionChange(value: any) {
         this.shipped = value;
-        console.log('on change value', this.shipped);
     }
 
 }
