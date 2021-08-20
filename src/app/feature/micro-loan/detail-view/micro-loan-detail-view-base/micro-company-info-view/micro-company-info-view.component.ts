@@ -21,6 +21,7 @@ import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-
 export class MicroCompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
   @Input() isMicroDirect: boolean;
+  @Input() isMicroCustomer: boolean;
   customerType = CustomerType;
 
   @Input() calendarType: CalendarType;
