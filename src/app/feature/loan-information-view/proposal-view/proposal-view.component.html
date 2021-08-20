@@ -36,11 +36,9 @@
         <th>Enhance</th>
         <th>Settlement</th>
         <th>Proposed Limit</th>
-        <!--        <th>Existing INT/COM/CM</th>-->
         <!--        for non funded commision and cash margin combination to be view-->
         <th>Existing Proposed INT/COM/CM</th>
         <th>Proposed INT/COM/CM</th>
-
         <th>Service Charge</th>
         <th>Limit Expiry/Tenure(AD/BS)</th>
       </tr>
@@ -80,20 +78,22 @@
           <span *ngIf="!(loan?.proposal?.data | jsonParse)?.settlementAmount">-</span></td>
 
         <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
-        <!--                Existing INT/COM/CM-->
-        <!--        <td>-</td>-->
-        <td>
-                    <span *ngIf="loan?.loan?.isFundable">
-                        IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}}%
-                    </span>
+        <td class="text-right pr-1">
+          <span *ngIf="(loan?.loan?.isFundable) && ((loan?.proposal?.data | jsonParse)?.existInterestRate) > 0 ">
+            IR: {{(loan?.proposal?.data | jsonParse)?.existInterestRate}} %
+          </span>
           <span *ngIf="!loan?.loan?.isFundable">
-                        <span
-                                *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT'">
-                            CM: Rs. {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)|currencyFormatter}} ,</span>
-                        <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT'">
-                            CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}}%,</span>
-                        COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
-                    </span>
+            <span *ngIf="((loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'FLAT') && ((loan?.proposal?.data | jsonParse)?.existCashMargin > 0)">
+              CM: Rs. {{(loan?.proposal?.data | jsonParse)?.existCashMargin || 0 | currencyFormatter}} ,</span>
+            <span *ngIf="((loan?.proposal?.data | jsonParse)?.existCashMarginMethod == 'PERCENT') && ((loan?.proposal?.data | jsonParse)?.existCashMargin > 0)">
+              CM: {{ ((loan?.proposal?.data | jsonParse)?.existCashMargin || 0)}} %,</span>
+            <span *ngIf="(loan?.proposal?.data | jsonParse)?.existCommissionPercentage > 0">
+              COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
+            </span>
+          </span>
+          <span *ngIf="((loan?.proposal?.data | jsonParse)?.existInterestRate === null)
+            && ((loan?.proposal?.data | jsonParse)?.existCashMargin === null)
+            && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
         </td>
         <td>
           <span *ngIf="loan?.loan?.isFundable">
@@ -245,8 +245,7 @@
         <td class="text-right pr-1">{{proposalAllData?.collateralRequirement}}%</td>
       </tr>
     </table>
-    <table
-            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
+    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral">Tenure Duration in Month</th>
         <th *ngIf="(client !== clientName?.ICFC || !showInterestAmount) && ((loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral)">Repayment Mode</th>
@@ -306,32 +305,35 @@
         <tr>
           <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
         </tr>
-        <tr class="text-white sb-bg-dark">
-          <th *ngIf="client !== clientName?.MEGA">Loan Background</th>
-          <th *ngIf="client === clientName?.MEGA">Justification of limit</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span> </td>
-        </tr>
     </table>
 
     <table *ngIf="summaryType !== summaryTypeName?.GENERAL"
            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <thead>
-      <th>
-        <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
-          Prepayment/Commitment/Swap Charge Description</div>
-        <ng-template #commitmentDescription>
-          <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
-            Commitment/Swap Charge Description</div>
-        </ng-template>
-        <ng-template #swapChargeDescription>
-          Swap Charge Description
-        </ng-template>
-      </th>
+      <tr class="sb-bg-dark text-white">
+        <th>
+          <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
+            Prepayment/Commitment/Swap Charge Description</div>
+          <ng-template #commitmentDescription>
+            <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
+              Commitment/Swap Charge Description</div>
+          </ng-template>
+          <ng-template #swapChargeDescription>
+            Swap Charge Description
+          </ng-template>
+        </th>
+      </tr>
       </thead>
       <tbody>
-      <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
+      <tr>
+        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th>Loan Background</th>
+      </tr>
+      <tr>
+        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span> </td>
+      </tr>
       </tbody>
     </table>
 
@@ -397,6 +399,17 @@
         </tr>
         <tr>
           <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+        </tr>
+      </ng-container>
+    </table>
+    <table *ngIf="client === clientName?.SHINE_RESUNGA"
+           class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
+      <ng-container>
+        <tr class="text-white sb-bg-dark">
+          <th>Proposal Remark</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.proposalRemark || 'N/A' | safeHtml"></span></td>
         </tr>
       </ng-container>
     </table>
