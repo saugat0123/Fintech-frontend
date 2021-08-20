@@ -6,7 +6,13 @@ import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../modal/customer';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../modal/roleType';
-import {RemitCustomerService} from "./service/remit-customer.service";
+import {RemitCustomerService} from './service/remit-customer.service';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {FormGroup} from '@angular/forms';
+import {AccountType} from '../../modal/accountType';
 
 
 @Component({
@@ -23,34 +29,60 @@ export class RemitCustomerListComponent implements OnInit {
     transferDoc: any;
     remitCustomerList: any;
     searchObj = {};
+    remitList = [];
     shipped: any;
     user: any;
-
+    spinner = false;
+    filterForm: FormGroup;
+    page = 1;
+    search: any = {
+        name: undefined
+    };
+    pageable: Pageable = new Pageable();
+   totalCustomerList = 0;
     constructor(private router: Router,
                 public modalService: NgbModal, private dialogService: NbDialogService,
                 private customerService: CustomerService,
                 private remitCustomerService: RemitCustomerService,
                 private toastService: NbToastrService,
+                private overlay: NgxSpinnerService
     ) {
     }
+    static loadData(other: RemitCustomerListComponent) {
+        other.overlay.show();
+        other.spinner = true;
+        other.remitCustomerService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+            other.remitCustomerList = response.detail.content;
+            other.totalCustomerList = response.detail.totalElements;
+            other.pageable = PaginationUtils.getPageable(response.detail);
+            other.spinner = false;
+            other.overlay.hide();
+        }, error => {
+            console.error(error);
+            other.overlay.hide();
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
+            other.spinner = false;
 
-    ngOnInit(): void {
+        });
+    }
+    ngOnInit() {
         this.user = LocalStorageUtil.getStorage();
         console.log('username', this.user);
-        this.remitCustomerService.getRemitCustomerList().subscribe(res => {
-            this.remitCustomerList = res.detail;
-            console.log('remit customer list', this.remitCustomerList);
-            if (this.user.roleType === 'COMMITTEE') {
-                this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
-                console.log('filtered list', this.remitCustomerList);
-            }
-            if(this.user.roleType === 'MAKER'){
-                this.remitCustomerList = [];
-            }
-        });
+        // this.remitCustomerService.getRemitCustomerList().subscribe(res => {
+        //     this.remitCustomerList = res.detail;
+        //     console.log('remit customer list', this.remitCustomerList);
+        //     if (this.user.roleType === 'COMMITTEE') {
+        //         this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
+        //         console.log('filtered list', this.remitCustomerList);
+        //     }
+        //     if (this.user.roleType === 'MAKER') {
+        //         this.remitCustomerList = [];
+        //     }
+        // });
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
+        RemitCustomerListComponent.loadData(this);
     }
 
     addMember(event, data, template) {
@@ -131,4 +163,8 @@ export class RemitCustomerListComponent implements OnInit {
         console.log('on change value', this.shipped);
     }
 
+    changePage(page: number) {
+        this.page = page;
+        RemitCustomerListComponent.loadData(this);
+    }
 }

@@ -171,6 +171,8 @@
 
             </tbody>
         </table>
+        <app-paging (changePage)="changePage($event)"
+                    [pageable]="pageable"></app-paging>
     </nb-card-body>
 </nb-card>
 
