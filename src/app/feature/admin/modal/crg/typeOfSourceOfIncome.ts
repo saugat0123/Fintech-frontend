@@ -7,6 +7,7 @@ export enum TypeOfSourceOfIncome {
     BRITISH_GURKHA = 'British gurkha',
     SINGAPORE_POLICE = 'Singapore police',
     INDIAN_ARMY = 'Indian Army',
+    PRIVATE_COMPANY = 'Private Company',
     CONTRACTUAL_EMPLOYEMENT = 'Contractual Employement',
     NGO_INGO_DEVELOPMENT_SECTOR = 'NGOs/INGOs/Development Sector',
 
@@ -46,6 +47,7 @@ export class TypeOfSourceOfIncomeMap {
         [TypeOfSourceOfIncome.BRITISH_GURKHA, 21.60],
         [TypeOfSourceOfIncome.SINGAPORE_POLICE, 21.60],
         [TypeOfSourceOfIncome.INDIAN_ARMY, 21.60],
+        [TypeOfSourceOfIncome.PRIVATE_COMPANY, 21.60],
         [TypeOfSourceOfIncome.CONTRACTUAL_EMPLOYEMENT, 16.80],
 
         [TypeOfSourceOfIncome.PRIME_COMMERCIAL, 24],
@@ -95,6 +97,7 @@ export class TypeOfSourceOfIncomeArray {
         TypeOfSourceOfIncome.BRITISH_GURKHA,
         TypeOfSourceOfIncome.SINGAPORE_POLICE,
         TypeOfSourceOfIncome.INDIAN_ARMY,
+        TypeOfSourceOfIncome.PRIVATE_COMPANY,
         TypeOfSourceOfIncome.CONTRACTUAL_EMPLOYEMENT];
 
     static rentalArray: Array<string> = [
