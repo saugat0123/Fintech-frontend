@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NewRequestService} from '../new-requests/new-request.service';
 import {Applicant} from '../../../modal/applicant';
+import {environment} from '../../../../../../environments/environment';
 import {DateService} from '../../../../../@core/service/baseservice/date.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
@@ -17,6 +18,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
     styleUrls: ['./eligibility-summary.component.scss']
 })
 export class EligibilitySummaryComponent implements OnInit {
+    client: string;
     applicantParam;
     applicantId: number;
     applicant: Applicant = new Applicant();
@@ -34,7 +36,7 @@ export class EligibilitySummaryComponent implements OnInit {
         private toastService: ToastService,
         private router: Router
     ) {
-
+        this.client = environment.client;
     }
 
     ngOnInit() {

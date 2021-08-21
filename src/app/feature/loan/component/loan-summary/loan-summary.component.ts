@@ -36,6 +36,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
+import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
@@ -64,6 +65,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     @Input() nepaliDate;
     hasMissingDeferredDocs = false;
+
+    client: string;
+    clientName = Clients;
 
     docMsg;
     rootDocLength;
@@ -202,6 +206,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
     ) {
+        this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {

@@ -35,6 +35,7 @@ import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component
 import {DocAction} from '../../model/docAction';
 import {Security} from '../../../admin/modal/security';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+import {Clients} from '../../../../../environments/Clients';
 import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
@@ -58,52 +59,54 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
 
     @Input() nepaliDate;
 
-  docMsg;
-  rootDocLength;
-  dmsLoanFile: DmsLoanFile = new DmsLoanFile();
-  loan: string;
-  index = 0;
-  currentIndex: number;
-  user: User = new User();
-  securities: any = [];
-  Security: typeof Security = Security;
-  documents: [] = [];
-  documentUrls = [];
-  documentUrl: string;
-  documentNames = [];
-  documentName: string;
-  document: string;
-  documentNamesSplit: string[] = [];
-  id: number;
-  customerInfo: any;
-  loanType = LoanType;
-  customerId;
-  loanConfigId;
-  RootUrl = ApiConfig.URL;
-  signatureList: Array<LoanStage> = new Array<LoanStage>();
-  previousList: Array<LoanStage> = new Array<LoanStage>();
-  currentDocAction = '';
-  loanCategory;
-  @ViewChild('print', {static: false}) print;
-  businessType = BusinessType;
-  financialData: Financial = new Financial();
-  shareSecurityData: ShareSecurity = new ShareSecurity();
-  proposalData: Proposal;
-  guarantorData = [];
-  financialSummary = false;
-  siteVisitSummary = false;
-  shareSecuritySummary = false;
-  proposalSummary = false;
-  navigationSubscription;
-  securitySummary = false;
-  securityData: Object;
-  siteVisitData: Object;
-  checkGuarantorData = false;
-  offerLetterDocuments: {
-    name: string,
-    url: string
-  }[] = [];
-  registeredOfferLetters: Array<string> = [];
+    client: string;
+    clientName = Clients;
+    docMsg;
+    rootDocLength;
+    dmsLoanFile: DmsLoanFile = new DmsLoanFile();
+    loan: string;
+    index = 0;
+    currentIndex: number;
+    user: User = new User();
+    securities: any = [];
+    Security: typeof Security = Security;
+    documents: [] = [];
+    documentUrls = [];
+    documentUrl: string;
+    documentNames = [];
+    documentName: string;
+    document: string;
+    documentNamesSplit: string[] = [];
+    id: number;
+    customerInfo: any;
+    loanType = LoanType;
+    customerId;
+    loanConfigId;
+    RootUrl = ApiConfig.URL;
+    signatureList: Array<LoanStage> = new Array<LoanStage>();
+    previousList: Array<LoanStage> = new Array<LoanStage>();
+    currentDocAction = '';
+    loanCategory;
+    @ViewChild('print', {static: false}) print;
+    businessType = BusinessType;
+    financialData: Financial = new Financial();
+    shareSecurityData: ShareSecurity = new ShareSecurity();
+    proposalData: Proposal;
+    guarantorData = [];
+    financialSummary = false;
+    siteVisitSummary = false;
+    shareSecuritySummary = false;
+    proposalSummary = false;
+    navigationSubscription;
+    securitySummary = false;
+    securityData: Object;
+    siteVisitData: Object;
+    checkGuarantorData = false;
+    offerLetterDocuments: {
+        name: string,
+        url: string
+    }[] = [];
+    registeredOfferLetters: Array<string> = [];
 
     // Credit risk variables ---
     creditGradeStatusBadge;
@@ -181,34 +184,34 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     isMicroCustomer: boolean;
 
 
-
-  constructor(
-      private userService: UserService,
-      private loanFormService: LoanFormService,
-      private loanActionService: LoanActionService,
-      private dmsLoanService: DmsLoanService,
-      private activatedRoute: ActivatedRoute,
-      private router: Router,
-      private loanConfigService: LoanConfigService,
-      private approvalLimitService: ApprovalLimitService,
-      private dateService: DateService,
-      private modalService: NgbModal,
-      private documentService: DocumentService,
-      private customerLoanService: LoanFormService,
-      private combinedLoanService: CombinedLoanService,
-      private commonRoutingUtilsService: CommonRoutingUtilsService,
-      private toastService: ToastService,
-      private fiscalYearService: FiscalYearService,
-      private collateralSiteVisitService: CollateralSiteVisitService,
-      private nbDialogService: NbDialogService,
-  ) {
-    this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd) {
-        this.loadSummary();
-      }
-    });
-  }
+    constructor(
+        private userService: UserService,
+        private loanFormService: LoanFormService,
+        private loanActionService: LoanActionService,
+        private dmsLoanService: DmsLoanService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private loanConfigService: LoanConfigService,
+        private approvalLimitService: ApprovalLimitService,
+        private dateService: DateService,
+        private modalService: NgbModal,
+        private documentService: DocumentService,
+        private customerLoanService: LoanFormService,
+        private combinedLoanService: CombinedLoanService,
+        private commonRoutingUtilsService: CommonRoutingUtilsService,
+        private toastService: ToastService,
+        private fiscalYearService: FiscalYearService,
+        private collateralSiteVisitService: CollateralSiteVisitService,
+        private nbDialogService: NbDialogService,
+    ) {
+        this.client = environment.client;
+        this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+                this.loadSummary();
+            }
+        });
+    }
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;

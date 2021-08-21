@@ -17,6 +17,7 @@ import {FiscalYearService} from '../admin/service/fiscal-year.service';
 import {ToastService} from '../../@core/utils';
 import {CombinedLoan} from '../loan/model/combined-loan';
 import {CombinedLoanService} from '../service/combined-loan.service';
+import {Clients} from '../../../environments/Clients';
 
 @Component({
     selector: 'app-loan-information-detail-view',
@@ -33,6 +34,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     spinner;
     loanCategory;
+    client;
+    clientList;
     currentIndex;
     RootUrl = ApiConfig.URL;
     calendarType: CalendarType = CalendarType.AD;
@@ -57,6 +60,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 private toastService: ToastService,
                 private combinedLoanService: CombinedLoanService,
     ) {
+        this.client = environment.client;
+        this.clientList = Clients;
 
     }
 
