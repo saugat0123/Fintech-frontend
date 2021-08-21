@@ -30,7 +30,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loanConfigId;
     id;
     loanConfig: LoanConfig;
-    loanDataHolder: LoanDataHolder;
+    loanDataHolder: LoanDataHolder = new LoanDataHolder();
     spinner;
     loanCategory;
     currentIndex;

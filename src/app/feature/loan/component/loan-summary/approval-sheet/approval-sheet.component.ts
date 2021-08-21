@@ -32,7 +32,6 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../../model/combined-loan';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
-import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
