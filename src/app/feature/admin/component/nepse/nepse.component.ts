@@ -117,7 +117,6 @@ export class NepseComponent implements OnInit {
     }
 
     SubmitNEPSEFORM() {
-        this.spinner = true;
         this.search = {
             'companyName': this.NEPSE_FORM.get('companyName').value,
             'shareType': this.NEPSE_FORM.get('shareType').value,
@@ -132,7 +131,7 @@ export class NepseComponent implements OnInit {
             this.service.save(this.NEPSE_FORM.value).subscribe(() => {
                 this.spinner = false;
                 this.modalService.dismissAll();
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successed!'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved!'));
                 NepseComponent.loadData(this);
                 this.NEPSE_FORM.reset();
             }, (error) => {
