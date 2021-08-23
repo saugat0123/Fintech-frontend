@@ -26,6 +26,7 @@ import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MGroup} from '../../../model/mGroup';
 import {environment} from '../../../../../../environments/environment';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
 
 @Component({
     selector: 'app-company-profile',
@@ -35,7 +36,7 @@ import {LoanFormService} from '../../../../loan/component/loan-form/service/loan
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
     @ViewChild('mGroupAccordion', {static: false})
     public mGroupAccordion: NbAccordionItemComponent;
-
+    microCustomerType = MicroCustomerType;
     companyInfo: CompanyInfo = new CompanyInfo();
     customerInfo: CustomerInfoData;
     customerInfoId;
