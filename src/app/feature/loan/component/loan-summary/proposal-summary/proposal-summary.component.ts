@@ -5,6 +5,7 @@ import {DocStatus} from '../../../model/docStatus';
 import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {ActivatedRoute, Params} from '@angular/router';
