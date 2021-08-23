@@ -821,6 +821,16 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 mt-3" *ngIf="client === clientName?.SHINE_RESUNGA">
+                                    <div class="form-group">
+                                        <label><strong>Proposal Remark</strong></label>
+                                        <ckeditor formControlName="proposalRemark"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Proposal Remark"
+                                                  [config]="ckeConfig">></ckeditor>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <h6><strong>Additional Description</strong></h6>
                                     <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
