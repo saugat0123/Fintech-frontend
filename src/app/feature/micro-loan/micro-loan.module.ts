@@ -30,6 +30,7 @@ import {MicroChecklistComponent} from './detail-view/micro-loan-detail-view-base
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NepaliPatroModule} from 'nepali-patro';
+import { MicroOtherInfoAndConfirmationComponent } from './detail-view/micro-loan-detail-view-base/micro-other-info-and-confirmation/micro-other-info-and-confirmation.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import {NepaliPatroModule} from 'nepali-patro';
       BorrowerFinancialComponent,
       MarketingActivitiesViewComponent,
       MicroChecklistComponent,
-      MicroCrgParamsComponent],
+      MicroCrgParamsComponent,
+      MicroOtherInfoAndConfirmationComponent],
     exports: [
         MicroCompanyFormComponentComponent,
         MicroIndividualFormComponent,
