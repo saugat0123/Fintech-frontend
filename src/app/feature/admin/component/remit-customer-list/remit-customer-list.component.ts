@@ -126,6 +126,7 @@ export class RemitCustomerListComponent implements OnInit {
     customerTransferToBranch() {
         this.modalService.dismissAll();
         this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+            this.onBoardData.sendToBranch = true;
             this.toastService.success('Successfully Send to branch');
         }, error => {
             this.toastService.success('Failed to send to branch');
