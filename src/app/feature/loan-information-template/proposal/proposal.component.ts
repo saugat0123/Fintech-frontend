@@ -241,6 +241,7 @@ export class ProposalComponent implements OnInit {
       existCommissionPercentage: [undefined],
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
+      interestPrincipalRepayment: undefined,
       proposalRemark: [undefined]
     });
   }
@@ -540,6 +541,24 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get(s).updateValueAndValidity();
     });
   }
+
+  // checkLoanConfig() {
+  //   if (this.isFixedDeposit) {
+  //     this.proposalForm.get('couponRate').setValidators(Validators.required);
+  //     this.proposalForm.get('couponRate').updateValueAndValidity();
+  //     this.proposalForm.get('premiumOnCouponRate').setValidators(Validators.required);
+  //     this.proposalForm.get('premiumOnCouponRate').updateValueAndValidity();
+  //   }
+  //   if (!this.isFundable) {
+  //     this.proposalForm.get('cashMargin').setValidators(Validators.required);
+  //     this.proposalForm.get('cashMargin').updateValueAndValidity();
+  //     this.proposalForm.get('commissionPercentage').setValidators(Validators.required);
+  //     this.proposalForm.get('commissionPercentage').updateValueAndValidity();
+  //     this.proposalForm.get('commissionFrequency').setValidators(Validators.required);
+  //     this.proposalForm.get('commissionFrequency').updateValueAndValidity();
+  //   }
+  // }
+
     calculateLimitValues() {
 
         switch (this.loanType) {

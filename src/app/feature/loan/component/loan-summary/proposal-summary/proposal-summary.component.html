@@ -287,6 +287,23 @@
 </div>
 
 <div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
+    <div class="col md-12">
+        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th *ngIf="isRevolving">Interest and Principal Repayment Frequency</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-left pl-1">{{proposalAllData?.interestPrincipalRepayment}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
     <div *ngIf="approveSheet === 'approveSheet'" class="col-md-12">
         <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
             <thead>
