@@ -35,6 +35,8 @@ export class NepseComponent implements OnInit {
     permissions = [];
     status = Status;
     NEPSE_FORM: FormGroup;
+    model: Nepse = new Nepse();
+
     constructor(
         private service: NepseService,
         private permissionService: PermissionService,
@@ -140,6 +142,7 @@ export class NepseComponent implements OnInit {
             });
         }, error => {
             console.log('error data');
+            this.spinner = false;
         });
     }
 }
