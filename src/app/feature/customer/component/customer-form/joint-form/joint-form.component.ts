@@ -186,7 +186,6 @@ export class JointFormComponent implements OnInit {
                 }));
             });
         } else {
-            console.log('new form');
             secControl.push(this.setRelation());
         }
     });
@@ -309,7 +308,6 @@ export class JointFormComponent implements OnInit {
           this.customer.dob = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('dob').value;
           // to json
           this.customer.jointInfo = JSON.stringify(value);
-            console.log('this is joint customer valiue', value);
           this.customerService.save(this.customer).subscribe(res => {
             this.spinner = false;
             this.close();
