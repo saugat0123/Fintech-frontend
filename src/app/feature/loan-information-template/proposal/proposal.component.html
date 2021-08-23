@@ -491,7 +491,7 @@
                                 </div>
 
                                 <div class="col-md-4"
-                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving) ">
+                                     *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving && client !== clientName?.SHINE_RESUNGA) ">
                                     <div class="form-group">
                                         <label class="title" for="tenorOfEachDeal"><strong>Tenure of each deal</strong></label>
                                         <input
@@ -499,11 +499,29 @@
                                                 formControlName="tenorOfEachDeal" id="tenorOfEachDeal"
                                                 name="tenorOfEachDeal"
                                                 placeholder="Tenure of each deal" type="text"/>
-                                        <!--                    <div *ngIf="(submitted) && formControls.tenorOfEachDeal.invalid"-->
-                                        <!--                         class="invalid-feedback">-->
-                                        <!--                      <span *ngIf="formControls.tenorOfEachDeal.errors.required">Tenor of each deal</span>-->
-                                        <!--                    </div>-->
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4" *ngIf="loanNatureSelected && isRevolving && client === clientName?.SHINE_RESUNGA">
+                                    <div class="form-group">
+                                        <label class="title" for="interestPrincipalRepayment"><strong>Interest and Principal Repayment Frequency</strong></label>
+                                        <select [ngClass]="{ 'is-invalid': (submitted ) && formControls.interestPrincipalRepayment.errors }"
+                                                class="custom-select" formControlName="interestPrincipalRepayment"
+                                                id="interestPrincipalRepayment"
+                                                name="interestPrincipalRepayment">
+                                            <option [ngValue]="null" hidden>Select Interest/Principal Repayment Frequency</option>
+                                            <option value="DAY">Day</option>
+                                            <option value="EMI">EMI</option>
+                                            <option value="EQI">EQI</option>
+                                            <option value="SEMI ANNUALLY">Semi Annually</option>
+                                            <option value="INTEREST MONTHLY PRINCIPAL AT MATURITY">Interest Monthly Principal at Maturity</option>
+                                            <option value="INTEREST QUARTERLY PRINCIPAL AT MATURITY">Interest Quarterly Principal at Maturity</option>
+                                            <option value="INTEREST MONTHLY PRINCIPAL AT QUARTERLY">Interest Monthly Principal at Quarterly</option>
+                                        </select>
+                                        <div *ngIf="(submitted) && formControls.interestPrincipalRepayment.invalid" class="invalid-feedback">
+                                            <span *ngIf="formControls.interestPrincipalRepayment.errors.required">
+                                                Interest and Principal Repayment Frequency is required</span>
+                                        </div>
                                     </div>
                                 </div>
 
