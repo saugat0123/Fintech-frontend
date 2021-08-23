@@ -12,6 +12,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormGroup} from '@angular/forms';
+import {BranchService} from "../branch/branch.service";
 import {AccountType} from '../../modal/accountType';
 
 
@@ -32,6 +33,8 @@ export class RemitCustomerListComponent implements OnInit {
     remitList = [];
     shipped: any;
     user: any;
+    branchList: any;
+    selectedValue: any;
     spinner = false;
     filterForm: FormGroup;
     page = 1;
@@ -45,7 +48,8 @@ export class RemitCustomerListComponent implements OnInit {
                 private customerService: CustomerService,
                 private remitCustomerService: RemitCustomerService,
                 private toastService: NbToastrService,
-                private overlay: NgxSpinnerService
+                private overlay: NgxSpinnerService,
+                private branchService: BranchService
     ) {
     }
     static loadData(other: RemitCustomerListComponent) {
@@ -65,20 +69,28 @@ export class RemitCustomerListComponent implements OnInit {
 
         });
     }
-    ngOnInit() {
+    ngOnInit(): void {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
+            this.branchList = res.detail;
+        });
         this.user = LocalStorageUtil.getStorage();
-        console.log('username', this.user);
-        // this.remitCustomerService.getRemitCustomerList().subscribe(res => {
-        //     this.remitCustomerList = res.detail;
-        //     console.log('remit customer list', this.remitCustomerList);
-        //     if (this.user.roleType === 'COMMITTEE') {
-        //         this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
-        //         console.log('filtered list', this.remitCustomerList);
-        //     }
-        //     if (this.user.roleType === 'MAKER') {
-        //         this.remitCustomerList = [];
-        //     }
-        // });
+        this.remitCustomerService.getRemitCustomerList().subscribe(res => {
+            this.remitCustomerList = res.detail;
+            if (this.user.roleType === 'COMMITTEE') {
+                this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
+            }
+            if (this.user.roleType === 'MAKER') {
+                let dummyRemit = [];
+                this.remitCustomerList.forEach(remit => {
+                    if (remit.branch) {
+                        if (remit.branch.id == this.user.branch) {
+                            dummyRemit.push(remit);
+                        }
+                    }
+                });
+                this.remitCustomerList = dummyRemit;
+            }
+        });
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
@@ -93,16 +105,15 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     transferCustomer(event, data, template) {
-        console.log('event', event);
-        console.log('data', data);
-        console.log('template', template);
         this.onBoardData = data;
         event.stopPropagation();
         this.modalService.open(template);
     }
 
     sendToBranch(event, data, template) {
-
+        this.onBoardData = data;
+        event.stopPropagation();
+        this.modalService.open(template);
     }
 
     viewData(event, Id, data, template) {
@@ -133,19 +144,25 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     customerTransferToInstituition() {
-        console.log('inside customer transfer');
         this.onBoardData.shipped = this.shipped;
-        console.log('customer final data', this.onBoardData);
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
         this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
-            console.log('api called', res);
             this.onBoardData.alreadyTransferred = true;
             this.onBoardSpinner = false;
             this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
         }, error => {
             this.onBoardSpinner = false;
             this.toastService.success('Failed to transfer to');
+        });
+    }
+    customerTransferToBranch() {
+        this.modalService.dismissAll();
+        this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+            this.onBoardData.sendToBranch = true;
+            this.toastService.success('Successfully Send to branch');
+        }, error => {
+            this.toastService.success('Failed to send to branch');
         });
     }
 
@@ -157,12 +174,18 @@ export class RemitCustomerListComponent implements OnInit {
             }
         });
     }
-
+    onBranchChange(branchList: any, branchId: any) {
+        let bId = branchId.target.value;
+        let branch = branchList.filter(b => b.id == bId);
+        this.onBoardData.branch = branch[0];
+    }
+    onInstituitionChange(value: any) {
+        this.shipped = value;
+    }
     onChange(value: any) {
         this.shipped = value;
         console.log('on change value', this.shipped);
     }
-
     changePage(page: number) {
         this.page = page;
         RemitCustomerListComponent.loadData(this);
