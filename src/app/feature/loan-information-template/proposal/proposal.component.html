@@ -295,30 +295,23 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="serviceCharge"><strong>Service Charge </strong>
-                                            <input
-                                                    formControlName="serviceChargeMethod"
-                                                    name="serviceChargeMethod" type="radio"
-                                                    value="PERCENT"><strong>% </strong>
-                                            <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
-                                                   type="radio" value="FLAT"><strong> Flat</strong>
-                                            <!--                      <small-->
-                                            <!--                          *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required"-->
-                                            <!--                          style="color:#DC3545">-->
-                                            <!--                        Charge method is required-->
-                                            <!--                      </small>-->
-                                        </label>
-                                        <input
-                                                class="form-control" formControlName="serviceCharge"
-                                                id="serviceCharge"
-                                                name="serviceCharge" placeholder="Service charge"
-                                                type="number" appDecimalNumber>
-                                        <!--                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"-->
-                                        <!--                         class="invalid-feedback">-->
-                                        <!--                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>-->
-
-                                        <!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
-                                        <!--                    </div>-->
+                                        <ng-container *ngIf="client !== clientName?.SHINE_RESUNGA">
+                                            <label class="title"><strong>Service Charge </strong>
+                                                <input formControlName="serviceChargeMethod"
+                                                       name="serviceChargeMethod" type="radio"
+                                                       value="PERCENT"><strong>% </strong>
+                                                <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
+                                                       type="radio" value="FLAT"><strong> Flat</strong>
+                                            </label>
+                                        </ng-container>
+                                        <input *ngIf="client !== clientName?.SHINE_RESUNGA"
+                                               class="form-control" formControlName="serviceCharge"
+                                               name="serviceCharge" placeholder="Service charge"
+                                               type="number">
+                                        <input *ngIf="client === clientName?.SHINE_RESUNGA"
+                                               class="form-control" formControlName="serviceCharge"
+                                               name="serviceCharge" placeholder="Service charge"
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-4"
