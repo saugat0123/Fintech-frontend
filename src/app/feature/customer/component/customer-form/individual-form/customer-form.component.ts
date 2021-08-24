@@ -139,7 +139,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
         } else {
-            this.createRelativesArray();
+            if (this.client === this.clientName.SHINE_RESUNGA) {
+                this.addRelatives();
+            } else {
+                this.createRelativesArray();
+            }
         }
          this.sameAddress = this.customer.sameAddress;
     }
@@ -477,26 +481,29 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     setRelatives(currentData) {
         const relativesData = (this.basicInfo.get('customerRelatives') as FormArray);
-        if (!ObjectUtil.isEmpty(currentData)) {
-            currentData.forEach((singleRelatives, index) => {
-                const customerRelative = singleRelatives.customerRelation;
-                // Increase index number with increase in static relatives---
-                relativesData.push(this.formBuilder.group({
-                    customerRelation: (index > 1) ? [(customerRelative)] :
-                        [({value: customerRelative, disabled: false}), Validators.required],
-                    customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-                    version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
-                    citizenshipNumber: [singleRelatives.citizenshipNumber],
-                    citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
-                    citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                        undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
-                    age: [singleRelatives.age, Validators.required]
-                }));
-            });
-
-        } else {
-            this.createRelativesArray();
+        if (ObjectUtil.isEmpty(currentData)) {
+            if (this.client === this.clientName.SHINE_RESUNGA) {
+                this.addRelatives();
+                return;
+            } else {
+                this.createRelativesArray();
+                return;
+            }
         }
+        currentData.forEach((singleRelatives, index) => {
+            const customerRelative = singleRelatives.customerRelation;
+            relativesData.push(this.formBuilder.group({
+                customerRelation: (index > 1) ? [(customerRelative)] :
+                    [({value: customerRelative, disabled: false}), Validators.required],
+                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+                version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
+                citizenshipNumber: [singleRelatives.citizenshipNumber],
+                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
+                citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
+                age: [singleRelatives.age, Validators.required]
+            }));
+        });
     }
 
     checkCustomer() {
@@ -535,7 +542,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.customer = new Customer();
         this.customer.citizenshipNumber = this.basicInfoControls.citizenshipNumber.value;
         this.formMaker();
-        this.createRelativesArray();
+        // this.createRelativesArray();
+        this.addRelatives();
         this.customerDetailField.showFormField = true;
         this.showMatchingTable = false;
     }
