@@ -216,7 +216,6 @@ export class JointFormComponent implements OnInit {
                 this.dynamic = true;
                 if (jointDetail.customerRelations.length > 0) {
                     jointDetail.customerRelations.forEach((cr) => {
-                        console.log(cr);
                         secControl.push(this.formBuilder.group({
                             age: [cr.age],
                             customerRelation: [cr.customerRelation],
