@@ -525,9 +525,6 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
                                 <th>Relation Name</th>
-                                <th>Citizenship no.</th>
-                                <th>Citizenship Issued Date (AD/BS)</th>
-
 
                             </tr>
                             </thead>
@@ -539,14 +536,6 @@
 
                                 <td class="text-left pl-1">
                                     {{relative.customerRelation}}
-                                </td>
-                                <td class="text-right pr-1">
-                                    {{relative.citizenshipNumber}}
-                                </td>
-                                <td class="text-left pl-1">
-                                    {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}}
-                                    ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}}
-                                    )
                                 </td>
 
 

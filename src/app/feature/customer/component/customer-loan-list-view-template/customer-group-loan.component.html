@@ -186,7 +186,7 @@
                 </table>
             </nb-card-body>
             <nb-card-footer>
-                <div>
+                <div *ngIf="customerInfo.security !== null">
                     <mark class="alert-warning">Total Required Collateral:</mark>
                     <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
                     <br>

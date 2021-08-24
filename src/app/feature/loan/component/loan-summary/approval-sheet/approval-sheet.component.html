@@ -193,17 +193,12 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
                                 <th>Relation Name</th>
-                                <th>Citizenship no.</th>
-                                <th>Citizenship Issued Date(AD/BS)</th>
-
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
                                 <td class="text-left pl-1">{{relative.customerRelativeName}}</td>
                                 <td class="text-left pl-1">{{relative.customerRelation}}</td>
-                                <td class="text-right pr-1">{{relative.citizenshipNumber}}</td>
-                                <td class="text-left pl-1">{{relative.citizenshipIssuedDate | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})</td>
                             </tr>
                             </tbody>
                         </table>
@@ -415,19 +410,11 @@
             </div>
             <!-- End proposal summary-->
             <hr>
-
-            <div *ngIf="productUtils.CBS_ENABLE">
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <p><strong> {{loanCategory === 'INDIVIDUAL'  ? '4. ' : '3. '}} Group Details</strong>
-                        </p>
-                    </div>
-                    <div class="col-md-12">
-                        <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
-                                       *ngIf="loanDataHolder"></app-cbs-table>
-                    </div>
-                </div>
+            <!-- Start Group Detail-->
+            <div *ngIf="megaGroupEnabled">
+                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </div>
+            <!-- End Group Detail-->
 
             <!-- Start Group Exposure -->
             <div class="row">
@@ -435,33 +422,11 @@
                     <p><strong> {{loanCategory === 'INDIVIDUAL' ? '5. ' : '4. '}} Obligor Limit Details</strong></p>
                     <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white">
-                            <th class="sn">S.N</th>
-                            <th>Client Name</th>
-                            <th>Facility Type</th>
-                            <th>Loan Limit(NPR)</th>
-                            <th>O/S limit (NPR)</th>
-                            <th>Proposed Limit(NPR)</th>
-                            <th>FMV/DV</th>
-                            <th>Exposure(%)</th>
-                            <th>Remarks</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let groupExposure of proposalAllData?.groupExposure; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{groupExposure?.clientName}}</td>
-                            <td class="text-left pl-1">{{groupExposure?.facilityType}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.loanLimit}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.osLimit}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.proposedLimit}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.fmvDv}}</td>
-                            <td class="text-right pr-1">{{groupExposure?.exposure}}</td>
-                            <td class="text-left pl-1">{{groupExposure?.remarks}}</td>
-                        </tr>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="9">Single Obligor Limit</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td colspan="9" class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></td>
                         </tr>
@@ -555,6 +520,19 @@
                     [proposal]="loanDataHolder?.proposal"
                     [postApprovalDocIdList]="loanDataHolder?.postApprovalDocIdList"
                     [loanConfig]="loanConfig"></app-approval-sheet-document-list>
+
+            <ng-container>
+                <p><strong>Obtainable Document</strong></p>
+                <ol class="row" type="1">
+                    <li style="font-size: 12.60px" class="col-md-4"
+                        *ngFor="let doc of obtainableDocuments; let i = index">
+                        {{doc.name}}
+                    </li>
+                    <li style="font-size: 12.60px"
+                        class="col-md-4" *ngFor="let otherDoc of otherObtainableDocuments;
+                        let i=index">{{otherDoc}}</li>
+                </ol>
+            </ng-container>
 
            <!-- <div class="row mt-3 disable-print">
                 <div class="col-md-12">

@@ -203,8 +203,8 @@
           <th>Distress Value</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
-          <th>Cost per sqf</th>
-          <th>Total cost</th>
+          <th>Building Cost Per Sqf</th>
+          <th>Total Building Value</th>
           <th>Type of property</th>
           <th>Collateral Owner Relationship</th>
         </tr>
@@ -1079,7 +1079,7 @@
         <td class="text-left pl-1">{{depositDetails?.tenureStartDate | date}} ({{depositDetails?.tenureStartDate | engNepDate: false}})</td>
         <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
         <td class="text-left pl-1">{{depositDetails?.expiryDate | date}} ({{depositDetails?.expiryDate | engNepDate: false}})</td>
-        <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
+        <td class="text-right pr-1">{{depositDetails?.couponRate}}%</td>
         <td class="text-right pr-1">{{depositDetails?.beneficiary}}</td>
         <td class="text-left pl-1">{{depositDetails?.remarks}}</td>
       </tr>
