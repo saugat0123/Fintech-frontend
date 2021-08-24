@@ -11,12 +11,23 @@
         <div class="row">
             <div class="col-md-4">
                 <span><strong>Select Last Site Visit Date</strong></span>
-                <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
+                <select class="form-control"
+                        [(ngModel)]="selectedSiteVisit"
+                        (change)="getLastSiteVisitDetail()" >
                     <option [ngValue]="null" hidden>Select Date</option>
                     <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
             </div>
+
+            <div class="col-md-4 mt-3">
+                <button [hidden]="!deleteButton"
+                        nbButton
+                        (click)="changeAction(closeForm)"
+                        status="primary"
+                        size="large"><i class="fa fa-trash fa-1x"></i></button>
+            </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <form [formGroup]="fixedAssetsForm">
@@ -103,7 +114,7 @@
                                 <div *ngIf="(submitted) && form.district.invalid"
                                      class="help-block">
                                      <span *ngIf="form.district.errors.required">
-                                        <span class="text-danger"> District is required</span>
+                                        <span class="text-danger"> District is required </span>
                                      </span>
                                 </div>
                             </div>
@@ -542,10 +553,11 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-12">
-                <strong>Site Visit Map Document</strong><button nbButton size="tiny" status="success"
-                 (click)="openDocumentCreateModal(null)">
-                <i class="fa fa-plus"></i>
-            </button>
+                <strong>Site Visit Map Document</strong>
+                <button nbButton size="tiny" status="success"
+                     (click)="openDocumentCreateModal(null)">
+                    <i class="fa fa-plus"></i>
+                </button>
                 <table class="table table-bordered table-hover table-sm sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">
@@ -585,5 +597,24 @@
         <button nbButton type="button" (click)="onSubmit()" class="float-right">Save</button>
     </nb-card-footer>
 </nb-card>
+
+
+
+<ng-template #closeForm>
+    <nb-card class="m-0 confirm-close" [nbSpinner]="onActionChangeSpinner">
+        <nb-card-header>
+            <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+                <span aria-hidden="true">&times;</span>
+            </a>
+            <h5>Are you sure you want to delete your site visit info?</h5>
+        </nb-card-header>
+        <nb-card-footer>
+            <div class="d-flex justify-content-end">
+                <button nbButton status="primary" type="reset">YES</button>
+                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
 
 

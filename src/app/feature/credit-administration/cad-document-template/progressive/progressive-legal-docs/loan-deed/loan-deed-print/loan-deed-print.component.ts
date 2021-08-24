@@ -9,11 +9,12 @@ import {ProgressiveLegalDocConst} from '../../progressive-legal-doc-const';
 export class LoanDeedPrintComponent implements OnInit {
   @Input() printDocForm;
   offerLetterConst = ProgressiveLegalDocConst;
-
+  length: number;
   constructor() {
   }
 
   ngOnInit() {
+    this.length = this.printDocForm.swikritiBibaran.length;
   }
 
 }

@@ -1,0 +1,29 @@
+@import '../../progressive-legal-docs.component';
+
+//*{
+//margin-left:20px;
+//margin-right:10px;
+//
+//}
+@media print {
+  .page-break { page-break-before: always; }
+}
+.tableGuarantor {
+  width: 400px;
+}
+
+#fingerXap {
+  width: 500px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+}
+
+.viewFull {
+  max-height: 85vh;
+  text-align: justify;
+}
