@@ -160,6 +160,23 @@ export class CustomerLoanInformationComponent implements OnInit {
     hideVideoKycSender = true;
     hideVideoKycBeneficiary = true;
 
+     videoKycBody = {
+        "agentEmail": "agent@email.com",
+        "customerInfo": {
+            "address": "Kathmandu Nepal",
+            "email": "user@email.com",
+            "metadata": "another metadata",
+            "name": "Loan Remit Test",
+            "phone": "",
+            "title": "mr"
+        },
+        "existingCustomer": false,
+        "metadata": "this is meta data",
+        "meetingDate": "16/08/2021",
+        "meetingTime": "12:20",
+        "purposeId": "000000001"
+    };
+
 
     constructor(
         private toastService: ToastService,
@@ -640,33 +657,21 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     generateVideoKycSender($event: MouseEvent) {
-        let videoKycBody = {
-            "agentEmail": "agent@email.com",
-            "customerInfo": {
-                "address": "Kathmandu Nepal",
-                "email": "user@email.com",
-                "metadata": "another metadata",
-                "name": "Loan Remit Test",
-                "phone": "",
-                "title": "mr"
-            },
-            "existingCustomer": false,
-            "metadata": "this is meta data",
-            "meetingDate": "16/08/2021",
-            "meetingTime": "12:20",
-            "purposeId": "000000001"
-        };
-        console.log('kyc', videoKycBody);
-        this.customerInfoService.videoKyc(videoKycBody).subscribe(res => {
+        this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
             console.log('video kyc response', JSON.parse(res.data).meeting_link);
             this.senderForm.patchValue({
                 meetingLink1: JSON.parse(res.data).meeting_link
             });
         });
-        console.log('sender clicked', $event);
     }
 
     generateVideoKycBeneficiary($event: MouseEvent) {
         console.log('beneficiary clicked');
+        this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
+            console.log('video kyc response', JSON.parse(res.data).meeting_link);
+            this.beneficiaryForm.patchValue({
+                meetingLink1: JSON.parse(res.data).meeting_link
+            });
+        });
     }
 }
