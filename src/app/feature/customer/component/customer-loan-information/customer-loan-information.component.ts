@@ -50,7 +50,7 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 export class CustomerLoanInformationComponent implements OnInit {
 
     sender = [{
-        name: 'Dummy' ,
+        name: 'Dummy',
         address: 'Test 1',
         gender: '12345',
         email: 'test@gmail.com',
@@ -168,6 +168,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     microCustomerTypeEnum = MicroCustomerType;
+    hideVideoKycSender = true;
+    hideVideoKycBeneficiary = true;
 
 
     constructor(
@@ -261,8 +263,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     get otherMicroDetailsVisibility() {
         if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
             return true;
-        } else { return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
-            this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+        } else {
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+                this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
         }
     }
 
@@ -622,4 +625,22 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
 
+    onVideoKycPermissionSender($event: any) {
+        console.log('video kyc permission', $event);
+        if ($event === 0) {
+            this.hideVideoKycSender = true;
+            console.log('hide', this.hideVideoKycSender);
+        } else {
+            this.hideVideoKycSender = false;
+            console.log('show', this.hideVideoKycSender);
+        }
+    }
+
+    onVideoKycPermissionBeneficiary($event: any) {
+        if ($event === 0) {
+            this.hideVideoKycBeneficiary = true;
+        } else {
+            this.hideVideoKycBeneficiary = false;
+        }
+    }
 }

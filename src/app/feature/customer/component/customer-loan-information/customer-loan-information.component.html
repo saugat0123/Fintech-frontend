@@ -21,10 +21,13 @@
                   <div class="col-sm-2">
                     <label class="label">Required</label><br>
                     <nb-radio-group>
-                      <nb-radio value="1">Yes</nb-radio>
-                      <nb-radio value="2">No</nb-radio>
+                      <nb-radio [value]="1"
+                                (valueChange)="onVideoKycPermissionSender($event)">Yes</nb-radio>
+                      <nb-radio [value]="0"
+                                (valueChange)="onVideoKycPermissionSender($event)">No</nb-radio>
                     </nb-radio-group>
                   </div>
+                  <ng-container *ngIf="!hideVideoKycSender">
                   <div class="col-lg-5">
                     <label for="Meetinglink" class="label">Meeting Link</label>
                     <input type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
@@ -33,10 +36,12 @@
                     <label for="recordedmeeting" class="label">Recorded Meeting</label>
                     <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
                   </div>
+                  <div id="generatebtn" class="row" style="margin-left:15px; margin-bottom: 15px" >
+                    <button type="submit" id="sender" nbButton status="danger">Generate</button>
+                  </div>
+                  </ng-container>
                 </div>
-              <div id="generatebtn" class="row" style="margin-left:15px; margin-bottom: 15px" >
-                <button type="submit" id="sender" nbButton status="danger">Generate</button>
-              </div>
+
             </form>
           </div>
           </div>
@@ -51,10 +56,13 @@
                   <div class="col-sm-2">
                     <label class="label">Required</label><br>
                     <nb-radio-group>
-                      <nb-radio value="1">Yes</nb-radio>
-                      <nb-radio value="2">No</nb-radio>
+                      <nb-radio [value]="1"
+                                (valueChange)="onVideoKycPermissionBeneficiary($event)">Yes</nb-radio>
+                      <nb-radio [value]="0"
+                                (valueChange)="onVideoKycPermissionBeneficiary($event)">No</nb-radio>
                     </nb-radio-group>
                   </div>
+                  <ng-container *ngIf="!hideVideoKycBeneficiary">
                   <div class="col-lg-5">
                     <label for="Meetinglink1" class="label">Meeting Link</label>
                     <input type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
@@ -63,10 +71,12 @@
                     <label for="recordedmeeting1" class="label">Recorded Meeting</label>
                     <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
                   </div>
+                  <div id="generatebtn1" class="row" style="margin-left:15px; margin-bottom: 15px" >
+                    <button type="submit" id="sender1" nbButton status="danger">Generate</button>
+                  </div>
+                  </ng-container>
                 </div>
-                <div id="generatebtn1" class="row" style="margin-left:15px; margin-bottom: 15px" >
-                  <button type="submit" id="sender1" nbButton status="danger">Generate</button>
-                </div>
+
               </form>
             </div>
           </div>
@@ -75,9 +85,6 @@
 
               <div class="col-md-4">
                 <button type="submit" style="width: 65%" nbButton status="danger">Generate DOC</button>
-              </div>
-              <div class="col-md-4">
-                <button type="submit" style="width: 65%" nbButton status="danger">Send to Branch</button>
               </div>
               <div class="col-md-4">
                 <button type="submit" style="width: 65%" nbButton status="danger"> Save </button>
