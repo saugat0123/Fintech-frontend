@@ -27,6 +27,7 @@
                                 (valueChange)="onVideoKycPermissionSender($event)">No</nb-radio>
                     </nb-radio-group>
                   </div>
+                  <div class="col-sm-10">
                   <ng-container *ngIf="!hideVideoKycSender">
                   <div class="col-lg-5">
                     <label for="Meetinglink" class="label">Meeting Link</label>
@@ -36,10 +37,11 @@
                     <label for="recordedmeeting" class="label">Recorded Meeting</label>
                     <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
                   </div>
-                  <div id="generatebtn" class="row" style="margin-left:15px; margin-bottom: 15px" >
-                    <button type="submit" id="sender" nbButton status="danger">Generate</button>
+                  <div id="generatebtn" class="col-md-5" style="margin-bottom: 15px; margin-top: 15px">
+                    <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
                   </div>
                   </ng-container>
+                  </div>
                 </div>
 
             </form>
@@ -62,8 +64,9 @@
                                 (valueChange)="onVideoKycPermissionBeneficiary($event)">No</nb-radio>
                     </nb-radio-group>
                   </div>
+                  <div class="col-sm-10">
                   <ng-container *ngIf="!hideVideoKycBeneficiary">
-                  <div class="col-lg-5">
+                  <div class="col-md-5">
                     <label for="Meetinglink1" class="label">Meeting Link</label>
                     <input type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
                   </div>
@@ -71,25 +74,33 @@
                     <label for="recordedmeeting1" class="label">Recorded Meeting</label>
                     <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
                   </div>
-                  <div id="generatebtn1" class="row" style="margin-left:15px; margin-bottom: 15px" >
-                    <button type="submit" id="sender1" nbButton status="danger">Generate</button>
+                  <div id="generatebtn1" class="col-md-5" style="margin-bottom: 15px; margin-top: 15px" >
+                    <button (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
                   </div>
                   </ng-container>
+                  </div>
                 </div>
 
               </form>
             </div>
           </div>
 
-            <div class="p-3 row">
+            <nb-card-footer class="py-4">
+              <div class="d-flex justify-content-end">
+                <button nbButton>Generate DOC</button>
+                <button nbButton (click)="onSubmit()">save</button>
+              </div>
+            </nb-card-footer>
 
-              <div class="col-md-4">
-                <button type="submit" style="width: 65%" nbButton status="danger">Generate DOC</button>
-              </div>
-              <div class="col-md-4">
-                <button type="submit" style="width: 65%" nbButton status="danger"> Save </button>
-              </div>
-            </div>
+<!--            <div class="p-3 row">-->
+
+<!--              <div class="col-md-4">-->
+<!--                <button type="submit" style="width: 65%" nbButton status="danger">Generate DOC</button>-->
+<!--              </div>-->
+<!--              <div class="col-md-4">-->
+<!--                <button type="submit" style="width: 65%" nbButton status="danger"> Save </button>-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
 
 

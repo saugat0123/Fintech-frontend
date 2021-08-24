@@ -643,4 +643,12 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.hideVideoKycBeneficiary = false;
         }
     }
+
+    generateVideoKycSender($event: MouseEvent) {
+        console.log('sender clicked', $event);
+    }
+
+    generateVideoKycBeneficiary($event: MouseEvent) {
+        console.log('beneficiary clicked');
+    }
 }
