@@ -747,11 +747,13 @@
                 </div>
             </div>
 
-<!--            <app-proposal-summary-->
-<!--                    *ngIf="proposalSummary"-->
-<!--                    [customerAllLoanList]="customerAllLoanList"-->
-<!--                    [proposalData]="proposalData"-->
-<!--                    [loanDataHolder]="loanDataHolder"></app-proposal-summary>-->
+            <ng-container *ngIf="!isRemitLoan">
+                <app-proposal-summary
+                    *ngIf="proposalSummary"
+                    [customerAllLoanList]="customerAllLoanList"
+                    [proposalData]="proposalData"
+                    [loanDataHolder]="loanDataHolder"></app-proposal-summary>
+            </ng-container>
 
             <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
