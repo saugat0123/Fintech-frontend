@@ -42,6 +42,7 @@ import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {FormControl, FormGroup} from "@angular/forms";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -179,12 +180,21 @@ export class CustomerLoanInformationComponent implements OnInit {
 
 
     constructor(
+        private activatedRoute: ActivatedRoute,
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService
     ) {
     }
 
     ngOnInit() {
+        console.log('params');
+
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                console.log('paramsvalue', paramsValue);
+            });
+
+        console.log('customer info', this.customerInfo);
         this.senderForm = new FormGroup({
             meetingLink1: new FormControl(),
         });
