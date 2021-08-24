@@ -186,7 +186,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
 
-
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -690,6 +689,35 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             });
         });
     }
+
+    setRoleHierarchyForCombinedLoans(combinedLoanId: number) {
+        let context;
+        context = {
+            approvalType: 'COMBINED_LOAN',
+            refId: combinedLoanId,
+            isRoleModal: true,
+        };
+        this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
+            context,
+        }); /* .onClose.subscribe((res: any) => {
+      this.activatedRoute.queryParams.subscribe((r) => {
+        this.loanConfigId = r.loanConfigId;
+        this.customerId = r.customerId;
+      });*/
+        /*this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+          if (value) {
+            this.router.navigate(['/home/loan/summary'],
+                {
+                  queryParams: {
+                    loanConfigId: this.loanConfigId,
+                    customerId: this.customerId,
+                  }
+                });
+          }
+        });*/
+        /*});*/
+    }
+
     public close() {
         if (this.isOpen) {
             this.dialogRef.close();

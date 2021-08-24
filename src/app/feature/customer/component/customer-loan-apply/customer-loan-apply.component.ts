@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {LoanDataHolder} from '../../../loan/model/loanData';
@@ -15,6 +15,10 @@ import {CustomerType} from '../../model/customerType';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {ApprovalRoleHierarchyComponent} from '../../../loan/approval/approval-role-hierarchy.component';
+import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -48,6 +52,9 @@ export class CustomerLoanApplyComponent implements OnInit {
   microLoanList = [];
   nonMicroLoanList = [];
   isMicroCustomer: boolean;
+  productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+  canSetRoleHierarchy = false;
+  private dialogRef: NbDialogRef<any>;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -56,7 +63,9 @@ export class CustomerLoanApplyComponent implements OnInit {
       private customerLoanService: LoanFormService,
       private combinedLoanService: CombinedLoanService,
       private toastService: ToastService,
-      private customerInfoService: CustomerInfoService
+      private customerInfoService: CustomerInfoService,
+      private modalService: NgbModal,
+      private nbDialogService: NbDialogService
   ) {
   }
 
@@ -75,8 +84,24 @@ export class CustomerLoanApplyComponent implements OnInit {
         return f.loanTag !== 'MICRO_LOAN';
       });
     }, error => this.spinner = false);
+    this.spinner = true;
     this.customerLoanService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
+      if (this.productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN') {
+        let roleFlag = true;
+        for (const cgl of this.customerGroupLoanList) {
+          if (!ObjectUtil.isEmpty(cgl.combinedLoan)) {
+            if (cgl.documentStatus.toString() !== 'DISCUSSION' &&
+                cgl.documentStatus.toString() !== 'UNDER_REVIEW' &&
+                cgl.documentStatus.toString() !== 'INITIAL' &&
+                cgl.documentStatus.toString() !== 'PENDING') {
+              roleFlag = false;
+              break;
+            }
+          }
+        }
+        this.canSetRoleHierarchy = roleFlag;
+      }
       this.customerGroupLoanList
       .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
       .forEach((l) => this.combinedLoansIds.push(l.id));
@@ -86,8 +111,11 @@ export class CustomerLoanApplyComponent implements OnInit {
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))[0];
         this.existingCombinedLoan.id = loan.combinedLoan.id;
         this.existingCombinedLoan.version = loan.combinedLoan.version;
+      } else {
+        this.canSetRoleHierarchy = false;
       }
-    });
+      this.spinner = false;
+    }, error => this.spinner = false);
   }
 
   openLoanForm(isCombined: boolean, removeFromCombined = false) {
@@ -112,12 +140,15 @@ export class CustomerLoanApplyComponent implements OnInit {
         loans: removeFromCombined ? [] : combinedLoans,
         version: this.existingCombinedLoan.version
       };
+      this.spinner = true;
       this.combinedLoanService.save(combinedLoan).subscribe(() => {
         this.activeModal.close(true);
+        this.spinner = false;
         const msg = `Successfully ${removeFromCombined ? 'removed' : 'saved'} combined loan`;
         this.toastService.show(new Alert(AlertType.SUCCESS, msg));
       }, error => {
         console.error(error);
+        this.spinner = false;
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save combined loan'));
       });
     } else {
@@ -203,5 +234,41 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.multipleSelectedLoanType.push(val);
 
     });
+  }
+
+  openUnCombineConfirmationModal(confirmUnCombine) {
+    this.modalService.open(confirmUnCombine);
+  }
+
+  close() {
+    this.modalService.dismissAll();
+  }
+
+  SetRoleHierarchy() {
+    let context;
+    context = {
+      approvalType: 'COMBINED_LOAN',
+      refId: this.existingCombinedLoan.id,
+      isRoleModal: true,
+    };
+    this.dialogRef = this.nbDialogService.open(ApprovalRoleHierarchyComponent, {
+      context,
+    }); /* .onClose.subscribe((res: any) => {
+      this.activatedRoute.queryParams.subscribe((r) => {
+        this.loanConfigId = r.loanConfigId;
+        this.customerId = r.customerId;
+      });*/
+      /*this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+        if (value) {
+          this.router.navigate(['/home/loan/summary'],
+              {
+                queryParams: {
+                  loanConfigId: this.loanConfigId,
+                  customerId: this.customerId,
+                }
+              });
+        }
+      });*/
+    /*});*/
   }
 }

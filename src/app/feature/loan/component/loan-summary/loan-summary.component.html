@@ -25,11 +25,23 @@
                     loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' && productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
                         <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
                                 status="primary" nbTooltip="Configure Approval Role Hierarchy"
-                                (click)="SetRoleHierarchy(loanDataHolder?.id)">
-<!--                            <i class="fa fa-user-shield"></i>-->
+                                (click)="SetRoleHierarchy(loanDataHolder?.combinedLoan?.id === null ?
+                                loanDataHolder?.id : loanDataHolder?.combinedLoan?.id)">
                             Set Role Hierarchy
                         </button>
                     </div>
+                    <!--<div class="mt-2" *ngIf="loanDataHolder?.combinedLoan?.id !== null &&
+                     (loanDataHolder?.documentStatus?.toString() === 'DISCUSSION' ||
+                    loanDataHolder?.documentStatus?.toString() === 'UNDER_REVIEW'||
+                    loanDataHolder?.documentStatus?.toString() === 'INITIAL' ||
+                    loanDataHolder?.documentStatus?.toString() === 'PENDING') && roleType === 'MAKER' &&
+                     productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL.toString() === 'LOAN'">
+                        <button class="btn btn-primary sb-medium text-uppercase" nbButton size="small"
+                                status="primary" nbTooltip="Configure Approval Role Hierarchy"
+                                (click)="setRoleHierarchyForCombinedLoans(loanDataHolder?.combinedLoan?.id)">
+                            Set Role Hierarchy For Combined Loans
+                        </button>
+                    </div>-->
                     <br>
                     <button nbButton
                             shape="rectangle"

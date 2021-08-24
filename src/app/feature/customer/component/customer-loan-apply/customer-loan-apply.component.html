@@ -1,20 +1,13 @@
 <nb-card [ngStyle]="{'margin-bottom': 0}" [nbSpinner]="spinner">
   <nb-card-header>
-    <strong>Apply</strong>
     <a (click)="activeModal.dismiss()" aria-label="Close" class="close cursor">
       <span aria-hidden="true">&times;</span>
     </a>
+    <p class="text-center" *ngIf="singleOrCombine === 'Single'"><b>Apply Single Loan</b></p>
+    <p class="text-center" *ngIf="singleOrCombine === 'Combine'"><b>Combine Loans</b></p>
   </nb-card-header>
   <nb-card-body>
     <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm(singleOrCombine === 'Combine')">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="text-center" *ngIf="singleOrCombine === 'Single'"><b>Single Loan</b></p>
-          <p class="text-center" *ngIf="singleOrCombine === 'Combine'"><b>Combine Loan</b></p>
-
-        </div>
-      </div>
-      <hr />
       <div class="row" *ngIf="singleOrCombine === 'Single'">
         <div class="col-md-4 mb-3">
           <label><strong>Loan Type</strong></label>
@@ -32,7 +25,7 @@
                   [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
                   class="form-control rounded"
                   name="loanId" required>
-            <option [ngValue]="undefined" hidden> select Loan Type</option>
+            <option [ngValue]="undefined" hidden> Select Loan Type</option>
             <option *ngFor="let allList of nonMicroLoanList"
                     [ngValue]="allList.id">{{allList.name}}</option>
           </select>
@@ -45,7 +38,7 @@
                   [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
                   class="form-control rounded"
                   name="loanId" required>
-            <option [ngValue]="undefined" hidden> select Loan Type</option>
+            <option [ngValue]="undefined" hidden> Select Loan Type</option>
             <option *ngFor="let allList of microLoanList"
                     [ngValue]="allList.id">{{allList.name}}</option>
           </select>
@@ -90,19 +83,42 @@
             </tr>
             </tbody>
           </table>
-          <button (click)="openLoanForm(true, true)"
-                  *ngIf="removeFromCombinedLoan" nbButton
-                  size="small" status="danger" type="button">
+          <button (click)="openUnCombineConfirmationModal(confirmUnCombine)" *ngIf="removeFromCombinedLoan" nbButton
+                  size="small" status="danger" class="fa-pull-left" type="button">
             <i class="fas fa-exclamation-triangle"></i> Un-combine all loans?
           </button>
+          <div class="mt-2" *ngIf="canSetRoleHierarchy">
+            <button class="btn btn-primary sb-medium text-uppercase fa-pull-right" nbButton size="small"
+                    status="primary" nbTooltip="Configure Approval Role Hierarchy"
+                    (click)="SetRoleHierarchy()">
+              Set Role Hierarchy For Combined Loans
+            </button>
+          </div>
         </div>
       </div>
       <hr />
       <div class="row">
         <div class="col-md-12 py-2 text-center">
-          <button nbButton status="success" type="submit">Next</button>
+          <button *ngIf="singleOrCombine === 'Single'" nbButton status="success" type="submit">Apply</button>
+          <button *ngIf="singleOrCombine === 'Combine'" nbButton status="success" type="submit">Combine</button>
         </div>
       </div>
     </form>
   </nb-card-body>
 </nb-card>
+<ng-template #confirmUnCombine>
+  <nb-card class="m-0 confirm-close" [nbSpinner]="spinner">
+    <nb-card-header>
+      <a (click)="close()" aria-label="Close" class="close pull-right cursor">
+        <span aria-hidden="true">&times;</span>
+      </a>
+      <h5>Are your sure you want to un-combine all loans?</h5>
+    </nb-card-header>
+    <nb-card-footer>
+      <div class="d-flex justify-content-end">
+        <button (click)="openLoanForm(true, true); close()" nbButton status="primary" type="submit">YES</button>
+        <button (click)="close()" nbButton status="warning" type="button">NO</button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
