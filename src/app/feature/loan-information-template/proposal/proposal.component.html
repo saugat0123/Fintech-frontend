@@ -295,30 +295,23 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="serviceCharge"><strong>Service Charge </strong>
-                                            <input
-                                                    formControlName="serviceChargeMethod"
-                                                    name="serviceChargeMethod" type="radio"
-                                                    value="PERCENT"><strong>% </strong>
-                                            <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
-                                                   type="radio" value="FLAT"><strong> Flat</strong>
-                                            <!--                      <small-->
-                                            <!--                          *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required"-->
-                                            <!--                          style="color:#DC3545">-->
-                                            <!--                        Charge method is required-->
-                                            <!--                      </small>-->
+                                        <label class="title"><strong>Service Charge </strong>
+                                            <ng-container *ngIf="client !== clientName?.SHINE_RESUNGA">
+                                                <input formControlName="serviceChargeMethod"
+                                                       name="serviceChargeMethod" type="radio"
+                                                       value="PERCENT"><strong>% </strong>
+                                                <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
+                                                       type="radio" value="FLAT"><strong> Flat</strong>
+                                            </ng-container>
                                         </label>
-                                        <input
-                                                class="form-control" formControlName="serviceCharge"
-                                                id="serviceCharge"
-                                                name="serviceCharge" placeholder="Service charge"
-                                                type="number" appDecimalNumber>
-                                        <!--                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"-->
-                                        <!--                         class="invalid-feedback">-->
-                                        <!--                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>-->
-
-                                        <!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
-                                        <!--                    </div>-->
+                                        <input *ngIf="client !== clientName?.SHINE_RESUNGA"
+                                               class="form-control" formControlName="serviceCharge"
+                                               name="serviceCharge" placeholder="Service charge"
+                                               type="number">
+                                        <input *ngIf="client === clientName?.SHINE_RESUNGA"
+                                               class="form-control" formControlName="serviceCharge"
+                                               name="serviceCharge" placeholder="Service charge"
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-4"
@@ -331,20 +324,6 @@
                                                 formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
                                                 placeholder="Tenure Duration in Months"
                                                 type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
-
-                                        <!--                                        <input [nbDatepicker]="tenurePicker"-->
-                                        <!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
-                                        <!--                                               class="form-control rounded"-->
-                                        <!--                                               formControlName="tenureDurationInMonths"-->
-                                        <!--                                               id="tenureDurationInMonths" placeholder="Enter the date"-->
-                                        <!--                                               type="text"/>-->
-                                        <!--                                        <nb-datepicker #tenurePicker></nb-datepicker>-->
-
-                                        <!--                    <div *ngIf="(submitted) && formControls.tenureDurationInMonths.invalid"-->
-                                        <!--                         class="invalid-feedback">-->
-                                        <!--                      <span *ngIf="formControls.tenureDurationInMonths.errors.required ">Tenure duration is required.</span>-->
-                                        <!--                      <span *ngIf="formControls.tenureDurationInMonths.errors.min ">Tenure duration must be positive numerical value.</span>-->
-                                        <!--                    </div>-->
                                     </div>
                                 </div>
 

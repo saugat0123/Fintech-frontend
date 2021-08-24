@@ -597,7 +597,7 @@
                                             <h5>Joint Customer Relation {{i+1}}</h5>
                                            <ng-container *ngIf="dynamic == true; else oldData;">
                                                <div class="row justify-content-between">
-                                                   <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
+                                                   <label *ngIf="client !== clientName?.SHINE_RESUNGA"><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
                                                    <button (click)="addRelation(i)" class="btn btn-primary btn-sm" size="tiny"
                                                            type="button">Add Relation<i class="fas fa-plus"></i></button>
                                                </div>
@@ -709,7 +709,7 @@
                                                </div>
                                            </ng-container>
                                             <ng-template #oldData>
-                                                <label><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
+                                                <label *ngIf="client !== clientName?.SHINE_RESUNGA"><mark><strong>Note</strong>: <em>Please write <strong>Late</strong> in front of the name if relation person is deceased</em></mark></label>
 
                                                 <div class="row">
                                                     <div class="col-md-2">
