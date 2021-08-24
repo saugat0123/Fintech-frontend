@@ -7,7 +7,6 @@ import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCur
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-income-from-account',
@@ -29,7 +28,6 @@ export class IncomeFromAccountComponent implements OnInit {
 
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
-
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,
