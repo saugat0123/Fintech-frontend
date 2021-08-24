@@ -1,4 +1,4 @@
-@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component";
+@import '../../progressive-legal-docs.component';
 
 .viewFull {
   max-height: 85vh;
@@ -9,4 +9,22 @@
   height: 100%;
   width: 100%;
   margin: auto;
+}
+
+@media print {
+  .pages-break { page-break-before: always; }
+}
+
+.signature-area2 {
+  display: block;
+  background-color: transparent;
+  border: 1px solid #3c3c3c;
+  max-width: 291px;
+  width: 180px;
+  height: 186px;
+  max-height: 186px;
+}
+
+.span-paragraph {
+  line-height: 1.5;
 }

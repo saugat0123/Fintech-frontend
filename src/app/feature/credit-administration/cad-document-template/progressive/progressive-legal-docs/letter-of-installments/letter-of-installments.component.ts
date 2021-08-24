@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -55,6 +55,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
+          this.setGuarantorDetails(initialInfo.guarantorData);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -62,7 +63,6 @@ export class LetterOfInstallmentsComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
       });
@@ -123,8 +123,38 @@ export class LetterOfInstallmentsComponent implements OnInit {
       debtorName: [undefined],
       InstitutionStamp: [undefined],
       guarantorName: [undefined],
-      guarantorAddress: [undefined]
+      guarantorAddress: [undefined],
+      guarantorData: this.formBuilder.array([]),
 
+    });
+  }
+  addGuarantor(): void {
+    const formArray = this.form.get('guarantorData') as FormArray;
+    formArray.push(this.guarantorFormGroup());
+  }
+
+  removeGuarantor(index: number): void {
+    const formArray = this.form.get('guarantorData') as FormArray;
+    formArray.removeAt(index);
+  }
+
+  guarantorFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      guarantorName: [undefined],
+      guarantorAddress: [undefined],
+    });
+  }
+  setGuarantorDetails(data) {
+    const formArray = this.form.get('guarantorData') as FormArray;
+    if (data.length === 0) {
+      this.addGuarantor();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        guarantorName: [value.guarantorName],
+        guarantorAddress: [value.guarantorAddress],
+      }));
     });
   }
 

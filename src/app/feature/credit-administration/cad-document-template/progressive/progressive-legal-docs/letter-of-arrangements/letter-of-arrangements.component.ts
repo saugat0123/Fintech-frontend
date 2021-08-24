@@ -119,8 +119,8 @@ export class LetterOfArrangementsComponent implements OnInit {
       date: [undefined],
       branch: [undefined],
       subject: [undefined],
-      punji: [undefined],
       customerName: [undefined],
+      punji: [undefined]
     });
   }
 }

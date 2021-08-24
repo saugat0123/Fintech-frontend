@@ -45,7 +45,11 @@ export class FixAssetCollateralComponent implements OnInit {
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
     selectedSiteVisit: any;
-    fileType = '.jpg';
+    fileType = '.pdf';
+    imgType = '.jpg';
+    onActionChangeSpinner = false;
+    siteVisit: false;
+    deleteButton: boolean;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -93,27 +97,28 @@ export class FixAssetCollateralComponent implements OnInit {
         }
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
-            this.collateralSiteVisits = response.detail;
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
-        });
+                this.collateralSiteVisits = response.detail;
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
+            });
     }
 
     getLastSiteVisitDetail() {
+        this.deleteButton = true;
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
-            this.collateralSiteVisit = response.detail;
-            this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
-            this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
-            this.getDistrictsById(this.collateralData.province.id, null);
-            this.getMunicipalitiesById(this.collateralData.district.id, null);
-            this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
-            this.setStaffDetail(this.collateralData);
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
-        });
+                this.collateralSiteVisit = response.detail;
+                this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
+                this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+                this.getDistrictsById(this.collateralData.province.id, null);
+                this.getMunicipalitiesById(this.collateralData.district.id, null);
+                this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+                this.setStaffDetail(this.collateralData);
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
+            });
     }
     getDistrictsById(provinceId: number, event) {
         const province = new Province();
@@ -307,16 +312,25 @@ export class FixAssetCollateralComponent implements OnInit {
     public openDocumentCreateModal(editId): void {
         const siteVisitDocument = this.siteVisitDocument;
         this.nbDialogService.open(CreateDocumentComponent, {
-            context: { editId, siteVisitDocument }
+            context: {editId, siteVisitDocument}
         });
     }
 
     viewDocument(url: string, name: string) {
         const viewDocName = name.concat(this.fileType);
+        const viewImgName = name.concat(this.imgType);
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+        link.href = `${ApiConfig.URL}/${url}${viewImgName}?${Math.floor(Math.random() * 100) + 1}`;
         link.setAttribute('visibility', 'hidden');
         link.click();
+    }
+    changeAction(template) {
+        this.modelService.open(template);
+    }
+
+    onClose() {
+        this.modelService.dismissAll();
     }
 }

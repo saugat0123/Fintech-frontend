@@ -1,3 +1,5 @@
+@import '../../progressive-legal-docs.component';
+
 /*#yellow{
   background-color: yellow;
 }
@@ -22,6 +24,10 @@
 .viewFull {
   max-height: 85vh;
   text-align: justify;
+}
+
+* {
+  margin-top: 20px;
 }
 
 //#guaranter{

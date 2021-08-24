@@ -1,3 +1,13 @@
+@import '../../progressive-legal-docs.component';
+
+//*{
+//margin-left:20px;
+//margin-right:10px;
+//
+//}
+@media print {
+  .page-break { page-break-before: always; }
+}
 .tableGuarantor {
   width: 400px;
 }
@@ -17,3 +27,5 @@ table {
   max-height: 85vh;
   text-align: justify;
 }
+
+

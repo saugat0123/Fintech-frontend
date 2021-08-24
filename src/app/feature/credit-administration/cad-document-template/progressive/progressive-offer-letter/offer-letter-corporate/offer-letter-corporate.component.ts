@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ProgressiveOfferLetterConst} from '../progressive-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -60,6 +60,7 @@ export class OfferLetterCorporateComponent implements OnInit {
             this.nepaliData.permanentMunicipality + ' j8f g ' +
             this.nepaliData.permanentWard + ' , ' +
             this.nepaliData.permanentDistrict;
+
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
             customerAddress: customerAddress ? customerAddress : '',
@@ -87,6 +88,8 @@ export class OfferLetterCorporateComponent implements OnInit {
             this.existingOfferLetter = true;
             this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
+            this.setLoan(initialInfo.loan);
+
             this.form.patchValue(this.initialInfoPrint);
         }
     }
@@ -127,6 +130,7 @@ export class OfferLetterCorporateComponent implements OnInit {
 
     setSecurityDetails(data) {
         const formArray = this.form.get('securityDetails') as FormArray;
+        (this.form.get('securityDetails') as FormArray).clear();
         if (data.length === 0) {
             this.addEmptySecurityDetail();
             return;
@@ -146,19 +150,22 @@ export class OfferLetterCorporateComponent implements OnInit {
         });
     }
 
+    buildSecurityDetail() {
+        return this.formBuilder.group({
+            name: [undefined],
+            parentName: [undefined],
+            grandParentName: [undefined],
+            address: [undefined],
+            jaggaDistrict: [undefined],
+            jaggaWard: [undefined],
+            jaggaKittaNum: [undefined],
+            jaggaArea: [undefined],
+            jaggaSiNum: [undefined],
+        });
+    }
+
     addEmptySecurityDetail() {
-        (this.form.get('securityDetails') as FormArray).push(
-            this.formBuilder.group({
-                name: [undefined],
-                parentName: [undefined],
-                grandParentName: [undefined],
-                address: [undefined],
-                jaggaDistrict: [undefined],
-                jaggaWard: [undefined],
-                jaggaKittaNum: [undefined],
-                jaggaArea: [undefined],
-                jaggaSiNum: [undefined],
-            }));
+        (this.form.get('securityDetails') as FormArray).push(this.buildSecurityDetail());
     }
 
     removeSecurityDetail(index) {
@@ -200,31 +207,9 @@ export class OfferLetterCorporateComponent implements OnInit {
             shreeName: [undefined],
             shreeMobile: [undefined],
 
-            loanTypeNepali: [undefined],
-            loanTypeEnglish: [undefined],
-            amount: [undefined],
-            amountInWords: [undefined],
-            loanPurpose: [undefined],
-            interestRate: [undefined],
-            interestRepayMonths: [undefined],
-            interestBaseRate: [undefined],
-            interestPremiumRate: [undefined],
-            interestTempDiscountRate: [undefined],
-            interestFinalRate: [undefined],
-            // loanLimit: [undefined],
-            interestRepayPlan: [undefined],
-            loanLimitYearAD: [undefined],
-            loanLimitYearBS: [undefined],
-            loanLimitMonths: [undefined],
 
-            pratibadhataAmount: [undefined],
-            pratibadhataAdditionalAmount: [undefined],
-            pratibadhataRate: [undefined],
-            pratibadhataYearlyRate: [undefined],
 
-            sthantarandRate: [undefined],
-
-            securityDetails: this.formBuilder.array([]),
+            securityDetails: this.formBuilder.array([this.buildSecurityDetail()]),
 
             dhitoDate: [undefined],
             dhitoAuditor: [undefined],
@@ -279,7 +264,7 @@ export class OfferLetterCorporateComponent implements OnInit {
             akhtiyarWardNum2: [undefined],
             signatoryGrandParentName: [undefined],
             signatoryParentName: [undefined],
-
+            loan : this.formBuilder.array([]),
             guarantors: this.formBuilder.array([]),
 
             sahichhapEmployee: [undefined],
@@ -316,12 +301,97 @@ export class OfferLetterCorporateComponent implements OnInit {
         this.form.get(wordLabel).patchValue(returnVal);
     }
 
-    calcYearlyRate(base, premium, discount, target) {
-        const baseRate = this.nepToEngNumberPipe.transform(this.form.get(base).value);
-        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(premium).value);
-        const discountRate = this.nepToEngNumberPipe.transform(this.form.get(discount).value);
+    calcYearlyRate(base, premium, discount, target,i) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get(['loan',i,base]).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(['loan',i,premium]).value);
+        const discountRate = this.nepToEngNumberPipe.transform(this.form.get(['loan',i,discount]).value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate) - parseFloat(discountRate);
         const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-        this.form.get(target).patchValue(finalValue);
+        this.form.get(['loan',i,target]).patchValue(finalValue);
     }
+
+    addLoan(){
+const formArray = this.form.get('loan') as FormArray
+        formArray.push(this.LoanFormGroup())
+    }
+    removeLoan(i)
+    {
+        const formArray = this.form.get('loan') as FormArray
+        formArray.removeAt(i)
+    }
+
+
+    LoanFormGroup():FormGroup{
+
+        return this.formBuilder.group({
+
+
+            loanTypeNepali: [undefined],
+            loanTypeEnglish: [undefined],
+            amount: [undefined],
+            amountInWords: [undefined],
+            loanPurpose: [undefined],
+            interestRate: [undefined],
+            interestRepayMonths: [undefined],
+            interestBaseRate: [undefined],
+            interestPremiumRate: [undefined],
+            interestTempDiscountRate: [undefined],
+            interestFinalRate: [undefined],
+            // loanLimit: [undefined],
+            interestRepayPlan: [undefined],
+            loanLimitYearAD: [undefined],
+            loanLimitYearBS: [undefined],
+            loanLimitMonths: [undefined],
+
+            pratibadhataAmount: [undefined],
+            pratibadhataAdditionalAmount: [undefined],
+            pratibadhataRate: [undefined],
+            pratibadhataYearlyRate: [undefined],
+
+            sthantarandRate: [undefined],
+
+        })
+
+    }
+
+
+
+    setLoan(data){
+        const formArray = this.form.get('loan') as FormArray
+        if(data.length ===0)
+        {
+            this.addLoan()
+            return
+        }
+        data.forEach((data)=>{
+            formArray.push(this.formBuilder.group({
+                loanTypeNepali: [data.loanTypeNepali],
+                loanTypeEnglish: [data.loanTypeEnglish],
+                amount: [data.amount],
+                amountInWords: [data.amountInWords],
+                loanPurpose: [data.loanPurpose],
+                interestRate: [data.interestRate],
+                interestRepayMonths: [data.interestRepayMonths],
+                interestBaseRate: [data.interestBaseRate],
+                interestPremiumRate: [data.interestPremiumRate],
+                interestTempDiscountRate: [data.interestTempDiscountRate],
+                interestFinalRate: [data.interestFinalRate],
+                // loanLimit: [undefined],
+                interestRepayPlan: [data.interestRepayPlan],
+                loanLimitYearAD: [data.loanLimitYearAD],
+                loanLimitYearBS: [data.loanLimitYearBS],
+                loanLimitMonths: [data.loanLimitMonths],
+
+                pratibadhataAmount: [data.pratibadhataAmount],
+                pratibadhataAdditionalAmount: [data.pratibadhataAdditionalAmount],
+                pratibadhataRate: [data.pratibadhataRate],
+                pratibadhataYearlyRate: [data.pratibadhataYearlyRate],
+
+                sthantarandRate: [data.sthantarandRate],
+            }))
+
+        })
+
+    }
+
 }
