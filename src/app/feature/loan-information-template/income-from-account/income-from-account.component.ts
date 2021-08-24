@@ -30,8 +30,6 @@ export class IncomeFromAccountComponent implements OnInit {
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
 
-  client = environment.client;
-  clientName = Clients;
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,

@@ -19,8 +19,6 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   newCustomerFlag: boolean[];
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
-  client = environment.client;
-  clientName = Clients;
 
   constructor() {
   }
