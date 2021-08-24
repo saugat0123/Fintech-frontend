@@ -41,7 +41,8 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DateValidator} from '../../../../@core/validator/date-validator';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -180,16 +181,21 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     constructor(
         private toastService: ToastService,
-        private customerInfoService: CustomerInfoService
+        private customerInfoService: CustomerInfoService,
+        private form: FormBuilder
     ) {
     }
 
     ngOnInit() {
-        this.senderForm = new FormGroup({
-            meetingLink1: new FormControl(),
+        this.senderForm = this.form.group({
+            meetingLink1: [undefined],
+            date: [undefined, [Validators.required, DateValidator.isValidBefore]],
+            time: [undefined]
         });
-        this.beneficiaryForm = new FormGroup({
-            meetingLink1: new FormControl(),
+        this.beneficiaryForm = this.form.group({
+            meetingLink1: [undefined],
+            date: [undefined, [Validators.required, DateValidator.isValidBefore]],
+            time: [undefined]
         });
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
@@ -657,6 +663,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     generateVideoKycSender($event: MouseEvent) {
+        this.videoKycBody.meetingDate = this.senderForm.get('date').value;
+        this.videoKycBody.meetingTime = this.senderForm.get('time').value;
         this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
             console.log('video kyc response', JSON.parse(res.data).meeting_link);
             this.senderForm.patchValue({
@@ -666,6 +674,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     generateVideoKycBeneficiary($event: MouseEvent) {
+        this.videoKycBody.meetingDate = this.beneficiaryForm.get('date').value;
+        this.videoKycBody.meetingTime = this.beneficiaryForm.get('time').value;
         console.log('beneficiary clicked');
         this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
             console.log('video kyc response', JSON.parse(res.data).meeting_link);
@@ -674,4 +684,6 @@ export class CustomerLoanInformationComponent implements OnInit {
             });
         });
     }
+
+
 }
