@@ -53,9 +53,6 @@
                                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
              -->
         <ng-container>
-            <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                                  [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
         </ng-container>
 
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">

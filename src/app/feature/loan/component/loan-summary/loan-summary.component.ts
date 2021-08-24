@@ -284,6 +284,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
             this.financialSummary = true;
+            console.log('this is financial data',this.financialData);
         }
 
         // Setting Security data--

@@ -358,11 +358,6 @@
                     *ngIf="financialSummary" [formData]="financialData"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
-            <ng-container>
-            <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                  [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
-            </ng-container>
 
 
             <br>

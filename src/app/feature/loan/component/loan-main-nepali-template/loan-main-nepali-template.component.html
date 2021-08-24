@@ -19,28 +19,25 @@
                                   [data]="customerLoan?.customerInfo?.nepaliDetail"></app-customer-info-nepali>
 
       </nb-step>
-      <nb-step [label]="labelTwo">
-        <ng-template #labelTwo>जमानी वस्नेको विवरण</ng-template>
-        <app-jamani-baseko #jamaniBasekoComponent [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-jamani-baseko>
-      </nb-step>
+
 
       <nb-step [label]="labelThree">
         <ng-template #labelThree>आवेदक/धन जमानतकर्ताको पारिवारिक विवरण</ng-template>
-        <app-applicant-family-info #applicantFamilyInfoComponent
-                                   [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-applicant-family-info>
+<!--        <app-applicant-family-info #applicantFamilyInfoComponent-->
+<!--                                   [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-applicant-family-info>-->
       </nb-step>
 
       <nb-step [label]="labelHayarPurchaseBikeKarjaNepali">
         <ng-template #labelHayarPurchaseBikeKarjaNepali>हायर पर्चेज कर्जा आवेदन फाराम</ng-template>
-        <app-bike-karja #bikeKarjaComponent
-                        [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-bike-karja>
+<!--        <app-bike-karja #bikeKarjaComponent-->
+<!--                        [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-bike-karja>-->
       </nb-step>
 
       <nb-step [label]="labelHayarParchesKarjaNibedan">
         <ng-template #labelHayarParchesKarjaNibedan>हायर पर्चेज कर्जाको निवेदन</ng-template>
 
-        <app-hayar-parches-karja-nibedan #hayarParchesKarjaInfoComponent
-                                         [karjaLoan]="customerLoan?.nepaliTemplates"></app-hayar-parches-karja-nibedan>
+<!--        <app-hayar-parches-karja-nibedan #hayarParchesKarjaInfoComponent-->
+<!--                                         [karjaLoan]="customerLoan?.nepaliTemplates"></app-hayar-parches-karja-nibedan>-->
 
       </nb-step>
     </nb-stepper>
