@@ -31,13 +31,12 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loanConfigId;
     id;
     loanConfig: LoanConfig;
-    loanDataHolder: LoanDataHolder;
+    loanDataHolder: LoanDataHolder = new LoanDataHolder();
     spinner;
     loanCategory;
     client;
     clientList;
     currentIndex;
-    signatureList: Array<LoanStage> = new Array<LoanStage>();
     RootUrl = ApiConfig.URL;
     calendarType: CalendarType = CalendarType.AD;
     loanHolder;
@@ -51,7 +50,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaGrade;
     isJointInfo = false;
     jointInfo = [];
-
+    loaded = false;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -70,6 +69,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            this.loaded = true;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder.loanHolder;
             this.loanCategory = this.loanDataHolder.loanCategory;
@@ -96,9 +96,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
                     this.crgGammaGradeStatusBadge = 'badge badge-warning';
                 }
             }
-
-            this.signatureList = this.getSignatureList(new Array<LoanStage>
-            (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
             this.getAllLoans(this.loanHolder.id);
             if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
                 !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
@@ -148,65 +145,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
         const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
         modalRef.componentInstance.comments = comments;
     }
-
-    loanHandler(index: number, length: number, label: string) {
-        if (index === length - 1 && index !== 0) {
-            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-                return 'APPROVED BY:';
-            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-                return 'REJECTED BY:';
-            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
-                return 'CLOSED BY:';
-            }
-        }
-        if (!ObjectUtil.isEmpty(label)) {
-            return label;
-        } else {
-            if (index === 0) {
-                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
-                    return 'RE INITIATED:';
-                } else {
-                    return 'INITIATED BY:';
-                }
-            } else {
-                return 'SUPPORTED BY:';
-            }
-        }
-    }
-
-
-    /**
-     * Get array of loan stage for authority signature array.
-     *
-     * @param stages Array of loan stages that must include previous stages and current stage.
-     */
-    private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
-        let lastBackwardIndex = 0;
-        stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
-                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
-                lastBackwardIndex = index;
-            }
-        });
-        if (lastBackwardIndex !== 0) {
-            stages.splice(0, lastBackwardIndex + 1);
-        }
-        const signatureList = new Array<LoanStage>();
-        const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
-        stages.forEach((loanStage, index) => {
-            if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-                if (addedStages.has(loanStage.fromUser.id)) {
-                    signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-                } else {
-                    signatureList.push(loanStage);
-                    addedStages.set(loanStage.fromUser.id, index);
-                }
-            }
-        });
-
-        return signatureList;
-    }
-
     getFiscalYears() {
         this.fiscalYearService.getAll().subscribe(response => {
             this.fiscalYearArray = response.detail;
@@ -250,8 +188,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     customSafePipe(val) {
-        if(val == null){
-            return "";
+        if (val == null) {
+            return '';
         }
         return val.replace(/(<([^>]+)>)/gi, '');
     }
