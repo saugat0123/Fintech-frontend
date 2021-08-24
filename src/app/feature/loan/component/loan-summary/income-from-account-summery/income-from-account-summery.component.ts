@@ -4,7 +4,6 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../../../environments/environment';
 import {SummaryType} from '../../SummaryType';
-import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-income-from-account-summery',
