@@ -18,6 +18,11 @@ export class CustomerInfoService extends BaseService<Object> {
         return CustomerInfoService.API;
     }
 
+    public videoKyc(obj): Observable<any> {
+        console.log('obj here', obj);
+        return this.http.post('https://coe.digiconnect.com.np/mikha/loan_remit/schedule_meeting', obj);
+    }
+
     public saveLoanInfo(obj, customerInfoId, template): Observable<any> {
         const api = `${this.getApi()}/${customerInfoId}/${template}`;
         const req = ApiUtils.getRequest(api);
@@ -46,10 +51,11 @@ export class CustomerInfoService extends BaseService<Object> {
         return this.http.post(req.url, customerInfo, {headers: req.header});
     }
 
-    public updateNepaliConfigData(data: string , id): Observable<any> {
+    public updateNepaliConfigData(data: string, id): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/update-nep-data/${id}`);
-        return this.http.patch(req.url, data , {headers: req.header});
+        return this.http.patch(req.url, data, {headers: req.header});
     }
+
     /*public updateCustomerBranch(customerInfoId, toBranchId) {
         const req = ApiUtils.getRequest(`${this.getApi()}/update-customer-branch/${customerInfoId}`);
         return this.http.post(req.url, toBranchId, {headers: req.header});

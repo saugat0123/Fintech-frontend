@@ -41,6 +41,7 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -49,20 +50,8 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 })
 export class CustomerLoanInformationComponent implements OnInit {
 
-    sender = [{
-        name: 'Dummy',
-        address: 'Test 1',
-        gender: '12345',
-        email: 'test@gmail.com',
-        phone: '2345',
-        fatherName: 'Test',
-        clientName: 'as',
-        dob: 'sa',
-        citizenshipNumber: 'as',
-        occupation: 'sb',
-        incomeSource: 'tt',
-        maritalStatus: 'single'
-    }];
+    senderForm: FormGroup;
+    beneficiaryForm: FormGroup;
 
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
@@ -179,6 +168,12 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.senderForm = new FormGroup({
+            meetingLink1: new FormControl(),
+        });
+        this.beneficiaryForm = new FormGroup({
+            meetingLink1: new FormControl(),
+        });
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
             this.siteVisit = this.customerInfo.siteVisit;
@@ -645,6 +640,29 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     generateVideoKycSender($event: MouseEvent) {
+        let videoKycBody = {
+            "agentEmail": "agent@email.com",
+            "customerInfo": {
+                "address": "Kathmandu Nepal",
+                "email": "user@email.com",
+                "metadata": "another metadata",
+                "name": "Loan Remit Test",
+                "phone": "",
+                "title": "mr"
+            },
+            "existingCustomer": false,
+            "metadata": "this is meta data",
+            "meetingDate": "16/08/2021",
+            "meetingTime": "12:20",
+            "purposeId": "000000001"
+        };
+        console.log('kyc', videoKycBody);
+        this.customerInfoService.videoKyc(videoKycBody).subscribe(res => {
+            console.log('video kyc response', JSON.parse(res.data).meeting_link);
+            this.senderForm.patchValue({
+                meetingLink1: JSON.parse(res.data).meeting_link
+            });
+        });
         console.log('sender clicked', $event);
     }
 

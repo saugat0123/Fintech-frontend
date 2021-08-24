@@ -16,7 +16,7 @@
             <nb-card-header>
               Video KYC Sender
             </nb-card-header>
-            <form>
+            <form [formGroup]="senderForm">
                 <div class="p-4 row">
                   <div class="col-sm-2">
                     <label class="label">Required</label><br>
@@ -29,15 +29,15 @@
                   </div>
                   <div class="col-sm-10">
                   <ng-container *ngIf="!hideVideoKycSender">
-                  <div class="col-lg-5">
+                  <div class="col-lg-7">
                     <label for="Meetinglink" class="label">Meeting Link</label>
-                    <input type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                    <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-7">
                     <label for="recordedmeeting" class="label">Recorded Meeting</label>
                     <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
                   </div>
-                  <div id="generatebtn" class="col-md-5" style="margin-bottom: 15px; margin-top: 15px">
+                  <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
                     <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
                   </div>
                   </ng-container>
@@ -53,7 +53,7 @@
               <nb-card-header>
                 Video KYC Beneficiary
               </nb-card-header>
-              <form>
+              <form [formGroup]="beneficiaryForm">
                 <div class="p-4 row">
                   <div class="col-sm-2">
                     <label class="label">Required</label><br>
@@ -66,15 +66,15 @@
                   </div>
                   <div class="col-sm-10">
                   <ng-container *ngIf="!hideVideoKycBeneficiary">
-                  <div class="col-md-5">
+                  <div class="col-md-7">
                     <label for="Meetinglink1" class="label">Meeting Link</label>
-                    <input type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
+                    <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-7">
                     <label for="recordedmeeting1" class="label">Recorded Meeting</label>
                     <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
                   </div>
-                  <div id="generatebtn1" class="col-md-5" style="margin-bottom: 15px; margin-top: 15px" >
+                  <div id="generatebtn1" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px" >
                     <button (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
                   </div>
                   </ng-container>
