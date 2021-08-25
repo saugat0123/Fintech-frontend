@@ -63,22 +63,46 @@
                                                 <input type="hidden" formControlName="id"/>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Company Name</label>
-                                                    <input class="form-control" formControlName="companyName" id="exampleInputEmail1" aria-describedby="emailHelp" type="text" required>
+                                                    <input class="form-control" [ngClass]="{ 'is-invalid': (isValid) && NEPSE_FORM.get('companyName').errors }" formControlName="companyName" id="exampleInputEmail1" aria-describedby="emailHelp" type="text" required>
+                                                    <div *ngIf="(isValid) && NEPSE_FORM.get('companyName').invalid">
+                                                        <span *ngIf="NEPSE_FORM.get('companyName').errors.required" >
+                                                            <p class="text-danger">Please enter company name</p>
+                                                        </span>
+
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="SharePerUnit">Share Amount Per Unit</label>
-                                                    <input type="number" class="form-control" formControlName="amountPerUnit" id="SharePerUnit">
+                                                    <input type="number" [ngClass]="{'is-invalid': (isValid) && NEPSE_FORM.get('amountPerUnit').errors}" class="form-control" formControlName="amountPerUnit" id="SharePerUnit">
+                                                    <div *ngIf="(isValid) && NEPSE_FORM.get('amountPerUnit').invalid">
+                                                        <span *ngIf="NEPSE_FORM.get('amountPerUnit').errors.required">
+                                                            <p class= "text-danger">Please enter amount per unit</p>
+                                                        </span>
+                                                    </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="CompanyCode">Company Code</label>
-                                                    <input type="text" class="form-control" id="CompanyCode" formControlName="companyCode">
+                                                    <input type="text" [ngClass]="{'is-invalid': (isValid) && NEPSE_FORM.get('companyCode').errors}" class="form-control" id="CompanyCode" formControlName="companyCode">
+                                                    <div *ngIf="(isValid) && NEPSE_FORM.get('companyCode').invalid">
+                                                        <span *ngIf="NEPSE_FORM.get('companyCode').errors.required">
+                                                            <p class="text-danger">Please enter company code</p>
+                                                        </span>
+                                                    </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="shareType">Share Type</label>
-                                                    <ng-select required formControlName="shareType" id="shareType"  [items]="items">
+                                                    <ng-select formControlName="shareType" id="shareType"  [items]="items" [bindValue]="ORIGINAL">
                                                     </ng-select>
+                                                    <div *ngIf="(isValid) && NEPSE_FORM.get('shareType').invalid">
+                                                        <span *ngIf="NEPSE_FORM.get('shareType').errors.required">
+                                                            <p class="text-danger">Please enter share type</p>
+
+                                                        </span>
+
+                                                    </div>
+
                                                 </div>
                                                 <button nbButton status="info" type="submit" class="btn btn-primary">Submit</button>
                                             </form>

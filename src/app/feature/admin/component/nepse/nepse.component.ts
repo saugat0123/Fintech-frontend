@@ -10,7 +10,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NepseService} from './nepse.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {Status} from '../../../../@core/Status';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-nepse',
@@ -36,6 +36,7 @@ export class NepseComponent implements OnInit {
     status = Status;
     NEPSE_FORM: FormGroup;
     model: Nepse = new Nepse();
+    isValid = false;
 
     constructor(
         private service: NepseService,
@@ -67,10 +68,10 @@ export class NepseComponent implements OnInit {
     ngOnInit() {
         this.NEPSE_FORM = this.form.group({
             id: [undefined],
-            companyName: [undefined],
-            amountPerUnit: [undefined],
-            companyCode: [undefined],
-            shareType: [undefined]
+            companyName: [undefined, Validators.required],
+            amountPerUnit: [undefined, Validators.required],
+            companyCode: [undefined, Validators.required],
+            shareType: [undefined, Validators.required]
         });
 
         this.breadcrumbService.notify(this.title);
@@ -119,6 +120,8 @@ export class NepseComponent implements OnInit {
     }
 
     SubmitNEPSEFORM() {
+        this.spinner = true;
+        this.isValid = true;
         this.search = {
             'companyName': this.NEPSE_FORM.get('companyName').value,
             'shareType': this.NEPSE_FORM.get('shareType').value,
@@ -129,7 +132,6 @@ export class NepseComponent implements OnInit {
                     id: data.detail[0].id,
                 });
             }
-
             this.service.save(this.NEPSE_FORM.value).subscribe(() => {
                 this.spinner = false;
                 this.modalService.dismissAll();
