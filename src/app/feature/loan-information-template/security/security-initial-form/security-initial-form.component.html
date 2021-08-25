@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="landCollateralOwnerRelationship">Collateral Owner
                                     Relationship</label>
@@ -170,7 +170,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="landCollateralOwnerRelationship">Ownership Type</label>
+                                <select class="form-control rounded" formControlName="ownershipType"
+                                        id="ownershipType"
+                                        name="ownershipType">
+                                    <option [ngValue]="null">--Ownership Type--</option>
+                                    <option *ngFor="let type of ownershipType"
+                                            [ngValue]="type.value">{{type.key}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="roadAccessBluePrintLand">Is road access seen in blueprint or
                                     not</label>
@@ -1466,7 +1478,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="landBuildingCollateralOwnerRelationship">Collateral Owner
                                         Relationship</label>
@@ -1480,7 +1492,19 @@
                                     </select>
                                 </div>
                             </div>
-                                <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title" for="ownershipTypeForLandAndBuilding">Ownership Type</label>
+                                    <select class="form-control rounded" formControlName="ownershipTypeForLandAndBuilding"
+                                            id="ownershipTypeForLandAndBuilding"
+                                            name="ownershipTypeForLandAndBuilding">
+                                        <option [ngValue]="null">--Ownership Type--</option>
+                                        <option *ngFor="let type of ownershipType"
+                                                [ngValue]="type.value">{{type.key}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                                <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="roadAccessBluePrint">Is road access seen in blueprint or
                                         not</label>
