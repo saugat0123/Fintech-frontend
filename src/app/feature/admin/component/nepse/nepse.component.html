@@ -93,7 +93,7 @@
 
                                                 <div class="form-group">
                                                     <label for="shareType">Share Type</label>
-                                                    <ng-select formControlName="shareType" id="shareType"  [items]="items" [bindValue]="ORIGINAL">
+                                                    <ng-select formControlName="shareType" id="shareType"  [items]="items">
                                                     </ng-select>
                                                     <div *ngIf="(isValid) && NEPSE_FORM.get('shareType').invalid">
                                                         <span *ngIf="NEPSE_FORM.get('shareType').errors.required">
