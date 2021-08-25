@@ -133,6 +133,7 @@ export class RemitCustomerListComponent implements OnInit {
         this.customerService.onBoardRemitCustoer(this.onBoardData).subscribe(() => {
             // this.getData();
             this.onBoardSpinner = false;
+            this.onBoardData.alreadyOnboarded = true;
             this.toastService.success('Successfully Onboard Remit Customer', 'Customer');
         }, err => {
             this.onBoardSpinner = false;
