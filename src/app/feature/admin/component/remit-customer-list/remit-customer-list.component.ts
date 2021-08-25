@@ -5,7 +5,6 @@ import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {Customer} from '../../modal/customer';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {RoleType} from '../../modal/roleType';
 import {RemitCustomerService} from './service/remit-customer.service';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -13,7 +12,6 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormGroup} from '@angular/forms';
 import {BranchService} from "../branch/branch.service";
-import {AccountType} from '../../modal/accountType';
 
 
 @Component({
