@@ -20,7 +20,9 @@
                 <th>Type</th>
                 <th>Business Unit</th>
                 <th>Loan Document No</th>
-                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
+                <th
+                    nbTooltip="Sort By" (click)="asc = !asc;sortFilter('cadCurrentStage.toUser.name',asc === true ? 'ASC':'DESC')"
+                    *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession <em class="fas fa-sort"></em></th>
                 <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Last Modified On <em class="fas fa-sort"></em></th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
                     Action
