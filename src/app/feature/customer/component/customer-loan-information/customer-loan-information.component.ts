@@ -44,6 +44,7 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from "@angular/router";
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -673,7 +674,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     generateVideoKycSender($event: MouseEvent) {
-        this.videoKycBody.meetingDate = this.senderForm.get('date').value;
+        const formatedDate =  new DatePipe('en-UK').transform(this.senderForm.get('date').value, 'dd/MM/yyyy');
+        this.videoKycBody.meetingDate = formatedDate;
         this.videoKycBody.meetingTime = this.senderForm.get('time').value;
         this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
             console.log('video kyc response', JSON.parse(res.data).meeting_link);
@@ -684,7 +686,8 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     generateVideoKycBeneficiary($event: MouseEvent) {
-        this.videoKycBody.meetingDate = this.beneficiaryForm.get('date').value;
+        const formatedDate =  new DatePipe('en-US').transform(this.beneficiaryForm.get('date').value, 'dd/MM/yyyy');
+        this.videoKycBody.meetingDate = formatedDate;
         this.videoKycBody.meetingTime = this.beneficiaryForm.get('time').value;
         console.log('beneficiary clicked');
         this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
