@@ -32,12 +32,12 @@
                       <div class="col-lg-7">
                         <label for="date1" class="label">Meeting Date</label>
                         <input
-                                formControlName="date" type="date" nbInput fullWidth id="date1" placeholder="link">
+                                formControlName="date" type="date" nbInput fullWidth id="date1">
 
                       </div>
                       <div class="col-lg-7">
                         <label for="date1" class="label">Meeting Time</label>
-                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time1" placeholder="link">
+                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time1">
                       </div>
 
                     <div class="col-lg-7">
@@ -80,7 +80,7 @@
                     <div class="col-lg-7">
                       <label for="date" class="label">Meeting Date</label>
                       <input  [ngClass]="{ 'is-invalid': beneficiaryForm.get('date').errors }"
-                              formControlName="date" type="date" nbInput fullWidth id="date" placeholder="link">
+                              formControlName="date" pattern="\d{1,2}/\d{1,2}/\d{4}" type="date" nbInput fullWidth id="date" placeholder="link">
                     </div>
                     <div class="col-lg-7">
                       <label for="date" class="label">Meeting Time</label>
