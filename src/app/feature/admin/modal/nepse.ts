@@ -6,6 +6,7 @@ export class Nepse {
   companyCode: string;
   shareType: string;
   priceEarningRatio: string;
+  sharePriceDate: Date;
   priceToBookValue: string;
   dividendPayoutRatio: string;
   dividendYield: string;
