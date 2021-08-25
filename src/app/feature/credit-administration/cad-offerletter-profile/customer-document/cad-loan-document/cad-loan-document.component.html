@@ -11,7 +11,7 @@
         <ng-container *ngFor="let customerLoan of customerLoanList">
             <tr class="sb-bg-dark text-white">
                 <td>
-                    <strong>{{customerLoan?.loan?.name}}</strong>
+                    <strong>{{customerLoan?.loan?.name}}}</strong>
                 </td>
             </tr>
             <ng-container>
@@ -23,13 +23,13 @@
 
                         <div class="col-md-12 ">
                             <div class="row">
-                                <div class="col-md-3 img-hover flex-wrap"
+                                <div class="col-md-6 img-hover flex-wrap"
                                      *ngFor="let data of customerLoan?.customerDocument;let i =index"
                                      [nbTooltip]="data?.document?.displayName">
                                     <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
                                             [className]="service.SET_CLASS_NAME"></em>
-                                        <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                                            data?.document?.displayName?.substring(0, 12) + '..' :
+                                        <span class="mx-1"> {{data?.document?.displayName?.length > 50 ?
+                                            data?.document?.displayName?.substring(0,45) + '..' :
                                             data?.document?.displayName}}</span></a>
                                 </div>
                             </div>
