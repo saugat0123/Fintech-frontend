@@ -79,7 +79,7 @@
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="10">{{i + 1}}.Land Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="11">{{i + 1}}.Land Security Details</th>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -89,8 +89,9 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Distress Value</th>
                         <th>Collateral Owner Relationship</th>
+                        <th>Ownership Type</th>
                         <th colspan="2">Address as per Legal Document</th>
                     </tr>
                     <tr>
@@ -103,6 +104,7 @@
                         <td class="text-right pr-1">Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
+                        <td class="text-left pl-1">{{landDetails?.ownershipType}}</td>
                         <td class="text-left pl-1" colspan="2"><span [innerHTML]="landDetails?.landSecurityLegalDocumentAddress | safeHtml"></span></td>
                     </tr>
 
@@ -238,7 +240,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th colspan="2">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th colspan="2">Distress Value</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -261,6 +263,7 @@
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
+                        <th>Ownership Type</th>
                         <th colspan="2">Staff Representative Name 2</th>
                     </tr>
                     <tr>
@@ -271,6 +274,7 @@
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.ownershipTypeForLandAndBuilding}}</td>
                         <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
 
