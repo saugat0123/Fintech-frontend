@@ -106,6 +106,7 @@
                 <th>Agent Name</th>
                 <th>Proposed Amount</th>
                 <th>Interest Rate</th>
+                <th *ngIf="!transferDoc">Sent To Branch</th>
                 <th *ngIf="transferDoc">Trasnferred To</th>
                 <th>Action</th>
             </tr>
@@ -119,6 +120,7 @@
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.agentName}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.proposedAmount || 'NA'}}</td>
                 <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.interestRate || 'NA'}}</td>
+                <td *ngIf="!transferDoc" (click)="customerProfile(model.id,model.id,'individual')">{{model?.branch?.name || 'NA'}}</td>
                 <td *ngIf="transferDoc" (click)="customerProfile(model.id,model.id,'individual')">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
                     <ng-container *ngIf="user.roleType ==='MAKER'">
