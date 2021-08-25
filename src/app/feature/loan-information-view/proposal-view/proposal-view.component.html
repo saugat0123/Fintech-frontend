@@ -118,7 +118,7 @@
             SC: {{client === clientName?.SHINE_RESUNGA ? '' : 'Rs. '}}{{(loan?.proposal?.data | jsonParse)?.serviceCharge}}</span>
           <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loan?.proposal?.data | jsonParse)?.serviceCharge !== ''">
             SC: {{(loan?.proposal?.data | jsonParse)?.serviceCharge}} {{client === clientName?.SHINE_RESUNGA ? '' : ' %'}}</span>
-          <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge === ''">-</span>
+          <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceCharge === '' || (loan?.proposal?.data | jsonParse)?.serviceCharge === null">-</span>
         </td>
         <td width="150px" class="text-left pl-1">
           <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
