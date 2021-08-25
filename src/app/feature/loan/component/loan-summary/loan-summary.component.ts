@@ -185,6 +185,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    refId: number;
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    isRemitLoan : boolean = false;
 
 
     constructor(
@@ -218,6 +219,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
         this.loanDataHolder = this.loanData;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {

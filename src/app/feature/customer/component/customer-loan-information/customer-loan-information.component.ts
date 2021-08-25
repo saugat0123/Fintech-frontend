@@ -41,7 +41,8 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ActivatedRoute, Params} from "@angular/router";
 import {DateValidator} from '../../../../@core/validator/date-validator';
 
 @Component({
@@ -180,6 +181,7 @@ export class CustomerLoanInformationComponent implements OnInit {
 
 
     constructor(
+        private activatedRoute: ActivatedRoute,
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
         private form: FormBuilder
@@ -187,6 +189,14 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('params');
+
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                console.log('paramsvalue', paramsValue);
+            });
+
+        console.log('customer info', this.customerInfo);
         this.senderForm = this.form.group({
             meetingLink1: [undefined],
             date: [undefined, [Validators.required, DateValidator.isValidBefore]],
