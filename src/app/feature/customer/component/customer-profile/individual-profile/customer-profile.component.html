@@ -12,13 +12,13 @@
                     {{customerInfo?.obligor || ' No group has been assigned.'}}
                 </span>
                 </ng-container>
-<!--                <div class="py-2">-->
-<!--                    <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'"> Customer-->
-<!--                        Activity-->
+                <div class="py-2">
+                    <button [nbPopover]="activity" nbButton size="small" [nbPopoverPlacement]="'right'"> Customer
+                        Activity
 
-<!--                        <nb-icon icon="arrow-right-outline"></nb-icon>-->
-<!--                    </button>-->
-<!--                </div>-->
+                        <nb-icon icon="arrow-right-outline"></nb-icon>
+                    </button>
+                </div>
 
             </div>
 
@@ -103,26 +103,7 @@
                         <span> <strong>Mobile Number :</strong> {{customer.contactNumber }}</span></div>
                     <div class="row">
                         <span> <strong>Introduction :</strong> <span [innerHTML]="customer.introduction | safeHtml"></span></span></div>
-                    <br>
-                    <br>
                 </div>
-
-<!--                &lt;!&ndash;Video KYC dropdown&ndash;&gt;-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-10">-->
-<!--                        <nb-card accent="primary">-->
-<!--                            <nb-card-header>-->
-<!--                                Video KYC-->
-<!--                            </nb-card-header>-->
-<!--                            <nb-card-body>-->
-<!--                                -->
-<!--                            </nb-card-body>-->
-<!--                        </nb-card>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
-
                 <div *ngIf="isJointInfo">
                     <div *ngFor="let jointCustomer of jointInfo">
                             <ng-container *ngFor="let info of jointCustomer">
@@ -214,16 +195,16 @@
                             status="danger" type="button">Save
                     </button>
                 </div>
-<!--                <div class="px-2">-->
-<!--                    <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
-<!--                            nbButton size="small" type="button">Apply Loan-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <div class="px-2">-->
-<!--                    <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"-->
-<!--                            nbButton size="small" type="button">Combine Loan-->
-<!--                    </button>-->
-<!--                </div>-->
+                <div class="px-2">
+                    <button (click)="openSingleSelectLoanTemplate()" *ngIf="!isEdited && maker"
+                            nbButton size="small" type="button">Apply Loan
+                    </button>
+                </div>
+                <div class="px-2">
+                    <button (click)="openCombineSelectLoanTemplate()" *ngIf="!isEdited && maker"
+                            nbButton size="small" type="button">Combine Loan
+                    </button>
+                </div>
             </div>
         </div>
         <div *ngIf="customerInfo?.loanFlags && customerInfo?.loanFlags?.length > 0" class="row mb-2">
@@ -274,65 +255,65 @@
                         </div>
                     </nb-card-footer>
                 </nb-card>
-<!--                <nb-card accent="primary" *ngIf="sbsGroupEnabled">-->
-<!--                    <nb-card-header>-->
-<!--                        Customer Groups-->
-<!--                        <div class="float-right" nbTooltip="{{totalGroupAmount | currencyFormatter}}">Total Group Limit-->
-<!--                            : {{customerInfo?.customerGroup?.groupLimit}}-->
-<!--                        </div>-->
-<!--                    </nb-card-header>-->
-<!--                    <nb-card-body>-->
-<!--                        <nb-accordion>-->
-<!--                            <nb-accordion-item>-->
-<!--                                <nb-accordion-item-header>-->
-<!--                                    <div class="row col-md-12">-->
-<!--                                        <div class="col-md-6">-->
-<!--                                            <span>Groups</span>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-6 d-flex justify-content-end">-->
-<!--                                            &lt;!&ndash;Total Amount: Rs. {{proposeAmountOfGroup | currencyFormatter}}&ndash;&gt;-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </nb-accordion-item-header>-->
-<!--                                <nb-accordion-item-body-->
-<!--                                        *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">-->
-<!--                                    <app-customer-list-group #customerListGroupComponent-->
-<!--                                                             (messageToEmit)="getTotalLoanAmount($event)"-->
-<!--                                                             [customerInfoData]="customerInfo"></app-customer-list-group>-->
-<!--                                </nb-accordion-item-body>-->
-<!--                            </nb-accordion-item>-->
-<!--                        </nb-accordion>-->
+                <nb-card accent="primary" *ngIf="sbsGroupEnabled">
+                    <nb-card-header>
+                        Customer Groups
+                        <div class="float-right" nbTooltip="{{totalGroupAmount | currencyFormatter}}">Total Group Limit
+                            : {{customerInfo?.customerGroup?.groupLimit}}
+                        </div>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6">
+                                            <span>Groups</span>
+                                        </div>
+                                        <div class="col-md-6 d-flex justify-content-end">
+                                            <!--Total Amount: Rs. {{proposeAmountOfGroup | currencyFormatter}}-->
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body
+                                        *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
+                                    <app-customer-list-group #customerListGroupComponent
+                                                             (messageToEmit)="getTotalLoanAmount($event)"
+                                                             [customerInfoData]="customerInfo"></app-customer-list-group>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
 
 
-<!--                    </nb-card-body>-->
+                    </nb-card-body>
 
-<!--                </nb-card>-->
+                </nb-card>
 
-<!--                <nb-card accent="primary" *ngIf="megaGroupEnabled">-->
-<!--                    <nb-card-header>-->
-<!--                        Customer Groups-->
-<!--                    </nb-card-header>-->
-<!--                    <nb-card-body>-->
-<!--                        <nb-accordion>-->
-<!--                            <nb-accordion-item #mGroupAccordion>-->
-<!--                                <nb-accordion-item-header>-->
-<!--                                    <div class="row col-md-12">-->
-<!--                                        <div class="col-md-6">-->
-<!--                                            <span>Customer Group</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </nb-accordion-item-header>-->
-<!--                                <nb-accordion-item-body>-->
-<!--                                    <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"-->
-<!--                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>-->
-<!--                                </nb-accordion-item-body>-->
-<!--                            </nb-accordion-item>-->
-<!--                        </nb-accordion>-->
+                <nb-card accent="primary" *ngIf="megaGroupEnabled">
+                    <nb-card-header>
+                        Customer Groups
+                    </nb-card-header>
+                    <nb-card-body>
+                        <nb-accordion>
+                            <nb-accordion-item #mGroupAccordion>
+                                <nb-accordion-item-header>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6">
+                                            <span>Customer Group</span>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <app-customer-group *ngIf="customerInfo && mGroupAccordion.expanded"
+                                                        (responseData)="setMGroupData($event)" [customerInfo]="customerInfo"></app-customer-group>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
 
 
-<!--                    </nb-card-body>-->
+                    </nb-card-body>
 
-<!--                </nb-card>-->
+                </nb-card>
 
             </div>
             <div class="col-md-4">
