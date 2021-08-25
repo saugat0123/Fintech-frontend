@@ -7,6 +7,7 @@
         <app-micro-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                                      [calendarType]="calendarType"
                                      [isMicroDirect]="otherMicroDetailsVisibility"
+                                     [isMicroCustomer]="isMicro"
                                      [formValue]="loanDataHolder?.companyInfo"
                                      [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
 
@@ -14,6 +15,8 @@
                            [customerAllLoanList]="customerAllLoanList"
                            [proposalData]="loanDataHolder?.proposal"
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
+
+        <app-micro-other-info-and-confirmation *ngIf="loanDataHolder?.proposal" [proposal]="loanDataHolder?.proposal"></app-micro-other-info-and-confirmation>
 
         <nb-card *ngIf="!otherMicroDetailsVisibility">
             <nb-card-header>

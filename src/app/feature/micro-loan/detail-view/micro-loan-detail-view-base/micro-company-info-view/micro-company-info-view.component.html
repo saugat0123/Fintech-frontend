@@ -55,6 +55,27 @@
 
             </tr>
         </table>
+        <div *ngIf="!otherMicroDetailsVisibility">
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>Distance from Branch (km)</th>
+                    <th>Customer’s category</th>
+                    <th>Basel -2 Risk Classification (in %)</th>
+                    <th>Base of Risk Classification</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.bankDistance || 'NA'}}</td>
+                    <td class="text-left pl-1">{{companyJsonData?.microCustomerDetail?.customerCategory || 'NA'}}</td>
+                    <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.riskClassificationPercent || 'NA'}}</td>
+                    <td class="text-right pr-1">{{companyJsonData?.microCustomerDetail?.riskClassificationBase || 'NA'}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <table  *ngIf="companyJsonData?.isAdditionalCompanyInfo"
                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
@@ -285,7 +306,7 @@
             </tbody>
         </table>
 
-        <table *ngIf="otherMicroDetailsVisibility"
+        <table
                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead>
             <tr class="text-white sb-bg-dark">
@@ -587,7 +608,7 @@
             </tr>
 
         </table>
-        <table *ngIf="!disableCrgAlpha"
+        <table *ngIf="!disableCrgAlpha && !isMicroCustomer"
                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="2">Company Relationship with Bank</th>
@@ -606,7 +627,7 @@
             </tr>
         </table>
 
-        <table *ngIf="!disableCrgAlpha"
+        <table *ngIf="!disableCrgAlpha && !isMicroCustomer"
                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="5">Business & Industry</th>
@@ -636,7 +657,7 @@
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="otherMicroDetailsVisibility">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark text-white">
@@ -649,7 +670,7 @@
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="otherMicroDetailsVisibility">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark text-white">
@@ -662,7 +683,51 @@
         </table>
     </div>
 </div>
-<div class="row">
+<!--todo can be replaced by common component by managing micro-common-detail module-->
+<div class="row" *ngIf="!otherMicroDetailsVisibility">
+    <div class="col-md-12">
+        <div *ngIf="companyJsonData?.microCustomerDetail?.isBlBAgent === 'yes'">
+            <div>
+                <p><strong>BLB Agent</strong></p>
+            </div>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Name of BLB agent</th>
+                    <th>BC Code</th>
+                </tr>
+                </thead>
+                <tbody>
+                <td>1 </td>
+                <td class="text-left pl-1">{{companyJsonData?.microCustomerDetail['blbAgentName']}}</td>
+                <td class="text-left pl-1">{{companyJsonData?.microCustomerDetail['blbAgentCode']}}</td>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="companyJsonData?.microCustomerDetail?.isDeprive === 'yes'">
+            <div>
+                <p><strong> Categorization of customer as per NRB Directive 17.  </strong> </p>
+            </div>
+            <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>Deprive Sector</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left pl-1">{{companyJsonData?.microCustomerDetail['depriveSector']}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="row" *ngIf="otherMicroDetailsVisibility">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark text-white">
@@ -675,7 +740,7 @@
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="otherMicroDetailsVisibility">
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark text-white">
