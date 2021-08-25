@@ -54,6 +54,7 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     senderForm: FormGroup;
     beneficiaryForm: FormGroup;
+    sender= [];
 
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
@@ -174,7 +175,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         },
         "existingCustomer": false,
         "metadata": "this is meta data",
-        "meetingDate": "16/08/2021",
+        "meetingDate": "2021-08-25",
         "meetingTime": "12:20",
         "purposeId": "000000001"
     };
