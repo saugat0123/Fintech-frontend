@@ -130,7 +130,7 @@
                                                 </nb-checkbox>
                                             </div>
 
-                                            <div class="col-md-12 row" *ngIf="showSolUser[i]?.value">
+                                            <div class="col-md-12 row" *ngIf="individualType?.form.get(['actions', i, 'isSol']).value">
                                                 <div class="col-md-6">
                                                     <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval
                                                         Role</label>
@@ -244,7 +244,7 @@
                                     >is SOL?
                                     </nb-checkbox>
                                 </div>
-                                <div class="col-md-12 row" *ngIf="showHideCombineSolUser">
+                                <div class="col-md-12 row" *ngIf="combinedType.form.get('isSol').value">
                                     <div class="col-md-6">
                                         <label class="toRole" for="toRole">Approval Role</label>
                                         <select style="width: 100%"
