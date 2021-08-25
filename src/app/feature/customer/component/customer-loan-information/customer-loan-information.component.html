@@ -28,17 +28,29 @@
                   </div>
                   <div class="col-sm-10">
                   <ng-container *ngIf="!hideVideoKycSender">
-                  <div class="col-lg-7">
-                    <label for="Meetinglink" class="label">Meeting Link</label>
-                    <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
-                  </div>
-                  <div class="col-md-7">
-                    <label for="recordedmeeting" class="label">Recorded Meeting</label>
-                    <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
-                  </div>
-                  <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
-                    <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
-                  </div>
+
+                      <div class="col-lg-7">
+                        <label for="date1" class="label">Meeting Date</label>
+                        <input
+                                formControlName="date" type="date" nbInput fullWidth id="date1" placeholder="link">
+
+                      </div>
+                      <div class="col-lg-7">
+                        <label for="date1" class="label">Meeting Time</label>
+                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time1" placeholder="link">
+                      </div>
+
+                    <div class="col-lg-7">
+                      <label for="Meetinglink" class="label">Meeting Link</label>
+                      <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                    </div>
+                    <div class="col-md-7">
+                      <label for="recordedmeeting" class="label">Recorded Meeting</label>
+                      <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
+                    </div>
+                    <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
+                      <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
+                    </div>
                   </ng-container>
                   </div>
                 </div>
@@ -65,6 +77,15 @@
                   </div>
                   <div class="col-sm-10">
                   <ng-container *ngIf="!hideVideoKycBeneficiary">
+                    <div class="col-lg-7">
+                      <label for="date" class="label">Meeting Date</label>
+                      <input  [ngClass]="{ 'is-invalid': beneficiaryForm.get('date').errors }"
+                              formControlName="date" type="date" nbInput fullWidth id="date" placeholder="link">
+                    </div>
+                    <div class="col-lg-7">
+                      <label for="date" class="label">Meeting Time</label>
+                      <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time" placeholder="link">
+                    </div>
                   <div class="col-md-7">
                     <label for="Meetinglink1" class="label">Meeting Link</label>
                     <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
