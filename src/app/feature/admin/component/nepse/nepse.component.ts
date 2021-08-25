@@ -113,6 +113,8 @@ export class NepseComponent implements OnInit {
 
     openForm(event) {
         const modalRef = this.modalService.open(event);
+        this.isValid = false;
+        this.NEPSE_FORM.reset();
     }
 
     onClose() {
@@ -141,6 +143,7 @@ export class NepseComponent implements OnInit {
             }, (error) => {
                 this.toastService.show((new Alert(AlertType.DANGER, 'Failed')));
             });
+
         }, error => {
             console.log('error data');
             this.spinner = false;
