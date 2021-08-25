@@ -193,6 +193,11 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       if (ObjectUtil.isEmpty(selectedSolUser)) {
         this.isNoUserSelectedSol = true;
         return;
+      } else {
+        this.form.patchValue({
+          solUser: null,
+          isSol: false
+        });
       }
     }
     const dialogRef = this.nbDialogService.open(VerificationActionModelComponent, {
