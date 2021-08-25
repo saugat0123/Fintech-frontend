@@ -94,6 +94,7 @@ import { RoleAddComponent } from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import {RemitLoanHeirarchyComponent} from './component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component';
 import {RemitCustomerListComponent} from './component/remit-customer-list/remit-customer-list.component';
+import { RemitLoanViewComponent } from './component/remit-customer-list/remit-loan-view/remit-loan-view.component';
 
 @NgModule({
     declarations: [
@@ -172,6 +173,7 @@ import {RemitCustomerListComponent} from './component/remit-customer-list/remit-
         CadRoleHierarchyComponent,
         CbsGroupExecutorComponent,
         RoleAddComponent,
+        RemitLoanViewComponent,
         // SecurityComponent
     ],
   imports: [
