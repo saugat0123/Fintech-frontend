@@ -179,7 +179,8 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
+                    <!-- Todo remove this component for srdb -->
+                    <ng-template ngbTabContent *ngIf="client !== clientName.SHINE_RESUNGA && allList.name === 'Credit Risk Grading - Alpha'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
                                                        [financialData]="loanDocument?.financial?.data"
@@ -190,8 +191,8 @@
                                                        [loanTag]="loanTag"
                                                        [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
                     </ng-template>
-
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
+                    <!-- Todo remove this component for srdb -->
+                    <ng-template ngbTabContent *ngIf="client !== clientName.SHINE_RESUNGA && allList.name === 'Credit Risk Grading - Lambda'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-lambda *ngIf="loanDataReady" #creditRiskGradingLambda
                                                         [customer]="loanDocument?.customerInfo"
@@ -203,16 +204,14 @@
                                                         [proposedLimit]="loanDocument?.proposal?.proposedLimit"
                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
-                    <!-- Todo remove in future if not require for specific client -->
-
-<!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">-->
-<!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
-<!--                        <app-crg-micro *ngIf="loanDataReady" #crgMicro-->
-<!--                                       [formData]="loanDocument?.crgMicro"-->
-<!--                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"-->
-<!--                                       [security]="loanDocument?.security"-->
-<!--                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>-->
-<!--                    </ng-template>-->
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
+                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
+                        <app-crg-micro *ngIf="loanDataReady" #crgMicro
+                                       [formData]="loanDocument?.crgMicro"
+                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
+                                       [security]="loanDocument?.security"
+                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
+                    </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
                         <app-reporting-info-tagging #reportingInfoTagging
