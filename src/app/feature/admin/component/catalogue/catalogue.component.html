@@ -234,7 +234,7 @@
                 <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
-                    <select [(ngModel)]="model.loanType" class="form-control form-control-tiny py-0"
+                    <select [(ngModel)]="tempLoanType" class="form-control form-control-tiny py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
@@ -243,12 +243,12 @@
                         </ng-container>
                         <ng-container
                                 *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
-                            <option value="RENEWED_LOAN" *ngIf="model.loan.isRenewable">Renew Loan</option>
+                            <option value="RENEWED_LOAN">Renew Loan</option>
                             <option value="CLOSURE_LOAN">Close Loan</option>
                             <option value="ENHANCED_LOAN">Enhance Loan</option>
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
-                            <option value="RENEW_WITH_ENHANCEMENT" *ngIf="model.loan.isRenewable">Renew With Enhancement</option>
+                            <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
                         </ng-container>
                     </select>
                 </td>
