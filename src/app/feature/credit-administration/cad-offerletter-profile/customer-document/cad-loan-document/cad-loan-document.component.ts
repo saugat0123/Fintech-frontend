@@ -17,6 +17,7 @@ export class CadLoanDocumentComponent implements OnInit {
   setClassName = 'far fa-file-pdf fa-1x text-danger';
   customerLoan;
   folderView = false;
+
   constructor(public service: CommonService, private ngbModalService: NgbModal) {
   }
 
@@ -41,6 +42,15 @@ export class CadLoanDocumentComponent implements OnInit {
       link.target = '_blank';
       link.click();
     }
+  }
+
+  downloadFile(cusLoan: LoanDataHolder) {
+    const docPaths = [];
+    for (const doc of cusLoan.customerDocument) {
+      docPaths.push(doc.documentPath);
+    }
+    this.service.downloadAll(docPaths, cusLoan.loanHolder.name);
+    this.ngbModalService.dismissAll();
   }
 
   openTemplate(template, data: LoanDataHolder) {
