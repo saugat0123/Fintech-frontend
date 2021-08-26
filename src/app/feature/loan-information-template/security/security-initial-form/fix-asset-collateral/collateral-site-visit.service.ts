@@ -42,4 +42,16 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     const req = ApiUtils.getRequest(api);
     return this.http.get(req.url, {headers: req.header});
   }
+
+  public deleteSiteVisit(id: number, siteVisitDate: Date): Observable<any> {
+    const api = `${this.getApi()}/delete-site-visit/${id}/${siteVisitDate}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.delete(req.url, {headers: req.header});
+  }
+
+  public deleteAllSiteVisit(securityId: number, securityName: string): Observable<any> {
+    const api = `${this.getApi()}/delete-all-site-visit/${securityId}/${securityName}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.delete(req.url, {headers: req.header});
+  }
 }
