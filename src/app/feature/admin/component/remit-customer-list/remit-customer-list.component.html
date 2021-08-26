@@ -113,15 +113,15 @@
             </thead>
             <tbody>
             <tr *ngFor="let model of remitCustomerList;let i=index" class="cursor">
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{i+1}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.beneficiaryName}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.senderName || 'NA'}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.senderCountry || 'NA'}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.agentName}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.proposedAmount || 'NA'}}</td>
-                <td (click)="customerProfile(model.id,model.id,'individual')">{{model?.interestRate || 'NA'}}</td>
-                <td *ngIf="!transferDoc" (click)="customerProfile(model.id,model.id,'individual')">{{model?.branch?.name || 'NA'}}</td>
-                <td *ngIf="transferDoc" (click)="customerProfile(model.id,model.id,'individual')">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
+                <td>{{i+1}}</td>
+                <td>{{model?.beneficiaryName}}</td>
+                <td>{{model?.senderName || 'NA'}}</td>
+                <td>{{model?.senderCountry || 'NA'}}</td>
+                <td>{{model?.agentName}}</td>
+                <td>{{model?.proposedAmount || 'NA'}}</td>
+                <td>{{model?.interestRate || 'NA'}}</td>
+                <td *ngIf="!transferDoc">{{model?.branch?.name || 'NA'}}</td>
+                <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
                     <ng-container *ngIf="user.roleType ==='MAKER' && !model.alreadyOnBoarded">
                         <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
