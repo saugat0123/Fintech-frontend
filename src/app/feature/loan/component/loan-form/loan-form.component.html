@@ -125,6 +125,8 @@
                                             [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
 
+                    <!-- Todo remove in future if not require for specific client -->
+
 <!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">-->
 <!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
 <!--                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma-->
@@ -201,6 +203,7 @@
                                                         [proposedLimit]="loanDocument?.proposal?.proposedLimit"
                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
+                    <!-- Todo remove in future if not require for specific client -->
 
 <!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">-->
 <!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
