@@ -63,7 +63,7 @@
                                                 <input type="hidden" formControlName="id"/>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Company Name</label>
-                                                    <input class="form-control" [ngClass]="{ 'is-invalid': (isValid) && NEPSE_FORM.get('companyName').errors }" formControlName="companyName" id="exampleInputEmail1" aria-describedby="emailHelp" type="text" required>
+                                                    <input class="form-control" [ngClass]="{ 'is-invalid': (isValid) && NEPSE_FORM.get('companyName').errors }" formControlName="companyName" id="exampleInputEmail1" aria-describedby="emailHelp" type="text">
                                                     <div *ngIf="(isValid) && NEPSE_FORM.get('companyName').invalid">
                                                         <span *ngIf="NEPSE_FORM.get('companyName').errors.required" >
                                                             <p class="text-danger">Please enter company name</p>
@@ -83,10 +83,10 @@
 
                                                 <div class="form-group">
                                                     <label for="CompanyCode">Company Code</label>
-                                                    <input type="text" [ngClass]="{'is-invalid': (isValid) && NEPSE_FORM.get('companyCode').errors}" class="form-control" id="CompanyCode" formControlName="companyCode">
+                                                    <input type="text" [ngClass]="{'is-invalid': (isValid) && NEPSE_FORM.get('companyCode').errors}" class="form-control" formControlName="companyCode" id="CompanyCode">
                                                     <div *ngIf="(isValid) && NEPSE_FORM.get('companyCode').invalid">
                                                         <span *ngIf="NEPSE_FORM.get('companyCode').errors.required">
-                                                            <p class="text-danger">Please enter company code</p>
+                                                            <p class= "text-danger">Please enter company code</p>
                                                         </span>
                                                     </div>
                                                 </div>

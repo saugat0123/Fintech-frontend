@@ -135,13 +135,21 @@ export class NepseComponent implements OnInit {
                 });
             }
             this.service.save(this.NEPSE_FORM.value).subscribe(() => {
+                if (this.NEPSE_FORM.get('companyName').value === null) {
+                    this.spinner = false;
+                    return;
+                }
+                if (this.NEPSE_FORM.get('companyCode').value === null) {
+                    this.spinner = false;
+                    return;
+                }
                 this.spinner = false;
                 this.modalService.dismissAll();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved!'));
                 NepseComponent.loadData(this);
                 this.NEPSE_FORM.reset();
             }, (error) => {
-                this.toastService.show((new Alert(AlertType.DANGER, 'Failed')));
+                this.spinner = false;
             });
 
         }, error => {
