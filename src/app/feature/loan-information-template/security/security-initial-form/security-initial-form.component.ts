@@ -48,6 +48,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() customerSecurityId;
     securityEmitValue: string;
 
+
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -96,6 +97,7 @@ export class SecurityInitialFormComponent implements OnInit {
     insurancePolicySelected = false;
     assignmentOfReceivable = false;
     selectedSecurity: string;
+    basicInfo: FormGroup;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -537,6 +539,9 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addHypothecationOfStock();
         }
 
+    }
+    get basicInfoControls() {
+        return this.basicInfo.controls;
     }
 
     setAssignments(currentData) {
@@ -1815,6 +1820,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 companyCode: matchedNepse[0].companyCode,
                 amountPerUnit: matchedNepse[0].amountPerUnit,
                 priceEarningRatio: matchedNepse[0].priceEarningRatio,
+                sharePriceDate: matchedNepse[0].sharePriceDate,
                 priceBookValue: matchedNepse[0].priceToBookValue,
                 dividendYeild: matchedNepse[0].dividendYield,
                 dividendPayoutRatio: matchedNepse[0].dividendPayoutRatio,
@@ -1895,6 +1901,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     total: [share.total],
                     consideredValue: [share.consideredValue],
                     priceEarningRatio: [share.priceEarningRatio],
+                    sharePriceDate: [share.sharePriceDate],
                     priceBookValue: [share.priceBookValue],
                     dividendYeild: [share.dividendYeild],
                     dividendPayoutRatio: [share.dividendPayoutRatio],
@@ -1915,6 +1922,7 @@ export class SecurityInitialFormComponent implements OnInit {
             total: [''],
             consideredValue: [''],
             priceEarningRatio: [undefined],
+            sharePriceDate: [undefined],
             priceBookValue: [undefined],
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
