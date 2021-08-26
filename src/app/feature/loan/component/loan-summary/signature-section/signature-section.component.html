@@ -8,7 +8,7 @@
          class="padding-0-125">
         <div class="signature-block" *ngIf="!previous.fromUser.name.toLowerCase().includes('default')">
             <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
+                <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toRole?.authorityLabel : previous?.fromRole?.authorityLabel)}}</span>
             </div>
             <hr class="border-dark m-0">
             <div class="row justify-content-center signature mx-auto">
