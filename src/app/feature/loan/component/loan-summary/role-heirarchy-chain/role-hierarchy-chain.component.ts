@@ -56,8 +56,8 @@ export class RoleHierarchyChainComponent implements OnInit, OnChanges {
       this.defaultRoleHierarchies = response.detail;
       this.length = this.defaultRoleHierarchies.length > 0;
       this.approvalRoleHierarchies = this.defaultRoleHierarchies.reverse();
-      const currentRoleId = this.loanDataHolder.currentStage.toUser.role.id;
-      this.isMaker = this.loanDataHolder.currentStage.toUser.role.roleType;
+      const currentRoleId = this.loanDataHolder.currentStage.toRole.id;
+      this.isMaker = this.loanDataHolder.currentStage.toRole.roleType;
       this.defaultRoleHierarchies.filter((f) => {
         const roleId = f.role.id;
         f.isCurrentRole = false;

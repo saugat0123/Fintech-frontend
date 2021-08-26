@@ -629,8 +629,8 @@ export class CatalogueComponent implements OnInit {
             this.defaultRoleHierarchies = response.detail;
             this.length = this.defaultRoleHierarchies.length > 0;
             this.approvalRoleHierarchies = this.defaultRoleHierarchies.reverse();
-            const currentRoleId = loanDataHolder.currentStage.toUser.role.id;
-            this.roleTypeMaker = loanDataHolder.currentStage.toUser.role.roleType;
+            const currentRoleId = loanDataHolder.currentStage.toRole.id;
+            this.roleTypeMaker = loanDataHolder.currentStage.toRole.roleType;
             this.defaultRoleHierarchies.filter((f) => {
                 const roleId = f.role.id;
                 f.isCurrentRole = false;
