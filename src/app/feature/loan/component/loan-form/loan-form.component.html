@@ -125,13 +125,13 @@
                                             [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
-                                                       [fromProfile]="true"
-                                                       [loanConfigId]="id"
-                                                       [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
-                    </ng-template>
+<!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">-->
+<!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
+<!--                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma-->
+<!--                                                       [fromProfile]="true"-->
+<!--                                                       [loanConfigId]="id"-->
+<!--                                                       [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>-->
+<!--                    </ng-template>-->
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <div class="py-4">
@@ -202,14 +202,14 @@
                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
-                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
-                        <app-crg-micro *ngIf="loanDataReady" #crgMicro
-                                       [formData]="loanDocument?.crgMicro"
-                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
-                                       [security]="loanDocument?.security"
-                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
-                    </ng-template>
+<!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">-->
+<!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
+<!--                        <app-crg-micro *ngIf="loanDataReady" #crgMicro-->
+<!--                                       [formData]="loanDocument?.crgMicro"-->
+<!--                                       [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"-->
+<!--                                       [security]="loanDocument?.security"-->
+<!--                                       [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>-->
+<!--                    </ng-template>-->
 
                     <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
                         <app-reporting-info-tagging #reportingInfoTagging
