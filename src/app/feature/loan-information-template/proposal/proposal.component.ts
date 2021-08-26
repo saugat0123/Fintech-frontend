@@ -164,9 +164,11 @@ export class ProposalComponent implements OnInit {
           });
         });
     this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-    .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
+    .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value) - Number(this.proposalForm.get('subsidizedLoan').value)).toFixed(2)));
     this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-    .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
+    .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)  - Number(this.proposalForm.get('subsidizedLoan').value)).toFixed(2)));
+    this.proposalForm.get('subsidizedLoan').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
+    .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(this.proposalForm.get('baseRate').value) - Number(value)).toFixed(2)));
     this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
