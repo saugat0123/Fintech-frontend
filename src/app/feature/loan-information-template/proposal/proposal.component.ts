@@ -244,7 +244,8 @@ export class ProposalComponent implements OnInit {
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
       interestPrincipalRepayment: undefined,
-      proposalRemark: [undefined]
+      proposalRemark: [undefined],
+      existingServiceCharge: [undefined]
     });
   }
 
