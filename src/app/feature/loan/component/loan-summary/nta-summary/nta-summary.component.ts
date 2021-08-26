@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NetTradingAssets} from '../../../../admin/modal/NetTradingAssets';
 import {FiscalYear} from '../../../../admin/modal/FiscalYear';
 import {environment} from '../../../../../../environments/environment';
-import {SummaryType} from '../../SummaryType';
 import {Clients} from '../../../../../../environments/Clients';
+import {SummaryType} from '../../SummaryType';
 
 @Component({
   selector: 'app-nta-summary',

@@ -52,7 +52,10 @@
                                         [fromProfile]="false"
                                         [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
              -->
-        <ng-container>
+        <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
         </ng-container>
 
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">

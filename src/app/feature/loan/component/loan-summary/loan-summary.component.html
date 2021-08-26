@@ -859,6 +859,9 @@
 
             <hr>
             <ng-container>
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                      [fiscalYears]="fiscalYearArray"
+                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
             </ng-container>
 
 

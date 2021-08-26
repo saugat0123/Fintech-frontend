@@ -98,7 +98,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         RoleHierarchyChainComponent,
         CompanyInfoSummaryComponent,
         ApprovalSheetDocumentListComponent,
-        SignatureSectionComponent
+        SignatureSectionComponent,
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

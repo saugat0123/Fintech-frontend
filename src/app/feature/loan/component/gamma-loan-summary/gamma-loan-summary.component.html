@@ -607,7 +607,12 @@
             <!-- Start Income & Expenses -->
 
             <!-- Start NTA-->
-
+            <ng-container >
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                      [fiscalYears]="fiscalYearArray"
+                                      [netTradingAssetsData]="netTradingAssetsData"
+                                      [count]="13"></app-nta-summary>
+            </ng-container>
             <br>
             <!-- End NTA-->
 

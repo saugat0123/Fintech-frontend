@@ -149,7 +149,7 @@
                                              [loanId]="id"></app-micro-loan-detail-view-base>
 
             <!-- Alpha or ICFC Summay Page-->
-            <app-alpha-detail-view *ngIf="loanHolder && !isMicro && (summaryType === summaryTypeName?.ALPHA)"
+            <app-alpha-detail-view *ngIf="loanHolder && !isMicro"
                                    [calendarType]="calendarType"
                                    [loanDataHolder]="loanDataHolder"
                                    [loanHolder]="loanHolder"

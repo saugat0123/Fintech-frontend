@@ -72,6 +72,11 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
+
+            <app-nta-summary *ngIf="itemNetTrading?.expanded"
+                             [fiscalYears]="fiscalYearArray"
+                             [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-summary>
+
         </nb-accordion-item-body>
       </nb-accordion-item>
 
