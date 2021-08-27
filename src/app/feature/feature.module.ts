@@ -45,10 +45,9 @@ import { VideoKycComponent } from './video-kyc/video-kyc.component';
         CommonAddressComponent,
         CustomerWisePendingComponent,
         ErrorPageComponent,
-        VideoKycComponent
 
       ],
-    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent, VideoKycComponent],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
       providers: [SafePipe]
     }
 )

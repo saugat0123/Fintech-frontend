@@ -12,6 +12,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormGroup} from '@angular/forms';
 import {BranchService} from "../branch/branch.service";
+import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
 
 
 @Component({
@@ -188,5 +189,13 @@ export class RemitCustomerListComponent implements OnInit {
     changePage(page: number) {
         this.page = page;
         RemitCustomerListComponent.loadData(this);
+    }
+    viewVideo() {
+        this.dialogService.open(VideoKycComponent, {
+            closeOnBackdropClick: true,
+            closeOnEsc: true,
+            hasBackdrop: true,
+            hasScroll: true,
+        });
     }
 }
