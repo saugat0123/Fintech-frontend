@@ -130,8 +130,8 @@ export class MicroCrgParamsComponent implements OnInit {
 
       isSubsidized: [false],
       insuranceCoverage: [undefined],
-      locationOfProperty: [undefined],
-      roadAccess: [undefined],
+      locationOfProperty: [undefined, Validators.required],
+      roadAccess: [undefined, Validators.required],
 
       multibanking: [undefined, Validators.required],
       relationWithBank: [undefined, Validators.required],
@@ -348,16 +348,16 @@ export class MicroCrgParamsComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (!ObjectUtil.isEmpty(this.microCrgParams)) {
+    if (!ObjectUtil.isEmpty(this.microCrgParams )) {
       this.microCrgParamsData = this.microCrgParams;
     }
-    if (this.microCrgParamsForm.invalid) {
-      return;
+    if (this.microCrgParamsForm.valid) {
+      this.calculateAndSetHighestScore();
+      this.currentFormData['initialForm'] = this.microCrgParamsForm.value;
+      this.microCrgParamsData.data = JSON.stringify(this.currentFormData);
+      this.dataEmitter.emit(this.microCrgParamsData);
     }
-    this.calculateAndSetHighestScore();
-    this.currentFormData['initialForm'] = this.microCrgParamsForm.value;
-    this.microCrgParamsData.data = JSON.stringify(this.currentFormData);
-    this.dataEmitter.emit(this.microCrgParamsData);
   }
+
 
 }

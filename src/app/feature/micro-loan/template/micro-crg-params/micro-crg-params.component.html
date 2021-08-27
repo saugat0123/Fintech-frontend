@@ -435,7 +435,8 @@
             </strong></label>
             <input class="form-control" id="totalEquity"
                    placeholder="Total Equity Amount" formControlName="totalEquity">
-            <span *ngIf="submitted && microCrgParamsForm.get('totalDebt').invalid" class="text-danger small">Total Equity Amount required</span>
+            <span *ngIf="submitted && microCrgParamsForm.get('totalEquity').invalid" class="text-danger small">
+               Required Field</span>
         </div>
     </div>
 
@@ -457,8 +458,6 @@
             </strong></label>
             <input class="form-control" id="totalLoanMicro"
                    placeholder="Total loan including this present request" formControlName="totalLoan">
-            <span *ngIf="submitted && microCrgParamsForm.get('totalLoan').invalid" class="text-danger small">
-                Total loan required</span>
         </div>
     </div>
 
@@ -548,9 +547,8 @@
                            placeholder="Select Location of property with following options">
                     <nb-option *ngFor="let val of locationOfProperty" [value]="val.value">{{val.value}}</nb-option>
                 </nb-select>
-                <div *ngIf="submitted && microCrgParamsForm.get('locationOfProperty').invalid" class="neb-error-feedback">
-                    Location of property with following options Required
-                </div>
+                <span *ngIf="submitted && !microCrgParamsForm.get('locationOfProperty').invalid" class="text-danger small">
+                Required field</span>
             </div>
         </div>
         <div class="col">
@@ -563,9 +561,8 @@
                            placeholder="Select Road access">
                     <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
                 </nb-select>
-                <div *ngIf="submitted && microCrgParamsForm.get('roadAccess').invalid" class="neb-error-feedback">
-                    Road access Required
-                </div>
+                <span *ngIf="submitted && !microCrgParamsForm.get('roadAccess').invalid" class="text-danger small">
+                road access required</span>
             </div>
         </div>
     </div>
