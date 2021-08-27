@@ -308,7 +308,7 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
                     this.companyInfo.panNumber, [Validators.required,
-                    Validators.maxLength(9), Validators.minLength(9)]],
+                    Validators.min(88888888)]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
