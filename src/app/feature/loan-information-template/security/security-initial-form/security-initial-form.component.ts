@@ -115,6 +115,12 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'BondSecurity', value: 'Bond Security'}
     ];
 
+    ownershipType = [
+        {key: 'Single', value: 'Single'},
+        {key: 'Joint', value: 'Joint'},
+        {key: 'Institutional', value: 'Institutional'}
+    ];
+
     areaFormat = ['R-A-P-D', 'B-K-D', 'SQF', 'Sq.m'];
 
     shareType = ShareType;
@@ -516,6 +522,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     familyRegistrationAmount: [singleData.familyRegistrationAmount],
                     giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
+                    ownershipType: [singleData.ownershipType],
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -747,6 +754,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
+                    ownershipTypeForLandAndBuilding: [singleData.ownershipTypeForLandAndBuilding],
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -1394,6 +1402,7 @@ export class SecurityInitialFormComponent implements OnInit {
             familyRegistrationAmount: undefined,
             giftRegistrationAmount: undefined,
             landCollateralOwnerRelationship: undefined,
+            ownershipType: undefined,
             roadAccessBluePrint: undefined,
             roadAccessDescribe: undefined,
             ownerKycApplicableData: [undefined],
@@ -1488,6 +1497,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingStaffRepresentativeName2: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
+            ownershipTypeForLandAndBuilding: [undefined],
             roadAccessBluePrint: [undefined],
             roadAccessDescribe: [undefined],
             ownerKycApplicableData: [undefined],
@@ -2417,7 +2427,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
         corporateGuarantee.controls.forEach(f => {
-            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail
+            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('CorporateGuarantee') === -1) {
                 this.selectedArray.push('CorporateGuarantee');

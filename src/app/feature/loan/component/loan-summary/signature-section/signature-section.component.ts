@@ -23,13 +23,9 @@ export class SignatureSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Loan Data holder ho hai', this.loanDataHolder);
-    console.log('Index For Signature', this.signApprovalOn);
     this.signatureList = this.getSignatureList(new Array<LoanStage>
     (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
     this.lastIndex = this.signatureList.length;
-    console.log(' Signature', this.signatureList);
-    console.log(' Signature', this.signatureList[this.lastIndex - 1]);
     if (this.signApprovalOn === true) {
 
       try {
