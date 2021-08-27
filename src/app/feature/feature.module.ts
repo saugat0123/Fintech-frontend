@@ -18,6 +18,7 @@ import {CadDataComponent} from '../component/dashboard/cad-data/cad-data.compone
 import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise-pending/customer-wise-pending.component';
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import { VideoKycComponent } from './video-kyc/video-kyc.component';
 
 
 @NgModule({
@@ -43,10 +44,10 @@ import {ErrorPageComponent} from './error-page/error-page.component';
         MouseScrollDisableDirective,
         CommonAddressComponent,
         CustomerWisePendingComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
 
       ],
-      exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
+    exports: [MouseScrollDisableDirective, CommonAddressComponent, CustomerWisePendingComponent],
       providers: [SafePipe]
     }
 )
