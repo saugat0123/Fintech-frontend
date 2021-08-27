@@ -177,6 +177,7 @@
                             </app-guarantor-adder>
                         </div>
                     </ng-template>
+                    <!-- Todo Not require for srdb-->
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
@@ -188,7 +189,7 @@
                                                        [loanTag]="loanTag"
                                                        [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
                     </ng-template>
-
+                    <!-- Todo Not require for srdb-->
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-lambda *ngIf="loanDataReady" #creditRiskGradingLambda
@@ -201,7 +202,7 @@
                                                         [proposedLimit]="loanDocument?.proposal?.proposedLimit"
                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
-
+                    <!-- Todo Not require for srdb-->
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-crg-micro *ngIf="loanDataReady" #crgMicro
