@@ -40,6 +40,7 @@ import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
+import {NepsePriceInfoService} from '../../../admin/component/nepse/nepse-price-info.service';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -155,7 +156,8 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     constructor(
         private toastService: ToastService,
-        private customerInfoService: CustomerInfoService
+        private customerInfoService: CustomerInfoService,
+        private nepsePriceInfoService: NepsePriceInfoService,
     ) {
     }
 
@@ -300,12 +302,22 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.shareSecurity = data.share;
         this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
             .subscribe(() => {
+                this.updateNepsePriceInfo(data);
                 this.itemSecurity.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
             });
+    }
+
+    private updateNepsePriceInfo(data): void {
+        if (!ObjectUtil.isEmpty(data.nepsePriceInfo)) {
+            this.nepsePriceInfoService.updateNepsePriceInfo(data.nepsePriceInfo).subscribe(() => {}, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update nepse price date'));
+            });
+        }
     }
 
     saveGuarantor(data: GuarantorDetail) {
