@@ -2609,10 +2609,16 @@
                 <div class="row">
                     <div class="col-md-3">
                         <label for="sharePriceDate"><b>Price Updated Date</b></label>
-                        <input formControlName="sharePriceDate"
-                               class="form-control"
-                               [readOnly]="true"
-                               id="sharePriceDate">
+                        <input
+                                [nbDatepicker]="priceDate"
+                                class="form-control" formControlName="sharePriceDate" fullWidth
+                                id="sharePriceDate" name="sharePriceDate"
+                                nbInput placeholder="Price Updated Date" *ngIf="calendarType === 'AD'">
+                        <app-calendar
+                                (messageToEmit)="shareSecurityForm.get('sharePriceDate').patchValue($event?.eDate)"
+                                *ngIf="calendarType === 'BS'"
+                                [ePreDate]="shareSecurityForm.get('sharePriceDate').value"></app-calendar>
+                        <nb-datepicker #priceDate></nb-datepicker>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="avgDaysForPrice"><b>Average Day's for Share Price</b></label>

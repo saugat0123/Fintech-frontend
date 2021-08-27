@@ -24,6 +24,7 @@ import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-priva
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
+import {NepsePriceInfo} from '../../admin/modal/NepsePriceInfo';
 
 @Component({
     selector: 'app-security',
@@ -296,6 +297,14 @@ export class SecurityComponent implements OnInit {
         if (this.shareSecuritySelected) {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
+            if (!ObjectUtil.isEmpty(this.initialSecurity.nepsePriceInfo)) {
+                const nepsePriceInfo = new NepsePriceInfo();
+                nepsePriceInfo.id = this.initialSecurity.nepsePriceInfo.id;
+                nepsePriceInfo.version = this.initialSecurity.nepsePriceInfo.version;
+                nepsePriceInfo.avgDaysForPrice = this.initialSecurity.nepsePriceInfo.avgDaysForPrice;
+                nepsePriceInfo.sharePriceDate = this.initialSecurity.shareSecurityForm.get('sharePriceDate').value;
+                this.securityData.nepsePriceInfo = nepsePriceInfo;
+            }
         } else {
             this.securityData.share = this.initialSecurity.shareSecurityData;
         }
