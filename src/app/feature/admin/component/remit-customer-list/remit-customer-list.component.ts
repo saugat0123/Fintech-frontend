@@ -67,7 +67,9 @@ export class RemitCustomerListComponent implements OnInit {
 
         });
     }
+
     ngOnInit(): void {
+        RemitCustomerListComponent.loadData(this);
         this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
             this.branchList = res.detail;
         });
@@ -92,7 +94,6 @@ export class RemitCustomerListComponent implements OnInit {
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
-        RemitCustomerListComponent.loadData(this);
     }
 
     addMember(event, data, template) {
