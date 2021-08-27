@@ -262,6 +262,7 @@ export class GuarantorComponent implements OnInit {
     this.overlay.show();
     this.submitted = true;
     if (this.form.invalid) {
+      this.overlay.hide();
       return;
     }
     if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {
