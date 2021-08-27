@@ -224,10 +224,10 @@
                             <div class="form-group">
                                 <label>Valuator Name</label>
                                 <ng-select [multiple]="false"
-                                           bindLabel="name"
-                                           placeholder=""
+                                           bindLabel="ValuatorName"
+                                           placeholder="Select Valuator Name"
                                            formControlName="landValuator" (click)="valuator(null,'land',i)">
-                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
+<!--                                    <ng-option [value]="null">Select Valuator Name</ng-option>-->
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
                                                [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
