@@ -602,6 +602,10 @@ export class FinancialComponent implements OnInit {
                 organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.OTHERS]);
                 organizationSelect.select({value: TypeOfSourceOfIncome.OTHERS, label: TypeOfSourceOfIncome.OTHERS});
                 break;
+            case TypeOfSourceOfIncome.PENSION:
+                organizationSelect.itemsList.setItems([TypeOfSourceOfIncome.PENSION]);
+                organizationSelect.select({value: TypeOfSourceOfIncome.PENSION, label: TypeOfSourceOfIncome.PENSION});
+                break;
         }
     }
 
