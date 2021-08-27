@@ -359,6 +359,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.insurance = data;
         this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
                 this.itemInsurance.close();
                 this.triggerCustomerRefresh.emit(true);
