@@ -43,6 +43,8 @@ import {MicroLoanModule} from '../micro-loan/micro-loan.module';
 import {CustomerGroupComponent} from './component/customer-profile/individual-profile/customer-group/customer-group.component';
 import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
+import {VideoKycComponent} from '../video-kyc/video-kyc.component';
+import {VideoKycModule} from '../video-kyc/video-kyc.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -66,7 +68,7 @@ const COMPONENTS = [
   CustomerLoanEditComponent,
   CustomerListGroupComponent,
   BankingRelationComponent,
-  JointFormComponent
+  JointFormComponent,
 ];
 
 @NgModule({
@@ -96,8 +98,8 @@ const COMPONENTS = [
         TranslateModule,
         FeatureModule,
         CbsGroupModule,
-        MicroLoanModule
-
+        MicroLoanModule,
+        VideoKycModule
 
     ],
   entryComponents: [
