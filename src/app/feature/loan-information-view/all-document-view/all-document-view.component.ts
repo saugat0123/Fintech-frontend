@@ -11,6 +11,7 @@ import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {DocumentDownloadServiceService} from '../../../@core/utils/document-download-service.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class AllDocumentViewComponent implements OnInit {
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
               private documentService: DocumentService,
+              private documentDownloadService: DocumentDownloadServiceService
   ) {
   }
 
@@ -117,36 +119,8 @@ export class AllDocumentViewComponent implements OnInit {
 
   // method to make all files as a .zip file
   private downloadAll(documentUrls: string[]): void {
-    const zip = new JSZip();
-    let count = 0;
-    const zipFilename = 'AllDocument.zip';
-    const urls = [];
-    if (documentUrls.length > 0) {
-      documentUrls.map(d => {
-        d = ApiConfig.URL + '/' + d;
-        urls.push(d);
-      });
-
-      urls.forEach((url: string) => {
-        const pathToZipFrom = new URL(url).pathname;
-        // loading a file and add it in a zip file
-        JSZipUtils.getBinaryContent(url, (err, data) => {
-          if (err) {
-            throw err; // or handle the error
-          }
-          zip.file(pathToZipFrom, data, {binary: true});
-          count++;
-          if (count === urls.length) {
-            zip.generateAsync({type: 'blob'}).then(content => {
-              importedSaveAs(content, zipFilename);
-            });
-          }
-        });
-      });
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
-    } else {
-      this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
-    }
+    const zipFilename = this.loanDataHolder.loanHolder.name + '.zip';
+    this.documentDownloadService.downloadAllInZip(documentUrls, zipFilename);
   }
 
 }
