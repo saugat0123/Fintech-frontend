@@ -7,6 +7,7 @@ import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCur
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-income-from-account',
@@ -31,6 +32,7 @@ export class IncomeFromAccountComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,
+              private overlay: NgxSpinnerService
   ) {
   }
 
@@ -138,9 +140,11 @@ export class IncomeFromAccountComponent implements OnInit {
 
 
   submitForm() {
+    this.overlay.show();
     this.submitted = true;
     if (this.incomeFormGroup.invalid) {
       this.scrollToFirstInvalidControl();
+      this.overlay.hide();
       return;
     }
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
