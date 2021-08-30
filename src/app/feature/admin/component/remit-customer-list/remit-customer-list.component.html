@@ -119,7 +119,7 @@
                 <td>{{model?.senderCountry || 'NA'}}</td>
                 <td>{{model?.agentName}}</td>
                 <td>{{model?.proposedAmount || 'NA'}}</td>
-                <td>{{model?.prefferedBranch || 'NA'}}</td>
+                <td>{{model?.preferredBranch || 'NA'}}</td>
                 <td *ngIf="!transferDoc">{{model?.branch?.name || 'NA'}}</td>
                 <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
