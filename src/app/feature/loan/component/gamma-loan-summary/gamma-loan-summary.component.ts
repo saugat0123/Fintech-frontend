@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -21,7 +21,6 @@ import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
@@ -48,6 +47,7 @@ import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ApprovalSheetInfoComponent} from '../loan-summary/approval-sheet-info/approval-sheet-info.component';
 import {SummaryType} from '../SummaryType';
+import {DocStatus} from '../../model/docStatus';
 
 @Component({
   selector: 'app-gamma-loan-summary',
@@ -188,6 +188,8 @@ export class GammaLoanSummaryComponent implements OnInit {
   summaryTypeName = SummaryType;
   companyInfo: any;
   loanSummary = 'loanSummary';
+  test = [];
+  test1;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -466,15 +468,34 @@ export class GammaLoanSummaryComponent implements OnInit {
     this.customerLoanService.getAllWithSearch(search)
         .subscribe((res: any) => {
           this.customerAllLoanList = res.detail;
+          console.log('customerAllLoanList', this.customerAllLoanList);
           // push current loan if not fetched from staged spec response
           if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
             this.customerAllLoanList.push(this.loanDataHolder);
           }
-          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-          } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
-          }
+          this.customerAllLoanList.filter((test) => {
+            if (test.currentStage.docAction.toString() === 'APPROVED') {
+              this.test.push(test);
+              this.customerAllLoanList = this.test.filter((l: any) => l.id === this.loanDataHolder.id);
+              // this.test.filter(test1 => {
+              //   if (test.id === this.loanDataHolder.id) {
+              //     this.customerAllLoanList = this.test;
+              //   }
+              // });
+            }
+          });
+          console.log('test1', this.customerAllLoanList);
+          console.log('customerAllLoanList1', this.customerAllLoanList);
+          // if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+          //   this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+          // } else {
+          //   this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+          // }
+          console.log('customerAllLoanList2', this.customerAllLoanList);
+
+          // if (this.customerAllLoanList.filter( (l) => l.documentStatus === this.loanDataHolder.documentStatus) {
+          //   this.test = this.customerAllLoanList.push(l);
+          // };
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList
               .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));

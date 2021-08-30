@@ -1,6 +1,6 @@
 <div class="row mt-1">
     <div class="col-md-12 sb-small">
-        <strong>I am on Normal Loan</strong>
+        <strong>I am on Approve Loan</strong>
         <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '3. Proposal Details' :
             (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '2. Proposal Details' : 'Proposal Details'}}</strong>
             <em class="text-danger sb-small"> &nbsp;Bold row indicates current loan proposal</em></p>
@@ -45,11 +45,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let loan of customerAllLoanList"
-                [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
+            <tr *ngFor="let loan of customerAllLoanList">
+                loan:: {{loan}}
                 <td class="text-left pl-1">
                     <ng-container
-                            *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
+                            *ngTemplateOutlet="tickCross; context: { $implicit: loan?.currentStage}"></ng-container>
                     &nbsp;|&nbsp;
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
@@ -61,6 +61,7 @@
                         Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
+
                 <td class="text-right pr-1">
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">
                         Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}
@@ -247,129 +248,129 @@
        class="text-round">R/E</i>
 </ng-template>
 
-<div class="row">
-    <div class="col-md-12 sb-medium">
-        <strong>Total Proposed Limit (in words):</strong>
-        {{ getTotal('proposedLimit') | currencyFormatter}}
-        (Rs. {{ getTotal('proposedLimit') | inWords | titlecase }}
-        Only /-)
-    </div>
-</div>
+<!--<div class="row">-->
+<!--    <div class="col-md-12 sb-medium">-->
+<!--        <strong>Total Proposed Limit (in words):</strong>-->
+<!--        {{ getTotal('proposedLimit') | currencyFormatter}}-->
+<!--        (Rs. {{ getTotal('proposedLimit') | inWords | titlecase }}-->
+<!--        Only /-)-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="row" *ngIf="client === clientName?.ICFC">
-    <div class="col-md-12">
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="7" *ngIf="checkedData?.subsidizedLoanChecked">Information of Subsidized Loan</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>
-                <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidized Loan Type</th>
-                <th *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">Others</th>
-            </tr>
-            </thead>
-            <tr>
-                <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked">{{calculateInterestRate()}}%
-                </td>
-                <td class="text-left pl-1"
-                    *ngIf="checkedData?.subsidizedLoanChecked">{{proposalAllData?.subsidyLoanType}}</td>
-                <td class="text-left pl-1"
-                    *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
+<!--<div class="row" *ngIf="client === clientName?.ICFC">-->
+<!--    <div class="col-md-12">-->
+<!--        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th colspan="7" *ngIf="checkedData?.subsidizedLoanChecked">Information of Subsidized Loan</th>-->
+<!--            </tr>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>-->
+<!--                <th *ngIf="checkedData?.subsidizedLoanChecked">Subsidized Loan Type</th>-->
+<!--                <th *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">Others</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tr>-->
+<!--                <td class="text-right pr-1" *ngIf="checkedData?.subsidizedLoanChecked">{{calculateInterestRate()}}%-->
+<!--                </td>-->
+<!--                <td class="text-left pl-1"-->
+<!--                    *ngIf="checkedData?.subsidizedLoanChecked">{{proposalAllData?.subsidyLoanType}}</td>-->
+<!--                <td class="text-left pl-1"-->
+<!--                    *ngIf="checkedData?.subsidizedLoanChecked && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
-    <div class="col md-12">
-        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th *ngIf="isRevolving">Interest and Principal Repayment Frequency</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1">{{proposalAllData?.interestPrincipalRepayment}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<!--<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">-->
+<!--    <div class="col md-12">-->
+<!--        <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th *ngIf="isRevolving">Interest and Principal Repayment Frequency</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1">{{proposalAllData?.interestPrincipalRepayment}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
-    <div *ngIf="approveSheet === 'approveSheet'" class="col-md-12">
-        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th>
-                    <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
-                        Prepayment/Commitment/Swap Charge Description
-                    </div>
-                    <ng-template #commitmentDescription>
-                        <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
-                            Commitment/Swap Charge Description
-                        </div>
-                    </ng-template>
-                    <ng-template #swapChargeDescription>
-                        Swap Charge Description
-                    </ng-template>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1"><span
-                        [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span></td>
-            </tr>
-            </tbody>
-        </table>
+<!--<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">-->
+<!--    <div *ngIf="approveSheet === 'approveSheet'" class="col-md-12">-->
+<!--        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th>-->
+<!--                    <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">-->
+<!--                        Prepayment/Commitment/Swap Charge Description-->
+<!--                    </div>-->
+<!--                    <ng-template #commitmentDescription>-->
+<!--                        <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">-->
+<!--                            Commitment/Swap Charge Description-->
+<!--                        </div>-->
+<!--                    </ng-template>-->
+<!--                    <ng-template #swapChargeDescription>-->
+<!--                        Swap Charge Description-->
+<!--                    </ng-template>-->
+<!--                </th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td class="text-left pl-1"><span-->
+<!--                        [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
 
-        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">
-                    Repayment Mode
-                </th>
-                <th *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral)">
-                    Installment Amount
-                </th>
-                <th *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                    Interest Amount
-                </th>
-                <th *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                    Interest Payment
-                </th>
-                <th *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                    Principal Payment
-                </th>
-                <th *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                    Principal Amount
-                </th>
-                <th *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">
-                    Principal Amount
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral"
-                    class="text-left pl-1">{{proposalAllData?.repaymentMode}}</td>
-                <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))"
-                    class="text-right pr-1">Rs. {{proposalAllData?.installmentAmount | currencyFormatter}}</td>
-                <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
-                    class="text-right pr-1">Rs. {{proposalAllData?.interestAmount | currencyFormatter}}</td>
-                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
-                    class="text-left pl-1">{{proposalAllData?.repaymentModeInterest}}</td>
-                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
-                    class="text-left pl-1">{{proposalAllData?.repaymentModePrincipal}}</td>
-                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
-                    class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
-                <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
-                    class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<!--        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">-->
+<!--            <thead>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral">-->
+<!--                    Repayment Mode-->
+<!--                </th>-->
+<!--                <th *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral)">-->
+<!--                    Installment Amount-->
+<!--                </th>-->
+<!--                <th *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                    Interest Amount-->
+<!--                </th>-->
+<!--                <th *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                    Interest Payment-->
+<!--                </th>-->
+<!--                <th *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                    Principal Payment-->
+<!--                </th>-->
+<!--                <th *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                    Principal Amount-->
+<!--                </th>-->
+<!--                <th *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">-->
+<!--                    Principal Amount-->
+<!--                </th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral"-->
+<!--                    class="text-left pl-1">{{proposalAllData?.repaymentMode}}</td>-->
+<!--                <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))"-->
+<!--                    class="text-right pr-1">Rs. {{proposalAllData?.installmentAmount | currencyFormatter}}</td>-->
+<!--                <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"-->
+<!--                    class="text-right pr-1">Rs. {{proposalAllData?.interestAmount | currencyFormatter}}</td>-->
+<!--                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"-->
+<!--                    class="text-left pl-1">{{proposalAllData?.repaymentModeInterest}}</td>-->
+<!--                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"-->
+<!--                    class="text-left pl-1">{{proposalAllData?.repaymentModePrincipal}}</td>-->
+<!--                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"-->
+<!--                    class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>-->
+<!--                <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"-->
+<!--                    class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->

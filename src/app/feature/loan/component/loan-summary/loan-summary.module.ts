@@ -36,6 +36,7 @@ import { CommentsSummaryComponent } from './comments-summary/comments-summary.co
 import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
+import { ApproveLoanProposalComponent } from './proposal-summary/approve-loan-proposal/approve-loan-proposal.component';
 
 
 
@@ -65,7 +66,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, ApproveLoanProposalComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -101,7 +102,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         RoleHierarchyChainComponent,
         CompanyInfoSummaryComponent,
         ApprovalSheetDocumentListComponent,
-        SignatureSectionComponent
+        SignatureSectionComponent,
+        ApproveLoanProposalComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

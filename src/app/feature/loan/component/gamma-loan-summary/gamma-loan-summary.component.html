@@ -493,6 +493,10 @@
                                   [loanDataHolder]="loanDataHolder"
                                   [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-summary>
 
+            <app-approve-loan-proposal *ngIf="loanDataHolder.documentStatus.toString() === 'APPROVED'"
+                                       [customerAllLoanList]="test"
+                                       [loanDataHolder]="loanDataHolder"></app-approve-loan-proposal>
+
             <div *ngIf="productUtils.CBS_ENABLE">
                 <div class="row mt-5">
                     <div class="col-md-12">
