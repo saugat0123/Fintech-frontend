@@ -24,6 +24,7 @@ import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-priva
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-security',
@@ -88,6 +89,7 @@ export class SecurityComponent implements OnInit {
         private addressServices: AddressService,
         private activatedRoute: ActivatedRoute,
         private toastService: ToastService,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -246,23 +248,23 @@ export class SecurityComponent implements OnInit {
 
 
     onSubmit() {
-        this.spinner = true;
+        this.overlay.show();
         this.submitted = true;
         if (this.securityForm.invalid) {
-            this.spinner = false;
+            this.overlay.hide();
             return;
         }
         if (this.initialSecurity.selectedSecurity === undefined) {
             this.initialSecurity.clearValidationAtInitialStage();
         }
         if (this.initialSecurity.securityForm.invalid) {
+            this.overlay.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
-            this.spinner = false;
             return;
         }
         if (this.initialSecurity.shareSecurityForm.invalid) {
+            this.overlay.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
-            this.spinner = false;
             return;
         }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
