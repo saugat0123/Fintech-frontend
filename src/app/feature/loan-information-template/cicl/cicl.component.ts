@@ -9,6 +9,7 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {CalendarType} from '../../../@core/model/calendar-type';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-cicl',
@@ -39,6 +40,7 @@ export class CiclComponent implements OnInit {
       private formBuilder: FormBuilder,
       private toastService: ToastService,
       private el: ElementRef,
+      private overlay: NgxSpinnerService
   ) {
   }
 
@@ -171,6 +173,7 @@ export class CiclComponent implements OnInit {
 
 
   onSubmit() {
+      this.overlay.show();
   this.submitted = true;
   if (this.ciclHistory === false) {
       const controls = this.ciclForm.controls.ciclArray as FormArray;
@@ -180,6 +183,7 @@ export class CiclComponent implements OnInit {
     if (this.ciclHistory === true) {
         if (this.ciclForm.invalid) {
             this.scrollToFirstInvalidControl();
+            this.overlay.hide();
             return;
         }
     }
