@@ -1,4 +1,6 @@
-<nb-card [nbSpinner]="spinner" accent="primary">
+<nb-card [nbSpinner]="spinner" accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large">
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
@@ -14,15 +16,18 @@
                 <th>S.N</th>
                 <th>Branch</th>
                 <th>Province</th>
-                <th>Customer Name</th>
+                <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
                 <th>Type</th>
+                <th>Business Unit</th>
                 <th>Document Status</th>
                 <th>Current Possession</th>
+                <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Received On <em class="fas fa-sort"></em></th>
                 <th>Loan Document No</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
                     Action
                 </th>
                 <th>Comments</th>
+                <th>Preview</th>
 
 
             </tr>
@@ -37,9 +42,11 @@
                         {{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
+                    <td (click)="loadSummary(model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}</td>
-                    <td (click)="loadSummary(model)">{{model?.assignedLoan?.length}}</td>
+                    <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.lastModifiedAt | date :'medium'}}</td>
+                    <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
                     <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
                                                                                                                                      nbTooltip="click to assign"><em
                             class="fa fa-user"></em></a>
@@ -50,6 +57,13 @@
                            nbTooltip="click to view detail comments ">
                             <em class="fa fa-eye"></em>
                         </a></td>
+                    <td>
+                        <a class="px-2 cursor"
+                           (click)="routeService.previewCadDoc(model?.id)"
+                           nbTooltip="click to view detail ">
+                            <em class="fas fa-info-circle text-info"></em>
+                        </a>
+                    </td>
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
                     <tr>
@@ -69,7 +83,7 @@
                     <tr *ngFor="let previousList of model?.previousList ; let j = index">
                         <td>{{j + 1}}</td>
                         <td>
-                            {{previousList?.lastModifiedAt | date}}
+                            {{previousList?.lastModifiedAt | date : 'medium'}}
                         </td>
                         <td>
                             <div class="col-md-12">
@@ -105,7 +119,7 @@
                     </tr>
                     <tr>
                         <td>{{currentIndexArray[i].currentIndex + 1 }}</td>
-                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date}}</td>
+                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
                         <td>
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-center">

@@ -1,17 +1,21 @@
 <div class="row p-3">
     <div class="col-md-12">
-        <p class="float-left"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></p>
+        <p class="float-left">
+            <b>Net Trading Assets</b></p>
     </div>
     <table
             class="table table-bordered table-hover table-sm sb-small">
         <thead class="text-right">
         <tr class="sb-bg-dark text-white text-center">
             <td></td>
-            <td colspan="5">Previous Year({{fiscalYears[prevFiscalYearIndex]?.year}})</td>
+            <td colspan="5">Previous
+                Year({{this.fiscalYears[this.currentFiscalYearIndex].id > this.fiscalYears[this.prevFiscalYearIndex].id ?
+                    fiscalYears[prevFiscalYearIndex]?.year : ''}})
+            </td>
             <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
         </tr>
         <tr class="sb-bg-dark text-white text-center">
-            <th scope="col">{{client === clientName?.ICFC ? 'Net Trading Current Assets (NTCA)' : 'Net Trading Assets (NTA)'}}</th>
+            <th scope="col">Net Trading Assets (NTA)</th>
             <th scope="col">Q1</th>
             <th scope="col">Q2</th>
             <th scope="col">Q3</th>
@@ -39,11 +43,7 @@
             <td>{{currentYearData?.asOnDate?.q3 |engNepDate: false}}</td>
             <td>{{currentYearData?.asOnDate?.q4 |engNepDate: false}}</td>
             <td></td>
-
             <td></td>
-
-
-
         </tr>
         <tr>
             <td class="text-left pl-1">Value of Stock</td>
@@ -53,7 +53,6 @@
             <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q3 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.q4 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{prevYearData?.valueOfStock?.average |currencyFormatter}}</td>
-
 
             <!-- current year-->
             <td class="pr-1">Rs. {{currentYearData?.valueOfStock?.q1 |currencyFormatter}}</td>
@@ -77,8 +76,6 @@
             <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.q3 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.q4 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.valueOfReceivables?.average |currencyFormatter}}</td>
-
-
         </tr>
         <tr>
             <td class="text-left pl-1">Advances & deposit</td>
@@ -95,8 +92,6 @@
             <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.q3 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.q4 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.advancesAndDeposits?.average |currencyFormatter}}</td>
-
-
         </tr>
         <tr>
             <td class="text-left pl-1">Other Current assets if any</td>
@@ -113,8 +108,6 @@
             <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.q3 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.q4 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.otherCurrentAssets?.average |currencyFormatter}}</td>
-
-
         </tr>
         <tr>
             <td class="text-left pl-1">Value of trade creditors</td>
@@ -131,8 +124,6 @@
             <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q3 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.q4 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.valueOfCreditors?.average |currencyFormatter}}</td>
-
-
         </tr>
         <tr>
             <td class="text-left pl-1">Other current liability if any</td>
@@ -151,7 +142,8 @@
             <td class="pr-1">Rs. {{currentYearData?.otherCurrentLiability?.average |currencyFormatter}}</td>
         </tr>
         <tr>
-            <td class="text-left pl-1"><b>{{client === clientName?.ICFC ? 'Net Trading Current Assets' : 'Net Trading Assets'}}</b></td>
+            <td class="text-left pl-1">
+                <b>Net Trading Assets</b></td>
             <!--previous year-->
             <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q1 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{prevYearData?.netTradingAssets?.q2 |currencyFormatter}}</td>
@@ -161,7 +153,7 @@
 
             <!-- current year-->
             <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q1 |currencyFormatter}}</td>
-            <td >Rs. {{currentYearData?.netTradingAssets?.q2 |currencyFormatter}}</td>
+            <td>Rs. {{currentYearData?.netTradingAssets?.q2 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q3 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.q4 |currencyFormatter}}</td>
             <td class="pr-1">Rs. {{currentYearData?.netTradingAssets?.average |currencyFormatter}}</td>
@@ -183,7 +175,8 @@
             <td class="pr-1">Rs. {{currentYearData?.wcLoanOrLimit?.average |currencyFormatter}}</td>
         </tr>
         <tr>
-            <td class="text-left pl-1"><strong>{{client === clientName?.ICFC ? 'Loan To NTCA (%)' : 'D:E ratio (%)'}}</strong></td>
+            <td class="text-left pl-1">
+                <strong>{{client === clientName?.ICFC ? 'Loan To NTCA (%)' : 'D:E ratio (%)'}}</strong></td>
             <!--previous year-->
             <td class="pr-1"> {{prevYearData?.deRatio?.q1 |currencyFormatter}}</td>
             <td class="pr-1"> {{prevYearData?.deRatio?.q2 |currencyFormatter}}</td>

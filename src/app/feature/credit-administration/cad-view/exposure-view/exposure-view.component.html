@@ -30,13 +30,15 @@
         <td *ngIf="fromScc">{{ex?.approvedLoanBy}}</td>
     </tr>
     <tr>
-        <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
+<!--        <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>-->
+        <td colspan="2" class="font-weight-bold">Total Funded</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
         <td colspan="4"></td>
     </tr>
     <tr>
-        <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>
+<!--        <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>-->
+        <td colspan="2" class="font-weight-bold" >Total NonFunded</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
         <td colspan="4"></td>

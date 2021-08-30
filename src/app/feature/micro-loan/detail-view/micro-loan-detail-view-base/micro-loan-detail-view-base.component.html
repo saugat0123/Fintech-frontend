@@ -1,66 +1,73 @@
 <nb-card>
     <nb-card-body>
-            <app-micro-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
-                                 [calendarType]="calendarType"
-                                 [individual]="loanDataHolder?.customerInfo"
-                                 [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-individual-view>
-            <app-micro-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
+        <app-micro-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                                    [calendarType]="calendarType"
-                                   [formValue]="loanDataHolder?.companyInfo"
-                                   [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
+                                   [individual]="loanDataHolder?.customerInfo"
+                                   [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-individual-view>
+        <app-micro-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
+                                     [calendarType]="calendarType"
+                                     [isMicroDirect]="otherMicroDetailsVisibility"
+                                     [isMicroCustomer]="isMicro"
+                                     [formValue]="loanDataHolder?.companyInfo"
+                                     [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
 
-            <app-micro-proposal-view *ngIf="loanDataHolder?.proposal"
-                                     [customerType]="loanHolder?.customerType"
-                               [formData]="loanDataHolder?.proposal"></app-micro-proposal-view>
-        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+        <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                           [customerAllLoanList]="customerAllLoanList"
+                           [proposalData]="loanDataHolder?.proposal"
+                           [loanDataHolder]="loanDataHolder"></app-proposal-view>
+
+        <app-micro-other-info-and-confirmation *ngIf="loanDataHolder?.proposal" [proposal]="loanDataHolder?.proposal"></app-micro-other-info-and-confirmation>
+
+        <nb-card *ngIf="!otherMicroDetailsVisibility">
             <nb-card-header>
                 <h6>BASEL wise Risk Exposure</h6>
             </nb-card-header>
             <nb-card-body>
                 <app-micro-basel-risk-exposure-view *ngIf="loanHolder?.microBaselRiskExposure"
-                                             [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
+                                                    [baselRiskData]="loanHolder?.microBaselRiskExposure"></app-micro-basel-risk-exposure-view>
             </nb-card-body>
         </nb-card>
         <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
             <nb-card-body>
-                <app-borrower-portfolio-view *ngIf="loanHolder?.borrowerPortFolio"
+                <app-borrower-portfolio-view *ngIf="loanHolder?.borrowerPortFolio  && !otherMicroDetailsVisibility"
                                              [borrowerData]="loanHolder?.borrowerPortFolio"></app-borrower-portfolio-view>
             </nb-card-body>
         </nb-card>
 
         <div *ngIf="loanHolder?.customerType === 'INSTITUTION'">
-            <app-marketing-activities-view *ngIf="loanHolder?.marketingActivities"
+            <app-marketing-activities-view *ngIf="loanHolder?.marketingActivities && !otherMicroDetailsVisibility"
                                            [marketingActivityData]="loanHolder?.marketingActivities"></app-marketing-activities-view>
         </div>
 
-            <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
-                               [shareSecurityData]="loanHolder?.shareSecurity" [securityId]="securityId"></app-security-view>
-            <app-financial-view *ngIf="loanHolder?.microOtherParameters"
-                                [customerType]="loanHolder?.customerType"
-                                [microCustomer]= "loanDataHolder?.customerInfo?.isMicroCustomer"
-                                [microFormData]="loanHolder?.microOtherParameters"></app-financial-view>
-            <app-crg-gamma-detail-view
-                    *ngIf="loanDataHolder?.crgGamma"
-                    [formData]="loanDataHolder?.crgGamma">
-            </app-crg-gamma-detail-view>
-<app-crg-alpha-detailed-view
-        *ngIf="loanDataHolder?.creditRiskGradingAlpha"
-        [loanTag]="loanDataHolder?.loan?.loanTag"
-        [formData]="loanDataHolder?.creditRiskGradingAlpha">
-</app-crg-alpha-detailed-view>
+        <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
+                           [shareSecurityData]="loanHolder?.shareSecurity"
+                           [securityId]="securityId"></app-security-view>
+        <app-financial-view *ngIf="financialView"
+                            [formData]="financialData"
+                            [customerType]="loanHolder?.customerType"
+                            [microCustomer]="isMicro"></app-financial-view>
+        <app-crg-gamma-detail-view
+                *ngIf="loanDataHolder?.crgGamma"
+                [formData]="loanDataHolder?.crgGamma">
+        </app-crg-gamma-detail-view>
+        <app-crg-alpha-detailed-view
+                *ngIf="loanDataHolder?.creditRiskGradingAlpha"
+                [loanTag]="loanDataHolder?.loan?.loanTag"
+                [formData]="loanDataHolder?.creditRiskGradingAlpha">
+        </app-crg-alpha-detailed-view>
         <app-crg-micro *ngIf="loanDataHolder?.crgMicro"
-                [formData]="loanDataHolder?.crgMicro"
+                       [formData]="loanDataHolder?.crgMicro"
                        [incomeFromAccount]="loanDataHolder?.loanHolder?.incomeFromAccount"
                        [security]="loanDataHolder?.security"
                        [microOtherParameters]="loanHolder?.microOtherParameters"></app-crg-micro>
-            <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                                [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-            <app-site-visit-view *ngIf="loanHolder?.siteVisit"
-                                 [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
-            <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
-                                        [fromProfile]="false"
-                                        [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
-             -->
+        <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                            [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+        <app-site-visit-view *ngIf="loanHolder?.siteVisit"
+                             [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+        <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
+                                    [fromProfile]="false"
+                                    [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
+         -->
         <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
             <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                                   [fiscalYears]="fiscalYearArray"
@@ -75,48 +82,50 @@
         <div *ngIf="client === clientName?.MEGA">
             <app-comments-summary
                     [formData]="dataFromComments"></app-comments-summary>
-            <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+            <app-previous-security-summary *ngIf="previousSecuritySummary"
+                                           [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
         </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+        <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
 
-                <app-report-summary
-                        [approved]="true"
-                        *ngIf="loanDataHolder?.reportingInfoLog"
-                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
-                </app-report-summary>
-            </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-                <app-report-summary
-                        [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
-                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-            </div>
+            <app-report-summary
+                    [approved]="true"
+                    *ngIf="loanDataHolder?.reportingInfoLog"
+                    [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
+            </app-report-summary>
+        </div>
+        <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
+            <app-report-summary
+                    [approved]="false"
+                    *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0"
+                    [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+        </div>
 
-<app-insurance-view *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
-                    [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
-            <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+        <app-insurance-view
+                *ngIf="loanDataHolder?.loanHolder?.insurance && loanDataHolder?.loanHolder?.insurance.length > 0"
+                [insurance]="loanDataHolder?.loanHolder?.insurance"></app-insurance-view>
+        <app-cicl-view *ngIf="loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
 
         <app-micro-checklist *ngIf="loanHolder?.creditChecklist" [formData]="loanHolder?.creditChecklist"
-                                   [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-micro-checklist>
+                             [fromProfile]="false" [customerType]="loanHolder?.customerType"></app-micro-checklist>
 
         <!--            <app-credit-risk-grading-gamma *ngIf="loanHolder?.crgGamma" [formData]="loanHolder?.crgGamma"-->
-            <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
-            <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
-            <!--                                [fromProfile]="false"></app-credit-grading>-->
-            <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
-                <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha"
-                                               [formData]="loanDataHolder?.creditRiskGradingAlpha"
-                                               [security]="loanHolder?.security"
-                                               [financialData]="loanDataHolder?.financial?.data"
-                                               [companyInfo]="loanDataHolder?.companyInfo"
-                                               [customerInfo]="loanDataHolder?.loanHolder"
-                                               [loanTag]="loanDataHolder?.loan?.loanTag"></app-credit-risk-grading-alpha>
-            </div>
-        <ng-template  #allDocumentView>
-            <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
+        <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
+        <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
+        <!--                                [fromProfile]="false"></app-credit-grading>-->
+        <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'">
+            <app-credit-risk-grading-alpha *ngIf="loanDataHolder?.creditRiskGradingAlpha"
+                                           [formData]="loanDataHolder?.creditRiskGradingAlpha"
+                                           [security]="loanHolder?.security"
+                                           [financialData]="loanDataHolder?.financial?.data"
+                                           [companyInfo]="loanDataHolder?.companyInfo"
+                                           [customerInfo]="loanDataHolder?.loanHolder"
+                                           [loanTag]="loanDataHolder?.loan?.loanTag"></app-credit-risk-grading-alpha>
+        </div>
+        <ng-template #allDocumentView>
+            <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"></app-all-document-view>
         </ng-template>
 
-        <nb-card *ngIf="loanHolder?.customerType === 'INSTITUTION'">
+        <nb-card *ngIf="!otherMicroDetailsVisibility">
             <nb-card-header>
                 <h6>Synopsis of Creditworthiness</h6>
             </nb-card-header>

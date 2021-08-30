@@ -19,7 +19,7 @@
         <tr *ngFor="let previousList of cadData?.previousList ; let i = index">
             <td>{{i + 1}}</td>
             <td>
-                {{previousList?.lastModifiedAt | date}}
+                {{previousList?.lastModifiedAt | date : 'medium'}}
             </td>
             <td>
                 <div class="col-md-12">
@@ -55,7 +55,7 @@
         </tr>
         <tr>
             <td>{{currentIndex + 1}}</td>
-            <td>{{cadData?.cadCurrentStage?.lastModifiedAt | date}}</td>
+            <td>{{cadData?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
             <td>
                 <div class="col-md-12">
                     <div class="d-flex justify-content-center">

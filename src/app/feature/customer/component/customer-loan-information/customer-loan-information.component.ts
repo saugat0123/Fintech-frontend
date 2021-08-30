@@ -40,6 +40,8 @@ import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
+import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -151,11 +153,13 @@ export class CustomerLoanInformationComponent implements OnInit {
     clientName = Clients;
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
+    microCustomerTypeEnum = MicroCustomerType;
 
 
     constructor(
         private toastService: ToastService,
-        private customerInfoService: CustomerInfoService
+        private customerInfoService: CustomerInfoService,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -241,6 +245,29 @@ export class CustomerLoanInformationComponent implements OnInit {
         }
     }
 
+    get otherMicroDetailsVisibility() {
+        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL && this.isMicroCustomer) {
+            return true;
+        } else {
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+            this.companyInfo.microCustomerType === MicroCustomerType.DIRECT;
+        }
+    }
+
+    get isMicroInDirectCustomer() {
+        if (!this.isMicroCustomer) {
+            return true;
+        }
+        if (this.customerInfo.customerType === CustomerType.INDIVIDUAL) {
+            return true;
+        } else {
+            return this.customerInfo.customerType === CustomerType.INSTITUTION && this.isMicroCustomer &&
+            this.companyInfo.microCustomerType === MicroCustomerType.INDIRECT;
+        }
+    }
+
+
+
     public saveSiteVisit(data: string) {
         if (ObjectUtil.isEmpty(this.siteVisit)) {
             this.siteVisit = new SiteVisit();
@@ -315,6 +342,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.guarantors = data;
         this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
                 this.itemGuarantor.close();
                 this.triggerCustomerRefresh.emit(true);
@@ -331,6 +359,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.insurance = data;
         this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
                 this.itemInsurance.close();
                 this.triggerCustomerRefresh.emit(true);
@@ -523,11 +552,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.microCrgParams = data;
         this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_OTHER_PARAMETERS)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Micro CRG Params!'));
                 this.microCrgParamsComponent.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Micro CRG Params!'));
             });
     }

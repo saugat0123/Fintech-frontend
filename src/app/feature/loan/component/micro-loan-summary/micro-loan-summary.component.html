@@ -85,7 +85,7 @@
                                       style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
                             </div>
                         </div>
-                        <div class="col-md-6" align="center" >
+                        <div class="col-md-6" align="center">
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
@@ -308,33 +308,39 @@
                         <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                        )<b> on:</b> {{loanDataHolder.lastModifiedAt | date}} ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
+                        )<b> on:</b> {{loanDataHolder.lastModifiedAt | date}}
+                        ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
                     </span>
                 </div>
             </div>
 
             <app-micro-institution *ngIf="customerType==='INSTITUTION'"
-                    [companyInfo]="loanDataHolder?.companyInfo"
-                    [loanDataHolder]="loanDataHolder"></app-micro-institution>
+                                   [companyInfo]="loanDataHolder?.companyInfo"
+                                   [loanDataHolder]="loanDataHolder"></app-micro-institution>
 
             <app-micro-individual *ngIf="customerType ==='INDIVIDUAL'"
-            [customerInfo] = "loanDataHolder?.customerInfo"
-            [loanDataHolder]="loanDataHolder"></app-micro-individual>
+                                  [customerInfo]="loanDataHolder?.customerInfo"
+                                  [loanDataHolder]="loanDataHolder"></app-micro-individual>
 
-            <app-micro-proposal-summary *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"
-                                        [proposalData]="proposalData"></app-micro-proposal-summary>
+            <!--            <app-micro-proposal-summary *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"-->
+            <!--                                        [proposalData]="proposalData"></app-micro-proposal-summary>-->
 
-<!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
+            <app-proposal-summary *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"
+                                  [proposalData]="proposalData"></app-proposal-summary>
 
-<!--            <app-customer-group-summary-->
-<!--                    *ngIf="loanDataHolder?.loanHolder?.customerGroup"-->
-<!--                    [groupDto]="loanDataHolder?.groupSummaryDto"-->
-<!--                    [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>-->
-<!--            </div>-->
+            <!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
 
-            <app-borrower-portfolio-summary *ngIf="borrowerPortfolio" [borrowerData]="borrowerPortfolioDetail"></app-borrower-portfolio-summary>
+            <!--            <app-customer-group-summary-->
+            <!--                    *ngIf="loanDataHolder?.loanHolder?.customerGroup"-->
+            <!--                    [groupDto]="loanDataHolder?.groupSummaryDto"-->
+            <!--                    [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>-->
+            <!--            </div>-->
 
-            <app-marketing-activities-summary *ngIf="marketingActivity" [marketingActivity]="marketingActivityDetail"></app-marketing-activities-summary>
+            <app-borrower-portfolio-summary *ngIf="borrowerPortfolio && !otherMicroDetailsVisibility"
+                                            [borrowerData]="borrowerPortfolioDetail"></app-borrower-portfolio-summary>
+
+            <app-marketing-activities-summary *ngIf="marketingActivity && !otherMicroDetailsVisibility"
+                                              [marketingActivity]="marketingActivityDetail"></app-marketing-activities-summary>
 
             <app-collateral-summary
                     *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
@@ -351,12 +357,13 @@
 
             <app-financial-summary
                     *ngIf="financialSummary" [formData]="financialData"
+                    [loanDataHolder]="loanDataHolder"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
             <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
-            <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                  [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                                      [fiscalYears]="fiscalYearArray"
+                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             </ng-container>
 
             <ng-template #otherBank>
@@ -369,7 +376,8 @@
             <div *ngIf="client === clientName?.MEGA">
                 <app-comments-summary *ngIf="commentsSummary"
                                       [formData]="dataFromComments"></app-comments-summary>
-                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+                <app-previous-security-summary *ngIf="previousSecuritySummary"
+                                               [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
             </div>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
@@ -387,7 +395,7 @@
             <app-sitevist-summary-component *ngIf="siteVisitSummary"
                                             [formData]="siteVisitData"
                                             [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
-            <nb-card *ngIf="customerType === 'INSTITUTION'">
+            <nb-card *ngIf="customerType === 'INSTITUTION' && !otherMicroDetailsVisibility">
                 <nb-card-header>
                     <h6>BASEL wise Risk Exposure</h6>
                 </nb-card-header>
@@ -405,12 +413,12 @@
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
 
 
-            <nb-card *ngIf="customerType === 'INSTITUTION'">
+            <nb-card *ngIf="!otherMicroDetailsVisibility">
                 <nb-card-header>
                     <h6>Synopsis of Creditworthiness</h6>
                 </nb-card-header>
                 <nb-card-body>
-                    <app-micro-synopsis-creditworthiness *ngIf="synopsis"
+                    <app-micro-synopsis-creditworthiness *ngIf="synopsis "
                                                          [synopsisData]="synopsisCreditWorthiness"></app-micro-synopsis-creditworthiness>
                 </nb-card-body>
             </nb-card>
@@ -437,7 +445,8 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
+                                {{previousList?.lastModifiedAt | date}}
+                                ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -465,13 +474,16 @@
                                    *ngIf="previousList?.comment?.length > 50"
                                    class="text-left pl-1 read-margin disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="previousList?.comment | safeHtml"></span>
+                                    <span class="pl-1 print-only text-justify pr-1"
+                                          [innerHTML]="previousList?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
+                            </td>
                             <td class="text-left">
                                 <div class="pl-1">
                                     {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
@@ -498,7 +510,8 @@
                                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
                                    class="text-left pl-1 read-margin disable-print">read more ....</a>
                                 <div>
-                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                                    <span class="pl-1 print-only text-justify pr-1"
+                                          [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
                                 </div>
                             </td>
                         </tr>
@@ -506,32 +519,7 @@
                     </table>
                 </div>
             </div>
-            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
-                 id="signatureDiv">
-                <div class="col-md-12 print-only">
-                    <p><strong>Approval Chain</strong></p>
-                </div>
-                <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-2 padding-0-125">
-                    <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                            <span>{{loanHandler(i, signatureList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.authorityLabel : previous?.fromUser?.role?.authorityLabel)}}</span>
-                        </div>
-                        <hr class="border-dark m-0">
-                        <div class="row justify-content-center signature mx-auto">
-                            <div class="print-only signature-padding"></div>
-                            <img align="middle" alt="signature"
-                                 class="img-thumbnail border-0 signature-height signature-width"
-                                 src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
-                        </div>
-                        <div class="text-center signature-detail sb-bg-secondary text-white">
-                            <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                            <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.role?.roleName : previous?.fromUser?.role?.roleName}})</p>
-                            <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}} ({{previous?.lastModifiedAt | engNepDate: false}})</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
 
         </nb-card-body>
     </nb-card>
