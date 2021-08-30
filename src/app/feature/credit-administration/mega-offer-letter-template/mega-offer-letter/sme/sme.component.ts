@@ -80,6 +80,7 @@ export class SmeComponent implements OnInit {
     this.checkOfferLetterData();
     this.chooseLoanType(this.selectedLoanArray);
     this.listOfLoan.push(this.loanForm.get('loanTypeSelectedArray').value);
+      console.log('Cad Iffer Letter Approved :', this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder.nepData)) {
         this.smeLoanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         console.log(this.smeLoanHolderInfo);
