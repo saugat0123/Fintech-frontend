@@ -72,7 +72,7 @@
             </tbody>
         </table>
     </div>
-    <ng-container *ngIf="security !== null">
+    <ng-container *ngIf="securityExposure">
         <div class="col-md-2 sb-small">
             <mark class="alert-warning text">Total Required Collateral:</mark>
             <strong>Rs.{{totalRequiredCollateral| currencyFormatter}}</strong>
