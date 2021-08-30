@@ -458,6 +458,8 @@
             </strong></label>
             <input class="form-control" id="totalLoanMicro"
                    placeholder="Total loan including this present request" formControlName="totalLoan">
+            <span *ngIf="submitted && microCrgParamsForm.get('totalLoan').invalid" class="text-danger small">
+                Total loan including this present request Required </span>
         </div>
     </div>
 
