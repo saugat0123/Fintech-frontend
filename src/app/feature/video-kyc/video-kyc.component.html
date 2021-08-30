@@ -1,104 +1,113 @@
-<div class="bg-light">
-    <div class="row ">
-        <div class="col-md-12">
-            <nb-card-header>
-                Video KYC Sender
-            </nb-card-header>
-            <form [formGroup]="senderForm">
-                <div class="p-4 row">
-                    <div class="col-sm-2">
-                        <label class="label">Required</label><br>
-                        <nb-radio-group>
-                            <nb-radio [value]="1"
-                                      (valueChange)="onVideoKycPermissionSender($event)">Yes</nb-radio>
-                            <nb-radio [value]="0"
-                                      (valueChange)="onVideoKycPermissionSender($event)">No</nb-radio>
-                        </nb-radio-group>
-                    </div>
-                    <div class="col-sm-10">
-                        <ng-container *ngIf="!hideVideoKycSender">
 
-                            <div class="col-lg-7">
-                                <label for="date1" class="label">Meeting Date</label>
-                                <input
-                                        formControlName="date" type="date" nbInput fullWidth id="date1">
+    <div class="container-full bg-light">
+        <nb-card>
+            <div class="row">
+                <div class="col-md-12">
+                    <nb-card-header>
+                        Video KYC Sender
+                    </nb-card-header>
+                    <a  *ngIf="isModal" (click)="close()" aria-label="Close" class="close pull-right cursor">
+                        <span aria-hidden="true">X</span>
+                    </a>
+                    <form [formGroup]="senderForm">
+                        <div class="p-4 row">
+                            <div class="col-sm-2">
+                                <label class="label">Required</label><br>
+                                <nb-radio-group>
+                                    <nb-radio [value]="1"
+                                              (valueChange)="onVideoKycPermissionSender($event)">Yes</nb-radio>
+                                    <nb-radio [value]="0"
+                                              (valueChange)="onVideoKycPermissionSender($event)">No</nb-radio>
+                                </nb-radio-group>
+                            </div>
+                            <div class="col-sm-10">
+                                <ng-container *ngIf="!hideVideoKycSender">
 
-                            </div>
-                            <div class="col-lg-7">
-                                <label for="date1" class="label">Meeting Time</label>
-                                <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time1">
-                            </div>
+                                    <div class="col-lg-7">
+                                        <label for="date1" class="label">Meeting Date</label>
+                                        <input
+                                                formControlName="date" type="date" nbInput fullWidth id="date1">
 
-                            <div class="col-lg-7">
-                                <label for="Meetinglink" class="label">Meeting Link</label>
-                                <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <label for="date1" class="label">Meeting Time</label>
+                                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time1">
+                                    </div>
+
+                                    <div class="col-lg-7">
+                                        <label for="Meetinglink" class="label">Meeting Link</label>
+                                        <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label for="recordedmeeting" class="label">Recorded Meeting</label>
+                                        <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
+                                    </div>
+                                    <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
+                                        <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
+                                    </div>
+                                </ng-container>
                             </div>
-                            <div class="col-md-7">
-                                <label for="recordedmeeting" class="label">Recorded Meeting</label>
-                                <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
-                            </div>
-                            <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
-                                <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
-                            </div>
-                        </ng-container>
-                    </div>
+                        </div>
+
+                    </form>
                 </div>
+            </div>
 
-            </form>
-        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <nb-card-header>
+                        Video KYC Beneficiary
+                    </nb-card-header>
+                    <form [formGroup]="beneficiaryForm">
+                        <div class="p-4 row">
+                            <div class="col-sm-2">
+                                <label class="label">Required</label><br>
+                                <nb-radio-group>
+                                    <nb-radio [value]="1"
+                                              (valueChange)="onVideoKycPermissionBeneficiary($event)">Yes</nb-radio>
+                                    <nb-radio [value]="0"
+                                              (valueChange)="onVideoKycPermissionBeneficiary($event)">No</nb-radio>
+                                </nb-radio-group>
+                            </div>
+                            <div class="col-sm-10">
+                                <ng-container *ngIf="!hideVideoKycBeneficiary">
+                                    <div class="col-lg-7">
+                                        <label for="date" class="label">Meeting Date</label>
+                                        <input  [ngClass]="{ 'is-invalid': beneficiaryForm.get('date').errors }"
+                                                formControlName="date" pattern="\d{1,2}/\d{1,2}/\d{4}" type="date" nbInput fullWidth id="date" placeholder="link">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <label for="date" class="label">Meeting Time</label>
+                                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time" placeholder="link">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label for="Meetinglink1" class="label">Meeting Link</label>
+                                        <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label for="recordedmeeting1" class="label">Recorded Meeting</label>
+                                        <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
+                                    </div>
+                                    <div id="generatebtn1" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px" >
+                                        <button (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <nb-card-footer class="py-4">
+                <div class="d-flex justify-content-end">
+                    <button nbButton>Generate DOC</button>
+                    <button nbButton>save</button>
+                </div>
+            </nb-card-footer>
+
+        </nb-card>
+
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <nb-card-header>
-                Video KYC Beneficiary
-            </nb-card-header>
-            <form [formGroup]="beneficiaryForm">
-                <div class="p-4 row">
-                    <div class="col-sm-2">
-                        <label class="label">Required</label><br>
-                        <nb-radio-group>
-                            <nb-radio [value]="1"
-                                      (valueChange)="onVideoKycPermissionBeneficiary($event)">Yes</nb-radio>
-                            <nb-radio [value]="0"
-                                      (valueChange)="onVideoKycPermissionBeneficiary($event)">No</nb-radio>
-                        </nb-radio-group>
-                    </div>
-                    <div class="col-sm-10">
-                        <ng-container *ngIf="!hideVideoKycBeneficiary">
-                            <div class="col-lg-7">
-                                <label for="date" class="label">Meeting Date</label>
-                                <input  [ngClass]="{ 'is-invalid': beneficiaryForm.get('date').errors }"
-                                        formControlName="date" pattern="\d{1,2}/\d{1,2}/\d{4}" type="date" nbInput fullWidth id="date" placeholder="link">
-                            </div>
-                            <div class="col-lg-7">
-                                <label for="date" class="label">Meeting Time</label>
-                                <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time" placeholder="link">
-                            </div>
-                            <div class="col-md-7">
-                                <label for="Meetinglink1" class="label">Meeting Link</label>
-                                <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
-                            </div>
-                            <div class="col-md-7">
-                                <label for="recordedmeeting1" class="label">Recorded Meeting</label>
-                                <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
-                            </div>
-                            <div id="generatebtn1" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px" >
-                                <button (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
 
-            </form>
-        </div>
-    </div>
-
-    <nb-card-footer class="py-4">
-        <div class="d-flex justify-content-end">
-            <button nbButton>Generate DOC</button>
-            <button nbButton>save</button>
-        </div>
-    </nb-card-footer>
-
-</div>

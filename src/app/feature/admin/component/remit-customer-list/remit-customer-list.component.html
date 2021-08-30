@@ -160,13 +160,13 @@
                         <i class="fas fa-eye"></i>
                     </button>
 
-                    <button nbTooltip="View Customer" (click)="viewVideo()"
-                            class="m-1"
-                            nbButton size="tiny"
-                            status="info"
-                            title="View">
-                        <i class="fas fa-edit"></i>
-                    </button>
+                        <button *ngIf="isHO" nbTooltip="View Customer" (click)="viewVideo()"
+                                class="m-1"
+                                nbButton size="tiny"
+                                status="info"
+                                title="View">
+                            <i class="fas fa-edit"></i>
+                        </button>
 
                 </td>
                 <!--                <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>-->
