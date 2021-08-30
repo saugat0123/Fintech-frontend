@@ -173,7 +173,7 @@ export class CiclComponent implements OnInit {
 
 
   onSubmit() {
-      this.overlay.show().then( r=> { console.log('CICL data submitted')});
+      this.overlay.show();
   this.submitted = true;
   if (this.ciclHistory === false) {
       const controls = this.ciclForm.controls.ciclArray as FormArray;
@@ -183,7 +183,7 @@ export class CiclComponent implements OnInit {
     if (this.ciclHistory === true) {
         if (this.ciclForm.invalid) {
             this.scrollToFirstInvalidControl();
-            this.overlay.hide().then( r=> { console.log('CICL data invalid')});
+            this.overlay.hide();
             return;
         }
     }
