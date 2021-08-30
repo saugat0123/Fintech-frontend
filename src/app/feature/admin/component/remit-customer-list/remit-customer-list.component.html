@@ -1,300 +1,308 @@
-<nb-card>
-    <nb-card-header>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="btn-group">
-                        <button
-                                aria-controls="searchModel"
-                                nbButton
-                                shape="rectangle"
-                                status="primary"
-                                size="small">
-                            <em class="fa fa-filter"> Filter</em>
-                        </button>
-
-                    </div>
-                </div>
-                <!--                <div class="col-md-6 d-flex justify-content-end">-->
-                <!--                    <button nbButton outline status="success" class="mr-2" size="small"-->
-                <!--                            (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">-->
-                <!--                        <i class="fa fa-plus"></i>-->
-                <!--                    </button>-->
-                <!--                    <button (click)="download()" nbButton outline-->
-                <!--                            status="info" size="small">-->
-                <!--                        <i aria-hidden="true" class="fa fa-download"></i></button>-->
-                <!--                </div>-->
-            </div>
-        </div>
-
-        <!--        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">-->
-        <!--            <form [formGroup]="filterForm">-->
-        <!--                <div class="row py-3">-->
-        <!--                    <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">-->
-        <!--                        <ng-select placeholder="branches" formControlName="branchIds">-->
-        <!--                            <ng-option *ngFor="let branch of branchList"-->
-        <!--                                       [value]="branch.id">{{branch.name}}</ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!---->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select placeholder="Province" formControlName="provinceId">-->
-        <!--                            <ng-option *ngFor="let province of provinces"-->
-        <!--                                       [value]="province.id">{{province.name}}</ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!---->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <input class="form-control rounded" formControlName="name" id="customerName"-->
-        <!--                               placeholder="Enter customer name">-->
-        <!--                    </div>-->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select formControlName="customerType" placeholder="Customer Type">-->
-        <!--                            <ng-option value="INSTITUTION">INSTITUTION</ng-option>-->
-        <!--                            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select [multiple]="false"-->
-        <!--                                   [appendTo]="'body'"-->
-        <!--                                   formControlName="idRegPlace"-->
-        <!--                                   id="idRegPlace"-->
-        <!--                                   placeholder="Id Registration place"-->
-        <!--                                   type="text">-->
-        <!--                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
-        <!--                                {{district?.name}}-->
-        <!--                            </ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!---->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select [multiple]="false"-->
-        <!--                                   [appendTo]="'body'"-->
-        <!--                                   formControlName="groupId"-->
-        <!--                                   id="groupId"-->
-        <!--                                   placeholder="Group"-->
-        <!--                        >-->
-        <!--                            <ng-option *ngFor="let group of customerGroupList" [value]="group?.id">-->
-        <!--                                {{group?.groupCode}}-->
-        <!--                            </ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-
-        <!--                <div class="col-md-12 p-0">-->
-        <!--                    <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton-->
-        <!--                            shape="rectangle"-->
-        <!--                            status="info"-->
-        <!--                            size="small">Search-->
-        <!--                    </button>-->
-        <!--                    <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear-->
-        <!--                    </button>-->
-        <!--                </div>-->
-        <!--            </form>-->
-        <!--        </div>-->
-
-    </nb-card-header>
-    <nb-card-body>
-        <br>
-        <table class="table table-sm table-bordered table-hover sb-small text-center" id="add-branch-table">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>S.No.</th>
-                <th>Beneficiary Name</th>
-                <th>Sender Name</th>
-                <th>Sender Country</th>
-                <th>Agent Name</th>
-                <th>Proposed Amount</th>
-                <th>Interest Rate</th>
-                <th *ngIf="!transferDoc">Sent To Branch</th>
-                <th *ngIf="transferDoc">Trasnferred To</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let model of remitCustomerList;let i=index" class="cursor">
-                <td>{{i+1}}</td>
-                <td>{{model?.beneficiaryName}}</td>
-                <td>{{model?.senderName || 'NA'}}</td>
-                <td>{{model?.senderCountry || 'NA'}}</td>
-                <td>{{model?.agentName}}</td>
-                <td>{{model?.proposedAmount || 'NA'}}</td>
-                <td>{{model?.interestRate || 'NA'}}</td>
-                <td *ngIf="!transferDoc">{{model?.branch?.name || 'NA'}}</td>
-                <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
-                <td>
-                    <ng-container *ngIf="user.roleType ==='MAKER' && !model.alreadyOnBoarded">
-                        <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
-                                *ngIf="!model?.alreadyOnboarded"
-                                class="m-1"
-                                nbButton size="tiny"
-                                status="info"
-                                title="Add">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </ng-container>
-                    <ng-container *ngIf="user.roleType === 'COMMITTEE' && !(model?.sendToBranch)">
-                        <button nbTooltip="Send to branch" (click)="sendToBranch($event, model,transferBranch)"
-                                class="m-1"
-                                nbButton size="tiny"
-                                status="info"
-                                title="Add">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </ng-container>
-                    <ng-container *ngIf="transferDoc && !(model?.alreadyTransferred)">
-                        <button nbTooltip="Transfer to instuition"
-                                (click)="transferCustomer($event, model,customerTransfer)"
-                                class="m-1"
-                                nbButton size="tiny"
-                                status="info"
-                                title="Trasnfer">
-                            <i class="fas fa-share-square"></i>
-                        </button>
-                    </ng-container>
-                    <button nbTooltip="View Customer" (click)="viewData($event, model.id, model,viewdetails)"
-                            class="m-1"
-                            nbButton size="tiny"
-                            status="info"
-                            title="View">
-                        <i class="fas fa-eye"></i>
-                    </button>
-
-                    <button nbTooltip="View Customer" (click)="viewVideo()"
-                            class="m-1"
-                            nbButton size="tiny"
-                            status="info"
-                            title="View">
-                        <i class="fas fa-edit"></i>
-                    </button>
-
-                </td>
-                <!--                <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>-->
-                <!--                                <td>-->
-                <!--                                    <div>-->
-                <!--                                        <button nbButton status="warning" size="tiny"-->
-                <!--                                                (click)="onTransferClick(transferCust, model)">-->
-                <!--                                            <em class="fa fa-arrow-circle-right"></em></button>-->
-                <!--                                    </div>-->
-                <!---->
-                <!--                                </td>-->
-            </tr>
-
-            </tbody>
-        </table>
-        <app-paging (changePage)="changePage($event)"
-                    [pageable]="pageable"></app-paging>
-    </nb-card-body>
-</nb-card>
-
-<ng-template #confirmOnBoard let-ref="dialogRef">
-    <div class="modal-content" [nbSpinner]="onBoardSpinner"
-         accent="primary"
-         nbSpinnerMessage="Please Wait . . ."
-         nbSpinnerSize="giant"
-         nbSpinnerStatus="primary">
-        <div class="modal-header sb-bg" style="display:block">
-            <a (click)="modalService.dismissAll()" aria-label="Close"
-               class="close cursor" data-dismiss="modal">
-                <span aria-hidden="true">×</span></a>
-            <h4 class="nav  navbar-right pull-left text-white">Confirm</h4>
-        </div>
-        <div class="col-md-12">
-            <div class="container">
+<div class="modal-content" [nbSpinner]="spinner"
+     accent="primary"
+     nbSpinnerMessage="Please Wait . . ."
+     nbSpinnerSize="giant"
+     nbSpinnerStatus="primary">
+    <nb-card>
+        <nb-card-header>
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group py-4">
-                            Do you want to onboard <strong>{{onBoardData?.beneficiaryName}}</strong> ?
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <button
+                                    aria-controls="searchModel"
+                                    nbButton
+                                    shape="rectangle"
+                                    status="primary"
+                                    size="small">
+                                <em class="fa fa-filter"> Filter</em>
+                            </button>
+
+                        </div>
+                    </div>
+                    <!--                <div class="col-md-6 d-flex justify-content-end">-->
+                    <!--                    <button nbButton outline status="success" class="mr-2" size="small"-->
+                    <!--                            (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">-->
+                    <!--                        <i class="fa fa-plus"></i>-->
+                    <!--                    </button>-->
+                    <!--                    <button (click)="download()" nbButton outline-->
+                    <!--                            status="info" size="small">-->
+                    <!--                        <i aria-hidden="true" class="fa fa-download"></i></button>-->
+                    <!--                </div>-->
+                </div>
+            </div>
+
+            <!--        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">-->
+            <!--            <form [formGroup]="filterForm">-->
+            <!--                <div class="row py-3">-->
+            <!--                    <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">-->
+            <!--                        <ng-select placeholder="branches" formControlName="branchIds">-->
+            <!--                            <ng-option *ngFor="let branch of branchList"-->
+            <!--                                       [value]="branch.id">{{branch.name}}</ng-option>-->
+            <!--                        </ng-select>-->
+            <!--                    </div>-->
+            <!---->
+            <!--                    <div class="col-md-3 mb-3">-->
+            <!--                        <ng-select placeholder="Province" formControlName="provinceId">-->
+            <!--                            <ng-option *ngFor="let province of provinces"-->
+            <!--                                       [value]="province.id">{{province.name}}</ng-option>-->
+            <!--                        </ng-select>-->
+            <!--                    </div>-->
+            <!---->
+            <!--                    <div class="col-md-3 mb-3">-->
+            <!--                        <input class="form-control rounded" formControlName="name" id="customerName"-->
+            <!--                               placeholder="Enter customer name">-->
+            <!--                    </div>-->
+            <!--                    <div class="col-md-3 mb-3">-->
+            <!--                        <ng-select formControlName="customerType" placeholder="Customer Type">-->
+            <!--                            <ng-option value="INSTITUTION">INSTITUTION</ng-option>-->
+            <!--                            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>-->
+            <!--                        </ng-select>-->
+            <!--                    </div>-->
+            <!--                    <div class="col-md-3 mb-3">-->
+            <!--                        <ng-select [multiple]="false"-->
+            <!--                                   [appendTo]="'body'"-->
+            <!--                                   formControlName="idRegPlace"-->
+            <!--                                   id="idRegPlace"-->
+            <!--                                   placeholder="Id Registration place"-->
+            <!--                                   type="text">-->
+            <!--                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
+            <!--                                {{district?.name}}-->
+            <!--                            </ng-option>-->
+            <!--                        </ng-select>-->
+            <!--                    </div>-->
+            <!---->
+            <!--                    <div class="col-md-3 mb-3">-->
+            <!--                        <ng-select [multiple]="false"-->
+            <!--                                   [appendTo]="'body'"-->
+            <!--                                   formControlName="groupId"-->
+            <!--                                   id="groupId"-->
+            <!--                                   placeholder="Group"-->
+            <!--                        >-->
+            <!--                            <ng-option *ngFor="let group of customerGroupList" [value]="group?.id">-->
+            <!--                                {{group?.groupCode}}-->
+            <!--                            </ng-option>-->
+            <!--                        </ng-select>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+
+            <!--                <div class="col-md-12 p-0">-->
+            <!--                    <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton-->
+            <!--                            shape="rectangle"-->
+            <!--                            status="info"-->
+            <!--                            size="small">Search-->
+            <!--                    </button>-->
+            <!--                    <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear-->
+            <!--                    </button>-->
+            <!--                </div>-->
+            <!--            </form>-->
+            <!--        </div>-->
+
+        </nb-card-header>
+        <nb-card-body>
+            <br>
+            <table class="table table-sm table-bordered table-hover sb-small text-center" id="add-branch-table">
+                <thead>
+                <tr class="sb-bg-dark text-white">
+                    <th>S.No.</th>
+                    <th>Beneficiary Name</th>
+                    <th>Sender Name</th>
+                    <th>Sender Country</th>
+                    <th>Agent Name</th>
+                    <th>Proposed Amount</th>
+                    <th>Interest Rate</th>
+                    <th *ngIf="!transferDoc">Sent To Branch</th>
+                    <th *ngIf="transferDoc">Trasnferred To</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let model of remitCustomerList;let i=index" class="cursor">
+                    <td>{{i+1}}</td>
+                    <td>{{model?.beneficiaryName}}</td>
+                    <td>{{model?.senderName || 'NA'}}</td>
+                    <td>{{model?.senderCountry || 'NA'}}</td>
+                    <td>{{model?.agentName}}</td>
+                    <td>{{model?.proposedAmount || 'NA'}}</td>
+                    <td>{{model?.interestRate || 'NA'}}</td>
+                    <td *ngIf="!transferDoc">{{model?.branch?.name || 'NA'}}</td>
+                    <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
+                    <td>
+                        <ng-container *ngIf="user.roleType ==='MAKER' && !model.alreadyOnBoarded">
+                            <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
+                                    *ngIf="!model?.alreadyOnboarded"
+                                    class="m-1"
+                                    nbButton size="tiny"
+                                    status="info"
+                                    title="Add">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="user.roleType === 'COMMITTEE' && !(model?.sendToBranch)">
+                            <button nbTooltip="Send to branch" (click)="sendToBranch($event, model,transferBranch)"
+                                    class="m-1"
+                                    nbButton size="tiny"
+                                    status="info"
+                                    title="Add">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="transferDoc && !(model?.alreadyTransferred)">
+                            <button nbTooltip="Transfer to instuition"
+                                    (click)="transferCustomer($event, model,customerTransfer)"
+                                    class="m-1"
+                                    nbButton size="tiny"
+                                    status="info"
+                                    title="Trasnfer">
+                                <i class="fas fa-share-square"></i>
+                            </button>
+                        </ng-container>
+                        <button nbTooltip="View Customer" (click)="viewData($event, model.id, model,viewdetails)"
+                                class="m-1"
+                                nbButton size="tiny"
+                                status="info"
+                                title="View">
+                            <i class="fas fa-eye"></i>
+                        </button>
+
+                        <button *ngIf="isHO" nbTooltip="View Customer" (click)="viewVideo()"
+                                class="m-1"
+                                nbButton size="tiny"
+                                status="info"
+                                title="View">
+                            <i class="fas fa-edit"></i>
+                        </button>
+
+                    </td>
+                    <!--                <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomer(model)"><em class="fa fa-edit"></em></button></td>-->
+                    <!--                                <td>-->
+                    <!--                                    <div>-->
+                    <!--                                        <button nbButton status="warning" size="tiny"-->
+                    <!--                                                (click)="onTransferClick(transferCust, model)">-->
+                    <!--                                            <em class="fa fa-arrow-circle-right"></em></button>-->
+                    <!--                                    </div>-->
+                    <!---->
+                    <!--                                </td>-->
+                </tr>
+
+                </tbody>
+            </table>
+            <app-paging (changePage)="changePage($event)"
+                        [pageable]="pageable"></app-paging>
+        </nb-card-body>
+    </nb-card>
+
+    <ng-template #confirmOnBoard let-ref="dialogRef">
+        <div class="modal-content" [nbSpinner]="onBoardSpinner"
+             accent="primary"
+             nbSpinnerMessage="Please Wait . . ."
+             nbSpinnerSize="giant"
+             nbSpinnerStatus="primary">
+
+            <div class="modal-header sb-bg" style="display:block">
+                <a (click)="modalService.dismissAll()" aria-label="Close"
+                   class="close cursor" data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+                <h4 class="nav  navbar-right pull-left text-white">Confirm</h4>
+            </div>
+            <div class="col-md-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group py-4">
+                                Do you want to onboard <strong>{{onBoardData?.beneficiaryName}}</strong> ?
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-end pb-md-3">
+                <div class="d-flex justify-content-end pb-md-3">
 
-                <button (click)="onBoardMember()" class="btn float-right"
-                        nbButton size="small"
-                        status="info"
-                        shape="rectangle"
-                        type="submit">
-                    Yes
-                </button>
-            </div>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #transferBranch let-ref="dialogRef">
-    <div class="modal-content" [nbSpinner]="onBoardSpinner"
-         accent="primary"
-         nbSpinnerMessage="Please Wait . . ."
-         nbSpinnerSize="giant"
-         nbSpinnerStatus="primary">
-        <div class="modal-header sb-bg">
-            <h4 class="modal-title">Send to branch</h4>
-            <a (click)="modalService.dismissAll()" aria-label="Close"
-               class="close cursor" data-dismiss="modal">
-                <span aria-hidden="true">×</span></a>
-        </div>
-        <div class="col-md-12">
-            <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to branch: </label>
-            <select (change)="onBranchChange(branchList, $event)"
-                    class="form-control form-control-sm"
-                    placeholder="Select instituition">
-                <option value="null">Select branch</option>
-                <option *ngFor="let branch of branchList"
-                        [value]="branch.id">{{branch.name}}</option>
-            </select>
-            <div class="d-flex justify-content-end pb-md-3">
-
-                <button style="margin-top: 20px" (click)="customerTransferToBranch()" class="btn float-right"
-                        nbButton size="small"
-                        status="info"
-                        shape="rectangle"
-                        type="submit">
-                    Yes
-                </button>
+                    <button (click)="onBoardMember()" class="btn float-right"
+                            nbButton size="small"
+                            status="info"
+                            shape="rectangle"
+                            type="submit">
+                        Yes
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</ng-template>
+    </ng-template>
 
-<ng-template #customerTransfer let-ref="dialogRef">
-    <div class="modal-content" [nbSpinner]="onBoardSpinner"
-         accent="primary"
-         nbSpinnerMessage="Please Wait . . ."
-         nbSpinnerSize="giant"
-         nbSpinnerStatus="primary">
-        <div class="modal-header sb-bg">
-            <h4 class="modal-title">Transfer</h4>
-            <a (click)="modalService.dismissAll()" aria-label="Close"
-               class="close cursor" data-dismiss="modal">
-                <span aria-hidden="true">×</span></a>
-        </div>
-        <div class="col-md-12">
-            <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to: </label>
-            <select (change)="onInstituitionChange($event.target.value)"
-                    class="form-control form-control-sm"
-                    placeholder="Select instituition"
-                    id="instituition"
-                    name="instituition">
-                <option [value]="null" hidden>Instituition</option>
-                <option value="BANK">Bank</option>
-                <option value="MICRO_FINANCE">Micro Finance</option>
-            </select>
-            <div class="d-flex justify-content-end pb-md-3">
+    <ng-template #transferBranch let-ref="dialogRef">
+        <div class="modal-content" [nbSpinner]="onBoardSpinner"
+             accent="primary"
+             nbSpinnerMessage="Please Wait . . ."
+             nbSpinnerSize="giant"
+             nbSpinnerStatus="primary">
+            <div class="modal-header sb-bg">
+                <h4 class="modal-title">Send to branch</h4>
+                <a (click)="modalService.dismissAll()" aria-label="Close"
+                   class="close cursor" data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+            </div>
+            <div class="col-md-12">
+                <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to branch: </label>
+                <select (change)="onBranchChange(branchList, $event)"
+                        class="form-control form-control-sm"
+                        placeholder="Select instituition">
+                    <option value="null">Select branch</option>
+                    <option *ngFor="let branch of branchList"
+                            [value]="branch.id">{{branch.name}}</option>
+                </select>
+                <div class="d-flex justify-content-end pb-md-3">
 
-                <button style="margin-top: 20px" (click)="customerTransferToInstituition()" class="btn float-right"
-                        nbButton size="small"
-                        status="info"
-                        shape="rectangle"
-                        type="submit">
-                    Yes
-                </button>
+                    <button style="margin-top: 20px" (click)="customerTransferToBranch()" class="btn float-right"
+                            nbButton size="small"
+                            status="info"
+                            shape="rectangle"
+                            type="submit">
+                        Yes
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</ng-template>
+    </ng-template>
 
-<ng-template #viewdetails let-ref="dialogRef">
-<app-remit-loan-view [selectedIdData]="selectedIdData" [ref]="ref" ></app-remit-loan-view>
-</ng-template>
+    <ng-template #customerTransfer let-ref="dialogRef">
+        <div class="modal-content" [nbSpinner]="onBoardSpinner"
+             accent="primary"
+             nbSpinnerMessage="Please Wait . . ."
+             nbSpinnerSize="giant"
+             nbSpinnerStatus="primary">
+            <div class="modal-header sb-bg">
+                <h4 class="modal-title">Transfer</h4>
+                <a (click)="modalService.dismissAll()" aria-label="Close"
+                   class="close cursor" data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+            </div>
+            <div class="col-md-12">
+                <label style="margin-top: 20px">Transfer {{this.onBoardData.beneficiaryName}} to: </label>
+                <select (change)="onInstituitionChange($event.target.value)"
+                        class="form-control form-control-sm"
+                        placeholder="Select instituition"
+                        id="instituition"
+                        name="instituition">
+                    <option [value]="null" hidden>Instituition</option>
+                    <option value="BANK">Bank</option>
+                    <option value="MICRO_FINANCE">Micro Finance</option>
+                </select>
+                <div class="d-flex justify-content-end pb-md-3">
+
+                    <button style="margin-top: 20px" (click)="customerTransferToInstituition()" class="btn float-right"
+                            nbButton size="small"
+                            status="info"
+                            shape="rectangle"
+                            type="submit">
+                        Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template #viewdetails let-ref="dialogRef">
+        <app-remit-loan-view [selectedIdData]="selectedIdData" [ref]="ref" ></app-remit-loan-view>
+    </ng-template>
+</div>
+
