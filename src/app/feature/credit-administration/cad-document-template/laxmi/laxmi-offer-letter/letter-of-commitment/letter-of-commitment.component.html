@@ -91,14 +91,14 @@
                 Save
             </button>
         </form>
-<!--        <button class="btn btn-primary d-print-none"-->
-<!--                [useExistingCss]="true"-->
-<!--                [disabled]="!initialInfoPrint"-->
-<!--                printSectionId="print-section-{{offerLetterConst.LETTER_OF_COMMITMENT}}"-->
-<!--                ngxPrint>print-->
-<!--        </button>-->
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{offerLetterConst.LETTER_OF_COMMITMENT}}"
+                ngxPrint>print
+        </button>
     </div>
 </div>
-<!--<app-letter-of-commitment-print *ngIf="initialInfoPrint"-->
-<!--                                [printDocForm]="initialInfoPrint"></app-letter-of-commitment-print>-->
+<app-letter-of-commitment-print *ngIf="initialInfoPrint"
+                                [printDocForm]="initialInfoPrint" hidden></app-letter-of-commitment-print>
 
