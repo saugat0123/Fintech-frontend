@@ -105,7 +105,7 @@
                 <th>Sender Country</th>
                 <th>Agent Name</th>
                 <th>Proposed Amount</th>
-                <th>Interest Rate</th>
+                <th>Preferred Branch</th>
                 <th *ngIf="!transferDoc">Sent To Branch</th>
                 <th *ngIf="transferDoc">Trasnferred To</th>
                 <th>Action</th>
@@ -119,7 +119,7 @@
                 <td>{{model?.senderCountry || 'NA'}}</td>
                 <td>{{model?.agentName}}</td>
                 <td>{{model?.proposedAmount || 'NA'}}</td>
-                <td>{{model?.interestRate || 'NA'}}</td>
+                <td>{{model?.prefferedBranch || 'NA'}}</td>
                 <td *ngIf="!transferDoc">{{model?.branch?.name || 'NA'}}</td>
                 <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                 <td>
