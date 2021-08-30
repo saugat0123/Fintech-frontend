@@ -805,7 +805,7 @@ export class SiteVisitComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
-    this.overlay.show().then( r=> { console.log('Site Visit Information submitted.')});
+    this.overlay.show();
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
   }
