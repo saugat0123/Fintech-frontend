@@ -473,16 +473,10 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="guarantorLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
-                                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').errors }"
-                                                        formControlName="guarantorLegalDocumentAddress"
-                                                        id="guarantorLegalDocumentAddress"
+                                            <ckeditor
+                                                      formControlName="guarantorLegalDocumentAddress"
+                                                      id="guarantorLegalDocumentAddress"
                                                       [config]="ckEditorConfig"></ckeditor>
-                                            <div *ngIf="(submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="guarantorDetails.get('guarantorLegalDocumentAddress').errors.required">
-                                                    Address as per legal document is required
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
