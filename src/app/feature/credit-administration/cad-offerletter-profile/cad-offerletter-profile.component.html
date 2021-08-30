@@ -41,7 +41,8 @@
                             </div>
                         </div>
                     </div>
-                    <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
+                    <nb-card class="mt-3"
+                             *ngIf="roleType !== 'MAKER' || (roleType === 'MAKER' && client === clientList.LAXMI)">
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
@@ -63,7 +64,9 @@
                                     <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
                                             class="float-right" nbButton
                                             size="small"
-                                            [disabled]="roleType === 'MAKER' ||
+                                            [disabled]="
+                                            !(roleType === 'MAKER' && client === clientList.LAXMI)||
+                                            (roleType === 'MAKER' && client !== clientList.LAXMI) ||
                               (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate
