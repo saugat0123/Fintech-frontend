@@ -20,6 +20,7 @@ import {RelationWithBank} from './model/RelationWithBank';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from './model/TypeOfSourceOfIncome';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-micro-crg-params',
@@ -56,6 +57,7 @@ export class MicroCrgParamsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private toastService: ToastService,
+              private overlay: NgxSpinnerService,
               private el: ElementRef) {
   }
 
@@ -366,6 +368,7 @@ export class MicroCrgParamsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.overlay.show();
     this.submitted = true;
     if (!ObjectUtil.isEmpty(this.microCrgParams )) {
       this.microCrgParamsData = this.microCrgParams;
@@ -377,6 +380,7 @@ export class MicroCrgParamsComponent implements OnInit {
       this.dataEmitter.emit(this.microCrgParamsData);
     }
     if (this.microCrgParamsForm.invalid) {
+      this.overlay.hide();
       this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
       this.scrollToFirstInvalidControl();
       return;
