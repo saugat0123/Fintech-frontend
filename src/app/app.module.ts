@@ -30,6 +30,7 @@ import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
 import {AmountWordPipe} from './@core/pipe/amount-word.pipe';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {AmountWordPipe} from './@core/pipe/amount-word.pipe';
         AppRoutingModule,
         DragDropModule,
         NgxPrintModule,
+        NgxSpinnerModule,
         NbDatepickerModule.forRoot(),
         CKEditorModule,
         TranslateModule.forRoot({
