@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
-import {NbDateService} from '@nebular/theme';
+import {NbDateService, NbDialogService} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
@@ -14,6 +14,9 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
+import {CreateDocumentComponent} from '../security/security-initial-form/create-document/create-document.component';
+import {SiteVisitDocument} from '../security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 
 declare let google: any;
@@ -33,6 +36,7 @@ export class SiteVisitComponent implements OnInit {
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
   @ViewChild('businessOfficeAddress', {static: true}) businessOfficeAddress: CommonAddressComponent;
 
+  @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
   submitted = false;
@@ -59,10 +63,12 @@ export class SiteVisitComponent implements OnInit {
   spinner = false;
   client = environment.client;
   clientName = Clients;
+  fileType = '.jpg';
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
               private toastService: ToastService,
+              private nbDialogService: NbDialogService,
               private roleService: RoleService) {
     this.date = dateService.today();
   }
@@ -132,6 +138,22 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
     }
+  }
+
+  public openDocumentCreateModal(editId): void {
+    const siteVisitDocument = this.siteVisitDocument;
+    this.nbDialogService.open(CreateDocumentComponent, {
+      context: { editId, siteVisitDocument }
+    });
+  }
+
+  viewDocument(url: string, name: string) {
+    const viewDocName = name.concat(this.fileType);
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
   }
 
   buildForm() {

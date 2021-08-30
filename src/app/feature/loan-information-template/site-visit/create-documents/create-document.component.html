@@ -1,0 +1,40 @@
+<nb-card accent="primary"
+         class="m-0" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant" nbSpinnerMessage="Saving your action please wait...">
+    <nb-card-header>
+        <a (click)="onClose()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+        <h6>Create Document</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="col">
+            <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-12 form-group">
+                          <label for="docName"><strong>Document Name</strong></label>
+                          <input required class="form-control" id="docName" name="docName"
+                                 placeholder="Document Name" type="text" [(ngModel)]="docName">
+                      </div>
+                      <div class="col-md-12 form-group">
+                          <label><strong>Is File Printable ?</strong></label>
+                          <select #doc class="form-control" id="type" [(ngModel)]="isPrintable" name="isPrintable">
+                              <option value="YES">Yes</option>
+                              <option value="NO">No</option>
+                          </select>
+                      </div>
+                      <div class="col-md-12 form-group">
+                          <div class="text-danger font-italic">(Please upload file less than 5MB)</div>
+                          <label><strong>Upload Your File</strong></label>
+                          <input class="form-control" name="file" (change)="uploadDoc($event)"
+                                 type="file" [disabled]="isPrintable === undefined">
+                      </div>
+                  </div>
+            </div>
+        </div>
+        <div>
+            <button [disabled]="!doc.value"  nbButton class="float-right" (click)="create()">Create</button>
+        </div>
+    </nb-card-body>
+</nb-card>
