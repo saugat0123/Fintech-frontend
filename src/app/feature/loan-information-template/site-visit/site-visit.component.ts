@@ -14,6 +14,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
+import {NgxSpinnerService} from "ngx-spinner";
 
 
 declare let google: any;
@@ -63,6 +64,7 @@ export class SiteVisitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
               private toastService: ToastService,
+              private overlay: NgxSpinnerService,
               private roleService: RoleService) {
     this.date = dateService.today();
   }
@@ -777,7 +779,7 @@ export class SiteVisitComponent implements OnInit {
       // current residential details
       this.currentResidentAddress.onSubmit();
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
-        this.submitted = true;
+      this.submitted = true;
         return;
       } else {
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
@@ -786,7 +788,7 @@ export class SiteVisitComponent implements OnInit {
     if (this.businessSiteVisitForm) {
       this.businessOfficeAddress.onSubmit();
       if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
-        this.business = true;
+      this.business = true;
         return;
       } else {
         this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
@@ -803,6 +805,7 @@ export class SiteVisitComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
+    this.overlay.show().then( r=> { console.log('Site Visit Information submitted.')});
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
   }
