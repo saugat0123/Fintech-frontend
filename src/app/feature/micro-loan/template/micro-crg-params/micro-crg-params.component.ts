@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgSelectComponent} from '@ng-select/ng-select';
@@ -18,6 +18,9 @@ import {RepaymentHistory} from './model/RepaymentHistory';
 import {MultipleSourceIncomeType} from './model/MajorSourceIncomeType';
 import {RelationWithBank} from './model/RelationWithBank';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from './model/TypeOfSourceOfIncome';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ToastService} from '../../../../@core/utils';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-micro-crg-params',
@@ -52,7 +55,10 @@ export class MicroCrgParamsComponent implements OnInit {
   client = environment.client;
   clientName = Clients;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private toastService: ToastService,
+              private overlay: NgxSpinnerService,
+              private el: ElementRef) {
   }
 
   get form() {
@@ -130,8 +136,8 @@ export class MicroCrgParamsComponent implements OnInit {
 
       isSubsidized: [false],
       insuranceCoverage: [undefined],
-      locationOfProperty: [undefined],
-      roadAccess: [undefined],
+      locationOfProperty: [undefined, Validators.required],
+      roadAccess: [undefined, Validators.required],
 
       multibanking: [undefined, Validators.required],
       relationWithBank: [undefined, Validators.required],
@@ -345,19 +351,41 @@ export class MicroCrgParamsComponent implements OnInit {
     });
     this.microCrgParamsForm.get('projectCostTotal').setValue(total);
   }
+  scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
   onSubmit() {
+    this.overlay.show();
     this.submitted = true;
-    if (!ObjectUtil.isEmpty(this.microCrgParams)) {
+    if (!ObjectUtil.isEmpty(this.microCrgParams )) {
       this.microCrgParamsData = this.microCrgParams;
     }
+    if (this.microCrgParamsForm.valid) {
+      this.calculateAndSetHighestScore();
+      this.currentFormData['initialForm'] = this.microCrgParamsForm.value;
+      this.microCrgParamsData.data = JSON.stringify(this.currentFormData);
+      this.dataEmitter.emit(this.microCrgParamsData);
+    }
     if (this.microCrgParamsForm.invalid) {
+      this.overlay.hide();
+      this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
+      this.scrollToFirstInvalidControl();
       return;
     }
-    this.calculateAndSetHighestScore();
-    this.currentFormData['initialForm'] = this.microCrgParamsForm.value;
-    this.microCrgParamsData.data = JSON.stringify(this.currentFormData);
-    this.dataEmitter.emit(this.microCrgParamsData);
   }
+
 
 }

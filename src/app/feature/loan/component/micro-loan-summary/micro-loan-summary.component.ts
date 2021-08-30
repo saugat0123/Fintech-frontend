@@ -619,7 +619,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
     setRoleHierarchy(loanId: number) {
         let context;
         context = {
-            approvalType: 'lOAN',
+            approvalType: 'LOAN',
             refId: loanId,
             isRoleModal: true
         };
