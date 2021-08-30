@@ -11,7 +11,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormGroup} from '@angular/forms';
-import {BranchService} from "../branch/branch.service";
+import {BranchService} from '../branch/branch.service';
 import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
 
 
@@ -23,6 +23,7 @@ import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
 export class RemitCustomerListComponent implements OnInit {
 
     onBoardData;
+    isHO = false;
     onBoardSpinner = false;
     selectedId: any;
     selectedIdData: any;
@@ -75,6 +76,9 @@ export class RemitCustomerListComponent implements OnInit {
             this.branchList = res.detail;
         });
         this.user = LocalStorageUtil.getStorage();
+        if (this.user.roleName === 'HO') {
+            this.isHO = true;
+        }
         this.remitCustomerService.getRemitCustomerList().subscribe(res => {
             this.remitCustomerList = res.detail;
             if (this.user.roleType === 'COMMITTEE') {
@@ -99,7 +103,6 @@ export class RemitCustomerListComponent implements OnInit {
 
     addMember(event, data, template) {
         this.onBoardData = data;
-        console.log('on board data', data);
         event.stopPropagation();
         this.modalService.open(template);
     }
@@ -129,16 +132,26 @@ export class RemitCustomerListComponent implements OnInit {
     }
 
     onBoardMember() {
+        this.spinner = true;
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
         let customer: Customer;
-        this.customerService.onBoardRemitCustoer(this.onBoardData).subscribe(() => {
+        this.customerService.onBoardRemitCustoer(this.onBoardData).subscribe((res: any) => {
             // this.getData();
-            this.onBoardSpinner = false;
             this.onBoardData.alreadyOnboarded = true;
             this.toastService.success('Successfully Onboard Remit Customer', 'Customer');
+            this.router.navigate(['/home/customer/profile/' + res.detail.associateId], {
+                queryParams: {
+                    customerType: 'INDIVIDUAL',
+                        customerInfoId: res.detail.id
+                }
+            }).then(() => {
+                this.onBoardSpinner = false;
+                this.spinner = false;
+            });
         }, err => {
             this.onBoardSpinner = false;
+            this.spinner = false;
             this.toastService.danger(('Already Onboard in System'), 'Customer');
             throw err;
         });
@@ -192,11 +205,7 @@ export class RemitCustomerListComponent implements OnInit {
         RemitCustomerListComponent.loadData(this);
     }
     viewVideo() {
-        this.dialogService.open(VideoKycComponent, {
-            closeOnBackdropClick: true,
-            closeOnEsc: true,
-            hasBackdrop: true,
-            hasScroll: true,
-        });
+       const ref =  this.modalService.open(VideoKycComponent, {size: 'lg'});
+       ref.componentInstance.isModal = true;
     }
 }
