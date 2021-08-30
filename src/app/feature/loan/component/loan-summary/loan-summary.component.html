@@ -936,14 +936,14 @@
                 <div class="col-md-12 disable-print">
           <span>
             <b>All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white"
+            <button class="float-right sb-small sb-bg-dark text-white" [disabled]="spinner"
                     *ngIf="loanDataHolder?.customerDocument?.length > 0"
                     (click)=getDocPath()> Download All Document</button>
           </span>
                 </div>
             </div>
             <hr>
-            <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
+            <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print" [nbSpinner]="spinner" [nbSpinnerMessage]="spinnerMsg">
                 <div class="col-md-12">
                     <p><strong>Loan Documents</strong></p>
                 </div>
@@ -974,7 +974,7 @@
                     </table>
                 </div>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
+            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print" [nbSpinner]="spinner">
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
