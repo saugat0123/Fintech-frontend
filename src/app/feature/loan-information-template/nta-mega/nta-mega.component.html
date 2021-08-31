@@ -11,8 +11,8 @@
             <nb-radio value="BS">BS</nb-radio>
         </nb-radio-group>
         <strong class="mb-0 pt-2 mr-2">Fiscal Year : </strong>
-        <nb-select (selectedChange)="onChangeFiscalYear($event)" [selected]="fiscalYearArray[0]"
-                   placeholder="Select Fiscal year"
+        <nb-select (selectedChange)="onChangeFiscalYear($event)" [selected]="currentFiscalYear"
+                   placeholder="Current fiscal year"
                    style="width: 230px !important;">
             <nb-option *ngFor="let fiscalYear of fiscalYearArray" [value]="fiscalYear">
                 {{fiscalYear.year}}
