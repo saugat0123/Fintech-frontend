@@ -7,6 +7,10 @@
         <thead class="text-right">
         <tr class="sb-bg-dark text-white text-center">
             <td></td>
+            <td colspan="5">Previous
+                Year({{this.currentFiscalYearIndex > this.prevFiscalYearIndex ?
+                    fiscalYears[prevFiscalYearIndex]?.year : ''}})
+            </td>
             <td colspan="5">Previous Year({{fiscalYears[prevFiscalYearIndex]?.year}})</td>
             <td colspan="5">Current Year({{fiscalYears[currentFiscalYearIndex]?.year}})</td>
         </tr>
