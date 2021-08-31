@@ -569,11 +569,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.microCrgParams = data;
         this.customerInfoService.saveLoanInfo(this.microCrgParams, this.customerInfoId, TemplateName.MICRO_OTHER_PARAMETERS)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Micro CRG Params!'));
                 this.microCrgParamsComponent.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Micro CRG Params!'));
             });
     }
