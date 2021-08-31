@@ -4,6 +4,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {CustomerType} from '../../customer/model/customerType';
+import {Clients} from '../../../../environments/Clients';
+import {environment} from '../../../../environments/environment';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-credit-checklist-general',
@@ -24,7 +27,8 @@ export class CreditChecklistGeneralComponent implements OnInit {
   optionList = ['Yes', 'No', 'Na'];
   optionListRegulatory = ['Yes', 'No'];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private overlay: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -207,6 +211,7 @@ export class CreditChecklistGeneralComponent implements OnInit {
   }
 
   submitForm() {
+    this.overlay.show();
     this.creditChecklistGeneral.data = JSON.stringify(this.formGroupCheckList.value);
     this.creditChecklistGeneralEmitter.emit(this.creditChecklistGeneral);
   }

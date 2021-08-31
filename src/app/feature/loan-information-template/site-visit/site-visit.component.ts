@@ -13,7 +13,7 @@ import {RoleService} from '../../admin/component/role-permission/role.service';
 import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
 import {DateValidator} from '../../../@core/validator/date-validator';
-
+import {NgxSpinnerService} from "ngx-spinner";
 
 declare let google: any;
 
@@ -60,6 +60,7 @@ export class SiteVisitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
               private toastService: ToastService,
+              private overlay: NgxSpinnerService,
               private roleService: RoleService) {
     this.date = dateService.today();
   }
@@ -801,6 +802,7 @@ export class SiteVisitComponent implements OnInit {
       this.siteVisitData = this.formValue;
     }
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
+    this.overlay.show();
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
   }
 
