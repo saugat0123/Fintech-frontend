@@ -140,6 +140,11 @@
                                            title="upload {{cusOfferLetter?.docName}}">
                                             <i class="fa fa-upload cursor"></i>
                                         </a>
+                                        <span *ngIf="client === clientList.LAXMI">
+                                            <a class="fa fa-paper-plane cursor ml-2"
+                                               title="Send "
+                                               (click)="openModal(sendToRemitter)"></a>
+                                        </span>
                                         <span *ngIf="roleType !== 'MAKER'">
                                         <a *ngIf="cusOfferLetter?.offerDocType?.toString() === 'CUSTOM'"
                                            class="fa fa-edit cursor ml-1"
@@ -148,6 +153,8 @@
                                            class="fa fa-edit cursor ml-1"
                                            (click)="openOfferLetterDocumentModal(cusOfferLetter?.docName)"></a>
                                             </span>
+
+
                                     </td>
                                 </tr>
                                 </tbody>
@@ -409,4 +416,16 @@
             </div>
         </nb-card-body>
     </nb-card>
+</ng-template>
+
+
+<ng-template #sendToRemitter [nbSpinner]="spinner">
+    <nb-card>
+        <nb-card-body>
+            <h3>Send to sender/remitter</h3>
+            <button nbButton status="warning" class="float-right" (click)="sendToRemitterAction(false)">No</button>
+            <button nbButton status="primary" class="float-right" (click)="sendToRemitterAction(true)">Yes</button>
+        </nb-card-body>
+    </nb-card>
+
 </ng-template>

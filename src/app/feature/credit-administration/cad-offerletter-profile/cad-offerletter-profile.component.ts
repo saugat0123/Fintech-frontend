@@ -220,4 +220,20 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.initial();
     }
 
+    openModal(template) {
+        this.modelService.open(template);
+    }
+
+    sendToRemitterAction(b: boolean) {
+        this.spinner = true;
+        if (b) {
+            this.modelService.dismissAll();
+            this.toastrService.show(new Alert(AlertType.SUCCESS, 'Transfer success'));
+            this.spinner = false;
+        } else {
+            this.modelService.dismissAll();
+            this.toastrService.show(new Alert(AlertType.WARNING, 'Transfer cancelled'));
+            this.spinner = false;
+        }
+    }
 }
