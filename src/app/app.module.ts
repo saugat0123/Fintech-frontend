@@ -30,6 +30,8 @@ import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
 import {EnumConverterPipe} from "./@core/pipe/enum-converter.pipe";
+import {VideoKycComponent} from './feature/video-kyc/video-kyc.component';
+import {VideoKycModule} from './feature/video-kyc/video-kyc.module';
 
 
 @NgModule({
@@ -41,7 +43,6 @@ import {EnumConverterPipe} from "./@core/pipe/enum-converter.pipe";
         LoginBaseComponent,
         NewPasswordComponent,
         TimeOutPopUpComponent,
-
     ],
     imports: [
         BrowserModule,
@@ -56,6 +57,7 @@ import {EnumConverterPipe} from "./@core/pipe/enum-converter.pipe";
         NgxPrintModule,
         NbDatepickerModule.forRoot(),
         CKEditorModule,
+        VideoKycModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

@@ -95,6 +95,7 @@ import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import {RemitLoanHeirarchyComponent} from './component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component';
 import {RemitCustomerListComponent} from './component/remit-customer-list/remit-customer-list.component';
 import { RemitLoanViewComponent } from './component/remit-customer-list/remit-loan-view/remit-loan-view.component';
+import {VideoKycComponent} from '../video-kyc/video-kyc.component';
 
 @NgModule({
     declarations: [
@@ -194,7 +195,7 @@ import { RemitLoanViewComponent } from './component/remit-customer-list/remit-lo
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAP_API_KEY
     }),
-    NepaliCalendarModule
+    NepaliCalendarModule,
   ],
 
     entryComponents: [
@@ -226,7 +227,7 @@ import { RemitLoanViewComponent } from './component/remit-customer-list/remit-lo
         RemarkModalComponent,
         AccountNumberModalComponent,
         FinancialConfigModalComponent,
-        RoleAddComponent
+        RoleAddComponent,
     ]
 
 })
