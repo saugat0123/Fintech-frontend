@@ -96,7 +96,6 @@ export class SecurityInitialFormComponent implements OnInit {
     insurancePolicySelected = false;
     assignmentOfReceivable = false;
     selectedSecurity: string;
-    basicInfo: FormGroup;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
