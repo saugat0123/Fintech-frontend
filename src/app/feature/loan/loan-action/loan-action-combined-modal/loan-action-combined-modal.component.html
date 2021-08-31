@@ -1,4 +1,4 @@
-<div ngDraggable [ngResizable]="true">
+<div ngDraggable [ngResizable]="true" [nbSpinner]="spinner">
     <nb-card>
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
@@ -116,7 +116,7 @@
                                                 <div
                                                         *ngIf="individualType?.submitted && control?.get('comment')?.hasError('required')"
                                                         class="error-message"
-                                                        style="color: red;">comment is required
+                                                        style="color: #920808;">comment is required
                                                 </div>
                                             </div>
                                         </div>
