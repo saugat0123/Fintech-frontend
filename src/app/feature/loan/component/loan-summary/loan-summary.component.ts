@@ -47,6 +47,7 @@ import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {DocumentDownloadServiceService} from '../../../../@core/utils/document-download-service.service';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
@@ -209,6 +210,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private documentDownloadService: DocumentDownloadServiceService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -711,41 +713,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     // method to make all files as a .zip file
     private downloadAll(documentUrls: string[]): void {
-        this.spinner = true;
-        const zip = new JSZip();
-        let count = 0;
-        const zipFilename = `${this.customerData}.zip`;
-        const urls = [];
-        if (documentUrls.length > 0) {
-            documentUrls.map(d => {
-                d = ApiConfig.URL + '/' + d;
-                urls.push(d);
-            });
-
-            urls.forEach((url: string) => {
-                const pathToZipFrom = new URL(url).pathname;
-                // loading a file and add it in a zip file
-                JSZipUtils.getBinaryContent(url, (err, data) => {
-                    if (err) {
-                        throw err; // or handle the error
-                    }
-                    zip.file(pathToZipFrom, data, {binary: true});
-                    count++;
-                    if (count === urls.length) {
-                        zip.generateAsync({type: 'blob'}).then(content => {
-                            importedSaveAs(content, zipFilename);
-                            if (content.size) {
-                                this.spinner = false;
-                            }
-                        });
-                    }
-                });
-            });
-            this.toastService.show(new Alert(AlertType.INFO, 'Files are being downloaded please wait!!!'));
-        } else {
-            this.spinner = false;
-            this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
-        }
+        const zipFilename = this.loanDataHolder.loanHolder.name + '.zip';
+        this.documentDownloadService.downloadAllInZip(documentUrls, zipFilename);
     }
 }
 
