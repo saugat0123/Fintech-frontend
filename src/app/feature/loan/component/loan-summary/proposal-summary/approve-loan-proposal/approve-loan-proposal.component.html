@@ -53,7 +53,7 @@
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
                     &nbsp;|&nbsp;
-                    {{ loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
+                    {{ loan?.loanName }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
                 </td>
 
 <!--                <ng-container >-->
@@ -105,7 +105,7 @@
                             SC: {{loan?.existingServiceCharge}} {{client === clientName?.SHINE_RESUNGA ? '' : ' %'}}</span>
                     <span *ngIf="(loan?.existInterestRate === null)
                     && (loan?.existCashMargin === null)
-                    && (loan?.existingServiceCharge === null)
+                    && (loan?.existingServiceCharge === null || (loan?.existingServiceCharge === ''))
                     && (loan?.existCommissionPercentage === null)">-</span>
                 </td>
 
@@ -227,13 +227,19 @@
     <i *ngIf="status !== DocStatus[DocStatus.APPROVED]" class="fas fa-times-circle"></i>
 </ng-template>
 <ng-template #loanTypeLetter let-loanType>
-    <i *ngIf="loanType === 'New Loan'" class="text-round">N</i>
-    <i *ngIf="loanType === 'Renewed Loan'" class="text-round">R</i>
-    <i *ngIf="loanType === 'Enhanced Loan'" class="text-round">E</i>
-    <i *ngIf="loanType === 'Closure Loan'" class="text-round">C</i>
-    <i *ngIf="loanType === 'Partial Settlement Loan'" class="text-round">P</i>
-    <i *ngIf="loanType === 'Full Settlement Loan'" class="text-round">F</i>
-    <i *ngIf="loanType === 'Renew with Enhancement'" class="text-round">R/E</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN)" class="text-round">N</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEWED_LOAN)"
+       class="text-round">R</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.ENHANCED_LOAN)"
+       class="text-round">E</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.CLOSURE_LOAN)"
+       class="text-round">C</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.PARTIAL_SETTLEMENT_LOAN)"
+       class="text-round">P</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN)"
+       class="text-round">F</i>
+    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEW_WITH_ENHANCEMENT)"
+       class="text-round">R/E</i>
 </ng-template>
 
 <!--<div class="row">-->
