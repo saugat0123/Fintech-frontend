@@ -27,7 +27,7 @@
                       <div class="col-md-12 form-group">
                           <div class="text-danger font-italic">(Please upload file less than 5MB)</div>
                           <label><strong>Upload Your File</strong></label>
-                          <input class="form-control" name="file" (change)="uploadDoc($event)"
+                          <input class="form-control" name="file" (change)="uploadDoc($event)" accept="image/jpeg, .pdf"
                                  type="file" [disabled]="isPrintable === undefined">
                       </div>
                   </div>
