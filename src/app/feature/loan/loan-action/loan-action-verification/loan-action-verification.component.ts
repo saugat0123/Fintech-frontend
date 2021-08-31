@@ -24,6 +24,7 @@ export class LoanActionVerificationComponent implements OnInit {
   transferAction;
   falseCredential = false;
   falseCredentialMessage = '';
+  spinner= false;
 
   constructor(
       private http: HttpClient,
@@ -44,6 +45,7 @@ export class LoanActionVerificationComponent implements OnInit {
   }
 
   onLogin(dataValue) {
+    this.spinner = true;
     const params = new URLSearchParams();
     params.append('username', LocalStorageUtil.getStorage().username);
     params.append('password', dataValue.value.password);
@@ -54,8 +56,10 @@ export class LoanActionVerificationComponent implements OnInit {
     });
     this.http.post(ApiConfig.TOKEN, params.toString(), {headers})
     .subscribe(() => {
+      this.spinner = false;
       this.nbDialogRef.close(true);
     }, error => {
+      this.spinner = false;
       this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
       this.falseCredential = true;
     });
