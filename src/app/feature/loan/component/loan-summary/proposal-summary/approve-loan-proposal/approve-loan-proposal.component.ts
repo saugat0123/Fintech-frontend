@@ -22,6 +22,7 @@ import {LoanFormService} from '../../../loan-form/service/loan-form.service';
 export class ApproveLoanProposalComponent implements OnInit {
   @Input() proposalData: Proposal;
   @Input() customerAllLoanList: LoanDataHolder[];
+  @Input() customerAllLoanList1: LoanDataHolder[];
   @Input() loanDataHolder;
   @Input() approveSheet;
   public DocStatus = DocStatus;
@@ -59,6 +60,7 @@ export class ApproveLoanProposalComponent implements OnInit {
               private loanFormService: LoanFormService) { }
 
   ngOnInit() {
+    console.log(this.loanDataHolder);
     console.log('Proosal', this.customerAllLoanList);
     // this.customerAllLoanList.filter(test => {
     // })

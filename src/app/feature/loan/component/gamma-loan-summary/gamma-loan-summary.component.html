@@ -495,6 +495,7 @@
 
             <app-approve-loan-proposal *ngIf="loanDataHolder.documentStatus.toString() === 'APPROVED'"
                                        [customerAllLoanList]="test"
+                                       [customerAllLoanList1]="customerAllLoanList"
                                        [loanDataHolder]="loanDataHolder"></app-approve-loan-proposal>
 
             <div *ngIf="productUtils.CBS_ENABLE">

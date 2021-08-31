@@ -15,7 +15,7 @@
                 <i class="text-round">F</i>ull Settlement Loan
                 <i class="text-round">R/E</i>new With Enhancement
             </li>
-            <li class="sb-medium"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span>
+            <li class="sb-medium"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span>,<sup>*</sup>  SC : Service Charge ,
             </li>
         </ul>
     </div>
@@ -46,16 +46,17 @@
             </thead>
             <tbody>
             <tr *ngFor="let loan of proposalAllData">
-                loan:: {{loan}}
                 <td class="text-left pl-1">
                     <ng-container
-                            *ngTemplateOutlet="tickCross; context: { $implicit: loan?.currentStage}"></ng-container>
+                            *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
                     &nbsp;|&nbsp;
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
                     &nbsp;|&nbsp;
-                    {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
+                    {{ loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
                 </td>
+
+<!--                <ng-container >-->
                 <td class="text-right pr-1">
                     <span *ngIf="loan?.existingLimit">
                         Rs. {{loan?.existingLimit | currencyFormatter}}
@@ -144,88 +145,78 @@
                         ({{loan?.dateOfExpiry | engNepDate: false}})</span>
                     <span *ngIf="loan?.limitExpiryMethod === 'CUSTOM'">{{loan?.duration}} {{loan?.frequency}} {{loan?.condition}}</span>
                 </td>
-            </tr>
-            <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1"><strong>Funded</strong></td>
-                <td class="text-right pr-1">
-                    Rs. {{ (getTotalFundable('existingLimit', true, customerAllLoanList)) | currencyFormatter }}</td>
-                <td class="text-right pr-1">
-                    <span>
-                        Rs. {{ getTotalFundable('outStandingLimit', true, customerAllLoanList) | currencyFormatter }}
-                    </span>
-                </td>
-                <td class="text-right pr-1">
-                    <span>
-                        Rs. {{ getTotalFundable('enhanceLimitAmount', true, customerAllLoanList) | currencyFormatter }}
-                    </span>
-                </td>
-                <td class="text-right pr-1">
-                    <span>
-                        Rs. {{ getTotalFundable('settlementAmount', true, customerAllLoanList) | currencyFormatter }}
-                    </span>
-                </td>
-                <td class="text-right pr-1">
-                    Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
-                <!--        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>-->
-                <!--        <td>N/A</td>-->
-                <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
-            </tr>
-            <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1"><strong>Non-Funded</strong></td>
-                <td class="text-right pr-1">
-                    Rs. {{ (getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter)}}</td>
-                <td class="text-right pr-1">
-                    <span>
-                        Rs. {{ getTotalFundable('outStandingLimit', false, customerAllLoanList) | currencyFormatter }}
-                    </span>
-                </td>
-                <td class="text-right pr-1">
-                    <span>Rs. {{ getTotalFundable('enhanceLimitAmount', false, customerAllLoanList) | currencyFormatter }}</span>
-                </td>
-                <td class="text-right pr-1">
-                    <span>
-                        Rs. {{ getTotalFundable('settlementAmount', false, customerAllLoanList) | currencyFormatter }}
-                    </span>
-                </td>
-                <td class="text-right pr-1">
-                    Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
-                <!--        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>-->
-                <!--        <td>N/A</td>-->
-                <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
-            </tr>
-            <tr class="sb-bg-secondary text-white">
-                <td class="text-left pl-1"><strong>Total</strong></td>
+<!--                </ng-container>-->
 
-                <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>
-                <td class="text-right pr-1">
-                    <span>Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>
-                </td>
-                <td class="text-right pr-1">
-                    <span>Rs. {{ getTotal('enhanceLimitAmount') | currencyFormatter }}</span>
-                </td>
-                <td class="text-right pr-1">
-                    <span>Rs. {{ getTotal('settlementAmount') | currencyFormatter }}</span>
-                </td>
-                <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
-                <!--        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>-->
-                <!--        <td>N/A</td>-->
-                <!--        <td>Rs. {{ getTotal('prepaymentCharge') | currencyFormatter }}</td>-->
             </tr>
+<!--            <tr class="sb-bg-secondary text-white">-->
+<!--                <td class="text-left pl-1"><strong>Funded</strong></td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    Rs. {{ (getTotalFundable('existingLimit', true, proposalAllData)) | currencyFormatter }}</td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>-->
+<!--                        Rs. {{ getTotalFundable('outStandingLimit', true, proposalAllData) | currencyFormatter }}-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>-->
+<!--                        Rs. {{ getTotalFundable('enhanceLimitAmount', true, proposalAllData) | currencyFormatter }}-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>-->
+<!--                        Rs. {{ getTotalFundable('settlementAmount', true, proposalAllData) | currencyFormatter }}-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    Rs. {{ getTotalFundable('proposedLimit', true, proposalAllData) | currencyFormatter }}</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--            </tr>-->
+<!--            <tr class="sb-bg-secondary text-white">-->
+<!--                <td class="text-left pl-1"><strong>Non-Funded</strong></td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    Rs. {{ (getTotalFundable('existingLimit', false, proposalAllData) | currencyFormatter)}}</td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>-->
+<!--                        Rs. {{ getTotalFundable('outStandingLimit', false, proposalAllData) | currencyFormatter }}-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>Rs. {{ getTotalFundable('enhanceLimitAmount', false, proposalAllData) | currencyFormatter }}</span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>-->
+<!--                        Rs. {{ getTotalFundable('settlementAmount', false, proposalAllData) | currencyFormatter }}-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    Rs. {{ getTotalFundable('proposedLimit', false, proposalAllData) | currencyFormatter }}</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--            </tr>-->
+<!--            <tr class="sb-bg-secondary text-white">-->
+<!--                <td class="text-left pl-1"><strong>Total</strong></td>-->
+
+<!--                <td class="text-right pr-1">Rs. {{ getTotal('existingLimit') | currencyFormatter }}</td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>Rs. {{ getTotal('outStandingLimit') | currencyFormatter }}</span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>Rs. {{ getTotal('enhanceLimitAmount') | currencyFormatter }}</span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">-->
+<!--                    <span>Rs. {{ getTotal('settlementAmount') | currencyFormatter }}</span>-->
+<!--                </td>-->
+<!--                <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--                <td>-</td>-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>
@@ -236,19 +227,13 @@
     <i *ngIf="status !== DocStatus[DocStatus.APPROVED]" class="fas fa-times-circle"></i>
 </ng-template>
 <ng-template #loanTypeLetter let-loanType>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN)" class="text-round">N</i>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEWED_LOAN)"
-       class="text-round">R</i>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.ENHANCED_LOAN)"
-       class="text-round">E</i>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.CLOSURE_LOAN)"
-       class="text-round">C</i>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.PARTIAL_SETTLEMENT_LOAN)"
-       class="text-round">P</i>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN)"
-       class="text-round">F</i>
-    <i *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.RENEW_WITH_ENHANCEMENT)"
-       class="text-round">R/E</i>
+    <i *ngIf="loanType === 'New Loan'" class="text-round">N</i>
+    <i *ngIf="loanType === 'Renewed Loan'" class="text-round">R</i>
+    <i *ngIf="loanType === 'Enhanced Loan'" class="text-round">E</i>
+    <i *ngIf="loanType === 'Closure Loan'" class="text-round">C</i>
+    <i *ngIf="loanType === 'Partial Settlement Loan'" class="text-round">P</i>
+    <i *ngIf="loanType === 'Full Settlement Loan'" class="text-round">F</i>
+    <i *ngIf="loanType === 'Renew with Enhancement'" class="text-round">R/E</i>
 </ng-template>
 
 <!--<div class="row">-->

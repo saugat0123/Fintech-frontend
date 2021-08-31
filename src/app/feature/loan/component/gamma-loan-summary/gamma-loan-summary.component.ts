@@ -473,24 +473,20 @@ export class GammaLoanSummaryComponent implements OnInit {
           if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
             this.customerAllLoanList.push(this.loanDataHolder);
           }
-          this.customerAllLoanList.filter((test) => {
-            if (test.currentStage.docAction.toString() === 'APPROVED') {
-              this.test.push(test);
-              this.customerAllLoanList = this.test.filter((l: any) => l.id === this.loanDataHolder.id);
-              // this.test.filter(test1 => {
-              //   if (test.id === this.loanDataHolder.id) {
-              //     this.customerAllLoanList = this.test;
-              //   }
-              // });
-            }
-          });
-          console.log('test1', this.customerAllLoanList);
-          console.log('customerAllLoanList1', this.customerAllLoanList);
-          // if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-          //   this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
-          // } else {
-          //   this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
-          // }
+          // this.customerAllLoanList.filter((test) => {
+          //   if (test.currentStage.docAction.toString() === 'APPROVED') {
+          //     this.test.push(test);
+          //     this.customerAllLoanList = this.test.filter((l: any) => l.id === this.loanDataHolder.id);
+          //     console.log('I am here');
+          //   }
+          // });
+          // console.log('test1', this.customerAllLoanList);
+          // console.log('customerAllLoanList1', this.customerAllLoanList);
+          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+          } else {
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+          }
           console.log('customerAllLoanList2', this.customerAllLoanList);
 
           // if (this.customerAllLoanList.filter( (l) => l.documentStatus === this.loanDataHolder.documentStatus) {
