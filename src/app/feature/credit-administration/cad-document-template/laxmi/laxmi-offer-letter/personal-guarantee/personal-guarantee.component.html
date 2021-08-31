@@ -1,0 +1,222 @@
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.PERSONAL_GUARANTEE}}">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="text-justify nepali">
+
+            <p class="text-center"><b> विषय:— <u>व्यक्तिगत जमानीको लिखत</u></b></p>
+            <p>
+                लिखितम् जमानीको लिखत गराई लिनेका नाम लक्ष्मी बैंक लिमिटेड, शाखा कार्यालय
+                <input type="text" class="form-control-sm form-field"
+                       readonly
+                       formControlName="branch">
+                (यसपछि धनी बैंक भनिएको छ) जमानीको लिखत गरी दिनेका नाम
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="grandParentName">
+                कोनाति/नातिनि/बुहारी,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="parentName">
+                कोछोरा/छोरी,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="spouseName">
+                कोपति/पत्नी,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="permanentDistrict">
+                जिल्ला,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="permanentMunicipality">
+                न.पा./गा.पा.वडानं
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="permanentWardNum">
+                भईहाल
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="temporaryWardNum">
+                जिल्ला,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="temporaryMunicipality">
+                न.पा./गा.पा.वडानं.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="temporaryWardNum">
+                भई हाल विदेश स्थित
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="foreignAddressCountry">
+                देशको
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="foreignAddressState">
+                राज्य/सहरको
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="foreignEmployer">
+                संस्थामा कार्यरत रहि घर नं.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="foreignHouseNum">
+                मा वस्ने वर्ष
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="age">
+                को/की
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="customerName">
+                (ना.प्र.नं.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="citizenshipNum">
+                जि.प्र.का.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="citizenshipIssuePlace">
+                मिति
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       readonly
+                       formControlName="citizenshipIssueDate">
+                वा नेपालबाट जारी भएको राहदनी
+                नं
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="passportNum">
+                जारी मिति
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="passportIssueDate">
+                ) (यसपछि जमानतकर्ता
+                भनिएकोछ)
+                आगे, तपाई धनी बैंकले म जमानी बसी दिने शर्तमा
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorGrandParentName">
+                को
+                नाति/नातिनि/बुहारी,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorParentName">
+                को
+                छोरा/छोरी,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorSpouseName">
+                कोपति/पत्नी,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorPermanentDistrict">
+                जिल्ला,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorPermanentMunicipality">
+                न.पा./गा.पा. वडा नं.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorPermanentWardNum">
+                भई हाल
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorTemporaryDistrict">
+                जिल्ला,
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorTemporaryMunicipality">
+                न.पा./गा.पा. वडा नं.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorTemporaryWardNum">
+                मा वस्ने वर्ष
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorAge">
+                को/की
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorName">
+                (ना.प्र.नं.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorCitizenshipNum">
+                जि.प्र.का.
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorCitizenshipIssuePlace">
+                मिति
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="guarantorCitizenshipIssueDate">
+                (यसपछि ऋणी भनिएको छ) लाई मेरो
+                जमानीमा प्रदान गर्ने/गरेको जम्मा कर्जा रकम रु
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       (change)="getNumAmountWord('loanAmount', 'loanAmountInWords')"
+                       formControlName="loanAmount">
+                (अक्षरेपी रुपैयाँ
+                <input type="text" class="form-control-lg form-field nepaliFont font-size-normal"
+                       formControlName="loanAmountInWords">
+                मात्र) सम्मको विभिन्न
+                शिर्षक
+                अन्तर्गतको
+                कर्जा लगायतका बैंकिङ्ग कारोवार सुविधा र सोमा तपाई धनी बैंक र ऋणीका विच सम्पन्न सम्झौता तथा
+                अन्य लिखत कागजात तथा सो नविकरण भएमा सो समेत बमोजिम ऋणीले तपाई धनी बैंकलाई तिर्न
+                वुझाउन पर्ने सांवा, व्याज, कमिशन, फी, मार्जिन आदि अन्य रकम कलम वापत जमानत बसी दिन मेरो
+                मन्जुरी भएकोले तपाई धनी बैंकलाई ऋणीले तिर्न बुझाउनु पर्ने उल्लेखित कर्जा तथा बैंकिङ्ग कारोवार रकम
+                कलम तपाई धनी बैंकले माग गरेमा तथा ऋणीले नतिरेमा/नबुझाएमा म जमानी दिने आफैले तिर्न
+                बुझाउन मन्जुर गरी यो जमानीको लिखत गरि दिएको छु । तपाई धनी बैंकले माग गरेका वखत उलेखित
+                रकम कलम नतिरे, नबुझाएमा वा बुझाउन आलटाल गरेमा तपाई धनी बैंकले धनी बैंकमा रहेको मेरो
+                खातामा जम्मा रहेको रकम वा मैले पठाएको विप्रेषणको रकम वा मेरो घर घरानाको विभिन्न चल, अचल
+                जायजेथाबाट नेपाल कानून बमोजिम असुल उपर गरी लिएमा मेरो मन्जुरी छ । साथै नेपाल राष्ट्र बैंकले
+                बैंक तथा वित्तीय संस्थाहरुलाई जारी गरेको कालो सूचि सम्वन्धि निर्देशिकाको ब्यवस्था वा प्रचलित नेपाल
+                कानून बमोजिम मेरो नाम कर्जा सूचना केन्द्रको कालो सूचिमा समावेश गरेमा समेत मेरो पूर्ण मञ्जुरी छ ।
+                पछि एकाले लिए, खाएको ऋण मैले तर्न वुझाउनु पर्ने होइन भनि वा अन्य कुनै व्यहोराले उजुर वाजुर गर्ने
+                छैन, गरे यसै लिखतले बदर गराई लिनु भनी मेरो मनोमान राजिखुशीले साक्षीहरुको रोहबरमा विदेश स्थित
+                <input type="text" class="form-control-sm form-field nepaliFont"
+                       formControlName="foreignPlace">
+                ठाँउमा वसि यो जमानीको
+                लिखत गरी
+                तपाई धनी बैंकलाई दिंए । यो जमानीको पत्र प्रचलित नेपाल कानून बमोजिम कार्यान्वयन गरेमा समेत मेरो
+                मन्जुरी रहेको छ ।
+            </p>
+            <b>साक्षी</b>
+            <span (click)="addEmptySakshi()" nbButton size="small" status="info" type="button"
+                  class="d-print-none btn btn-sm btn-primary ml-3">+साक्षी थप्नुहोस्</span>
+            <div *ngFor="let sakshi of form.get('sakshis')['controls']; index as i"
+                 formArrayName="sakshis">
+                <div [formGroupName]="i">
+                    {{ i + 1 | nepaliNumber}}.
+                    <input type="text" class="form-control-sm form-field nepaliFont"
+                           formControlName="district">
+                    जिल्ला,
+                    <input type="text" class="form-control-sm form-field nepaliFont"
+                           formControlName="municipality">
+                    गा.पा./न.पा. वडा नं
+                    <input type="text" class="form-control-sm form-field nepaliFont"
+                           formControlName="wardNum">
+                    बस्ने बर्ष
+                    <input type="text" class="form-control-xsm form-field nepaliFont"
+                           formControlName="age">
+                    को
+                    <input type="text" class="form-control-sm form-field nepaliFont"
+                           formControlName="name">
+
+                    <i (click)="removeSakshi(i)" size="small" class="float-right fa fa-trash"
+                       *ngIf="form.get('sakshis')['length']>1"></i>
+                </div>
+            </div>
+
+            <p class="mt-5">
+                <b>सनाखत साक्षी :</b> यो लिखत मैले नेपालबाट प्राप्त गरी सोमा साक्षीहरुको रोहबरमा म कारणीलेनै सहि छाप
+                गरी नेपाल स्थीत लक्ष्मी बैंक लि.मा पठाएको छु ।
+            </p>
+            ईति सम्बत्२०
+            <input type="text" class="form-control-xsm form-field nepaliFont"
+                   formControlName="dateYear">
+            साल
+            <input type="text" class="form-control-xsm form-field nepaliFont"
+                   formControlName="dateMonth">
+            महिना
+            <input type="text" class="form-control-xsm form-field nepaliFont"
+                   formControlName="dateDay">
+            गते रोज
+            <input type="text" class="form-control-xsm form-field nepaliFont"
+                   formControlName="dateRoj">
+            शुभम्–––––––––।
+
+            <div>
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{offerLetterConst.PERSONAL_GUARANTEE}}"
+                ngxPrint>print
+        </button>
+    </div>
+</div>
+<app-personal-guarantee-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                              hidden></app-personal-guarantee-print>
