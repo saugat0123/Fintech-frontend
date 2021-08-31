@@ -34,6 +34,9 @@ export class LoanActionVerificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.toUser && this.toRole){
+      this.spinner = false;
+    }
     this.forwardAction = DocAction.value(DocAction.FORWARD);
     this.transferAction = DocAction.value(DocAction.TRANSFER);
     if (!ObjectUtil.isEmpty(this.individualCombine)) {
