@@ -116,6 +116,12 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'BondSecurity', value: 'Bond Security'}
     ];
 
+    ownershipType = [
+        {key: 'Single', value: 'Single'},
+        {key: 'Joint', value: 'Joint'},
+        {key: 'Institutional', value: 'Institutional'}
+    ];
+
     areaFormat = ['R-A-P-D', 'B-K-D', 'SQF', 'Sq.m'];
 
     shareType = ShareType;
@@ -185,8 +191,8 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
         this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
             this.nepsePriceInfo = response.detail;
-            this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
-                this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+            const date = new Date(this.nepsePriceInfo.sharePriceDate);
+            this.shareSecurityForm.get('sharePriceDate').patchValue(date);
             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
         }, error => {
@@ -377,7 +383,7 @@ export class SecurityInitialFormComponent implements OnInit {
             shareSecurityDetails: this.formBuilder.array([]),
             securityOffered: undefined,
             loanShareRate: undefined,
-            sharePriceDate: undefined,
+            sharePriceDate: [undefined],
             avgDaysForPrice: undefined,
         });
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -497,6 +503,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     familyRegistrationAmount: [singleData.familyRegistrationAmount],
                     giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
+                    ownershipType: [singleData.ownershipType],
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -731,6 +738,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
+                    ownershipTypeForLandAndBuilding: [singleData.ownershipTypeForLandAndBuilding],
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -1377,6 +1385,7 @@ export class SecurityInitialFormComponent implements OnInit {
             familyRegistrationAmount: undefined,
             giftRegistrationAmount: undefined,
             landCollateralOwnerRelationship: undefined,
+            ownershipType: undefined,
             roadAccessBluePrint: undefined,
             roadAccessDescribe: undefined,
             ownerKycApplicableData: [undefined],
@@ -1471,6 +1480,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingStaffRepresentativeName2: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
+            ownershipTypeForLandAndBuilding: [undefined],
             roadAccessBluePrint: [undefined],
             roadAccessDescribe: [undefined],
             ownerKycApplicableData: [undefined],

@@ -186,7 +186,7 @@
                 </table>
             </nb-card-body>
             <nb-card-footer>
-                <div>
+                <div *ngIf="displaySecurity">
                     <mark class="alert-warning">Total Required Collateral:</mark>
                     <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>
                     <br>
@@ -197,10 +197,10 @@
                     <strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>
                     <br>
                     <mark class="alert-warning">Coverage:</mark>
-                    <strong>{{collateralDtoData.coveragePercent | number : '1.2-2'}}%</strong>
+                    <strong>{{collateralDtoData.coveragePercent |roundvalue |currencyFormatter}}%</strong>
                     <br>
                     <mark class="alert-warning">Loan Exposure:</mark>
-                    <strong>{{collateralDtoData.loanExposure | number : '1.2-2'}}%</strong>
+                    <strong>{{collateralDtoData.loanExposure |roundvalue |currencyFormatter}}%</strong>
                 </div>
             </nb-card-footer>
         </nb-card>

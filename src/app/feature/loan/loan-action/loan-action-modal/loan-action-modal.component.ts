@@ -131,6 +131,11 @@ export class LoanActionModalComponent implements OnInit {
                     this.isNoUserSelectedSol = true;
                     return;
                 }
+            } else {
+                this.formAction.patchValue({
+                    solUser: null,
+                    isSol: false
+                });
             }
         }
 

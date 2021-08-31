@@ -382,8 +382,6 @@
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
                         )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
-                        ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
-
                     </span>
 
                 </div>
@@ -450,7 +448,7 @@
                             <thead>
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
-                                <th>Date Of Birth(AD/BS)</th>
+                                <th>Date Of Birth(AD)</th>
                                 <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
@@ -463,7 +461,6 @@
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}
-                                    ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})
                                 </td>
                                 <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}}years
                                 </td>
@@ -565,7 +562,7 @@
                             <ng-container *ngFor="let info of jointCustomer">
                                 <tr class="text-white sb-bg-dark">
                                     <th>Name</th>
-                                    <th>Date Of Birth(AD/BS)</th>
+                                    <th>Date Of Birth(AD)</th>
                                     <th>Age</th>
                                     <th>Citizenship Number</th>
                                     <th>Mobile Number</th>
@@ -575,7 +572,7 @@
                                 </tr>
                                 <tr class="text-left">
                                     <td class="pl-1">{{info?.customerName}}</td>
-                                    <td class="pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                                    <td class="pl-1">{{info?.dob | date}} </td>
                                     <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
                                     <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
@@ -599,58 +596,59 @@
                                     <th>Relation Name</th>
                                     <th>Citizenship no.</th>
                                     <th>Citizenship Issued District</th>
-                                    <th>Citizenship Issued Date(AD/BS)</th>
+                                    <th>Citizenship Issued Date(AD)</th>
                                 </tr>
-                                <tr *ngIf="info?.customerRelativeName1">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}}
-                                        ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}}
-                                        )
-                                    </td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName2">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}}
-                                        ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}}
-                                        )
-                                    </td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName3">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}}
-                                        ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}}
-                                        )
-                                    </td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName4">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}}
-                                        ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}}
-                                        )
-                                    </td>
-                                </tr>
-                                <tr *ngIf="info?.customerRelativeName5">
-                                    <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}}
-                                        ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}}
-                                        )
-                                    </td>
-                                </tr>
+                                <ng-container *ngIf="info.customerRelations ; else data">
+                                    <tr *ngFor="let infos of info?.customerRelations">
+                                        <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
+                                        <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} </td>
+                                    </tr>
+                                </ng-container>
+                                <ng-template #data>
+                                    <tr *ngIf="info?.customerRelativeName1">
+                                        <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
+                                        <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="info?.customerRelativeName2">
+                                        <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
+                                        <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="info?.customerRelativeName3">
+                                        <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
+                                        <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="info?.customerRelativeName4">
+                                        <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
+                                        <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="info?.customerRelativeName5">
+                                        <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
+                                        <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
+                                        <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
                             </ng-container>
                             </tbody>
                         </table>
@@ -938,14 +936,14 @@
                 <div class="col-md-12 disable-print">
           <span>
             <b>All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white"
+            <button class="float-right sb-small sb-bg-dark text-white" [disabled]="spinner"
                     *ngIf="loanDataHolder?.customerDocument?.length > 0"
                     (click)=getDocPath()> Download All Document</button>
           </span>
                 </div>
             </div>
             <hr>
-            <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
+            <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print" [nbSpinner]="spinner" [nbSpinnerMessage]="spinnerMsg">
                 <div class="col-md-12">
                     <p><strong>Loan Documents</strong></p>
                 </div>
@@ -976,7 +974,7 @@
                     </table>
                 </div>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
+            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print" [nbSpinner]="spinner">
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
 
@@ -1234,7 +1232,6 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
                                 {{previousList?.lastModifiedAt | date}}
-                                ({{previousList?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -1271,7 +1268,6 @@
                         <tr>
                             <td>{{currentIndex + 1}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
-                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
