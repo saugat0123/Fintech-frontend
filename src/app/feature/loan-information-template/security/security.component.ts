@@ -24,6 +24,7 @@ import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-priva
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-security',
