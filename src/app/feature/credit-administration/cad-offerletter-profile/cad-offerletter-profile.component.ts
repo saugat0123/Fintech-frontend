@@ -1,11 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
-import {MegaOfferLetterConst} from '../mega-offer-letter-const';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogService} from '@nebular/theme';
-import {CadOfferLetterModalComponent} from './cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -25,6 +23,8 @@ import {ProgressiveOfferLetterComponent} from '../cad-document-template/progress
 
 import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
 import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
+import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
+import {LaxmiOfferLetterComponent} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter.component';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -75,9 +75,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.initial();
         switch (this.client) {
             case this.clientList.LAXMI:
-                this.offerLetterTypes = MegaOfferLetterConst.enumObject();
-                this.offerLetterConst = MegaOfferLetterConst;
-                this.component = CadOfferLetterModalComponent;
+                this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
+                this.offerLetterConst = LaxmiOfferLetterConst;
+                this.component = LaxmiOfferLetterComponent;
                 break;
             case this.clientList.EXCEL:
                 this.offerLetterTypes = ExcelOfferLetterConst.enumObject();
@@ -220,4 +220,20 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.initial();
     }
 
+    openModal(template) {
+        this.modelService.open(template);
+    }
+
+    sendToRemitterAction(b: boolean) {
+        this.spinner = true;
+        if (b) {
+            this.modelService.dismissAll();
+            this.toastrService.show(new Alert(AlertType.SUCCESS, 'Transfer success'));
+            this.spinner = false;
+        } else {
+            this.modelService.dismissAll();
+            this.toastrService.show(new Alert(AlertType.WARNING, 'Transfer cancelled'));
+            this.spinner = false;
+        }
+    }
 }
