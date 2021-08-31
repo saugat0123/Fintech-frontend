@@ -48,7 +48,6 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() customerSecurityId;
     securityEmitValue: string;
 
-
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -539,9 +538,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addHypothecationOfStock();
         }
 
-    }
-    get basicInfoControls() {
-        return this.basicInfo.controls;
     }
 
     setAssignments(currentData) {
