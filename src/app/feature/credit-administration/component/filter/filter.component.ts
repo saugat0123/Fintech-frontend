@@ -33,6 +33,7 @@ export class FilterComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
   @Input() fromCadDashboard;
   @Input() docStatus;
+  @Input() isDefaultCADROLEFILTER: boolean;
   possessionRoleList: Array<Role>;
   branchAccessIsOwn = false;
   clientType = [];
@@ -119,6 +120,12 @@ export class FilterComponent implements OnInit {
       let approvalList: ApprovalRoleHierarchy[] = [];
       approvalList = response.detail;
       this.possessionRoleList = approvalList.map(a => a.role);
+      if (this.isDefaultCADROLEFILTER) {
+        const r: Role = this.possessionRoleList.filter(c => c.roleName === 'CAD')[0];
+        this.filterForm.patchValue({
+          toRole: r.id
+        });
+      }
     });
 
   }
@@ -130,6 +137,7 @@ export class FilterComponent implements OnInit {
   getClientType() {
     this.customerService.clientType().subscribe((res: any) => {
           this.clientType = res.detail;
+
         }
         , error => {
           console.error(error);
