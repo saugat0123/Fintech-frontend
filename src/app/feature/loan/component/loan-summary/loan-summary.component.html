@@ -544,6 +544,7 @@
 
                 </div>
             </div>
+
             <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
                 <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
@@ -625,6 +626,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <app-remit-details *ngIf="isRemitLoan" [loanHolder]="loanDataHolder.loanHolder"></app-remit-details>
+
+            </div>
+
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
                 <div class="col-md-12">
                     <p><strong>Detail of Present Proposal of the Facility</strong></p>
@@ -1373,7 +1379,6 @@
                     </table>
                 </div>
             </div>
-
         </nb-card-body>
     </nb-card>
 </section>

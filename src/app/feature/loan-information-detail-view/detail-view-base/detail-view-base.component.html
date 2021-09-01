@@ -7,10 +7,13 @@
                        [calendarType]="calendarType"
                        [formValue]="loanDataHolder?.companyInfo"
                        [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
-<app-proposal-view *ngIf="loanDataHolder?.proposal"
-                   [customerAllLoanList]="customerAllLoanList"
-                   [proposalData]="proposalData"
-                   [loanDataHolder]="loanDataHolder"></app-proposal-view>
+<div *ngIf="!isRemit">
+    <app-proposal-view *ngIf="loanDataHolder?.proposal"
+                       [customerAllLoanList]="customerAllLoanList"
+                       [proposalData]="proposalData"
+                       [loanDataHolder]="loanDataHolder"></app-proposal-view>
+</div>
+
 <div *ngIf="megaGroupEnabled">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
