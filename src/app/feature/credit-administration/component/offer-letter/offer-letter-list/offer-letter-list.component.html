@@ -17,7 +17,7 @@
                 <th>Branch</th>
                 <th>Province</th>
                 <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
-                <th>Type</th>
+<!--                <th>Type</th>-->
                 <th>Business Unit</th>
                 <th>Status</th>
                 <th>From</th>
@@ -39,7 +39,7 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
+<!--                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>-->
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
