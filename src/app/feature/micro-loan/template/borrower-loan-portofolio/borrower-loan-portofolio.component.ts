@@ -5,6 +5,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-borrower-loan-portofolio',
@@ -23,7 +24,8 @@ export class BorrowerLoanPortfolioComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private elementRef: ElementRef,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private overlay: NgxSpinnerService) {
     }
 
     get form() {
@@ -117,6 +119,7 @@ export class BorrowerLoanPortfolioComponent implements OnInit {
     }
 
     submitForm() {
+        this.overlay.show();
         this.submitted = true;
         if (this.portfolioForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'All fields are mandatory!'));
