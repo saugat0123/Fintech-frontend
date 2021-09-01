@@ -133,6 +133,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
+            if (this.customer.customerRelatives.length < 1) {
+                this.createRelativesArray();
+            }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
 
@@ -439,6 +442,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.customerLegalDocumentAddress, Validators.required],
 
         });
+
         this.onCustomerTypeChange(this.microCustomer);
     }
 
