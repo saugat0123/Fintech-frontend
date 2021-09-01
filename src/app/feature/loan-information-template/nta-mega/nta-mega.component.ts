@@ -44,6 +44,7 @@ export class NtaMegaComponent implements OnInit {
   clientName = Clients;
   ckeConfig = Editor.CK_CONFIG;
   spinner = false;
+  currentFiscalYear;
 
   constructor(protected formBuilder: FormBuilder,
               protected fiscalYearService: FiscalYearService,
@@ -182,6 +183,7 @@ export class NtaMegaComponent implements OnInit {
     this.spinner = true;
     this.fiscalYearService.getAll().subscribe(response => {
       this.fiscalYearArray = response.detail;
+      this.currentFiscalYear = response.detail.find(f => (f.isCurrentYear));
       this.verifyDataWithFiscalYear(this.fiscalYearArray);
       this.spinner = false;
     }, error => {
