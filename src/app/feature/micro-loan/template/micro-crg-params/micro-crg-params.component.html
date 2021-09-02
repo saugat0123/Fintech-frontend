@@ -435,7 +435,8 @@
             </strong></label>
             <input class="form-control" id="totalEquity"
                    placeholder="Total Equity Amount" formControlName="totalEquity">
-            <span *ngIf="submitted && microCrgParamsForm.get('totalDebt').invalid" class="text-danger small">Total Equity Amount required</span>
+            <span *ngIf="submitted && microCrgParamsForm.get('totalEquity').invalid" class="text-danger small">
+               Total Equity Required</span>
         </div>
     </div>
 
@@ -458,7 +459,7 @@
             <input class="form-control" id="totalLoanMicro"
                    placeholder="Total loan including this present request" formControlName="totalLoan">
             <span *ngIf="submitted && microCrgParamsForm.get('totalLoan').invalid" class="text-danger small">
-                Total loan required</span>
+                Total loan including this present request Required </span>
         </div>
     </div>
 
@@ -549,7 +550,7 @@
                     <nb-option *ngFor="let val of locationOfProperty" [value]="val.value">{{val.value}}</nb-option>
                 </nb-select>
                 <div *ngIf="submitted && microCrgParamsForm.get('locationOfProperty').invalid" class="neb-error-feedback">
-                    Location of property with following options Required
+                    Selection Of Property Location Is Required
                 </div>
             </div>
         </div>
@@ -564,7 +565,7 @@
                     <nb-option *ngFor="let val of roadAccess" [value]="val.value">{{val.value}}</nb-option>
                 </nb-select>
                 <div *ngIf="submitted && microCrgParamsForm.get('roadAccess').invalid" class="neb-error-feedback">
-                    Road access Required
+                    Selection Of Road Access Is Required
                 </div>
             </div>
         </div>
@@ -599,7 +600,7 @@
                     <nb-option *ngFor="let val of relationWithBank" [value]="val.value">{{val.value}}</nb-option>
                 </nb-select>
                 <div *ngIf="submitted && microCrgParamsForm.get('relationWithBank').invalid" class="neb-error-feedback">
-                    Relationship with existing bank Required
+                    Relationship With Existing Bank Required
                 </div>
             </div>
         </div>
@@ -614,7 +615,7 @@
                     <nb-option *ngFor="let val of repaymentHistory" [value]="val.value">{{val.value}}</nb-option>
                 </nb-select>
                 <div *ngIf="submitted && microCrgParamsForm.get('repaymentHistory').invalid" class="neb-error-feedback">
-                    Repayment history Required
+                    Repayment History Required
                 </div>
             </div>
         </div>
