@@ -305,7 +305,7 @@
                                     <td class="text-left pl-1">{{info?.fatherName}}</td>
                                 </tr>
                                 <tr><th colspan="5">Family Detail</th></tr>
-                                <tr class="text-white sb-bg-dark">
+                                <tr colspan="5"class="text-white sb-bg-dark">
                                     <th>Name</th>
                                     <th>Relation Name</th>
                                     <th>Citizenship no.</th>
@@ -313,7 +313,7 @@
                                     <th>Citizenship Issued Date(AD/BS)</th>
                                 </tr>
                                 <div *ngIf="info.customerRelations ; else data"  >
-                                    <tr *ngFor="let infos of info?.customerRelations">
+                                    <tr colspan="5" *ngFor="let infos of info?.customerRelations">
                                         <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
                                         <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
                                         <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
@@ -323,7 +323,7 @@
                                 </div>
 
                                 <ng-template #data>
-                                    <tr *ngIf="info?.customerRelativeName1">
+                                    <tr colspan="5" *ngIf="info?.customerRelativeName1">
                                         <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
                                         <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
                                         <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
@@ -333,7 +333,7 @@
                                             )
                                         </td>
                                     </tr>
-                                    <tr *ngIf="info?.customerRelativeName2">
+                                    <tr colspan="5" *ngIf="info?.customerRelativeName2">
                                         <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
                                         <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
                                         <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
@@ -343,7 +343,7 @@
                                             )
                                         </td>
                                     </tr>
-                                    <tr *ngIf="info?.customerRelativeName3">
+                                    <tr colspan="5" *ngIf="info?.customerRelativeName3">
                                         <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
                                         <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
                                         <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
@@ -353,7 +353,7 @@
                                             )
                                         </td>
                                     </tr>
-                                    <tr *ngIf="info?.customerRelativeName4">
+                                    <tr  colspan="5" *ngIf="info?.customerRelativeName4">
                                         <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
                                         <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
                                         <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
@@ -363,7 +363,7 @@
                                             )
                                         </td>
                                     </tr>
-                                    <tr *ngIf="info?.customerRelativeName5">
+                                    <tr colspan="5" *ngIf="info?.customerRelativeName5">
                                         <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
                                         <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
                                         <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
