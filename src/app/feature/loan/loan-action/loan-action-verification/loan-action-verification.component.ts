@@ -24,7 +24,7 @@ export class LoanActionVerificationComponent implements OnInit {
   transferAction;
   falseCredential = false;
   falseCredentialMessage = '';
-  spinner= false;
+  spinner = false;
 
   constructor(
       private http: HttpClient,
@@ -34,9 +34,6 @@ export class LoanActionVerificationComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.toUser && this.toRole){
-      this.spinner = false;
-    }
     this.forwardAction = DocAction.value(DocAction.FORWARD);
     this.transferAction = DocAction.value(DocAction.TRANSFER);
     if (!ObjectUtil.isEmpty(this.individualCombine)) {
