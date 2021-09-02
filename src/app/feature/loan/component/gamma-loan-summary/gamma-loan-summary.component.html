@@ -509,7 +509,7 @@
             <!-- Start Single limit Obligor Details -->
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '5. ' : '4. '}} Obligor Limit Details</strong></p>
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '4. ' : '3. '}} Obligor Limit Details</strong></p>
                     <table class="table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
                         <tr class="sb-bg-dark text-white">
@@ -550,7 +550,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '6. ' : '5. '}} Purpose of Loan</strong></p>
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '5. ' : '4. '}} Purpose of Loan</strong></p>
                 </div>
                 <div class="col-md-12">
                     <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></p>
@@ -559,7 +559,7 @@
 
             <div class="row" *ngIf="loanCategory === 'INSTITUTION'">
                 <div class="col-md-12">
-                    <p><strong>6. Group Background</strong></p>
+                    <p><strong>5. Group Background</strong></p>
                 </div>
                 <div class="col-md-12">
                     <p class="text-justify pl-1 pr-1" [innerHTML]="companyInfo?.groupsBackGround || 'N/A' | safeHtml"></p>
@@ -567,12 +567,12 @@
             </div>
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary"
-                                             [count] = "7"
+                                             [count] = "6"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
 
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>8. Disbursement Criteria</strong></p>
+                    <p><strong>7. Disbursement Criteria</strong></p>
                 </div>
                 <div class="col-md-12">
                     <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.disbursementCriteria || 'N/A' | safeHtml"></p>
@@ -580,7 +580,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>9. Repayment {{client === clientName?.SHINE_RESUNGA ? 'Mode' : ''}}</strong></p>
+                    <p><strong>8. Repayment {{client === clientName?.SHINE_RESUNGA ? 'Mode' : ''}}</strong></p>
                 </div>
                 <div class="col-md-12">
                     <p class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></p>
@@ -589,7 +589,7 @@
 
             <!--Reporting Info-->
             <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
-                <span><strong>10. Reporting Information</strong></span>
+                <span><strong>9. Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="true"
                         *ngIf="loanDataHolder?.reportingInfoLog"
@@ -597,7 +597,7 @@
                 </app-report-summary>
             </div>
             <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-                <span><strong>10. Loan Reporting Information</strong></span>
+                <span><strong>9. Loan Reporting Information</strong></span>
                 <app-report-summary
                         [approved]="false"
                         *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
@@ -616,7 +616,7 @@
 
             <!-- Start Security Details-->
             <app-security-summary *ngIf="securitySummary"
-                                  [count]="11"
+                                  [count]="10"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
@@ -631,7 +631,7 @@
 
             <!-- Start Income & Expenses -->
             <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
-                                   [count]="12"
+                                   [count]="11"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
             <!-- Start Income & Expenses -->
 
@@ -725,7 +725,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '16. ' : '17. '}} Waiver/Deviation</strong></p>
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '13. ' : '13. '}} Waiver/Deviation</strong></p>
                     <tr>
                         <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></td>
                     </tr>
@@ -743,7 +743,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '18. ' : '19. '}} Summary & Recommendation</strong></p>
+                    <p><strong>{{loanCategory === 'INDIVIDUAL'  ? '15. ' : '15. '}} Summary & Recommendation</strong></p>
                     <tr>
                         <td class="text-justify pl-1 pr-1" [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></td>
                     </tr>
@@ -753,7 +753,7 @@
             <div class="row">
                 <div class="col-md-12 disable-print">
                     <span>
-                        <b>{{(loanCategory === 'INDIVIDUAL')  ? '19. ' : '20. '}}All Documents</b>
+                        <b>{{(loanCategory === 'INDIVIDUAL')  ? '16. ' : '16. '}}All Documents</b>
                         <button class="float-right sb-small sb-bg-dark text-white"
                                 *ngIf="loanDataHolder?.customerDocument?.length > 0"
                                 (click)=getDocPath()> Download All Document</button>
