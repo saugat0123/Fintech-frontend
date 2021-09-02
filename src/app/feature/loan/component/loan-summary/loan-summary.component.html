@@ -382,8 +382,6 @@
                         <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span> by: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
                         )<b> on:</b>{{loanDataHolder.lastModifiedAt | date}}
-                        ({{loanDataHolder.lastModifiedAt | engNepDate: false}})
-
                     </span>
 
                 </div>
@@ -450,7 +448,7 @@
                             <thead>
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
-                                <th>Date Of Birth(AD/BS)</th>
+                                <th>Date Of Birth AD</th>
                                 <th>Age</th>
                                 <th>Citizenship Number</th>
                                 <th>Mobile Number</th>
@@ -463,7 +461,6 @@
                             <tr class="text-left">
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
                                 <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}
-                                    ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})
                                 </td>
                                 <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}}years
                                 </td>
@@ -565,7 +562,7 @@
                             <ng-container *ngFor="let info of jointCustomer">
                                 <tr class="text-white sb-bg-dark">
                                     <th>Name</th>
-                                    <th>Date Of Birth(AD/BS)</th>
+                                    <th>Date Of Birth AD</th>
                                     <th>Age</th>
                                     <th>Citizenship Number</th>
                                     <th>Mobile Number</th>
@@ -575,7 +572,7 @@
                                 </tr>
                                 <tr class="text-left">
                                     <td class="pl-1">{{info?.customerName}}</td>
-                                    <td class="pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                                    <td class="pl-1">{{info?.dob | date}}</td>
                                     <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
                                     <td class="text-right pr-1">{{info?.citizenshipNumber}}</td>
                                     <td class="text-right pr-1">{{info?.contactNumber || 'NA'}}</td>
@@ -599,7 +596,7 @@
                                     <th colspan="1">Relation Name</th>
                                     <th colspan="2">Citizenship no.</th>
                                     <th colspan="2">Citizenship Issued District</th>
-                                    <th colspan="1">Citizenship Issued Date(AD/BS)</th>
+                                    <th colspan="1">Citizenship Issued Date AD</th>
 
                                 </tr>
                                 <ng-container *ngIf="info.customerRelations ; else data">
@@ -1232,7 +1229,7 @@
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">
                                 {{previousList?.lastModifiedAt | date}}
-                                ({{previousList?.lastModifiedAt | engNepDate: false}})
+
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
@@ -1269,7 +1266,6 @@
                         <tr>
                             <td>{{currentIndex + 1}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
-                                ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
                             </td>
                             <td class="text-left">
                                 <div class="pl-1">
