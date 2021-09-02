@@ -7,4 +7,5 @@ export class SiteVisitDocument extends BaseEntity {
     securityName: string;
     isApproved: boolean;
     multipartFile: File;
+    fileType;
 }

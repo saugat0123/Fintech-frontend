@@ -45,7 +45,7 @@ export class FixAssetCollateralComponent implements OnInit {
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
     selectedSiteVisit: any;
-    fileType = '.jpg';
+    fileType = '.jpeg';
     modelHeader: string;
     modelBody: string;
     isSiteVisitPresent: boolean;
@@ -98,6 +98,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
             this.collateralSiteVisits = response.detail;
+                console.log('collateralSiteVisit', this.collateralSiteVisit);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
@@ -108,6 +109,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
+                console.log('collateralSiteVisit Data', this.collateralSiteVisit);
             this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
@@ -296,6 +298,7 @@ export class FixAssetCollateralComponent implements OnInit {
             this.spinner = false;
             return;
         }
+        console.log('formData', formData);
         this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
             this.spinner = false;
@@ -318,8 +321,8 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    viewDocument(url: string, name: string) {
-        const viewDocName = name.concat(this.fileType);
+    viewDocument(url: string, name: string, fileType: string) {
+        const viewDocName = name.concat('.').concat(fileType);
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
