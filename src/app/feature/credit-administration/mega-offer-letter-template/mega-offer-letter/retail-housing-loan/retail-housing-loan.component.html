@@ -15,49 +15,55 @@
                        <div class="col-md-6">
                            <b>Ref No:</b> <input class="form-fields form-control-sm"
                                                  formControlName="referenceNo"
-                                                 placeholder="2076/77-MBNL-CAD-RET-2148"
+                                                 placeholder=""
                                                  style="width: 280px"
                                                  type="text"/>
                        </div>
                        <div style="left:550px; position:absolute">
                            <p>मितिः <input class="form-fields form-control-sm nepaliFont"
                                            formControlName="date"
-                                           placeholder="२०७६।११।०५"
+                                           placeholder=""
                                            type="text"></p>
                        </div>
                    </div>
                    <div class="mb-2">
-                       <b>नाम :</b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
+                       <b>नाम: </b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                    </div>
-                   <div class="row form-group">
-                       <p><b>ठेगाना:</b></p>
-                       <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                           जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                           वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                   <div class="row form-group" >
+                       <span style="margin-left: 18px"><b >ठेगाना</b>
+                       <div>
+                           प्रदेश: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,&nbsp;
+                           जिल्ला: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>,&nbsp;
+                           वार्ड न: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>,&nbsp;
                            <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                               गा बि स
+                               गा बि स:
                            </span>
                            <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                               नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                               नगरपालिका:
+                           </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
                        </div>
+                       </span>
                    </div>
                    <div class="row form-group">
-                       <b>हाल :</b>
-                       प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
-                       जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
-                       वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                       <span style="margin-left: 18px"><b>हाल</b>
+                       <div>
+                           प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                           जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                           वार्ड न: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
                        <span *ngIf="loanHolderInfo?.temporaryMunType==1">
                                गा बि स
                            </span>
                        <span *ngIf="loanHolderInfo?.temporaryMunType==0">
-                               नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
+                               नगरपालिका:
+                       </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
+
+                       </div>
+                       </span>
                    </div>
                    <div class="mb-2">
                        <b>मोबाईल नं.: </b><input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="mobileNo"
-                                                 placeholder="९८४६११७८९६"
+                                                 placeholder=""
                                                  style="width: 200px"
                                                  type="text"/>
                    </div>
@@ -77,10 +83,10 @@
                        <div class="col-md-12">
                            <input class="form-fields form-control-sm nepaliFont"
                                   formControlName="facility"
-                                  placeholder="घर कर्जा "
+                                  placeholder=""
                                   type="text"/> सुविधा  <input class="form-fields form-control-sm nepaliFont"
                                                                formControlName="action"
-                                                               placeholder="उपलब्ध"
+                                                               placeholder=""
                                                                type="text"/>  गराइपाउं भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका
                            छलफलबाट, हामी, मेगा बैंक नेपाल लिमिटेड, निम्न बमोजिमको कर्जा सुविधा देहाय बमोजिमका शर्तहरुमा <strong>प्रदान </strong> गर्न सहर्ष प्रस्ताव
                            गर्दछौं ।
@@ -397,14 +403,14 @@
                                </div>
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="dhitoApplicantName"
-                                      placeholder="श्रीमती उषा गुरुङक"
+                                      placeholder=""
                                       type="text"/>को आफ्नो एकल स्वामित्व र एकलौटी हकभोगको
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="district"
-                                      placeholder="स्याङजा " type="text"/> जिल्ला,
+                                      placeholder=" " type="text"/> जिल्ला,
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="wardNo"
-                                      placeholder="बराह कालिका वडा नं. १"
+                                      placeholder=""
                                       type="text"/> वडा नं.
                                <input class="form-fields form-control-sm nepaliFont"
                                       formControlName="address"
@@ -417,11 +423,11 @@
                                       formControlName="keyNo"
                                       type="text"/> व.मी)
                                )को <input class="form-fields form-control-sm nepaliFont"
-                                          formControlName="link" placeholder=" जग्गाहरु तथा सोमा निर्माणधीन घर"
+                                          formControlName="link" placeholder=""
                                           type="text"/>
                                सम्बन्धित निकायबाट बैंकको नाममा धितोको प्रथम र पूर्ण हक कायम हुने गरि धितो बन्धकीको तमसुक रजिष्ट्रेशन
                                <input class="form-fields form-control-sm nepaliFont"
-                                      formControlName="garidinuparni" placeholder=" गरिदिनुपर्ने/ गरिदिएको सम्पत्ति"
+                                      formControlName="garidinuparni" placeholder=" "
                                       type="text"/>
                                ।<br>
                            </div>
@@ -430,14 +436,14 @@
 
                            २.४ - <input class="form-fields form-control-sm nepaliFont"
                                         formControlName="applicantName"
-                                        placeholder="श्रीमती उषा गुरुङक"
+                                        placeholder=""
                                         type="text"/>को हकवालाले माथि उल्लेखित अचल धितो सम्पत्ति धितो सुरक्षण कायम राख्न दिएको मञ्जुरीनामा (नाता प्रमाणित सहित) । <br>
                            २.५ -  <input class="form-fields form-control-sm nepaliFont"
                                              formControlName="applicantRelativeOne"
-                                             placeholder="सुन बहादुर गुरुङ"
+                                             placeholder=""
                                              type="text"/> र <input class="form-fields form-control-sm nepaliFont"
                                                                   formControlName="applicantRelativeTwo"
-                                                                  placeholder="सुन बहादुर गुरुङ"
+                                                                  placeholder=""
                                                                   type="text"/>को सम्पूर्ण कर्जा सिमा रकम बराबरको छुट्टाछुट्टै व्यक्तिगत जमानी ।
                            <p *ngIf="form.get('landNumberPreviousOwnerShow').value">
                                २.६ - कि.न. <input class="form-fields form-control-sm nepaliFont"
@@ -478,18 +484,18 @@
                                        <div>
                                            <input class="form-fields  nepaliFont"
                                                   formControlName="description"
-                                                  placeholder="भवन"
+                                                  placeholder=""
                                                   type="text"/>
                                        </div>
                                    </td>
                                    <td><input class="form-fields  nepaliFont"
                                               formControlName="sumInsured"
-                                              placeholder="रु ३०,००,०००"
+                                              placeholder=""
                                               type="text"/>
                                    </td>
                                    <td><input class="form-fields  nepaliFont"
                                               formControlName="riskBearer"
-                                              placeholder="रग्रहस्थ बीमालेख ।"
+                                              placeholder=""
                                               type="text"/>
                                    </td>
                                </tr>
@@ -781,33 +787,37 @@
                            <br>
                            ऋणीः <br>
                            <div class="ml-4">
-                               <strong>नाम : </strong><strong
+                               <strong>नाम: </strong><strong
                                    class="nepaliFont">{{loanHolderInfo?.name}}</strong> <br>
                                <div class="row form-group">
-                                   <p><b>ठेगाना:</b></p>
-                                   <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                                       जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                                       वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                   <span style="margin-left: 18px">
+                                   <b>ठेगाना:</b>
+                                   <div>प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                       जिल्ला: &nbsp;<b class="nepaliFont">>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                       वार्ड न: &nbsp;<b class="nepaliFont">>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                                        <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                               गा बि स
-                           </span>
+                                            गा बि स:
+                                        </span>
                                        <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                               नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                                        नगरपालिका
+                                       </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
                                    </div>
+                                   </span>
                                </div>
                                <div class="row form-group">
-                                   <b>हाल :</b>
-                                   प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
-                                   जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
-                                   वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                                  <span style="margin-left: 18px"> <b>हाल: </b>
+                                   <div>
+                                   प्रदेश &nbsp;<b class="nepaliFont">>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                                   जिल्ला &nbsp;<b class="nepaliFont">>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                                   वार्ड न &nbsp;<b class="nepaliFont">>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
                                    <span *ngIf="loanHolderInfo?.temporaryMunType==1">
-                               गा बि स
+                               गा बि स:
                            </span>
                                    <span *ngIf="loanHolderInfo?.temporaryMunType==0">
                                नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
-                               </div><br>
+                           </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
+                               </div>
+                                  </span>
                            </div>
                            <br>
                            यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ र
@@ -883,6 +893,7 @@
                        <div class="col-md-12 text-right">
                            <button nbButton status="success" type="submit">Save</button>
                        </div>
+                   </div>
                    </div>
                </form>
            </div>
