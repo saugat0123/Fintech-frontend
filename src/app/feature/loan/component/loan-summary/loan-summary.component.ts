@@ -65,7 +65,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     @Input() nepaliDate;
     hasMissingDeferredDocs = false;
-
+    @Input() combinedLoanId: number;
     client: string;
     clientName = Clients;
 
@@ -598,10 +598,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     SetRoleHierarchy(loanId: number) {
+        let refId;
+        if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
+            refId = this.combinedLoanId;
+        } else {
+            refId = loanId;
+        }
         let context;
         context = {
             approvalType: 'LOAN',
-            refId: loanId,
+            refId: refId,
             isRoleModal: true,
         };
        // @ts-ignore
