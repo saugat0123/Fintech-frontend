@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../admin/modal/loan-config';
 import {LoanFormService} from '../loan/component/loan-form/service/loan-form.service';
@@ -51,8 +51,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     crgGammaGrade;
     isJointInfo = false;
     jointInfo = [];
-
-
+    isRemitLoan = false;
+    isLoaded = false;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -68,8 +68,9 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
     ngOnInit() {
         this.loadSummary();
-        this.customerLoanService.detail(this.customerId).subscribe(response => {
+        this.customerLoanService.detail(this.customerId).subscribe((response) => {
             this.loanDataHolder = response.detail;
+            this.isLoaded = true;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder.loanHolder;
             this.loanCategory = this.loanDataHolder.loanCategory;
@@ -111,7 +112,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.getFiscalYears();
 
     }
-
     loadSummary() {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -131,6 +131,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
+                this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
                 if (this.loanConfig.loanTag === 'MICRO_LOAN') {
                     this.isMicro = true;
                 }

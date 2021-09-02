@@ -26,6 +26,7 @@ export class DetailViewBaseComponent implements OnInit {
   @Input() loanId;
   @Input() comment;
   @Input() formData;
+  @Input() isRemit;
   fiscalYearArray: Array<FiscalYear>;
   customerAllLoanList: LoanDataHolder[] = [];
   proposalData: Proposal;
