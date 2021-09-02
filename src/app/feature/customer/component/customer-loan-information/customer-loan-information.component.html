@@ -16,51 +16,6 @@
       </nb-accordion-item>
     </nb-accordion>
 
-
-    <nb-accordion>
-      <nb-accordion-item>
-        <nb-accordion-item-header>Sender Details</nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <!-- Sender Details-->
-          <div class="p-5 row" *ngFor="let model of sender;let i=index">
-            <div class="col-md-6">
-
-              <div class="p-1 row">
-                <span> <strong>Name :</strong>{{model?.name}} </span></div>
-              <div class="p-1 row">
-                <span> <strong>Address :</strong>{{model?.address}}</span></div>
-               <div class="p-1 row">
-                 <span> <strong>Gender :</strong>{{model?.gender}}</span></div>
-               <div class="p-1 row">
-                <span> <strong>Email :</strong>{{model?.email}}</span></div>
-              <div class="p-1 row">
-                <span> <strong>Phone :</strong>{{model?.phone}}</span></div>
-              <div class="p-1 row">
-                <span> <strong>Father's Name :</strong>{{model?.fatherName}}</span></div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="p-1 row">
-                <span> <strong>Client Type :</strong>{{model?.clientName}} </span></div>
-              <div class="p-1 row">
-                <span> <strong>Date of Birth :</strong>{{model?.dob}}</span></div>
-              <div class="p-1 row">
-                <span> <strong>Citizenship Number :</strong>{{model?.citizenshipNumber}}</span></div>
-              <div class="p-1 row">
-                <span> <strong>Occupation :</strong>{{model?.occupation}}</span></div>
-              <div class="p-1 row">
-                <span> <strong>Income Source :</strong>{{model?.incomeSource}}</span></div>
-              <div class="p-1 row">
-                <span> <strong>Marital Status :</strong>{{model?.maritalStatus}}</span></div>
-            </div>
-          </div>
-
-
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
-
-
     <nb-accordion>
       <nb-accordion-item #itemSiteVisit>
         <nb-accordion-item-header>
