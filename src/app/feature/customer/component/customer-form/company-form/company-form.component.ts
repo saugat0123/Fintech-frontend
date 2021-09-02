@@ -307,8 +307,8 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
-                    Validators.maxLength(9), Validators.minLength(9)]],
+                    this.companyInfo.panNumber, [Validators.required,
+                    Validators.min(88888888)]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :

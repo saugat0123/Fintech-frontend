@@ -187,6 +187,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
+    spinner = false;
+    spinnerMsg = 'Please Wait!!';
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -486,6 +488,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                     this.customerAllLoanList.push(this.loanDataHolder);
                 }
+                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                } else {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+                }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
@@ -704,6 +711,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     // method to make all files as a .zip file
     private downloadAll(documentUrls: string[]): void {
+        this.spinner = true;
         const zip = new JSZip();
         let count = 0;
         const zipFilename = `${this.customerData}.zip`;
@@ -726,12 +734,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if (count === urls.length) {
                         zip.generateAsync({type: 'blob'}).then(content => {
                             importedSaveAs(content, zipFilename);
+                            if (content.size) {
+                                this.spinner = false;
+                            }
                         });
                     }
                 });
             });
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
+            this.toastService.show(new Alert(AlertType.INFO, 'Files are being downloaded please wait!!!'));
         } else {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
     }
