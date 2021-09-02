@@ -183,7 +183,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 return;
             }
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
-                {context: {individualCombine: this.individualType.form.value, action: this.docAction, spinner: true}});
+                {context: {individualCombine: this.individualType.form.value, action: this.docAction}});
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (verified === true) {
                     this.postCombinedAction(false);
@@ -197,7 +197,6 @@ export class LoanActionCombinedModalComponent implements OnInit {
             }
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
                 context: {
-                    spinner: true,
                     toUser: this.combinedType.form.get('toUser').value,
                     toRole: this.combinedType.form.get('toRole').value, action: this.docAction
                 }
