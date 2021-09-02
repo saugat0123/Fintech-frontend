@@ -49,6 +49,7 @@ export class FixAssetCollateralComponent implements OnInit {
     modelBody: string;
     isSiteVisitPresent: boolean;
     security_id_for_delete: string;
+    fileType = '.jpg';
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -318,7 +319,12 @@ export class FixAssetCollateralComponent implements OnInit {
     }
 
     viewDocument(url: string, name: string, fileType: string) {
-        const viewDocName = name.concat('.').concat(fileType);
+        let viewDocName;
+        if (fileType === null) {
+            viewDocName = name.concat(this.fileType);
+        } else {
+            viewDocName = name.concat('.').concat(fileType);
+        }
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
