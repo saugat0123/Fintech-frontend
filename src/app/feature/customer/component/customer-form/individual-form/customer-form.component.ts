@@ -132,8 +132,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
             this.formMaker();
-            this.setRelatives(this.customer.customerRelatives);
-            console.log(this.customer.customerRelatives);
             if (this.customer.customerRelatives === undefined || this.customer.customerRelatives.length < 1) {
                 this.createRelativesArray();
             }
