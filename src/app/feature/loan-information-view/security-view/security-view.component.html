@@ -1497,9 +1497,11 @@
     <div *ngIf="siteVisitDocuments.length>0" class="container mt-2">
       <div class="row">
       <div class="col-md-4" *ngFor="let doc of siteVisitDocuments;">
-        <img [src]="url + separator + doc?.docPath + doc?.docName.concat(fileType)+'?='+random"
-             class="figure-img img-fluid rounded img-medium"
-             alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName)"
+        {{doc.fileType}}
+        <img [src]="(doc.fileType === null) ? (url + separator + doc?.docPath + doc?.docName.concat(fileType) + '?=' + random) :
+        (url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random)"
+             [ngClass]="doc.fileType === 'pdf' ? 'fa fa-file-pdf-o' : 'figure-img img-fluid rounded img-medium'"
+             alt="{{doc?.docName}}" style="cursor: pointer" (click)="viewDocument(doc?.docPath,doc?.docName, doc?.fileType)"
         (error)="onError($event)">
         <span class="ml-2">Document for {{doc?.securityName.slice(0, -2)}}</span>
       </div>
