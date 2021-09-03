@@ -60,7 +60,7 @@ export class LoanActionVerificationComponent implements OnInit {
       this.nbDialogRef.close(true);
     }, error => {
       this.spinner = false;
-      this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
+      this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? 'Error :(' : error.error.errorDescription;
       this.falseCredential = true;
     });
   }
