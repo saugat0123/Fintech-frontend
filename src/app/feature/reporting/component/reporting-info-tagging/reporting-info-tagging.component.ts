@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ReportingInfoTaggingFormComponent} from '../reporting-info-tagging-form/reporting-info-tagging-form.component';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-reporting-info-tagging',
@@ -33,7 +34,8 @@ export class ReportingInfoTaggingComponent implements OnInit {
   constructor(
       private reportingInfoService: ReportingInfoService,
       private toastService: ToastService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private overlay: NgxSpinnerService
   ) {
   }
 
@@ -87,6 +89,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
   public onSubmit(): void {
     if (this.taggingComponent) {
       this.taggingComponent.onSubmit();
+      this.overlay.show();
     }
     this.finalReportingInfoLevels = Array.from(this.savedReportTagsId).map(v => {
       const reportingInfoLevel = new ReportingInfoLevel();

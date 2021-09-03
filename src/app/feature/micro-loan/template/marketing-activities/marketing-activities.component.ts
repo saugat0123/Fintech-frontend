@@ -123,6 +123,7 @@ export class MarketingActivitiesComponent implements OnInit {
     this.overlay.show();
     this.submitted = true;
     if (this.marketingActivityForm.invalid) {
+      this.overlay.hide();
       this.toastService.show(new Alert(AlertType.ERROR, 'All fields are mandatory!'));
       return;
     }
