@@ -108,7 +108,6 @@ export class ProposalComponent implements OnInit {
         this.setGroupExposureData(this.groupExposureData);
       }
       if (!ObjectUtil.isEmpty(this.formValue.proposedLimit)) {
-        console.log('not empty');
         this.proposalForm.patchValue({
           proposedLimit: this.formValue.proposedLimit
         });
