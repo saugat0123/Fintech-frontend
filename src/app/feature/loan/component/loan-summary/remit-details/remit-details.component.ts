@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-remit-details',
@@ -13,12 +14,15 @@ export class RemitDetailsComponent implements OnInit {
   agentDetails: any;
   beneficiaryDetails: any;
   senderDetails: any;
-
+  isNull = true;
   ngOnInit() {
     this.remit = this.loanHolder.remitCustomer;
-    this.agentDetails = JSON.parse(this.remit.agentData);
-    this.senderDetails = JSON.parse(this.remit.senderData);
-    this.beneficiaryDetails = JSON.parse(this.remit.beneficiaryData);
+    if (this.remit !== null || !ObjectUtil.isEmpty(this.remit)) {
+      this.isNull = true;
+      this.agentDetails = JSON.parse(this.remit.agentData);
+      this.senderDetails = JSON.parse(this.remit.senderData);
+      this.beneficiaryDetails = JSON.parse(this.remit.beneficiaryData);
+    }
   }
 
 }

@@ -7,7 +7,7 @@
                        [calendarType]="calendarType"
                        [formValue]="loanDataHolder?.companyInfo"
                        [loanId]="loanId" [customerInfo]="loanHolder"></app-company-info-view>
-<div *ngIf="!isRemit">
+<div *ngIf="proposalDataNotNull">
     <app-proposal-view *ngIf="loanDataHolder?.proposal"
                        [customerAllLoanList]="customerAllLoanList"
                        [proposalData]="proposalData"

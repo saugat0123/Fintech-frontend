@@ -1,3 +1,8 @@
+<div class="modal-content" [nbSpinner]="spinner"
+     accent="primary"
+     nbSpinnerMessage="Please Wait . . ."
+     nbSpinnerSize="giant"
+     nbSpinnerStatus="primary">
 <nb-card>
     <nb-card-header>
         <div class="col-md-12">
@@ -298,3 +303,4 @@
 <ng-template #viewdetails let-ref="dialogRef">
 <app-remit-loan-view [selectedIdData]="selectedIdData" [ref]="ref" ></app-remit-loan-view>
 </ng-template>
+</div>

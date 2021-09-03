@@ -1,241 +1,223 @@
-<div class="col-md-12">
-    <p><strong>Agent Details <i
-            class="material-icons text-info mr-2">support_agent</i></strong></p>
-    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-        <thead>
-        <tr class="text-white sb-bg-dark">
-            <th>Name</th>
-            <th>Email</th>
-            <th>Branch</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>{{(remit.agentName)?(remit.agentName): 'N/A'}}</td>
-            <td class="text-left pl-1">{{(agentDetails.email)?(agentDetails.email):'N/A'}}</td>
-            <td>
-                {{(agentDetails.branch)?(agentDetails.branch):'N/A'}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<ng-container *ngIf="isNull">
+    <div class="col-md-12">
+        <p><strong>Agent Details</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Branch</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{(remit.agentName)?(remit.agentName): 'N/A'}}</td>
+                <td class="text-left pl-1">{{(agentDetails.email)?(agentDetails.email):'N/A'}}</td>
+                <td>
+                    {{(agentDetails.branch)?(agentDetails.branch):'N/A'}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class ="col-md-12">
 
-    <p><strong>Sender Details<i
-            class="material-icons text-info mr-2">forward_to_inbox</i></strong></p>
-    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-        <thead>
-        <tr class="text-white sb-bg-dark">
-            <th>Name</th>
-            <th>Email</th>
-            <th>Relationship With Applicant</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>{{(remit.senderName)?(remit.senderName):'N/A'}}</td>
-            <td class="text-left pl-1">
-                {{(senderDetails.senderIdentity.email_address)?(senderDetails.senderIdentity.email_address):'N/A'}}
-            </td>
-            <td>
-                {{(senderDetails.senderIdentity.relation_with_applicant)?(senderDetails.senderIdentity.relation_with_applicant):'N/A'}}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <ng-container>
-                    <div class="col-md-12">
-                        <p class="text-left"><strong>Sender Information</strong></p>
-                        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Mother Name</th>
-                                <th>Father Name</th>
-                                <th>Gender</th>
-                                <th>D.O.B</th>
-                                <th>Nationality</th>
-                                <th>Qualification</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <td>{{(senderDetails.senderIdentity.mother_name)?(senderDetails.senderIdentity.mother_name):'N/A'}}</td>
-                            <td>{{(senderDetails.senderIdentity.father_name)?(senderDetails.senderIdentity.father_name):'N/A'}}</td>
-                            <td>{{(senderDetails.senderIdentity.gender)?(senderDetails.senderIdentity.gender):'N/A'}}</td>
-                            <td>{{(senderDetails.senderIdentity.dob_bs)?(senderDetails.senderIdentity.dob_bs):'N/A'}}</td>
-                            <td>{{(senderDetails.senderIdentity.nationality)?(senderDetails.senderIdentity.nationality):'N/A'}}</td>
-                            <td>{{(senderDetails.senderIdentity.qualification)?(senderDetails.senderIdentity.qualification):'N/A'}}</td>
-                            </tbody>
-                        </table>
+        <p><strong>Sender Details</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Relationship With Applicant</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{(remit.senderName)?(remit.senderName):'N/A'}}</td>
+                <td class="text-left pl-1">
+                    {{(senderDetails.senderIdentity.email_address)?(senderDetails.senderIdentity.email_address):'N/A'}}
+                </td>
+                <td>
+                    {{(senderDetails.senderIdentity.relation_with_applicant)?(senderDetails.senderIdentity.relation_with_applicant):'N/A'}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-                    </div>
-                </ng-container>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <ng-container>
-                    <div class="col-md-12">
-                        <p class="text-left"><strong>Sender Employment</strong></p>
-                        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Company Name</th>
-                                <th>Company Type</th>
-                                <th>Address</th>
-                                <th>Monthly Salary</th>
-                                <th>Position</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <td>{{(senderDetails.senderEmployment.company_name)?(senderDetails.senderEmployment.company_name):'N/A'}}</td>
-                            <td>{{(senderDetails.senderEmployment.company_type)?(senderDetails.senderEmployment.company_type):'N/A'}}</td>
-                            <td>{{(senderDetails.senderEmployment.company_address)?(senderDetails.senderEmployment.company_address):'N/A'}}</td>
-                            <td>{{(senderDetails.senderEmployment.monthly_salary)?(senderDetails.senderEmployment.monthly_salary):'N/A'}}</td>
-                            <td>{{(senderDetails.senderEmployment.profession_or_position)?(senderDetails.senderEmployment.profession_or_position):'N/A'}}</td>
-                            </tbody>
-                        </table>
+    <div class="col-md-12">
+        <p class="text-left"><strong>Sender Information</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Mother Name</th>
+                <th>Father Name</th>
+                <th>Gender</th>
+                <th>D.O.B</th>
+                <th>Nationality</th>
+                <th>Qualification</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{(senderDetails.senderIdentity.mother_name)?(senderDetails.senderIdentity.mother_name):'N/A'}}</td>
+            <td>{{(senderDetails.senderIdentity.father_name)?(senderDetails.senderIdentity.father_name):'N/A'}}</td>
+            <td>{{(senderDetails.senderIdentity.gender)?(senderDetails.senderIdentity.gender):'N/A'}}</td>
+            <td>{{(senderDetails.senderIdentity.dob_bs)?(senderDetails.senderIdentity.dob_bs):'N/A'}}</td>
+            <td>{{(senderDetails.senderIdentity.nationality)?(senderDetails.senderIdentity.nationality):'N/A'}}</td>
+            <td>{{(senderDetails.senderIdentity.qualification)?(senderDetails.senderIdentity.qualification):'N/A'}}</td>
+            </tbody>
+        </table>
 
-                    </div>
-                </ng-container>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <ng-container>
-                    <div class="col-md-12">
-                        <p class="text-left"><strong>Sender Banking Information</strong></p>
-                        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Bank Name</th>
-                                <th>Bank Swift Code</th>
-                                <th>Local Loan Amount</th>
-                                <th>Loan Amount</th>
-                                <th>Loan Purpose</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <td>{{(senderDetails.senderBanking.bank_name)?(senderDetails.senderBanking.bank_name):'N/A'}}</td>
-                            <td>{{(senderDetails.senderBanking.bank_swift_code)?(senderDetails.senderBanking.bank_swift_code):'N/A'}}</td>
-                            <td>{{(senderDetails.senderBanking.local_loans_amount)?(senderDetails.senderBanking.local_loans_amount):'N/A'}}</td>
-                            <td>{{(senderDetails.senderBanking.loan_amount)?(senderDetails.senderBanking.loan_amount):'N/A'}}</td>
-                            <td>{{(senderDetails.senderBanking.loan_purpose)?(senderDetails.senderBanking.loan_purpose):'N/A'}}</td>
-                             </tbody>
-                        </table>
+    </div>
 
-                    </div>
-                </ng-container>
-            </td>
-        </tr>
 
-        </tbody>
-    </table>
-    <p><strong>Benificiary Details<i
-            class="material-icons text-info mr-2">person</i></strong></p>
-    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-        <thead>
-        <tr class="text-white sb-bg-dark">
-            <th>Name</th>
-            <th>Citizenship No</th>
-            <th>Issued Date</th>
-            <th>Gender</th>
-            <th>Marital Status</th>
-            <th>Phone Number</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>{{(remit.beneficiaryName)?(remit.beneficiaryName):'N/A'}}</td>
-            <td> {{(beneficiaryDetails.beneficiaryIdentity.citizenship_no)?(beneficiaryDetails.beneficiaryIdentity.citizenship_no):'N/A'}}</td>
-            <td> {{(beneficiaryDetails.beneficiaryIdentity.citizenship_issue_date)?(beneficiaryDetails.beneficiaryIdentity.citizenship_issue_date):'N/A'}}</td>
-            <td> {{(beneficiaryDetails.beneficiaryIdentity.benef_gender)?(beneficiaryDetails.beneficiaryIdentity.benef_gender):'N/A'}}</td>
-            <td> {{(beneficiaryDetails.beneficiaryIdentity.benef_marital_status)?(beneficiaryDetails.beneficiaryIdentity.benef_marital_status):'N/A'}}</td>
-            <td> {{(beneficiaryDetails.beneficiaryIdentity.benef_mob_no)?(beneficiaryDetails.beneficiaryIdentity.benef_mob_no):'N/A'}}</td>
-        </tr>
-        <tr>
-            <td colspan="6">
-                <ng-container>
-                    <div class="col-md-12">
-                        <p class="text-left"><strong>Beneficiary Relation</strong></p>
-                        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Father Name</th>
-                                <th>Mother Name</th>
-                                <th>Grand Father Name</th>
+    <div class="col-md-12">
+        <p class="text-left"><strong>Sender Employment</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Company Name</th>
+                <th>Company Type</th>
+                <th>Address</th>
+                <th>Monthly Salary</th>
+                <th>Position</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{(senderDetails.senderEmployment.company_name)?(senderDetails.senderEmployment.company_name):'N/A'}}</td>
+            <td>{{(senderDetails.senderEmployment.company_type)?(senderDetails.senderEmployment.company_type):'N/A'}}</td>
+            <td>{{(senderDetails.senderEmployment.company_address)?(senderDetails.senderEmployment.company_address):'N/A'}}</td>
+            <td>{{(senderDetails.senderEmployment.monthly_salary)?(senderDetails.senderEmployment.monthly_salary):'N/A'}}</td>
+            <td>{{(senderDetails.senderEmployment.profession_or_position)?(senderDetails.senderEmployment.profession_or_position):'N/A'}}</td>
+            </tbody>
+        </table>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <td>{{(beneficiaryDetails.beneficiaryIdentity.benef_father_name)?(beneficiaryDetails.beneficiaryIdentity.benef_father_name):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryIdentity.benef_mother_name)?(beneficiaryDetails.beneficiaryIdentity.benef_mother_name):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryIdentity.benef_grandfather)?(beneficiaryDetails.beneficiaryIdentity.benef_grandfather):'N/A'}}</td>
-                            </tbody>
-                        </table>
+    </div>
 
-                    </div>
-                </ng-container>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6">
-                <ng-container>
-                    <div class="col-md-12">
-                        <p class="text-left"><strong>Beneficiary Other Information</strong></p>
-                        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Bank Name</th>
-                                <th>Profession</th>
-                                <th>Annual Income</th>
-                                <th>Net Worth</th>
-                                <th>Account Number</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_bank)?(beneficiaryDetails.beneficiaryOtherDetail.benef_bank):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_profession)?(beneficiaryDetails.beneficiaryOtherDetail.benef_profession):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_annual_income)?(beneficiaryDetails.beneficiaryOtherDetail.benef_annual_income):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth)?(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_acc_no)?(beneficiaryDetails.beneficiaryOtherDetail.benef_acc_no):'N/A'}}</td>
+    <div class="col-md-12">
+        <p class="text-left"><strong>Sender Banking Information</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Bank Name</th>
+                <th>Bank Swift Code</th>
+                <th>Local Loan Amount</th>
+                <th>Loan Amount</th>
+                <th>Loan Purpose</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{(senderDetails.senderBanking.bank_name)?(senderDetails.senderBanking.bank_name):'N/A'}}</td>
+            <td>{{(senderDetails.senderBanking.bank_swift_code)?(senderDetails.senderBanking.bank_swift_code):'N/A'}}</td>
+            <td>{{(senderDetails.senderBanking.local_loans_amount)?(senderDetails.senderBanking.local_loans_amount):'N/A'}}</td>
+            <td>{{(senderDetails.senderBanking.loan_amount)?(senderDetails.senderBanking.loan_amount):'N/A'}}</td>
+            <td>{{(senderDetails.senderBanking.loan_purpose)?(senderDetails.senderBanking.loan_purpose):'N/A'}}</td>
+            </tbody>
+        </table>
 
-                            </tbody>
-                        </table>
+    </div>
+    <div class="col-md-12">
+        <p><strong>Benificiary Details</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Name</th>
+                <th>Citizenship No</th>
+                <th>Issued Date</th>
+                <th>Gender</th>
+                <th>Marital Status</th>
+                <th>Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{(remit.beneficiaryName)?(remit.beneficiaryName):'N/A'}}</td>
+                <td> {{(beneficiaryDetails.beneficiaryIdentity.citizenship_no)?(beneficiaryDetails.beneficiaryIdentity.citizenship_no):'N/A'}}</td>
+                <td> {{(beneficiaryDetails.beneficiaryIdentity.citizenship_issue_date)?(beneficiaryDetails.beneficiaryIdentity.citizenship_issue_date):'N/A'}}</td>
+                <td> {{(beneficiaryDetails.beneficiaryIdentity.benef_gender)?(beneficiaryDetails.beneficiaryIdentity.benef_gender):'N/A'}}</td>
+                <td> {{(beneficiaryDetails.beneficiaryIdentity.benef_marital_status)?(beneficiaryDetails.beneficiaryIdentity.benef_marital_status):'N/A'}}</td>
+                <td> {{(beneficiaryDetails.beneficiaryIdentity.benef_mob_no)?(beneficiaryDetails.beneficiaryIdentity.benef_mob_no):'N/A'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-                    </div>
-                </ng-container>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6">
-                <ng-container>
-                    <div class="col-md-12">
-                        <p class="text-left"><strong>Beneficiary Address</strong></p>
-                        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>State</th>
-                                <th>District</th>
-                                <th>Municipality</th>
-                                <th>Ward No</th>
-                                <th>Address</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_state)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_state):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_district)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_district):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_ward_no)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_ward_no):'N/A'}}</td>
-                            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_address)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_address):'N/A'}}</td>
 
-                            </tbody>
-                        </table>
+    <div class="col-md-12">
+        <p class="text-left"><strong>Beneficiary Relation</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Father Name</th>
+                <th>Mother Name</th>
+                <th>Grand Father Name</th>
 
-                    </div>
-                </ng-container>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{(beneficiaryDetails.beneficiaryIdentity.benef_father_name)?(beneficiaryDetails.beneficiaryIdentity.benef_father_name):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryIdentity.benef_mother_name)?(beneficiaryDetails.beneficiaryIdentity.benef_mother_name):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryIdentity.benef_grandfather)?(beneficiaryDetails.beneficiaryIdentity.benef_grandfather):'N/A'}}</td>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+    <div class="col-md-12">
+        <p class="text-left"><strong>Beneficiary Other Information</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Bank Name</th>
+                <th>Profession</th>
+                <th>Annual Income</th>
+                <th>Net Worth</th>
+                <th>Account Number</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_bank)?(beneficiaryDetails.beneficiaryOtherDetail.benef_bank):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_profession)?(beneficiaryDetails.beneficiaryOtherDetail.benef_profession):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_annual_income)?(beneficiaryDetails.beneficiaryOtherDetail.benef_annual_income):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth)?(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryOtherDetail.benef_acc_no)?(beneficiaryDetails.beneficiaryOtherDetail.benef_acc_no):'N/A'}}</td>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-md-12">
+        <p class="text-left"><strong>Beneficiary Address</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>State</th>
+                <th>District</th>
+                <th>Municipality</th>
+                <th>Ward No</th>
+                <th>Address</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_state)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_state):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_district)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_district):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_municipality):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_ward_no)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_ward_no):'N/A'}}</td>
+            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_address)?(beneficiaryDetails.beneficiaryAddress.benef_permanent_address):'N/A'}}</td>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+</ng-container>

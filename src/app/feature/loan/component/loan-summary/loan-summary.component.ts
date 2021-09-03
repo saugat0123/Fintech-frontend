@@ -186,7 +186,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
     isRemitLoan : boolean = false;
-
+    proposalDataNotNull = true;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -247,6 +247,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                        this.isCollateralSiteVisit = true;
                    }
                });
+        }
+        if (this.proposalData.data === null) {
+            this.proposalDataNotNull = false;
         }
     }
 
