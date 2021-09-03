@@ -826,7 +826,7 @@ export class LoanFormComponent implements OnInit {
             }, error => {
                 this.spinner.hide();
                 console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
+                this.toastService.show(new Alert(AlertType.ERROR, `Error saving loan: ${error.error.message}`));
             });
         }
     }
