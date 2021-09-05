@@ -33,7 +33,6 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
-import {Valuator} from '../../../admin/modal/valuator';
 
 
 @Component({
@@ -164,8 +163,6 @@ export class SecurityInitialFormComponent implements OnInit {
     newOwnerShipTransfer = [];
     bondSecurity = false;
 
-    valuatorDropList: Array<Valuator>;
-
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -261,7 +258,6 @@ export class SecurityInitialFormComponent implements OnInit {
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
 
-        // this.getValuatingFields();
     }
 
     eventLandSecurity($event) {
@@ -406,44 +402,27 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         switch (type) {
             case 'land':
-                console.log('Valuator Search Data : ', valuatorSearch);
-                // this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                //     this.securityValuator.landValuator[index] = res.detail;
-                // });
-                this.valuatorService.getAllValuatorsFields('land').subscribe((res: any) => {
-                    console.log(res);
+                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.landValuator[index] = res.detail;
                 });
                 break;
             case 'apartment':
-                // this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                //     this.securityValuator.apartmentValuator[index] = res.detail;
-                // });
-                this.valuatorService.getAllValuatorsFields('apartment').subscribe((res: any) => {
+                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.apartmentValuator[index] = res.detail;
                 });
                 break;
             case 'vehicle':
-                // this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                //     this.securityValuator.vehicalValuator[index] = res.detail;
-                // });
-                this.valuatorService.getAllValuatorsFields('vehicle').subscribe((res: any) => {
+                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.vehicalValuator[index] = res.detail;
                 });
                 break;
             case 'plant':
-                // this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                //     this.securityValuator.plantValuator[index] = res.detail;
-                // });
-                this.valuatorService.getAllValuatorsFields('PLANT_MACHINARY').subscribe((res: any) => {
+                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.plantValuator[index] = res.detail;
                 });
                 break;
             case  'building':
-                // this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                //     this.securityValuator.buildingValuator[index] = res.detail;
-                // });
-                this.valuatorService.getAllValuatorsFields('LAND_BUILDING').subscribe((res: any) => {
+                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.buildingValuator[index] = res.detail;
                 });
                 break;
@@ -946,7 +925,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     change(arraySelected) {
-
         const selectedSecurity = [];
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
             = this.underConstructionChecked = this.depositSelected = this.shareSelected = this.landBuilding =
@@ -2491,13 +2469,4 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         });
     }
-
-    getValuatingFields(data) {
-            this.valuatorService.getAllValuatorsFields(data).subscribe((res: any) => {
-                this.valuatorDropList = res.detail;
-                console.log('response Data ', res.detail);
-            });
-    }
-
-
 }
