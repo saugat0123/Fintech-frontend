@@ -144,7 +144,7 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                        (change)="valuator(securityForm.get(['landDetails',i,'landBranch']).value.id,'land',i)"
+                                        (change)="valuator(securityForm.get(['landDetails',i,'landBranch']).value.id,valuatingFieldEnum.LAND,i)"
                                         [multiple]="false"
                                         bindLabel="name"
                                         formControlName="landBranch"
@@ -238,7 +238,7 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="landValuator" (click)="valuator(null,'land',i)">
+                                           formControlName="landValuator" (click)="valuator(null,valuatingFieldEnum.LAND,i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
                                                [value]="valuator">{{valuator.name}}</ng-option>
@@ -715,7 +715,7 @@
                                         <div class="form-group">
                                             <label>Select Branch</label>
                                             <ng-select
-                                                (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
+                                                (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,valuatingFieldEnum.LAND_BUILDING,i)"
                                                 [multiple]="false"
                                                 bindLabel="name"
                                                 formControlName="apartmentBranch"
@@ -735,7 +735,7 @@
                                                    bindLabel="name"
                                                    placeholder=""
                                                    formControlName="ApartmentValuator"
-                                                   (click)="valuator(null,'apartment',i)">
+                                                   (click)="valuator(null,valuatingFieldEnum.LAND_BUILDING,i)">
                                             <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                             <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
                                                        [value]="valuator">{{valuator.name}}</ng-option>
@@ -1464,7 +1464,7 @@
                                     <div class="form-group">
                                         <label>Select Branch</label>
                                         <ng-select
-                                            (change)="valuator(securityForm.get(['landBuilding',i,'buildingBranch']).value.id,'building',i)"
+                                            (change)="valuator(securityForm.get(['landBuilding',i,'buildingBranch']).value.id,valuatingFieldEnum.LAND_BUILDING,i)"
                                             [multiple]="false"
                                             bindLabel="name"
                                             formControlName="buildingBranch"
@@ -1554,7 +1554,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Valuator Name</label>
-                                    <ng-select (click)="valuator(null,'building',i)"
+                                    <ng-select (click)="valuator(null,valuatingFieldEnum.LAND_BUILDING,i)"
                                                [multiple]="false"
                                                bindLabel="name"
                                                formControlName="buildingValuator"
@@ -2036,7 +2036,7 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                        (change)="valuator(securityForm.get(['plantDetails',i,'plantBranch']).value.id,'plant',i)"
+                                        (change)="valuator(securityForm.get(['plantDetails',i,'plantBranch']).value.id,valuatingFieldEnum.PLANT_MACHINARY,i)"
                                         [multiple]="false"
                                         bindLabel="name"
                                         formControlName="plantBranch"
@@ -2055,7 +2055,7 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
+                                           formControlName="plantMachineryValuator" (click)="valuator(null,valuatingFieldEnum.PLANT_MACHINARY,i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]"
                                                [value]="valuator">{{valuator.name}}</ng-option>
@@ -2329,7 +2329,7 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                        (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,'vehicle',i)"
+                                        (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,valuatingFieldEnum.VEHICLE,i)"
                                         [multiple]="false"
                                         bindLabel="name"
                                         formControlName="vehicalBranch"
@@ -2348,7 +2348,7 @@
                                 <ng-select [multiple]="false"
                                            bindLabel="name"
                                            placeholder=""
-                                           formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
+                                           formControlName="vehicalValuator" (click)="valuator(null,valuatingFieldEnum.VEHICLE,i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
                                                [value]="valuator">{{valuator.name}}</ng-option>
