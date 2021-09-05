@@ -192,8 +192,8 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
         this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
             this.nepsePriceInfo = response.detail;
-            this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
-                this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+            const date = new Date(this.nepsePriceInfo.sharePriceDate);
+            this.shareSecurityForm.get('sharePriceDate').patchValue(date);
             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
         }, error => {
@@ -385,7 +385,7 @@ export class SecurityInitialFormComponent implements OnInit {
             shareSecurityDetails: this.formBuilder.array([]),
             securityOffered: undefined,
             loanShareRate: undefined,
-            sharePriceDate: undefined,
+            sharePriceDate: [undefined],
             avgDaysForPrice: undefined,
         });
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {

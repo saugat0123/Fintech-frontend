@@ -680,20 +680,6 @@
                                                                </div>
                                                            </div>
                                                        </div>
-                                                       <div class="col-md-2">
-                                                           <div class="form-group">
-                                                               <label for="age1{{i}}"><strong>Age</strong></label>
-                                                               <input class="form-control"
-                                                                      formControlName="age"
-                                                                      id="age1{{i}}"
-                                                                      name="age1{{i}}"
-                                                                      type="number"
-                                                                      [ngClass]="{'is-invalid': (submitted) && joinCustomerInfo.get(['customerRelations',ii,'age']).errors}">
-                                                               <div *ngIf="submitted && joinCustomerInfo.get(['customerRelations',ii,'age']).errors" class="small text-danger">
-                                                                   Age is required
-                                                               </div>
-                                                           </div>
-                                                       </div>
                                                        <div *ngIf="joinCustomerInfo.get('customerRelations')['length']>1" class="col-md-3 float-right">
                                                            <button (click)="removeRelation(i,ii)"
                                                                    class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
@@ -788,20 +774,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label for="age1s{{i}}"><strong>Age</strong></label>
-                                                            <input class="form-control"
-                                                                   formControlName="age1"
-                                                                   id="age1s{{i}}"
-                                                                   name="age1{{i}}"
-                                                                   type="number"
-                                                                   [ngClass]="{'is-invalid': (submitted) && joinCustomerInfo.get('age1').errors}">
-                                                            <div *ngIf="submitted && joinCustomerInfo.get('age1').errors" class="small text-danger">
-                                                                Age is required
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2">
@@ -880,20 +852,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label for="age2{{i}}"><strong>Age</strong></label>
-                                                            <input class="form-control"
-                                                                   formControlName="age2"
-                                                                   id="age2{{i}}"
-                                                                   name="age2{{i}}"
-                                                                   type="number"
-                                                                   [ngClass]="{'is-invalid': (submitted) && joinCustomerInfo.get('age2').errors}">
-                                                            <div *ngIf="submitted && joinCustomerInfo.get('age2').errors" class="small text-danger">
-                                                                Age is required
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2">
@@ -947,16 +905,6 @@
                                                                           *ngIf="calendarType === 'BS'"
                                                                           (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate3').patchValue($event?.eDate)"></app-calendar>
                                                             <nb-datepicker #relationCitizenIssueDate3></nb-datepicker>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label for="age3{{i}}"><strong>Age</strong></label>
-                                                            <input class="form-control"
-                                                                   formControlName="age3"
-                                                                   id="age3{{i}}"
-                                                                   name="age3{{i}}"
-                                                                   type="number">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1013,16 +961,6 @@
                                                             <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label for="age4{{i}}"><strong>Age</strong></label>
-                                                            <input class="form-control"
-                                                                   formControlName="age4"
-                                                                   id="age4{{i}}"
-                                                                   name="age4{{i}}"
-                                                                   type="number">
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2">
@@ -1075,16 +1013,6 @@
                                                                           *ngIf="calendarType === 'BS'"
                                                                           (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate5').patchValue($event?.eDate)"></app-calendar>
                                                             <nb-datepicker #relationCitizenIssueDate5></nb-datepicker>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label for="age4{{i}}"><strong>Age</strong></label>
-                                                            <input class="form-control"
-                                                                   formControlName="age5"
-                                                                   id="age5{{i}}"
-                                                                   name="age5{{i}}"
-                                                                   type="number">
                                                         </div>
                                                     </div>
                                                 </div>

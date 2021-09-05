@@ -33,6 +33,8 @@ export class AllDocumentViewComponent implements OnInit {
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
   customerData;
+  spinner = false;
+  spinnerMsg = 'Please Wait!!';
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -125,6 +127,7 @@ export class AllDocumentViewComponent implements OnInit {
 
   // method to make all files as a .zip file
   private downloadAll(documentUrls: string[]): void {
+    this.spinner = true;
     const zip = new JSZip();
     let count = 0;
     const zipFilename = `${this.customerData}.zip`;
@@ -147,12 +150,16 @@ export class AllDocumentViewComponent implements OnInit {
           if (count === urls.length) {
             zip.generateAsync({type: 'blob'}).then(content => {
               importedSaveAs(content, zipFilename);
+              if (content.size) {
+                this.spinner = false;
+              }
             });
           }
         });
       });
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Files are being downloaded please wait!!'));
     } else {
+      this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
     }
   }

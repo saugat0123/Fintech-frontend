@@ -8,10 +8,10 @@
       <tr class="text-white sb-bg-dark">
         <th>Name</th>
         <th>Customer Id</th>
-        <th>Date of birth(AD/BS)</th>
+        <th>Date of birth(AD)</th>
         <th>Age</th>
         <th>Citizenship no.</th>
-        <th>Citizenship Issued Date(AD/BS)</th>
+        <th>Citizenship Issued Date(AD)</th>
         <th>Issued Place</th>
         <th>Gender</th>
         <th>Marital Status</th>
@@ -22,10 +22,10 @@
       <tr>
         <td class="text-left pl-1">{{individual?.customerName}}</td>
         <td class="text-right pr-1">{{customerInfo?.customerCode || 'N/A'}}</td>
-        <td class="text-left pl-1">{{individual?.dob | date}} ({{individual?.dob | engNepDate: false}})</td>
+        <td class="text-left pl-1">{{individual?.dob | date}}</td>
         <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
-        <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} ({{individual?.citizenshipIssuedDate | engNepDate: false}})</td>
+        <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} </td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
         <td class="text-left pl-1">{{customerInfo?.gender}}</td>
         <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
@@ -190,10 +190,10 @@
         <tr class="text-white sb-bg-dark">
           <th>Name</th>
           <th>Customer Id</th>
-          <th>Date of birth(AD/BS)</th>
+          <th>Date of birth(AD)</th>
           <th>Age</th>
           <th>Citizenship no.</th>
-          <th>Issued Date(Ad/BS)</th>
+          <th>Issued Date(Ad)</th>
           <th>Issued Place</th>
           <th>Gender</th>
           <th>Marital Status</th>
@@ -201,10 +201,10 @@
         <tr class="text-left">
           <td class="pl-1">{{info?.customerName}}</td>
           <td class="pl-1">{{info?.customerCode}}</td>
-          <td class="text-left pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+          <td class="text-left pl-1">{{info?.dob | date}} </td>
           <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber || 'NA'}}</td>
-          <td class="text-left pl-1">{{info?.citizenshipIssuedDate | date}} ({{info?.citizenshipIssuedDate | engNepDate: false}})</td>
+          <td class="text-left pl-1">{{info?.citizenshipIssuedDate | date}} </td>
           <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>
           <td class="pl-1">{{info?.gender.toLowerCase()}}</td>
           <td class="pl-1">{{info?.maritalStatus.toLowerCase()}}</td>
@@ -232,76 +232,61 @@
           <td class="text-left pl-1">{{info?.fatherName}}</td>
         </tr>
         <tr>
-          <th colspan="5">Family Detail</th>
+          <th colspan="7">Family Detail</th>
         </tr>
         <tr class="text-white sb-bg-dark">
-          <th>Name</th>
-          <th>Relation Name</th>
-          <th>Citizenship no.</th>
-          <th>Citizenship Issued District</th>
-          <th>Citizenship Issued Date(AD/BS)</th>
-          <th>Age</th>
-        </tr>
-        <div *ngIf="info.customerRelations ; else data"  >
-          <tr *ngFor="let infos of info?.customerRelations">
-            <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
-            <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
-            <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
-            <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
-            <td class="text-left pl-1">{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} ({{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})</td>
-          </tr>
-        </div>
+          <th colspan="1">Name</th>
+          <th colspan="1">Relation Name</th>
+          <th colspan="2">Citizenship no.</th>
+          <th colspan="2">Citizenship Issued District</th>
+          <th colspan="1">Citizenship Issued DateAD</th>
 
+        </tr>
+        <ng-container *ngIf="info.customerRelations ; else data">
+          <tr *ngFor="let infos of info?.customerRelations">
+            <td colspan="1" class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
+            <td colspan="2" class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
+            <td colspan="2" class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
+            <td class="text-left pl-1">{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} </td>
+            </tr>
+        </ng-container>
         <ng-template #data>
-          <tr *ngIf="info?.customerRelativeName1">
-            <td class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
-            <td class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}}
-              ({{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | engNepDate: false) : 'N/A'}}
-              )
+          <tr colspan ="7" *ngIf="info?.customerRelativeName1">
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelativeName1 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelation1 || 'NA'}}</td>
+            <td colspan="2" class="text-right pr-1">{{info?.citizenshipNumber1 || 'NA'}}</td>
+            <td colspan="2" class="text-left pl-1">{{info?.citizenshipIssuedPlace1 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.citizenshipIssuedDate1 ? (info?.citizenshipIssuedDate1 | date) : 'N/A'}}
             </td>
           </tr>
-          <tr *ngIf="info?.customerRelativeName2">
-            <td class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
-            <td class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}}
-              ({{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | engNepDate: false) : 'N/A'}}
-              )
-            </td>
+          <tr  *ngIf="info?.customerRelativeName2">
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelativeName2 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelation2 || 'NA'}}</td>
+            <td colspan="2" class="text-right pr-1">{{info?.citizenshipNumber2 || 'NA'}}</td>
+            <td colspan="2" class="text-left pl-1">{{info?.citizenshipIssuedPlace2 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.citizenshipIssuedDate2 ? (info?.citizenshipIssuedDate2 | date) : 'N/A'}}
           </tr>
           <tr *ngIf="info?.customerRelativeName3">
-            <td class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
-            <td class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}}
-              ({{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | engNepDate: false) : 'N/A'}}
-              )
-            </td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelativeName3 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelation3 || 'NA'}}</td>
+            <td colspan="2" class="text-right pr-1">{{info?.citizenshipNumber3 || 'NA'}}</td>
+            <td colspan="2" class="text-left pl-1">{{info?.citizenshipIssuedPlace3 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.citizenshipIssuedDate3 ? (info?.citizenshipIssuedDate3 | date) : 'N/A'}}
           </tr>
           <tr *ngIf="info?.customerRelativeName4">
-            <td class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
-            <td class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}}
-              ({{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | engNepDate: false) : 'N/A'}}
-              )
-            </td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelativeName4 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelation4 || 'NA'}}</td>
+            <td colspan="2" class="text-right pr-1">{{info?.citizenshipNumber4 || 'NA'}}</td>
+            <td colspan="2" class="text-left pl-1">{{info?.citizenshipIssuedPlace4 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.citizenshipIssuedDate4 ? (info?.citizenshipIssuedDate4 | date) : 'N/A'}}
           </tr>
           <tr *ngIf="info?.customerRelativeName5">
-            <td class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
-            <td class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
-            <td class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}}
-              ({{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | engNepDate: false) : 'N/A'}}
-              )
-            </td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelativeName5 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.customerRelation5 || 'NA'}}</td>
+            <td colspan="2" class="text-right pr-1">{{info?.citizenshipNumber5 || 'NA'}}</td>
+            <td colspan="2" class="text-left pl-1">{{info?.citizenshipIssuedPlace5 || 'NA'}}</td>
+            <td colspan="1" class="text-left pl-1">{{info?.citizenshipIssuedDate5 ? (info?.citizenshipIssuedDate5 | date) : 'N/A'}}
           </tr>
         </ng-template>
 
