@@ -12,8 +12,8 @@
                     <div class="form-group">
                         <label>Choose Security Type</label>
                         <select class="form-control" (change)="change(selectedSecurity)" [(ngModel)]="selectedSecurity"
-                        (ngModelChange)="clearValidationState()"
-                        [ngModelOptions]="{standalone: true}">
+                                (ngModelChange)="clearValidationState()"
+                                [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let type of getSecurities()" [value]="type?.key">
                                 {{type?.value}}
                             </option>
@@ -45,8 +45,8 @@
                             <div class="form-group">
                                 <label for="owner"><strong>Owner</strong></label>
                                 <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('owner').errors || land.get('owner').invalid) }"
-                                        class="form-control form-control-sm-error rounded" formControlName="owner"
-                                        id="owner" name="owner" placeholder="Owner Name" type="text" required/>
+                                       class="form-control form-control-sm-error rounded" formControlName="owner"
+                                       id="owner" name="owner" placeholder="Owner Name" type="text" required/>
                                 <div *ngIf="(landSelected) && (land.get('owner').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="land.get('owner').errors.required">
@@ -144,11 +144,11 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                            (change)="valuator(securityForm.get(['landDetails',i,'landBranch']).value.id,'land',i)"
-                                            [multiple]="false"
-                                            bindLabel="name"
-                                            formControlName="landBranch"
-                                            placeholder="">
+                                        (change)="valuator(securityForm.get(['landDetails',i,'landBranch']).value.id,'land',i)"
+                                        [multiple]="false"
+                                        bindLabel="name"
+                                        formControlName="landBranch"
+                                        placeholder="">
                                         <ng-option *ngFor="let branch of branchLists"
                                                    [value]="branch">{{branch.name}}</ng-option>
                                     </ng-select>
@@ -236,10 +236,10 @@
                             <div class="form-group">
                                 <label>Valuator Name</label>
                                 <ng-select [multiple]="false"
-                                           bindLabel="ValuatorName"
-                                           placeholder="Select Valuator Name"
+                                           bindLabel="name"
+                                           placeholder=""
                                            formControlName="landValuator" (click)="valuator(null,'land',i)">
-<!--                                    <ng-option [value]="null">Select Valuator Name</ng-option>-->
+                                    <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
                                                [value]="valuator">{{valuator.name}}</ng-option>
                                 </ng-select>
@@ -255,9 +255,9 @@
                                        [nbDatepicker]="landValuatorDate"
                                        type="text"/>
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['landDetails',i,'landValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['landDetails',i,'landValuatorDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['landDetails',i,'landValuatorDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['landDetails',i,'landValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #landValuatorDate></nb-datepicker>
                             </div>
                         </div>
@@ -339,9 +339,9 @@
                                        [nbDatepicker]="ownershipDate"
                                        *ngIf="calendarType === 'AD'">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['landDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['landDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['landDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['landDetails',i,'ownershipTransferDate']).value"></app-calendar>
                                 <nb-datepicker #ownershipDate></nb-datepicker>
                             </div>
                         </div>
@@ -527,7 +527,7 @@
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                         <input [ngClass]="{'is-invalid': (apartmentSelected) && (building.get('buildArea').errors)}"
-                                                (input)="calculateBuildUpAreaRate(i, 'building')"
+                                               (input)="calculateBuildUpAreaRate(i, 'building')"
                                                class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="Build Up Area (Sq.ft)"
@@ -684,7 +684,7 @@
                                         <label class="title" for="buildingFairMarketValue">Apartment Fair Market Value</label>
                                         <input [ngClass]="{ 'is-invalid': (apartmentSelected) && (building.get('buildingFairMarketValue').errors ||
                                                 building.get('buildingFairMarketValue').invalid) }"
-                                                class="form-control rounded"
+                                               class="form-control rounded"
                                                formControlName="buildingFairMarketValue"
                                                id="buildingFairMarketValue"
                                                name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
@@ -715,11 +715,11 @@
                                         <div class="form-group">
                                             <label>Select Branch</label>
                                             <ng-select
-                                                    (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
-                                                    [multiple]="false"
-                                                    bindLabel="name"
-                                                    formControlName="apartmentBranch"
-                                                    placeholder="">
+                                                (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
+                                                [multiple]="false"
+                                                bindLabel="name"
+                                                formControlName="apartmentBranch"
+                                                placeholder="">
                                                 <ng-option *ngFor="let branch of branchLists"
                                                            [value]="branch">{{branch.name}}</ng-option>
                                             </ng-select>
@@ -752,9 +752,9 @@
                                                [nbDatepicker]="ApartmentValuatorDate"
                                                type="text"/>
                                         <app-calendar
-                                                (messageToEmit)="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).patchValue($event?.eDate)"
-                                                *ngIf="calendarType === 'BS'"
-                                                [ePreDate]="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).value"></app-calendar>
+                                            (messageToEmit)="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).patchValue($event?.eDate)"
+                                            *ngIf="calendarType === 'BS'"
+                                            [ePreDate]="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).value"></app-calendar>
                                         <nb-datepicker #ApartmentValuatorDate></nb-datepicker>
                                     </div>
                                 </div>
@@ -1287,8 +1287,8 @@
             </div>
             <div formArrayName="landBuilding">
                 <div
-                        *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
-                        class="font-weight-bold">
+                    *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
+                    class="font-weight-bold">
                     <div class="row justify-content-end">
                         <button class="btn btn-primary sb-small mr-2"
                                 (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1))">Inspect Site Visit</button>
@@ -1299,8 +1299,8 @@
 
                         </div>
                         <div
-                                *ngIf="securityForm.get('landBuilding') ['length'] > 1"
-                                class="col-md-1 float-right">
+                            *ngIf="securityForm.get('landBuilding') ['length'] > 1"
+                            class="col-md-1 float-right">
                             <input (click)="removeLandBuildingDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"
                                    type="button" value="Delete"/>
@@ -1317,7 +1317,7 @@
                                 <div class="form-group">
                                     <label class="title" for="owner">Owner Name</label>
                                     <input [ngClass]="{'is-invalid':(landBuilding) && (landAndBuilding.get('owner').errors)}"
-                                            class="form-control rounded"
+                                           class="form-control rounded"
                                            formControlName="owner"
                                            name="owner" placeholder="Owner Name"
                                            type="text" required/>
@@ -1373,7 +1373,7 @@
                                 <div class="form-group">
                                     <label for="landConsideredValue">Considered Value</label>
                                     <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
-                                            class="form-control" formControlName="landConsideredValue"
+                                           class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
                                            type="number">
                                     <div *ngIf="(landBuilding) && (landAndBuilding.get('landConsideredValue').invalid)"
@@ -1390,10 +1390,10 @@
                                     <label class="title" for="area">House Number
                                     </label>
                                     <input
-                                            class="form-control rounded"
-                                            formControlName="houseNumber" name="houseNumber"
-                                            placeholder="House Number"
-                                            type="text"/>
+                                        class="form-control rounded"
+                                        formControlName="houseNumber" name="houseNumber"
+                                        placeholder="House Number"
+                                        type="text"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1407,10 +1407,10 @@
                                            placeholder="Total building area (Sqf)"
                                            type="number"/>
                                     <div
-                                            *ngIf="(submitted) && landAndBuilding.get('totalBuildingArea').invalid"
-                                            class="invalid-feedback">
+                                        *ngIf="(submitted) && landAndBuilding.get('totalBuildingArea').invalid"
+                                        class="invalid-feedback">
                                         <div
-                                                *ngIf="landAndBuilding.get('totalBuildingArea').errors.required">
+                                            *ngIf="landAndBuilding.get('totalBuildingArea').errors.required">
                                             Total building area required!
                                         </div>
                                     </div>
@@ -1464,14 +1464,14 @@
                                     <div class="form-group">
                                         <label>Select Branch</label>
                                         <ng-select
-                                                (change)="valuator(securityForm.get(['landBuilding',i,'buildingBranch']).value.id,'building',i)"
-                                                [multiple]="false"
-                                                bindLabel="name"
-                                                formControlName="buildingBranch"
-                                                placeholder="">
+                                            (change)="valuator(securityForm.get(['landBuilding',i,'buildingBranch']).value.id,'building',i)"
+                                            [multiple]="false"
+                                            bindLabel="name"
+                                            formControlName="buildingBranch"
+                                            placeholder="">
                                             <ng-option
-                                                    *ngFor="let branch of branchLists"
-                                                    [value]="branch">{{branch.name}}</ng-option>
+                                                *ngFor="let branch of branchLists"
+                                                [value]="branch">{{branch.name}}</ng-option>
                                         </ng-select>
                                     </div>
                                 </div>
@@ -1504,7 +1504,7 @@
                                     </select>
                                 </div>
                             </div>
-                                <div class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title" for="roadAccessBluePrint">Is road access seen in blueprint or
                                         not</label>
@@ -1529,7 +1529,7 @@
                                 <label for="landAndBuildingSecurityLegalDocumentAddress"><strong>Address as per Legal
                                     Document</strong></label>
                                 <ckeditor formControlName="landAndBuildingSecurityLegalDocumentAddress"
-                                    id="landAndBuildingSecurityLegalDocumentAddress" [config]="ckeConfig"></ckeditor>
+                                          id="landAndBuildingSecurityLegalDocumentAddress" [config]="ckeConfig"></ckeditor>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -1561,8 +1561,8 @@
                                                placeholder="">
                                         <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                         <ng-option
-                                                *ngFor="let valuator of securityValuator.buildingValuator[i]"
-                                                [value]="valuator">{{valuator.name}}</ng-option>
+                                            *ngFor="let valuator of securityValuator.buildingValuator[i]"
+                                            [value]="valuator">{{valuator.name}}</ng-option>
                                     </ng-select>
                                 </div>
                             </div>
@@ -1577,9 +1577,9 @@
                                            placeholder="Valuated Date"
                                            type="text"/>
                                     <app-calendar
-                                            (messageToEmit)="securityForm.get(['landBuilding',i,'buildingValuatorDate']).patchValue($event?.eDate)"
-                                            *ngIf="calendarType === 'BS'"
-                                            [ePreDate]="securityForm.get(['landBuilding',i,'buildingValuatorDate']).value"></app-calendar>
+                                        (messageToEmit)="securityForm.get(['landBuilding',i,'buildingValuatorDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['landBuilding',i,'buildingValuatorDate']).value"></app-calendar>
                                     <nb-datepicker
                                         #buildingValuatorDate></nb-datepicker>
                                 </div>
@@ -1666,9 +1666,9 @@
                                            [nbDatepicker]="ownershipDate"
                                            *ngIf="calendarType === 'AD'">
                                     <app-calendar
-                                            (messageToEmit)="securityForm.get(['landBuilding',i,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                            *ngIf="calendarType === 'BS'"
-                                            [ePreDate]="securityForm.get(['landBuilding',i,'ownershipTransferDate']).value"></app-calendar>
+                                        (messageToEmit)="securityForm.get(['landBuilding',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                        *ngIf="calendarType === 'BS'"
+                                        [ePreDate]="securityForm.get(['landBuilding',i,'ownershipTransferDate']).value"></app-calendar>
                                     <nb-datepicker #ownershipDate></nb-datepicker>
                                 </div>
                             </div>
@@ -1764,7 +1764,10 @@
                                                           [revaluationId]="securityId.land_buildingId + i"
                                                           [calendarType]="calendarType"></app-security-revaluation>
                             </div>
+
                         </div>
+
+
                         <hr>
                         <div *ngIf="securityForm.get(['landBuilding',i,'underConstructionChecked']).value">
                             <p><b>Land And Building Under Construction Detail</b></p>
@@ -1973,11 +1976,11 @@
                             <div class="form-group">
                                 <label class="title" for="model">Model No.</label>
                                 <input [ngClass]="{'is-invalid': (plantSelected) && (plant.get('model').errors)}"
-                                        class="form-control rounded" formControlName="model"
+                                       class="form-control rounded" formControlName="model"
                                        name="model" placeholder="Model No."
                                        type="text" required/>
                                 <div *ngIf="(plantSelected) && (plant.get('model').invalid)"
-                                class="invalid-feedback">
+                                     class="invalid-feedback">
                                     <div *ngIf="plant.get('model').errors.required">Model no is required</div>
                                 </div>
                             </div>
@@ -1987,7 +1990,7 @@
                                 <label class="title" for="quotation">Quotation/Valuation Amount</label>
                                 <input [ngClass]="{ 'is-invalid': (plantSelected) && (plant.get('quotation').errors ||
                                     plant.get('quotation').invalid) }"
-                                        class="form-control rounded" formControlName="quotation"
+                                       class="form-control rounded" formControlName="quotation"
                                        id="quotation"
                                        name="quotation" placeholder="Quotation/Valuation Amount"
                                        type="text"/>
@@ -2033,11 +2036,11 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                            (change)="valuator(securityForm.get(['plantDetails',i,'plantBranch']).value.id,'plant',i)"
-                                            [multiple]="false"
-                                            bindLabel="name"
-                                            formControlName="plantBranch"
-                                            placeholder="">
+                                        (change)="valuator(securityForm.get(['plantDetails',i,'plantBranch']).value.id,'plant',i)"
+                                        [multiple]="false"
+                                        bindLabel="name"
+                                        formControlName="plantBranch"
+                                        placeholder="">
                                         <ng-option *ngFor="let branch of branchLists"
                                                    [value]="branch">{{branch.name}}</ng-option>
                                     </ng-select>
@@ -2069,9 +2072,9 @@
                                        [nbDatepicker]="plantMachineryValuatorDate"
                                        type="text"/>
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #plantMachineryValuatorDate></nb-datepicker>
                             </div>
                         </div>
@@ -2161,9 +2164,9 @@
                 <h2 class="box-title title">Vehicle Security</h2>
             </div>
             <div
-                    *ngFor="let addMoreVehicle of securityForm.get('vehicleDetails')['controls']; let i = index"
-                    class="font-weight-bold"
-                    formArrayName="vehicleDetails">
+                *ngFor="let addMoreVehicle of securityForm.get('vehicleDetails')['controls']; let i = index"
+                class="font-weight-bold"
+                formArrayName="vehicleDetails">
                 <div [formGroupName]="i">
                     <br>
                     <div class="row">
@@ -2187,9 +2190,9 @@
                             <div class="form-group">
                                 <label class="title" for="model"><strong>Model</strong></label>
                                 <input [ngClass]="{'is-invalid': (vehicleSelected) && (addMoreVehicle.get('model').errors)}"
-                                        class="form-control" formControlName="model" id="model" name="model"
-                                        placeholder="Model"
-                                        type="text" required />
+                                       class="form-control" formControlName="model" id="model" name="model"
+                                       placeholder="Model"
+                                       type="text" required />
                                 <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('model').invalid)" class="invalid-feedback">
                                     <div *ngIf="addMoreVehicle.get('model').errors.required">
                                         Model name is required
@@ -2202,10 +2205,10 @@
                                 <label class="title" for="registrationNumber"><strong>Registration
                                     Number</strong></label>
                                 <input
-                                        class="form-control" formControlName="registrationNumber"
-                                        id="registrationNumber"
-                                        name="registrationNumber" placeholder="Registration Number"
-                                        type="text">
+                                    class="form-control" formControlName="registrationNumber"
+                                    id="registrationNumber"
+                                    name="registrationNumber" placeholder="Registration Number"
+                                    type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2213,14 +2216,14 @@
                                 <label class="title" for="registrationDate"><strong>Registration
                                     Date</strong></label>
                                 <input
-                                        [nbDatepicker]="registrationDate"
-                                        class="form-control" formControlName="registrationDate" fullWidth
-                                        id="registrationDate" name="registrationDate"
-                                        nbInput placeholder="Registration Date" *ngIf="calendarType === 'AD'">
+                                    [nbDatepicker]="registrationDate"
+                                    class="form-control" formControlName="registrationDate" fullWidth
+                                    id="registrationDate" name="registrationDate"
+                                    nbInput placeholder="Registration Date" *ngIf="calendarType === 'AD'">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'registrationDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'registrationDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'registrationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'registrationDate']).value"></app-calendar>
                                 <nb-datepicker #registrationDate></nb-datepicker>
                             </div>
                         </div>
@@ -2232,18 +2235,18 @@
                             <div class="form-group">
                                 <label class="title" for="engineNumber"><strong>Engine Number</strong></label>
                                 <input
-                                        class="form-control" formControlName="engineNumber" id="engineNumber"
-                                        name="model"
-                                        placeholder="Engine Number" type="text">
+                                    class="form-control" formControlName="engineNumber" id="engineNumber"
+                                    name="model"
+                                    placeholder="Engine Number" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="chassisNumber"><strong>Chassis Number</strong></label>
                                 <input
-                                        class="form-control" formControlName="chassisNumber" id="chassisNumber"
-                                        name="chassisNumber"
-                                        placeholder="Chassis Number" type="text">
+                                    class="form-control" formControlName="chassisNumber" id="chassisNumber"
+                                    name="chassisNumber"
+                                    placeholder="Chassis Number" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2273,10 +2276,10 @@
                             <div class="form-group">
                                 <label class="title" for="downPayment"><strong>Down Payment</strong></label>
                                 <input
-                                        (keyup)="vehicleRemainingAmount(i)"
-                                        class="form-control" formControlName="downPayment" id="downPayment"
-                                        name="downPayment"
-                                        placeholder="Down Payment" type="number">
+                                    (keyup)="vehicleRemainingAmount(i)"
+                                    class="form-control" formControlName="downPayment" id="downPayment"
+                                    name="downPayment"
+                                    placeholder="Down Payment" type="number">
                             </div>
                         </div>
 
@@ -2284,10 +2287,10 @@
                             <div class="form-group">
                                 <label class="title" for="remainingAmount"><strong>Remaining Amount</strong></label>
                                 <input
-                                        class="form-control" formControlName="remainingAmount" id="remainingAmount"
-                                        [readOnly]="true"
-                                        name="remainingAmount"
-                                        placeholder="Remaining Amount" type="number">
+                                    class="form-control" formControlName="remainingAmount" id="remainingAmount"
+                                    [readOnly]="true"
+                                    name="remainingAmount"
+                                    placeholder="Remaining Amount" type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -2295,10 +2298,10 @@
                                 <label class="title" for="showroomCommission"><strong>Showroom
                                     Commission</strong></label>
                                 <input
-                                        class="form-control" formControlName="showroomCommission"
-                                        id="showroomCommission"
-                                        name="showroomCommission" placeholder="Showroom Commission"
-                                        type="number">
+                                    class="form-control" formControlName="showroomCommission"
+                                    id="showroomCommission"
+                                    name="showroomCommission" placeholder="Showroom Commission"
+                                    type="number">
                             </div>
                         </div>
 
@@ -2312,9 +2315,9 @@
                                        [nbDatepicker]="vehicaleQuotationDate"
                                        type="text"/>
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicleQuotationDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicleQuotationDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicleQuotationDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicleQuotationDate']).value"></app-calendar>
                                 <nb-datepicker #vehicaleQuotationDate></nb-datepicker>
                             </div>
                         </div>
@@ -2326,11 +2329,11 @@
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <ng-select
-                                            (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,'vehicle',i)"
-                                            [multiple]="false"
-                                            bindLabel="name"
-                                            formControlName="vehicalBranch"
-                                            placeholder="">
+                                        (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,'vehicle',i)"
+                                        [multiple]="false"
+                                        bindLabel="name"
+                                        formControlName="vehicalBranch"
+                                        placeholder="">
                                         <ng-option *ngFor="let branch of branchLists"
                                                    [value]="branch">{{branch.name}}</ng-option>
                                     </ng-select>
@@ -2362,9 +2365,9 @@
                                        [nbDatepicker]="vehicalValuatorDate"
                                        type="text"/>
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #vehicalValuatorDate></nb-datepicker>
                             </div>
                         </div>
@@ -2434,9 +2437,9 @@
                                        name="ownershipTransferDate" placeholder="Ownership transfer date"
                                        [nbDatepicker]="ownershipDate">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>
                                 <nb-datepicker #ownershipDate></nb-datepicker>
                             </div>
                         </div>
@@ -2521,8 +2524,8 @@
                             <div class="form-group">
                                 <label class="title">FD Account Number<strong></strong></label>
                                 <input [ngClass]="{'is-invalid': (depositSelected) && (deposit.get('accountNumber').errors)}"
-                                        class="form-control" formControlName="accountNumber" placeholder="FD Account Number"
-                                required />
+                                       class="form-control" formControlName="accountNumber" placeholder="FD Account Number"
+                                       required />
                                 <div *ngIf="(depositSelected) && (deposit.get('accountNumber').invalid)" class="invalid-feedback">
                                     <div *ngIf="deposit.get('accountNumber').errors.required">
                                         Account no is required
@@ -2607,14 +2610,14 @@
                     <div class="col-md-3">
                         <label for="sharePriceDate"><b>Price Updated Date</b></label>
                         <input
-                                [nbDatepicker]="priceDate"
-                                class="form-control" formControlName="sharePriceDate" fullWidth
-                                id="sharePriceDate" name="sharePriceDate"
-                                nbInput placeholder="Price Updated Date" *ngIf="calendarType === 'AD'">
+                            [nbDatepicker]="priceDate"
+                            class="form-control" formControlName="sharePriceDate" fullWidth
+                            id="sharePriceDate" name="sharePriceDate"
+                            nbInput placeholder="Price Updated Date" *ngIf="calendarType === 'AD'">
                         <app-calendar
-                                (messageToEmit)="shareSecurityForm.get('sharePriceDate').patchValue($event?.eDate)"
-                                *ngIf="calendarType === 'BS'"
-                                [ePreDate]="shareSecurityForm.get('sharePriceDate').value"></app-calendar>
+                            (messageToEmit)="shareSecurityForm.get('sharePriceDate').patchValue($event?.eDate)"
+                            *ngIf="calendarType === 'BS'"
+                            [ePreDate]="shareSecurityForm.get('sharePriceDate').value"></app-calendar>
                         <nb-datepicker #priceDate></nb-datepicker>
                     </div>
                     <div class="col-md-3 mb-3">
@@ -2640,8 +2643,8 @@
                 </div>
                 <br>
                 <div
-                        *ngFor="let shareField of shareSecurityForm.get('shareSecurityDetails')['controls'];  let shareFieldIndex = index"
-                        formArrayName="shareSecurityDetails">
+                    *ngFor="let shareField of shareSecurityForm.get('shareSecurityDetails')['controls'];  let shareFieldIndex = index"
+                    formArrayName="shareSecurityDetails">
                     <div [formGroupName]="shareFieldIndex">
                         <div class="row">
                             <div class="col-md-6">
@@ -2695,10 +2698,10 @@
                                 <div class="form-group">
                                     <label for="shareRate">Rate of Each Unit</label>
                                     <input
-                                            (change)="calculateShareFieldsValues(shareFieldIndex)"
-                                            class="form-control" formControlName="amountPerUnit"
-                                            id="shareRate" name="shareRate"
-                                            type="number" placeholder="Rate of Each Unit">
+                                        (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                        class="form-control" formControlName="amountPerUnit"
+                                        id="shareRate" name="shareRate"
+                                        type="number" placeholder="Rate of Each Unit">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -2717,38 +2720,38 @@
                             </div>
                         </div>
                         <div class="row col-md-12">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Price Earning Ratio</label>
-                                            <input class="form-control" formControlName="priceEarningRatio"
-                                                   id="priceEarningRatio" name="priceEarningRatio"
-                                                   placeholder="Price Earning Ratio" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Price to Book Value</label>
-                                            <input class="form-control" formControlName="priceBookValue"
-                                                   id="priceBookValue" name="priceBookValue"
-                                                   placeholder="Price to Book Value" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Dividend Yield</label>
-                                            <input class="form-control" formControlName="dividendYeild"
-                                                   id="dividendYeild" name="dividendYeild"
-                                                   placeholder="Dividend Yield" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Dividend Payout Ratio</label>
-                                            <input class="form-control" formControlName="dividendPayoutRatio"
-                                                   id="dividendPayoutRatio" name="dividendPayoutRatio"
-                                                   placeholder="Dividend Payout Ratio" type="number">
-                                        </div>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Price Earning Ratio</label>
+                                    <input class="form-control" formControlName="priceEarningRatio"
+                                           id="priceEarningRatio" name="priceEarningRatio"
+                                           placeholder="Price Earning Ratio" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Price to Book Value</label>
+                                    <input class="form-control" formControlName="priceBookValue"
+                                           id="priceBookValue" name="priceBookValue"
+                                           placeholder="Price to Book Value" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Dividend Yield</label>
+                                    <input class="form-control" formControlName="dividendYeild"
+                                           id="dividendYeild" name="dividendYeild"
+                                           placeholder="Dividend Yield" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Dividend Payout Ratio</label>
+                                    <input class="form-control" formControlName="dividendPayoutRatio"
+                                           id="dividendPayoutRatio" name="dividendPayoutRatio"
+                                           placeholder="Dividend Payout Ratio" type="number">
+                                </div>
+                            </div>
                         </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
@@ -2766,7 +2769,7 @@
                 </div>
                 <div class="d-flex justify-content-end">
                     <button (click)="addShareSecurity()" class="btn btn-sm btn-flat btn-primary"><i
-                            class="fa fa-plus"></i></button>
+                        class="fa fa-plus"></i></button>
                 </div>
             </nb-card-body>
             <nb-card>
@@ -2800,7 +2803,7 @@
                             <div class="form-group">
                                 <label class="title">Owner</label>
                                 <input [ngClass]="{'is-invalid': (hypothecationOfStock) && (hypothecation.get('owner').errors)}"
-                                        class="form-control rounded" formControlName="owner"
+                                       class="form-control rounded" formControlName="owner"
                                        placeholder="Owner"
                                        type="text" required/>
                                 <div *ngIf="(hypothecationOfStock) && (hypothecation.get('owner').invalid)" class="invalid-feedback">
@@ -2897,7 +2900,7 @@
                             <div class="form-group">
                                 <label class="title" for="description">Amount</label>
                                 <input [ngClass]="{'is-invalid': (assignmentOfReceivable) && (assignment.get('amount').errors)}"
-                                        class="form-control rounded" formControlName="amount"
+                                       class="form-control rounded" formControlName="amount"
                                        placeholder="Amount"
                                        type="number" required/>
                                 <div *ngIf="(assignmentOfReceivable) && (assignment.get('amount').invalid)" class="invalid-feedback">
@@ -2978,7 +2981,7 @@
                             <div class="form-group">
                                 <label class="title">Name of Guarantor</label>
                                 <input [ngClass]="{'is-invalid': (corporateGuarantee) && (corporate.get('name').errors)}"
-                                        class="form-control rounded" formControlName="name"
+                                       class="form-control rounded" formControlName="name"
                                        placeholder="Name of Guarantor"
                                        type="text" required/>
                                 <div *ngIf="(corporateGuarantee) && (corporate.get('name').invalid)" class="invalid-feedback">
@@ -3060,7 +3063,7 @@
                             <div class="form-group">
                                 <label class="title">Name of Guarantor</label>
                                 <input [ngClass]="{'is-invalid': (personal) && (personalGuarantee.get('name').errors)}"
-                                        class="form-control rounded" formControlName="name"
+                                       class="form-control rounded" formControlName="name"
                                        placeholder="Name of Guarantor"
                                        type="text" required/>
                                 <div *ngIf="(personal) && (personalGuarantee.get('name').invalid)" class="invalid-feedback">
@@ -3134,11 +3137,11 @@
                             <div class="form-group">
                                 <label class="title">Insured Amount</label>
                                 <input [ngClass]="{'is-invalid': (insurancePolicySelected) && (insurancePolicy.get('insuredAmount').errors)}"
-                                        class="form-control rounded" formControlName="insuredAmount"
+                                       class="form-control rounded" formControlName="insuredAmount"
                                        placeholder="Insured Amount"
                                        type="number" required/>
                                 <div *ngIf="(insurancePolicySelected) && (insurancePolicy.get('insuredAmount').invalid)"
-                                class="invalid-feedback">
+                                     class="invalid-feedback">
                                     <div *ngIf="insurancePolicy.get('insuredAmount').errors.required">
                                         Insured amount is required
                                     </div>
@@ -3178,9 +3181,9 @@
                                        [nbDatepicker]="insurancePolicyDate"
                                        *ngIf="calendarType === 'AD'">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['insurancePolicy',i,'policyStartDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['insurancePolicy',i,'policyStartDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['insurancePolicy',i,'policyStartDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['insurancePolicy',i,'policyStartDate']).value"></app-calendar>
                                 <nb-datepicker #insurancePolicyDate></nb-datepicker>
                             </div>
                         </div>
@@ -3192,9 +3195,9 @@
                                        name="policyStartDate" placeholder="Maturity Date" [nbDatepicker]="maturityDate"
                                        *ngIf="calendarType === 'AD'">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['insurancePolicy',i,'maturityDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['insurancePolicy',i,'maturityDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['insurancePolicy',i,'maturityDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['insurancePolicy',i,'maturityDate']).value"></app-calendar>
                                 <nb-datepicker #maturityDate></nb-datepicker>
                             </div>
                         </div>
@@ -3225,9 +3228,9 @@
                                        [nbDatepicker]="earlySurrenderDate"
                                        *ngIf="calendarType === 'AD'">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['insurancePolicy',i,'earlySurrenderDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['insurancePolicy',i,'earlySurrenderDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['insurancePolicy',i,'earlySurrenderDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['insurancePolicy',i,'earlySurrenderDate']).value"></app-calendar>
                                 <nb-datepicker #earlySurrenderDate></nb-datepicker>
                             </div>
                         </div>
@@ -3365,9 +3368,9 @@
                                        name="expiryDate" placeholder="Expiry Date" [nbDatepicker]="expiryDate"
                                        *ngIf="calendarType === 'AD'">
                                 <app-calendar
-                                        (messageToEmit)="securityForm.get(['bondSecurity',i,'expiryDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['bondSecurity',i,'expiryDate']).value"></app-calendar>
+                                    (messageToEmit)="securityForm.get(['bondSecurity',i,'expiryDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['bondSecurity',i,'expiryDate']).value"></app-calendar>
                                 <nb-datepicker #expiryDate></nb-datepicker>
                             </div>
                         </div>
