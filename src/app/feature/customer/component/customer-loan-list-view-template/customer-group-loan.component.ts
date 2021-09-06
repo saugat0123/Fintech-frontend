@@ -218,12 +218,15 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   loanHistoriesGroup(loans: SingleCombinedLoanDto[]): {
     pending: SingleCombinedLoanDto[],
     funded: SingleCombinedLoanDto[],
-    nonFunded: SingleCombinedLoanDto[]
+    nonFunded: SingleCombinedLoanDto[],
+    rejected: SingleCombinedLoanDto[],
   } {
     return {
-      pending: loans.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]),
+      pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
+          && (l.documentStatus !== DocStatus[DocStatus.REJECTED])),
       funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
-      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable)
+      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
+      rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED])
     };
   }
 
