@@ -1,9 +1,10 @@
+import {LoanTag} from "../../loan/model/loanTag";
+
 export enum ValuatingField {
   LAND = 'Land',
   VEHICLE = 'Vehicle',
   LAND_BUILDING = 'Land & Building',
   PLANT_MACHINARY = 'Plant & Machinary'
-
 }
 
 export namespace ValuatingField {
@@ -13,7 +14,7 @@ export namespace ValuatingField {
 
   export function values() {
     return Object.keys(ValuatingField).filter(
-        (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'
+        (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject' && type !== 'getKeyByValue'
     );
   }
 

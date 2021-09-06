@@ -423,6 +423,7 @@ export class SecurityInitialFormComponent implements OnInit {
             case  this.valuatingFieldEnum.LAND_BUILDING:
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.buildingValuator[index] = res.detail;
+                    this.securityValuator.apartmentValuator[index] = res.detail;
                 });
                 break;
         }
