@@ -107,4 +107,9 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    public getUserStatForCadAdmin(): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/stat`);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 }

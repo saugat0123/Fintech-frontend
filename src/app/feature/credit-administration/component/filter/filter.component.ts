@@ -14,6 +14,9 @@ import {Role} from '../../../admin/modal/role';
 import {ApprovalRoleHierarchy} from '../../../loan/approval/ApprovalRoleHierarchy';
 import {RoleAccess} from '../../../admin/modal/role-access';
 import {CustomerService} from '../../../admin/service/customer.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CadReportComponent} from '../cad-report/cad-report.component';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-filter',
@@ -31,6 +34,7 @@ export class FilterComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
   @Input() fromCadDashboard;
   @Input() docStatus;
+  @Input() isDefaultCADROLEFILTER: boolean;
   possessionRoleList: Array<Role>;
   branchAccessIsOwn = false;
   clientType = [];
@@ -42,6 +46,7 @@ export class FilterComponent implements OnInit {
               private routerUtils: RouterUtilsService,
               private service: ApprovalRoleHierarchyService,
               private customerService: CustomerService,
+              private modalService: NgbModal
   ) {
   }
 
@@ -116,6 +121,12 @@ export class FilterComponent implements OnInit {
       let approvalList: ApprovalRoleHierarchy[] = [];
       approvalList = response.detail;
       this.possessionRoleList = approvalList.map(a => a.role);
+      if (this.isDefaultCADROLEFILTER && LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+        const r: Role = this.possessionRoleList.filter(c => c.roleName === 'CAD')[0];
+        this.filterForm.patchValue({
+          toRole: r.id
+        });
+      }
     });
 
   }
@@ -127,9 +138,14 @@ export class FilterComponent implements OnInit {
   getClientType() {
     this.customerService.clientType().subscribe((res: any) => {
           this.clientType = res.detail;
+
         }
         , error => {
           console.error(error);
         });
+  }
+
+  openReport() {
+    this.modalService.open(CadReportComponent, {size: 'xl'});
   }
 }

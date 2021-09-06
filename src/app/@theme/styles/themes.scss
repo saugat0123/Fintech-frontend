@@ -9,94 +9,97 @@ $nb-enable-css-custom-properties: true;
 
 $nb-themes: nb-register-theme((
   /** theme color */
-        color-primary-100: #F9DDCF,
-        color-primary-200: #F4B5A1,
-        color-primary-300: #E07F6E,
-        color-primary-400: #C24E46,
-        color-primary-500: #9A171A,
-        color-primary-600: #84101D,
-        color-primary-700: #6E0B1F,
-        color-primary-800: #59071E,
-        color-primary-900: #49041E,
-        color-success-100: #E7F9CF,
-        color-success-200: #CBF4A1,
-        color-success-300: #9FDE6D,
-        color-success-400: #72BD45,
-        color-success-500: #3D9117,
-        color-success-600: #2B7C10,
-        color-success-700: #1C680B,
-        color-success-800: #105407,
-        color-success-900: #074504,
-        color-info-100: #D3E1FC,
-        color-info-200: #A8C3F9,
-        color-info-300: #799DED,
-        color-info-400: #567BDC,
-        color-info-500: #254EC6,
-        color-info-600: #1B3BAA,
-        color-info-700: #122B8E,
-        color-info-800: #0B1D72,
-        color-info-900: #07145F,
-        color-warning-100: #FAF7C9,
-        color-warning-200: #F6ED94,
-        color-warning-300: #E6D75C,
-        color-warning-400: #CDBB34,
-        color-warning-500: #AD9601,
-        color-warning-600: #947E00,
-        color-warning-700: #7C6800,
-        color-warning-800: #645200,
-        color-warning-900: #534300,
-        color-danger-100: #FACDD0,
-        color-danger-200: #F69EAB,
-        color-danger-300: #E46A88,
-        color-danger-400: #CA4272,
-        color-danger-500: #A81255,
-        color-danger-600: #900D54,
-        color-danger-700: #780951,
-        color-danger-800: #61054A,
-        color-danger-900: #500344,
-        scrollbar-width: 10px,
-        scrollbar-color: $color-bank,
+    color-primary-100: #F9DDCF,
+    color-primary-200: #F4B5A1,
+    color-primary-300: #E07F6E,
+    color-primary-400: #C24E46,
+    color-primary-500: #9A171A,
+    color-primary-600: #84101D,
+    color-primary-700: #6E0B1F,
+    color-primary-800: #59071E,
+    color-primary-900: #49041E,
+    color-success-100: #E7F9CF,
+    color-success-200: #CBF4A1,
+    color-success-300: #9FDE6D,
+    color-success-400: #72BD45,
+    color-success-500: #3D9117,
+    color-success-600: #2B7C10,
+    color-success-700: #1C680B,
+    color-success-800: #105407,
+    color-success-900: #074504,
+    color-info-100: #D3E1FC,
+    color-info-200: #A8C3F9,
+    color-info-300: #799DED,
+    color-info-400: #567BDC,
+    color-info-500: #254EC6,
+    color-info-600: #1B3BAA,
+    color-info-700: #122B8E,
+    color-info-800: #0B1D72,
+    color-info-900: #07145F,
+    color-warning-100: #FAF7C9,
+    color-warning-200: #F6ED94,
+    color-warning-300: #E6D75C,
+    color-warning-400: #CDBB34,
+    color-warning-500: #AD9601,
+    color-warning-600: #947E00,
+    color-warning-700: #7C6800,
+    color-warning-800: #645200,
+    color-warning-900: #534300,
+    color-danger-100: #FACDD0,
+    color-danger-200: #F69EAB,
+    color-danger-300: #E46A88,
+    color-danger-400: #CA4272,
+    color-danger-500: #A81255,
+    color-danger-600: #900D54,
+    color-danger-700: #780951,
+    color-danger-800: #61054A,
+    color-danger-900: #500344,
+    scrollbar-width: 10px,
+    scrollbar-color: $color-bank,
   /** theme color end */
-        layout-padding-top:
+    layout-padding-top:
 
-        2.25rem,
-        menu-item-icon-margin:
+    2.25rem,
+    menu-item-icon-margin:
 
-        0 0.5rem 0 0,
-        card-height-tiny:
+    0 0.5rem 0 0,
+    card-height-tiny:
 
-        13.5rem,
-        card-height-small:
+    13.5rem,
+    card-height-small:
 
-        21.1875rem,
-        card-height-medium:
+    21.1875rem,
+    card-height-medium:
 
-        28.875rem,
-        card-height-large:
+    28.875rem,
+    card-height-large:
 
-        36.5625rem,
-        card-height-giant:
+    36.5625rem,
+    card-height-giant:
 
-        44.25rem,
-        card-margin-bottom:
+    44.25rem,
+    card-margin-bottom:
 
-        1.875rem,
-        card-header-with-select-padding-top:
+    1.875rem,
+    card-header-with-select-padding-top:
 
-        0.5rem,
-        card-header-with-select-padding-bottom:
+    0.5rem,
+    card-header-with-select-padding-bottom:
 
-        0.5rem,
-        select-min-width:
+    0.5rem,
+    select-min-width:
 
-        6rem,
-        slide-out-background: #f7f9fc,
-        slide-out-shadow-color:
+    6rem,
+    slide-out-background: #f7f9fc,
+    slide-out-shadow-color:
 
-        0 4px 14px 0 #8f9bb3,
-        slide-out-shadow-color-rtl:
+    0 4px 14px 0 #8f9bb3,
+    slide-out-shadow-color-rtl:
 
-        0 4px 14px 0 #8f9bb3,
+    0 4px 14px 0 #8f9bb3,
+    toggle-height:1.2rem,
+    toggle-width:2.5rem,
+    toggle-switcher-size:1.05rem,
   //define custom color
 ), default, default);
 

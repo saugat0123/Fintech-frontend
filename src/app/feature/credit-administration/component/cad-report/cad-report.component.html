@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-header">
+    Report
+
+  </div>
+  <div class="card-body" style="max-height: 500px !important;overflow-y: auto">
+    <table class="table table-sm table-bordered  sb-small table-responsive">
+      <thead class="text-white sb-bg-dark">
+      <th>User</th>
+      <th>Role</th>
+      <th colspan="4" class="text-center">Offer Letter Pending</th>
+      <th colspan="4" class="text-center">Disbursement Pending</th>
+      <th colspan="4" class="text-center">Total</th>
+
+      </thead>
+      <tbody>
+      <tr class="bg-light">
+        <td colspan="2"></td>
+
+        <td colspan="1">Assign Today</td>
+        <td colspan="1">Yesterday Pending</td>
+        <td colspan="1">Completed</td>
+        <td colspan="1">pending</td>
+        <td colspan="1">Assign Today</td>
+        <td colspan="1">Yesterday Pending</td>
+        <td colspan="1">Completed</td>
+        <td colspan="1">pending</td>
+        <td colspan="1">Assign Today</td>
+        <td colspan="1">Yesterday Pending</td>
+        <td colspan="1">Completed</td>
+        <td colspan="1">pending</td>
+      </tr>
+      <tr *ngFor="let data of list">
+        <td colspan="1">{{data?.name}} </td>
+        <td colspan="1">{{data?.roleName}}</td>
+
+        <td colspan="1">{{data?.offerAssignedToday}}</td>
+        <td colspan="1">{{data?.offerAssignedYesterday}}</td>
+        <td colspan="1">{{data?.offerCompleted}}</td>
+        <td colspan="1">1</td>
+        <td colspan="1">{{data?.disbursementAssignedToday}}</td>
+        <td colspan="1">{{data?.disbursementAssignedYesterday}}</td>
+        <td colspan="1">{{data?.disbursementCompleted}}</td>
+        <td colspan="1">1</td>
+        <td colspan="1">1</td>
+        <td colspan="1">1</td>
+        <td colspan="1">1</td>
+        <td colspan="1">2</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
