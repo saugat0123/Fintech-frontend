@@ -6,87 +6,81 @@ import {StateService} from '../../../@core/utils';
 
 // TODO: move layouts into the framework
 @Component({
-    selector: 'app-base-layout',
-    styleUrls: ['./base.layout.scss'],
-    template: `
-        <nb-layout [center]="layout.id === 'center-column'" windowMode>
-            <nb-layout-header fixed class="disable-print">
-                <app-header [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></app-header>
-            </nb-layout-header>
+  selector: 'app-base-layout',
+  styleUrls: ['./base.layout.scss'],
+  template: `
+    <nb-layout [center]="layout.id === 'center-column'" windowMode>
+      <nb-layout-header fixed class="disable-print">
+        <app-header [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></app-header>
+      </nb-layout-header>
 
-            <nb-sidebar class="menu-sidebar disable-print"
-                        tag="menu-sidebar"
-                        responsive
-                        [end]="sidebar.id === 'end'">
-                <ng-content select="nb-menu"></ng-content>
-            </nb-sidebar>
+      <nb-sidebar class="menu-sidebar disable-print"
+                  tag="menu-sidebar"
+                  responsive
+                  [end]="sidebar.id === 'end'">
+        <ng-content select="nb-menu"></ng-content>
+      </nb-sidebar>
 
-            <nb-layout-column class="main-content">
-                <ng-content select="router-outlet"></ng-content>
-                <div class="chat">
-                    <div class="d-flex flex-row-reverse">
-                        <div class="p-2">
-                            <app-chat></app-chat>
-                        </div>
-                    </div>
-                </div>
-
-            </nb-layout-column>
-            <nb-layout-footer fixed>
+      <nb-layout-column class="main-content">
+        <ng-content select="router-outlet"></ng-content>
 
 
-                <app-footer></app-footer>
-            </nb-layout-footer>
-        </nb-layout>
-    `,
+      </nb-layout-column>
+      <nb-layout-footer fixed>
+
+
+        <app-footer></app-footer>
+      </nb-layout-footer>
+    </nb-layout>
+  `,
 })
 // tslint:disable-next-line:component-class-suffix
 export class BaseLayout implements OnDestroy {
 
-    layout: any = {};
-    sidebar: any = {};
+  layout: any = {};
+  sidebar: any = {};
 
-    private alive = true;
+  private alive = true;
 
-    currentTheme: string;
+  currentTheme: string;
 
-    constructor(protected stateService: StateService,
-                protected menuService: NbMenuService,
-                protected themeService: NbThemeService,
-                protected bpService: NbMediaBreakpointsService,
-                protected sidebarService: NbSidebarService) {
-        this.stateService.onLayoutState()
-            .pipe(takeWhile(() => this.alive))
-            .subscribe((layout: string) => this.layout = layout);
+  constructor(protected stateService: StateService,
+              protected menuService: NbMenuService,
+              protected themeService: NbThemeService,
+              protected bpService: NbMediaBreakpointsService,
+              protected sidebarService: NbSidebarService) {
+    this.stateService.onLayoutState()
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((layout: string) => this.layout = layout);
 
-        this.stateService.onSidebarState()
-            .pipe(takeWhile(() => this.alive))
-            .subscribe((sidebar: string) => {
-                this.sidebar = sidebar;
-            });
+    this.stateService.onSidebarState()
+    .pipe(takeWhile(() => this.alive))
+    .subscribe((sidebar: string) => {
+      this.sidebar = sidebar;
+    });
 
-        const isBp = this.bpService.getByName('is');
-        this.menuService.onItemSelect()
-            .pipe(
-                takeWhile(() => this.alive),
-                withLatestFrom(this.themeService.onMediaQueryChange()),
-                delay(20),
-            )
-            .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
+    const isBp = this.bpService.getByName('is');
+    this.menuService.onItemSelect()
+    .pipe(
+        takeWhile(() => this.alive),
+        withLatestFrom(this.themeService.onMediaQueryChange()),
+        delay(20),
+    )
+    .subscribe(([item, [bpFrom, bpTo]]: [any, [NbMediaBreakpoint, NbMediaBreakpoint]]) => {
 
-                if (bpTo.width <= isBp.width) {
-                    this.sidebarService.collapse('menu-sidebar');
-                }
-            });
+      if (bpTo.width <= isBp.width) {
+        this.sidebarService.collapse('menu-sidebar');
+      }
+    });
 
-        this.themeService.getJsTheme()
-            .pipe(takeWhile(() => this.alive))
-            .subscribe(theme => {
-                this.currentTheme = theme.name;
-            });
-    }
+    this.themeService.getJsTheme()
+    .pipe(takeWhile(() => this.alive))
+    .subscribe(theme => {
+      this.currentTheme = theme.name;
+    });
+  }
 
-    ngOnDestroy() {
-        this.alive = false;
-    }
+  ngOnDestroy() {
+    this.alive = false;
+  }
 }

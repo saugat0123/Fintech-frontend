@@ -1,3 +1,9 @@
+
 a .img-hover:hover{
   color: #0B1D72;
+  text-underline: black;
+}
+.img-hover:hover{
+  text-decoration: underline;
+  font-weight: bold;
 }

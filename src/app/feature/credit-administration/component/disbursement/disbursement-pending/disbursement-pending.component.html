@@ -4,7 +4,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
-                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISBURSEMENT_PENDING'"></app-filter>
+                <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DISBURSEMENT_PENDING'" [isDefaultCADROLEFILTER]="true"></app-filter>
             </div>
         </div>
         <h6 class="text-center">Disbursement Pending</h6>
@@ -17,10 +17,12 @@
                 <th>Branch</th>
                 <th>Province</th>
                 <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
-                <th>Type</th>
+<!--                <th>Type</th>-->
                 <th>Business Unit</th>
                 <th>Loan Document No</th>
-                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
+                <th
+                    nbTooltip="Sort By" (click)="asc = !asc;sortFilter('cadCurrentStage.toUser.name',asc === true ? 'ASC':'DESC')"
+                    *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession <em class="fas fa-sort"></em></th>
                 <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Last Modified On <em class="fas fa-sort"></em></th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">
                     Action
@@ -39,10 +41,10 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>
+<!--                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>-->
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
-                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-<span *ngIf="model?.cadCurrentStage?.toUser?.name">{{model?.cadCurrentStage?.toRole?.roleName}}</span></td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date : 'medium'}}</td>
                     <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
                            nbTooltip="click to assign"><em

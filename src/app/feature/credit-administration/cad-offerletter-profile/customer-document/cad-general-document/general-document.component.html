@@ -18,13 +18,13 @@
 
                 <div class="col-md-12 ">
                     <div class="row">
-                        <div class="col-md-3 img-hover flex-wrap"
+                        <div class="col-md-6 img-hover flex-wrap"
                              *ngFor="let data of customerGeneralDocument;let i =index"
                              [nbTooltip]="data?.document?.displayName">
                             <a (click)="service.openDocument(data?.docPath)" class="cursor"><em
                                     [className]="service.SET_CLASS_NAME"></em>
-                                <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                                    data?.document?.displayName?.substring(0, 12) + '..' :
+                                <span class="mx-1"> {{data?.document?.displayName?.length > 50 ?
+                                    data?.document?.displayName?.substring(0, 45) + '..' :
                                     data?.document?.displayName}}</span></a>
                         </div>
                     </div>

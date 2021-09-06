@@ -15,6 +15,9 @@
   </div>
 
     <div class="col-md-6 d-flex justify-content-end">
+<!--      <button (click)="openReport()" nbButton outline-->
+<!--              status="success" size="small" *ngIf="fromCadDashboard">-->
+<!--        <i aria-hidden="true" class="fas fa-file"></i></button>&nbsp;-->
       <button (click)="getReport()" nbButton outline
               status="info" size="small">
         <i aria-hidden="true" class="fa fa-download"></i></button>
@@ -47,7 +50,7 @@
         <div class="col-md-3 mb-3" *ngIf="showPossessionUnder">
           <label class="form-group">Current Possession Under</label>
           <select class="form-control rounded" formControlName="toRole" id="toRole">
-            <option [ngValue]="null" hidden>Select Role</option>
+            <option [ngValue]="null">Select Role</option>
             <option [ngValue]="role.id" *ngFor="let role of possessionRoleList">{{role?.roleName}}</option>
           </select>
         </div>
