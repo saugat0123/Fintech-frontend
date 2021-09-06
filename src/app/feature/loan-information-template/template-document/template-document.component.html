@@ -17,18 +17,32 @@
         <td>{{docTitle}}</td>
         <td><input (change)="fileUpload($event)"
                    class="form-control-file"
-                   id="" multiple=""
+                   id=""
+                   name="files"
+                   multiple
                    type="file"></td>
-        <td *ngIf="checked"><i (click)="previewDoc(pathValue)" class="fas fa-eye"></i></td>
         <td>
-          <span *ngIf="checked" style="color:limegreen">
-                  <i class="fas fa-check-circle"></i></span>
           <span *ngIf="!checked"
                 style="color:red"><i class="fas fa-times-circle"></i></span>
         </td>
+        <ng-container *ngIf="checked">
+          <td></td>
+          <td></td>
+        </ng-container>
+      </tr>
+      <tr *ngFor="let multiPath of pathValueData; let i = index;">
+        <td>1.{{i + 1}}</td>
+        <td colspan="2"> Net Worth Document - Guarantor {{i + 1}}</td>
+        <td *ngIf="checked">
+          <i (click)="previewDoc(multiPath)" class="fas fa-eye"></i>
+        </td>
+        <td>
+          <span *ngIf="checked" style="color:limegreen">
+                  <i class="fas fa-check-circle"></i></span>
+        </td>
         <td class="cursor">
           <span *ngIf="checked">
-            <i (click)="deleteDocument()" class="fas fa-trash"></i>
+            <i (click)="deleteDocument(i)" class="fas fa-trash"></i>
           </span>
         </td>
       </tr>

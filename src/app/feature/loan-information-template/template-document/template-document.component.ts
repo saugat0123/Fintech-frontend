@@ -21,6 +21,7 @@ export class TemplateDocumentComponent implements OnInit {
   @Input() docTitle;
   @Input() docFolderName;
   checked = false;
+  pathValueData;
 
   constructor(private customerInfoService: CustomerInfoService,
               private toast: ToastService,
@@ -30,25 +31,29 @@ export class TemplateDocumentComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.pathValue)) {
       this.checked = true;
+      this.pathValueData = (this.pathValue).split(',');
     }
   }
 
   fileUpload(file) {
-    const doc = file.target.files[0];
-    if (doc.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
-      this.toast.show(new Alert(AlertType.INFO, 'Maximum File Size is 5MB'));
-      return;
-    }
+    const doc: File[] = file.target.files;
     const formData: FormData = new FormData();
+    for (let i = 0; i < doc.length; i++) {
+      if (doc[i].size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+        this.toast.show(new Alert(AlertType.INFO, 'Maximum File Size is 5MB'));
+        return;
+      }
+      formData.append('file', doc[i]);
+    }
     formData.append('customerName', this.customerInfo.name);
     formData.append('documentName', this.docName);
     formData.append('customerInfoId', this.customerInfo.id);
     formData.append('customerType', this.customerInfo.customerType);
-    formData.append('file', doc);
     formData.append('folderName', this.docFolderName);
     this.customerInfoService.upload(formData).subscribe((res: any) => {
       this.docPathEmitter.emit(res.detail);
       this.checked = true;
+      this.pathValueData = res.detail;
     }, error => this.toast.show(new Alert(AlertType.WARNING, 'Please read the note to Upload the Document')));
   }
 
@@ -60,14 +65,16 @@ export class TemplateDocumentComponent implements OnInit {
     link.click();
   }
 
-  deleteDocument(): void {
-    this.loanService.deleteCustomerDocFromSystem(this.pathValue).subscribe((res: any) => {
-      delete this.pathValue;
-      this.docPathEmitter.emit(this.pathValue);
-      this.checked = false;
+  deleteDocument(index): void {
+    this.loanService.deleteCustomerDocFromSystem(this.pathValueData[index]).subscribe((res: any) => {
+      this.pathValueData.splice(index, 1);
+      this.docPathEmitter.emit(this.pathValueData);
     }, error => {
       this.toast.show(new Alert(AlertType.WARNING, 'Unable to delete document!'));
     });
+    if (this.pathValueData.length < 1) {
+      this.checked = false;
+    }
   }
 
 }

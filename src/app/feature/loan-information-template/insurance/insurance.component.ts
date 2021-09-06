@@ -94,7 +94,7 @@ export class InsuranceComponent implements OnInit {
     }
 
     documentPath(path, index) {
-        this.form.get(['formArray', index, 'policyDocumentPath']).patchValue(path);
+        this.form.get(['formArray', index, 'policyDocumentPath']).patchValue(path.toString());
     }
 
 }
