@@ -83,7 +83,7 @@
         <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable"></app-paging>
     </nb-card-body>
     <form *ngIf="!showCriteriaList && addOrEditCriteria"
-          [formGroup]="generalQuestionForm">
+          [formGroup]="generalQuestionForm" [nbSpinner]="spinner">
         <nb-card-header>
             <div class="container" formArrayName="questions">
                 <div *ngFor="let qsn of generalQuestionForm.get('questions')['controls']; let i = index;"
