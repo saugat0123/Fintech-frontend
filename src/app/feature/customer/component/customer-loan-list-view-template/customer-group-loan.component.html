@@ -226,6 +226,22 @@
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
                                 class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td>
+                                <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                                    <button nbButton status="warning" size="tiny"
+                                            (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.customerInfoCustomerName,
+                                    model?.loanName, loanType[model?.loanType], model?.branchName)">
+                                        Re-initiate</button>
+                                </div>
+                                <div *ngIf="model.parentId">
+                                    <a (click)="renewedOrCloseFrom(model?.id,model?.parentId)"
+                                       class="text-success cursor">{{loanType[model.loanType]}} From
+                                        <em class="p-1 fa fa-edit"></em></a>
+                                </div>
+                                <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                                    <p>NA</p>
+                                </div>
+                            </td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
                             <tr *ngFor="let single of model?.combinedLoans;let i=index"
@@ -277,6 +293,27 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #onReInitiateLoan class="p-0">
+    <nb-card class="m-0" [nbSpinner]="reInitiateSpinner">
+        <nb-card-header>
+            <h5>Are you sure you want to re-initiate this loan?</h5>
+        </nb-card-header>
+        <nb-card-body>
+            <div>Customer: {{reInitiateLoanCustomerName}} <br>
+                Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})</div>
+            <br>
+            <label for="comment">Remarks to re-initiate loan:</label>
+            <textarea rows="5" #comment id="comment" class="form-control" placeholder="Remarks"></textarea>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="d-flex justify-content-end">
+                <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES</button>
+                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
 
 
 <app-overlay-spinner></app-overlay-spinner>

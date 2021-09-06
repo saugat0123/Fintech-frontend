@@ -21,6 +21,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DocAction} from '../../../loan/model/docAction';
+import {RoleType} from '../../../admin/modal/roleType';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -35,7 +38,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
               private customerLoanService: LoanFormService,
               private modalService: NgbModal,
               private spinnerService: NgxSpinnerService,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private formBuilder: FormBuilder,) {
   }
 
   public static LOAN_CHANGE = 'loanChange';
@@ -83,6 +87,14 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
   loanAction: any;
   loanActionList = [];
+  canReInitiateLoan = false;
+  reInitiateSpinner = false;
+  reInitiateLoanCustomerName: string;
+  reInitiateLoanFacilityName: string;
+  reInitiateLoanBranchName: string;
+  reInitiateLoanType: string;
+  showBranch = true;
+  formAction: FormGroup;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -95,6 +107,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
+    if (LocalStorageUtil.getStorage().username === 'SPADMIN'
+        || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN
+        || LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
+      this.canReInitiateLoan = true;
+    }
+    this.buildActionForm();
   }
 
   getCustomerLoans() {
@@ -143,14 +161,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;
       loanAmountType.value = this.totalLoanProposedAmount;
       this.messageToEmit.emit(loanAmountType);
-      console.log('totalLoanProposedAmount', this.totalLoanProposedAmount);
-      console.log('totalRequiredCollateral', this.collateralDtoData.totalRequiredCollateral);
-      console.log('totalPendingLimit', this.collateralDtoData.totalPendingLimit);
-      console.log('totalPendingRequiredCollateral', this.collateralDtoData.totalPendingRequiredCollateral);
-      console.log('totalApprovedLimit', this.collateralDtoData.totalApprovedLimit);
-      console.log('totalApprovedRequiredCollateral', this.collateralDtoData.totalApprovedRequiredCollateral);
-      console.log('totalRejectProposedLimit', this.collateralDtoData.totalRejectProposedLimit);
-      console.log('totalRejectRequiredCollateral', this.collateralDtoData.totalRejectRequiredCollateral);
     }, error => this.spinner = false);
   }
 
@@ -381,5 +391,73 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         });
       }
     });
+  }
+
+  onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName) {
+    this.reInitiateLoanCustomerName = customerName;
+    this.reInitiateLoanFacilityName = loanFacilityName;
+    this.reInitiateLoanType = loanType;
+    this.reInitiateLoanBranchName = branchName;
+    this.formAction.patchValue({
+          customerLoanId: customerLoanId,
+          docAction: DocAction.value(DocAction.RE_INITIATE),
+          comment: 'Re-initiate'
+        }
+    );
+    this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
+  }
+
+  reInitiateConfirm(comment: string) {
+    const ref = this.modalService.open(LoginPopUp);
+    let isAuthorized = false;
+    ref.componentInstance.returnAuthorizedState.subscribe((receivedEntry) => {
+      isAuthorized = receivedEntry;
+      if (isAuthorized) {
+        this.modalService.dismissAll();
+        this.reInitiateSpinner = true;
+        this.formAction.patchValue({
+          comment: comment
+        });
+        this.customerLoanService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
+          this.reInitiateSpinner = false;
+          this.modalService.dismissAll();
+          this.ngOnInit();
+        }, error => {
+          this.reInitiateSpinner = false;
+          this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+          this.modalService.dismissAll();
+        });
+      }
+    });
+  }
+
+  renewedOrCloseFrom(loanConfigId, childId) {
+    this.router.navigate(['/home/loan/summary'], {
+      queryParams: {
+        loanConfigId: loanConfigId,
+        customerId: childId,
+        catalogue: true
+      }
+    });
+  }
+
+  onClose() {
+    this.buildActionForm();
+    this.modalService.dismissAll();
+  }
+
+  buildActionForm(): void {
+    this.formAction = this.formBuilder.group(
+        {
+          loanConfigId: [undefined],
+          customerLoanId: [undefined],
+          toUser: [undefined, Validators.required],
+          toRole: [undefined, Validators.required],
+          docAction: [undefined],
+          comment: [undefined, Validators.required],
+          documentStatus: [undefined]
+        }
+    );
   }
 }
