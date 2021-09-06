@@ -75,4 +75,5 @@ export class CustomerInfoData {
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
+    subsectorDetail: string;
 }

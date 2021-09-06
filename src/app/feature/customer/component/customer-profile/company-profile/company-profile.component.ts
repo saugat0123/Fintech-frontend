@@ -125,6 +125,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
             this.companyInfo = res.detail;
+            console.log('companyInfo', res.detail);
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
                 this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
@@ -142,6 +143,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
         this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            console.log('customeInfo', this.customerInfo);
             this.setCompanyData(this.companyInfo);
             this.spinner = false;
         }, error => {
@@ -239,6 +241,12 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.companyInfo.contactNum = this.companyForm.get('contactNum').value;
         this.companyInfo.businessType = this.companyForm.get('businessType').value;
         this.companyInfo.withinLimitRemarks = this.companyForm.get('withinLimitRemarks').value;
+        this.companyInfo.bankingRelationship = this.customerInfo.bankingRelationship;
+        this.companyInfo.customerCode = this.customerInfo.customerCode;
+        this.companyInfo.clientType = this.customerInfo.clientType;
+        this.companyInfo.subsectorDetail = this.customerInfo.subsectorDetail;
+        console.log('company-info', this.companyInfo);
+        console.log('this.customerInfo.subSectorDetailCode', this.customerInfo.subSectorDetailCode);
         this.companyInfoService.save(this.companyInfo).subscribe(response => {
             this.companyInfo = response.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED COMPANY DETAIL'));

@@ -205,6 +205,7 @@ export class CompanyFormComponent implements OnInit {
             }
         }
         this.companyInfo = this.formValue;
+        console.log('fomrValue', this.formValue);
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
@@ -896,7 +897,6 @@ export class CompanyFormComponent implements OnInit {
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
-        console.log(this.companyInfoFormGroup.get('microCustomerType').value);
         this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
@@ -913,6 +913,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
+        this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
 
 
         // legalStatus
