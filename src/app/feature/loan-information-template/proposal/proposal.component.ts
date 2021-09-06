@@ -176,11 +176,9 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
-    if (this.formValue !== null) {
       if (!ObjectUtil.isEmpty(this.formValue)) {
         this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       }
-    }
   }
 
   buildForm() {
