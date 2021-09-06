@@ -42,7 +42,7 @@
         <th>Proposed INT/COM/CM</th>
 
         <th>Service Charge</th>
-        <th>Limit Expiry/Tenure(AD/BS)</th>
+        <th>Limit Expiry/Tenure(AD)</th>
       </tr>
       </thead>
       <tbody>
@@ -55,7 +55,7 @@
           <ng-container
                   *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
           &nbsp;|&nbsp;
-          {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
+          {{ loan?.loan?.name }} ({{ loan?.createdAt | date}}
         </td>
         <td class="text-right pr-1">
           <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">
@@ -115,7 +115,7 @@
         </td>
         <td width="150px" class="text-left pl-1">
           <span *ngIf="!loan.proposal.limitExpiryMethod">-</span>
-          <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}} ({{loan.proposal?.dateOfExpiry | engNepDate: false}})</span>
+          <span *ngIf="loan.proposal.limitExpiryMethod === 'ABSOLUTE'">{{loan.proposal?.dateOfExpiry | date}} </span>
           <span *ngIf="loan.proposal.limitExpiryMethod === 'CUSTOM'">{{loan.proposal?.duration}} {{loan.proposal?.frequency}} {{loan.proposal?.condition}}</span>
         </td>
       </tr>
@@ -292,52 +292,9 @@
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.MEGA) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
       </tr>
     </table>
-    <table *ngIf="productUtils.CBS_ENABLE && summaryType === summaryTypeName?.GENERAL"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-        <tr class="text-white sb-bg-dark">
-          <th>Disbursement Criteria </th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1" [innerHTML]="proposalAllData?.disbursementCriteria | safeHtml"></td>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-          <th>Repayment</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1" [innerHTML]="proposalAllData?.repayment || 'N/A' | safeHtml"></td>
-        </tr>
-        <tr class="text-white sb-bg-dark">
-          <th *ngIf="client !== clientName?.MEGA">Loan Background</th>
-          <th *ngIf="client === clientName?.MEGA">Justification of limit</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.borrowerInformation || 'N/A' | safeHtml"></span> </td>
-        </tr>
-    </table>
 
-    <table *ngIf="summaryType !== summaryTypeName?.GENERAL"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-      <thead>
-      <th>
-        <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
-          Prepayment/Commitment/Swap Charge Description</div>
-        <ng-template #commitmentDescription>
-          <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral; else swapChargeDescription">
-            Commitment/Swap Charge Description</div>
-        </ng-template>
-        <ng-template #swapChargeDescription>
-          Swap Charge Description
-        </ng-template>
-      </th>
-      </thead>
-      <tbody>
-      <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
-      </tbody>
-    </table>
-
-    <table *ngIf="summaryType === summaryTypeName?.GENERAL"
-           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
-      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA ">
+    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" >
+      <tr class="text-white sb-bg-dark">
         <th>
           <div *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral; else commitmentDescription">
             Prepayment/Commitment/Swap Charge Description</div>
@@ -350,14 +307,8 @@
           </ng-template>
         </th>
       </tr>
-      <tr *ngIf="client !== clientName?.MEGA">
-        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
-      </tr>
-      <tr class="text-white sb-bg-dark">
-        <th>Summery & Recommendation</th>
-      </tr>
       <tr>
-        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.summeryRecommendation || 'N/A' | safeHtml"></span> </td>
+        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.prepaymentSwapCommitment || 'N/A' | safeHtml"></span> </td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th>Remarks</th>
@@ -365,40 +316,6 @@
       <tr>
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
-      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.MEGA">
-        <th>Purpose of Loan</th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName?.MEGA" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
-      </tr>
-      <ng-container *ngIf="checkedData?.waiverChecked ">
-        <tr class="text-white sb-bg-dark">
-          <th>Waiver/Deviation</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
-      <ng-container *ngIf="checkedData?.riskChecked">
-        <tr class="text-white sb-bg-dark">
-          <th>Risk &
-            Mitigation</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.riskConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
-    </table>
-    <table *ngIf="checkedData?.solChecked && summaryType === summaryTypeName?.GENERAL"
-           class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-      <ng-container>
-        <tr class="text-white sb-bg-dark">
-          <th>Single Obligor Limit</th>
-        </tr>
-        <tr>
-          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.solConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
-      </ng-container>
     </table>
   </div>
 </div>
