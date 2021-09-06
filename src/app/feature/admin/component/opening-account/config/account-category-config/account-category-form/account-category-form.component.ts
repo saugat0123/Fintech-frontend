@@ -25,6 +25,7 @@ export class AccountCategoryFormComponent implements OnInit {
   errors: Array<Violation>;
   modelForm: FormGroup;
   accountTypeList: Array<AccountType>;
+  spinner = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -51,6 +52,7 @@ export class AccountCategoryFormComponent implements OnInit {
   }
 
   public save() {
+    this.spinner = true;
     switch (this.action) {
       case Action.ADD:
         this.model = this.modelForm.value as AccountCategory;
@@ -58,7 +60,7 @@ export class AccountCategoryFormComponent implements OnInit {
         this.model.additionalInformation = JSON.stringify(this.modelForm.get('additionalInformation').value);
         this.service.save(this.model).subscribe(
             () => {
-
+              this.spinner = false;
               this.modalRef.close(ModalResponse.SUCCESS);
               const alert = new Alert(AlertType.SUCCESS, 'Successfully Saved Account Purpose');
               this.toastService.show(alert);
@@ -68,7 +70,7 @@ export class AccountCategoryFormComponent implements OnInit {
               if (err.error.errors) {
                 this.errors = err.error.errors;
               }
-
+              this.spinner = false;
               const alert = new Alert(AlertType.ERROR, 'Failed to create Account Purpose');
               this.toastService.show(alert);
             }
@@ -81,6 +83,7 @@ export class AccountCategoryFormComponent implements OnInit {
         this.service.update(this.model.id, this.model)
         .subscribe(
             () => {
+              this.spinner =  false;
               this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Account Purpose'));
 
               this.modalRef.close(ModalResponse.SUCCESS);
@@ -92,7 +95,7 @@ export class AccountCategoryFormComponent implements OnInit {
               if (err.error.errors) {
                 this.errors = err.error.errors;
               }
-
+              this.spinner = false;
               this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Update Account Purpose'));
             }
         );

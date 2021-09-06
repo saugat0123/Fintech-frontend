@@ -6,6 +6,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-general-question',
@@ -31,7 +32,8 @@ export class GeneralQuestionComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private generalQuestionService: GeneralQuestionService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private overlay: NgxSpinnerService) {
     }
 
     static loadData(other: GeneralQuestionComponent) {
@@ -147,18 +149,22 @@ export class GeneralQuestionComponent implements OnInit {
     }
 
     onSave() {
+        this.spinner = true;
         this.submitted = true;
         if (this.generalQuestionForm.invalid) {
+            this.spinner = false;
             return;
         }
         this.eligibilityCriteria = this.generalQuestionForm.value;
         this.generalQuestionService.saveEligibilityCriteria(this.eligibilityCriteria).subscribe(() => {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
             GeneralQuestionComponent.loadData(this);
         }, errorResponse => {
             console.log(errorResponse.error);
             console.log(errorResponse.error.message);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
             this.invalidFormula = true;
         });
@@ -166,16 +172,20 @@ export class GeneralQuestionComponent implements OnInit {
     }
 
     onUpdate() {
+        this.spinner = true;
         this.submitted = true;
         if (this.generalQuestionForm.invalid) {
+            this.spinner = false;
             return;
         }
         this.eligibilityCriteria = this.generalQuestionForm.value;
         this.generalQuestionService.updateEligibilityCriteria(this.eligibilityCriteria, this.eligibilityCriteria.id).subscribe(() => {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Criteria !'));
             GeneralQuestionComponent.loadData(this);
         }, errorResponse => {
             console.log(errorResponse.error.message);
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
             this.invalidFormula = true;
         });

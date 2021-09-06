@@ -179,7 +179,6 @@ export class CiclComponent implements OnInit {
       const controls = this.ciclForm.controls.ciclArray as FormArray;
       controls.clearAsyncValidators();
       controls.clear();
-      this.overlay.hide();
   }
     if (this.ciclHistory === true) {
         if (this.ciclForm.invalid) {
