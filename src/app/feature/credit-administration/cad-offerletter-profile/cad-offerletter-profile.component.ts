@@ -18,6 +18,7 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 
 
@@ -196,6 +197,26 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.initial();
+    }
+
+    public getTotal() {
+        const loanList = this.cadOfferLetterApprovedDoc.assignedLoan;
+        return this.isNumber(loanList
+        .map(l => (l.proposal.proposedLimit))
+        .reduce((a, b) => a + b, 0));
+
+    }
+
+    isNumber(value) {
+        if (ObjectUtil.isEmpty(value)) {
+            return 0;
+        }
+        if (Number.isNaN(value)) {
+            return 0;
+        } else {
+            return value;
+        }
+
     }
 
 }
