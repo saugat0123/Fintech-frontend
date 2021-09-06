@@ -25,6 +25,7 @@ export class RoleFormComponent implements OnInit {
     appConfigRoleType = [];
     showCheck = false;
     checkedStatus = false;
+    spinner = false;
 
     constructor(
         private service: RoleService,
@@ -46,8 +47,11 @@ export class RoleFormComponent implements OnInit {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.role.signApprovalSheet = this.checkedStatus;
         this.service.save(this.role).subscribe(() => {
+
+                this.spinner = false;
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role!'));
 
@@ -57,6 +61,7 @@ export class RoleFormComponent implements OnInit {
             },
             (error) => {
                 console.log(error);
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role!:' + error.error.message));
                 this.activeModal.dismiss(error);
             });

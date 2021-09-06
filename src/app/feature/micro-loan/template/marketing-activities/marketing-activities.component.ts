@@ -6,6 +6,7 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {ToastService} from '../../../../@core/utils';
 import {MarketingActivities} from '../../../loan/model/marketing-activities';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-marketing-activities',
@@ -26,7 +27,8 @@ export class MarketingActivitiesComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               protected fiscalYearService: FiscalYearService,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private overlay: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -118,8 +120,10 @@ export class MarketingActivitiesComponent implements OnInit {
   }
 
   submitForm() {
+    this.overlay.show();
     this.submitted = true;
     if (this.marketingActivityForm.invalid) {
+      this.overlay.hide();
       this.toastService.show(new Alert(AlertType.ERROR, 'All fields are mandatory!'));
       return;
     }
