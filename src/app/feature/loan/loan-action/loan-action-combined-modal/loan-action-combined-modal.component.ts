@@ -290,7 +290,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.router.navigate(['/home/pending']);
         }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Approval Limit Exceed'));
         });
     }
 
