@@ -603,13 +603,11 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.reportingInfoLevels = data;
         this.customerInfoService.saveLoanInfo(this.reportingInfoLevels, this.customerInfoId, TemplateName.CUSTOMER_REPORTING_INFO)
             .subscribe(() => {
-                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save Customer Reporting Info!'));
                 this.reportingInfoLevelAccordion.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
-                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
             });
     }

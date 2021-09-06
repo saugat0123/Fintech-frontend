@@ -89,7 +89,6 @@ export class ReportingInfoTaggingComponent implements OnInit {
   public onSubmit(): void {
     if (this.taggingComponent) {
       this.taggingComponent.onSubmit();
-      this.overlay.show();
     }
     this.finalReportingInfoLevels = Array.from(this.savedReportTagsId).map(v => {
       const reportingInfoLevel = new ReportingInfoLevel();
