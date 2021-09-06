@@ -359,9 +359,14 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     saveBasic() {
-        console.log('basicForm', this.basicForm.value);
-        console.log('customer', this.customer);
         this.customer.withinLimitRemarks = this.basicForm.get('withinLimitRemarks').value;
+        this.customer.clientType = this.customerInfo.clientType;
+        this.customer.customerCode = this.customerInfo.customerCode;
+        this.customer.subsectorDetail = this.customerInfo.subsectorDetail;
+        this.customer.gender = this.customerInfo.gender;
+        this.customer.maritalStatus = this.customerInfo.maritalStatus;
+        this.customer.customerLegalDocumentAddress = this.customerInfo.customerLegalDocumentAddress;
+        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
         this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));

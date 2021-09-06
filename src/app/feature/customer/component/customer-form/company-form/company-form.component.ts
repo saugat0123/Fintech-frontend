@@ -205,7 +205,6 @@ export class CompanyFormComponent implements OnInit {
             }
         }
         this.companyInfo = this.formValue;
-        console.log('fomrValue', this.formValue);
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
@@ -889,7 +888,6 @@ export class CompanyFormComponent implements OnInit {
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
-            console.log(this.companyInfoFormGroup);
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
@@ -1179,8 +1177,6 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
             this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
         }
-        // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-        //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }
 
     // Calculation of Share %
@@ -1216,7 +1212,6 @@ export class CompanyFormComponent implements OnInit {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
-        console.log(micro, this.disableCrgAlpha);
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
