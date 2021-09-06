@@ -4,7 +4,7 @@
     <span aria-hidden="true" class="text-white">&times;</span>
   </button>
 </div>
-<form (ngSubmit)="save()" [formGroup]="modelForm">
+<form (ngSubmit)="save()" [formGroup]="modelForm" [nbSpinner]="spinner">
   <div class="modal-body">
 
     <app-validation-error [errors]="errors"></app-validation-error>
