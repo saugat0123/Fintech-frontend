@@ -52,13 +52,13 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="ClassificationByNRB"><strong>Classification as per NRB directive</strong></label>
+                <label for="ClassificationByNRB"><strong>Loan Classification as per NRB Directive No. 2.1</strong></label>
                 <select
                         [ngClass]="{ 'is-invalid':submitted && form.ClassificationByNRB?.errors }"
                         class="form-control rounded"
                         formControlName="ClassificationByNRB"
                         id="ClassificationByNRB">
-                    <option [ngValue]="null">Select Classification as per NRB directive</option>
+                    <option [ngValue]="null">Select Loan Classification as per NRB Directive No. 2.1</option>
                     <option *ngFor="let nrbDirective of nrbDirective"
                             [ngValue]="nrbDirective.key">{{nrbDirective.value}}</option>
                 </select>
