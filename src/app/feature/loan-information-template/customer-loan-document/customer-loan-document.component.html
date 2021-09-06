@@ -1,89 +1,89 @@
 <nb-card>
-  <nb-card-header>
-    <h3><strong>Loan Documents</strong></h3>
-  </nb-card-header>
-  <nb-card-body>
-    <div *ngIf="initialDocuments.length > 0" class="row">
-      <div class="col-md-6">
-        <div class="box-header with-border">
-          <em><span
-              style="color:red;">(Select file smaller than 5MB)</span></em>
-        </div>
-        <div *ngIf="errorMessage">
-          <span class="color" style="color:red"> {{errorMessage}}</span>
-        </div>
-        <div class="box-body">
-          <table class="table  table-bordered table-hover table-sm sb-small text-center">
-            <thead>
-            <tr class="text-white sb-bg-dark">
-              <th> S.N </th>
-              <th>Document</th>
-              <th>Type</th>
-              <th>Upload</th>
-              <th>Upload Status</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let document of initialDocuments; let i=index">
-              <td>
-                {{i + 1}}
-              </td>
-              <td>{{document.name}}</td>
-              <td>{{document?.checkType || 'Default' | titlecase }}</td>
+    <nb-card-header>
+        <h3><strong>Loan Documents</strong></h3>
+    </nb-card-header>
+    <nb-card-body>
+        <div *ngIf="initialDocuments.length > 0" class="row">
+            <div class="col-md-6">
+                <div class="box-header with-border">
+                    <em><span
+                            style="color:red;">(Select file smaller than 5MB)</span></em>
+                </div>
+                <div *ngIf="errorMessage">
+                    <span class="color" style="color:red"> {{errorMessage}}</span>
+                </div>
+                <div class="box-body">
+                    <table class="table  table-bordered table-hover table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th> S.N</th>
+                            <th>Document</th>
+                            <th>Type</th>
+                            <th>Upload</th>
+                            <th>Upload Status</th>
+                            <th>Preview</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let document of initialDocuments; let i=index">
+                            <td>
+                                {{i + 1}}
+                            </td>
+                            <td>{{document.name}}</td>
+                            <td>{{document?.checkType || 'Default' | titlecase }}</td>
 
-              <td><input (change)="documentUploader($event, document.name, document.id, i)"
-                         class="form-control-file"
-                         id="uploadDocument{{i}}" multiple=""
-                         type="file">
-                <!--<div *ngIf="submitted && form.file.errors"
-                     class="invalid-feedback">
-                  <div *ngIf="form.file.errors.required">Please upload the
-                    required
-                    documents
-                  </div>
-                </div>-->
-              </td>
-              <td>
-                <span *ngIf="document.checked" style="color:limegreen">
-                  <i class="fas fa-check-circle"></i></span>
-                <span *ngIf="!document.checked || document.checked === null"
-                      style="color:red"><i class="fas fa-times-circle"></i></span>
-              </td>
-              <td class="cursor">
-                <span *ngIf="document.checked">
-                  <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
-                </span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <!--<div *ngFor="let path of imageUrl">
-            <img [src]="path" id="image" width="100%"/>
-          </div>-->
+                            <td><input (change)="documentUploader($event, document.name, document.id, i)"
+                                       class="form-control-file"
+                                       id="uploadDocument{{i}}" multiple=""
+                                       type="file">
+                            </td>
+                            <td align="center">
+                              <span *ngIf="document.checked" style="color:limegreen">
+                                <i class="fas fa-check-circle"></i></span>
+                                <span *ngIf="!document.checked || document.checked === null"
+                                      style="color:red"><i class="fas fa-times-circle"></i></span>
+                            </td>
+
+                            <td *ngIf="document?.checked" align="center">
+                                <i (click)="previewDocument(document.id)" class="fas fa-eye"></i>
+                                <i *ngIf="!document?.checked || document?.checked === null"
+                                   class="fas fa-times-circle"></i>
+                            </td>
+
+                            <td class="cursor" align="center">
+                              <span *ngIf="document.checked">
+                                <i (click)="openModel(confirmation, document.name, document.id, i)" class="fas fa-trash"></i>
+                              </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </nb-card-body>
+    </nb-card-body>
 </nb-card>
 
 <ng-template #confirmation>
-  <div class="modal-content">
-    <div class="modal-header" style="display:block">
-      <a (click)="onClose()" aria-label="Close"
-         class="close cursor" data-dismiss="modal">
-        <span aria-hidden="true">×</span></a>
-      <h4 class="nav  navbar-right pull-left">Confirmation</h4>
-    </div>
-    <div class="modal-body">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <a (click)="onClose()" aria-label="Close"
+               class="close cursor" data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="nav  navbar-right pull-left">Confirmation</h4>
+        </div>
+        <div class="modal-body">
       <span class="py-4">
         Do you want to delete {{documentName}}? It will be <strong>permanently</strong> deleted?
       </span>
+        </div>
+        <div class="modal-footer">
+            <div class="d-flex justify-content-end pb-md-3">
+                <button (click)="confirmDelete(initialDocIndex)" class="btn btn-success float-right" type="submit">
+                    Yes
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-      <div class="d-flex justify-content-end pb-md-3">
-        <button  (click)="confirmDelete(initialDocIndex)" class="btn btn-success float-right" type="submit"> Yes </button>
-      </div>
-    </div>
-  </div>
 </ng-template>

@@ -18,6 +18,7 @@ export class RoleEditComponent implements OnInit {
     checkRoleEdit: boolean;
     authorityRequired = true;
     showAuthority = true;
+    checkedStatus = false;
 
     constructor(private activeModal: NgbActiveModal,
                 private service: RoleService,
@@ -33,9 +34,11 @@ export class RoleEditComponent implements OnInit {
             this.showAuthority = false;
             this.authorityRequired = false;
         }
+        this.checkedStatus = this.model.signApprovalSheet;
     }
 
     onSubmit() {
+        this.model.signApprovalSheet = this.checkedStatus;
         this.service.update(this.model).subscribe(() => {
                 this.activeModal.close(ModalResponse.SUCCESS);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Role name!'));
@@ -50,6 +53,9 @@ export class RoleEditComponent implements OnInit {
 
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
+    }
+    checked(data) {
+        this.checkedStatus = data.target.checked;
     }
 
 }

@@ -4,6 +4,7 @@ import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-expos
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-basel-risk-exposure',
@@ -20,6 +21,7 @@ export class BaselRiskExposureComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private elementRef: ElementRef,
+              private overlay: NgxSpinnerService,
               private toastService: ToastService) {
   }
 
@@ -105,9 +107,11 @@ export class BaselRiskExposureComponent implements OnInit {
   }
 
   public submitForm() {
+    this.overlay.show();
     this.submitted = true;
     if (this.baselRiskExposureForm.invalid) {
       this.scrollToInvalidControl();
+      this.overlay.hide();
       this.toastService.show(new Alert(AlertType.ERROR, 'Please fill all fields!'));
       return;
     }

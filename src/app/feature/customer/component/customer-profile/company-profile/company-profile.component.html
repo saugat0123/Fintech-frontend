@@ -388,7 +388,7 @@
                   </table>
                 </nb-accordion-item-body>
               </nb-accordion-item>
-              <nb-accordion-item>
+              <nb-accordion-item *ngIf="companyInfo.microCustomerType === microCustomerType.INDIRECT">
                 <nb-accordion-item-header>
                   <div class="row col-md-12">
                     <div class="col-md-6">

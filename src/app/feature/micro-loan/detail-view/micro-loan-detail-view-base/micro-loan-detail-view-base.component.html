@@ -6,6 +6,8 @@
                                    [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-individual-view>
         <app-micro-company-info-view *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'"
                                      [calendarType]="calendarType"
+                                     [isMicroDirect]="otherMicroDetailsVisibility"
+                                     [isMicroCustomer]="isMicro"
                                      [formValue]="loanDataHolder?.companyInfo"
                                      [loanId]="loanId" [customerInfo]="loanHolder"></app-micro-company-info-view>
 
@@ -13,6 +15,8 @@
                            [customerAllLoanList]="customerAllLoanList"
                            [proposalData]="loanDataHolder?.proposal"
                            [loanDataHolder]="loanDataHolder"></app-proposal-view>
+
+        <app-micro-other-info-and-confirmation *ngIf="loanDataHolder?.proposal" [proposal]="loanDataHolder?.proposal"></app-micro-other-info-and-confirmation>
 
         <nb-card *ngIf="!otherMicroDetailsVisibility">
             <nb-card-header>
@@ -38,10 +42,10 @@
         <app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
                            [shareSecurityData]="loanHolder?.shareSecurity"
                            [securityId]="securityId"></app-security-view>
-        <app-financial-view *ngIf="loanHolder?.microOtherParameters"
+        <app-financial-view *ngIf="financialView"
+                            [formData]="financialData"
                             [customerType]="loanHolder?.customerType"
-                            [microCustomer]="loanDataHolder?.customerInfo?.isMicroCustomer"
-                            [microFormData]="loanHolder?.microOtherParameters"></app-financial-view>
+                            [microCustomer]="isMicro"></app-financial-view>
         <app-crg-gamma-detail-view
                 *ngIf="loanDataHolder?.crgGamma"
                 [formData]="loanDataHolder?.crgGamma">

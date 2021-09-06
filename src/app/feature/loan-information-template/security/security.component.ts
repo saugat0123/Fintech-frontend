@@ -24,6 +24,7 @@ import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-priva
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-security',
@@ -81,12 +82,14 @@ export class SecurityComponent implements OnInit {
 
     alphaControls = ['securityGuarantee', 'buildingLocation', 'vehicleSecurityCoverage'];
     lambdaControls = ['roadAccessOfPrimaryProperty', 'facCategory', 'securityCoverageAutoPrivate', 'securityCoverageAutoCommercial'];
+    spinner = false;
 
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
         private activatedRoute: ActivatedRoute,
         private toastService: ToastService,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -245,14 +248,22 @@ export class SecurityComponent implements OnInit {
 
 
     onSubmit() {
+        this.overlay.show();
         this.submitted = true;
         if (this.securityForm.invalid) {
+            this.overlay.hide();
             return;
         }
         if (this.initialSecurity.selectedSecurity === undefined) {
             this.initialSecurity.clearValidationAtInitialStage();
         }
         if (this.initialSecurity.securityForm.invalid) {
+            this.overlay.hide();
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+            return;
+        }
+        if (this.initialSecurity.shareSecurityForm.invalid) {
+            this.overlay.hide();
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             return;
         }
@@ -288,7 +299,7 @@ export class SecurityComponent implements OnInit {
             this.shareSecurityData = this.initialSecurity.shareSecurityData;
             this.securityData.share = this.shareSecurityData;
         } else {
-            this.securityData.share = null;
+            this.securityData.share = this.initialSecurity.shareSecurityData;
         }
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {

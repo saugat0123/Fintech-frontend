@@ -1,46 +1,105 @@
 <div class="col-md-12">
-    <div class="w-100">
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="d-flex justify-content-start">
         <strong>Loan Documents</strong>
+      </div>
     </div>
-</div>
-
-<div class="col-md-12">
-    <table class="table table-bordered  text-center sb-small table-sm">
-
-        <tbody>
-        <ng-container *ngFor="let customerLoan of customerLoanList">
-            <tr class="sb-bg-dark text-white">
-                <td>
-                    <strong>{{customerLoan?.loan?.name}}</strong>
-                </td>
-            </tr>
-            <ng-container>
-                <tr *ngIf="customerLoan?.customerDocument?.length < 1">
-                    NO DOCUMENT available in this loan
-                </tr>
-                <tr>
-                    <td class="text-left">
-
-                        <div class="col-md-12 ">
-                            <div class="row">
-                                <div class="col-md-3 img-hover flex-wrap"
-                                     *ngFor="let data of customerLoan?.customerDocument;let i =index"
-                                     [nbTooltip]="data?.document?.displayName">
-                                    <a (click)="service.openDocument(data?.documentPath)" class="cursor"><em
-                                            [className]="service.SET_CLASS_NAME"></em>
-                                        <span class="mx-1"> {{data?.document?.displayName?.length > 15 ?
-                                            data?.document?.displayName?.substring(0, 12) + '..' :
-                                            data?.document?.displayName}}</span></a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </td>
-                </tr>
-            </ng-container>
-        </ng-container>
-        </tbody>
-    </table>
+    <div class="col-md-6 ">
+      <div class="d-flex justify-content-end">
+        <nb-toggle (checkedChange)="folderView = !folderView;">Folder View</nb-toggle>
+      </div>
+    </div>
+  </div>
 
 </div>
 
+<div class="col-md-12" *ngIf="!folderView">
+  <table class="table table-bordered  text-center sb-small table-sm">
+
+    <tbody>
+    <ng-container *ngFor="let customerLoan of customerLoanList">
+      <tr class="sb-bg-dark text-white">
+        <td>
+          <strong>{{customerLoan?.loan?.name}}</strong>
+        </td>
+      </tr>
+      <ng-container>
+        <tr *ngIf="customerLoan?.customerDocument?.length < 1">
+          NO DOCUMENT available in this loan
+        </tr>
+        <tr>
+          <td class="text-left">
+
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-md-6 img-hover flex-wrap"
+                     *ngFor="let data of customerLoan?.customerDocument;let i =index"
+                     [nbTooltip]="data?.document?.displayName">
+                  <a (click)="service.openDocument(data?.documentPath)" class="cursor img-hover"><em
+                      [className]="service.SET_CLASS_NAME"></em>
+                    <span class="mx-1"> {{data?.document?.displayName?.length > 50 ?
+                        data?.document?.displayName?.substring(0, 45) + '..' :
+                        data?.document?.displayName}}</span></a>
+                </div>
+              </div>
+            </div>
+
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="card" *ngIf="folderView">
+  <div class="card-body">
+
+    <div class="col-md-12 ">
+      <div class="row sb-small">
+        <div class="col-md-6"
+             *ngFor="let customerLoan of customerLoanList"
+             [nbTooltip]="'Total Documents:'+customerLoan?.customerDocument?.length">
+          <img src="assets/img/folder-icon.png" height="25"/>
+          <a (click)="openTemplate(popOverData,customerLoan)"
+             class="cursor sb-small px-1 img-hover">
+            <span>{{customerLoan?.loan?.name}}</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #popOverData>
+  <div class="card">
+    <div class="card-header">
+      {{customerLoan?.loan?.name}}
+    </div>
+    <div class="card-body" style="max-height: 400px;overflow: auto">
+      <div class="col-md-12 " *ngIf="customerLoan?.customerDocument?.length < 1">
+        <div class="row">
+          No Document Available
+        </div>
+      </div>
+     
+      <div class="col-md-12 ">
+        <div class="row">
+          <div class="col-md-6 img-hover flex-wrap"
+               *ngFor="let data of customerLoan?.customerDocument;let i =index"
+               [nbTooltip]="data?.document?.displayName">
+            <a (click)="service.openDocument(data?.documentPath)" class="cursor img-hover"><em
+                [className]="service.SET_CLASS_NAME"></em>
+              <span class="mx-1"> {{data?.document?.displayName?.length > 50 ?
+                  data?.document?.displayName?.substring(0, 45) + '..' :
+                  data?.document?.displayName}}</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
