@@ -123,7 +123,16 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="remark"><strong>Remark</strong></label>
-            <ckeditor formControlName="incomeFromTheAccount" [config]="ckeditorConfig" id="remark"></ckeditor >
+            <ckeditor id="remark" formControlName="incomeFromTheAccount" name="incomeFromTheAccount" type="text"
+                      [config]="ckeConfig"
+                      [ngClass]=" { 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"></ckeditor>
+            <div *ngIf="(submitted) && formControls.incomeFromTheAccount.invalid"
+                 class="text-danger">
+              <div *ngIf="formControls.incomeFromTheAccount.errors.required">
+                Remark is Required
+              </div>
+            </div>
+
 
           </div>
         </div>
