@@ -12,6 +12,7 @@ import {RoleType} from '../../../../admin/modal/roleType';
 import {UserService} from '../../../../../@core/service/user.service';
 import {Stage} from '../../../../loan/model/stage';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHierarchy';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -63,7 +64,11 @@ export class OfferLetterListComponent implements OnInit {
 
   ngOnInit() {
     this.userDetail();
-    OfferLetterListComponent.loadData(this);
+    if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+      this.setDefaultCADROLE();
+    } else {
+      OfferLetterListComponent.loadData(this);
+    }
   }
 
   changePage(page: number) {
@@ -120,5 +125,20 @@ export class OfferLetterListComponent implements OnInit {
   sortFilter(sortBy, dir) {
     this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', sortBy: sortBy, sortOrder: dir});
     OfferLetterListComponent.loadData(this);
+  }
+
+  setDefaultCADROLE() {
+    this.spinner = true;
+    this.service.getRoleInCad().subscribe((res: any) => {
+      const roleListInCAD = res.detail;
+      const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
+      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', toRole: role.role.id});
+      OfferLetterListComponent.loadData(this);
+      this.spinner = false;
+
+    }, error => {
+      this.spinner = false;
+      console.log(error);
+    });
   }
 }
