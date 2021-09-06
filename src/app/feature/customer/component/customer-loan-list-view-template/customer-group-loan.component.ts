@@ -73,6 +73,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     loanExposure: 0,
     totalApprovedLimit: 0,
     totalPendingLimit: 0,
+    totalRejectProposedLimit: 0,
+    totalRejectRequiredCollateral: 0,
     totalApprovedRequiredCollateral: 0,
     totalPendingRequiredCollateral: 0,
   };
@@ -108,22 +110,30 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.collateralDtoData.totalPendingRequiredCollateral = 0;
       this.collateralDtoData.totalPendingLimit = 0;
       this.collateralDtoData.totalRequiredCollateral = 0;
+      this.collateralDtoData.totalRejectProposedLimit = 0;
+      this.collateralDtoData.totalRejectRequiredCollateral = 0;
       this.customerGroupLoanList.forEach(l => {
             if (l.proposal) {
-              this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
-              this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
-                  ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
-              if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
-                this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalApprovedRequiredCollateral =
-                    this.collateralDtoData.totalApprovedRequiredCollateral +
+              if (l.documentStatus.toString() !== DocStatus.value(DocStatus.REJECTED)) {
+                this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
+                this.collateralDtoData.totalRequiredCollateral = this.collateralDtoData.totalRequiredCollateral +
                     ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
+                if (l.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+                  this.collateralDtoData.totalApprovedLimit = this.collateralDtoData.totalApprovedLimit +
+                      l.proposal.proposedLimit;
+                  this.collateralDtoData.totalApprovedRequiredCollateral =
+                      this.collateralDtoData.totalApprovedRequiredCollateral +
+                      ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
+                } else {
+                  this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
+                      l.proposal.proposedLimit;
+                  this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
+                      + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
+                }
               } else {
-                this.collateralDtoData.totalPendingLimit = this.collateralDtoData.totalPendingLimit +
-                    l.proposal.proposedLimit;
-                this.collateralDtoData.totalPendingRequiredCollateral = this.collateralDtoData.totalPendingRequiredCollateral
-                    + ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
+                this.collateralDtoData.totalRejectProposedLimit += l.proposal.proposedLimit;
+                this.collateralDtoData.totalRejectRequiredCollateral = this.collateralDtoData.totalRejectRequiredCollateral +
+                    ((l.proposal.collateralRequirement * l.proposal.proposedLimit) / 100);
               }
             }
           }
@@ -133,6 +143,14 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       loanAmountType.type = this.fetchLoan.CUSTOMER_LOAN;
       loanAmountType.value = this.totalLoanProposedAmount;
       this.messageToEmit.emit(loanAmountType);
+      console.log('totalLoanProposedAmount', this.totalLoanProposedAmount);
+      console.log('totalRequiredCollateral', this.collateralDtoData.totalRequiredCollateral);
+      console.log('totalPendingLimit', this.collateralDtoData.totalPendingLimit);
+      console.log('totalPendingRequiredCollateral', this.collateralDtoData.totalPendingRequiredCollateral);
+      console.log('totalApprovedLimit', this.collateralDtoData.totalApprovedLimit);
+      console.log('totalApprovedRequiredCollateral', this.collateralDtoData.totalApprovedRequiredCollateral);
+      console.log('totalRejectProposedLimit', this.collateralDtoData.totalRejectProposedLimit);
+      console.log('totalRejectRequiredCollateral', this.collateralDtoData.totalRejectRequiredCollateral);
     }, error => this.spinner = false);
   }
 

@@ -190,24 +190,6 @@
                     </tbody>
                 </table>
             </nb-card-body>
-<!--            <nb-card-footer>-->
-<!--                <div>-->
-<!--                    <mark class="alert-warning">Total Required Collateral:</mark>-->
-<!--                    <strong>Rs.{{collateralDtoData.totalRequiredCollateral| currencyFormatter}}</strong>-->
-<!--                    <br>-->
-<!--                    <mark class="alert-warning">Total FMV/Considered Value:</mark>-->
-<!--                    <strong>Rs.{{customerInfo?.security?.totalSecurityAmount |currencyFormatter}}</strong>-->
-<!--                    <br>-->
-<!--                    <mark class="alert-warning">Surplus/(Deficit):</mark>-->
-<!--                    <strong> Rs. {{collateralDtoData.deficit_Surplus |currencyFormatter}}</strong>-->
-<!--                    <br>-->
-<!--                    <mark class="alert-warning">Coverage:</mark>-->
-<!--                    <strong>{{collateralDtoData.coveragePercent |roundvalue |currencyFormatter}}%</strong>-->
-<!--                    <br>-->
-<!--                    <mark class="alert-warning">Loan Exposure:</mark>-->
-<!--                    <strong>{{collateralDtoData.loanExposure |roundvalue |currencyFormatter}}%</strong>-->
-<!--                </div>-->
-<!--            </nb-card-footer>-->
         </nb-card>
 
         <nb-card>
@@ -226,6 +208,7 @@
                         <th>Created On</th>
                         <th>Collateral Req %</th>
                         <th>Required Collateral</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -265,10 +248,10 @@
                     <tr class="sb-bg-secondary text-white">
                         <td></td>
                         <td>Total</td>
-                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalPendingLimit |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalRejectProposedLimit |currencyFormatter}}</td>
                         <td colspan="4"></td>
                         <td class="text-right pr-1">
-                            Rs. {{collateralDtoData?.totalPendingRequiredCollateral |currencyFormatter}}</td>
+                            Rs. {{collateralDtoData?.totalRejectRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
