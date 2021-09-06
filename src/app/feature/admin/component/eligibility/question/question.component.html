@@ -87,8 +87,8 @@
                         </tbody>
                     </table>
 
-                    <div *ngIf="loanConfigId != null && newQuestionList" class="box-body">
-                        <div formArrayName="questionForm">
+                    <div *ngIf="loanConfigId != null && newQuestionList" class="box-body" >
+                        <div formArrayName="questionForm" [nbSpinner]="spinner">
                             <div *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index;"
                                  class="form-group">
 
@@ -212,7 +212,7 @@
 
 </form>
 
-<ng-template #addEditQuestion let-modal>
+<ng-template #addEditQuestion let-modal [nbSpinner]="spinner">
     <div class="modal-document">
         <div class="modal-content">
             <div class="modal-header">
