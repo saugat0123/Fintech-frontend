@@ -38,6 +38,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() isMaker: boolean;
     @Input() branchId: number;
     @Input() toRole: Role;
+    @Input() loanConfigId: number;
     ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
@@ -65,6 +66,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
+    spinner = false;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -253,8 +255,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
         switch (this.popUpTitle) {
             case 'Send Forward':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
-
-                this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
+                const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.combinedLoanId;
+                this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
                         this.sendForwardBackwardList = [];
                         this.sendForwardBackwardList = response.detail;

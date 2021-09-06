@@ -8,6 +8,9 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {Editor} from "../../../@core/utils/constants/editor";
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ToastService} from '../../../@core/utils';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-income-from-account',
@@ -27,12 +30,15 @@ export class IncomeFromAccountComponent implements OnInit {
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
   srdbAffiliatedId = false;
   ckeditorConfig = Editor.CK_CONFIG;
+  ckeConfig = Editor.CK_CONFIG;
 
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
 
   constructor(private formBuilder: FormBuilder,
               private el: ElementRef,
+              private overlay: NgxSpinnerService,
+              private toastService: ToastService,
   ) {
   }
 
@@ -143,6 +149,8 @@ export class IncomeFromAccountComponent implements OnInit {
     this.submitted = true;
     if (this.incomeFormGroup.invalid) {
       this.scrollToFirstInvalidControl();
+      this.overlay.hide();
+      this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
       return;
     }
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {

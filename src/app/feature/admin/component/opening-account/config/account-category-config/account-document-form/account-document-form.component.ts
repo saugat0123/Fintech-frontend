@@ -17,6 +17,7 @@ export class AccountDocumentFormComponent implements OnInit {
   @Input() model: AccountCategory;
   documentList: Array<Document> = new Array<Document>();
   finalDocumentList: Array<Document> = new Array<Document>();
+  spinner = false;
 
   constructor(
       private documentService: DocumentService,
@@ -56,19 +57,23 @@ export class AccountDocumentFormComponent implements OnInit {
   }
 
   public save() {
+    this.spinner = true;
     this.model.documents = this.finalDocumentList;
     this.accountCategoryService.save(this.model).subscribe(() => {
       if (this.model.id == null) {
+        this.spinner = false;
         this.activeModal.close(ModalResponse.SUCCESS);
         const alert = new Alert(AlertType.SUCCESS, 'Successfully saved documents');
         this.toastService.show(alert);
       } else {
+        this.spinner = false;
         this.activeModal.close(ModalResponse.SUCCESS);
         const alert = new Alert(AlertType.SUCCESS, 'Successfully Updated documents');
         this.toastService.show(alert);
       }
         }, (err) => {
           console.error(err);
+          this.spinner = false;
           const alert = new Alert(AlertType.ERROR, 'Failed to save documents');
           this.toastService.show(alert);
         }

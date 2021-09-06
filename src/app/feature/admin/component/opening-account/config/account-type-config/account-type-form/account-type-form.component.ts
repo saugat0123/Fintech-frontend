@@ -22,6 +22,7 @@ export class AccountTypeFormComponent implements OnInit {
   errors: Array<Violation>;
   submitted: boolean;
   modelForm: FormGroup;
+  spinner = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -66,8 +67,10 @@ export class AccountTypeFormComponent implements OnInit {
     }
 
   save() {
+      this.spinner = true;
       this.submitted = true;
       if (this.modelForm.invalid) {
+          this.spinner = false;
           this.scrollToFirstInvalidControl();
           return;
       }
@@ -79,6 +82,7 @@ export class AccountTypeFormComponent implements OnInit {
             () => {
 
               this.modalRef.close(ModalResponse.SUCCESS);
+              this.spinner =  false;
               const alert = new Alert(AlertType.SUCCESS, 'Successfully Saved Account Type');
               this.toastService.show(alert);
 
@@ -87,7 +91,7 @@ export class AccountTypeFormComponent implements OnInit {
               if (err.error.errors) {
                 this.errors = err.error.errors;
               }
-
+              this.spinner = false;
               const alert = new Alert(AlertType.ERROR, 'Failed to create Account Type');
               this.toastService.show(alert);
             }
@@ -98,6 +102,7 @@ export class AccountTypeFormComponent implements OnInit {
         this.service.update(this.model.id, this.modelForm.value)
         .subscribe(
             () => {
+              this.spinner = false;
               this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Account Type'));
 
               this.modalRef.close(ModalResponse.SUCCESS);
@@ -110,6 +115,7 @@ export class AccountTypeFormComponent implements OnInit {
                 this.errors = err.error.errors;
               }
 
+              this.spinner = false;
               this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Update Account Type'));
             }
         );

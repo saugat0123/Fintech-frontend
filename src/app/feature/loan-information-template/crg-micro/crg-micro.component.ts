@@ -15,6 +15,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {MultibankingMap} from '../../micro-loan/template/micro-crg-params/model/Multibanking';
 import {RelationWithBankMap} from '../../micro-loan/template/micro-crg-params/model/RelationWithBank';
 import {RepaymentHistoryMap} from '../../micro-loan/template/micro-crg-params/model/RepaymentHistory';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-crg-micro',
@@ -72,7 +73,8 @@ export class CrgMicroComponent implements OnInit {
   isSubsidiary = false;
   noDataForMicroParam = false;
 
-  constructor(protected formBuilder: FormBuilder) { }
+  constructor(protected formBuilder: FormBuilder,
+              private overlay: NgxSpinnerService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -326,6 +328,7 @@ export class CrgMicroComponent implements OnInit {
   }
 
   onSubmit() {
+    this.overlay.show();
     if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }

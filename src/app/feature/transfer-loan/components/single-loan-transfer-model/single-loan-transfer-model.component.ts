@@ -43,7 +43,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
   @Input() docAction: string;
   @Input() documentStatus: DocStatus;
   @Input() isTransfer: boolean;
-  @Input() toRole: Role;
+  @Input() toRoleId: number;
   @Input() isFileUnderCurrentToUser;
   length = false;
   roleId: number;
@@ -108,19 +108,31 @@ export class SingleLoanTransferModelComponent implements OnInit  {
 
   // get all roll based on set hierarchy
   private getRoleData(): void {
-    this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId).subscribe((response: any) => {
+    let toRoleId;
+    if (!ObjectUtil.isEmpty(this.toRoleId)) {
+      toRoleId = this.toRoleId;
+    } else {
+      toRoleId = this.roleId;
+    }
+    this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(toRoleId, this.approvalType, this.refId)
+        .subscribe((response: any) => {
       this.transferRoleList = [];
       this.transferRoleList = response.detail;
     });
   }
   // get all approval role list
   private conditionalDataLoad(): void {
+    let toRoleId;
+    if (!ObjectUtil.isEmpty(this.toRoleId)) {
+      toRoleId = this.toRoleId;
+    } else {
+      toRoleId = this.roleId;
+    }
     switch (this.popUpTitle) {
       case 'Transfer':
         const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
-
-        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
+        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(toRoleId, approvalType, refId)
             .subscribe((response: any) => {
               this.sendForwardBackwardList = [];
               this.sendForwardBackwardList = response.detail.sort(function(a, b) {
@@ -134,8 +146,8 @@ export class SingleLoanTransferModelComponent implements OnInit  {
             });
         break;
       default:
-        if (!ObjectUtil.isEmpty(this.toRole)) {
-          this.getUserList(this.toRole);
+        if (!ObjectUtil.isEmpty(toRoleId)) {
+          this.getUserList(toRoleId);
         }// send backward to committee
 
     }
@@ -193,6 +205,11 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       if (ObjectUtil.isEmpty(selectedSolUser)) {
         this.isNoUserSelectedSol = true;
         return;
+      } else {
+        this.form.patchValue({
+          solUser: null,
+          isSol: false
+        });
       }
     }
     const dialogRef = this.nbDialogService.open(VerificationActionModelComponent, {
