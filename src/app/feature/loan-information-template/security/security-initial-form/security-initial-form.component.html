@@ -3316,7 +3316,7 @@
                                 <label class="title">Coupon Rate (%)</label>
                                 <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('couponRate').errors)}"
                                        class="form-control rounded" formControlName="couponRate"
-                                       placeholder="Tenure/Validity of Bond"
+                                       placeholder="Coupon Rate (%)"
                                        type="number" required/>
                                 <div *ngIf="(bondSecurity) && (bond.get('couponRate').invalid)"
                                      class="invalid-feedback">
@@ -3333,7 +3333,7 @@
                                 <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('bondValue').errors)}"
                                        class="form-control rounded" formControlName="bondValue"
                                        placeholder="Bond Value"
-                                       type="number" required/>
+                                       type="text" required/>
                                 <div *ngIf="(bondSecurity) && (bond.get('bondValue').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="bond.get('bondValue').errors.required">
@@ -3356,8 +3356,8 @@
                             <div class="form-group">
                                 <label class="title">Issuer</label>
                                 <input class="form-control rounded" formControlName="issuer"
-                                       placeholder="Bond Value"
-                                       type="number"/>
+                                       placeholder="Issuer"
+                                       type="text"/>
                             </div>
                         </div>
 
