@@ -108,4 +108,24 @@ export class ProfileViewComponent implements OnInit {
 
     }
 
+    public getTotal() {
+        const loanList = this.cadOfferLetterApprovedDoc.assignedLoan;
+        return this.isNumber(loanList
+        .map(l => (l.proposal.proposedLimit))
+        .reduce((a, b) => a + b, 0));
+
+    }
+
+    isNumber(value) {
+        if (ObjectUtil.isEmpty(value)) {
+            return 0;
+        }
+        if (Number.isNaN(value)) {
+            return 0;
+        } else {
+            return value;
+        }
+
+    }
+
 }

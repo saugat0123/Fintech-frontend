@@ -13,8 +13,9 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {AssignPopUpComponent} from '../../assign-pop-up/assign-pop-up.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {ExposureViewComponent} from '../../../cad-view/exposure-view/exposure-view.component';
 import {DisbursementModalComponent} from './disbursement-modal/disbursement-modal.component';
+import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHierarchy';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-disbursement-pending',
@@ -37,6 +38,7 @@ export class DisbursementPendingComponent implements OnInit {
   user: User = new User();
   roleType = RoleType;
   asc = false;
+
   constructor(private service: CreditAdministrationService,
               private router: Router,
               public routeService: RouterUtilsService,
@@ -67,7 +69,12 @@ export class DisbursementPendingComponent implements OnInit {
 
   ngOnInit() {
     this.userDetail();
-    DisbursementPendingComponent.loadData(this);
+    if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+      this.setDefaultCADROLE();
+    } else {
+      DisbursementPendingComponent.loadData(this);
+    }
+
   }
 
   changePage(page: number) {
@@ -87,6 +94,7 @@ export class DisbursementPendingComponent implements OnInit {
   userDetail() {
     this.userService.getLoggedInUser().subscribe((res: any) => {
       this.user = res.detail;
+
     });
   }
 
@@ -115,13 +123,29 @@ export class DisbursementPendingComponent implements OnInit {
   }
 
   openDisbursementDetail(id: number) {
-    const modelRef =  this.modalService.open(DisbursementModalComponent, { size: 'lg', backdrop: 'static' });
+    const modelRef = this.modalService.open(DisbursementModalComponent, {size: 'lg', backdrop: 'static'});
     modelRef.componentInstance.id = id;
     modelRef.componentInstance.displayHistory = true;
     modelRef.componentInstance.fromScc = false;
   }
+
   sortFilter(sortBy, dir) {
     this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_PENDING', sortBy: sortBy, sortOrder: dir});
     DisbursementPendingComponent.loadData(this);
+  }
+
+  setDefaultCADROLE() {
+    this.spinner = true;
+    this.service.getRoleInCad().subscribe((res: any) => {
+      const roleListInCAD = res.detail;
+      const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
+      this.searchObj = Object.assign(this.searchObj, {docStatus: 'DISBURSEMENT_PENDING', toRole: role.role.id});
+      DisbursementPendingComponent.loadData(this);
+      this.spinner = false;
+
+    }, error => {
+      this.spinner = false;
+      console.log(error);
+    });
   }
 }
