@@ -66,6 +66,7 @@ export class SecurityViewComponent implements OnInit {
   jpgFile = [];
   pdfFile = [];
 
+
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
 

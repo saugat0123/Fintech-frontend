@@ -33,6 +33,7 @@
     "@types/d3": "^5.7.2",
     "ad-bs-converter": "^0.5.0",
     "angular-draggable-droppable": "^4.5.4",
+    "angular-thumbnails": "^0.2.3",
     "angular2-draggable": "^2.3.2",
     "bootstrap": "^4.3.1",
     "ckeditor": "4.12.1",

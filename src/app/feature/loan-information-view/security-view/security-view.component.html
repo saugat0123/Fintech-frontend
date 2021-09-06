@@ -1671,11 +1671,18 @@
         <div *ngIf="pdfFile.length > 0" class="container mt-2">
             <div class="row">
                 <div class="col-md-3" *ngFor="let doc of pdfFile;">
-                    <img [src]="url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random"
+                    <thumbnail file-type="pdf" source="url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random"
+                               max-height="150"
+                               max-width="300"
+                               (click)="viewDocument(doc?.docPath,doc?.docName, doc?.fileType)"
+                               (error)="onError($event)"></thumbnail>
+
+                   <!-- <img [src]="url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random"
                          class="figure-img img-fluid rounded img-medium"
                          alt="{{doc?.docName}}" style="cursor: pointer"
+
                          (click)="viewDocument(doc?.docPath,doc?.docName, doc?.fileType)"
-                         (error)="onError($event)">
+                         (error)="onError($event)">-->
                     <span class="mt-2 ml-2">Document for {{doc?.securityName.slice(0, -2)}}</span>
                 </div>
             </div>
