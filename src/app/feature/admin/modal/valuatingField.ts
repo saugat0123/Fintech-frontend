@@ -1,4 +1,3 @@
-import {LoanTag} from "../../loan/model/loanTag";
 
 export enum ValuatingField {
   LAND = 'Land',
