@@ -1,5 +1,6 @@
 import {Guarantor} from './guarantor';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
+import {NepsePriceInfo} from '../../admin/modal/NepsePriceInfo';
 
 
 export class Security {
@@ -10,4 +11,5 @@ export class Security {
     share: ShareSecurity;
     guarantor: Array<Guarantor>;
     totalSecurityAmount: number;
+    nepsePriceInfo: NepsePriceInfo;
 }

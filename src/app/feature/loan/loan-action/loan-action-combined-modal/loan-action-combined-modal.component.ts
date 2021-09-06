@@ -65,6 +65,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
+    spinner = false;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,

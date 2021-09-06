@@ -669,20 +669,6 @@ export class LoanFormComponent implements OnInit {
           this.creditGrading.onSubmit();
           this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
         }*/
-        if (name === 'Credit Risk Grading - Alpha' && action) {
-            this.creditRiskGradingAlpha.onSubmit();
-            this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
-        }
-
-        if (name === 'Credit Risk Grading - Lambda' && action) {
-            this.creditRiskGradingLambda.onSubmit();
-            this.loanDocument.creditRiskGradingLambda = this.creditRiskGradingLambda.creditRiskData;
-        }
-
-        if (name === 'Credit Risk Grading - Micro' && action) {
-            this.crgMicro.onSubmit();
-            this.loanDocument.crgMicro = this.crgMicro.creditRiskData;
-        }
 
         if (name === 'Credit Risk Grading - Gamma' && action) {
             this.crgGamma.onSubmit();
@@ -840,7 +826,7 @@ export class LoanFormComponent implements OnInit {
             }, error => {
                 this.spinner.hide();
                 console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
+                this.toastService.show(new Alert(AlertType.ERROR, `Error saving loan: ${error.error.message}`));
             });
         }
     }
