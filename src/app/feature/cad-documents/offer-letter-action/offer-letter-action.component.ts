@@ -171,7 +171,7 @@ export class OfferLetterActionComponent implements OnInit {
                     this.postAction();
                 },
                 error => {
-                    this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? 'Hi Kabita' : error.error.errorDescription;
+                    this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
                     this.falseCredential = true;
                 }
             );

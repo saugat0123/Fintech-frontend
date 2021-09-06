@@ -62,7 +62,7 @@ export class VerificationActionModelComponent implements OnInit {
           this.nbDialogRef.close(true);
         }, error => {
           this.spinner = false;
-          this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? 'Hi kabita' : error.error.errorDescription;
+          this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
           this.falseCredential = true;
         });
   }
