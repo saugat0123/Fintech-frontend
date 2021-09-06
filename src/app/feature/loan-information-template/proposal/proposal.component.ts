@@ -97,7 +97,7 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.interestLimit = this.formDataForEdit['interestRate'];
-      /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
+      this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
@@ -176,6 +176,11 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
+    if (this.formValue !== null) {
+      if (!ObjectUtil.isEmpty(this.formValue)) {
+        this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
+      }
+    }
   }
 
   buildForm() {

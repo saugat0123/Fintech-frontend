@@ -752,7 +752,7 @@
                 </div>
             </div>
 
-            <ng-container *ngIf="proposalDataNotNull">
+            <ng-container *ngIf="proposalData.data !== null">
                 <app-proposal-summary
                     *ngIf="proposalSummary"
                     [customerAllLoanList]="customerAllLoanList"

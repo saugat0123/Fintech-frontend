@@ -40,7 +40,7 @@ export class DetailViewBaseComponent implements OnInit {
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
   showCadDoc = false;
   securityId: number;
-  proposalDataNotNull = true;
+
 
 
   constructor(private customerLoanService: LoanFormService,
@@ -69,10 +69,7 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
     }
-    if(this.proposalData.data === null)
-    {
-      this.proposalDataNotNull = false;
-    }
+
   }
 
   getAllLoans(customerInfoId: number): void {
