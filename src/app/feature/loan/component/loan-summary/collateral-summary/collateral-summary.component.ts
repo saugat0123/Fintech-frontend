@@ -20,6 +20,9 @@ export class CollateralSummaryComponent implements OnInit {
 
   fundedList: LoanDataHolder[];
   nonFundedList: LoanDataHolder[];
+  nonFundedListIsNull = false;
+  customerLoanListNull = false;
+  fundedListNull = false;
   loanType = LoanType;
   proposalUtil = ProposalCalculationUtils;
 
@@ -38,6 +41,21 @@ export class CollateralSummaryComponent implements OnInit {
   filterLoan() {
     this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
     this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
+    this.nonFundedList.forEach((data) => {
+      if (data.proposal.data === null || data.proposal.data === '') {
+this.nonFundedListIsNull = true;
+      }
+    });
+    this.customerAllLoanList.forEach((data) => {
+      if (data.proposal.data === null || data.proposal.data === '') {
+        this.customerLoanListNull = true;
+      }
+    });
+    this.fundedList.forEach((data) => {
+      if (data.proposal.data === null || data.proposal.data === '') {
+        this.fundedListNull = true;
+      }
+    });
     this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
     (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
   }

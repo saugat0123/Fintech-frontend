@@ -41,6 +41,8 @@ export class DetailViewBaseComponent implements OnInit {
   showCadDoc = false;
   securityId: number;
 
+
+
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
               private fiscalYearService: FiscalYearService) {
@@ -67,6 +69,7 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
     }
+
   }
 
   getAllLoans(customerInfoId: number): void {
