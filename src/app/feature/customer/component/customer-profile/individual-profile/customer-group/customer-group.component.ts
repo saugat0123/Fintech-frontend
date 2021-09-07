@@ -41,23 +41,19 @@ export class CustomerGroupComponent implements OnInit {
     console.log(this.customerInfo.mgroupInfo);
     if (!ObjectUtil.isEmpty(this.customerInfo.mgroupInfo)) {
       this.mGroupInfo = this.customerInfo.mgroupInfo;
-      console.log(this.mGroupInfo);
       this.form.patchValue(this.mGroupInfo);
     }
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      groupCode: [undefined, Validators.required],
-      detailInformation: [undefined, Validators.required],
+      groupCode: [undefined],
+      detailInformation: [undefined],
     });
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
     this.spinner = true;
     this.mGroupInfo = this.setMGroupValue();
     this.mGroupService.save(this.mGroupInfo).subscribe((response) => {
@@ -65,8 +61,7 @@ export class CustomerGroupComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Group'));
       this.spinner = false;
     }, error => {
-      console.log(error);
-
+      console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Error while saving: ' + error));
       this.spinner = false;
     });
