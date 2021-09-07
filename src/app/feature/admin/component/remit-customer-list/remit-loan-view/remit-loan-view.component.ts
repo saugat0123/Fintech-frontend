@@ -18,13 +18,9 @@ export class RemitLoanViewComponent implements OnInit {
   ngOnInit() {
 
     try {
-      console.log('this is selectedData', this.selectedIdData);
       this.agentData = JSON.parse(this.selectedIdData.agentData);
-      console.log('this is agent', this.agentData);
       this.senderData = JSON.parse(this.selectedIdData.senderData);
-      console.log('this is sender', this.senderData);
       this.beneficiaryData = JSON.parse(this.selectedIdData.beneficiaryData);
-      console.log('benificaryu', this.beneficiaryData);
     } catch (ex) {
 
     }
