@@ -18,7 +18,7 @@ export class RemitDetailsComponent implements OnInit {
   ngOnInit() {
     this.remit = this.loanHolder.remitCustomer;
     if (this.remit !== null || !ObjectUtil.isEmpty(this.remit)) {
-      this.isNull = true;
+      this.isNull = false;
       this.agentDetails = JSON.parse(this.remit.agentData);
       this.senderDetails = JSON.parse(this.remit.senderData);
       this.beneficiaryDetails = JSON.parse(this.remit.beneficiaryData);
