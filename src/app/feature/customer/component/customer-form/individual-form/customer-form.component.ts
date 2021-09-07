@@ -302,6 +302,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.gender = this.basicInfo.get('gender').value;
                     this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
                     this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
+                    this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
