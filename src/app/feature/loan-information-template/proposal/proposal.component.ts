@@ -116,7 +116,6 @@ export class ProposalComponent implements OnInit {
       this.setActiveBaseRate();
       this.addGroupExposureData();
     }
-
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.allId = {
