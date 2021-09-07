@@ -68,34 +68,6 @@
                          type="number" appDecimalNumber>
               </td>
             </tr>
-            <ng-container *ngIf="srdbAffiliatedId">
-              <tr>
-                <td>LC Commission </td>
-                <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                           class="form-control text-center"
-                           formControlName="lcCommissionDuringReview"
-                           type="number" appDecimalNumber>
-                </td>
-                <td><input (keyup)="calculateTotalIncomeAfterReview()"
-                           class="form-control text-center"
-                           formControlName="lcCommissionAfterNextReview"
-                           type="number" appDecimalNumber>
-                </td>
-              </tr>
-              <tr>
-                <td>Guarantee Commission</td>
-                <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                           class="form-control text-center"
-                           formControlName="guaranteeCommissionDuringReview"
-                           type="number" appDecimalNumber>
-                </td>
-                <td><input (keyup)="calculateTotalIncomeAfterReview()"
-                           class="form-control text-center"
-                           formControlName="guaranteeCommissionAfterNextReview"
-                           type="number" appDecimalNumber>
-                </td>
-              </tr>
-            </ng-container>
             <tr>
               <td>Other Charges</td>
               <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"

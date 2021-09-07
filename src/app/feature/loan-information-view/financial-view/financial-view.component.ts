@@ -2,7 +2,8 @@ import {Component, Input, OnInit, QueryList} from '@angular/core';
 import {Financial} from '../../loan/model/financial';
 import {CustomerType} from '../../customer/model/customerType';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
+import {KeyIndicatorsHeaderMap} from '../../loan-information-template/financial/constants/key-indicators-constants';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -16,22 +17,18 @@ export class FinancialViewComponent implements OnInit {
 
   @Input() formData: Financial;
   @Input() customerType: any;
-  activeClientIsMega = true;
   @Input() microCustomer;
   isMicro = false;
   financialData: any;
   isBusinessLoan = false;
   activeTab: string;
   disableCrgAlphaParams = environment.disableCrgAlpha;
-  client = environment.client;
-  clientName = Clients;
   auditorList = [];
 
   constructor(protected toastService: ToastService) {
   }
 
   ngOnInit() {
-    this.activeClientIsMega = environment.client === Clients.MEGA;
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
       if (CustomerType[this.customerType] === CustomerType.INSTITUTION && !this.microCustomer) {

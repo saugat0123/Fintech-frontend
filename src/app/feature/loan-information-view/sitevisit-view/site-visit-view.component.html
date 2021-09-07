@@ -110,7 +110,7 @@
 <!-- ============================================================= Business Site Visit END ==============================================================-->
 <!-- ============================================================= Fixed Asset Collateral Form  ==============================================================-->
 <p *ngIf="formData['fixedAssetCollateralFormChecked'] === true" class="font-weight-bold small">
-    {{client === clientName?.SHINE_RESUNGA ? 'Collateral Inspection Report' : 'Fixed Asset Collateral'}} & Facilities Details</p>
+    Fixed Asset Collateral & Facilities Details</p>
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr class="text-white sb-bg-dark">
@@ -148,8 +148,7 @@
         <th>Road Width(in feet)</th>
         <th>Road Access From in feet</th>
         <th>Prominent Place</th>
-        <th *ngIf="client === clientName?.SHINE_RESUNGA">Approach Distance(in meter)</th>
-        <th *ngIf="client !== clientName?.SHINE_RESUNGA">Approach Distance(in feet)</th>
+        <th>Approach Distance(in feet)</th>
         <th>Water Supply</th>
         <th>Electricity</th>
         <th>Boundary wall</th>
@@ -588,7 +587,7 @@
     </tr>
 </table>
 
-<div *ngIf="client !== clientName?.SHINE_RESUNGA">
+<div>
 <table *ngIf="formData['currentAssetsInspectionFormChecked'] === true"
        class="table table-sm table-condensed table-bordered table-responsive-md text-center sb-small">
     <tr>

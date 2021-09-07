@@ -20,8 +20,6 @@ export class CreditChecklistGeneralComponent implements OnInit {
   @Input() calendarType: CalendarType;
   @Input() customerType: CustomerType;
   @Input()
-  client = environment.client;
-  clientName = Clients;
 
   formGroupCheckList: FormGroup;
   dataForEdit;
