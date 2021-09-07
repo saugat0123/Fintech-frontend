@@ -627,7 +627,16 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <app-remit-details *ngIf="isRemitLoan" [loanHolder]="loanDataHolder.loanHolder"></app-remit-details>
+                <nb-accordion *ngIf="isRemitLoan">
+                    <nb-accordion-item>
+                        <nb-accordion-item-header><h6>Video KYC</h6></nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <app-video-kyc-information></app-video-kyc-information>
+                            <app-video-kyc [showSender]="true"   [isModal]="false" ></app-video-kyc>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+                <app-remit-details [loanHolder]="loanDataHolder.loanHolder"></app-remit-details>
 
             </div>
 
