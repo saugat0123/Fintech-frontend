@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
@@ -14,7 +14,7 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 declare let google: any;
@@ -117,15 +117,18 @@ export class SiteVisitComponent implements OnInit {
 
   ngOnInit() {
     this.getRoleList();
+    console.log('formValue', this.formValue);
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
+      console.log('formDataForEdit', this.formDataForEdit);
     }
 
     this.buildForm();
     if (this.formDataForEdit !== undefined) {
       this.populateData();
     } else {
+      this.addMoreBusinessSiteVisit();
       this.addStaffOfInsurance();
       this.addStaffOfOtherAssets();
       this.addDetailsOfParties('receivablesAndPayables');
@@ -205,6 +208,7 @@ export class SiteVisitComponent implements OnInit {
         businessSiteVisitLatitude: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.businessSiteVisitLatitude]
       }),
+      businessDetails: this.formBuilder.array([]),
       currentAssetsInspectionDetails: this.formBuilder.group({
         dateOfInspection: [this.formDataForEdit === undefined ? '' :
             this.formDataForEdit.currentAssetsInspectionDetails === undefined ? '' :
@@ -779,16 +783,17 @@ export class SiteVisitComponent implements OnInit {
       // current residential details
       this.currentResidentAddress.onSubmit();
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
-      this.submitted = true;
+      // this.submitted = true;
         return;
       } else {
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
       }
     }
     if (this.businessSiteVisitForm) {
+      this.fetchAddress('businessDetails', this.businessOfficeAddress);
       this.businessOfficeAddress.onSubmit();
       if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
-      this.business = true;
+      // this.business = true;
         return;
       } else {
         this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
@@ -1084,6 +1089,66 @@ export class SiteVisitComponent implements OnInit {
       this.spinner = false;
     });
   }
+
+  addMoreBusinessSiteVisit() {
+    (this.siteVisitFormGroup.get('businessDetails') as FormArray).push(this.businessDetailsFormGroup());
+  }
+
+  removeBusinessSiteVisit(index: number) {
+    (<FormArray>this.siteVisitFormGroup.get('businessDetails')).removeAt(index);
+  }
+
+  businessDetailsFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      officeAddress: [undefined],
+      nameOfThePersonContacted: [undefined, [Validators.required , Validators.pattern(Pattern.ALPHABET_ONLY)]],
+      dateOfVisit: [undefined],
+      objectiveOfVisit: [undefined, Validators.required],
+      staffRepresentativeNameDesignation: [undefined],
+      staffRepresentativeName: [undefined],
+      staffRepresentativeNameDesignation2: [undefined],
+      staffRepresentativeName2: [undefined],
+      findingsAndComments: [undefined],
+      businessSiteVisitLongitude: [undefined],
+      businessSiteVisitLatitude: [undefined]
+    });
+  }
+
+  setLandDetails(currentData) {
+    const businessDetails = this.siteVisitFormGroup.get('businessDetails') as FormArray;
+    if (!ObjectUtil.isEmpty(currentData)) {
+      currentData.forEach((singleData, index) => {
+        businessDetails.push(
+            this.formBuilder.group({
+              officeAddress: [singleData.officeAddress],
+              nameOfThePersonContacted: [singleData.nameOfThePersonContacted],
+              dateOfVisit: [singleData.dateOfVisit],
+              objectiveOfVisit: [singleData.objectiveOfVisit],
+              staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
+              staffRepresentativeName: [singleData.staffRepresentativeName],
+              staffRepresentativeNameDesignation2: [singleData.staffRepresentativeNameDesignation2],
+              staffRepresentativeName2: [singleData.staffRepresentativeName2],
+              businessSiteVisitLongitude: [singleData.businessSiteVisitLongitude],
+              businessSiteVisitLatitude: [singleData.businessSiteVisitLatitude],
+              findingsAndComments: [singleData.findingsAndComments],
+            })
+        );
+      });
+    } else {
+      this.addMoreBusinessSiteVisit();
+    }
+  }
+
+  fetchAddress(controlName, type: CommonAddressComponent) {
+    this.siteVisitFormGroup.controls[controlName]['controls'].forEach((control, index) => {
+      if (ObjectUtil.isEmpty(controlName)) {
+        control.get('ownerKycApplicableData').setValue(null);
+      } else {
+        control.get('ownerKycApplicableData').setValue(controlName.ownerKycForm.value);
+      }
+    });
+  }
+
 }
 
 

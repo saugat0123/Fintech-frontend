@@ -149,156 +149,290 @@
 <!--                    </agm-marker>-->
 <!--                </agm-map>-->
             </div>
-            <div [hidden]="!businessSiteVisitForm" class="row mt-3"
-                 formGroupName="businessSiteVisitDetails">
-                <h4 class="col-md-12">Business Site Visit</h4>
-                <div class="col-md-12">
-                    <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessSiteVisitDetails?.officeAddress"></app-common-address>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
-                    <input class="form-control" formControlName="nameOfThePersonContacted"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors }"
-                           id="nameOfThePersonContacted"
-                           name="nameOfThePersonContacted" placeholder="name of the person contacted"
-                           type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors.required">Name is required</span>
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors.pattern">Invalid person name</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="dateOfVisit">Date Of Visit</label>
-                    <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
-                           *ngIf="calendarType === 'AD'"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors }"
-                           id="dateOfVisit" placeholder="date of visit">
-                    <app-calendar
-                            [ePreDate]="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.value"
-                            *ngIf="calendarType === 'BS'"
-                            (messageToEmit)="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>
-                    <nb-datepicker #datepicker3></nb-datepicker>
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors.required">Date is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
-                    <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
-                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('objectiveOfVisit')?.errors }"
-                           name="objectiveOfVisit" placeholder="objective of visit" type="text">
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('objectiveOfVisit')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('objectiveOfVisit')?.errors.required">objective is required</span>
-                    </div>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeNameDesignation"
-                           for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
-                    <select class="form-control"
-                            formControlName="staffRepresentativeNameDesignation"
-                            id="staffRepresentativeNameDesignationBusiness"
-                            name="staffRepresentativeNameDesignation">
-                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
-                         <option *ngFor="let designation of designationList"
-                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name 1</label>
-                    <input class="form-control" formControlName="staffRepresentativeName"
-                           id="staffRepresentativeNameBusiness" name="staffRepresentativeName"
-                           placeholder="Staff Representative Name 1" type="text">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeNameDesignation2"
-                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
-                    <select class="form-control"
-                            formControlName="staffRepresentativeNameDesignation2"
-                            id="staffRepresentativeNameDesignationBusiness2"
-                            name="staffRepresentativeNameDesignation2">
-                        <option [ngValue]="null">Staff Representative Designation 2 </option>
-                         <option *ngFor="let designation of designationList"
-                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="staffRepresentativeName2"
-                           for="staffRepresentativeName2">Staff Representative Name 2</label>
-                    <input class="form-control" formControlName="staffRepresentativeName2"
-                           id="staffRepresentativeNameBusiness2"
-                           name="staffRepresentativeName2"
-                           placeholder="Staff Representative Name 2" type="text">
-                </div>
-
-                <!-- <div class="form-group col-md-4">
-                     <label class="title" for="mapAddress">Map Address</label>
-                     <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"
-                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors }"
-                            name="mapAddress" placeholder="address"
-                            type="text">
-                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.invalid"
-                          class="invalid-feedback">
-                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors.required">address is required</span>
-                     </div>
-                 </div>-->
-                <div class="col-md-8 form-group">
-                    <label class="title" for="findingsAndComments">Finding And Comments</label>
-                    <textarea class="form-control" formControlName="findingsAndComments"
-                              [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors }"
-                              id="findingsAndComments" name="findingsAndComments"
-                              placeholder="findings and comments"
-                              row="3"></textarea>
-                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.invalid"
-                         class="invalid-feedback">
-                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors.required">comments required</span>
-                    </div>
-                </div>
-                    <div>
-                        <label class="ml-2"><strong>Location Detail</strong></label>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-4">
-                                <label class="title" for="businessSiteVisitLongitude">Longitude</label>
-                            <input class="form-control" formControlName="businessSiteVisitLongitude"
-                                   id="businessSiteVisitLongitude"
-                                   name="businessSiteVisitLongitude" placeholder="Longitude"
-                                   type="number">
-                        </div>
-                        <div class="col-md-4">
-                                <label class="title" for="businessSiteVisitLatitude">Latitude</label>
-                            <input class="form-control" formControlName="businessSiteVisitLatitude"
-                                   id="businessSiteVisitLatitude"
-                                   name="businessSiteVisitLatitude" placeholder="Latitude"
-                                   type="number">
-                        </div>
-                    </div>
-
-<!--                <div class="input-group mb-3">-->
-<!--                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"-->
-<!--                           name="locationPreview"-->
+<!--            <div [hidden]="!businessSiteVisitForm" class="row mt-3"-->
+<!--                 formGroupName="businessSiteVisitDetails">-->
+<!--                <h4 class="col-md-12">Business Site Visit</h4>-->
+<!--                <div class="col-md-12">-->
+<!--                    <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessSiteVisitDetails?.officeAddress"></app-common-address>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>-->
+<!--                    <input class="form-control" formControlName="nameOfThePersonContacted"-->
+<!--                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors }"-->
+<!--                           id="nameOfThePersonContacted"-->
+<!--                           name="nameOfThePersonContacted" placeholder="name of the person contacted"-->
 <!--                           type="text">-->
-<!--                    <div class="input-group-append">-->
-<!--                        <button (click)="findLocation()" class="btn btn-light">Find Location</button>-->
+<!--                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors.required">Name is required</span>-->
+<!--                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('nameOfThePersonContacted')?.errors.pattern">Invalid person name</span>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"-->
-<!--                         [clickableIcons]='false'-->
-<!--                         [fullscreenControl]='true'-->
-<!--                         [latitude]="latitude"-->
-<!--                         [longitude]="longitude"-->
-<!--                         [mapTypeControl]='true'-->
-<!--                         [zoom]="zoom"-->
-<!--                         style="height: 200px; width: 100%;">-->
-<!--                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">-->
-<!--                        <agm-info-window [isOpen]="infoWindowOpen.value">-->
-<!--                            {{addressLabel.value}}-->
-<!--                        </agm-info-window>-->
-<!--                    </agm-marker>-->
-<!--                </agm-map>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="title" for="dateOfVisit">Date Of Visit</label>-->
+<!--                    <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"-->
+<!--                           *ngIf="calendarType === 'AD'"-->
+<!--                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors }"-->
+<!--                           id="dateOfVisit" placeholder="date of visit">-->
+<!--                    <app-calendar-->
+<!--                            [ePreDate]="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.value"-->
+<!--                            *ngIf="calendarType === 'BS'"-->
+<!--                            (messageToEmit)="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>-->
+<!--                    <nb-datepicker #datepicker3></nb-datepicker>-->
+<!--                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors.required">Date is required</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="title" for="objectiveOfVisit">Objective Of Visit</label>-->
+<!--                    <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"-->
+<!--                           [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('objectiveOfVisit')?.errors }"-->
+<!--                           name="objectiveOfVisit" placeholder="objective of visit" type="text">-->
+<!--                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('objectiveOfVisit')?.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('objectiveOfVisit')?.errors.required">objective is required</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="staffRepresentativeNameDesignation"-->
+<!--                           for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>-->
+<!--                    <select class="form-control"-->
+<!--                            formControlName="staffRepresentativeNameDesignation"-->
+<!--                            id="staffRepresentativeNameDesignationBusiness"-->
+<!--                            name="staffRepresentativeNameDesignation">-->
+<!--                        <option [ngValue]="null" hidden>Staff Representative Designation 1</option>-->
+<!--                         <option *ngFor="let designation of designationList"-->
+<!--                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name 1</label>-->
+<!--                    <input class="form-control" formControlName="staffRepresentativeName"-->
+<!--                           id="staffRepresentativeNameBusiness" name="staffRepresentativeName"-->
+<!--                           placeholder="Staff Representative Name 1" type="text">-->
+<!--                </div>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="staffRepresentativeNameDesignation2"-->
+<!--                           for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>-->
+<!--                    <select class="form-control"-->
+<!--                            formControlName="staffRepresentativeNameDesignation2"-->
+<!--                            id="staffRepresentativeNameDesignationBusiness2"-->
+<!--                            name="staffRepresentativeNameDesignation2">-->
+<!--                        <option [ngValue]="null">Staff Representative Designation 2 </option>-->
+<!--                         <option *ngFor="let designation of designationList"-->
+<!--                                                [ngValue]="designation?.roleName">{{designation?.roleName}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label class="staffRepresentativeName2"-->
+<!--                           for="staffRepresentativeName2">Staff Representative Name 2</label>-->
+<!--                    <input class="form-control" formControlName="staffRepresentativeName2"-->
+<!--                           id="staffRepresentativeNameBusiness2"-->
+<!--                           name="staffRepresentativeName2"-->
+<!--                           placeholder="Staff Representative Name 2" type="text">-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; <div class="form-group col-md-4">-->
+<!--                     <label class="title" for="mapAddress">Map Address</label>-->
+<!--                     <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"-->
+<!--                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors }"-->
+<!--                            name="mapAddress" placeholder="address"-->
+<!--                            type="text">-->
+<!--                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.invalid"-->
+<!--                          class="invalid-feedback">-->
+<!--                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('mapAddress')?.errors.required">address is required</span>-->
+<!--                     </div>-->
+<!--                 </div>&ndash;&gt;-->
+<!--                <div class="col-md-8 form-group">-->
+<!--                    <label class="title" for="findingsAndComments">Finding And Comments</label>-->
+<!--                    <textarea class="form-control" formControlName="findingsAndComments"-->
+<!--                              [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors }"-->
+<!--                              id="findingsAndComments" name="findingsAndComments"-->
+<!--                              placeholder="findings and comments"-->
+<!--                              row="3"></textarea>-->
+<!--                    <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors.required">comments required</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                    <div>-->
+<!--                        <label class="ml-2"><strong>Location Detail</strong></label>-->
+<!--                    </div>-->
+<!--                    <div class="row col-md-12">-->
+<!--                        <div class="col-md-4">-->
+<!--                                <label class="title" for="businessSiteVisitLongitude">Longitude</label>-->
+<!--                            <input class="form-control" formControlName="businessSiteVisitLongitude"-->
+<!--                                   id="businessSiteVisitLongitude"-->
+<!--                                   name="businessSiteVisitLongitude" placeholder="Longitude"-->
+<!--                                   type="number">-->
+<!--                        </div>-->
+<!--                        <div class="col-md-4">-->
+<!--                                <label class="title" for="businessSiteVisitLatitude">Latitude</label>-->
+<!--                            <input class="form-control" formControlName="businessSiteVisitLatitude"-->
+<!--                                   id="businessSiteVisitLatitude"-->
+<!--                                   name="businessSiteVisitLatitude" placeholder="Latitude"-->
+<!--                                   type="number">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--&lt;!&ndash;                <div class="input-group mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"&ndash;&gt;-->
+<!--&lt;!&ndash;                           name="locationPreview"&ndash;&gt;-->
+<!--&lt;!&ndash;                           type="text">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button (click)="findLocation()" class="btn btn-light">Find Location</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"&ndash;&gt;-->
+<!--&lt;!&ndash;                         [clickableIcons]='false'&ndash;&gt;-->
+<!--&lt;!&ndash;                         [fullscreenControl]='true'&ndash;&gt;-->
+<!--&lt;!&ndash;                         [latitude]="latitude"&ndash;&gt;-->
+<!--&lt;!&ndash;                         [longitude]="longitude"&ndash;&gt;-->
+<!--&lt;!&ndash;                         [mapTypeControl]='true'&ndash;&gt;-->
+<!--&lt;!&ndash;                         [zoom]="zoom"&ndash;&gt;-->
+<!--&lt;!&ndash;                         style="height: 200px; width: 100%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <agm-info-window [isOpen]="infoWindowOpen.value">&ndash;&gt;-->
+<!--&lt;!&ndash;                            {{addressLabel.value}}&ndash;&gt;-->
+<!--&lt;!&ndash;                        </agm-info-window>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </agm-marker>&ndash;&gt;-->
+<!--&lt;!&ndash;                </agm-map>&ndash;&gt;-->
+<!--            </div>-->
+
+
+            <div [hidden]="!businessSiteVisitForm" class="row mt-3">
+                <h4 class="col-md-12">Business Site Visit</h4>
+                <div *ngFor="let businessSite of siteVisitFormGroup.get('businessDetails')['controls']; let i = index"
+                     formArrayName="businessDetails">
+                    <div [formGroupName]="i" class="row">
+                        <div class="col-md-12">
+                            <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessSiteVisitDetails[i]?.officeAddress"></app-common-address>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
+                            <input class="form-control" formControlName="nameOfThePersonContacted"
+                                   [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('nameOfThePersonContacted')?.errors}"
+                                   id="nameOfThePersonContacted"
+                                   name="nameOfThePersonContacted" placeholder="name of the person contacted"
+                                   type="text">
+                            <div *ngIf="(businessSiteVisitForm) && businessSite?.get('nameOfThePersonContacted')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="businessSite?.get('nameOfThePersonContacted')?.errors.required">
+                                    Invalid person name</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="dateOfVisit">Date Of Visit</label>
+                            <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
+                                   *ngIf="calendarType === 'AD'"
+                                   [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('dateOfVisit')?.errors }"
+                                   id="dateOfVisit" placeholder="date of visit">
+                            <app-calendar
+                                    [ePreDate]="businessSite?.get('dateOfVisit')?.value"
+                                    *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="businessSite?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>
+                            <nb-datepicker #datepicker3></nb-datepicker>
+                            <div *ngIf="(businessSiteVisitForm) && businessSite.get('dateOfVisit')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="businessSite?.get('dateOfVisit')?.errors.required">Date is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
+                            <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
+                                   [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('objectiveOfVisit')?.errors }"
+                                   name="objectiveOfVisit" placeholder="objective of visit" type="text">
+                            <div *ngIf="(businessSiteVisitForm) && businessSite?.get('objectiveOfVisit')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="businessSite?.get('objectiveOfVisit')?.errors.required">objective is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="staffRepresentativeNameDesignation"
+                                   for="staffRepresentativeNameDesignation">Staff Representative Designation 1</label>
+                            <select class="form-control"
+                                    formControlName="staffRepresentativeNameDesignation"
+                                    id="staffRepresentativeNameDesignationBusiness"
+                                    name="staffRepresentativeNameDesignation">
+                                <option [ngValue]="null" hidden>Staff Representative Designation 1</option>
+                                <option *ngFor="let designation of designationList"
+                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="staffRepresentativeName" for="staffRepresentativeName">Staff Representative Name 1</label>
+                            <input class="form-control" formControlName="staffRepresentativeName"
+                                   id="staffRepresentativeNameBusiness" name="staffRepresentativeName"
+                                   placeholder="Staff Representative Name 1" type="text">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="staffRepresentativeNameDesignation2"
+                                   for="staffRepresentativeNameDesignation2">Staff Representative Designation 2</label>
+                            <select class="form-control"
+                                    formControlName="staffRepresentativeNameDesignation2"
+                                    id="staffRepresentativeNameDesignationBusiness2"
+                                    name="staffRepresentativeNameDesignation2">
+                                <option [ngValue]="null">Staff Representative Designation 2 </option>
+                                <option *ngFor="let designation of designationList"
+                                        [ngValue]="designation?.roleName">{{designation?.roleName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="staffRepresentativeName2"
+                                   for="staffRepresentativeName2">Staff Representative Name 2</label>
+                            <input class="form-control" formControlName="staffRepresentativeName2"
+                                   id="staffRepresentativeNameBusiness2"
+                                   name="staffRepresentativeName2"
+                                   placeholder="Staff Representative Name 2" type="text">
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label class="title" for="findingsAndComments">Finding And Comments</label>
+                            <textarea class="form-control" formControlName="findingsAndComments"
+                                      [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('findingsAndComments')?.errors }"
+                                      id="findingsAndComments" name="findingsAndComments"
+                                      placeholder="findings and comments"
+                                      row="3"></textarea>
+                            <div *ngIf="(businessSiteVisitForm) && businessSite?.get('findingsAndComments')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="businessSite?.get('findingsAndComments')?.errors.required">comments required</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="ml-2"><strong>Location Detail</strong></label>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-4">
+                                <label class="title" for="businessSiteVisitLongitude">Longitude</label>
+                                <input class="form-control" formControlName="businessSiteVisitLongitude"
+                                       id="businessSiteVisitLongitude"
+                                       name="businessSiteVisitLongitude" placeholder="Longitude"
+                                       type="number">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="title" for="businessSiteVisitLatitude">Latitude</label>
+                                <input class="form-control" formControlName="businessSiteVisitLatitude"
+                                       id="businessSiteVisitLatitude"
+                                       name="businessSiteVisitLatitude" placeholder="Latitude"
+                                       type="number">
+                            </div>
+                        </div>
+
+                        <div *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails') ['length'] > 1" class="col-md-1">
+                            <input (click)="removeBusinessSiteVisit(i)"
+                                   class="align-self-end btn btn-sm btn-danger btn-primary"
+                                   type="button" value="Delete"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input (click)="addMoreBusinessSiteVisit()" class="btn btn-sm btn-flat float-right btn-primary" type="button"
+                           value="Add More Land"/>
+                </div>
             </div>
+
+
             <div [hidden]="!currentAssetsInspectionForm" class="row mt-3"
                  formGroupName="currentAssetsInspectionDetails">
                 <h4 class="col-md-12">Current Assets Inspection - Stock</h4>
