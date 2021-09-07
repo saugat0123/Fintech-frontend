@@ -91,14 +91,13 @@ export class ProposalComponent implements OnInit {
     this.configEditor();
     this.buildForm();
     this.checkLoanTypeAndBuildForm();
-    if (!ObjectUtil.isEmpty(this.formValue)) {
+    if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
-      this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.interestLimit = this.formDataForEdit['interestRate'];
-      /*this.proposalForm.get('existingLimit').patchValue(this.formValue.proposedLimit);*/
+      this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
       this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
           ? new Date(this.formValue.dateOfExpiry) : undefined);
       this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
@@ -107,6 +106,11 @@ export class ProposalComponent implements OnInit {
         this.groupExposureData = JSON.parse(this.formValue.groupExposure);
         this.proposalForm.patchValue(this.groupExposureData);
         this.setGroupExposureData(this.groupExposureData);
+      }
+      if (!ObjectUtil.isEmpty(this.formValue.proposedLimit)) {
+        this.proposalForm.patchValue({
+          proposedLimit: this.formValue.proposedLimit
+        });
       }
     } else {
       this.setActiveBaseRate();
@@ -171,6 +175,9 @@ export class ProposalComponent implements OnInit {
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
+      if (!ObjectUtil.isEmpty(this.formValue)) {
+        this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
+      }
   }
 
   buildForm() {
