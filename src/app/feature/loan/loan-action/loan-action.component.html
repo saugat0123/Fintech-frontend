@@ -35,6 +35,24 @@
 <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
+  <button (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus"
+          [disabled]="!actionsList.sendBackward"
+          [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+          class="btn-sm"
+          style="color:lightseagreen;">
+    SEND BACK TO SENDER
+    <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
+  </button>
+
+  <button (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus"
+          [disabled]="!actionsList.sendBackward"
+          [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+          class="btn-sm"
+          style="color:lightseagreen;">
+    SEND BACK TO AGENT
+    <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
+  </button>
+
   <button (click)="loanAction('backwardCommittee')" *ngIf="committeeRole && !catalogueStatus"
           [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
