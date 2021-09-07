@@ -19,6 +19,7 @@ export class Customer {
     email: string;
     initialRelationDate: Date;
     citizenshipNumber: string;
+    panNumber: string;
     citizenshipIssuedDate: Date;
     citizenshipIssuedPlace: string;
     status: string;
