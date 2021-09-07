@@ -22,7 +22,7 @@ export class CompanyFormComponent implements OnInit, DoCheck {
     constructor(
         private service: CompanyService,
         private activeModal: NgbActiveModal,
-        private toastService: ToastService
+        private toastService: ToastService,
     ) {
     }
 
@@ -38,14 +38,17 @@ export class CompanyFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.spinner =true;
         this.submitted = true;
 
         this.service.save(this.company).subscribe(() => {
             if (this.company.id == null){
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
                 this.company = new Company();
                 this.activeModal.close(ModalResponse.SUCCESS);
             } else {
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Information'));
                 this.company = new Company();
                 this.activeModal.close(ModalResponse.SUCCESS);
@@ -53,7 +56,7 @@ export class CompanyFormComponent implements OnInit, DoCheck {
             }, error => {
 
                 console.log(error);
-
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Company Information'));
 
                 this.activeModal.dismiss(error);

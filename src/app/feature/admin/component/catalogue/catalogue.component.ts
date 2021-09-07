@@ -103,7 +103,7 @@ export class CatalogueComponent implements OnInit {
     defaultRoleHierarchies = [];
     approvalRoleHierarchies = [];
     currentRole: string;
-    popUpTitle: string;
+    popUpTitle = 'Transfer';
     currentRoleOrder: number;
     currentRoleType: string;
     roleTypeMaker: string;
@@ -111,6 +111,7 @@ export class CatalogueComponent implements OnInit {
     isFileUnderCurrentToUser: any;
     loanConfigId: number;
     customerId: number;
+    roleId: number;
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -149,6 +150,7 @@ export class CatalogueComponent implements OnInit {
 
     ngOnInit() {
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
+        this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
@@ -586,9 +588,14 @@ export class CatalogueComponent implements OnInit {
         }
     }
 
-    public transferLoanFile(refId: number, loanConfigId: number, customerLoanId: number,
-                            branchId: number, combinedLoanId: number, loanDataHolder: any): void {
-        this.roleHierarchyList(refId, loanDataHolder);
+    public transferLoanFile(loanId: number, loanConfigId: number, customerLoanId: number,
+                            branchId: number, combinedLoanId: number, roleId: number, loanDataHolder: any): void {
+        let refId;
+        if (!ObjectUtil.isEmpty(combinedLoanId)) {
+            refId = loanId;
+        } else {
+            refId = loanId;
+        }
         this.close();
         let context;
         context = {
@@ -605,7 +612,7 @@ export class CatalogueComponent implements OnInit {
             currentRoleOrder: this.currentRoleOrder,
             docAction: DocAction.value(DocAction.TRANSFER),
             documentStatus: DocStatus.PENDING,
-            toRole: {id: Number(LocalStorageUtil.getStorage().roleId)},
+            toRoleId: roleId,
             isFileUnderCurrentToUser: loanDataHolder.currentStage.toUser,
         };
         if (ObjectUtil.isEmpty(combinedLoanId)) {
@@ -627,26 +634,5 @@ export class CatalogueComponent implements OnInit {
             });
         }
         this.isOpen = true;
-    }
-
-    private roleHierarchyList(refId: number, loanDataHolder: any): void {
-        this.popUpTitle = 'Transfer';
-        this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
-            this.defaultRoleHierarchies = response.detail;
-            this.length = this.defaultRoleHierarchies.length > 0;
-            this.approvalRoleHierarchies = this.defaultRoleHierarchies.reverse();
-            const currentRoleId = loanDataHolder.currentStage.toUser.role.id;
-            this.roleTypeMaker = loanDataHolder.currentStage.toUser.role.roleType;
-            this.defaultRoleHierarchies.filter((f) => {
-                const roleId = f.role.id;
-                f.isCurrentRole = false;
-                if (currentRoleId === roleId) {
-                    f.isCurrentRole = true;
-                    this.currentRole = f.role.roleName;
-                    this.currentRoleOrder = f.role.roleOrder;
-                    this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
-                }
-            });
-        });
     }
 }

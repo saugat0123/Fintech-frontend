@@ -71,7 +71,6 @@
         <td>Profession</td>
         <td>Date of Birth (AD/BS)</td>
         <th>Relationship</th>
-        <th>Net Worth</th>
         <th>Temporary Address 1</th>
         <th>Temporary Address 2</th>
         <th>Temporary Province</th>
@@ -81,10 +80,9 @@
 
       </tr>
       <tr>
-        <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
+        <td class="text-left pl-1">{{guarantor?.profession}}</td>
         <td class="text-left pl-1">{{guarantor?.dateOfBirth | date}} ({{guarantor?.dateOfBirth | engNepDate: false}})</td>
         <td class="text-left pl-1">{{guarantor?.relationship}}</td>
-        <td class="text-right pr-1">Rs. {{guarantor?.netWorth | currencyFormatter}}</td>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineTwo}}</td>
         <td class="text-left pl-1">{{guarantor?.provinceTemporary?.name}}</td>

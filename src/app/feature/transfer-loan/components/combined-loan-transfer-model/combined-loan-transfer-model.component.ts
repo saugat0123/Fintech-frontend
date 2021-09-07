@@ -36,7 +36,7 @@ export class CombinedLoanTransferModelComponent implements OnInit {
   @Input() branchId: number;
   @Input() approvalType: string;
   @Input() refId: number;
-  @Input() toRole: Role;
+  @Input() toRoleId: number;
   @Input() isFileUnderCurrentToUser;
   ckeConfig = Editor.CK_CONFIG;
   public combinedLoan: CombinedLoan;
@@ -289,9 +289,15 @@ export class CombinedLoanTransferModelComponent implements OnInit {
   }
 
   private conditionalCombinedDataLoad(): void {
+    let toRoleId;
+    if (!ObjectUtil.isEmpty(this.toRoleId)) {
+      toRoleId = this.toRoleId;
+    } else {
+      toRoleId = this.roleId;
+    }
     switch (this.popUpTitle) {
       case 'Transfer':
-        this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId)
+        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(toRoleId, this.approvalType, this.combinedLoanId)
             .subscribe((response: any) => {
               this.sendForwardBackwardList = [];
               this.sendForwardBackwardList = response.detail;
@@ -302,10 +308,16 @@ export class CombinedLoanTransferModelComponent implements OnInit {
 
   // get all approval role list
   private getConditionalCombinedDataLoad(): void {
+    let toRoleId;
+    if (!ObjectUtil.isEmpty(this.toRoleId)) {
+      toRoleId = this.toRoleId;
+    } else {
+      toRoleId = this.roleId;
+    }
     switch (this.popUpTitle) {
       case 'Transfer':
         const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
-        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
+        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(toRoleId, approvalType, this.refId)
             .subscribe((response: any) => {
               this.sendForwardBackwardApprovalList = [];
               this.sendForwardBackwardApprovalList = response.detail;

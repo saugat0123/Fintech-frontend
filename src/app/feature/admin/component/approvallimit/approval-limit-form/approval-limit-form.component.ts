@@ -67,14 +67,17 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         this.model.loanCategory = this.loanCategory;
         this.model.authorities = this.authorities;
         this.service.save(this.model).subscribe(() => {
 
                 if (this.model.id == null) {
+                    this.spinner = false;
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Approval Limit'));
                 } else {
+                    this.spinner = false;
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Approval Limit'));
                 }
 
@@ -88,6 +91,7 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
                 console.error(error);
 
                 const alert = new Alert(AlertType.ERROR, error.error.message);
+                this.spinner = false;
                 this.toastService.show(alert);
 
                 this.activeModal.dismiss(ModalResponse.SUCCESS);

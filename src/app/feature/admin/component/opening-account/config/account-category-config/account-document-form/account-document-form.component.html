@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner">
   <nb-card-header class="sb-bg-dark text-white">
     {{model?.name}} Documents
     <a (click)="activeModal.dismiss('Dismiss');" aria-label="Close" class="close cursor"

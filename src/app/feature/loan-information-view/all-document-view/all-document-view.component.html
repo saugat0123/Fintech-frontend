@@ -1,9 +1,9 @@
 <span><b>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '24. All Documents' :
         (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '25. All Documents' : 'All Documents'}}</b>
-  <button class="float-right sb-small sb-bg-dark text-white"  (click)=getDocPath()> Download All Document</button>
+  <button class="float-right sb-small sb-bg-dark text-white"  (click)=getDocPath() [disabled]="spinner"> Download All Document</button>
 </span>
 <hr>
-  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row">
+  <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row" [nbSpinner]="spinner" [nbSpinnerMessage]="spinnerMsg">
     <div class="col-md-12">
       <p><strong>Loan Documents</strong></p>
     </div>
@@ -33,7 +33,7 @@
       </table>
     </div>
   </div>
-  <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row">
+  <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row" [nbSpinner]="spinner">
     <div class="col-md-12">
       <table class="table table-condensed table-bordered table-sm sb-small text-center">
 

@@ -78,6 +78,7 @@ export class UserFormComponent implements OnInit {
 
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         this.finalBranchList = [];
 

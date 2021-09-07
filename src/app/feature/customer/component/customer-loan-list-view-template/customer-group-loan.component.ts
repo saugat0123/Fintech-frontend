@@ -81,6 +81,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
   loanAction: any;
   loanActionList = [];
+  displaySecurity = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -93,6 +94,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
+    this.displaySecurityDetails();
   }
 
   getCustomerLoans() {
@@ -360,5 +362,19 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         });
       }
     });
+  }
+
+  displaySecurityDetails() {
+    const securityData = JSON.parse(this.customerInfo.security.data);
+    const initialData = securityData.initialForm;
+    if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
+      this.displaySecurity = true;
+      if (securityData.selectedArray.length === 1 &&
+          securityData.selectedArray.includes('OtherSecurity')) {
+        this.displaySecurity = false;
+      }
+    } else {
+      this.displaySecurity = false;
+    }
   }
 }

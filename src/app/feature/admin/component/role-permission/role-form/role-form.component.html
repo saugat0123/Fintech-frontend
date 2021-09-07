@@ -3,7 +3,7 @@
     <a class="close cursor" aria-label="Close" (click)="onClose()">
         <span aria-hidden="true" class="text-white">×</span></a>
 </div>
-<div class="modal-body">
+<div class="modal-body" [nbSpinner]="spinner">
     <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
         <div class="row form-group">
             <div class="col-md-6">

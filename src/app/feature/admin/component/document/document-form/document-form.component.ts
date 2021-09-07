@@ -22,6 +22,7 @@ export class DocumentFormComponent implements OnInit {
 
   modelForm: FormGroup;
   DocumentCheckTypeEnum = EnumUtils.keys(DocumentCheckType);
+  spinner = false;
 
   constructor(
       private service: DocumentService,
@@ -52,21 +53,25 @@ export class DocumentFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner = true;
     this.model.displayName = this.modelForm.get('name').value;
     this.model.checkType = this.modelForm.get('checkType').value;
     this.model.containsTemplate = this.modelForm.get('containsTemplate').value;
     this.service.save(this.model).subscribe((response) => {
         if (this.model.id == null) {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
             this.model = new Document();
             this.activeModal.close(ModalResponse.SUCCESS);
         } else {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document!'));
             this.model = new Document();
             this.activeModal.close(ModalResponse.SUCCESS);
         }
         }, error => {
           console.log(error);
+          this.spinner = false;
           this.activeModal.dismiss(error);
         }
     );

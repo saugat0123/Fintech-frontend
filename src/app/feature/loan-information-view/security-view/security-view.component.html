@@ -900,7 +900,7 @@
   <!--        plantmachineryDetails-->
   <div *ngIf="plantSelected" class="row">
     <div class="col-md-12">
-      <p class="text-center"><strong> Plant & Machinery Details Security Before Completion</strong></p>
+      <p class="text-center"><strong> Plant & Machinery Details Security </strong></p>
     </div>
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small" *ngFor="let plantDetails of securityData['initialForm']['plantDetails']; let i= index">
       <thead>
@@ -1528,18 +1528,20 @@
           <th>Amount</th>
           <th>Expiry Date</th>
           <th>Tenure Validity</th>
+          <th> Issuer </th>
         </tr>
         <tr *ngFor="let bond of securityData['initialForm']['bondSecurity']; let i= index">
           <td class="align-middle">{{bond?.bondSerialNumber}}</td>
           <td class="text-right pl-1">{{bond?.nameOfBond}}</td>
           <td class="text-right pl-1">{{bond?.couponRate}}</td>
-          <td class="text-right pr-1">Rs. {{bond?.bondValue | currencyFormatter}}</td>
+          <td class="text-right pr-1">Rs. {{bond?.bondValue }}</td>
           <td class="text-right pl-1">{{bond?.expiryDate | date}} ({{bond?.expiryDate | engNepDate: false}})</td>
           <td class="text-right pr-1">{{bond?.validityOfBond}}</td>
+          <td class="text-right pr-1">{{bond?.issuer}}</td>
         </tr>
         <tr>
           <th colspan="3" class="text-right">Total</th>
-          <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue | currencyFormatter}}</td>
+          <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue }}</td>
         </tr>
       </table>
     </div>
