@@ -365,6 +365,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   }
 
   displaySecurityDetails() {
+    if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
     const securityData = JSON.parse(this.customerInfo.security.data);
     const initialData = securityData.initialForm;
     if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
@@ -374,6 +375,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.displaySecurity = false;
       }
     } else {
+      this.displaySecurity = false;
+    }
+  } else {
       this.displaySecurity = false;
     }
   }
