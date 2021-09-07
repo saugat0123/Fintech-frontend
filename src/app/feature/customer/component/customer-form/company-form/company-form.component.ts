@@ -911,7 +911,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
-        this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        }
 
 
         // legalStatus
