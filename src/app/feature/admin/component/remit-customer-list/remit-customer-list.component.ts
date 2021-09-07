@@ -79,23 +79,6 @@ export class RemitCustomerListComponent implements OnInit {
         if (this.user.roleName === 'HO') {
             this.isHO = true;
         }
-        this.remitCustomerService.getRemitCustomerList().subscribe(res => {
-            this.remitCustomerList = res.detail;
-            if (this.user.roleType === 'COMMITTEE') {
-                this.remitCustomerList = this.remitCustomerList.filter(remit => remit.shipped === 'BANK');
-            }
-            if (this.user.roleType === 'MAKER') {
-                let dummyRemit = [];
-                this.remitCustomerList.forEach(remit => {
-                    if (remit.branch) {
-                        if (remit.branch.id == this.user.branch) {
-                            dummyRemit.push(remit);
-                        }
-                    }
-                });
-                this.remitCustomerList = dummyRemit;
-            }
-        });
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
