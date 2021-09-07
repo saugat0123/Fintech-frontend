@@ -8,7 +8,9 @@ export enum DocAction {
     TRANSFER,
     PULLED,
     BACKWARD_TO_COMMITTEE,
-    RE_INITIATE
+    RE_INITIATE,
+    SEND_BACK_TO_SENDER,
+    SEND_BACK_TO_AGENT
 }
 
 export namespace DocAction {
@@ -33,6 +35,10 @@ export namespace DocAction {
             return 'BACKWARD TO COMMITTEE';
         } else if (docAction === DocAction.RE_INITIATE) {
             return 'RE_INITIATE';
+        } else if (docAction === DocAction.SEND_BACK_TO_AGENT) {
+            return 'SEND_BACK_TO_AGENT';
+        } else if (docAction === DocAction.SEND_BACK_TO_SENDER) {
+            return 'SEND_BACK_TO_SENDER';
         }
     }
 }

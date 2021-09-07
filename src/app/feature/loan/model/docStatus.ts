@@ -8,6 +8,8 @@ export enum DocStatus {
     VALUATION,
     UNDER_REVIEW,
     INITIAL,
+    SEND_BACK_TO_SENDER,
+    SEND_BACK_TO_AGENT
 }
 
 export namespace DocStatus {
