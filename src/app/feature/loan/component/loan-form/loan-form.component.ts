@@ -470,13 +470,13 @@ export class LoanFormComponent implements OnInit {
     }
 
     pushProposalTemplateToLast() {
-       if (this.client === Clients.ICFC) {
+
            this.templateList.push({
                active: false,
                name: 'Obtainable Documents',
                templateUrl: null
            });
-       }
+
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
                 this.templateList.push(this.templateList.splice(index, 1)[0]);

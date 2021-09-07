@@ -229,7 +229,7 @@
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)' : 'NET TRADING ASSETS (NTA)'}}</span>
+              <span>NET TRADING CURRENT ASSETS (NTCA)</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.netTradingAssets" style="color:green" title="Status : Saved">
@@ -242,7 +242,7 @@
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+          <ng-container>
             <app-nta-mega
                     (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
                     [fromProfile]=true
@@ -251,14 +251,6 @@
             </app-nta-mega>
           </ng-container>
 
-          <ng-template #otherBank>
-            <app-net-trading-assets
-                    (netTradingAssetsEventEmitter) = "saveNetTradingAssets($event)"
-                    [fromProfile]=true
-                    *ngIf="itemNetTradingAssets.expanded"
-                    [netTradingAssetsData]="netTradingAssets">
-            </app-net-trading-assets>
-          </ng-template>
         </nb-accordion-item-body>
       </nb-accordion-item>
 
@@ -441,7 +433,7 @@
                   [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #reportingInfoLevelAccordion *ngIf="client !== clientName?.SHINE_RESUNGA">
+      <nb-accordion-item #reportingInfoLevelAccordion>
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -469,69 +461,6 @@
         </nb-accordion-item-body>
       </nb-accordion-item>
 
-      <nb-accordion-item #commentsFromAccount *ngIf="client === clientName?.MEGA">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>COMMENTS</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="checkedPreviousComments" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!checkedPreviousComments" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-comments
-                  #commentsInfoTagging
-                  [commentsDataResponse]="commentsDataResponse"
-                  [commentData]="customerInfo?.data"
-                                   [fromProfile]="true"
-                                   *ngIf="commentsFromAccount.expanded"
-                                   (commentsDataEmitter)="saveDataFromComments($event)">
-          </app-comments>
-          <div>
-            <button class="btn float-right d-flex justify-content-end" (click)="commentsComponent.submitForm()" type="submit" nbButton>Save</button>
-          </div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-
-      <nb-accordion-item #dataFromPreviousSecurity *ngIf="client === clientName?.MEGA">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>PREVIOUS SECURITY</span>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="checkedPreviousSecurity" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!checkedPreviousSecurity" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-previous-security
-                  #previousSecurityInfoTagging
-                  [securityDataResponse]="securityDataResponse"
-                  [securityData]="customerInfo?.data"
-                  [commentData]="customerInfo?.data"
-                  [fromProfile]="true"
-                  *ngIf="dataFromPreviousSecurity.expanded"
-                  (securityDataEmitter)="saveDataFromSecurity($event)">
-          </app-previous-security>
-          <div>
-            <button class="btn float-right d-flex justify-content-end" (click)="previousSecurityComponent.submitForm()" type="submit" nbButton>Save</button>
-          </div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
 
       <!--   CRG GAMMA-->
 <!--      <nb-accordion-item #itemCrgGamma>-->

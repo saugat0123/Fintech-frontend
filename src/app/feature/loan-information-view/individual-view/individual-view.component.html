@@ -33,8 +33,8 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th *ngIf="client !== clientName.MEGA">Father's Name</th>
-        <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
+        <th>Father's Name</th>
+        <th>Grandfather's Name</th>
         <th>Mobile Number</th>
         <th>LandLine Number</th>
         <th>Email</th>
@@ -45,8 +45,8 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+        <td class="text-left pl-1">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+        <td class="text-left pl-1">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
         <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
         <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
         <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
@@ -59,12 +59,11 @@
         <th>Address as per Legal Document</th>
 
 <!--        Obligor code for SRDB and Group Code for other banks-->
-        <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
+
       </tr>
       <tr>
         <td class="text-left pl-1">{{customerInfo?.subsectorDetail || 'N/A'}}</td>
         <td class="text-left pl-1">{{customerInfo?.customerLegalDocumentAddress}}</td>
-        <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
       </tr>
       </tbody>
     </table>
@@ -118,8 +117,6 @@
       <tr class="text-white sb-bg-dark">
         <th>Name</th>
         <th>Relation</th>
-        <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
-
 
       </tr>
       </thead>
@@ -132,7 +129,6 @@
         <td class="text-left pl-1">
           {{relative.customerRelation}}
         </td>
-        <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{relative.age}} years</td>
 
       </tr>
       </tbody>

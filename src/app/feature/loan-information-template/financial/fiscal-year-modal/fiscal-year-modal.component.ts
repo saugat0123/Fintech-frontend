@@ -51,9 +51,6 @@ export class FiscalYearModalComponent implements OnInit {
             this.financialStatementForm.get('financialStatement').clearValidators();
             this.financialStatementForm.get('fiscalYear').clearValidators();
         }
-        if (environment.client === this.clientName.SHINE_RESUNGA) {
-            this.financialStatementList.push('Management Certified');
-        }
     }
 
     getFiscalYear() {
