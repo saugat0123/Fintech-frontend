@@ -79,7 +79,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
         }
     }
 
-    public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close'): void {
+    public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent'): void {
         this.close();
         let context;
         switch (action) {
@@ -147,6 +147,30 @@ export class LoanActionComponent implements OnInit, OnChanges {
             case 'reject':
                 context = {
                     popUpTitle: 'Reject',
+                    isForward: false,
+                    loanConfigId: this.loanConfigId,
+                    customerLoanId: this.id,
+                    docAction: 'REJECT',
+                    docActionMsg: 'Rejected',
+                    documentStatus: DocStatus.REJECTED
+                };
+                break;
+
+            case 'send back to sender':
+                context = {
+                    popUpTitle: 'Send Back To Sender',
+                    isForward: false,
+                    loanConfigId: this.loanConfigId,
+                    customerLoanId: this.id,
+                    docAction: 'REJECT',
+                    docActionMsg: 'Rejected',
+                    documentStatus: DocStatus.REJECTED
+                };
+                break;
+
+            case 'send back to agent':
+                context = {
+                    popUpTitle: 'Send Back To Agent',
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
