@@ -47,6 +47,8 @@ export class AlphaDetailViewComponent implements OnInit {
   obtainableDocuments = Array<ObtainableDoc>();
   otherObtainableDocuments = Array<string>();
   businessGiven;
+  isJointCustomer = false;
+  jointCustomerData: any;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -67,7 +69,6 @@ export class AlphaDetailViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
       this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
       this.businessGiven = JSON.parse(this.loanDataHolder.companyInfo.businessGiven);
-      console.log('Company Data:::', this.businessGiven);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
       this.individualJsonData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
@@ -83,6 +84,11 @@ export class AlphaDetailViewComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
+    }
+
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+      this.isJointCustomer = true;
     }
 
     this.activatedRoute.queryParams.subscribe((res) => {
