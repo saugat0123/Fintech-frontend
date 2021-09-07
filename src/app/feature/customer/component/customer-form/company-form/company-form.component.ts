@@ -888,7 +888,6 @@ export class CompanyFormComponent implements OnInit {
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
-            console.log(this.companyInfoFormGroup);
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
@@ -896,7 +895,6 @@ export class CompanyFormComponent implements OnInit {
         this.spinner = true;
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
-        console.log(this.companyInfoFormGroup.get('microCustomerType').value);
         this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
@@ -913,6 +911,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        }
 
 
         // legalStatus
@@ -1178,8 +1179,6 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
             this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
         }
-        // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-        //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }
 
     // Calculation of Share %
@@ -1215,7 +1214,6 @@ export class CompanyFormComponent implements OnInit {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
-        console.log(micro, this.disableCrgAlpha);
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');
