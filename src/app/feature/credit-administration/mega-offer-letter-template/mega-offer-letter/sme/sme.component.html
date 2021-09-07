@@ -29,15 +29,15 @@
                    </div>
                    <div class="mb-2">
                        <b>ठेगाना:</b>
-                       <div>प्रदेश &nbsp;<b>{{smeLoanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                           जिल्ला &nbsp;<b>{{smeLoanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                           वार्ड न &nbsp;<b>{{smeLoanHolderInfo?.permanentWard}}</b>,&nbsp;
+                       <div>प्रदेश &nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                           जिल्ला &nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                           वार्ड न &nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentWard}}</b>,&nbsp;
                            <span *ngIf="smeLoanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
                            <span *ngIf="smeLoanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span>&nbsp;<b>{{smeLoanHolderInfo?.permanentMunicipality}}</b>
+                           </span>&nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentMunicipality}}</b>
                        </div>
                    </div>
 
@@ -51,7 +51,7 @@
                    <div class="mb-2">
                        <b>मोबाईल नं.: </b><input class="form-fields form-control-sm nepaliFont"
                                                  formControlName="mobileNo"
-                                                 placeholder="९८५७०२३१६६"
+                                                 placeholder=""
                                                  style="width: 200px"
                                                  type="text"/>
                    </div>
@@ -59,7 +59,7 @@
                        <b>ध्यानाकर्षणः</b> <input
                            class="form-fields form-control-sm nepaliFont"
                            formControlName="name"
-                           placeholder="श्री सन्तोष कुमार यादव ।"
+                           placeholder=""
                            type="text"/>
                    </div>
                    <br>
@@ -78,7 +78,7 @@
                    <input
                            class="form-fields form-control-sm nepaliFont"
                            formControlName="borrowerLoanType"
-                           placeholder="अधिबिकर्ष, डिमाण्ड कर्जा, बैंक जमानत, प्रतितपत्र, नगद क्रेडिट, ट्रष्ट रिसिप्ट, सवारी साधन, अल्पकालिन तथा आवधिक"
+                           placeholder=""
                            type="text"/>
                    <b>कर्जा सुविधा उपलब्घ/नविकरण </b> गराइपाउं भनी तपाँईले दिनु भएको निवेदन र त्यसमा भएका छलफलबाट, हामी, मेगा बैंक
                    नेपाल
@@ -1642,15 +1642,15 @@
                                <div class="ml-4">
                                    <strong>नाम : </strong><span class="nepaliFont form-field">{{smeLoanHolderInfo?.name}}</span> <br>
                                    <b>ठेगाना:</b>
-                                   <div>प्रदेश &nbsp;<b>{{smeLoanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                                       जिल्ला &nbsp;<b>{{smeLoanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                                       वार्ड न &nbsp;<b>{{smeLoanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                   <div>प्रदेश &nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                       जिल्ला &nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                       वार्ड न &nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentWard}}</b>,&nbsp;
                                        <span *ngIf="smeLoanHolderInfo?.permanentMunType==1">
                                         गा बि स
                                        </span>
                                        <span *ngIf="smeLoanHolderInfo?.permanentMunType==0">
                                     नगरपालिका
-                                    </span>&nbsp;<b>{{smeLoanHolderInfo?.permanentMunicipality}}</b>
+                                    </span>&nbsp;<b class="nepaliFont">{{smeLoanHolderInfo?.permanentMunicipality}}</b>
                                    </div>
                                    <strong>संपर्क नम्बर : </strong><span class="nepaliFont form-field">{{this.loanForm.get('mobileNo').value}}</span>
                                </div>
