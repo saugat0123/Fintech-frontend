@@ -44,33 +44,6 @@
                         <nb-card-header>
                             <strong>Generate Offer Letter</strong>
                         </nb-card-header>
-                        <nb-card-body
-                                *ngIf="client === clientList?.EXCEL || client === clientList?.PROGRESSIVE || client === clientList?.ICFC">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <nb-select
-                                        #offerLetterType
-                                        fullWidth
-                                        placeholder="Select Offer Letter"
-                                        status="info">
-                                        <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-                                            {{i.key | replace:'_':' ' }}
-                                        </nb-option>
-                                    </nb-select>
-                                </div>
-                                <div class="col-md-12 mt-3">
-                                    <button (click)="openOfferLetterDocumentModal(offerLetterType?.selected)"
-                                            class="float-right" nbButton
-                                            size="small"
-                                            [disabled]="roleType === 'MAKER' ||
-                              (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
-                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
-                              cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">Generate
-                                    </button>
-                                </div>
-                            </div>
-
-                        </nb-card-body>
                     </nb-card>
                     <nb-card *ngIf="cadOfferLetterApprovedDoc?.offerDocumentList?.length > 0">
                         <nb-card-header>Offer Letter Documents</nb-card-header>

@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-site-visit-view',
@@ -14,8 +12,6 @@ export class SiteVisitViewComponent implements OnInit {
   businessSiteVisitSummary = false;
   fixedAssetCollateralSummary = false;
   currentAssetsInspectionSummary = false;
-  client = environment.client;
-  clientName = Clients;
   constructor() { }
 
   formData: any;

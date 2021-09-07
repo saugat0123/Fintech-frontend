@@ -4,8 +4,6 @@ import {BusinessType} from '../../../../admin/modal/businessType';
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../model/loanData';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
   selector: 'app-company-info-summary',
@@ -21,9 +19,6 @@ export class CompanyInfoSummaryComponent implements OnInit {
   additionalInfoJsonData;
   companyLocationData;
   @Input() approveSheet;
-  client = environment.client;
-  clientName = Clients;
-
 
   constructor() { }
 

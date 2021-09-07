@@ -26,7 +26,6 @@ export class AllDocumentViewComponent implements OnInit {
   insuranceWithDoc = [];
   showCadDoc;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-  affiliatedId;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -35,7 +34,6 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.taggedGuarantors)) {
         this.loanDataHolder.taggedGuarantors.forEach(value => {

@@ -5,8 +5,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../loan/model/docStatus';
 import {LoanType} from '../../loan/model/loanType';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
-import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
@@ -28,8 +26,6 @@ export class ProposalViewComponent implements OnInit {
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
   checkedData;
-  client = environment.client;
-  clientName = Clients;
   isFundable = false;
   fundableNonFundableSelcted = false;
   isFixedDeposit = false;
@@ -45,7 +41,6 @@ export class ProposalViewComponent implements OnInit {
   showRepaymentMode = false;
   showPrincipalAmount = false;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-  showInterestAmount = false;
   prepaymentCharge;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -151,7 +146,6 @@ export class ProposalViewComponent implements OnInit {
       this.showInstallmentAmount = true;
     }
     if (this.proposalAllData.repaymentMode === 'CUSTOM') {
-      this.showInterestAmount = true;
       this.showRepaymentMode = true;
     }
     if (this.proposalAllData.repaymentMode === 'AT MATURITY') {

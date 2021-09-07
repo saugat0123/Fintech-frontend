@@ -6,8 +6,6 @@ import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../../../admin/service/product-mode.service';
@@ -30,8 +28,6 @@ export class ProposalSummaryComponent implements OnInit {
     customerFundedLoanList: LoanDataHolder[];
     customerNonFundedLoanList: LoanDataHolder[];
     loanType: any;
-    client = environment.client;
-    clientName = Clients;
     checkedData;
     isFundable = false;
     fundableNonFundableSelcted = false;

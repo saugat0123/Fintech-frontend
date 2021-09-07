@@ -7,8 +7,6 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {KeyIndicatorsConstantsEnum} from '../constants/key-indicators-constants';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-key-indicators',
@@ -21,8 +19,6 @@ export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     keyIndicatorsForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
-    client = environment.client;
-    clientName = Clients;
 
     summaryCheckListMap: Map<string, boolean> = new Map<string, boolean>([
         ['growth', false],
