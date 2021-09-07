@@ -16,6 +16,8 @@ export class VideoKycComponent implements OnInit {
               private customerInfoService: CustomerInfoService,
               private model: NgbModal) { }
   @Input() isModal;
+  @Input() showBenificiary;
+  @Input() showSender;
   senderForm: FormGroup;
   beneficiaryForm: FormGroup;
   videoKycBody = {
@@ -50,7 +52,7 @@ export class VideoKycComponent implements OnInit {
   }
 
   onVideoKycPermissionSender($event: any) {
-    if ($event === 0) {
+    if (!$event) {
       this.hideVideoKycSender = true;
     } else {
       this.hideVideoKycSender = false;
@@ -58,7 +60,8 @@ export class VideoKycComponent implements OnInit {
   }
 
   onVideoKycPermissionBeneficiary($event: any) {
-    if ($event === 0) {
+    console.log(event);
+    if (!$event) {
       this.hideVideoKycBeneficiary = true;
     } else {
       this.hideVideoKycBeneficiary = false;

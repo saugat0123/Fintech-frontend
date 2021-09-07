@@ -1,24 +1,22 @@
 
     <div class="container-full bg-light">
         <nb-card>
-            <div class="row">
+            <div class="row" *ngIf="showSender">
                 <div class="col-md-12">
-                    <nb-card-header>
-                        Video KYC Sender
-                    </nb-card-header>
                     <a  *ngIf="isModal" (click)="close()" aria-label="Close" class="close pull-right cursor">
-                        <span aria-hidden="true">X</span>
+                        <span aria-hidden="true"><b>X</b></span>
                     </a>
+                    <nb-card-header>
+                        <h6>Video KYC Sender</h6>
+                    </nb-card-header>
+
                     <form [formGroup]="senderForm">
                         <div class="p-4 row">
                             <div class="col-sm-2">
                                 <label class="label">Required</label><br>
-                                <nb-radio-group>
-                                    <nb-radio [value]="1"
-                                              (valueChange)="onVideoKycPermissionSender($event)">Yes</nb-radio>
-                                    <nb-radio [value]="0"
-                                              (valueChange)="onVideoKycPermissionSender($event)">No</nb-radio>
-                                </nb-radio-group>
+                                <nb-toggle (checkedChange)="onVideoKycPermissionSender($event)"
+                                           class="pt-2 pl-4">
+                                </nb-toggle>
                             </div>
                             <div class="col-sm-10">
                                 <ng-container *ngIf="!hideVideoKycSender">
@@ -53,21 +51,18 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" *ngIf="showBenificiary">
                 <div class="col-md-12">
                     <nb-card-header>
-                        Video KYC Beneficiary
+                        <h6>Video KYC Beneficiary</h6>
                     </nb-card-header>
                     <form [formGroup]="beneficiaryForm">
                         <div class="p-4 row">
                             <div class="col-sm-2">
                                 <label class="label">Required</label><br>
-                                <nb-radio-group>
-                                    <nb-radio [value]="1"
-                                              (valueChange)="onVideoKycPermissionBeneficiary($event)">Yes</nb-radio>
-                                    <nb-radio [value]="0"
-                                              (valueChange)="onVideoKycPermissionBeneficiary($event)">No</nb-radio>
-                                </nb-radio-group>
+                                <nb-toggle (checkedChange)="onVideoKycPermissionBeneficiary($event)"
+                                            class="pt-2 pl-4">
+                                </nb-toggle>
                             </div>
                             <div class="col-sm-10">
                                 <ng-container *ngIf="!hideVideoKycBeneficiary">
