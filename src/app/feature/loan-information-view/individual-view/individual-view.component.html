@@ -11,6 +11,7 @@
         <th>Date of birth(AD)</th>
         <th>Age</th>
         <th>Citizenship no.</th>
+        <th>Pan Number</th>
         <th>Citizenship Issued Date(AD)</th>
         <th>Issued Place</th>
         <th>Gender</th>
@@ -25,6 +26,7 @@
         <td class="text-left pl-1">{{individual?.dob | date}}</td>
         <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
+        <td class="text-right pr-1">{{individual?.panNumber}}</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} </td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
         <td class="text-left pl-1">{{customerInfo?.gender}}</td>
@@ -193,6 +195,7 @@
           <th>Date of birth(AD)</th>
           <th>Age</th>
           <th>Citizenship no.</th>
+          <th>Pan Number</th>
           <th>Issued Date(Ad)</th>
           <th>Issued Place</th>
           <th>Gender</th>
@@ -204,6 +207,7 @@
           <td class="text-left pl-1">{{info?.dob | date}} </td>
           <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
           <td class="text-right pr-1">{{info?.citizenshipNumber || 'NA'}}</td>
+          <td class="text-right pr-1">{{info?.panNumber}}</td>
           <td class="text-left pl-1">{{info?.citizenshipIssuedDate | date}} </td>
           <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>
           <td class="pl-1">{{info?.gender.toLowerCase()}}</td>
