@@ -298,7 +298,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
                     this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
-                    this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
+                    this.customer.panNumber = this.basicInfo.get('panNumber').value;
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
@@ -395,6 +395,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 new Date(this.customer.initialRelationDate)],
             citizenshipNumber: [this.customer.citizenshipNumber === undefined ? undefined : this.customer.citizenshipNumber
                 , Validators.required],
+            panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber],
             citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? undefined : this.customer.citizenshipIssuedPlace,
                 Validators.required],
             citizenshipIssuedDate: [ObjectUtil.isEmpty(this.customer.citizenshipIssuedDate) ? undefined :
