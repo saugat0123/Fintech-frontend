@@ -37,6 +37,7 @@ import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/p
 import {NepaliPatroModule} from 'nepali-patro';
 import { RemitDetailsComponent } from './remit-details/remit-details.component';
 import { VideoKycInformationComponent } from './video-kyc-information/video-kyc-information.component';
+import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
 
 
 const COMPONENTS = [
@@ -77,7 +78,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CbsGroupModule,
         NgSelectModule,
         LoanInformationViewModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        VideoKycModule
     ],
     exports: [
         LoanSummaryComponent,
