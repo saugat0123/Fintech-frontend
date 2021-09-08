@@ -299,6 +299,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
                     this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
+                    this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
                     this.customer.panNumber = this.basicInfo.get('panNumber').value;
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
