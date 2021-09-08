@@ -289,15 +289,9 @@ export class CombinedLoanTransferModelComponent implements OnInit {
   }
 
   private conditionalCombinedDataLoad(): void {
-    let toRoleId;
-    if (!ObjectUtil.isEmpty(this.toRoleId)) {
-      toRoleId = this.toRoleId;
-    } else {
-      toRoleId = this.roleId;
-    }
     switch (this.popUpTitle) {
       case 'Transfer':
-        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(toRoleId, this.approvalType, this.combinedLoanId)
+        this.approvalRoleHierarchyService.findAll(this.approvalType, this.combinedLoanId)
             .subscribe((response: any) => {
               this.sendForwardBackwardList = [];
               this.sendForwardBackwardList = response.detail;
