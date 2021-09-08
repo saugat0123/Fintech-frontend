@@ -10,7 +10,7 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {BranchService} from '../branch/branch.service';
 import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
 
@@ -38,6 +38,7 @@ export class RemitCustomerListComponent implements OnInit {
     spinner = false;
     filterForm: FormGroup;
     page = 1;
+    isFilterCollapsed = true;
     search: any = {
         name: undefined
     };
@@ -49,13 +50,14 @@ export class RemitCustomerListComponent implements OnInit {
                 private remitCustomerService: RemitCustomerService,
                 private toastService: NbToastrService,
                 private overlay: NgxSpinnerService,
-                private branchService: BranchService
+                private branchService: BranchService,
+                private form: FormBuilder
     ) {
     }
     static loadData(other: RemitCustomerListComponent) {
         other.overlay.show();
         other.spinner = true;
-        other.remitCustomerService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+        other.remitCustomerService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
             other.remitCustomerList = response.detail.content;
             other.totalCustomerList = response.detail.totalElements;
             other.pageable = PaginationUtils.getPageable(response.detail);
@@ -69,8 +71,26 @@ export class RemitCustomerListComponent implements OnInit {
 
         });
     }
-
+ buildSearchForm() {
+     this.filterForm = this.form.group({
+         beneficiaryName: [undefined],
+         senderName: [undefined],
+         senderCountry: [undefined],
+         agentName: [undefined],
+         proposedAmount: [undefined],
+         sendToBranch: [undefined],
+         preferredBranch: [undefined]
+     });
+ }
+ clear() {
+        this.buildSearchForm();
+        RemitCustomerListComponent.loadData(this);
+ }
+ Search() {
+        RemitCustomerListComponent.loadData(this);
+ }
     ngOnInit(): void {
+        this.buildSearchForm();
         RemitCustomerListComponent.loadData(this);
         this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
             this.branchList = res.detail;
@@ -82,6 +102,7 @@ export class RemitCustomerListComponent implements OnInit {
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
+
     }
 
     addMember(event, data, template) {
