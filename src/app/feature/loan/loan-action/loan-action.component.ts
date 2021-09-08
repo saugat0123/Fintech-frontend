@@ -162,9 +162,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
-                    docAction: 'REJECT',
-                    docActionMsg: 'Rejected',
-                    documentStatus: DocStatus.REJECTED
+                    docAction: 'SEND_BACK_TO_SENDER',
+                    docActionMsg: 'Return back to sender',
+                    documentStatus: DocStatus.SEND_BACK_TO_SENDER
                 };
                 break;
 
@@ -174,9 +174,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     isForward: false,
                     loanConfigId: this.loanConfigId,
                     customerLoanId: this.id,
-                    docAction: 'REJECT',
-                    docActionMsg: 'Rejected',
-                    documentStatus: DocStatus.REJECTED
+                    docAction: 'SEND_BACK_TO_AGENT',
+                    docActionMsg: 'Return back to agent',
+                    documentStatus: DocStatus.SEND_BACK_TO_AGENT
                 };
                 break;
             case 'close':

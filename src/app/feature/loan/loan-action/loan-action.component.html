@@ -36,7 +36,6 @@
   </button>
 
   <button (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus"
-          [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
           style="color:lightseagreen;">
@@ -45,7 +44,6 @@
   </button>
 
   <button (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus"
-          [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
           style="color:lightseagreen;">
