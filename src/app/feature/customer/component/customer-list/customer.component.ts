@@ -135,9 +135,16 @@ export class CustomerComponent implements OnInit {
             name: [undefined],
             customerType: [undefined],
             idRegPlace: [undefined],
-            branchIds: [undefined],
-            groupId: [undefined],
-            provinceId: [undefined]
+            contactNo: [undefined],
+            idRegDate: [undefined],
+            createdAt: [undefined],
+            associateId: [undefined],
+            id: [undefined],
+            email: [undefined],
+            idNumber: [undefined],
+            provinceId: [undefined],
+            groupId: [undefined]
+
         });
     }
 
