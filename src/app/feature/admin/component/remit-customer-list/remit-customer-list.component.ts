@@ -102,7 +102,6 @@ export class RemitCustomerListComponent implements OnInit {
         if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === 'ADMIN') {
             this.transferDoc = true;
         }
-
     }
 
     addMember(event, data, template) {
