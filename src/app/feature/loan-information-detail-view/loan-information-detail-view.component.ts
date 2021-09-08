@@ -136,9 +136,11 @@ export class LoanInformationDetailViewComponent implements OnInit {
                 // }
             });
         // this.id = this.activatedRoute.snapshot.params['id'];
+        this.spinner=true;
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
+                this.spinner=false;
                 if (this.loanConfig.loanTag === 'MICRO_LOAN') {
                     this.isMicro = true;
                 }
