@@ -33,8 +33,8 @@
               <td>{{document.name}}</td>
               <td>{{document?.checkType || 'Default' | titlecase }}</td>
 
-              <td><input (change)="documentUploader($event, document.name, document.id, i)"
-                         class="form-control-file"
+              <td><input #inputFile (change)="documentUploader($event, document.name, document.id, i)"
+                         class="form-control-file" (click)="inputFile.value = null"
                          id="uploadDocument{{i}}" multiple=""
                          type="file">
               </td>
@@ -79,7 +79,7 @@
     </div>
     <div class="modal-footer">
       <div class="d-flex justify-content-end pb-md-3">
-        <button  (click)="confirmDelete(initialDocIndex)" class="btn btn-success float-right" type="submit"> Yes </button>
+        <button  (click)="confirmDelete(initialDocIndex, $event)" class="btn btn-success float-right" type="submit"> Yes </button>
       </div>
     </div>
   </div>
