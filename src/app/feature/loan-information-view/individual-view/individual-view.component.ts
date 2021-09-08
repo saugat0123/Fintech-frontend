@@ -6,7 +6,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {IndividualJsonData} from '../../admin/modal/IndividualJsonData';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 
 @Component({
   selector: 'app-individual-view',
@@ -23,8 +22,6 @@ export class IndividualViewComponent implements OnInit {
   subsectorDetail: string;
 
   crgLambdaDisabled = environment.disableCrgLambda;
-  client = environment.client;
-  clientName = Clients;
 
   @Input() calendarType: CalendarType;
 

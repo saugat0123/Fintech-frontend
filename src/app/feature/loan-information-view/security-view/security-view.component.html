@@ -16,7 +16,7 @@
         <th>Area Format</th>
         <th>Area</th>
         <th>Considered Value</th>
-        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+        <th>Distress Value</th>
         <th>Fair Market Value</th>
         <th>Collateral Owner Relationship</th>
       </tr>
@@ -37,7 +37,6 @@
         <tr *ngIf="landDetails?.ownerKycApplicableData !== null"  class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
-          <th *ngIf="client === clientName?.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th>Issued District</th>
           <th>Issued Date(AD/BS)</th>
@@ -49,7 +48,6 @@
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
-            <td *ngIf="client === clientName.SHINE_RESUNGA"  class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
@@ -119,10 +117,10 @@
           <th>ReValuation Date(AD/BS)</th>
           <th colspan="2">Valuator name</th>
           <th colspan="1">ReValuation Considered Value</th>
-          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">ReValuation DV</th>
           <th colspan="1">ReValuation Fmv</th>
           <th colspan="1">Change in Considered Value</th>
-          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">Change in DV</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
         <tr class="text-right">
@@ -196,7 +194,7 @@
         <thead>
         <tr class="text-white sb-bg-dark">
           <th></th>
-          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Distress Value</th>
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
@@ -220,7 +218,6 @@
         <tr *ngIf="landBuilding?.ownerKycApplicableData !== null"  class="sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
-          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th>Issued District</th>
           <th>Issued Date(AD/BS)</th>
@@ -232,7 +229,6 @@
           <tr>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
-            <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
@@ -297,10 +293,10 @@
             <th>ReValuation Date(AD/BS)</th>
             <th colspan="2">Valuator name</th>
             <th colspan="1">ReValuation Considered Value</th>
-            <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">ReValuation DV</th>
             <th colspan="1">ReValuation Fmv</th>
             <th colspan="1">Change in Considered Value</th>
-            <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+            <th colspan="1">Change in DV</th>
             <th colspan="1">Change in Fmv</th>
           </tr>
           <tr class="text-right">
@@ -326,7 +322,7 @@
           <th>Area Format</th>
           <th>Area</th>
           <th>Considered Value</th>
-          <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Distress Value</th>
         </tr>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <td></td>
@@ -408,7 +404,6 @@
         <tr *ngIf="hypothecationOfStock?.ownerKycApplicableData !== null" class="text-center sb-bg-dark text-white">
           <th>Relation</th>
           <th>Name</th>
-          <th *ngIf="client === clientName.SHINE_RESUNGA">Age</th>
           <th>Citizenship Number</th>
           <th colspan="2">Issued District</th>
           <th>Issued Date(AD/BS)</th>
@@ -421,7 +416,6 @@
             <td *ngIf="j>=2"></td>
             <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
             <td class="text-left pl-1">{{kyc?.relationName}}</td>
-            <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
             <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
             <td colspan="2" class="text-left pl-1">{{kyc?.issuedLocation}}</td>
             <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
@@ -604,7 +598,7 @@
       <tr class="text-white sb-bg-dark">
         <th>Apartment Total Cost</th>
         <th>Apartment Fair Market Value</th>
-        <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+        <th>Apartment Distress Value</th>
         <th  *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Branch</th>
         <th>Valuator Name</th>
         <th>Valuated Date(AD/BS)</th>
@@ -645,10 +639,10 @@
           <th colspan="1">ReValuation Date(AD/BS)</th>
           <th colspan="1">Valuator name</th>
           <th colspan="1">ReValuation Considered Value</th>
-          <th colspan="1">ReValuation {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">ReValuation DV</th>
           <th colspan="1">ReValuation Fmv</th>
           <th colspan="1">Change in Considered Value</th>
-          <th colspan="1">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</th>
+          <th colspan="1">Change in DV</th>
           <th colspan="1">Change in Fmv</th>
         </tr>
         <tr>
@@ -757,7 +751,7 @@
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Apartment Distress Value</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -841,7 +835,7 @@
           <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
-          <th>Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+          <th>Apartment Distress Value</th>
         </tr>
         <tr class="text-right">
           <td></td>
@@ -956,7 +950,7 @@
         <th>Valuator Name</th>
         <th>Valuator Representative Name</th>
         <th>Valuated Date(AD/BS)</th>
-        <th>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</th>
+        <th>Valuation Amount</th>
         <th>Down Payment</th>
         <th>Remaining Amount</th>
       </tr>
@@ -1064,10 +1058,6 @@
           <th>Rate</th>
           <th>Total Value</th>
           <th>Considered Value</th>
-          <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
-          <th *ngIf="client === clientName?.ICFC">Price to Book Value</th>
-          <th *ngIf="client === clientName?.ICFC">Dividend Yield</th>
-          <th *ngIf="client === clientName?.ICFC">Dividend Payout Ratio</th>
         </tr>
         </thead>
         <tbody>
@@ -1079,10 +1069,6 @@
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceBookValue}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendYield}}</td>
-          <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.dividendPayoutRatio}}</td>
         </tr>
         <tr>
           <th class="text-left pl-1" colspan="5">Total</th>

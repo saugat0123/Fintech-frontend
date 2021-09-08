@@ -24,6 +24,8 @@ import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {Comments} from '../../admin/modal/comments';
 import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
+import {MaritalStatus} from '../../../@core/model/enum/marital-status';
+import {Gender} from '../../../@core/model/enum/gender';
 
 export class CustomerInfoData {
     id: number;
@@ -61,7 +63,7 @@ export class CustomerInfoData {
     customerCode: string;
     subSectorDetailCode: string;
     nepData: string;
-    gender: string;
+    gender: Gender;
     mgroupInfo: MGroup;
     synopsisCreditworthiness: MicroLoanSynopsis;
     borrowerPortFolio: BorrowerPortfolio;
@@ -75,4 +77,7 @@ export class CustomerInfoData {
     comments: Comments;
     previousSecurity: PreviousSecurity;
     data: string;
+    subsectorDetail: string;
+    maritalStatus: MaritalStatus;
+    customerLegalDocumentAddress: string;
 }

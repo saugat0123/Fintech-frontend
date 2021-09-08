@@ -36,15 +36,15 @@
                             </strong>
                         </p>
                             <strong>ठेगाना:</strong>
-                            प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                            प्रदेश &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                जिल्ला &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                वार्ड न &nbsp;<b class=" nepaliFont">{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                                 <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
                                 <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                           </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
                         <p>
                             <strong>सम्पर्क टेलिफोन नंः </strong>
                             <input class="form-field form-control-sm nepaliFont" name="borrowerContactNo" formControlName="borrowerContactNo" placeholder="सम्पर्क टेलिफोन नं" type="text"/>
@@ -979,15 +979,15 @@
                                             <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>
                                         </p>
                                         <strong>ठेगाना:</strong>
-                                        प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                                        जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                                        वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                        प्रदेश &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                        जिल्ला &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                        वार्ड न &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                                         <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                         गा बि स
                                         </span>
                                         <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                         नगरपालिका
-                                        </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                                        </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
                                         <p>
                                             <strong>सम्पर्क टेलिफोन नंः </strong>
                                             <span class="nepaliFont form-field">{{retailLoanAgainstInsurance.get('borrowerContactNo').value}}</span>

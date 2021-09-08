@@ -5,8 +5,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FinancialDeleteComponentComponent} from '../financial-delete-component/financial-delete-component.component';
 import {ModalResponse} from '../../../../@core/utils';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {environment} from '../../../../../environments/environment';
-import {Clients} from '../../../../../environments/Clients';
 
 @Component({
     selector: 'app-balance-sheet',
@@ -19,7 +17,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     @Output() removeFiscalYear = new EventEmitter<any>();
     balanceSheetForm: FormGroup;
     ckeConfig = Editor.CK_CONFIG;
-    isSRDB = environment.client === Clients.SHINE_RESUNGA;
 
     constructor(private formBuilder: FormBuilder,
                 private modalService: NgbModal,
@@ -348,7 +345,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                         .controls['value'].value)).toFixed(2);
             cashFlowStatement.addOpeningBalance[index].value = cashFlowStatement.closingBalance[index - 1].value;
         } else {
-            if (!this.isSRDB) {
                 cashFlowStatement.increaseDecreaseInInventory[index].value = (-Math.abs(Number(inventories.controls['value'].value)))
                     .toFixed(2);
                 cashFlowStatement.increaseDecreaseInAccountsReceivable[index].value =
@@ -391,20 +387,19 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                     (Number(this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentLiabilitiesCategory'),
                         'Short Term Loan', index))).toFixed(2);
                 cashFlowStatement.longTermLoanReceived[index].value = Number(longTermLoan.controls['value'].value).toFixed(2);
-            }
         }
 
         cashFlowStatement.closingBalance[index].value =
             (this.financialService.fetchValuesForSubCategories(this.balanceSheetForm.get('currentAssetsCategory'),
             'Cash/Bank Balance', index)).toFixed(2);
-        if (!(this.isSRDB && index === 0)) {
+
             this.financialService.cashFromOperatingActivitiesTotal(cashFlowStatement, index);
             this.financialService.cashFromInvestingActivitiesTotal(cashFlowStatement, index);
             this.financialService.cashFromFinancingActivitiesTotal(cashFlowStatement, index);
             this.financialService.netCashFlowTotal(cashFlowStatement, index);
             this.financialService.closingCashTotal(cashFlowStatement, index);
             this.financialService.differenceCFSTotal(cashFlowStatement, index);
-        }
+
 
         //
         // Key Indicators Calculation--

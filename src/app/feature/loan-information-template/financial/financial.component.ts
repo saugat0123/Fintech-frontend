@@ -54,8 +54,6 @@ export class FinancialComponent implements OnInit {
     financialData: Financial = new Financial();
     currentFormData: Object;
     submitted = false;
-    client = environment.client;
-    clientName = Clients;
 
     // Risk factors---
     salesProjectionVsAchievementArray = SalesProjectionVsAchievement.enumObject();

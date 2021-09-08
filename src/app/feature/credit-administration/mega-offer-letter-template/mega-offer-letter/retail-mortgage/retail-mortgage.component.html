@@ -37,27 +37,27 @@
                         </div>
                         <div class="form-group form-inline col-md-12">
                             <b>स्थायी ठेगाना:</b>
-                            प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                            जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                            वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                            प्रदेश &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                            जिल्ला &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                            वार्ड न &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                             <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                गा बि स
                            </span>
                             <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                           </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
                         </div>
                         <div class="form-group form-inline col-md-12">
                             <b>हाल:</b>
-                            प्रदेश &nbsp;<b>{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
-                            जिल्ला &nbsp;<b>{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
-                            वार्ड न &nbsp;<b>{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                            प्रदेश &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp;
+                            जिल्ला &nbsp;<b class=" nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp;
+                            वार्ड न &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
                             <span *ngIf="loanHolderInfo?.temporaryMunType==1">
                                गा बि स
                            </span>
                             <span *ngIf="loanHolderInfo?.temporaryMunType==0">
                                नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.temporaryMunicipality}}</b>
+                           </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
                         </div>
 
                         <div class="form-group form-inline col-md-6">
@@ -68,7 +68,6 @@
                                                       type="text"/>
                         </div>
 
-                    </div>
                     <div class="text-center my-2">
                         <strong> विषय :– बैकिङ्ग कर्जा सुविधा पत्र । </strong>
                     </div>
@@ -1198,15 +1197,29 @@
                                                 <strong class="nepaliFont">{{ loanHolderInfo?.name }}</strong>
                                             </p>
                                                 <b>ठेगाना:</b>
-                                                प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                                                जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                                                वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
+                                                प्रदेश &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
+                                                जिल्ला &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
+                                                वार्ड न &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
                                                 <span *ngIf="loanHolderInfo?.permanentMunType==1">
                                                 गा बि स
                                                 </span>
                                                 <span *ngIf="loanHolderInfo?.permanentMunType==0">
                                                 नगरपालिका
-                                                </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                                                </span>&nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
+                                            <p>
+                                            <div class="row form-group">
+                                                <span style="margin-left: 18px;">
+                                                    <b>हाल ठेगाना: </b> प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp; वार्ड न: &nbsp;
+                                                    <b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                                                    <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                                                        गा बि स
+                                                    </span>
+                                                    <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                                                        नगरपालिका:
+                                                    </span>
+                                                    &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
+                                                </span>
+                                            </div>
                                             <p>
                                                 मोवाइल नं:<strong
                                                     class="nepaliFont ml-2">{{ this.form.controls['mobileNo'].value}}</strong>
@@ -1283,14 +1296,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <br>
                         <p>नोट : कृपया हरेक पृष्ठमा आधिकारिक दस्तखत तथा निकायको छाप अनिवार्य रुपमा लगाउनु होला ।</p>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
                         <button (click)="submit()" nbButton status="success" type="submit">Save</button>
+                    </div>
+                </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </form>

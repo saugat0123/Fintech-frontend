@@ -22,8 +22,6 @@ import {RoleType} from '../../../../admin/modal/roleType';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
-import {environment} from '../../../../../../environments/environment';
-import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-cad-action',
@@ -64,8 +62,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     approvedLabel = 'APPROVED';
     backwardToolTip = 'return to previous user';
     roleType = RoleType;
-    client = environment.client;
-    clientList = Clients;
     isOpened = false;
     forApproveMaker = [];
 
