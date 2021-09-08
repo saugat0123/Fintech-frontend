@@ -4,12 +4,28 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 
+export class CustomerInfoSearch{
+    name: string;
+    customerType:  string;
+    idRegPlace:  string;
+    contactNo:  string;
+    idRegDate:  string;
+    createdAt:  string;
+    associateId:  string;
+    id:  string;
+    email:  string;
+    idNumber:  string;
+    provinceId:  string;
+    groupId:  string;
+
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class CustomerInfoService extends BaseService<Object> {
     static API = 'v1/customer-info';
-
+    search: CustomerInfoSearch = new CustomerInfoSearch();
     constructor(protected http: HttpClient) {
         super(http);
     }

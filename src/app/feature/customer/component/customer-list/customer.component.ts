@@ -96,7 +96,7 @@ export class CustomerComponent implements OnInit {
     static loadData(other: CustomerComponent) {
         other.overlay.show();
         other.spinner = true;
-        other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
+        other.customerInfoService.getPaginationWithSearchObject(other.customerInfoService.search, other.page, 10).subscribe((response: any) => {
             other.customerList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
@@ -181,6 +181,28 @@ export class CustomerComponent implements OnInit {
     }
 
     onSearch() {
+        this.customerInfoService.search.name = ObjectUtil.isEmpty(this.filterForm.get('name').value) ? undefined :
+            this.filterForm.get('name').value;
+        this.customerInfoService.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
+            this.filterForm.get('customerType').value;
+        this.customerInfoService.search.idRegPlace = ObjectUtil.isEmpty(this.filterForm.get('idRegPlace').value) ? undefined :
+            this.filterForm.get('idRegPlace').value;
+        this.customerInfoService.search.idRegDate = ObjectUtil.isEmpty(this.filterForm.get('idRegDate').value) ? undefined :
+            this.filterForm.get('idRegDate').value;
+        this.customerInfoService.search.createdAt = ObjectUtil.isEmpty(this.filterForm.get('createdAt').value) ? undefined :
+            this.filterForm.get('createdAt').value;
+        this.customerInfoService.search.associateId = ObjectUtil.isEmpty(this.filterForm.get('associateId').value) ? undefined :
+            this.filterForm.get('associateId').value;
+        this.customerInfoService.search.id = ObjectUtil.isEmpty(this.filterForm.get('id').value) ? undefined :
+            this.filterForm.get('id').value;
+        this.customerInfoService.search.email = ObjectUtil.isEmpty(this.filterForm.get('email').value) ? undefined :
+            this.filterForm.get('email').value;
+        this.customerInfoService.search.idNumber = ObjectUtil.isEmpty(this.filterForm.get('idNumber').value) ? undefined :
+            this.filterForm.get('idNumber').value;
+        this.customerInfoService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
+        this.customerInfoService.search.groupId = ObjectUtil.isEmpty(this.filterForm.get('groupId').value) ? undefined :
+            this.filterForm.get('groupId').value;
         CustomerComponent.loadData(this);
     }
     openChooseAcType(modal) {
