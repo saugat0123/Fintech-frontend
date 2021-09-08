@@ -13,7 +13,7 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -49,6 +49,7 @@ export class AlphaDetailViewComponent implements OnInit {
   businessGiven;
   isJointCustomer = false;
   jointCustomerData: any;
+  customerId: number;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -58,6 +59,10 @@ export class AlphaDetailViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(response => {
+     this.customerId = +response['customerId'];
+    });
+    this.getObtainableDocumentList();
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
@@ -90,24 +95,24 @@ export class AlphaDetailViewComponent implements OnInit {
       this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
       this.isJointCustomer = true;
     }
+  }
 
-    this.activatedRoute.queryParams.subscribe((res) => {
-      this.customerLoanService.detail(res.customerId).subscribe(response => {
-        const details = JSON.parse(response.detail.data);
-        if (!ObjectUtil.isEmpty(details.documents)) {
-          details.documents.forEach( resData => {
-            this.obtainableDocuments.push(resData);
-          });
-        }
-        if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
-          details.OtherDocuments.split(',').forEach(splitData => {
-            if (splitData !== '') {
-              this.otherObtainableDocuments.push(splitData);
-            }
-            console.log(this.otherObtainableDocuments);
-          });
-        }
-      });
+  private getObtainableDocumentList(): void {
+    this.customerLoanService.detail(this.customerId).subscribe(response => {
+      const details = JSON.parse(response.detail.data);
+      if (!ObjectUtil.isEmpty(details.documents)) {
+        details.documents.forEach( resData => {
+          this.obtainableDocuments.push(resData);
+        });
+      }
+      if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+        details.OtherDocuments.split(',').forEach(splitData => {
+          if (splitData !== '') {
+            this.otherObtainableDocuments.push(splitData);
+          }
+          console.log(this.otherObtainableDocuments);
+        });
+      }
     });
   }
 
