@@ -10,7 +10,8 @@
                 <div class="col-md-6">
                     <div class="btn-group">
                         <button
-                                aria-controls="searchModel"
+                                (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
                                 nbButton
                                 shape="rectangle"
                                 status="primary"
@@ -20,85 +21,70 @@
 
                     </div>
                 </div>
-                <!--                <div class="col-md-6 d-flex justify-content-end">-->
-                <!--                    <button nbButton outline status="success" class="mr-2" size="small"-->
-                <!--                            (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">-->
-                <!--                        <i class="fa fa-plus"></i>-->
-                <!--                    </button>-->
-                <!--                    <button (click)="download()" nbButton outline-->
-                <!--                            status="info" size="small">-->
-                <!--                        <i aria-hidden="true" class="fa fa-download"></i></button>-->
-                <!--                </div>-->
+                <div class="col-md-6 d-flex justify-content-end">
+<!--                    <button nbButton outline status="success" class="mr-2" size="small"-->
+<!--                            (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">-->
+<!--                        <i class="fa fa-plus"></i>-->
+<!--                    </button>-->
+<!--                    <button (click)="download()" nbButton outline-->
+<!--                            status="info" size="small">-->
+<!--                        <i aria-hidden="true" class="fa fa-download"></i></button>-->
+                </div>
             </div>
         </div>
 
-        <!--        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">-->
-        <!--            <form [formGroup]="filterForm">-->
-        <!--                <div class="row py-3">-->
-        <!--                    <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">-->
-        <!--                        <ng-select placeholder="branches" formControlName="branchIds">-->
-        <!--                            <ng-option *ngFor="let branch of branchList"-->
-        <!--                                       [value]="branch.id">{{branch.name}}</ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!---->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select placeholder="Province" formControlName="provinceId">-->
-        <!--                            <ng-option *ngFor="let province of provinces"-->
-        <!--                                       [value]="province.id">{{province.name}}</ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!---->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <input class="form-control rounded" formControlName="name" id="customerName"-->
-        <!--                               placeholder="Enter customer name">-->
-        <!--                    </div>-->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select formControlName="customerType" placeholder="Customer Type">-->
-        <!--                            <ng-option value="INSTITUTION">INSTITUTION</ng-option>-->
-        <!--                            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select [multiple]="false"-->
-        <!--                                   [appendTo]="'body'"-->
-        <!--                                   formControlName="idRegPlace"-->
-        <!--                                   id="idRegPlace"-->
-        <!--                                   placeholder="Id Registration place"-->
-        <!--                                   type="text">-->
-        <!--                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
-        <!--                                {{district?.name}}-->
-        <!--                            </ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!---->
-        <!--                    <div class="col-md-3 mb-3">-->
-        <!--                        <ng-select [multiple]="false"-->
-        <!--                                   [appendTo]="'body'"-->
-        <!--                                   formControlName="groupId"-->
-        <!--                                   id="groupId"-->
-        <!--                                   placeholder="Group"-->
-        <!--                        >-->
-        <!--                            <ng-option *ngFor="let group of customerGroupList" [value]="group?.id">-->
-        <!--                                {{group?.groupCode}}-->
-        <!--                            </ng-option>-->
-        <!--                        </ng-select>-->
-        <!--                    </div>-->
-        <!--                </div>-->
+        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+            <form [formGroup]="filterForm">
+                <div class="row py-3">
+                    <div class="col-md-3 mb-3" >
+                        <input class="form-control rounded" formControlName="beneficiaryName" id="beneficiaryName"
+                               placeholder="Enter Beneficiary Name">
+                    </div>
 
-        <!--                <div class="col-md-12 p-0">-->
-        <!--                    <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton-->
-        <!--                            shape="rectangle"-->
-        <!--                            status="info"-->
-        <!--                            size="small">Search-->
-        <!--                    </button>-->
-        <!--                    <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button" size="small">Clear-->
-        <!--                    </button>-->
-        <!--                </div>-->
-        <!--            </form>-->
-        <!--        </div>-->
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="senderName" id="senderName"
+                               placeholder="Enter Sender Name">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="senderCountry" id="senderCountry"
+                               placeholder="Enter Sender Country">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="agentName" id="agentName"
+                               placeholder="Enter Agent Name">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="proposedAmount" id="proposedAmount"
+                               placeholder="Enter Proposed Amount">
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="sendToBranch" id="sendBranch"
+                               placeholder="Enter Send To Branch">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="preferredBranch" id="preferredBranch"
+                               placeholder="Enter Preferred Branch">
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 p-0">
+                    <button  class="mr-2" nbButton
+                            shape="rectangle"
+                            status="info"
+                             (click)="Search()"
+                            size="small">Search
+                    </button>
+                    <button nbButton shape="rectangle" (click) ="clear()" status="danger" type="button" size="small">Clear
+                    </button>
+                </div>
+            </form>
+        </div>
 
     </nb-card-header>
+
     <nb-card-body>
         <br>
         <table class="table table-sm table-bordered table-hover sb-small text-center" id="add-branch-table">
