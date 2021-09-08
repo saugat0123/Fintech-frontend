@@ -332,9 +332,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.individualJsonData = this.setIndividualJsonData();
                     this.customer.isMicroCustomer = this.microCustomer;
                     this.customer.sameAddress = this.sameAddress;
-                    console.log('this.customer', this.customer);
                     this.customerService.save(this.customer).subscribe(res => {
-                        console.log('response', res);
                         this.spinner = false;
                         this.close();
                         if (this.formValue.id == null) {
