@@ -60,9 +60,4 @@ export class CustomerInfoService extends BaseService<Object> {
     }
 
 
-    public getCustomerInfoList(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
-        const api = `${this.getApi()}/customerInfoDtoList?page=${page}&size=${size}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, searchObj, {headers: req.header});
-    }
 }
