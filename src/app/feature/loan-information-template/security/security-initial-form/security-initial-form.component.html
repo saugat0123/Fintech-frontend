@@ -238,7 +238,7 @@
                                            formControlName="landValuator" (click)="valuator(null,'land',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -738,7 +738,7 @@
                                                    (click)="valuator(null,'apartment',i)">
                                             <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                             <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
-                                                       [value]="valuator">{{valuator.name}}</ng-option>
+                                                       [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                         </ng-select>
                                     </div>
                                 </div>
@@ -1563,7 +1563,7 @@
                                         <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                         <ng-option
                                                 *ngFor="let valuator of securityValuator.buildingValuator[i]"
-                                                [value]="valuator">{{valuator.name}}</ng-option>
+                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                     </ng-select>
                                 </div>
                             </div>
@@ -2063,7 +2063,7 @@
                                            formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -2356,7 +2356,7 @@
                                            formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
