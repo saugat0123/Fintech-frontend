@@ -1670,19 +1670,19 @@
 
         <div *ngIf="pdfFile.length > 0" class="container mt-2">
             <div class="row">
-                <div class="col-md-3" *ngFor="let doc of pdfFile;">
-                    <thumbnail file-type="pdf" source="url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random"
-                               max-height="150"
-                               max-width="300"
-                               (click)="viewDocument(doc?.docPath,doc?.docName, doc?.fileType)"
-                               (error)="onError($event)"></thumbnail>
-
-                   <!-- <img [src]="url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random"
-                         class="figure-img img-fluid rounded img-medium"
-                         alt="{{doc?.docName}}" style="cursor: pointer"
-
-                         (click)="viewDocument(doc?.docPath,doc?.docName, doc?.fileType)"
-                         (error)="onError($event)">-->
+                <div class="col-md-6" *ngFor="let doc of pdfFile;">
+                    <pdf-viewer [src]="url + separator + doc?.docPath + doc?.docName.concat('.').concat(doc.fileType) + '?=' + random"
+                                [original-size]="false"
+                                [autoresize]="true"
+                                [show-all] = "false"
+                                [stick-to-page]="true"
+                                [render-text]="true"
+                                [render-text-mode]="1"
+                                class="figure-img img-fluid rounded img-medium"
+                                style="cursor: pointer; display:inline;z-index:2000"
+                                (click)="viewDocument(doc?.docPath,doc?.docName, doc?.fileType)"
+                                (error)="onError($event)"
+                    ></pdf-viewer>
                     <span class="mt-2 ml-2">Document for {{doc?.securityName.slice(0, -2)}}</span>
                 </div>
             </div>
