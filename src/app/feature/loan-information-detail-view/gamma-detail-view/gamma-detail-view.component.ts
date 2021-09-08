@@ -42,6 +42,8 @@ export class GammaDetailViewComponent implements OnInit {
   companyInfo = CompanyInfo;
   companyJsonData;
   individualJsonData;
+  jointCustomerData: any;
+  isJointCustomer = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -76,6 +78,10 @@ export class GammaDetailViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
     }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo)
+      this.isJointCustomer = true;
+    }
   }
 
   getAllLoans(customerInfoId: number): void {
@@ -92,8 +98,11 @@ export class GammaDetailViewComponent implements OnInit {
           }
           if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
             this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+          } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.documentStatus === 'REJECTED');
           } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED'
+                && c.documentStatus !== 'REJECTED');
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList
