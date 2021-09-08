@@ -86,7 +86,7 @@ import {AccountNumberModalComponent} from './component/opening-account/account-n
 import { GroupConfigComponent } from './component/preference/group-config/group-config.component';
 import { FinancialConfigComponent } from './component/preference/financial-config/financial-config.component';
 import { FinancialConfigModalComponent } from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
-import {NbDialogModule} from '@nebular/theme';
+import {NbButtonModule, NbDialogModule, NbInputModule, NbSelectModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
 import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
@@ -191,6 +191,9 @@ import {VideoKycComponent} from '../video-kyc/video-kyc.component';
     NbDialogModule.forRoot(),
     CoreModule,
     AgmCoreModule,
+      NbInputModule,
+      NbButtonModule,
+      NbSelectModule,
     TransferLoanModule,
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAP_API_KEY
