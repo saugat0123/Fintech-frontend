@@ -48,6 +48,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
+import {connectableObservableDescriptor} from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
     selector: 'app-loan-summary',
@@ -269,6 +270,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                        this.isCollateralSiteVisit = true;
                    }
                });
+        }
+        if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
+            this.id = this.combinedLoanId;
         }
     }
 
