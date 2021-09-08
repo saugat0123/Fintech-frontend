@@ -234,6 +234,7 @@ export class CustomerComponent implements OnInit {
 
     clear() {
         this.buildFilterForm();
+        this.onSearch();
         CustomerComponent.loadData(this);
 
     }
