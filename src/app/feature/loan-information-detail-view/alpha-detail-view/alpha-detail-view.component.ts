@@ -13,7 +13,7 @@ import {FiscalYearService} from '../../admin/service/fiscal-year.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../loan/model/combined-loan';
 import {ObtainableDoc} from '../../loan-information-template/obtained-document/obtainableDoc';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-alpha-detail-view',
@@ -110,7 +110,6 @@ export class AlphaDetailViewComponent implements OnInit {
           if (splitData !== '') {
             this.otherObtainableDocuments.push(splitData);
           }
-          console.log(this.otherObtainableDocuments);
         });
       }
     });
