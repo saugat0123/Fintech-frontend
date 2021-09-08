@@ -14,7 +14,7 @@ import {Clients} from '../../../../../environments/Clients';
     styleUrls: ['./fiscal-year-modal.component.scss']
 })
 export class FiscalYearModalComponent implements OnInit {
-    financialStatementList = ['Projected', 'Provisional', 'Audited'];
+    financialStatementList = ['Projected', 'Provisional', 'Audited', 'Management Prepared'];
     fiscalYearsArray = [];
     financialStatementForm: FormGroup;
 
