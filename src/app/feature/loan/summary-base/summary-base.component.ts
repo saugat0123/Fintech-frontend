@@ -48,6 +48,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     loanSummaryActive = true;
     approvalSheetActive = false;
     loanTag= LoanTag;
+    isRemitLoan = false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -96,6 +97,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
+                this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
             }
         );
         this.userService.getLoggedInUser().subscribe(
