@@ -4,19 +4,22 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 
-export class CustomerInfoSearch{
+@Injectable({
+    providedIn: 'root'
+})
+export class CustomerInfoSearch {
     name: string;
-    customerType:  string;
-    idRegPlace:  string;
-    contactNo:  string;
-    idRegDate:  string;
-    createdAt:  string;
-    associateId:  string;
-    id:  string;
-    email:  string;
-    idNumber:  string;
-    provinceId:  string;
-    groupId:  string;
+    customerType: string;
+    idRegPlace: string;
+    contactNo: string;
+    idRegDate: string;
+    createdAt: string;
+    associateId: string;
+    id: string;
+    email: string;
+    idNumber: string;
+    provinceId: string;
+    groupId: string;
 
 }
 

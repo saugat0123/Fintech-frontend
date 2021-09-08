@@ -11,7 +11,7 @@ import {LoanFormService} from '../../../loan/component/loan-form/service/loan-fo
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {CustomerInfoService} from '../../service/customer-info.service';
+import {CustomerInfoSearch, CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -45,7 +45,6 @@ export class CustomerComponent implements OnInit {
 
     page = 1;
     spinner = false;
-    search = {};
     customerList = [];
     pageable: Pageable = new Pageable();
     isFilterCollapsed = true;
@@ -74,7 +73,6 @@ export class CustomerComponent implements OnInit {
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
     onActionChangeSpinner = false;
-
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
@@ -89,14 +87,16 @@ export class CustomerComponent implements OnInit {
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
                 private location: AddressService,
-                private userService: UserService
+                private userService: UserService,
+                private search: CustomerInfoSearch
+
     ) {
     }
 
     static loadData(other: CustomerComponent) {
         other.overlay.show();
         other.spinner = true;
-        other.customerInfoService.getPaginationWithSearchObject(other.customerInfoService.search, other.page, 10).subscribe((response: any) => {
+        other.customerInfoService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
             other.customerList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
@@ -113,6 +113,7 @@ export class CustomerComponent implements OnInit {
 
     ngOnInit() {
         this.buildFilterForm();
+        this.search = new CustomerInfoSearch();
         CustomerComponent.loadData(this);
         this.getAllDistrict();
         this.getBranch();
@@ -181,27 +182,27 @@ export class CustomerComponent implements OnInit {
     }
 
     onSearch() {
-        this.customerInfoService.search.name = ObjectUtil.isEmpty(this.filterForm.get('name').value) ? undefined :
+        this.search.name = ObjectUtil.isEmpty(this.filterForm.get('name').value) ? undefined :
             this.filterForm.get('name').value;
-        this.customerInfoService.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
+        this.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
             this.filterForm.get('customerType').value;
-        this.customerInfoService.search.idRegPlace = ObjectUtil.isEmpty(this.filterForm.get('idRegPlace').value) ? undefined :
+        this.search.idRegPlace = ObjectUtil.isEmpty(this.filterForm.get('idRegPlace').value) ? undefined :
             this.filterForm.get('idRegPlace').value;
-        this.customerInfoService.search.idRegDate = ObjectUtil.isEmpty(this.filterForm.get('idRegDate').value) ? undefined :
+        this.search.idRegDate = ObjectUtil.isEmpty(this.filterForm.get('idRegDate').value) ? undefined :
             this.filterForm.get('idRegDate').value;
-        this.customerInfoService.search.createdAt = ObjectUtil.isEmpty(this.filterForm.get('createdAt').value) ? undefined :
+        this.search.createdAt = ObjectUtil.isEmpty(this.filterForm.get('createdAt').value) ? undefined :
             this.filterForm.get('createdAt').value;
-        this.customerInfoService.search.associateId = ObjectUtil.isEmpty(this.filterForm.get('associateId').value) ? undefined :
+        this.search.associateId = ObjectUtil.isEmpty(this.filterForm.get('associateId').value) ? undefined :
             this.filterForm.get('associateId').value;
-        this.customerInfoService.search.id = ObjectUtil.isEmpty(this.filterForm.get('id').value) ? undefined :
+        this.search.id = ObjectUtil.isEmpty(this.filterForm.get('id').value) ? undefined :
             this.filterForm.get('id').value;
-        this.customerInfoService.search.email = ObjectUtil.isEmpty(this.filterForm.get('email').value) ? undefined :
+        this.search.email = ObjectUtil.isEmpty(this.filterForm.get('email').value) ? undefined :
             this.filterForm.get('email').value;
-        this.customerInfoService.search.idNumber = ObjectUtil.isEmpty(this.filterForm.get('idNumber').value) ? undefined :
+        this.search.idNumber = ObjectUtil.isEmpty(this.filterForm.get('idNumber').value) ? undefined :
             this.filterForm.get('idNumber').value;
-        this.customerInfoService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+        this.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
             this.filterForm.get('provinceId').value;
-        this.customerInfoService.search.groupId = ObjectUtil.isEmpty(this.filterForm.get('groupId').value) ? undefined :
+        this.search.groupId = ObjectUtil.isEmpty(this.filterForm.get('groupId').value) ? undefined :
             this.filterForm.get('groupId').value;
         CustomerComponent.loadData(this);
     }
