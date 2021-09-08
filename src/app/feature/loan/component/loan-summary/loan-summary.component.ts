@@ -270,6 +270,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                    }
                });
         }
+        if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
+            this.id = this.combinedLoanId;
+        }
     }
 
     ngOnDestroy(): void {
