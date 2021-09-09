@@ -106,59 +106,30 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInDv: undefined,
             changeInConsideredValue: undefined,
         };
-        // this.arrayData();
-        // this.formGroup.get('revaluationDetails').value.forEach(t => {
-        //     calcData.changeInFmv = NumberUtils.isNumber(t.reValuatedFmv -
-        //         this.oldValuation[i][fmv]);
-        //     calcData.changeInDv = NumberUtils.isNumber(t.reValuatedDv -
-        //         this.oldValuation[i][dv]);
-        //     calcData.changeInConsideredValue = NumberUtils.isNumber(t.reValuatedConsideredValue -
-        //         this.oldValuation[i][considered]);
-        // });
-        // console.log('calcData', calcData);
-        // if (this.dynamic) {
-        //     calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-        //             [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv -
-        //         this.oldValuation[i][fmv]);
-        //     calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-        //             [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv -
-        //         this.oldValuation[i][dv]);
-        //     calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-        //             [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue -
-        //         this.oldValuation[i][considered]);
-        // } else {
-        //     calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('reValuatedFmv').value -
-        //         this.oldValuation[i][fmv]);
-        //     calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('reValuatedDv').value -
-        //         this.oldValuation[i][dv]);
-        //     calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('reValuatedConsideredValue').value -
-        //         this.oldValuation[i][considered]);
-        // }
+        calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv -
+            this.oldValuation[i][fmv]);
+        calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv -
+            this.oldValuation[i][dv]);
+        calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue -
+            this.oldValuation[i][considered]);
         this.formGroup.patchValue(calcData);
     }
 
     revaluate(isRevaluated, index) {
         let revData;
-        if (this.dynamic) {
-            revData = {
-                reValuatedFmv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv),
-                reValuatedDv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv),
-                reValuatedConsideredValue: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue),
-                isReValuated: isRevaluated,
-                index: index
-            };
-        } else {
-            revData = {
-                reValuatedFmv: this.formGroup.get('reValuatedFmv').value,
-                reValuatedDv: this.formGroup.get('reValuatedDv').value,
-                reValuatedConsideredValue: this.formGroup.get('reValuatedConsideredValue').value,
-                isReValuated: isRevaluated,
-                index: index
-            };
-        }
+        revData = {
+            reValuatedFmv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv),
+            reValuatedDv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv),
+            reValuatedConsideredValue: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue),
+            isReValuated: isRevaluated,
+            index: index
+        };
         this.revaluationDataEmitter.emit(revData);
     }
 
@@ -188,7 +159,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
 
     setRevaluationDetails(currentData) {
         const revaluationDetails = this.formGroup.get('revaluationDetails') as FormArray;
-        // (this.formGroup.get('revaluationDetails') as FormArray).clear();
         currentData.revaluationDetails.forEach((singleData) => {
             console.log('singleData', singleData);
             revaluationDetails.push(
@@ -211,22 +181,12 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
 
     arrayData() {
         if (!ObjectUtil.isEmpty(this.data)) {
-            if (this.data.reValuationDate !== null) {
-                const oldData = {
-                    revaluationDetails: []
-                };
-                oldData.revaluationDetails.push(this.data);
-                // curentData = {
-                //     revaluationDetails : [
-                //         {}
-                //     ]
-                // }
-                console.log('oldData', oldData);
-                // this.formGroup.get('revaluationDetails').value.(this.oldData);
-                this.setRevaluationDetails(oldData);
-                // console.log();
-                // console.log('value:::', this.formGroup.get('revaluationDetails').value);
-            }
+            const oldData = {
+                revaluationDetails: []
+            };
+            oldData.revaluationDetails.push(this.data);
+            this.setRevaluationDetails(oldData);
+            this.calc();
         }
     }
 }
