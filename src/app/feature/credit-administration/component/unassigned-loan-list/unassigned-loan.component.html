@@ -10,16 +10,17 @@
 
     <h6 class="text-center">Approved Loan List</h6>
 
-
-      <div class="d-flex flex-row-reverse">
-        <select style="width: 50px!important;"  #s (change)="onChangePageSize(s.value)">
-          <option [value]="'10'">10</option>
-          <option [value]="'25'" selected>25</option>
-          <option [value]="'50'">50</option>
-          <option [value]="'100'">100</option>
-        </select>
-      </div>
-
+<!-- start-->
+<!-- if requested By Bank then uncomment this code for dynamic page size-->
+<!--      <div class="d-flex flex-row-reverse">-->
+<!--        <select style="width: 50px!important;"  #s (change)="onChangePageSize(s.value)">-->
+<!--          <option [value]="'10'">10</option>-->
+<!--          <option [value]="'25'" selected>25</option>-->
+<!--          <option [value]="'50'">50</option>-->
+<!--          <option [value]="'100'">100</option>-->
+<!--        </select>-->
+<!--      </div>-->
+    <!-- end-->
 
   </nb-card-header>
   <nb-card-body>
