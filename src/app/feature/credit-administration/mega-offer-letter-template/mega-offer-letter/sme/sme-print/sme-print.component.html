@@ -15,25 +15,32 @@
                 <p>मितिः <span class="nepaliFont font-weight-bold">{{letter['date']}}</span></p>
             </div>
         </div>
-        <div class="row mt-0">
-            <div class="col-md-12">
-                <b>नाम:</b> <strong class="nepaliFont">{{loanHolderInfo?.name}}</strong>
-            </div>
+        <div class="mb-2"><b>नाम: </b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></div>
+        <div class="row form-group">
+              <span style="margin-left: 18px;">
+                  <b>स्थायी ठेगान: </b> प्रदेश: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,&nbsp; जिल्ला: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>,&nbsp; वार्ड न: &nbsp;
+                  <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>,&nbsp;
+                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                      गा बि स:
+                  </span>
+                  <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                      नगरपालिका:
+                  </span>
+                  &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
+              </span>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <b>ठेगाना:</b>
-                <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
-                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                               गा बि स
-                           </span>
-                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                               नगरपालिका
-                           </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
-                </div>
-            </div>
+        <div class="row form-group">
+              <span style="margin-left: 18px;">
+                  <b>हाल ठेगाना: </b> प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp; वार्ड न: &nbsp;
+                  <b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                  <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                      गा बि स
+                  </span>
+                  <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                      नगरपालिका:
+                  </span>
+                  &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
+              </span>
         </div>
 
         <div class="mb-2">
@@ -1071,29 +1078,38 @@
                         काठमाडौं, नेपाल ।<br>
                     </div>
                     ऋणी <br>
-                    <div class="ml-4">
-                        <strong>नाम : </strong><span class="nepaliFont form-field">{{loanHolderInfo?.name}}</span> <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <b>ठेगाना:</b>
-                                <div>प्रदेश &nbsp;<b>{{loanHolderInfo?.permanentProvince}}</b>,&nbsp;
-                                    जिल्ला &nbsp;<b>{{loanHolderInfo?.permanentDistrict}}</b>,&nbsp;
-                                    वार्ड न &nbsp;<b>{{loanHolderInfo?.permanentWard}}</b>,&nbsp;
-                                    <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                                    गा बि स
-                                    </span>
-                                    <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                                    नगरपालिका
-                                    </span>&nbsp;<b>{{loanHolderInfo?.permanentMunicipality}}</b>
+                    <div class="mb-2"><b>नाम: </b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></div>
+                    <div class="row form-group">
+                          <span style="margin-left: 18px;">
+                              <b>स्थायी ठेगान: </b> प्रदेश: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,&nbsp; जिल्ला: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>,&nbsp; वार्ड न: &nbsp;
+                              <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>,&nbsp;
+                              <span *ngIf="loanHolderInfo?.permanentMunType==1">
+                                  गा बि स:
+                              </span>
+                              <span *ngIf="loanHolderInfo?.permanentMunType==0">
+                                  नगरपालिका:
+                              </span>
+                              &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
+                          </span>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="row form-group">
+                          <span style="margin-left: 18px;">
+                              <b>हाल ठेगाना: </b> प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp; वार्ड न: &nbsp;
+                              <b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
+                              <span *ngIf="loanHolderInfo?.temporaryMunType==1">
+                                  गा बि स
+                              </span>
+                              <span *ngIf="loanHolderInfo?.temporaryMunType==0">
+                                  नगरपालिका:
+                              </span>
+                              &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
+                          </span>
+                    </div>
                         <br>
                         <strong>संपर्क नम्बर : </strong><span class="nepaliFont form-field">{{letter?.mobileNo}}</span>
                     </div>
                 </div>
             </div>
-        </div>
         <br>
         यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लेखित मिति देखि ३० दिनसम्म को समय दिईएको छ र उल्लेखित
         समय

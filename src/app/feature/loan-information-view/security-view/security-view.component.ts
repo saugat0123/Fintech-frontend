@@ -3,7 +3,6 @@ import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
-import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
 import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
 import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
@@ -40,8 +39,6 @@ export class SecurityViewComponent implements OnInit {
   ownerShipTransfer = OwnershipTransfer;
   disableCrgAlphaParams = environment.disableCrgAlpha;
   crgLambdaDisabled = environment.disableCrgLambda;
-  client = environment.client;
-  clientName = Clients;
   securityOther: any;
   assignments: any;
   assignment = false;

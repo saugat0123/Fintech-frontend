@@ -31,8 +31,6 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
-import {Clients} from '../../../../../../environments/Clients';
-
 
 @Component({
     selector: 'app-customer-profile',
@@ -83,8 +81,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     megaGroupEnabled = environment.MEGA_GROUP;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     crgLambdaDisabled = environment.disableCrgLambda;
-    client = environment.client;
-    clientName = Clients;
     isEditable = false;
     jointInfo = [];
     isJointInfo = false;
@@ -359,7 +355,15 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     saveBasic() {
-        this.customerService.save(this.basicForm.value).subscribe((res: any) => {
+        this.customer.withinLimitRemarks = this.basicForm.get('withinLimitRemarks').value;
+        this.customer.clientType = this.customerInfo.clientType;
+        this.customer.customerCode = this.customerInfo.customerCode;
+        this.customer.subsectorDetail = this.customerInfo.subsectorDetail;
+        this.customer.gender = this.customerInfo.gender;
+        this.customer.maritalStatus = this.customerInfo.maritalStatus;
+        this.customer.customerLegalDocumentAddress = this.customerInfo.customerLegalDocumentAddress;
+        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
+        this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
             this.isEdited = false;

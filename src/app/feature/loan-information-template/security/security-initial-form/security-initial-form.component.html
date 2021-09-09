@@ -127,12 +127,12 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                <label class="title" for="distressValue">Distress Value</label>
                                 <input (change)="updateLandSecurityTotal(i)"
                                        class="form-control rounded"
                                        formControlName="distressValue"
                                        id="distressValue"
-                                       [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                       placeholder="Distress Value"
                                        name="distressValue"
                                        type="text"/>
                             </div>
@@ -238,7 +238,7 @@
                                            formControlName="landValuator" (click)="valuator(null,'land',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -460,7 +460,7 @@
                         <tr>
                             <th>Total Considered Value</th>
                             <th>Total Fair Market Value</th>
-                            <th>Total {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                            <th>Total Distress Value</th>
                             <th>Remarks</th>
                         </tr>
                         </thead>
@@ -699,11 +699,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingDistressValue">Apartment {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                        <label class="title" for="buildingDistressValue">Apartment Distress Value</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDistressValue"
                                                id="buildingDistressValue"
-                                               [placeholder]="(client == clientName?.EXCEL) ? 'Apartment Market Value' : 'Apartment Distress Value'"
+                                               placeholder="Apartment Distress Value"
                                                name="buildingDistressValue"
                                                type="text"/>
                                     </div>
@@ -738,7 +738,7 @@
                                                    (click)="valuator(null,'apartment',i)">
                                             <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                             <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
-                                                       [value]="valuator">{{valuator.name}}</ng-option>
+                                                       [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                         </ng-select>
                                     </div>
                                 </div>
@@ -1451,11 +1451,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                    <label class="title" for="distressValue">Distress Value</label>
                                     <input class="form-control rounded"
                                            formControlName="distressValue"
                                            name="distressValue"
-                                           [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                           placeholder="Distress Value"
                                            type="text"/>
                                 </div>
                             </div>
@@ -1563,7 +1563,7 @@
                                         <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                         <ng-option
                                                 *ngFor="let valuator of securityValuator.buildingValuator[i]"
-                                                [value]="valuator">{{valuator.name}}</ng-option>
+                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                     </ng-select>
                                 </div>
                             </div>
@@ -1892,11 +1892,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
+                                        <label class="title" for="distressValue">Distress Value</label>
                                         <input class="form-control rounded"
                                                formControlName="distressValueConstruction"
                                                name="distressValue"
-                                               [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
+                                               placeholder="Distress Value"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -2063,7 +2063,7 @@
                                            formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -2256,13 +2256,13 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="valuationAmount"><strong>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</strong></label>
+                                <label class="title" for="valuationAmount"><strong>Valuation Amount</strong></label>
                                 <input  [ngClass]="{ 'is-invalid': (vehicleSelected) && (addMoreVehicle.get('valuationAmount').errors ||
                                         addMoreVehicle.get('valuationAmount').invalid) }"
                                         (keyup)="vehicleRemainingAmount(i)"
                                         class="form-control" formControlName="valuationAmount" id="valuationAmount"
                                         name="valuationAmount"
-                                        [placeholder]="(client === clientName?.ICFC) ? 'Quotation/Valuation Amount' : 'Valuation Amount'"
+                                        placeholder="Valuation Amount"
                                         type="number">
                                 <div *ngIf="(vehicleSelected) && (addMoreVehicle.get('valuationAmount').invalid)"
                                      class="invalid-feedback">
@@ -2356,7 +2356,7 @@
                                            formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -2719,40 +2719,6 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row" *ngIf="client === clientName?.ICFC">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Price Earning Ratio</label>
-                                            <input class="form-control" formControlName="priceEarningRatio"
-                                                   id="priceEarningRatio" name="priceEarningRatio"
-                                                   placeholder="Price Earning Ratio" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Price to Book Value</label>
-                                            <input class="form-control" formControlName="priceBookValue"
-                                                   id="priceBookValue" name="priceBookValue"
-                                                   placeholder="Price to Book Value" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Dividend Yield</label>
-                                            <input class="form-control" formControlName="dividendYeild"
-                                                   id="dividendYeild" name="dividendYeild"
-                                                   placeholder="Dividend Yield" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Dividend Payout Ratio</label>
-                                            <input class="form-control" formControlName="dividendPayoutRatio"
-                                                   id="dividendPayoutRatio" name="dividendPayoutRatio"
-                                                   placeholder="Dividend Payout Ratio" type="number">
-                                        </div>
-                                    </div>
-                            </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
                             <button (click)="removeShareList(shareFieldIndex)"

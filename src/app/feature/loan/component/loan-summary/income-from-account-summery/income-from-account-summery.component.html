@@ -25,22 +25,6 @@
         <td class="text-right pr-1">Rs. {{incomeFromAccount?.loanProcessingDuringReview |currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{incomeFromAccount?.loanProcessingAfterNextReview |currencyFormatter}}</td>
       </tr>
-      <ng-container *ngIf="srdbAffiliatedId">
-        <tr>
-          <td class="sb-bg-secondary text-white text-left pl-1">LC Commission</td>
-          <td class="text-right pr-1">Rs. {{incomeFromAccount?.lcCommissionDuringReview |currencyFormatter}}</td>
-          <td class="text-right pr-1">
-            Rs. {{incomeFromAccount?.lcCommissionAfterNextReview |currencyFormatter}}
-          </td>
-        </tr>
-        <tr>
-          <td class="sb-bg-secondary text-white text-left pl-1">Guarantee Commission</td>
-          <td class="text-right pr-1">Rs. {{incomeFromAccount?.guaranteeCommissionDuringReview |currencyFormatter}}</td>
-          <td class="text-right pr-1">
-            Rs. {{incomeFromAccount?.guaranteeCommissionAfterNextReview |currencyFormatter}}
-          </td>
-        </tr>
-      </ng-container>
       <tr>
         <td class="sb-bg-secondary text-white text-left pl-1">Other Charges</td>
         <td class="text-right pr-1">

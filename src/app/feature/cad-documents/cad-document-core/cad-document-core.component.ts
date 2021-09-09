@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../loan/model/customer-offer-letter-path';
@@ -18,8 +16,6 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 })
 export class CadDocumentCoreComponent implements OnInit {
 
-  client = environment.client;
-  clientList = Clients;
   loanDataHolder: LoanDataHolder;
   customerId: number;
   branchId: number;
