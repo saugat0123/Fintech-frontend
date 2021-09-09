@@ -200,6 +200,20 @@
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
                           <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                       </tr>
+                      <tr class="sb-bg-secondary text-white">
+                          <th>ReValuator Representative Name</th>
+                          <th>ReValuator Staff Representative Designation 1</th>
+                          <th>ReValuator Staff Representative Name 1</th>
+                          <th>ReValuator Staff Representative Designation 2</th>
+                          <th>ReValuator Staff Representative Name 2</th>
+                      </tr>
+                      <tr>
+                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.reValuatorName}}</td>
+                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeDesignation1}}</td>
+                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeName1}}</td>
+                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeDesignation2}}</td>
+                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.staffRepresentativeName2}}</td>
+                      </tr>
                   </ng-container>
 
                 </table>
@@ -355,6 +369,20 @@
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                         </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuator Representative Name</th>
+                            <th>ReValuator Staff Representative Designation 1</th>
+                            <th>ReValuator Staff Representative Name 1</th>
+                            <th>ReValuator Staff Representative Designation 2</th>
+                            <th>ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.reValuatorName}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeDesignation1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeName1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeDesignation2}}</td>
+                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.staffRepresentativeName2}}</td>
+                        </tr>
                     </ng-container>
 
                     <tr *ngIf="landBuilding.underConstructionChecked === true">
@@ -468,6 +496,20 @@
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
                             <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                        </tr>
+                        <tr class="sb-bg-secondary text-white">
+                            <th>ReValuator Representative Name</th>
+                            <th>ReValuator Staff Representative Designation 1</th>
+                            <th>ReValuator Staff Representative Name 1</th>
+                            <th>ReValuator Staff Representative Designation 2</th>
+                            <th>ReValuator Staff Representative Name 2</th>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuatorName}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeDesignation1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeName1}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeDesignation2}}</td>
+                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.staffRepresentativeName2}}</td>
                         </tr>
                     </ng-container>
                 </table>

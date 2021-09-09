@@ -1,4 +1,5 @@
-<nb-card class="col-md-6" ngDraggable [ngResizable]="true">
+
+<nb-card class="col-md-6" [nbSpinner]="spinner" ngDraggable [ngResizable]="true">
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
             <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -107,7 +108,7 @@
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <button (click)="onSubmit()" [disabled]="formAction.invalid" nbButton type="button">
+            <button (click)="onSubmit()" [disabled]="formAction.invalid || spinner"   nbButton type="button">
                 <em class="fa fa-save"></em>
             </button>
         </nb-card-footer>
