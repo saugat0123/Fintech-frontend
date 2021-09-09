@@ -40,6 +40,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() customerType;
     @Input() branchId;
     @Input() customerLoanHolder: LoanDataHolder;
+    @Input() isRemitLoan;
     public isMaker = false;
     public committeeRole = false;
     private dialogRef: NbDialogRef<any>;
