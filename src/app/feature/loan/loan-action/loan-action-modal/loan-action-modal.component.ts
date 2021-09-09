@@ -155,7 +155,7 @@ export class LoanActionModalComponent implements OnInit {
                         this.nbDialogRef.close();
                     }
                 }, error => {
-
+                    console.log(error);
                 });
             } else {
                 if (verified === true) {
