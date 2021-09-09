@@ -27,22 +27,37 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     // client
     client = environment.client;
     clientName = Clients;
+    dynamic = false;
 
     constructor(private valuatorService: ValuatorService,
                 private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
+        console.log('data', this.data.reValuationDate);
         this.formGroup = this.formBuilder.group({
             isReValuated: [false],
+            reValuationDate: [undefined, Validators.required],
+            reValuatedFmv: [undefined, Validators.required],
+            reValuatedDv: [undefined, Validators.required],
+            reValuatedConsideredValue: [undefined, Validators.required],
+            newValuator: [undefined, Validators.required],
             changeInFmv: [undefined, Validators.required],
             changeInDv: [undefined, Validators.required],
             changeInConsideredValue: [undefined, Validators.required],
-            revaluationDetails: this.formBuilder.array([]),
+            reValuatorName: [undefined],
+            staffRepresentativeDesignation1: [undefined],
+            staffRepresentativeDesignation2: [undefined],
+            staffRepresentativeName1: [undefined],
+            staffRepresentativeName2: [undefined],
+            revaluationDetails: this.formBuilder.array([])
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
-            this.setRevaluationDetails(this.data);
+            console.log('PatchValue', this.data);
+            if (this.dynamic) {
+                this.setRevaluationDetails(this.data);
+            }
             if (!ObjectUtil.isEmpty(this.data.reValuationDate)) {
                 this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
             }
@@ -90,29 +105,49 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInDv: undefined,
             changeInConsideredValue: undefined,
         };
-        calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv -
-            this.oldValuation[i][fmv]);
-        calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv -
-            this.oldValuation[i][dv]);
-        calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue -
-            this.oldValuation[i][considered]);
+        if (this.dynamic) {
+            calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv -
+                this.oldValuation[i][fmv]);
+            calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv -
+                this.oldValuation[i][dv]);
+            calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue -
+                this.oldValuation[i][considered]);
+        } else {
+            calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('reValuatedFmv').value -
+                this.oldValuation[i][fmv]);
+            calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('reValuatedDv').value -
+                this.oldValuation[i][dv]);
+            calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('reValuatedConsideredValue').value -
+                this.oldValuation[i][considered]);
+        }
         this.formGroup.patchValue(calcData);
     }
 
     revaluate(isRevaluated, index) {
-        const revData = {
-            reValuatedFmv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv),
-            reValuatedDv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv),
-            reValuatedConsideredValue: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue),
-            isReValuated: isRevaluated,
-            index: index
-        };
+        let revData;
+        if (this.dynamic) {
+            revData = {
+                reValuatedFmv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv),
+                reValuatedDv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv),
+                reValuatedConsideredValue: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue),
+                isReValuated: isRevaluated,
+                index: index
+            };
+        } else {
+            revData = {
+                reValuatedFmv: this.formGroup.get('reValuatedFmv').value,
+                reValuatedDv: this.formGroup.get('reValuatedDv').value,
+                reValuatedConsideredValue: this.formGroup.get('reValuatedConsideredValue').value,
+                isReValuated: isRevaluated,
+                index: index
+            };
+        }
         this.revaluationDataEmitter.emit(revData);
     }
 

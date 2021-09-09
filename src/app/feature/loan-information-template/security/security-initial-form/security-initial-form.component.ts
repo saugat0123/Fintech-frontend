@@ -146,7 +146,6 @@ export class SecurityInitialFormComponent implements OnInit {
     plantOtherBranchChecked = false;
     totaldv = 0;
     totalmv = 0;
-    //totalcv = 0;
 
     totalLandValueRemarks: any;
     client = environment.client;
@@ -192,6 +191,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
+            console.log('formDataForEdit', this.formDataForEdit);
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
@@ -286,30 +286,20 @@ export class SecurityInitialFormComponent implements OnInit {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         this.totaldv = 0;
         this.totalmv = 0;
-        //this.totalcv = 0;
-        landDetails['value'].forEach((sec, index) => {
-            //let revDataDv = 0;
-            //let revDataFmv = 0;
+        landDetails['value'].forEach((sec) => {
             if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-                const revData = sec['revaluationData'].revaluationDetails;
-                let revDataDv = 0;
-                let revDataFmv = 0;
-
-                revData.forEach((revaluationDetails, index2) => {
-                    revDataDv = Number(revaluationDetails['reValuatedDv']);
-                    revDataFmv = Number(revaluationDetails['reValuatedFmv']);
-                    console.log('revDataDv:', revDataDv);
-                    console.log('revDataFmv:', revDataFmv);
-                });
-
-                this.totaldv += revDataDv;
-                this.totalmv += revDataFmv;
-
-                //this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
+                const dynamic = false;
+                if (dynamic) {
+                    const revData = sec['revaluationData'].revaluationDetails;
+                    this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
+                    this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
+                } else {
+                    this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
+                    this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
+                }
             } else {
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
-                //this.totalcv += Number(sec['landConsideredValue']);
             }
         });
 

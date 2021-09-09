@@ -128,7 +128,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
-                                <input (change)="updateLandSecurityTotal(i)"
+                                <input (change)="updateLandSecurityTotal()"
                                        class="form-control rounded"
                                        formControlName="distressValue"
                                        id="distressValue"
@@ -458,15 +458,13 @@
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>
-<!--                            <th>Total Considered Value</th>-->
                             <th>Total Fair Market Value</th>
-                            <th>Total {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                            <th>Total Distress Value</th>
                             <th>Remarks</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-<!--                            <td>{{totalcv }}</td>-->
                             <td>{{totalmv}}</td>
                             <td>{{totaldv}}</td>
                             <td><input type="text" class="form-control" id="totalLandValueRemarks"

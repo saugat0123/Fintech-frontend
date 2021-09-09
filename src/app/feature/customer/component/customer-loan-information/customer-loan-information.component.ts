@@ -287,6 +287,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(data)) {
             this.security.data = data.data;
             this.security.totalSecurityAmount = data.totalSecurityAmount;
+            console.log('security', this.security);
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
                 .subscribe(() => {
                     this.overlay.hide();
