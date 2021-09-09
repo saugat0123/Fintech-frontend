@@ -44,10 +44,11 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     nepaliDate;
     hasMissingDeferredDocs = false;
+    beneficiaryId: any;
 
     loanSummaryActive = true;
     approvalSheetActive = false;
-    loanTag= LoanTag;
+    loanTag = LoanTag;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -117,6 +118,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.remitCustomer)) {
+                this.beneficiaryId = this.loanDataHolder.loanHolder.remitCustomer.beneficiaryId;
+            }
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
 

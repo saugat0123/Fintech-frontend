@@ -99,6 +99,5 @@ export class LoanDataHolder extends BaseEntity {
     limitExceed: any;
     loanRemarks: any;
     comments: Comments;
-
-
+    remitCustomer: any;
 }

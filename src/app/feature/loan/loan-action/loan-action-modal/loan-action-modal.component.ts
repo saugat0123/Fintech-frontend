@@ -28,6 +28,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 })
 export class LoanActionModalComponent implements OnInit {
 
+    @Input() beneficiaryId: any;
     @Input() loanConfigId: number;
     @Input() customerLoanId: number;
     @Input() docAction: string;
@@ -118,7 +119,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        console.log(this.formAction.value);
+        let docAction = this.formAction.value.docAction;
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
@@ -136,13 +137,31 @@ export class LoanActionModalComponent implements OnInit {
 
         const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
             context: {
-                toUser: this.formAction.get('toUser').value, toRole: this.formAction.get('toRole').value, action: this.docAction
+                toUser: this.formAction.get('toUser').value,
+                toRole: this.formAction.get('toRole').value,
+                action: this.docAction
             }
         });
         dialogRef.onClose.subscribe((verified: boolean) => {
-            if (verified === true) {
-                this.postAction();
-                this.nbDialogRef.close();
+            if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
+                let beneficiaryObj = {
+                    "beneficiaryId": this.beneficiaryId,
+                    "status": "Rejected",
+                    "remarks": this.formAction.value.comment
+                };
+                this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                    if (verified === true) {
+                        this.postAction();
+                        this.nbDialogRef.close();
+                    }
+                }, error => {
+
+                });
+            } else {
+                if (verified === true) {
+                    this.postAction();
+                    this.nbDialogRef.close();
+                }
             }
         });
     }
@@ -173,7 +192,7 @@ export class LoanActionModalComponent implements OnInit {
                     .subscribe((response: any) => {
                         this.sendForwardBackwardList = [];
                         // this.sendForwardBackwardList = response.detail;
-                        this.sendForwardBackwardList = response.detail.sort(function(a, b) {
+                        this.sendForwardBackwardList = response.detail.sort(function (a, b) {
                             return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
                         if (this.sendForwardBackwardList.length > 0) {
@@ -190,6 +209,10 @@ export class LoanActionModalComponent implements OnInit {
                 }// send backward to committee
 
         }
+    }
+
+    private sendBackToSenderOrAgent() {
+
     }
 
     private postAction() {

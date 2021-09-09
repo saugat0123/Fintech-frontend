@@ -31,6 +31,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
+    @Input() beneficiaryId : any;
     @Input() catalogueStatus = false;
     @Input() loanFlags: CustomerLoanFlag[];
     @Input() actionsList: ActionModel;
@@ -164,6 +165,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'SEND_BACK_TO_SENDER',
                     docActionMsg: 'Return back to sender',
+                    beneficiaryId: this.beneficiaryId,
                     documentStatus: DocStatus.SEND_BACK_TO_SENDER
                 };
                 break;
@@ -176,6 +178,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'SEND_BACK_TO_AGENT',
                     docActionMsg: 'Return back to agent',
+                    beneficiaryId: this.beneficiaryId,
                     documentStatus: DocStatus.SEND_BACK_TO_AGENT
                 };
                 break;
