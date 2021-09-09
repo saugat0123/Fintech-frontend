@@ -25,7 +25,7 @@ export class UnassignedLoanComponent implements OnInit {
   loanList = [];
   loanType = LoanType;
   toggleArray: { toggled: boolean }[] = [];
-
+  size = PaginationUtils.PAGE_SIZE;
   constructor(private service: CreditAdministrationService,
               private spinnerService: NgxSpinnerService,
               private nbModalService: NbDialogService,
@@ -38,7 +38,7 @@ export class UnassignedLoanComponent implements OnInit {
     other.spinner = true;
     other.toggleArray = [];
     other.loanList = [];
-    other.service.getPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
+    other.service.getPaginationWithSearchObject(other.searchObj, other.page, other.size).subscribe((res: any) => {
       other.loanList = res.detail.content;
       other.pageable = PaginationUtils.getPageable(res.detail);
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
@@ -57,6 +57,12 @@ export class UnassignedLoanComponent implements OnInit {
 
   changePage(page: number) {
     this.page = page;
+    UnassignedLoanComponent.loadData(this);
+  }
+
+  onChangePageSize(value) {
+    this.page = 1;
+    this.size = value;
     UnassignedLoanComponent.loadData(this);
   }
 
