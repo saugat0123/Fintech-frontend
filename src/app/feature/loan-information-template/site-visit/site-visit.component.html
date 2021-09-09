@@ -307,13 +307,13 @@
                      formArrayName="businessDetails">
                     <div [formGroupName]="i" class="row">
                         <div class="col-md-12">
-                            <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessSiteVisitDetails[i]?.officeAddress"></app-common-address>
+                            <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessDetails?.officeAddress"></app-common-address>
                         </div>
                         <div class="col-md-4 form-group">
-                            <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
+                            <label class="title" for="nameOfThePersonContacted{{i}}">Name Of The Person Contacted</label>
                             <input class="form-control" formControlName="nameOfThePersonContacted"
                                    [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('nameOfThePersonContacted')?.errors}"
-                                   id="nameOfThePersonContacted"
+                                   id="nameOfThePersonContacted{{i}}"
                                    name="nameOfThePersonContacted" placeholder="name of the person contacted"
                                    type="text">
                             <div *ngIf="(businessSiteVisitForm) && businessSite?.get('nameOfThePersonContacted')?.invalid"
@@ -323,11 +323,11 @@
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
-                            <label class="title" for="dateOfVisit">Date Of Visit</label>
+                            <label class="title" for="dateOfVisit{{i}}">Date Of Visit</label>
                             <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
                                    *ngIf="calendarType === 'AD'"
                                    [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('dateOfVisit')?.errors }"
-                                   id="dateOfVisit" placeholder="date of visit">
+                                   id="dateOfVisit{{i}}" placeholder="date of visit">
                             <app-calendar
                                     [ePreDate]="businessSite?.get('dateOfVisit')?.value"
                                     *ngIf="calendarType === 'BS'"
@@ -339,8 +339,8 @@
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
-                            <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
-                            <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
+                            <label class="title" for="objectiveOfVisit{{i}}">Objective Of Visit</label>
+                            <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit{{i}}"
                                    [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('objectiveOfVisit')?.errors }"
                                    name="objectiveOfVisit" placeholder="objective of visit" type="text">
                             <div *ngIf="(businessSiteVisitForm) && businessSite?.get('objectiveOfVisit')?.invalid"
@@ -388,10 +388,10 @@
                         </div>
 
                         <div class="col-md-8 form-group">
-                            <label class="title" for="findingsAndComments">Finding And Comments</label>
+                            <label class="title" for="findingsAndComments{{i}}">Finding And Comments</label>
                             <textarea class="form-control" formControlName="findingsAndComments"
                                       [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('findingsAndComments')?.errors }"
-                                      id="findingsAndComments" name="findingsAndComments"
+                                      id="findingsAndComments{{i}}" name="findingsAndComments"
                                       placeholder="findings and comments"
                                       row="3"></textarea>
                             <div *ngIf="(businessSiteVisitForm) && businessSite?.get('findingsAndComments')?.invalid"

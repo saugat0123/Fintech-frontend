@@ -776,21 +776,23 @@ export class SiteVisitComponent implements OnInit {
 
   onSubmit() {
     if (!this.currentResidentForm && !this.businessSiteVisitForm && !this.currentAssetsInspectionForm) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Please Select Atleast One SiteVisit!'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Please Select At least One SiteVisit!'));
       return;
     }
     if (this.currentResidentForm) {
       // current residential details
+      console.log('currentResidentAddress', this.currentResidentAddress);
       this.currentResidentAddress.onSubmit();
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
-      // this.submitted = true;
+      this.submitted = true;
         return;
       } else {
         this.siteVisitFormGroup.get('currentResidentDetails').get('address').patchValue(this.currentResidentAddress.submitData);
       }
     }
     if (this.businessSiteVisitForm) {
-      this.fetchAddress('businessDetails', this.businessOfficeAddress);
+      // this.fetchAddress('businessDetails', this.businessOfficeAddress);
+      // console.log('businessOfficeAddress', this.businessOfficeAddress);
       this.businessOfficeAddress.onSubmit();
       if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
       // this.business = true;
@@ -813,6 +815,7 @@ export class SiteVisitComponent implements OnInit {
     this.overlay.show();
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
+    console.log('siteVisitData', this.siteVisitData);
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {
@@ -1139,15 +1142,15 @@ export class SiteVisitComponent implements OnInit {
     }
   }
 
-  fetchAddress(controlName, type: CommonAddressComponent) {
-    this.siteVisitFormGroup.controls[controlName]['controls'].forEach((control, index) => {
-      if (ObjectUtil.isEmpty(controlName)) {
-        control.get('ownerKycApplicableData').setValue(null);
-      } else {
-        control.get('ownerKycApplicableData').setValue(controlName.ownerKycForm.value);
-      }
-    });
-  }
+  // fetchAddress(controlName, type: CommonAddressComponent) {
+  //   this.siteVisitFormGroup.controls[controlName]['controls'].forEach((control, index) => {
+  //     if (ObjectUtil.isEmpty(type)) {
+  //       control.get('businessDetails').get('officeAddress').patchValue(null);
+  //     } else {
+  //       control.get('businessDetails').get('officeAddress').patchValue(type.addressForm.value);
+  //     }
+  //   });
+  // }
 
 }
 

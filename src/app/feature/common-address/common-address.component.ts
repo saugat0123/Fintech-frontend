@@ -23,6 +23,7 @@ export class CommonAddressComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    console.log( 'this is address', this.address);
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
