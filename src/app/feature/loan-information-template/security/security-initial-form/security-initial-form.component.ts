@@ -49,15 +49,6 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() customerSecurityId;
     securityEmitValue: string;
 
-    @ViewChildren('revaluationComponent')
-    revaluationComponent: QueryList<SecurityRevaluationComponent>;
-
-    @ViewChildren('revaluationComponentApartment')
-    revaluationComponentApartment: QueryList<SecurityRevaluationComponent>;
-
-    @ViewChildren('revaluationComponentLandBuilding')
-    revaluationComponentLandBuilding: QueryList<SecurityRevaluationComponent>;
-
     @ViewChildren('ownerKycApplicable')
     ownerKycApplicable: QueryList<OwnerKycApplicableComponent>;
 
@@ -450,7 +441,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBranch: [singleData.landBranch],
                     landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ? undefined : singleData.landConsideredValue],
                     typeOfProperty: [singleData.typeOfProperty],
-                    revaluationData: [singleData.revaluationData],
                     landStaffRepresentativeDesignation: [singleData.landStaffRepresentativeDesignation],
                     landStaffRepresentativeName2: [singleData.landStaffRepresentativeName2],
                     landStaffRepresentativeDesignation2: [singleData.landStaffRepresentativeDesignation2],
@@ -615,7 +605,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
                     apartmentBranch: [singleData.apartmentBranch],
-                    revaluationData: [singleData.revaluationData],
                     apartmentStaffRepresentativeDesignation: [singleData.apartmentStaffRepresentativeDesignation],
                     apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
@@ -692,7 +681,6 @@ export class SecurityInitialFormComponent implements OnInit {
                     landConsideredValueConstruction: [singleData.landConsideredValueConstruction],
                     // typeOfPropertyConstruction: [singleData.typeOfPropertyConstruction],
                     // modeOfTransferConstruction: [singleData.modeOfTransferConstruction],
-                    revaluationData: [singleData.revaluationData],
                     landBuildingStaffRepresentativeDesignation: [singleData.landBuildingStaffRepresentativeDesignation],
                     landBuildingStaffRepresentativeDesignation2: [singleData.landBuildingStaffRepresentativeDesignation2],
                     landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
@@ -1330,7 +1318,6 @@ export class SecurityInitialFormComponent implements OnInit {
             landBranch: [undefined],
             landConsideredValue: [undefined, Validators.required],
             typeOfProperty: [undefined],
-            revaluationData: [{isReValuated: false, reValuatedDv: 0, reValuatedFmv: 0, reValuatedConsideredValue: 0}, Validators.required],
             landStaffRepresentativeDesignation: [undefined],
             landStaffRepresentativeName2: [undefined],
             landStaffRepresentativeDesignation2: [undefined],
@@ -1380,7 +1367,6 @@ export class SecurityInitialFormComponent implements OnInit {
             ApartmentValuatorRepresentative: [undefined],
             ApartmentStaffRepresentativeName: [undefined],
             apartmentBranch: [undefined],
-            revaluationData: [undefined],
             apartmentStaffRepresentativeDesignation: [undefined],
             apartmentStaffRepresentativeDesignation2: [undefined],
             apartmentStaffRepresentativeName2: [undefined],
@@ -1434,7 +1420,6 @@ export class SecurityInitialFormComponent implements OnInit {
             // typeOfPropertyConstruction: [undefined],
             // modeOfTransferConstruction: [undefined],
             underConstructionChecked: undefined,
-            revaluationData: [undefined],
             landBuildingStaffRepresentativeDesignation: [undefined],
             landBuildingStaffRepresentativeDesignation2: [undefined],
             landBuildingStaffRepresentativeName2: [undefined],
@@ -1892,9 +1877,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     submit() {
         this.pushSecurityNameInArray();
-        this.setRevaluationData('landDetails', this.revaluationComponent, SecurityIds.landId);
-        this.setRevaluationData('buildingDetails', this.revaluationComponentApartment, SecurityIds.apartmentId);
-        this.setRevaluationData('landBuilding', this.revaluationComponentLandBuilding, SecurityIds.land_buildingId);
         this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
         this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
         this.shareSecurityData.customerShareData = this.getShareDataList();
@@ -1909,13 +1891,6 @@ export class SecurityInitialFormComponent implements OnInit {
             this.fetchOwnerKycValue('hypothecationOfStock', this.ownerKycApplicableHypothecation, SecurityIds.hypothecation_Id);
         }
 
-    }
-
-    setRevaluationData(controlName, list: QueryList<any>, securityId) {
-        this.securityForm.controls[controlName]['controls'].forEach((control, index) => {
-            const comp: any = list.filter(item => item.revaluationId === (securityId + index))[0];
-            control.get('revaluationData').setValue(comp.formGroup.value);
-        });
     }
 
     fetchOwnerKycValue(controlName, list: QueryList<any>, securityId) {
