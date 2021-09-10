@@ -641,14 +641,12 @@ export class CatalogueComponent implements OnInit {
 
     sortFn() {
         const docStatusArray = [];
-        // tslint:disable-next-line:forin
         for (const value in DocStatus.values()) {
             docStatusArray.push(DocStatus[value]);
         }
         this.sortedDocumentStatus = docStatusArray.sort();
+
         const loanTypeArray = [];
-        console.log(LoanType.values());
-        // tslint:disable-next-line:forin
         for (const value of LoanType.values()) {
             loanTypeArray.push(LoanType[value]);
         }

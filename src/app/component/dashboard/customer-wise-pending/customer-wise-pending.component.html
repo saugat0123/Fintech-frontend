@@ -57,10 +57,10 @@
                             </div>
                             <div class="col-md-3 py-2">
                                 <select class="form-control form-control-tiny" formControlName="loanType">
-                                    <option [value]="null" hidden selected>Select Type</option>
+                                    <option [value]="null" selected hidden>Select Type</option>
                                     <option [value]="null">All Types</option>
-                                    <option *ngFor="let status of loanType.values()"
-                                            [value]="status">{{loanType[status]}}
+                                    <option *ngFor="let typeOfLoan of sortedLoanType"
+                                            [value]="loanType.getEnum(typeOfLoan)">{{typeOfLoan}}
                                     </option>
                                 </select>
                             </div>
@@ -71,7 +71,7 @@
                                            bindLabel="name"
                                            bindValue="name"
                                            formControlName="documentStatus"
-                                           placeholder="Select the docStatus">
+                                           placeholder="Document Status">
                                 </ng-select>
                             </div>
 
@@ -100,7 +100,7 @@
                                 <select
                                         class="form-control form-control-tiny" formControlName="loanTag">
                                     <option [ngValue]="null">Select Loan Segment</option>
-                                    <option *ngFor="let data of loanTag" [ngValue]="data"
+                                    <option *ngFor="let data of loanTagList" [ngValue]="data"
                                     >{{data}}</option>
                                 </select>
                             </div>
