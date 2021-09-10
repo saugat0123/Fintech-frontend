@@ -420,17 +420,6 @@
                                        type="number" placeholder="Amount">
                             </div>
                         </ng-container>
-                        <div class="col-md-12">
-                            <app-security-revaluation #revaluationComponent
-                                                      [valuators]="securityValuator?.landValuator[i]"
-                                                      [oldValuation]="securityForm.get('landDetails').value"
-                                                      [data]="formDataForEdit?.landDetails[i]?.revaluationData"
-                                                      [revaluationId]="securityId.landId + i"
-                                                      [calendarType]="calendarType"
-                                                      [index]="i"
-                                                      (revaluationDataEmitter)="eventLandSecurity($event, i)"
-                            ></app-security-revaluation>
-                        </div>
                         <div *ngIf="securityForm.get('landDetails') ['length'] > 1" class="col-md-1">
                             <input (click)="removeLandDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"
@@ -821,14 +810,6 @@
                                                placeholder="Staff Representative Name 2"
                                                type="text"/>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <app-security-revaluation #revaluationComponentApartment
-                                                              [valuators]="securityValuator?.buildingValuator[i]"
-                                                              [data]="formDataForEdit?.buildingDetails[i]?.revaluationData"
-                                                              [oldValuation]="securityForm.get('buildingDetails').value"
-                                                              [revaluationId]="securityId.apartmentId + i"
-                                                              [calendarType]="calendarType"></app-security-revaluation>
                                 </div>
                                 <div *ngIf="securityForm.get('buildingDetails')['length'] > 1"
                                      class="col-md-1 pt-4">
@@ -1756,17 +1737,7 @@
                                            type="number" placeholder="Amount">
                                 </div>
                             </ng-container>
-                            <div class="col-md-12">
-                                <app-security-revaluation #revaluationComponentLandBuilding
-                                                          [valuators]="securityValuator?.buildingValuator[i]"
-                                                          [data]="formDataForEdit?.landBuilding[i]?.revaluationData"
-                                                          [oldValuation]="securityForm.get('landBuilding').value"
-                                                          [revaluationId]="securityId.land_buildingId + i"
-                                                          [calendarType]="calendarType"></app-security-revaluation>
-                            </div>
-
                         </div>
-
 
                         <hr>
                         <div *ngIf="securityForm.get(['landBuilding',i,'underConstructionChecked']).value">
