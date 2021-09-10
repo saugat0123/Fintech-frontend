@@ -1,5 +1,9 @@
 <nb-card>
-    <nb-card-header>
+    <nb-card-header [nbSpinner]="spinner"
+                    class="m-0"
+                    nbSpinnerMessage="Loading Data... "
+                    nbSpinnerSize="large"
+                    nbSpinnerStatus="primary">
         <app-loan-action
                 *ngIf="loanDataHolder && loanSummaryActive"
                 [actionsList]="actionsList"

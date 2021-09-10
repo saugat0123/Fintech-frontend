@@ -108,13 +108,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
 
   // get all roll based on set hierarchy
   private getRoleData(): void {
-    let toRoleId;
-    if (!ObjectUtil.isEmpty(this.toRoleId)) {
-      toRoleId = this.toRoleId;
-    } else {
-      toRoleId = this.roleId;
-    }
-    this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(toRoleId, this.approvalType, this.refId)
+    this.approvalRoleHierarchyService.findAll(this.approvalType, this.refId)
         .subscribe((response: any) => {
       this.transferRoleList = [];
       this.transferRoleList = response.detail;

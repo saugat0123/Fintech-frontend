@@ -37,7 +37,6 @@ import {NetTradingAssetsComponent} from './net-trading-assets/net-trading-assets
 import {CreditChecklistGeneralComponent} from './credit-checklist-general/credit-checklist-general.component';
 import {CreditRiskGradingLambdaComponent} from './credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {CadDocumentUploadComponent} from './cad-document-upload/cad-document-upload.component';
-import {SecurityRevaluationComponent} from './security/security-initial-form/security-revaluation/security-revaluation.component';
 import {FeatureModule} from '../feature.module';
 import {OwnerKycApplicableComponent} from './security/security-initial-form/owner-kyc-applicable/owner-kyc-applicable.component';
 import {NtaMegaComponent} from './nta-mega/nta-mega.component';
@@ -77,7 +76,6 @@ const COMPONENTS = [
     IncomeFromAccountComponent,
     CreditRiskGradingLambdaComponent,
     CreditChecklistGeneralComponent,
-    SecurityRevaluationComponent,
     OwnerKycApplicableComponent,
     CadDocumentUploadComponent,
     NtaMegaComponent,

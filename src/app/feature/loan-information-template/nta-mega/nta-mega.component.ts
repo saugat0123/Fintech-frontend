@@ -28,11 +28,7 @@ export class NtaMegaComponent implements OnInit {
   calendarType = CalendarType.AD;
 
   quarterCalculationObject = {
-    q1: undefined,
-    q2: undefined,
-    q3: undefined,
     q4: undefined,
-    average: undefined
   };
 
   netTradingAssetSubmitData: NetTradingAssets = new NetTradingAssets();
@@ -198,11 +194,7 @@ export class NtaMegaComponent implements OnInit {
   setNestedFormValues(param) {
     if (param) {
       return {
-        q1: param.q1,
-        q2: param.q2,
-        q3: param.q3,
         q4: param.q4,
-        average: param.average
       };
     } else {
       return this.quarterCalculationObject;
@@ -211,11 +203,7 @@ export class NtaMegaComponent implements OnInit {
 
   setNestedDateValues(param) {
     return {
-      q1: ObjectUtil.isEmpty(param.q1) ? param.q1 : new Date(param.q1),
-      q2: ObjectUtil.isEmpty(param.q2) ? param.q2 : new Date(param.q2),
-      q3: ObjectUtil.isEmpty(param.q3) ? param.q3 : new Date(param.q3),
       q4: ObjectUtil.isEmpty(param.q4) ? param.q4 : new Date(param.q4),
-      average: ObjectUtil.isEmpty(param.average) ? param.average : new Date(param.average)
     };
   }
 
@@ -234,9 +222,6 @@ export class NtaMegaComponent implements OnInit {
 
   calculateAverage(ntaFormGroup, header) {
     let elementsArray = [
-      ntaFormGroup.get([header, 'q1']).value,
-      ntaFormGroup.get([header, 'q2']).value,
-      ntaFormGroup.get([header, 'q3']).value,
       ntaFormGroup.get([header, 'q4']).value,
     ];
     elementsArray = elementsArray.filter(e => {
