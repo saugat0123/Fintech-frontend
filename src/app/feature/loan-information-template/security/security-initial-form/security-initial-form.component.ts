@@ -256,7 +256,9 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     eventLandSecurity($event) {
+        console.log('event', $event);
         const landDetails = this.securityForm.get('landDetails') as FormArray;
+        console.log('landDetails', landDetails);
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
         $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
         $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
@@ -269,8 +271,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 reValuatedConsideredValue: 0
             };
         }
-        if (landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value'] == null) {
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value'] = {
+        if (landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value'] == null) {
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value'] = {
                 isReValuated: true,
                 reValuatedDv: 0,
                 reValuatedFmv: 0,
@@ -282,19 +284,21 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedDv'] = $event['reValuatedDv'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
-            // tslint:disable-next-line:max-line-length
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedDv']
+                = $event['reValuatedDv'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedFmv']
+                = $event['reValuatedFmv'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedConsideredValue']
+                = $event['reValuatedConsideredValue'];
         } else {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedDv'] = 0;
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedFmv'] = 0;
-            // tslint:disable-next-line:max-line-length
-            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedConsideredValue'] = 0;
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedDv'] = 0);
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedFmv'] = 0);
+            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) =>
+                l['reValuatedConsideredValue'] = 0);
         }
         this.updateLandSecurityTotal();
     }
@@ -999,6 +1003,7 @@ export class SecurityInitialFormComponent implements OnInit {
             }
         });
     }
+
     clearValidationAtInitialStage() {
         if (this.selectedSecurity === undefined) {
             const landDetailsFormControls = this.securityForm.get('landDetails') as FormArray;
@@ -1071,7 +1076,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('amount').updateValueAndValidity();
             });
             const shareSecurityControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
-            shareSecurityControls.controls.forEach( f => {
+            shareSecurityControls.controls.forEach(f => {
                 f.get('companyName').clearValidators();
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
@@ -1090,10 +1095,11 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         }
     }
+
     clearValidationState() {
         if (this.selectedSecurity === 'LandSecurity') {
             const formControls = this.securityForm.get('landDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').setValidators(Validators.required);
                 f.get('owner').updateValueAndValidity();
                 f.get('landConsideredValue').setValidators(Validators.required);
@@ -1101,7 +1107,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('landDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
                 f.get('landConsideredValue').clearValidators();
@@ -1110,7 +1116,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'VehicleSecurity') {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('model').setValidators(Validators.required);
                 f.get('model').updateValueAndValidity();
                 f.get('valuationAmount').setValidators(Validators.required);
@@ -1118,7 +1124,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('vehicleDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
                 f.get('valuationAmount').clearValidators();
@@ -1127,7 +1133,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'ApartmentSecurity') {
             const formControls = this.securityForm.get('buildingDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('buildArea').setValidators(Validators.required);
                 f.get('buildArea').updateValueAndValidity();
                 f.get('buildingFairMarketValue').setValidators(Validators.required);
@@ -1135,7 +1141,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('buildingDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('buildArea').clearValidators();
                 f.get('buildArea').updateValueAndValidity();
                 f.get('buildingFairMarketValue').clearValidators();
@@ -1144,7 +1150,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'Land and Building Security') {
             const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').setValidators(Validators.required);
                 f.get('owner').updateValueAndValidity();
                 f.get('landConsideredValue').setValidators(Validators.required);
@@ -1152,7 +1158,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('landBuilding') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
                 f.get('landConsideredValue').clearValidators();
@@ -1161,7 +1167,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'PlantSecurity') {
             const formControls = this.securityForm.get('plantDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('model').setValidators(Validators.required);
                 f.get('model').updateValueAndValidity();
                 f.get('quotation').setValidators(Validators.required);
@@ -1169,7 +1175,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('plantDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('model').clearValidators();
                 f.get('model').updateValueAndValidity();
                 f.get('quotation').clearValidators();
@@ -1178,7 +1184,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'FixedDeposit') {
             const formControls = this.securityForm.get('fixedDepositDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('accountNumber').setValidators(Validators.required);
                 f.get('accountNumber').updateValueAndValidity();
                 f.get('amount').setValidators(Validators.required);
@@ -1186,7 +1192,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('fixedDepositDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('accountNumber').clearValidators();
                 f.get('accountNumber').updateValueAndValidity();
                 f.get('amount').clearValidators();
@@ -1195,46 +1201,46 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'HypothecationOfStock') {
             const formControls = this.securityForm.get('hypothecationOfStock') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').setValidators(Validators.required);
                 f.get('owner').updateValueAndValidity();
             });
         } else {
             const formControls = this.securityForm.get('hypothecationOfStock') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
                 f.get('owner').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'CorporateGuarantee') {
             const formControls = this.securityForm.get('corporateGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('name').setValidators(Validators.required);
                 f.get('name').updateValueAndValidity();
             });
         } else {
             const formControls = this.securityForm.get('corporateGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('name').clearValidators();
                 f.get('name').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'PersonalGuarantee') {
             const formControls = this.securityForm.get('personalGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('name').setValidators(Validators.required);
                 f.get('name').updateValueAndValidity();
             });
         } else {
             const formControls = this.securityForm.get('personalGuarantee') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('name').clearValidators();
                 f.get('name').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'InsurancePolicySecurity') {
             const formControls = this.securityForm.get('insurancePolicy') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('insuredAmount').setValidators(Validators.required);
                 f.get('insuredAmount').updateValueAndValidity();
                 f.get('insuranceCompanyName').setValidators(Validators.required);
@@ -1242,7 +1248,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.securityForm.get('insurancePolicy') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('insuredAmount').clearValidators();
                 f.get('insuredAmount').updateValueAndValidity();
                 f.get('insuranceCompanyName').clearValidators();
@@ -1251,20 +1257,20 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (this.selectedSecurity === 'AssignmentOfReceivables') {
             const formControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('amount').setValidators(Validators.required);
                 f.get('amount').updateValueAndValidity();
             });
         } else {
             const formControls = this.securityForm.get('assignmentOfReceivables') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('amount').clearValidators();
                 f.get('amount').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'ShareSecurity') {
             const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('companyName').setValidators(Validators.required);
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').setValidators(Validators.required);
@@ -1272,7 +1278,7 @@ export class SecurityInitialFormComponent implements OnInit {
             });
         } else {
             const formControls = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
-            formControls.controls.forEach( f => {
+            formControls.controls.forEach(f => {
                 f.get('companyName').clearValidators();
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
@@ -1536,7 +1542,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     assignmentDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
-                amount: [undefined, Validators.required ],
+                amount: [undefined, Validators.required],
                 otherDetail: [undefined]
             }
         );
@@ -2415,7 +2421,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
         corporateGuarantee.controls.forEach(f => {
-            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail
+            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('CorporateGuarantee') === -1) {
                 this.selectedArray.push('CorporateGuarantee');
@@ -2432,7 +2438,7 @@ export class SecurityInitialFormComponent implements OnInit {
         const insurancePolicy = this.securityForm.get('insurancePolicy') as FormArray;
         insurancePolicy.controls.forEach(f => {
             const value = f.value.insuredAmount || f.value.insuranceCompanyName
-            || f.value.surrenderValue || f.value.consideredValue || f.value.cashBackAmount;
+                || f.value.surrenderValue || f.value.consideredValue || f.value.cashBackAmount;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('InsurancePolicySecurity') === -1) {
                 this.selectedArray.push('InsurancePolicySecurity');
