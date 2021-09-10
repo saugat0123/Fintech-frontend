@@ -53,18 +53,18 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             staffRepresentativeName2: [undefined],
             revaluationDetails: this.formBuilder.array([])
         });
+        this.arrayData();
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
-            this.setRevaluationDetails(this.data);
-            console.log('I am here');
+            if (!ObjectUtil.isEmpty(this.data.revaluationDetails)) {
+                this.setRevaluationDetails(this.data);
+            }
             if (!ObjectUtil.isEmpty(this.data.reValuationDate)) {
                 this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
             }
         } else {
             this.addMoreRevaluationDetails();
         }
-        this.arrayData();
-
     }
 
     get formControls() {
@@ -134,7 +134,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
 
     revaluationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
-                isReValuated: [false],
                 reValuationDate: [undefined],
                 reValuatedFmv: [undefined],
                 reValuatedDv: [undefined],
@@ -162,7 +161,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         currentData.revaluationDetails.forEach((singleData) => {
             revaluationDetails.push(
                 this.formBuilder.group({
-                    isReValuated: [singleData.isReValuated],
                     reValuationDate: [singleData.reValuationDate],
                     reValuatedFmv: [singleData.reValuatedFmv],
                     reValuatedDv: [singleData.reValuatedDv],
@@ -175,18 +173,18 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                     staffRepresentativeName2: [singleData.staffRepresentativeName2]
                 })
             );
-            console.log('revaluationDetails', revaluationDetails);
         });
     }
 
     arrayData() {
         if (!ObjectUtil.isEmpty(this.data)) {
-            const oldData = {
-                revaluationDetails: []
-            };
-            oldData.revaluationDetails.push(this.data);
-            // this.setRevaluationDetails(oldData);
-            // this.calc();
+            if ((this.data.revaluationDetails === undefined) || (this.data.revaluationDetails === null)) {
+                const oldData = {
+                    revaluationDetails: []
+                };
+                oldData.revaluationDetails.push(this.data);
+                this.setRevaluationDetails(oldData);
+            }
         }
     }
 }
