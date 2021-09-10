@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
 import {BaseService} from '../../../../@core/BaseService';
 import {BlackList} from '../../modal/BlackList';
-import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +35,6 @@ export class BlacklistService extends BaseService<BlackList> {
     const req = ApiUtils.getRequest(`${this.getApi()}/remove?id=${id}`);
 
     return this.http.get(req.url, {headers: req.header});
-  }
-
-  public saveBlacklist(obj): Observable<any> {
-    const req = ApiUtils.getRequest(`${this.getApi()}/saveBlacklist`);
-
-    return this.http.post(req.url, obj, {headers: req.header});
   }
 
   public checkBlacklistByRef(refNumber: string) {

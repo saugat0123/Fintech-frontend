@@ -17,7 +17,6 @@ export class CatalogueSearch {
     postApprovalAssignStatus: string;
     postApprovalAssignedUser: string;
     users: string;
-    username: string;
     provinceId: string;
     customerType: string;
     clientType: string;

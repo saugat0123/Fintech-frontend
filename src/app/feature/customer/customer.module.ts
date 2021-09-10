@@ -44,7 +44,6 @@ import {CustomerGroupComponent} from './component/customer-profile/individual-pr
 import {JointFormComponent} from './component/customer-form/joint-form/joint-form.component';
 import {ChangeLoanComponent} from './component/change-loan/change-loan.component';
 import {LoanInformationDetailViewModule} from '../loan-information-detail-view/loan-information-detail-view.module';
-import {NepaliPatroModule} from 'nepali-patro';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -99,8 +98,7 @@ const COMPONENTS = [
         FeatureModule,
         CbsGroupModule,
         MicroLoanModule,
-        LoanInformationDetailViewModule,
-        NepaliPatroModule
+        LoanInformationDetailViewModule
     ],
   entryComponents: [
     CustomerFormComponent,

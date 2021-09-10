@@ -102,12 +102,11 @@
                         <th>Created On</th>
                         <th>Collateral Req%</th>
                         <th>Required Collateral</th>
-                        <th>Approved Date</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-center sb-bg-secondary text-white" colspan="8"><strong>Funded</strong></td>
+                        <td class="text-center sb-bg-secondary text-white" colspan="7"><strong>Funded</strong></td>
                     </tr>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).funded;let i=index">
@@ -122,7 +121,6 @@
                             <td>{{model?.collateralRequirement}}</td>
                             <td class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                            <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                         </tr>
                         <ng-container>
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
@@ -138,12 +136,11 @@
                                 <td>{{single?.collateralRequirement}}</td>
                                 <td class="text-right pr-1">
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                                <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                             </tr>
                         </ng-container>
                     </ng-container>
                     <tr>
-                        <td class="text-center sb-bg-secondary text-white" colspan="8"><strong>Non-Funded</strong></td>
+                        <td class="text-center sb-bg-secondary text-white" colspan="7"><strong>Non-Funded</strong></td>
                     </tr>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).nonFunded;let i=index">
@@ -158,7 +155,6 @@
                             <td>{{model?.collateralRequirement}}</td>
                             <td class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                            <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                         </tr>
                         <ng-container>
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
@@ -174,7 +170,6 @@
                                 <td>{{single?.collateralRequirement}}</td>
                                 <td class="text-right pr-1">
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                                <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -186,7 +181,6 @@
                         <td colspan="3"></td>
                         <td class="text-right pr-1">
                             Rs. {{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
-                        <td></td>
                     </tr>
                     </tbody>
                 </table>
