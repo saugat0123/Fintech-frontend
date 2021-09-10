@@ -15,7 +15,6 @@ import {CustomerShareData} from '../../../admin/modal/CustomerShareData';
 import {NepseService} from '../../../admin/component/nepse/nepse.service';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Editor} from '../../../../@core/utils/constants/editor';
-import {SecurityRevaluationComponent} from './security-revaluation/security-revaluation.component';
 import {SecurityIds} from './SecurityIds';
 import {OwnershipTransfer} from '../../../loan/model/ownershipTransfer';
 import {RelationshipList} from '../../../loan/model/relationshipList';
