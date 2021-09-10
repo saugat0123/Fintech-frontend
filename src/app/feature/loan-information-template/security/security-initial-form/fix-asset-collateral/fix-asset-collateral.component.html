@@ -1,4 +1,4 @@
-<nb-card [ngResizable]="true">
+<nb-card [ngResizable]="true" [nbSpinner]="spinner">
     <nb-card-header>
         <strong>Collateral Site Visit for {{security}}</strong>
         <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -15,6 +15,10 @@
                     <option [ngValue]="null" hidden>Select Date</option>
                     <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
                 </select>
+            </div>
+            <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">
+                <button nbButton size="tiny" status="primary" (click)="openModel(confirmModel, 'single')">Delete One<i class="fa fa-trash"></i></button><br>
+                <button nbButton size="tiny" status="primary" class="mt-1" (click)="openModel(confirmModel, 'all')">Delete All<i class="fa fa-trash"></i></button>
             </div>
         </div>
         <div class="row">
@@ -585,5 +589,17 @@
         <button nbButton type="button" (click)="onSubmit()" class="float-right">Save</button>
     </nb-card-footer>
 </nb-card>
+<ng-template #confirmModel>
+    <nb-card>
+        <nb-card-header>{{modelHeader}}
+        <button class="float-right" nbButton size="tiny" (click)="onClose(confirmModel)">X</button>
+        </nb-card-header>
+        <nb-card-body>{{modelBody}}</nb-card-body>
+        <nb-card-footer>
+            <button nbButton size="tiny" status="primary" class="float-left" (click)="deleteSiteVisit(security_id_for_delete, confirmModel)">YES</button>
+            <button nbButton size="tiny" status="success" class="float-right" (click)="onClose(confirmModel)">NO</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
 
 

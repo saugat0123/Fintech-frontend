@@ -23,6 +23,8 @@ export class RoleFormComponent implements OnInit {
     authorityRequired = true;
     showAuthority = true;
     appConfigRoleType = [];
+    showCheck = false;
+    checkedStatus = false;
 
     constructor(
         private service: RoleService,
@@ -44,6 +46,7 @@ export class RoleFormComponent implements OnInit {
     }
 
     onSubmit() {
+        this.role.signApprovalSheet = this.checkedStatus;
         this.service.save(this.role).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role!'));
@@ -92,6 +95,17 @@ export class RoleFormComponent implements OnInit {
         if (this.role.roleType === RoleType.CAD_SUPERVISOR || this.role.roleType === RoleType.CAD_ADMIN || this.role.roleType === RoleType.CAD_LEGAL) {
             this.showAuthority = false;
         }
+        if (this.role.roleType === RoleType.APPROVAL || this.role.roleType === RoleType.COMMITTEE) {
+            this.showCheck = true;
+
+        } else {
+            this.showCheck = false;
+
+        }
+    }
+
+    checked(data) {
+        this.checkedStatus = data.target.checked;
     }
 
 }

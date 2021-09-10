@@ -8,6 +8,7 @@ import {DocAction} from '../../../loan/model/docAction';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-verification-action-model',
@@ -24,6 +25,7 @@ export class VerificationActionModelComponent implements OnInit {
   transferAction;
   falseCredential = false;
   falseCredentialMessage = '';
+  spinner = false;
 
   constructor(
       private http: HttpClient,
@@ -52,13 +54,18 @@ export class VerificationActionModelComponent implements OnInit {
       'Content-type': 'application/x-www-form-urlencoded',
       Authorization: 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
     });
+
+    this.spinner = true;
     this.http.post(ApiConfig.TOKEN, params.toString(), {headers})
         .subscribe(() => {
+          this.spinner = false;
           this.nbDialogRef.close(true);
         }, error => {
+          this.spinner = false;
           this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
           this.falseCredential = true;
         });
   }
 
 }
+

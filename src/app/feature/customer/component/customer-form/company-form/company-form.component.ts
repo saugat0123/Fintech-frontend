@@ -55,6 +55,7 @@ import {OwnerKycApplicableComponent} from '../../../../loan-information-template
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-company-form',
@@ -62,6 +63,7 @@ import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-co
     styleUrls: ['./company-form.component.scss']
 })
 export class CompanyFormComponent implements OnInit {
+    onActionChangeSpinner = false;
     @Input() formValue: CompanyInfo;
     @Input() bankingRelationshipInput: any;
     @Input() subSectorDetailCodeInput: any;
@@ -153,6 +155,7 @@ export class CompanyFormComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
         private toastService: ToastService,
+        private modalService: NgbModal,
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
@@ -304,8 +307,8 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
-                    Validators.maxLength(9), Validators.minLength(9)]],
+                    this.companyInfo.panNumber, [Validators.required,
+                    Validators.min(88888888)]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
@@ -600,6 +603,19 @@ export class CompanyFormComponent implements OnInit {
         (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
     }
 
+    onCloseCreateCustomer() {
+        this.onClose();
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+    }
+
     addManagementTeam() {
         const controls = this.companyInfoFormGroup.controls.managementTeams as FormArray;
         if (FormUtils.checkEmptyProperties(controls)) {
@@ -755,7 +771,7 @@ export class CompanyFormComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalityVdcList = response.detail;
-                this.municipalityVdcList.sort((a, b) => a.name.localeCompare(b.name));
+                this.municipalityVdcList.sort((a,b) => a.name.localeCompare(b.name));
                 if (proprietorIndex == null) {
                     if (!ObjectUtil.isEmpty(this.customerInfo)) {
                         this.municipalityVdcList.forEach(municipality => {
@@ -1076,16 +1092,15 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
-    checkPanNumberNumber(regNumber: String) {
-        this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {
-            if (regNumber.toLowerCase() === res.detail.panNumber.toLowerCase()) {
+    checkRegistrationNumber(regNumber: String) {
+        this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
+            if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
                 this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
             }
         }, error => {
             console.error(error);
         });
     }
-
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {

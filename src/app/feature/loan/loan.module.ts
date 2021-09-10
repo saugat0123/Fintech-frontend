@@ -77,7 +77,6 @@ import {AssignedOfferLetterComponent} from './loan-offer-letter/assigned-offer-l
 import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
 import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
 import {MicroLoanSummaryComponent} from './component/micro-loan-summary/micro-loan-summary.component';
-import {MicroSynopsisCreditworthinessComponent} from './component/micro-loan-summary/micro-synopsis-creditworthiness/micro-synopsis-creditworthiness.component';
 import {MicroIndividualComponent} from './component/micro-loan-summary/micro-individual/micro-individual.component';
 import {MicroInstitutionComponent} from './component/micro-loan-summary/micro-institution/micro-institution.component';
 import {MicroProposalSummaryComponent} from './component/micro-loan-summary/micro-proposal-summary/micro-proposal-summary.component';
@@ -145,7 +144,6 @@ const COMPONENTS = [
     GuarantorAdderComponent,
     GuarantorDetailComponent,
     MicroLoanSummaryComponent,
-    MicroSynopsisCreditworthinessComponent,
     MicroIndividualComponent,
     MicroInstitutionComponent,
     MicroProposalSummaryComponent,

@@ -43,6 +43,11 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
             changeInFmv: [undefined, Validators.required],
             changeInDv: [undefined, Validators.required],
             changeInConsideredValue: [undefined, Validators.required],
+            reValuatorName: [undefined],
+            staffRepresentativeDesignation1: [undefined],
+            staffRepresentativeDesignation2: [undefined],
+            staffRepresentativeName1: [undefined],
+            staffRepresentativeName2: [undefined]
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);

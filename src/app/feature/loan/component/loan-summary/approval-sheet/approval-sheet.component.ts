@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
@@ -44,7 +44,7 @@ import {Clients} from '../../../../../../environments/Clients';
     templateUrl: './approval-sheet.component.html',
     styleUrls: ['./approval-sheet.component.scss']
 })
-export class ApprovalSheetComponent implements OnInit, OnDestroy {
+export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     @Output() changeToLoanSummaryActive = new EventEmitter<string>();
 
@@ -147,7 +147,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     riskOfficerLevel = false;
     riskOfficerLevelComment = false;
 
-    private rolesForRisk = [];
     public currentAuthorityList: LoanStage[] = [];
     private spinner = false;
     disableApprovalSheetFlag = environment.disableApprovalSheet;
@@ -156,7 +155,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     jointInfo = [];
     proposalAllData;
     companyInfo: any;
-
     constructor(
         private userService: UserService,
         private loanFormService: LoanFormService,
@@ -174,7 +172,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         private roleHierarchyService: RoleHierarchyService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
         private toastService: ToastService,
-        private fiscalYearService: FiscalYearService
+        private fiscalYearService: FiscalYearService,
+        private cdRef: ChangeDetectorRef
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -197,7 +196,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         }
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
-        this.prepareAuthoritySection();
         this.loadSummary();
         this.checkDocUploadConfig();
     }
@@ -207,75 +205,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
     }
 
     /**
-    *  Rearranges loan stage list in accordance with the Role name 'RISK OFFICER' **
-    * */
-    prepareAuthoritySection() {
-        this.roleHierarchyService.getAll().subscribe( res => {
-            let aboveRisk = true;
-            this.rolesForRisk = res.detail.map( e => {
-                return e.role.roleName;
-            }).filter( e => {
-                if (e === environment.RISK_INITIAL_ROLE_SME || e === environment.RISK_INITIAL_ROLE_CORPORATE) {
-                    aboveRisk = false;
-                    return true;
-                }
-                return aboveRisk;
-            });
-
-            let previousBackIndex = 0;
-            [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage].forEach((e, i) => {
-                if (e.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
-                    if (i !== 0) {
-                        this.currentAuthorityList.push(...
-                            ([...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                                .slice(previousBackIndex, i + 1)
-                                .some( v => (v.fromRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                                    v.fromRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE)
-                                    ||
-                                    (v.toRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                                        v.toRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE)))
-                                ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                                    .slice(previousBackIndex, i + 1)
-                                    .filter( v => {
-                                        return this.rolesForRisk.includes(v.fromRole.roleName) ||
-                                            this.rolesForRisk.includes(v.toRole.roleName);
-                                    }) : []
-                        );
-                        previousBackIndex = i + 1;
-                    }
-                }
-            });
-            if (previousBackIndex !== 0) {
-                const activeAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                    .splice(previousBackIndex);
-                this.currentAuthorityList.push(...(activeAuthorityList
-                    .some( v => (v.fromRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                        v.fromRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE)
-                        ||
-                        (v.toRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                            v.toRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE)
-                    ))
-                    ? activeAuthorityList
-                        .filter( v => {
-                            return this.rolesForRisk.includes(v.fromRole.roleName) ||
-                                this.rolesForRisk.includes(v.toRole.roleName);
-                        }) : []);
-            }  else {
-                this.currentAuthorityList = [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                    .some( v => (v.fromRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                        v.fromRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE)
-                        ||
-                        (v.fromRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                            v.fromRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE))
-                    ? [...this.loanDataHolder.previousList, this.loanDataHolder.currentStage]
-                        .filter( v => {
-                            return this.rolesForRisk.includes(v.fromRole.roleName) ||
-                                this.rolesForRisk.includes(v.toRole.roleName);
-                        }) : [];
-            }
-        });
-    }
-
+     *  Rearranges loan stage list in accordance with the Role name 'RISK OFFICER' **
+     * */
     loadSummary() {
         this.getLoanDataHolder();
     }
@@ -397,40 +328,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         }
         this.loanCategory = this.loanDataHolder.loanCategory;
         this.currentIndex = this.loanDataHolder.previousList.length;
-
-        this.signatureList = this.getSignatureList(new Array<LoanStage>
-        (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
-
-        let lastIndex;
-        let riskOfficerIndex;
-        let riskOfficerIndexComment;
-
-        if (this.signatureList.length > 0) {
-            lastIndex = this.signatureList.length;
-            this.signatureList.forEach((v, i) => {
-                if (v.fromRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                    v.fromRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE) {
-                    riskOfficerIndex = i;
-                }
-            });
-
-            this.signatureList.forEach((v, i) => {
-                if (v.toRole.roleName === environment.RISK_INITIAL_ROLE_SME ||
-                    v.toRole.roleName === environment.RISK_INITIAL_ROLE_CORPORATE) {
-                    riskOfficerIndexComment = i;
-                }
-            });
-
-            if (!ObjectUtil.isEmpty(riskOfficerIndexComment)) {
-                this.riskOfficerLevelComment = true;
-            }
-
-            if (riskOfficerIndex) {
-                this.riskOfficerLevel = true;
-                this.signatureList = this.signatureList.slice(riskOfficerIndex, lastIndex);
-            }
-        }
-
         this.previousList = this.loanDataHolder.previousList;
         this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
         this.id = this.loanDataHolder.id;
@@ -538,31 +435,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         );
     }
 
-    loanHandler(index: number, length: number, label: string) {
-        if (index === length - 1 && index !== 0) {
-            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-                return 'APPROVED BY:';
-            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-                return 'REJECTED BY:';
-            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
-                return 'CLOSED BY:';
-            }
-        }
-        if (!ObjectUtil.isEmpty(label)) {
-            return label;
-        } else {
-            if (index === 0) {
-                if (this.signatureList[index].docAction.toString() === 'RE_INITIATE') {
-                    return 'RE INITIATED:';
-                } else {
-                    return 'INITIATED BY:';
-                }
-            } else {
-                return 'SUPPORTED BY:';
-            }
-        }
-    }
-
     open(comments) {
         const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
         modalRef.componentInstance.comments = comments;
@@ -594,39 +466,6 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Fiscal Year!'));
         });
     }
-
-    /**
-     * Get array of loan stage for authority signature array.
-     *
-     * @param stages Array of loan stages that must include previous stages and current stage.
-     */
-    private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
-        let lastBackwardIndex = 0;
-        stages.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
-                || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
-                lastBackwardIndex = index;
-            }
-        });
-        if (lastBackwardIndex !== 0) {
-            stages.splice(0, lastBackwardIndex + 1);
-        }
-        const signatureList = new Array<LoanStage>();
-        const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
-        stages.forEach((loanStage, index) => {
-            if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
-                if (addedStages.has(loanStage.fromUser.id)) {
-                    signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
-                } else {
-                    signatureList.push(loanStage);
-                    addedStages.set(loanStage.fromUser.id, index);
-                }
-            }
-        });
-
-        return signatureList;
-    }
-
     goToLoanSummary() {
         this.changeToLoanSummaryActive.next();
     }
@@ -685,5 +524,18 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy {
         this.showApprovalSheetInfo = docStatus !== 'APPROVED' && docStatus !== 'CLOSED' && docStatus !== 'REJECTED'
             && storage.roleType === 'COMMITTEE'
             && this.loanDataHolder.currentStage.toUser.id === Number(storage.userId);
+    }
+
+    /** setting value from chlid
+     class after comment approval verification **/
+    setCommentApproval(event: boolean) {
+        this.riskOfficerLevelComment = event;
+    }
+
+    ngAfterViewChecked(): void {
+        if (this.riskOfficerLevelComment === true) {
+            this.cdRef.detectChanges();
+
+        }
     }
 }

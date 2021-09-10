@@ -154,6 +154,7 @@ export class SecurityInitialFormComponent implements OnInit {
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];
+    bondSecurity = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -188,6 +189,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
+        this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -219,6 +221,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.landBuildingOtherBank(this.formData['landBuildingOtherBranchChecked']);
             this.vehicleOtherBank(this.formData['vehicleOtherBranchChecked']);
             this.plantOtherBank(this.formData['plantOtherBranchChecked']);
+            this.setBondSecurityDetail(this.formDataForEdit['bondSecurity']);
 
         } else {
             this.addMoreLand();
@@ -235,6 +238,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addPersonalGuarantee();
             this.addInsurancePolicy();
             this.addAssignment();
+            this.addMoreBondSecurity();
         }
 
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -319,9 +323,51 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
+            bondSecurity: this.formBuilder.array([]),
 
         });
         this.buildShareSecurityForm();
+    }
+
+    private buildBondSecurityFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            nameOfBond: [undefined, Validators.required],
+            validityOfBond: [undefined, Validators.required],
+            couponRate: [undefined, Validators.required],
+            bondValue: [undefined, Validators.required],
+            bondSerialNumber: [undefined],
+            issuer: [undefined],
+            expiryDate: [undefined]
+        });
+    }
+
+    public addMoreBondSecurity(): void {
+        (this.securityForm.get('bondSecurity') as FormArray).push(this.buildBondSecurityFormGroup());
+    }
+
+    public removeBondSecurity(index: number): void {
+        (this.securityForm.get('bondSecurity') as FormArray).removeAt(index);
+    }
+
+    private setBondSecurityDetail(currentData) {
+        const landDetails = this.securityForm.get('bondSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(currentData)) {
+            currentData.forEach((singleData: any) => {
+                landDetails.push(
+                    this.formBuilder.group({
+                        nameOfBond: [singleData.nameOfBond],
+                        validityOfBond: [singleData.validityOfBond],
+                        couponRate: [singleData.couponRate],
+                        bondValue: [singleData.bondValue],
+                        bondSerialNumber: [singleData.bondSerialNumber],
+                        issuer: [singleData.issuer],
+                        expiryDate: [singleData.expiryDate],
+                    })
+                );
+            });
+        } else {
+            this.addMoreBondSecurity();
+        }
     }
 
     buildShareSecurityForm() {
@@ -877,7 +923,7 @@ export class SecurityInitialFormComponent implements OnInit {
             this.insurancePolicySelected = this.hypothecationOfStock = this.assignmentOfReceivable =
                 this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
                     this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
-                        this.plantOtherBranchChecked = false;
+                        this.plantOtherBranchChecked = this.bondSecurity = false;
         selectedSecurity.push(arraySelected);
         selectedSecurity.forEach(selectedValue => {
             switch (selectedValue) {
@@ -922,6 +968,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'AssignmentOfReceivables':
                     this.assignmentOfReceivable = true;
+                    break;
+                case 'BondSecurity':
+                    this.bondSecurity = true;
                     break;
             }
         });
@@ -1003,6 +1052,17 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
+            });
+            const bondFormControls = this.securityForm.get('bondSecurity') as FormArray;
+            bondFormControls.controls.forEach(f => {
+                f.get('nameOfBond').clearValidators();
+                f.get('nameOfBond').updateValueAndValidity();
+                f.get('validityOfBond').clearValidators();
+                f.get('validityOfBond').updateValueAndValidity();
+                f.get('couponRate').clearValidators();
+                f.get('couponRate').updateValueAndValidity();
+                f.get('bondValue').clearValidators();
+                f.get('bondValue').updateValueAndValidity();
             });
         }
     }
@@ -1193,6 +1253,31 @@ export class SecurityInitialFormComponent implements OnInit {
                 f.get('companyName').updateValueAndValidity();
                 f.get('totalShareUnit').clearValidators();
                 f.get('totalShareUnit').updateValueAndValidity();
+            });
+        }
+        if (this.selectedSecurity === 'BondSecurity') {
+            const bondFormControls = this.securityForm.get('bondSecurity') as FormArray;
+            bondFormControls.controls.forEach(f => {
+                f.get('nameOfBond').setValidators(Validators.required);
+                f.get('nameOfBond').updateValueAndValidity();
+                f.get('validityOfBond').setValidators(Validators.required);
+                f.get('validityOfBond').updateValueAndValidity();
+                f.get('couponRate').setValidators(Validators.required);
+                f.get('couponRate').updateValueAndValidity();
+                f.get('bondValue').setValidators(Validators.required);
+                f.get('bondValue').updateValueAndValidity();
+            });
+        } else {
+            const bondFormControls = this.securityForm.get('bondSecurity') as FormArray;
+            bondFormControls.controls.forEach(f => {
+                f.get('nameOfBond').clearValidators();
+                f.get('nameOfBond').updateValueAndValidity();
+                f.get('validityOfBond').clearValidators();
+                f.get('validityOfBond').updateValueAndValidity();
+                f.get('couponRate').clearValidators();
+                f.get('couponRate').updateValueAndValidity();
+                f.get('bondValue').clearValidators();
+                f.get('bondValue').updateValueAndValidity();
             });
         }
     }
@@ -2361,5 +2446,19 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('OtherSecurity');
             }
         });
+        const bondSecurity = this.securityForm.get('bondSecurity') as FormArray;
+        bondSecurity.controls.forEach(f => {
+            const value = f.value.nameOfBond || f.value.validityOfBond || f.value.couponRate || f.value.bondValue;
+            if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
+                this.selectedArray.indexOf('BondSecurity') === -1) {
+                this.selectedArray.push('BondSecurity');
+            }
+        });
+    }
+
+    private pushNewSecurityType(): void {
+        if (this.client === this.clientName.ICFC) {
+            this.securityTypes.push({key: 'BondSecurity', value: 'Bond Security'});
+        }
     }
 }

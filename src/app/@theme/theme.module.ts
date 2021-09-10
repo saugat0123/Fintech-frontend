@@ -13,7 +13,6 @@ import {
     NbCalendarModule,
     NbCalendarRangeModule,
     NbCardModule,
-    NbChatModule,
     NbCheckboxModule,
     NbContextMenuModule,
     NbDatepickerModule,
@@ -70,7 +69,6 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import {ChartModule} from '../chart/chart.module';
-import {ChatModule} from '../chat/chat.module';
 import { JsonParsePipe } from './pipes/json-parse.pipe';
 import { RolesSwitchComponent } from './components/roles-switch/roles-switch.component';
 
@@ -109,7 +107,6 @@ const NB_MODULES = [
     NbSpinnerModule,
     NbRadioModule,
     NbSelectModule,
-    NbChatModule,
     NbTooltipModule,
     NbCalendarKitModule,
     NbIconModule,
@@ -171,13 +168,10 @@ const NB_THEME_PROVIDERS = [
     ...NbDialogModule.forRoot().providers,
     ...NbWindowModule.forRoot().providers,
     ...NbToastrModule.forRoot().providers
-    // ...NbChatModule.forRoot({
-    //     messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
-    // }).providers,
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, ChatModule],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent, RolesSwitchComponent],
     entryComponents: [...ENTRY_COMPONENTS],

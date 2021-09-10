@@ -12,7 +12,7 @@ export namespace LoanType {
 
     export function values() {
         return Object.keys(LoanType).filter(
-            (type) => isNaN(<any>type) && type !== 'values' && type !== 'value'
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'value' && type !== 'getEnum'
         );
     }
     export function value() {
@@ -24,6 +24,14 @@ export namespace LoanType {
             });
         });
         return enums;
+    }
+
+    export function getEnum(loanValues: String) {
+        for (const enumPair of value()) {
+            if (enumPair.value === loanValues) {
+                return enumPair.key;
+            }
+        }
     }
 }
 

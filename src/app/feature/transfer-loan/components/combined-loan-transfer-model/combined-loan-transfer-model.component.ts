@@ -91,7 +91,12 @@ export class CombinedLoanTransferModelComponent implements OnInit {
       this.combinedLoan.loans.forEach((l, i) => {
         this.isUserPresent[i] = true;
         this.isSolUserPresent[i] = true;
-        this.isSolPresent = l.isSol;
+        if (l.isSol) {
+          if (l.solUser.role.id === l.currentStage.toRole.id &&
+              l.solUser.id === l.currentStage.toUser.id) {
+            this.isSolPresent = l.isSol;
+          }
+        }
         this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
       });
     }, error => {

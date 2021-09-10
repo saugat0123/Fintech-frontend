@@ -85,33 +85,15 @@ export class CustomerDocComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.customerInfo.name)) {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Customer Name Cannot Be Empty'));
+            this.spinner = false;
             return;
         } else if (this.uploadFile.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
+            this.spinner = false;
             return;
         }
         this.customerGeneralDocumentService.uploadDoc(formData).subscribe((res: any) => {
-            // const customerGeneralDocument: CustomerGeneralDocument = res.detail;
-            // if (!ObjectUtil.isEmpty(this.customerInfo)) {
-            //     this.customerGeneralDoc.id = this.customerInfo.customerGeneralDocuments[index]
-            //         ? this.customerInfo.customerGeneralDocuments[index].id : null;
-            //     this.customerGeneralDoc.version = this.customerInfo.customerGeneralDocuments[index]
-            //         ? this.customerInfo.customerGeneralDocuments[index].version : null;
-            // }
-            // this.customerGeneralDoc.customerInfoId = this.customerInfo.id;
-            // this.customerGeneralDoc.docPath = customerGeneralDocument.docPath;
-            // this.customerGeneralDoc.document = customerGeneralDocument.document;
-            // this.customerGeneralDocumentService.save(this.customerGeneralDoc)
-            //     .subscribe(() => {
-            //         this.modelService.dismissAll();
-            //         this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
-            //         this.refreshCustomerInfo.emit(true);
-            //     }, error => {
-            //         this.modelService.dismissAll();
-            //         console.error(error);
-            //         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save '.concat(documentName)));
-            //     });
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
             this.refreshCustomerInfo.emit(true);
@@ -144,6 +126,7 @@ export class CustomerDocComponent implements OnInit {
             }
             this.documentService.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((res: any) => {
                 this.generalDocumentReq = res.detail;
+                this.sortDocument();
                 if (!ObjectUtil.isEmpty(this.customerInfo.customerGeneralDocuments)) {
                     const customerDocumentArray = this.customerInfo.customerGeneralDocuments;
                     customerDocumentArray.forEach((singleDoc, i) => {
@@ -180,6 +163,18 @@ export class CustomerDocComponent implements OnInit {
         }, error => {
             // tslint:disable-next-line:max-line-length
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message === undefined ? ' Successfully DELETED ' : error.error.message));
+        });
+    }
+
+    sortDocument() {
+        this.generalDocumentReq.sort( (a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return  -1;
+            }
+            return 0;
         });
     }
 

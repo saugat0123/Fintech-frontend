@@ -4,63 +4,6 @@
   </nb-card-header>
   <nb-card-body>
     <nb-accordion>
-
-      <nb-accordion-item *ngIf="customerInfo?.cicl" #itemCicl>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>CICL</span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-cicl-view *ngIf="itemCicl.expanded"
-                              [ciclValue]="customerInfo?.cicl"></app-cicl-view>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-
-      <nb-accordion-item *ngIf="customerInfo?.insurance?.length>0" #itemInsurance>
-      <nb-accordion-item-header>
-        <div class="row col-md-12">
-          <div class="col-md-8">
-            <span>INSURANCE</span>
-          </div>
-        </div>
-      </nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <app-insurance-view *ngIf="itemInsurance.expanded"
-                            [insurance]="customerInfo?.insurance"></app-insurance-view>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-      <nb-accordion-item *ngIf="customerInfo?.financial" #itemFinancial>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>FINANCIAL</span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-financial-view *ngIf="itemFinancial.expanded"
-                              [formData]="customerInfo?.financial"
-                              [customerType]="customerInfo?.customerType"
-          ></app-financial-view>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-      <nb-accordion-item #guarantor *ngIf="customerInfo?.guarantors">
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>GUARANTOR</span>
-            </div>
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-guarantor-view *ngIf="guarantor.expanded"
-                              [guarantorData]="customerInfo?.guarantors"></app-guarantor-view>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
       <nb-accordion-item #siteVisit *ngIf="customerInfo?.siteVisit">
         <nb-accordion-item-header>
           <div class="row col-md-12">
@@ -76,11 +19,77 @@
           </app-site-visit-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.cicl" #itemCicl>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CICL</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-cicl-view *ngIf="itemCicl.expanded"
+                              [ciclValue]="customerInfo?.cicl"></app-cicl-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.financial" #itemFinancial>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>{{customerInfo?.customerType === 'INDIVIDUAL' ? 'INCOME & EXPENSES' : 'FINANCIAL'}}</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-financial-view *ngIf="itemFinancial.expanded"
+                              [formData]="customerInfo?.financial"
+                              [customerType]="customerInfo?.customerType"></app-financial-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.incomeFromAccount" #itemIncomeFromAccount>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>INCOME FROM ACCOUNT</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-income-from-account-summery  *ngIf="itemIncomeFromAccount.expanded"
+                                            [formData]="customerInfo?.incomeFromAccount"></app-income-from-account-summery>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.netTradingAssets" #itemNetTrading>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>{{client === clientName?.ICFC ? 'NET TRADING CURRENT ASSETS (NTCA)' : 'NET TRADING ASSETS (NTA)'}}</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.MEGA); else otherBank">
+            <app-nta-mega-summary *ngIf="itemNetTrading?.expanded"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-mega-summary>
+          </ng-container>
+          <ng-template #otherBank>
+            <app-nta-summary *ngIf="itemNetTrading?.expanded"
+                             [fiscalYears]="fiscalYearArray"
+                             [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-summary>
+          </ng-template>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
       <nb-accordion-item #security *ngIf="customerInfo?.security">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>Security</span>
+              <span>SECURITY</span>
             </div>
           </div>
         </nb-accordion-item-header>
@@ -92,40 +101,49 @@
           </app-security-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <!--<nb-accordion-item #itemCrgAlpha *ngIf="customerInfo?.creditRiskGradingAlpha">
+
+      <nb-accordion-item #guarantor *ngIf="customerInfo?.guarantors?.guarantorList">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
-              <span>CREDIT RISK GRADING (ALPHA)</span>
+              <span>GUARANTOR</span>
             </div>
           </div>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-credit-risk-grading-alpha
-              *ngIf="itemCrgAlpha.expanded"
-              [creditRiskGradingAlpha]="customerInfo?.creditRiskGradingAlpha"
-              [financial]="customerInfo?.financial"
-              [companyInfo]="companyInfo"
-              [fromProfile]="false"></app-credit-risk-grading-alpha>
-        </nb-accordion-item-body>
-      </nb-accordion-item>-->
-
-      <nb-accordion-item #itemCrg>
-        <nb-accordion-item-header>
-          <div class="row col-md-12">
-            <div class="col-md-8">
-              <span>CREDIT RISK GRADING</span>
-            </div>
-
-          </div>
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <app-credit-grading #CrgComponent
-                              *ngIf="itemCrg.expanded"
-                              [formData]="customerInfo?.creditRiskGrading"
-                              [fromProfile]="false"></app-credit-grading>
+          <app-guarantor-view *ngIf="guarantor.expanded"
+                              [guarantorData]="customerInfo?.guarantors?.guarantorList"></app-guarantor-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.insurance?.length>0" #itemInsurance>
+      <nb-accordion-item-header>
+        <div class="row col-md-12">
+          <div class="col-md-8">
+            <span>INSURANCE</span>
+          </div>
+        </div>
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <app-insurance-view *ngIf="itemInsurance.expanded"
+                            [insurance]="customerInfo?.insurance"></app-insurance-view>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+
+      <nb-accordion-item *ngIf="customerInfo?.creditChecklist" #itemCreditCheckList>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT CHECKLIST</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-checklist-view *ngIf="itemCreditCheckList?.expanded"
+                                     [formData]="customerInfo?.creditChecklist"></app-credit-checklist-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
     </nb-accordion>
   </nb-card-body>
 </nb-card>

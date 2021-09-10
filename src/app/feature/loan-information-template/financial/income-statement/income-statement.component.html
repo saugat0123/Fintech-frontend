@@ -293,8 +293,9 @@
         <td><b>Staff Bonus</b></td>
         <td *ngFor="let amount of incomeStatementForm.get('staffBonus')['controls']; let j = index"
             formArrayName="staffBonus" scope="col">
-          <div [formGroupName]="j" class="text-center headingParticular">
-            <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+          <div [formGroupName]="j" class="text-center">
+            <input (input)="onValueChange('staffBonus', j)"
+                   formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
           </div>
         </td>
       </tr>
