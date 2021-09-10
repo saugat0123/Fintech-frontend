@@ -15,9 +15,13 @@ export class PersonalTermLoanPrintComponent implements OnInit {
   personalOverdraftMonthlySelected = false;
   allTermLoanSelected = false;
   odNatureLoanSelected = false;
+  loanSecurityLength;
+  personalGuaranteeLength;
   constructor() { }
 
   ngOnInit() {
+    this.loanSecurityLength = this.letter.loanSecurityTable.length;
+    this.personalGuaranteeLength = this.letter.personalGarntAmt.length;
     console.log(this.letter);
     this.letter.interestTypeSelectedArray.forEach(value => {
       switch (value) {

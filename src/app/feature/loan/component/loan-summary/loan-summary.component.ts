@@ -65,6 +65,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     loanConfig: LoanConfig = new LoanConfig();
 
     @Input() nepaliDate;
+    @Input() combinedLoanId: number;
     hasMissingDeferredDocs = false;
 
     client: string;
@@ -167,6 +168,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     roleType;
     showApprovalSheetInfo = false;
     notApprove = 'notApprove';
+    customerData;
 
     sbsGroupEnabled = environment.SBS_GROUP;
     megaGroupEnabled = environment.MEGA_GROUP;
@@ -186,6 +188,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
+    spinner = false;
+    spinnerMsg = 'Please Wait!!';
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -220,12 +224,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.activatedRoute.queryParams.subscribe((res) => {
            this.customerLoanService.detail(res.customerId).subscribe(response => {
             const details = JSON.parse(response.detail.data);
-           if(!ObjectUtil.isEmpty(details.documents)){
-               details.documents.forEach( resData => {
-                   this.obtainableDocuments.push(resData);
-               });
-           }
-            if(!ObjectUtil.isEmpty(details.OtherDocuments)) {
+               if (!ObjectUtil.isEmpty(details.documents)) {
+                   details.documents.forEach(resData => {
+                       this.obtainableDocuments.push(resData);
+                   });
+               }
+               if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
                 details.OtherDocuments.split(',').forEach(splitData => {
                     if (splitData !== '') {
                         this.otherObtainableDocuments.push(splitData);
@@ -238,6 +242,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         });
 
         this.loanDataHolder = this.loanData;
+        this.customerData = this.loanDataHolder.loanHolder.name;
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -264,6 +269,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                        this.isCollateralSiteVisit = true;
                    }
                });
+        }
+        if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
+            this.id = this.combinedLoanId;
         }
     }
 
@@ -484,6 +492,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                     this.customerAllLoanList.push(this.loanDataHolder);
                 }
+                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                } else {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+                }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
@@ -621,9 +634,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     SetRoleHierarchy(loanId: number) {
         let context;
+        let refId;
+        if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
+            refId = this.combinedLoanId;
+        } else {
+            refId = loanId;
+        }
         context = {
             approvalType: 'LOAN',
-            refId: loanId,
+            refId: refId,
             isRoleModal: true,
         };
        // @ts-ignore
@@ -702,9 +721,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     // method to make all files as a .zip file
     private downloadAll(documentUrls: string[]): void {
+        this.spinner = true;
         const zip = new JSZip();
         let count = 0;
-        const zipFilename = 'AllDocument.zip';
+        const zipFilename = `${this.customerData}.zip`;
         const urls = [];
         if (documentUrls.length > 0) {
             documentUrls.map(d => {
@@ -724,12 +744,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if (count === urls.length) {
                         zip.generateAsync({type: 'blob'}).then(content => {
                             importedSaveAs(content, zipFilename);
+                            if (content.size) {
+                                this.spinner = false;
+                            }
                         });
                     }
                 });
             });
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
+            this.toastService.show(new Alert(AlertType.INFO, 'Files are being downloaded please wait!!!'));
         } else {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
     }

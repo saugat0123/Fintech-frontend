@@ -307,8 +307,8 @@ export class CompanyFormComponent implements OnInit {
             companyPAN:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
-                    this.companyInfo.panNumber, [Validators.required, WhiteSpaceValidation.cannotContainSpace,
-                    Validators.maxLength(9), Validators.minLength(9)]],
+                    this.companyInfo.panNumber, [Validators.required,
+                    Validators.min(88888888)]],
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
@@ -867,7 +867,6 @@ export class CompanyFormComponent implements OnInit {
             || this.marketScenarioComponent.marketScenarioForm.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid) {
-            console.log(this.companyInfoFormGroup);
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
@@ -890,6 +889,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        }
 
 
         // legalStatus
@@ -1092,16 +1094,16 @@ export class CompanyFormComponent implements OnInit {
         }
     }
 
+
     checkRegistrationNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithRegistrationNumber(regNumber).subscribe((res) => {
             if (regNumber.toLowerCase() === res.detail.registrationNumber.toLowerCase()) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Entered Registration Number is already in use'));
             }
         }, error => {
             console.error(error);
         });
     }
-
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
                 this.clientType = res.detail;
@@ -1150,8 +1152,6 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfoFormGroup.get('otherCommissionDuringReview').value;
             this.companyInfoFormGroup.get('total').patchValue(total.toFixed(2));
         }
-        // console.log(this.companyInfoFormGroup.get('interestIncomeDuringReview').value +
-        //     this.companyInfoFormGroup.get('loanProcessingFeeDuringReview').value);
     }
 
     // Calculation of Share %
@@ -1167,7 +1167,6 @@ export class CompanyFormComponent implements OnInit {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
         const clientTypeControl = this.companyInfoFormGroup.get('clientType');
-        console.log(micro, this.disableCrgAlpha);
         if (micro || !this.disableCrgAlpha) {
             if (micro) {
                 clientTypeControl.patchValue('MICRO');

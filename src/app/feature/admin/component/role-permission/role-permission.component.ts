@@ -164,6 +164,7 @@ export class RolePermissionComponent implements OnInit {
             },
             error => {
                 console.log(error);
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role & Permission!'));
             });
     }

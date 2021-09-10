@@ -34,14 +34,14 @@ export class NtaMegaSummaryComponent implements OnInit {
         this.fiscalYears.filter(value => value.isCurrentYear === true)[0]);
     this.prevFiscalYearIndex = this.currentFiscalYearIndex + 1;
     this.ntaData = JSON.parse(this.netTradingAssetsData.data);
-    this.ntaData.forEach((value , index) => {
+    this.ntaData.forEach((value, index) => {
       if (value.id === this.fiscalYears[this.currentFiscalYearIndex].id) {
         this.currentYearData = value;
       }
     });
 
-    this.ntaData.forEach( value => {
-      if (this.fiscalYears[this.currentFiscalYearIndex].id < this.fiscalYears[this.prevFiscalYearIndex].id) {
+    this.ntaData.forEach(value => {
+      if (this.currentFiscalYearIndex < this.prevFiscalYearIndex) {
         if (value.id === this.fiscalYears[this.prevFiscalYearIndex].id) {
           this.prevYearData = value;
         }

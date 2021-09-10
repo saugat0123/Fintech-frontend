@@ -3,6 +3,8 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Insurance} from '../../admin/modal/insurance';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {InsuranceList} from '../../loan/model/insuranceList';
+import {Editor} from "../../../@core/utils/constants/editor";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-insurance',
@@ -22,9 +24,11 @@ export class InsuranceComponent implements OnInit {
     docTitle = 'Insurance Policy Document';
     docFolderName = 'insuranceDoc';
     assetsInsured = ['Stock', 'Building & Construction', 'Machineries/Equipment', 'Vehicle', 'Other'];
+    ckEditor = Editor.CK_CONFIG;
 
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -76,6 +80,7 @@ export class InsuranceComponent implements OnInit {
 
 
     submit() {
+        this.overlay.show();
         this.isSubmitted = true;
         const formArray = this.form.get('formArray') as FormArray;
         formArray['controls'].forEach((data => {

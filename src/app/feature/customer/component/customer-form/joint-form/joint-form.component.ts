@@ -147,6 +147,7 @@ export class JointFormComponent implements OnInit {
                     initialRelationDate: [jointDetail.initialRelationDate],
                     citizenshipNumber: [jointDetail.citizenshipNumber],
                     citizenshipIssuedPlace: [jointDetail.citizenshipIssuedPlace],
+                    panNumber: [jointDetail.panNumber],
                     citizenshipIssuedDate: new Date(jointDetail.citizenshipIssuedDate),
                     dob: [ObjectUtil.isEmpty(jointDetail.dob) ?
                         undefined : new Date(jointDetail.dob), DateValidator.isValidBefore],
@@ -425,6 +426,7 @@ this.dynamic = false;
             email: [undefined, Validators.email],
             // initial Relation Date not used in ui
             citizenshipNumber: [undefined, Validators.required],
+            panNumber: [undefined],
             citizenshipIssuedPlace: [undefined, Validators.required],
             citizenshipIssuedDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
             dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :

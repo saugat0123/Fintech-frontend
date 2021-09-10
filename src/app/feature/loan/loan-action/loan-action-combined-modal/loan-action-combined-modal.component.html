@@ -1,4 +1,4 @@
-<div ngDraggable [ngResizable]="true">
+<div ngDraggable [ngResizable]="true" [nbSpinner]="spinner">
     <nb-card>
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
@@ -116,7 +116,7 @@
                                                 <div
                                                         *ngIf="individualType?.submitted && control?.get('comment')?.hasError('required')"
                                                         class="error-message"
-                                                        style="color: red;">comment is required
+                                                        style="color: #920808;">comment is required
                                                 </div>
                                             </div>
                                         </div>
@@ -130,7 +130,7 @@
                                                 </nb-checkbox>
                                             </div>
 
-                                            <div class="col-md-12 row" *ngIf="showSolUser[i]?.value">
+                                            <div class="col-md-12 row" *ngIf="individualType?.form.get(['actions', i, 'isSol']).value">
                                                 <div class="col-md-6">
                                                     <label class="selectedRoleForSol" for="selectedRoleForSol{{i}}">Approval
                                                         Role</label>
@@ -244,7 +244,7 @@
                                     >is SOL?
                                     </nb-checkbox>
                                 </div>
-                                <div class="col-md-12 row" *ngIf="showHideCombineSolUser">
+                                <div class="col-md-12 row" *ngIf="combinedType.form.get('isSol').value">
                                     <div class="col-md-6">
                                         <label class="toRole" for="toRole">Approval Role</label>
                                         <select style="width: 100%"

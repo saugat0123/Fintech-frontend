@@ -4,6 +4,7 @@ import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-micro-synopsis',
@@ -23,7 +24,8 @@ export class MicroSynopsisComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private elementRef: ElementRef,
-              private toastService: ToastService,) {
+              private toastService: ToastService,
+              private overlay: NgxSpinnerService) {
   }
 
   get formControls() {
@@ -85,8 +87,10 @@ export class MicroSynopsisComponent implements OnInit {
   }
 
   public submitForm() {
+    this.overlay.show();
     this.submitted = true;
     if (this.synopsisFormGroup.invalid) {
+      this.overlay.hide();
       this.scrollToInvalidControl();
       this.toastService.show(new Alert(AlertType.ERROR, 'All fields are mandatory!'));
       return;

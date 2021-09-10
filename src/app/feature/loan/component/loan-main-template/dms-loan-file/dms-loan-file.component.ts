@@ -33,8 +33,7 @@ import {Clients} from '../../../../../../environments/Clients';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-  public static FILE_SIZE_5MB = 5242880;
-  public static FILE_SIZE_10MB = 10485760;
+  public static FILE_SIZE_15MB = 15728640;
   @Input()
   loanDataHolder: LoanDataHolder;
   loanForm: FormGroup;
@@ -357,7 +356,7 @@ export class DmsLoanFileComponent implements OnInit {
 
   documentUploader(event, documentName: string, index: number) {
     const file = event.target.files[0];
-    if (file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+    if (file.size > DmsLoanFileComponent.FILE_SIZE_15MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
     } else if (ObjectUtil.isEmpty(this.loanForm.get('citizenshipNumber').value)) {

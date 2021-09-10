@@ -155,7 +155,8 @@ export class NepaliCurrencyWordPipe implements PipeTransform {
         if (ObjectUtil.isEmpty(value)) {
             return '';
         }
-        return this.numberIntoWordsNepali(value);
+        const commaRemovedVal = value.toString().replace(/,/g,'');
+        return this.numberIntoWordsNepali(commaRemovedVal);
     }
 
 

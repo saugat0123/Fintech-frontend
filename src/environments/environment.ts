@@ -20,7 +20,7 @@ import {SummaryType} from '../app/feature/loan/component/SummaryType';
  */
 export const environment = {
   production: false,
-  client: Clients.SHINE_RESUNGA,
+  client: Clients.ICFC,
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
@@ -33,7 +33,7 @@ export const environment = {
   microLoan: false,
   SBS_GROUP: false,
   MEGA_GROUP: false,
-  summaryType: SummaryType.GAMMA
+  summaryType: SummaryType.ALPHA
 };
 
 /*

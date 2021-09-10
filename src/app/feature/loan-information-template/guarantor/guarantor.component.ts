@@ -15,6 +15,8 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {Occupation} from '../../admin/modal/occupation';
+import {Editor} from "../../../@core/utils/constants/editor";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-guarantor',
@@ -51,12 +53,14 @@ export class GuarantorComponent implements OnInit {
     docFolderName = 'guarantorDoc';
     occupation = Occupation.enumObject();
     sameAsCurrentChecked = false;
+    ckEditorConfig = Editor.CK_CONFIG;
 
     constructor(
         private formBuilder: FormBuilder,
         private addressServices: AddressService,
         private toastService: ToastService,
         private blackListService: BlacklistService,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -83,7 +87,6 @@ export class GuarantorComponent implements OnInit {
                 return;
             }
             this.guarantorDetailValue.guarantorList.forEach((v, index) => {
-                console.log(v);
                 this.addressList.push(new Address());
                 this.addressListTemporary.push(new Address());
                 if (!ObjectUtil.isEmpty(v.province) && !ObjectUtil.isEmpty(v.province.id)) {
@@ -204,8 +207,7 @@ export class GuarantorComponent implements OnInit {
             fatherInLaw: [ObjectUtil.setUndefinedIfNull(data.fatherInLaw)],
             profession: [ObjectUtil.setUndefinedIfNull(data.profession)],
             background: [ObjectUtil.setUndefinedIfNull(data.background)],
-            guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
-                Validators.required],
+            guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress)],
             checkedSameAsCurrent: [ObjectUtil.isEmpty(data.checkedSameAsCurrent) ? false : data.checkedSameAsCurrent],
         });
 
@@ -262,8 +264,10 @@ export class GuarantorComponent implements OnInit {
     }
 
     onSubmit() {
+        this.overlay.show();
         this.submitted = true;
         if (this.form.invalid) {
+            this.overlay.hide();
             return;
         }
         if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {

@@ -47,6 +47,9 @@ export class AlphaDetailViewComponent implements OnInit {
   obtainableDocuments = Array<ObtainableDoc>();
   otherObtainableDocuments = Array<string>();
   businessGiven;
+  isJointCustomer = false;
+  jointCustomerData: any;
+  customerId: number;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -56,6 +59,10 @@ export class AlphaDetailViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(response => {
+     this.customerId = +response['customerId'];
+    });
+    this.getObtainableDocumentList();
     this.getAllLoans(this.loanDataHolder.loanHolder.id);
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
@@ -67,7 +74,6 @@ export class AlphaDetailViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)) {
       this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
       this.businessGiven = JSON.parse(this.loanDataHolder.companyInfo.businessGiven);
-      console.log('Company Data:::', this.businessGiven);
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
       this.individualJsonData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
@@ -85,23 +91,27 @@ export class AlphaDetailViewComponent implements OnInit {
       this.securityId = this.loanHolder.security.id;
     }
 
-    this.activatedRoute.queryParams.subscribe((res) => {
-      this.customerLoanService.detail(res.customerId).subscribe(response => {
-        const details = JSON.parse(response.detail.data);
-        if (!ObjectUtil.isEmpty(details.documents)) {
-          details.documents.forEach( resData => {
-            this.obtainableDocuments.push(resData);
-          });
-        }
-        if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
-          details.OtherDocuments.split(',').forEach(splitData => {
-            if (splitData !== '') {
-              this.otherObtainableDocuments.push(splitData);
-            }
-            console.log(this.otherObtainableDocuments);
-          });
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+      this.isJointCustomer = true;
+    }
+  }
+
+  private getObtainableDocumentList(): void {
+    this.customerLoanService.detail(this.customerId).subscribe(response => {
+      const details = JSON.parse(response.detail.data);
+      if (!ObjectUtil.isEmpty(details.documents)) {
+        details.documents.forEach( resData => {
+          this.obtainableDocuments.push(resData);
+        });
+      }
+      if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+        details.OtherDocuments.split(',').forEach(splitData => {
+          if (splitData !== '') {
+            this.otherObtainableDocuments.push(splitData);
+          }
+        });
+      }
     });
   }
 
@@ -116,6 +126,11 @@ export class AlphaDetailViewComponent implements OnInit {
           // push current loan if not fetched from staged spec response
           if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
             this.customerAllLoanList.push(this.loanDataHolder);
+          }
+          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+          } else {
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList

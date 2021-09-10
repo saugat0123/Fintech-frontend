@@ -102,10 +102,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Finding & Comment</label>
-                        <textarea class="form-control pr-0" formControlName="findingComment"
-                                  id="findingComment"
-                                  name="findingComment" placeholder="Finding & Comment" rows="3"
-                                  type="text"></textarea>
+                        <ckeditor formControlName="findingComment" [config]="ckeditorConfig"></ckeditor>
                     </div>
                 </div>
                 <div>
@@ -246,11 +243,7 @@
                  </div>-->
                 <div class="col-md-8 form-group">
                     <label class="title" for="findingsAndComments">Finding And Comments</label>
-                    <textarea class="form-control" formControlName="findingsAndComments"
-                              [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors }"
-                              id="findingsAndComments" name="findingsAndComments"
-                              placeholder="findings and comments"
-                              row="3"></textarea>
+                    <ckeditor id="findingsAndComments" formControlName="findingsAndComments" [config]="ckeditorConfig"></ckeditor>
                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.invalid"
                          class="invalid-feedback">
                         <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('findingsAndComments')?.errors.required">comments required</span>
@@ -490,8 +483,7 @@
                                 1. Explain the business nature, operating/manufacturing process in maximum 4
                                 lines as per observation/discussion with the customer during inspection.
                             </label>
-                            <textarea id="businessNature" formControlName="businessNature" name="creditor" type="text"
-                                      class="form-control" placeholder="Business Nature" rows="4"></textarea>
+                            <ckeditor formControlName="businessNature" [config]="ckeditorConfig"></ckeditor>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -502,8 +494,7 @@
                                 various sections of business (Manufacturing/ Packaging/ Storage/
                                 Dispatch/ Quality Control etc.), No of vehicles observed etc.
                             </label>
-                            <textarea id="businessActivities" formControlName="businessActivities" name="businessActivities" type="text"
-                                      class="form-control" placeholder="Business Activities" rows="4"></textarea>
+                            <ckeditor formControlName="businessActivities" [config]="ckeditorConfig"></ckeditor>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -515,15 +506,13 @@
                                 <label>
                                     a. How is the business doing now compared to last year?
                                 </label>
-                                <textarea id="businessProgress" formControlName="businessProgress" name="businessProgress" type="text"
-                                          class="form-control" placeholder="Business Progress" rows="4"></textarea>
+                                <ckeditor formControlName="businessProgress" [config]="ckeditorConfig" name="businessProgressEditor"></ckeditor>
                             </div>
                             <div class="col-md-12 mt-3">
                                 <label>
                                     b. What are the prospects and challenges for the business?
                                 </label>
-                                <textarea id="businessChallenges" formControlName="businessChallenges" name="businessChallenges" type="text"
-                                          class="form-control" placeholder="Business Challenges" rows="4"></textarea>
+                                <ckeditor formControlName="businessChallenges" [config]="ckeditorConfig"></ckeditor>
                             </div>
                         </div>
                     </div>
@@ -683,16 +672,11 @@
                     <div class="row">
                         <div class=" col-md-6 form-group">
                             <label class="title" for="findingAndComments">Finding & Comments</label>
-                            <textarea class="form-control" formControlName="findingAndComments"
-                                      id="findingAndComments" name="findingAndComments"
-                                      placeholder="findings and comments"
-                                      row="3" type="text"></textarea>
+                            <ckeditor formControlName="findingAndComments" id="findingAndComments" [config]="ckeditorConfig"></ckeditor>
                         </div>
                         <div class=" col-md-6 form-group">
                             <label class="title" for="remarksForNoOption">Remarks for 'NO' Option</label>
-                            <textarea class="form-control" formControlName="remarksForNoOption"
-                                      id="remarksForNoOption" name="remarksForNoOption" placeholder="remarks"
-                                      row="3" type="text"></textarea>
+                            <ckeditor formControlName="remarksForNoOption" [config]="ckeditorConfig" id="remarksForNoOption"></ckeditor>
                         </div>
                     </div>
                 </div>
@@ -785,12 +769,8 @@
                     <div class="col-md-12 form-group">
                         <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings &
                             Comments</label>
-                        <textarea class="form-control"
-                                  formControlName="findingsAndCommentsForCurrentAssetsInspection"
-                                  id="findingsAndCommentsForCurrentAssetsInspection"
-                                  name="findingsAndCommentsForCurrentAssetsInspection"
-                                  placeholder="findings and comments"
-                                  row="3" type="text"></textarea>
+                        <ckeditor id="findingsAndCommentsForCurrentAssetsInspection" [config]="ckeditorConfig"
+                                  formControlName="findingsAndCommentsForCurrentAssetsInspection"></ckeditor>
                     </div>
                 </div>
                 <h4 class="col-md-12 mt-3">Current Assets Inspection - Payable</h4>
@@ -880,11 +860,7 @@
                     <div class="col-md-12 form-group">
                         <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings &
                             Comments</label>
-                        <textarea class="form-control"
-                                  formControlName="findingsAndCommentsForCurrentAssetsInspection"
-                                  name="findingsAndCommentsForCurrentAssetsInspection"
-                                  placeholder="findings and comments"
-                                  row="3" type="text"></textarea>
+                        <ckeditor formControlName="findingsAndCommentsForCurrentAssetsInspection" [config]="ckeditorConfig"></ckeditor>
                     </div>
                 </div>
                 <h4 class="col-md-12 mt-3">Other Current Assets</h4>
@@ -1021,10 +997,7 @@
                     <div class="col-md-12 mt-4">
                         <div class="form-group">
                             <label class="title" for="overallFindings">Overall Findings / Comment of CAI</label>
-                            <textarea class="form-control" formControlName="overAllFindings"
-                                      id="overAllFindings" name="overAllFindings"
-                                      placeholder="overall findings / comments of CAI"
-                                      row="3" type="text"></textarea>
+                            <ckeditor formControlName="overAllFindings" id="overallFindings" [config]="ckeditorConfig"></ckeditor>
                         </div>
                     </div>
                 </div>

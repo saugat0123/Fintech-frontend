@@ -65,7 +65,9 @@
                         <th colspan="9">Vehicle Remarks</th>
                     </tr>
                     <tr>
-                        <td class="text-left pl-1" colspan="9">{{vehicleDetails?.vehicleRemarks}}</td>
+                        <td class="text-left pl-1" colspan="9">
+                            <span [innerHTML]="vehicleDetails?.vehicleRemarks | safeHtml"></span>
+                        </td>
                     </tr>
 
                 </table>
@@ -77,7 +79,7 @@
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
                     <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="10">{{i + 1}}.Land Security Details</th>
+                        <th class="text-center sb-bg-dark text-white" colspan="11">{{i + 1}}.Land Security Details</th>
                     </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
@@ -87,8 +89,9 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th>Distress Value</th>
                         <th>Collateral Owner Relationship</th>
+                        <th>Ownership Type</th>
                         <th colspan="2">Address as per Legal Document</th>
                     </tr>
                     <tr>
@@ -101,7 +104,8 @@
                         <td class="text-right pr-1">Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
                         <td class="text-left pl-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
-                        <td class="text-left pl-1" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
+                        <td class="text-left pl-1">{{landDetails?.ownershipType}}</td>
+                        <td class="text-left pl-1" colspan="2"><span [innerHTML]="landDetails?.landSecurityLegalDocumentAddress | safeHtml"></span></td>
                     </tr>
 
                     <tr class="sb-bg-secondary text-white">
@@ -225,7 +229,7 @@
                         </tr>
                         <tr>
                             <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
-                            <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
+                            <td colspan="4"><span [innerHTML]="landDetails?.roadAccessDescribe | safeHtml"></span></td>
                         </tr>
                     </table>
                 </ng-container>
@@ -250,7 +254,7 @@
                         <th>Area Format</th>
                         <th>Area</th>
                         <th>FMV</th>
-                        <th colspan="2">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                        <th colspan="2">Distress Value</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -273,6 +277,7 @@
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship</th>
+                        <th>Ownership Type</th>
                         <th colspan="2">Staff Representative Name 2</th>
                     </tr>
                     <tr>
@@ -283,6 +288,7 @@
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
                         <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
+                        <td class="text-left pl-1">{{landBuilding?.ownershipTypeForLandAndBuilding}}</td>
                         <td colspan="2" class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
 
@@ -331,7 +337,9 @@
                         <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
-                        <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
+                        <td class="text-left pl-1">
+                            <span [innerHTML]="landBuilding?.landAndBuildingSecurityLegalDocumentAddress | safeHtml"></span>
+                        </td>
                         <ng-container *ngIf="client === clientName.MEGA">
                             <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
                             <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
@@ -419,7 +427,9 @@
                         </tr>
                         <tr>
                             <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
-                            <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
+                            <td colspan="4">
+                                <span [innerHTML]="landBuilding?.roadAccessDescribe | safeHtml"></span>
+                            </td>
                         </tr>
                     </table>
                 </ng-container>
@@ -633,7 +643,7 @@
                         <td class="text-right pr-1">{{depositDetails?.receiptNumber}}</td>
                         <td class="text-right pr-1">Rs. {{depositDetails?.amount | roundvalue | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{depositDetails?.expiryDate | date}} ({{depositDetails?.expiryDate | engNepDate: false}})</td>
-                        <td class="text-right pr-1">Rs. {{depositDetails?.couponRate | currencyFormatter}}</td>
+                        <td class="text-right pr-1">{{depositDetails?.couponRate}}%</td>
                         <td class="text-left pl-1">{{depositDetails?.beneficiary}}</td>
                         <td class="text-left pl-1">{{depositDetails?.remarks}}</td>
                     </tr>
@@ -687,7 +697,9 @@
                     </tr>
                     <tr>
                         <th class="sb-bg-secondary text-white">Description</th>
-                        <td colspan="6" class="text-left pl-1">{{shareSecurity['securityOffered']}}</td>
+                        <td colspan="6" class="text-left pl-1">
+                            <span [innerHTML]="shareSecurity['securityOffered'] | safeHtml"></span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -906,7 +918,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-left pl-1">{{formData['initialForm']['remark']}}</td>
+                        <td class="text-left pl-1"><span [innerHTML]="formData['initialForm']['remark'] | safeHtml"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -961,18 +973,20 @@
                         <th>Amount</th>
                         <th>Expiry Date</th>
                         <th>Tenure Validity</th>
+                        <th>Issuer</th>
                     </tr>
                     <tr *ngFor="let bond of formData['initialForm']['bondSecurity']; let i= index">
                         <td class="align-middle">{{bond?.bondSerialNumber}}</td>
                         <td class="text-right pl-1">{{bond?.nameOfBond}}</td>
                         <td class="text-right pl-1">{{bond?.couponRate}}</td>
-                        <td class="text-right pr-1">Rs. {{bond?.bondValue | currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{bond?.bondValue}}</td>
                         <td class="text-right pl-1">{{bond?.expiryDate | date}} ({{bond?.expiryDate | engNepDate: false}})</td>
                         <td class="text-right pr-1">{{bond?.validityOfBond}}</td>
+                        <td class="text-right pr-1">{{bond?.issuer}}</td>
                     </tr>
                     <tr>
                         <th colspan="3" class="text-right">Total</th>
-                        <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue | currencyFormatter}}</td>
+                        <td colspan="3" class="text-left pl-5">Rs. {{totalBondSecurityValue }}</td>
                     </tr>
                 </table>
             </div>

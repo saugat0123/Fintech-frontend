@@ -15,7 +15,7 @@
                     <div [formGroupName]="incomeIndex">
                         <!-- START ROW -->
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title"><strong>Income Source</strong></label><strong
                                         class="text-danger">*</strong>
@@ -31,29 +31,29 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="title"><strong>Type</strong></label><strong
-                                        class="text-danger">*</strong>
+                                    <label class="title"><strong>Type</strong></label>
                                     <ng-select #organizationSelect
                                                [appendTo]="'body'"
                                                (click)="optionChangeTypeOfSourceOfIncome(incomeSourceSelect.selectedValues[0], organizationSelect, false)"
                                                formControlName="organization">
                                     </ng-select>
-                                    <span *ngIf="incomeOfBorrower.get('organization').invalid"
-                                          class="text-danger small">Type is required</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="title"><strong>Organization</strong></label>
+                                    <input class="form-control" formControlName="organizationType" placeholder="Type of Organization" type="text">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title"><strong>Age of Income Generated(In Months)</strong><strong
-                                            class="text-danger">*</strong></label>
-                                    <input [ngClass]="{'is-invalid': submitted && incomeOfBorrower.get('ageOfIncomeGenerated').invalid}"
-                                           class="form-control" formControlName="ageOfIncomeGenerated"
+                                    <label class="title"><strong>Age of Income Generated(In Months)</strong></label>
+                                    <input class="form-control" formControlName="ageOfIncomeGenerated"
                                            placeholder="Age of Income Generated(In Months)" type="number" appDecimalNumber>
-                                    <span *ngIf="incomeOfBorrower.get('ageOfIncomeGenerated').invalid" class="text-danger small">Age of Income Generated(In Months) is required</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="title"><strong>Amount (Monthly)</strong></label><strong
                                         class="text-danger">*</strong>
@@ -252,7 +252,7 @@
 <!--                        </div>-->
 <!--                    </div>-->
                     <div class="col-md-4">
-                        <label for="emiWithProposal"><strong>Total EMI of client including present proposal</strong></label><strong
+                        <label for="emiWithProposal"><strong>Total EMI or Interest of Client including present proposal</strong></label><strong
                             class="text-danger">*</strong>
                         <input class="form-control" formControlName="emiWithProposal" id="emiWithProposal"
                                [ngClass]="{'is-invalid': submitted && financialForm.get('emiWithProposal').invalid}"

@@ -32,6 +32,9 @@ export class AllDocumentViewComponent implements OnInit {
   affiliatedId;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  customerData;
+  spinner = false;
+  spinnerMsg = 'Please Wait!!';
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -40,6 +43,7 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.customerData = 'AllDocument';
     this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.taggedGuarantors)) {
@@ -50,6 +54,7 @@ export class AllDocumentViewComponent implements OnInit {
           }
         });
       }
+      this.customerData = this.loanDataHolder.loanHolder.name;
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
@@ -122,9 +127,10 @@ export class AllDocumentViewComponent implements OnInit {
 
   // method to make all files as a .zip file
   private downloadAll(documentUrls: string[]): void {
+    this.spinner = true;
     const zip = new JSZip();
     let count = 0;
-    const zipFilename = 'AllDocument.zip';
+    const zipFilename = `${this.customerData}.zip`;
     const urls = [];
     if (documentUrls.length > 0) {
       documentUrls.map(d => {
@@ -144,12 +150,16 @@ export class AllDocumentViewComponent implements OnInit {
           if (count === urls.length) {
             zip.generateAsync({type: 'blob'}).then(content => {
               importedSaveAs(content, zipFilename);
+              if (content.size) {
+                this.spinner = false;
+              }
             });
           }
         });
       });
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
+      this.toastService.show(new Alert(AlertType.INFO, 'Files are being downloaded please wait!!'));
     } else {
+      this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
     }
   }

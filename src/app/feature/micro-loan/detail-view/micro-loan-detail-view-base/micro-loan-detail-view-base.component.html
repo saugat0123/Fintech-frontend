@@ -43,16 +43,7 @@
                     *ngIf="loanDataHolder?.crgGamma"
                     [formData]="loanDataHolder?.crgGamma">
             </app-crg-gamma-detail-view>
-<app-crg-alpha-detailed-view
-        *ngIf="loanDataHolder?.creditRiskGradingAlpha"
-        [loanTag]="loanDataHolder?.loan?.loanTag"
-        [formData]="loanDataHolder?.creditRiskGradingAlpha">
-</app-crg-alpha-detailed-view>
-        <app-crg-micro *ngIf="loanDataHolder?.crgMicro"
-                [formData]="loanDataHolder?.crgMicro"
-                       [incomeFromAccount]="loanDataHolder?.loanHolder?.incomeFromAccount"
-                       [security]="loanDataHolder?.security"
-                       [microOtherParameters]="loanHolder?.microOtherParameters"></app-crg-micro>
+
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-site-visit-view *ngIf="loanHolder?.siteVisit"

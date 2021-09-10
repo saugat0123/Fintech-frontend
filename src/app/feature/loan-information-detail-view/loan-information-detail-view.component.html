@@ -1,4 +1,8 @@
-<nb-card style="max-height: 90vh;">
+<nb-card style="max-height: 90vh;" [nbSpinner]="spinner"
+         class="m-0"
+         nbSpinnerMessage="Loading Data... "
+         nbSpinnerSize="large"
+         nbSpinnerStatus="primary">
     <nb-card-header>
         <div>
         <div class="float-left">
@@ -85,7 +89,7 @@
             <div class="row sb-small">
                 <div class="col-md-12">
                     <b>Purpose: {{loanDataHolder?.loan?.name}}</b>
-                    <span class="float-right"><b>Loan Authority Under</b>- {{loanDataHolder?.currentStage?.toUser?.name}}
+                    <span class="float-right"><b>Loan File Under</b>: {{loanDataHolder?.currentStage?.toUser?.name}}
                         ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                 </div>
             </div>

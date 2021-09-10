@@ -43,6 +43,7 @@ export class BusinessLoanComponent implements OnInit {
   businessOverdraftLoanQSelected;
   businessOverdraftLoanMSelected;
   businessTermLoanSelected;
+  translateBtn = false;
 
 
 
@@ -114,9 +115,6 @@ export class BusinessLoanComponent implements OnInit {
       evaluationDate: [undefined],
       fmv: [undefined],
       dv: [undefined],
-      name2: [undefined],
-      amount2: [undefined],
-      amountInWords2: [undefined],
       from: [undefined],
       amount3: [undefined],
       amountInWords3: [undefined],
@@ -150,6 +148,8 @@ export class BusinessLoanComponent implements OnInit {
       loanSecurityTable: this.formBuilder.array([this.buildLandSecurity()]),
       loanFacilityTable: this.formBuilder.array([this.buildLoanFacilityTable()]),
       guarantorDetails: this.formBuilder.array([]),
+      personalGarntAmt: this.formBuilder.array([this.buildPersonalGuarantorAmount()]),
+      btnToggleVal: [false],
     });
   }
 
@@ -184,9 +184,11 @@ export class BusinessLoanComponent implements OnInit {
       if (!ObjectUtil.isEmpty(initialInfo)) {
         this.setLoanSecurityTableData(initialInfo.loanSecurityTable);
         this.setLoanFacilityTable(initialInfo.loanFacilityTable);
+        this.setPersonalGuarantorAmount(initialInfo.personalGarntAmt);
         this.setGuarantorDetails(initialInfo.guarantorDetails);
       }
       this.businessLoan.patchValue(this.initialInfoPrint);
+      this.translateBtn = this.initialInfoPrint.btnToggleVal;
     }
   }
 
@@ -287,6 +289,7 @@ export class BusinessLoanComponent implements OnInit {
     return this.formBuilder.group({
       purpose: [undefined],
       depositApprovedLoanAmount: [undefined],
+      depositAmountWords: [undefined],
       credit: [undefined],
     });
   }
@@ -309,6 +312,7 @@ export class BusinessLoanComponent implements OnInit {
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         purpose: [value.purpose],
+        depositAmountWords: [value.depositAmountWords],
         depositApprovedLoanAmount: [value.depositApprovedLoanAmount],
         credit: [value.credit],
       }));
@@ -333,14 +337,42 @@ export class BusinessLoanComponent implements OnInit {
   setGuarantorDetails(data) {
     const formArray = this.businessLoan.get('guarantorDetails') as FormArray;
     (this.businessLoan.get('guarantorDetails') as FormArray).clear();
-    if (data.length === 0) {
-      this.addLoanFacilityTable();
-      return;
-    }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         guarantorName1: [value.guarantorName1],
         date3: [value.date3],
+      }));
+    });
+  }
+
+  buildPersonalGuarantorAmount() {
+    return this.formBuilder.group({
+      name2: [undefined],
+      amount2: [undefined],
+      amountInWords2: [undefined],
+    });
+  }
+
+  addPersonalGuarantorAmt() {
+    (this.businessLoan.get('personalGarntAmt') as FormArray).push(this.buildPersonalGuarantorAmount());
+  }
+
+  removePersonalGuarantorAmt(index) {
+    (this.businessLoan.get('personalGarntAmt') as FormArray).removeAt(index);
+  }
+
+  setPersonalGuarantorAmount(data) {
+    const formArray = this.businessLoan.get('personalGarntAmt') as FormArray;
+    (this.businessLoan.get('personalGarntAmt') as FormArray).clear();
+    if (data.length === 0) {
+      this.addPersonalGuarantorAmt();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        name2: [value.name2],
+        amount2: [value.amount2],
+        amountInWords2: [value.amountInWords2],
       }));
     });
   }
@@ -360,6 +392,21 @@ export class BusinessLoanComponent implements OnInit {
 
   undoFieldRemove(formGroup, fieldControlName) {
     formGroup.get(fieldControlName).patchValue(true);
+  }
+
+  convertAmountArrayVal(numLabel, wordLabel, index, formArray) {
+    const numValue = this.businessLoan.get([formArray, index, numLabel]).value;
+    const wordLabelVar = this.nepToEngNumberPipe.transform(numValue);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.businessLoan.get([formArray, index, wordLabel]).patchValue(convertedVal);
+  }
+
+  btnTranslateToggle(event) {
+    if (event) {
+      this.translateBtn = event;
+    } else {
+      this.translateBtn = event;
+    }
   }
 
   calcOtherRate(serviceCharge, chargeRate, swapfeeTwo, afterFiveRate, afterFiveRate2) {

@@ -55,7 +55,6 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
   fillForm() {
     this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     const customerAddress = this.nepData.permanentMunicipality + '-' + this.nepData.permanentWard + ', ' + this.nepData.permanentDistrict + ', ' + this.nepData.permanentProvince;
-    this.setGuarantors(this.nepData.guarantorDetails);
     this.form.patchValue({
       customerName: this.nepData.name ? this.nepData.name : '',
       citizenshipNum: this.nepData.citizenshipNo ? this.nepData.citizenshipNo : '',
@@ -72,9 +71,9 @@ export class ConsentForLoanInterestPaymentComponent implements OnInit {
           if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
             const initialInfo = JSON.parse(singleCadFile.initialInformation);
             this.initialInfoPrint = initialInfo;
+            this.setGuarantors(this.initialInfoPrint.guarantors);
             this.form.patchValue(this.initialInfoPrint);
           } else {
-            this.addEmptyGuarantor();
             this.fillForm();
           }
         });

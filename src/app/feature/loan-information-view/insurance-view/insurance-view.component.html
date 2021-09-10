@@ -39,7 +39,9 @@
       </tr>
       <tr>
         <th></th>
-        <td colspan="7" class="text-left pl-1">{{insurance.policyType}}</td>
+        <td colspan="7" class="text-left pl-1">
+          <span [innerHTML]="insurance?.policyType | safeHtml"></span>
+        </td>
       </tr>
       <tr class="text-white sb-bg-dark">
         <th></th>
@@ -47,7 +49,9 @@
       </tr>
       <tr>
         <th></th>
-        <td colspan="7" class="text-left pl-1">{{insurance.remark}}</td>
+        <td colspan="7" class="text-left pl-1">
+          <span [innerHTML]="insurance.remark | safeHtml"></span>
+        </td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr class="text-white sb-bg-dark">

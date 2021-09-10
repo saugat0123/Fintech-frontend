@@ -211,14 +211,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Profession</strong></label>
-                                        <select class="form-control form-control-sm-error rounded"
+                                        <input class="form-control form-control-sm-error rounded"
                                                formControlName="profession"
                                                id="profession"
-                                                name="profession">
-                                            <option [value]="null">Select Profession</option>
-                                            <option [value]="profession.key" *ngFor="let profession of occupation">{{profession.value}}</option>
-
-                                        </select>
+                                               name="profession"
+                                               placeholder="Profession"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -473,21 +470,13 @@
                                     </div>
                                 </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="guarantorLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
-                                            <textarea [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').errors }"
-                                                      class="form-control"
-                                                      formControlName="guarantorLegalDocumentAddress" id="guarantorLegalDocumentAddress"
-                                                      name="guarantorLegalDocumentAddress" placeholder="Address as per Legal Document"
-                                                      rows="2"
-                                                      type="text" maxlength="256"></textarea>
-                                            <div *ngIf="(submitted) && guarantorDetails.get('guarantorLegalDocumentAddress').invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="guarantorDetails.get('guarantorLegalDocumentAddress').errors.required">
-                                                    Address as per legal document is required
-                                                </div>
-                                            </div>
+                                            <ckeditor
+                                                      formControlName="guarantorLegalDocumentAddress"
+                                                      id="guarantorLegalDocumentAddress"
+                                                      [config]="ckEditorConfig"></ckeditor>
                                         </div>
                                     </div>
 
@@ -629,7 +618,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label><b>Background</b></label>
-                                    <textarea rows="3" class="form-control" formControlName="background" placeholder="Background Details"></textarea>
+                                    <ckeditor formControlName="background" [config]="ckEditorConfig"></ckeditor>
                                 </div>
                             </div>
                             <app-template-document [customerInfo]="customerInfo" [docName]="guarantorDetails.get('citizenNumber').value" (docPathEmitter)="documentPath($event,i)" [pathValue]="guarantorDetails.get('docPath').value" [docTitle]="docTitle" [docFolderName]="docFolderName"></app-template-document>

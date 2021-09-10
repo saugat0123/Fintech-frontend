@@ -38,6 +38,7 @@ import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/r
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {ApprovalSheetInfoComponent} from '../approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../../environments/Clients';
+import {ObtainableDoc} from '../../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
     selector: 'app-approval-sheet',
@@ -155,6 +156,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     jointInfo = [];
     proposalAllData;
     companyInfo: any;
+    obtainableDocuments = Array<ObtainableDoc>();
+    otherObtainableDocuments = Array<string>();
+    megaGroupEnabled = environment.MEGA_GROUP;
+
     constructor(
         private userService: UserService,
         private loanFormService: LoanFormService,
@@ -198,6 +203,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.loadSummary();
         this.checkDocUploadConfig();
+        this.obtainableDocument();
     }
 
     ngOnDestroy(): void {
@@ -537,5 +543,25 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
             this.cdRef.detectChanges();
 
         }
+    }
+
+    obtainableDocument() {
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.customerLoanService.detail(res.customerId).subscribe( response => {
+                const detail = JSON.parse(response.detail.data);
+                if (!ObjectUtil.isEmpty(detail.documents)) {
+                    detail.documents.forEach(resData => {
+                        this.obtainableDocuments.push(resData);
+                    });
+                }
+                if (!ObjectUtil.isEmpty(detail.OtherDocuments)) {
+                    detail.OtherDocuments.split(',').forEach(resData => {
+                        if (resData !== '') {
+                            this.obtainableDocuments.push(resData);
+                        }
+                    });
+                }
+            });
+        });
     }
 }

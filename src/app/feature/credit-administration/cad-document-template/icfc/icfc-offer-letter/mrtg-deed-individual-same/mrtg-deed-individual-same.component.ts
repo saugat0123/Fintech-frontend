@@ -149,7 +149,6 @@ export class MrtgDeedIndividualSameComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       if (this.cadData.cadFileList.length > 0) {
         this.cadData.cadFileList.forEach(singleCadFile => {
-          console.log(singleCadFile);
           if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
             const initialInfo = JSON.parse(singleCadFile.initialInformation);
             this.initialInfoPrint = initialInfo;

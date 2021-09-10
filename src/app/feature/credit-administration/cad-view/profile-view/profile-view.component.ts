@@ -119,6 +119,8 @@ export class ProfileViewComponent implements OnInit {
                 offerLetterType: offerLetterType,
                 cadOfferLetterApprovedDoc: cadOfferLetterApprovedDoc
             },
+            closeOnBackdropClick: false,
+            hasBackdrop: true,
         });
 
 

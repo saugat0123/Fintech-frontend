@@ -27,6 +27,7 @@ export class QuestionComponent implements OnInit {
     qsnContent: Questions = new Questions();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
+    spinner = false;
 
     private modalRef: NgbModalRef;
 
@@ -185,10 +186,15 @@ export class QuestionComponent implements OnInit {
     }
 
     onSave() {
-        if (this.questionAnswerForm.invalid) { return; }
+        this.spinner = true;
+        if (this.questionAnswerForm.invalid) {
+            this.spinner= false;
+            return;
+        }
         this.questionList = this.questionAnswerForm.value.questionForm;
         this.questionService.saveQuestionList(this.questionList, this.loanConfigId).subscribe(() => {
 
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
 
                 this.questionList = new Array<Questions>();
@@ -197,7 +203,7 @@ export class QuestionComponent implements OnInit {
 
             }, error => {
                 console.log(error);
-
+                this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
 
                 this.questionList = new Array<Questions>();

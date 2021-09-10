@@ -18,6 +18,7 @@ import {RepaymentHistory} from './model/RepaymentHistory';
 import {MultipleSourceIncomeType} from './model/MajorSourceIncomeType';
 import {RelationWithBank} from './model/RelationWithBank';
 import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from './model/TypeOfSourceOfIncome';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-micro-crg-params',
@@ -52,7 +53,8 @@ export class MicroCrgParamsComponent implements OnInit {
   client = environment.client;
   clientName = Clients;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private overlay: NgxSpinnerService) {
   }
 
   get form() {
@@ -347,11 +349,13 @@ export class MicroCrgParamsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.overlay.show();
     this.submitted = true;
     if (!ObjectUtil.isEmpty(this.microCrgParams)) {
       this.microCrgParamsData = this.microCrgParams;
     }
     if (this.microCrgParamsForm.invalid) {
+      this.overlay.hide();
       return;
     }
     this.calculateAndSetHighestScore();

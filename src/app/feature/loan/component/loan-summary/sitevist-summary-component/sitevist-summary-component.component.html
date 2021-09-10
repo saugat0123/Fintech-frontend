@@ -57,7 +57,7 @@
         <tr>
             <td colspan="2" class="text-left pl-1">{{formData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
             <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['staffRepresentativeName']}}</td>
-            <td class="text-left pl-1">{{formData['businessSiteVisitDetails']['findingsAndComments']}}</td>
+            <td class="text-left pl-1" [innerHTML]="formData['businessSiteVisitDetails']['findingsAndComments'] | safeHtml"></td>
         </tr>
         <tr class="text-white sb-bg-dark">
             <th>Conclusion</th>

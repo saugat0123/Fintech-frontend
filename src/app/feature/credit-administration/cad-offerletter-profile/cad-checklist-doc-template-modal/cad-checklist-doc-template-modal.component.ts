@@ -13,6 +13,7 @@ import {NepaliNumberAndWords} from '../../model/nepaliNumberAndWords';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ProgressiveLegalDocConst} from '../../cad-document-template/progressive/progressive-legal-docs/progressive-legal-doc-const';
 import {LegalDocumentCheckListEnum} from '../../cad-document-template/icfc/legalDocumentCheckListEnum';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-cad-checklist-doc-template-modal',
@@ -30,11 +31,13 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
     cadTemplate = CadCheckListTemplateEnum;
     offerLetterConst = ProgressiveLegalDocConst;
     legalTemplate = LegalDocumentCheckListEnum;
+    onActionChangeSpinner = false;
 
     constructor(protected dialogRef: NbDialogRef<CadChecklistDocTemplateModalComponent>,
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
-                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) {
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private modalService: NgbModal,) {
     }
 
     ngOnInit() {
@@ -55,5 +58,17 @@ export class CadChecklistDocTemplateModalComponent implements OnInit {
             this.nepaliNumber = JSON.parse(this.cadData.nepData);
         }
 
+    }
+
+    closeDialog() {
+        this.modalService.dismissAll();
+    }
+
+    changeAction(template) {
+        this.modalService.open(template);
+    }
+
+    onCloseCreateCustomer() {
+        this.closeDialog();
     }
 }

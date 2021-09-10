@@ -13,6 +13,7 @@ import {CustomerLoanDocumentComponent} from '../customer-loan-document/customer-
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {DmsLoanFileComponent} from '../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 @Component({
@@ -110,13 +111,13 @@ export class CadDocumentUploadComponent implements OnInit {
     }
 
     documentUploader(event, documentName: string, documentId, index: number) {
-        const file = event.target.files[0];
-        if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_5MB) {
-            this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
-            (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
-        } else {
-            this.errorMessage = undefined;
-            const formData: FormData = new FormData();
+    const file = event.target.files[0];
+    if (file.size > DmsLoanFileComponent.FILE_SIZE_15MB) {
+      this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
+      (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+    } else {
+      this.errorMessage = undefined;
+      const formData: FormData = new FormData();
 
             formData.append('file', file);
             formData.append('documentName', documentName);

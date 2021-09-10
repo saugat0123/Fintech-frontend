@@ -54,6 +54,7 @@ export class LoanActionModalComponent implements OnInit {
     isEmptyUser = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
+    spinner = false;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -81,12 +82,14 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public getUserList(role) {
+        this.spinner= true;
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
             role = res.detail;
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
                 this.userList = response.detail;
+                this.spinner= false;
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
                 } else if (this.userList.length === 1) {
@@ -131,6 +134,11 @@ export class LoanActionModalComponent implements OnInit {
                     this.isNoUserSelectedSol = true;
                     return;
                 }
+            } else {
+                this.formAction.patchValue({
+                    solUser: null,
+                    isSol: false
+                });
             }
         }
 

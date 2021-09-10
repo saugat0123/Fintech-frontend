@@ -27,6 +27,7 @@ export class SignatureSectionComponent implements OnInit {
     (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
     this.lastIndex = this.signatureList.length;
     if (this.signApprovalOn === true) {
+
       try {
         this.signatureList.forEach((v, i) => {
           if ((v.toRole.signApprovalSheet === true && v.docAction.toString() !== 'APPROVED') ||
@@ -51,10 +52,12 @@ export class SignatureSectionComponent implements OnInit {
       lastIndex = this.signatureList.length;
       try {
         this.signatureList.forEach((v, i) => {
+          console.log(v, v.fromRole.signApprovalSheet, v.toRole.signApprovalSheet);
           if (v.fromRole.signApprovalSheet === true ||
               (this.loanDataHolder.currentStage.toRole.signApprovalSheet === true &&
                   this.loanDataHolder.currentStage.docAction.toString() === 'TRANSFER')) {
             riskOfficerIndex = i;
+            console.log('Index', v, i);
             throw this.breakException;
           }
         });

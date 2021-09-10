@@ -65,6 +65,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     calendarType = 'AD';
     microCustomer = false;
+    samePerAddress = false;
     microEnabled: boolean = env.microLoan;
 
     basicInfo: FormGroup;
@@ -297,17 +298,20 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
                     this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
+                    this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
                     this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
                     this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
+                    this.customer.panNumber = this.basicInfo.get('panNumber').value;
                     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
                     this.customer.clientType = this.basicInfo.get('clientType').value;
                     this.customer.subsectorDetail = this.basicInfo.get('subsectorDetail').value;
                     this.customer.gender = this.basicInfo.get('gender').value;
                     this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
                     this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
+                    this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
@@ -398,6 +402,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 new Date(this.customer.initialRelationDate)],
             citizenshipNumber: [this.customer.citizenshipNumber === undefined ? undefined : this.customer.citizenshipNumber
                 , Validators.required],
+            panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber],
             citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? undefined : this.customer.citizenshipIssuedPlace,
                 Validators.required],
             citizenshipIssuedDate: [ObjectUtil.isEmpty(this.customer.citizenshipIssuedDate) ? undefined :

@@ -117,7 +117,7 @@
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
-                                               type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
+                                                  type="text" (input)="checkRegistrationNumber(regNumber.value)"/>
                                            <div *ngIf="submitted && form.registrationNumber.errors "
                                                 class="invalid-feedback">
                                                <div *ngIf="form.registrationNumber.errors.required">
@@ -227,22 +227,19 @@
                                        <label for="panNumber"><strong>PAN</strong></label>
                                        <div class="input-group mb-3">
                                            <input #PanNumber
-                                               [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
+                                               [ngClass]="{ 'is-invalid':submitted && form.companyPAN?.errors }"
                                                class="form-control rounded"
                                                formControlName="companyPAN"
                                                id="panNumber"
                                                placeholder="Enter PAN"
-                                               type="text"/>
+                                               type="number"/>
                                            <div *ngIf="submitted && form.companyPAN.errors"
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
                                                    PAN is required.
                                                </div>
-                                               <div *ngIf="form.companyPAN.errors.maxlength || form.companyPAN.errors.minlength">
+                                               <div *ngIf="form.companyPAN.errors.min">
                                                    Length should be of 9 digit
-                                               </div>
-                                               <div *ngIf="form.companyPAN.errors.cannotContainSpace" >
-                                                   White space is invalid
                                                </div>
                                            </div>
                                        </div>

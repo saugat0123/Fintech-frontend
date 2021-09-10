@@ -68,7 +68,7 @@
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.incomeFromTheAccount"></td>
+        <td class="text-left pl-1 " [innerHTML]="incomeFromAccount?.incomeFromTheAccount | safeHtml"></td>
       </tr>
       </tbody>
     </table>

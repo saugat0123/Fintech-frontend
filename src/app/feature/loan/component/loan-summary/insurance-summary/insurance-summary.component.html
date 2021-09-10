@@ -31,10 +31,14 @@
         <td class="text-right pr-1">Rs. {{insurance?.insuredAmount | currencyFormatter}}</td>
         <td class="text-right pr-1">Rs. {{insurance?.premiumAmount | currencyFormatter}}</td>
         <td class="text-left pl-1">{{insurance?.company}}</td>
-        <td class="text-left pl-1">{{insurance?.policyType}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="insurance?.policyType | safeHtml"></span>
+        </td>
         <td class="text-left pl-1">{{insurance?.issuedDate | date}} ({{insurance?.issuedDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{insurance?.expiryDate | date}} ({{insurance?.expiryDate | engNepDate: false}})</td>
-        <td class="text-left pl-1">{{insurance?.remark}}</td>
+        <td class="text-left pl-1">
+          <span [innerHTML]="insurance?.remark | safeHtml"></span>
+        </td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr>

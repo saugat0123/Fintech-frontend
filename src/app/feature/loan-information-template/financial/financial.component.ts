@@ -26,6 +26,7 @@ import {
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-financial',
@@ -189,6 +190,7 @@ export class FinancialComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
                 private modalService: NgbModal,
+                private overlay: NgxSpinnerService,
                 private activatedRoute: ActivatedRoute) {
     }
 
@@ -298,6 +300,7 @@ export class FinancialComponent implements OnInit {
                     amount: [singleData.amount],
                     remarks: [singleData.remarks],
                     ageOfIncomeGenerated: [singleData.ageOfIncomeGenerated],
+                    organizationType: [singleData.organizationType],
                 })
             );
         });
@@ -486,15 +489,15 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
-        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
                 incomeSource: [undefined, Validators.required],
-                organization: [undefined, Validators.required],
+                organization: [undefined],
                 amount: [undefined, Validators.required],
                 remarks: [undefined, Validators.required],
-                ageOfIncomeGenerated: [undefined, Validators.required],
+                ageOfIncomeGenerated: [undefined],
+                organizationType: [undefined],
             })
         );
     }
@@ -614,6 +617,7 @@ export class FinancialComponent implements OnInit {
     }
 
     onSubmit() {
+        this.overlay.show();
         this.submitted = true;
         switch (this.activeTab) {
             case 'Income Statement':
@@ -632,6 +636,7 @@ export class FinancialComponent implements OnInit {
             this.financialData = this.formData;
         }
         if (this.financialForm.invalid) {
+            this.overlay.hide();
             return;
         }
         this.calculateAndSetHighestScore();

@@ -33,6 +33,7 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import {ValuatingField} from "../../../admin/modal/valuatingField";
 
 
 @Component({
@@ -96,6 +97,7 @@ export class SecurityInitialFormComponent implements OnInit {
     insurancePolicySelected = false;
     assignmentOfReceivable = false;
     selectedSecurity: string;
+    valuatingFieldEnum = ValuatingField;
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
         {key: 'VehicleSecurity', value: 'Vehicle Security'},
@@ -110,7 +112,14 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'InsurancePolicySecurity', value: 'Insurance Policy Security'},
         {key: 'AssignmentOfReceivables', value: 'Assignment of Receivables'},
         {key: 'LeaseAssignment', value: 'Lease Assignment'},
-        {key: 'OtherSecurity', value: 'Other Security'}
+        {key: 'OtherSecurity', value: 'Other Security'},
+        {key: 'BondSecurity', value: 'Bond Security'}
+    ];
+
+    ownershipType = [
+        {key: 'Single', value: 'Single'},
+        {key: 'Joint', value: 'Joint'},
+        {key: 'Institutional', value: 'Institutional'}
     ];
 
     areaFormat = ['R-A-P-D', 'B-K-D', 'SQF', 'Sq.m'];
@@ -182,14 +191,13 @@ export class SecurityInitialFormComponent implements OnInit {
         this.checkLoanTags();
         this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
             this.nepsePriceInfo = response.detail;
-            this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
-                this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+            const date = new Date(this.nepsePriceInfo.sharePriceDate);
+            this.shareSecurityForm.get('sharePriceDate').patchValue(date);
             this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
                 ? this.nepsePriceInfo.avgDaysForPrice : undefined);
         }, error => {
             console.error(error);
         });
-        this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -375,7 +383,7 @@ export class SecurityInitialFormComponent implements OnInit {
             shareSecurityDetails: this.formBuilder.array([]),
             securityOffered: undefined,
             loanShareRate: undefined,
-            sharePriceDate: undefined,
+            sharePriceDate: [undefined],
             avgDaysForPrice: undefined,
         });
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -388,36 +396,34 @@ export class SecurityInitialFormComponent implements OnInit {
             this.vehicleOtherBranchChecked || this.plantOtherBranchChecked) && ObjectUtil.isEmpty(branchId)) {
             return;
         }
+
         const valuatorSearch = {
-            'branchIds': LocalStorageUtil.getStorage().branch
+            'branchIds': LocalStorageUtil.getStorage().branch,
+            'valuatingField' : ValuatingField.getKeyByValue(type)
         };
         if (!ObjectUtil.isEmpty(branchId)) {
             valuatorSearch.branchIds = JSON.stringify(branchId);
         }
         switch (type) {
-            case 'land':
+            case this.valuatingFieldEnum.LAND:
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.landValuator[index] = res.detail;
                 });
                 break;
-            case 'apartment':
-                this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.apartmentValuator[index] = res.detail;
-                });
-                break;
-            case 'vehicle':
+            case this.valuatingFieldEnum.VEHICLE:
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.vehicalValuator[index] = res.detail;
                 });
                 break;
-            case 'plant':
+            case this.valuatingFieldEnum.PLANT_MACHINARY:
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.plantValuator[index] = res.detail;
                 });
                 break;
-            case  'building':
+            case  this.valuatingFieldEnum.LAND_BUILDING:
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
                     this.securityValuator.buildingValuator[index] = res.detail;
+                    this.securityValuator.apartmentValuator[index] = res.detail;
                 });
                 break;
         }
@@ -457,9 +463,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.ownerKycRelationInfoCheckedForLand = true;
             }
             if (this.landOtherBranchChecked && singleData['landBranch']) {
-                this.valuator(singleData['landBranch']['id'], 'land', index);
+                this.valuator(singleData['landBranch']['id'], this.valuatingFieldEnum.LAND, index);
             } else {
-                this.valuator(null, 'land', index);
+                this.valuator(null, this.valuatingFieldEnum.LAND, index);
 
             }
             landDetails.push(
@@ -495,6 +501,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     familyRegistrationAmount: [singleData.familyRegistrationAmount],
                     giftRegistrationAmount: [singleData.giftRegistrationAmount],
                     landCollateralOwnerRelationship: [singleData.landCollateralOwnerRelationship],
+                    ownershipType: [singleData.ownershipType],
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -613,9 +620,9 @@ export class SecurityInitialFormComponent implements OnInit {
         const buildingDetails = this.securityForm.get('buildingDetails') as FormArray;
         Data.forEach((singleData, index) => {
             if (this.apartmentOtherBranchChecked && singleData.apartmentBranch) {
-                this.valuator(singleData['apartmentBranch']['id'], 'apartment', index);
+                this.valuator(singleData['apartmentBranch']['id'], this.valuatingFieldEnum.LAND_BUILDING, index);
             } else {
-                this.valuator(null, 'apartment', index);
+                this.valuator(null, this.valuatingFieldEnum.LAND_BUILDING, index);
             }
             buildingDetails.push(
                 this.formBuilder.group({
@@ -668,9 +675,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.ownerKycRelationInfoCheckedForLandBuilding = true;
             }
             if (this.otherBranchcheck && singleData.buildingBranch) {
-                this.valuator(singleData['buildingBranch']['id'], 'building', index);
+                this.valuator(singleData['buildingBranch']['id'], this.valuatingFieldEnum.LAND_BUILDING, index);
             } else {
-                this.valuator(null, 'building', index);
+                this.valuator(null, this.valuatingFieldEnum.LAND_BUILDING, index);
             }
             buildingDetails.push(
                 this.formBuilder.group({
@@ -726,6 +733,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landBuildingStaffRepresentativeName2: [singleData.landBuildingStaffRepresentativeName2],
                     landAndBuildingSecurityLegalDocumentAddress: [singleData.landAndBuildingSecurityLegalDocumentAddress],
                     landBuildingCollateralOwnerRelationship: [singleData.landBuildingCollateralOwnerRelationship],
+                    ownershipTypeForLandAndBuilding: [singleData.ownershipTypeForLandAndBuilding],
                     roadAccessDescribe: [singleData.roadAccessDescribe],
                     roadAccessBluePrint: [singleData.roadAccessBluePrint],
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
@@ -845,9 +853,9 @@ export class SecurityInitialFormComponent implements OnInit {
         const plantDetails = this.securityForm.get('plantDetails') as FormArray;
         currentData.forEach((singleData, index) => {
             if (this.plantOtherBranchChecked && singleData.plantBranch) {
-                this.valuator(singleData['plantBranch']['id'], 'plant', index);
+                this.valuator(singleData['plantBranch']['id'], this.valuatingFieldEnum.PLANT_MACHINARY, index);
             } else {
-                this.valuator(null, 'plant', index);
+                this.valuator(null, this.valuatingFieldEnum.PLANT_MACHINARY, index);
             }
             plantDetails.push(
                 this.formBuilder.group({
@@ -1372,6 +1380,7 @@ export class SecurityInitialFormComponent implements OnInit {
             familyRegistrationAmount: undefined,
             giftRegistrationAmount: undefined,
             landCollateralOwnerRelationship: undefined,
+            ownershipType: undefined,
             roadAccessBluePrint: undefined,
             roadAccessDescribe: undefined,
             ownerKycApplicableData: [undefined],
@@ -1466,6 +1475,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landBuildingStaffRepresentativeName2: [undefined],
             landAndBuildingSecurityLegalDocumentAddress: [undefined],
             landBuildingCollateralOwnerRelationship: [undefined],
+            ownershipTypeForLandAndBuilding: [undefined],
             roadAccessBluePrint: [undefined],
             roadAccessDescribe: [undefined],
             ownerKycApplicableData: [undefined],
@@ -1684,9 +1694,9 @@ export class SecurityInitialFormComponent implements OnInit {
         const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
         currentData.forEach((singleData, index) => {
             if (this.vehicleOtherBranchChecked && singleData.vehicalBranch) {
-                this.valuator(singleData['vehicalBranch']['id'], 'vehicle', index);
+                this.valuator(singleData['vehicalBranch']['id'], this.valuatingFieldEnum.VEHICLE, index);
             } else {
-                this.valuator(null, 'vehicle', index);
+                this.valuator(null, this.valuatingFieldEnum.VEHICLE, index);
             }
             vehicleDetails.push(
                 this.formBuilder.group({
@@ -1804,6 +1814,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 shareType: matchedNepse[0].shareType,
                 companyCode: matchedNepse[0].companyCode,
                 amountPerUnit: matchedNepse[0].amountPerUnit,
+                priceEarningRatio: matchedNepse[0].priceEarningRatio,
+                priceBookValue: matchedNepse[0].priceToBookValue,
+                dividendYeild: matchedNepse[0].dividendYield,
+                dividendPayoutRatio: matchedNepse[0].dividendPayoutRatio,
                 total: this.calculateTotalShareAmount(companyName, totalShareUnit),
                 consideredValue: this.calculateConsideredAmount(
                     this.shareField.at(index).get('totalShareUnit').value,
@@ -1841,9 +1855,9 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    get totalConsideredValue() {
+    get totalShareValue() {
         let total = 0;
-        this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
+        this.shareField.controls.forEach(c => total += Number(c.get('total').value));
         return total.toFixed(2);
     }
 
@@ -2391,7 +2405,7 @@ export class SecurityInitialFormComponent implements OnInit {
         });
         const corporateGuarantee = this.securityForm.get('corporateGuarantee') as FormArray;
         corporateGuarantee.controls.forEach(f => {
-            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail
+            const value = f.value.name || f.value.address || f.value.keyPerson || f.value.otherDetail;
             if (!ObjectUtil.isEmpty(value) && this.selectedArray !== undefined &&
                 this.selectedArray.indexOf('CorporateGuarantee') === -1) {
                 this.selectedArray.push('CorporateGuarantee');
@@ -2454,11 +2468,5 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('BondSecurity');
             }
         });
-    }
-
-    private pushNewSecurityType(): void {
-        if (this.client === this.clientName.ICFC) {
-            this.securityTypes.push({key: 'BondSecurity', value: 'Bond Security'});
-        }
     }
 }

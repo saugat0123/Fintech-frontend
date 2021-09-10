@@ -64,12 +64,6 @@ export class ConsentForCollateralComponent implements OnInit {
       spouseName: this.nepData.husbandName ? this.nepData.husbandName : '',
       grandParentName: this.nepData.grandFatherName ? this.nepData.grandFatherName : '',
     });
-
-    if (!ObjectUtil.isEmpty(this.nepData.guarantorDetails)) {
-      this.setGuarantors(this.nepData.guarantorDetails);
-    }
-
-
   }
 
   checkOfferLetter() {

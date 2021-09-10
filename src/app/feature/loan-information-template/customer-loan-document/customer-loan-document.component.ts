@@ -13,6 +13,7 @@ import {CustomerDocuments} from '../../loan/model/customerDocuments';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {DmsLoanFileComponent} from '../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
 
 @Component({
     selector: 'app-customer-loan-document',
@@ -20,8 +21,6 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
     styleUrls: ['./customer-loan-document.component.scss']
 })
 export class CustomerLoanDocumentComponent implements OnInit {
-    public static FILE_SIZE_5MB = 5242880;
-    public static FILE_SIZE_10MB = 10485760;
     @Input() loanDataHolder: LoanDataHolder;
     @Input() loanType: LoanType;
     initialDocuments: Document[] = [];
@@ -121,7 +120,7 @@ export class CustomerLoanDocumentComponent implements OnInit {
 
     documentUploader(event, documentName: string, documentId, index: number) {
         const file = event.target.files[0];
-        if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_5MB) {
+        if (file.size > DmsLoanFileComponent.FILE_SIZE_15MB) {
             this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
             (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
         } else if (ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.idNumber)) {
