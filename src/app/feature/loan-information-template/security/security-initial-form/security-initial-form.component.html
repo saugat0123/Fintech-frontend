@@ -1543,7 +1543,7 @@
                                         <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                         <ng-option
                                             *ngFor="let valuator of securityValuator.buildingValuator[i]"
-                                            [value]="valuator">{{valuator.name}}</ng-option>
+                                            [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                     </ng-select>
                                 </div>
                             </div>
