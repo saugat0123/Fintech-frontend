@@ -66,7 +66,7 @@
                         <select class="custom-select" formControlName="docStatus">
                             <option [value]="null" selected hidden>Select Document Status</option>
                             <option [value]="null">All Document Status</option>
-                            <option *ngFor="let status of docStatus.values()"
+                            <option *ngFor="let status of sortedDocumentStatus"
                                     [value]="status">{{status}}
                             </option>
                         </select>
@@ -100,8 +100,8 @@
                         <select class="custom-select" formControlName="loanNewRenew">
                             <option [value]="null" selected hidden>Select Type</option>
                             <option [value]="null">All Types</option>
-                            <option *ngFor="let status of loanType.values()"
-                                    [value]="status">{{loanType[status]}}
+                            <option *ngFor="let typeOfLoan of sortedLoanType"
+                                    [value]="loanType.getEnum(typeOfLoan)">{{typeOfLoan}}
                             </option>
                         </select>
                     </div>
