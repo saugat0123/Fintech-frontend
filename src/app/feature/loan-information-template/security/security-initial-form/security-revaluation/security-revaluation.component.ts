@@ -27,9 +27,6 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     // client
     client = environment.client;
     clientName = Clients;
-    dynamic = false;
-
-    // oldData = [];
 
     constructor(private valuatorService: ValuatorService,
                 private formBuilder: FormBuilder) {

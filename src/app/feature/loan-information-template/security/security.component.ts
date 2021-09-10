@@ -349,7 +349,6 @@ export class SecurityComponent implements OnInit {
                         } else {
                             totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
                         }
-                        console.log('land totalSecurityAmount', totalSecurityAmount);
                     }
                     break;
                 case 'VehicleSecurity':
@@ -372,7 +371,6 @@ export class SecurityComponent implements OnInit {
                         } else {
                             totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
                         }
-                        console.log('building totalSecurityAmount', totalSecurityAmount);
                     }
                     break;
                 case 'PlantSecurity':
@@ -389,17 +387,13 @@ export class SecurityComponent implements OnInit {
                             if (landBuildingArray[i].revaluationData.revaluationDetails === undefined ||
                                 landBuildingArray[i].revaluationData.revaluationDetails === null) {
                                 totalSecurityAmount += Number(landBuildingArray[i].revaluationData.reValuatedConsideredValue);
-                                console.log('lb Revaluated 1.0', totalSecurityAmount);
                             } else {
                                 totalSecurityAmount += Number(landBuildingArray[i].revaluationData.revaluationDetails
                                     [landBuildingArray[i].revaluationData.revaluationDetails.length - 1].reValuatedConsideredValue);
-                                console.log('lb Revaluated 1.1', totalSecurityAmount);
                             }
                         } else {
                             totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
-                            console.log('lb Nonrevaluated', totalSecurityAmount);
                         }
-                        console.log('lb totalSecurityAmount', totalSecurityAmount);
                     }
                     break;
                 case 'FixedDeposit':
