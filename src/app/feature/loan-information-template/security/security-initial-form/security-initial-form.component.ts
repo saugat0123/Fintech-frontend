@@ -192,7 +192,6 @@ export class SecurityInitialFormComponent implements OnInit {
         this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
-            console.log('formDataForEdit', this.formDataForEdit);
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
@@ -256,9 +255,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     eventLandSecurity($event) {
-        console.log('event', $event);
         const landDetails = this.securityForm.get('landDetails') as FormArray;
-        console.log('landDetails', landDetails);
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
         $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
         $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
