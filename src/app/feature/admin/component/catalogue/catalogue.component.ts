@@ -112,6 +112,8 @@ export class CatalogueComponent implements OnInit {
     loanConfigId: number;
     customerId: number;
     roleId: number;
+    sortedDocumentStatus = [];
+    sortedLoanType = [];
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -149,6 +151,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sortFn();
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.activatedRoute.queryParams.subscribe(
@@ -634,5 +637,21 @@ export class CatalogueComponent implements OnInit {
             });
         }
         this.isOpen = true;
+    }
+
+    sortFn() {
+        const docStatusArray = [];
+        // tslint:disable-next-line:forin
+        for (const value in DocStatus.values()) {
+            docStatusArray.push(DocStatus[value]);
+        }
+        this.sortedDocumentStatus = docStatusArray.sort();
+        const loanTypeArray = [];
+        console.log(LoanType.values());
+        // tslint:disable-next-line:forin
+        for (const value of LoanType.values()) {
+            loanTypeArray.push(LoanType[value]);
+        }
+        this.sortedLoanType = loanTypeArray.sort();
     }
 }
