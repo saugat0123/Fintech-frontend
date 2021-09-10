@@ -262,50 +262,15 @@ export class SecurityInitialFormComponent implements OnInit {
 
     }
 
-    eventLandSecurity($event) {
-        const landDetails = this.securityForm.get('landDetails') as FormArray;
-        $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
-        $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
-        $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
-
-        if (landDetails.controls[$event['index']]['controls']['revaluationData']['value'] == null) {
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value'] = {
-                isReValuated: true,
-                reValuatedDv: 0,
-                reValuatedFmv: 0,
-                reValuatedConsideredValue: 0
-            };
-        }
-        if ($event['isReValuated']) {
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
-        } else {
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
-        }
-        this.updateLandSecurityTotal();
-    }
-
     updateLandSecurityTotal() {
         const landDetails = this.securityForm.get('landDetails') as FormArray;
         this.totaldv = 0;
         this.totalmv = 0;
         this.totalcv = 0;
         landDetails['value'].forEach((sec, index) => {
-            if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-                this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
-                this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
-                this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
-            } else {
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
                 this.totalcv += Number(sec['landConsideredValue']);
-            }
-
         });
     }
 
