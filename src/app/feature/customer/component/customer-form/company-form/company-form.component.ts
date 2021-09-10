@@ -869,7 +869,8 @@ export class CompanyFormComponent implements OnInit {
                 this.microCompanyFormComponent.onSubmit();
             } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
                 this.microIndividualFormComponent.onSubmit();
-                if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                this.companyLocation.onSubmit();
+                if (this.microIndividualFormComponent.microCustomerForm.invalid ||this.companyLocation.addressForm.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                     return;
                 }
