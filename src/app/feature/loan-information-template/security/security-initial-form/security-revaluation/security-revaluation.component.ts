@@ -55,9 +55,8 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         });
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
-            if (this.dynamic) {
-                this.setRevaluationDetails(this.data);
-            }
+            this.setRevaluationDetails(this.data);
+            console.log('I am here');
             if (!ObjectUtil.isEmpty(this.data.reValuationDate)) {
                 this.formGroup.get('reValuationDate').setValue(new Date(this.data.reValuationDate));
             }
@@ -135,6 +134,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
 
     revaluationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
+                isReValuated: [false],
                 reValuationDate: [undefined],
                 reValuatedFmv: [undefined],
                 reValuatedDv: [undefined],
@@ -160,9 +160,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     setRevaluationDetails(currentData) {
         const revaluationDetails = this.formGroup.get('revaluationDetails') as FormArray;
         currentData.revaluationDetails.forEach((singleData) => {
-            console.log('singleData', singleData);
             revaluationDetails.push(
                 this.formBuilder.group({
+                    isReValuated: [singleData.isReValuated],
                     reValuationDate: [singleData.reValuationDate],
                     reValuatedFmv: [singleData.reValuatedFmv],
                     reValuatedDv: [singleData.reValuatedDv],
@@ -185,8 +185,8 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                 revaluationDetails: []
             };
             oldData.revaluationDetails.push(this.data);
-            this.setRevaluationDetails(oldData);
-            this.calc();
+            // this.setRevaluationDetails(oldData);
+            // this.calc();
         }
     }
 }
