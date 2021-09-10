@@ -86,6 +86,8 @@ export class TransferDocComponent implements OnInit {
     roleTypeMaker: string;
     length = false;
     isFileUnderCurrentToUser: any;
+    sortedDocumentStatus = [];
+    sortedLoanType = [];
 
     constructor(
         private branchService: BranchService,
@@ -126,6 +128,7 @@ export class TransferDocComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sortFn();
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -553,6 +556,19 @@ export class TransferDocComponent implements OnInit {
                 this.popUpTitle = 'Transfer';
             });
         });
+    }
+
+    private sortFn(): void {
+        const docStatusArray = [];
+        for (const value in DocStatus.values()) {
+            docStatusArray.push(DocStatus[value]);
+        }
+        this.sortedDocumentStatus = docStatusArray.sort();
+        const loanTypeArray = [];
+        for (const value of LoanType.values()) {
+            loanTypeArray.push(LoanType[value]);
+        }
+        this.sortedLoanType = loanTypeArray.sort();
     }
 }
 
