@@ -23,6 +23,7 @@ import { CrgGammaDetailViewComponent } from './crg-gamma-detail-view/crg-gamma-d
 import { CrgAlphaDetailedViewComponent } from './crg-alpha-detailed-view/crg-alpha-detailed-view.component';
 import { CrgLambdaDetailViewComponent } from './crg-lambda-detail-view/crg-lambda-detail-view.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import {NepaliPatroModule} from 'nepali-patro';
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
+        PdfViewerModule,
 
     ],
     entryComponents: [

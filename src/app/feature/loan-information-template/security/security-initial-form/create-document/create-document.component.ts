@@ -23,6 +23,7 @@ export class CreateDocumentComponent implements OnInit {
   isEdit = false;
   docNameExist = false;
   jpegType = 'image/jpeg';
+  pdfType = 'application/pdf';
 
   constructor(private dialogRef: NbDialogRef<CreateDocumentComponent>,
               private toastService: ToastService ) { }
@@ -44,7 +45,7 @@ export class CreateDocumentComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Please upload file less than 5MB'));
       return;
     }
-    if (!ObjectUtil.isEmpty(this.file) && this.file.type !== this.jpegType) {
+    if (!ObjectUtil.isEmpty(this.file) && (this.file.type !== this.jpegType && this.file.type !== this.pdfType)) {
       this.toastService.show(new Alert(AlertType.ERROR, 'File format not supported please upload jpg'));
       return;
     }

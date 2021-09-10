@@ -13,6 +13,7 @@ import {flatten} from '@angular/compiler';
 import {SummaryType} from '../../loan/component/SummaryType';
 import {LogicalProjectPath} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {OpeningBeneficiary} from '../../admin/modal/openingBeneficiary';
+import {CommonService} from '../../../@core/service/common.service';
 
 @Component({
   selector: 'app-security-view',
@@ -62,6 +63,9 @@ export class SecurityViewComponent implements OnInit {
   summaryTypeName = SummaryType;
   bondSecurity = false;
   totalBondSecurityValue = 0;
+  jpgFile = [];
+  pdfFile = [];
+
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -193,6 +197,8 @@ export class SecurityViewComponent implements OnInit {
             const docArray = flatten(arr);
             // filter for only printable document
             this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+            this.pdfFile = this.siteVisitDocuments.filter(f => f.fileType === 'pdf');
+            this.jpgFile = this.siteVisitDocuments.filter(f => f.fileType !== 'pdf');
 
               this.collateralSiteVisits.filter(item => {
                 this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
@@ -219,8 +225,13 @@ export class SecurityViewComponent implements OnInit {
     });
   }
 
-  viewDocument(url: string, name: string) {
-    const viewDocName = name.concat(this.fileType);
+  viewDocument(url: string, name: string, fileType: string) {
+    let viewDocName;
+    if (fileType === null) {
+      viewDocName = name.concat(this.fileType);
+    } else {
+      viewDocName = name.concat('.').concat(fileType);
+    }
     const link = document.createElement('a');
     link.target = '_blank';
     link.href = `${ApiConfig.URL}/${url}${viewDocName}?${Math.floor(Math.random() * 100) + 1}`;
