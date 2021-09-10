@@ -18,12 +18,12 @@
                                 (ऋणीको नाम)
                                 <br>
                                 स्थायी ठेगाना :
-                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
+                                <span [ngClass]="{'unicode-size nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
                                     {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
                                 </span>
                                 <br>
                                 हालः
-                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerTemporaryAddress !== null && printDocForm?.customerTemporaryAddress !== ''}">
+                                <span [ngClass]="{'unicode-size nepaliFont' : printDocForm?.customerTemporaryAddress !== null && printDocForm?.customerTemporaryAddress !== ''}">
                                     {{printDocForm?.customerTemporaryAddress === null || printDocForm?.customerTemporaryAddress === '' ? '_________________' : printDocForm?.customerTemporaryAddress}}
                                 </span>
                                 <br>
@@ -65,6 +65,45 @@
 
                             </p>
                         </div>
+                    </div>
+                    <div style="margin-top: 30px">
+                        <p>श्री
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                                    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
+                            </span>
+                            (ऋणीको नाम)
+                        </p>
+                        <p>
+                            ऋणीको ठेगाना
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.permanentMunicipality !== null && printDocForm?.permanentMunicipality !== ''}">
+                                    {{printDocForm?.permanentMunicipality === null || printDocForm?.permanentMunicipality === '' ? '_________________' : printDocForm?.permanentMunicipality}}
+                            </span>
+                            वडा नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.permanentWardNum !== null && printDocForm?.permanentWardNum !== ''}">
+                                    {{printDocForm?.permanentWardNum === null || printDocForm?.permanentWardNum === '' ? '_________________' : printDocForm?.permanentWardNum}}
+                            </span>
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.permanentDistrict !== null && printDocForm?.permanentDistrict !== ''}">
+                                    {{printDocForm?.permanentDistrict === null || printDocForm?.permanentDistrict === '' ? '_________________' : printDocForm?.permanentDistrict}}
+                            </span>
+                        </p>
+                        <p>
+                            हाल
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryMunicipality !== null && printDocForm?.temporaryMunicipality !== ''}">
+                                    {{printDocForm?.temporaryMunicipality === null || printDocForm?.temporaryMunicipality === '' ? '_________________' : printDocForm?.temporaryMunicipality}}
+                            </span>
+                            वडा नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryWardNum !== null && printDocForm?.temporaryWardNum !== ''}">
+                                    {{printDocForm?.temporaryWardNum === null || printDocForm?.temporaryWardNum === '' ? '_________________' : printDocForm?.temporaryWardNum}}
+                            </span>
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryDistrict !== null && printDocForm?.temporaryDistrict !== ''}">
+                                    {{printDocForm?.temporaryDistrict === null || printDocForm?.temporaryDistrict === '' ? '_________________' : printDocForm?.temporaryDistrict}}
+                            </span>
+                        </p>
+                        <p>
+                            मोबाइल नं.
+                            <span class="nepaliFont">{{printDocForm?.customerMobile}}</span>
+
+                        </p>
                     </div>
                     <h4 class="text-center">
                         व्यक्तिगत तथा गोप्य <br>
@@ -1281,8 +1320,8 @@
                                     </li>
                                     <li>
                                         सम्पर्क फोन/मोवाइल नं.ः
-                                        <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorMobileNo !== null && printDocForm?.guarantorMobileNo !== ''}">
-                                            {{printDocForm?.guarantorMobileNo === null || printDocForm?.guarantorMobileNo === '' ? '_________________' : printDocForm?.guarantorMobileNo}}
+                                        <span [ngClass]="{'nepaliFont' : printDocForm?.customerMobile !== null && printDocForm?.customerMobile !== ''}">
+                                            {{printDocForm?.customerMobile === null || printDocForm?.customerMobile === '' ? '_________________' : printDocForm?.customerMobile}}
                                         </span>
                                     </li>
                                     <li>
@@ -1293,8 +1332,8 @@
                                     </li>
                                     <li>
                                         मितिः
-                                        <span [ngClass]="{'nepaliFont' : printDocForm?.letterSubmittedDate !== null && printDocForm?.letterSubmittedDate !== ''}">
-                                            {{printDocForm?.letterSubmittedDate === null || printDocForm?.letterSubmittedDate === '' ? '_________________' : printDocForm?.letterSubmittedDate}}
+                                        <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+                                            {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
                                         </span>
                                     </li>
                                 </ul>

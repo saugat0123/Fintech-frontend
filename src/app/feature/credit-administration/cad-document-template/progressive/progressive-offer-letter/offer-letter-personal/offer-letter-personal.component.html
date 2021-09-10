@@ -29,20 +29,40 @@
 
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
-                                       formControlName="customerName">
+                                       [value]="form.get('customerName').value">
                                 (ऋणीको नाम)
                             </p>
                             <p>
-                                स्थायी ठेगाना :
+                                स्थायी ठेगाना
                                 <input class="form-control-sm form-field nepaliFont"
+                                       type="text" readonly
+                                       [value]="form.get('customerName').value"
+                                       formControlName="customerMunicipality">
+                                वडा नं.
+                                <input class="form-control-sm form-field nepaliFont"
+                                       type="text" readonly
+                                       [value]="form.get('customerWardNum').value">
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
                                        type="text"
-                                       formControlName="customerAddress">
+                                       [value]="form.get('customerDistrict').value">
+
                             </p>
                             <p>
-                                हालः
+                                हाल
                                 <input class="form-control-sm form-field nepaliFont"
+                                       readonly
                                        type="text"
-                                       formControlName="customerTemporaryAddress">
+                                       [value]="form.get('temporaryMunicipality').value">
+                                वडा नं.
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       [value]="form.get('temporaryWardNum').value">
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       [value]="form.get('temporaryDistrict').value">
                             </p>
                             <p>
                                 मोबाइल नं.
@@ -144,9 +164,10 @@
                                             <td>
                                                 स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
 
-                                                <input class="form-control-sm form-field nepaliFont shortInput"
-                                                       type="text"
-                                                       formControlName="interestRate">
+
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               formControlName="interestFinalRate">
 
                                                 प्रतिशत बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल
                                                 उपर गरिनेछ । यो व्याज दर समय समयमा नेपाल राष्ट्र बैंक वा फाइनान्सको आधार
@@ -1146,43 +1167,31 @@
                                         दस्तखत गर्नेको नाम
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="signatoryName">
+                                               [value]="form.get('customerName').value">
                                         <br>
                                         नागरिकता नं., मिति र कार्यालय:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="signatoryCitizenshipNum">,
+                                               [value]="form.get('signatoryCitizenshipNum').value">,
 
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="signatoryCitizenshipIssueDate">
+                                               [value]="form.get('signatoryCitizenshipIssueDate').value">
                                         जि.प्र.का.
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="signatoryCitizenshipIssuePlace">
+                                               [value]="form.get('signatoryCitizenshipIssuePlace').value">
 
-                                        <br>
-                                        अख्तियार प्राप्त व्यक्तिको ठेगाना:—
-                                        <input class="form-control-sm form-field nepaliFont"
-                                               type="text"
-                                               formControlName="akhtiyarName2">,
-                                        <input class="form-control-sm form-field nepaliFont"
-                                               type="text"
-                                               formControlName="akhtiyarMunicipality2">,
-                                        न.पा/म.न.पा वडा नं
-                                        <input class="form-control-sm form-field nepaliFont"
-                                               type="text"
-                                               formControlName="akhtiyarWardNum2">,
                                         <br>
                                         बाजेको नाम:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="signatoryGrandParentName">
+                                               [value]="form.get('signatoryGrandParentName').value">
                                         <br>
                                         बाबुको नाम:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="signatoryParentName">
+                                               [value]="form.get('signatoryParentName').value">
                                         <br>
                                     </p>
                                 </div>
@@ -1303,24 +1312,29 @@
                                 </div>
                                 <div class="col-md-12">
                                     <ul class="list-inline" style="line-height: 1.5">
+                                        <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
+                                             formArrayName="guarantors" class="mt-4">
+                                            <div [formGroupName]="i">
                                         <li>
                                             जमानतकर्ताको नामः श्री <input class="form-control-sm form-field nepaliFont"
                                                                           type="text"
-                                                                          formControlName="jamanikartaName">
+                                                                          [value]="form.get('jamanikartaName').value">
 
                                         </li>
                                         <li>
                                             नागरिकता नं./मिति/जिल्लाः <input class="form-control-sm form-field nepaliFont"
                                                                              type="text"
-                                                                             formControlName="guarantorCitizenshipNo"> ,
+                                                                             [value]="form.get('guarantorCitizenshipNo').value"> ,
                                             <input class="form-control-sm form-field nepaliFont"
                                                    type="text"
-                                                   formControlName="guarantorIssuedDate">,
+                                                   [value]="form.get('guarantorIssuedDate').value">,
                                             जि.प्र.का. <input class="form-control-sm form-field nepaliFont"
                                                               type="text"
-                                                              formControlName="guarantorCitizenIssuedOffice">
+                                                              [value]="form.get('guarantorCitizenIssuedOffice').value">
 
                                         </li>
+                                            </div>
+                                        </div>
                                         <li>
                                             <p>
                                                 ठेगानाः
@@ -1352,14 +1366,14 @@
                                                                      formControlName="fatherInLawName">
                                         </li>
                                         <li>
-                                            प्तिको नामः श्री <input class="form-control-sm form-field nepaliFont"
+                                            पति/पत्नीको नामः श्री <input class="form-control-sm form-field nepaliFont"
                                                                     type="text"
                                                                     formControlName="spouseOrFatherName">
                                         </li>
                                         <li>
                                             सम्पर्क फोन/मोवाइल नं.ः <input class="form-control-sm form-field nepaliFont"
                                                                            type="text"
-                                                                           formControlName="guarantorMobileNo">
+                                                                           formControlName="customerMobile">
                                         </li>
                                         <li>
                                             सम्पर्क ईमेल ठेगानाः <input class="form-control-sm form-field nepaliFont"
@@ -1369,7 +1383,7 @@
                                         <li>
                                             मितिः <input class="form-control-sm form-field nepaliFont"
                                                          type="text"
-                                                         formControlName="letterSubmittedDate">
+                                                         [value]="form.get('date').value">
                                         </li>
                                     </ul>
                                 </div>
