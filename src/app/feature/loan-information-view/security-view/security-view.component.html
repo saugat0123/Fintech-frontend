@@ -114,7 +114,6 @@
         <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landDetails?.otherOwnershipTransferValue}}</th>
       </tr>
 
-
     </table>
       <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
         <tr class="sb-bg-dark text-white">
@@ -270,7 +269,6 @@
           <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
           <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">Rs. {{landBuilding?.otherOwnershipTransferValue}}</th>
         </tr>
-
         <br>
         <tr *ngIf="landBuilding.underConstructionChecked === true">
           <th colspan="8">land and Building Under Construction</th>

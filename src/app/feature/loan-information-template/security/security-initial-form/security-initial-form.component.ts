@@ -32,7 +32,7 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
-import {ValuatingField} from '../../../admin/modal/valuatingField';
+import {ValuatingField} from "../../../admin/modal/valuatingField";
 
 
 @Component({
@@ -261,8 +261,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
                 this.totalcv += Number(sec['landConsideredValue']);
-            }
-        );
+        });
     }
 
     buildForm() {
