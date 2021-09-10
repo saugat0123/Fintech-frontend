@@ -192,6 +192,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
+            console.log('formDataForEdit', this.formDataForEdit);
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
@@ -268,16 +269,32 @@ export class SecurityInitialFormComponent implements OnInit {
                 reValuatedConsideredValue: 0
             };
         }
+        if (landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value'] == null) {
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value'] = {
+                isReValuated: true,
+                reValuatedDv: 0,
+                reValuatedFmv: 0,
+                reValuatedConsideredValue: 0
+            };
+        }
         if ($event['isReValuated']) {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedDv'] = $event['reValuatedDv'];
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
+            // tslint:disable-next-line:max-line-length
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
         } else {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedDv'] = 0;
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedFmv'] = 0;
+            // tslint:disable-next-line:max-line-length
+            landDetails.controls[$event['index']]['controls']['revaluationData']['revaluationDetails']['value']['reValuatedConsideredValue'] = 0;
         }
         this.updateLandSecurityTotal();
     }
@@ -289,10 +306,16 @@ export class SecurityInitialFormComponent implements OnInit {
         this.totalcv = 0;
         landDetails['value'].forEach((sec) => {
             if (sec['revaluationData'] !== null && sec['revaluationData']['isReValuated']) {
-                const revData = sec['revaluationData'].revaluationDetails;
-                this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
-                this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
-                this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
+                if (sec['revaluationData'].revaluationDetails === undefined || sec['revaluationData'].revaluationDetails === null) {
+                    this.totaldv += Number(sec['revaluationData']['reValuatedDv']);
+                    this.totalmv += Number(sec['revaluationData']['reValuatedFmv']);
+                    this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
+                } else {
+                    const revData = sec['revaluationData'].revaluationDetails;
+                    this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
+                    this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
+                    this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
+                }
             } else {
                 this.totaldv += Number(sec['distressValue']);
                 this.totalmv += Number(sec['marketValue']);
