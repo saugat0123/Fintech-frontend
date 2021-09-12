@@ -20,29 +20,6 @@
     </div>
 </div>
 
-<!--<div class="row center mb-3" *ngIf="roleType">-->
-<!--    <div class="col-md-12">-->
-<!--        <nb-card>-->
-<!--            <nb-card-body>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-11">-->
-<!--                        <select [(ngModel)]="loanType" class="form-control rounded">-->
-<!--                            <option [ngValue]="undefined" hidden>-&#45;&#45;select Loan Type-&#45;&#45;</option>-->
-<!--                            <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-1">-->
-<!--                        <button nbButton status="primary" (click)="proceed()">-->
-<!--                            <i class="fa fa-arrow-right"></i>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </nb-card-body>-->
-<!--        </nb-card>-->
-
-<!--    </div>-->
-<!--</div>-->
-
 <ng-template #loanTemplate>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Existing Loan</h4>
@@ -60,11 +37,11 @@
 
 <div class="row" *ngIf="!(roleName || adminRole)">
     <div class="col-md-11">
-        <app-pending-loan></app-pending-loan>
+        <app-pending-loan *ngIf="false"></app-pending-loan>
     </div>
     <div class="col-md-12">
         <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove" [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
     </div>
 </div>
-<app-charts></app-charts>
+<app-charts *ngIf="false"></app-charts>
 <app-overlay-spinner></app-overlay-spinner>
