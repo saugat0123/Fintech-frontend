@@ -14,7 +14,7 @@ export class TemplateDataComponent implements OnInit {
 
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     offerLetterTypes = [];
-    private offerLetterConst;
+    offerLetterConst;
     offerLetterSelect;
     form: FormGroup;
 
