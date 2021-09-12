@@ -52,49 +52,58 @@ export class RetailEducationalLoanComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.checkOfferLetterData();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
+        this.checkOfferLetterData();
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            date: [undefined],
-            refNo: [undefined],
+            dateofGeneration: [undefined],
             customerName: [undefined],
-            permanentAddress: [undefined],
-            currentAddress: [undefined],
-            mobileNo: [undefined],
-            subject: [undefined],
-            loanName: [undefined],
+            customerAddress: [undefined],
+            applicationDateInAD: [undefined],
             loanAmount: [undefined],
-            loanNameInWord: [undefined],
-
-            companyLocation: [undefined],
-            companyName: [undefined],
-            course: [undefined],
-            loanTenure: [undefined],
-            moratoriumPeriod: [undefined],
+            loanAmountWords: [undefined],
+            drawingPowerRate: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
-            yearlyLoanRate: [undefined],
-            emiPeriod: [undefined],
+            yearlyFloatingInterestRate: [undefined],
+            serviceCharge: [undefined],
+            serviceChargeWords: [undefined],
+
             emiAmount: [undefined],
-            emiAmountInWord: [undefined],
-            fmvPercent: [undefined],
-            serviceChargePercent: [undefined],
-            draftAmount: [undefined],
-            currency: [undefined],
-            securityPersonName: [undefined],
-            motherDistrict: [undefined],
-            motherWardNo: [undefined],
-            securityDistrict: [undefined],
-            securityWardNo: [undefined],
-            securityLandId: [undefined],
-            loanManagingDirectorName: [undefined],
-            loanManagerName: [undefined],
-            guarantors: [undefined]
+            emiAmountInWords: [undefined],
+            numberOfEmi: [undefined],
+            loanCommitmentFee: [undefined],
+
+            ownersName: [undefined],
+            ownersAddress: [undefined],
+            propertyPlotNumber: [undefined],
+            propertyArea: [undefined],
+            sheetNumber: [undefined],
+
+            branchName: [undefined],
+            lateFee: [undefined],
+            changeFeeBelow1Cr: [undefined],
+            changeFeeAbove1Cr: [undefined],
+            collateralReleaseFee: [undefined],
+            documentAccessFee: [undefined],
+            promissoryNoteAmount: [undefined],
+            loanDeedAmount: [undefined],
+            pledgeAmount: [undefined],
+            guarantorName1: [undefined],
+            guarantorAmount1: [undefined],
+            guarantorAmountWords1: [undefined],
+            signatureDate: [undefined],
+
+            sakshiDistrict: [undefined],
+            sakshiMunicipality: [undefined],
+            sakshiWardNum: [undefined],
+
+            sakshiName: [undefined],
+            employeeName: [undefined]
         });
     }
 
@@ -106,6 +115,7 @@ export class RetailEducationalLoanComponent implements OnInit {
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_EDUCATIONAL);
+                this.fillForm();
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 console.log(initialInfo);
@@ -116,6 +126,23 @@ export class RetailEducationalLoanComponent implements OnInit {
                 this.initialInfoPrint = initialInfo;
             }
         }
+    }
+
+    fillForm() {
+        console.log('this.loanHolderInfo', this.cadOfferLetterApprovedDoc);
+        let cadNepData;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
+        const customerAddress = this.loanHolderInfo.permanentMunicipality + ' ' +
+            this.loanHolderInfo.permanentWard + ', ' + this.loanHolderInfo.permanentDistrict;
+        this.form.patchValue({
+            dateofGeneration: [undefined],
+            customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name : '',
+            customerAddress: customerAddress ? customerAddress : '',
+            loanAmount: cadNepData.numberNepali ? cadNepData.numberNepali : 0,
+            loanAmountWords: cadNepData.nepaliWords ? cadNepData.nepaliWords : '',
+        });
     }
 
 
@@ -163,11 +190,17 @@ export class RetailEducationalLoanComponent implements OnInit {
         return patchValue1;
     }
 
-    calcYearlyRate(base , premium , target) {
+    calcYearlyRate(base, premium, target) {
         const baseRate = this.nepToEngNumberPipe.transform(this.form.get(base).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(premium).value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
         const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get(target).patchValue(finalValue);
+    }
+
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
     }
 }
