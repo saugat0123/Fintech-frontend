@@ -477,8 +477,11 @@ export class GammaLoanSummaryComponent implements OnInit {
           }
           if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
             this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+          } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.documentStatus === 'REJECTED');
           } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED'
+                && c.documentStatus !== 'REJECTED');
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList
