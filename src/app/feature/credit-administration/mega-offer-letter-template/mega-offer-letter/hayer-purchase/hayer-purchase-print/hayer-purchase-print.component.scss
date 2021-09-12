@@ -21,8 +21,17 @@
   }
 }
 
+.uniSize {
+  font-size: 16px;
+}
+
+table, p {
+  line-height: 1.5;
+  text-align: justify;
+}
+
 li {
-  list-style-type: none;
+  line-height: 1.5;
 }
 
 input::-webkit-input-placeholder {
@@ -41,4 +50,10 @@ input::-webkit-input-placeholder {
     bottom: 0;
     width: 100%;
   }
+  tr.page-break  { display: block; page-break-before: always; }
+  //table { page-break-after:auto }
+  //tr    { page-break-inside:avoid; page-break-after:auto }
+  //td    { page-break-inside:avoid; page-break-after:auto }
+  //thead { display:table-header-group }
+  //tfoot { display:table-footer-group }
 }

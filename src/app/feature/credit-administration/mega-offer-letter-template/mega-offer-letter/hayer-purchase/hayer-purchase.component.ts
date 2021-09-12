@@ -32,12 +32,7 @@ export class HayerPurchaseComponent implements OnInit {
     initialInfoPrint;
     offerLetterConst = MegaOfferLetterConst;
     hayerPurchaseLetter: OfferDocument;
-    isPresentPrevious = false;
     ckeConfig = NepaliEditor.CK_CONFIG;
-    note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
-        '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
-        '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
-
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     loanHolderInfo;
 
@@ -60,91 +55,50 @@ export class HayerPurchaseComponent implements OnInit {
         this.checkOfferLetterData();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            this.setLoanConfigData(this.loanHolderInfo);
         }
     }
 
     buildForm() {
         this.hayarPurchase = this.formBuilder.group({
-            refNo: [undefined],
-            name: [undefined],
-            borrowerAddress: [undefined],
-            contactNumber: [undefined],
-
-            guarantor: [undefined],
-            guarantorFlag: [true],
-            addedPercentage: [undefined],
-            identityCardNo1: [undefined],
-            identityCardNo2: [undefined],
-            date: [undefined],
-            pageCount: [undefined],
-            clausesTextEditor: this.note,
-            expiryDateTimeDuration: [undefined],
-            timeDuration: [undefined],
-            sadhanDhani: [undefined],
-
-            hayarPurchaseLoanArray: this.formBuilder.array([this.buildHayarPurchaseArrayForm()]),
-            riskCoverageArray: this.formBuilder.array([this.buildRiskCoverageArrayForm()]),
-        });
-    }
-
-    buildHayarPurchaseArrayForm() {
-        return this.formBuilder.group({
-            amount: [undefined],
-            amountInWord: [undefined],
-            vehicle: [undefined],
-            samaya: [undefined],
+            dateOfGeneration: [undefined],
+            customerName: [undefined],
+            customerAddress: [undefined],
+            applicationDateInAd: [undefined],
+            vehicleDescription: [undefined],
+            loanAmount: [undefined],
+            loanAmountWords: [undefined],
+            drawingPower: [undefined],
             baseRate: [undefined],
-            premiumRate: [undefined],
-            presentRate: [undefined],
-            month: [undefined],
-            totalMonth: [undefined],
+            preimumRate: [undefined],
+            floatingRate: [undefined],
+            serviceCharge: [undefined],
+            serviceChargeWords: [undefined],
+            communicationFee: [undefined],
             emiAmount: [undefined],
-            emiAmountInWord: [undefined],
-            vatPercent: [undefined],
-            serviceAmount: [undefined],
-            company: [undefined],
-            servicePercentage: [undefined],
-            servicePercentageWords: [undefined],
-            charge: [undefined],
-            chargeFlag: [true],
-            loanClearanceMonthlyDate: [undefined],
-            PurwaBhuktaniSulka: [undefined],
-            PurwaBhuktaniSewaSulkaRate: [undefined],
-            secureTransactionFees: [undefined]
+            emiAmountWords: [undefined],
+            numberOfEmi: [undefined],
+            loanCommitmentFee: [undefined],
+            ownersName: [undefined],
+            ownersProperty: [undefined],
+            propertyPlotNumber: [undefined],
+            propertyArea: [undefined],
+            branchName: [undefined],
+            dealerName: [undefined],
+            lateFee: [undefined],
+            changeFeeBelow1Cr: [undefined],
+            changeFeeAbove1Cr: [undefined],
+            CollateralReleaseFee: [undefined],
+            documentAccessFee: [undefined],
+            promissoryNoteAmount: [undefined],
+            loanDeedAmount: [undefined],
+            pledgeAmount: [undefined],
+            guaranteeAmount: [undefined],
+            signatureDate: [undefined],
+
+            // hayarPurchaseLoanArray: this.formBuilder.array([this.buildHayarPurchaseArrayForm()]),
+            // riskCoverageArray: this.formBuilder.array([this.buildRiskCoverageArrayForm()]),
         });
-    }
-
-    buildRiskCoverageArrayForm() {
-        return this.formBuilder.group({
-            sn: [undefined],
-            details: [undefined],
-            amount: [undefined],
-            riskCoverage: [undefined],
-        });
-    }
-
-    addMoreHirePurchaseLoan() {
-        (this.hayarPurchase.get('hayarPurchaseLoanArray') as FormArray).push(this.buildHayarPurchaseArrayForm());
-    }
-
-    removeHirePurchaseLoan(i) {
-        (this.hayarPurchase.get('hayarPurchaseLoanArray') as FormArray).removeAt(i);
-    }
-
-    addMoreRiskCoverageArray() {
-        (this.hayarPurchase.get('riskCoverageArray') as FormArray).push(this.buildRiskCoverageArrayForm());
-    }
-
-    removeRiskCoverageArray(i) {
-        (this.hayarPurchase.get('riskCoverageArray') as FormArray).removeAt(i);
-    }
-
-    removeOptionalField(formGroup, fieldControlName) {
-        formGroup.get(fieldControlName).patchValue(false);
-    }
-
-    undoRemovalOfOptionalField(formGroup, fieldControlName) {
-        formGroup.get(fieldControlName).patchValue(true);
     }
 
     checkOfferLetterData() {
@@ -156,15 +110,6 @@ export class HayerPurchaseComponent implements OnInit {
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 this.hayarPurchase.patchValue(initialInfo, {emitEvent: false});
-
-                (this.hayarPurchase.get('hayarPurchaseLoanArray') as FormArray).clear();
-                initialInfo.hayarPurchaseLoanArray.forEach( value => {
-                    (this.hayarPurchase.get('hayarPurchaseLoanArray') as FormArray).push(this.formBuilder.group(value));
-                });
-                (this.hayarPurchase.get('riskCoverageArray') as FormArray).clear();
-                initialInfo.riskCoverageArray.forEach( value => {
-                    (this.hayarPurchase.get('riskCoverageArray') as FormArray).push(this.formBuilder.group(value));
-                });
                 this.initialInfoPrint = initialInfo;
             } else {
                 this.hayerPurchaseLetter = new OfferDocument();
@@ -205,29 +150,25 @@ export class HayerPurchaseComponent implements OnInit {
         });
 
     }
-    changeToNepAmount(event: any, i , formArrayName) {
-        this.hayarPurchase.get([formArrayName, i, 'amountInWord']).patchValue(event.nepVal);
-        this.hayarPurchase.get([formArrayName, i, 'amount']).patchValue(event.val);
+
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.hayarPurchase.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.hayarPurchase.get(wordLabel).patchValue(returnVal);
     }
-    changeToEmiAmount(event: any, i , formArrayName) {
-        this.hayarPurchase.get([formArrayName, i, 'emiAmountInWord']).patchValue(event.nepVal);
-        this.hayarPurchase.get([formArrayName, i, 'emiAmount']).patchValue(event.val);
-    }
-    patchFunction(formArrayName, i, formControlName) {
-            return this.hayarPurchase.get([formArrayName, i, formControlName]).value;
-    }
-    calcPresentRate(formArrayName, i ) {
-        const baseRate = this.nepToEngNumberPipe.transform(this.hayarPurchase.get([formArrayName, i , 'baseRate']).value);
-        const premiumRate = this.nepToEngNumberPipe.transform(this.hayarPurchase.get([formArrayName, i , 'premiumRate']).value);
-        const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
-        const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-        this.hayarPurchase.get([formArrayName, i, 'presentRate']).patchValue(finalValue);
-    }
-    calcpercent(formArrayName, i ) {
-        const serviceChargePercent =
-            this.nepToEngNumberPipe.transform(this.hayarPurchase.get([formArrayName, i , 'servicePercentage']).value);
-        const returnVal = this.nepPercentWordPipe.transform(serviceChargePercent);
-        this.hayarPurchase.get([formArrayName, i, 'servicePercentageWords']).patchValue(returnVal);
+
+    setLoanConfigData(data) {
+        console.log(data);
+        const customerAddress =
+            data.permanentMunicipality + ' j8f g ' +
+            data.permanentWard + ' , ' +
+            ' k|b]z ' + data.permanentProvince + ',' +
+            data.permanentDistrict;
+
+        this.hayarPurchase.patchValue({
+            customerName: data.name ? data.name : '',
+            customerAddress: customerAddress ? customerAddress : '',
+        });
     }
 }
 
