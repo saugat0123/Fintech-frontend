@@ -128,7 +128,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
             this.spinner = false;
             this.dialogRef.close(this.customerInfoData);
-            this.refreshPage()
+            this.refreshPage();
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
             console.log(error);
@@ -175,7 +175,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     onChangeTab(event) {
         this.hideSaveBtn = false;
         console.log(event.tabId);
-        if (event.tabId === '2') {
+        if (event.tabId === '2' || event.tabId === '3') {
             this.hideSaveBtn = true;
         }
 

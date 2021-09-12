@@ -30,6 +30,7 @@ export class LegalAndDisbursementComponent implements OnInit {
     user = new User();
     isRoleLegal = false;
     layoutFlag = false;
+    isRM = true;
     isCad = false;
     isInCurrentUser = false;
     productUtils = LocalStorageUtil.getStorage().productUtil;
