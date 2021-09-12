@@ -39,6 +39,10 @@
     background-color: #eee;
     height: auto;
   }
+
+  &.transparent {
+    background: transparent;
+  }
 }
 
 nb-card {

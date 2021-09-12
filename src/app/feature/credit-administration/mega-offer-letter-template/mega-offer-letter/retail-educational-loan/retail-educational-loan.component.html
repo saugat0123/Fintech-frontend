@@ -13,11 +13,11 @@
                                    formControlName="dateofGeneration">
                         </p>
                         <p>श्री
-                            <input type="text" class="form-field form-control-sm nepaliFont"
+                            <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                    readonly
                                    formControlName="customerName">
                             ज्यू, <br>
-                            <input type="text" class="form-field form-control-sm nepaliFont"
+                            <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                    readonly
                                    formControlName="customerAddress">
                             ।
@@ -55,13 +55,13 @@
                                 </b></td>
                                 <td>
                                     रु.
-                                    <input type="text" class="form-field form-control-sm nepaliFont"
+                                    <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                            readonly
                                            formControlName="loanAmount"
                                            (change)="getNumAmountWord('loanAmount', 'loanAmountWords')">
                                     / (अक्षरेपि रु.
                                     <input type="text"
-                                           class="form-field form-control-sm wide nepaliFont font-size-normal"
+                                           class="form-field form-control-sm wide nepaliFont font-size-normal transparent"
                                            readonly
                                            formControlName="loanAmountWords">
                                     मात्र ।)
@@ -114,7 +114,7 @@
                                                    (change)="getNumAmountWord('serviceCharge', 'serviceChargeWords')">
                                             /((अक्षरेपी रु
                                             <input type="text"
-                                                   class="form-field form-control-sm wide nepaliFont font-size-normal"
+                                                   class="form-field form-control-sm wide nepaliFont font-size-normal transparent"
                                                    readonly
                                                    formControlName="serviceChargeWords">
                                             मात्र ।)
@@ -175,7 +175,7 @@
                                     /(अक्षरेपि
                                     रु.
                                     <input type="text"
-                                           class="form-field form-control-sm wide nepaliFont font-size-normal"
+                                           class="form-field form-control-sm wide nepaliFont font-size-normal transparent"
                                            readonly
                                            formControlName="emiAmountInWords">
                                     मात्र) का दरले
@@ -290,15 +290,15 @@
                             <br>
                             <br>
                             ख. श्री
-                            <input type="text" class="form-field form-control-sm nepaliFont"
+                            <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                    readonly
                                    [value]="form.get('customerName').value">
                             ले बैंकको पक्षमा रु
-                            <input type="text" class="form-field form-control-sm nepaliFont"
+                            <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                    readonly
                                    [value]="form.get('loanAmount').value">
                             /(अक्षरेपी रु
-                            <input type="text" class="form-field form-control-sm wide nepaliFont"
+                            <input type="text" class="form-field form-control-sm wide nepaliFont transparent"
                                    readonly
                                    [value]="form.get('loanAmountWords').value">
                             मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ ।
@@ -422,11 +422,11 @@
                                            formControlName="branchName">
                                     शाखामा रहेको
                                     चल्ती खातामा रु
-                                    <input type="text" class="form-field form-control-sm nepaliFont"
+                                    <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                            readonly
                                            [value]="form.get('loanAmount').value">
                                     / ऋणकर्जा प्रवाह गरिनेछ र उक्त रकम श्री
-                                    <input type="text" class="form-field form-control-sm nepaliFont"
+                                    <input type="text" class="form-field form-control-sm nepaliFont transparent"
                                            readonly
                                            [value]="form.get('customerName').value">
                                     लाई ब्रऋ एबथभभ
@@ -782,7 +782,7 @@
                                     /
                                     (अक्षरेपी रु
                                     <input type="text"
-                                           class="form-field form-control-sm wide nepaliFont font-size-normal"
+                                           class="form-field form-control-sm wide nepaliFont font-size-normal transparent"
                                            readonly
                                            formControlName="guarantorAmountWords1">
                                     मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।

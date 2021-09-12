@@ -130,18 +130,20 @@ export class RetailEducationalLoanComponent implements OnInit {
 
     fillForm() {
         console.log('this.loanHolderInfo', this.cadOfferLetterApprovedDoc);
-        let cadNepData;
-        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+        let cadNepData = {
+            numberNepali: ')',
+            nepaliWords: 'सुन्य',
+        };
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
             cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
         const customerAddress = this.loanHolderInfo.permanentMunicipality + ' ' +
             this.loanHolderInfo.permanentWard + ', ' + this.loanHolderInfo.permanentDistrict;
         this.form.patchValue({
-            dateofGeneration: [undefined],
             customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name : '',
             customerAddress: customerAddress ? customerAddress : '',
-            loanAmount: cadNepData.numberNepali ? cadNepData.numberNepali : 0,
-            loanAmountWords: cadNepData.nepaliWords ? cadNepData.nepaliWords : '',
+            loanAmount: cadNepData.numberNepali,
+            loanAmountWords: cadNepData.nepaliWords,
         });
     }
 
