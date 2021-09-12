@@ -836,7 +836,18 @@
                         <tr *ngIf="singleDoc?.docPath">
                             <td>{{i + 1}}</td>
                             <td class="text-left pl-1">{{singleDoc?.name}}</td>
-                            <td>Net Worth Document</td>
+                            <td>
+                                Net Worth Document
+                                <div class="col-md-12">
+                                    <a *ngIf="singleDoc?.docPath.split(',').length > 1"
+                                       (click)="openModel(showGuarantorModule, taggedGuarantorWithDoc, i, 'Guarantor')"
+                                       class="text-primary"
+                                       style="cursor: pointer;">
+                                        See all documents
+                                    </a>
+                                </div>
+
+                            </td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
                                    class="fas fa-eye"></i></td>
@@ -870,13 +881,21 @@
                             <td>{{i + 1}}</td>
                             <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
                             <td class="text-left pl-1">{{singleDoc?.company}}</td>
-                            <td class="text-left pl-1">Insurance Policy</td>
+                            <td class="text-center pl-1">
+                                Insurance Policy <br>
+                                <a *ngIf="singleDoc?.policyDocumentPath.split(',').length > 1"
+                                   (click)="openModel(showDocumentModel, insuranceWithDoc, i, 'Insurance')"
+                                   class="text-primary"
+                                   style="cursor: pointer;">
+                                    See all documents
+                                </a>
+                            </td>
                             <td>
-                                <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"
+                                <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath.split(',')[0],singleDoc.policyNumber+' Insurance Policy Document')"
                                    class="fas fa-eye"></i></td>
 
                             <td>
-                                <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
+                                <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath.split(',')[0], singleDoc?.policyNumber+' Insurance Policy Document')"
                                    aria-hidden="true" class="fa fa-download"
                                    style="cursor: pointer"></i>
                             </td>
@@ -1209,3 +1228,95 @@
         </nb-card-body>
     </nb-card>
 </section>
+
+<ng-template #showDocumentModel>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{this.heading}} Documents</h4>
+        <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Policy Number</th>
+                    <th>Document</th>
+                    <th>Preview</th>
+                    <th>Download</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let filePath of indexedValue?.policyDocumentPath.split(','); let index = index;">
+                <tr>
+                    <td>{{upperIndex + 1}}.{{index + 1}}</td>
+                    <td>{{indexedValue?.policyNumber}}</td>
+                    <td class="pl-1">
+                        <p>Insurance Policy {{index + 1}}</p>
+                    </td>
+                    <td>
+                        <i (click)="previewOfferLetterDocument(filePath,indexedValue.policyNumber+' Insurance Policy Document')"
+                           class="fas fa-eye"></i>
+                    </td>
+
+                    <td>
+                        <i (click)="downloadCustomerDocument(filePath, indexedValue?.policyNumber+' Insurance Policy Document')"
+                           aria-hidden="true" class="fa fa-download"
+                           style="cursor: pointer"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</ng-template>
+
+<ng-template #showGuarantorModule>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{this.heading}} Documents</h4>
+        <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12">
+            <p><strong>Guarantor Documents</strong></p>
+            <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>S.N</th>
+                    <th>Guarantor</th>
+                    <th>Document</th>
+                    <th>Preview</th>
+                    <th>Download</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let filePath of indexedValue?.docPath.split(','); let index = index;">
+                <tr>
+                    <td>{{upperIndex + 1}}.{{index + 1}}</td>
+                    <td class="text-left pl-1">{{indexedValue?.name}}</td>
+                    <td>
+                        Net Worth Document - {{index + 1}}
+                    </td>
+                    <td>
+                        <i (click)="previewOfferLetterDocument(filePath,indexedValue?.name + 'Net Worth Doc')"
+                           class="fas fa-eye"></i></td>
+
+                    <td>
+                        <i (click)="downloadCustomerDocument(filePath, indexedValue?.name+' Net Worth Doc')"
+                           aria-hidden="true" class="fa fa-download"
+                           style="cursor: pointer"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</ng-template>

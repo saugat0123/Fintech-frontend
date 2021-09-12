@@ -188,6 +188,10 @@ export class GammaLoanSummaryComponent implements OnInit {
   summaryTypeName = SummaryType;
   companyInfo: any;
   loanSummary = 'loanSummary';
+  multiFilePath;
+  indexedValue;
+  heading;
+  upperIndex;
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -209,6 +213,7 @@ export class GammaLoanSummaryComponent implements OnInit {
       private fiscalYearService: FiscalYearService,
       private collateralSiteVisitService: CollateralSiteVisitService,
       private nbDialogService: NbDialogService,
+      private ngModalService: NgbModal,
   ) {
     this.client = environment.client;
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -727,6 +732,22 @@ export class GammaLoanSummaryComponent implements OnInit {
     } else {
       this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
     }
+  }
+
+  onClose() {
+    this.modalService.dismissAll();
+  }
+
+  openModel(template, data, index, heading) {
+    this.upperIndex = index;
+    this.heading = heading;
+    this.indexedValue = data[index];
+    if (heading === 'Insurance') {
+      this.multiFilePath = this.indexedValue.policyDocumentPath.split(',');
+    } else {
+      this.multiFilePath = this.indexedValue.docPath.split(',');
+    }
+    this.modalService.open(template,{ size: 'lg', backdrop: 'static', windowClass: 'width-xl' });
   }
 
 }
