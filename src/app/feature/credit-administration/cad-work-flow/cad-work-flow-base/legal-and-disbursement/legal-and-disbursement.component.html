@@ -19,9 +19,9 @@
     </nb-card-header>
     <nb-card-body>
         <div class="col-md-12"
-             *ngIf="isCad
+             *ngIf="isRM || (isCad
              && isInCurrentUser
-             && productUtils.CONFIGURE_LEGAL_DOCUMENT"
+             && productUtils.CONFIGURE_LEGAL_DOCUMENT)"
         >
             <div class="clearfix">
                 <div class="float-lg-right py-2">
@@ -35,7 +35,7 @@
         <div [class]="layoutFlag ? 'col-md-11 float-right':'col-md-12'">
 
 
-            <nb-tabset fullWidth *ngIf="cadOfferLetterApprovedDoc?.docStatus !== 'OFFER_PENDING' && !isRoleLegal">
+            <nb-tabset fullWidth *ngIf=" (isRM || !isRoleLegal)">
                 <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                     <app-cad-offerletter-profile *ngIf="cadOfferLetterApprovedDoc"
                                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
