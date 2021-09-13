@@ -17,6 +17,13 @@ import {CustomerService} from '../../../admin/service/customer.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CadReportComponent} from '../cad-report/cad-report.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NbDialogService} from '@nebular/theme';
+import {Customer} from '../../../admin/modal/customer';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 
 @Component({
   selector: 'app-filter',
@@ -38,9 +45,12 @@ export class FilterComponent implements OnInit {
   possessionRoleList: Array<Role>;
   branchAccessIsOwn = false;
   clientType = [];
-
+  customerInfoData = new CustomerInfoData();
+  cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
+  customerInfo = new Customer();
   constructor(private branchService: BranchService,
               private toastService: ToastService,
+              private nbDialogService: NbDialogService,
               private formBuilder: FormBuilder,
               private userService: UserService,
               private routerUtils: RouterUtilsService,
@@ -147,5 +157,21 @@ export class FilterComponent implements OnInit {
 
   openReport() {
     this.modalService.open(CadReportComponent, {size: 'xl'});
+  }
+
+  openOfferLetterConfigModal() {
+    this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
+      context: {
+        cadData: this.cadOfferLetterApprovedDoc,
+        customerInfo: this.customerInfoData,
+        customer: this.customerInfo,
+      }
+    }).onClose
+        .subscribe(value => {
+          if (!ObjectUtil.isEmpty(value)) {
+            this.customerInfoData = value;
+            console.log(value);
+          }
+        });
   }
 }
