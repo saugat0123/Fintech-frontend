@@ -133,7 +133,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.http.post('https://translation.googleapis.com/language/translate/v2?key=' + environment.GOOGLE_TRANSLATE_API_KEY, {
             'q': allValues,
             'target': 'ne'
-        }).subscribe(res => {
+        }).subscribe((res: any) => {
             res.data.translations.forEach((f, index) => {
                 this.translatedValues[allKeys[index]] = f.translatedText;
                 console.log(this.translatedValues);
