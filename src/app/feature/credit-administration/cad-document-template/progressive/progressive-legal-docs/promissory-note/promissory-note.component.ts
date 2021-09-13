@@ -70,7 +70,20 @@ export class PromissoryNoteComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
+        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        motherName: this.nepaliData.motherName ? this.nepaliData.motherName : '',
+        districtName: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        municipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        wadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        tempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        age: this.nepaliData.age ? this.nepaliData.age : '',
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        citizenShipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
       });
     }
   }

@@ -73,12 +73,12 @@
         </p>
       </div>
       <br>
-      <p class="text-center"><b>भवदीय,</b></p>
+      <p class="text-left"><b>भवदीय,</b></p>
       <div>
         <p>
-
+        <br><br>
           दस्तखत :-.................
-          <br>
+          <br><br>
           दस्तखत गर्नेको नाम :- <span [ngClass]="{'nepaliFont':printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
           {{printDocForm.sincerlyName===null || printDocForm.sincerlyName===''?'_______________' :printDocForm?.sincerlyName}}
         </span>
@@ -122,7 +122,7 @@
           {{printDocForm.sincerlyGrandParentName===null || printDocForm.sincerlyGrandParentName===''?'_______________' :printDocForm?.sincerlyGrandParentName}}
         </span>
         </p>
-        <p>औठा छाप
+        <p class="text-center"><b>औठा छाप</b>
         <div class="text-center">
           <table class="table  table-bordered fingerXap">
             <thead>
@@ -133,9 +133,9 @@
             </thead>
             <tbody>
             <tr>
-              <td><textarea cols="30" id="" name=""
+              <td><textarea cols="30" name=""
                             rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-              <td><textarea cols="30" id="" name=""
+              <td><textarea cols="30" name=""
                             rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
             </tr>
             </tbody>
@@ -145,11 +145,11 @@
       </div>
       <br>
       <div>
-        <div class="row page-break">
-        <b class="text-left">साक्षी :</b>
+        <div>
+        <b class="text-left">साक्षी :</b><br><br>
         <div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
           <div>
-            <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+            <br><p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
 
 
             <table border="1" width="100%" class="table-bordered table text-center">
@@ -182,7 +182,6 @@
           </div>
         </div>
 
-      <br>
         <br>
         <b>सनाखत साक्षी</b>
         <br>

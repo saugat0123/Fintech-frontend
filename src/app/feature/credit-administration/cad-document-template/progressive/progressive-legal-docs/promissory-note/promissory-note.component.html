@@ -26,7 +26,7 @@
                              type="text">
           जिल्ला<input class="form-field nepaliFont form-control-sm" formControlName="municipality"
                        type="text">
-          गा.पा./न.पा./म.न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm"
+          गा.पा./न.पा./म.न.पा. वडा नं.<input class="form-field nepaliFont form-control-sm"
                                             formControlName="wadNo" type="text">
           स्थायी ठेगानाभई
           हाल<input class="form-field nepaliFont form-control-sm"
@@ -68,12 +68,12 @@
         </p>
       </div>
       <br>
-      <p class="text-center"><b>भवदीय,</b></p>
+      <p class="text-left"><b>भवदीय,</b></p>
       <div>
         <p>
-
+          <br><br>
           दस्तखत :-..........
-          <br>
+          <br><br>
           दस्तखत गर्नेको नाम :- <input class="form-field nepaliFont form-control-sm"
                                        formControlName="sincerlyName"
                                        type="text">
@@ -118,7 +118,7 @@
           <br>
 
         </p>
-        <p>औठा छाप
+        <p class="text-center"><b>औठा छाप</b>
         <div class="text-center">
           <table class="table  table-bordered fingerXap">
             <thead>
@@ -139,7 +139,7 @@
       </div>
       <br>
       <b class="text-left">साक्षी :</b>
-      <br>
+      <br><br><br>
       <div class="col-md-12 float-right">
         <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
                 type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
@@ -149,7 +149,7 @@
         <div [formGroupName]="i">
 
           <div>
-            <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+            <br><p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
 
 
             <table class="table-bordered table text-center ">
