@@ -89,7 +89,6 @@
                 <td *ngFor="let amount of cashFlowStatementForm.get('increaseDecreaseInInventory')['controls']; let j = index"
                     formArrayName="increaseDecreaseInInventory" scope="col">
                     <div [formGroupName]="j" class="text-center">
-                        <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
                         <input formControlName="value" class="text-center" type="number"
                                style="border: none; outline: none; " value="0" readonly>
                     </div>
