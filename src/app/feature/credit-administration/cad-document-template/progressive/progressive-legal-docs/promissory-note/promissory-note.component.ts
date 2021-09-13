@@ -90,7 +90,7 @@ export class PromissoryNoteComponent implements OnInit {
         sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
         sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
         sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-        sincerlyPermanentWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
         sincerlyTemporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
         sincerlyTemporaryVDCname: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
         sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
