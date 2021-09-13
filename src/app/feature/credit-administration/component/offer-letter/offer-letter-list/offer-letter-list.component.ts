@@ -64,7 +64,8 @@ export class OfferLetterListComponent implements OnInit {
 
   ngOnInit() {
     this.userDetail();
-    if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+    // tslint:disable-next-line:max-line-length
+    if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN || LocalStorageUtil.getStorage().roleType === RoleType.CAD_SUPERVISOR) {
       this.setDefaultCADROLE();
     } else {
       OfferLetterListComponent.loadData(this);
@@ -122,6 +123,7 @@ export class OfferLetterListComponent implements OnInit {
       }
     }
   }
+
   sortFilter(sortBy, dir) {
     this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', sortBy: sortBy, sortOrder: dir});
     OfferLetterListComponent.loadData(this);

@@ -69,7 +69,8 @@ export class DisbursementPendingComponent implements OnInit {
 
   ngOnInit() {
     this.userDetail();
-    if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+    // tslint:disable-next-line:max-line-length
+    if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN || LocalStorageUtil.getStorage().roleType === RoleType.CAD_SUPERVISOR) {
       this.setDefaultCADROLE();
     } else {
       DisbursementPendingComponent.loadData(this);
