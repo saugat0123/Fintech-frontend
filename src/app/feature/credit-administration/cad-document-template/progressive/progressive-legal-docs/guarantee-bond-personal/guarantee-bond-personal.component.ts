@@ -165,7 +165,26 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       itiSambatMonth: [undefined],
       itiSambatDate: [undefined],
       itiSambatRojSubham: [undefined],
-      guarantorDetails: this.formBuilder.array([])
+      guarantorDetails: this.formBuilder.array([]),
+      locationName: [undefined],
+      sahiName: [undefined],
+      sthiName: [undefined],
+      namName: [undefined],
+      newName: [undefined],
+      sriName: [undefined],
+      sriiName: [undefined],
+      parName: [undefined],
+      husName: [undefined],
+      saSura: [undefined],
+      districtName: [undefined],
+      municipalityName: [undefined],
+      wadNoName: [undefined],
+      tempDistrictName: [undefined],
+      buttonDateName: [undefined],
+      buttonCdoOfficeName: [undefined],
+      buttonCitizenshipNoName: [undefined],
+      buttonAgeName: [undefined],
+      sirName: [undefined]
     });
   }
 
