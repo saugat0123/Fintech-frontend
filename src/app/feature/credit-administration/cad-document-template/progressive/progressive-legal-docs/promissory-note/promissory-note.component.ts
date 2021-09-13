@@ -84,6 +84,18 @@ export class PromissoryNoteComponent implements OnInit {
         citizenShipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
         date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
         cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        sincerlyPermanentWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        sincerlyTemporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        sincerlyTemporaryVDCname: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
       });
     }
   }
