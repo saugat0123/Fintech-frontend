@@ -59,6 +59,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log("is remit loan", this.isRemitLoan);
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
@@ -143,7 +144,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'APPROVED',
                     docActionMsg: 'Approved',
-                    documentStatus: DocStatus.APPROVED
+                    documentStatus: DocStatus.APPROVED,
+                    isRemitLoan: this.isRemitLoan
                 };
                 break;
             case 'reject':

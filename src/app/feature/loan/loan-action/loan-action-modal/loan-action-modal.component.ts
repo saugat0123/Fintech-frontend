@@ -29,6 +29,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 export class LoanActionModalComponent implements OnInit {
 
     @Input() beneficiaryId: any;
+    @Input() isRemitLoan: any;
     @Input() loanConfigId: number;
     @Input() customerLoanId: number;
     @Input() docAction: string;
@@ -73,6 +74,8 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('loan config id', this.loanConfigId);
+        console.log('is remit loan in modal', this.isRemitLoan);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
@@ -119,7 +122,11 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
+        console.log('beneficiary id', this.beneficiaryId);
+        console.log('on submit', this.loanConfigId);
+
         let docAction = this.formAction.value.docAction;
+        console.log('doc action', docAction);
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
@@ -146,7 +153,7 @@ export class LoanActionModalComponent implements OnInit {
             if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
                 let beneficiaryObj = {
                     "beneficiaryId": this.beneficiaryId,
-                    "status": "Rejected",
+                    "status": docAction,
                     "remarks": this.formAction.value.comment
                 };
                 this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
@@ -157,6 +164,21 @@ export class LoanActionModalComponent implements OnInit {
                 }, error => {
                     console.log(error);
                 });
+            } else if (this.isRemitLoan && docAction === 'APPROVED') {
+                let beneficiaryObj = {
+                    "beneficiaryId": this.beneficiaryId,
+                    "status": docAction,
+                    "remarks": this.formAction.value.comment
+                }
+                this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                    if (verified === true) {
+                        this.postAction();
+                        this.nbDialogRef.close();
+                    }
+                }, error => {
+                    console.log(error);
+                });
+
             } else {
                 if (verified === true) {
                     this.postAction();
