@@ -23,6 +23,7 @@
                                 </p>
                                 <p>
                                     <input class="form-field form-control-sm nepaliFont col-3"
+                                           style="font-size: 18px;"
                                            formControlName="customerAddress"
                                            type="text"/>
                                 </p>
@@ -79,10 +80,10 @@
                                             रकमः
                                         </td>
                                         <td>
-                                            रु <input class="form-field form-control-sm nepaliFont"
+                                            रु <input class="form-field form-control-sm nepaliFont uniSize read-only-section"
                                                       formControlName="loanAmount" type="text"
                                                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords')"/>/-
-                                            (अक्षरेपि रु. <input class="form-field form-control-sm nepaliFont col-3 uniSize"
+                                            (अक्षरेपि रु. <input class="form-field form-control-sm nepaliFont col-3 uniSize read-only-section"
                                                                  [value]="hayarPurchase.get('loanAmountWords').value"
                                                                  type="text"/> मात्र
                                             ।)
@@ -107,12 +108,15 @@
                                         <td>
                                             प्रकाशित आधार दर (Base Rate) <input
                                                 class="form-field form-control-sm nepaliFont smallInput "
-                                                formControlName="baseRate" type="text"/> प्रतिशत
+                                                formControlName="baseRate" type="text"
+                                                (input)="calculateData('baseRate', 'premiumRate')"/> प्रतिशत
+                                            +
                                             <input class="form-field form-control-sm nepaliFont smallInput"
-                                                   formControlName="preimumRate" type="text"/>
+                                                   formControlName="premiumRate" type="text"
+                                                   (input)="calculateData('baseRate', 'premiumRate')"/>
                                             प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium)
                                             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-                                            <input class="form-field form-control-sm nepaliFont smallInput"
+                                            <input class="form-field form-control-sm nepaliFont smallInput uniSize"
                                                    formControlName="floatingRate" type="text"/>
                                             % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
                                         </td>
@@ -293,10 +297,10 @@
                                                    [value]="hayarPurchase.get('customerName').value"
                                                    type="text"/>
                                             ले बैकको पक्षमा रु.
-                                            <input class="form-field form-control-sm nepaliFont"
+                                            <input class="form-field form-control-sm nepaliFont uniSize read-only-section"
                                                    [value]="hayarPurchase.get('loanAmount').value" type="text"/> /-
                                             (अक्षरेपि रु.
-                                            <input class="form-field form-control-sm nepaliFont col-3 uniSize"
+                                            <input class="form-field form-control-sm nepaliFont col-3 uniSize read-only-section"
                                                    [value]="hayarPurchase.get('loanAmountWords').value"
                                                    type="text"/> ।) बराबरको व्यक्तिगत
                                             जमानत पत्र दिनु पर्नेछ ।
@@ -357,7 +361,7 @@
                                             ३.
                                         </td>
                                         <td>
-                                            बैंकको आधार दर (Base Rate मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
+                                            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
                                             लाग्ने ब्याज दर बैंकको
                                             आधिकारिक वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                                             चैत्र मसान्तको प्रकाशन गरीने आधार
@@ -510,11 +514,11 @@
                                                    formControlName="dealerName"
                                                    type="text"/>
                                             अथवा यसको प्रतिनिधिलाई रु. <input
-                                                class="form-field form-control-sm nepaliFont"
+                                                class="form-field form-control-sm nepaliFont uniSize read-only-section"
                                                 [value]="hayarPurchase.get('loanAmount').value"
                                                 type="text"/> /-
                                             (अक्षरेपि रु.
-                                            <input class="form-field form-control-sm nepaliFont col-3 uniSize"
+                                            <input class="form-field form-control-sm nepaliFont col-3 uniSize read-only-section"
                                                    [value]="hayarPurchase.get('loanAmountWords').value"
                                                    type="text"/> मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण
                                             गरी भुक्तानी गरिनेछ ।
@@ -1039,12 +1043,27 @@
                                     साक्षीः
                                 </p>
                                 <p>
-                                    १. ........................... जिल्ला ............... गा.वि.स/न.पा, वडा नंं.
-                                    ........... बस्ने श्री ..............................
+                                    १. <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="witnessDistrict"
+                                              type="text"/>
+                                    जिल्ला
+                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                           formControlName="witnessMunicipality"
+                                           type="text"/>
+                                    गा.वि.स/न.पा, वडा नंं.
+                                    <input class="form-field form-control-sm nepaliFont smallInput"
+                                           formControlName="witnessWardNo"
+                                           type="text"/> बस्ने श्री
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="witnessName"
+                                           type="text"/>
                                 </p>
                                 <p>
                                     २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक
-                                    लि. का कर्मचारी श्री ................................
+                                    लि. का कर्मचारी श्री
+                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                           formControlName="approvalStaffName"
+                                           type="text"/>
                                 </p>
                             </div>
                         </div>

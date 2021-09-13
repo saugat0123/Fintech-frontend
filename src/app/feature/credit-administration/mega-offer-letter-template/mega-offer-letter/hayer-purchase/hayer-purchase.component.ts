@@ -52,11 +52,10 @@ export class HayerPurchaseComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.checkOfferLetterData();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-            this.setLoanConfigData(this.loanHolderInfo);
         }
+        this.checkOfferLetterData();
     }
 
     buildForm() {
@@ -70,7 +69,7 @@ export class HayerPurchaseComponent implements OnInit {
             loanAmountWords: [undefined],
             drawingPower: [undefined],
             baseRate: [undefined],
-            preimumRate: [undefined],
+            premiumRate: [undefined],
             floatingRate: [undefined],
             serviceCharge: [undefined],
             serviceChargeWords: [undefined],
@@ -95,9 +94,11 @@ export class HayerPurchaseComponent implements OnInit {
             pledgeAmount: [undefined],
             guaranteeAmount: [undefined],
             signatureDate: [undefined],
-
-            // hayarPurchaseLoanArray: this.formBuilder.array([this.buildHayarPurchaseArrayForm()]),
-            // riskCoverageArray: this.formBuilder.array([this.buildRiskCoverageArrayForm()]),
+            witnessDistrict: [undefined],
+            witnessMunicipality: [undefined],
+            witnessWardNo: [undefined],
+            witnessName: [undefined],
+            approvalStaffName: [undefined],
         });
     }
 
@@ -114,6 +115,10 @@ export class HayerPurchaseComponent implements OnInit {
             } else {
                 this.hayerPurchaseLetter = new OfferDocument();
                 this.hayerPurchaseLetter.docName = this.offerLetterConst.value(this.offerLetterConst.HIRE_PURCHASE);
+            }
+        } else {
+            if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+                this.setLoanConfigData(this.loanHolderInfo);
             }
         }
     }
@@ -159,16 +164,34 @@ export class HayerPurchaseComponent implements OnInit {
 
     setLoanConfigData(data) {
         console.log(data);
+        let cadNepData = {
+            numberNepali: ')',
+            nepaliWords: 'सुन्य',
+        };
         const customerAddress =
-            data.permanentMunicipality + ' j8f g ' +
+            data.permanentMunicipality + ' , ' +
             data.permanentWard + ' , ' +
-            ' k|b]z ' + data.permanentProvince + ',' +
+            data.permanentProvince + ' , ' +
             data.permanentDistrict;
+
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
 
         this.hayarPurchase.patchValue({
             customerName: data.name ? data.name : '',
             customerAddress: customerAddress ? customerAddress : '',
+            loanAmount: cadNepData.numberNepali,
+            loanAmountWords: cadNepData.nepaliWords,
         });
+    }
+
+    calculateData(baseRateName, premiumRateName) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.hayarPurchase.get(baseRateName).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.hayarPurchase.get(premiumRateName).value);
+        const calculatedValue = parseFloat(baseRate) + parseFloat(premiumRate);
+        const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
+        this.hayarPurchase.get('floatingRate').patchValue(finalVal);
     }
 }
 

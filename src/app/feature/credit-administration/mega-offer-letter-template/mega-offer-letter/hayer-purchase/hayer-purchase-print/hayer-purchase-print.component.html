@@ -1,15 +1,4 @@
 <div id="{{offerLetterConst.HIRE_PURCHASE}}Print">
-<!--  <div class="logo-container">-->
-<!--    <div>-->
-<!--      <img height="60px" src="../../../../../assets/img/logo.png">-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="row">-->
-<!--    <div class="divFooter text-center">-->
-<!--      <p class="">______________________________</p>-->
-<!--      <p class="nepaliFont"> ऋणकर्जा सुविधा स्वीकृति पत्र </p>-->
-<!--    </div>-->
-<!--  </div>-->
   <div class="nep">
     <div class="row">
       <div class="col-md-12">
@@ -17,13 +6,21 @@
       </div>
       <div class="col-md-12 mt-4" style="line-height: 1.5;">
         <p>
-          मितिः <span class="nepaliFont font-weight-bold">{{loan?.dateOfGeneration}}</span>
+          मितिः
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.dateOfGeneration !== null && loan?.dateOfGeneration !== ''}">
+            {{loan?.dateOfGeneration === null || loan?.dateOfGeneration === '' ? '___________________' : loan?.dateOfGeneration}}
+          </span>
         </p>
         <p>
-          श्रीमान/श्रीमती: <span class="nepaliFont font-weight-bold">{{loan?.customerName}}</span>
+          श्रीमान/श्रीमती:
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.customerName !== null && loan?.customerName !== ''}">
+            {{loan?.customerName === null || loan?.customerName === '' ? '_______________________' : loan?.customerName }}
+          </span>
         </p>
         <p>
-          <span class="nepaliFont font-weight-bold">{{loan?.customerAddress}}</span>
+          <span [ngClass]="{'nepaliFont font-weight-bold medSize' : loan?.customerAddress !== null && loan?.customerAddress !== ''}">
+            {{loan?.customerAddress === null || loan?.customerAddress === '' ? '_________________________': loan?.customerAddress}}
+          </span>
         </p>
       </div>
       <div class="col-md-12 mt-3">
@@ -38,7 +35,10 @@
           महोदय,
         </p>
         <p>
-          तपाईंले मिति सन् <span class="nepaliFont font-weight-bold">{{loan?.applicationDateInAd}}</span>
+          तपाईंले मिति सन्
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.applicationDateInAD !== null && loan?.applicationDateInAD !== ''}">
+            {{loan?.applicationDateInAd === null || loan?.applicationDateInAd === '' ? '_________________' : loan?.applicationDateInAd}}
+          </span>
           मा सवारी साधन कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस
           बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
           स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="col-md-12">
-      <table class="table table-bordered">
+      <table class="table table-bordered first-table">
         <thead>
         <tr class="text-center">
           <td colspan="3">
@@ -56,7 +56,7 @@
         </thead>
         <tbody>
         <tr>
-          <td rowspan="9">
+          <td rowspan="8">
             १.
           </td>
         </tr>
@@ -66,7 +66,9 @@
           </td>
           <td>
             सवारी साधन कर्जाः
-            <span class="nepaliFont font-weight-bold">{{loan?.vehicleDescription}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.vehicleDescription !== null && loan?.vehicleDescription !== ''}">
+              {{loan?.vehicleDescription === null || loan?.vehicleDescription === '' ? '__________________________' : loan?.vehicleDescription}}
+            </span>
             नामको सवारी साधन एक थान व्यवसायिक प्रयोजनका लािग खरिद गर्ने प्रयोजनको
             निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
           </td>
@@ -76,8 +78,13 @@
             रकमः
           </td>
           <td>
-            रु <span class="nepaliFont font-weight-bold">{{loan?.loanAmount}}</span>/-
-            (अक्षरेपि रु. <span class="nepaliFont font-weight-bold uniSize">{{loan?.loanAmountWords}}</span>मात्र
+            रु <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.loanAmount !== null && loan?.loanAmount !== ''}">
+            {{loan?.loanAmount === null || loan?.loanAmount === '' ? '_______________________' : loan?.loanAmount}}
+          </span>/-
+            (अक्षरेपि रु.
+            <span  [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.loanAmountWords !== null && loan?.loanAmountWords !== ''}">
+              {{loan?.loanAmountWords === null || loan?.loanAmountWords === '' ? '__________________________________' : loan?.loanAmountWords}}
+            </span>मात्र
             ।)
           </td>
         </tr>
@@ -87,7 +94,9 @@
           </td>
           <td>
             सवारी साधनको भ्याट बिल (VAT Bill) मुल्यको
-            <span class="nepaliFont font-weight-bold">{{loan?.drawingPower}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.drawingPower !== null && loan?.drawingPower !== ''}">
+              {{loan?.drawingPower === null || loan?.drawingPower === '' ? '___________' : loan?.drawingPower}}
+            </span>
             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
             गर्न सकिनेछ ।
           </td>
@@ -97,11 +106,19 @@
             ब्याज दरः
           </td>
           <td>
-            प्रकाशित आधार दर (Base Rate) <span class="nepaliFont font-weight-bold">{{loan?.baseRate}}</span> प्रतिशत
-            <span class="nepaliFont font-weight-bold">{{loan?.premiumRate}}</span>
+            प्रकाशित आधार दर (Base Rate)
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.baseRate !== null && loan?.baseRate !== ''}">
+              {{loan?.baseRate === null || loan?.baseRate === '' ? '___________' : loan?.baseRate}}
+            </span> प्रतिशत
+            +
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.premiumRate !== null && loan?.premiumRate !== ''}">
+              {{loan?.premiumRate === null || loan?.premiumRate === '' ? '___________' : loan?.premiumRate}}
+            </span>
             प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium)
             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
-            <span class="nepaliFont font-weight-bold">{{loan?.floatingRate}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.floatingRate !== null && loan?.floatingRate !== ''}">
+              {{loan?.floatingRate === null || loan?.floatingRate === '' ? '___________' : loan?.floatingRate}}
+            </span>
             % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
           </td>
         </tr>
@@ -113,9 +130,13 @@
             <ul>
               <li>
                 ऋण प्रशासनिक शुल्क बापत रु
-                <span class="nepaliFont font-weight-bold">{{loan?.serviceCharge}}</span>/-
+                <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.serviceCharge !== null && loan?.serviceCharge !== ''}">
+                  {{loan?.serviceCharge === null || loan?.serviceCharge === '' ? '___________________' : loan?.serviceCharge}}
+                </span>/-
                 (अक्षरेपि रु
-                <span class="nepaliFont font-weight-bold uniSize">{{loan?.serviceChargeWords}}</span>
+                <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.serviceChargeWords !== null && loan?.serviceChargeWords !== ''}">
+                  {{loan?.serviceChargeWords === null || loan?.serviceChargeWords === '' ? '_____________________________' : loan?.serviceChargeWords}}
+                </span>
                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
               </li>
               <li>
@@ -130,7 +151,9 @@
               <li>
                 तपाई ऋणी तथा तपाई सञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना
                 प्रदान गरे बापत प्रति सूचना रु
-                <span class="nepaliFont font-weight-bold">{{loan?.communicationFee}}</span> /-
+                <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.communicationFee !== null && loan?.communicationFee !== ''}">
+                  {{loan?.communicationFee === null || loan?.communicationFee === '' ? '______________________' : loan?.communicationFee}}
+                </span> /-
                 शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ
                 ।
               </li>
@@ -151,11 +174,17 @@
           <td>
             <p>
               साञवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
-              <span class="nepaliFont font-weight-bold">{{loan?.emiAmount}}</span> /-
+              <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.emiAmount !== null && loan?.emiAmount !== ''}">
+                {{loan?.emiAmount === null || loan?.emiAmount === '' ? '___________________' : loan?.emiAmount}}
+              </span> /-
               (अक्षरेपि रु.
-              <span class="nepaliFont font-weight-bold uniSize">{{loan?.emiAmountWords}}</span>
+              <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.emiAmountWords !== null && loan?.emiAmountWords !== ''}">
+                {{loan?.emiAmountWords === null || loan?.emiAmountWords === '' ? '__________________' : loan?.emiAmountWords}}
+              </span>
               मात्र) का दरले
-              <span class="nepaliFont font-weight-bold">{{loan?.numberOfEmi}}</span> सम मासिक किस्ता
+              <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.numberOfEmi !== null && loan?.numberOfEmi !== ''}">
+                {{loan?.numberOfEmi === null || loan?.numberOfEmi === '' ? '______________' : loan?.numberOfEmi}}
+              </span> सम मासिक किस्ता
               (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु
               पर्नेछ ।
             </p>
@@ -177,11 +206,14 @@
           <td>
             स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग
             नभएको कर्जा सिमामा
-            <span class="nepaliFont font-weight-bold">{{loan?.loanCommitmentFee}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.loanCommitmentFee !== null && loan?.loanCommitmentFee !== ''}">
+              {{loan?.loanCommitmentFee === null || loan?.loanCommitmentFee === '' ? '_________________': loan?.loanCommitmentFee}}
+            </span>
             प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
           </td>
         </tr>
         <tr>
+          <td></td>
           <td class="font-weight-bold">
             ग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः
           </td>
@@ -267,11 +299,17 @@
             </td>
             <td>
               श्री
-              <span class="nepaliFont font-weight-bold">{{loan?.customerName}}</span>
+              <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.customerName !== null && loan?.customerName !== ''}">
+                {{loan?.customerName === null || loan?.customerName === '' ? '_______________________' : loan?.customerName}}
+              </span>
               ले बैकको पक्षमा रु.
-              <span class="nepaliFont font-weight-bold">{{loan?.loanAmount}}</span>/-
+              <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.loanAmount !== null && loan?.loanAmount !== ''}">
+                {{loan?.loanAmount === null || loan?.loanAmount === '' ? '_____________________': loan?.loanAmount}}
+              </span>/-
               (अक्षरेपि रु.
-              <span class="nepaliFont font-weight-bold uniSize">{{loan?.loanAmountWords}}</span> ।) बराबरको व्यक्तिगत
+              <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.loanAmountWords !== null && loan?.loanAmountWords !== ''}">
+                {{loan?.loanAmountWords === null || loan?.loanAmountWords === '' ? '_________________': loan?.loanAmountWords}}
+              </span> ।) बराबरको व्यक्तिगत
               जमानत पत्र दिनु पर्नेछ ।
             </td>
           </tr>
@@ -283,16 +321,24 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>
-                    धनीः <span class="nepaliFont font-weight-bold">{{loan?.ownersName}}</span>
+                    धनीः <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.ownersName !== null && loan?.ownersName !== ''}">
+                    {{loan?.ownersName === null || loan?.ownersName === '' ? '________________________' : loan?.ownersName}}
+                  </span>
                   </p>
                   <p>
-                    स्थानः <span class="nepaliFont font-weight-bold">{{loan?.ownersProperty}}</span>
+                    स्थानः <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.ownersProperty !== null && loan?.ownersProperty !== ''}">
+                    {{loan?.ownersProperty === null || loan?.ownersProperty === '' ? '_____________________': loan?.ownersProperty}}
+                  </span>
                   </p>
                   <p>
-                    कित्ता नंः <span class="nepaliFont font-weight-bold">{{loan?.propertyPlotNumber}}</span>
+                    कित्ता नंः <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.propertyPlotNumber !== null && loan?.propertyPlotNumber !== ''}">
+                    {{loan?.propertyPlotNumber === null || loan?.propertyPlotNumber === '' ? '____________________': loan?.propertyPlotNumber}}
+                  </span>
                   </p>
                   <p>
-                    क्षेत्रफलः <span class="nepaliFont font-weight-bold">{{loan?.propertyArea}}</span>
+                    क्षेत्रफलः <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.propertyArea !== null && loan?.propertyArea !== ''}">
+                    {{loan?.propertyArea === null || loan?.propertyArea === '' ? '____________________' : loan?.propertyArea}}
+                  </span>
                   </p>
                 </div>
               </div>
@@ -324,7 +370,7 @@
             ३.
           </td>
           <td>
-            बैंकको आधार दर (Base Rate मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
+            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
             लाग्ने ब्याज दर बैंकको
             आधिकारिक वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
             चैत्र मसान्तको प्रकाशन गरीने आधार
@@ -474,13 +520,22 @@
             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
             तपाईंको आवश्यकत्ता र निवेदन बमोजिम सवारी
             साधन कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
-            <span class="nepaliFont font-weight-bold">{{loan?.branchName}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.branchName !== null && loan?.branchName !== ''}">
+              {{loan?.branchName === null || loan?.branchName === '' ? '____________________': loan?.branchName}}
+            </span>
             शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह
             गरिनेछ र <b>तपाईंले निर्देश गरे बमोजिम</b> आधिकारीक विक्रेता
-            <span class="nepaliFont font-weight-bold">{{loan?.dealerName}}</span>
-            अथवा यसको प्रतिनिधिलाई रु. <span class="nepaliFont font-weight-bold">{{loan?.loanAmount}}</span> /-
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.dealerName !== null && loan?.dealerName !== ''}">
+              {{loan?.dealerName === null || loan?.dealerName === '' ? '________________________' : loan?.dealerName}}
+            </span>
+            अथवा यसको प्रतिनिधिलाई रु.
+            <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.loanAmount !== null && loan?.loanAmount !== ''}">
+              {{loan?.loanAmount === null || loan?.loanAmount === '' ? '_________________________': loan?.loanAmount}}
+            </span> /-
             (अक्षरेपि रु.
-            <span class="nepaliFont font-weight-bold uniSize">{{loan?.loanAmountWords}}</span> मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण
+            <span [ngClass]="{'nepaliFont font-weight-bold uniSize' : loan?.loanAmountWords !== null && loan?.loanAmountWords !== ''}">
+              {{loan?.loanAmountWords === null || loan?.loanAmountWords === '' ? '_________________________________' : loan?.loanAmountWords}}
+            </span> मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण
             गरी भुक्तानी गरिनेछ ।
           </td>
         </tr>
@@ -580,7 +635,9 @@
               <br>
               माथि उल्लिखित सञावा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका
               अतिरिक्त प्रत्येक सञावा/किस्ता तथा व्याज विलम्बमा रु
-              <span class="nepaliFont font-weight-bold">{{loan?.lateFee}}</span> /- ( का दरले थप विलम्ब शुल्क लाग्नेछ ।
+              <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.lateFee !== null && loan?.lateFee !== ''}">
+                {{loan?.lateFee === null || loan?.lateFee === '' ? '___________________': loan?.lateFee}}
+              </span> /- ( का दरले थप विलम्ब शुल्क लाग्नेछ ।
             </p>
             <p>
               <b>
@@ -765,9 +822,13 @@
             परिवर्तन वा संशोधन भएमा प्रत्येक परिवर्तन वा संसोधनका लागि रु. एक करोड
             सम्मको कर्जाका लागि
             रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.changeFeeBelow1Cr}}</span> /- र एक करोड भन्दा माथिको कर्जाका लागि
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.changeFeeBelow1Cr !== null && loan?.changeFeeBelow1Cr !== ''}">
+              {{loan?.changeFeeBelow1Cr === null || loan?.changeFeeBelow1Cr === '' ? '_____________________' : loan?.changeFeeBelow1Cr}}
+            </span> /- र एक करोड भन्दा माथिको कर्जाका लागि
             रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.changeFeeAbove1Cr}}</span> /- परिवर्तन/संशोधन शुल्क लाग्नेछ ।
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.changeFeeAbove1Cr !== null && loan?.changeFeeAbove1Cr !== ''}">
+              {{loan?.changeFeeAbove1Cr === null || loan?.changeFeeAbove1Cr === '' ? '___________________' : loan?.changeFeeAbove1Cr}}
+            </span> /- परिवर्तन/संशोधन शुल्क लाग्नेछ ।
           </td>
         </tr>
         <tr>
@@ -778,12 +839,16 @@
             ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोबन्धक लेखीदिएको
             घर/जग्गाहरु फुकुवा गर्दाको बखत फुकुवा
             बापत प्रति धितोबन्धक तमसुक/सवारी साधन रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.CollateralReleaseFee}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.CollateralReleaseFee !== null && loan?.CollateralReleaseFee !== ''}">
+              {{loan?.CollateralReleaseFee === null || loan?.CollateralReleaseFee === '' ? '______________________' : loan?.CollateralReleaseFee}}
+            </span>
             /- का दरले धितो फुकुवा शुल्क लाग्नेछ ।
             साथै बैंकको पक्षमा धितोबन्धक लेखिदिएको घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र
             निश्चित समयको लागि माग गरी फिर्ता लैजादा प्रति पटक
             रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.documentAccessFee}}</span> /- का दरले शुल्क लाग्नेछ ।
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.documentAccessFee !== null && loan?.documentAccessFee !== ''}">
+              {{loan?.documentAccessFee === null || loan?.documentAccessFee === '' ? '_________________________' : loan?.documentAccessFee}}
+            </span> /- का दरले शुल्क लाग्नेछ ।
           </td>
         </tr>
         <tr>
@@ -824,16 +889,22 @@
             सम्पादन गर्नु पर्नेछ ।
             <br>
             क. रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.promissoryNoteAmount}}</span> /- को प्रतिज्ञा पत्र ।
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.promissoryNoteAmount !== null && loan?.promissoryNoteAmount !== ''}">
+              {{loan?.promissoryNoteAmount === null || loan?.promissoryNoteAmount === '' ? '_________________' : loan?.promissoryNoteAmount}}
+            </span> /- को प्रतिज्ञा पत्र ।
             <br>
             ख. निरन्तरताको लिखत ।
             <br>
             ग. रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.loanDeedAmount}}</span> /-
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.loanDeedAmount !== null && loan?.loanDeedAmount !== ''}">
+              {{loan?.loanDeedAmount === null || loan?.loanDeedAmount === '' ? '__________________' : loan?.loanDeedAmount}}
+            </span> /-
             को ऋणकर्जा तमसुक ।
             <br>
             ह्. रु
-            <span class="nepaliFont font-weight-bold">{{loan?.pledgeAmount}}</span>
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.pledgeAmount !== null && loan?.pledgeAmount !== ''}">
+              {{loan?.pledgeAmount === null || loan?.pledgeAmount === '' ? '________________' : loan?.pledgeAmount}}
+            </span>
             को धितो बन्धक तमुुसुक ।
             <br>
             च. हायर पर्चेज सम्झौता ।
@@ -847,9 +918,13 @@
             लागि ऋणीको मञ्जुरीनामा ।
             <br>
             ञ. रु.
-            <span class="nepaliFont font-weight-bold">{{loan?.guaranteeAmount}}</span> /-
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.guaranteeAmount !== null && loan?.guaranteeAmount !== ''}">
+              {{loan?.guaranteeAmount === null || loan?.guaranteeAmount === '' ? '_________________' : loan?.guaranteeAmount}}
+            </span> /-
             र को श्री
-            <span class="nepaliFont font-weight-bold">{{loan?.customerName}}</span> र को व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
+            <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.customerName !== null && loan?.customerName !== ''}">
+              {{loan?.customerName === null || loan?.customerName === '' ? '__________________' : loan?.customerName}}
+            </span> र को व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
             <br>
             ट. बहुबैंकिङ घोषणा पत्र ।
 
@@ -974,7 +1049,10 @@
                 </p>
               </div>
               <div>
-                मितिः <span class="nepaliFont font-weight-bold">{{loan?.signatureDate}}</span>
+                मितिः
+                <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.signatureDate !== null && loan?.signatureDate !== ''}">
+                  {{loan?.signatureDate === null || loan?.signatureDate === '' ? '___________________' : loan?.signatureDate}}
+                </span>
               </div>
             </div>
           </td>
@@ -987,12 +1065,25 @@
           साक्षीः
         </p>
         <p>
-          १. ........................... जिल्ला ............... गा.वि.स/न.पा, वडा नंं.
-          ........... बस्ने श्री ..............................
+          १.
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.witnessDistrict !== null && loan?.witnessDistrict !== ''}">
+            {{loan?.witnessDistrict === null || loan?.witnessDistrict === '' ? '________________' : loan?.witnessDistrict}}</span> जिल्ला
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.witnessMunicipality !== null && loan?.witnessMunicipality !== ''}">
+            {{loan?.witnessMunicipality === null || loan?.witnessMunicipality === '' ? '__________________' : loan?.witnessMunicipality}}
+          </span> गा.वि.स/न.पा, वडा नंं.
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.witnessWardNo !== null && loan?.witnessWardNo !== ''}">
+            {{loan?.witnessWardNo === null || loan?.witnessWardNo === '' ? '___________': loan?.witnessWardNo}}
+          </span> बस्ने श्री
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.witnessName !== null && loan?.witnessName !== ''}">
+            {{loan?.witnessName === null || loan?.witnessName ===  ''? '___________________' : loan?.witnessName}}
+          </span>
         </p>
         <p>
           २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक
-          लि. का कर्मचारी श्री ................................
+          लि. का कर्मचारी श्री
+          <span [ngClass]="{'nepaliFont font-weight-bold' : loan?.approvalStaffName !== null && loan?.approvalStaffName !== ''}">
+            {{loan?.approvalStaffName === null || loan?.approvalStaffName === '' ? '______________' : loan?.approvalStaffName}}
+          </span>
         </p>
       </div>
     </div>
