@@ -15,6 +15,8 @@ import {RelationshipNepali} from '../../../loan/model/relationshipListNepali';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -35,6 +37,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
+    translatedValues = {};
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -42,7 +45,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private toastService: ToastService,
                 private engToNepNumber: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
-                protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
+                protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
+                private http: HttpClient) {
     }
 
     get configForm() {
@@ -115,6 +119,29 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
         return false;
     }
+
+    async translate() {
+        // console.log(Object.entries(this.userConfigForm.value));
+        const allValues = [];
+        const allKeys = [];
+        for (const d of Object.entries(this.userConfigForm.controls)) {
+            if (d[1].value !== null) {
+                allKeys.push(d[0]);
+                allValues.push(d[1].value.toString());
+            }
+        }
+        this.http.post('https://translation.googleapis.com/language/translate/v2?key=' + environment.GOOGLE_TRANSLATE_API_KEY, {
+            'q': allValues,
+            'target': 'ne'
+        }).subscribe(res => {
+            console.log(res);
+            res.data.translations.forEach((f, index) => {
+                this.translatedValues[allKeys[index]] = f.translatedText;
+                console.log(this.translatedValues);
+            });
+        });
+    }
+
 
     save() {
         this.submitted = true;
@@ -200,6 +227,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             }));
         });
     }
+
     refreshPage() {
         window.location.reload();
     }
