@@ -59,6 +59,7 @@ export class PendingsLoanComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     nbTrigger = NbTrigger;
     userRoleType;
+    sortedLoanType = [];
 
     constructor(
         private service: DmsLoanService,
@@ -92,6 +93,7 @@ export class PendingsLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sortFn();
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
         this.buildFilterForm();
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
@@ -191,18 +193,28 @@ export class PendingsLoanComponent implements OnInit {
     }
 
     docStatusForMaker() {
+        const sortedDocList = [];
         DocStatus.values().forEach((value) => {
             if (value === DocStatus.value(DocStatus.DISCUSSION) ||
                 value === DocStatus.value(DocStatus.DOCUMENTATION) ||
                 value === DocStatus.value(DocStatus.VALUATION) ||
                 value === DocStatus.value(DocStatus.INITIAL) ||
                 value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
-                this.docStatusMakerList.push(value);
+                sortedDocList.push(value);
             }
         });
+        this.docStatusMakerList = sortedDocList.sort();
     }
 
     configureRole(loanId: number) {
         this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+    }
+
+    private sortFn(): void {
+        const loanTypeArray = [];
+        for (const value of LoanType.values()) {
+            loanTypeArray.push(LoanType[value]);
+        }
+        this.sortedLoanType = loanTypeArray.sort();
     }
 }

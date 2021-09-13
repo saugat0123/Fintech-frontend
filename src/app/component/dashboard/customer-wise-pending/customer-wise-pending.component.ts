@@ -80,6 +80,8 @@ export class CustomerWisePendingComponent implements OnInit {
     model = new LoanDataHolder();
     displayCombineLoanList = [];
     loanHolderLoanListTemp: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
+    sortedLoanType = [];
+    loanTagList = [];
 
     constructor(
         private service: DmsLoanService,
@@ -122,6 +124,7 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sortFn();
         this.getClientType();
         this.getSubSector();
         this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
@@ -168,7 +171,7 @@ export class CustomerWisePendingComponent implements OnInit {
 
     getClientType() {
         this.customerService.clientType().subscribe((res: any) => {
-                this.clientType = res.detail;
+                this.clientType = res.detail.sort();
             }
             , error => {
                 console.error(error);
@@ -263,15 +266,17 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     docStatusForMaker() {
+        const sortedDocList = [];
         DocStatus.values().forEach((value) => {
             if (value === DocStatus.value(DocStatus.DISCUSSION) ||
                 value === DocStatus.value(DocStatus.DOCUMENTATION) ||
                 value === DocStatus.value(DocStatus.VALUATION) ||
                 value === DocStatus.value(DocStatus.INITIAL) ||
                 value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
-                this.docStatusMakerList.push(value);
+                sortedDocList.push(value);
             }
         });
+        this.docStatusMakerList = sortedDocList.sort();
     }
 
     public getLoansData(datas) {
@@ -355,6 +360,20 @@ export class CustomerWisePendingComponent implements OnInit {
                 customerId: customerLoan
             }
         });
+    }
+
+    private sortFn(): void {
+        const loanTagArray = [];
+        LoanTag.values().forEach((value) => {
+            loanTagArray.push(value);
+        });
+        this.loanTagList = loanTagArray.sort();
+
+        const loanTypeArray = [];
+        for (const value of LoanType.values()) {
+            loanTypeArray.push(LoanType[value]);
+        }
+        this.sortedLoanType = loanTypeArray.sort();
     }
 
 }

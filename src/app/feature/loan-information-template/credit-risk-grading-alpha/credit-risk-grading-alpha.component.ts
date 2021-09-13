@@ -342,11 +342,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       if (selectedSecurity === 'LandSecurity') {
         const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
         for (let i = 0; i < landDetailsArray.length; i++) {
-          if (landDetailsArray[i].revaluationData.isReValuated) {
-            totalFMV += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
-          } else {
             totalFMV += Number(landDetailsArray[i].landConsideredValue);
-          }
         }
       } else if (selectedSecurity === 'VehicleSecurity') {
         const vehicleDetailsArray = securityParsedData.initialForm.vehicleDetails as Array<any>;
@@ -356,11 +352,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       } else if (selectedSecurity === 'ApartmentSecurity') {
         const buildingDetailsArray = securityParsedData.initialForm.buildingDetails as Array<any>;
         for (let i = 0; i < buildingDetailsArray.length; i++) {
-          if (buildingDetailsArray[i].revaluationData.isReValuated) {
-            totalFMV += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
-          } else {
             totalFMV += Number(buildingDetailsArray[i].buildingFairMarketValue);
-          }
         }
       } else if (selectedSecurity === 'PlantSecurity') {
         const plantDetailsArray = securityParsedData.initialForm.plantDetails as Array<any>;
@@ -370,11 +362,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       } else if (selectedSecurity === 'Land and Building Security') {
         const landBuildingsArray = securityParsedData.initialForm.landBuilding as Array<any>;
         for (let i = 0; i < landBuildingsArray.length; i++) {
-          if (landBuildingsArray[i].revaluationData.isReValuated) {
-            totalFMV += Number(landBuildingsArray[i].revaluationData.reValuatedConsideredValue);
-          } else {
             totalFMV += Number(landBuildingsArray[i].landConsideredValue);
-          }
         }
       } else if (selectedSecurity === 'FixedDeposit') {
         const fixedDepositArray = securityParsedData.initialForm.fixedDepositDetails as Array<any>;
