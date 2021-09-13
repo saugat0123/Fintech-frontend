@@ -1,0 +1,21 @@
+<table class="table table-bordered">
+    <tr>
+        <th>S.No</th>
+        <th>Loan Name</th>
+        <th>Loan Approval Date</th>
+        <th>Proposed Amount </th>
+        <th>Outstanding Limit</th>
+    </tr>
+    <tr *ngFor="let data of approvedLoans; let i = index;">
+        <td>{{i + 1}}</td>
+        <td>{{data?.loan?.name}}</td>
+        <td>{{data?.loan?.lastModifiedAt | date}}</td>
+        <td>{{data?.proposal?.proposedLimit}}</td>
+        <input
+                class="form-control form-control-sm-error rounded"
+                id="outstandingLimit"
+                name="outstandingLimit"
+                type="number">
+
+    </tr>
+</table>

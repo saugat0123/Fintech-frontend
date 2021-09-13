@@ -63,6 +63,7 @@ import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/cr
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
 import {Document} from '../../../admin/modal/document';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
+import {OutstandingUpdateComponent} from '../../../loan-information-template/outstanding-update/outstanding-update.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -211,6 +212,10 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('obtainedDocument', {static: false})
     obtainedDocument: ObtainedDocumentComponent;
+
+    @ViewChild('outstandingUpdate', {static: false})
+    outstandingUpdate: OutstandingUpdateComponent;
+
 
     loanTag: string;
     loanHolder = new CustomerInfoData();
@@ -476,6 +481,11 @@ export class LoanFormComponent implements OnInit {
                name: 'Obtainable Documents',
                templateUrl: null
            });
+           this.templateList.push({
+               active:false,
+               name:'Outstanding Update',
+               templateUrl: null
+           })
        }
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
@@ -633,6 +643,9 @@ export class LoanFormComponent implements OnInit {
             this.cadObtainableDocuments.documents = this.obtainedDocument.obtainabledDocument;
             this.cadObtainableDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
             this.loanDocument.data = JSON.stringify(this.cadObtainableDocuments);
+        }
+        if (name === 'Outstanding Update' && action) {
+
         }
         // if (name === 'CICL' && action) {
         //   if (this.cicl.ciclForm.invalid ) {
