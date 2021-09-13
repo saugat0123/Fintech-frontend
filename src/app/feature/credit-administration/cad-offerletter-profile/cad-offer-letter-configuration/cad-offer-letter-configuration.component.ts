@@ -134,7 +134,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             'q': allValues,
             'target': 'ne'
         }).subscribe(res => {
-            console.log(res);
             res.data.translations.forEach((f, index) => {
                 this.translatedValues[allKeys[index]] = f.translatedText;
                 console.log(this.translatedValues);
