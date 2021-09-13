@@ -52,6 +52,8 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.buildForm();
         this.checkOfferLetter();
         console.log('ahsdfjkasdf', this.cadOfferLetterApprovedDoc);
+        console.log('asdfa', this.cadOfferLetterApprovedDoc.nepData.numberNepali.value);
+        console.log('guarantor:', this.nepaliData.guarantorDetails);
     }
 
     fillForm() {
@@ -76,16 +78,20 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
             //amount: this.nepaliData.amount ? this.nepaliData.amount : '',
-            amount2: this.cadOfferLetterApprovedDoc.nepData.amount2 ? this.cadOfferLetterApprovedDoc.nepData.amount2 : '',
+            //amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
             signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-            signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : ''
+            signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+            jamanikartaName: this.nepaliData.guarantorDetails.name ? this.nepaliData.guarantorDetails.name : '',
+            temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+            temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : ''
         });
         this.setGuarantors(this.nepaliData.guarantorDetails);
         this.addEmptySecurityDetail();
-        console.log('asdfa', this.cadOfferLetterApprovedDoc.nepData.numberNepali.value);
+        console.log('qwerqwe', JSON.parse(this.cadOfferLetterApprovedDoc.nepData.numberNepali));
     }
 
     checkOfferLetter() {
@@ -154,6 +160,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 address: [value.address],
                 jaggaDistrict: [value.jaggaDistrict],
                 jaggaWard: [value.jaggaWard],
+                hal: [value.hal],
                 jaggaKittaNum: [value.jaggaKittaNum],
                 jaggaArea: [value.jaggaArea],
                 jaggaSiNum: [value.jaggaSiNum],
@@ -173,6 +180,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 jaggaKittaNum: [undefined],
                 jaggaArea: [undefined],
                 jaggaSiNum: [undefined],
+                hal : [undefined]
             }));
     }
 
@@ -214,6 +222,10 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerAddress: [undefined],
             customerTemporaryAddress: [undefined],
             customerMobile: [undefined],
+
+            temporaryMunicipality: [undefined],
+            temporaryWardNum: [undefined],
+            temporaryDistrict: [undefined],
 
             // loanTypeNepali: [undefined],
             // loanTypeEnglish: [undefined],
@@ -257,7 +269,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             amountInWords2: [undefined],
 
             financeBranch: [undefined],
-            financeMunicipality: [undefined],
             financeWardNum: [undefined],
             financeDistrict: [undefined],
             financeTelephoneNum: [undefined],

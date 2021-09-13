@@ -36,8 +36,7 @@
                                 स्थायी ठेगाना
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text" readonly
-                                       [value]="form.get('customerName').value"
-                                       formControlName="customerMunicipality">
+                                       [value]="form.get('customerMunicipality').value">
                                 वडा नं.
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text" readonly
@@ -385,7 +384,7 @@
                                                 <th>जग्गाको न.पा.र गा.वि.स.,वडा नं.</th>
                                                 <th>कि.नं.</th>
                                                 <th>क्षेत्रफल रोपनी/ब.मी.</th>
-                                                <th>सि6 नं.</th>
+                                                <th>सिट नं.</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
@@ -419,9 +418,14 @@
                                                            formControlName="jaggaDistrict">
                                                 </td>
                                                 <td>
+                                                    स।बिक:
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            formControlName="jaggaWard">
+                                                    <br>
+                                                    हाल: <input class="form-control-sm form-field nepaliFont"
+                                                                type="text"
+                                                                formControlName="hal">
                                                 </td>
                                                 <td>
                                                     <input class="form-control-sm form-field nepaliFont"
@@ -961,9 +965,6 @@
                                                        formControlName="financeBranch">
                                                 ,<br>
 
-                                                <input class="form-control-sm form-field nepaliFont"
-                                                       type="text"
-                                                       formControlName="financeMunicipality">
                                                 वडा नं.
                                                 <input
                                                         class="form-control-sm form-field nepaliFont"
