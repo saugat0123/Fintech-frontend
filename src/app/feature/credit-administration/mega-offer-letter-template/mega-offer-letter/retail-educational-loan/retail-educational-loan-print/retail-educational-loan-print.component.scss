@@ -1,3 +1,11 @@
+.offer-style {
+  font-size: 15px;
+  line-height: 40px;
+
+  p, li {
+    line-height: inherit;
+  }
+}
 .nep {
   font-size: 20px;
   line-height: 1.9;
@@ -28,7 +36,11 @@ li {
     width: 100%;
   }
 }
-.nepaliFont{
-  font-size: 22px;
+.nepaliFont {
+  font-size: 18px;
   font-family: Preeti;
+
+  &.font-size-normal {
+    font-size: 16px;
+  }
 }

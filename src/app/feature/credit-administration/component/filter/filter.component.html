@@ -18,10 +18,14 @@
 <!--      <button (click)="openReport()" nbButton outline-->
 <!--              status="success" size="small" *ngIf="fromCadDashboard">-->
 <!--        <i aria-hidden="true" class="fas fa-file"></i></button>&nbsp;-->
+      <div>
+        <button nbButton size="tiny" nbTooltip="Add new customer"
+                (click)="openOfferLetterConfigModal()"><em
+                class="fa fa-plus"></em></button>
+      </div>
       <button (click)="getReport()" nbButton outline
               status="info" size="small">
         <i aria-hidden="true" class="fa fa-download"></i></button>
-
   </div>
 
   <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">

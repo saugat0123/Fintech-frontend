@@ -58,6 +58,7 @@ import {RouterUtilsService} from './utils/router-utils.service';
 import {DisbursementModalComponent} from './component/disbursement/disbursement-pending/disbursement-modal/disbursement-modal.component';
 import {PreviewCadComponent} from './component/preview-cad/preview-cad.component';
 import {CadReportComponent} from './component/cad-report/cad-report.component';
+import {TemplateDataComponent} from './cad-view/template-data/template-data.component';
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
     ApprovedLoanListComponent,
     DisbursementModalComponent,
     PreviewCadComponent,
-    CadReportComponent],
+    CadReportComponent,
+    TemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,

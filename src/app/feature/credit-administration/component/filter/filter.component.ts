@@ -20,6 +20,10 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from '../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NbDialogService} from '@nebular/theme';
+import {Customer} from '../../../admin/modal/customer';
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
+import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 
 @Component({
     selector: 'app-filter',
@@ -27,35 +31,34 @@ import {NbDialogService} from '@nebular/theme';
     styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-    isFilterCollapsed = true;
-    filterForm: FormGroup;
-    branchList: Array<Branch> = new Array<Branch>();
-    cadDocStatus = CadDocStatus.key();
-    role = RoleType;
-    possessionUnderUserList: Array<User>;
-    showPossessionUnder = false;
-    @Output() eventEmitter = new EventEmitter();
-    @Input() fromCadDashboard;
-    @Input() docStatus;
-    @Input() isDefaultCADROLEFILTER: boolean;
-    possessionRoleList: Array<Role>;
-    branchAccessIsOwn = false;
-    clientType = [];
-    cadOfferLetterApprovedDoc: any;
-    customerInfoData: any;
-    customerInfo: any;
-
-    constructor(private branchService: BranchService,
-                private toastService: ToastService,
-                private formBuilder: FormBuilder,
-                private userService: UserService,
-                private routerUtils: RouterUtilsService,
-                private service: ApprovalRoleHierarchyService,
-                private customerService: CustomerService,
-                private modalService: NgbModal,
-                private nbDialogService: NbDialogService
-    ) {
-    }
+  isFilterCollapsed = true;
+  filterForm: FormGroup;
+  branchList: Array<Branch> = new Array<Branch>();
+  cadDocStatus = CadDocStatus.key();
+  role = RoleType;
+  possessionUnderUserList: Array<User>;
+  showPossessionUnder = false;
+  @Output() eventEmitter = new EventEmitter();
+  @Input() fromCadDashboard;
+  @Input() docStatus;
+  @Input() isDefaultCADROLEFILTER: boolean;
+  possessionRoleList: Array<Role>;
+  branchAccessIsOwn = false;
+  clientType = [];
+  customerInfoData = new CustomerInfoData();
+  cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
+  customerInfo = new Customer();
+  constructor(private branchService: BranchService,
+              private toastService: ToastService,
+              private nbDialogService: NbDialogService,
+              private formBuilder: FormBuilder,
+              private userService: UserService,
+              private routerUtils: RouterUtilsService,
+              private service: ApprovalRoleHierarchyService,
+              private customerService: CustomerService,
+              private modalService: NgbModal
+  ) {
+  }
 
     ngOnInit() {
 
@@ -152,24 +155,24 @@ export class FilterComponent implements OnInit {
             });
     }
 
-    openReport() {
-        this.modalService.open(CadReportComponent, {size: 'xl'});
-    }
+  openReport() {
+    this.modalService.open(CadReportComponent, {size: 'xl'});
+  }
 
-    openOfferLetterConfigModal() {
-        this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
-            context: {
-                cadData: this.cadOfferLetterApprovedDoc,
-                customerInfo: this.customerInfoData,
-                customer: this.customerInfo,
-            },
-            dialogClass: 'model-full',
-        }).onClose
-            .subscribe(value => {
-                if (!ObjectUtil.isEmpty(value)) {
-                    this.customerInfoData = value;
-                    console.log(value);
-                }
-            });
-    }
+  openOfferLetterConfigModal() {
+    this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
+      context: {
+        cadData: this.cadOfferLetterApprovedDoc,
+        customerInfo: this.customerInfoData,
+        customer: this.customerInfo,
+      },
+        dialogClass: 'model-full',
+    }).onClose
+        .subscribe(value => {
+          if (!ObjectUtil.isEmpty(value)) {
+            this.customerInfoData = value;
+            console.log(value);
+          }
+        });
+  }
 }

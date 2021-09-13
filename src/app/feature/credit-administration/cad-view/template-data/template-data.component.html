@@ -1,0 +1,76 @@
+<nb-select
+        fullWidth
+        placeholder="Select Offer Letter"
+        [(ngModel)]="offerLetterSelect"
+        status="info">
+    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
+        {{i.key | replace:'_':' ' }}
+    </nb-option>
+</nb-select>
+
+<nb-card *ngIf="offerLetterSelect === offerLetterConst.RETAIL_EDUCATIONAL">
+    <nb-card-body>
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <table class="table table-borderless table-hover text-center sb-small table-sm">
+                <tr>
+                    <th colspan="2">Loan Data</th>
+                    <th>Nepali Translation</th>
+                </tr>
+                <tr>
+                    <td>Drawing Power Rate</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="drawingPowerRate">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control"
+                               readonly
+                               formControlName="nepDrawingPowerRate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Base Rate</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="baseRate">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control"
+                               readonly
+                               formControlName="nepBaseRate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Premium Rate</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="premiumRate">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control"
+                               readonly
+                               formControlName="nepPremiumRate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Yearly Floating Interest Rate</td>
+                    <td><input type="text" class="form-control"
+                               formControlName="yearlyFloatingInterestRate"></td>
+                    <td>
+                        <input type="text" class="form-control"
+                               readonly
+                               formControlName="nepYearlyFloatingInterestRate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Service Charge</td>
+                    <td><input type="text" class="form-control" formControlName="serviceCharge"></td>
+                    <td><input type="text" class="form-control"
+                               readonly
+                               formControlName="nepServiceCharge"></td>
+                </tr>
+            </table>
+            <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
+            <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
+                Translate
+            </button>
+        </form>
+    </nb-card-body>
+</nb-card>
