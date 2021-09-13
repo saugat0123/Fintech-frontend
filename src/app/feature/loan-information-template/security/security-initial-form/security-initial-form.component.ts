@@ -268,9 +268,10 @@ export class SecurityInitialFormComponent implements OnInit {
                 reValuatedConsideredValue: 0
             };
         }
-        if (landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value'] == null) {
+        console.log('landDetails', landDetails);
+        if (landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'] === null
+            || landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'] === undefined) {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value'] = {
-                isReValuated: true,
                 reValuatedDv: 0,
                 reValuatedFmv: 0,
                 reValuatedConsideredValue: 0
@@ -281,21 +282,27 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = $event['reValuatedFmv'];
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedDv']
-                = $event['reValuatedDv'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedFmv']
-                = $event['reValuatedFmv'];
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedConsideredValue']
-                = $event['reValuatedConsideredValue'];
+            if (landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'] !== undefined
+                || landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'] !== null) {
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedDv']
+                    = $event['reValuatedDv'];
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedFmv']
+                    = $event['reValuatedFmv'];
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value']['reValuatedConsideredValue']
+                    = $event['reValuatedConsideredValue'];
+            }
         } else {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(false);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedFmv'] = 0;
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedConsideredValue'] = 0;
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedDv'] = 0);
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedFmv'] = 0);
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) =>
-                l['reValuatedConsideredValue'] = 0);
+            if (landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value'] !== undefined
+                || landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails']['value'] !== null) {
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedDv'] = 0);
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) => l['reValuatedFmv'] = 0);
+                landDetails.controls[$event['index']]['controls']['revaluationData']['value']['revaluationDetails'].forEach((l) =>
+                    l['reValuatedConsideredValue'] = 0);
+            }
         }
         this.updateLandSecurityTotal();
     }
