@@ -74,7 +74,19 @@ export class LoanDeedComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
+        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        age: this.nepaliData.age ? this.nepaliData.age : '',
+        likhitDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        likhitMunicipalty: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        likhitWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        tempVDC: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        staDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
       });
     }
   }
