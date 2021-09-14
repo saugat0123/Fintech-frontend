@@ -252,6 +252,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
