@@ -11,7 +11,7 @@ import {LoanFormService} from '../../../loan/component/loan-form/service/loan-fo
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {CustomerInfoService} from '../../service/customer-info.service';
+import {CustomerInfoSearch, CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -45,7 +45,6 @@ export class CustomerComponent implements OnInit {
 
     page = 1;
     spinner = false;
-    search = {};
     customerList = [];
     pageable: Pageable = new Pageable();
     isFilterCollapsed = true;
@@ -74,7 +73,6 @@ export class CustomerComponent implements OnInit {
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
     onActionChangeSpinner = false;
-
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
@@ -89,14 +87,16 @@ export class CustomerComponent implements OnInit {
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
                 private location: AddressService,
-                private userService: UserService
+                private userService: UserService,
+                private search: CustomerInfoSearch
+
     ) {
     }
 
     static loadData(other: CustomerComponent) {
         other.overlay.show();
         other.spinner = true;
-        other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
+        other.customerInfoService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
             other.customerList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
@@ -113,6 +113,7 @@ export class CustomerComponent implements OnInit {
 
     ngOnInit() {
         this.buildFilterForm();
+        this.search = new CustomerInfoSearch();
         CustomerComponent.loadData(this);
         this.getAllDistrict();
         this.getBranch();
@@ -135,9 +136,20 @@ export class CustomerComponent implements OnInit {
             name: [undefined],
             customerType: [undefined],
             idRegPlace: [undefined],
-            branchIds: [undefined],
+            contactNo: [undefined],
+            idRegDate: [undefined],
+            createdAt: [undefined],
+            associateId: [undefined],
+            id: [undefined],
+            email: [undefined],
+            idNumber: [undefined],
+            provinceId: [undefined],
             groupId: [undefined],
-            provinceId: [undefined]
+            clientType: [undefined],
+            subsectorDetail: [undefined],
+            customerCode: [undefined],
+            bankingRelationship: [undefined]
+
         });
     }
 
@@ -174,6 +186,39 @@ export class CustomerComponent implements OnInit {
     }
 
     onSearch() {
+        this.search.name = ObjectUtil.isEmpty(this.filterForm.get('name').value) ? undefined :
+            this.filterForm.get('name').value;
+        this.search.customerType = ObjectUtil.isEmpty(this.filterForm.get('customerType').value) ? undefined :
+            this.filterForm.get('customerType').value;
+        this.search.idRegPlace = ObjectUtil.isEmpty(this.filterForm.get('idRegPlace').value) ? undefined :
+            this.filterForm.get('idRegPlace').value;
+        this.search.idRegDate = ObjectUtil.isEmpty(this.filterForm.get('idRegDate').value) ? undefined :
+            this.filterForm.get('idRegDate').value;
+        this.search.createdAt = ObjectUtil.isEmpty(this.filterForm.get('createdAt').value) ? undefined :
+            this.filterForm.get('createdAt').value;
+        this.search.associateId = ObjectUtil.isEmpty(this.filterForm.get('associateId').value) ? undefined :
+            this.filterForm.get('associateId').value;
+        this.search.id = ObjectUtil.isEmpty(this.filterForm.get('id').value) ? undefined :
+            this.filterForm.get('id').value;
+        this.search.email = ObjectUtil.isEmpty(this.filterForm.get('email').value) ? undefined :
+            this.filterForm.get('email').value;
+        this.search.idNumber = ObjectUtil.isEmpty(this.filterForm.get('idNumber').value) ? undefined :
+            this.filterForm.get('idNumber').value;
+        this.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
+            this.filterForm.get('provinceId').value;
+        this.search.groupId = ObjectUtil.isEmpty(this.filterForm.get('groupId').value) ? undefined :
+            this.filterForm.get('groupId').value;
+        this.search.clientType = ObjectUtil.isEmpty(this.filterForm.get('clientType').value) ? undefined :
+            this.filterForm.get('clientType').value;
+        this.search.subsectorDetail = ObjectUtil.isEmpty(this.filterForm.get('subsectorDetail').value) ? undefined :
+            this.filterForm.get('subsectorDetail').value;
+        this.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
+            this.filterForm.get('customerCode').value;
+        this.search.bankingRelationship = ObjectUtil.isEmpty(this.filterForm.get('bankingRelationship').value) ? undefined :
+            this.filterForm.get('bankingRelationship').value;
+        this.search.gender = undefined;
+        this.search.maritalStatus = undefined;
+        this.search.customerLegalDocumentAddress = undefined;
         CustomerComponent.loadData(this);
     }
     openChooseAcType(modal) {
@@ -204,6 +249,7 @@ export class CustomerComponent implements OnInit {
 
     clear() {
         this.buildFilterForm();
+        this.onSearch();
         CustomerComponent.loadData(this);
 
     }
