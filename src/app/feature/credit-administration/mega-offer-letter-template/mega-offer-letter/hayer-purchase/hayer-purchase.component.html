@@ -1,836 +1,1088 @@
-
 <div id="{{offerLetterConst.HIRE_PURCHASE}}" class="nep">
-<nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
-         nbSpinnerSize="large"
-         nbSpinnerMessage="Saving Hire purchase offer letter.....">
-  <nb-card-body>
-    <div class="row">
-      <div class="col-md-12">
-          <form (ngSubmit)="submit()" [formGroup]="hayarPurchase">
-            <div>
-              <div>
-                <h6 class="text-center">व्यक्तिगत एवं गोप्य</h6>
-                <p class="text-right"> मिति:
-                  <input class="form-field form-control-sm nepaliFont col-3"
-                         formControlName="date"
-                         placeholder=""
-                         type="text"/>
-                </p>
-
-                Ref No: 2077/78-MBNL-CAD-RET-<input class="form-field form-control-sm "
-                                                    formControlName="refNo"
-                                                    placeholder="Eg.0244"
-                                                    type="text"/><br>
-                <div class="mb-2"><b>नाम: </b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></div>
-                <div class="row form-group">
-              <span style="margin-left: 18px;">
-                  <b>स्थायी ठेगान: </b> प्रदेश: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,&nbsp; जिल्ला: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>,&nbsp; वार्ड न: &nbsp;
-                  <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>,&nbsp;
-                  <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                      गा बि स:
-                  </span>
-                  <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                      नगरपालिका:
-                  </span>
-                  &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
-              </span>
-                </div>
-                <div class="row form-group">
-              <span style="margin-left: 18px;">
-                  <b>हाल ठेगाना: </b> प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp; वार्ड न: &nbsp;
-                  <b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
-                  <span *ngIf="loanHolderInfo?.temporaryMunType==1">
-                      गा बि स
-                  </span>
-                  <span *ngIf="loanHolderInfo?.temporaryMunType==0">
-                      नगरपालिका:
-                  </span>
-                  &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
-              </span>
-                </div><br>
-                <p>सम्पर्क टेलिफोन नंः
-                  <input class="form-field form-control-sm nepaliFont"
-                         formControlName="contactNumber"
-                         placeholder="९८४५०४४७३०"
-                         type="text"/>
-                </p>
-              </div>
-
-              महाशय,
-              <p class="text-center"><b>विषय :बैकिङ्ग ऋण स्विकृती पत्र ।</b></p>
-              सवारी साधन खरिद कर्जा सुविधा <strong>उपलब्ध</strong> गराइपाउं भनी तपाँईले दिनु भएको निवेदन र
-              त्यसमा भएका छलफलबाट, हामी, मेगा बैंक नेपाल लिमिटेड, निम्न बमोजिमको कर्जा
-              सुविधा देहाय बमोजिमका शर्तहरु परिपालना गर्ने गरी प्रदान गर्न सहर्ष प्रस्ताव गर्दछौं ।
-              <p class="pl-3"> पक्षहरु :–</p>
-              <p class="pl-5">
-              <div class="col-md-12">
-                <div>
-                  १.<strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong>(यस पछि
-                  “ऋणी” भनिएको)
-                </div>
-                <div>
-                  २. श्री मेगा बैंक नेपाल लिमिटेड (यस पछि “बैंक” भनिएको)
-                </div>
-              </div>
-              <h6><u>१.सुविधाको प्रयोजन तथा संचालन</u></h6>
-
-
-              <div *ngFor="let hayarPurchaseLoan of hayarPurchase.get('hayarPurchaseLoanArray')['controls']; let i = index"
-                   formArrayName="hayarPurchaseLoanArray"
-                   class="mt-4">
-                <table [formGroupName]="i" class="table table-bordered  table-responsive">
-                  <thead>
-                  <tr>
-                    <th style="width: 15%">क.प्रस्तावित कर्जा</th>
-                    <th>सवारी साधन खरिद (Hire Purchase)
-                      <input *ngIf="hayarPurchase.get('hayarPurchaseLoanArray')['length'] > 1"
-                             (click)="removeHirePurchaseLoan(i)"
-                             class="btn btn-sm btn-danger btn-primary float-right"
-                             type="button" value="Remove section"/>
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>रकम:</td>
-                    <td>रु
-                      <app-custom-input (eventEmit)="changeToNepAmount($event, i , 'hayarPurchaseLoanArray')"
-                                        [name]="patchFunction('hayarPurchaseLoanArray',i,'amount')"></app-custom-input>/-
-                      (अक्षेरुपी <input readonly
-                            class="form-field form-control-sm col-md-5"
-                            formControlName="amountInWord"
-                            placeholder=" अठ्चालीस लाख पचास हजार रुपंयाँ"
-                            type="text"/> मात्र ।)
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>प्रयोजन</td>
-                    <td><input class="form-field form-control-sm nepaliFont"
-                               formControlName="vehicle"
-                               placeholder="टोयोटा "
-                               type="text"/> कम्पनीकोे एक सवारी साधन व्यक्तिगत प्रयोजनको लागि खरिद गर्ने ।
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>समयावधी:</td>
-                    <td>बैंकबाट कर्जा भुक्तानी भएको मितिले <input class="form-field form-control-sm nepaliFont"
-                                                                  formControlName="samaya"
-                                                                  placeholder="५ "
-                                                                  type="text"/> वर्ष ।</td>
-                  </tr>
-                  <tr>
-                    <td>व्याज</td>
-                    <td>
-                      आधार दर (Base Rate) + प्रिमियम दर (Premium Rate) हालको आधार दर
-                      <input (change)="calcPresentRate('hayarPurchaseLoanArray',i)" class="form-field form-control-sm nepaliFont"
-                                                                                                 formControlName="baseRate"
-                                                                                                 placeholder="९"
-                                                                                                 type="text"/>% +
-                      प्रिमियम दर <input (change)="calcPresentRate('hayarPurchaseLoanArray',i)" class="form-field form-control-sm nepaliFont"
-                                         formControlName="premiumRate"
-                                         placeholder="१ "
-                                         type="text"/>%)
-                      का दरले हाललाई बार्षिक <input readonly class="form-field form-control-sm"
-                                                    formControlName="presentRate"
-                                                    placeholder="१०"
-                                                    type="text"/>% वा समय समयमा बैंकले तोके बमोजिम चुक्ता∕भुक्तान गर्नु पर्ने गरि ।
-                      बैंकले त्रैमाशिक रुपमा प्रकाशित गर्ने आधार दर परिवर्तन हुन गएमा सोही बमोजिम बार्षिक ब्याजदर संसोधन (घट्न∕बढ्न) सक्नेछ ।
-                    </td>
-                  </tr>
-                  <tr>
-                    <td> ऋण चुक्ता</td>
-                    <td>बैंकबाट कर्जाको प्रथम किस्ता भुक्तानी भएको मितिको
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="month"
-                             placeholder=" एक "
-                             type="text"/>
-                      महिना पछि प्रथम किस्ता प्रारंभ हुने गरी
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="totalMonth"
-                             placeholder=" ६० "
-                             type="text"/>
-                      समान
-                      मासिक किस्ता बन्दीमा रु.
-                      <app-custom-input (eventEmit)="changeToEmiAmount($event, i , 'hayarPurchaseLoanArray')"
-                                        [name]="patchFunction('hayarPurchaseLoanArray',i,'emiAmount')"></app-custom-input>/-
-                      (अक्षेरुपी
-                      <input readonly class="form-field form-control-sm"
-                             formControlName="emiAmountInWord"
-                             placeholder=" एक लाख पाँच हजार चार सय पचास"
-                             type="text"/>
-                      मात्र) का दरले ईश्वी संवत अनुसारको प्रत्येक महिनाको
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="loanClearanceMonthlyDate"
-                             placeholder="१३"
-                             type="text"
-                             size="2"/>
-                      तारिखमा चुक्ता भुक्तान गर्नुपर्नेछ ।
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>भुक्तानी</td>
-                    <td>
-                      यस कर्जा सुविधा अन्तर्गत बैंकले भुक्तानी गर्दा बैंकलाई मान्य हुने धितो कागजपत्रहरुको आधारमा रही सवारी साधनको VAT Bill को अधिकतम
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="vatPercent"
-                             placeholder=" ५० "
-                             type="text"/> प्रतिशत सम्म वा प्रस्तावित कर्जा सुविधा
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="serviceAmount"
-                             placeholder=" ४८ लाख ५० हजार"
-                             type="text"/> मध्ये कम हुने रकमको भुक्तानी M.s <input class="form-field form-control-sm nepaliFont"
-                                                                                   formControlName="company"
-                                                                                   placeholder="एम एस अटो प्र ली "
-                                                                                   type="text"/> लाई खाता/चेकका माध्यमद्वारा रकमान्तर गरिनेछ ।
-                    </td>
-                  </tr>
-                  <tr>
-                    <td> पूर्व भुक्तानी शुल्क</td>
-                    <td>
-                      कर्जाको शर्त तथा ब्याजदर परिवर्तन भएको कारणले ऋणीले आफ्नो आम्दानीको श्रोतबाट कर्जा अग्रिम
-                      भुक्तानी गर्न चाहेको अवस्थामा वाहेक तोकिएको समयावधि अघिनै भुक्तानी गर्न चाहेमा वा सापटी वा
-                      कुनै बैंक वा वित्तीय संस्थामा सार्न वा  कर्जा खरिद गर्ने भएमा भुक्तानी हुन बाँकी साँवा रकमको
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="PurwaBhuktaniSulka"
-                             placeholder="०.१५"
-                             type="text"
-                             size="2"/>
-                      प्रतिशत वा कर्जा प्रवाहको बखत ऋणीबाट असुल गरिएको सेवा शुल्कको
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="PurwaBhuktaniSewaSulkaRate"
-                             placeholder="२०"
-                             type="text"
-                             size="2"/>
-                      प्रतिशतले हुन आउने रकम मध्ये कम हुने रकम पूर्व भुक्तानी शुल्क लाग्नेछ ।
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>सुरक्षित कारोबार शुल्क</td>
-                    <td>रु.
-                      <input class="form-field form-control-sm nepaliFont"
-                             formControlName="secureTransactionFees"
-                             placeholder="५००"
-                             type="text"
-                             size="10"/> /–
-                      प्रति कारोबार (दर्ता, संसोधन तथा फुकुवा) गर्दा सुरक्षित कारोबार ऐन २०६३ अनुसार ।</td>
-                  </tr>
-
-                  <tr>
-                    <td>सेवा शुल्क</td>
-                    <td>भुक्तानी दिने ऋण सुविधा रकमको
-                      <input (change)="calcpercent('hayarPurchaseLoanArray', i)" class="form-field form-control-sm nepaliFont"
-                             formControlName="servicePercentage"
-                             placeholder="१"
-                             type="text"/>% (
-                      <input readonly class="form-field form-control-sm"
-                             formControlName="servicePercentageWords"
-                             placeholder="एक"
-                             type="text"/> प्रतिशत) ।
-                    </td>
-                  </tr>
-
-                  <tr *ngIf="hayarPurchaseLoan.get('chargeFlag').value">
-                    <td>क.सु.के दस्तुर</td>
-                    <td>रु.<input class="form-field form-control-sm nepaliFont"
-                                  formControlName="charge"
-                                  placeholder=" १,१००"
-                                  type="text"/>/– मात्र ।
-                      <a (click)="removeOptionalField(hayarPurchaseLoan, 'chargeFlag')"
-                         data-placement="top" class="text-danger cursor">
-                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
-                        remove
-                      </a>
-                    </td>
-                  </tr>
-                  <tr *ngIf="!hayarPurchaseLoan.get('chargeFlag').value">
-                    <td></td>
-                    <td>
-                      <a (click)="undoRemovalOfOptionalField(hayarPurchaseLoan, 'chargeFlag')"
-                         data-placement="top" class="text-warning cursor">
-                        <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
-                        Undo field removal
-                      </a>
-                    </td>
-                  </tr>
-
-                  </tbody>
-                </table>
-              </div>
-              <div class="text-right mt-2">
-                <input (click)="addMoreHirePurchaseLoan()" class="btn btn-sm btn-flat btn-primary" type="button"
-                       value="Add More Field"/>
-              </div>
-
-              <h6>२. सुरक्षण (धितो)</h6>
-              <p class="pl-3">उल्लेखित कर्जा सुविधा प्रदान गर्दा सो कर्जा रकमलाई खाम्ने देहाय बमोजिमका
-                सुरक्षणहरु रहनेछन्ः–</p>
-              <table class="table-responsive">
-                <tr>
-                  <td> २.१</td>
-                  <td class="pl-3"> नेपाल सरकार, भौतिक पूर्वाधार तथा यातायात मन्त्रालय, यातायात ब्यबस्था
-                    बिभागमा सवारी
-                    साधनको धनी मेगा बैंक नेपाल लिमिटेड ऋणी
-                    <input class="form-field form-control-sm nepaliFont"
-                           formControlName="sadhanDhani"
-                           placeholder="साधन धनी"
-                           type="text"/>
-                    भनीे दर्ता गरिएको सवारी साधन ।
-                  </td>
-                </tr>
-                <tr>
-                  <td>२.२</td>
-                  <td class="pl-3">बैंकले ऋणीसंग गरेको हायर पर्चेज कर्जा सम्झौता ।</td>
-                </tr>
-                <tr>
-                  <td>२.३</td>
-                  <td class="pl-3">स्वामित्व हस्तान्तरणको लागी ऋणीको मन्जुरीनामा ।
-                  </td>
-                </tr>
-                <tr>
-                  <td>२.४</td>
-                  <td class="pl-3">सम्पूर्ण कर्जा सिमा रकम बराबरको ऋणीद्वारा हस्ताक्षर गरिएको प्रोमिशरी नोट (प्रतिज्ञा पत्र) । </td>
-                </tr>
-                <tr>
-                  <td>२.५</td>
-                  <td class="pl-3">सम्पूर्ण कर्जा सिमा रकम बराबरको कर्जा लिखत (Loan Deed) ।</td>
-                </tr>
-                <tr>
-                  <td>२.६</td>
-                  <td class="pl-3">निम्न विवरण एवं जोखिम वहन हुने गरि बैंकको पक्षमा गरिदिएको विमालेख कर्जा प्रवाह पूर्व पेश
-                    गर्नुपर्नेछ ।
-                  </td>
-                </tr>
-                <tr *ngIf="!hayarPurchase.get('guarantorFlag').value">
-                  <td></td>
-                  <td>
-                    <a (click)="undoRemovalOfOptionalField(hayarPurchase, 'guarantorFlag')"
-                       data-placement="top" class="text-warning cursor">
-                      <i class="fa fa-undo" style="color:darkred;padding-left: 5px"></i>
-                      Undo field removal
-                    </a>
-                  </td>
-                </tr>
-              </table>
-
-              <table class="table table-bordered">
-                <tr>
-                  <td>क्र.सं (S.N)</td>
-                  <td>विवरण(Details)</td>
-                  <td>विमा रकम (Amount)</td>
-                  <td>जोखिमवहन(Risks Coverage)</td>
-                </tr>
-                <tr *ngFor="let riskCoverage of hayarPurchase.get('riskCoverageArray')['controls']; let i = index"
-                    formArrayName="riskCoverageArray">
-                  <ng-container [formGroupName]="i">
-                    <td>
-                      <input class="form-field form-control-sm nepaliFont w-100"
-                             formControlName="sn"
-                             placeholder="१."
-                             type="text"/>
-                    </td>
-                    <td>
-                      <input class="form-field form-control-sm nepaliFont w-100"
-                             formControlName="details"
-                             placeholder="सवारी साधन"
-                             type="text"/>
-                    </td>
-                    <td>
-                      <input class="form-field form-control-sm nepaliFont w-100"
-                             formControlName="amount"
-                             placeholder="१,१००"
-                             type="text"/>
-                    </td>
-                    <td>
-                      <input class="form-field form-control-sm nepaliFont w-100"
-                             formControlName="riskCoverage"
-                             placeholder="व्यापक बीमालेख । (आतंकवाद तथा तेस्रो पक्षको दायित्व बहन हुने गरी)"
-                             type="text"/>
-                        <input *ngIf="hayarPurchase.get('riskCoverageArray')['length'] > 1"
-                               (click)="removeRiskCoverageArray(i)"
-                               class="btn btn-sm btn-danger btn-primary float-right mt-1"
-                               type="button" value="Remove"/>
-                    </td>
-                  </ng-container>
-                </tr>
-              </table>
-              <div class="text-right mt-2">
-                <input (click)="addMoreRiskCoverageArray()" class="btn btn-sm btn-flat btn-primary" type="button"
-                       value="Add More Field"/>
-              </div>
-              <table class="table-responsive">
-                <tr *ngIf="hayarPurchase.get('guarantorFlag').value">
-                  <td>२.७</td>
-                  <td class="pl-3">
-                    <input class="form-field form-control-sm nepaliFont"
-                           formControlName="guarantor"
-                           placeholder="श्री मन बहादुर घले "
-                           type="text"/>को
-                    तर्फबाट कर्जा सीमा रकम बराबरको छुटाछुटै व्यक्तिगत जमानी पेश गर्नुपर्नेछ ।
-                    <a (click)="removeOptionalField(hayarPurchase, 'guarantorFlag')"
-                       data-placement="top" class="text-danger cursor">
-                      <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
-                      remove
-                    </a>
-                  </td>
-                </tr>
-              </table>
-
-              <p><b>नोटः माथि उल्लेखित सुरक्षणहरुका साथ निम्न शर्तहरु अनिवार्य रुपमा पालना गर्नुपर्नेछ ।</b></p>
-
-              <p>
-                <em class="fa fa-info-circle"><em class="ml-2">Note : Please select Nepali font for nepali typing privileges in the editor below.</em></em>
-              </p>
-              <ckeditor formControlName="clausesTextEditor" [config]="ckeConfig"></ckeditor>
-
-              <div class="row">
-                <div class="col-md-1"><b>३.</b></div>
-                <div class="col-md-11"><p><b><u> व्याज </u></b></p>
-                  ऋण सुविधाको व्याज निर्धारण गरिए बमोजिमको दरमा तथा चुक्ता हुन बाँकी रकममा निरन्तर लगाइनेछ
-                  (दैनिक डेविट बाँकी मा हिसाव गरिने)। बैंकले समय समयमा निर्णय गरी ऋणीलाई सूचना दिए बमोजिम
-                  अन्य व्याजदर लगाउने कुराको अधिकार बैंकलाई रहनेछ । तर, ऋण सुविधा प्रदान गरिएको समयमा
-                  राखिएका अवस्था र शर्तहरु पालना नगरिएको अवस्थामा कर्जा चुक्ता भुक्तान नभएसम्म भाखा नाघेको
-                  सावाँ तथा ब्याज रकम (Overdue Interest and Principle) मा विना सूचना
-                  कम्तिमा पनि
-                  उल्लेखित ब्याजदरमा थप
-                  <input class="form-field form-control-sm nepaliFont col-md-1"
-                         formControlName="addedPercentage"
-                         placeholder="३"
-                         type="text"
-                         size="2"/>
-                  प्रतिशत भन्दा कम नहुने गरी हर्जना ब्याज लगाइनेछ ।
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-1"><b>४.</b></div>
-                <div class="col-md-11"><p><b><u>ऋण चुक्ता</u></b></p>
-                  यस ऋण स्विकृतीपत्रमा अन्यथा उल्लेख गरिएकोमा यस स्विकृतीपत्र अन्तर्गत ऋणीलाई उपलब्ध
-                  गराइएका
-                  सम्पूर्ण कर्जा सुविधा (loan/advances) हरु बैंकले माग गरेका बखत ऋणीले बैंकलाई तत्कालै
-                  चुक्ता भुक्तान गर्नु पर्नेछ ।
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-1"><b>५.</b></div>
-                <div class="col-md-11"><p><b><u> सहमति (Covenants ) </u></b></p>
-                  <p>
-                    यो संझौता बैंकले भंग नगरे सम्म वा ऋणीले यस ऋण स्विकृतिपत्र अन्तर्गत लिएको ऋणको कुनै
-                    बक्यौता रहेसम्म यस ऋण स्विकृतीपत्रको शर्त नं. २.२ मा उल्लेख भएको हायरपर्चेज संझौता यसको
-                    अभिन्न अंग हुनेछ र उल्लेखित संझौताको सम्पूर्ण शर्तहरुको पालना गर्न ऋणीले प्रतिवद्धता
-                    व्यक्त गर्दछ ।
-                  </p>
-                  <p>
-                    बैंकले यस अन्तर्गतको ऋण सुविधा उपलब्ध गराउंदा ऋणीले बैंकलाई धितो स्वरुप उपलब्ध गराएको
-                    सरसामानहरु, मौज्दात तथा धितोसंग सम्बन्धित सवै सम्पत्तिहरुकोे सम्भावित सबै जोखिमहरुबाट
-                    मुक्त राख्न आफ्नै खर्चमा बैंकको हितमा विमा गराई विमा पोलिसिको सक्कल प्रति बैंकमा बुझाउनु
-                    पर्नेछ । साथै प्रत्येक वर्ष सम्बन्धित विमा कम्पनीमा सो विमा वापतको प्रिमियम तिरी पोलिसि
-                    समयमै नविकरण गराई नविकरण गरिएको सक्कल प्रति बैंकलाई विमालेख समयावधि समाप्ति अवधि
-                    (Insurance Expiry Date) को
-                    <input class="form-field form-control-sm nepaliFont"
-                           formControlName="expiryDateTimeDuration"
-                           placeholder="१५"
-                           type="text"
-                           size="2"/>
-                    दिन अगावै बुझाउनुु पर्नेछ । कथंकदाचित उल्लेखित शर्तको
-                    पालना गर्न ऋणी चुकेमा वा नविकरण गरिएको सक्कल प्रति विमालेख समयावधि समाप्ति अवधिसम्म पनि
-                    बैंकमा नबुझाएको खण्डमा बैंकले सो को नविकरण गराई सम्बन्धित खर्चहरु ऋणीको खाताबाट कट्टा
-                    गरि
-                    लिनेछ ।
-                    तर, बैंकले उल्लेखित कार्य सम्पन्न गरिसकेको अवस्थामा ऋणीले विमा पोलिसिको नविकरण गराएको
-                    कारणबाट पर्न जाने दोहोरो खर्च प्रति बैंक जवाफदेही हुनै छैन ।
-                  </p>
-                  <p>
-                    बैंकलाई ऋाणीले मासिक किस्ताबन्दी रुपमा तिर्नु बुझाउनु पर्ने तोकिएको रकम यस अन्तर्गत
-                    ऋणीले
-                    लिएको सम्पूर्ण ऋणको सांवा ब्याज चुक्ता भुक्तान नभए सम्म ऋणीको खातामा रही रहनु पर्नेछ ।
-                    कदाचित ऋणीले यस कर्जा स्वीकृतिपत्रमा तोकिएको समयमा बैंकलाई तिर्न बुझाउन पर्ने मासिक
-                    किस्ताबन्दी रकम नतिरे वा नबुझाएमा वा सो तिर्न बुझाउन पर्ने समय गुज्रन गएमा वा लागेमा
-                    बैंकले जुनसुकै बखत उल्लेखित रकम ऋणीको यस बैंकको कुनैपनि शाखामा रहेको कुनै पनि खातामा
-                    जम्मा
-                    भएको रकमबाट सिधै कट्टा गरी लिन वा एक खाताबाट अर्को खातामा रकमान्तर गरी बैंकको आफ्नो लेना
-                    हिसाब मिलाउन समेत बैंकलाई यसै मार्फत ऋणीको पूर्ण अख्तियार प्रदान गरिएको छ र छुट्टै
-                    अख्तियारनामाको आवश्यकता पर्ने छैन भनि ऋणी स्वीकार गर्दछ ।
-                  </p>
-                  <p>
-                    ऋणीले अन्य कुनै ऋण/कर्जा र/वा बैकिङ्ग सुविधा उपभोग गरेको वा ऋणीको स्वामित्वमा रहेको/
-                    ऋणीले
-                    प्रबद्र्वन गरेको वा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम एउटै समुहमा बर्गिकरण गरिएको
-                    सम्बन्धित अन्य कुनै फर्म/कम्पनी/संस्थाले अन्य ऋण प्रस्ताव पत्रमा उल्लेख गरे बमोजिम उपभोग
-                    गरेका /कर्जा र/वा बैकिङ्ग सुविधा बापत लेखिदिएको धितो सुरक्षणलाई समेत यस ऋण प्रस्ताव
-                    पत्रमा
-                    उल्लेखित ऋण/कर्जा र/वा बैकिङ्ग सुविधा बापत धितो सुरक्षण दिएको मानिनेछ । यस ऋण प्रस्ताव
-                    पत्रमा उल्लेखित कुनै शर्तको उल्लघंन भई उक्त धितो सुरक्षणबाट असुल उपर गरीलिएमा ऋणीको
-                    मन्जुरी रहनेछ ।
-                  </p>
-                  <p>
-                       बैंकले यस ऋण स्विकृतीपत्रमा आवश्यकतानुसार संशोधन गर्न सक्नेछ र सो को जानकारी लिखित
-                    रुपमा
-                    ऋणीलाई गराइनेछ । ऋणीले यो ऋण स्विकृतीपत्र तथा यसका संशोधनमा उल्लेख गरिएका ब्यवस्थाहरुको
-                    पूर्णरुपमा पालना गर्दै यस अन्तर्गत ऋणीलाई उपलब्ध गराइएको ऋण कर्जा तथा सो को सांवा ब्याज
-                    पुर्ण
-                    रुपमा बैंकलाई  चुक्ता भुक्तान नगरे सम्म प्रचलित कानून अन्तर्गत पालना गर्नु पर्ने
-                    सम्पुर्ण
-                    कानून तथा
-                    नियमहरुको पूर्ण रुपमा पालना गर्नेछ ।
-                  </p>
-                  <ul>
-                    <li>
-                      <p>माथि जे जस्तो उल्लेख भएतापनि बैंकले आवश्यक ठानेमा कुनै पनि समय ऋणीलाई सुचना दिई
-                        उपभोग
-                        गरिरहेको कर्जा सिमा (पूर्ण वा आशिंक रुपमा) भुक्तानीका लागि माग गर्न सक्नेछ । तथा
-                        भुक्तानी हुन बाँकी कर्जा सिमा खारेज गर्न सक्नेछ ।</p>
-
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-1"><b>६. </b></div>
-                <div class="col-md-11"><p><b><u> निरीक्षण (Inspection)</u></b></p>
-                  ऋणीले उल्लेखित ऋण सुविधा उपभोग गरेवापत बैंकलाई उपलब्ध गराएको धितो सुरक्षण बैंकले समय
-                  समयमा
-                  वा बैंकले आवश्यक ठानेका वखत कुनै पनि समयमा सुचना दिई वा विना सूचना पनि निरीक्षण गर्न
-                  सक्नेछ र सो वापत लाग्ने सम्पूर्ण खर्च ऋणीले व्यहोर्नु पर्नेछ ।
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-1"><b>७</b></div>
-                <div class="col-md-11"><p><b><u>भाखा नाघ्ने अवस्थाहरु (Events of defaults) </u></b></p>
-                  देहायमा उल्लेखित अवस्थामा भाखा नाघेको (यस पछि भाखा नाघ्ने अवस्था भनिएको) प्रमाणित भएको
-                  मानिनेछ :–
-                  <table class="table  table-responsive table-bordered">
-                    <tr>
-                      <td>(७.१)</td>
-                      <td>यो ऋण स्वीकृतिपत्रमा उल्लेखित कुनै बयान वा प्रत्याभूत प्रतिज्ञा (Warranty) वा
-                        ऋणको लागि गरिएको कुनै पत्राचार वा निवेदन वा ऋणको लागि ऋणिले निवेदनसंग पेश गरेको
-                        कुनै
-                        आर्थिक विवरण, योजना वा तथ्यांक कुनै पनि किसिमले गलत, झुठ्ठा वा धोकापूर्ण भएको
-                        सावित
-                        भएमा,
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        (७.२)
-                      </td>
-                      <td>
-                        बैंकलाई स्पष्ट जानकारी नभएको तर ऋणीको आफ्नो आर्थिक अवस्था संग सम्बन्धित कुनै पनि तथ्य
-                        वा जानकारी, आफ्नो बैंक बाहेक अन्यत्र गरिएको आर्थिक प्रतिवद्धता वा दायित्व वा पूंजीगत खर्च
-                        जस्ता जानकारीहरु बंैकलाई नगराएमा,
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>(७.३)</td>
-                      <td>यो ऋण स्विकृतीपत्रमा उल्लिखित ऋणिले मान्नु पर्ने वा पूरा गर्नु पर्ने कुनै पनि
-                        सहमति वा शर्तहरु मान्नमा वा पूरा गर्नमा वा ऋण रकम र त्यसको वा त्यससंग सम्वन्धित
-                        व्याज, मूल्य, शुल्क र खर्चहरु चुक्ता / भुक्तानी गर्नको लागि सुरक्षण स्वरुप बनाईएका
-                        कागजपत्रहरुमा उल्लेखित शर्तहरुको पालना गर्नबाट ऋणि चुकेमा,
-                      </td>
-
-                    </tr>
-                    <tr>
-                      <td>(७.४)</td>
-                      <td>कुनै असाधारण परिस्थिति वा अवस्था सृजना भई ऋणी यस ऋण स्वीकृतिपत्र अन्तर्गतको
-                        दायित्व बहन गर्न असमर्थ हुन्छ भन्ने बैंकलाई लागेको अवस्थामा बैंकले लिने वा लिएको
-                        कुनै पनि निर्णय ऋणीको लागि अन्तिम तथा बाध्यकारी हुनेछ । साथै त्यसपछिका कुनै पनि
-                        त्यस्ता अवस्थाहरु उत्पन्न भएको खण्डमा बैंकलाई देहाय बमोजिमका अधिकारहरु हुनेछन्ः
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>(क)</td>
-                      <td>यस ऋण स्वीकृितपत्र अन्तर्गत ऋणीले बैंकलाई तिर्नु बुझाउनु पर्ने सम्पूर्ण ऋण
-                        बक्यौता आदिको व्याज समेत सम्पूर्ण रकम तत्काल बैंकलाई तिर्नु पर्ने हुन्छ र बैंकले
-                        सम्पूर्ण लेना रकम तत्काल चुक्ता गर्नु माग गर्ने,
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>(ख)</td>
-                      <td>यसको शर्त नं. ३ मा उल्लेख गरिएको व्याजदर लागु गर्ने ।</td>
-                    </tr>
-                    <tr>
-                      <td>(ग)</td>
-                      <td>ऋणीले उपलब्ध गराएको धितो सुरक्षण आफ्नो कब्जामा लिने तथा सो को विक्रीबाट प्राप्त
-                        लाभबाट आफ्नो लेना असुल उपर गर्ने,
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>(घ)</td>
-                      <td>यस अन्तर्गतका केही वा सवै दायित्वहरुको समाप्त गर्ने,</td>
-                    </tr>
-                    <tr>
-                      <td>(ङ)</td>
-                      <td>ऋणीले उपलब्ध गरेका एक वा एक भन्दा बढी ऋण कर्जा संग सम्बन्धित शर्तहरुमा परिवर्तन
-                        गर्ने,
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>(च)</td>
-                      <td>ऋणी चुकेको कारणवाट उत्पन्न केही वा सबै अधिकारहरुको परित्याग गर्ने ।</td>
-                    </tr>
-                    <tr>
-                      <td>(७.५)</td>
-                      <td>बैंकबाट यो ऋण सुविधा पत्रमा लेखिएको भन्दा बाहेकको अन्य कुनै ऋण वा ऋण सुविधा
-                        ऋणीलाई
-                        उपलब्ध गराएको अवस्थामा र त्यस्तो अन्य ऋण सुविधा वा ऋणका सम्बन्धमा ऋणीले कुनै
-                        Default गरेमा त्यस्तो Default लाई यसै ऋण सुविधा पत्र अन्तर्गत ऋण लिंदा Default
-                        गरे सरह मानी व्याख्या गरिनेछ र त्यस्तो अवस्थामा यस ऋण सुविधा पत्र अन्तर्गत उपलब्ध
-                        गराएको ऋण सुविधा वा ऋण तत्काल तिर्नु पर्ने गरी माग गर्न बैंकलाई पूर्ण अधिकार
-                        (full entitlement) हुनेछ ।
-                      </td>
-                    </tr>
-
-                  </table>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-1"><b>८.</b></div>
-                <div class="col-md-11"><p><b><u>पूर्व शर्तहरु (Conditions Precedent)</u></b></p>
-                  <p>
-                    यस ऋण स्विकृती पत्र दुई प्रतिहरु बनाइएका छन् । कृपया दुवै प्रतिको हरेक पृष्ठमा ऋणीले
-                    दस्तखत गरि एउटा सक्कल प्रति बैंकमा फिर्ता बुझाउनु पर्नेछ, जुन बैकले यस प्रस्तावमा उल्लेख
-                    गरिएको शर्तहरु माथि ऋणीले दिएको स्वीकृितको प्रमाण मानिनेछ । दोस्रो प्रति ऋणीको अभिलेखको
-                    लागि मानिनेछ ।
-                  </p>
-                  <p>
-                    यस अन्तर्गत बैंकले यहांलाई उपलब्ध गराउने कर्जा नेपाल राष्ट्र बैंकबाट समय समयमा बैंकलाई
-                    जारी गरिएको निर्देशन तथा प्रचलित बैंक तथा वित्तीय संस्था सम्बन्धि कानून अन्तर्गत रही
-                    गरिनेछ । यस कर्जा सुविधा अन्तर्गतको रकम ऋणीलाई बैंकले भुक्तानी गर्दा नेपाल राष्ट्र
-                    बैंकबाट
-                    जारी गरिएको कालो सूचि सम्बन्धि निर्देशन अन्तर्गत कर्जा सूचना केन्द्र लिमिटेडबाट प्राप्त
-                    हुने सन्तोषजनक प्रतिवेदनको अधिनमा रही मात्र गरिनेछ । साथै यस ऋण स्विकृतीपत्रमा हस्ताक्षर
-                    गर्दा ऋणीले बैंकबाट यस अन्तर्गत कर्जा सुविधा उपलब्ध गराउन अनुरोध गर्दा नेपाल राष्ट्र
-                    बैंकबाट जारी गरिएको कालो सूचि सम्बन्धि निर्देशनका बारेमा ऋणी पूर्ण रुपमा जानकारी राख्दछ
-                    ।
-                    सोमा उल्लेखित शर्तहरुमा उल्लेखित अवस्थाहरु आएको खण्डमा ऋणीलाई उल्लेखित निर्देशन बमोजिम
-                    बैंकले कालो सूचिमा राख्न ऋणीले यसै मार्फत सहमति प्रदान गरेको छ भनि मानिएको छ ।
-                  </p>
-                  <p>
-                    माथि जुनसुकै कुरा उल्लेख गरिएको भएतापनि बैंकले ऋण सुविधाको प्रस्ताव गर्दा मानेका
-                    आधारहरुमा
-                    प्रतिकूल असर पर्न जान सक्ने कुनै अवस्था आइपरेमा सो प्रस्तावलाई स्वीकृति पूर्व पनि फिर्ता
-                    लिन सक्नेछ ।
-                  </p>
-                  <p>
-                    ऋणी यस अन्तर्गत बैंकले उपलब्ध गराएको कर्जा सुविधाका सम्बन्धमा प्रचलित कानून अन्तर्गत रही
-                    कुनै नियामक निकायलाई कुनै पनि किसिमको सूचना वा जानकारी उपलब्ध गराउन अनुमति प्रदान गर्दै
-                    त्यसरी उपलब्ध गराएको सूचना वा जानकारीका कारण उत्पन्न हुन सक्ने सवै प्रकारका जोखिमहरु बाट
-                    बैंकलाई मुक्त राख्नेछ ।
-                  </p>
-                </div>
-                <div class="row">
-                  <div class="col-md-1"><b>९.</b></div>
-                  <div class="col-md-11"><p><b><u>घोषणा (Representation)</u></b></p>
-                    ऋणी निम्न लिखित कुराहरु सत्य भएको स्विकार गर्दछ :-
-                    <div class="row">
-                      <div class="col-md-1">(क)</div>
-                      <div class="col-md-10">यस ऋण स्विकृतीपत्र संग सम्बन्धित सम्पूर्ण कारोवारी कागजपत्रहरु कानूनी रुपमा
-                        बन्धनकारी छन्।</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-1">(ख)</div>
-                      <div class="col-md-10">यस ऋण स्विकृतीपत्र संग सम्बन्धित सम्पूर्ण कारोवारी कागजपत्रहरुमा कुनै पनि
-                        गल्तीका
-                        संभाव्य अवस्थाहरु विद्यमान छैनन वा विद्यमान भएको थाहा छैन ।</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-1">(ग)</div>
-                      <div class="col-md-10">ऋणीले यस ऋण स्विकृतीपत्र अन्तर्गत बैंकलाई उपलब्ध गराएका सुरक्षण प्रत्यक्ष वा
-                        अप्रत्यक्ष रुपमा कच्चा हुने वा हुन सक्ने खालको कुनै पनि कानूनी कारवाही कुनै
-                        अदालतमा विचाराधीन समेत छैन।</div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-1">(घ)</div>
-                      <div class="col-md-10">यसमा उल्लेखित कागजपत्रहरु प्रचलित कानून खासगरि बैंक तथा वित्तीय संस्था
-                        सम्बन्धि
-                        कानून तथा बैकिङ अपराध तथा कसुर सम्बन्धि कानून, अनुमति पत्र, प्रवन्ध पत्र वा
-                        नियमावलीको प्रतिकूल छैनन् ।</div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-1"><b>१०.</b></div>
-                  <div class="col-md-11"><p><b><u>परित्याग (Waiver)</u></b></p>
-                    यो ऋण स्विकृतीपत्र अन्तर्गत बैंकको कुनै पनि अधिकार बैंकले परित्याग गरेको लिखित सूचना
-                    दिइएकोमा बाहेक अन्य अवस्थामा परित्याग हुन सक्ने छैनन् ।
-                    खासगरीः
-                    <table class="table table-bordered table-responsive">
-                      <tr>
-                        <td>(क)</td>
-                        <td>बैंकले आफ्नो कुनै पनि अधिकार प्रयोग गरेको छैन वा तत्कालै प्रयोग गर्ने छैन
-                          भन्ने
-                          मात्र कारणले बैंकले यो ऋण स्विकृतीपत्र संग सम्वन्धित कुनै पनि अधिकार परित्याग
-                          गर्ने छैन।
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>(ख)</td>
-                        <td>बैंकले यो ऋण स्विकृतीपत्र अन्तर्गत आफ्नो कुनै अधिकारको प्रयोग एक पटक वा पटक
-                          पटक
-                          वा आंशिक रुपमा गरेकोमा बैंकले त्यस्तो अधिकार वा अन्य अधिकारको प्रयोग फेरि गर्न
-                          सक्दैन भन्ने छैन ।
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-1"><b>११.</b></div>
-                  <div class="col-md-11"><p><b><u>कानून र क्षेत्राधिकार ः</u></b></p>
-                    प्रस्तुत बैंकिङ ऋण स्विकृतीपत्र नेपालको बैंक तथा वित्तीय संस्था सम्बन्धि कानून तथा
-                    अन्य
-                    प्रचलित कानून र क्षेत्राधिकारको अधिनमा रहनेछ । साथै प्रचलित नेपाल कानून, नेपाल राष्ट्र
-                    बैंकको निर्देशन तथा बैंकको नीति, नियम तथा सोमा समय समयमा हुने संशोधन सहितको पालना गर्न
-                    मञ्जूर गर्नुका साथै माथि उल्लेखित सम्पूर्ण ऋण/कर्जा र/वा बैंकिङ्ग सुविधा समेत उल्लेखित
-                    कानूनको अधिनमा रहने कुरामा ऋणी मन्जूर गर्दछ ।
-                    यो स्वीकृतीपत्रको अधिनमा रही ऋणीले कर्जा सुविधाहरु उपभोग तथा सावाँ ब्याज भुक्तानी
-                    गर्दा
-                    वा कर्जाको शर्तहरु उल्लंघन भई कर्जा असुलीको प्रक्रियामा बैंकसंग कुनै
-                    गुनासो/असमझदारी/विवाद भएमा त्यस्तो विवाद समाधानको लागि अड्डा अदालत, नियमनकारी निकाय
-                    आदि
-                    मार्फत विवाद समाधान गर्नु गराउनु पूर्व धनी बैंकले स्थापना गरेको मेलमिलाप केन्द्र (Mega
-                    Mediation Center) मार्फत आफ्ना विवाद तथा गुनासोको समाधान गर्न निवेदन दिनु पर्नेछ ।
-                    उक्त केन्द्रबाट आफ्नो गुनासो वा विवाद समाधान नभएमा मात्र प्रचलित कानून बमोजिमको अधिकार
-                    प्रयोग गरी कानूनीबाटो खोज्नु पर्नेछ ।
-
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-1"><b>१२.</b></div>
-                  <div class="col-md-11"><p><b><u>सूचना दिन सहमतीः </u></b></p>
-                    ऋणी यस मार्फत निजको आफ्नो व्यवसायिक कारोवार संग सम्बन्धित कुन पनि सूचना वा जानकारी,
-                    बैंकलाई आवश्यक परेको खण्डमा, बैंक तथा वित्तीय संस्था सम्बन्धि कानूनको अधिनमा रही कुनै
-                    व्यक्ति वा निकाय संग आदान प्रदान गर्न वा उपलब्ध गराउन सहमति प्रदान गर्दछ ।
-
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-1"><b>१३.</b></div>
-                  <div class="col-md-11"><p><b><u>सूचनाहरु:</u></b></p>
-                    ऋणीले उपभोग गरिरहेको कर्जा सम्बन्धी बिभिन्न सुचनाहरु जस्तै ब्याजदरमा परिवर्तन, भाखा
-                    नाघेको कर्जा रकम, कर्जा सुविधाको किस्ता रकम, भुक्तानी मिति तथा कारोबार सम्बन्धी अन्य
-                    जानकारीहरु ऋणीलाई आधिकारीक पत्र, बिद्युतिय माध्यम अथवा एसएमएस मार्फत गराइनेछ जसलाई
-                    बैंकको आधिकारीक सुचना मानिनेछ । साथै अन्य सूचनाहरु देहाय बमोजिमको ठेगानामा हुलाक वा
-                    फ्याक्सको माध्यमद्वारा दिइनेछ ।
-                  </div>
-                </div>
-
+    <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary"
+             nbSpinnerSize="large"
+             nbSpinnerMessage="Saving Hire purchase offer letter.....">
+        <nb-card-body>
+            <div class="row">
                 <div class="col-md-12">
-                  बैंकः
-                  <div class="pl-md-3">
-                    <p> कर्जा ब्यवस्थापन विभाग</p>
-                    <p> मेगा बैंक नेपाल लिमिटेड, केन्द्रीय कार्यालय, कमलादी, काठमाण्डौ</p>
-                    <p> पोष्ट बक्स नं.२६५५९</p>
-                    <p> फोन +९७७–१–४१६९२५० फ्याक्स +९७७–१–४१६९२६०</p>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  ऋणीः
-                  <div class="mb-2"><b>नाम: </b><strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></div>
-                  <div class="row form-group">
-                    <span style="margin-left: 18px;">
-                        <b>स्थायी ठेगान: </b> प्रदेश: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentProvince}}</strong>,&nbsp; जिल्ला: &nbsp;<strong class="nepaliFont">{{loanHolderInfo?.permanentDistrict}}</strong>,&nbsp; वार्ड न: &nbsp;
-                        <strong class="nepaliFont">{{loanHolderInfo?.permanentWard}}</strong>,&nbsp;
-                        <span *ngIf="loanHolderInfo?.permanentMunType==1">
-                            गा बि स:
-                        </span>
-                        <span *ngIf="loanHolderInfo?.permanentMunType==0">
-                            नगरपालिका:
-                        </span>
-                        &nbsp;<b class="nepaliFont">{{loanHolderInfo?.permanentMunicipality}}</b>
-                    </span>
+                    <form (ngSubmit)="submit()" [formGroup]="hayarPurchase">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="text-center">ऋणकर्जा सुविधा स्वीकृति पत्र</h4>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <p>
+                                    मितिः <input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="dateOfGeneration"
+                                                 type="text"/>
+                                </p>
+                                <p>
+                                    श्रीमान/श्रीमती: <input class="form-field form-control-sm nepaliFont medInput"
+                                                            formControlName="customerName"
+                                                            type="text"/>
+                                </p>
+                                <p>
+                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                           style="font-size: 18px;"
+                                           formControlName="customerAddress"
+                                           type="text"/>
+                                </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <p class="pl-1 font-weight-bold">
+                                    <u>बिषयः ऋणकर्जा सुविधा बारे ।</u>
+                                </p>
+                            </div>
                         </div>
-                        <div class="row form-group">
-                    <span style="margin-left: 18px;">
-                        <b>हाल ठेगाना: </b> प्रदेश: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryProvince}}</b>,&nbsp; जिल्ला: &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryDistrict}}</b>,&nbsp; वार्ड न: &nbsp;
-                        <b class="nepaliFont">{{loanHolderInfo?.temporaryWard}}</b>,&nbsp;
-                        <span *ngIf="loanHolderInfo?.temporaryMunType==1">
-                            गा बि स
-                        </span>
-                        <span *ngIf="loanHolderInfo?.temporaryMunType==0">
-                            नगरपालिका:
-                        </span>
-                        &nbsp;<b class="nepaliFont">{{loanHolderInfo?.temporaryMunicipality}}</b>
-                    </span>
-                  </div>
-                  <br>
-                  यो सुविधाको प्रस्ताव उपर स्वीकृति दिन को लागि माथि उल्लिखित मिति देखि
-                  <input class="form-field form-control-sm nepaliFont"
-                         formControlName="timeDuration"
-                         placeholder="३०"
-                         type="text"
-                         size="2"/>
-                  दिनसम्म को समय
-                  दिईएको छ र उल्लेखित समय भित्र ऋणिले आफ्नो सहमति लिखित रुपमा दिईसक्नु पर्ने छ । बैंकले ऋण
-                  सुविधाको प्रस्ताव गर्दा मानेका आधारहरुमा प्रतिकूल असर पर्न जान सक्ने कुनै अवस्था आइपरेमा
-                  ऋणीले उपलब्ध गराइ सकेका वा नसकेको जुनसुकै अवस्थामा भएपनि विना कुनै कारण बैंकले यस
-                  प्रस्तावलाई स्वीकृति पूर्व पनि फिर्ता लिन सक्नेछ ।
-                  <div class="pt-3">
-                    <p>भवदीय,</p>
-                    <p>मेगा बैंक नेपाल लिमिटेडका तर्फबाट</p>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12 pt-5">
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <p>
+                                    महोदय,
+                                </p>
+                                <p>
+                                    तपाईंले मिति सन् <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="applicationDateInAd"
+                                                            type="text"/>
+                                    मा सवारी साधन कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस
+                                    बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
+                                    स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <td colspan="3">
+                                            <b>स्वीकृत ऋणकर्जा सुविधाहरुको बिबरण</b>
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="9">
+                                            १.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold" style="width: 18%">
+                                            कर्जा प्रकार/प्रयोजनः
+                                        </td>
+                                        <td>
+                                            सवारी साधन कर्जाः
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="vehicleDescription" type="text"/>
+                                            नामको सवारी साधन एक थान व्यवसायिक प्रयोजनका लािग खरिद गर्ने प्रयोजनको
+                                            निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            रकमः
+                                        </td>
+                                        <td>
+                                            रु <input class="form-field form-control-sm nepaliFont uniSize read-only-section"
+                                                      formControlName="loanAmount" type="text"
+                                                      (input)="getNumAmountWord('loanAmount', 'loanAmountWords')"/>/-
+                                            (अक्षरेपि रु. <input class="form-field form-control-sm nepaliFont col-3 uniSize read-only-section"
+                                                                 [value]="hayarPurchase.get('loanAmountWords').value"
+                                                                 type="text"/> मात्र
+                                            ।)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)
+                                        </td>
+                                        <td>
+                                            सवारी साधनको भ्याट बिल (VAT Bill) मुल्यको
+                                            <input class="form-field form-control-sm nepaliFont smallInput"
+                                                   formControlName="drawingPower" type="text"/>
+                                            प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                            गर्न सकिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            ब्याज दरः
+                                        </td>
+                                        <td>
+                                            प्रकाशित आधार दर (Base Rate) <input
+                                                class="form-field form-control-sm nepaliFont smallInput "
+                                                formControlName="baseRate" type="text"
+                                                (input)="calculateData('baseRate', 'premiumRate')"/> प्रतिशत
+                                            +
+                                            <input class="form-field form-control-sm nepaliFont smallInput"
+                                                   formControlName="premiumRate" type="text"
+                                                   (input)="calculateData('baseRate', 'premiumRate')"/>
+                                            प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium)
+                                            हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate ) बार्षिक
+                                            <input class="form-field form-control-sm nepaliFont smallInput uniSize"
+                                                   formControlName="floatingRate" type="text"/>
+                                            % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            ऋण प्रशासनिक शुल्क
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                <li>
+                                                    ऋण प्रशासनिक शुल्क बापत रु <input
+                                                        class="form-field form-control-sm nepaliFont"
+                                                        (input)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"
+                                                        formControlName="serviceCharge" type="text"/>/-
+                                                    (अक्षरेपि रु
+                                                    <input class="form-field form-control-sm nepaliFont col-3 uniSize"
+                                                           formControlName="serviceChargeWords" type="text"/>
+                                                    मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
+                                                </li>
+                                                <li>
+                                                    कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य
+                                                    बैंकबाट प्राप्त गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन, रजिष्ट्रेशन,
+                                                    ब्लु प्रिन्ट तथा ट्रेश नक्सा लिञदा लाग्ने शुल्क, सुरक्षित कारोबार
+                                                    रजिष्ट्रेशन तथा अन्य आवश्यक सूचना प्राप्त गर्न र आधिकारिक निकायमा
+                                                    रजिष्ट्रेशन गर्न लाग्ने शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक रकम
+                                                    ऋणी स्वयंले नै तिर्न बुझाउनु पर्नेछ । उक्त रकम तपाईको खातामा
+                                                    खर्च जनाई कटृा गरी भुक्तानी गरिनेछ ।
+                                                </li>
+                                                <li>
+                                                    तपाई ऋणी तथा तपाई सञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना
+                                                    प्रदान गरे बापत प्रति सूचना रु
+                                                    <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="communicationFee" type="text"/> /-
+                                                    शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ
+                                                    ।
+                                                </li>
+                                                <li>
+                                                    बिमा बापतको शुल्क वा धितो मूल्याह्कन/पूर्नमुल्याह्कन शुल्क बापतको
+                                                    बास्तबिक रकम तपाईं ऋणी स्वयंले नै तिर्नु बुझाउनु पर्नेछ ।
+                                                    सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत पक्षले बैंक समक्ष माग
+                                                    गरेमा बैंकले तपाईलाई पूर्व सूचना नदिई तपाईको खातामा खर्च
+                                                    जनाई सम्बन्धीत पक्षलाई भुक्तानी दिन सक्नेछ ।
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            चुक्ता भुक्तानीः
+                                        </td>
+                                        <td>
+                                            <p>
+                                                साञवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
+                                                <input class="form-field form-control-sm nepaliFont"
+                                                       (input)="getNumAmountWord('emiAmount', 'emiAmountWords')"
+                                                       formControlName="emiAmount" type="text"/> /-
+                                                (अक्षरेपि रु.
+                                                <input class="form-field form-control-sm nepaliFont col-3 uniSize"
+                                                       formControlName="emiAmountWords" type="text"/>
+                                                मात्र) का दरले
+                                                <input class="form-field form-control-sm nepaliFont smallInput"
+                                                       formControlName="numberOfEmi" type="text"/> सम मासिक किस्ता
+                                                (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु
+                                                पर्नेछ ।
+                                            </p>
+                                            <p>
+                                                <b>
+                                                    <u>
+                                                        द्रष्टब्यः
+                                                    </u>
+                                                </b> कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको
+                                                प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै
+                                                तपाईंले ब्याज भुक्तानी गर्नुपर्नेछ ।
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            ऋण प्रतिबद्धता शुल्क
+                                        </td>
+                                        <td>
+                                            स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग
+                                            नभएको कर्जा सिमामा
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="loanCommitmentFee" type="text"/>
+                                            प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">
+                                            ग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः
+                                        </td>
+                                        <td>
+                                            <p>
+                                                स्वीकृत अधिविकर्ष तथा नविकरणीय प्रकृतिका कर्जाको तथा निश्चित अवधि वा
+                                                भुक्तानी तालिका बमोजिम
+                                                भुक्तानी हुने प्रकृतिका आवधिक वा दीर्घकालिन कर्जाको किस्ता तालिका भन्दा
+                                                अगावैे ऋणकर्जा अग्रिम
+                                                भुक्तानी भएमा र/वा अन्य कुनै बैंक तथा वित्तीय संस्थाबाट ऋणकर्जा स्वीकृत
+                                                गरी यस बैंकको ऋण
+                                                कर्जा भुक्तान गरिएमा यसरी अग्रिम भुक्तानी गरिने ऋणकर्जा रकममा हालका लागि
+                                                देहाय बमोजिम
+                                                <b> अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्क</b> लाग्नेछ तर
+                                                उल्लिखित दरहरु समय समयमा नेपाल
+                                                राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई थप/घट हुनसक्नेछन ।
+                                            </p>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>
+                                                        अग्रिम भुक्तानी समय अवधि
+                                                    </th>
+                                                    <th>
+                                                        अग्रिम भुक्तानी शुल्क दर
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        कर्जा प्रवाह भएको मितिले २ वर्ष भित्र
+                                                    </td>
+                                                    <td>
+                                                        अग्रिम भुक्तानी रकमको ०.७५ %
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        २ वर्ष देखि ५ वर्ष भित्र
+                                                    </td>
+                                                    <td>
+                                                        अग्रिम भुक्तानी रकमको ०.३७५ %
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        ५ वर्ष भन्दा पछि
+                                                    </td>
+                                                    <td>
+                                                        अग्रिम भुक्तानी रकमको ०.१५ %
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="font-weight-bold">
+                                    <u>सुरक्षण विवरणः</u>
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            क.
+                                        </td>
+                                        <td>
+                                            ऋणकर्जाको सुरक्षण स्वरुप उपरोक्त सवारी साधन कर्जाबाट खरिद गरेको सवारी साधन
+                                            आतंकबाद जोखिम र तेश्रो पक्षिय दायित्व समाहित भएको विस्तृत बिमालेख सहित
+                                            बैंकको नाममा दर्ता गर्नु पर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ख.
+                                        </td>
+                                        <td>
+                                            श्री
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   [value]="hayarPurchase.get('customerName').value"
+                                                   type="text"/>
+                                            ले बैकको पक्षमा रु.
+                                            <input class="form-field form-control-sm nepaliFont uniSize read-only-section"
+                                                   [value]="hayarPurchase.get('loanAmount').value" type="text"/> /-
+                                            (अक्षरेपि रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3 uniSize read-only-section"
+                                                   [value]="hayarPurchase.get('loanAmountWords').value"
+                                                   type="text"/> ।) बराबरको व्यक्तिगत
+                                            जमानत पत्र दिनु पर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ग.</td>
+                                        <td>
+                                            ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय
+                                            बमोजिमको घर/जग्गा धितोबन्धक पारित गरि दिनु पर्नेछ ।
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>
+                                                        धनीः <input class="form-field form-control-sm nepaliFont col-3"
+                                                                    formControlName="ownersName" type="text"/>
+                                                    </p>
+                                                    <p>
+                                                        स्थानः <input
+                                                            class="form-field form-control-sm nepaliFont col-3"
+                                                            formControlName="ownersProperty" type="text"/>
+                                                    </p>
+                                                    <p>
+                                                        कित्ता नंः <input
+                                                            class="form-field form-control-sm nepaliFont col-3"
+                                                            formControlName="propertyPlotNumber" type="text"/>
+                                                    </p>
+                                                    <p>
+                                                        क्षेत्रफलः <input
+                                                            class="form-field form-control-sm nepaliFont col-3"
+                                                            formControlName="propertyArea" type="text"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            २.
+                                        </td>
+                                        <td>
+                                            हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको
+                                            आधिकारिक वेव साईट (Website)
+                                            तथा राष्ट्रियस्तरको पत्रिकामा आधार दर (Base Rate) प्रकाशित गरिनेछ। यसरी हरेक
+                                            त्रैमास समाप्त भएपछि प्रकाशित हुने
+                                            पछिल्लो आधार दर (Base Rate) मा माथि उल्लेख भए बमँजिमकँ ब्याज दर प्रिमियम
+                                            (Interest Rate :Premium)
+                                            थप गरी त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ३.
+                                        </td>
+                                        <td>
+                                            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा
+                                            लाग्ने ब्याज दर बैंकको
+                                            आधिकारिक वेब साईट (Website) मा प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                            चैत्र मसान्तको प्रकाशन गरीने आधार
+                                            दर (Base Rate) मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको
+                                            महिनाहरु अर्थात श्रावण, कार्तिक, माघ
+                                            र बैशाखको पहिलो दिनबाट ब्याज दर समायोजन तथा संसोधन गरीनेछ ।
+                                            <br>
+                                            बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI-
+                                            Equated Monthly Installment)
+                                            मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा
+                                            किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन ।
+                                            परिवर्तनशिल ब्याज दरको कारण अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै
+                                            साञवा/ब्याज बाञकी रहन गएमा उक्त रकम समेत अन्तिम
+                                            किस्ता भुक्तानी मितिमा सम्पुर्ण बाञकी बक्यौता कर्जा साञवा ब्याज रकम चुक्ता
+                                            भुक्तान गर्नुपर्नेछ ।
+                                            <br>
+                                            माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको
+                                            बृद्घी हुन गएबाट सो अनुसार बैंकले
+                                            शुरुमा प्रदान गरेकोरगर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन ।
+                                            स्वीकृत कर्जा प्रवाह पश्चात त्रैमासिक वा कम्तिमा बर्षको एक
+                                            पटक बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको
+                                            स्थिति सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी
+                                            हुने कुरामा ऋणी मन्जुर गर्दछ । ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई
+                                            ब्याजदर बढेको तथा अन्तिम किस्तामा थप रकम
+                                            बुझाउनु पर्ने कुरा थाहा थिएन भन्ने जस्तो दावी गर्न पाइने छैन ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ४.
+                                        </td>
+                                        <td>
+                                            ब्याज दरमा हुने संशोधन तथा पुनरावलोकन माथि उल्लेख भए बमोजिम हुनेछ । साथै
+                                            संशोधनको जानकारी बैंकको आधिकारिक
+                                            वेव साईट (Website) वा पत्रपत्रिका मार्फत सार्वजनिक सुचना जारी गरी परिवर्तित
+                                            व्याज दर लागु गरिनेछ । उक्त परिवर्तित व्याज दरको
+                                            जानकारी ऋणी आफै बैंकको आधिकारिक वेव साईट (Website) र/वा पत्रपत्रिका मार्फत
+                                            प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ५.
+                                        </td>
+                                        <td>
+                                            बैंकबाट जुन उद्देश्यको लागि कर्जा लिएको हो, सो उद्देश्यमा कर्जा प्रयोग
+                                            नगरेमा (Missuse of loan) र/वा धितो सम्पत्तिमा
+                                            हानी नोक्सानी पु¥याउने कार्य गरेमा (Damage/destruction of security
+                                            collateral) र/वा ऋणीले ऋणकर्जा स्वीकृति पत्रमा
+                                            उल्लिखित कुनै पनि शर्तबन्देजहरु उल्लंघन गरेमा ( Non – compliance of terms &
+                                            conditions stipulated in offer letters)
+                                            सम्पूर्ण बक्यौता साञवा ऋण रकममा बार्षिक २ प्रतिशत वा बैंकले समय समयमा तोकेको
+                                            दरले थप हर्जाना व्याज लाग्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ६.
+                                        </td>
+                                        <td>
+                                            ऋणी, जमानतकर्ता वा ऋणी फर्म, कम्पनी वा संस्था भए सोका प्रोप्राईटर, संचालक,
+                                            साझेदार, नेपाल राष्ट्र बैंकले तोकिए बमोजिमको प्रतिशतभन्दा
+                                            बढी शेयर लिने शेयरधनी वा अन्य कुनै प्रकारको स्वामित्व हुने व्यक्ति, उल्लिखित
+                                            सबै व्यक्तिका परिवार तथा निजहरु कही कतै हिताधिकारी भए सोको
+                                            विवरण तथा निजहरुको परिचय खुल्ने प्रमाण समेत यस बैकमा पेश गर्नुपर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ७.
+                                        </td>
+                                        <td>
+                                            कर्जा सिमा यदि आंशिक वा पूर्ण भुक्तानी भए पश्चात भुक्तानी भएको रकम पूनःकर्जा
+                                            स्वरुप उपयोग गर्न सकिनेछैन ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ८.
+                                        </td>
+                                        <td>
+                                            <div class="col-md-12">
+                                                <p>
+                                                    क) तपाईंको कर्जा वापतको ब्याज भुक्तानी अंग्रेजी पात्रोको प्रत्येक २० तारिखमा
+                                                    तपाईंको खाताबाट कट्टा गरिनेछ ।
+                                                </p>
+                                                <p>
+                                                    ख) भुक्तानी मितिको दिन साञवा र/वा ब्याज भुक्तानीका लागि तपाईंको खातामा
+                                                    पर्याप्त रकम हुनुपर्नेछ र सोही खातामा खर्च जनाई साञवा, ब्याज वा सोको किस्ता
+                                                    असुल गरिनेछ ।
+                                                </p>
+                                                <p>
+                                                    ग) साञवा, ब्याज वा किस्ता भुक्तानी मितिको दिनमा यदि तपाईंको खातामा पर्याप्त
+                                                    रकम नभएमा सो मितिमा उक्त खातामा जे जति रकम छ
+                                                    सो बराबर खर्च जनाईनेछ । सो रकम सर्वप्रथम ब्याजमा समायोजन गरिनेछ र बाञकी
+                                                    साञवामा समायोजन गरिनेछ । अपुग रकम
+                                                    यदी कुनै भए तपाईंबाट असुल उपर गरिनेछ ।
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ९.
+                                        </td>
+                                        <td>
+                                            तपाईंले उपरोक्त सवारी साधन कर्जाबाट खरिद गरेको सवारी साधन बैंकको नाममा दर्ता
+                                            गर्नुपर्नेछ साथै आगलागी, भुकम्प, दंगा/हड्ताल जस्ता
+                                            जोखिमबाट हुने क्षती, दुर्भावनापूर्ण क्षती र आतंकवाद आदी जस्ता जोखिमहरु
+                                            समेटिएको “बैकिङ शर्त” (Bankers Clause) सहितको सवारी
+                                            साधनको मुल्य बराबरको कम्तिमा ऋणकर्जा अवधि सम्मको लागि सवारी साधनको बिमालेख
+                                            पेश गर्नुपर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १०.
+                                        </td>
+                                        <td>
+                                            बिमालेखको अवधि समाप्त हुनु कम्तिमा सात दिन अगावै नविकरण गरिएको बिमालेख
+                                            तपाईंले बैंकमा पेश गर्नुपर्नेछ, यदि नबुझाएमा
+                                            तपाईंलाई जानकारी नगराई तपाईंको पक्षमा बैंक आफैंले बिमालेख नविकरण गर्न सक्नेछ
+                                            । सेवा शुल्क सहित आवश्यक बिमा शुल्क बैंकको
+                                            नियमानुसार तपाईंको खातामा खर्च जनाई उठाइनेछ (जहाञ लागू हुन्छ) ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ११.
+                                        </td>
+                                        <td>
+                                            बिमालेख(हरु) खरिद/नविकरण गर्न हाम्रो बैंकान्सुरेन्स ईकाई (Bancassurance
+                                            Unit) ललितपुरमा सम्पर्क गर्न सक्नुहुनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १२.
+                                        </td>
+                                        <td>
+                                            आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात
+                                            तपाईंको आवश्यकत्ता र निवेदन बमोजिम सवारी
+                                            साधन कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="branchName"
+                                                   type="text"/>
+                                            शाखामा खोल्नु भएको चल्ती खातामा ऋणकर्जा प्रवाह
+                                            गरिनेछ र <b>तपाईंले निर्देश गरे बमोजिम</b> आधिकारीक विक्रेता
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="dealerName"
+                                                   type="text"/>
+                                            अथवा यसको प्रतिनिधिलाई रु. <input
+                                                class="form-field form-control-sm nepaliFont uniSize read-only-section"
+                                                [value]="hayarPurchase.get('loanAmount').value"
+                                                type="text"/> /-
+                                            (अक्षरेपि रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3 uniSize read-only-section"
+                                                   [value]="hayarPurchase.get('loanAmountWords').value"
+                                                   type="text"/> मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण
+                                            गरी भुक्तानी गरिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १३.
+                                        </td>
+                                        <td>
+                                            क) सवारी साधन तपाईंले आफ्नो खर्चमा अद्यावधिक अवस्थामा राख्नुपर्नेछ ।
+                                            <br>
+                                            ख) तपाईंले कर्जाको सम्पूर्ण साञवा र सोको ब्याज चुक्ताभुक्तान गरे पश्चात
+                                            मात्र सवारी साधनको स्वामित्व तपाईंको नाममा नामसारी गरिनेछ ।
+                                            <br>
+                                            ग) सवारी साधनमा कुनै मुख्य खरावी वा दुर्घटनाका बारे तपाईंले छत्तिस घण्टा
+                                            भित्र बैंकलाई जानकारी गराउनुपर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १४.
+                                        </td>
+                                        <td>
+                                            कर्जाका लागि तपाईंले बैंकलाई प्रदान गर्नुभएका सम्पूर्ण सूचना ठीक साञचो छन र
+                                            अन्यथा भएमा तपाईं जिम्मेवार हुनुहुनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १५.
+                                        </td>
+                                        <td>
+                                            यदि ऋणीले यस ऋणकर्जा स्वीकृति पत्रमा उल्लेखित कुनै पनि शर्तबन्देजहरु उल्लंघन
+                                            गरेमा र/वा यदि ऋणीले स्वयंले टाट
+                                            पल्टेको घोषणा गरेमा र/वा यदि सक्षम निकायबाट ऋणीलाई विघटन (Liquidation) गर्ने
+                                            प्रकृया चालेमा र/वा यदि ऋणीले
+                                            फौजदारी कसुरजन्य काम कारवाही गरेमा र/वा ऋणीले बैंक बिरुद्ध कुनै न्यायिक वा
+                                            अर्ध न्यायिक निकायमा मुद्धा दायर गरेमा
+                                            त्यसलाई बैंकले ऋणकर्जाको दायित्व भुक्तानी गर्न असक्षम (Default) भएको रुपमा
+                                            लिनेछ । यसरी ऋणकर्जाको दायित्व भुक्तानी
+                                            गर्न असक्षम भएको अवस्थामा बैंकको लेना असुलीका लागि विना कुनै पूर्र्व सूचना
+                                            तपाईंको तस्बिर सहितको ऋण चुक्ता गर्न
+                                            सार्वजनिक सूचना प्रकाशन गर्ने एवं नेपाल राष्ट्र बैंकको निर्देशन बमोजिम
+                                            तपाईंको नाम कालो सूचीमा समावेश गर्ने लगायतका
+                                            कानूनी कार्य गर्ने बैंकको अधिकार सुरक्षित रहनेछ । ऋणकर्जा भुक्तानी गर्न
+                                            असक्षम भएमा बैंकको नियम विनियम बमोजिम
+                                            हर्जाना ब्याज लाग्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १६.
+                                        </td>
+                                        <td>
+                                            साञवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी
+                                            नभएमा देहाय बमोजिमका दरले थप हर्जाना ब्याज लाग्नेछ ।
+                                            <div class="col-md-12">
+                                                <p>
+                                                    <b>
+                                                        क. <u>सञावाको भाखा नाघेको अवस्थामाः</u>
+                                                    </b>
+                                                    <br>
+                                                    ऋण कर्जाहरुको साञवा निर्धारित समयमा भुक्तानी नभई भाखा नाघेको
+                                                    अवस्थामा विलम्बित अवधिका लगि भुक्तानी मिति
+                                                    नाघेको साञवा/किस्ता रकममा वार्षिक २ प्रतिशत वा बैंकले समय समयमा
+                                                    तोकेको दरले थप हर्जाना ब्याज लाग्नेछ ।
+                                                </p>
+                                                <p>
+                                                    <b>
+                                                        ख. <u>व्याजको भाखा नाघेको अवस्थामाः</u>
+                                                    </b>
+                                                    <br>
+                                                    ब्याज रकम निर्धारीत समय आषाढ, आश्विन, पौष, चैत्र मसान्त भित्रमा वा
+                                                    ऋण स्विकृत पत्रमा उल्लेख भए अनुसार भुक्तानी गर्नु पर्नेछ ।
+                                                    यदि निर्धारित मितिमा कुनै ऋणकर्जा शिर्षकमा व्याज भुक्तानी नभई विलम्ब
+                                                    हुन गएमा विलम्ब भएको अवधिका लागि बक्यौता व्याज रकममा
+                                                    जुन ऋणकर्जा शिर्षकमा बक्यौता व्याज रहेको हो सोही ऋणकर्जामा बक्यौता
+                                                    अवधिमा निर्धारीत व्याजदर (आधार दर ब्याज दर प्रिमियम) मा
+                                                    २ प्रतिशत हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले थप हर्जाना
+                                                    व्याज लाग्नेछ । बैंकले निर्धारण गरेको ब्याजदर प्रिमियम (Interest
+                                                    Rate Premium)
+                                                    र आधार दर (Base Rate) बैंकको आधिकारिक वेब साईट (Website) वा समय
+                                                    समयमा बैंकले त्रैमासिक रुपमा प्रकाशित
+                                                    गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।
+                                                </p>
+                                                <p>
+                                                    <b>
+                                                        ग. <u>बिलम्ब भुक्तानी शुल्कः</u>
+                                                    </b>
+                                                    <br>
+                                                    माथि उल्लिखित सञावा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका
+                                                    अतिरिक्त प्रत्येक सञावा/किस्ता तथा व्याज विलम्बमा रु
+                                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                                           formControlName="lateFee"
+                                                           type="text"/> /- ( का दरले थप विलम्ब शुल्क लाग्नेछ ।
+                                                </p>
+                                                <p>
+                                                    <b>
+                                                        घ. <u>थप/अतिरिक्त शुल्कः</u>
+                                                    </b>
+                                                    <br>
+                                                    स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका
+                                                    बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक नियमानुसार देहाय बमोजिम थप
+                                                    जोखिम दर(Additional Risk Premium) समेत लाग्नेछ ।
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <table class="table table-bordered text-center">
+                                                <thead>
+                                                <tr>
+                                                    <th>विवरण</th>
+                                                    <th>थप जोखिम दर (Additional Risk Premium)</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा
+                                                        ऋणकर्जा समाप्ति मिति पछि ३० औं दिन देखि ८९ औं दिन भित्र
+                                                        नविकरण/चुक्ता नभएमा
+                                                    </td>
+                                                    <td>
+                                                        वार्षिक १.०० %
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा
+                                                        ऋणकर्जा समाप्ति मिति पछि ३० औं दिन देखि ८९ औं दिन भित्र
+                                                        नविकरण/चुक्ता नभएमा
+                                                    </td>
+                                                    <td>
+                                                        वार्षिक २.०० %
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        ऋणकर्जाको पुर्व निर्धारित सावाञ र ब्याज भुक्तानी मिति र वा
+                                                        ऋणकर्जा समाप्ति मिति पछि ९० औं दिन देखि माथि ऋणकर्जा
+                                                        नविकरण/चुक्ता नभए सम्म
+                                                    </td>
+                                                    <td>
+                                                        वार्षिक ३.०० %
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १७.
+                                        </td>
+                                        <td>
+                                            माथि उल्लिखित हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी शुल्क
+                                            (Late Payment Fee) र अन्य
+                                            सेवा सुविधा बापत तिर्नु बुझाउनु पर्ने शुल्क तथा व्याजदरहरु बैंकले आफ्नो
+                                            आधिकारीक website मा सूचना प्रकाशित गरि
+                                            समय समयमा परिवर्तन गर्न सक्नेछ र यसरी प्रकाशित गरि शुल्क, दस्तुर तथा हर्जाना
+                                            व्याज दरहरु परीबर्तन गरेमा माथि उल्लिखित
+                                            शुल्क, दस्तुर तथा हर्जाना व्याजदरहरु समेत परिवर्तन भएको मानिनेछ । र सो
+                                            परिवर्तित शुल्क, दस्तुर तथा हर्जाना ब्याजदर बमोजिमको
+                                            रकम तिर्न बुझाउन ऋणी मञ्जुर गर्दछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १८.
+                                        </td>
+                                        <td>
+                                            <p>
+                                                क. व्यवसायको अवस्थाहरुमा भौतिक र/वा प्रतिकूल परिवर्तन भएमा ऋणकर्जा
+                                                चुक्ता/भुक्तानी गर्न उचित सूचना र कारणहरु
+                                                खुलाई ऋण सुविधाहरु चुक्ता भुक्तानीका लागि बोलाउने बैंकको अधिकार सुरक्षित
+                                                रहनेछ ।
+                                            </p>
+                                            <p>
+                                                ख. किस्ता/साञवा/ब्याज/अन्य शुल्क/दस्तुर/बक्यौता चुक्तान भुक्तान नभएको
+                                                अवस्थामा बैंकको लेना उठाउनका लागि विना
+                                                कुनै पूर्ब सूचना तपाईंको तस्बिर सहितको नाम नामेसी, सूचना प्रकाशन गर्ने
+                                                एवं तपाईंको नाम कालो सूचीमा समावेश गर्ने
+                                                लगायतका कानूनी कार्य गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            १९.
+                                        </td>
+                                        <td>
+                                            कर्जाको सुरक्षणमा बैंकको नाममा रहेको सवारी साधनको तिर्नुपर्ने सम्पूर्ण
+                                            सरकारी राजश्व/दस्तुरहरु र ब्लु बुक नविकरण
+                                            र अन्य आवश्यक कागजपत्रहरु समयमा नै तपाईंले आफ्नो खर्चमा तिर्नु बुझाउनु
+                                            नविकरण गर्नु पर्नेछ । सो रसिदको प्रतिलिपि नियमित रुपमा बैंकमा पेश गर्नु
+                                            पर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २०.
+                                        </td>
+                                        <td>
+                                            बैंक अभिलेखमा रहेको तपाईंको अन्तिम ठेगानामा बैंकका सूचना तपाईंलाई प्रदान
+                                            गरिएमा सूचना प्रभावकारी रुपमा प्रदान गरिएको मानिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २१.
+                                        </td>
+                                        <td>
+                                            सम्पूर्ण बाञकी (साञवा र ब्याज) चुक्ताभुक्तानी नभएसम्म सवारी साधन तपाईंको
+                                            अधिन र कब्जामा रहनु पर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २२.
+                                        </td>
+                                        <td>
+                                            ट्राफिक नियम विनियम अनुपालन गरी सवारी साधनको उपयोग गर्नुपर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २३.
+                                        </td>
+                                        <td>
+                                            सवारी साधन तपाईंको अधिन र/वा कब्जामा रहुन्जेल सम्म यदि कुनै नोक्सानी/क्षति
+                                            र/वा आकस्मिक घटना भएमा सोको उत्तरदायी तपाईं स्वयं हुनुहुनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २४.
+                                        </td>
+                                        <td>
+                                            बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित
+                                            रहेको सम्पत्तिहरु/सुरक्षणहरु बैंकको लिखित
+                                            सहमति बेगर अन्य पक्षहरुको हक वा हितमा कुनै पनि तवरले पूनः
+                                            धितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य कुनै व्यहोराले तेश्रो पक्षको हक श्रृजना
+                                            गरी दिन पाईने छैन ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २५.
+                                        </td>
+                                        <td>
+                                            बैंकको धितोबन्धक र/वा दृष्टिबन्धकमा रहेको सम्पत्तिहरु/सुरक्षणहरुको बिमालेखमा
+                                            बैंकर्स शर्त (Banker's Clause) सहित
+                                            अन्य आवश्यक जोखिमहरु सुरक्षित गरी बिमा गरी सुरक्षित राख्नुपर्नेछ र उक्त
+                                            सम्पत्तिहरु/सुरक्षणहरुमा कुनै भौतिक र/वा प्राकृतिक परिवर्तन
+                                            भएमा सोको बैंकलाई अविलम्ब जानकारी दिनुपर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २६.
+                                        </td>
+                                        <td>
+                                            माथि उल्लेखित स्वीकृत ऋणकर्जा सुविधाको सिमाहरु अप्रतिबद्ध सिमाहरु हुन र
+                                            तपाईंलाई पूर्व सूचना दिई वा नदिई सो ऋणकर्जा सुविधाहरुको उपयोग नगरिएका अंशहरु
+                                            रोक्न/रद्ध गर्न/निलम्बन गर्न र घटाउन बैंकको अधिकार सुरक्षित रहनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २७.
+                                        </td>
+                                        <td>
+                                            स्वीकृत ऋणकर्जा सुविधाहरुको ब्याजदर परिवर्तन बाहेक ऋणीको अनुरोधमा अन्य कुनै
+                                            पनि शर्तबन्देजहरु
+                                            परिवर्तन वा संशोधन भएमा प्रत्येक परिवर्तन वा संसोधनका लागि रु. एक करोड
+                                            सम्मको कर्जाका लागि
+                                            रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="changeFeeBelow1Cr"
+                                                   type="text"/> /- र एक करोड भन्दा माथिको कर्जाका लागि
+                                            रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="changeFeeAbove1Cr"
+                                                   type="text"/> /- परिवर्तन/संशोधन शुल्क लाग्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २८.
+                                        </td>
+                                        <td>
+                                            ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोबन्धक लेखीदिएको
+                                            घर/जग्गाहरु फुकुवा गर्दाको बखत फुकुवा
+                                            बापत प्रति धितोबन्धक तमसुक/सवारी साधन रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="CollateralReleaseFee"
+                                                   type="text"/>
+                                            /- का दरले धितो फुकुवा शुल्क लाग्नेछ ।
+                                            साथै बैंकको पक्षमा धितोबन्धक लेखिदिएको घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र
+                                            निश्चित समयको लागि माग गरी फिर्ता लैजादा प्रति पटक
+                                            रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="documentAccessFee"
+                                                   type="text"/> /- का दरले शुल्क लाग्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            २९.
+                                        </td>
+                                        <td>
+                                            बैंकबाट प्राप्त गर्नुहुने अन्य सेवा सुविधा सम्बन्धी शुल्क दस्तुर तथा शर्तहरु
+                                            यस बैंकको आधिकारीक website मा प्रकाशित शुल्क सम्बन्धी विवरणमा उल्लेख भए
+                                            अनुसार हुनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ३०.
+                                        </td>
+                                        <td>
+                                            स्वीकृत ऋणकर्जा सुविधाहरु यस ऋणस्वीकृित पत्र स्वीकार गरेको मितिले ६० दिन
+                                            भित्र उपयोग गरिसक्नु पर्नेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ३१.
+                                        </td>
+                                        <td>
+                                            बैंकको लिखित सहमति बेगर ऋणी फर्म/कम्पनीको स्वामित्व, शेयर संरचनामा विक्रि,
+                                            परिवर्तन वा नामसारी गर्न पाईने छैन र बैंकको सहमति बेगर स्वामित्व संरचनामा
+                                            परिवर्तन वा नामसारी गरेमा यस ऋण सुविधा पत्रको उल्लंघन भएको मानिनेछ ।
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ३२.
+                                        </td>
+                                        <td>
+                                            तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु
+                                            सम्पादन गर्नु पर्नेछ ।
+                                            <br>
+                                            क. रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="promissoryNoteAmount"
+                                                   type="text"/> /- को प्रतिज्ञा पत्र ।
+                                            <br>
+                                            ख. निरन्तरताको लिखत ।
+                                            <br>
+                                            ग. रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="loanDeedAmount"
+                                                   type="text"/> /-
+                                            को ऋणकर्जा तमसुक ।
+                                            <br>
+                                            ह्. रु
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="pledgeAmount"
+                                                   type="text"/>
+                                            को धितो बन्धक तमुुसुक ।
+                                            <br>
+                                            च. हायर पर्चेज सम्झौता ।
+                                            <br>
+                                            छ. तेश्रो पक्ष दायित्व सहित बैंकिङ शर्त सहितको सवारी साधनको विस्तृत बिमालेख
+                                            ।
+                                            <br>
+                                            ज. बैंकको नाममा सवारी साधन दर्ता (बैंकको नाममा ब्लु बुक) ।
+                                            <br>
+                                            झ. तेश्रो पक्ष स्वामित्व हस्तान्तरण (यदि चुक्ताभुक्तानी नभएको अवस्थामा) का
+                                            लागि ऋणीको मञ्जुरीनामा ।
+                                            <br>
+                                            ञ. रु.
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   formControlName="guaranteeAmount"
+                                                   type="text"/>/-
+                                            र को श्री
+                                            <input class="form-field form-control-sm nepaliFont col-3"
+                                                   [value]="hayarPurchase.get('customerName').value"
+                                                   type="text"/> र को व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।
+                                            <br>
+                                            ट. बहुबैंकिङ घोषणा पत्र ।
 
-                      <div class="float-left text-center">
-                        <p>.........................................</p>
-                        <p>आधिकारीक दस्तखत</p>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="identityCardNo1"
-                               placeholder="६५५"
-                               type="text"/>
-                      </div>
-                      <div class="float-right text-center">
-                        <p>.........................................</p>
-                        <p>आधिकारीक दस्तखत</p>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="identityCardNo2"
-                               placeholder="६५५"
-                               type="text"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12 pt-2">
-                      म/हामीले <input class="form-field form-control-sm nepaliFont "
-                                      formControlName="pageCount"
-                                      placeholder="८"
-                                      type="text"/> पृष्ठको यस बैकिङ ऋण स्विकृतीपत्रमा उल्लेखित शर्तहरु राम्ररी पढें/पढ्यौं
-                      र बुझें/बुझ्यौं । यसमा उल्लेखित गरिएको सम्पूर्ण शर्तहरु पालना गर्न म/हामी मन्जुर
-                      गर्दछु/गर्दछौं र बैंकसंग यस अन्तर्गत लिएको ऋण पूर्ण रुपमा चुक्ता भुक्तान नगरे सम्म
-                      यसमा उल्खित शर्तहरुको पूर्ण रुपले पालना गर्ने प्रतिज्ञा गर्दछु/गर्दछौं ।
-                      <p class="pt-2"> ऋणीको नाम: <strong class="nepaliFont"> {{loanHolderInfo?.name}}</strong></p>
-                      <p class="pt-2">आधिकारीक दस्तखत ............................</p>
-                      <p>मितिः<span class="nepaliFont">{{hayarPurchase.get('date').value}}</span></p>
-                      <p><b>नोट: कृपया हरेक पृष्ठमा आधिकारिक दस्तखत तथा निकायको छाप अनिवार्य रुपमा लगाउनु
-                        होला ।</b></p>
-                    </div>
-                  </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p>
+                                यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न
+                                रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
+                                सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै,
+                                तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको
+                                मितिले ६० (साठ्ठी) दिनभित्र यस ऋण स्वीकृति पत्रमा ऋणीले बैंकलाई उपलब्ध गराउनु पर्ने भनी
+                                तोकिएको विवरण, सूचना, कागजात तथा
+                                सम्पूर्ण सुरक्षण सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु/बुझाउनु भए पश्चातमात्र कर्जा
+                                सुविधा प्रवाह हुन सक्नेछ । अन्यथा, स्वीकृत ऋण
+                                सुविधा स्वतः रद्द हुनेछ ।
+                            </p>
+                            <div class="row d-flex justify-content-lg-between p-3">
+                                <div class="text-center">
+                                    <p>
+                                        ...........................................
+                                    </p>
+                                    <p class="text-center">
+                                        सम्पर्क अधिकृत
+                                    </p>
+                                </div>
+                                <div class="text-center">
+                                    <p>
+                                        ..........................................
+                                    </p>
+                                    <p class="text-center">
+                                        शाखा प्रबन्धक
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>
+                                        १.
+                                    </td>
+                                    <td>
+                                        म/हामीले बैंकले माग गर्ना साथ र बैंकले दिएको समयमा भुक्तानी नगरिएको अवस्थामा
+                                        नेपाल राष्ट्र बैंक,
+                                        कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम म/हामीलाई कालोसूची
+                                        व्यवस्था र सोको प्रभाव सम्बन्धी
+                                        पूर्ण जानकारी सहित बैंकले कालोसूचीमा राख्ने निर्णय गरेमा स्वीकार्छु/छौं । बैंकको
+                                        उक्त निर्णय विरुद्ध म/हामीले कहिं
+                                        कतै उजुर वाजुर गर्ने छैन । यदि बैंकको निर्णय बिरुद्ध उजुर वाजुर गरेमा उक्त
+                                        उजुरीबाट उत्पन्न हुने दायित्व र परिणाम
+                                        म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं । यदि मेरो/हाम्रो मृत्यु भएमा वा
+                                        बहुलाएमा बैंकको सम्पूर्ण लेना सहितको दायित्व
+                                        मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी जिम्मेवारी
+                                        लिन्छु/छौं ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        २.
+                                    </td>
+                                    <td>
+                                        म/हामी माथि उल्लेखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ३.
+                                    </td>
+                                    <td>
+                                        म/हामीलाई पूर्व जानकारी सहित वा जानकारी बेगर कुनै वा सम्पूर्ण ऋणकर्जा सिमा
+                                        जुनसुकै समयमा रद्ध गर्न
+                                        त्यस बैंकको अधिकार रहने कुरामा मेरो/हाम्रो स्वीकृति छ । बैंकले माग गर्नासाथ
+                                        सम्पूर्ण बाञकी रकम, उपार्जित
+                                        ब्याज र शुल्कहरु समेत भुक्तानी गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ४.
+                                    </td>
+                                    <td>
+                                        म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म
+                                        दामासाहिमा परेको घोषणा भएको छैन भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ५.
+                                    </td>
+                                    <td>
+                                        म/हामी यस बैंक सहित हाम्रोे कूल ऋणकर्जा सुविधा रु. १ करोड भन्दा बढि नभएको
+                                        बिनाशर्त उद्घोष गर्दछु ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ६.
+                                    </td>
+                                    <td>
+                                        यस नबिल बैंक लिमिटेडका संस्थापक, सञ्चालक, प्रमुख कार्यकारी अधिकृत, अधिकृत र सो
+                                        भन्दा माथिल्लो
+                                        स्तरका कर्मचारीहरु, चुक्ता पुञजीको एक प्रतिशत वा सो भन्दा बढी शेयर लिएका
+                                        व्यक्तिहरु र बहालवाला लेखापरिक्षक
+                                        सञग मेरो/हाम्रो, कम्पनीको हकमा संस्थापक शेयरधनीहरु र सञ्चालकहरुको समेत र
+                                        मेरो/हाम्रो तर्फबाट जमानीकर्ताको
+                                        एकाघरको पारिवारिक सम्बन्ध नभएको र निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय
+                                        स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं ।
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <div class="row justify-content-between pt-5">
+                                            <div>
+                                                ................................
+                                                <p>
+                                                    आधिकारिक हस्ताक्षर (ग्राहक)
+                                                </p>
+                                            </div>
+                                            <div>
+                                                मितिः <input class="form-field form-control-sm nepaliFont "
+                                                             formControlName="signatureDate"
+                                                             type="text"/>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-md-12">
+                                <p>
+                                    साक्षीः
+                                </p>
+                                <p>
+                                    १. <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="witnessDistrict"
+                                              type="text"/>
+                                    जिल्ला
+                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                           formControlName="witnessMunicipality"
+                                           type="text"/>
+                                    गा.वि.स/न.पा, वडा नंं.
+                                    <input class="form-field form-control-sm nepaliFont smallInput"
+                                           formControlName="witnessWardNo"
+                                           type="text"/> बस्ने श्री
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="witnessName"
+                                           type="text"/>
+                                </p>
+                                <p>
+                                    २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक
+                                    लि. का कर्मचारी श्री
+                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                           formControlName="approvalStaffName"
+                                           type="text"/>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button nbButton status="success" type="submit">Save</button>
+                        </div>
+                    </form>
                 </div>
-              </div>
             </div>
-            <div class="col-md-12">
-              <button nbButton status="success" type="submit">Save</button>
-            </div>
-          </form>
-      </div>
-    </div>
-  </nb-card-body>
-  <nb-card-footer class="mb-3">
-    <button nbButton status="info" [useExistingCss]="true" class="mb-4 float-right" [disabled]="!initialInfoPrint"
-            ngxPrint printSectionId="{{offerLetterConst.HIRE_PURCHASE}}Print">Print
-    </button>
-  </nb-card-footer>
-</nb-card>
+        </nb-card-body>
+        <nb-card-footer class="mb-3">
+            <button nbButton status="info" [useExistingCss]="true" class="mb-4 float-right"
+                    [disabled]="!initialInfoPrint"
+                    ngxPrint printSectionId="{{offerLetterConst.HIRE_PURCHASE}}Print">Print
+            </button>
+        </nb-card-footer>
+    </nb-card>
 </div>
-<app-hayer-purchase-print  *ngIf="initialInfoPrint"
-                           [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                           [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>
+<app-hayer-purchase-print *ngIf="initialInfoPrint"
+                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                          [loan]="initialInfoPrint" hidden></app-hayer-purchase-print>
 
