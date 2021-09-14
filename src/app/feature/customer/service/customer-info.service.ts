@@ -24,6 +24,9 @@ export class CustomerInfoSearch {
     subsectorDetail: string;
     customerCode: string;
     bankingRelationship: string;
+    gender: string;
+    maritalStatus: string;
+    customerLegalDocumentAddress: string;
 
 }
 

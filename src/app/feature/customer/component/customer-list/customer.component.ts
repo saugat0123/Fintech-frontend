@@ -216,6 +216,9 @@ export class CustomerComponent implements OnInit {
             this.filterForm.get('customerCode').value;
         this.search.bankingRelationship = ObjectUtil.isEmpty(this.filterForm.get('bankingRelationship').value) ? undefined :
             this.filterForm.get('bankingRelationship').value;
+        this.search.gender = undefined;
+        this.search.maritalStatus = undefined;
+        this.search.customerLegalDocumentAddress = undefined;
         CustomerComponent.loadData(this);
     }
     openChooseAcType(modal) {
