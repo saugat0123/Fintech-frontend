@@ -17,7 +17,7 @@
             जिल्ला <span [ngClass]="{'nepaliFont':printDocForm?.municipality!==null && printDocForm.municipality!==''}" >
             {{printDocForm?.municipality===null||printDocForm?.municipality===''?'________________':printDocForm.municipality }}
           </span>
-            गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span [ngClass]="{'nepaliFont':printDocForm?.wadNo!==null && printDocForm.wadNo!==''}" >
+            गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.<span [ngClass]="{'nepaliFont':printDocForm?.wadNo!==null && printDocForm.wadNo!==''}" >
             {{printDocForm?.wadNo===null||printDocForm?.wadNo===''?'________________':printDocForm.wadNo }}
           </span>
             स्थित <span [ngClass]="{'nepaliFont':printDocForm?.branchName!==null && printDocForm.branchName!==''}" >
@@ -69,12 +69,11 @@
             मिति <span [ngClass]="{'nepaliFont':printDocForm?.date!==null && printDocForm.date!==''}" >
             {{printDocForm?.date===null||printDocForm?.date===''?'________________':printDocForm.date }}
           </span>
-            जि.प्र.का.) <span [ngClass]="{'nepaliFont':printDocForm?.cdoOffice!==null && printDocForm.cdoOffice!==''}" >
+            जि.प्र.का. <span [ngClass]="{'nepaliFont':printDocForm?.cdoOffice!==null && printDocForm.cdoOffice!==''}" >
             {{printDocForm?.cdoOffice===null||printDocForm?.cdoOffice===''?'________________':printDocForm.cdoOffice }}
           </span>)
 
-          )
-            आगे म/हामी ऋणीको व्यापार/व्यवसाय सञ्चालन गर्न
+          )आगे म/हामी बेय्क्तिगत  एंब  घरयासि प्रायोजनकने लागि
             ऋण कर्जा तथा बैंकिङ्ग सुविधाहरुको आवश्यकता परी तपाई धनी वित्तीय संस्थासंग लिखित अनुरोध
             गरेकोमा तपाई
             धनी वित्तीय संस्थाले म/हामी ऋणीको नाममा जारी गरेको मिति
@@ -123,7 +122,7 @@
         </p>
       </div>
       <br>
-        <p [ngClass]="{'page-break': length > 4}"></p>
+        <p [ngClass]="{'page-break': printDocForm.swikritiBibaran.length > 4}"></p>
 
         <p class="text-center"><b>स्वीकृत ऋणकर्जाको बिवरण</b></p>
         <div *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
@@ -177,7 +176,7 @@
                             कि.नं
                         </th>
                         <th width="10%">क्षेत्रफल</th>
-                        <th width="10%">रजिष्टे शन नं.</th>
+                        <th width="10%">रजिष्टेशन नं.</th>
                         <th width="28%">धनीको नाम थर र वतन</th>
                     </tr>
                     </thead>
@@ -215,8 +214,7 @@
         गते <span [ngClass]="{'nepaliFont':printDocForm.itiSambatTime!==null && printDocForm.itiSambatTime!==''}">
           {{printDocForm?.itiSambatTime===null || printDocForm?.itiSambatTime===null ?'________________':printDocForm.itiSambatTime}}
       </span>
-        रोज शुभम्
-          <span [ngClass]="{'nepaliFont':printDocForm.itiSambatRoj!==null && printDocForm.itiSambatRoj!==''}">
+          रोज शुभम् <span [ngClass]="{'nepaliFont':printDocForm.itiSambatRoj!==null && printDocForm.itiSambatRoj!==''}">
           {{printDocForm?.itiSambatRoj===null || printDocForm?.itiSambatRoj===null ?'________________':printDocForm.itiSambatRoj}}
       </span>।
       </p>

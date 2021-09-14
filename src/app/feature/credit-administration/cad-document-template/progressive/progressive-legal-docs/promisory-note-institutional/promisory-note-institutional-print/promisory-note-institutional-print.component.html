@@ -107,12 +107,13 @@
             तुरुन्ततिर्न बुझाउनप्रतिज्ञा र कबुलगर्दछु/छौं।
         </p>
     </div>
-    <p class="text-center"><b>भवदीय,</b></p>
+    <p class="text-left"><b>भवदीय,</b></p>
     <br>
     <div>
         <p>
+            <br><br>
             दस्तखत :-...............
-            <br>
+            <br><br>
             अख्तियार प्राप्त ब्यक्तिको नाम :-  <span [ngClass]="{'nepaliFont':printDocForm?.AkhtiyarName!==null && printDocForm?.AkhtiyarName!==''}">
           {{printDocForm.AkhtiyarName===null || printDocForm.AkhtiyarName===''?'_______________' :printDocForm?.AkhtiyarName}}
         </span>
@@ -190,9 +191,9 @@
 
     </div>
     <br>
-
     <div>
-        <b>साक्षी :</b>
+    <div>
+        <b class="text-left">साक्षी :</b>
         <div *ngFor="let guarantor of printDocForm?.secguarantorDetails; let i=index">
             <div style="overflow-x: auto">
                 <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
