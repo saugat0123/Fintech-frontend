@@ -59,124 +59,58 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     }
+    this.checkOfferLetterData();
   }
   buildForm() {
     this.retailLoanAgainstInsurance = this.formBuilder.group({
-      refNo: [undefined],
-      offerLetterDate: [undefined],
-      borrowerName: [undefined],
-      borrowerAddress: [undefined],
-      borrowerContactNo: [undefined],
-      insuranceCompanyName: [undefined],
-      borrowerInsuranceNo: [undefined],
-      pageCount: [undefined],
-      identityCardNo: [undefined],
-      identityCardNo1: [undefined],
-      borrowerName3: [undefined],
-      offerLetterDate2: [undefined],
-
-      loanTypeSelectedArray: [undefined],
-
-      laiTermLoanArray: this.formBuilder.array([this.buildTermLoan()]),
-      laiOverDraftLoanArray: this.formBuilder.array([this.buildOverDraftLoanGroup()]),
-      laiDemandLoanArray: this.formBuilder.array([this.buildDemandLoanGroup()]),
-      note: this.note,
+      DateOfGeneration: [undefined],
+      CustomerName: [undefined],
+      CustomerAddress: [undefined],
+      ApplicationDateInAD: [undefined],
+      LoanType: [undefined],
+      LoanAmount: [undefined],
+      LoanAmountWords: [undefined],
+      DrawingPower: [undefined],
+      BaseRate: [undefined],
+      PremiumRate: [undefined],
+      FloatingInterestRate: [undefined],
+      ServiceCharge: [undefined],
+      ServiceChargeWords: [undefined],
+      CommunicationFee: [undefined],
+      EMIAmount: [undefined],
+      EMIAmountWords: [undefined],
+      LoanCommitmentFee: [undefined],
+      OwnersName : [undefined],
+      OwnersAddress: [undefined],
+      PropertyPlotNumber: [undefined],
+      PropertyArea: [undefined],
+      SheetNUmber: [undefined],
+      GuarantorName: [undefined],
+      ChangeFeeBelow1Cr: [undefined],
+      ChangeFeeAbove1Cr: [undefined],
+      CollateralReleaseFee: [undefined],
+      DocumentAccessFee: [undefined],
+      PromissoryNoteAmount : [undefined],
+      LoanDeedAmount : [undefined],
+      PledgeAmount : [undefined],
+      GuarantorName1 : [undefined],
+      GuarantorAmount1 : [undefined],
+      GuarantorAmountWords1 : [undefined],
+      SignatureDate : [undefined],
+      District: [undefined],
+      VDC: [undefined],
+      Ward: [undefined],
+      Witness: [undefined],
+      StaffName : [undefined]
     });
   }
-
-  buildTermLoan() {
-    return this.formBuilder.group({
-      termLoanDebitLimitAmount: [undefined],
-      tenure: [undefined],
-      termLoanDebitLimitAmountWord: [undefined],
-      termLoanPurpose: [undefined],
-      baseRate: [undefined],
-      termLoanPaymentDate: [undefined],
-      premiumRate: [undefined],
-      yearlyRate: [undefined],
-      termLoanFirstInstallment: [undefined],
-      termLoanInstallmentRate: [undefined],
-      termLoanInstallmentRateWords: [undefined],
-      serviceChargePercent: [undefined],
-      serviceChargeAmount: [undefined],
-      termLoanCustomAmount: [undefined],
-      chargeAmountFlag: [true],
-    });
-  }
-
-  buildOverDraftLoanGroup() {
-    return this.formBuilder.group({
-      overdraftDebitLimitAmount: [undefined],
-      overdraftDebitLimitAmountWords: [undefined],
-      overdraftPurpose: [undefined],
-      overdraftTimePeriod: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      yearlyRate: [undefined],
-      serviceChargePercent: [undefined],
-      serviceChargeAmount: [undefined],
-      overdraftCustomAmount: [undefined],
-      chargeAmountFlag: [true],
-    });
-  }
-
-  buildDemandLoanGroup() {
-    return this.formBuilder.group({
-      demandLimitAmount: [undefined],
-      demandLimitAmountWord: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      yearlyRate: [undefined],
-      serviceChargePercent: [undefined],
-      serviceChargeAmount: [undefined],
-      demandLoanCustomAmount: [undefined],
-      demandLoanPurpose: [undefined],
-      demandTimePeriod: [undefined],
-      chargeAmountFlag: [true],
-    });
-  }
-
-  changeLoanType($event) {
-    this.selectedArray = $event;
-    $event.includes('LAI Term Loan') ? this.laiTermLoanSelected = true : this.laiTermLoanSelected = false;
-    $event.includes('LAI Overdraft Loan') ? this.laiOverdraftLoanSelected = true : this.laiOverdraftLoanSelected = false;
-    $event.includes('LAI Demand Loan') ? this.laiDemandLoanSelected = true : this.laiDemandLoanSelected = false;
-  }
-
-  removeOptionalField(formGroup, fieldControlName) {
-    formGroup.get(fieldControlName).patchValue(false);
-  }
-
-  undoRemovalOfOptionalField(formGroup, fieldControlName) {
-    formGroup.get(fieldControlName).patchValue(true);
-  }
-
-  addMoreLaiTermLoan() {
-    (this.retailLoanAgainstInsurance.get('laiTermLoanArray') as FormArray).push(this.buildTermLoan());
-  }
-
-  removeLaiTermLoan(i) {
-    (this.retailLoanAgainstInsurance.get('laiTermLoanArray') as FormArray).removeAt(i);
-  }
-
-  addMoreLaiOverdraftLoan() {
-    (this.retailLoanAgainstInsurance.get('laiOverDraftLoanArray') as FormArray).push(this.buildOverDraftLoanGroup());
-  }
-
-  removeLaiOverDraftLoan(i) {
-    (this.retailLoanAgainstInsurance.get('laiOverDraftLoanArray') as FormArray).removeAt(i);
-  }
-
-  addMoreLaiDemandLoan() {
-    (this.retailLoanAgainstInsurance.get('laiDemandLoanArray') as FormArray).push(this.buildDemandLoanGroup());
-  }
-
-  removeLaiDemandLoan(i) {
-    (this.retailLoanAgainstInsurance.get('laiDemandLoanArray') as FormArray).removeAt(i);
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.retailLoanAgainstInsurance.get(wordLabel).patchValue(returnVal);
   }
 
   checkOfferLetterData() {
@@ -191,29 +125,42 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.retailLoanAgainstInsurance.patchValue(initialInfo, {emitEvent: false});
-
-        this.selectedArray = initialInfo.loanTypeSelectedArray;
-        this.changeLoanType(this.selectedArray);
-        (this.retailLoanAgainstInsurance.get('laiTermLoanArray') as FormArray).clear();
-        initialInfo.laiTermLoanArray.forEach( value => {
-          (this.retailLoanAgainstInsurance.get('laiTermLoanArray') as FormArray).push(this.formBuilder.group(value));
-        });
-
-        (this.retailLoanAgainstInsurance.get('laiOverDraftLoanArray') as FormArray).clear();
-        initialInfo.laiOverDraftLoanArray.forEach( value => {
-          (this.retailLoanAgainstInsurance.get('laiOverDraftLoanArray') as FormArray).push(this.formBuilder.group(value));
-        });
-
-        (this.retailLoanAgainstInsurance.get('laiDemandLoanArray') as FormArray).clear();
-        initialInfo.laiDemandLoanArray.forEach( value => {
-          (this.retailLoanAgainstInsurance.get('laiDemandLoanArray') as FormArray).push(this.formBuilder.group(value));
-        });
         this.initialInfoPrint = initialInfo;
       }
     }
+    else {
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.setLoanConfigData(this.loanHolderInfo);
+      }
+    }
   }
-
-
+  setLoanConfigData(data) {
+    let cadNepData = {
+      numberNepali: ')',
+      nepaliWords: 'सुन्य',
+    };
+    const customerAddress =
+        data.permanentMunicipality + ' , ' +
+        data.permanentWard + ' , ' +
+        data.permanentProvince + ' , ' +
+        data.permanentDistrict;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+      cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+    }
+    this.retailLoanAgainstInsurance.patchValue({
+      CustomerName: data.name ? data.name : '',
+      CustomerAddress: customerAddress ? customerAddress : '',
+      LoanAmount: cadNepData.numberNepali,
+      LoanAmountWords: cadNepData.nepaliWords,
+    });
+  }
+  calculateData(baseRateName, premiumRateName) {
+    const baseRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get(baseRateName).value);
+    const premiumRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get(premiumRateName).value);
+    const calculatedValue = parseFloat(baseRate) + parseFloat(premiumRate);
+    const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
+    this.retailLoanAgainstInsurance.get('FloatingInterestRate').patchValue(finalVal);
+  }
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
@@ -222,14 +169,12 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE)
             .toString()) {
-          this.retailLoanAgainstInsurance.get('loanTypeSelectedArray').patchValue(this.selectedArray);
           offerLetterPath.initialInformation = JSON.stringify(this.retailLoanAgainstInsurance.value);
         }
       });
     } else {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE);
-      this.retailLoanAgainstInsurance.get('loanTypeSelectedArray').patchValue(this.selectedArray);
       offerDocument.initialInformation = JSON.stringify(this.retailLoanAgainstInsurance.value);
       this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
     }
@@ -246,26 +191,5 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       this.dialogRef.close();
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
-
   }
-  patchFunction(formArrayName, i, formControlName) {
-    return this.retailLoanAgainstInsurance.get([formArrayName, i, formControlName]).value;
-  }
-  changeToAmount(event: any, i , formArrayName, target, targetInWords) {
-    this.retailLoanAgainstInsurance.get([formArrayName, i, targetInWords]).patchValue(event.nepVal);
-    this.retailLoanAgainstInsurance.get([formArrayName, i, target]).patchValue(event.val);
-  }
-  calcYearlyRate(formArrayName, i ) {
-    const baseRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get([formArrayName, i , 'baseRate']).value);
-    const premiumRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get([formArrayName, i , 'premiumRate']).value);
-    const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
-    const finalValue = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-    this.retailLoanAgainstInsurance.get([formArrayName, i, 'yearlyRate']).patchValue(finalValue);
-  }
-  calcpercent(formArrayName, i ) {
-    const serviceChargePercent = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get([formArrayName, i , 'serviceChargePercent']).value);
-    const returnVal = this.nepPercentWordPipe.transform(serviceChargePercent);
-    this.retailLoanAgainstInsurance.get([formArrayName, i, 'serviceChargeAmount']).patchValue(returnVal);
-  }
-
 }
