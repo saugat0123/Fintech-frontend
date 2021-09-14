@@ -1,0 +1,106 @@
+<div [nbSpinner]="spinner" class="container text-justify row nepali"
+     id="{{offerLetterConst.BLACKLIST_CONSENT_CORPORATE}}">
+
+    <div class="col-md-12 viewFull">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <h6 class="text-center">
+                श्री प्रोग्रेशिभ फाइनान्स लिमिटेड
+                <br>
+                ऋणी र जमानतकर्ताले कालोसूचीमा नाम समावेश गर्ने बारे दिएको मञ्जुरीनामा
+            </h6>
+            <div class="row">
+                <p>
+                    नेपाल राट्र बैंकद्धारा बैंक तथा वित्तीय संस्थाहरुलाई जारी गरिएको कर्जा सूचना तथा कालोसूची व्यवस्था
+                    सम्बन्धी निर्देशन मलाई/हामीलाई पूर्ण जानकारी छ।
+                    सो निर्देशन बमोजिम त्यस बैंकबाट लिएको तपसीलमा उल्लेखित कर्जा/सुविधाहरु तपाई धनी बैंकको नीति नियम तथा
+                    सो
+                    वापत त्यस बैंकबाट जारी भएको कर्जा स्वीकृत पत्र र/वा लिखतको शर्त मुताविक सो वापतको सांवा, ब्याज, फि,
+                    कमिशन, दस्तुर आदि
+                    जे जस्तो बुभाउनू पर्छ सो नबुभाएमा वा बुभाउन नलगाएमा वा माथी उल्लेखित नेपाल राष्ट्र बैंकबाट जारी भएको
+                    कर्जा सूचना तथा
+                    कालोसूची व्यवस्था सम्बन्धी निर्देशनको अवस्था सिर्जित भएमा मेरो/हाम्रो नाम प्रचलित नियमअनुसार कर्जा
+                    सूचना केन्द लि.को कालोसूचीमा
+                    समावेश गरिएमा मेरो/हाम्रो मञ्जुरी छ। पछि त्यसरी कालोसूचीमा राख्न मिल्ने होइन भन्ने समेत कुनै कुराको
+                    उजूर वाजूर गर्ने छैन, गरे यसै
+                    कागजले बदर गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी
+                    निर्देशन वमोजिम यो मञ्जुरीनामाको कागज
+                    सही–छाप गरी तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ।
+                </p>
+                <br>
+                <p class="text-center">तपसील,</p>
+                <br>
+                <div>
+                    <br>
+                    दस्तखत :-..........
+                    <br>
+                    अख्तियार प्राप्त व्यक्ति :- <input class="form-field nepaliFont form-control-sm"
+                                                       formControlName="sincerlyName"
+                                                       type="text">
+                    <br>
+                    ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm"
+                                          formControlName="sincerlyPermanentDistrict"
+                                          type="text">
+                    <br>
+                    हालको ठेगाना <input class="form-field nepaliFont form-control-sm"
+                                        formControlName="sincerlyTemporaryDistrict"
+                                        type="text">
+
+                    <br>
+                    बाबु/आमाको नाम :- <input class="form-field nepaliFont form-control-sm"
+                                             formControlName="sincerlyParentName"
+                                             type="text">
+                    <br>
+                    बाजेको/बजैको नाम:-<input class="form-field nepaliFont form-control-sm"
+                                             formControlName="sincerlyGrandParentName"
+                                             type="text">
+                    <br>
+                    पति/पत्निको नाम:-<input class="form-field nepaliFont form-control-sm"
+                                            formControlName="sincerlyLekhaNo"
+                                            type="text">
+                    <br>
+                    कर्जा रकम:-<input class="form-field nepaliFont form-control-sm"
+                                      formControlName="sincerlyLekhaRs"
+                                      type="text">
+                    <br>
+                    कर्जा सूबिधाहरु:-<input class="form-field nepaliFont form-control-sm"
+                                            formControlName="sincerlyKarja"
+                                            type="text">
+
+                    <br>
+                    <p>औठा छाप</p>
+                    <br>
+                    <div class="text-center">
+                        <table class="table  table-bordered fingerXap">
+                            <thead>
+                            <tr>
+                                <th>दाँ.</th>
+                                <th>बाँ.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><span class="signature-area"></span></td>
+                                <td><span class="signature-area"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button [disabled]="!initialInfoPrint"
+                [useExistingCss]="true"
+                class="btn btn-primary d-print-none float-left"
+                ngxPrint
+                printSectionId="print-section-{{ offerLetterConst.BLACKLIST_CONSENT_CORPORATE }}"> Print
+        </button>
+    </div>
+</div>
+<app-blacklist-consent-corporate-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                       hidden></app-blacklist-consent-corporate-print>
