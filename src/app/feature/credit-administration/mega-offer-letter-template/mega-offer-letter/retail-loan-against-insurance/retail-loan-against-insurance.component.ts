@@ -59,10 +59,10 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.checkOfferLetterData();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     }
+    this.checkOfferLetterData();
   }
   buildForm() {
     this.retailLoanAgainstInsurance = this.formBuilder.group({
@@ -128,6 +128,31 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
       }
     }
+    else {
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.setLoanConfigData(this.loanHolderInfo);
+      }
+    }
+  }
+  setLoanConfigData(data) {
+    let cadNepData = {
+      numberNepali: ')',
+      nepaliWords: 'सुन्य',
+    };
+    const customerAddress =
+        data.permanentMunicipality + ' , ' +
+        data.permanentWard + ' , ' +
+        data.permanentProvince + ' , ' +
+        data.permanentDistrict;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+      cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+    }
+    this.retailLoanAgainstInsurance.patchValue({
+      CustomerName: data.name ? data.name : '',
+      CustomerAddress: customerAddress ? customerAddress : '',
+      LoanAmount: cadNepData.numberNepali,
+      LoanAmountWords: cadNepData.nepaliWords,
+    });
   }
   calculateData(baseRateName, premiumRateName) {
     const baseRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get(baseRateName).value);
@@ -136,8 +161,6 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
     const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
     this.retailLoanAgainstInsurance.get('FloatingInterestRate').patchValue(finalVal);
   }
-
-
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
@@ -168,6 +191,5 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       this.dialogRef.close();
       this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
-
   }
 }
