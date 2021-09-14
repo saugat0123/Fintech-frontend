@@ -16,7 +16,7 @@ import {Guarantor} from '../../../loan/model/guarantor';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
+import {SbTranslateService} from '../../../../@core/service/sbtranslate.service';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -37,7 +37,29 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
-    translatedValues = {};
+    translatedValues = {
+        name: '',
+        gender: '',
+        fatherName: '',
+        grandFatherName: '',
+        relationMedium: '',
+        husbandName: '',
+        fatherInLawName: '',
+        citizenshipNo: '',
+        age: '',
+        permanentProvince: '',
+        permanentDistrict: '',
+        permanentMunicipality: '',
+        permanentMunType: '',
+        temporaryProvince: '',
+        temporaryDistrict: '',
+        temporaryMunicipality: '',
+        permanentWard: '',
+        temporaryWard: '',
+        temporaryMunType: '',
+        citizenshipIssueDistrict: '',
+        citizenshipIssueDate: '',
+    };
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -46,7 +68,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private engToNepNumber: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
-                private http: HttpClient) {
+                private http: HttpClient,
+                private translateService: SbTranslateService) {
     }
 
     get configForm() {
@@ -121,7 +144,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     async translate() {
-        // console.log(Object.entries(this.userConfigForm.value));
         const allValues = [];
         const allKeys = [];
         for (const d of Object.entries(this.userConfigForm.controls)) {
@@ -130,17 +152,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 allValues.push(d[1].value.toString());
             }
         }
-        this.http.post('https://translation.googleapis.com/language/translate/v2?key=' + environment.GOOGLE_TRANSLATE_API_KEY, {
-            'q': allValues,
-            'target': 'ne'
-        }).subscribe((res: any) => {
-            res.data.translations.forEach((f, index) => {
-                this.translatedValues[allKeys[index]] = f.translatedText;
-                console.log(this.translatedValues);
-            });
+
+        (await this.translateService.translate(allValues)).forEach((f, index) => {
+            this.translatedValues[allKeys[index]] = f.translatedText;
         });
     }
-
 
     save() {
         this.submitted = true;
@@ -200,7 +216,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     onChangeTab(event) {
         this.hideSaveBtn = false;
-        console.log(event.tabId);
         if (event.tabId === '2' || event.tabId === '3') {
             this.hideSaveBtn = true;
         }
