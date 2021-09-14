@@ -67,6 +67,7 @@ export class PromissoryNoteComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
@@ -96,6 +97,8 @@ export class PromissoryNoteComponent implements OnInit {
         sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
         sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInNumber: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
       });
     }
   }
