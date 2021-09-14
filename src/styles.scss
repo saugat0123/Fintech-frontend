@@ -183,3 +183,13 @@ button {
   border-color: transparent !important;
   margin-left: 5px !important;
 }
+
+@media print {
+  @page {
+    margin-top: 200px !important;
+    margin-bottom: 100px !important;
+  }
+  .pageBreak {
+    page-break-after: always;
+  }
+}
