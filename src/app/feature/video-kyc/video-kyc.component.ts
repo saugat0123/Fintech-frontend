@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DateValidator} from '../../@core/validator/date-validator';
 import {DatePipe} from '@angular/common';
@@ -7,8 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RemitCustomerService} from '../admin/component/remit-customer-list/service/remit-customer.service';
 import {NbToastrService} from '@nebular/theme';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
-import {Router} from '@angular/router';
-import {VideoKycInformationComponent} from '../loan/component/loan-summary/video-kyc-information/video-kyc-information.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-video-kyc',
@@ -22,13 +21,14 @@ export class VideoKycComponent implements OnInit {
               private model: NgbModal,
               private remitService: RemitCustomerService,
               private toast: NbToastrService,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
   @Input() isModal;
   @Input() showBenificiary;
   @Input() showSender;
   @Input() remitCustomer;
-  senderLink = false;
-  benfLink = false;
+  senderLink = true;
+  benfLink = true;
   senderForm: FormGroup;
   beneficiaryForm: FormGroup;
   videoKyc: any;
@@ -53,32 +53,38 @@ export class VideoKycComponent implements OnInit {
   videoSpinner = false;
   breakException: any;
   ngOnInit() {
-    this.videoKyc.agentEmail = JSON.parse(this.remitCustomer.agentData).email;
     this.senderForm = this.form.group({
-      meetingLink: [undefined],
+      meetingLink: [undefined, Validators.required],
       date: [undefined, [Validators.required, DateValidator.isValidBefore]],
       time: [undefined],
       beneficiaryId: [undefined],
       status: ['ACTIVE'],
       id: [undefined],
-      isBenf: false
+      isBenf: false,
+      recordedLink: [undefined]
     });
     this.beneficiaryForm = this.form.group({
-      meetingLink: [undefined],
+      meetingLink: [undefined, Validators.required],
       date: [undefined, [Validators.required, DateValidator.isValidBefore]],
       time: [undefined],
       beneficiaryId: [undefined],
       status: ['ACTIVE'],
       id: [undefined],
-      isBenf: true
+      isBenf: true,
+      recordedLink: [undefined]
     });
     if (this.remitCustomer.videoKyc !== null && !ObjectUtil.isEmpty(this.remitCustomer.videoKyc)) {
       this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
       this.videoKyc.forEach((data) => {
         if (data.status.toLowerCase() === 'active' && data.isBenf === true) {
           this.beneficiaryForm.patchValue(data);
+          this.benfLink = false;
         } else if (data.status.toLowerCase() === 'active' && data.isBenf === false) {
           this.senderForm.patchValue(data);
+          this.senderLink = false;
+        } else {
+          this.senderLink = true;
+          this.benfLink = true;
         }
       });
     }
@@ -93,7 +99,6 @@ export class VideoKycComponent implements OnInit {
   }
 
   onVideoKycPermissionBeneficiary($event: any) {
-    console.log(event);
     if (!$event) {
       this.hideVideoKycBeneficiary = true;
     } else {
@@ -102,11 +107,14 @@ export class VideoKycComponent implements OnInit {
   }
 
   generateVideoKycSender($event: MouseEvent) {
+    if (ObjectUtil.isEmpty(this.senderForm.get('date').value) || ObjectUtil.isEmpty(this.senderForm.get('time').value)) {
+      this.toast.warning('Fields Are Missing');
+      return;
+    }
     const formatedDate =  new DatePipe('en-UK').transform(this.senderForm.get('date').value, 'dd/MM/yyyy');
     this.videoKycBody.meetingDate = formatedDate;
     this.videoKycBody.meetingTime = this.senderForm.get('time').value;
     this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
-      this.senderLink = true;
       this.senderForm.patchValue({
         meetingLink: JSON.parse(res.data).meeting_link
       });
@@ -114,10 +122,13 @@ export class VideoKycComponent implements OnInit {
   }
 
   generateVideoKycBeneficiary($event: MouseEvent) {
+    if (ObjectUtil.isEmpty(this.beneficiaryForm.get('date').value) || ObjectUtil.isEmpty(this.beneficiaryForm.get('time').value)) {
+      this.toast.warning('Fields Are Missing');
+      return;
+    }
     const formatedDate =  new DatePipe('en-US').transform(this.beneficiaryForm.get('date').value, 'dd/MM/yyyy');
     this.videoKycBody.meetingDate = formatedDate;
     this.videoKycBody.meetingTime = this.beneficiaryForm.get('time').value;
-    this.benfLink = true;
     this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
       this.beneficiaryForm.patchValue({
         meetingLink: JSON.parse(res.data).meeting_link
@@ -130,6 +141,10 @@ export class VideoKycComponent implements OnInit {
   }
 
   save(form: FormGroup) {
+    if (ObjectUtil.isEmpty(form.get('meetingLink').value)) {
+      this.toast.warning('Generate Meeting Link');
+      return;
+    }
     this.videoSpinner = true;
     let str = form.get('meetingLink').value;
     str = str.slice(50, str.length);
@@ -158,6 +173,11 @@ export class VideoKycComponent implements OnInit {
     }
     this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
     this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((data) => {
+      if (form.get('isBenf').value === true) {
+        this.benfLink = false;
+      } else if (form.get('isBenf').value === false) {
+        this.senderLink = false;
+      }
       this.videoSpinner = false;
       this.remitCustomer = data.detail;
       this.videoKyc = this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
@@ -168,6 +188,7 @@ export class VideoKycComponent implements OnInit {
           this.router.navigate(['/home/admin/remitLoan/incoming']);
         });
       } else {
+          this.router.navigate(['/home/admin/catalogue']);
       }
     }, err => {
       this.videoSpinner = false;
@@ -175,5 +196,4 @@ export class VideoKycComponent implements OnInit {
       this.model.dismissAll();
     });
   }
-
 }

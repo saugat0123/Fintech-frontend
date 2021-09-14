@@ -1,5 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {RemitCustomerService} from '../../../../admin/component/remit-customer-list/service/remit-customer.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NbToastrService} from '@nebular/theme';
 
 @Component({
   selector: 'app-video-kyc-information',
@@ -8,7 +11,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 export class VideoKycInformationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private remitService: RemitCustomerService, private model: NgbModal, private toast: NbToastrService) { }
 @Input() remitCustomer;
   videoKyc: any;
   notNUll = true;
@@ -21,4 +24,12 @@ export class VideoKycInformationComponent implements OnInit {
     }
   }
 
+  generate(data, i) {
+    this.videoKyc[i].status = 'InActive';
+    this.remitCustomer.videoKyc = this.videoKyc;
+    // this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((response) => {
+    //   this.toast.success('Status Changed');
+    //   this.model.dismissAll();
+    // });
+  }
 }

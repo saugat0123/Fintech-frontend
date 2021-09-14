@@ -6,10 +6,9 @@
             <th>S.N</th>
             <th>Meeting Time</th>
             <th>Meeting Date</th>
-            <th>Recorded Link</th>
-            <th>Status</th>
+            <th>Meeting Link</th>
             <th>Sender/Beneficiary</th>
-            <th>Link</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody *ngIf="!notNUll">
@@ -18,9 +17,8 @@
             <td>{{data.time}}</td>
             <td class="text-left pl-1">{{data.date}}</td>
             <td>{{data.meetingLink}}</td>
-            <td>{{data.status}}</td>
             <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-            <td> <button nbButton size="tiny">Get Link</button></td>
+            <td> <button nbButton (click) ="generate(data, i)"size="tiny">Get Link</button></td>
         </tr>
         </tbody>
     </table>

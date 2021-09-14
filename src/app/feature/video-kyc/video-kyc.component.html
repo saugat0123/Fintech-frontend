@@ -38,7 +38,7 @@
                                     <div class="col-lg-7">
                                         <label for="date1" class="label">Meeting Date</label>
                                         <input
-                                                formControlName="date" type="date" nbInput fullWidth id="date1">
+                                                formControlName="date"  type="date" nbInput fullWidth id="date1">
 
                                     </div>
                                     <div class="col-lg-7">
@@ -48,14 +48,14 @@
 
                                     <div class="col-lg-7">
                                         <label for="Meetinglink" class="label">Meeting Link</label>
-                                        <input formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                                        <input  formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
                                     </div>
                                     <div class="col-md-7">
                                         <label for="recordedmeeting" class="label">Recorded Meeting</label>
-                                        <input type="text" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
+                                        <input type="text" formControlName="recordedLink" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
                                     </div>
                                     <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
-                                        <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
+                                        <button [disabled]="!senderLink" (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
                                     </div>
                                     <nb-card-footer class="py-4">
                                         <div class="d-flex justify-content-end">
@@ -109,10 +109,10 @@
                                     </div>
                                     <div class="col-md-7">
                                         <label for="recordedmeeting1" class="label">Recorded Meeting</label>
-                                        <input type="text" nbInput fullWidth id="recordedmeeting1" placeholder="recorded">
+                                        <input type="text" nbInput formControlName="recordedLink" fullWidth id="recordedmeeting1" placeholder="recorded">
                                     </div>
                                     <div id="generatebtn1" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px" >
-                                        <button (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
+                                        <button [disabled]="!benfLink"  (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
                                     </div>
                                     <nb-card-footer class="py-4">
                                         <div class="d-flex justify-content-end">
