@@ -17,7 +17,7 @@ export class RetailAgainstInsPrintComponent implements OnInit {
   demandLoanSelected = false;
   loanHolderInfo;
   loanTypeArray = ['LAI Term Loan', 'LAI Overdraft Loan', 'LAI Demand Loan'];
-
+  spinner = false;
   constructor() {
   }
 

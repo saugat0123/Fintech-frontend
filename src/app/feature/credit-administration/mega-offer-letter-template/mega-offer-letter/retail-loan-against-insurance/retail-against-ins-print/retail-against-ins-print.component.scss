@@ -1,3 +1,21 @@
+.nepaliFont{
+  font-size: 16px;
+}
+.outside{
+  font-size: 28px !important;
+}
+.outsidenum{
+  font-size: 26px ;
+}
+.num{
+  font-size: 22px !important;
+}
+.inside{
+  font-size: 24px;
+}
+table {
+  text-align: justify !important;
+}
 .nep {
   font-size: 20px;
   line-height: 1.9;
@@ -19,6 +37,11 @@ footer {
 @page {
   size: A4;
   margin: 17mm 17mm 17mm 17mm;
+}
+
+.hello{
+  width: 95%;
+  float: right;
 }
 
 @media print {
