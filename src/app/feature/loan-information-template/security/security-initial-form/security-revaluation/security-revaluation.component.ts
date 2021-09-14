@@ -158,7 +158,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         currentData.revaluationDetails.forEach((singleData) => {
             revaluationDetails.push(
                 this.formBuilder.group({
-                    reValuationDate: [singleData.reValuationDate],
+                    reValuationDate: new Date(singleData.reValuationDate),
                     reValuatedFmv: [singleData.reValuatedFmv],
                     reValuatedDv: [singleData.reValuatedDv],
                     reValuatedConsideredValue: [singleData.reValuatedConsideredValue],
