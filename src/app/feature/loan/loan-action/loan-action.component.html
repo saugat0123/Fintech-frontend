@@ -35,7 +35,7 @@
 <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
-  <button [disabled]="!isRemitLoan"  (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus"
+  <button [hidden]="!isRemitLoan"  (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
           class="btn-sm btn-primary">
@@ -43,7 +43,7 @@
     <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
-  <button [disabled]="!isRemitLoan" (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus"
+  <button [hidden]="!isRemitLoan" (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     SEND BACK TO AGENT

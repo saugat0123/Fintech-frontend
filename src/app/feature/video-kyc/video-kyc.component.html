@@ -1,15 +1,22 @@
 
-    <div class="container-full bg-light">
+    <div class="container-full bg-light"  [nbSpinner]="videoSpinner" >
         <nb-card>
+            <div class = "col-md-12">
+                <a  *ngIf="isModal" (click)="close()" aria-label="Close" class="close pull-right cursor">
+                    <span aria-hidden="true"><b>X</b></span>
+                </a>
+                <hr>
+                <br>
+                <div #kycInfo>
+                    <app-video-kyc-information [remitCustomer]="remitCustomer"></app-video-kyc-information>
+
+                </div>
+            </div>
             <div class="row" *ngIf="showSender">
                 <div class="col-md-12">
-                    <a  *ngIf="isModal" (click)="close()" aria-label="Close" class="close pull-right cursor">
-                        <span aria-hidden="true"><b>X</b></span>
-                    </a>
                     <nb-card-header>
-                        <h6>Video KYC Sender</h6>
+                        <h6 class="p-2">Video KYC Sender</h6>
                     </nb-card-header>
-
                     <form [formGroup]="senderForm">
                         <div class="p-4 row">
                             <div class="col-sm-2">
@@ -20,7 +27,14 @@
                             </div>
                             <div class="col-sm-10">
                                 <ng-container *ngIf="!hideVideoKycSender">
-
+                                    <div class="col-lg-7">
+                                        <input hidden
+                                               formControlName="beneficiaryId">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <input hidden
+                                               formControlName="id">
+                                    </div>
                                     <div class="col-lg-7">
                                         <label for="date1" class="label">Meeting Date</label>
                                         <input
@@ -34,7 +48,7 @@
 
                                     <div class="col-lg-7">
                                         <label for="Meetinglink" class="label">Meeting Link</label>
-                                        <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                                        <input formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
                                     </div>
                                     <div class="col-md-7">
                                         <label for="recordedmeeting" class="label">Recorded Meeting</label>
@@ -43,6 +57,12 @@
                                     <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
                                         <button (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
                                     </div>
+                                    <nb-card-footer class="py-4">
+                                        <div class="d-flex justify-content-end">
+                                            <button nbButton>Generate DOC</button>
+                                            <button nbButton [disabled]="!senderLink" (click)="save(senderForm)">save</button>
+                                        </div>
+                                    </nb-card-footer>
                                 </ng-container>
                             </div>
                         </div>
@@ -54,7 +74,7 @@
             <div class="row" *ngIf="showBenificiary">
                 <div class="col-md-12">
                     <nb-card-header>
-                        <h6>Video KYC Beneficiary</h6>
+                        <h6 class="p-2">Video KYC Beneficiary</h6>
                     </nb-card-header>
                     <form [formGroup]="beneficiaryForm">
                         <div class="p-4 row">
@@ -67,6 +87,14 @@
                             <div class="col-sm-10">
                                 <ng-container *ngIf="!hideVideoKycBeneficiary">
                                     <div class="col-lg-7">
+                                        <input hidden
+                                                formControlName="beneficiaryId">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <input hidden
+                                               formControlName="id">
+                                    </div>
+                                    <div class="col-lg-7">
                                         <label for="date" class="label">Meeting Date</label>
                                         <input  [ngClass]="{ 'is-invalid': beneficiaryForm.get('date').errors }"
                                                 formControlName="date" pattern="\d{1,2}/\d{1,2}/\d{4}" type="date" nbInput fullWidth id="date" placeholder="link">
@@ -77,7 +105,7 @@
                                     </div>
                                     <div class="col-md-7">
                                         <label for="Meetinglink1" class="label">Meeting Link</label>
-                                        <input formControlName="meetingLink1" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
+                                        <input formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
                                     </div>
                                     <div class="col-md-7">
                                         <label for="recordedmeeting1" class="label">Recorded Meeting</label>
@@ -86,6 +114,12 @@
                                     <div id="generatebtn1" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px" >
                                         <button (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
                                     </div>
+                                    <nb-card-footer class="py-4">
+                                        <div class="d-flex justify-content-end">
+                                            <button nbButton>Generate DOC</button>
+                                            <button nbButton [disabled]="!benfLink" (click)="save(beneficiaryForm)">save</button>
+                                        </div>
+                                    </nb-card-footer>
                                 </ng-container>
                             </div>
                         </div>
@@ -93,14 +127,6 @@
                     </form>
                 </div>
             </div>
-
-            <nb-card-footer class="py-4">
-                <div class="d-flex justify-content-end">
-                    <button nbButton>Generate DOC</button>
-                    <button nbButton>save</button>
-                </div>
-            </nb-card-footer>
-
         </nb-card>
 
     </div>
