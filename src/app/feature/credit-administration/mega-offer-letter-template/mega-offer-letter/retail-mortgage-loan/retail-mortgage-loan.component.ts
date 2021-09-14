@@ -39,7 +39,7 @@ export class RetailMortgageLoanComponent implements OnInit {
 
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
 
-    loanHolderInfo;
+   loanHolderInfo;
     external = [];
     nepData;
 
@@ -61,85 +61,94 @@ export class RetailMortgageLoanComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.checkOfferLetterData();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
-    }
+        this.checkOfferLetterData();    }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            date: [undefined],
-            refNo: [undefined],
+            dateOfGeneration: [undefined],
             customerName: [undefined],
-            permanentAddress: [undefined],
-            currentAddress: [undefined],
-            mobileNo: [undefined],
-            subject: [undefined],
-            loanName: [undefined],
+            customerAddress: [undefined],
+            applicationDate: [undefined],
             loanAmount: [undefined],
             loanNameInWord: [undefined],
-
-            companyLocation: [undefined],
-            companyName: [undefined],
-            course: [undefined],
-            loanTenure: [undefined],
-            moratoriumPeriod: [undefined],
+            drawingPowerRate: [undefined],
+            signatureDate : [undefined],
+            district: [undefined],
+            witnessName: [undefined],
+            wardNum: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
-            yearlyLoanRate: [undefined],
-            emiPeriod: [undefined],
+            staffName: [undefined],
+            floatingRate: [undefined],
+            serviceCharge: [undefined],
+            serviceChargeWords: [undefined],
+            communicationFees: [undefined],
             emiAmount: [undefined],
-            emiAmountInWord: [undefined],
-            fmvPercent: [undefined],
-            serviceChargePercent: [undefined],
-            draftAmount: [undefined],
-            securityPersonName: [undefined],
-            motherDistrict: [undefined],
-            motherWardNo: [undefined],
-            securityDistrict: [undefined],
-            securityWardNo: [undefined],
-            securityLandId: [undefined],
-            loanManagingDirectorName: [undefined],
-            loanManagerName: [undefined],
-            guarantors: [undefined],
+            emiAmountInWords: [undefined],
+            numberOfEMI: [undefined],
+            firstEMIMonth: [undefined],
+            loanCommitmentFee: [undefined],
+            yearlyLoanRate: [undefined],
+            ownerName: [undefined],
+            ownersAddress: [undefined],
+            loanAmountWords: [undefined],
+            branchName: [undefined],
+            propertyPlotNumber: [undefined],
+            secondDisbursementAmountWords: [undefined],
+            firstConstructionCompletionAmount: [undefined],
+            firstDisbursementAmountWords: [undefined],
+            secondDisbursementAmount: [undefined],
+            firstDisbursementAmount: [undefined],
+            secondConstructionCompletionAmount: [undefined],
+            thirdConstructionCompletionAmount: [undefined],
+            thirdDisbursementAmount : [undefined],
+            thirdDisbursementAmountWords: [undefined],
+            changeFeeBelow1Cr: [undefined],
+            LateFee : [undefined],
+            changeFeeAbove1Cr: [undefined],
+            collateralReleaseFee: [undefined],
+            pledgeAmount : [undefined],
+            documentAccessFee: [undefined],
+            promissoryNoteAmount: [undefined],
+            sheetNumber  : [undefined],
+            propertyArea: [undefined],
+            loanDeedAmount: [undefined],
+            insuranceAmount: [undefined],
+            insuranceAmountWords: [undefined],
+            guarantorName1: [undefined],
+            guarantorAmount1: [undefined],
+            guarantorAmountWords1: [undefined],
             security: this.formBuilder.array([])
         });
     }
-
-    addSecurity() {
-        (this.form.get('security') as FormArray).push(this.formBuilder.group({
-            securityDetail: [undefined],
-            securityAmount: [undefined],
-            riskCoverage: [undefined]
-        }));
-    }
-
-    setSecurity(data) {
-        const formArray = this.form.get('security') as FormArray;
-        if (ObjectUtil.isEmpty(data)) {
-            this.addSecurity();
-            return;
+    setLoanConfigData(data) {
+        let cadNepData = {
+            numberNepali: ')',
+            nepaliWords: 'सुन्य',
+        };
+        const customerAddress =
+            data.permanentMunicipality + ' , ' +
+            data.permanentWard + ' , ' +
+            data.permanentProvince + ' , ' +
+            data.permanentDistrict;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
-        data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                securityDetail: [value.securityDetail],
-                securityAmount: [value.securityAmount],
-                riskCoverage: [value.riskCoverage],
-            }));
+        this.form.patchValue({
+            customerName: data.name ? data.name : '',
+            customerAddress: customerAddress ? customerAddress : '',
+            loanAmount: cadNepData.numberNepali,
+            loanNameInWords: cadNepData.nepaliWords,
         });
     }
-
-    removeSecurity(deleteIndex: number): void {
-        (this.form.get('security') as FormArray).removeAt(deleteIndex);
-    }
-
     checkOfferLetterData() {
         if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
             this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
                 === this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN).toString())[0];
             if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-                this.addSecurity();
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_MORTGAGE_LOAN);
             } else {
@@ -147,10 +156,11 @@ export class RetailMortgageLoanComponent implements OnInit {
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 this.form.patchValue(initialInfo, {emitEvent: false});
-                if (!ObjectUtil.isEmpty(initialInfo)) {
-                    this.setSecurity(initialInfo.security);
-                }
                 this.initialInfoPrint = initialInfo;
+            }
+        } else {
+            if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+                this.setLoanConfigData(this.loanHolderInfo);
             }
         }
 
@@ -191,7 +201,9 @@ export class RetailMortgageLoanComponent implements OnInit {
     }
 
     getNumAmountWord(numLabel, wordLabel) {
+        console.log('Number label', numLabel);
         const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        console.log('dfghjk', wordLabel);
         const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
         this.form.get(wordLabel).patchValue(returnVal);
     }
