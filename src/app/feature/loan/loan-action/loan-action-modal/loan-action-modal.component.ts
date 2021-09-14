@@ -179,6 +179,21 @@ export class LoanActionModalComponent implements OnInit {
                     console.log(error);
                 });
 
+            } else if (docAction === 'REJECT') {
+                let beneficiaryObj = {
+                    "beneficiaryId": this.beneficiaryId,
+                    "status": "REJECTED",
+                    "remarks": this.formAction.value.comment
+                }
+                this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                    if (verified === true) {
+                        this.postAction();
+                        this.nbDialogRef.close();
+                    }
+                }, error => {
+                    console.log(error);
+                });
+
             } else {
                 if (verified === true) {
                     this.postAction();

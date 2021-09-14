@@ -157,7 +157,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'REJECT',
                     docActionMsg: 'Rejected',
-                    documentStatus: DocStatus.REJECTED
+                    documentStatus: DocStatus.REJECTED,
+                    isRemitLoan: this.isRemitLoan,
+                    beneficiaryId: this.beneficiaryId
                 };
                 break;
 
