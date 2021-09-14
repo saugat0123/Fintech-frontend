@@ -11,7 +11,7 @@
 </span>
           स्थित <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-</span> ले त्यस प्रोग्रेशिभ
+</span>ले त्यस प्रोग्रेशिभ
           फाइनान्स लिमिटेड <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
 </span> शाखा
@@ -22,7 +22,7 @@
     {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
 </span>
           ) र सो रकममा बैंक नियमानुसार लाग्ने ब्याज समेत बैंकले
-          भुक्तानीे माग गरेका बखत तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/ौं ।</p>
+          भुक्तानीे माग गरेका बखत तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/छौं।</p>
       </div>
       <div class="row col-md-12" id="detail">
         <p>दस्तखत :-<span [ngClass]="{'nepaliFont' : printDocForm?.signature !== null && printDocForm?.signature !== ''}">
@@ -67,9 +67,9 @@
           </thead>
           <tbody>
           <tr>
-            <td><textarea cols="30" id="" name="" rows="10"
+            <td><textarea cols="30" name="" rows="10"
                           style="background-color: transparent;resize:none;border:none;outline:none;"></textarea></td>
-            <td><textarea cols="30" id="" name="" rows="10"
+            <td><textarea cols="30" name="" rows="10"
                           style="background-color: transparent;resize:none;border:none;outline:none;"></textarea></td>
           </tr>
           </tbody>
@@ -109,13 +109,23 @@
             सही छाप गरेको ठीक साँचो हो भनी सही छाप
             गर्ने धनी बैंकमा कार्यरत कर्मचारी <span [ngClass]="{'nepaliFont' : printDocForm?.sanakhatGuarantorName !== null && printDocForm?.sanakhatGuarantorName !== ''}">
     {{printDocForm?.sanakhatGuarantorName === null || printDocForm?.sanakhatGuarantorName === '' ? '_________________' : printDocForm?.sanakhatGuarantorName}}
-</span>१
-            <br>
-            इति सम्बत २०६<span class="nepaliFont">{{printDocForm?.itiSambatYear}}</span>
-            साल <span class="nepaliFont">{{printDocForm?.itiSambatMoth}}</span>
-            महिना <span class="nepaliFont">{{printDocForm?.itiSambatDate}}</span>
-            गते रोज <span class="nepaliFont">{{printDocForm?.itiSambatTime}}</span>
-            शुभम् <span class="nepaliFont">{{printDocForm?.itiSambatSubham}}</span> ।
+    </span>
+
+            इति सम्बत <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatYear !== null && printDocForm?.itiSambatYear !== ''}">
+    {{printDocForm?.itiSambatYear === null || printDocForm?.itiSambatYear === '' ? '_________________' : printDocForm?.itiSambatYear}}
+    </span>
+            साल <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatMoth !== null && printDocForm?.itiSambatMoth !== ''}">
+    {{printDocForm?.itiSambatMoth === null || printDocForm?.itiSambatMoth === '' ? '_________________' : printDocForm?.itiSambatMoth}}
+    </span>
+            महिना <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatDate !== null && printDocForm?.itiSambatDate !== ''}">
+    {{printDocForm?.itiSambatDate === null || printDocForm?.itiSambatDate === '' ? '_________________' : printDocForm?.itiSambatDate}}
+    </span>
+            गते रोज <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatTime !== null && printDocForm?.itiSambatTime !== ''}">
+    {{printDocForm?.itiSambatTime === null || printDocForm?.itiSambatTime === '' ? '_________________' : printDocForm?.itiSambatTime}}
+    </span>
+            शुभम् <span [ngClass]="{'nepaliFont' : printDocForm?.itiSambatSubham !== null && printDocForm?.itiSambatSubham !== ''}">
+    {{printDocForm?.itiSambatSubham === null || printDocForm?.itiSambatSubham === '' ? '_________________' : printDocForm?.itiSambatSubham}}
+    </span>।
           </p>
         </div>
       </div>

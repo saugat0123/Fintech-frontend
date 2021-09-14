@@ -55,7 +55,8 @@ export class OfferLetterPersonalComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        console.log(this.nepaliData);
+
+        const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         const customerAddress =
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
             this.nepaliData.permanentWard + ' , ' +
@@ -71,6 +72,17 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+            //amount: this.nepaliData.amount ? this.nepaliData.amount : '',
+            amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
+            signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+            signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+            signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+            signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+            signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+            jamanikartaName: this.nepaliData.guarantorDetails.name ? this.nepaliData.guarantorDetails.name : '',
+            temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+            temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : ''
         });
         this.setGuarantors(this.nepaliData.guarantorDetails);
         this.addEmptySecurityDetail();
@@ -142,6 +154,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 address: [value.address],
                 jaggaDistrict: [value.jaggaDistrict],
                 jaggaWard: [value.jaggaWard],
+                hal: [value.hal],
                 jaggaKittaNum: [value.jaggaKittaNum],
                 jaggaArea: [value.jaggaArea],
                 jaggaSiNum: [value.jaggaSiNum],
@@ -161,6 +174,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 jaggaKittaNum: [undefined],
                 jaggaArea: [undefined],
                 jaggaSiNum: [undefined],
+                hal : [undefined]
             }));
     }
 
@@ -202,6 +216,10 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerAddress: [undefined],
             customerTemporaryAddress: [undefined],
             customerMobile: [undefined],
+
+            temporaryMunicipality: [undefined],
+            temporaryWardNum: [undefined],
+            temporaryDistrict: [undefined],
 
             // loanTypeNepali: [undefined],
             // loanTypeEnglish: [undefined],
@@ -245,7 +263,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             amountInWords2: [undefined],
 
             financeBranch: [undefined],
-            financeMunicipality: [undefined],
             financeWardNum: [undefined],
             financeDistrict: [undefined],
             financeTelephoneNum: [undefined],

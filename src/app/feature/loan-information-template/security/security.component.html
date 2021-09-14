@@ -11,7 +11,7 @@
 <div class="d-flex justify-content-end">
 </div>
 
-<div class="container" id="security">
+<div class="container" id="security" [nbSpinner]="spinner">
     <div class="form-group">
         <app-security-initial-form #initialSecurity
                                    [calendarType]="calendarType"
@@ -220,8 +220,8 @@
             </form>
         </div>
     </div>
-</div>
-<hr>
-<div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-    <button (click)="onSubmit()" nbButton>save</button>
+    <hr>
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton>save</button>
+    </div>
 </div>

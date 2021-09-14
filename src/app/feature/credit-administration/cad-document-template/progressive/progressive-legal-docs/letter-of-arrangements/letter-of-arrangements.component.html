@@ -20,22 +20,17 @@
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="branch"
                  type="text">
-          शाखा ।
+          शाखा।
         </b>
         <br>
         <br>
         <b class="text-center">
-        <strong>  विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त
+        <strong>  विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त रु.
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="subject"
-                 type="text">
-          को रिभल्भिङ/
-          चालु
-          पूँजी/
-          <input class="form-control-sm form-field nepaliFont"
-                 formControlName="punji"
-                 type="text">
-          हद सम्म स्विकृत गरिएको सम्बन्धमा ।</strong>
+                 type="text">/-
+          को रिभल्भिङ/चालु पूँजी/ब्यक्तिगत कर्जा
+          हद सम्म स्विकृत गरिएको सम्बन्धमा।</strong>
         </b>
         <br>
         <br>
@@ -43,7 +38,6 @@
           उपरोक्त विषय सम्बन्धि
           <input class="form-control-sm form-field nepaliFont"
                  formControlName="customerName"
-                 readonly
                  type="text">
           लाई उपरोक्त ऋणको सिमा उपलब्ध
           गराईएकोमा सो को
@@ -52,16 +46,16 @@
           वित्तीय
           संस्थाबाट उपलब्ध गराइएको सुविधा कुनै पनि समयमा म/हामीलाई पूर्व सूचना नदिई रद्द गर्न सक्ने
           अधिकारको पालना
-          गर्ने छु /छौं ।
+          गर्ने छु /छौं।
         </p>
         <p>
           कथम्कदाचित त्यस वित्तीय संस्थाले उपलब्ध गराइदिएको सुविधा कटौती वा रद्द गरेमा म/हामी त्यस
           वित्तीय
           संस्थाले माग गरेमा
-          सम्पूर्ण बाँकी ऋण तथा अन्य कुनै दस्तुर, व्याजवा पेनाल्टी रकम समेत तुरुन्त भुक्तानी गर्ने
+          सम्पूर्ण बाँकी ऋण तथा अन्य कुनै दस्तुर, ब्याज वा जरिवाना शुल्क (पेनाल्टी) रकम समेत तुरुन्त भुक्तानी गर्ने
           बचन यसै
           पत्रद्वारा अवगत
-          गर्दछु/छौं ।
+          गर्दछु/छौं।
         </p>
         <strong>भवदीय,</strong> <br><br>
 
@@ -80,7 +74,7 @@
             [useExistingCss]="true"
             class="btn btn-primary d-print-none"
             ngxPrint
-            printSectionId="print-section-{{ offerLetterConst.PROMISSORY_NOTE }}"> Print
+            printSectionId="print-section-{{ offerLetterConst.LETTER_OF_ARRANGEMENTS }}"> Print
     </button>
   </div>
 </div>

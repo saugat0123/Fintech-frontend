@@ -9,6 +9,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {DocType} from '../../modal/docType';
+import {BlacklistFormsComponent} from './blacklist-forms/blacklist-form.component';
 
 @Component({
   selector: 'app-blacklist',
@@ -71,6 +72,14 @@ export class BlacklistComponent implements OnInit {
 
     BlacklistComponent.loadData(this);
   }
+  addinformation() {
+    const modalRef = this.modalService.open(BlacklistFormsComponent);
+    modalRef.componentInstance.model = new BlackList();
+    modalRef.componentInstance.action = Action.ADD;
+    ModalUtils.resolve(modalRef.result, BlacklistComponent.loadData, this);
+
+    BlacklistComponent.loadData(this);
+  }
 
   remove(toBlackList, confirmation) {
     this.modalService.open(confirmation);
@@ -94,5 +103,9 @@ export class BlacklistComponent implements OnInit {
 
   clearSearch() {
     this.search.name = '';
+  }
+
+  pop(event) {
+this.modalService.open(event);
   }
 }

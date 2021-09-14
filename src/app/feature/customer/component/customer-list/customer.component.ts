@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -10,7 +10,7 @@ import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
@@ -27,11 +27,8 @@ import {CustomerGroupService} from '../../../admin/component/preference/services
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {Province} from '../../../admin/modal/province';
-import {LoanDataHolder} from '../../../loan/model/loanData';
 import {UserService} from '../../../../@core/service/user.service';
 import {DocAction} from '../../../loan/model/docAction';
-import {DocStatus} from '../../../loan/model/docStatus';
-import {LoanStage} from '../../../loan/model/loanStage';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
 import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
@@ -249,6 +246,17 @@ export class CustomerComponent implements OnInit {
             });
         }
 
+    }
+
+    editCustomerOrCheckEditable(model) {
+        this.customerLoanService.isCustomerEditable(model.id).subscribe( (res: any) => {
+            if (res.detail === true) {
+                this.editCustomer(model);
+            } else {
+                this.toastService.show(new Alert(AlertType.ERROR, model.name + ' is not editable. There are pending loans.'));
+                CustomerComponent.loadData(this);
+            }
+        });
     }
 
     editCustomer(model) {

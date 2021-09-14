@@ -241,6 +241,9 @@ export class ProposalComponent implements OnInit {
       existCommissionPercentage: [undefined],
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
+      interestPrincipalRepayment: undefined,
+      proposalRemark: [undefined],
+      existingServiceCharge: [undefined]
     });
   }
 
@@ -323,6 +326,7 @@ export class ProposalComponent implements OnInit {
     this.proposalData.existCashMarginMethod = this.proposalForm.get('existCashMarginMethod').value;
     this.proposalData.existCommissionPercentage = this.proposalForm.get('existCommissionPercentage').value;
     this.proposalData.groupExposure = JSON.stringify(this.proposalForm.get('groupExposure').value);
+    this.proposalData.proposalRemark = this.proposalForm.get('proposalRemark').value;
   }
 
   get formControls() {

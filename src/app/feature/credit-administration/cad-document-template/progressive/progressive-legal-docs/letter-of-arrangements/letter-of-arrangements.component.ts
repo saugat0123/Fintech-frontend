@@ -120,7 +120,7 @@ export class LetterOfArrangementsComponent implements OnInit {
       branch: [undefined],
       subject: [undefined],
       customerName: [undefined],
-      punji:[undefined]
+      punji: [undefined]
     });
   }
 }

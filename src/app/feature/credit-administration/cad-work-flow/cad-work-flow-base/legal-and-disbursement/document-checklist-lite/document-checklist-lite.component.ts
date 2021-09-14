@@ -110,6 +110,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved ' + documentName));
                 this.responseCadData.emit(res.detail);
+                this.ngOnInit();
             }, error => {
                 this.spinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, error));
@@ -210,6 +211,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
     }
 
     responseFromAdditionalDocument(event) {
+        this.ngOnInit();
         this.responseCadData.emit(event);
     }
 

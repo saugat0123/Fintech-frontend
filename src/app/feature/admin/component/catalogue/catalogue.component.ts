@@ -109,7 +109,8 @@ export class CatalogueComponent implements OnInit {
     roleTypeMaker: string;
     length = false;
     isFileUnderCurrentToUser: any;
-
+    loanConfigId: number;
+    customerId: number;
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -231,7 +232,8 @@ export class CatalogueComponent implements OnInit {
             showShareLoanExcessingLimit: [undefined],
             users: [undefined],
             showExpriringInsurance: [undefined],
-            provinceId: [undefined]
+            provinceId: [undefined],
+            username: [undefined]
         });
     }
 
@@ -318,6 +320,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('companyName').value;
         this.catalogueService.search.users = ObjectUtil.isEmpty(this.filterForm.get('users').value) ? undefined :
             this.filterForm.get('users').value;
+        this.catalogueService.search.username = ObjectUtil.isEmpty(this.filterForm.get('username').value) ? undefined :
+            this.filterForm.get('username').value;
         this.catalogueService.search.provinceId = ObjectUtil.isEmpty(this.filterForm.get('provinceId').value) ? undefined :
             this.filterForm.get('provinceId').value;
         CatalogueComponent.loadData(this);
@@ -384,7 +388,7 @@ export class CatalogueComponent implements OnInit {
     changeAction() {
         this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
-        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
+        this.loanFormService.renewLoan(this.loanDataHolder).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
                 this.modalService.dismissAll('Close modal');
                 this.tempLoanType = null;
@@ -392,6 +396,12 @@ export class CatalogueComponent implements OnInit {
                 this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
                 this.onSearch();
                 this.onActionChangeSpinner = false;
+                this.router.navigate(['/home/loan/summary'], {
+                queryParams: {
+                    loanConfigId: res.detail.loan.id,
+                    customerId: res.detail.id
+                }
+            });
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
@@ -436,6 +446,8 @@ export class CatalogueComponent implements OnInit {
     }
 
     onChange(data, onActionChange) {
+        this.loanConfigId = data.loan.id;
+        this.customerId = data.id;
         if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
             this.router.navigate(['/home/update-loan/dashboard'], {
                 queryParams: {
@@ -621,6 +633,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     private roleHierarchyList(refId: number, loanDataHolder: any): void {
+        this.popUpTitle = 'Transfer';
         this.service.findAll(this.approvalType, refId).subscribe((response: any) => {
             this.defaultRoleHierarchies = response.detail;
             this.length = this.defaultRoleHierarchies.length > 0;
@@ -636,7 +649,6 @@ export class CatalogueComponent implements OnInit {
                     this.currentRoleOrder = f.role.roleOrder;
                     this.isFileUnderCurrentToUser = loanDataHolder.currentStage.toUser;
                 }
-                this.popUpTitle = 'Transfer';
             });
         });
     }

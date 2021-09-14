@@ -1,8 +1,12 @@
 <nb-card-header>
     <h6 class="text-center">Blacklisted Customers Details</h6><br>
     <div class="float-right">
-        <button nbButton outline status="success" class="mb-4 mt-0" (click)="addExcelFile()">
+        <button nbButton outline status="success" class="mb-4 mt-0" (click)="addinformation()">
             <i class="fa fa-plus"></i>
+        </button>
+        <!-- Starting of button -->
+        <button nbButton outline status="success" class="mb-4 mt-0" (click)="addExcelFile()">
+            <i class="fa fa-file"></i>
         </button>
     </div>
     <div class=row>
@@ -88,4 +92,5 @@
             </div>
         </div>
     </div>
+
 </ng-template>

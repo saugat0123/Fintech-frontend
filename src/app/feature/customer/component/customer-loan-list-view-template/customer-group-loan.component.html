@@ -23,8 +23,7 @@
                     <tbody>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).pending; let i=index">
-                        <tr
-                                class="cursor">
+                        <tr class="cursor">
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{i + 1}}</td>
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.loanName}}</td>
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
@@ -102,11 +101,12 @@
                         <th>Created On</th>
                         <th>Collateral Req%</th>
                         <th>Required Collateral</th>
+                        <th>Approved Date</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-center sb-bg-secondary text-white" colspan="7"><strong>Funded</strong></td>
+                        <td class="text-center sb-bg-secondary text-white" colspan="8"><strong>Funded</strong></td>
                     </tr>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).funded;let i=index">
@@ -121,6 +121,7 @@
                             <td>{{model?.collateralRequirement}}</td>
                             <td class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                         </tr>
                         <ng-container>
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
@@ -136,11 +137,12 @@
                                 <td>{{single?.collateralRequirement}}</td>
                                 <td class="text-right pr-1">
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                             </tr>
                         </ng-container>
                     </ng-container>
                     <tr>
-                        <td class="text-center sb-bg-secondary text-white" colspan="7"><strong>Non-Funded</strong></td>
+                        <td class="text-center sb-bg-secondary text-white" colspan="8"><strong>Non-Funded</strong></td>
                     </tr>
                     <ng-container
                             *ngFor="let model of loanHistoriesGroup(loanHistories).nonFunded;let i=index">
@@ -155,6 +157,7 @@
                             <td>{{model?.collateralRequirement}}</td>
                             <td class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                         </tr>
                         <ng-container>
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
@@ -170,6 +173,7 @@
                                 <td>{{single?.collateralRequirement}}</td>
                                 <td class="text-right pr-1">
                                     Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                                <td class="text-left pl-1">{{model.currentStage.lastModifiedAt | date}}({{model.currentStage.lastModifiedAt | engNepDate : false}})</td>
                             </tr>
                         </ng-container>
                     </ng-container>
@@ -181,6 +185,89 @@
                         <td colspan="3"></td>
                         <td class="text-right pr-1">
                             Rs. {{collateralDtoData?.totalApprovedRequiredCollateral |currencyFormatter}}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-header>Rejected</nb-card-header>
+            <nb-card-body>
+                <table *ngIf="!spinner"
+                       class="table table-bordered table-hover table-sm sb-small text-center"
+                       style="max-height: 400px;overflow-y: auto">
+                    <thead>
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Loan Facility</th>
+                        <th>Proposed Limit</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Created On</th>
+                        <th>Collateral Req %</th>
+                        <th>Required Collateral</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container
+                            *ngFor="let model of loanHistoriesGroup(loanHistories).rejected; let i=index">
+                        <tr class="cursor">
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{i + 1}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.loanName}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
+                                class="text-right pr-1">Rs. {{(model?.proposalProposedLimit | currencyFormatter) || 0}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{loanType[model?.loanType] || model?.loanType}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.documentStatus}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.createdAt | date}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.collateralRequirement}}</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)"
+                                class="text-right pr-1">
+                                Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            <td>
+                                <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                                    <button nbButton status="warning" size="tiny"
+                                            (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.customerInfoCustomerName,
+                                    model?.loanName, loanType[model?.loanType], model?.branchName)">
+                                        Re-initiate</button>
+                                </div>
+                                <div *ngIf="model.parentId">
+                                    <a (click)="renewedOrCloseFrom(model?.id,model?.parentId)"
+                                       class="text-success cursor">{{loanType[model.loanType]}} From
+                                        <em class="p-1 fa fa-edit"></em></a>
+                                </div>
+                                <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                                    <p>NA</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <ng-container *ngIf="toggleArray[i].toggled">
+                            <tr *ngFor="let single of model?.combinedLoans;let i=index"
+                                class="cursor" style="background-color: #cccccc;">
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.loanName}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
+                                    class="text-right pr-1">Rs. {{(single?.proposalProposedLimit | currencyFormatter)
+                                || 0}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{loanType[single?.loanType]}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.documentStatus}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.createdAt | date}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)">{{single?.collateralRequirement}}</td>
+                                <td (click)="onClick(single?.loanId, single.id,single?.currentStage)"
+                                    class="text-right pr-1">
+                                    Rs. {{(single?.collateralRequirement * single?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <tr class="sb-bg-secondary text-white">
+                        <td></td>
+                        <td>Total</td>
+                        <td class="text-right pr-1">Rs. {{collateralDtoData?.totalRejectProposedLimit |currencyFormatter}}</td>
+                        <td colspan="4"></td>
+                        <td class="text-right pr-1">
+                            Rs. {{collateralDtoData?.totalRejectRequiredCollateral |currencyFormatter}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -206,6 +293,27 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #onReInitiateLoan class="p-0">
+    <nb-card class="m-0" [nbSpinner]="reInitiateSpinner">
+        <nb-card-header>
+            <h5>Are you sure you want to re-initiate this loan?</h5>
+        </nb-card-header>
+        <nb-card-body>
+            <div>Customer: {{reInitiateLoanCustomerName}} <br>
+                Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})</div>
+            <br>
+            <label for="comment">Remarks to re-initiate loan:</label>
+            <textarea rows="5" #comment id="comment" class="form-control" placeholder="Remarks"></textarea>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="d-flex justify-content-end">
+                <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES</button>
+                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
 
 
 <app-overlay-spinner></app-overlay-spinner>
