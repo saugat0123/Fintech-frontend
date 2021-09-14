@@ -52,6 +52,7 @@ export class GuarantorComponent implements OnInit {
     docFolderName = 'guarantorDoc';
     occupation = Occupation.enumObject();
     sameAsCurrentChecked = false;
+    docHeading = 'Guarantor';
 
     constructor(
         private formBuilder: FormBuilder,

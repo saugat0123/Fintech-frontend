@@ -32,7 +32,7 @@
       </tr>
       <tr *ngFor="let multiPath of pathValueData; let i = index;">
         <td>1.{{i + 1}}</td>
-        <td colspan="2"> Net Worth Document - Guarantor {{i + 1}}</td>
+        <td colspan="2"> Net Worth Document - {{heading}} {{i + 1}}</td>
         <td *ngIf="checked">
           <i (click)="previewDoc(multiPath)" class="fas fa-eye"></i>
         </td>

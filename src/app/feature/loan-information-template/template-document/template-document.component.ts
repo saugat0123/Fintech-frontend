@@ -20,6 +20,7 @@ export class TemplateDocumentComponent implements OnInit {
   @Input() pathValue;
   @Input() docTitle;
   @Input() docFolderName;
+  @Input() heading;
   checked = false;
   pathValueData;
 

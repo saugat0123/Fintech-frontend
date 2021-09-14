@@ -849,11 +849,11 @@
 
                             </td>
                             <td>
-                                <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
+                                <i (click)="previewOfferLetterDocument(singleDoc?.docPath.split(',')[0],singleDoc?.name + 'Net Worth Doc')"
                                    class="fas fa-eye"></i></td>
 
                             <td>
-                                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
+                                <i (click)="downloadCustomerDocument(singleDoc?.docPath.split(',')[0], singleDoc?.name+' Net Worth Doc')"
                                    aria-hidden="true" class="fa fa-download"
                                    style="cursor: pointer"></i>
                             </td>

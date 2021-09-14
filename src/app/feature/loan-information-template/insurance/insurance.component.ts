@@ -23,6 +23,7 @@ export class InsuranceComponent implements OnInit {
     docTitle = 'Insurance Policy Document';
     docFolderName = 'insuranceDoc';
     assetsInsured = ['Stock', 'Building & Construction', 'Machineries/Equipment', 'Vehicle', 'Other'];
+    docHeading = 'Insurance';
 
     constructor(
         private formBuilder: FormBuilder,
