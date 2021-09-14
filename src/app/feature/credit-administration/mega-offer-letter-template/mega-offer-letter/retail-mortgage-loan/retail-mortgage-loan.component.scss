@@ -31,4 +31,13 @@ nb-card {
   font-size: 18px;
   font-family: Preeti;
 }
-
+.hello{
+  width: 95%;
+  float: right;
+}
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
+}

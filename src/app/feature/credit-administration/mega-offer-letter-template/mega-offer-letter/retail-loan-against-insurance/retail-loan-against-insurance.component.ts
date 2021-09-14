@@ -127,8 +127,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
         this.retailLoanAgainstInsurance.patchValue(initialInfo, {emitEvent: false});
         this.initialInfoPrint = initialInfo;
       }
-    }
-    else {
+    } else {
       if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
         this.setLoanConfigData(this.loanHolderInfo);
       }
