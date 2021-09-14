@@ -7,9 +7,35 @@ import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 @Injectable({
     providedIn: 'root'
 })
+export class CustomerInfoSearch {
+    name: string;
+    customerType: string;
+    idRegPlace: string;
+    contactNo: string;
+    idRegDate: string;
+    createdAt: string;
+    associateId: string;
+    id: string;
+    email: string;
+    idNumber: string;
+    provinceId: string;
+    groupId: string;
+    clientType: string;
+    subsectorDetail: string;
+    customerCode: string;
+    bankingRelationship: string;
+    gender: string;
+    maritalStatus: string;
+    customerLegalDocumentAddress: string;
+
+}
+
+@Injectable({
+    providedIn: 'root'
+})
 export class CustomerInfoService extends BaseService<Object> {
     static API = 'v1/customer-info';
-
+    search: CustomerInfoSearch = new CustomerInfoSearch();
     constructor(protected http: HttpClient) {
         super(http);
     }
@@ -60,9 +86,4 @@ export class CustomerInfoService extends BaseService<Object> {
     }
 
 
-    public getCustomerInfoList(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
-        const api = `${this.getApi()}/customerInfoDtoList?page=${page}&size=${size}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, searchObj, {headers: req.header});
-    }
 }

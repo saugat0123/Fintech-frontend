@@ -41,7 +41,7 @@
           <div class="col-md-3 mb-3">
             <ng-select placeholder="Province" formControlName="provinceId">
               <ng-option *ngFor="let province of provinces"
-                         [value]="province.id.toString()">{{province.name}}</ng-option>
+                         [value]="province.id">{{province.name}}</ng-option>
             </ng-select>
           </div>
 
@@ -75,7 +75,7 @@
                        id="groupId"
                        placeholder="Group"
                       >
-              <ng-option *ngFor="let group of customerGroupList" [value]="group?.id.toString()">
+              <ng-option *ngFor="let group of customerGroupList" [value]="group?.id">
                 {{group?.groupCode}}
               </ng-option>
             </ng-select>
