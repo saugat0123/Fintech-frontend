@@ -268,6 +268,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 }
                 if (this.microCustomer) {
                     this.microIndividualFormComponent.onSubmit();
+                    this.spinner=false;
                     if (this.microIndividualFormComponent.microCustomerForm.invalid) {
                         this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                         return;
