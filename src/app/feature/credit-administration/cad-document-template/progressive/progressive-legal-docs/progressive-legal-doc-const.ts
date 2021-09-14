@@ -16,6 +16,14 @@ export enum ProgressiveLegalDocConst {
   CROSS_GUARANTEE_BOND = '2014',
   A_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2015',
   B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES = '2016',
+  PROMISSORY_NOTE_INSTITUTIONAL = '2017',
+  LETTER_OF_CONTINUITY_INSTITUTIONAL = '2018',
+  ROKKA_LETTER = '2019',
+  BLACKLIST_CONSENT = '2020',
+  AUTHORITY_TO_DEBT_ACCOUNT = '2021',
+  CONSENT_LETTER_INDIVIDUAL = '2022',
+  // CONSENT_LETTER_INSTITUTIONAL = '2023',
+  BLACKLIST_CONSENT_CORPORATE = '2024'
 }
 
 export namespace ProgressiveLegalDocConst {
@@ -55,6 +63,16 @@ export namespace ProgressiveLegalDocConst {
         return 'A Hypothecation of Goods and Receivables';
       case ProgressiveLegalDocConst.B_HYPOTHECATION_OF_GOODS_AND_RECEIVABLES:
         return 'B Hypothecation of Goods and Receivables';
+      case ProgressiveLegalDocConst.ROKKA_LETTER:
+        return 'Rokka Letter';
+      case ProgressiveLegalDocConst.CONSENT_LETTER_INDIVIDUAL:
+        return 'Consent Letter Individual';
+      // case ProgressiveLegalDocConst.CONSENT_LETTER_INSTITUTIONAL:
+      //   return 'Consent Letter Institutional';
+      case ProgressiveLegalDocConst.BLACKLIST_CONSENT:
+        return 'Blacklist Consent';
+      case ProgressiveLegalDocConst.BLACKLIST_CONSENT_CORPORATE:
+        return 'Blacklist Consent Corporate';
     }
   }
 
