@@ -324,11 +324,11 @@ this.dynamic = false;
                 return;
             } else {
                 if (this.basicJointInfo.controls['jointCustomerInfo'].invalid) {
+                    this.spinner = false;
                     this.toastService.show(new Alert(AlertType.WARNING, 'Please check validation'));
                     return;
                 }
                 {
-                    this.spinner = true;
                     // for update join customer form
                     if (!ObjectUtil.isEmpty(this.formValue)) {
                         this.customer.id = this.id;
