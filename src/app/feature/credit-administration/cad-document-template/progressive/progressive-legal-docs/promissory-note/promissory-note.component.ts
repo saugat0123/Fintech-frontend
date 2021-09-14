@@ -67,10 +67,38 @@ export class PromissoryNoteComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
+        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        motherName: this.nepaliData.motherName ? this.nepaliData.motherName : '',
+        districtName: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        municipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        wadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        tempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        age: this.nepaliData.age ? this.nepaliData.age : '',
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        citizenShipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        sincerlyTemporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+        sincerlyTemporaryVDCname: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+        sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInNumber: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
       });
     }
   }
