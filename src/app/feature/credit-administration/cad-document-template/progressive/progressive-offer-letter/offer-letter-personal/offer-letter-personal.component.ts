@@ -57,6 +57,8 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
 
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        //const allGuarantors =
+
         const customerAddress =
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
             this.nepaliData.permanentWard + ' , ' +
@@ -72,20 +74,22 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-            //amount: this.nepaliData.amount ? this.nepaliData.amount : '',
+            amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
             signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
             signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-            jamanikartaName: this.nepaliData.guarantorDetails.name ? this.nepaliData.guarantorDetails.name : '',
+            // shreeName1: this.nepaliData.guarantorDetails.name[0] ? this.nepaliData.guarantorDetails.name[0] : '',
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : ''
         });
+        this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
         this.setGuarantors(this.nepaliData.guarantorDetails);
         this.addEmptySecurityDetail();
+
     }
 
     checkOfferLetter() {
@@ -99,6 +103,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
+            this.setEmptyGuarantors(initialInfo.guarantorDetails);
             this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
@@ -196,12 +201,35 @@ export class OfferLetterPersonalComponent implements OnInit {
         });
     }
 
-    addEmptyGuarantor() {
-        (this.form.get('guarantors') as FormArray).push(
-            this.formBuilder.group({
-                guarantorLegalDocumentAddress: [undefined],
-                name: [undefined],
+    setEmptyGuarantors(data) {
+        console.log('Guarantor data from loan config', data);
+        const formArray = this.form.get('guarantorDetails') as FormArray;
+        if (data.length === 0) {
+            this.addEmptyGuarantor();
+            return;
+        }
+        data.forEach(value => {
+            console.log('value ------>', value);
+            formArray.push(this.formBuilder.group({
+                jamaniKartaName: [value.name],
+                guarantorCitizenshipNo: [value.citizenNumber],
+                guarantorIssuedDate: [value.issuedYear],
+                guarantorCitizenIssuedOffice: [value.issuedPlace],
             }));
+        });
+    }
+
+    buildGuarantorDetails() {
+        return this.formBuilder.group({
+            jamaniKartaName: [undefined],
+            guarantorCitizenshipNo: [undefined],
+            guarantorIssuedDate: [undefined],
+            guarantorCitizenIssuedOffice: [undefined],
+        });
+    }
+
+    addEmptyGuarantor() {
+        (this.form.get('guarantors') as FormArray).push(this.buildGuarantorDetails());
     }
 
     removeGuarantor(index) {
@@ -300,6 +328,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             signatoryParentName: [undefined],
 
             guarantors: this.formBuilder.array([]),
+            guarantorDetails: this.formBuilder.array([]),
 
             sahichhapEmployee: [undefined],
             docYear: [undefined],
@@ -311,10 +340,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             secondLetterDate: [undefined],
             secondPatraNo: [undefined],
             loanHolderName: [undefined],
-            jamanikartaName: [undefined],
-            guarantorCitizenshipNo: [undefined],
-            guarantorIssuedDate: [undefined],
-            guarantorCitizenIssuedOffice: [undefined],
             guarantorDistrict: [undefined],
             municipalityName: [undefined],
             guarantorWardNo: [undefined],
