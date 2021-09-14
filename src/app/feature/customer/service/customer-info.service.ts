@@ -7,9 +7,35 @@ import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 @Injectable({
     providedIn: 'root'
 })
+export class CustomerInfoSearch {
+    name: string;
+    customerType: string;
+    idRegPlace: string;
+    contactNo: string;
+    idRegDate: string;
+    createdAt: string;
+    associateId: string;
+    id: string;
+    email: string;
+    idNumber: string;
+    provinceId: string;
+    groupId: string;
+    clientType: string;
+    subsectorDetail: string;
+    customerCode: string;
+    bankingRelationship: string;
+    gender: string;
+    maritalStatus: string;
+    customerLegalDocumentAddress: string;
+
+}
+
+@Injectable({
+    providedIn: 'root'
+})
 export class CustomerInfoService extends BaseService<Object> {
     static API = 'v1/customer-info';
-
+    search: CustomerInfoSearch = new CustomerInfoSearch();
     constructor(protected http: HttpClient) {
         super(http);
     }
@@ -58,4 +84,6 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/transfer-customer-other-branch`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+
 }
