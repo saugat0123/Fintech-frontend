@@ -144,7 +144,11 @@ export class CustomerComponent implements OnInit {
             email: [undefined],
             idNumber: [undefined],
             provinceId: [undefined],
-            groupId: [undefined]
+            groupId: [undefined],
+            clientType: [undefined],
+            subsectorDetail: [undefined],
+            customerCode: [undefined],
+            bankingRelationship: [undefined]
 
         });
     }
@@ -204,6 +208,14 @@ export class CustomerComponent implements OnInit {
             this.filterForm.get('provinceId').value;
         this.search.groupId = ObjectUtil.isEmpty(this.filterForm.get('groupId').value) ? undefined :
             this.filterForm.get('groupId').value;
+        this.search.clientType = ObjectUtil.isEmpty(this.filterForm.get('clientType').value) ? undefined :
+            this.filterForm.get('clientType').value;
+        this.search.subsectorDetail = ObjectUtil.isEmpty(this.filterForm.get('subsectorDetail').value) ? undefined :
+            this.filterForm.get('subsectorDetail').value;
+        this.search.customerCode = ObjectUtil.isEmpty(this.filterForm.get('customerCode').value) ? undefined :
+            this.filterForm.get('customerCode').value;
+        this.search.bankingRelationship = ObjectUtil.isEmpty(this.filterForm.get('bankingRelationship').value) ? undefined :
+            this.filterForm.get('bankingRelationship').value;
         CustomerComponent.loadData(this);
     }
     openChooseAcType(modal) {

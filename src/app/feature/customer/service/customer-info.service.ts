@@ -20,6 +20,10 @@ export class CustomerInfoSearch {
     idNumber: string;
     provinceId: string;
     groupId: string;
+    clientType: string;
+    subsectorDetail: string;
+    customerCode: string;
+    bankingRelationship: string;
 
 }
 
