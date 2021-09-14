@@ -37,29 +37,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
-    translatedValues = {
-        name: '',
-        gender: '',
-        fatherName: '',
-        grandFatherName: '',
-        relationMedium: '',
-        husbandName: '',
-        fatherInLawName: '',
-        citizenshipNo: '',
-        age: '',
-        permanentProvince: '',
-        permanentDistrict: '',
-        permanentMunicipality: '',
-        permanentMunType: '',
-        temporaryProvince: '',
-        temporaryDistrict: '',
-        temporaryMunicipality: '',
-        permanentWard: '',
-        temporaryWard: '',
-        temporaryMunType: '',
-        citizenshipIssueDistrict: '',
-        citizenshipIssueDate: '',
-    };
+    translatedValues: any = {};
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -141,21 +119,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return true;
         }
         return false;
-    }
-
-    async translate() {
-        const allValues = [];
-        const allKeys = [];
-        for (const d of Object.entries(this.userConfigForm.controls)) {
-            if (d[1].value !== null) {
-                allKeys.push(d[0]);
-                allValues.push(d[1].value.toString());
-            }
-        }
-
-        (await this.translateService.translate(allValues)).forEach((f, index) => {
-            this.translatedValues[allKeys[index]] = f.translatedText;
-        });
     }
 
     save() {
@@ -244,5 +207,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     refreshPage() {
         window.location.reload();
+    }
+
+    async translate() {
+        this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
     }
 }
