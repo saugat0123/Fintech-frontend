@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {MegaOfferLetterConst} from '../../mega-offer-letter-const';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../environments/environment';
+import {SbTranslateService} from '../../../../@core/service/sbtranslate.service';
+import {NepaliToEngNumberPipe} from '../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-word.pipe';
 
 @Component({
     selector: 'app-template-data',
@@ -17,10 +18,15 @@ export class TemplateDataComponent implements OnInit {
     offerLetterConst;
     offerLetterSelect;
     form: FormGroup;
+    translatedValues: any = {};
+    spinner = false;
+
 
     constructor(
         private formBuilder: FormBuilder,
-        private http: HttpClient,
+        private nepToEngNumberPipe: NepaliToEngNumberPipe,
+        private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+        private translateService: SbTranslateService,
     ) {
     }
 
@@ -32,42 +38,60 @@ export class TemplateDataComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
+            dateofGeneration: [undefined],
+            applicationDateInAD: [undefined],
             drawingPowerRate: [undefined],
-            nepDrawingPowerRate: [undefined],
             baseRate: [undefined],
-            nepBaseRate: [undefined],
             premiumRate: [undefined],
-            nepPremiumRate: [undefined],
             yearlyFloatingInterestRate: [undefined],
-            nepYearlyFloatingInterestRate: [undefined],
             serviceCharge: [undefined],
-            nepServiceCharge: [undefined],
+            serviceChargeWords: [undefined],
+
+            emiAmount: [undefined],
+            emiAmountInWords: [undefined],
+            numberOfEmi: [undefined],
+            loanCommitmentFee: [undefined],
+
+            ownersName: [undefined],
+            ownersAddress: [undefined],
+            propertyPlotNumber: [undefined],
+            propertyArea: [undefined],
+            sheetNumber: [undefined],
+
+            branchName: [undefined],
+            lateFee: [undefined],
+            changeFeeBelow1Cr: [undefined],
+            changeFeeAbove1Cr: [undefined],
+            collateralReleaseFee: [undefined],
+            documentAccessFee: [undefined],
+            promissoryNoteAmount: [undefined],
+            loanDeedAmount: [undefined],
+            pledgeAmount: [undefined],
+            guarantorName1: [undefined],
+            guarantorAmount1: [undefined],
+            guarantorAmountWords1: [undefined],
+            signatureDate: [undefined],
+
+            sakshiDistrict: [undefined],
+            sakshiMunicipality: [undefined],
+            sakshiWardNum: [undefined],
+
+            sakshiName: [undefined],
+            employeeName: [undefined]
         });
     }
 
-    translate() {
-        console.log('Selected');
-        this.http.post('https://translation.googleapis.com/language/translate/v2?key=' + environment.GOOGLE_TRANSLATE_API_KEY, {
-            'q': [
-                this.form.get('drawingPowerRate').value,
-                this.form.get('baseRate').value,
-                this.form.get('premiumRate').value,
-                this.form.get('yearlyFloatingInterestRate').value,
-                this.form.get('serviceCharge').value,
-            ],
-            'target': 'ne'
-        }).subscribe((res: any) => {
-            console.log('Value :', res);
-            // this.translatedname = res.data.translations[0].translatedText;
-            // this.translatedaddress = res.data.translations[1].translatedText;
-            this.form.get('nepDrawingPowerRate').patchValue(res.data.translations[0].translatedText);
-            this.form.get('nepBaseRate').patchValue(res.data.translations[1].translatedText);
-            this.form.get('nepPremiumRate').patchValue(res.data.translations[2].translatedText);
-            this.form.get('nepYearlyFloatingInterestRate').patchValue(res.data.translations[3].translatedText);
-            this.form.get('nepServiceCharge').patchValue(res.data.translations[4].translatedText);
-        });
+    async translate() {
+        this.spinner = true;
+        this.translatedValues = await this.translateService.translateForm(this.form);
+        this.spinner = false;
     }
 
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
+    }
 
     submit() {
 
