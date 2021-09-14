@@ -51,17 +51,12 @@ export class OfferLetterPersonalComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetter();
-        console.log('ahsdfjkasdf', this.cadOfferLetterApprovedDoc);
-        console.log('asdfa', this.cadOfferLetterApprovedDoc.nepData.numberNepali.value);
-        console.log('guarantor:', this.nepaliData.guarantorDetails);
     }
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
 
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        console.log('loan Amount Template', loanAmountTemplate.numberNepali);
-        console.log(this.nepaliData);
         const customerAddress =
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
             this.nepaliData.permanentWard + ' , ' +
@@ -78,7 +73,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
             //amount: this.nepaliData.amount ? this.nepaliData.amount : '',
-            //amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
+            amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
@@ -91,7 +86,6 @@ export class OfferLetterPersonalComponent implements OnInit {
         });
         this.setGuarantors(this.nepaliData.guarantorDetails);
         this.addEmptySecurityDetail();
-        console.log('qwerqwe', JSON.parse(this.cadOfferLetterApprovedDoc.nepData.numberNepali));
     }
 
     checkOfferLetter() {
