@@ -36,9 +36,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         this.formGroup = this.formBuilder.group({
             isReValuated: [false],
             reValuationDate: [undefined, Validators.required],
-            reValuatedFmv: [undefined, Validators.required],
-            reValuatedDv: [undefined, Validators.required],
-            reValuatedConsideredValue: [undefined, Validators.required],
+            reValuatedFmv: [0, Validators.required],
+            reValuatedDv: [0, Validators.required],
+            reValuatedConsideredValue: [0, Validators.required],
             newValuator: [undefined, Validators.required],
             changeInFmv: [undefined, Validators.required],
             changeInDv: [undefined, Validators.required],
@@ -132,9 +132,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     revaluationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
                 reValuationDate: [undefined],
-                reValuatedFmv: [undefined],
-                reValuatedDv: [undefined],
-                reValuatedConsideredValue: [undefined],
+                reValuatedFmv: [0],
+                reValuatedDv: [0],
+                reValuatedConsideredValue: [0],
                 newValuator: [undefined],
                 reValuatorName: [undefined],
                 staffRepresentativeDesignation1: [undefined],
@@ -158,7 +158,8 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         currentData.revaluationDetails.forEach((singleData) => {
             revaluationDetails.push(
                 this.formBuilder.group({
-                    reValuationDate: new Date(singleData.reValuationDate),
+                    reValuationDate: [ObjectUtil.isEmpty(singleData.reValuationDate)] ? undefined :
+                        new Date(singleData.reValuationDate),
                     reValuatedFmv: [singleData.reValuatedFmv],
                     reValuatedDv: [singleData.reValuatedDv],
                     reValuatedConsideredValue: [singleData.reValuatedConsideredValue],

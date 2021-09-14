@@ -259,15 +259,6 @@ export class SecurityInitialFormComponent implements OnInit {
         $event['reValuatedDv'] = $event['reValuatedDv'] == null ? 0 : $event['reValuatedDv'];
         $event['reValuatedFmv'] = $event['reValuatedFmv'] == null ? 0 : $event['reValuatedFmv'];
         $event['reValuatedConsideredValue'] = $event['reValuatedConsideredValue'] == null ? 0 : $event['reValuatedConsideredValue'];
-
-        if (landDetails.controls[$event['index']]['controls']['revaluationData']['value'] == null) {
-            landDetails.controls[$event['index']]['controls']['revaluationData']['value'] = {
-                isReValuated: true,
-                reValuatedDv: 0,
-                reValuatedFmv: 0,
-                reValuatedConsideredValue: 0
-            };
-        }
         if ($event['isReValuated']) {
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['isReValuated'] = Boolean(true);
             landDetails.controls[$event['index']]['controls']['revaluationData']['value']['reValuatedDv'] = $event['reValuatedDv'];
@@ -309,9 +300,15 @@ export class SecurityInitialFormComponent implements OnInit {
                     this.totalcv += Number(sec['revaluationData']['reValuatedConsideredValue']);
                 } else {
                     const revData = sec['revaluationData'].revaluationDetails;
-                    this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
-                    this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
-                    this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
+                    if (ObjectUtil.isEmpty(revData.reValuatedConsideredValue)) {
+                        this.totalmv += Number(revData[revData.length - 1].reValuatedFmv);
+                        this.totaldv += Number(revData[revData.length - 1].reValuatedDv);
+                        this.totalcv += Number(revData[revData.length - 1].reValuatedConsideredValue);
+                    } else {
+                        this.totalmv += Number(revData.reValuatedFmv);
+                        this.totaldv += Number(revData.reValuatedDv);
+                        this.totalcv += Number(revData.reValuatedConsideredValue);
+                    }
                 }
             } else {
                 this.totaldv += Number(sec['distressValue']);
