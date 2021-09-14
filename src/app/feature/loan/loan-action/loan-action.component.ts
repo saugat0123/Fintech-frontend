@@ -145,7 +145,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     docAction: 'APPROVED',
                     docActionMsg: 'Approved',
                     documentStatus: DocStatus.APPROVED,
-                    isRemitLoan: this.isRemitLoan
+                    isRemitLoan: this.isRemitLoan,
+                    beneficiaryId: this.beneficiaryId
                 };
                 break;
             case 'reject':
@@ -156,7 +157,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     customerLoanId: this.id,
                     docAction: 'REJECT',
                     docActionMsg: 'Rejected',
-                    documentStatus: DocStatus.REJECTED
+                    documentStatus: DocStatus.REJECTED,
+                    isRemitLoan: this.isRemitLoan,
+                    beneficiaryId: this.beneficiaryId
                 };
                 break;
 
