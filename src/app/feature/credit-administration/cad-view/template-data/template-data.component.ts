@@ -14,8 +14,8 @@ import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-wor
 export class TemplateDataComponent implements OnInit {
 
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
-    offerLetterTypes = [];
-    offerLetterConst;
+    offerLetterTypes = MegaOfferLetterConst.enumObject();
+    offerLetterConst = MegaOfferLetterConst;
     offerLetterSelect;
     form: FormGroup;
     translatedValues: any = {};
