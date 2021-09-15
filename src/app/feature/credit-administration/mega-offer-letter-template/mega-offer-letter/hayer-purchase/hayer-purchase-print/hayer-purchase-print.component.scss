@@ -3,7 +3,7 @@
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 28px;
+  margin: 10px 22px;
 }
 .print-space{
   margin-top: 0;
@@ -54,4 +54,8 @@ input::-webkit-input-placeholder {
     bottom: 0;
     width: 100%;
   }
+}
+
+.page-break {
+  page-break-after: always;
 }
