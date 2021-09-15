@@ -34,7 +34,8 @@
                     (changeToApprovalSheetActive)="activeApprovalSheet()"
                     [loanConfig]="loanConfig"
                     [loanData]="loanDataHolder"
-                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
+                    [nepaliDate]="nepaliDate"
+                    (eventEmitter)="changeDetails($event)"></app-micro-loan-summary>
 
             <!-- Normal Summary-->
             <app-loan-summary *ngIf="loanConfig.loanTag !== 'MICRO_LOAN' && (summaryType === summaryTypeName?.GENERAL || summaryType === summaryTypeName?.ALPHA)"
@@ -42,14 +43,16 @@
                               [loanConfig]="loanConfig"
                               [loanData]="loanDataHolder"
                               [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
-                              [nepaliDate]="nepaliDate"></app-loan-summary>
+                              [nepaliDate]="nepaliDate"
+                              (eventEmitter)="changeDetails($event)"></app-loan-summary>
 
             <!-- Gamma Summary-->
             <app-gamma-loan-summary *ngIf="summaryType === summaryTypeName?.GAMMA"
                                     (changeToApprovalSheetActive)="activeApprovalSheet()"
                                     [loanConfig]="loanConfig"
                                     [loanData]="loanDataHolder"
-                                    [nepaliDate]="nepaliDate"></app-gamma-loan-summary>
+                                    [nepaliDate]="nepaliDate"
+                                    (eventEmitter)="changeDetails($event)"></app-gamma-loan-summary>
         </ng-container>
 
         <app-approval-sheet (changeToLoanSummaryActive)="activeLoanSummary()"

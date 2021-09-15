@@ -159,7 +159,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
     megaGroupEnabled = environment.MEGA_GROUP;
-
+    @Output() eventEmitter = new EventEmitter();
     constructor(
         private userService: UserService,
         private loanFormService: LoanFormService,
@@ -562,6 +562,16 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                     });
                 }
             });
+        });
+    }
+    changeDetails(LoanId) {
+        this.spinner = true;
+        this.loanFormService.detail(LoanId).subscribe(async (response: any) => {
+            this.loanDataHolder = response.detail;
+            this.getLoanDataHolder();
+            this.spinner = false;
+        }, error =>  {
+            this.spinner = false;
         });
     }
 }

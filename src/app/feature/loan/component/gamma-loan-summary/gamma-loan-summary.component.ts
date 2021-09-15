@@ -190,7 +190,7 @@ export class GammaLoanSummaryComponent implements OnInit {
   loanSummary = 'loanSummary';
   spinner = false;
   spinnerMsg = 'Please Wait!!';
-
+  @Output() eventEmitter = new EventEmitter();
   constructor(
       @Inject(DOCUMENT) private _document: Document,
       private userService: UserService,
@@ -736,4 +736,7 @@ export class GammaLoanSummaryComponent implements OnInit {
     }
   }
 
+  sendLoanId(loanId) {
+    this.eventEmitter.emit(loanId);
+  }
 }

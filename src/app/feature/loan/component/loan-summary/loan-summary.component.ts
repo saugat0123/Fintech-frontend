@@ -190,6 +190,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     otherObtainableDocuments = Array<string>();
     spinner = false;
     spinnerMsg = 'Please Wait!!';
+    @Output() eventEmitter = new EventEmitter();
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -756,6 +757,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
+    }
+    sendLoanId(loanId) {
+        this.eventEmitter.emit(loanId);
     }
 }
 

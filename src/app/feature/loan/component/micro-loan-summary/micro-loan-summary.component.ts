@@ -177,7 +177,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   private dialogRef: NbDialogRef<any>;
   isOpen: false;
   securityId: number;
-
+  @Output() eventEmitter = new EventEmitter();
 
   constructor(
       private userService: UserService,
@@ -641,5 +641,7 @@ export class MicroLoanSummaryComponent implements OnInit, OnDestroy {
   public customSafePipe(val) {
     return val.replace(/(<([^>]+)>)/gi, ' ');
   }
-
+  sendLoanId(loanId) {
+    this.eventEmitter.emit(loanId);
+  }
 }

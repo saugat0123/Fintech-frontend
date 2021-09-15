@@ -41,7 +41,7 @@
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList"
                 [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
-                <td class="text-left">
+                <td class="text-left" (click)=" sendLoanId(loan?.id)">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
                     &nbsp;|&nbsp;

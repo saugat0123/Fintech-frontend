@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -21,7 +21,7 @@ export class MicroProposalSummaryComponent implements OnInit {
   proposalAllData: any;
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
-
+  @Output() eventEmitter = new EventEmitter();
   constructor() {
   }
 
@@ -80,5 +80,7 @@ export class MicroProposalSummaryComponent implements OnInit {
     }
 
   }
-
+  sendLoanId(loanId: Number) {
+    this.eventEmitter.emit(loanId);
+  }
 }
