@@ -4,7 +4,7 @@
 }
 
 .nepali {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
@@ -28,6 +28,16 @@ nb-card {
 }
 
 .nepaliFont {
-  font-size: 22px;
+  font-size: 18px;
   font-family: Preeti;
+}
+.hello{
+  width: 95%;
+  float: right;
+}
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
 }
