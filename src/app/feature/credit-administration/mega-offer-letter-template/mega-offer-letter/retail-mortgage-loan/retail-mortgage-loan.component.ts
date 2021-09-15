@@ -124,7 +124,7 @@ export class RetailMortgageLoanComponent implements OnInit {
             security: this.formBuilder.array([])
         });
     }
-    setLoanConfigData(data) {
+    setLoanConfigData(data: any) {
         let cadNepData = {
             numberNepali: ')',
             nepaliWords: 'सुन्य',

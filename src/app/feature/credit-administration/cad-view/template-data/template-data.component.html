@@ -15,4 +15,7 @@
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HIRE_PURCHASE" [nbSpinner]="spinner">
         <app-hire-purchase-template-data></app-hire-purchase-template-data>
     </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.RETAIL_MORTGAGE_LOAN" [nbSpinner]="spinner">
+        <app-hire-purchase-template-data></app-hire-purchase-template-data>
+    </nb-card-body>
 </nb-card>
