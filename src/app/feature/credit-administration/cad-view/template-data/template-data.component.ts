@@ -14,8 +14,8 @@ import {NepaliCurrencyWordPipe} from '../../../../@core/pipe/nepali-currency-wor
 export class TemplateDataComponent implements OnInit {
 
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
-    offerLetterTypes = [];
-    offerLetterConst;
+    offerLetterTypes = MegaOfferLetterConst.enumObject();
+    offerLetterConst = MegaOfferLetterConst;
     offerLetterSelect;
     form: FormGroup;
     translatedValues: any = {};
@@ -38,7 +38,7 @@ export class TemplateDataComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            dateofGeneration: [undefined],
+            dateOfGeneration: [undefined],
             applicationDateInAD: [undefined],
             drawingPowerRate: [undefined],
             baseRate: [undefined],
