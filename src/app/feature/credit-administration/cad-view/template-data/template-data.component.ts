@@ -80,7 +80,6 @@ export class TemplateDataComponent implements OnInit {
             employeeName: [undefined]
         });
     }
-
     async translate() {
         this.spinner = true;
         this.translatedValues = await this.translateService.translateForm(this.form);
