@@ -1168,9 +1168,11 @@ export class CompanyFormComponent implements OnInit {
         const microCustomerTypeControl = this.companyInfoFormGroup.get('microCustomerType');
         if (micro) {
             microCustomerTypeControl.patchValue(MicroCustomerType.INDIRECT);
+            this.microCustomerType = MicroCustomerType.INDIRECT.valueOf();
             microCustomerTypeControl.enable();
         } else {
             microCustomerTypeControl.patchValue(null);
+            this.microCustomerType = MicroCustomerType.INDIRECT.valueOf();
             microCustomerTypeControl.disable();
         }
     }
