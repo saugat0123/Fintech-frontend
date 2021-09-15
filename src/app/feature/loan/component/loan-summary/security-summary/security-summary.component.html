@@ -549,6 +549,7 @@
                         <th> Rate</th>
                         <th>Total Value</th>
                         <th>Considered Value</th>
+                        <th>Ratios as per Audited Financials of FY</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -560,6 +561,7 @@
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
+                        <td class="text-right pr-1">{{singleShareData?.ratioAsPerAuitedFinancial}}</td>
                     </tr>
                     <tr>
                         <th></th>
