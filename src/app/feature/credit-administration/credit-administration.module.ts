@@ -59,6 +59,8 @@ import {DisbursementModalComponent} from './component/disbursement/disbursement-
 import {PreviewCadComponent} from './component/preview-cad/preview-cad.component';
 import {CadReportComponent} from './component/cad-report/cad-report.component';
 import {TemplateDataComponent} from './cad-view/template-data/template-data.component';
+import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire-purchase-template-data/hire-purchase-template-data.component';
+import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
 
 
 @NgModule({
@@ -108,7 +110,9 @@ import {TemplateDataComponent} from './cad-view/template-data/template-data.comp
     DisbursementModalComponent,
     PreviewCadComponent,
     CadReportComponent,
-    TemplateDataComponent],
+    TemplateDataComponent,
+    HirePurchaseTemplateDataComponent,
+    RetailEducationTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
