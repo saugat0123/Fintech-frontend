@@ -8,6 +8,7 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Guarantor} from '../../../model/guarantor';
 import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerDocuments} from '../../../model/customerDocuments';
+import * as path from 'path';
 
 
 @Injectable({
@@ -202,5 +203,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
 
     protected getApi(): string {
         return LoanFormService.API;
+    }
+    public updateProposalById(data) {
+        const api =`${this.getApi()}/update-proposal/customer-loan`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, data, {headers:req.header});
     }
 }
