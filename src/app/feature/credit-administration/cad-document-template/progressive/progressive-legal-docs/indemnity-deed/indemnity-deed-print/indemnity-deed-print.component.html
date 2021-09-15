@@ -52,9 +52,9 @@
                     <br>
                     <br>
                     म/हामी त्यस वित्तीय संस्थाले सेवा दिए वापत रु.<span
-                        class="nepaliFont">{{printDocForm?.amount}}</span>/–
+                        class="nepaliFont sizefont">{{printDocForm?.amount}}</span>/–
                     (अक्षरेपी
-                    <span [ngClass]="{'nepaliFont unicodeSize' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
+                    <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.amountInWord !== null && printDocForm?.amountInWord !== ''}">
                         {{printDocForm?.amountInWord === null || printDocForm?.amountInWord === '' ? '_________________' : printDocForm?.amountInWord}}
                     </span> )
                     रकमको भुक्तानी गर्न मञ्जुर गर्दछू/छौं, र क्षतिपूर्ति/ग्यारेण्टी अन्तर्गत कुनै दावीमा
@@ -142,7 +142,7 @@
                     </span>
                 </p>
                 <div class="col-md-12" id="signature">
-                    <p>औठा छाप:
+                    <p><b>औठा छाप:</b>
 
                     <table id="fingerXap" style="width: 35%;" class="table  table-bordered text-center">
                         <thead>
