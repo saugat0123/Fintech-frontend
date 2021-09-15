@@ -25,6 +25,8 @@ export class TemplateDataComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private translateService: SbTranslateService,
+        private nepToEngNumberPipe: NepaliToEngNumberPipe,
+        private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
     ) {
     }
 
