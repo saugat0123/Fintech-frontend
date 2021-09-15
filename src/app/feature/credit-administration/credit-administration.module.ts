@@ -61,6 +61,7 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
 import {TemplateDataComponent} from './cad-view/template-data/template-data.component';
 import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire-purchase-template-data/hire-purchase-template-data.component';
 import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
+import { RetailMortgageLoanTemplateDataComponent } from './cad-view/template-data/retail-mortgage-loan-template-data/retail-mortgage-loan-template-data.component';
 import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/template-data/retail-loan-against-insurance-template-data/retail-loan-against-insurance-template-data.component';
 
 @NgModule({
@@ -113,7 +114,8 @@ import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/temp
     TemplateDataComponent,
     HirePurchaseTemplateDataComponent,
     RetailEducationTemplateDataComponent,
-    RetailLoanAgainstInsuranceTemplateDataComponent],
+    RetailMortgageLoanTemplateDataComponent,
+  RetailLoanAgainstInsuranceTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -140,7 +142,8 @@ import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/temp
     SecurityComplianceCertificateComponent,
     AdditionalExposureComponent,
     CadOfferLetterConfigurationComponent,
-    CadFileSetupComponent, ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
+    CadFileSetupComponent,
+    ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
   exports: [CadFileSetupComponent],
   providers: [RouterUtilsService]
 })
