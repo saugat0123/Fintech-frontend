@@ -16,6 +16,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
 
 @Component({
     selector: 'app-offer-letter-personal',
@@ -33,6 +34,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    districtList;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -45,10 +47,16 @@ export class OfferLetterPersonalComponent implements OnInit {
                 private toastService: ToastService,
                 private routerUtilsService: RouterUtilsService,
                 private customerOfferLetterService: CustomerOfferLetterService,
+                private addressService: AddressService,
                 private dialogRef: NbDialogRef<OfferLetterPersonalComponent>) {
     }
 
     ngOnInit() {
+      this.addressService.getAllDistrict().subscribe((res: any) => {
+          console.log(res);
+          this.districtList = res.detail;
+      });
+
         this.buildForm();
         this.checkOfferLetter();
     }
@@ -57,7 +65,8 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
 
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        //const allGuarantors =
+        console.log(loanAmountTemplate);
+        const allGuarantors = this.buildGuarantorDetails.name;
 
         const customerAddress =
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
@@ -76,12 +85,12 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
             amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
+            amountInWords2 : loanAmountTemplate.nepaliWords ? loanAmountTemplate.nepaliWords : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
             signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
             signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-            // shreeName1: this.nepaliData.guarantorDetails.name[0] ? this.nepaliData.guarantorDetails.name[0] : '',
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : ''
@@ -202,14 +211,12 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setEmptyGuarantors(data) {
-        console.log('Guarantor data from loan config', data);
         const formArray = this.form.get('guarantorDetails') as FormArray;
         if (data.length === 0) {
             this.addEmptyGuarantor();
             return;
         }
         data.forEach(value => {
-            console.log('value ------>', value);
             formArray.push(this.formBuilder.group({
                 jamaniKartaName: [value.name],
                 guarantorCitizenshipNo: [value.citizenNumber],
@@ -448,5 +455,13 @@ export class OfferLetterPersonalComponent implements OnInit {
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate) - parseFloat(discountRate);
         const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get(['loanFacilityTable', index, target]).patchValue(finalValue);
+    }
+
+    updateServiceCharge(i) {
+       this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(
+           this.engToNepaliNumberPipe.transform(
+           this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value) *
+           this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100)
+       );
     }
 }
