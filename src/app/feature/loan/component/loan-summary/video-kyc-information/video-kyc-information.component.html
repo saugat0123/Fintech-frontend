@@ -1,4 +1,4 @@
-<div  class="col-md-12">
+<div  class="col-md-12" [nbSpinner]="spinner" >
     <p><strong>Vide KYC Information</strong></p>
     <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-center">
         <thead>
@@ -8,6 +8,7 @@
             <th>Meeting Date</th>
             <th>Meeting Link</th>
             <th>Sender/Beneficiary</th>
+            <th>Recorded Link</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -18,7 +19,8 @@
             <td class="text-left pl-1">{{data.date}}</td>
             <td>{{data.meetingLink}}</td>
             <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-            <td> <button nbButton (click) ="generate(data, i)"size="tiny">Get Link</button></td>
+            <td>{{data.recordedLink}}</td>
+            <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data, i)"size="tiny">Get Link</button></td>
         </tr>
         </tbody>
     </table>

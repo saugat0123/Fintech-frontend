@@ -8,8 +8,7 @@
                 <hr>
                 <br>
                 <div #kycInfo>
-                    <app-video-kyc-information [remitCustomer]="remitCustomer"></app-video-kyc-information>
-
+                    <app-video-kyc-information [remitCustomer]="remitCustomer" (remitEvent)="getEvent($event)"></app-video-kyc-information>
                 </div>
             </div>
             <div class="row" *ngIf="showSender">
