@@ -76,7 +76,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
       drawingPowerRate: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
-      YearlyFloatingInterestRate: [undefined],
+      yearlyFloatingInterestRate: [undefined],
       serviceCharge: [undefined],
       serviceChargeWords: [undefined],
       communicationFee: [undefined],
@@ -159,7 +159,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
     const premiumRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get(premiumRateName).value);
     const calculatedValue = parseFloat(baseRate) + parseFloat(premiumRate);
     const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
-    this.retailLoanAgainstInsurance.get('FloatingInterestRate').patchValue(finalVal);
+    this.retailLoanAgainstInsurance.get('yearlyFloatingInterestRate').patchValue(finalVal);
   }
   submit(): void {
     this.spinner = true;
