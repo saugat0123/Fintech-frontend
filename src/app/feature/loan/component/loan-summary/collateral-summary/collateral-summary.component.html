@@ -82,6 +82,10 @@
             <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>
         </div>
         <div class="col-md-2 sb-small">
+            <mark class="alert-warning">Total Distress Value:</mark>
+            <strong>Rs.{{security?.totalDistressAmount |currencyFormatter}}</strong>
+        </div>
+        <div class="col-md-2 sb-small">
             <mark class="alert-warning">Surplus/(Deficit):</mark>
             <strong> Rs. {{security?.totalSecurityAmount - totalRequiredCollateral |currencyFormatter}}</strong>
         </div>
