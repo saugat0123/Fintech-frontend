@@ -7,7 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RemitCustomerService} from '../admin/component/remit-customer-list/service/remit-customer.service';
 import {NbToastrService} from '@nebular/theme';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-video-kyc',
@@ -21,8 +21,7 @@ export class VideoKycComponent implements OnInit {
               private model: NgbModal,
               private remitService: RemitCustomerService,
               private toast: NbToastrService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private router: Router) { }
   @Input() isModal;
   @Input() showBenificiary;
   @Input() showSender;
@@ -56,7 +55,6 @@ export class VideoKycComponent implements OnInit {
   videoSpinner = false;
   breakException: any;
   ngOnInit() {
-    console.log('this is remit loan', this.remitCustomer);
     this.buildSenderForm();
     this.buildBenfFrom();
     this.checkActiveLink();
@@ -65,7 +63,7 @@ export class VideoKycComponent implements OnInit {
   buildBenfFrom() {
     this.beneficiaryForm = this.form.group({
       meetingLink: [undefined, Validators.required],
-      date: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      date: [undefined, [Validators.required, DateValidator.isValidAfter]],
       time: [undefined],
       beneficiaryId: [undefined],
       status: ['ACTIVE'],
@@ -77,7 +75,7 @@ export class VideoKycComponent implements OnInit {
   buildSenderForm() {
     this.senderForm = this.form.group({
       meetingLink: [undefined, Validators.required],
-      date: [undefined, [Validators.required, DateValidator.isValidBefore]],
+      date: [undefined, [Validators.required, DateValidator.isValidAfter]],
       time: [undefined],
       beneficiaryId: [undefined],
       status: ['ACTIVE'],
@@ -120,13 +118,17 @@ checkActiveLink() {
   }
 
   generateVideoKycSender($event: MouseEvent) {
-    if (ObjectUtil.isEmpty(this.senderForm.get('date').value) || ObjectUtil.isEmpty(this.senderForm.get('time').value)) {
-      this.toast.warning('Fields Are Missing');
-      return;
-    }
-    this.videoKycBody.agentEmail = this.agentDetails.email;
+    this.checkLinkValidation(this.senderForm);
     this.senderDetails = JSON.parse(this.remitCustomer.senderData);
-    console.log('this is sender', this.senderDetails);
+    this.videoKycBody.agentEmail = this.agentDetails.email;
+    this.videoKycBody.customerInfo = {
+      "address": this.senderDetails.senderAddress.temp_address,
+      "email": this.senderDetails.senderIdentity.email_address,
+      "metadata": "another metadata",
+      "name": this.remitCustomer.senderName,
+      "phone": this.senderDetails.senderIdentity.alternative_phone_no,
+      "title": "mr"
+    };
     const formatedDate =  new DatePipe('en-UK').transform(this.senderForm.get('date').value, 'dd/MM/yyyy');
     this.videoKycBody.meetingDate = formatedDate;
     this.videoKycBody.meetingTime = this.senderForm.get('time').value;
@@ -136,17 +138,26 @@ checkActiveLink() {
       });
     });
   }
-
+checkLinkValidation(form: FormGroup) {
+  if (ObjectUtil.isEmpty(form.get('date').value) || ObjectUtil.isEmpty(form.get('time').value) ||
+      !form.get('date').valid) {
+    this.toast.warning('Validation Not Matched');
+    return;
+  }
+}
   generateVideoKycBeneficiary($event: MouseEvent) {
-    if (ObjectUtil.isEmpty(this.beneficiaryForm.get('date').value) || ObjectUtil.isEmpty(this.beneficiaryForm.get('time').value)) {
-      this.toast.warning('Fields Are Missing');
-      return;
-    }
+   this.checkLinkValidation(this.beneficiaryForm);
     this.benfDetails = JSON.parse(this.remitCustomer.beneficiaryData);
-    console.log('this is benf', this.benfDetails);
     this.videoKycBody.agentEmail = this.agentDetails.email;
-    const formatedDate =  new DatePipe('en-US').transform(this.beneficiaryForm.get('date').value, 'dd/MM/yyyy');
-    this.videoKycBody.meetingDate = formatedDate;
+    this.videoKycBody.customerInfo = {
+      "address": this.benfDetails.beneficiaryAddress.benef_temp_address1,
+      "email": this.benfDetails.beneficiaryIdentity.benef_email_address,
+      "metadata": "another metadata",
+      "name": this.remitCustomer.beneficiaryName,
+      "phone": this.benfDetails.beneficiaryIdentity.benef_phone_no,
+      "title": "mr"
+    };
+    this.videoKycBody.meetingDate =  new DatePipe('en-US').transform(this.beneficiaryForm.get('date').value, 'dd/MM/yyyy');;
     this.videoKycBody.meetingTime = this.beneficiaryForm.get('time').value;
     this.customerInfoService.videoKyc(this.videoKycBody).subscribe(res => {
       this.beneficiaryForm.patchValue({

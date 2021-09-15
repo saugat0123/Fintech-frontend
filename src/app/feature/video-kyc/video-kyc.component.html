@@ -58,7 +58,6 @@
                                     </div>
                                     <nb-card-footer class="py-4">
                                         <div class="d-flex justify-content-end">
-                                            <button nbButton>Generate DOC</button>
                                             <button nbButton [disabled]="!senderLink" (click)="save(senderForm)">save</button>
                                         </div>
                                     </nb-card-footer>
@@ -95,7 +94,7 @@
                                     </div>
                                     <div class="col-lg-7">
                                         <label for="date" class="label">Meeting Date</label>
-                                        <input  [ngClass]="{ 'is-invalid': beneficiaryForm.get('date').errors }"
+                                        <input
                                                 formControlName="date" pattern="\d{1,2}/\d{1,2}/\d{4}" type="date" nbInput fullWidth id="date" placeholder="link">
                                     </div>
                                     <div class="col-lg-7">
@@ -115,7 +114,6 @@
                                     </div>
                                     <nb-card-footer class="py-4">
                                         <div class="d-flex justify-content-end">
-                                            <button nbButton>Generate DOC</button>
                                             <button nbButton [disabled]="!benfLink" (click)="save(beneficiaryForm)">save</button>
                                         </div>
                                     </nb-card-footer>
