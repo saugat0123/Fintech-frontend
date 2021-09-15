@@ -163,7 +163,6 @@ export class HayerPurchaseComponent implements OnInit {
     }
 
     setLoanConfigData(data) {
-        console.log(data);
         let cadNepData = {
             numberNepali: ')',
             nepaliWords: 'सुन्य',
