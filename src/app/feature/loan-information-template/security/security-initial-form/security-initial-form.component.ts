@@ -1848,6 +1848,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     priceBookValue: [share.priceBookValue],
                     dividendYeild: [share.dividendYeild],
                     dividendPayoutRatio: [share.dividendPayoutRatio],
+                    ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
                 })
             );
         });
@@ -1868,6 +1869,7 @@ export class SecurityInitialFormComponent implements OnInit {
             priceBookValue: [undefined],
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
+            ratioAsPerAuitedFinancial: [undefined],
         });
     }
 
