@@ -12,29 +12,30 @@
                            name="dateOfGeneration"
                            placeholder="मिति"
                            type="text"/>
+                </p>
                 <div class="mb-2"> नाम:
                 <input class="form-fields form-control-sm nepaliFont"
                        formControlName="customerName"
                        name="customerName"
                        placeholder="{{loanHolderInfo?.name}}"
                        type="text"/> ज्यू
-                <div class="row form-group">
-                    ठेगाना: <input class="form-fields form-control-sm nepaliFont"
-                                              formControlName="customerAddress"
-                                              name="customerAddress"
-                                              placeholder="ठेगाना"
-                                              type="text"/>
+                <div class="mb-1"> ठेगाना:
+                    <input class="form-fields form-control-sm nepaliFont"
+                           formControlName="customerAddress"
+                           name="customerAddress"
+                           placeholder="ठेगाना"
+                           type="text"/>
                 </div>
                 <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
 
 
                 <br>
                 <br>
-                <div class="row">
+                <div class="mb-1">
                     <p> महोदय, <br>
                         तपाईंले मिति सन् <input class="form-fields form-control-sm nepaliFont"
-                                                formControlName="applicationDate"
-                                                name="applicationDate"
+                                                formControlName="applicationDateInAD"
+                                                name="applicationDateInAD"
                                                 placeholder="मिति"
                                                 style="width: 200px"
                                                 type="text"/>मा आवास कर्जा सुविधाको लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले
@@ -236,7 +237,7 @@
                             <p> कित्ता नं.  <input class="form-fields form-control-sm nepaliFont"
                                                    formControlName="propertyPlotNumber"
                                                    name="propertyPlotNumber"
-                                                   placeholder="कित्ता नं. "
+                                                   placeholder="कित्ता नं "
                                                    type="text"/> </p>
                             <p> क्षेत्रफल  <input class="form-fields form-control-sm nepaliFont"
                                                   formControlName="propertyArea"
@@ -438,8 +439,8 @@
                                 ग. बिलम्ब भुक्तानी शुल्कः
                                 माथि उल्लिखित सञावा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक ऋणको सञावा/किस्ता तथा व्याज
                                 विलम्बमा  रु. <input class="form-fields form-control-sm nepaliFont"
-                                                     formControlName="LateFee"
-                                                     name="LateFee"
+                                                     formControlName="lateFee"
+                                                     name="lateFee"
                                                      placeholder="शुल्क "
                                                      type="text"/>।( का दरले थप विलम्ब शुल्क लाग्नेछ ।<br>
                                 घ. थप/अतिरिक्त शुल्कः

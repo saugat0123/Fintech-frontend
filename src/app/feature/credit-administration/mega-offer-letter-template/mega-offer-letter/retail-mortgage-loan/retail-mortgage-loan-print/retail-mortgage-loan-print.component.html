@@ -21,8 +21,8 @@
         <br>
         <div class="mb-2">
             <p> महोदय, <br>
-                तपाईंले मिति सन्  <span [ngClass]="{'nepaliFont num' : letter?.applicationDate!== null && letter?.applicationDate!== ''}">
-            {{letter?.applicationDate === null || letter?.applicationDate === '' ? '___________' : letter?.applicationDate}}</span>
+                तपाईंले मिति सन्  <span [ngClass]="{'nepaliFont num' : letter?.applicationDateInAD!== null && letter?.applicationDateInAD!== ''}">
+            {{letter?.applicationDateInAD === null || letter?.applicationDateInAD === '' ? '___________' : letter?.applicationDateInAD}}</span>
                  मा आवास कर्जा सुविधाको लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले
                 देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
 
@@ -343,8 +343,8 @@
                             बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि सुचना अनुसार कायम रहने छ।<br>
                             ग. बिलम्ब भुक्तानी शुल्कः
                             माथि उल्लिखित सञावा/किस्ता तथा व्याज विलम्बमा लाग्ने हर्जाना ब्याजका अतिरिक्त प्रत्येक ऋणको सञावा/किस्ता तथा व्याज
-                            विलम्बमा  रु. <span [ngClass]="{'nepaliFont num' : letter?.LateFee!== null && letter?.LateFee!== ''}">
-            {{letter?.LateFee === null || letter?.LateFee === '' ? '___________' : letter?.LateFee}}</span>
+                            विलम्बमा  रु. <span [ngClass]="{'nepaliFont num' : letter?.lateFee!== null && letter?.lateFee!== ''}">
+            {{letter?.lateFee === null || letter?.lateFee === '' ? '___________' : letter?.lateFee}}</span>
                             ( का दरले थप विलम्ब शुल्क लाग्नेछ ।<br>
                             घ. थप/अतिरिक्त शुल्कः
                             स्वीकृत ऋणकर्जा तथा बैंकिह् सुविधा नेपाल राष्ट्र बैंकको निर्देशिका बमोजिम विभिन्न बर्गमा वर्गिकरण भएमा बैंक

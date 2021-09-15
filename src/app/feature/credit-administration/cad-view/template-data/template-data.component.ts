@@ -38,7 +38,7 @@ export class TemplateDataComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            dateofGeneration: [undefined],
+            dateOfGeneration: [undefined],
             applicationDateInAD: [undefined],
             drawingPowerRate: [undefined],
             baseRate: [undefined],
