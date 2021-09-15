@@ -38,7 +38,7 @@ export class TemplateDataComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            dateofGeneration: [undefined],
+            dateOfGeneration: [undefined],
             applicationDateInAD: [undefined],
             drawingPowerRate: [undefined],
             baseRate: [undefined],
@@ -80,6 +80,7 @@ export class TemplateDataComponent implements OnInit {
             employeeName: [undefined]
         });
     }
+
     async translate() {
         this.spinner = true;
         this.translatedValues = await this.translateService.translateForm(this.form);
