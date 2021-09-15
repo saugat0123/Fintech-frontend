@@ -1,4 +1,5 @@
 <form [formGroup]="proposalForm">
+    <h1> OutStanding Limit Update </h1>
     <table class="table table-bordered">
         <tr>
             <th>S.No</th>
@@ -13,7 +14,6 @@
             <td>{{data?.loan?.name}}</td>
             <td>{{data?.loan?.lastModifiedAt | date}}</td>
             <td>{{data?.proposal?.proposedLimit}}</td>
-            <td>{{data?.proposal?.outStandingLimit}}</td>
             <td>
                 <span>
                 <input type="number" class="form-control" #fieldValue
