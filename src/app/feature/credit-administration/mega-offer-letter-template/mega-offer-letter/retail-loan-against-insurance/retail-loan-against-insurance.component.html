@@ -66,7 +66,7 @@
                                        name="LoanAmount"
                                        formControlName="LoanAmount"
                                        placeholder="रकम"
-                                       (change)="getNumAmountWord('LoanAmount', 'LoanAmountWords')"
+                                       (input)="getNumAmountWord('LoanAmount', 'LoanAmountWords')"
                                        type="text"/>
                             (अक्षरेपि रु.
                             <input class="form-field form-control-sm nepaliFont"
@@ -92,7 +92,7 @@
                                    name="baseRate"
                                    formControlName="baseRate"
                                    placeholder="आधार दर"
-                                   (change)="calculateData('baseRate', 'premiumRate')"
+                                   (input)="calculateData('baseRate', 'premiumRate')"
                                    type="text"/>
                                     +
                             <input class="form-field form-control-sm nepaliFont"
@@ -100,7 +100,7 @@
                                    formControlName="premiumRate"
                                    placeholder="प्रीमियम दर"
                                    type="text"
-                                   (change)="calculateData('baseRate', 'premiumRate')"/>
+                                   (input)="calculateData('baseRate', 'premiumRate')"/>
                             प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium) हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
                             <input class="form-field form-control-sm nepaliFont"
                                    name="yearlyFloatingInterestRate"
@@ -118,7 +118,7 @@
                                            name="serviceCharge"
                                            formControlName="serviceCharge"
                                            placeholder="रकम"
-                                           (change)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"
+                                           (input)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"
                                            type="text"/>
                                 / (अक्षरेपी रु
                                     <input class="form-field form-control-sm nepaliFont"
@@ -150,7 +150,7 @@
                                    name="emiAmount"
                                    formControlName="emiAmount"
                                    placeholder="रकम"
-                                   (change)="getNumAmountWord('emiAmount', 'emiAmountWords')"
+                                   (input)="getNumAmountWord('emiAmount', 'emiAmountWords')"
                                    type="text"/>/
                             (अक्षरेपि रु.
                             <input class="form-field form-control-sm nepaliFont" name="emiAmountWords" formControlName="emiAmountWords" placeholder="अक्षरेपि" type="text"/> मात्र)
@@ -231,7 +231,7 @@
                             <input class="form-field form-control-sm nepaliFont" name="GuarantorName" formControlName="GuarantorName" placeholder="ग्यारेन्टर नाम" type="text"/>ले बैंकको पक्षमा रु
                             <input class="form-field form-control-sm nepaliFont"
                                    name="LoanAmount" formControlName="LoanAmount"
-                                   (change)="getNumAmountWord('LoanAmount','LoanAmountWords')"
+                                   (input)="getNumAmountWord('LoanAmount','LoanAmountWords')"
                                    placeholder="ग्यारेन्टर रकम" type="text"/>/(अक्षरेपी रु
                             <input class="form-field form-control-sm nepaliFont" name="LoanAmountWords" formControlName="LoanAmountWords" placeholder="अक्षरेपी" type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ । </td>
                     </tr>
@@ -567,7 +567,7 @@
                                        name="guarantorAmount1"
                                        formControlName="guarantorAmount1"
                                        placeholder="ग्यारेन्टर रकम"
-                                       (change)="getNumAmountWord('guarantorAmount1', 'guarantorAmountWords1')"
+                                       (input)="getNumAmountWord('guarantorAmount1', 'guarantorAmountWords1')"
                                        type="text"/>
                                 (अक्षरेपी रु
                                 <input class="form-field form-control-sm nepaliFont"
