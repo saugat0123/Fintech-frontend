@@ -1,4 +1,7 @@
-<form [formGroup]="proposalForm">
+<form [formGroup]="proposalForm" [nbSpinner]="spinner"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="large"
+      nbSpinnerMessage="Loading Data ...">
     <h1 style="text-align:center"> Outstanding Limit Update </h1>
     <table class="table table-bordered">
         <tr>
@@ -12,7 +15,7 @@
         <tr *ngFor="let data of approvedLoans; let i = index; let loan of customerAllLoanList">
             <td>{{i + 1}}</td>
             <td>{{data?.loan?.name}}</td>
-            <td>{{data?.loan?.lastModifiedAt | date}}</td>
+            <td>{{data?.lastModifiedAt | date}}</td>
             <td>{{data?.proposal?.proposedLimit}}</td>
             <td>
                 <span>

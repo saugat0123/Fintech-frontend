@@ -7,6 +7,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Proposal} from '../../admin/modal/proposal';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../@core/utils';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-outstanding-update',
@@ -20,6 +21,9 @@ export class OutstandingUpdateComponent implements OnInit {
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
   outstandingLimit;
+  customerInfoId: number;
+  companyInfoId: number;
+  spinner=false;
   constructor(
       private activatedRoute: ActivatedRoute,
       private customerLoanService: LoanFormService,
@@ -30,13 +34,22 @@ export class OutstandingUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.spinner=true;
     this.buildForm();
     this.activatedRoute.queryParams.subscribe((res) => {
       console.log(res);
-      this.customerLoanService.getFinalLoanListByLoanHolderId(res.customerInfoId).subscribe((response: any) => {
-        this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-        console.log(this.approvedLoans);
-      });
+      this.spinner=false;
+      this.customerInfoId = res.customerInfoId;
+      this.getApprovedLoans(this.customerInfoId);
+    });
+  }
+
+  getApprovedLoans(id) {
+    this.spinner=true;
+    this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+      this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+      this.spinner=false;
+      console.log(this.approvedLoans);
     });
   }
 
@@ -70,16 +83,18 @@ export class OutstandingUpdateComponent implements OnInit {
     console.log('loan', loan);
     loan.proposal.outStandingLimit = value;
     loan.version = loan.version + 1;
+    this.spinner=true;
     this.loanFormService.updateProposalById(loan).subscribe((response: any) => {
       console.log('response: ', response);
+      this.spinner=false;
       const outStandingLimit = response.detail.outStandingLimit;
+      this.getApprovedLoans(this.customerInfoId);
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated Successfully'));
       console.log('outStandingLimit: ', outStandingLimit);
-      // this.proposalForm.get('outstandingLimit').setValue(outStandingLimit);
     }, err => {
+      this.spinner=false;
       console.log('could not update loan: ', err);
     });
-
-
   }
 
 

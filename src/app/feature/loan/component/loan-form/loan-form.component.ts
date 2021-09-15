@@ -287,8 +287,10 @@ export class LoanFormComponent implements OnInit {
                     this.getTemplateInfoFromCustomerInfo(this.allId.customerInfoId);
                 }
                 if (this.customerId !== undefined) {
+                    this.nbSpinner=true;
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
+                            this.nbSpinner=false;
                             this.loanFile = response.detail.dmsLoanFile;
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
@@ -357,8 +359,10 @@ export class LoanFormComponent implements OnInit {
 
 
     populateTemplate() {
+        this.nbSpinner=true
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loanTag = response.detail.loanTag;
+            this.nbSpinner=false;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
@@ -434,9 +438,10 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
             }
-
+            this.nbSpinner=true;
             this.riskQuestionService.getAllQuestions(this.id).subscribe(riskQsnRes => {
                 const crgQuestionsList = riskQsnRes.detail as Array<any>;
+                this.nbSpinner=false;
                 if (!(crgQuestionsList.length > 0)) {
                     this.removeCrgGammaFromTemplateList();
                     this.templateList.forEach((value, index) => {
@@ -466,6 +471,7 @@ export class LoanFormComponent implements OnInit {
                 }
                 this.pushProposalTemplateToLast();
             }, error => {
+                this.nbSpinner=false;
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error while checking for available CRG-GAMMA questions!'));
                 this.removeCrgGammaFromTemplateList();
@@ -754,6 +760,7 @@ export class LoanFormComponent implements OnInit {
                     this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
                         this.loanDocument.companyInfo = res.detail;
                     }, error => {
+                        this.nbSpinner=false;
                         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
                     });
                 }
@@ -827,17 +834,27 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
                 return;
             }
+            this.nbSpinner=true;
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
 
                 this.loanDocument = response.detail;
+                this.nbSpinner=false;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
-                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+
+                let id;
+                if(response.detail.companyInfo) {
+                    id = response.detail.companyInfo.id;
+                }
+                if (response.detail.customerInfo) {
+                    id = response.detail.customerInfo.id;
+                }
+                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId, customerInfoId: id}})
                     .then(() => {
                         this.spinner.hide();
                     });
             }, error => {
-                this.spinner.hide();
+                this.nbSpinner=false;
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, `Error saving loan: ${error.error.message}`));
             });
