@@ -849,6 +849,7 @@ export class CompanyFormComponent implements OnInit {
     }
 
     onSubmit() {
+
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
