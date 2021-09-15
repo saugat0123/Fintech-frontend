@@ -12,4 +12,5 @@ export class Security {
     guarantor: Array<Guarantor>;
     totalSecurityAmount: number;
     nepsePriceInfo: NepsePriceInfo;
+    totalDistressAmount: number;
 }
