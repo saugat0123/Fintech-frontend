@@ -33,23 +33,7 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            isReValuated: [false],
-            reValuationDate: [undefined, Validators.required],
-            reValuatedFmv: [0, Validators.required],
-            reValuatedDv: [0, Validators.required],
-            reValuatedConsideredValue: [0, Validators.required],
-            newValuator: [undefined, Validators.required],
-            changeInFmv: [undefined, Validators.required],
-            changeInDv: [undefined, Validators.required],
-            changeInConsideredValue: [undefined, Validators.required],
-            reValuatorName: [undefined],
-            staffRepresentativeDesignation1: [undefined],
-            staffRepresentativeDesignation2: [undefined],
-            staffRepresentativeName1: [undefined],
-            staffRepresentativeName2: [undefined],
-            revaluationDetails: this.formBuilder.array([])
-        });
+        this.buildForm();
         this.arrayData();
         if (!ObjectUtil.isEmpty(this.data)) {
             this.formGroup.patchValue(this.data);
@@ -116,17 +100,27 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
 
     revaluate(isRevaluated, index) {
         let revData;
-        revData = {
-            reValuatedFmv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv),
-            reValuatedDv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv),
-            reValuatedConsideredValue: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-                [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue),
-            isReValuated: isRevaluated,
-            index: index
-        };
-        this.revaluationDataEmitter.emit(revData);
+        if (isRevaluated === false) {
+            if (!ObjectUtil.isEmpty(this.formGroup.get('revaluationDetails'))) {
+                const a = this.formGroup.get('revaluationDetails') as FormArray;
+                a.value.forEach(i => {
+                    this.removeRevaluationDetail(i);
+                });
+                this.addMoreRevaluationDetails();
+            }
+        } else {
+            revData = {
+                reValuatedFmv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv),
+                reValuatedDv: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv),
+                reValuatedConsideredValue: NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+                    [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue),
+                isReValuated: isRevaluated,
+                index: index
+            };
+            this.revaluationDataEmitter.emit(revData);
+        }
     }
 
     revaluationDetailsFormGroup(): FormGroup {
@@ -171,6 +165,26 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                     staffRepresentativeName2: [singleData.staffRepresentativeName2]
                 })
             );
+        });
+    }
+
+    buildForm() {
+        this.formGroup = this.formBuilder.group({
+            isReValuated: [false],
+            reValuationDate: [undefined, Validators.required],
+            reValuatedFmv: [0, Validators.required],
+            reValuatedDv: [0, Validators.required],
+            reValuatedConsideredValue: [0, Validators.required],
+            newValuator: [undefined, Validators.required],
+            changeInFmv: [undefined, Validators.required],
+            changeInDv: [undefined, Validators.required],
+            changeInConsideredValue: [undefined, Validators.required],
+            reValuatorName: [undefined],
+            staffRepresentativeDesignation1: [undefined],
+            staffRepresentativeDesignation2: [undefined],
+            staffRepresentativeName1: [undefined],
+            staffRepresentativeName2: [undefined],
+            revaluationDetails: this.formBuilder.array([])
         });
     }
 
