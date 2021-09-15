@@ -491,6 +491,7 @@
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
+                                                value="{{form.get(['loanFacilityTable', 0, 'amount']).value}}"
                                                 formControlName="dhitoLekhi">
 
                                         मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
@@ -1014,7 +1015,10 @@
                                                        type="text"
                                                        formControlName="financeBranch">
                                                 ,<br>
-
+                                                <input class="form-control-sm form-field nepaliFont"
+                                                       type="text"
+                                                       formControlName="financeMunicipality">
+                                                ,<br>
                                                 वडा नं.
                                                 <input
                                                         class="form-control-sm form-field nepaliFont"
@@ -1149,6 +1153,7 @@
                                                 शाखाकार्यालय,
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       value="{{form.get('financeBranch').value}}"
                                                        formControlName="employeeFinanceBranch">
                                                 ,
 
@@ -1171,6 +1176,7 @@
                                                 शाखाकार्यालय,
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
+                                                       value="{{form.get('financeBranch').value}}"
                                                        formControlName="employeeFinanceBranch2">
                                                 ,
 
@@ -1327,12 +1333,13 @@
                                     <p>
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
+                                               value="{{form.get('financeBranch').value}}"
                                                formControlName="officeType">
                                         शाखा,
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
                                                formControlName="branchName"
-                                               [value]="form.get('financeBranch').value">।
+                                               [value]="form.get('financeMunicipality').value">।
                                     </p>
                                 </div>
                             </div>

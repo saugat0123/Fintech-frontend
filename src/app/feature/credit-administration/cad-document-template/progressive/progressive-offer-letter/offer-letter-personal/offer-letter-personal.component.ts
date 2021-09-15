@@ -66,7 +66,6 @@ export class OfferLetterPersonalComponent implements OnInit {
 
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         console.log(loanAmountTemplate);
-        const allGuarantors = this.buildGuarantorDetails.name;
 
         const customerAddress =
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
@@ -298,6 +297,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             amountInWords2: [undefined],
 
             financeBranch: [undefined],
+            financeMunicipality: [undefined],
             financeWardNum: [undefined],
             financeDistrict: [undefined],
             financeTelephoneNum: [undefined],
