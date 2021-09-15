@@ -62,6 +62,7 @@ import {TemplateDataComponent} from './cad-view/template-data/template-data.comp
 import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire-purchase-template-data/hire-purchase-template-data.component';
 import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
 import { RetailMortgageLoanTemplateDataComponent } from './cad-view/template-data/retail-mortgage-loan-template-data/retail-mortgage-loan-template-data.component';
+import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/template-data/retail-loan-against-insurance-template-data/retail-loan-against-insurance-template-data.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -113,7 +114,8 @@ import { RetailMortgageLoanTemplateDataComponent } from './cad-view/template-dat
     TemplateDataComponent,
     HirePurchaseTemplateDataComponent,
     RetailEducationTemplateDataComponent,
-    RetailMortgageLoanTemplateDataComponent],
+    RetailMortgageLoanTemplateDataComponent,
+  RetailLoanAgainstInsuranceTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,

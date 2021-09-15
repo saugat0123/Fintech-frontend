@@ -24,9 +24,9 @@ export class TemplateDataComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private translateService: SbTranslateService,
         private nepToEngNumberPipe: NepaliToEngNumberPipe,
         private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+        private translateService: SbTranslateService,
     ) {
     }
 
@@ -38,7 +38,7 @@ export class TemplateDataComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            dateOfGeneration: [undefined],
+            dateofGeneration: [undefined],
             applicationDateInAD: [undefined],
             drawingPowerRate: [undefined],
             baseRate: [undefined],
@@ -80,7 +80,6 @@ export class TemplateDataComponent implements OnInit {
             employeeName: [undefined]
         });
     }
-
     async translate() {
         this.spinner = true;
         this.translatedValues = await this.translateService.translateForm(this.form);
