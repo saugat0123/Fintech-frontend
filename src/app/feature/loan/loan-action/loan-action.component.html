@@ -9,7 +9,7 @@
   </nb-card>
 </ng-template>
 <div class="d-flex {{catalogueStatus === true ? 'float-right' : 'justify-content-center'}}">
-
+<ng-container *ngIf="status !== docStatus.value(docStatus.SEND_BACK_TO_AGENT) && status!== docStatus.value(docStatus.SEND_BACK_TO_SENDER)">
   <button (click)="loanAction('approve')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
@@ -35,7 +35,7 @@
 <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
-  <button [hidden]="!isRemitLoan"  (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus"
+  <button [hidden]="!isRemitLoan"    (click)="loanAction('send back to sender')" *ngIf="!catalogueStatus && isMaker"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
           class="btn-sm btn-primary">
@@ -43,7 +43,7 @@
     <!--    <i class="col-md-1 fa fa-arrow-circle-left"></i>-->
   </button>
 
-  <button [hidden]="!isRemitLoan" (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus"
+  <button [hidden]="!isRemitLoan" (click)="loanAction('send back to agent')" *ngIf="!catalogueStatus && isMaker"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     SEND BACK TO AGENT
@@ -83,17 +83,16 @@
     REJECT
 <!--    <i class="col-md-1 fa fa-ban"></i>-->
   </button>
-
-  <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
-          ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
-    PRINT
-<!--    <i class="col-md-1 fa fa-print"></i>-->
-  </button>
-
   <button (click)="openConfirmationModal()" *ngIf="isMaker && !catalogueStatus"
           class="btn-sm btn-danger d-flex justify-content-end">
     Delete
 <!--    <i class="col-md-1 fa fa-ban"></i>-->
+  </button>
+</ng-container>
+  <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
+          ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+    PRINT
+    <!--    <i class="col-md-1 fa fa-print"></i>-->
   </button>
   <button class="btn-sm btn-toolbar d-flex justify-content-end" (click)="detailedViewAction()">
     DETAILED-VIEW

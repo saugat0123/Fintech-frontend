@@ -208,7 +208,7 @@ export class RemitCustomerListComponent implements OnInit {
         RemitCustomerListComponent.loadData(this);
     }
     viewVideo(model) {
-       const ref =  this.modalService.open(VideoKycComponent, {size: 'xl'});
+       const ref =  this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
        ref.componentInstance.isModal = true;
        ref.componentInstance.showSender = true;
        ref.componentInstance.showBenificiary = true;

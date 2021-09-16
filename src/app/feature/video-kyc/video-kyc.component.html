@@ -1,131 +1,148 @@
-
-    <div class="container-full bg-light"  [nbSpinner]="videoSpinner" >
-        <nb-card>
-            <div class = "col-md-12">
-                <a  *ngIf="isModal" (click)="close()" aria-label="Close" class="close pull-right cursor">
-                    <span aria-hidden="true"><b>X</b></span>
-                </a>
-                <hr>
-                <br>
-                <div #kycInfo>
-                    <app-video-kyc-information [remitCustomer]="remitCustomer" (remitEvent)="getEvent($event)"></app-video-kyc-information>
-                </div>
-            </div>
-            <div class="row" *ngIf="showSender">
-                <div class="col-md-12">
-                    <nb-card-header>
-                        <h6 class="p-2">Video KYC Sender</h6>
-                    </nb-card-header>
-                    <form [formGroup]="senderForm">
-                        <div class="p-4 row">
-                            <div class="col-sm-2">
-                                <label class="label">Required</label><br>
-                                <nb-toggle (checkedChange)="onVideoKycPermissionSender($event)"
-                                           class="pt-2 pl-4">
-                                </nb-toggle>
-                            </div>
-                            <div class="col-sm-10">
-                                <ng-container *ngIf="!hideVideoKycSender">
-                                    <div class="col-lg-7">
+<div class="container-full bg-light" [nbSpinner]="videoSpinner">
+    <div class="row m-0">
+        <div *ngIf="isModal"  class="col-md-12 custom-header">
+            <a (click)="close()" aria-label="Close" class="close pull-right cursor">
+                <span aria-hidden="true"><b>&times;</b></span>
+            </a>
+        </div>
+    </div>
+    <div class="p-4 row">
+        <div class="col-sm-12">
+            <nb-card class="videoKyc">
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-sm-12" #kycInfo>
+                            <app-video-kyc-information [remitCustomer]="remitCustomer"
+                                                       (remitEvent)="getEvent($event)"></app-video-kyc-information>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <nb-card *ngIf="showSender">
+                            <nb-card-header>
+                                <h6 class="p-2">Video KYC Sender</h6>
+                            </nb-card-header>
+                            <form [formGroup]="senderForm">
+                                <div class="p-4 row">
+                                    <div class="col-sm-12">
+                                        <label class="label">Required</label><br>
+                                        <nb-toggle (checkedChange)="onVideoKycPermissionSender($event)"
+                                                   class="pt-2 pl-4">
+                                        </nb-toggle>
+                                    </div>
+                                </div>
+                                <div class="p-4 row" *ngIf="!hideVideoKycSender">
+                                    <div class="col-sm-6">
                                         <input hidden
                                                formControlName="beneficiaryId">
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-sm-6">
                                         <input hidden
                                                formControlName="id">
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-sm-6">
                                         <label for="date1" class="label">Meeting Date</label>
                                         <input
-                                                formControlName="date"  type="date" nbInput fullWidth id="date1">
+                                                formControlName="date" type="date" nbInput fullWidth id="date1">
 
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-sm-6">
                                         <label for="date1" class="label">Meeting Time</label>
-                                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time1">
+                                        <input formControlName="time" type="time" min="00:00" max="24:00" nbInput fullWidth
+                                               id="time1">
                                     </div>
 
-                                    <div class="col-lg-7">
+                                    <div class="col-sm-6">
                                         <label for="Meetinglink" class="label">Meeting Link</label>
-                                        <input  formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink" placeholder="link">
+                                        <input formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink"
+                                               placeholder="link">
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-sm-6">
                                         <label for="recordedmeeting" class="label">Recorded Meeting</label>
-                                        <input type="text" formControlName="recordedLink" nbInput fullWidth id="recordedmeeting" placeholder="recorded">
+                                        <input type="text"  disabled formControlName="recordedLink" nbInput fullWidth id="recordedmeeting"
+                                               placeholder="recorded">
                                     </div>
-                                    <div id="generatebtn" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px">
-                                        <button [disabled]="!senderLink" (click)="generateVideoKycSender($event)" type="submit" id="sender" nbButton status="danger">Generate</button>
+                                    <div id="generatebtn" class="col-sm-6" style="margin-bottom: 15px; margin-top: 15px">
+                                        <button [disabled]="!senderLink" (click)="generateVideoKycSender($event)" type="submit"
+                                                id="sender" nbButton status="danger">Generate
+                                        </button>
                                     </div>
-                                    <nb-card-footer class="py-4">
+                                    <div class="col-sm-6" style="margin: 15px 0;">
                                         <div class="d-flex justify-content-end">
                                             <button nbButton [disabled]="!senderLink" (click)="save(senderForm)">save</button>
                                         </div>
-                                    </nb-card-footer>
-                                </ng-container>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-
-            <div class="row" *ngIf="showBenificiary">
-                <div class="col-md-12">
-                    <nb-card-header>
-                        <h6 class="p-2">Video KYC Beneficiary</h6>
-                    </nb-card-header>
-                    <form [formGroup]="beneficiaryForm">
-                        <div class="p-4 row">
-                            <div class="col-sm-2">
-                                <label class="label">Required</label><br>
-                                <nb-toggle (checkedChange)="onVideoKycPermissionBeneficiary($event)"
-                                            class="pt-2 pl-4">
-                                </nb-toggle>
-                            </div>
-                            <div class="col-sm-10">
-                                <ng-container *ngIf="!hideVideoKycBeneficiary">
-                                    <div class="col-lg-7">
-                                        <input hidden
-                                                formControlName="beneficiaryId">
                                     </div>
-                                    <div class="col-lg-7">
+
+                                </div>
+                            </form>
+                        </nb-card>
+
+                    </div>
+                    <div class="row">
+                        <nb-card *ngIf="showBenificiary">
+
+                            <nb-card-header>
+                                <h6 class="p-2">Video KYC Beneficiary</h6>
+                            </nb-card-header>
+                            <form [formGroup]="beneficiaryForm">
+                                <div class="p-4 row">
+                                    <div class="col-sm-12">
+                                        <label class="label">Required</label><br>
+                                        <nb-toggle (checkedChange)="onVideoKycPermissionBeneficiary($event)"
+                                                   class="pt-2 pl-4">
+                                        </nb-toggle>
+                                    </div>
+                                </div>
+                                <div class="p-4 row" *ngIf="!hideVideoKycBeneficiary">
+                                    <div class="col-sm-6">
+                                        <input hidden
+                                               formControlName="beneficiaryId">
+                                    </div>
+                                    <div class="col-sm-6">
                                         <input hidden
                                                formControlName="id">
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-sm-6">
                                         <label for="date" class="label">Meeting Date</label>
                                         <input
-                                                formControlName="date" pattern="\d{1,2}/\d{1,2}/\d{4}" type="date" nbInput fullWidth id="date" placeholder="link">
+                                                formControlName="date" type="date" nbInput fullWidth id="date">
+
                                     </div>
-                                    <div class="col-lg-7">
-                                        <label for="date" class="label">Meeting Time</label>
-                                        <input formControlName="time" type="time"  min="00:00" max="24:00" nbInput fullWidth id="time" placeholder="link">
+                                    <div class="col-sm-6">
+                                        <label for="time" class="label">Meeting Time</label>
+                                        <input formControlName="time" type="time" min="00:00" max="24:00" nbInput fullWidth
+                                               id="time">
                                     </div>
-                                    <div class="col-md-7">
+
+                                    <div class="col-sm-6">
                                         <label for="Meetinglink1" class="label">Meeting Link</label>
-                                        <input formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink1" placeholder="link">
+                                        <input formControlName="meetingLink" type="text" nbInput fullWidth id="Meetinglink1"
+                                               placeholder="link">
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-sm-6">
                                         <label for="recordedmeeting1" class="label">Recorded Meeting</label>
-                                        <input type="text" nbInput formControlName="recordedLink" fullWidth id="recordedmeeting1" placeholder="recorded">
+                                        <input type="text" disabled formControlName="recordedLink" nbInput fullWidth id="recordedmeeting1"
+                                               placeholder="recorded">
                                     </div>
-                                    <div id="generatebtn1" class="col-md-7" style="margin-bottom: 15px; margin-top: 15px" >
-                                        <button [disabled]="!benfLink"  (click)="generateVideoKycBeneficiary($event)" type="submit" id="sender1" nbButton status="danger">Generate</button>
+                                    <div id="generatebtn1" class="col-sm-6" style="margin-bottom: 15px; margin-top: 15px">
+                                        <button [disabled]="!benfLink" (click)="generateVideoKycBeneficiary($event)" type="submit"
+                                                id="benf" nbButton status="danger">Generate
+                                        </button>
                                     </div>
-                                    <nb-card-footer class="py-4">
+                                    <div class="col-sm-6" style="margin: 15px 0;">
                                         <div class="d-flex justify-content-end">
                                             <button nbButton [disabled]="!benfLink" (click)="save(beneficiaryForm)">save</button>
                                         </div>
-                                    </nb-card-footer>
-                                </ng-container>
-                            </div>
-                        </div>
+                                    </div>
 
-                    </form>
-                </div>
-            </div>
-        </nb-card>
-
+                                </div>
+                            </form>
+                        </nb-card>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+        </div>
     </div>
+</div>
+
 
 
