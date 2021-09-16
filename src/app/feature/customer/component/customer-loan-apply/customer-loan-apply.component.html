@@ -33,8 +33,9 @@
                   class="form-control rounded"
                   name="loanId" required>
             <option [ngValue]="undefined" hidden> select Loan Type</option>
-            <option *ngFor="let allList of nonMicroLoanList"
-                    [ngValue]="allList.id">{{allList.name}}</option>
+            <ng-container *ngFor="let allList of nonMicroLoanList">
+              <option *ngIf="allList.loanTag !=='REMIT_LOAN'" [ngValue]="allList.id" >{{allList.name}}</option>
+            </ng-container>
           </select>
         </div>
       </div>

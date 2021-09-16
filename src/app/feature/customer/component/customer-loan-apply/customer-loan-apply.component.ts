@@ -86,6 +86,8 @@ export class CustomerLoanApplyComponent implements OnInit {
         this.existingCombinedLoan.version = loan.combinedLoan.version;
       }
     });
+    console.log('this is loans', this.nonMicroLoanList);
+
   }
 
   openLoanForm(isCombined: boolean, removeFromCombined = false) {
