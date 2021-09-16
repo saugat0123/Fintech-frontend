@@ -66,7 +66,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, VideoKycInformationComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -103,7 +103,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
-        VideoKycInformationComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

@@ -1,29 +1,26 @@
-<div class="col-md-12">
+<div  class="col-md-12" [nbSpinner]="spinner" >
     <p><strong>Vide KYC Information</strong></p>
-    <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
+    <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-center">
         <thead>
         <tr class="text-white sb-bg-dark">
             <th>S.N</th>
             <th>Meeting Time</th>
             <th>Meeting Date</th>
+            <th>Meeting Link</th>
+            <th>Sender/Beneficiary</th>
             <th>Recorded Link</th>
-            <th>Status</th>
+            <th>Action</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>5:00 P.M</td>
-            <td class="text-left pl-1">October 12 2021</td>
-            <td>https://dct-mikha.azurewebsites.net/customer/call/16cf972e</td>
-            <td>Completed</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>8:00 P.M</td>
-            <td class="text-left pl-1">October 12 2021</td>
-            <td>https://dct-mikha.azurewebsites.net/customer/call/16cf972e</td>
-            <td>Not Started</td>
+        <tbody *ngIf="!notNUll">
+        <tr *ngFor="let data of videoKyc; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{data.time}}</td>
+            <td class="text-left pl-1">{{data.date}}</td>
+            <td>{{data.meetingLink}}</td>
+            <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
+            <td>{{data.recordedLink}}</td>
+            <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data, i)"size="tiny">Get Link</button></td>
         </tr>
         </tbody>
     </table>
