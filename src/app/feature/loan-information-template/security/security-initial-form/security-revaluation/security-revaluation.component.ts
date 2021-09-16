@@ -7,6 +7,8 @@ import {SecurityIds} from '../SecurityIds';
 import {NumberUtils} from '../../../../../@core/utils/number-utils';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-security-revaluation',
@@ -27,9 +29,11 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     // client
     client = environment.client;
     clientName = Clients;
+    isRevaluationNull = false;
 
     constructor(private valuatorService: ValuatorService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -126,9 +130,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     revaluationDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
                 reValuationDate: [undefined],
-                reValuatedFmv: [0],
-                reValuatedDv: [0],
-                reValuatedConsideredValue: [0],
+                reValuatedFmv: [undefined],
+                reValuatedDv: [undefined],
+                reValuatedConsideredValue: [undefined],
                 newValuator: [undefined],
                 reValuatorName: [undefined],
                 staffRepresentativeDesignation1: [undefined],
@@ -140,7 +144,12 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     }
 
     addMoreRevaluationDetails() {
-        (this.formGroup.get('revaluationDetails') as FormArray).push(this.revaluationDetailsFormGroup());
+        this.checkRevaluationNull();
+        if (this.isRevaluationNull) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Please fill at least one field'));
+        } else {
+            (this.formGroup.get('revaluationDetails') as FormArray).push(this.revaluationDetailsFormGroup());
+        }
     }
 
     removeRevaluationDetail(index: number) {
@@ -172,9 +181,9 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
         this.formGroup = this.formBuilder.group({
             isReValuated: [false],
             reValuationDate: [undefined, Validators.required],
-            reValuatedFmv: [0, Validators.required],
-            reValuatedDv: [0, Validators.required],
-            reValuatedConsideredValue: [0, Validators.required],
+            reValuatedFmv: [undefined, Validators.required],
+            reValuatedDv: [undefined, Validators.required],
+            reValuatedConsideredValue: [undefined, Validators.required],
             newValuator: [undefined, Validators.required],
             changeInFmv: [undefined, Validators.required],
             changeInDv: [undefined, Validators.required],
@@ -198,5 +207,29 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
                 this.setRevaluationDetails(oldData);
             }
         }
+    }
+
+    checkRevaluationNull() {
+        const revaluation = this.formGroup.get('revaluationDetails') as FormArray;
+        console.log('revaluation', revaluation);
+        revaluation.controls.forEach((data) => {
+            const revaluationDate = data.get('reValuationDate').value;
+            const fmv = data.get('reValuatedFmv').value;
+            const dv = data.get('reValuatedDv').value;
+            const cv = data.get('reValuatedConsideredValue').value;
+            const valuator = data.get('newValuator').value;
+            const valuatorName = data.get('reValuatorName').value;
+            const designation1 = data.get('staffRepresentativeDesignation1').value;
+            const designation2 = data.get('staffRepresentativeDesignation2').value;
+            const name1 = data.get('staffRepresentativeName1').value;
+            const name2 = data.get('staffRepresentativeName2').value;
+            if (ObjectUtil.isEmpty(revaluationDate) && ObjectUtil.isEmpty(fmv) && ObjectUtil.isEmpty(dv) && ObjectUtil.isEmpty(cv) &&
+                ObjectUtil.isEmpty(valuator) && ObjectUtil.isEmpty(valuatorName) && ObjectUtil.isEmpty(designation1) &&
+                ObjectUtil.isEmpty(designation2) && ObjectUtil.isEmpty(name1) && ObjectUtil.isEmpty(name2)) {
+                this.isRevaluationNull = true;
+            } else {
+                this.isRevaluationNull = false;
+            }
+        });
     }
 }
