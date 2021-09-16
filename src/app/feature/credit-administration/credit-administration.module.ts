@@ -63,6 +63,8 @@ import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire
 import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
 import { RetailMortgageLoanTemplateDataComponent } from './cad-view/template-data/retail-mortgage-loan-template-data/retail-mortgage-loan-template-data.component';
 import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/template-data/retail-loan-against-insurance-template-data/retail-loan-against-insurance-template-data.component';
+import {UserCreateComponent} from './cad-offerletter-profile/cad-offer-letter-configuration/user-create/user-create.component';
+import {AdminModule} from '../admin/admin.module';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -115,7 +117,7 @@ import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/temp
     HirePurchaseTemplateDataComponent,
     RetailEducationTemplateDataComponent,
     RetailMortgageLoanTemplateDataComponent,
-  RetailLoanAgainstInsuranceTemplateDataComponent],
+    RetailLoanAgainstInsuranceTemplateDataComponent, UserCreateComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -129,6 +131,7 @@ import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/temp
     NgxPrintModule,
     AngularDraggableModule,
     NepaliCalendarModule,
+    AdminModule,
   ],
   entryComponents: [
     AssignPopUpComponent,

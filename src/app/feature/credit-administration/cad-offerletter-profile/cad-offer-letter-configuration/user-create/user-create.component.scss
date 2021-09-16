@@ -1,0 +1,30 @@
+.table.small {
+  nb-select.appearance-outline.size-medium .select-button {
+    margin-left: 0 !important;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  input {
+    border-radius: 0;
+  }
+
+  textarea:hover,
+  input:hover,
+  textarea:active,
+  input:active,
+  textarea:focus,
+  input:focus,
+  button:focus,
+  button:active,
+  button:hover,
+  label:focus,
+  .btn:active,
+  .btn.active {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+  }
+}
