@@ -28,7 +28,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() customerInfo: CustomerInfoData;
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     @Input() guarantorDetail: GuarantorDetail;
-    @Input() customer: Customer;
+    // @Input() customer: Customer;
     @Output()
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     guarantorList: Array<Guarantor>;
@@ -37,7 +37,32 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     submitted = false;
     relationshipList = RelationshipNepali.enumObject();
     hideSaveBtn = false;
-    translatedValues: any = {};
+    translatedValues = {
+        customerCode: '',
+        name: '',
+        gender: '',
+        fatherName: '',
+        grandFatherName: '',
+        relationMedium: '',
+        husbandName: '',
+        fatherInLawName: '',
+        citizenshipNo: '',
+        age: '',
+        permanentProvince: '',
+        permanentDistrict: '',
+        permanentMunicipality: '',
+        permanentMunType: '',
+        temporaryProvince: '',
+        temporaryDistrict: '',
+        temporaryMunicipality: '',
+        permanentWard: '',
+        temporaryWard: '',
+        temporaryMunType: '',
+        citizenshipIssueDistrict: '',
+        citizenshipIssueDate: '',
+    };
+    clientType;
+    customer: Customer = new Customer();
 
     constructor(private formBuilder: FormBuilder,
                 private customerInfoService: CustomerInfoService,
@@ -65,6 +90,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     buildForm() {
         this.userConfigForm = this.formBuilder.group({
+            clientType: [undefined],
             name: [undefined],
             gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
             fatherName: [undefined],
@@ -127,6 +153,70 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        {
+            this.spinner = true;
+            this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
+            this.customer.customerName = this.userConfigForm.get('name').value;
+            this.customer.customerCode = this.userConfigForm.get('customerCode').value;
+            this.customer.province = this.userConfigForm.get('province').value;
+            this.customer.district = this.userConfigForm.get('district').value;
+            this.customer.municipalities = this.userConfigForm.get('municipalities').value;
+            this.customer.wardNumber = this.userConfigForm.get('wardNumber').value;
+            this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
+            this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
+            this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipalities').value;
+            this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWardNumber').value;
+            this.customer.contactNumber = this.userConfigForm.get('contactNumber').value;
+            this.customer.email = this.userConfigForm.get('email').value;
+            this.customer.dob = this.userConfigForm.get('dob').value;
+            this.customer.initialRelationDate = this.userConfigForm.get('initialRelationDate').value;
+            this.customer.citizenshipNumber = this.userConfigForm.get('citizenshipNumber').value;
+            this.customer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssuedPlace').value;
+            this.customer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssuedDate').value;
+            this.customer.clientType = this.userConfigForm.get('clientType').value;
+            this.customer.subsectorDetail = this.userConfigForm.get('subsectorDetail').value;
+            this.customer.gender = this.userConfigForm.get('gender').value;
+            this.customer.maritalStatus = this.userConfigForm.get('maritalStatus').value;
+            this.customer.customerLegalDocumentAddress = this.userConfigForm.get('customerLegalDocumentAddress').value;
+            // this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
+            const occupations = {
+                multipleOccupation: this.userConfigForm.get('occupation').value,
+                otherOccupation: this.userConfigForm.get('otherOccupation').value
+            };
+            const incomeSource = {
+                multipleIncome: this.userConfigForm.get('incomeSource').value,
+                otherIncome: this.userConfigForm.get('otherIncome').value
+            };
+            this.customer.occupation = JSON.stringify(occupations);
+            this.customer.incomeSource = JSON.stringify(incomeSource);
+            this.customer.introduction = this.userConfigForm.get('introduction').value;
+            this.customer.version = this.userConfigForm.get('version').value;
+            const rawFromValue = this.userConfigForm.getRawValue();
+            this.customer.customerRelatives = rawFromValue.customerRelatives;
+
+            /** banking relation setting data from child **/
+            // possibly can have more field in banking relationship
+            this.customer.bankingRelationship = JSON.stringify(this.userConfigForm.get('bankingRelationship').value);
+            this.customer.netWorth = this.userConfigForm.get('netWorth').value;
+
+            /** Remaining static read-write only data*/
+           //  this.customer.individualJsonData = this.setIndividualJsonData();
+
+            // this.customer.isMicroCustomer = this.microCustomer;
+
+            this.customerService.save(this.customer).subscribe(res => {
+                this.spinner = false;
+                // this.close();
+                /*if (this.formValue.id == null) {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
+                } else {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
+                }*/
+            }, res => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
+            });
+        }
         const data = JSON.stringify(this.userConfigForm.value);
         this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
             this.customerInfoData = res.detail;
@@ -179,6 +269,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     onChangeTab(event) {
         this.hideSaveBtn = false;
+        console.log(event.tabId);
         if (event.tabId === '2' || event.tabId === '3') {
             this.hideSaveBtn = true;
         }
