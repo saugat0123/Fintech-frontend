@@ -32,7 +32,6 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../../model/combined-loan';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
-import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
@@ -204,6 +203,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         this.loadSummary();
         this.checkDocUploadConfig();
         this.obtainableDocument();
+        console.log('loanConfigId', this.loanConfigId);
     }
 
     ngOnDestroy(): void {
@@ -320,6 +320,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                     this.minOneGuarantorDoc = true;
                 }
             });
+        } else {
+            this.checkGuarantorData = false;
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
@@ -553,24 +555,40 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                     detail.documents.forEach(resData => {
                         this.obtainableDocuments.push(resData);
                     });
+                } else {
+                    this.obtainableDocuments = [];
                 }
                 if (!ObjectUtil.isEmpty(detail.OtherDocuments)) {
                     detail.OtherDocuments.split(',').forEach(resData => {
                         if (resData !== '') {
-                            this.obtainableDocuments.push(resData);
+                            this.otherObtainableDocuments.push(resData);
                         }
                     });
                 }
             });
         });
     }
+
     changeDetails(LoanId) {
         this.spinner = true;
-        this.loanFormService.detail(LoanId).subscribe(async (response: any) => {
+        this.loanFormService.detail(LoanId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
-            this.getLoanDataHolder();
-            this.spinner = false;
-        }, error =>  {
+            this.activatedRoute.queryParams.subscribe((res) => {
+                this.loanConfigId = res.loanConfigId;
+                this.customerId = res.customerId;
+            });
+            if (LoanId.toString() !== this.customerId) {
+                this.obtainableDocuments = [];
+                this.otherObtainableDocuments = [];
+                this.router.navigate(['/home/loan/summary'], {
+                    queryParams: {
+                        loanConfigId: this.loanConfigId,
+                        customerId: this.loanDataHolder.id
+                    }
+                });
+                this.spinner = false;
+            }
+        }, error => {
             this.spinner = false;
         });
     }

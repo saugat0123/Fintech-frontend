@@ -251,5 +251,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         }, error =>  {
             this.spinner = false;
         });
+        this.getLoanDataHolder();
     }
 }
