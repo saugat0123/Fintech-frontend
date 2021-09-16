@@ -399,6 +399,11 @@ export class LoanFormComponent implements OnInit {
                         this.templateList.splice(index, 1);
                     }
                 });
+                this.templateList.forEach((value, index) => {
+                    if ( value.name === 'Outstanding Update') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
             }
 
             if (environment.disableCrgAlpha) {
@@ -650,9 +655,9 @@ export class LoanFormComponent implements OnInit {
             this.cadObtainableDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
             this.loanDocument.data = JSON.stringify(this.cadObtainableDocuments);
         }
-        if (name === 'Outstanding Update' && action) {
-
-        }
+        // if (name === 'Outstanding Update' && action) {
+        //
+        // }
         // if (name === 'CICL' && action) {
         //   if (this.cicl.ciclForm.invalid ) {
         //     this.cicl.submitted = true;
@@ -836,7 +841,6 @@ export class LoanFormComponent implements OnInit {
             }
             this.nbSpinner=true;
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
-
                 this.loanDocument = response.detail;
                 this.nbSpinner=false;
                 this.customerLoanId = this.loanDocument.id;
@@ -847,9 +851,14 @@ export class LoanFormComponent implements OnInit {
                     id = response.detail.companyInfo.id;
                 }
                 if (response.detail.customerInfo) {
-                    id = response.detail.customerInfo.id;
+                    id = response.detail.loanHolder.id;
                 }
-                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId, customerInfoId: id}})
+
+                this.router.navigate(['/home/loan/summary'], {queryParams: {
+                        loanConfigId: this.id,
+                        customerId: this.customerLoanId,
+                        customerInfoId: id
+                }})
                     .then(() => {
                         this.spinner.hide();
                     });

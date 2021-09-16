@@ -37,7 +37,6 @@ export class OutstandingUpdateComponent implements OnInit {
     this.spinner=true;
     this.buildForm();
     this.activatedRoute.queryParams.subscribe((res) => {
-      console.log(res);
       this.spinner=false;
       this.customerInfoId = res.customerInfoId;
       this.getApprovedLoans(this.customerInfoId);
@@ -49,7 +48,8 @@ export class OutstandingUpdateComponent implements OnInit {
     this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
       this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
       this.spinner=false;
-      console.log(this.approvedLoans);
+    }, err => {
+      this.spinner=false;
     });
   }
 
@@ -79,21 +79,16 @@ export class OutstandingUpdateComponent implements OnInit {
 
   }
   updateOutstandingLimit(loan, value) {
-    console.log('fieldValuefieldValuefieldValue: ', value);
-    console.log('loan', loan);
     loan.proposal.outStandingLimit = value;
     loan.version = loan.version + 1;
     this.spinner=true;
     this.loanFormService.updateProposalById(loan).subscribe((response: any) => {
-      console.log('response: ', response);
       this.spinner=false;
       const outStandingLimit = response.detail.outStandingLimit;
       this.getApprovedLoans(this.customerInfoId);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated Successfully'));
-      console.log('outStandingLimit: ', outStandingLimit);
     }, err => {
       this.spinner=false;
-      console.log('could not update loan: ', err);
     });
   }
 
