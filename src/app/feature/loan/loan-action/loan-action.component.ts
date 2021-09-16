@@ -60,7 +60,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe((data)=> {
-            console.log('this is adasd',data);
             this.companyInfoId = data.customerInfoId;
         })
         const roleName: string = LocalStorageUtil.getStorage().roleName;
