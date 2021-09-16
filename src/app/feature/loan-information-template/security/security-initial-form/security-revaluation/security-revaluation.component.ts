@@ -210,26 +210,27 @@ export class SecurityRevaluationComponent implements OnInit, OnChanges {
     }
 
     checkRevaluationNull() {
-        const revaluation = this.formGroup.get('revaluationDetails') as FormArray;
-        console.log('revaluation', revaluation);
-        revaluation.controls.forEach((data) => {
-            const revaluationDate = data.get('reValuationDate').value;
-            const fmv = data.get('reValuatedFmv').value;
-            const dv = data.get('reValuatedDv').value;
-            const cv = data.get('reValuatedConsideredValue').value;
-            const valuator = data.get('newValuator').value;
-            const valuatorName = data.get('reValuatorName').value;
-            const designation1 = data.get('staffRepresentativeDesignation1').value;
-            const designation2 = data.get('staffRepresentativeDesignation2').value;
-            const name1 = data.get('staffRepresentativeName1').value;
-            const name2 = data.get('staffRepresentativeName2').value;
-            if (ObjectUtil.isEmpty(revaluationDate) && ObjectUtil.isEmpty(fmv) && ObjectUtil.isEmpty(dv) && ObjectUtil.isEmpty(cv) &&
-                ObjectUtil.isEmpty(valuator) && ObjectUtil.isEmpty(valuatorName) && ObjectUtil.isEmpty(designation1) &&
-                ObjectUtil.isEmpty(designation2) && ObjectUtil.isEmpty(name1) && ObjectUtil.isEmpty(name2)) {
-                this.isRevaluationNull = true;
-            } else {
-                this.isRevaluationNull = false;
-            }
-        });
+        if (!ObjectUtil.isEmpty(this.formGroup.get('revaluationDetails'))) {
+            const revaluation = this.formGroup.get('revaluationDetails') as FormArray;
+            revaluation.controls.forEach((data) => {
+                const revaluationDate = data.get('reValuationDate').value;
+                const fmv = data.get('reValuatedFmv').value;
+                const dv = data.get('reValuatedDv').value;
+                const cv = data.get('reValuatedConsideredValue').value;
+                const valuator = data.get('newValuator').value;
+                const valuatorName = data.get('reValuatorName').value;
+                const designation1 = data.get('staffRepresentativeDesignation1').value;
+                const designation2 = data.get('staffRepresentativeDesignation2').value;
+                const name1 = data.get('staffRepresentativeName1').value;
+                const name2 = data.get('staffRepresentativeName2').value;
+                if (ObjectUtil.isEmpty(revaluationDate) && ObjectUtil.isEmpty(fmv) && ObjectUtil.isEmpty(dv) && ObjectUtil.isEmpty(cv) &&
+                    ObjectUtil.isEmpty(valuator) && ObjectUtil.isEmpty(valuatorName) && ObjectUtil.isEmpty(designation1) &&
+                    ObjectUtil.isEmpty(designation2) && ObjectUtil.isEmpty(name1) && ObjectUtil.isEmpty(name2)) {
+                    this.isRevaluationNull = true;
+                } else {
+                    this.isRevaluationNull = false;
+                }
+            });
+        }
     }
 }

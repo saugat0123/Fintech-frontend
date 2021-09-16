@@ -170,7 +170,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     ngOnInit() {
-
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
