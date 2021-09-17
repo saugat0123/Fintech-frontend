@@ -56,16 +56,20 @@ export class OfferLetterPersonalComponent implements OnInit {
           console.log(res);
           this.districtList = res.detail;
       });
-
+        console.log(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         this.buildForm();
         this.checkOfferLetter();
     }
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        let newFile = '';
+        (JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData).guarantorDetails).forEach(guarantor => {
+            newFile = newFile + guarantor.name + ', ';
+        });
+        newFile = newFile.slice(0, -2);
 
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        console.log(loanAmountTemplate);
 
         const customerAddress =
             this.nepaliData.permanentMunicipality + ' j8f g. ' +
@@ -75,6 +79,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.nepaliData.temporaryMunicipality + ' j8f g. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.numberNepali);
+        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(loanAmountTemplate.nepaliWords);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
             customerAddress: customerAddress ? customerAddress : '',
@@ -82,9 +88,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-            amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
-            amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
-            amountInWords2 : loanAmountTemplate.nepaliWords ? loanAmountTemplate.nepaliWords : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
@@ -92,12 +95,12 @@ export class OfferLetterPersonalComponent implements OnInit {
             signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : ''
+            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+            shreeName1: newFile ? newFile : ''
         });
         this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
         this.setGuarantors(this.nepaliData.guarantorDetails);
         this.addEmptySecurityDetail();
-
     }
 
     checkOfferLetter() {
@@ -458,10 +461,13 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     updateServiceCharge(i) {
-       this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(
-           this.engToNepaliNumberPipe.transform(
-           this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value) *
-           this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100)
+       this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(this.nepToEngNumberPipe.transform(
+           Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)) *
+           Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100))
        );
+        console.log('loanLimitAmount', this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).value);
+        console.log('amount', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)));
+        console.log('loanLimitPercent', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100));
     }
 }
+

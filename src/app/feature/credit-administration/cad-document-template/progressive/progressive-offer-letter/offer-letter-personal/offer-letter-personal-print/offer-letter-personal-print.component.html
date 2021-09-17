@@ -66,7 +66,7 @@
                             </p>
                         </div>
                     </div>
-                    <div style="margin-top: 30px">
+                    <!--<div style="margin-top: 30px">
                         <p>श्री
                             <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                                     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
@@ -104,7 +104,7 @@
                             <span class="nepaliFont">{{printDocForm?.customerMobile}}</span>
 
                         </p>
-                    </div>
+                    </div>-->
                     <h4 class="text-center">
                         <b>व्यक्तिगत तथा गोप्य</b> <br>
                     </h4>
@@ -1116,7 +1116,7 @@
                                     </span>
                                     <br>
                                     नागरिकता नं., मिति र कार्यालय:—
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
+                                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
                                         {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '____________________' : printDocForm?.signatoryCitizenshipNum}}
                                     </span>
 
@@ -1319,7 +1319,7 @@
                                         </span>
                                     </li>
                                     <li>
-                                        प्तिको नामः श्री
+                                        पति/पत्नीको नामः श्री
                                         <span [ngClass]="{'nepaliFont' : printDocForm?.spouseOrFatherName !== null && printDocForm?.spouseOrFatherName !== ''}">
                                             {{printDocForm?.spouseOrFatherName === null || printDocForm?.spouseOrFatherName === '' ? '_________________' : printDocForm?.spouseOrFatherName}}
                                         </span>
