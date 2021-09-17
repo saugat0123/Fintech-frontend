@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
@@ -36,10 +36,13 @@ export class RetailProfessionalLoanComponent implements OnInit {
     nepData;
     loanHolderInfo;
     proTermLoanSelected = false;
+    afterSave = false;
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() selectedCountry;
     @Input() selectedSecurity;
     @Input() nameOfEmbassy;
+    @Input() translatedValue;
+    @Output() newSavedVal = new EventEmitter();
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
@@ -56,12 +59,10 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.checkOfferLetterData();
-        console.log(this.retailProfessionalLoan.value, 'form');
-        console.log('this is cadofferLetterApproved LoanHolder', this.cadOfferLetterApprovedDoc.loanHolder);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
+        this.checkOfferLetterData();
     }
 
     buildForm() {
@@ -96,7 +97,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
             guaranteedAmountFigure: [undefined],
             guaranteedAmountWords: [undefined],
             nameOfBranch: [undefined],
-            nameOfEmbassy: [undefined],
             nameOfFixedDeposit: [undefined],
             pledgeAmountFigure: [undefined],
             insuranceAmountFigure: [undefined],
@@ -114,6 +114,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
             seatNo: [undefined],
             kittaNo: [undefined],
             landArea: [undefined],
+            promissoryNoteAmount: [undefined],
+            loanDeedAmount: [undefined]
         });
     }
 
@@ -132,6 +134,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
                 this.initialInfoPrint = initialInfo;
             }
+        } else {
+            this.fillForm(this.translatedValue);
         }
     }
 
@@ -158,15 +162,40 @@ submit(): void {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.afterSave = true;
+            this.newSavedVal.emit(this.afterSave);
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
             this.dialogRef.close();
+            this.afterSave = false;
+            this.newSavedVal.emit(this.afterSave);
             this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
         });
 
+    }
+
+    fillForm(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            this.retailProfessionalLoan.patchValue(data);
+        }
+        let cadNepData = {
+            numberNepali: ')',
+            nepaliWords: 'सुन्य',
+        };
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
+        const customerAddress = this.loanHolderInfo.permanentMunicipality + ' ' +
+            this.loanHolderInfo.permanentWard + ', ' + this.loanHolderInfo.permanentDistrict;
+        this.retailProfessionalLoan.patchValue({
+            nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name : '',
+            addressOfCustomer: customerAddress ? customerAddress : '',
+            loanAmountFigure: cadNepData.numberNepali,
+            amountInWords: cadNepData.nepaliWords,
+        });
     }
 
     getNumAmountWord(numLabel, wordLabel) {

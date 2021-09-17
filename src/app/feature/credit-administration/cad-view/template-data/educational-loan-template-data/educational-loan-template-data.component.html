@@ -38,9 +38,261 @@
                 </nb-select>
             </div>
         </div>
-<!--        <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>-->
+
+        <div class="row mt-5">
+            <table
+                    *ngIf="fieldFlag"
+                    class="table table-borderless text-center sb-small table-sm">
+                <tr>
+                    <th>Loan Data</th>
+                    <th>Nepali Translation</th>
+                </tr>
+                <tr>
+                    <td>Date Of Approval</td>
+                    <td><input type="text" class="form-control" formControlName="dateOfApproval"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.dateOfApproval}}"/></td>
+                </tr>
+                <tr>
+                    <td>Reference Number</td>
+                    <td><input type="text" class="form-control" formControlName="referenceNumber"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.referenceNumber}}"/></td>
+                </tr>
+                <tr>
+                    <td>Date Of Application</td>
+                    <td><input type="text" class="form-control" formControlName="dateOfApplication"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.dateOfApplication}}"/></td>
+                </tr>
+                <tr>
+                    <td>Purpose Of Loan</td>
+                    <td><input type="text" class="form-control" formControlName="purposeOfLoan"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.purposeOfLoan}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Fixed Deposit Receipt Amount Figure</td>
+                    <td><input type="text" class="form-control"
+                               formControlName="fixedDepositReceiptAmountFigure"
+                                (input)="getNumAmountWord('fixedDepositReceiptAmountFigure', 'fixedDepositReceiptAmountWords')"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.fixedDepositReceiptAmountFigure}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Fixed Deposit Receipt Amount Words</td>
+                    <td><input type="text" class="form-control" formControlName="fixedDepositReceiptAmountWords"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.fixedDepositReceiptAmountWords}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Fixed Deposit Amount Number</td>
+                    <td><input type="text" class="form-control" formControlName="fixedDepositAmountNumber"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.fixedDepositAmountNumber}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                    <td>Distress Value</td>
+                    <td><input type="text" class="form-control" formControlName="distressValue"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.distressValue}}"/></td>
+                </tr>
+                <tr>
+                    <td>baseRate</td>
+                    <td><input type="text" class="form-control" formControlName="baseRate"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.baseRate}}"/></td>
+                </tr>
+                <tr>
+                    <td>premiumRate</td>
+                    <td><input type="text" class="form-control" formControlName="premiumRate"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.premiumRate}}"/></td>
+                </tr>
+                <tr>
+                    <td>interestRate</td>
+                    <td><input type="text" class="form-control" formControlName="interestRate"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.interestRate}}"/></td>
+                </tr>
+                <tr>
+                    <td>Loan Admin Fee</td>
+                    <td><input type="text" class="form-control"
+                               formControlName="loanAdminFeeFigure"
+                                (input)="getNumAmountWord('loanAdminFeeFigure', 'loanAdminFeeWords')"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.loanAdminFeeFigure}}"/></td>
+                </tr>
+                <tr>
+                    <td>Loan Admin Fee Words</td>
+                    <td><input type="text" class="form-control" formControlName="loanAdminFeeWords"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.loanAdminFeeWords}}"/></td>
+                </tr>
+                <tr>
+                    <td>Emi Amount Figure</td>
+                    <td><input type="text" class="form-control"
+                               formControlName="emiAmountFigure"
+                                (input)="getNumAmountWord('emiAmountFigure', 'emiAmountWords')"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.emiAmountFigure}}"/></td>
+                </tr>
+                <tr>
+                    <td>Emi Amount Words</td>
+                    <td><input type="text" class="form-control" formControlName="emiAmountWords"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.emiAmountWords}}"/></td>
+                </tr>
+                <tr>
+                    <td>Loan Period In Months</td>
+                    <td><input type="text" class="form-control" formControlName="loanPeriodInMonths"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.loanPeriodInMonths}}"/></td>
+                </tr>
+                <tr>
+                    <td>Moratorium Period In Months</td>
+                    <td><input type="text" class="form-control" formControlName="moratoriumPeriodInMonths"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.moratoriumPeriodInMonths}}"/></td>
+                </tr>
+                <tr>
+                    <td>Loan Commitment Fee In Percentage</td>
+                    <td><input type="text" class="form-control" formControlName="loanCommitmentFeeInPercentage"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.loanCommitmentFeeInPercentage}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Fixed Deposit Holder Name</td>
+                    <td><input type="text" class="form-control" formControlName="fixedDepositHolderName"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.fixedDepositHolderName}}"/></td>
+                </tr>
+                <tr>
+                    <td>Fixed Deposit Amount Figure</td>
+                    <td><input type="text" class="form-control" formControlName="fixedDepositAmountFigure"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.fixedDepositAmountFigure}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Tenure Fixed Deposit</td>
+                    <td><input type="text" class="form-control" formControlName="tenureFixedDeposit"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.tenureFixedDeposit}}"/></td>
+                </tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Tenure Deposit Receipt Number</td>
+                    <td><input type="text" class="form-control" formControlName="tenureDepositReceiptNumber"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.tenureDepositReceiptNumber}}"/></td>
+                </tr>
+                <tr>
+                    <td>Guarantor Name</td>
+                    <td><input type="text" class="form-control" formControlName="guarantorName"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.guarantorName}}"/></td>
+                </tr>
+                <tr>
+                    <td>Guaranteed Amount Figure</td>
+                    <td><input type="text" class="form-control"
+                               formControlName="guaranteedAmountFigure"
+                                (input)="getNumAmountWord('guaranteedAmountFigure','guaranteedAmountWords')"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.guaranteedAmountFigure}}"/></td>
+                </tr>
+                <tr>
+                    <td>Guaranteed Amount Words</td>
+                    <td><input type="text" class="form-control" formControlName="guaranteedAmountWords"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.guaranteedAmountWords}}"/></td>
+                </tr>
+                <tr>
+                    <td>Name Of Branch</td>
+                    <td><input type="text" class="form-control" formControlName="nameOfBranch"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.nameOfBranch}}"/></td>
+                </tr>
+                <tr>
+                    <td>Name Of Embassy</td>
+                    <td><input type="text" class="form-control" formControlName="nameOfEmbassy"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.nameOfEmbassy}}"/></td>
+                </tr>
+                <tr>
+                    <td>Name Of Fixed Deposit</td>
+                    <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.nameOfFixedDeposit}}"/></td>
+                </tr>
+                <tr>
+                    <td>Pledge Amount Figure</td>
+                    <td><input type="text" class="form-control" formControlName="pledgeAmountFigure"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.pledgeAmountFigure}}"/></td>
+                </tr>
+                <tr>
+                    <td>Insurance Amount Figure</td>
+                    <td><input type="text" class="form-control" formControlName="insuranceAmountFigure"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.insuranceAmountFigure}}"/></td>
+                </tr>
+                <tr>
+                    <td>Relationship Officer Name</td>
+                    <td><input type="text" class="form-control" formControlName="relationshipOfficerName"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.relationshipOfficerName}}"/></td>
+                </tr>
+                <tr>
+                    <td>Branch Manager</td>
+                    <td><input type="text" class="form-control" formControlName="branchManager"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.branchManager}}"/></td>
+                </tr>
+                <tr>
+                    <td>Witness District</td>
+                    <td><input type="text" class="form-control" formControlName="sakhshiDistrict"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.sakhshiDistrict}}"/></td>
+                </tr>
+                <tr>
+                    <td>Witness Municipality</td>
+                    <td><input type="text" class="form-control" formControlName="sakhshiMunicipality"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.sakhshiMunicipality}}"/></td>
+                </tr>
+                <tr>
+                    <td>Witness Ward No</td>
+                    <td><input type="text" class="form-control" formControlName="sakhshiWardNo"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.sakhshiWardNo}}"/></td>
+                </tr>
+                <tr>
+                    <td>Witness Name</td>
+                    <td><input type="text" class="form-control" formControlName="sakhshiName"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.sakhshiName}}"/></td>
+                </tr>
+                <tr>
+                    <td>Approval Staff Name</td>
+                    <td><input type="text" class="form-control" formControlName="approvalStaffName"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.approvalStaffName}}"/></td>
+                </tr>
+                <tr>
+                    <td>Property Owners Name (धनीको नाम थर)</td>
+                    <td><input type="text" class="form-control" formControlName="ownersName"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.ownersName}}"/></td>
+                </tr>
+                <tr>
+                    <td>District (जिल्ला)</td>
+                    <td><input type="text" class="form-control" formControlName="district"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.district}}"/></td>
+                </tr>
+                <tr>
+                    <td>Municipality (नगर/गा.वि.स.)</td>
+                    <td><input type="text" class="form-control" formControlName="municipality"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.municipality}}"/></td>
+                </tr>
+                <tr>
+                    <td>Ward No (वडा नं.)</td>
+                    <td><input type="text" class="form-control" formControlName="wardNo"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.wardNo}}"/></td>
+                </tr>
+                <tr>
+                    <td>seat No (सिट नं.)</td>
+                    <td><input type="text" class="form-control" formControlName="seatNo"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.seatNo}}"/></td>
+                </tr>
+                <tr>
+                    <td>kitta No (कित्ता नं.)</td>
+                    <td><input type="text" class="form-control" formControlName="kittaNo"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.kittaNo}}"/></td>
+                </tr>
+                <tr>
+                    <td>Land Area (क्षेत्रफल)</td>
+                    <td><input type="text" class="form-control" formControlName="landArea"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.landArea}}"/></td>
+                </tr>
+                <tr>
+                    <td>promissoryNoteAmount</td>
+                    <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.promissoryNoteAmount}}"/></td>
+                </tr>
+                <tr>
+                    <td>loanDeedAmount</td>
+                    <td><input type="text" class="form-control" formControlName="loanDeedAmount"/></td>
+                    <td><input type="text" class="form-control" value="{{translatedValues?.loanDeedAmount}}"/></td>
+                </tr>
+            </table>
+        </div>
+        <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
+        <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
+            Translate
+        </button>
     </form>
-    <button [disabled]="!btnValue"
+    <button [disabled]="!fieldFlag"
             class="float-right" nbButton
             (click)="openModel(offerLetterModal)"
             status="primary">
@@ -50,17 +302,19 @@
 
 
 <ng-template #offerLetterModal>
-    <nb-card accent="primary">
+    <nb-card accent="primary" style="max-height: 900px;">
         <nb-card-header>
             <a aria-label="Close"
+               (click)="onClose()"
                class="close cursor" data-dismiss="modal">
                 <span aria-hidden="true">×</span></a>
         </nb-card-header>
         <nb-card-body>
             <app-retail-professional-loan [cadOfferLetterApprovedDoc]="customerApprovedDoc" [selectedSecurity]="selectedSecurityVal"
                                           [selectedCountry]="selectedCountryVal"
+                                          [translatedValue]="translatedValues"
+                                          (newSavedVal)="getChildData($event)"
                                           [nameOfEmbassy]="embassyName"></app-retail-professional-loan>
         </nb-card-body>
-        <nb-card-footer class="mt-lg-5"></nb-card-footer>
     </nb-card>
 </ng-template>
