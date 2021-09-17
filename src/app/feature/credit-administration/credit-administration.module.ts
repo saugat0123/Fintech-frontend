@@ -134,6 +134,7 @@ import {AdminModule} from '../admin/admin.module';
     NgxPrintModule,
     AngularDraggableModule,
     NepaliCalendarModule,
+    AdminModule,
   ],
   entryComponents: [
     AssignPopUpComponent,
