@@ -220,30 +220,30 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // this.customer.maritalStatus = this.userConfigForm.get('maritalStatus').value;
     // this.customer.customerLegalDocumentAddress = this.userConfigForm.get('customerLegalDocumentAddress').value;
 
-    this.customer.clientType = this.userConfigForm.get('clientType').value === 1 ? 'INDIVIDUAL' : 'INSTITUTION';
+
+    const clientType = this.userConfigForm.get('clientType').value;
     console.log(this.userConfigForm.get('clientType').value, 'adsasdasd');
     this.customer.customerName = this.userConfigForm.get('name').value;
 
-    if (this.userConfigForm.get('clientType').value === 1) {
-
+    if (this.userConfigForm.get('clientType').value === 'INSTITUTION') {
       this.company.companyName = this.userConfigForm.get('name').value;
       this.company.email = this.userConfigForm.get('email').value;
       this.company.contactNum = this.userConfigForm.get('contactNo').value;
       this.company.registrationNumber = this.userConfigForm.get('registrationNo').value;
-      this.company.establishmentDate = this.userConfigForm.get('registrationDate').value;
-      this.company.companyLegalDocumentAddress = JSON.stringify(
-          this.userConfigForm.get('registeredMunicipality').value +
-          this.userConfigForm.get('registeredMunType').value +
-          this.userConfigForm.get('registeredDistrict').value +
-          this.userConfigForm.get('registeredProvince').value
-      );
-      this.companyLocations.address = this.userConfigForm.get('currentMunType').value +
-          this.userConfigForm.get('currentProvince').value +
-          this.userConfigForm.get('currentWard').value +
-          this.userConfigForm.get('currentDistrict').value +
-          this.userConfigForm.get('currentMunicipality').value;
-
-      this.company.companyLocations = this.companyLocations;
+      // this.company.establishmentDate = this.userConfigForm.get('registrationDate').value;
+      // this.company.companyLegalDocumentAddress = JSON.stringify(
+      //     this.userConfigForm.get('registeredMunicipality').value +
+      //     this.userConfigForm.get('registeredMunType').value +
+      //     this.userConfigForm.get('registeredDistrict').value +
+      //     this.userConfigForm.get('registeredProvince').value
+      // );
+      // this.companyLocations.address = this.userConfigForm.get('currentMunType').value +
+      //     this.userConfigForm.get('currentProvince').value +
+      //     this.userConfigForm.get('currentWard').value +
+      //     this.userConfigForm.get('currentDistrict').value +
+      //     this.userConfigForm.get('currentMunicipality').value;
+      //
+      // this.company.companyLocations = this.companyLocations;
       // this.company.registeredMunicipality = this.userConfigForm.get('registeredMunicipality').value;
       // this.company.registeredMunType = this.userConfigForm.get('registeredMunType').value;
       // this.company.registeredDistrict = this.userConfigForm.get('registeredDistrict').value;
@@ -261,7 +261,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.company.relationMedium = this.userConfigForm.get('relationMedium').value;
       // this.company.husbandName = this.userConfigForm.get('husbandName').value;
       // this.company.fatherInLawName = this.userConfigForm.get('fatherInLawName').value;
-      this.company.panNumber = this.userConfigForm.get('panNo').value;
+      // this.company.panNumber = this.userConfigForm.get('panNo').value;
       // this.company.province = this.userConfigForm.get('permanentProvince').value;
       // this.company.district = this.userConfigForm.get('permanentDistrict').value;
       // this.company.municipalities = this.userConfigForm.get('permanentMunicipality').value;
@@ -279,17 +279,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.customer.contactNumber = this.userConfigForm.get('contactNo').value;
 
       this.customer.customerCode = this.userConfigForm.get('customerCode').value;
-      this.customer.gender = this.userConfigForm.get('gender').value;
+      // this.customer.gender = this.userConfigForm.get('gender').value === 'Male' ? Gender.MALE : Gender.FEMALE;
       this.customer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
       this.customer.dob = this.userConfigForm.get('dob').value;
-      this.customer.province = this.userConfigForm.get('permanentProvince').value;
-      this.customer.district = this.userConfigForm.get('permanentDistrict').value;
-      this.customer.municipalities = this.userConfigForm.get('permanentMunicipality').value;
-      this.customer.wardNumber = this.userConfigForm.get('permanentWard').value;
-      this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
-      this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
-      this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
-      this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
+      // this.customer.province = this.userConfigForm.get('permanentProvince').value;
+      // this.customer.district = this.userConfigForm.get('permanentDistrict').value;
+      // this.customer.municipalities = this.userConfigForm.get('permanentMunicipality').value;
+      // this.customer.wardNumber = this.userConfigForm.get('permanentWard').value;
+      // this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
+      // this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
+      // this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
+      // this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
       this.customer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
       this.customer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
 
@@ -308,7 +308,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // this.customer.incomeSource = JSON.stringify(incomeSource);
     // this.customer.introduction = this.userConfigForm.get('introduction').value;
     // this.customer.version = this.userConfigForm.get('version').value;
-    const rawFromValue = this.userConfigForm.getRawValue();
+    // const rawFromValue = this.userConfigForm.getRawValue();
     // this.customer.customerRelatives = rawFromValue.customerRelatives;
 
     /** banking relation setting data from child **/
@@ -322,7 +322,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         // this.customer.isMicroCustomer = this.microCustomer;
     const dat = {
           branch: this.userConfigForm.get('branch').value,
-          customerType: this.userConfigForm.get('clientType').value,
+          customerType: clientType,
           customer: this.customer,
           company: this.company,
         };

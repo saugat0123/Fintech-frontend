@@ -34,8 +34,8 @@
               <td>
                 <select class="form-control" formControlName="clientType" id="clientType">
                   <option [value]="null" hidden>Select Client Type</option>
-                  <option value="0">INDIVIDUAL</option>
-                  <option value="1">INSTITUTION</option>
+                  <option value="INDIVIDUAL">INDIVIDUAL</option>
+                  <option value="INSTITUTION">INSTITUTION</option>
                 </select>
               </td>
               <td>{{translatedValues?.clientType}}</td>
@@ -97,7 +97,7 @@
               <td></td>
             </tr>
 
-            <tr *ngIf="configForm?.clientType?.value == 0">
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td>
                 <label class="title" for="name">DOB</label>
               </td>
@@ -112,14 +112,14 @@
               <td>  {{translatedValues?.dob}}</td>
               <td></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 0">
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
 
               <td><label class="title" for="gender">Gender</label></td>
               <td><select class="form-control" formControlName="gender" id="gender"
                           [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
                 <option [value]="null" hidden>Select Gender</option>
-                <option value="0">Male</option>
-                <option value="1">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
               </td>
               <td>{{translatedValues?.gender}}</td>
@@ -143,7 +143,7 @@
             <!--              <td></td>-->
             <!--            </tr>-->
             <!--            <tr-->
-            <!--                *ngIf="configForm?.clientType?.value == 1 && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
+            <!--                *ngIf="configForm?.clientType?.value == 'INSTITUTION' && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
             <!--              <td>-->
             <!--                <label class="title" for="name">Father Name</label>-->
             <!--              </td>-->
@@ -161,7 +161,7 @@
             <!--              <td></td>-->
             <!--            </tr>-->
             <!--            <tr-->
-            <!--                *ngIf="configForm?.clientType?.value == 0 && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
+            <!--                *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
             <!--              <td>-->
             <!--                <label class="title" for="grandFatherName">Grand Father Name</label>-->
             <!--              </td>-->
@@ -178,7 +178,7 @@
             <!--              </td>-->
             <!--              <td></td>-->
             <!--            </tr>-->
-            <!--            <tr *ngIf="configForm?.clientType?.value == 0 && (configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0)">-->
+            <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0)">-->
 
             <!--              <td><label class="title" for="husbandName">Husband Name</label></td>-->
             <!--              <td><input class="form-control "-->
@@ -192,7 +192,7 @@
             <!--              <td></td>-->
 
             <!--            </tr>-->
-            <!--            <tr *ngIf="configForm?.clientType?.value == 0 && (configForm?.gender?.value == 1 || configForm?.relationMedium?.value !== 0)">-->
+            <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 1 || configForm?.relationMedium?.value !== 0)">-->
 
             <!--              <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>-->
             <!--              <td><input class="form-control "-->
@@ -206,7 +206,7 @@
             <!--              <td></td>-->
 
             <!--            </tr>-->
-            <tr *ngIf="configForm?.clientType?.value == 0">
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
               <td>
                 <input class="form-control "
@@ -221,7 +221,7 @@
               </td>
               <td></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 1">
+            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
               <td>
                 <label class="title" for="registrationNo">Registration No</label>
               </td>
@@ -238,7 +238,7 @@
               </td>
               <td></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 0">
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td>
                 <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>
               </td>
@@ -255,7 +255,7 @@
               </td>
               <td></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 1">
+            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
               <td>
                 <label class="title" for="registrationDate">Registration Date</label>
               </td>
@@ -272,7 +272,7 @@
               </td>
               <td></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 0">
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td>
                 <label class="title" for="citizenshipNo">Citizenship Issue District</label>
               </td>
@@ -305,7 +305,7 @@
               <td></td>
             </tr>
             </tbody>
-            <tbody *ngIf="configForm?.clientType?.value == 0">
+            <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
             <tr>
               <td>
                 <strong>Permanent Address</strong>
@@ -388,7 +388,7 @@
 
             </tr>
             </tbody>
-            <tbody *ngIf="configForm?.clientType?.value == 0">
+            <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
             <tr>
               <td>
                 <strong>Temporary Address</strong>
@@ -471,7 +471,7 @@
               <td></td>
             </tr>
             </tbody>
-            <tbody *ngIf="configForm?.clientType?.value == 1">
+            <tbody *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
             <tr>
               <td>
                 <strong>Registered Address</strong>
@@ -560,7 +560,7 @@
               <td></td>
             </tr>
             </tbody>
-            <tbody *ngIf="configForm?.clientType?.value == 1">
+            <tbody *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
             <tr>
               <td>
                 <strong>Current Address</strong>
