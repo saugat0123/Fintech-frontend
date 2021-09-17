@@ -24,7 +24,7 @@
                   <option value="1">INSTITUTION</option>
                 </select>
               </td>
-              <td></td>
+              <td>{{translatedValues?.clientType}}</td>
               <td></td>
             </tr>
             <tbody *ngIf="configForm?.clientType?.value != null">
@@ -33,7 +33,7 @@
                 <label class="title">Customer Code</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="customerCode"
                        [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
                        name="customerCode" placeholder="Customer Code"
@@ -46,7 +46,7 @@
             </tr>
             <tr>
               <td><label class="title" for="name">Client Name</label></td>
-              <td><input class="form-control rounded"
+              <td><input class="form-control "
                          formControlName="name"
                          id="name"
                          [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
@@ -58,7 +58,7 @@
             </tr>
             <tr>
               <td><label class="title" for="email">Email</label></td>
-              <td><input class="form-control rounded"
+              <td><input class="form-control "
                          formControlName="email"
                          id="email"
                          [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
@@ -71,7 +71,7 @@
             </tr>
             <tr>
               <td><label class="title" for="contactNo">Contact No</label></td>
-              <td><input class="form-control rounded"
+              <td><input class="form-control "
                          formControlName="contactNo"
                          id="contactNo"
                          [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
@@ -89,7 +89,7 @@
               </td>
               <td>
 
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="age" id="age"
                        [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
                        name="age" placeholder="Age"
@@ -108,7 +108,7 @@
                 <option value="1">Female</option>
               </select>
               </td>
-              <td></td>
+              <td>{{translatedValues?.gender}}</td>
               <td></td>
             </tr>
 
@@ -125,7 +125,7 @@
                   <option value="1">Father Relation</option>
                 </select>
               </td>
-              <td></td>
+              <td>{{translatedValues?.relationMedium}}</td>
               <td></td>
             </tr>
             <tr
@@ -134,7 +134,7 @@
                 <label class="title" for="name">Father Name</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="fatherName"
                        [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
                        id="fatherName"
@@ -152,7 +152,7 @@
                 <label class="title" for="grandFatherName">Grand Father Name</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="grandFatherName"
                        [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
                        id="grandFatherName"
@@ -168,7 +168,7 @@
                 [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
 
               <td><label class="title" for="husbandName">Husband Name</label></td>
-              <td><input class="form-control rounded"
+              <td><input class="form-control "
                          formControlName="husbandName"
                          [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
                          id="husbandName"
@@ -183,7 +183,7 @@
                 [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
 
               <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
-              <td><input class="form-control rounded"
+              <td><input class="form-control "
                          formControlName="fatherInLawName"
                          [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
                          id="fatherInLawName"
@@ -197,7 +197,7 @@
             <tr *ngIf="configForm?.clientType?.value == 0">
               <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="citizenshipNo"
                        id="citizenshipNo"
                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
@@ -214,7 +214,7 @@
                 <label class="title" for="registrationNo">Registration No</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="registrationNo"
                        id="registrationNo"
                        [ngClass]="{'is-invalid': submitted && configForm.registrationNo.errors}"
@@ -231,7 +231,7 @@
                 <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="citizenshipIssueDate"
                        id="citizenshipIssueDate"
                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
@@ -248,7 +248,7 @@
                 <label class="title" for="registrationDate">Registration Date</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="registrationDate"
                        id="registrationDate"
                        [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"
@@ -265,7 +265,7 @@
                 <label class="title" for="citizenshipNo">Citizenship Issue District</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="citizenshipIssueDistrict"
                        id="citizenshipIssueDistrict"
                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
@@ -282,7 +282,7 @@
                 <label class="title" for="panNo">PAN No</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="panNo" id="panNo"
                        [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
                        name="panNo" placeholder="PAN No" type="text"/>
@@ -304,13 +304,13 @@
                   <option value="1">VDC</option>
                 </select>
               </td>
-              <td></td>
+              <td>{{translatedValues?.permanentMunType}}</td>
               <td></td>
             </tr>
             <tr>
               <td><label class="title" for="permanentProvince">Province</label></td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="permanentProvince"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
                        id="permanentProvince"
@@ -324,7 +324,7 @@
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
-              <td><input class="form-control rounded"
+              <td><input class="form-control "
                          formControlName="permanentDistrict"
                          [ngClass]="{'is-invalid': submitted && configForm.permanentDistrict.errors}"
                          id="permanentDistrict"
@@ -342,7 +342,7 @@
                   ? 'Municipality' : 'VDC'}}</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="permanentMunicipality"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunicipality.errors}"
                        id="permanentMunicipality"
@@ -360,7 +360,7 @@
                 <label class="title" for="permanentWard">Ward No</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="permanentWard"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                        id="permanentWard"
@@ -385,13 +385,13 @@
                   <option value="1">VDC</option>
                 </select>
               </td>
-              <td></td>
+              <td>{{translatedValues?.temporaryMunType}}</td>
               <td></td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryProvince">Province</label></td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="temporaryProvince"
                        [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
                        id="temporaryProvince"
@@ -406,7 +406,7 @@
             <tr>
               <td><label class="title" for="temporaryDistrict">District</label></td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="temporaryDistrict"
                        [ngClass]="{'is-invalid': submitted && configForm.temporaryDistrict.errors}"
                        id="temporaryDistrict"
@@ -425,7 +425,7 @@
               </label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="temporaryMunicipality"
                        [ngClass]="{'is-invalid': submitted && configForm.temporaryMunicipality.errors}"
                        id="temporaryMunicipality"
@@ -442,7 +442,7 @@
               <td><label class="title" for="temporaryWard">Ward No</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="temporaryWard"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                        id="temporaryWard"
@@ -469,7 +469,7 @@
                 </select>
 
               </td>
-              <td></td>
+              <td>{{translatedValues?.registeredMunType}}</td>
               <td></td>
             </tr>
             <tr>
@@ -477,7 +477,7 @@
                 <label class="title" for="registeredProvince">Province</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="registeredProvince"
                        [ngClass]="{'is-invalid': submitted && configForm.registeredProvince.errors}"
                        id="registeredProvince"
@@ -494,7 +494,7 @@
                 <label class="title" for="registeredDistrict">District</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="registeredDistrict"
                        [ngClass]="{'is-invalid': submitted && configForm.registeredDistrict.errors}"
                        id="registeredDistrict"
@@ -513,7 +513,7 @@
                     ? 'Municipality' : 'VDC'}}</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="registeredMunicipality"
                        [ngClass]="{'is-invalid': submitted && configForm.registeredMunicipality.errors}"
                        id="registeredMunicipality"
@@ -531,7 +531,7 @@
                 <label class="title" for="registeredWard">Ward No</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="permanentWard"
                        [ngClass]="{'is-invalid': submitted && configForm.registeredWard.errors}"
                        id="registeredWard"
@@ -557,7 +557,7 @@
                   <option value="1">VDC</option>
                 </select>
               </td>
-              <td></td>
+              <td>{{translatedValues?.currentMunType}}</td>
               <td></td>
             </tr>
             <tr>
@@ -565,7 +565,7 @@
                 <label class="title" for="currentProvince">Province</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="currentProvince"
                        [ngClass]="{'is-invalid': submitted && configForm.currentProvince.errors}"
                        id="currentProvince"
@@ -582,7 +582,7 @@
                 <label class="title" for="currentDistrict">District</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="currentDistrict"
                        [ngClass]="{'is-invalid': submitted && configForm.currentDistrict.errors}"
                        id="currentDistrict"
@@ -601,7 +601,7 @@
                 </label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="currentMunicipality"
                        [ngClass]="{'is-invalid': submitted && configForm.currentMunicipality.errors}"
                        id="currentMunicipality"
@@ -619,7 +619,7 @@
                 <label class="title" for="currentWard">Ward No</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="currentWard"
                        [ngClass]="{'is-invalid': submitted && configForm.currentWard.errors}"
                        id="currentWard"
@@ -638,33 +638,38 @@
           <h4>Guarantors</h4>
           <table
               *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-              class="table table-borderless table-4" formArrayName="guarantorDetails">
+              class="table table-borderless table-4" formArrayName="guarantorDetails"
+              style="border: 1px solid rgba(255,255,255, 0.1)">
             <tbody [formGroupName]="i">
             <tr>
               <td>
-                <label class="title">ग्यारेन्टरको नाम</label>
+                <label class="title">{{i + 1 | nepaliNumber}}. ग्यारेन्टरको नाम</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="name"
                        id="guarantorName"
                        autocomplete="off"
                        name="name" placeholder="ग्यारेन्टरको नाम"
                        type="text"/>
               </td>
+              <td>{{translatedValues?.guarantorName}}</td>
+              <td></td>
             </tr>
             <tr>
               <td>
                 <label class="title">नगरिकता नम्बर</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="citizenNumber"
                        id="guarantorCitizenshipNum"
                        autocomplete="off"
                        name="name" placeholder="नगरिकता नम्बर"
                        type="text"/>
               </td>
+              <td>{{translatedValues?.citizenNumber}}</td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -672,39 +677,45 @@
               </td>
               <td>
                 <input
-                    class="form-control rounded"
+                    class="form-control "
                     formControlName="issuedYear"
                     id="guarantorIssueDate"
                     autocomplete="off"
                     name="name" placeholder="जारी मिति"
                     type="text"/>
               </td>
+              <td>{{translatedValues?.issuedYear}}</td>
+              <td></td>
             </tr>
             <tr>
               <td>
                 <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="issuedPlace"
                        id="guarantorIssueDistrict"
                        autocomplete="off"
                        name="name" placeholder="जारी जिल्ला"
                        type="text"/>
               </td>
+              <td>{{translatedValues?.issuedPlace}}</td>
+              <td></td>
             </tr>
             <tr>
               <td>
                 <label class="title" for="guarantorAddress">ठेगाना</label>
               </td>
               <td>
-                <input class="form-control rounded"
+                <input class="form-control "
                        formControlName="guarantorLegalDocumentAddress"
                        id="guarantorAddress"
                        autocomplete="off"
                        name="name" placeholder="ठेगाना"
                        type="text"/>
               </td>
+              <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -718,6 +729,8 @@
                           [value]="relationship.value">{{relationship?.value}}</option>
                 </select>
               </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td colspan="2">
@@ -725,8 +738,9 @@
                         style="position: static">
                   <em class="fa fa-trash" style="color: white;"></em>
                 </button>
-                <hr>
               </td>
+              <td></td>
+              <td></td>
             </tr>
             </tbody>
           </table>
@@ -745,7 +759,15 @@
             </tr>
             <tr>
               <td>loanType</td>
-              <td><input type="text" class="form-control" formControlName="loanType"></td>
+              <td>
+                <select class="custom-select" formControlName="loanType">
+                  <option [value]="null" selected hidden>Select Loan Type</option>
+                  <option [value]="null">All Loan Types</option>
+                  <option *ngFor="let loanType of loanTypeList"
+                          [value]="loanType.id">{{loanType.name}}
+                  </option>
+                </select>
+              </td>
               <td>{{translatedValues?.loanType}}</td>
               <td><input type="text" class="form-control" formControlName="loanType"></td>
             </tr>

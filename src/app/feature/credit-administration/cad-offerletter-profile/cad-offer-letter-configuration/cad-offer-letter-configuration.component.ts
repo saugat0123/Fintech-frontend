@@ -18,6 +18,8 @@ import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApproved
 import {HttpClient} from '@angular/common/http';
 import {SbTranslateService} from '../../../../@core/service/sbtranslate.service';
 import {CadOneformService} from '../../service/cad-oneform.service';
+import {LoanConfig} from '../../../admin/modal/loan-config';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -32,6 +34,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   // @Input() customer: Customer;
   @Output()
   customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
+  loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
   guarantorList: Array<Guarantor>;
   userConfigForm: FormGroup;
   spinner = false;
@@ -44,6 +47,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
+              private loanConfigService: LoanConfigService,
               private customerInfoService: CustomerInfoService,
               private cadOneformService: CadOneformService,
               private customerService: CustomerService,
@@ -61,6 +65,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.loanConfigService.getAll().subscribe((response: any) => {
+      this.loanTypeList = response.detail;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
+    });
     if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
       const data = JSON.parse(this.customerInfo.nepData);
       this.userConfigForm.patchValue(data);
