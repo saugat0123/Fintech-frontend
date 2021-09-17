@@ -761,6 +761,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.spinner = true;
         this.loanFormService.detail(LoanId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
+            this.obtainableDocuments = [];
+            this.otherObtainableDocuments = [];
+            this.loanDataHolder.insurance = [];
+            this.crgGammaSummary = false;
+            this.creditRiskAlphaSummary = false;
+            this.creditRiskLambdaSummary = false;
             this.router.navigate(['/home/loan/summary'], {
                 queryParams: {
                     loanConfigId: this.loanDataHolder.loan.id,
