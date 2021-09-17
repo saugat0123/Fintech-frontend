@@ -1,0 +1,66 @@
+<div>
+    <form (ngSubmit)="submit()" [formGroup]="form">
+        <div class="row p-2">
+            <div class="col-md-4">
+                <label><strong>Select Country</strong></label>
+                <nb-select
+                        fullWidth
+                        placeholder="Country"
+                        formControlName="selectedCountry"
+                        (selectedChange)="transferValue()"
+                        status="info">
+                    <nb-option value="AUSTRALIA">Australia</nb-option>
+                    <nb-option value="OTHER_COUNTRIES">Other Countries</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-4"
+                *ngIf="form.get('selectedCountry').value !== 'AUSTRALIA'">
+                <label><strong>Name Of Embassy</strong></label>
+                <input
+                        class="form-control rounded"
+                        formControlName="embassyName"
+                        id="nameOfEmbassy"
+                        name="embassyName"
+                        placeholder="Name Of Embassy"
+                        type="text">
+            </div>
+            <div class="col-md-4">
+                <label><strong>Security Type</strong></label>
+                <nb-select
+                        fullWidth
+                        placeholder="Select Security Type"
+                        formControlName="selectedSecurity"
+                        (selectedChange)="transferValue()"
+                        status="info">
+                    <nb-option value="FIXED_DEPOSIT">Fixed Deposit</nb-option>
+                    <nb-option value="LAND">Land</nb-option>
+                    <nb-option value="LAND_AND_BUILDING">Land and Building</nb-option>
+                </nb-select>
+            </div>
+        </div>
+<!--        <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>-->
+    </form>
+    <button [disabled]="!btnValue"
+            class="float-right" nbButton
+            (click)="openModel(offerLetterModal)"
+            status="primary">
+        Preview
+    </button>
+</div>
+
+
+<ng-template #offerLetterModal>
+    <nb-card accent="primary">
+        <nb-card-header>
+            <a aria-label="Close"
+               class="close cursor" data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
+        <nb-card-body>
+            <app-retail-professional-loan [cadOfferLetterApprovedDoc]="customerApprovedDoc" [selectedSecurity]="selectedSecurityVal"
+                                          [selectedCountry]="selectedCountryVal"
+                                          [nameOfEmbassy]="embassyName"></app-retail-professional-loan>
+        </nb-card-body>
+        <nb-card-footer class="mt-lg-5"></nb-card-footer>
+    </nb-card>
+</ng-template>

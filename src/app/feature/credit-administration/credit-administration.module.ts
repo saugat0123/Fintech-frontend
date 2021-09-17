@@ -61,6 +61,7 @@ import {CadReportComponent} from './component/cad-report/cad-report.component';
 import {TemplateDataComponent} from './cad-view/template-data/template-data.component';
 import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire-purchase-template-data/hire-purchase-template-data.component';
 import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
+import { EducationalLoanTemplateDataComponent } from './cad-view/template-data/educational-loan-template-data/educational-loan-template-data.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { RetailEducationTemplateDataComponent } from './cad-view/template-data/r
     CadReportComponent,
     TemplateDataComponent,
     HirePurchaseTemplateDataComponent,
-    RetailEducationTemplateDataComponent],
+    RetailEducationTemplateDataComponent,
+    EducationalLoanTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
