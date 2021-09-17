@@ -202,7 +202,9 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.loadSummary();
         this.checkDocUploadConfig();
-        this.obtainableDocument();
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.obtainableDocument(res.customerId);
+        });
         console.log('loanConfigId', this.loanConfigId);
     }
 
@@ -547,16 +549,15 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         }
     }
 
-    obtainableDocument() {
-        this.activatedRoute.queryParams.subscribe((res) => {
-            this.customerLoanService.detail(res.customerId).subscribe( response => {
+    obtainableDocument(customerId) {
+        this.obtainableDocuments = [];
+        this.otherObtainableDocuments = [];
+            this.customerLoanService.detail(customerId).subscribe( response => {
                 const detail = JSON.parse(response.detail.data);
                 if (!ObjectUtil.isEmpty(detail.documents)) {
                     detail.documents.forEach(resData => {
                         this.obtainableDocuments.push(resData);
                     });
-                } else {
-                    this.obtainableDocuments = [];
                 }
                 if (!ObjectUtil.isEmpty(detail.OtherDocuments)) {
                     detail.OtherDocuments.split(',').forEach(resData => {
@@ -566,29 +567,15 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                     });
                 }
             });
-        });
     }
-
     changeDetails(LoanId) {
         this.spinner = true;
-        this.loanFormService.detail(LoanId).subscribe((response: any) => {
+        this.loanFormService.detail(LoanId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
-            this.activatedRoute.queryParams.subscribe((res) => {
-                this.loanConfigId = res.loanConfigId;
-                this.customerId = res.customerId;
-            });
-            if (LoanId.toString() !== this.customerId) {
-                this.obtainableDocuments = [];
-                this.otherObtainableDocuments = [];
-                this.router.navigate(['/home/loan/summary'], {
-                    queryParams: {
-                        loanConfigId: this.loanConfigId,
-                        customerId: this.loanDataHolder.id
-                    }
-                });
-                this.spinner = false;
-            }
-        }, error => {
+            this.getLoanDataHolder();
+            this.obtainableDocument(LoanId);
+            this.spinner = false;
+        }, error =>  {
             this.spinner = false;
         });
     }

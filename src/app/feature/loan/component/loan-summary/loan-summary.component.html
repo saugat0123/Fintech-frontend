@@ -783,7 +783,7 @@
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"
                     [loanDataHolder]="loanDataHolder"
-                    (eventEmitter)="sendLoanId($event)"></app-proposal-summary>
+                    (eventEmitter)="changeDetails($event)"></app-proposal-summary>
 
             <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
