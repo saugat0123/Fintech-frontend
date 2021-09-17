@@ -120,7 +120,8 @@ import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-
     RetailMortgageLoanTemplateDataComponent,
     RetailLoanAgainstInsuranceTemplateDataComponent,
     EducationalLoanTemplateDataComponent,
-    LoanCreateComponent],
+    LoanCreateComponent,
+    RetailLoanAgainstInsuranceTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
