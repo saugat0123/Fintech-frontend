@@ -15,7 +15,11 @@ input, select {
   border-bottom: 1px solid black;
 }
 
-.table.small {
+.table {
+  td:first-child {
+    text-align: right;
+  }
+
   &.table-4 {
     td {
       width: 25%;
@@ -28,32 +32,35 @@ input, select {
     }
   }
 
-  nb-select.appearance-outline.size-medium .select-button {
-    margin-left: 0 !important;
-  }
 
-  td {
-    padding: 0;
-  }
+  .small {
+    nb-select.appearance-outline.size-medium .select-button {
+      margin-left: 0 !important;
+    }
 
-  input {
-    border-radius: 0;
-  }
+    td {
+      padding: 0;
+    }
 
-  textarea:hover,
-  input:hover,
-  textarea:active,
-  input:active,
-  textarea:focus,
-  input:focus,
-  button:focus,
-  button:active,
-  button:hover,
-  label:focus,
-  .btn:active,
-  .btn.active {
-    outline: 0px !important;
-    -webkit-appearance: none;
-    box-shadow: none !important;
+    input {
+      border-radius: 0;
+    }
+
+    textarea:hover,
+    input:hover,
+    textarea:active,
+    input:active,
+    textarea:focus,
+    input:focus,
+    button:focus,
+    button:active,
+    button:hover,
+    label:focus,
+    .btn:active,
+    .btn.active {
+      outline: 0px !important;
+      -webkit-appearance: none;
+      box-shadow: none !important;
+    }
   }
 }
