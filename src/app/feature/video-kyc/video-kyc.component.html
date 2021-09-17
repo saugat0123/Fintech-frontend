@@ -12,7 +12,7 @@
                 <nb-card-body>
                     <div class="row">
                         <div class="col-sm-12" #kycInfo>
-                            <app-video-kyc-information [remitCustomer]="remitCustomer"
+                            <app-video-kyc-information [showSender]="showSender" [showBenf]="showBenificiary" [remitCustomer]="remitCustomer"
                                                        (remitEvent)="getEvent($event)"></app-video-kyc-information>
                         </div>
                     </div>

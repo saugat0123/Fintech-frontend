@@ -14,14 +14,26 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
   constructor(private remitService: RemitCustomerService, private model: NgbModal, private toast: NbToastrService) { }
   @Input() remitCustomer;
   @Output() remitEvent = new EventEmitter();
+  @Input() showSender;
+  @Input() showBenf;
+  senderDetails = [];
+  benfDetails = [];
   videoKyc: any;
   notNUll = true;
   spinner = false;
+  count = 0;
 
   ngOnInit() {
 
     if (!ObjectUtil.isEmpty(this.remitCustomer.videoKyc)) {
       this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
+      this.videoKyc.map(data => {
+        if (data.isBenf) {
+          this.benfDetails.push(data);
+        } else {
+          this.senderDetails.push(data);
+        }
+      });
       this.notNUll = false;
     }
   }
