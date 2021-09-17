@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {SiteVisit} from '../../admin/modal/siteVisit';
-import {NbDateService} from '@nebular/theme';
+import {NbDateService, patch} from '@nebular/theme';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {FormUtils} from '../../../@core/utils/form.utils';
@@ -15,6 +15,7 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {DateValidator} from '../../../@core/validator/date-validator';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {SiteVisitIds} from './siteVisitIds';
 
 
 declare let google: any;
@@ -32,7 +33,10 @@ export class SiteVisitComponent implements OnInit {
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
-  @ViewChild('businessOfficeAddress', {static: true}) businessOfficeAddress: CommonAddressComponent;
+  @ViewChild('businessOfficeAddress', {static: false}) businessOfficeAddress: CommonAddressComponent;
+
+  @ViewChildren('businessOfficeAddress1')
+  businessOfficeAddress1: QueryList<CommonAddressComponent>;
 
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
@@ -60,6 +64,7 @@ export class SiteVisitComponent implements OnInit {
   spinner = false;
   client = environment.client;
   clientName = Clients;
+  siteVisitId = SiteVisitIds;
 
   constructor(private formBuilder: FormBuilder,
               dateService: NbDateService<Date>,
@@ -123,12 +128,12 @@ export class SiteVisitComponent implements OnInit {
       this.formDataForEdit = JSON.parse(stringFormData);
       console.log('formDataForEdit', this.formDataForEdit);
     }
+    console.log('formDataForEdit111', this.formDataForEdit);
 
     this.buildForm();
     if (this.formDataForEdit !== undefined) {
       this.populateData();
     } else {
-      this.addMoreBusinessSiteVisit();
       this.addStaffOfInsurance();
       this.addStaffOfOtherAssets();
       this.addDetailsOfParties('receivablesAndPayables');
@@ -136,6 +141,7 @@ export class SiteVisitComponent implements OnInit {
       this.addDetailsOfReceivableAssets();
       this.addDetailsOfPayableAssets();
       this.addDetailsOfBankExposure();
+      this.addMoreBusinessSiteVisit();
     }
   }
 
@@ -496,6 +502,7 @@ export class SiteVisitComponent implements OnInit {
     this.setPayableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.payableAssets);
     this.setOtherCurrentInspectingStaffs(currentAssetsInspectionData.otherCurrentAssets.inspectingStaffs);
     this.setBankExposures(currentAssetsInspectionData.otherCurrentAssets.bankExposures);
+    this.setBusinessDetails(this.formDataForEdit.businessDetails);
   }
 
   staffsFormGroup(): FormGroup {
@@ -791,15 +798,47 @@ export class SiteVisitComponent implements OnInit {
       }
     }
     if (this.businessSiteVisitForm) {
-      // this.fetchAddress('businessDetails', this.businessOfficeAddress);
-      // console.log('businessOfficeAddress', this.businessOfficeAddress);
-      this.businessOfficeAddress.onSubmit();
-      if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
+      const dataArray = this.siteVisitFormGroup.get('businessDetails') as FormArray;
+      // if (this.siteVisitFormGroup.get('businessDetails').invalid) {
+      //   this.business = true;
+      //   return;
+      // } else {
+        // console.log('dataArray', dataArray);
+        dataArray.controls.forEach((data, index) => {
+          console.log('FormGroup', this.siteVisitFormGroup.get('businessDetails').invalid);
+          if (this.siteVisitFormGroup.get('businessDetails').invalid) {
+            console.log('I am here');
+            this.business = true;
+            return;
+          }
+          // console.log('data', data);
+          this.businessOfficeAddress1.forEach((value, i) => {
+            // console.log('value', value);
+            console.log('address Invalid', value.addressForm.invalid);
+            if (value.addressForm.invalid) {
+              return;
+            } else {
+              // console.log('test11', value.addressForm.value);
+              if (i === index) {
+                data.get('officeAddress').setValue(value.addressForm.value);
+              }
+            }
+          });
+        });
+      // this.businessOfficeAddress.onSubmit();
+      // console.log('Address11111', this.siteVisitFormGroup.get('businessDetails').get('officeAddress'));
+      // console.log('After submit', this.businessOfficeAddress1);
+      // if (this.siteVisitFormGroup.get('businessDetails').invalid) {
+      //   this.business = true;
+      //   return;
+      // } else {
+      // }
+      // if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid || this.businessOfficeAddress.addressForm.invalid) {
       // this.business = true;
-        return;
-      } else {
-        this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
-      }
+      //   return;
+      // } else {
+      //   this.siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress').patchValue(this.businessOfficeAddress.submitData);
+      // }
     }
     if (this.currentAssetsInspectionForm) {
       if (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid) {
@@ -815,7 +854,7 @@ export class SiteVisitComponent implements OnInit {
     this.overlay.show();
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
-    console.log('siteVisitData', this.siteVisitData);
+    // console.log('siteVisitData', this.siteVisitData);
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {
@@ -1095,6 +1134,8 @@ export class SiteVisitComponent implements OnInit {
 
   addMoreBusinessSiteVisit() {
     (this.siteVisitFormGroup.get('businessDetails') as FormArray).push(this.businessDetailsFormGroup());
+    console.log('form', this.siteVisitFormGroup.get('businessDetails') as FormArray);
+    console.log('dsadsfadsf', this.siteVisitFormGroup.get('businessDetails')['controls']);
   }
 
   removeBusinessSiteVisit(index: number) {
@@ -1117,38 +1158,32 @@ export class SiteVisitComponent implements OnInit {
     });
   }
 
-  setLandDetails(currentData) {
+  setBusinessDetails(currentData) {
     const businessDetails = this.siteVisitFormGroup.get('businessDetails') as FormArray;
-    if (!ObjectUtil.isEmpty(currentData)) {
-      currentData.forEach((singleData, index) => {
-        businessDetails.push(
-            this.formBuilder.group({
-              officeAddress: [singleData.officeAddress],
-              nameOfThePersonContacted: [singleData.nameOfThePersonContacted],
-              dateOfVisit: [singleData.dateOfVisit],
-              objectiveOfVisit: [singleData.objectiveOfVisit],
-              staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
-              staffRepresentativeName: [singleData.staffRepresentativeName],
-              staffRepresentativeNameDesignation2: [singleData.staffRepresentativeNameDesignation2],
-              staffRepresentativeName2: [singleData.staffRepresentativeName2],
-              businessSiteVisitLongitude: [singleData.businessSiteVisitLongitude],
-              businessSiteVisitLatitude: [singleData.businessSiteVisitLatitude],
-              findingsAndComments: [singleData.findingsAndComments],
-            })
-        );
-      });
-    } else {
-      this.addMoreBusinessSiteVisit();
-    }
+    currentData.forEach((singleData, index) => {
+      businessDetails.push(
+          this.formBuilder.group({
+            officeAddress: [singleData.officeAddress],
+            nameOfThePersonContacted: [singleData.nameOfThePersonContacted],
+            dateOfVisit: [singleData.dateOfVisit],
+            objectiveOfVisit: [singleData.objectiveOfVisit],
+            staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
+            staffRepresentativeName: [singleData.staffRepresentativeName],
+            staffRepresentativeNameDesignation2: [singleData.staffRepresentativeNameDesignation2],
+            staffRepresentativeName2: [singleData.staffRepresentativeName2],
+            businessSiteVisitLongitude: [singleData.businessSiteVisitLongitude],
+            businessSiteVisitLatitude: [singleData.businessSiteVisitLatitude],
+            findingsAndComments: [singleData.findingsAndComments],
+          })
+      );
+    });
   }
 
-  // fetchAddress(controlName, type: CommonAddressComponent) {
+  // setRevaluationData(controlName, list, siteVisitId) {
   //   this.siteVisitFormGroup.controls[controlName]['controls'].forEach((control, index) => {
-  //     if (ObjectUtil.isEmpty(type)) {
-  //       control.get('businessDetails').get('officeAddress').patchValue(null);
-  //     } else {
-  //       control.get('businessDetails').get('officeAddress').patchValue(type.addressForm.value);
-  //     }
+  //
+  //     const comp: any = list.filter(item => item.siteVisitId === (siteVisitId + index))[0];
+  //     control.get('revaluationData').setValue(comp.formGroup.value);
   //   });
   // }
 

@@ -307,16 +307,17 @@
                      formArrayName="businessDetails">
                     <div [formGroupName]="i" class="row">
                         <div class="col-md-12">
-                            <app-common-address #businessOfficeAddress [address]="formDataForEdit?.businessDetails?.officeAddress"></app-common-address>
+<!--                            <app-common-address #businessOfficeAddress [address]="businessSite?.officeAddress" [addressId]="siteVisitId.business + i"></app-common-address>-->
+                            <app-common-address #businessOfficeAddress1 [address]="formDataForEdit?.businessDetails[i]?.officeAddress"></app-common-address>
                         </div>
                         <div class="col-md-4 form-group">
-                            <label class="title" for="nameOfThePersonContacted{{i}}">Name Of The Person Contacted</label>
+                            <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
                             <input class="form-control" formControlName="nameOfThePersonContacted"
-                                   [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('nameOfThePersonContacted')?.errors}"
-                                   id="nameOfThePersonContacted{{i}}"
+                                   [ngClass]="{ 'is-invalid': (business) && businessSite?.get('nameOfThePersonContacted')?.errors}"
+                                   id="nameOfThePersonContacted"
                                    name="nameOfThePersonContacted" placeholder="name of the person contacted"
                                    type="text">
-                            <div *ngIf="(businessSiteVisitForm) && businessSite?.get('nameOfThePersonContacted')?.invalid"
+                            <div *ngIf="(business) && businessSite?.get('nameOfThePersonContacted')?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="businessSite?.get('nameOfThePersonContacted')?.errors.required">
                                     Invalid person name</span>
@@ -326,26 +327,26 @@
                             <label class="title" for="dateOfVisit{{i}}">Date Of Visit</label>
                             <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
                                    *ngIf="calendarType === 'AD'"
-                                   [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('dateOfVisit')?.errors }"
+                                   [ngClass]="{ 'is-invalid': (business) && businessSite?.get('dateOfVisit')?.errors }"
                                    id="dateOfVisit{{i}}" placeholder="date of visit">
                             <app-calendar
                                     [ePreDate]="businessSite?.get('dateOfVisit')?.value"
                                     *ngIf="calendarType === 'BS'"
                                     (messageToEmit)="businessSite?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #datepicker3></nb-datepicker>
-                            <div *ngIf="(businessSiteVisitForm) && businessSite.get('dateOfVisit')?.invalid"
+                            <div *ngIf="(business) && businessSite.get('dateOfVisit')?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="businessSite?.get('dateOfVisit')?.errors.required">Date is required</span>
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
-                            <label class="title" for="objectiveOfVisit{{i}}">Objective Of Visit</label>
-                            <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit{{i}}"
-                                   [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('objectiveOfVisit')?.errors }"
+                            <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
+                            <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
+                                   [ngClass]="{ 'is-invalid': (business) && businessSite?.get('objectiveOfVisit')?.errors }"
                                    name="objectiveOfVisit" placeholder="objective of visit" type="text">
-                            <div *ngIf="(businessSiteVisitForm) && businessSite?.get('objectiveOfVisit')?.invalid"
+                            <div *ngIf="(business) && businessSite?.get('objectiveOfVisit')?.invalid"
                                  class="invalid-feedback">
-                                <span *ngIf="businessSite?.get('objectiveOfVisit')?.errors.required">objective is required</span>
+                                <span *ngIf="businessSite?.get('objectiveOfVisit')?.errors.invalid">objective is required</span>
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
@@ -390,11 +391,11 @@
                         <div class="col-md-8 form-group">
                             <label class="title" for="findingsAndComments{{i}}">Finding And Comments</label>
                             <textarea class="form-control" formControlName="findingsAndComments"
-                                      [ngClass]="{ 'is-invalid': (businessSiteVisitForm) && businessSite?.get('findingsAndComments')?.errors }"
+                                      [ngClass]="{ 'is-invalid': (business) && businessSite?.get('findingsAndComments')?.errors }"
                                       id="findingsAndComments{{i}}" name="findingsAndComments"
                                       placeholder="findings and comments"
                                       row="3"></textarea>
-                            <div *ngIf="(businessSiteVisitForm) && businessSite?.get('findingsAndComments')?.invalid"
+                            <div *ngIf="(business) && businessSite?.get('findingsAndComments')?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="businessSite?.get('findingsAndComments')?.errors.required">comments required</span>
                             </div>
@@ -419,9 +420,9 @@
                             </div>
                         </div>
 
-                        <div *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails') ['length'] > 1" class="col-md-1">
+                        <div *ngIf="siteVisitFormGroup.get('businessDetails') ['length'] > 1" class="col-md-1">
                             <input (click)="removeBusinessSiteVisit(i)"
-                                   class="align-self-end btn btn-sm btn-danger btn-primary"
+                                   class="align-self-end btn btn-sm btn-danger btn-primary float-right"
                                    type="button" value="Delete"/>
                         </div>
                     </div>

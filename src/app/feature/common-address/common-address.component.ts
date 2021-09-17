@@ -5,6 +5,9 @@ import {AddressService} from '../../@core/service/baseservice/address.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MunicipalityVdc} from '../admin/modal/municipality_VDC';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
+import {SecurityIds} from '../loan-information-template/security/security-initial-form/SecurityIds';
+import {NumberUtils} from '../../@core/utils/number-utils';
+import {SiteVisitIds} from '../loan-information-template/site-visit/siteVisitIds';
 
 @Component({
   selector: 'app-common-address',
@@ -19,6 +22,8 @@ export class CommonAddressComponent implements OnInit {
   addressForm: FormGroup;
   submitData;
   submitted = false;
+  @Input() addressId;
+
   constructor(private addressService: AddressService,
               private formBuilder: FormBuilder) { }
 
@@ -30,6 +35,7 @@ export class CommonAddressComponent implements OnInit {
         });
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.address)) {
+      // this.setAddressValue();
       if (!ObjectUtil.isEmpty(this.address.province)) {
         this.getDistrictsById(this.address.province.id, null);
         this.getMunicipalitiesById(this.address.district.id, null);
@@ -50,7 +56,6 @@ export class CommonAddressComponent implements OnInit {
   }
 
   getDistrictsById(provinceId: number, event) {
-    console.log(provinceId);
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
@@ -84,9 +89,46 @@ export class CommonAddressComponent implements OnInit {
   }
 
   onSubmit() {
+    // console.log('I am here');
     this.submitted = true;
-    console.log(this.addressForm);
+    // console.log('addressForm', this.addressForm);
     this.submitData = this.addressForm.value;
+    console.log('submitData', this.submitData);
+  }
+
+
+  setAddressValue() {
+    if (!ObjectUtil.isEmpty(this.addressForm)) {
+      if (this.addressId.includes(SiteVisitIds.business, 0)) {
+        this.patchAddressData('province', 'district', 'municipalityVdc', 'ward', 'address1', 'address2');
+      } else if (this.addressId.includes(SiteVisitIds.current_aspect, 0)) {
+        this.patchAddressData('province', 'district', 'municipalityVdc', 'ward', 'address1', 'address2');
+      }
+    }
+  }
+
+  patchAddressData(province, district, municipalityVdc, ward, address1, address2) {
+    const i = this.addressId.replace(/[^0-9]/g, '');
+    const addressData = {
+      province: undefined,
+      district: undefined,
+      municipalityVdc: undefined,
+      ward: undefined,
+      address1: undefined,
+      address2: undefined,
+    };
+    addressData.address1 = this.addressForm.get('address1')[i].value;
+    addressData.address2 = this.addressForm.get('address2')[i].value;
+    // calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+    //         [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv -
+    //     this.oldValuation[i][fmv]);
+    // calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+    //         [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv -
+    //     this.oldValuation[i][dv]);
+    // calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
+    //         [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue -
+    //     this.oldValuation[i][considered]);
+    this.addressForm.patchValue(addressData);
   }
 
 }
