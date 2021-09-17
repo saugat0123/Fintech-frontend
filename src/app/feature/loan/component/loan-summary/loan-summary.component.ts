@@ -417,6 +417,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     this.minOneGuarantorDoc = true;
                 }
             });
+        } else {
+            this.checkGuarantorData = false;
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
