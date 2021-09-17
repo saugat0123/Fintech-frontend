@@ -12,7 +12,7 @@ import {NbToastrService} from '@nebular/theme';
 export class VideoKycInformationComponent implements OnInit , OnChanges{
 
   constructor(private remitService: RemitCustomerService, private model: NgbModal, private toast: NbToastrService) { }
-@Input() remitCustomer;
+  @Input() remitCustomer;
   @Output() remitEvent = new EventEmitter();
   videoKyc: any;
   notNUll = true;
