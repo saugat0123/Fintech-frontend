@@ -239,6 +239,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
            });
 
+           this.changeDetails(res.customerId);
+
         });
 
         this.loanDataHolder = this.loanData;
