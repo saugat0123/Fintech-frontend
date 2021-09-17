@@ -134,6 +134,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.formMaker();
             if (this.customer.customerRelatives === undefined || this.customer.customerRelatives.length < 1) {
                 this.createRelativesArray();
+            } else {
+                this.setRelatives(this.customer.customerRelatives);
             }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
@@ -501,7 +503,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         }
     }
 
-    checkCustomer() {
+        checkCustomer() {
         const customerName = this.basicInfo.get('customerName').value;
         const citizenShipIssuedDate = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         const citizenShipNo = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
@@ -550,26 +552,28 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     occupationChange() {
-        const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
-        if (isOtherSelected) {
-            this.tempFlag.showOtherOccupation = true;
-            this.basicInfo.get('otherOccupation').setValidators(Validators.required);
-        } else {
-            this.tempFlag.showOtherOccupation = false;
-            this.basicInfo.get('otherOccupation').setValidators(null);
+        if (this.basicInfo.get('occupation').value !== null) {
+            console.log(this.basicInfo.get('occupation').value);
+            const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
+            if (isOtherSelected) {
+                this.tempFlag.showOtherOccupation = true;
+                this.basicInfo.get('otherOccupation').setValidators(Validators.required);
+            } else {
+                this.tempFlag.showOtherOccupation = false;
+                this.basicInfo.get('otherOccupation').setValidators(null);
+            }
+            this.basicInfo.get('otherOccupation').updateValueAndValidity();
+            const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
+                false : this.basicInfo.get('occupation').value.length <= 1;
+            if (houseWifeSelected) {
+                this.tempFlag.hideIncomeSource = true;
+                this.basicInfo.get('incomeSource').clearValidators();
+            }  else {
+                this.tempFlag.hideIncomeSource = false;
+                this.basicInfo.get('incomeSource').setValidators(Validators.required);
+            }
+            this.basicInfo.get('incomeSource').updateValueAndValidity();
         }
-        this.basicInfo.get('otherOccupation').updateValueAndValidity();
-        const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
-            false : this.basicInfo.get('occupation').value.length <= 1;
-        if (houseWifeSelected) {
-            this.tempFlag.hideIncomeSource = true;
-            this.basicInfo.get('incomeSource').clearValidators();
-        }  else {
-            this.tempFlag.hideIncomeSource = false;
-            this.basicInfo.get('incomeSource').setValidators(Validators.required);
-        }
-        this.basicInfo.get('incomeSource').updateValueAndValidity();
-
     }
     ngDoCheck(): void {
         if (this.formValue.id == null) {

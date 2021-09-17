@@ -172,10 +172,12 @@ export class CustomerLoanInformationComponent implements OnInit {
         console.log('params');
         this.loanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((data: any) => {
             if (!ObjectUtil.isEmpty(data.detail)) {
-                if (data.detail[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-                    this.remitCustomer = data.detail[0].remitCustomer;
-                    this.isLoaded = true;
-                }
+                data.detail.forEach((remit, i) => {
+                    if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+                        this.remitCustomer = data.detail[i].remitCustomer;
+                        this.isLoaded = true;
+                    }
+                });
             }
         });
         this.activatedRoute.queryParams.subscribe(
