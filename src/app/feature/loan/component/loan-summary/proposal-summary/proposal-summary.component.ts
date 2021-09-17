@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {DocStatus} from '../../../model/docStatus';
@@ -52,6 +52,7 @@ export class ProposalSummaryComponent implements OnInit {
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
     @Input() loanCategory;
+    @Output() eventEmitter = new EventEmitter();
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
@@ -170,5 +171,9 @@ export class ProposalSummaryComponent implements OnInit {
         const subsidizedRate = Number(this.proposalAllData.subsidizedLoan);
         const interestRate = baseRate + premiumRateOnBaseRate - subsidizedRate;
         return interestRate.toFixed(2);
+    }
+
+    sendLoanId(loanId: Number) {
+        this.eventEmitter.emit(loanId);
     }
 }
