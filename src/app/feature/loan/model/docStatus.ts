@@ -39,6 +39,10 @@ export namespace DocStatus {
             return 'UNDER_REVIEW';
         } else if (docStatus === DocStatus.INITIAL) {
             return 'INITIAL';
+        } else if (docStatus === DocStatus.SEND_BACK_TO_SENDER) {
+            return 'SEND_BACK_TO_SENDER';
+        } else if (docStatus === DocStatus.SEND_BACK_TO_AGENT) {
+            return 'SEND_BACK_TO_AGENT';
         }
     }
 }

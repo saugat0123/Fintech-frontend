@@ -4,7 +4,6 @@ import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ActionModel} from '../model/action';
-import {DocStatus} from '../model/docStatus';
 import {RoleType} from '../../admin/modal/roleType';
 import {DocAction} from '../model/docAction';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
@@ -15,8 +14,8 @@ import {LoanFormService} from '../component/loan-form/service/loan-form.service'
 import {LoanActionCombinedModalComponent} from './loan-action-combined-modal/loan-action-combined-modal.component';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
-import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 import {LoanDataHolder} from '../model/loanData';
+import {DocStatus} from '../model/docStatus';
 
 @Component({
     selector: 'app-loan-action',
@@ -47,8 +46,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
     isOpen = false;
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-
-
+    status: any;
+    docStatus = DocStatus;
     constructor(
         private alertService: AlertService,
         private toastService: ToastService,
@@ -59,7 +58,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log("is remit loan", this.isRemitLoan);
+        this.loanFormService.detail(this.id).subscribe((data) => {
+    this.status = data.detail.documentStatus;
+});
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
