@@ -307,6 +307,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       this.form.get('solUser').setValidators(Validators.required);
       this.form.get('solUser').updateValueAndValidity();
     } else {
+      this.isSolUserSelected = false;
       this.showHideSolUser = false;
       this.form.patchValue({
         solUser: null,
