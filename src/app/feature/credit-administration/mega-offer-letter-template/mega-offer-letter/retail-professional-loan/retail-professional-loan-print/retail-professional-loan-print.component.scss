@@ -1,44 +1,61 @@
 .nep {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 70px;
+  margin: 10px 22px;
+}
+.print-space{
+  margin-top: 0;
+  margin-bottom: 0;
+
+}
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
 }
 
+.uniSize {
+  font-size: 16px;
+}
 
-//span{
-//  margin: 0px 10px;
-//  font-size: 28px;
-//  text-decoration: underline;
-//}
+.medSize {
+  font-size: 18px;
+}
+
+table, p {
+  line-height: 1.5;
+  text-align: justify;
+}
 
 li {
-  list-style-type: none;
+  line-height: 1.5;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
 }
 .logo-container {
   display: flex;
+  align-items: center;
   width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
-  margin: 10px 70px;
-}
-footer {
-  font-size: 9px;
-  color: red;
-  text-align: center;
-  margin-top: 20px;
+  margin: 10px 50px;
 }
 
-@page {
-  size: A4;
-  margin: 17mm 17mm 17mm 17mm;
-}
-
-
-@media print {
-  footer{
+@media print{
+  div.divFooter{
     position: fixed;
     bottom: 0;
     width: 100%;
   }
+}
 
+.page-break {
+  page-break-after: always;
 }
