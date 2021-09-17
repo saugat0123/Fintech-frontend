@@ -478,6 +478,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     }
     goToLoanSummary() {
         this.changeToLoanSummaryActive.next();
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: this.loanDataHolder.loan.id,
+                customerId: this.loanDataHolder.id
+            }
+        });
     }
 
     openTermsAndCommentModal(model) {
