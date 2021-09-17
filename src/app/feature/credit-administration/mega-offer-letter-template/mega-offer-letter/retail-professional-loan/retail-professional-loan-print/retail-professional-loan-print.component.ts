@@ -11,6 +11,9 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerAp
 export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() letter: any;
+  @Input() country;
+  @Input() security;
+  @Input() embassy;
   loanHolderInfo;
   offerLetterConst = MegaOfferLetterConst;
   loanTypeArray = ['Professional Term Loan', 'Professional Overdraft Loan' ];
@@ -19,12 +22,18 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   mortgageFinance = false;
   mortgageOverdraft = false;
   land;
+  selectedSecurity: string;
+  selectedCountry: string;
+  nameOfEmbassy: any;
 
   constructor() {
   }
 
   ngOnInit() {
         this.availableLoanType(this.letter['loanTypeSelectedArray']);
+        this.selectedCountry = this.country;
+        this.selectedSecurity = this.security;
+        this.nameOfEmbassy = this.embassy;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
     }

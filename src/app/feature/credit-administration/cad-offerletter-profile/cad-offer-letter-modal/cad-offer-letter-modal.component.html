@@ -20,7 +20,11 @@
             <app-retail-mortgage-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_MORTGAGE_LOAN"
                                       [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-mortgage-loan>
             <app-retail-professional-loan *ngSwitchCase="offerLetterTypeConst.RETAIL_PROFESSIONAL_LOAN"
-                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-professional-loan>
+                                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                                            [translatedValue]="null"
+                                            [nameOfEmbassy]="null"
+                                            [selectedSecurity]="null"
+                                            [selectedCountry]="null"></app-retail-professional-loan>
             <app-sme *ngSwitchCase="offerLetterTypeConst.SME"
                      [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-sme>
             <app-custom-offer-letter-document *ngSwitchCase="offerLetterTypeConst.CUSTOM"
