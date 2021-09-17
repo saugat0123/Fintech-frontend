@@ -27,16 +27,16 @@
                                          formControlName="amountInWord"
                                          placeholder=""
                                          type="text"/>|)
-                    र सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम तिर्न वुझाउन र पछि भविष्यमा लिने सम्पूर्ण
+                    र सो मा बैंक नियम अनुसार  लाग्ने व्याज समेतको रकम तिर्न वुझाउन र पछि भविष्यमा लिने सम्पूर्ण
                     ऋण कर्जा समेतको लागि वित्तीय संस्थालाई सुरक्षण वापत उपलब्ध
                     गराएको प्रतिज्ञापत्रको आधारमा वित्तिया संस्थाले हाल प्रदान गरेको कर्जा र भविष्यमा प्रदान गर्ने
                     घटीबढी कर्जा रकम तिर्न वुझाउन बांकी
                     रहेमा म/हामी जिम्मेवार छु/छौं।
                     यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउन बांकी रकम भविष्यमा थपघट भई वा समय समयमा चुक्तागरिने
                     किस्ताको कारण कुनै समयमा
-                    सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहनगएमा पनि तत्पश्चातको कारोवारबाट पुनःकायम हुन जाने
+                    सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहन गएमा पनि तत्पश्चातको कारोवारबाट पुनःकायम हुन जाने
                     कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट सोझै झिकी
-                    हिसाबमिलान गर्नुहुन यो निरन्तरताको पत्रमा
+                    हिसाब मिलान गर्नुहुन यो निरन्तरताको पत्रमा
                     सहिछाप गरी दिएको छु/छौ।
                 </p>
             </div>
@@ -68,7 +68,7 @@
                                          type="text"/> )
                         <br>
                         <br>
-                        ठेगाना :—स्थायी <input class="form-field form-control-sm nepaliFont"
+                        ठेगाना :— स्थायी <input class="form-field form-control-sm nepaliFont"
                                                formControlName="sincerlyPermanentAddress"
                                                placeholder=""
                                                type="text"/> जिल्ला<input class="form-field form-control-sm nepaliFont"
@@ -80,7 +80,7 @@
                                                    placeholder=""
                                                    type="text"/>
                         <br>
-                        हालको ठेगाना <input class="form-field form-control-sm nepaliFont"
+                        हालको ठेगाना :— <input class="form-field form-control-sm nepaliFont"
                                             formControlName="sincerlyTempAdress"
                                             placeholder=""
                                             type="text"/> जिल्ला<input class="form-field form-control-sm nepaliFont"
@@ -93,15 +93,21 @@
                                                    type="text"/>
                         <br>
                         <br>
-                        बाबुको नाम :- <input class="form-field form-control-sm nepaliFont"
+                        बाबुको / आमाको नाम :- <input class="form-field form-control-sm nepaliFont"
                                              formControlName="ParentsName"
                                              placeholder=""
                                              type="text"/>
                         <br>
-                        बाजेको नाम :- <input class="form-field form-control-sm nepaliFont"
+                        बाजेको / बजैको  नाम :- <input class="form-field form-control-sm nepaliFont"
                                              formControlName="grandParentsName"
                                              placeholder=""
                                              type="text"/>
+                        <br>
+                        पति/पत्निको नाम :- <input class="form-field form-control-sm nepaliFont"
+                                                  formControlName="husbandwifeName"
+                                                  placeholder=""
+                                                  type="text"/>
+                        <br>
 
                     </p>
                 </div>
@@ -141,20 +147,30 @@
                  formArrayName="guarantorDetails"
                  id="guarantor">
                 <div [formGroupName]="i">
+                    <p>दस्तखत :- ............... </p>
                     {{i + 1 | nepaliWord: 'unicode'}}
                     <table class="table table-responsive-md table-bordered text-center">
                         <thead>
                         <tr>
 
                             <th>नाम</th>
+                            <th>ना.प्र.नं.</th>
+                            <th>गा.पा.न.पा.</th>
                             <th>ठेगाना</th>
-                            <th>दस्तखत</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td><input class="form-field form-control-sm nepaliFont "
+                            <td>
+                                <input class="form-field form-control-sm nepaliFont "
                                        formControlName="guarantorName"
+                                       placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm nepaliFont "
+                                       formControlName="citizenshipNumber"
+                                       placeholder="" type="text"/>
+                            <td><input class="form-field form-control-sm nepaliFont "
+                                       formControlName="district"
                                        placeholder="" type="text"/>
                             <td><input class="form-field form-control-sm nepaliFont "
                                        formControlName="issuedPlace"
@@ -181,9 +197,8 @@
                 <br>
                 <p><b class="text-left">सनाखत साक्षी</b>
                     <br>
-                    ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय
-                    संस्थामाकार्यरत
-                    कर्मचारी<input class="form-field nepaliFont form-control-sm"
+                    ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामाकार्यरत कर्मचारी
+                    <input class="form-field nepaliFont form-control-sm"
                                    formControlName="IdentifiedGuarantorName"
                                    type="text">
 
