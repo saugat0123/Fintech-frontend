@@ -66,45 +66,46 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
   }
   buildForm() {
     this.retailLoanAgainstInsurance = this.formBuilder.group({
-      DateOfGeneration: [undefined],
-      CustomerName: [undefined],
-      CustomerAddress: [undefined],
-      ApplicationDateInAD: [undefined],
+      dateofGeneration: [undefined],
+      customerName: [undefined],
+      customerAddress: [undefined],
+      applicationDateInAD: [undefined],
       LoanType: [undefined],
       LoanAmount: [undefined],
       LoanAmountWords: [undefined],
-      DrawingPower: [undefined],
-      BaseRate: [undefined],
-      PremiumRate: [undefined],
-      FloatingInterestRate: [undefined],
-      ServiceCharge: [undefined],
-      ServiceChargeWords: [undefined],
-      CommunicationFee: [undefined],
-      EMIAmount: [undefined],
-      EMIAmountWords: [undefined],
-      LoanCommitmentFee: [undefined],
-      OwnersName : [undefined],
-      OwnersAddress: [undefined],
-      PropertyPlotNumber: [undefined],
-      PropertyArea: [undefined],
-      SheetNUmber: [undefined],
+      drawingPowerRate: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      yearlyFloatingInterestRate: [undefined],
+      serviceCharge: [undefined],
+      serviceChargeWords: [undefined],
+      communicationFee: [undefined],
+      emiAmount: [undefined],
+      emiAmountWords: [undefined],
+      emiCount: [undefined],
+      loanCommitmentFee: [undefined],
+      ownersName : [undefined],
+      ownersAddress: [undefined],
+      propertyPlotNumber: [undefined],
+      propertyArea: [undefined],
+      sheetNumber: [undefined],
       GuarantorName: [undefined],
-      ChangeFeeBelow1Cr: [undefined],
-      ChangeFeeAbove1Cr: [undefined],
-      CollateralReleaseFee: [undefined],
-      DocumentAccessFee: [undefined],
-      PromissoryNoteAmount : [undefined],
-      LoanDeedAmount : [undefined],
-      PledgeAmount : [undefined],
-      GuarantorName1 : [undefined],
-      GuarantorAmount1 : [undefined],
-      GuarantorAmountWords1 : [undefined],
-      SignatureDate : [undefined],
-      District: [undefined],
-      VDC: [undefined],
-      Ward: [undefined],
-      Witness: [undefined],
-      StaffName : [undefined]
+      changeFeeBelow1Cr: [undefined],
+      changeFeeAbove1Cr: [undefined],
+      collateralReleaseFee: [undefined],
+      documentAccessFee: [undefined],
+      promissoryNoteAmount : [undefined],
+      loanDeedAmount : [undefined],
+      pledgeAmount : [undefined],
+      guarantorName1 : [undefined],
+      guarantorAmount1 : [undefined],
+      guarantorAmountWords1 : [undefined],
+      signatureDate : [undefined],
+      sakshiDistrict: [undefined],
+      sakshiMunicipality: [undefined],
+      sakshiWardNum: [undefined],
+      sakshiName: [undefined],
+      employeeName : [undefined]
     });
   }
   getNumAmountWord(numLabel, wordLabel) {
@@ -127,8 +128,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
         this.retailLoanAgainstInsurance.patchValue(initialInfo, {emitEvent: false});
         this.initialInfoPrint = initialInfo;
       }
-    }
-    else {
+    } else {
       if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
         this.setLoanConfigData(this.loanHolderInfo);
       }
@@ -159,7 +159,7 @@ export class RetailLoanAgainstInsuranceComponent implements OnInit {
     const premiumRate = this.nepToEngNumberPipe.transform(this.retailLoanAgainstInsurance.get(premiumRateName).value);
     const calculatedValue = parseFloat(baseRate) + parseFloat(premiumRate);
     const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
-    this.retailLoanAgainstInsurance.get('FloatingInterestRate').patchValue(finalVal);
+    this.retailLoanAgainstInsurance.get('yearlyFloatingInterestRate').patchValue(finalVal);
   }
   submit(): void {
     this.spinner = true;

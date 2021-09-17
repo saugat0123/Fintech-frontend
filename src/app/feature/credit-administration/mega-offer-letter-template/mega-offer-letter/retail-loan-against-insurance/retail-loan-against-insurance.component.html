@@ -16,7 +16,9 @@
                     <div class="col-md-12">
                         <p>
                             <span style="float: left">
-                    मितिः <input class="form-field form-control-sm nepaliFont num" name="DateOfGeneration" formControlName="DateOfGeneration" placeholder="मिति" type="text"/>
+                    मितिः <input class="form-field form-control-sm nepaliFont num"
+                                 name="dateofGeneration"
+                                 formControlName="dateofGeneration" placeholder="मिति" type="text"/>
                   </span>
                         </p>
                     </div>
@@ -24,10 +26,10 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p>
-                            श्री <input class="form-field form-control-sm nepaliFont" name="CustomerName" formControlName="CustomerName" placeholder="नाम" type="text"/>ज्यू,
+                            श्री <input class="form-field form-control-sm nepaliFont" name="customerName" formControlName="customerName" placeholder="नाम" type="text"/>ज्यू,
                         </p>
                         <p>
-                            <input class="form-field form-control-sm nepaliFont" name="CustomerAddress" formControlName="CustomerAddress" placeholder="ठेगाना" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="customerAddress" formControlName="customerAddress" placeholder="ठेगाना" type="text"/>
                         </p>
                     </div>
                 </div>
@@ -39,7 +41,8 @@
                         </p>
                         <p>
                             तपाईंले मिति सन्
-                            <input class="form-field form-control-sm nepaliFont" name="ApplicationDateInAD" formControlName="ApplicationDateInAD" placeholder="मिति" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont"
+                                   name="applicationDateInAD" formControlName="applicationDateInAD" placeholder="मिति" type="text"/>
                             मा आवास कर्जा सुविधाको लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
                         </p>
                     </div>
@@ -63,7 +66,7 @@
                                        name="LoanAmount"
                                        formControlName="LoanAmount"
                                        placeholder="रकम"
-                                       (change)="getNumAmountWord('LoanAmount', 'LoanAmountWords')"
+                                       (input)="getNumAmountWord('LoanAmount', 'LoanAmountWords')"
                                        type="text"/>
                             (अक्षरेपि रु.
                             <input class="form-field form-control-sm nepaliFont"
@@ -76,8 +79,8 @@
                         <td><strong>ऋणकर्जा उपयोग गर्न सक्ने सिमा (Drawing Power)</strong></td>
                         <td>कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने घर/जग्गाको निकृष्ट स्थितिको मूल्याञकन (Distress Situation Value) को
                             <input class="form-field form-control-sm nepaliFont"
-                                   name="DrawingPower"
-                                   formControlName="DrawingPower"
+                                   name="drawingPowerRate"
+                                   formControlName="drawingPowerRate"
                                    placeholder="रेखाचित्र शक्ति"
                                    type="text"/>
                         प्रतिशत बराबर रकम वा राजिनामामा उल्लेखित रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</td>
@@ -86,22 +89,22 @@
                         <td><strong>ब्याज दरः</strong></td>
                         <td>प्रकाशित आधार दर (Base Rate)
                             <input class="form-field form-control-sm nepaliFont"
-                                   name="BaseRate"
-                                   formControlName="BaseRate"
+                                   name="baseRate"
+                                   formControlName="baseRate"
                                    placeholder="आधार दर"
-                                   (change)="calculateData('BaseRate', 'PremiumRate')"
+                                   (input)="calculateData('baseRate', 'premiumRate')"
                                    type="text"/>
                                     +
                             <input class="form-field form-control-sm nepaliFont"
-                                   name="PremiumRate"
-                                   formControlName="PremiumRate"
+                                   name="premiumRate"
+                                   formControlName="premiumRate"
                                    placeholder="प्रीमियम दर"
                                    type="text"
-                                   (change)="calculateData('BaseRate', 'PremiumRate')"/>
+                                   (input)="calculateData('baseRate', 'premiumRate')"/>
                             प्रतिशत व्याज दर प्रिमियम (Interest Rate Premium) हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
                             <input class="form-field form-control-sm nepaliFont"
-                                   name="FloatingInterestRate"
-                                   formControlName="FloatingInterestRate"
+                                   name="yearlyFloatingInterestRate"
+                                   formControlName="yearlyFloatingInterestRate"
                                    placeholder="परीवर्तनशिल ब्याज दर"
                                    type="text"/>% का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।</td>
                     </tr>
@@ -112,15 +115,15 @@
                                 <li>
                                 ऋण प्रशासनिक शुल्क बापत रु
                                     <input class="form-field form-control-sm nepaliFont"
-                                           name="ServiceCharge"
-                                           formControlName="ServiceCharge"
+                                           name="serviceCharge"
+                                           formControlName="serviceCharge"
                                            placeholder="रकम"
-                                           (change)="getNumAmountWord('ServiceCharge', 'ServiceChargeWords')"
+                                           (input)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"
                                            type="text"/>
                                 / (अक्षरेपी रु
                                     <input class="form-field form-control-sm nepaliFont"
-                                           name="ServiceChargeWords"
-                                           formControlName="ServiceChargeWords"
+                                           name="serviceChargeWords"
+                                           formControlName="serviceChargeWords"
                                            placeholder="अक्षरेपी"
                                            type="text"/>  मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 </li>
@@ -132,7 +135,7 @@
                                 </li>
                                 <li>
                                 तपाई ऋणी तथा तपाई सञग सम्बन्धीत व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत प्रति सूचना रु
-                                <input class="form-field form-control-sm nepaliFont" name="CommunicationFee" formControlName="CommunicationFee" placeholder="रकम" type="text"/>/
+                                <input class="form-field form-control-sm nepaliFont" name="communicationFee" formControlName="communicationFee" placeholder="रकम" type="text"/>/
                                 शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
                                 </li>
                                 <li>
@@ -144,21 +147,23 @@
                         <td><strong>चुक्ता भुक्तानीः</strong></td>
                         <td>साञवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                             <input class="form-field form-control-sm nepaliFont"
-                                   name="EMIAmount"
-                                   formControlName="EMIAmount"
+                                   name="emiAmount"
+                                   formControlName="emiAmount"
                                    placeholder="रकम"
-                                   (change)="getNumAmountWord('EMIAmount', 'EMIAmountWords')"
+                                   (input)="getNumAmountWord('emiAmount', 'emiAmountWords')"
                                    type="text"/>/
                             (अक्षरेपि रु.
-                            <input class="form-field form-control-sm nepaliFont" name="EMIAmountWords" formControlName="EMIAmountWords" placeholder="अक्षरेपि" type="text"/> मात्र)
-                            का दरले सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ ।
+                            <input class="form-field form-control-sm nepaliFont" name="emiAmountWords" formControlName="emiAmountWords" placeholder="अक्षरेपि" type="text"/> मात्र)
+                            का दरले
+                            <input class="form-field form-control-sm nepaliFont" name="emiCount" formControlName="emiCount" placeholder="गणना" type="text"/>
+                            सम मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                             द्रष्टब्यः कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अंग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले ब्याज भुक्तानी गर्नुपर्नेछ ।
                         </td>
                     </tr>
                     <tr>
                         <td><strong>ऋण प्रतिबद्धता शुल्क</strong></td>
                         <td>स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सिमामा
-                            <input class="form-field form-control-sm nepaliFont" name="LoanCommitmentFee" formControlName="LoanCommitmentFee" placeholder=" प्रतिबद्धता शुल्क" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="loanCommitmentFee" formControlName="loanCommitmentFee" placeholder=" प्रतिबद्धता शुल्क" type="text"/>
                             प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                         </td>
                     </tr>
@@ -200,23 +205,23 @@
                         <td>
                             ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमका घर/जग्गा धितोबन्धक पारित गरि दिनु पर्नेछ ।
                         <p>धनी:
-                        <input class="form-field form-control-sm nepaliFont" name="OwnersName" formControlName="OwnersName" placeholder="धनी" type="text"/>
+                        <input class="form-field form-control-sm nepaliFont" name="ownersName" formControlName="ownersName" placeholder="धनी" type="text"/>
                         </p>
                         <p>
                         स्थानः
-                        <input class="form-field form-control-sm nepaliFont" name="OwnersAddress" formControlName="OwnersAddress" placeholder="स्थानः" type="text"/>
+                        <input class="form-field form-control-sm nepaliFont" name="ownersAddress" formControlName="ownersAddress" placeholder="स्थानः" type="text"/>
                         </p>
                         <p>
                         कित्ता नं.
-                        <input class="form-field form-control-sm nepaliFont" name="PropertyPlotNumber" formControlName="PropertyPlotNumber" placeholder="कित्ता नं" type="text"/>
+                        <input class="form-field form-control-sm nepaliFont" name="propertyPlotNumber" formControlName="propertyPlotNumber" placeholder="कित्ता नं" type="text"/>
                         </p>
                         <p>
                         क्षेत्रफल:
-                        <input class="form-field form-control-sm nepaliFont" name="PropertyArea" formControlName="PropertyArea" placeholder="क्षेत्रफल" type="text"/>
+                        <input class="form-field form-control-sm nepaliFont" name="propertyArea" formControlName="propertyArea" placeholder="क्षेत्रफल" type="text"/>
                         </p>
                         <p>
                         सिट नं.
-                        <input class="form-field form-control-sm nepaliFont" name="SheetNUmber" formControlName="SheetNUmber" placeholder="सिट नं" type="text"/>
+                        <input class="form-field form-control-sm nepaliFont" name="sheetNumber" formControlName="sheetNumber" placeholder="सिट नं" type="text"/>
                         </p>
                         </td>
                     </tr>
@@ -226,7 +231,7 @@
                             <input class="form-field form-control-sm nepaliFont" name="GuarantorName" formControlName="GuarantorName" placeholder="ग्यारेन्टर नाम" type="text"/>ले बैंकको पक्षमा रु
                             <input class="form-field form-control-sm nepaliFont"
                                    name="LoanAmount" formControlName="LoanAmount"
-                                   (change)="getNumAmountWord('LoanAmount','LoanAmountWords')"
+                                   (input)="getNumAmountWord('LoanAmount','LoanAmountWords')"
                                    placeholder="ग्यारेन्टर रकम" type="text"/>/(अक्षरेपी रु
                             <input class="form-field form-control-sm nepaliFont" name="LoanAmountWords" formControlName="LoanAmountWords" placeholder="अक्षरेपी" type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ । </td>
                     </tr>
@@ -246,7 +251,9 @@
                         <td>बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको आधिकारिक वेब साईट (Website) मा
                             प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने आधार दर (Base Rate)मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास
                             पछिको महिनाहरु अर्थात श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दर समायोजन तथा संसोधन गरीनेछ ।
-                            <p>बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI - Equated Monthly Installment)मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज दरको कारण अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साञवा÷ब्याज बाञकी रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाञकी बक्यौता कर्जा साञवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
+                            <p>बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI - Equated Monthly Installment)मा भुक्तानी हुने
+                                प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक किस्ता रकम तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज दरको कारण अन्तिम किस्ता भुक्तानी म
+                                मितिमा यदी कुनै साञवा/ब्याज बाञकी रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाञकी बक्यौता कर्जा साञवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
                             </p>
                             <p>माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको बृद्घी हुन गएबाट सो अनुसार बैंकले शुरुमा प्रदान गरेकोरगर्ने किस्ता रकममा परिवर्तन गर्न बाधा पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात त्रैमासिक वा कम्तिमा बर्षको एक पटक बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ । ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने जस्तो दावी गर्न पाइने छैन ।
                             </p>
@@ -459,9 +466,9 @@
                         <td>
                             स्वीकृत ऋणकर्जा सुविधाहरुको ब्याजदर परिवर्तन बाहेक ऋणीको अनुरोधमा अन्य कुनै पनि शर्तबन्देजहरु परिवर्तन वा संशोधन भएमा प्रत्येक परिवर्तन वा संसोधनका लागि
                             रु.एक करोड सम्मको कर्जाका लागि रु.
-                            <input class="form-field form-control-sm nepaliFont" name="ChangeFeeBelow1Cr" formControlName="ChangeFeeBelow1Cr" placeholder="एक करोड सम्मको लागि" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="changeFeeBelow1Cr" formControlName="changeFeeBelow1Cr" placeholder="एक करोड सम्मको लागि" type="text"/>
                             र एक करोड भन्दा माथिको कर्जाका लागि रु.
-                            <input class="form-field form-control-sm nepaliFont" name="ChangeFeeAbove1Cr" formControlName="ChangeFeeAbove1Cr" placeholder="एक करोड भन्दा माथिको लागि" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="changeFeeAbove1Cr" formControlName="changeFeeAbove1Cr" placeholder="एक करोड भन्दा माथिको लागि" type="text"/>
                             परिवर्तन/संशोधन शुल्क लाग्नेछ ।
                         </td>
                     </tr>
@@ -469,10 +476,10 @@
                         <td>२१.</td>
                         <td>
                             ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोबन्धक लेखीदिएको घर/जग्गाहरु/सवारी साधान फुकुवा गर्दाको बखत फुकुवा बापत प्रति धितोबन्धक तमसुक/सवारी साधन रु.
-                            <input class="form-field form-control-sm nepaliFont" name="CollateralReleaseFee" formControlName="CollateralReleaseFee" placeholder="रिलीज शुल्क" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="collateralReleaseFee" formControlName="collateralReleaseFee" placeholder="रिलीज शुल्क" type="text"/>
                             का दरले धितो फुकुवा शुल्क लाग्नेछ । साथै बैंकको पक्षमा धितोबन्धक लेखिदिएको घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र निश्चित समयको लागि माग गरी फिर्ता लैजादा प्रति
                             पटक रु.
-                            <input class="form-field form-control-sm nepaliFont" name="DocumentAccessFee" formControlName="DocumentAccessFee" placeholder="कागजात पहुँच शुल्क" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="documentAccessFee" formControlName="documentAccessFee" placeholder="कागजात पहुँच शुल्क" type="text"/>
                             का दरले शुल्क लाग्नेछ ।
                         </td>
                     </tr>
@@ -526,19 +533,19 @@
                             तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ ।
                             <p>
                                 क. रु.
-                                <input class="form-field form-control-sm nepaliFont" name="PromissoryNoteAmount" formControlName="PromissoryNoteAmount" placeholder="रकम" type="text"/>
+                                <input class="form-field form-control-sm nepaliFont" name="promissoryNoteAmount" formControlName="promissoryNoteAmount" placeholder="रकम" type="text"/>
                                 /- को प्रतिज्ञा पत्र ।
                             </p>
                             <p>
                                 ख. निरन्तरताको लिखत ।
                             </p>
                             <p>
-                                ग. रु.  <input class="form-field form-control-sm nepaliFont" name="LoanDeedAmount" formControlName="LoanDeedAmount" placeholder="ऋणकर्जा तमसुक" type="text"/>
+                                ग. रु.  <input class="form-field form-control-sm nepaliFont" name="loanDeedAmount" formControlName="loanDeedAmount" placeholder="ऋणकर्जा तमसुक" type="text"/>
                                 /- को  ऋणकर्जा तमसुक ।
 
                             </p>
                             <p>
-                                घ. रु.  <input class="form-field form-control-sm nepaliFont" name="PledgeAmount" formControlName="PledgeAmount" placeholder="धितोबन्धक तमसुक" type="text"/>
+                                घ. रु.  <input class="form-field form-control-sm nepaliFont" name="pledgeAmount" formControlName="pledgeAmount" placeholder="धितोबन्धक तमसुक" type="text"/>
                                /- को धितोबन्धक तमसुक ।
 
                             </p>
@@ -551,21 +558,21 @@
                             <p>
                                 छ. श्री
                                 <input class="form-field form-control-sm nepaliFont"
-                                       name="GuarantorName1"
-                                       formControlName="GuarantorName1"
+                                       name="guarantorName1"
+                                       formControlName="guarantorName1"
                                        placeholder="ग्यारेन्टरको नाम"
                                        type="text"/>
                                 को बैकको पक्षमा रु
                                 <input class="form-field form-control-sm nepaliFont"
-                                       name="GuarantorAmount1"
-                                       formControlName="GuarantorAmount1"
+                                       name="guarantorAmount1"
+                                       formControlName="guarantorAmount1"
                                        placeholder="ग्यारेन्टर रकम"
-                                       (change)="getNumAmountWord('GuarantorAmount1', 'GuarantorAmountWords1')"
+                                       (input)="getNumAmountWord('guarantorAmount1', 'guarantorAmountWords1')"
                                        type="text"/>
                                 (अक्षरेपी रु
                                 <input class="form-field form-control-sm nepaliFont"
-                                       name="GuarantorAmountWords1"
-                                       formControlName="GuarantorAmountWords1"
+                                       name="guarantorAmountWords1"
+                                       formControlName="guarantorAmountWords1"
                                        placeholder="अक्षरेपी"
                                        type="text"/>
                                 मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
@@ -653,7 +660,7 @@
                         <div class="left-content">
                             <p>
                                 मितिः
-                                <input class="form-field form-control-sm nepaliFont" name="SignatureDate" formControlName="SignatureDate" placeholder="हस्ताक्षर मिति" type="text"/>
+                                <input class="form-field form-control-sm nepaliFont" name="signatureDate" formControlName="signatureDate" placeholder="हस्ताक्षर मिति" type="text"/>
                             </p>
                         </div>
                     </div>
@@ -664,16 +671,16 @@
                             साक्षीः
                         </p>
                         <p> १.
-                            <input class="form-field form-control-sm nepaliFont" name="District" formControlName="District" placeholder="जिल्ला" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiDistrict" formControlName="sakshiDistrict" placeholder="जिल्ला" type="text"/>
                              जिल्ला
-                            <input class="form-field form-control-sm nepaliFont" name="VDC" formControlName="VDC" placeholder="गाविस" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiMunicipality" formControlName="sakshiMunicipality" placeholder="गाविस" type="text"/>
                             गा.वि.स/न.पा, वडा नंं
-                            <input class="form-field form-control-sm nepaliFont" name="Ward" formControlName="Ward" placeholder="वडा नंं" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiWardNum" formControlName="sakshiWardNum" placeholder="वडा नंं" type="text"/>
                             बस्ने श्री
-                            <input class="form-field form-control-sm nepaliFont" name="Witness" formControlName="Witness" placeholder="साक्षीको नाम" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiName" formControlName="sakshiName" placeholder="साक्षीको नाम" type="text"/>
                         </p>
                         <p>२. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                            <input class="form-field form-control-sm nepaliFont" name="StaffName" formControlName="StaffName" placeholder="कर्मचारीको नाम" type="text"/>
+                            <input class="form-field form-control-sm nepaliFont" name="employeeName" formControlName="employeeName" placeholder="कर्मचारीको नाम" type="text"/>
                         </p>
                     </div>
                 </div>
