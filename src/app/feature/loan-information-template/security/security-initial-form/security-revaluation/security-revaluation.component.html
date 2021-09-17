@@ -11,7 +11,18 @@
                         <nb-radio (click)="revaluate(false, index)" [value]="false" value="false">No</nb-radio>
                     </nb-radio-group>
                 </div>
+
                 <ng-container *ngIf="formControls.isReValuated.value">
+                    <div *ngFor="let reval of formGroup.get('revaluationDetails')['controls']; let i = index"
+                         class="font-weight-bold"
+                         formArrayName="revaluationDetails">
+                        <div *ngIf="formGroup.get('revaluationDetails') ['length'] > 1" class="float-right">
+                            <button (click)="removeRevaluationDetail(i)" class="ml-2 mt-1 btn-danger btn-sm btn-flat"><em
+                                    class="fa fa-trash bg-transparent"></em>
+                            </button>
+                        </div>
+                        <div [formGroupName]="i" class="mt-2">
+                            <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="reValuationDate">Valuated Date</label>
@@ -22,9 +33,9 @@
                                    [nbDatepicker]="valuatedDate"
                                    type="text"/>
                             <app-calendar
-                                    (messageToEmit)="formGroup.get('reValuationDate').patchValue($event?.eDate)"
+                                    (messageToEmit)="formGroup?.get('reValuationDate')?.patchValue($event?.eDate)"
                                     *ngIf="calendarType === 'BS'"
-                                    [ePreDate]="formGroup.get('reValuationDate').value"></app-calendar>
+                                    [ePreDate]="formGroup.get('reValuationDate')?.value"></app-calendar>
                             <nb-datepicker #valuatedDate></nb-datepicker>
                         </div>
                     </div>
@@ -48,17 +59,18 @@
                             <label for="reValuatedConsideredValue">Considered Value as per Revaluation</label>
                             <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
                                    class="form-control" formControlName="reValuatedConsideredValue"
-                                   id="reValuatedConsideredValue" name="total" placeholder="Considered Value as per Revaluation">
+                                   id="reValuatedConsideredValue" name="total"
+                                   placeholder="Considered Value as per Revaluation" appDecimalNumber>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="reValuatedFmv">FMV as per Revaluation</label>
-                            <input (change)="revaluate(this.formGroup.get('isReValuated').value, index)"
+                            <input (change)="revaluate(this.formGroup.get('isReValuated')?.value, index)"
                                    class="form-control rounded" formControlName="reValuatedFmv"
                                    id="reValuatedFmv"
                                    name="reValuatedFmv" placeholder="FMV as per Revaluation"
-                                   type="text"/>
+                                   type="text" appDecimalNumber/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -69,7 +81,7 @@
                                    id="reValuatedDv"
                                    name="reValuatedDv"
                                    [placeholder]="(client === clientName?.EXCEL) ? 'MV as per Revaluation' : 'DV as per Revaluation'"
-                                   type="text"/>
+                                   type="text" appDecimalNumber/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -118,6 +130,12 @@
                                    type="text">
                         </div>
                     </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button (click)="addMoreRevaluationDetails()" class="btn btn-primary btn-sm float-right " size="tiny">Add more</button>
+                    </div>
                 </ng-container>
             </div>
         </nb-card-body>
@@ -134,21 +152,21 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="title" for="changeInDv">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</label>
-                        <input [readOnly]="true" class="form-control rounded" formControlName="changeInDv"
-                               id="changeInDv"
-                               name="changeInDv"
-                               [placeholder]="(client === clientName?.EXCEL) ? 'Change in MV' : 'Change in DV'"
-                               type="text"/>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label class="title" for="changeInFmv">Change in FMV</label>
                         <input class="form-control rounded" formControlName="changeInFmv"
                                id="changeInFmv"
                                [readOnly]="true"
                                name="changeInFmv" placeholder="Change in FMV"
+                               type="text"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="title" for="changeInDv">Change in {{client === clientName?.EXCEL ? 'MV' : 'DV'}}</label>
+                        <input [readOnly]="true" class="form-control rounded" formControlName="changeInDv"
+                               id="changeInDv"
+                               name="changeInDv"
+                               [placeholder]="(client === clientName?.EXCEL) ? 'Change in MV' : 'Change in DV'"
                                type="text"/>
                     </div>
                 </div>
