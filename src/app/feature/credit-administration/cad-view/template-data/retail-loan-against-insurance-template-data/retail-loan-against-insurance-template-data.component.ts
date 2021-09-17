@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import { SbTranslateService } from '../../../../../@core/service/sbtranslate.service';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
   selector: 'app-retail-loan-against-insurance-template-data',
@@ -19,7 +20,8 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
   buildRetailIns: FormGroup;
   translatedValues: any = {};
   spinner = false;
-
+  edi1 = true;
+  isReadonly = true;
   constructor(
       private formBuilder: FormBuilder,
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -82,11 +84,13 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
     this.translatedValues = await this.translateService.translateForm(this.buildRetailIns);
     this.spinner = false;
   }
-
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.buildRetailIns.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.buildRetailIns.get(wordLabel).patchValue(returnVal);
+  }
+  edi(){
+    this.isReadonly = !this.isReadonly;
   }
   submit() {
 
