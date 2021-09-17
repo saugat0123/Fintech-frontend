@@ -1,189 +1,222 @@
 <div class="row mt-3 ">
-    <div class="col-md-12">
-        <nb-card>
-            <nb-card-header class="text-center sb-bg-dark ">
-                <h2 class="text-white">Loan By Categories </h2>
-            </nb-card-header>
-            <nb-card-body>
-                <form [formGroup]="filterForm">
-                    <div class="form-group row">
-                        <div *ngIf="accessSpecific || accessAll" class="col-md-2">
-                            <select formControlName="branch" class="custom-select">
-                                <option selected [value]="0">All Branches</option>
-                                <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-sm-2">
-                            <input [nbDatepicker]="startDatePicker"  placeholder="Start Date"
-                                formControlName="startDate" class="form-control">
-                            <nb-datepicker #startDatePicker></nb-datepicker>
-                        </div>
-                        <div class="col-sm-2">
-                            <input [nbDatepicker]="endDatePicker"  placeholder="End Date"
-                                formControlName="endDate" size="small" class="form-control">
-                            <nb-datepicker #endDatePicker></nb-datepicker>
-                        </div>
-                      <div class="col-sm-1">
-                        <button nbButton shape="rectangle" status="none" (click)="filter()">Filter</button>
-                      </div>
-                      <div class="col-sm-1">
-                        <button nbButton shape="rectangle" status="none" (click)="reset()">Reset</button>
-                      </div>
-                    </div>
-                    <br>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header class="text-center sb-bg-dark ">
+        <h2 class="text-white">Loan By Categories </h2>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="filterForm">
+          <div class="form-group row">
+            <div *ngIf="accessSpecific || accessAll" class="col-md-2">
+              <select formControlName="branch" class="custom-select">
+                <option selected [value]="0">All Branches</option>
+                <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <input [nbDatepicker]="startDatePicker" placeholder="Start Date"
+                     formControlName="startDate" class="form-control">
+              <nb-datepicker #startDatePicker></nb-datepicker>
+            </div>
+            <div class="col-sm-2">
+              <input [nbDatepicker]="endDatePicker" placeholder="End Date"
+                     formControlName="endDate" size="small" class="form-control">
+              <nb-datepicker #endDatePicker></nb-datepicker>
+            </div>
+            <div class="col-sm-1">
+              <button nbButton shape="rectangle" status="none" (click)="filter()">Filter</button>
+            </div>
+            <div class="col-sm-1">
+              <button nbButton shape="rectangle" status="none" (click)="reset()">Reset</button>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-md-12 row">
+
+            <div *ngIf="!pieChart || pieChart.length <= 0" class="sb-no-data-info">
+              <nb-alert status="info">No data available for pie chart.</nb-alert>
+            </div>
+            <div class="col-md-7">
+            <div id="pie" *ngIf="pieChart && pieChart.length > 0" >
+
+<nb-card accent="primary" style="height:500px;max-height: 600px;overflow-y: auto">
+  <nb-card-body>
+                    <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme"
+                                                   [results]="pieChart">
+                    </ngx-charts-advanced-pie-chart></nb-card-body>
+</nb-card>
+
+              </div>
+            </div>
+              <div [ngClass]=" pieChart.length > 0 ? 'col-md-5':'col-md-12'">
+                <nb-card accent="success" style="max-height: 500px !important;overflow: auto;">
+                  <nb-card-body>
                     <div class="row">
+                      <div class="col-md-12 ">
+                        <nb-card class="card bg-info text-white ">
+                          <div>
+                            <a (click)="resolveToCatalogue('discussion')">
+                              <label class="card-header bg-dark cursor">
+                                Discussion
+                                <mark class="text-info rounded-pill">
+                                  <strong> {{discussionFileCount}}</strong></mark>
+                              </label>
+                            </a>
 
+                            <div id="Discussion" style="display: inline">
+                              <strong>&nbsp;{{ discussionProposedAmount | currency: 'NRS '}}</strong>
+                            </div>
+                          </div>
+                        </nb-card>
+                      </div>
+                      <div class="col-md-12 ">
+                        <nb-card class="card bg-info text-white ">
+                          <div>
+                            <a class="cursor" (click)="resolveToCatalogue('documentation')">
+                              <label class="card-header bg-dark cursor">
+                                Documentation
+                                <mark class="text-info rounded-pill">
+                                  <strong> {{documentationFileCount}}</strong></mark>
+                              </label>
+                            </a>
+                            <div id="documentationAmountApproved" style="display: inline">
+                              &nbsp;<strong>&nbsp;{{documentationProposedAmount | currency: 'NRS '}}</strong>
+                            </div>
+                          </div>
+                        </nb-card>
+                      </div>
                     </div>
-                </form>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div *ngIf="!pieChart || pieChart.length <= 0" class="sb-no-data-info">
-                                <nb-alert status="info">No data available for pie chart.</nb-alert>
-                        </div>
-                        <div id="pie" *ngIf="pieChart && pieChart.length > 0">
-                            <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChart">
-                            </ngx-charts-advanced-pie-chart>
-                            <div class="row">
-                                <div class="col-md-5 ">
-                                    <nb-card class="card bg-info text-white " >
-                                        <div >
-                                            <a  (click)="resolveToCatalogue('discussion')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Discussion <mark class="text-info rounded-pill"><strong> {{discussionFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
+                    <div class="row">
+                      <div class="col-md-12 ">
+                        <nb-card class="card bg-info text-white ">
+                          <div>
+                            <a class="cursor" (click)="resolveToCatalogue('valuation')">
+                              <label class="card-header bg-dark cursor">
+                                Valuation
+                                <mark class="text-info rounded-pill">
+                                  <strong> {{valuationFileCount}}</strong></mark>
+                              </label>
+                            </a>
 
-                                            <div id="Discussion"  style="display: inline">
-                                                <strong>&nbsp;{{ discussionProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
-                                <div class="col-md-5 ">
-                                    <nb-card  class="card bg-info text-white "  >
-                                        <div >
-                                            <a class="cursor" (click)="resolveToCatalogue('documentation')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Documentation <mark class="text-info rounded-pill"><strong> {{documentationFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
-                                            <div id="documentationAmountApproved"  style="display: inline">
-                                                &nbsp;<strong>&nbsp;{{documentationProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
+                            <div id="seperateAmountPending" style="display: inline">
+                              <strong>&nbsp; {{ valuationProposedAmount | currency: 'NRS '}}</strong>
                             </div>
-                            <div class="row">
-                                <div class="col-md-5 ">
-                                    <nb-card class="card bg-info text-white " >
-                                        <div>
-                                            <a class="cursor" (click)="resolveToCatalogue('valuation')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Valuation <mark class="text-info rounded-pill"><strong> {{valuationFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
+                          </div>
+                        </nb-card>
+                      </div>
+                      <div class="col-md-12 ">
+                        <nb-card class="card bg-info text-white ">
+                          <div>
+                            <a class="cursor" (click)="resolveToCatalogue('underReview')">
+                              <label class="card-header bg-dark cursor">
+                                Under Review
+                                <mark class="text-info rounded-pill">
+                                  <strong> {{valuationFileCount}}</strong></mark>
+                              </label>
+                            </a>
 
-                                            <div id="seperateAmountPending"  style="display: inline">
-                                                <strong>&nbsp; {{ valuationProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
-                                <div class="col-md-5 ">
-                                    <nb-card  class="card bg-info text-white "  >
-                                        <div >
-                                            <a class="cursor" (click)="resolveToCatalogue('underReview')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Under Review <mark class="text-info rounded-pill"><strong> {{valuationFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
-
-                                            <div id="seperateAmountApproved"  style="display: inline">
-                                                &nbsp;<strong>&nbsp;{{reviewProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
+                            <div id="seperateAmountApproved" style="display: inline">
+                              &nbsp;<strong>&nbsp;{{reviewProposedAmount | currency: 'NRS '}}</strong>
                             </div>
-                            <div class="row">
-                                <div class="col-md-5 ">
-                                    <nb-card class="  card bg-warning text-white " >
-                                        <div>
-                                            <a class="cursor" (click)="resolveToCatalogue('pending')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Pending <mark class="text-warning rounded-pill"><strong> {{pendingFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
-                                            <div id="seperateAmountPending"  style="display: inline">
-                                                <strong>&nbsp;{{ pendingProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
-                                <div class="col-md-5 ">
-                                    <nb-card  class=" card bg-success text-white "  >
-                                        <div >
-                                            <a class="cursor" (click)="resolveToCatalogue('approved')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Approved <mark class="text-success cursor rounded-pill"><strong> {{approvedFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
-
-                                            <div id="seperateAmountApproved"  style="display: inline">
-                                                <strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 ">
-                                    <nb-card  class=" card bg-danger text-white " >
-                                        <div >
-                                            <a class="cursor" (click)="resolveToCatalogue('rejected')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Rejected <mark class="text-danger rounded-pill"><strong> {{rejectedFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
-                                            <div id="seperateAmountRejected"  style="display: inline">
-                                                &nbsp;<strong>&nbsp;{{rejectedProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
-                                <div class="col-md-5 ">
-                                    <nb-card  class=" bg-primary text-white align-self-center " >
-                                        <div >
-                                            <a  (click)="resolveToCatalogue('closed')">
-                                                <label class="card-header bg-dark cursor">
-                                                    Closed <mark class="text-primary rounded-pill"><strong> {{closureFileCount}}</strong></mark>
-                                                </label>
-                                            </a>
-
-                                            <div id="seperateAmountClosed"  style="display: inline" class="m-md-auto">
-                                                <strong>&nbsp;{{closureProposedAmount | currency: 'NRS '}}</strong>
-                                            </div>
-                                        </div>
-                                    </nb-card>
-                                </div>
-                            </div>
-                        </div>
+                          </div>
+                        </nb-card>
+                      </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 sb-bar-chart-container">
-                            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">
-                                    <nb-alert status="info">No data available for bar chart.</nb-alert>
+                    <div class="row">
+                      <div class="col-md-12 ">
+                        <nb-card class="  card bg-warning text-white ">
+                          <div>
+                            <a class="cursor" (click)="resolveToCatalogue('pending')">
+                              <label class="card-header bg-dark cursor">
+                                Pending
+                                <mark class="text-warning rounded-pill">
+                                  <strong> {{pendingFileCount}}</strong></mark>
+                              </label>
+                            </a>
+                            <div id="seperateAmountPending" style="display: inline">
+                              <strong>&nbsp;{{ pendingProposedAmount | currency: 'NRS '}}</strong>
                             </div>
-                        <div id="pie" *ngIf="barChartData && barChartData.length > 0">
-                            <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>
-                        </div>
+                          </div>
+                        </nb-card>
+                      </div>
+                      <div class="col-md-12 ">
+                        <nb-card class=" card bg-success text-white ">
+                          <div>
+                            <a class="cursor" (click)="resolveToCatalogue('approved')">
+                              <label class="card-header bg-dark cursor">
+                                Approved
+                                <mark class="text-success cursor rounded-pill">
+                                  <strong> {{approvedFileCount}}</strong></mark>
+                              </label>
+                            </a>
+
+                            <div id="seperateAmountApproved" style="display: inline">
+                              <strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
+                            </div>
+                          </div>
+                        </nb-card>
+                      </div>
                     </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
-    </div>
+                    <div class="row">
+                      <div class="col-md-12 ">
+                        <nb-card class=" card bg-danger text-white ">
+                          <div>
+                            <a class="cursor" (click)="resolveToCatalogue('rejected')">
+                              <label class="card-header bg-dark cursor">
+                                Rejected
+                                <mark class="text-danger rounded-pill">
+                                  <strong> {{rejectedFileCount}}</strong></mark>
+                              </label>
+                            </a>
+                            <div id="seperateAmountRejected" style="display: inline">
+                              &nbsp;<strong>&nbsp;{{rejectedProposedAmount | currency: 'NRS '}}</strong>
+                            </div>
+                          </div>
+                        </nb-card>
+                      </div>
+                      <div class="col-md-12 ">
+                        <nb-card class=" bg-primary text-white align-self-center ">
+                          <div>
+                            <a (click)="resolveToCatalogue('closed')">
+                              <label class="card-header bg-dark cursor">
+                                Closed
+                                <mark class="text-primary rounded-pill">
+                                  <strong> {{closureFileCount}}</strong></mark>
+                              </label>
+                            </a>
+
+                            <div id="seperateAmountClosed" style="display: inline"
+                                 class="m-md-auto">
+                              <strong>&nbsp;{{closureProposedAmount | currency: 'NRS '}}</strong>
+                            </div>
+                          </div>
+                        </nb-card>
+                      </div>
+                    </div>
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 sb-bar-chart-container">
+            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">
+              <nb-alert status="info">No data available for bar chart.</nb-alert>
+            </div>
+            <div id="pie" *ngIf="barChartData && barChartData.length > 0">
+              <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>

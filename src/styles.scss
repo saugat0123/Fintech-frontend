@@ -183,3 +183,27 @@ button {
   border-color: transparent !important;
   margin-left: 5px !important;
 }
+ .legend-item{
+  margin-right: 20px;
+  display: block !important;
+  cursor: pointer;
+   text-align: end;
+  padding-top: 20px;}
+
+.legend-items{
+  overflow:hidden!important; ;
+}
+
+.advanced-pie-legend{
+  transform: none !important;
+  top:10%!important;
+}
+.advanced-pie-legend-wrapper{
+  clear:both;
+  display: grid;
+
+}
+
+.advanced-pie{
+  margin-top:-20% !important;
+}

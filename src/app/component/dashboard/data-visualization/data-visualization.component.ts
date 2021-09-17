@@ -124,6 +124,8 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   private getAdvancedPieChartDataByBranchId() {
+    alert('test')
+    this.pieChart = [];
     this.loanFormService.getLoanAmountByBranch(this.branchId, this.startDate, this.endDate )
     .subscribe((response: any) => {
           this.pieChart = response.detail;
@@ -232,6 +234,7 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   private getAllData(): void {
+    this.pieChart = [];
     this.loanFormService.getProposedAmount(this.startDate, this.endDate).subscribe((response: any) => {
       this.pieChart = response.detail;
       this.pieChart.forEach(p => {
@@ -244,6 +247,7 @@ export class DataVisualizationComponent implements OnInit {
   }
 
   private getBarChartData(): void {
+    this.barChartData = [];
     this.barChartService.getBarData(this.branchId, this.startDate, this.endDate )
     .subscribe((response: any) => {
       this.barChartData = response.detail;
