@@ -761,17 +761,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.spinner = true;
         this.loanFormService.detail(LoanId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
-            this.activatedRoute.queryParams.subscribe((res) => {
-                this.loanConfigId = res.loanConfigId;
-            });
             this.router.navigate(['/home/loan/summary'], {
                 queryParams: {
-                    loanConfigId: this.loanConfigId,
+                    loanConfigId: this.loanDataHolder.loan.id,
                     customerId: this.loanDataHolder.id
                 }
             });
             this.getLoanDataHolder();
-            console.log('loanDataHolder', this.loanDataHolder);
             this.spinner = false;
         }, error =>  {
             this.spinner = false;
