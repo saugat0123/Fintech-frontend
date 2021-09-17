@@ -63,6 +63,7 @@ import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire
 import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
 import { RetailMortgageLoanTemplateDataComponent } from './cad-view/template-data/retail-mortgage-loan-template-data/retail-mortgage-loan-template-data.component';
 import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/template-data/retail-loan-against-insurance-template-data/retail-loan-against-insurance-template-data.component';
+import { EducationalLoanTemplateDataComponent } from './cad-view/template-data/educational-loan-template-data/educational-loan-template-data.component';
 import {AdminModule} from '../admin/admin.module';
 import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/loan-create/loan-create.component';
 
@@ -117,7 +118,9 @@ import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-
     HirePurchaseTemplateDataComponent,
     RetailEducationTemplateDataComponent,
     RetailMortgageLoanTemplateDataComponent,
-    RetailLoanAgainstInsuranceTemplateDataComponent, LoanCreateComponent],
+    RetailLoanAgainstInsuranceTemplateDataComponent,
+    EducationalLoanTemplateDataComponent,
+     LoanCreateComponent],
   imports: [
     ThemeModule,
     CommonModule,

@@ -12,7 +12,7 @@
       <nb-tabset (changeTab)="onChangeTab($event)">
         <nb-tab tabId="0" tabTitle="Client Details" #personal>
           <hr>
-          <table>
+          <table class="table table-borderless table-4">
             <tr>
               <td>
                 <label class="title" for="clientType">Client Type</label>
@@ -591,7 +591,7 @@
 
           <table
               *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-              class="form-group" formArrayName="guarantorDetails">
+              class="mt-5 form-group" formArrayName="guarantorDetails">
             <tbody [formGroupName]="i">
             <tr class="form-group">
               <td>
@@ -674,9 +674,7 @@
             </tr>
             <tr>
               <td colspan="2">
-                <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add
-                  Guarantor
-                </button>
+
                 <button class="btn btn-danger float-right" (click)="removeAtIndex(i)"
                         style="position: static">
                   <em class="fa fa-trash" style="color: white;"></em>
@@ -686,6 +684,10 @@
             </tr>
             </tbody>
           </table>
+          <hr>
+          <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add
+            Guarantor
+          </button>
         </nb-tab>
         <nb-tab tabId="1" tabTitle="ग्यारेन्टर विवरण"></nb-tab>
         <nb-tab tabId="2" tabTitle="प्रस्तावित रकम">

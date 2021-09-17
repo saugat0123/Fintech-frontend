@@ -6,6 +6,7 @@
     <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
         {{i.key | replace:'_':' ' }}
     </nb-option>
+    <nb-option value="EDUCATIONAL">EDUCATIONAL</nb-option>
 </nb-select>
 
 <nb-card>
@@ -14,6 +15,9 @@
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HIRE_PURCHASE" [nbSpinner]="spinner">
         <app-hire-purchase-template-data></app-hire-purchase-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === 'EDUCATIONAL'">
+        <app-educational-loan-template-data [customerApprovedDoc]="cadData" ></app-educational-loan-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE" [nbSpinner]="spinner">
         <app-retail-loan-against-insurance-template-data></app-retail-loan-against-insurance-template-data>
