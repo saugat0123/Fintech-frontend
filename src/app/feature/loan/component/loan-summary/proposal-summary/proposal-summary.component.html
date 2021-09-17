@@ -1,3 +1,8 @@
+<style>
+    td:hover{
+        cursor: pointer;
+    }
+</style>
 <div class="row mt-1">
     <div class="col-md-12 sb-small">
         <p><strong>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '3. Proposal Details' :
@@ -49,7 +54,7 @@
             <tbody>
             <tr *ngFor="let loan of customerAllLoanList"
                 [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
-                <td class="text-left pl-1">
+                <td class="text-left pl-1" (click)=" sendLoanId(loan?.id)">
                     <ng-container
                             *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
                     &nbsp;|&nbsp;

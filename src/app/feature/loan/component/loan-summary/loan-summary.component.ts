@@ -757,5 +757,27 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
         }
     }
+    changeDetails(LoanId) {
+        this.spinner = true;
+        this.loanFormService.detail(LoanId).subscribe((response: any) => {
+            this.loanDataHolder = response.detail;
+            this.obtainableDocuments = [];
+            this.otherObtainableDocuments = [];
+            this.loanDataHolder.insurance = [];
+            this.crgGammaSummary = false;
+            this.creditRiskAlphaSummary = false;
+            this.creditRiskLambdaSummary = false;
+            this.router.navigate(['/home/loan/summary'], {
+                queryParams: {
+                    loanConfigId: this.loanDataHolder.loan.id,
+                    customerId: this.loanDataHolder.id
+                }
+            });
+            this.getLoanDataHolder();
+            this.spinner = false;
+        }, error =>  {
+            this.spinner = false;
+        });
+    }
 }
 
