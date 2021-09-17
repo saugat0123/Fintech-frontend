@@ -17,290 +17,282 @@ import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {HttpClient} from '@angular/common/http';
 import {SbTranslateService} from '../../../../@core/service/sbtranslate.service';
+import {CadOneformService} from '../../service/cad-oneform.service';
 
 @Component({
-    selector: 'app-cad-offer-letter-configuration',
-    templateUrl: './cad-offer-letter-configuration.component.html',
-    styleUrls: ['./cad-offer-letter-configuration.component.scss']
+  selector: 'app-cad-offer-letter-configuration',
+  templateUrl: './cad-offer-letter-configuration.component.html',
+  styleUrls: ['./cad-offer-letter-configuration.component.scss']
 })
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
-    @Input() customerInfo: CustomerInfoData;
-    @Input() cadData: CustomerApprovedLoanCadDocumentation;
-    @Input() guarantorDetail: GuarantorDetail;
-    // @Input() customer: Customer;
-    @Output()
-    customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
-    guarantorList: Array<Guarantor>;
-    userConfigForm: FormGroup;
-    spinner = false;
-    submitted = false;
-    relationshipList = RelationshipNepali.enumObject();
-    hideSaveBtn = false;
-    translatedValues = {
-        customerCode: '',
-        name: '',
-        gender: '',
-        fatherName: '',
-        grandFatherName: '',
-        relationMedium: '',
-        husbandName: '',
-        fatherInLawName: '',
-        citizenshipNo: '',
-        age: '',
-        permanentProvince: '',
-        permanentDistrict: '',
-        permanentMunicipality: '',
-        permanentMunType: '',
-        temporaryProvince: '',
-        temporaryDistrict: '',
-        temporaryMunicipality: '',
-        permanentWard: '',
-        temporaryWard: '',
-        temporaryMunType: '',
-        citizenshipIssueDistrict: '',
-        citizenshipIssueDate: '',
-    };
-    clientType;
-    customer: Customer = new Customer();
+  @Input() customerInfo: CustomerInfoData;
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() guarantorDetail: GuarantorDetail;
+  // @Input() customer: Customer;
+  @Output()
+  customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
+  guarantorList: Array<Guarantor>;
+  userConfigForm: FormGroup;
+  spinner = false;
+  submitted = false;
+  relationshipList = RelationshipNepali.enumObject();
+  hideSaveBtn = false;
+  clientType = CustomerType;
+  translatedValues: any;
+  customer: Customer = new Customer();
 
-    constructor(private formBuilder: FormBuilder,
-                private customerInfoService: CustomerInfoService,
-                private customerService: CustomerService,
-                private toastService: ToastService,
-                private engToNepNumber: EngToNepaliNumberPipe,
-                public datepipe: DatePipe,
-                protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
-                private http: HttpClient,
-                private translateService: SbTranslateService) {
+
+  constructor(private formBuilder: FormBuilder,
+              private customerInfoService: CustomerInfoService,
+              private cadOneformService: CadOneformService,
+              private customerService: CustomerService,
+              private toastService: ToastService,
+              private engToNepNumber: EngToNepaliNumberPipe,
+              public datepipe: DatePipe,
+              protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
+              private http: HttpClient,
+              private translateService: SbTranslateService) {
+  }
+
+  get configForm() {
+    return this.userConfigForm.controls;
+  }
+
+  ngOnInit() {
+    this.buildForm();
+    if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
+      const data = JSON.parse(this.customerInfo.nepData);
+      this.userConfigForm.patchValue(data);
+      this.setGuarantors(data.guarantorDetails);
     }
+  }
 
-    get configForm() {
-        return this.userConfigForm.controls;
+  buildForm() {
+    this.userConfigForm = this.formBuilder.group({
+      clientType: [undefined],
+      name: [undefined],
+      gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
+      fatherName: [undefined],
+      grandFatherName: [undefined],
+      relationMedium: [undefined],
+      husbandName: [undefined],
+      fatherInLawName: [undefined],
+      citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
+      age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
+      // tslint:disable-next-line:max-line-length
+      permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
+      // tslint:disable-next-line:max-line-length
+      permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
+      // tslint:disable-next-line:max-line-length
+      permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
+      permanentMunType: [0],
+      // tslint:disable-next-line:max-line-length
+      temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
+      // tslint:disable-next-line:max-line-length
+      temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
+      // tslint:disable-next-line:max-line-length
+      temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
+      permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
+      temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
+      temporaryMunType: [1],
+      citizenshipIssueDistrict: [undefined],
+      citizenshipIssueDate: [undefined],
+      guarantorDetails: this.formBuilder.array([]),
+      loanDetails: this.formBuilder.array([]),
+
+    });
+  }
+
+  ageCalculation(startDate) {
+    startDate = this.datepipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
+    const stDate = new Date(startDate);
+    const endDate = new Date();
+    let diff = (endDate.getTime() - stDate.getTime()) / 1000;
+    diff = diff / (60 * 60 * 24);
+    const yr = Math.abs(Math.round(diff / 365.25));
+    return this.engToNepNumber.transform(yr.toString());
+  }
+
+  gender(val) {
+    if (val === 'MALE') {
+      return 1;
+    } else {
+      return 0;
     }
+  }
 
-    ngOnInit() {
-        this.buildForm();
-        if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
-            const data = JSON.parse(this.customerInfo.nepData);
-            this.userConfigForm.patchValue(data);
-            this.setGuarantors(data.guarantorDetails);
-        }
+  checkIsIndividual() {
+    if (CustomerType.INDIVIDUAL === CustomerType[this.customerInfo.customerType]) {
+      return true;
     }
+    return false;
+  }
 
-    buildForm() {
-        this.userConfigForm = this.formBuilder.group({
-            clientType: [undefined],
-            name: [undefined],
-            gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
-            fatherName: [undefined],
-            grandFatherName: [undefined],
-            relationMedium: [undefined],
-            husbandName: [undefined],
-            fatherInLawName: [undefined],
-            citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
-            age: [this.checkIsIndividual() ? this.ageCalculation(this.customer.dob) : undefined],
-            // tslint:disable-next-line:max-line-length
-            permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
-            permanentMunType: [0],
-            // tslint:disable-next-line:max-line-length
-            temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
-            // tslint:disable-next-line:max-line-length
-            temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
-            permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
-            temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
-            temporaryMunType: [1],
-            guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [undefined],
-            citizenshipIssueDate: [undefined],
-        });
+  submit() {
+    this.customer.customerName = this.userConfigForm.get('name').value;
+    this.customer.customerCode = this.userConfigForm.get('customerCode').value;
+    this.cadOneformService.saveCustomer(this.customer).subscribe(res => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'User created successfully'));
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.DANGER, 'Error creating user'));
+    });
+  }
+
+  save() {
+    this.submitted = true;
+    if (this.userConfigForm.invalid) {
+      return;
     }
+    this.spinner = true;
+    {
+      this.spinner = true;
+      this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
+      this.customer.customerName = this.userConfigForm.get('name').value;
+      this.customer.customerCode = this.userConfigForm.get('customerCode').value;
+      this.customer.province = this.userConfigForm.get('province').value;
+      this.customer.district = this.userConfigForm.get('district').value;
+      this.customer.municipalities = this.userConfigForm.get('municipalities').value;
+      this.customer.wardNumber = this.userConfigForm.get('wardNumber').value;
+      this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
+      this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
+      this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipalities').value;
+      this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWardNumber').value;
+      this.customer.contactNumber = this.userConfigForm.get('contactNumber').value;
+      this.customer.email = this.userConfigForm.get('email').value;
+      this.customer.dob = this.userConfigForm.get('dob').value;
+      this.customer.initialRelationDate = this.userConfigForm.get('initialRelationDate').value;
+      this.customer.citizenshipNumber = this.userConfigForm.get('citizenshipNumber').value;
+      this.customer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssuedPlace').value;
+      this.customer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssuedDate').value;
+      this.customer.clientType = this.userConfigForm.get('clientType').value;
+      this.customer.subsectorDetail = this.userConfigForm.get('subsectorDetail').value;
+      this.customer.gender = this.userConfigForm.get('gender').value;
+      this.customer.maritalStatus = this.userConfigForm.get('maritalStatus').value;
+      this.customer.customerLegalDocumentAddress = this.userConfigForm.get('customerLegalDocumentAddress').value;
+      // this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
+      const occupations = {
+        multipleOccupation: this.userConfigForm.get('occupation').value,
+        otherOccupation: this.userConfigForm.get('otherOccupation').value
+      };
+      const incomeSource = {
+        multipleIncome: this.userConfigForm.get('incomeSource').value,
+        otherIncome: this.userConfigForm.get('otherIncome').value
+      };
+      this.customer.occupation = JSON.stringify(occupations);
+      this.customer.incomeSource = JSON.stringify(incomeSource);
+      this.customer.introduction = this.userConfigForm.get('introduction').value;
+      this.customer.version = this.userConfigForm.get('version').value;
+      const rawFromValue = this.userConfigForm.getRawValue();
+      this.customer.customerRelatives = rawFromValue.customerRelatives;
 
-    ageCalculation(startDate) {
-        startDate = this.datepipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
-        const stDate = new Date(startDate);
-        const endDate = new Date();
-        let diff = (endDate.getTime() - stDate.getTime()) / 1000;
-        diff = diff / (60 * 60 * 24);
-        const yr = Math.abs(Math.round(diff / 365.25));
-        return this.engToNepNumber.transform(yr.toString());
-    }
+      /** banking relation setting data from child **/
+      // possibly can have more field in banking relationship
+      this.customer.bankingRelationship = JSON.stringify(this.userConfigForm.get('bankingRelationship').value);
+      this.customer.netWorth = this.userConfigForm.get('netWorth').value;
 
-    gender(val) {
-        if (val === 'MALE') {
-            return 1;
+      /** Remaining static read-write only data*/
+      //  this.customer.individualJsonData = this.setIndividualJsonData();
+
+      // this.customer.isMicroCustomer = this.microCustomer;
+
+      this.customerService.save(this.customer).subscribe(res => {
+        this.spinner = false;
+        // this.close();
+        /*if (this.formValue.id == null) {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
         } else {
-            return 0;
-        }
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
+        }*/
+      }, res => {
+        this.spinner = false;
+        this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
+      });
     }
+    const data = JSON.stringify(this.userConfigForm.value);
+    this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
+      this.customerInfoData = res.detail;
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
+      this.spinner = false;
+      this.dialogRef.close(this.customerInfoData);
+      this.refreshPage();
+    }, error => {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
+      console.log(error);
+      this.spinner = false;
+      this.dialogRef.close();
+    });
 
-    checkIsIndividual() {
-        if (CustomerType.INDIVIDUAL === CustomerType[this.customerInfo.customerType]) {
-            return true;
-        }
-        return false;
+  }
+
+  closeModal() {
+    this.dialogRef.close();
+  }
+
+  controlValidation(controlNames, addValidation) {
+    controlNames.forEach(s => {
+      if (addValidation) {
+        this.userConfigForm.get(s).setValidators(Validators.required);
+      } else {
+        this.userConfigForm.get(s).clearValidators();
+      }
+      this.userConfigForm.get(s).updateValueAndValidity();
+    });
+  }
+
+  addGuarantor() {
+    (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
+  }
+
+  addGuarantorField() {
+    return this.formBuilder.group({
+      name: '',
+      issuedYear: '',
+      issuedPlace: '',
+      guarantorLegalDocumentAddress: '',
+      relationship: '',
+      citizenNumber: ''
+    });
+  }
+
+  removeAtIndex(i: any) {
+    (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+  }
+
+  onChangeTab(event) {
+    this.hideSaveBtn = false;
+    // if (event.tabId === '2' || event.tabId === '3') {
+    //     this.hideSaveBtn = true;
+    // }
+
+  }
+
+  setGuarantors(guarantorDetails: any) {
+    const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+    if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
+      if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+        const guarantorList = this.customerInfo.guarantors.guarantorList;
+        this.guarantorList = guarantorList;
+      }
     }
+    guarantorDetails.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        name: [value.name],
+        issuedYear: [value.issuedYear],
+        issuedPlace: [value.issuedPlace],
+        guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+        relationship: [value.relationship],
+        citizenNumber: [value.citizenNumber]
+      }));
+    });
+  }
 
-    save() {
-        this.submitted = true;
-        if (this.userConfigForm.invalid) {
-            return;
-        }
-        this.spinner = true;
-        {
-            this.spinner = true;
-            this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
-            this.customer.customerName = this.userConfigForm.get('name').value;
-            this.customer.customerCode = this.userConfigForm.get('customerCode').value;
-            this.customer.province = this.userConfigForm.get('province').value;
-            this.customer.district = this.userConfigForm.get('district').value;
-            this.customer.municipalities = this.userConfigForm.get('municipalities').value;
-            this.customer.wardNumber = this.userConfigForm.get('wardNumber').value;
-            this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
-            this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
-            this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipalities').value;
-            this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWardNumber').value;
-            this.customer.contactNumber = this.userConfigForm.get('contactNumber').value;
-            this.customer.email = this.userConfigForm.get('email').value;
-            this.customer.dob = this.userConfigForm.get('dob').value;
-            this.customer.initialRelationDate = this.userConfigForm.get('initialRelationDate').value;
-            this.customer.citizenshipNumber = this.userConfigForm.get('citizenshipNumber').value;
-            this.customer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssuedPlace').value;
-            this.customer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssuedDate').value;
-            this.customer.clientType = this.userConfigForm.get('clientType').value;
-            this.customer.subsectorDetail = this.userConfigForm.get('subsectorDetail').value;
-            this.customer.gender = this.userConfigForm.get('gender').value;
-            this.customer.maritalStatus = this.userConfigForm.get('maritalStatus').value;
-            this.customer.customerLegalDocumentAddress = this.userConfigForm.get('customerLegalDocumentAddress').value;
-            // this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
-            const occupations = {
-                multipleOccupation: this.userConfigForm.get('occupation').value,
-                otherOccupation: this.userConfigForm.get('otherOccupation').value
-            };
-            const incomeSource = {
-                multipleIncome: this.userConfigForm.get('incomeSource').value,
-                otherIncome: this.userConfigForm.get('otherIncome').value
-            };
-            this.customer.occupation = JSON.stringify(occupations);
-            this.customer.incomeSource = JSON.stringify(incomeSource);
-            this.customer.introduction = this.userConfigForm.get('introduction').value;
-            this.customer.version = this.userConfigForm.get('version').value;
-            const rawFromValue = this.userConfigForm.getRawValue();
-            this.customer.customerRelatives = rawFromValue.customerRelatives;
+  refreshPage() {
+    window.location.reload();
+  }
 
-            /** banking relation setting data from child **/
-            // possibly can have more field in banking relationship
-            this.customer.bankingRelationship = JSON.stringify(this.userConfigForm.get('bankingRelationship').value);
-            this.customer.netWorth = this.userConfigForm.get('netWorth').value;
-
-            /** Remaining static read-write only data*/
-           //  this.customer.individualJsonData = this.setIndividualJsonData();
-
-            // this.customer.isMicroCustomer = this.microCustomer;
-
-            this.customerService.save(this.customer).subscribe(res => {
-                this.spinner = false;
-                // this.close();
-                /*if (this.formValue.id == null) {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
-                } else {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
-                }*/
-            }, res => {
-                this.spinner = false;
-                this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
-            });
-        }
-        const data = JSON.stringify(this.userConfigForm.value);
-        this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
-            this.customerInfoData = res.detail;
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
-            this.spinner = false;
-            this.dialogRef.close(this.customerInfoData);
-            this.refreshPage();
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
-            console.log(error);
-            this.spinner = false;
-            this.dialogRef.close();
-        });
-
-    }
-
-    closeModal() {
-        this.dialogRef.close();
-    }
-
-    controlValidation(controlNames, addValidation) {
-        controlNames.forEach(s => {
-            if (addValidation) {
-                this.userConfigForm.get(s).setValidators(Validators.required);
-            } else {
-                this.userConfigForm.get(s).clearValidators();
-            }
-            this.userConfigForm.get(s).updateValueAndValidity();
-        });
-    }
-
-    addGuarantor() {
-        (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
-    }
-
-    addGuarantorField() {
-        return this.formBuilder.group({
-            name: '',
-            issuedYear: '',
-            issuedPlace: '',
-            guarantorLegalDocumentAddress: '',
-            relationship: '',
-            citizenNumber: ''
-        });
-    }
-
-    removeAtIndex(i: any) {
-        (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
-    }
-
-    onChangeTab(event) {
-        this.hideSaveBtn = false;
-        console.log(event.tabId);
-        if (event.tabId === '2' || event.tabId === '3') {
-            this.hideSaveBtn = true;
-        }
-
-    }
-
-    setGuarantors(guarantorDetails: any) {
-        const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-        if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-            if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
-                const guarantorList = this.customerInfo.guarantors.guarantorList;
-                this.guarantorList = guarantorList;
-            }
-        }
-        guarantorDetails.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                name: [value.name],
-                issuedYear: [value.issuedYear],
-                issuedPlace: [value.issuedPlace],
-                guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
-                relationship: [value.relationship],
-                citizenNumber: [value.citizenNumber]
-            }));
-        });
-    }
-
-    refreshPage() {
-        window.location.reload();
-    }
-
-    async translate() {
-        this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
-    }
+  async translate() {
+    this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+  }
 }
