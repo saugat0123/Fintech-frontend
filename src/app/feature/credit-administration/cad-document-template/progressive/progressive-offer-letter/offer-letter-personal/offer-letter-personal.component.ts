@@ -460,19 +460,13 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.form.get(['loanFacilityTable', index, target]).patchValue(finalValue);
     }
 
-    updateServiceCharge(i) {
-       this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(this.nepToEngNumberPipe.transform(
-           Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)) *
-           Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100))
-       );
-
-       console.log('loanLimitAmount', this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(
-            Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)) *
-            Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100))
-       ));
-
-       console.log('amount', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)));
-       console.log('loanLimitPercent', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100));
+    updateServiceCharge(formArrayName, i) {
+        const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'loanLimitPercent']).value) / 100);
+        const amount = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'amount']).value));
+        const loanLimitAmount = loanLimitPercent * amount;
+        const asd = this.engToNepNumberPipe.transform(loanLimitAmount.toString());
+        this.form.get([formArrayName, i, 'loanLimitAmount']).patchValue(asd);
+        console.log(loanLimitPercent, amount, loanLimitAmount, asd);
     }
 }
 

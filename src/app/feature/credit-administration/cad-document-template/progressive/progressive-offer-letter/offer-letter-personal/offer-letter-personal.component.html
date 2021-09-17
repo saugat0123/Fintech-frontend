@@ -251,12 +251,12 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>सेवाशुल्क</b></td>
+                                            <td><b>सेवा शुल्क</b></td>
                                             <td>कर्जा सिमाको
 
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       (change)="updateServiceCharge(i)"
+                                                       (change)="updateServiceCharge('loanFacilityTable', i)"
                                                        formControlName="loanLimitPercent">
 
                                                 प्रतिशतले
@@ -271,7 +271,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>कर्जा सूचनाशुल्क</b></td>
+                                            <td><b>कर्जा सूचना शुल्क</b></td>
                                             <td>रु.
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
@@ -280,7 +280,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b> व्याजकिस्तातिर्ने</b></td>
+                                            <td><b> व्याज किस्ता तिर्ने</b></td>
                                             <td><select formControlName="interestRepayPlan"
                                                         class="form-control-sm form-field nepaliFont font-size-normal">
                                                 <option value="मासिक">मासिक</option>
@@ -573,7 +573,7 @@
                                                 सीमा
                                                 भन्दा वढी कर्जा उपभोग गरेमा विना पूर्व सूचना यस कर्जा स्वीकृतिपत्रमा
                                                 उल्लेखित
-                                                व्याज दरमा कम्तीमा २ प्रतिशत थप व्याज लगाई असुल उपर गरिनेछ ।<br><br>
+                                                व्याज दरमा कम्तीमा <b>२</b> प्रतिशत थप व्याज लगाई असुल उपर गरिनेछ ।<br><br>
                                             </li>
                                             <li> आधार दर र स्वीकृत प्रिमियम दरको आधारमा ब्याजदरको निर्धारण गरिएको छ ।
                                                 आधार दर र स्वीकृत प्रिमियम दरको आधारमा कायम हुने कर्जाको अधिकतम
