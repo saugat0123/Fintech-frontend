@@ -4,55 +4,95 @@
         <tr>
             <th colspan="2">Loan Data</th>
             <th>Nepali Translation</th>
+            <th>Correct Translation</th>
         </tr>
         <tr>
             <td>Date of Generation</td>
             <td><input type="text" class="form-control" formControlName="dateofGeneration"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.dateofGeneration}}">
+            <td class="abc">
+                {{translatedValues?.dateofGeneration}}
+                <i *ngIf="translatedValues.dateofGeneration" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td>
+                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.dateofGeneration}}">
             </td>
         </tr>
         <tr>
             <td>Customer Name</td>
             <td><input type="text" class="form-control" formControlName="customerName"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.customerName}}">
+            <td class="abc">
+                {{translatedValues?.customerName}}
+                <i *ngIf="translatedValues.customerName" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td>
+                <input [readonly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.customerName}}">
             </td>
         </tr>
         <tr>
             <td>Customer Address</td>
-            <td><input type="text" class="form-control" formControlName="customerAddress"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.customerAddress}}">
+            <td>
+                <input type="text" class="form-control" formControlName="customerAddress">
+            </td>
+            <td class="abc">
+                {{translatedValues?.customerAddress}}
+                <i *ngIf="translatedValues.customerAddress" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td>
+                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.customerAddress}}">
             </td>
         </tr>
-                <tr>
-                    <td>Application Date in AD</td>
-                    <td><input type="text" class="form-control" formControlName="applicationDateInAD"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.applicationDateInAD}}"></td>
-                </tr>
+        <tr>
+            <td>Application Date in AD</td>
+            <td>
+                <input type="text" class="form-control" formControlName="applicationDateInAD">
+            </td>
+            <td class="abc">{{translatedValues?.applicationDateInAD}}
+                <i *ngIf="translatedValues.applicationDateInAD" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td>
+                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.applicationDateInAD}}">
+            </td>
+        </tr>
 
         <tr>
             <td>Drawing Power Rate</td>
             <td><input type="text" class="form-control" formControlName="drawingPowerRate"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.drawingPowerRate}}">
+            <td class="abc">{{translatedValues?.drawingPowerRate}}
+                <i *ngIf="translatedValues.drawingPowerRate" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td>
+                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.drawingPowerRate}}">
             </td>
         </tr>
 
         <tr>
             <td>Base Rate</td>
             <td><input type="text" class="form-control" formControlName="baseRate"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.baseRate}}"></td>
+            <td class="abc">
+                {{translatedValues.baseRate}}
+                <i *ngIf="translatedValues.baseRate" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.baseRate}}"></td>
         </tr>
 
         <tr>
             <td>Premium Rate</td>
             <td><input type="text" class="form-control" formControlName="premiumRate"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.premiumRate}}"></td>
+            <td class="abc">
+                {{translatedValues.premiumRate}}
+                <i *ngIf="translatedValues.baseRate" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.premiumRate}}"></td>
         </tr>
 
         <tr>
             <td>Yearly Floating Interest Rate</td>
             <td><input type="text" class="form-control" formControlName="yearlyFloatingInterestRate"></td>
-            <td><input type="text" class="form-control"
+            <td class="abc">
+                {{translatedValues.yearlyFloatingInterestRate}}
+                <i *ngIf="translatedValues.yearlyFloatingInterestRate" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
                        value="{{translatedValues?.yearlyFloatingInterestRate}}">
             </td>
         </tr>
@@ -61,198 +101,285 @@
             <td>Service Charge</td>
             <td><input type="text" class="form-control" formControlName="serviceCharge"
                        (change)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"></td>
-            <td><input type="text" class="form-control" value="{{translatedValues?.serviceCharge}}">
+            <td class="abc">
+                {{translatedValues.serviceCharge}}
+                <i *ngIf="translatedValues.serviceCharge" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.serviceCharge}}">
             </td>
         </tr>
-
         <tr>
-                    <td>Service Charge Words</td>
-                    <td><input type="text" class="form-control" formControlName="serviceChargeWords"></td>
-                    <td><input type="text" class="form-control"
+            <td>Service Charge Words</td>
+            <td><input type="text" class="form-control" formControlName="serviceChargeWords"></td>
+            <td class="abc">
+                {{translatedValues.serviceChargeWords}}
+                <i *ngIf="translatedValues.serviceChargeWords" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
                                value="{{translatedValues?.serviceChargeWords}}"></td>
-                </tr>
-                <tr>
-                    <td>Communication Fee</td>
-                    <td><input type="text" class="form-control" formControlName="communicationFee"></td>
-                    <td><input type="text" class="form-control"
+        </tr>
+        <tr>
+            <td>Communication Fee</td>
+            <td><input type="text" class="form-control" formControlName="communicationFee"></td>
+            <td class="abc">
+                {{translatedValues.communicationFee}}
+                <i *ngIf="translatedValues.communicationFee" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
                                value="{{translatedValues?.communicationFee}}"></td>
-                </tr>
-                <tr>
-                    <td>EMI Amount</td>
-                    <td><input type="text" class="form-control" formControlName="emiAmount"
-                               (change)="getNumAmountWord('emiAmount', 'emiAmountWords')"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.emiAmount}}"></td>
-                </tr>
-
-                <tr>
-                    <td>EMI Amount Words</td>
-                    <td><input type="text" class="form-control" formControlName="emiAmountWords"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.emiAmountWords}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Number of EMI</td>
-                    <td><input type="text" class="form-control" formControlName="emiCount"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.emiCount}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Loan Commitment Fee</td>
-                    <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.loanCommitmentFee}}"></td>
-                </tr>
-
-
-                <tr>
-                    <td>Owners Name</td>
-                    <td><input type="text" class="form-control" formControlName="ownersName"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.ownersName}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Owners Address</td>
-                    <td><input type="text" class="form-control" formControlName="ownersAddress"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.ownersAddress}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Property Plot Number</td>
-                    <td><input type="text" class="form-control" formControlName="propertyPlotNumber"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.propertyPlotNumber}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Property Area</td>
-                    <td><input type="text" class="form-control" formControlName="propertyArea"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.propertyArea}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Sheet Number</td>
-                    <td><input type="text" class="form-control" formControlName="sheetNumber"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.sheetNumber}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Change Fee Below 1 Cr</td>
-                    <td><input type="text" class="form-control" formControlName="changeFeeBelow1Cr"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.changeFeeBelow1Cr}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Change Fee Above 1 Cr</td>
-                    <td><input type="text" class="form-control" formControlName="changeFeeAbove1Cr"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.changeFeeAbove1Cr}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Collateral Release Fee</td>
-                    <td><input type="text" class="form-control" formControlName="collateralReleaseFee"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.collateralReleaseFee}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Document Access Fee</td>
-                    <td><input type="text" class="form-control" formControlName="documentAccessFee"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.documentAccessFee}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Promissory Note Amount</td>
-                    <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.promissoryNoteAmount}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Loan Deed Amount</td>
-                    <td><input type="text" class="form-control" formControlName="loanDeedAmount"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.loanDeedAmount}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Pledge Amount</td>
-                    <td><input type="text" class="form-control" formControlName="pledgeAmount"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.pledgeAmount}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Guarantor Name 1</td>
-                    <td><input type="text" class="form-control" formControlName="guarantorName1"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.guarantorName1}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Guarantor Amount 1</td>
-                    <td><input type="text" class="form-control" formControlName="guarantorAmount1"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.guarantorAmount1}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Guarantor Amount Words 1</td>
-                    <td><input type="text" class="form-control" formControlName="guarantorAmountWords1"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.guarantorAmountWords1}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Signature Date</td>
-                    <td><input type="text" class="form-control" formControlName="signatureDate"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.signatureDate}}">
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>Sakshi District</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiDistrict"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.sakshiDistrict}}">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Sakshi Municipality</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiMunicipality"></td>
-                    <td><input type="text" class="form-control"
-                               value="{{translatedValues?.sakshiMunicipality}}"></td>
-                </tr>
-
-                <tr>
-                    <td>Sakshi Ward Num</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiWardNum"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.sakshiWardNum}}">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Sakshi Name</td>
-                    <td><input type="text" class="form-control" formControlName="sakshiName"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.sakshiName}}"></td>
-                </tr>
-                <tr>
-                    <td>Employee Name</td>
-                    <td><input type="text" class="form-control" formControlName="employeeName"></td>
-                    <td><input type="text" class="form-control" value="{{translatedValues?.employeeName}}">
-                    </td>
-                </tr>
-            </table>
-            <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
-            <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
-                Translate
-            </button>
-        </form>
+        </tr>
+        <tr>
+            <td>EMI Amount</td>
+            <td><input type="text" class="form-control" formControlName="emiAmount"
+                       (change)="getNumAmountWord('emiAmount', 'emiAmountWords')"></td>
+            <td class="abc">
+                {{translatedValues.emiAmount}}
+                <i *ngIf="translatedValues.emiAmount" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.emiAmount}}"></td>
+        </tr>
+        <tr>
+            <td>EMI Amount Words</td>
+            <td><input type="text" class="form-control" formControlName="emiAmountWords"></td>
+            <td class="abc">
+                {{translatedValues.emiAmountWords}}
+                <i *ngIf="translatedValues.emiAmountWords" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.emiAmountWords}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Number of EMI</td>
+            <td><input type="text" class="form-control" formControlName="emiCount"></td>
+            <td class="abc">
+                {{translatedValues.emiCount}}
+                <i *ngIf="translatedValues.emiCount" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.emiCount}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Loan Commitment Fee</td>
+            <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
+            <td class="abc">
+                {{translatedValues.loanCommitmentFee}}
+                <i *ngIf="translatedValues.loanCommitmentFee" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.loanCommitmentFee}}"></td>
+        </tr>
+        <tr>
+            <td>Owners Name</td>
+            <td><input type="text" class="form-control" formControlName="ownersName"></td>
+            <td class="abc">
+                {{translatedValues.ownersName}}
+                <i *ngIf="translatedValues.ownersName" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.ownersName}}"></td>
+        </tr>
+        <tr>
+            <td>Owners Address</td>
+            <td><input type="text" class="form-control" formControlName="ownersAddress"></td>
+            <td class="abc">
+                {{translatedValues.ownersAddress}}
+                <i *ngIf="translatedValues.ownersAddress" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.ownersAddress}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Property Plot Number</td>
+            <td><input type="text" class="form-control" formControlName="propertyPlotNumber"></td>
+            <td class="abc">
+                {{translatedValues.propertyPlotNumber}}
+                <i *ngIf="translatedValues.propertyPlotNumber" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.propertyPlotNumber}}"></td>
+        </tr>
+        <tr>
+            <td>Property Area</td>
+            <td><input type="text" class="form-control" formControlName="propertyArea"></td>
+            <td class="abc">
+                {{translatedValues.propertyArea}}
+                <i *ngIf="translatedValues.propertyArea" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.propertyArea}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Sheet Number</td>
+            <td><input type="text" class="form-control" formControlName="sheetNumber"></td>
+            <td class="abc">
+                {{translatedValues.sheetNumber}}
+                <i *ngIf="translatedValues.sheetNumber" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sheetNumber}}"></td>
+        </tr>
+        <tr>
+            <td>Change Fee Below 1 Cr</td>
+            <td><input type="text" class="form-control" formControlName="changeFeeBelow1Cr"></td>
+            <td class="abc">
+                {{translatedValues.changeFeeBelow1Cr}}
+                <i *ngIf="translatedValues.changeFeeBelow1Cr" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.changeFeeBelow1Cr}}"></td>
+        </tr>
+        <tr>
+            <td>Change Fee Above 1 Cr</td>
+            <td><input type="text" class="form-control" formControlName="changeFeeAbove1Cr"></td>
+            <td class="abc">
+                {{translatedValues.changeFeeAbove1Cr}}
+                <i *ngIf="translatedValues.changeFeeAbove1Cr" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.changeFeeAbove1Cr}}"></td>
+        </tr>
+        <tr>
+            <td>Collateral Release Fee</td>
+            <td><input type="text" class="form-control" formControlName="collateralReleaseFee"></td>
+            <td class="abc">
+                {{translatedValues.collateralReleaseFee}}
+                <i *ngIf="translatedValues.collateralReleaseFee" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.collateralReleaseFee}}"></td>
+        </tr>
+        <tr>
+            <td>Document Access Fee</td>
+            <td><input type="text" class="form-control" formControlName="documentAccessFee"></td>
+            <td class="abc">
+                {{translatedValues.documentAccessFee}}
+                <i *ngIf="translatedValues.documentAccessFee" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.documentAccessFee}}"></td>
+        </tr>
+        <tr>
+            <td>Promissory Note Amount</td>
+            <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"></td>
+            <td class="abc">
+                {{translatedValues.promissoryNoteAmount}}
+                <i *ngIf="translatedValues.promissoryNoteAmount" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.promissoryNoteAmount}}"></td>
+        </tr>
+        <tr>
+            <td>Loan Deed Amount</td>
+            <td><input type="text" class="form-control" formControlName="loanDeedAmount"></td>
+            <td class="abc">
+                {{translatedValues.loanDeedAmount}}
+                <i *ngIf="translatedValues.loanDeedAmount" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.loanDeedAmount}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Pledge Amount</td>
+            <td><input type="text" class="form-control" formControlName="pledgeAmount"></td>
+            <td class="abc">
+                {{translatedValues.pledgeAmount}}
+                <i *ngIf="translatedValues.pledgeAmount" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.pledgeAmount}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Guarantor Name 1</td>
+            <td><input type="text" class="form-control" formControlName="guarantorName1"></td>
+            <td class="abc">
+                {{translatedValues.guarantorName1}}
+                <i *ngIf="translatedValues.guarantorName1" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.guarantorName1}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Guarantor Amount 1</td>
+            <td><input type="text" class="form-control" formControlName="guarantorAmount1"></td>
+            <td class="abc">
+                {{translatedValues.guarantorAmount1}}
+                <i *ngIf="translatedValues.guarantorAmount1" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.guarantorAmount1}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Guarantor Amount Words 1</td>
+            <td><input type="text" class="form-control" formControlName="guarantorAmountWords1"></td>
+            <td class="abc">
+                {{translatedValues.guarantorAmountWords1}}
+                <i *ngIf="translatedValues.guarantorAmountWords1" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.guarantorAmountWords1}}"></td>
+        </tr>
+        <tr>
+            <td>Signature Date</td>
+            <td><input type="text" class="form-control" formControlName="signatureDate"></td>
+            <td class="abc">
+                {{translatedValues.signatureDate}}
+                <i *ngIf="translatedValues.signatureDate" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.signatureDate}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Sakshi District</td>
+            <td><input type="text" class="form-control" formControlName="sakshiDistrict"></td>
+            <td class="abc">
+                {{translatedValues.sakshiDistrict}}
+                <i *ngIf="translatedValues.sakshiDistrict" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sakshiDistrict}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Sakshi Municipality</td>
+            <td><input type="text" class="form-control" formControlName="sakshiMunicipality"></td>
+            <td class="abc">
+                {{translatedValues.sakshiMunicipality}}
+                <i *ngIf="translatedValues.sakshiMunicipality" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
+                       value="{{translatedValues?.sakshiMunicipality}}"></td>
+        </tr>
+        <tr>
+            <td>Sakshi Ward Num</td>
+            <td><input type="text" class="form-control" formControlName="sakshiWardNum"></td>
+            <td class="abc">
+                {{translatedValues.sakshiWardNum}}
+                <i *ngIf="translatedValues.sakshiWardNum" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sakshiWardNum}}">
+            </td>
+        </tr>
+        <tr>
+            <td>Sakshi Name</td>
+            <td><input type="text" class="form-control" formControlName="sakshiName"></td>
+            <td class="abc">
+                {{translatedValues.sakshiName}}
+                <i *ngIf="translatedValues.sakshiName" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sakshiName}}"></td>
+        </tr>
+        <tr>
+            <td>Employee Name</td>
+            <td><input type="text" class="form-control" formControlName="employeeName"></td>
+            <td class="abc">
+                {{translatedValues.employeeName}}
+                <i *ngIf="translatedValues.employeeName" class="fas fa-edit edi" (click)="edi()"></i>
+            </td>
+            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.employeeName}}">
+            </td>
+        </tr>
+    </table>
+    <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
+    <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
+        Translate
+    </button>
+</form>
 </div>
 
