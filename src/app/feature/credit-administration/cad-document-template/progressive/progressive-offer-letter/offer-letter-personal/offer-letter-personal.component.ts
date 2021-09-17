@@ -61,11 +61,11 @@ export class OfferLetterPersonalComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        let newFile = '';
+        let allGuarantors = '';
         (JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData).guarantorDetails).forEach(guarantor => {
-            newFile = newFile + guarantor.name + ', ';
+            allGuarantors = allGuarantors + guarantor.name + ', ';
         });
-        newFile = newFile.slice(0, -2);
+        allGuarantors = allGuarantors.slice(0, -2);
 
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
 
@@ -94,7 +94,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-            shreeName1: newFile ? newFile : ''
+            shreeName1: allGuarantors ? allGuarantors : ''
         });
         this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
         this.setGuarantors(this.nepaliData.guarantorDetails);

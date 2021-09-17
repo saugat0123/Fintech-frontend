@@ -15,7 +15,6 @@ export class OfferLetterPersonalPrintComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('asdfadsf', this.printDocForm);
     }
 
 }
