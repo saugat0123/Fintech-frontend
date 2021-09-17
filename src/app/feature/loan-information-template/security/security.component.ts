@@ -289,6 +289,7 @@ export class SecurityComponent implements OnInit {
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
+        this.securityData.totalDistressAmount = this.calculateDistressValue(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
         this.initialSecurity.selectedArray.forEach((selected) => {
@@ -433,5 +434,37 @@ export class SecurityComponent implements OnInit {
                 this.controlValidation(['securityCoverageAutoCommercial'], true);
                 break;
         }
+    }
+
+    calculateDistressValue(securityData): number {
+        console.log('securityData', securityData);
+        let totalDistressAmount = 0;
+        securityData.selectedArray.forEach(selectedSecurity => {
+            switch (selectedSecurity) {
+                case 'LandSecurity':
+                    const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
+                    for (let i = 0; i < landDetailsArray.length; i++) {
+                        totalDistressAmount += Number(landDetailsArray[i].distressValue);
+                    }
+                    break;
+                case 'ApartmentSecurity':
+                    const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
+                    for (let i = 0; i < buildingDetailsArray.length; i++) {
+                        totalDistressAmount += Number(buildingDetailsArray[i].buildingDistressValue);
+                    }
+                    break;
+                case 'Land and Building Security':
+                    const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
+                    for (let i = 0; i < landBuildingArray.length; i++) {
+                        totalDistressAmount += Number(landBuildingArray[i].distressValue);
+                    }
+                    break;
+                default:
+                    totalDistressAmount += 0;
+                    break;
+            }
+        });
+        console.log('totalDistressAmount', totalDistressAmount);
+        return totalDistressAmount;
     }
 }
