@@ -78,6 +78,7 @@ export class LoanFormComponent implements OnInit {
     totalTabCount = 0;
     nextTabId = 0;
     previousTabId = 0;
+    loanNature;
 
     customerLoanId: number;
     templateList = [
@@ -227,6 +228,7 @@ export class LoanFormComponent implements OnInit {
         OtherDocuments: null
     };
     nbSpinner = false;
+    companyInfoId: any;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -256,6 +258,9 @@ export class LoanFormComponent implements OnInit {
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
+        this.activatedRoute.queryParams.subscribe((data)=> {
+            this.companyInfoId = data.customerInfoId;
+        })
 
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -845,19 +850,10 @@ export class LoanFormComponent implements OnInit {
                 this.nbSpinner=false;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
-
-                let id;
-                if(response.detail.companyInfo) {
-                    id = response.detail.companyInfo.id;
-                }
-                if (response.detail.customerInfo) {
-                    id = response.detail.loanHolder.id;
-                }
-
                 this.router.navigate(['/home/loan/summary'], {queryParams: {
                         loanConfigId: this.id,
                         customerId: this.customerLoanId,
-                        customerInfoId: id
+                        customerInfoId: this.companyInfoId
                 }})
                     .then(() => {
                         this.spinner.hide();
