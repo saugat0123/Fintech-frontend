@@ -376,7 +376,7 @@
                             <table class="table table-borderless">
                                 <tr>
                                     <td rowspan="3">२.</td>
-                                    <td><b>धितो सुरक्षण विवरण (Security Detail):</b></td>
+                                    <td><b><u>धितो सुरक्षण विवरण (Security Detail):</u></b></td>
                                 </tr>
                                 <tr>
                                     <td>ऋणीले लिने वा लिएको तथा भविष्यमा लिने सम्पूर्ण कर्जा तथा सुविधाहरु
@@ -401,7 +401,7 @@
                                             <tbody *ngFor="let securityDetail of form.get('securityDetails')['controls']; index as i"
                                                    formArrayName="securityDetails">
                                             <tr [formGroupName]="i">
-                                                <td> जग्गाधनिको नाम :
+                                                <th> जग्गाधनिको नाम :
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            formControlName="name"
                                                            type="text">
@@ -421,7 +421,7 @@
                                                            formControlName="address"
                                                            type="text">
                                                     <br>
-                                                </td>
+                                                </th>
                                                 <td>
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
@@ -797,7 +797,7 @@
                                 </tr>
                                 <tr>
                                     <td>८.</td>
-                                    <td><b>किस्ता/कर्जा खिलाफीको अवस्था:</b><br>
+                                    <td><b><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></b><br>
                                         देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको
                                         मानिने छ
                                         ।
@@ -912,7 +912,7 @@
                                 </tr>
                                 <tr>
                                     <td>९.</td>
-                                    <td><b>लागू हुने पूर्व शर्त</b> <br>
+                                    <td><b><u>लागू हुने पूर्व शर्त</u></b> <br>
                                         यो कर्जा सुविधा प्राप्त गर्न, यस कर्जा सुविधाको लागि माथि दफा २ मा
                                         लेखिएको सम्पत्तिको रुपमा उपलव्ध गराउन र धितो सम्पत्तिका लिखतहरु
                                         लगायतका कर्जा सुविधासंग सम्वन्धित कानूनी कागजपत्रमा सहीछाप गर्न, यो कर्जा
@@ -945,7 +945,7 @@
                                 <tr>
                                     <td>१०.</td>
                                     <td>
-                                        <b>घोषणा (Decleration) : </b> ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
+                                        <b><u>घोषणा (Decleration) : </u></b> ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
                                         कुराको
                                         विना शर्त घोषणा गर्दछ।
                                     </td>
@@ -983,7 +983,7 @@
                                 <tr>
                                     <td>११.</td>
                                     <td>
-                                        <b>छुट (Waiver)</b><br>
+                                        <b><u>छुट (Waiver)</u></b><br>
                                         कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा
                                         स्वीकृतिपत्र वमोजिम फाइनान्सलाई प्राप्त अधिकारमा कुनै किसिमको छुट
                                         प्रदान भएको मानिने छैन । फाइनान्सले एक पटक सवै वा केही अधिकारहरुको प्रयोग गरेमा
@@ -994,7 +994,7 @@
                                 <tr>
                                     <td>१२.</td>
                                     <td>
-                                        <b>सूचना (Notice)</b><br>
+                                        <b><u>सूचना (Notice)</u></b><br>
                                         कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी वा फ्याक्स
                                         मार्फत
                                         आदान प्रदान गर्न सकिने छ ।
@@ -1428,18 +1428,18 @@
                                             </p>
                                         </li>
                                         <li>
-                                            ऋणीसंगको सम्बन्धः जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने) <input
+                                            ऋणीसंगको सम्बन्धः <b>जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने)</b> <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
                                                 formControlName="guarantorRelation">
                                         </li>
                                         <li>
-                                            ससुराको नामः श्री <input class="form-control-sm form-field nepaliFont"
+                                            ससुराको नामः <b>श्री</b> <input class="form-control-sm form-field nepaliFont"
                                                                      type="text"
                                                                      formControlName="fatherInLawName">
                                         </li>
                                         <li>
-                                            पति/पत्नीको नामः श्री <input class="form-control-sm form-field nepaliFont"
+                                            पति/पत्नीको नामः <b>श्री</b> <input class="form-control-sm form-field nepaliFont"
                                                                          type="text"
                                                                          formControlName="spouseOrFatherName">
                                         </li>

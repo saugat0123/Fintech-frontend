@@ -376,7 +376,7 @@
                                         </thead>
                                         <tbody>
                                         <tr *ngFor = "let securityDetail of printDocForm?.securityDetails; index as i;">
-                                            <td> जग्गाधनिको नाम :
+                                            <th> जग्गाधनिको नाम :
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.name !== null && securityDetail?.name !== ''}">
                                                     {{securityDetail?.name === null || securityDetail?.name === '' ? '' : securityDetail?.name}}
                                                 </span>
@@ -396,7 +396,7 @@
                                                     {{securityDetail?.address === null || securityDetail?.address === '' ? '' : securityDetail?.address}}
                                                 </span>
                                                 <br>
-                                            </td>
+                                            </th>
                                             <td>
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaDistrict !== null && securityDetail?.jaggaDistrict !== ''}">
                                                     {{securityDetail?.jaggaDistrict === null || securityDetail?.jaggaDistrict === '' ? '' : securityDetail?.jaggaDistrict}}
@@ -674,7 +674,11 @@
                             </tr>
                             <tr>
                                 <td>७.</td>
-                                <td> <u>अन्य शर्त वन्देजहरु:</u>
+                                <td> <b><u>अन्य शर्त वन्देजहरु:</u></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     यसका अतिरिक्त ऋणी निम्न शर्त वन्देजहरु स्वीकार गर्दछ ।
                                 </td>
                             </tr>
@@ -867,7 +871,7 @@
                             <tr>
                                 <td>१०.</td>
                                 <td>
-                                    <b>घोषणा (Decleration) : </b> ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
+                                    <b><u>घोषणा (Decleration) : </u></b> ऋणी देहायमा उल्लेखित विवरणहरु सही र सत्य छन् भन्ने
                                     कुराको
                                     विना शर्त घोषणा गर्दछ।
                                 </td>
@@ -903,7 +907,7 @@
                             <tr>
                                 <td>११.</td>
                                 <td>
-                                    <b>छुट (Waiver)</b><br>
+                                    <b><u>छुट (Waiver)</u></b><br>
                                     कुनै खास अधिकार छोडेको लिखित सूचना ऋणीले प्राप्त नगरे सम्म यस कर्जा
                                     स्वीकृतिपत्र वमोजिम फाइनान्सलाई प्राप्त अधिकारमा कुनै किसिमको छुट
                                     प्रदान भएको मानिने छैन । फाइनान्सले एक पटक सवै वा केही अधिकारहरुको प्रयोग गरेमा
@@ -914,7 +918,7 @@
                             <tr>
                                 <td>१२.</td>
                                 <td>
-                                    <b>सूचना (Notice)</b><br>
+                                    <b><u>सूचना (Notice)</u></b><br>
                                     कुनै पनि सूचना गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी वा फ्याक्स मार्फत
                                     आदान प्रदान गर्न सकिने छ ।
                                 </td>
@@ -1307,19 +1311,19 @@
                                         </p>
                                     </li>
                                     <li>
-                                        ऋणीसंगको सम्बन्धः जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने)
+                                        ऋणीसंगको सम्बन्धः <b>जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने)</b>
                                         <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorRelation !== null && printDocForm?.guarantorRelation !== ''}">
                                             {{printDocForm?.guarantorRelation === null || printDocForm?.guarantorRelation === '' ? '_________________' : printDocForm?.guarantorRelation}}
                                         </span>
                                     </li>
                                     <li>
-                                        ससुराको नामः श्री
+                                        ससुराको नामः <b>श्री</b>
                                         <span [ngClass]="{'nepaliFont' : printDocForm?.fatherInLawName !== null && printDocForm?.fatherInLawName !== ''}">
                                             {{printDocForm?.fatherInLawName === null || printDocForm?.fatherInLawName === '' ? '_________________' : printDocForm?.fatherInLawName}}
                                         </span>
                                     </li>
                                     <li>
-                                        पति/पत्नीको नामः श्री
+                                        पति/पत्नीको नामः <b>श्री</b>
                                         <span [ngClass]="{'nepaliFont' : printDocForm?.spouseOrFatherName !== null && printDocForm?.spouseOrFatherName !== ''}">
                                             {{printDocForm?.spouseOrFatherName === null || printDocForm?.spouseOrFatherName === '' ? '_________________' : printDocForm?.spouseOrFatherName}}
                                         </span>

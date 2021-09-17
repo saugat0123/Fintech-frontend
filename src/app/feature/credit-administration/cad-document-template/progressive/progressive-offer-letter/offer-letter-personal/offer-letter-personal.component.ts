@@ -465,9 +465,14 @@ export class OfferLetterPersonalComponent implements OnInit {
            Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)) *
            Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100))
        );
-        console.log('loanLimitAmount', this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).value);
-        console.log('amount', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)));
-        console.log('loanLimitPercent', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100));
+
+       console.log('loanLimitAmount', this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitAmount']).patchValue(
+            Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)) *
+            Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100))
+       ));
+
+       console.log('amount', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'amount']).value)));
+       console.log('loanLimitPercent', Number(this.nepToEngNumberPipe.transform(this.form.get(['loanFacilityTable', i, 'loanLimitPercent']).value) / 100));
     }
 }
 
