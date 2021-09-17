@@ -72,6 +72,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm = this.formBuilder.group({
       clientType: [undefined],
       name: [undefined],
+      email: [undefined],
+      contactNo: [undefined],
+      panNo: [undefined],
+      registrationNo: [undefined],
+      registrationDate: [undefined],
+      registeredMunicipality: [undefined],
+      registeredMunType: [undefined],
+      registeredDistrict: [undefined],
+      registeredProvince: [undefined],
+      currentMunType: [undefined],
+      currentProvince: [undefined],
+      currentWard: [undefined],
+      currentDistrict: [undefined],
+      currentMunicipality: [undefined],
+      customerCode: [undefined],
       gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
       fatherName: [undefined],
       grandFatherName: [undefined],
@@ -99,8 +114,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDate: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      loanDetails: this.formBuilder.array([]),
-
+      loanType: [undefined],
+      proposedAmount: [undefined],
+      status: [undefined],
+      createdOn: [undefined],
+      comments: [undefined],
     });
   }
 

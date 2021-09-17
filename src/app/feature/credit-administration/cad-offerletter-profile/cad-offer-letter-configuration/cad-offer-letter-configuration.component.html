@@ -12,7 +12,7 @@
       <nb-tabset (changeTab)="onChangeTab($event)">
         <nb-tab tabId="0" tabTitle="Client Details" #personal>
           <hr>
-          <table>
+          <table class="table table-borderless table-4 mb-5">
             <tr>
               <td>
                 <label class="title" for="clientType">Client Type</label>
@@ -42,6 +42,7 @@
               <td>
                 {{translatedValues?.customerCode}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="name">Client Name</label></td>
@@ -53,6 +54,7 @@
                          type="text"/>
               </td>
               <td>{{translatedValues?.name}}</td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="email">Email</label></td>
@@ -65,6 +67,7 @@
               </td>
               <td>
                 {{translatedValues?.email}}</td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="contactNo">Contact No</label></td>
@@ -77,6 +80,7 @@
               </td>
               <td>
                 {{translatedValues?.contactNo}}</td>
+              <td></td>
             </tr>
 
             <tr *ngIf="configForm?.clientType?.value == 0">
@@ -92,6 +96,7 @@
                        type="text"/>
               </td>
               <td>  {{translatedValues?.age}}</td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0">
 
@@ -103,6 +108,8 @@
                 <option value="1">Female</option>
               </select>
               </td>
+              <td></td>
+              <td></td>
             </tr>
 
             <tr *ngIf="configForm?.gender?.value == 1">
@@ -118,6 +125,8 @@
                   <option value="1">Father Relation</option>
                 </select>
               </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr
                 [hidden]="configForm?.clientType?.value == 1 && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">
@@ -135,6 +144,7 @@
               <td>
                 {{translatedValues?.fatherName}}
               </td>
+              <td></td>
             </tr>
             <tr
                 [hidden]="configForm?.clientType?.value == 0 && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">
@@ -152,6 +162,7 @@
               <td>
                 {{translatedValues?.grandFatherName}}
               </td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0"
                 [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
@@ -164,6 +175,8 @@
                          name="husbandName" placeholder="Husband Name"
                          type="text"/></td>
               <td>                {{translatedValues?.husbandName}}</td>
+              <td></td>
+              <td></td>
 
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0"
@@ -177,6 +190,8 @@
                          name="fatherInLawName" placeholder="Father In Law Name"
                          type="text"/></td>
               <td>                {{translatedValues?.fatherInLawName}}</td>
+              <td></td>
+              <td></td>
 
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0">
@@ -192,6 +207,7 @@
               <td>
                 {{translatedValues?.citizenshipNo}}
               </td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 1">
               <td>
@@ -208,6 +224,7 @@
               <td>
                 {{translatedValues?.registrationNo}}
               </td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0">
               <td>
@@ -224,6 +241,7 @@
               <td>
                 {{translatedValues?.citizenshipIssueDate}}
               </td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 1">
               <td>
@@ -240,6 +258,7 @@
               <td>
                 {{translatedValues?.registrationDate}}
               </td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0">
               <td>
@@ -256,6 +275,7 @@
               <td>
                 {{translatedValues?.citizenshipIssueDistrict}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -270,6 +290,7 @@
               <td>
                 {{translatedValues?.panNo}}
               </td>
+              <td></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0">
               <td>
@@ -283,6 +304,8 @@
                   <option value="1">VDC</option>
                 </select>
               </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="permanentProvince">Province</label></td>
@@ -297,6 +320,7 @@
               <td>
                 {{translatedValues?.permanentProvince}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
@@ -310,6 +334,7 @@
               <td>
                 {{translatedValues?.permanentDistrict}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title"
@@ -328,6 +353,7 @@
               <td>
                 {{translatedValues?.permanentMunicipality}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -344,6 +370,7 @@
               <td>
                 {{translatedValues?.permanentWard}}
               </td>
+              <td></td>
 
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 0">
@@ -357,6 +384,9 @@
                   <option value="0">Municipality</option>
                   <option value="1">VDC</option>
                 </select>
+              </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryProvince">Province</label></td>
@@ -371,6 +401,7 @@
               <td>
                 {{translatedValues?.temporaryProvince}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryDistrict">District</label></td>
@@ -385,6 +416,7 @@
               <td>
                 {{translatedValues?.temporaryDistrict}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryMunicipality">
@@ -404,6 +436,7 @@
               <td>
                 {{translatedValues?.temporaryMunicipality}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryWard">Ward No</label>
@@ -419,11 +452,11 @@
               <td>
                 {{translatedValues?.temporaryWard}}
               </td>
+              <td></td>
             </tr>
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 1">
             <tr>
-              <td class="col-md-12 text-center">
               <td>
                 <strong>Registered Address</strong>
               </td>
@@ -436,6 +469,8 @@
                 </select>
 
               </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -452,6 +487,7 @@
               <td>
                 {{translatedValues?.registeredProvince}}
               </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -468,8 +504,9 @@
               <td>
                 {{translatedValues?.registeredDistrict}}
               </td>
+              <td></td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title"
                        for="registeredMunicipality">{{configForm.registeredMunType.value == 0
@@ -487,8 +524,9 @@
               <td>
                 {{translatedValues?.registeredMunicipality}}
               </td>
+              <td></td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="registeredWard">Ward No</label>
               </td>
@@ -503,10 +541,11 @@
               <td>
                 {{translatedValues?.registeredWard}}
               </td>
+              <td></td>
             </tr>
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 1">
-            <tr class="col-md-12 text-center">
+            <tr>
               <td>
                 <strong>Current Address</strong>
               </td>
@@ -518,8 +557,10 @@
                   <option value="1">VDC</option>
                 </select>
               </td>
+              <td></td>
+              <td></td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="currentProvince">Province</label>
               </td>
@@ -534,8 +575,9 @@
               <td>
                 {{translatedValues?.currentProvince}}
               </td>
+              <td></td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="currentDistrict">District</label>
               </td>
@@ -550,8 +592,9 @@
               <td>
                 {{translatedValues?.currentDistrict}}
               </td>
+              <td></td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="currentMunicipality">
                   {{configForm.currentMunType.value == 0 ? 'Municipality' : 'VDC'}}
@@ -569,8 +612,9 @@
               <td>
                 {{translatedValues?.currentMunicipality}}
               </td>
+              <td></td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="currentWard">Ward No</label>
               </td>
@@ -585,15 +629,18 @@
               <td>
                 {{translatedValues?.currentWard}}
               </td>
+              <td></td>
             </tr>
             </tbody>
           </table>
 
+
+          <h4>Guarantors</h4>
           <table
               *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-              class="form-group" formArrayName="guarantorDetails">
+              class="table table-borderless table-4" formArrayName="guarantorDetails">
             <tbody [formGroupName]="i">
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title">ग्यारेन्टरको नाम</label>
               </td>
@@ -606,7 +653,7 @@
                        type="text"/>
               </td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title">नगरिकता नम्बर</label>
               </td>
@@ -619,7 +666,7 @@
                        type="text"/>
               </td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="guarantorIssueDate">जारी मिति</label>
               </td>
@@ -633,7 +680,7 @@
                     type="text"/>
               </td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
               </td>
@@ -646,7 +693,7 @@
                        type="text"/>
               </td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="title" for="guarantorAddress">ठेगाना</label>
               </td>
@@ -659,7 +706,7 @@
                        type="text"/>
               </td>
             </tr>
-            <tr class="form-group">
+            <tr>
               <td>
                 <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
                   माध्यम</label>
@@ -674,9 +721,6 @@
             </tr>
             <tr>
               <td colspan="2">
-                <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add
-                  Guarantor
-                </button>
                 <button class="btn btn-danger float-right" (click)="removeAtIndex(i)"
                         style="position: static">
                   <em class="fa fa-trash" style="color: white;"></em>
@@ -686,10 +730,52 @@
             </tr>
             </tbody>
           </table>
+          <hr>
+          <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add
+            Guarantor
+          </button>
         </nb-tab>
-        <nb-tab tabId="1" tabTitle="ग्यारेन्टर विवरण"></nb-tab>
         <nb-tab tabId="2" tabTitle="प्रस्तावित रकम">
-          <app-loan-create></app-loan-create>
+
+          <table class="table table-borderless small table-4">
+            <tr>
+              <th colspan="2">Loan Data</th>
+              <th>Translated Data</th>
+              <th>Correct Translation</th>
+            </tr>
+            <tr>
+              <td>loanType</td>
+              <td><input type="text" class="form-control" formControlName="loanType"></td>
+              <td>{{translatedValues?.loanType}}</td>
+              <td><input type="text" class="form-control" formControlName="loanType"></td>
+            </tr>
+            <tr>
+              <td>proposedAmount</td>
+              <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
+              <td>{{translatedValues?.proposedAmount}}</td>
+              <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
+            </tr>
+            <tr>
+              <td>status</td>
+              <td><input type="text" class="form-control" formControlName="status"></td>
+              <td>{{translatedValues?.status}}</td>
+              <td><input type="text" class="form-control" formControlName="status"></td>
+            </tr>
+            <tr>
+              <td>createdOn</td>
+              <td><input type="text" class="form-control" formControlName="createdOn"></td>
+              <td>{{translatedValues?.createdOn}}</td>
+              <td><input type="text" class="form-control" formControlName="createdOn"></td>
+            </tr>
+            <tr>
+              <td>comments</td>
+              <td><input type="text" class="form-control" formControlName="comments"></td>
+              <td>{{translatedValues?.comments}}</td>
+              <td><input type="text" class="form-control" formControlName="comments"></td>
+            </tr>
+          </table>
+
+
         </nb-tab>
         <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा">
           <app-template-data [cadData]="cadData"></app-template-data>
