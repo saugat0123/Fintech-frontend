@@ -2,403 +2,619 @@
          [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
-    <nb-card-header>
-        <a (click)="closeModal()" aria-label="Close" class="close cursor"
-           data-dismiss="modal">
-            <span aria-hidden="true">×</span></a>
-    </nb-card-header>
-    <nb-card-body>
-        <form [formGroup]="userConfigForm">
-            <nb-tabset (changeTab)="onChangeTab($event)">
-                <nb-tab tabId="0" tabTitle="व्यक्तिगत विवरण" #personal>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="name">ग्राहकको नाम</label>
-                                <input class="form-control rounded"
-                                       formControlName="name"
-                                       id="name"
-                                       [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
-                                       name="name" placeholder="ग्राहकको नाम"
-                                       type="text"/>
-                                {{translatedValues?.name}}
-                            </div>
+  <nb-card-header>
+    <a (click)="closeModal()" aria-label="Close" class="close cursor"
+       data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="userConfigForm">
+      <nb-tabset (changeTab)="onChangeTab($event)">
+        <nb-tab tabId="0" tabTitle="Client Details" #personal>
+          <app-user-create></app-user-create>
 
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="citizenshipNo">नगरिकता नम्बर</label>
-                                <input class="form-control rounded"
-                                       formControlName="citizenshipNo"
-                                       id="citizenshipNo"
-                                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
-                                       name="name" placeholder="नगरिकता न"
-                                       type="text"/>
-                                {{translatedValues?.citizenshipNo}}
-                            </div>
-                        </div>
+          <!--                    <hr>-->
 
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="citizenshipNo">नगरिकता जारी मिति</label>
-                                <input class="form-control rounded"
-                                       formControlName="citizenshipIssueDate"
-                                       id="citizenshipIssueDate"
-                                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
-                                       name="name" placeholder="नगरिकता मिति"
-                                       type="text"/>
-                                {{translatedValues?.citizenshipIssueDate}}
-                            </div>
-                        </div>
 
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="citizenshipNo">नगरिकता जारी जिल्ला</label>
-                                <input class="form-control rounded"
-                                       formControlName="citizenshipIssueDistrict"
-                                       id="citizenshipIssueDistrict"
-                                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
-                                       name="name" placeholder="नगरिकता जिल्ला"
-                                       type="text"/>
-                                {{translatedValues?.citizenshipIssueDistrict}}
-                            </div>
-                        </div>
+          <!--                    <div class="row">-->
+          <!--                        <div class="col">-->
+          <!--                            <div class="form-group">-->
+          <!--                                <label class="title" for="clientType">Client Type</label>-->
+          <!--                                <select class="form-control" formControlName="clientType" id="clientType">-->
+          <!--                                    <option [value]="null" hidden>Select Client Type</option>-->
+          <!--                                    <option value="0">INDIVIDUAL</option>-->
+          <!--                                    <option value="1">INSTITUTION</option>-->
+          <!--                                </select>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                    </div>-->
+          <!--                    <div *ngIf="configForm?.clientType?.value != null">-->
+          <!--                        <div class="row">-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="customerCode">Customer Code</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="customerCode"-->
+          <!--                                           id="customerCode"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"-->
+          <!--                                           name="customerCode" placeholder="Customer Code"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.customerCode}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="name">Client Name</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="name"-->
+          <!--                                           id="name"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.name.errors}"-->
+          <!--                                           name="name" placeholder="Client Name"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.name}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="email">Email</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="email"-->
+          <!--                                           id="email"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.email.errors}"-->
+          <!--                                           name="email" placeholder="Email"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.email}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="contactNo">Contact No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="contactNo"-->
+          <!--                                           id="contactNo"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"-->
+          <!--                                           name="contactNo" placeholder="Contact No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.contactNo}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="name">Age</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="age" id="age"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.age.errors}"-->
+          <!--                                           name="age" placeholder="Age"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.age}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                        <div class="row" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="gender">Gender</label>-->
+          <!--                                    <select class="form-control" formControlName="gender" id="gender"-->
+          <!--                                            [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">-->
+          <!--                                        <option [value]="null" hidden>Select Gender</option>-->
+          <!--                                        <option value="0">Male</option>-->
+          <!--                                        <option value="1">Female</option>-->
+          <!--                                    </select>-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.gender?.value == 1">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="relationMedium" for="relationMedium">Relation Medium</label>-->
+          <!--                                    <select class="form-control" formControlName="relationMedium" id="relationMedium"-->
+          <!--                                            [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">-->
+          <!--                                        <option [value]="null" hidden>Select Relation Medium</option>-->
+          <!--                                        <option value="0">Husband Relation</option>-->
+          <!--                                        <option value="1">Father Relation</option>-->
+          <!--                                    </select>-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col"-->
+          <!--                                 [hidden]="configForm?.clientType?.value == 1 && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="name">Father Name</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="fatherName"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"-->
+          <!--                                           id="fatherName"-->
+          <!--                                           name="fatherName" placeholder="Father Name"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.fatherName}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col"-->
+          <!--                                 [hidden]="configForm?.clientType?.value == 0 && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="grandFatherName">Grand Father Name</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="grandFatherName"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"-->
+          <!--                                           id="grandFatherName"-->
+          <!--                                           name="grandFatherName" placeholder="Grand Father Name"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.grandFatherName}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 0"-->
+          <!--                                 [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="husbandName">Husband Name</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="husbandName"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"-->
+          <!--                                           id="husbandName"-->
+          <!--                                           name="husbandName" placeholder="Husband Name"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.husbandName}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 0"-->
+          <!--                                 [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="fatherInLawName">Father In Law Name</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="fatherInLawName"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"-->
+          <!--                                           id="fatherInLawName"-->
+          <!--                                           name="fatherInLawName" placeholder="Father In Law Name"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.fatherInLawName}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                        <div class="row">-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="citizenshipNo">Citizenship No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="citizenshipNo"-->
+          <!--                                           id="citizenshipNo"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"-->
+          <!--                                           name="citizenshipNo" placeholder="Citizenship No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.citizenshipNo}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 1">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="registrationNo">Registration No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="registrationNo"-->
+          <!--                                           id="registrationNo"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.registrationNo.errors}"-->
+          <!--                                           name="registrationNo" placeholder="Registration No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.registrationNo}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="citizenshipIssueDate"-->
+          <!--                                           id="citizenshipIssueDate"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"-->
+          <!--                                           name="citizenshipIssueDate" placeholder="Citizenship Issue Date"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.citizenshipIssueDate}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 1">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="registrationDate">Registration Date</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="registrationDate"-->
+          <!--                                           id="registrationDate"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"-->
+          <!--                                           name="registrationDate" placeholder="Registration Date"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.registrationDate}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="citizenshipNo">Citizenship Issue District</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="citizenshipIssueDistrict"-->
+          <!--                                           id="citizenshipIssueDistrict"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"-->
+          <!--                                           name="name" placeholder="Citizenship Issue District"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.citizenshipIssueDistrict}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="panNo">PAN No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="panNo" id="panNo"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"-->
+          <!--                                           name="panNo" placeholder="PAN No" type="text"/>-->
+          <!--                                    {{translatedValues?.panNo}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
 
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="name">उमेर </label>
-                                <input class="form-control rounded"
-                                       formControlName="age"
-                                       id="age"
-                                       [ngClass]="{'is-invalid': submitted && configForm.age.errors}"
-                                       name="age" placeholder="उमेर  "
-                                       type="text"/>
-                                {{translatedValues?.age}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="gender">लिङ्ग</label>
-                                <select class="form-control" formControlName="gender" id="gender"
-                                        [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
-                                    <option [value]="null" hidden>Select Gender</option>
-                                    <option value="0">महिला</option>
-                                    <option value="1">पुरुष</option>
-                                    <!-- <option value="2">अन्य</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col" *ngIf="configForm?.gender?.value == 0">
-                            <div class="form-group">
-                                <label class="relationMedium" for="relationMedium">सम्बन्ध माध्यम</label>
-                                <select class="form-control" formControlName="relationMedium" id="relationMedium"
-                                        [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
-                                    <option [value]="null" hidden>Select Relation Medium</option>
-                                    <option value="0">पैत्रिक नाताबाट</option>
-                                    <option value="1">मैत्रिक नाताबाट</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--          <div [hidden]="configForm?.relationMedium?.value == '1'">-->
-                        <div class="col"
-                             [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
-                            <div class="form-group">
-                                <label class="title" for="name">पिताको नाम</label>
-                                <input class="form-control rounded"
-                                       formControlName="fatherName"
-                                       [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
-                                       id="fatherName"
-                                       name="name" placeholder="पिताको नाम"
-                                       type="text"/>
-                                {{translatedValues?.fatherName}}
-                            </div>
-                        </div>
-                        <div class="col"
-                             [hidden]="!(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 1">
-                            <div class="form-group">
-                                <label class="title" for="grandFatherName">हजुरबुबाको नाम</label>
-                                <input class="form-control rounded"
-                                       formControlName="grandFatherName"
-                                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
-                                       id="grandFatherName"
-                                       name="grandFatherName" placeholder="हजुरबुबाको नाम"
-                                       type="text"/>
-                                {{translatedValues?.grandFatherName}}
-                            </div>
-                        </div>
-                        <div class="col"
-                             [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
-                            <div class="form-group">
-                                <label class="title" for="husbandName">पतिको नाम </label>
-                                <input class="form-control rounded"
-                                       formControlName="husbandName"
-                                       [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                                       id="husbandName"
-                                       name="husbandName" placeholder="पतिको नाम"
-                                       type="text"/>
-                                {{translatedValues?.husbandName}}
-                            </div>
-                        </div>
-                        <div class="col"
-                             [hidden]="configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0">
-                            <div class="form-group">
-                                <label class="title" for="fatherInLawName">ससुराको नाम</label>
-                                <input class="form-control rounded"
-                                       formControlName="fatherInLawName"
-                                       [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
-                                       id="fatherInLawName"
-                                       name="fatherInLawName" placeholder="ससुराको नाम"
-                                       type="text"/>
-                                {{translatedValues?.fatherInLawName}}
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <strong>स्थाई ठेगाना</strong>
-                            <div class="offset-10 col-md-2">
-                                <div class="form-group">
-                                    <select class="form-control" formControlName="permanentMunType"
-                                            id="permanentMunType"
-                                            [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">
-                                        <option value="0">नगरपालिका</option>
-                                        <option value="1">गा बि स</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+          <!--                        <hr>-->
+          <!--                        <div class="row" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                            <div class="col-md-12 text-center">-->
+          <!--                                <strong>Permanent Address</strong>-->
+          <!--                                <div class="offset-10 col-md-2">-->
+          <!--                                    <div class="form-group">-->
+          <!--                                        <select class="form-control" formControlName="permanentMunType"-->
+          <!--                                                id="permanentMunType"-->
+          <!--                                                [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">-->
+          <!--                                            <option value="0">Municipality</option>-->
+          <!--                                            <option value="1">VDC</option>-->
+          <!--                                        </select>-->
+          <!--                                    </div>-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="permanentProvince">Province</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="permanentProvince"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"-->
+          <!--                                           id="permanentProvince"-->
+          <!--                                           name="permanentProvince" placeholder="Province"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.permanentProvince}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="permanentDistrict">District</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="permanentDistrict"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.permanentDistrict.errors}"-->
+          <!--                                           id="permanentDistrict"-->
+          <!--                                           name="permanentDistrict" placeholder="District"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.permanentDistrict}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title"-->
+          <!--                                           for="permanentMunicipality">{{configForm.permanentMunType.value == 0-->
+          <!--                                        ? 'Municipality' : 'VDC'}}</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="permanentMunicipality"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.permanentMunicipality.errors}"-->
+          <!--                                           id="permanentMunicipality"-->
+          <!--                                           name="permanentMunicipality"-->
+          <!--                                           placeholder="{{configForm.permanentMunType.value == 0 ? 'Municipality' : 'VDC'}}"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.permanentMunicipality}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="permanentWard">Ward No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="permanentWard"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"-->
+          <!--                                           id="permanentWard"-->
+          <!--                                           name="permanentMunicipality" placeholder="Ward No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.permanentWard}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                        <hr>-->
+          <!--                        <div class="row" *ngIf="configForm?.clientType?.value == 0">-->
+          <!--                            <div class="col-md-12 text-center">-->
+          <!--                                <strong>Temporary Address</strong>-->
+          <!--                                <div class="offset-10 col-md-2">-->
+          <!--                                    <div class="form-group">-->
+          <!--                                        <select class="form-control" formControlName="temporaryMunType"-->
+          <!--                                                id="temporaryMunType"-->
+          <!--                                                [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">-->
+          <!--                                            <option value="0">Municipality</option>-->
+          <!--                                            <option value="1">VDC</option>-->
+          <!--                                        </select>-->
+          <!--                                    </div>-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="temporaryProvince">Province</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="temporaryProvince"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"-->
+          <!--                                           id="temporaryProvince"-->
+          <!--                                           name="temporaryProvince" placeholder="Province"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.temporaryProvince}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="temporaryDistrict">District</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="temporaryDistrict"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryDistrict.errors}"-->
+          <!--                                           id="temporaryDistrict"-->
+          <!--                                           name="temporaryDistrict" placeholder="District"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.temporaryDistrict}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="temporaryMunicipality">-->
+          <!--                                        {{configForm.temporaryMunType.value == 0 ? 'Municipality' : 'VDC'}}-->
+          <!--                                    </label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="temporaryMunicipality"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.temporaryMunicipality.errors}"-->
+          <!--                                           id="temporaryMunicipality"-->
+          <!--                                           name="temporaryMunicipality"-->
+          <!--                                           placeholder="{{configForm.temporaryMunType.value == 0 ? 'Municipality' : 'VDC'}}"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.temporaryMunicipality}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="temporaryWard">Ward No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="temporaryWard"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"-->
+          <!--                                           id="temporaryWard"-->
+          <!--                                           name="temporaryWard" placeholder="Ward No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.temporaryWard}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                        <div class="row" *ngIf="configForm?.clientType?.value == 1">-->
+          <!--                            <div class="col-md-12 text-center">-->
+          <!--                                <strong>Registered Address</strong>-->
+          <!--                                <div class="offset-10 col-md-2">-->
+          <!--                                    <div class="form-group">-->
+          <!--                                        <select class="form-control" formControlName="registeredMunType"-->
+          <!--                                                id="registeredMunType"-->
+          <!--                                                [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">-->
+          <!--                                            <option value="0">Municipality</option>-->
+          <!--                                            <option value="1">VDC</option>-->
+          <!--                                        </select>-->
+          <!--                                    </div>-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="registeredProvince">Province</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="registeredProvince"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.registeredProvince.errors}"-->
+          <!--                                           id="registeredProvince"-->
+          <!--                                           name="registeredProvince" placeholder="Province"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.registeredProvince}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="registeredDistrict">District</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="registeredDistrict"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.registeredDistrict.errors}"-->
+          <!--                                           id="registeredDistrict"-->
+          <!--                                           name="registeredDistrict" placeholder="District"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.registeredDistrict}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title"-->
+          <!--                                           for="registeredMunicipality">{{configForm.registeredMunType.value == 0-->
+          <!--                                        ? 'Municipality' : 'VDC'}}</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="registeredMunicipality"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.registeredMunicipality.errors}"-->
+          <!--                                           id="registeredMunicipality"-->
+          <!--                                           name="registeredMunicipality"-->
+          <!--                                           placeholder="{{configForm.registeredMunType.value == 0 ? 'Municipality' : 'VDC'}}"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.registeredMunicipality}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="registeredWard">Ward No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="permanentWard"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.registeredWard.errors}"-->
+          <!--                                           id="registeredWard"-->
+          <!--                                           name="registeredMunicipality" placeholder="Ward No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.registeredWard}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                        <hr>-->
+          <!--                        <div class="row" *ngIf="configForm?.clientType?.value == 1">-->
+          <!--                            <div class="col-md-12 text-center">-->
+          <!--                                <strong>Current Address</strong>-->
+          <!--                                <div class="offset-10 col-md-2">-->
+          <!--                                    <div class="form-group">-->
+          <!--                                        <select class="form-control" formControlName="currentMunType"-->
+          <!--                                                id="currentMunType"-->
+          <!--                                                [ngClass]="{'is-invalid': submitted && configForm.currentMunType.errors}">-->
+          <!--                                            <option value="0">Municipality</option>-->
+          <!--                                            <option value="1">VDC</option>-->
+          <!--                                        </select>-->
+          <!--                                    </div>-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="currentProvince">Province</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="currentProvince"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.currentProvince.errors}"-->
+          <!--                                           id="currentProvince"-->
+          <!--                                           name="currentProvince" placeholder="Province"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.currentProvince}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="currentDistrict">District</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="currentDistrict"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.currentDistrict.errors}"-->
+          <!--                                           id="currentDistrict"-->
+          <!--                                           name="currentDistrict" placeholder="District"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.currentDistrict}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="currentMunicipality">-->
+          <!--                                        {{configForm.currentMunType.value == 0 ? 'Municipality' : 'VDC'}}-->
+          <!--                                    </label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="currentMunicipality"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.currentMunicipality.errors}"-->
+          <!--                                           id="currentMunicipality"-->
+          <!--                                           name="currentMunicipality"-->
+          <!--                                           placeholder="{{configForm.currentMunType.value == 0 ? 'Municipality' : 'VDC'}}"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.currentMunicipality}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                            <div class="col">-->
+          <!--                                <div class="form-group">-->
+          <!--                                    <label class="title" for="currentWard">Ward No</label>-->
+          <!--                                    <input class="form-control rounded"-->
+          <!--                                           formControlName="currentWard"-->
+          <!--                                           [ngClass]="{'is-invalid': submitted && configForm.currentWard.errors}"-->
+          <!--                                           id="currentWard"-->
+          <!--                                           name="currentWard" placeholder="Ward No"-->
+          <!--                                           type="text"/>-->
+          <!--                                    {{translatedValues?.currentWard}}-->
+          <!--                                </div>-->
+          <!--                            </div>-->
+          <!--                        </div>-->
+          <!--                    </div>-->
+        </nb-tab>
+        <nb-tab tabId="1" tabTitle="ग्यारेन्टर विवरण">
 
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="permanentProvince">
-                                    प्रदेश </label>
-                                <input class="form-control rounded"
-                                       formControlName="permanentProvince"
-                                       [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
-                                       id="permanentProvince"
-                                       name="permanentProvince" placeholder="प्रदेश"
-                                       type="text"/>
-                                {{translatedValues?.permanentProvince}}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="permanentDistrict">जिल्ला</label>
-                                <input class="form-control rounded"
-                                       formControlName="permanentDistrict"
-                                       [ngClass]="{'is-invalid': submitted && configForm.permanentDistrict.errors}"
-                                       id="permanentDistrict"
-                                       name="permanentDistrict" placeholder="जिल्ला"
-                                       type="text"/>
-                                {{translatedValues?.permanentDistrict}}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title"
-                                       for="permanentMunicipality">{{configForm.permanentMunType.value == 0
-                                    ? 'नगरपालिका' : 'गा बि स'}}</label>
-                                <input class="form-control rounded"
-                                       formControlName="permanentMunicipality"
-                                       [ngClass]="{'is-invalid': submitted && configForm.permanentMunicipality.errors}"
-                                       id="permanentMunicipality"
-                                       name="permanentMunicipality" placeholder="नगरपालिका"
-                                       type="text"/>
-                                {{translatedValues?.permanentMunicipality}}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="permanentWard">वार्ड न</label>
-                                <input class="form-control rounded"
-                                       formControlName="permanentWard"
-                                       [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                                       id="permanentWard"
-                                       name="permanentMunicipality" placeholder="वार्ड न"
-                                       type="text"/>
-                                {{translatedValues?.permanentWard}}
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <strong>अस्थायी ठेगाना</strong>
-                            <div class="offset-10 col-md-2">
-                                <div class="form-group">
-                                    <select class="form-control" formControlName="temporaryMunType"
-                                            id="temporaryMunType"
-                                            [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">
-                                        <option value="0">नगरपालिका</option>
-                                        <option value="1">गा बि स</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="temporaryProvince">
-                                    प्रदेश </label>
-                                <input class="form-control rounded"
-                                       formControlName="temporaryProvince"
-                                       [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
-                                       id="temporaryProvince"
-                                       name="temporaryProvince" placeholder="प्रदेश"
-                                       type="text"/>
-                                {{translatedValues?.temporaryProvince}}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="temporaryDistrict">जिल्ला</label>
-                                <input class="form-control rounded"
-                                       formControlName="temporaryDistrict"
-                                       [ngClass]="{'is-invalid': submitted && configForm.temporaryDistrict.errors}"
-                                       id="temporaryDistrict"
-                                       name="temporaryDistrict" placeholder="जिल्ला"
-                                       type="text"/>
-                                {{translatedValues?.temporaryDistrict}}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="temporaryMunicipality">
-                                    {{configForm.temporaryMunType.value == 0 ? 'नगरपालिका' : 'गा बि स'}}
-                                </label>
-                                <input class="form-control rounded"
-                                       formControlName="temporaryMunicipality"
-                                       [ngClass]="{'is-invalid': submitted && configForm.temporaryMunicipality.errors}"
-                                       id="temporaryMunicipality"
-                                       name="temporaryMunicipality" placeholder="नगरपालिका"
-                                       type="text"/>
-                                {{translatedValues?.temporaryMunicipality}}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="title" for="temporaryWard">वार्ड न</label>
-                                <input class="form-control rounded"
-                                       formControlName="temporaryWard"
-                                       [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                                       id="temporaryWard"
-                                       name="temporaryWard" placeholder="वार्ड न"
-                                       type="text"/>
-                                {{translatedValues?.temporaryWard}}
-                            </div>
-                        </div>
-                    </div>
+          <div
+              *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
+              class="form-group" formArrayName="guarantorDetails">
+            <div [formGroupName]="i">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label class="title">ग्यारेन्टरको नाम</label>
+                    <input class="form-control rounded"
+                           formControlName="name"
+                           id="guarantorName"
+                           autocomplete="off"
+                           name="name" placeholder="ग्यारेन्टरको नाम"
+                           type="text"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label class="title">नगरिकता नम्बर</label>
+                    <input class="form-control rounded"
+                           formControlName="citizenNumber"
+                           id="guarantorCitizenshipNum"
+                           autocomplete="off"
+                           name="name" placeholder="नगरिकता नम्बर"
+                           type="text"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label class="title" for="guarantorIssueDate">जारी मिति</label>
+                    <input
+                        class="form-control rounded"
+                        formControlName="issuedYear"
+                        id="guarantorIssueDate"
+                        autocomplete="off"
+                        name="name" placeholder="जारी मिति"
+                        type="text"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
+                    <input class="form-control rounded"
+                           formControlName="issuedPlace"
+                           id="guarantorIssueDistrict"
+                           autocomplete="off"
+                           name="name" placeholder="जारी जिल्ला"
+                           type="text"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label class="title" for="guarantorAddress">ठेगाना</label>
+                    <input class="form-control rounded"
+                           formControlName="guarantorLegalDocumentAddress"
+                           id="guarantorAddress"
+                           autocomplete="off"
+                           name="name" placeholder="ठेगाना"
+                           type="text"/>
 
-                </nb-tab>
-                <nb-tab tabId="1" tabTitle="ग्यारेन्टर विवरण">
-
-                    <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-                         class="form-group" formArrayName="guarantorDetails">
-                        <div [formGroupName]="i">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title">ग्यारेन्टरको नाम</label>
-                                        <input class="form-control rounded"
-                                               formControlName="name"
-                                               id="guarantorName"
-                                               autocomplete="off"
-                                               name="name" placeholder="ग्यारेन्टरको नाम"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title">नगरिकता नम्बर</label>
-                                        <input class="form-control rounded"
-                                               formControlName="citizenNumber"
-                                               id="guarantorCitizenshipNum"
-                                               autocomplete="off"
-                                               name="name" placeholder="नगरिकता नम्बर"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorIssueDate">जारी मिति</label>
-                                        <input
-                                                class="form-control rounded"
-                                                formControlName="issuedYear"
-                                                id="guarantorIssueDate"
-                                                autocomplete="off"
-                                                name="name" placeholder="जारी मिति"
-                                                type="text"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
-                                        <input class="form-control rounded"
-                                               formControlName="issuedPlace"
-                                               id="guarantorIssueDistrict"
-                                               autocomplete="off"
-                                               name="name" placeholder="जारी जिल्ला"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorAddress">ठेगाना</label>
-                                        <input class="form-control rounded"
-                                               formControlName="guarantorLegalDocumentAddress"
-                                               id="guarantorAddress"
-                                               autocomplete="off"
-                                               name="name" placeholder="ठेगाना"
-                                               type="text"/>
-
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
-                                            माध्यम</label>
-                                        <select class="form-control" formControlName="relationship"
-                                                id="guarantorRelationship">
-                                            <option *ngFor="let relationship of relationshipList"
-                                                    [value]="relationship.value">{{relationship?.value}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <button class="btn btn-danger float-right" (click)="removeAtIndex(i)"
-                                        style="position: static">
-                                    <em class="fa fa-trash" style="color: white;"></em>
-                                </button>
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
-                    <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
-                </nb-tab>
-                <nb-tab tabId="2" tabTitle=" प्रस्तावित रकम">
-                    <app-nep-proposed-amount-form [cadData]="cadData">
-
-                    </app-nep-proposed-amount-form>
-                </nb-tab>
-                <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा">
-                    <app-template-data [cadData]="cadData"></app-template-data>
-                </nb-tab>
-            </nb-tabset>
-        </form>
-    </nb-card-body>
-    <nb-card-footer>
-        <div class="row" *ngIf="!hideSaveBtn">
-            <div class="col-md-12">
-                <button class="float-right" nbButton (click)="save()">save</button>
-                <button class="float-right" nbButton status="info" (click)="translate()">Translate</button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
+                      माध्यम</label>
+                    <select class="form-control" formControlName="relationship"
+                            id="guarantorRelationship">
+                      <option *ngFor="let relationship of relationshipList"
+                              [value]="relationship.value">{{relationship?.value}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-danger float-right" (click)="removeAtIndex(i)"
+                        style="position: static">
+                  <em class="fa fa-trash" style="color: white;"></em>
+                </button>
+              </div>
+              <hr>
             </div>
-        </div>
-    </nb-card-footer>
+          </div>
+          <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor
+          </button>
+        </nb-tab>
+        <nb-tab tabId="2" tabTitle=" प्रस्तावित रकम">
+          <app-nep-proposed-amount-form [cadData]="cadData">
+
+          </app-nep-proposed-amount-form>
+        </nb-tab>
+        <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा">
+          <app-template-data [cadData]="cadData"></app-template-data>
+        </nb-tab>
+      </nb-tabset>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row" *ngIf="!hideSaveBtn">
+      <div class="col-md-12">
+        <button class="float-right" nbButton (click)="save()">save</button>
+        <button class="float-right" nbButton status="info" (click)="translate()">Translate</button>
+      </div>
+    </div>
+  </nb-card-footer>
 </nb-card>
