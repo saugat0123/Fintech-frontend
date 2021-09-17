@@ -16,8 +16,8 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
   @Output() remitEvent = new EventEmitter();
   @Input() showSender;
   @Input() showBenf;
-  senderDetails = [];
-  benfDetails = [];
+  @Input() senderDetails;
+  @Input() benfDetails;
   videoKyc: any;
   notNUll = true;
   spinner = false;
@@ -27,31 +27,29 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
 
     if (!ObjectUtil.isEmpty(this.remitCustomer.videoKyc)) {
       this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
-      this.videoKyc.map(data => {
-        if (data.isBenf) {
-          this.benfDetails.push(data);
-        } else {
-          this.senderDetails.push(data);
-        }
-      });
+      this.videoKyc.map(el => el.isBenf);
       this.notNUll = false;
     }
   }
 
-  generate(data, i) {
+  generate(data) {
     this.spinner = true;
-    this.videoKyc[i].status = 'INACTIVE';
-    this.videoKyc[i].recordedLink = 'http://localhost:4200';
-    this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
-    this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((response) => {
-      this.remitCustomer = response.detail;
-      response.detail.version = response.detail.version + 1;
-      this.remitEvent.emit(response.detail);
-      this.toast.success('Status Changed');
-      this.model.dismissAll();
-      this.spinner = false;
-    }, (err) => {
-      this.spinner = false;
+    this.videoKyc.forEach((d, i) => {
+      if (d.id === data.id) {
+        this.videoKyc[i].status = 'INACTIVE';
+        this.videoKyc[i].recordedLink = 'http://localhost:4200';
+        this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
+        this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((response) => {
+          this.remitCustomer = response.detail;
+          response.detail.version = response.detail.version + 1;
+          this.remitEvent.emit(response.detail);
+          this.toast.success('Status Changed');
+          this.model.dismissAll();
+          this.spinner = false;
+        }, (err) => {
+          this.spinner = false;
+        });
+      }
     });
   }
 

@@ -160,6 +160,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     microCustomerTypeEnum = MicroCustomerType;
     remitCustomer: any;
     isLoaded = false;
+    breakException: any;
     constructor(
         private activatedRoute: ActivatedRoute,
         private toastService: ToastService,
@@ -172,12 +173,21 @@ export class CustomerLoanInformationComponent implements OnInit {
         console.log('params');
         this.loanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((data: any) => {
             if (!ObjectUtil.isEmpty(data.detail)) {
-                data.detail.forEach((remit, i) => {
-                    if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-                        this.remitCustomer = data.detail[i].remitCustomer;
-                        this.isLoaded = true;
+                try {
+                    data.detail.forEach((remit, i) => {
+                        if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+                            this.remitCustomer = data.detail[i].remitCustomer;
+                            if (!ObjectUtil.isEmpty(this.remitCustomer)) {
+                                this.isLoaded = true;
+                            }
+                            throw this.breakException;
+                        }
+                    });
+                } catch (ex) {
+                    if (ex !== this.breakException) {
+                        console.log(ex);
                     }
-                });
+                }
             }
         });
         this.activatedRoute.queryParams.subscribe(
