@@ -389,7 +389,8 @@
                     [approveSheet]="approveSheet"
                     [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"
-                    [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-summary>
+                    [loanCategory]="loanDataHolder?.loanCategory"
+                    (eventEmitter)="changeDetails($event)"></app-proposal-summary>
             <!-- End PRoposal Summary-->
             <div class="row">
                 <div class="col-md-12 sb-medium">

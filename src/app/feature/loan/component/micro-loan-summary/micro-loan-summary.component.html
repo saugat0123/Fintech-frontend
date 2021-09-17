@@ -327,7 +327,8 @@
             [loanDataHolder]="loanDataHolder"></app-micro-individual>
 
             <app-micro-proposal-summary *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"
-                                        [proposalData]="proposalData"></app-micro-proposal-summary>
+                                        [proposalData]="proposalData"
+                                        (eventEmitter)="sendLoanId($event)"></app-micro-proposal-summary>
 
 <!--            <div *ngIf="!productUtils.CBS_ENABLE">-->
 

@@ -1,5 +1,5 @@
 <section class="enable-print">
-    <nb-card>
+    <nb-card [nbSpinner]="spinner">
         <nb-card-body id="print-block">
             <div class="row disable-print">
                 <div class="col-md-12">
@@ -479,7 +479,8 @@
                                   [customerAllLoanList]="customerAllLoanList"
                                   [proposalData]="proposalData"
                                   [loanDataHolder]="loanDataHolder"
-                                  [loanCategory]="loanDataHolder?.loanCategory"></app-proposal-summary>
+                                  [loanCategory]="loanDataHolder?.loanCategory"
+                                  (eventEmitter)="sendLoanId($event)"></app-proposal-summary>
 
             <div *ngIf="productUtils.CBS_ENABLE">
                 <div class="row mt-5">

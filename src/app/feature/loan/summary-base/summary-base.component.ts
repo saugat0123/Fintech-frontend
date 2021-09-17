@@ -235,4 +235,22 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.approvalSheetActive = false;
         this.loanSummaryActive = true;
     }
+
+    changeDetails(LoanId) {
+        this.spinner = true;
+        this.loanFormService.detail(LoanId).subscribe(async (response: any) => {
+            this.loanDataHolder = response.detail;
+            this.router.navigate(['/home/loan/summary'], {
+                queryParams: {
+                    loanConfigId: this.loanConfigId,
+                    customerId: this.loanDataHolder.id
+                }
+            });
+            console.log('loanDataHolder', this.loanDataHolder);
+            this.spinner = false;
+        }, error =>  {
+            this.spinner = false;
+        });
+        this.getLoanDataHolder();
+    }
 }

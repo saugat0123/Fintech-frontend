@@ -32,7 +32,6 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CombinedLoan} from '../../../model/combined-loan';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
-import {DocAction} from '../../../model/docAction';
 import {Security} from '../../../../admin/modal/security';
 import {RoleHierarchyService} from '../../../../admin/component/role-hierarchy/role-hierarchy.service';
 import {Editor} from '../../../../../@core/utils/constants/editor';
@@ -159,7 +158,7 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
     megaGroupEnabled = environment.MEGA_GROUP;
-
+    @Output() eventEmitter = new EventEmitter();
     constructor(
         private userService: UserService,
         private loanFormService: LoanFormService,
@@ -203,7 +202,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         this.loggedUserAccess = LocalStorageUtil.getStorage().roleAccess;
         this.loadSummary();
         this.checkDocUploadConfig();
-        this.obtainableDocument();
+        this.activatedRoute.queryParams.subscribe((res) => {
+            this.obtainableDocument(res.customerId);
+        });
+        console.log('loanConfigId', this.loanConfigId);
     }
 
     ngOnDestroy(): void {
@@ -320,6 +322,8 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                     this.minOneGuarantorDoc = true;
                 }
             });
+        } else {
+            this.checkGuarantorData = false;
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
@@ -474,6 +478,12 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
     }
     goToLoanSummary() {
         this.changeToLoanSummaryActive.next();
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: this.loanDataHolder.loan.id,
+                customerId: this.loanDataHolder.id
+            }
+        });
     }
 
     openTermsAndCommentModal(model) {
@@ -545,9 +555,10 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
         }
     }
 
-    obtainableDocument() {
-        this.activatedRoute.queryParams.subscribe((res) => {
-            this.customerLoanService.detail(res.customerId).subscribe( response => {
+    obtainableDocument(customerId) {
+        this.obtainableDocuments = [];
+        this.otherObtainableDocuments = [];
+            this.customerLoanService.detail(customerId).subscribe( response => {
                 const detail = JSON.parse(response.detail.data);
                 if (!ObjectUtil.isEmpty(detail.documents)) {
                     detail.documents.forEach(resData => {
@@ -557,11 +568,21 @@ export class ApprovalSheetComponent implements OnInit, OnDestroy, AfterViewCheck
                 if (!ObjectUtil.isEmpty(detail.OtherDocuments)) {
                     detail.OtherDocuments.split(',').forEach(resData => {
                         if (resData !== '') {
-                            this.obtainableDocuments.push(resData);
+                            this.otherObtainableDocuments.push(resData);
                         }
                     });
                 }
             });
+    }
+    changeDetails(LoanId) {
+        this.spinner = true;
+        this.loanFormService.detail(LoanId).subscribe(async (response: any) => {
+            this.loanDataHolder = response.detail;
+            this.getLoanDataHolder();
+            this.obtainableDocument(LoanId);
+            this.spinner = false;
+        }, error =>  {
+            this.spinner = false;
         });
     }
 }
