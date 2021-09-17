@@ -72,7 +72,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
             this.loanDataHolder = response.detail;
             this.isLoaded = true;
             this.id = this.loanDataHolder.id;
-            this.loanHolder = this.loanDataHolder.loanHolder;
+            this.loanHolder = this.loanDataHolder;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
             this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
