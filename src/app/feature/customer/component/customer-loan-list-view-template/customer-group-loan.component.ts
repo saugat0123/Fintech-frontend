@@ -341,6 +341,12 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   }
 
+  // addVideoKyc(model) {
+  //   console.log('this is data', model);
+  //   this.customerLoanService.detail(model.id).subscribe((data) => {
+  //     console.log('this is  response', data);
+  //   });
+  // }
   deleteLoan(id: number) {
     const ref = this.modalService.open(LoginPopUp);
     let isAuthorized = false;
