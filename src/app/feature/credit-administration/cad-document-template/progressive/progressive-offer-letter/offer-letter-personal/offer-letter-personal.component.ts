@@ -53,10 +53,8 @@ export class OfferLetterPersonalComponent implements OnInit {
 
     ngOnInit() {
       this.addressService.getAllDistrict().subscribe((res: any) => {
-          console.log(res);
           this.districtList = res.detail;
       });
-        console.log(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         this.buildForm();
         this.checkOfferLetter();
     }
@@ -466,7 +464,6 @@ export class OfferLetterPersonalComponent implements OnInit {
         const loanLimitAmount = loanLimitPercent * amount;
         const asd = this.engToNepNumberPipe.transform(loanLimitAmount.toString());
         this.form.get([formArrayName, i, 'loanLimitAmount']).patchValue(asd);
-        console.log(loanLimitPercent, amount, loanLimitAmount, asd);
     }
 }
 
