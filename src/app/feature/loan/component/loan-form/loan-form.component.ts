@@ -58,10 +58,8 @@ import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grad
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
-import {Document} from '../../../admin/modal/document';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 import {OutstandingUpdateComponent} from '../../../loan-information-template/outstanding-update/outstanding-update.component';
 
@@ -367,6 +365,7 @@ export class LoanFormComponent implements OnInit {
         this.nbSpinner=true
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loanTag = response.detail.loanTag;
+            this.loanNature = response.detail.loanNature;
             this.nbSpinner=false;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -405,7 +404,7 @@ export class LoanFormComponent implements OnInit {
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Outstanding Update') {
+                    if ( value.name === 'Outstanding Update' && !ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -497,11 +496,13 @@ export class LoanFormComponent implements OnInit {
                name: 'Obtainable Documents',
                templateUrl: null
            });
-           this.templateList.push({
-               active:false,
-               name:'Outstanding Update',
-               templateUrl: null
-           })
+           if (!ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating') {
+               this.templateList.push({
+                   active:false,
+                   name:'Outstanding Update',
+                   templateUrl: null
+               })
+           }
        }
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
