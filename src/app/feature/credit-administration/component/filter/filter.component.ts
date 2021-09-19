@@ -48,6 +48,7 @@ export class FilterComponent implements OnInit {
   customerInfoData = new CustomerInfoData();
   cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
   customerInfo = new Customer();
+  customerType: any;
   constructor(private branchService: BranchService,
               private toastService: ToastService,
               private nbDialogService: NbDialogService,
@@ -159,9 +160,10 @@ export class FilterComponent implements OnInit {
     this.modalService.open(CadReportComponent, {size: 'xl'});
   }
 
-  openOfferLetterConfigModal() {
+  getForm(customerType) {
     this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
       context: {
+        customerType: customerType,
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
@@ -175,4 +177,13 @@ export class FilterComponent implements OnInit {
           }
         });
   }
+
+  openTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  onClose() {
+    this.modalService.dismissAll();
+  }
+
 }

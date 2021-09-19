@@ -27,13 +27,12 @@
               <td>{{translatedValues?.branch}}</td>
               <td></td>
             </tr>
-            <tr>
+            <tr [hidden]="true">
               <td>
                 <label class="title" for="clientType">Client Type</label>
               </td>
               <td>
                 <select class="form-control" formControlName="clientType" id="clientType">
-                  <option [value]="null" hidden>Select Client Type</option>
                   <option value="INDIVIDUAL">INDIVIDUAL</option>
                   <option value="INSTITUTION">INSTITUTION</option>
                 </select>
@@ -651,167 +650,181 @@
           </table>
 
 
-          <!--          <h4>Guarantors</h4>-->
-          <!--          <table-->
-          <!--              *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"-->
-          <!--              class="table table-borderless table-4" formArrayName="guarantorDetails"-->
-          <!--              style="border: 1px solid rgba(255,255,255, 0.1)">-->
-          <!--            <tbody [formGroupName]="i">-->
-          <!--            <tr>-->
-          <!--              <td>-->
-          <!--                <label class="title">{{i + 1 | nepaliNumber}}. ग्यारेन्टरको नाम</label>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--                <input class="form-control "-->
-          <!--                       formControlName="name"-->
-          <!--                       id="guarantorName"-->
-          <!--                       autocomplete="off"-->
-          <!--                       name="name" placeholder="ग्यारेन्टरको नाम"-->
-          <!--                       type="text"/>-->
-          <!--              </td>-->
-          <!--              <td>{{translatedValues?.guarantorName}}</td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            <tr>-->
-          <!--              <td>-->
-          <!--                <label class="title">नगरिकता नम्बर</label>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--                <input class="form-control "-->
-          <!--                       formControlName="citizenNumber"-->
-          <!--                       id="guarantorCitizenshipNum"-->
-          <!--                       autocomplete="off"-->
-          <!--                       name="name" placeholder="नगरिकता नम्बर"-->
-          <!--                       type="text"/>-->
-          <!--              </td>-->
-          <!--              <td>{{translatedValues?.citizenNumber}}</td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            <tr>-->
-          <!--              <td>-->
-          <!--                <label class="title" for="guarantorIssueDate">जारी मिति</label>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--                <input-->
-          <!--                    class="form-control "-->
-          <!--                    formControlName="issuedYear"-->
-          <!--                    id="guarantorIssueDate"-->
-          <!--                    autocomplete="off"-->
-          <!--                    name="name" placeholder="जारी मिति"-->
-          <!--                    type="text"/>-->
-          <!--              </td>-->
-          <!--              <td>{{translatedValues?.issuedYear}}</td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            <tr>-->
-          <!--              <td>-->
-          <!--                <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--                <input class="form-control "-->
-          <!--                       formControlName="issuedPlace"-->
-          <!--                       id="guarantorIssueDistrict"-->
-          <!--                       autocomplete="off"-->
-          <!--                       name="name" placeholder="जारी जिल्ला"-->
-          <!--                       type="text"/>-->
-          <!--              </td>-->
-          <!--              <td>{{translatedValues?.issuedPlace}}</td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            <tr>-->
-          <!--              <td>-->
-          <!--                <label class="title" for="guarantorAddress">ठेगाना</label>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--                <input class="form-control "-->
-          <!--                       formControlName="guarantorLegalDocumentAddress"-->
-          <!--                       id="guarantorAddress"-->
-          <!--                       autocomplete="off"-->
-          <!--                       name="name" placeholder="ठेगाना"-->
-          <!--                       type="text"/>-->
-          <!--              </td>-->
-          <!--              <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            <tr>-->
-          <!--              <td>-->
-          <!--                <label class="relationMedium" for="guarantorRelationship">सम्बन्धको-->
-          <!--                  माध्यम</label>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--                <select class="form-control" formControlName="relationship"-->
-          <!--                        id="guarantorRelationship">-->
-          <!--                  <option *ngFor="let relationship of relationshipList"-->
-          <!--                          [value]="relationship.value">{{relationship?.value}}</option>-->
-          <!--                </select>-->
-          <!--              </td>-->
-          <!--              <td></td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            <tr>-->
-          <!--              <td colspan="2">-->
-          <!--                <button class="btn btn-danger float-right" (click)="removeAtIndex(i)"-->
-          <!--                        style="position: static">-->
-          <!--                  <em class="fa fa-trash" style="color: white;"></em>-->
-          <!--                </button>-->
-          <!--              </td>-->
-          <!--              <td></td>-->
-          <!--              <td></td>-->
-          <!--            </tr>-->
-          <!--            </tbody>-->
-          <!--          </table>-->
-          <!--          <hr>-->
-          <!--          <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add-->
-          <!--            Guarantor-->
-          <!--          </button>-->
+          <h4>Guarantors
+            <button nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
+              Guarantor
+            </button>
+          </h4>
+
+          <div
+              *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
+              class="table table-borderless table-4" formArrayName="guarantorDetails"
+              style="border: 1px solid rgba(255,255,255, 0.1)">
+            <table [formGroupName]="i">
+              <tr>
+                <td>
+                  <label class="title">{{i + 1 | nepaliNumber}}. ग्यारेन्टरको नाम</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="name"
+                         id="guarantorName"
+                         autocomplete="off"
+                         name="name" placeholder="ग्यारेन्टरको नाम"
+                         type="text"/>
+                </td>
+                <td>{{translatedValues?.guarantorName}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title">नगरिकता नम्बर</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="citizenNumber"
+                         id="guarantorCitizenshipNum"
+                         autocomplete="off"
+                         name="name" placeholder="नगरिकता नम्बर"
+                         type="text"/>
+                </td>
+                <td>{{translatedValues?.citizenNumber}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title" for="guarantorIssueDate">जारी मिति</label>
+                </td>
+                <td>
+                  <input
+                      class="form-control "
+                      formControlName="issuedYear"
+                      id="guarantorIssueDate"
+                      autocomplete="off"
+                      name="name" placeholder="जारी मिति"
+                      type="text"/>
+                </td>
+                <td>{{translatedValues?.issuedYear}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="issuedPlace"
+                         id="guarantorIssueDistrict"
+                         autocomplete="off"
+                         name="name" placeholder="जारी जिल्ला"
+                         type="text"/>
+                </td>
+                <td>{{translatedValues?.issuedPlace}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title" for="guarantorAddress">ठेगाना</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="guarantorLegalDocumentAddress"
+                         id="guarantorAddress"
+                         autocomplete="off"
+                         name="name" placeholder="ठेगाना"
+                         type="text"/>
+                </td>
+                <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
+                    माध्यम</label>
+                </td>
+                <td>
+                  <select class="form-control" formControlName="relationship"
+                          id="guarantorRelationship">
+                    <option *ngFor="let relationship of relationshipList"
+                            [value]="relationship.value">{{relationship?.value}}</option>
+                  </select>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="4" class="text-left">
+                  <button nbButton status="danger" size="medium" (click)="removeAtIndex(i)"
+                          style="position: static">
+                    <em class="fa fa-trash" style="color: white;"></em>
+                  </button>
+                </td>
+              </tr>
+            </table>
+            <hr>
+          </div>
+
         </nb-tab>
         <nb-tab tabId="2" tabTitle="प्रस्तावित रकम">
-
-          <table class="table table-borderless small table-4">
-            <tr>
-              <th colspan="2">Loan Data</th>
-              <th>Translated Data</th>
-              <th>Correct Translation</th>
-            </tr>
-            <tr>
-              <td>loanType</td>
-              <td>
-                <select class="custom-select" formControlName="loanType">
-                  <option [value]="null" selected hidden>Select Loan Type</option>
-                  <option [value]="null">All Loan Types</option>
-                  <option *ngFor="let loanType of loanTypeList"
-                          [value]="loanType.id">{{loanType.name}}
-                  </option>
-                </select>
-              </td>
-              <td>{{translatedValues?.loanType}}</td>
-              <td><input type="text" class="form-control" formControlName="loanType"></td>
-            </tr>
-            <tr>
-              <td>proposedAmount</td>
-              <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
-              <td>{{translatedValues?.proposedAmount}}</td>
-              <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
-            </tr>
-            <tr>
-              <td>status</td>
-              <td><input type="text" class="form-control" formControlName="status"></td>
-              <td>{{translatedValues?.status}}</td>
-              <td><input type="text" class="form-control" formControlName="status"></td>
-            </tr>
-            <tr>
-              <td>createdOn</td>
-              <td><input type="text" class="form-control" formControlName="createdOn"></td>
-              <td>{{translatedValues?.createdOn}}</td>
-              <td><input type="text" class="form-control" formControlName="createdOn"></td>
-            </tr>
-            <tr>
-              <td>comments</td>
-              <td><input type="text" class="form-control" formControlName="comments"></td>
-              <td>{{translatedValues?.comments}}</td>
-              <td><input type="text" class="form-control" formControlName="comments"></td>
-            </tr>
-          </table>
+          <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
+          <div *ngFor="let loan of userConfigForm.get('loanDetails')['controls']; let i = index"
+               formArrayName="loanDetails">
+            <table class="table table-borderless small table-4" [formGroupName]="i">
+              <tr>
+                <th colspan="2">{{i + 1}}. Loan Data</th>
+                <th>Translated Data</th>
+                <th>Correct Translation</th>
+              </tr>
+              <tr>
+                <td>loanType</td>
+                <td>
+                  <select class="custom-select" formControlName="loanType">
+                    <option [value]="null" selected hidden>Select Loan Type</option>
+                    <option *ngFor="let loanType of loanTypeList"
+                            [value]="loanType.id">{{loanType.name}}
+                    </option>
+                  </select>
+                </td>
+                <td>{{translatedValues?.loanType}}</td>
+                <td><input type="text" class="form-control" formControlName="loanType"></td>
+              </tr>
+              <tr>
+                <td>proposedAmount</td>
+                <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
+                <td>{{translatedValues?.proposedAmount}}</td>
+                <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
+              </tr>
+              <tr>
+                <td>status</td>
+                <td><input type="text" class="form-control" formControlName="status"></td>
+                <td>{{translatedValues?.status}}</td>
+                <td><input type="text" class="form-control" formControlName="status"></td>
+              </tr>
+              <tr>
+                <td>Approved On</td>
+                <td><input type="text" class="form-control" formControlName="approvedOn"></td>
+                <td>{{translatedValues?.approvedOn}}</td>
+                <td><input type="text" class="form-control" formControlName="approvedOn"></td>
+              </tr>
+              <tr>
+                <td>comments</td>
+                <td><input type="text" class="form-control" formControlName="comments"></td>
+                <td>{{translatedValues?.comments}}</td>
+                <td><input type="text" class="form-control" formControlName="comments"></td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <button nbButton status="danger" size="small" class="float-left"
+                          (click)="removeLoan(i)"
+                          style="position: static"
+                          *ngIf="userConfigForm.get('loanDetails')['controls'].length > 1">
+                    <em class="fa fa-trash" style="color: white;"></em>
+                  </button>
+                </td>
+              </tr>
+            </table>
+            <hr>
+          </div>
 
 
         </nb-tab>

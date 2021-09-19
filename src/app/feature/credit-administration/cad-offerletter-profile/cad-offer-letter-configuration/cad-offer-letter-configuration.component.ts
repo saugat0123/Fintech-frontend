@@ -32,6 +32,7 @@ import {CompanyLocations} from '../../../admin/modal/companyLocations';
 })
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
+  @Input() customerType;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
@@ -73,6 +74,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.addEmptyLoan();
+    this.addGuarantor();
+    this.userConfigForm.get('clientType').patchValue(this.customerType);
     this.loanConfigService.getAll().subscribe((response: any) => {
       this.loanTypeList = response.detail;
     }, error => {
@@ -143,11 +147,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDate: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      loanType: [undefined],
-      proposedAmount: [undefined],
-      status: [undefined],
-      createdOn: [undefined],
-      comments: [undefined],
+      loanDetails: this.formBuilder.array([]),
+
     });
   }
 
@@ -325,8 +326,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           customerType: clientType,
           customer: this.customer,
           company: this.company,
+          loanDetails: this.userConfigForm.get('loanDetails').value
         };
     console.log(dat);
+    console.log(this.userConfigForm.value);
     this.cadOneformService.saveCustomer(dat).subscribe(res => {
       this.spinner = false;
       // this.close();
@@ -369,6 +372,40 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       }
       this.userConfigForm.get(s).updateValueAndValidity();
     });
+  }
+
+  setLoan(data) {
+    if (data.length === 0) {
+      this.addEmptyLoan();
+      return;
+    }
+    data.forEach(d => {
+      (this.userConfigForm.get('loanDetails') as FormArray).push(
+          this.formBuilder.group({
+            loanType: [d.loanType],
+            proposedAmount: [d.proposedAmount],
+            status: [d.status],
+            approvedOn: [d.approvedOn],
+            comments: [d.comments],
+          })
+      );
+    });
+  }
+
+  addEmptyLoan() {
+    (this.userConfigForm.get('loanDetails') as FormArray).push(
+        this.formBuilder.group({
+          loanType: [undefined],
+          proposedAmount: [undefined],
+          status: [undefined],
+          approvedOn: [undefined],
+          comments: [undefined],
+        })
+    );
+  }
+
+  removeLoan(i) {
+    (this.userConfigForm.get('loanDetails') as FormArray).removeAt(i);
   }
 
   addGuarantor() {
