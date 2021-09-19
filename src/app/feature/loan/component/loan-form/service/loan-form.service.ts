@@ -8,7 +8,6 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Guarantor} from '../../../model/guarantor';
 import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerDocuments} from '../../../model/customerDocuments';
-import * as path from 'path';
 
 
 @Injectable({

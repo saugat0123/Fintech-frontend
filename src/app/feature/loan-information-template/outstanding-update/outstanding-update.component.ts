@@ -23,7 +23,10 @@ export class OutstandingUpdateComponent implements OnInit {
   outstandingLimit;
   customerInfoId: number;
   companyInfoId: number;
+  approvedTerminatingLoan;
   spinner=false;
+
+  loanNature;
   constructor(
       private activatedRoute: ActivatedRoute,
       private customerLoanService: LoanFormService,
@@ -46,8 +49,9 @@ export class OutstandingUpdateComponent implements OnInit {
   getApprovedLoans(id) {
     this.spinner=true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
-      this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
       this.spinner=false;
+      this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+      this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
     }, err => {
       this.spinner=false;
     });
