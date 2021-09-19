@@ -776,12 +776,25 @@
                 <th>Correct Translation</th>
               </tr>
               <tr>
-                <td>loanType</td>
+                <td>Loan Type</td>
                 <td>
                   <select class="custom-select" formControlName="loanType">
-                    <option [value]="null" selected hidden>Select Loan Type</option>
-                    <option *ngFor="let loanType of loanTypeList"
-                            [value]="loanType.id">{{loanType.name}}
+                    <option [value]="null" disabled>Select Loan Type</option>
+                    <option *ngFor="let loanType of loanTypeList.value()"
+                            [value]="loanType?.key">{{loanType?.value}}</option>
+                  </select>
+                </td>
+                <td>{{translatedValues?.loanType}}</td>
+                <td><input type="text" class="form-control" formControlName="loanType"></td>
+              </tr>
+              <tr>
+                <td>Loan Facility</td>
+                <td>
+                  <select class="custom-select" formControlName="loanFacility"
+                          [disabled]="disableLoanFacility">
+                    <option [value]="null" selected hidden>Select Loan Facility</option>
+                    <option *ngFor="let loanFacility of loanFacilityList"
+                            [value]="loanFacility.id">{{loanFacility.name}}
                     </option>
                   </select>
                 </td>

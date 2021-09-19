@@ -24,6 +24,7 @@ import {Branch} from '../../../admin/modal/branch';
 import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CompanyLocations} from '../../../admin/modal/companyLocations';
+import {LoanType} from '../../../loan/model/loanType';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -39,7 +40,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   // @Input() customer: Customer;
   @Output()
   customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
-  loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
+  loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
+  loanTypeList = LoanType;
   branchList: Array<Branch> = new Array<Branch>();
   guarantorList: Array<Guarantor>;
   userConfigForm: FormGroup;
@@ -52,6 +54,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   customer: Customer = new Customer();
   company: CompanyInfo = new CompanyInfo();
   companyLocations: CompanyLocations = new CompanyLocations();
+  disableLoanFacility = true;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -77,8 +80,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addEmptyLoan();
     this.addGuarantor();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
-    this.loanConfigService.getAll().subscribe((response: any) => {
-      this.loanTypeList = response.detail;
+
+    this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+      this.loanFacilityList = response.detail;
+      this.userConfigForm.get('loanFacility').enable();
+      this.disableLoanFacility = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -382,7 +388,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     data.forEach(d => {
       (this.userConfigForm.get('loanDetails') as FormArray).push(
           this.formBuilder.group({
-            loanType: [d.loanType],
+            loanFacility: [d.loanFacility],
             proposedAmount: [d.proposedAmount],
             status: [d.status],
             approvedOn: [d.approvedOn],
@@ -396,6 +402,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     (this.userConfigForm.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
           loanType: [undefined],
+          loanFacility: [undefined],
           proposedAmount: [undefined],
           status: [undefined],
           approvedOn: [undefined],
