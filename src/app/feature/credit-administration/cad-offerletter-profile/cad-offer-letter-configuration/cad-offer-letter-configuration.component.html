@@ -663,14 +663,14 @@
             <table [formGroupName]="i">
               <tr>
                 <td>
-                  <label class="title">{{i + 1 | nepaliNumber}}. ग्यारेन्टरको नाम</label>
+                  <label class="title">{{i + 1}}. Guarantor Name</label>
                 </td>
                 <td>
                   <input class="form-control "
-                         formControlName="name"
+                         formControlName="guarantorName"
                          id="guarantorName"
                          autocomplete="off"
-                         name="name" placeholder="ग्यारेन्टरको नाम"
+                         name="name" placeholder="Guarantor Name"
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.guarantorName}}</td>
@@ -678,14 +678,14 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title">नगरिकता नम्बर</label>
+                  <label class="title">Citizenship No</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="citizenNumber"
                          id="guarantorCitizenshipNum"
                          autocomplete="off"
-                         name="name" placeholder="नगरिकता नम्बर"
+                         name="name" placeholder="Citizenship No"
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.citizenNumber}}</td>
@@ -693,7 +693,7 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="guarantorIssueDate">जारी मिति</label>
+                  <label class="title" for="guarantorIssueDate">Citizenship Issue Date</label>
                 </td>
                 <td>
                   <input
@@ -701,7 +701,7 @@
                       formControlName="issuedYear"
                       id="guarantorIssueDate"
                       autocomplete="off"
-                      name="name" placeholder="जारी मिति"
+                      name="name" placeholder="Citizenship Issue Date"
                       type="text"/>
                 </td>
                 <td>{{translatedValues?.issuedYear}}</td>
@@ -709,14 +709,14 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="guarantorIssueDistrict">जारी जिल्ला</label>
+                  <label class="title" for="guarantorIssueDistrict">Citizenship Issue District</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="issuedPlace"
                          id="guarantorIssueDistrict"
                          autocomplete="off"
-                         name="name" placeholder="जारी जिल्ला"
+                         name="name" placeholder="Citizenship Issue District"
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.issuedPlace}}</td>
@@ -724,14 +724,14 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="guarantorAddress">ठेगाना</label>
+                  <label class="title" for="guarantorAddress">Guarantor Address</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="guarantorLegalDocumentAddress"
                          id="guarantorAddress"
                          autocomplete="off"
-                         name="name" placeholder="ठेगाना"
+                         name="name" placeholder="Guarantor Address"
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
@@ -739,8 +739,7 @@
               </tr>
               <tr>
                 <td>
-                  <label class="relationMedium" for="guarantorRelationship">सम्बन्धको
-                    माध्यम</label>
+                  <label class="relationMedium" for="guarantorRelationship">Guarantor Relation</label>
                 </td>
                 <td>
                   <select class="form-control" formControlName="relationship"
@@ -761,11 +760,11 @@
                 </td>
               </tr>
             </table>
-            <hr>
+            <button class="float-right" nbButton (click)="saveCustomer()">save</button>
           </div>
 
         </nb-tab>
-        <nb-tab tabId="2" tabTitle="प्रस्तावित रकम">
+        <nb-tab tabId="2" tabTitle="Loan Details">
           <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
           <div *ngFor="let loan of userConfigForm.get('loanDetails')['controls']; let i = index"
                formArrayName="loanDetails">
@@ -850,7 +849,7 @@
   <nb-card-footer>
     <div *ngIf="!hideSaveBtn">
       <div class="col-md-12">
-        <button class="float-right" nbButton (click)="save()">save</button>
+        <!--<button class="float-right" nbButton (click)="save()">save</button>-->
         <button class="float-right" nbButton status="info" (click)="translate()">Translate</button>
       </div>
     </div>
