@@ -634,7 +634,7 @@ export class CompanyFormComponent implements OnInit {
             province: [null],
             district: [null],
             municipalityVdc: [null],
-            holderPercentWardNumber: [undefined, Validators.required],
+            holderPercentWardNumber: [null],
             citizenshipNum: [undefined],
             issuedDate: [undefined],
             issuedPlace: [undefined],
