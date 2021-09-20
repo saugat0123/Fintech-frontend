@@ -17,8 +17,6 @@
                 <th>Branch</th>
                 <th>Province</th>
                 <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
-<!--                <th>Type</th>-->
-                <th>Business Unit</th>
                 <th>Status</th>
                 <th>From</th>
                 <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Date <em class="fas fa-sort"></em></th>
@@ -26,7 +24,6 @@
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Initiator</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Approved Date</th>
                 <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
-                <th>Comments</th>
                 <th>Preview</th>
 
 
@@ -39,8 +36,6 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
-<!--                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.customerType}}</td>-->
-                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.clientType}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date:'medium'}} </td>
@@ -48,12 +43,6 @@
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.loanStage?.fromUser?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.assignedLoan[0]?.currentStage?.lastModifiedAt | date :'medium'}}</td>
                     <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-{{model?.cadCurrentStage?.toRole?.roleName}}</td>
-                    <td>
-                        <a class="px-2 cursor"
-                           (click)="model?.id ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
-                           nbTooltip="click to view detail comments ">
-                            <em class="fa fa-eye"></em>
-                        </a></td>
                     <td>
                         <a class="px-2 cursor"
                            (click)="routeService.previewCadDoc(model?.id)"
