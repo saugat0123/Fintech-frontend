@@ -29,7 +29,7 @@
                     <td>
                         <nb-checkbox (change)="checkboxVal($event, 'applicationDateInAD')"></nb-checkbox>
                     </td>
-                    <td><input formControlName="applicationDateInADeTransVal" [readOnly]="!this['applicationDateInADeCheck']" type="text" class="form-control nepaliFont">
+                    <td><input formControlName="applicationDateInADTransVal" [readOnly]="!this['applicationDateInADCheck']" type="text" class="form-control nepaliFont">
                     </td>
                 </tr>
                 <tr>
@@ -189,7 +189,7 @@
                     </td>
                     <td><input formControlName="propertyPlotNumberTransVal" [readOnly]="!this['propertyPlotNumberCheck']" type="text" class="form-control nepaliFont">
                     </td>
-                </tr>/
+                </tr>
                 <tr>
                     <td>Property Area</td>
                     <td><input type="text" class="form-control" formControlName="propertyArea"></td>
@@ -271,7 +271,7 @@
                     <td>
                         <nb-checkbox (change)="checkboxVal($event, 'collateralReleaseFee')"></nb-checkbox>
                     </td>
-                    <td><input formControlName="changeFeeAbove1CrTransVal" [readOnly]="!this['changeFeeAbove1CrCheck']" type="text" class="form-control nepaliFont">
+                    <td><input formControlName="collateralReleaseFeeTransVal" [readOnly]="!this['collateralReleaseFeeCheck']" type="text" class="form-control nepaliFont">
                     </td>
                 </tr>
                 <tr>
@@ -468,7 +468,9 @@
                 </tr>
                 <tr>
                     <td>First Construction Completion Amount</td>
-                    <td><input type="text" class="form-control" formControlName="firstConstructionCompletionAmount"></td> <td><input type="text" class="form-control" value="{{translatedValues?.firstConstructionCompletionAmount}}">
+                    <td>
+                        <input type="text" class="form-control" formControlName="firstConstructionCompletionAmount">
+                    </td>
                     <td class="abc">
                         {{translatedValues?.firstConstructionCompletionAmount}}
                     </td>
