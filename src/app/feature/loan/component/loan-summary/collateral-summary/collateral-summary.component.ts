@@ -7,6 +7,8 @@ import {Security} from '../../../model/security';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-collateral-summary',
@@ -29,6 +31,8 @@ export class CollateralSummaryComponent implements OnInit {
   totalProposedAmount = 0;
   totalRequiredCollateral = 0;
   securityExposure = false;
+  approvedLoans=[];
+  outstandingAmount;
 
   constructor() {
   }
@@ -39,10 +43,15 @@ export class CollateralSummaryComponent implements OnInit {
   }
 
   filterLoan() {
+    console.log('total security amount',this.security.totalSecurityAmount);
     this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
     this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
     this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
     (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
+    this.totalProposedAmount+= Number(this.fundedList[0].proposal.outStandingLimit || 0);
+    console.log('total proposed amount', this.totalProposedAmount, ' this.fundedList[0].proposal.outStandingLimit: ', this.fundedList[0].proposal.outStandingLimit);
+
+
   }
 
   calculateRequiredCollateral(list: LoanDataHolder[]) {
@@ -73,4 +82,6 @@ export class CollateralSummaryComponent implements OnInit {
       this.securityExposure = false;
     }
   }
+
+
 }
