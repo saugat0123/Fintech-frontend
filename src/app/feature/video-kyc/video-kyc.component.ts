@@ -218,13 +218,25 @@ checkLinkValidation(form: FormGroup) {
           try {
             response.detail.forEach((remit, i) => {
               if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-                if (!ObjectUtil.isEmpty(response.detail[i].remitCustomer.videoKyc)) {
-                  const newVideo = JSON.parse(response.detail[i].remitCustomer.videoKyc);
-                  newVideo.push(form.value);
-                  response.detail[i].remitCustomer.videoKyc = JSON.stringify(newVideo);
-                  this.saveVideo(form, response.detail[i].remitCustomer);
+                if (!ObjectUtil.isEmpty(remit.remitCustomer.videoKyc)) {
+                  if (response.detail[i].remitCustomer.beneficiaryId === this.remitCustomer.beneficiaryId) {
+                    this.saveVideo(form, this.remitCustomer);
+                    this.closes();
+                    throw this.breakException;
+                  } else {
+                    const newVideo = JSON.parse(remit.remitCustomer.videoKyc);
+                    newVideo.push(form.value);
+                    response.detail[i].remitCustomer.videoKyc = JSON.stringify(newVideo);
+                    this.saveVideo(form, response.detail[i].remitCustomer);
+                    this.saveVideo(form, this.remitCustomer);
+                    this.closes();
+                    throw this.breakException;
+                  }
+                } else {
+                  this.saveVideo(form, this.remitCustomer);
+                  this.closes();
+                  throw this.breakException;
                 }
-                throw this.breakException;
               }
             });
           } catch (ex) {
@@ -233,10 +245,7 @@ checkLinkValidation(form: FormGroup) {
             }
           }
         }
-      });
-      this.saveVideo(form, this.remitCustomer);
-      this.closes();
-    } else if (form.get('isBenf').value === false) {
+      }); } else if (form.get('isBenf').value === false) {
       this.saveVideo(form, this.remitCustomer);
       this.closes();
     }
