@@ -20,8 +20,6 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
   buildRetailIns: FormGroup;
   translatedValues: any = {};
   spinner = false;
-  edi1 = true;
-  isReadonly = true;
   constructor(
       private formBuilder: FormBuilder,
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -89,8 +87,21 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.buildRetailIns.get(wordLabel).patchValue(returnVal);
   }
-  edi(){
-    this.isReadonly = !this.isReadonly;
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+    //   const val = this.translatedValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    console.log('checked Value', this[formControlName + 'Check']);
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+
+  clearForm(controlName) {
+    this.buildRetailIns.get(controlName).setValue(null);
   }
   submit() {
 
