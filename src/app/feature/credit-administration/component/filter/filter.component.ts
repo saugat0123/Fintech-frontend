@@ -48,6 +48,8 @@ export class FilterComponent implements OnInit {
   customerInfoData = new CustomerInfoData();
   cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
   customerInfo = new Customer();
+  customerType: any;
+
   constructor(private branchService: BranchService,
               private toastService: ToastService,
               private nbDialogService: NbDialogService,
@@ -62,117 +64,128 @@ export class FilterComponent implements OnInit {
 
     ngOnInit() {
 
-        this.buildFilterForm();
-        this.userService.getLoggedInUser().subscribe(res => {
-            if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
-                this.showPossessionUnder = true;
-                this.getCadRoleList();
-            }
-            if (res.detail.role.roleAccess === RoleAccess.OWN) {
-                this.branchAccessIsOwn = true;
-            } else {
-                this.branchAccessIsOwn = false;
-            }
-            if (res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
-                const idList = [];
-                res.detail.provinces.forEach(value => {
-                    idList.push(value);
-                });
-                this.branchService.getBranchByProvinceList(idList).subscribe((branchLists: any) => {
-                    this.branchList = branchLists.detail;
-                });
-            } else {
-                this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
-                    this.branchList = response.detail;
-                }, error => {
-                    console.error(error);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-                });
-            }
+    this.buildFilterForm();
+    this.userService.getLoggedInUser().subscribe(res => {
+      if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
+        this.showPossessionUnder = true;
+        this.getCadRoleList();
+      }
+      if (res.detail.role.roleAccess === RoleAccess.OWN) {
+        this.branchAccessIsOwn = true;
+      } else {
+        this.branchAccessIsOwn = false;
+      }
+      if (res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
+        const idList = [];
+        res.detail.provinces.forEach(value => {
+          idList.push(value);
         });
-        this.getClientType();
-
-    }
-
-    buildFilterForm() {
-        this.filterForm = this.formBuilder.group({
-            name: [undefined],
-            customerType: [undefined],
-            branchIds: [undefined],
-            toUser: undefined,
-            docStatus: undefined,
-            toRole: undefined,
-            clientType: undefined
+        this.branchService.getBranchByProvinceList(idList).subscribe((branchLists: any) => {
+          this.branchList = branchLists.detail;
         });
-    }
-
-    onSearch() {
-        this.eventEmitter.emit(this.filterForm.value);
-    }
-
-    clear() {
-        this.filterForm.reset();
-        this.eventEmitter.emit(this.filterForm.value);
-
-    }
-
-    getUserList() {
-        this.userService.getAllUserByCurrentRoleBranchAccess().subscribe((value: any) => {
-            this.possessionUnderUserList = value.detail;
+      } else {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+          this.branchList = response.detail;
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
         });
+      }
+    });
+    this.getClientType();
 
     }
 
-    getCadRoleList() {
-        const approvalType = 'CAD';
-        const refId = 0;
+  buildFilterForm() {
+    this.filterForm = this.formBuilder.group({
+      name: [undefined],
+      customerType: [undefined],
+      branchIds: [undefined],
+      toUser: undefined,
+      docStatus: undefined,
+      toRole: undefined,
+      clientType: undefined
+    });
+  }
 
-        this.service.findAll(approvalType, refId).subscribe((response: any) => {
-            let approvalList: ApprovalRoleHierarchy[] = [];
-            approvalList = response.detail;
-            this.possessionRoleList = approvalList.map(a => a.role);
-            if (this.isDefaultCADROLEFILTER && LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
-                const r: Role = this.possessionRoleList.filter(c => c.roleName === 'CAD')[0];
-                this.filterForm.patchValue({
-                    toRole: r.id
-                });
-            }
+  onSearch() {
+    this.eventEmitter.emit(this.filterForm.value);
+  }
+
+  clear() {
+    this.filterForm.reset();
+    this.eventEmitter.emit(this.filterForm.value);
+
+  }
+
+  getUserList() {
+    this.userService.getAllUserByCurrentRoleBranchAccess().subscribe((value: any) => {
+      this.possessionUnderUserList = value.detail;
+    });
+
+  }
+
+  getCadRoleList() {
+    const approvalType = 'CAD';
+    const refId = 0;
+
+    this.service.findAll(approvalType, refId).subscribe((response: any) => {
+      let approvalList: ApprovalRoleHierarchy[] = [];
+      approvalList = response.detail;
+      this.possessionRoleList = approvalList.map(a => a.role);
+      if (this.isDefaultCADROLEFILTER && LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
+        const r: Role = this.possessionRoleList.filter(c => c.roleName === 'CAD')[0];
+        this.filterForm.patchValue({
+          toRole: r.id
         });
+      }
+    });
 
-    }
+  }
 
-    getReport() {
-        this.routerUtils.generateReport(this.filterForm.value, this.docStatus, this.fromCadDashboard);
-    }
+  getReport() {
+    this.routerUtils.generateReport(this.filterForm.value, this.docStatus, this.fromCadDashboard);
+  }
 
-    getClientType() {
-        this.customerService.clientType().subscribe((res: any) => {
-                this.clientType = res.detail;
+  getClientType() {
+    this.customerService.clientType().subscribe((res: any) => {
+          this.clientType = res.detail;
 
-            }
-            , error => {
-                console.error(error);
-            });
-    }
+        }
+        , error => {
+          console.error(error);
+        });
+  }
 
   openReport() {
     this.modalService.open(CadReportComponent, {size: 'xl'});
   }
 
-  openOfferLetterConfigModal() {
+  getForm(customerType) {
     this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
       context: {
+        customerType: customerType,
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
       },
-        dialogClass: 'model-full',
+      hasBackdrop: false,
+      dialogClass: 'model-full',
     }).onClose
-        .subscribe(value => {
-          if (!ObjectUtil.isEmpty(value)) {
-            this.customerInfoData = value;
-            console.log(value);
-          }
-        });
+    .subscribe(value => {
+      if (!ObjectUtil.isEmpty(value)) {
+        this.customerInfoData = value;
+        console.log(value);
+      }
+    });
   }
+
+  openTemplate(template) {
+    this.modalService.open(template);
+  }
+
+  onClose() {
+    this.modalService.dismissAll();
+  }
+
 }

@@ -1,14 +1,66 @@
-nb-card{
+nb-card {
   min-width: 70rem;
   max-height: 99%;
 }
+
 .nepaliFont {
   font-size: 22px;
   font-family: Preeti;
 }
+
 input, select {
   border: 0;
   outline: 0;
   background: transparent;
   border-bottom: 1px solid black;
+}
+
+.table {
+  td:first-child {
+    text-align: right;
+  }
+
+  &.table-4 {
+    td {
+      width: 25%;
+    }
+  }
+
+  &.table-3 {
+    td {
+      width: 33%;
+    }
+  }
+
+
+  .small {
+    nb-select.appearance-outline.size-medium .select-button {
+      margin-left: 0 !important;
+    }
+
+    td {
+      padding: 0;
+    }
+
+    input {
+      border-radius: 0;
+    }
+
+    textarea:hover,
+    input:hover,
+    textarea:active,
+    input:active,
+    textarea:focus,
+    input:focus,
+    button:focus,
+    button:active,
+    button:hover,
+    label:focus,
+    .btn:active,
+    .btn.active {
+      outline: 0px !important;
+      -webkit-appearance: none;
+      box-shadow: none !important;
+    }
+  }
 }
