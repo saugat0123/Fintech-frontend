@@ -799,32 +799,81 @@ export class SiteVisitComponent implements OnInit {
     }
     if (this.businessSiteVisitForm) {
       const dataArray = this.siteVisitFormGroup.get('businessDetails') as FormArray;
+      // console.log('dataArray', dataArray);
+      // if (this.siteVisitFormGroup.get('businessDetails').invalid) {
+      //   this.business = true;
+      //   console.log('inside parent');
+      //   return;
+      // }
+      // this.businessOfficeAddress1.forEach((value, index) => {
+      //   if (value.addressForm.invalid) {
+      //     console.log('child invalid', value.addressForm.invalid);
+      //     value.submitted = true;
+      //     console.log('child');
+      //     return;
+      //   } else {
+      //     console.log('inside else');
+      //     dataArray.controls.forEach((data, i) => {
+      //       console.log('data', data);
+      //       // try {
+      //       //   if (dataArray.invalid) {
+      //       //
+      //       //   }
+      //       // } catch (e) {
+      //       //
+      //       // }
+      //       if (data.invalid) {
+      //         console.log('parent invalid', data.invalid);
+      //         this.business = true;
+      //         console.log('inside parent');
+      //         return;
+      //       } else {
+      //         if (index === 1) {
+      //           console.log('check equal');
+      //         }
+      //       }
+      //     });
+      //   }
+      // });
       // if (this.siteVisitFormGroup.get('businessDetails').invalid) {
       //   this.business = true;
       //   return;
       // } else {
-        // console.log('dataArray', dataArray);
-        dataArray.controls.forEach((data, index) => {
-          console.log('FormGroup', this.siteVisitFormGroup.get('businessDetails').invalid);
-          if (this.siteVisitFormGroup.get('businessDetails').invalid) {
-            console.log('I am here');
-            this.business = true;
-            return;
-          }
-          // console.log('data', data);
-          this.businessOfficeAddress1.forEach((value, i) => {
-            // console.log('value', value);
-            console.log('address Invalid', value.addressForm.invalid);
-            if (value.addressForm.invalid) {
-              return;
-            } else {
-              // console.log('test11', value.addressForm.value);
-              if (i === index) {
-                data.get('officeAddress').setValue(value.addressForm.value);
-              }
+        console.log('dataArray', dataArray);
+      console.log('length', dataArray.controls.length);
+      console.log('businessOfficeAddress1', this.businessOfficeAddress1.length);
+        for (let index = 0; index < dataArray.controls.length; index++) {
+          for (let i = 0; i < this.businessOfficeAddress1.length; i++) {
+            if (dataArray.invalid) {
+              this.business = true;
+              console.log('I am here');
+              break;
             }
-          });
-        });
+          }
+      }
+        // dataArray.controls.forEach((data, index) => {
+        //   console.log('data', data);
+        //   // if (data.invalid) {
+        //   //   console.log('I am parent');
+        //   //   this.business = true;
+        //   //   return;
+        //   // }
+        //   this.businessOfficeAddress1.forEach((value, i) => {
+        //     console.log('value', value);
+        //     console.log('address Invalid', value.addressForm.invalid);
+        //     if (value.addressForm.invalid) {
+        //       this.business = true;
+        //       value.submitted = true;
+        //       console.log('inside validation check');
+        //       return;
+        //     }
+        //     if (i === index) {
+        //       data.get('officeAddress').setValue(value.addressForm.value);
+        //     }
+        //     console.log('Finieshed ', i);
+        //   });
+        // });
+      // }
       // this.businessOfficeAddress.onSubmit();
       // console.log('Address11111', this.siteVisitFormGroup.get('businessDetails').get('officeAddress'));
       // console.log('After submit', this.businessOfficeAddress1);
@@ -1164,9 +1213,9 @@ export class SiteVisitComponent implements OnInit {
       businessDetails.push(
           this.formBuilder.group({
             officeAddress: [singleData.officeAddress],
-            nameOfThePersonContacted: [singleData.nameOfThePersonContacted],
+            nameOfThePersonContacted: [singleData.nameOfThePersonContacted, Validators.required],
             dateOfVisit: [singleData.dateOfVisit],
-            objectiveOfVisit: [singleData.objectiveOfVisit],
+            objectiveOfVisit: [singleData.objectiveOfVisit, Validators.required],
             staffRepresentativeNameDesignation: [singleData.staffRepresentativeNameDesignation],
             staffRepresentativeName: [singleData.staffRepresentativeName],
             staffRepresentativeNameDesignation2: [singleData.staffRepresentativeNameDesignation2],
