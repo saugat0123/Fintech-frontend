@@ -86,6 +86,61 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
       guarantorAmount1: [undefined],
       guarantorAmountWords1: [undefined],
 
+      //For Translated Value
+      dateOfGenerationTransVal: [undefined],
+      customerNameTransVal: [undefined],
+      customerAddressTransVal: [undefined],
+      applicationDateInADTransVal: [undefined],
+      loanAmountTransVal: [undefined],
+      loanNameInWordTransVal: [undefined],
+      drawingPowerRateTransVal: [undefined],
+      signatureDateTransVal: [undefined],
+      districtTransVal: [undefined],
+      witnessNameTransVal: [undefined],
+      wardNumTransVal: [undefined],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
+      staffNameTransVal: [undefined],
+      floatingRateTransVal: [undefined],
+      serviceChargeTransVal: [undefined],
+      serviceChargeWordsTransVal: [undefined],
+      communicationFeesTransVal: [undefined],
+      emiAmountTransVal: [undefined],
+      emiAmountInWordsTransVal: [undefined],
+      numberOfEMITransVal: [undefined],
+      firstEMIMonthTransVal: [undefined],
+      loanCommitmentFeeTransVal: [undefined],
+      yearlyLoanRateTransVal: [undefined],
+      ownerNameTransVal: [undefined],
+      ownersAddressTransVal: [undefined],
+      loanAmountWordsTransVal: [undefined],
+      branchNameTransVal: [undefined],
+      propertyPlotNumberTransVal: [undefined],
+      secondDisbursementAmountWordsTransVal: [undefined],
+      firstConstructionCompletionAmountTransVal: [undefined],
+      firstDisbursementAmountWordsTransVal: [undefined],
+      secondDisbursementAmountTransVal: [undefined],
+      firstDisbursementAmountTransVal: [undefined],
+      secondConstructionCompletionAmountTransVal: [undefined],
+      thirdConstructionCompletionAmountTransVal: [undefined],
+      thirdDisbursementAmountTransVal: [undefined],
+      thirdDisbursementAmountWordsTransVal: [undefined],
+      changeFeeBelow1CrTransVal: [undefined],
+      lateFeeTransVal: [undefined],
+      changeFeeAbove1CrTransVal: [undefined],
+      collateralReleaseFeeTransVal: [undefined],
+      pledgeAmountTransVal: [undefined],
+      documentAccessFeeTransVal: [undefined],
+      promissoryNoteAmountTransVal: [undefined],
+      sheetNumberTransVal: [undefined],
+      propertyAreaTransVal: [undefined],
+      loanDeedAmountTransVal: [undefined],
+      insuranceAmountTransVal: [undefined],
+      insuranceAmountWordsTransVal: [undefined],
+      guarantorName1TransVal: [undefined],
+      guarantorAmount1TransVal: [undefined],
+      guarantorAmountWords1TransVal: [undefined],
+
     });
   }
   async translate() {
@@ -100,6 +155,21 @@ export class RetailMortgageLoanTemplateDataComponent implements OnInit {
     this.form.get(wordLabel).patchValue(returnVal);
   }
 
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+    //   const val = this.translatedValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    console.log('checked Value', this[formControlName + 'Check']);
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+  clearForm(controlName) {
+    this.form.get(controlName).setValue(null);
+  }
   submit() {
 
   }
