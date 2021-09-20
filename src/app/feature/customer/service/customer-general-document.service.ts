@@ -20,12 +20,19 @@ export class CustomerGeneralDocumentService extends BaseService<Object> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public deleteDocument(id: number, customerId, path): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-document/${id}/${customerId}`);
+    public deleteDocument(id: number, customerId, path, doc_index): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-document/${id}/${customerId}/${doc_index}`);
         return this.http.post(req.url, path, {headers: req.header});
     }
 
     protected getApi(): string {
         return CustomerGeneralDocumentService.API;
     }
+
+    public uploadMultipleDoc(formData: FormData): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-multiple-document`);
+        console.log(formData.getAll('file'));
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
 }
