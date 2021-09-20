@@ -148,7 +148,8 @@ export class CustomerComponent implements OnInit {
             clientType: [undefined],
             subsectorDetail: [undefined],
             customerCode: [undefined],
-            bankingRelationship: [undefined]
+            bankingRelationship: [undefined],
+            branch: [undefined]
 
         });
     }
@@ -219,6 +220,7 @@ export class CustomerComponent implements OnInit {
         this.search.gender = undefined;
         this.search.maritalStatus = undefined;
         this.search.customerLegalDocumentAddress = undefined;
+        this.search.branch = undefined;
         CustomerComponent.loadData(this);
     }
     openChooseAcType(modal) {

@@ -27,6 +27,7 @@ export class CustomerInfoSearch {
     gender: string;
     maritalStatus: string;
     customerLegalDocumentAddress: string;
+    branch: string;
 
 }
 
