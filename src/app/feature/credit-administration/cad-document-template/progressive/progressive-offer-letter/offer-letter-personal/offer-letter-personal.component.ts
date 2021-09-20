@@ -70,11 +70,11 @@ export class OfferLetterPersonalComponent implements OnInit {
         const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
 
         const customerAddress =
-            this.nepaliData.permanentMunicipality + ' j8f g. ' +
+            this.nepaliData.permanentMunicipality + ' वडा नं. ' +
             this.nepaliData.permanentWard + ' , ' +
             this.nepaliData.permanentDistrict;
         const customerTempAddress =
-            this.nepaliData.temporaryMunicipality + ' j8f g. ' +
+            this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.numberNepali);
@@ -222,6 +222,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 guarantorCitizenshipNo: [value.citizenNumber],
                 guarantorIssuedDate: [value.issuedYear],
                 guarantorCitizenIssuedOffice: [value.issuedPlace],
+                guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+                name: [value.name],
             }));
         });
     }
@@ -232,6 +234,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             guarantorCitizenshipNo: [undefined],
             guarantorIssuedDate: [undefined],
             guarantorCitizenIssuedOffice: [undefined],
+            name: [undefined],
+            guarantorLegalDocumentAddress: [undefined]
         });
     }
 

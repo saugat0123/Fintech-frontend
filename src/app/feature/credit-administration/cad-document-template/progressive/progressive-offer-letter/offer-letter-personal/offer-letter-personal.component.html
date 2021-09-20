@@ -7,7 +7,7 @@
                         <div class="row d-flex justify-content-around" style="margin-top: 50px">
                             <div class="col-md-6">
                                 <p>
-                                    पत्र संख्या:
+                                    प.सं. प्रो.फा.लि
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="patraNum">
@@ -15,7 +15,7 @@
                             </div>
                             <div class="col-md-6">
                                 <p class="text-right">
-                                    मिती
+                                    मिति :—
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="date">
@@ -31,7 +31,6 @@
                                        type="text"
                                        readonly
                                        [value]="form.get('customerName').value">
-                                (ऋणीको नाम)
                             </p>
                             <p>
                                 स्थायी ठेगाना
@@ -71,14 +70,15 @@
                                        formControlName="customerMobile">
                             </p>
                         </div>
-                        <h6 class="text-center">
-                            व्यक्तिगत तथा गोप्य <br>
-                        </h6>
+                        <h5 class="text-center">
+                            <u>व्यक्तिगत तथा गोप्य</u>
+                        </h5>
 
                         <div style="margin-top:30px">
 
-                            <h5 class="text-center">
-                                <u>विषय : कर्जा/सुबिधा स्वीकृतीपत्र ।</u></h5>
+                            <h6 class="text-center">
+                                <u>विषय : कर्जा/सुबिधा स्वीकृतीपत्र ।</u>
+                            </h6>
                             <p style="margin-top: 30px">
 
                                 महाशय,
@@ -86,7 +86,7 @@
                             <div class="row">
 
                                 <p>
-                                    तपाइ
+                                    तपाई
 
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
@@ -1250,16 +1250,17 @@
                                                [value]="form.get('signatoryCitizenshipIssuePlace').value">
 
                                         <br>
-                                        बाजेको नाम:—
-                                        <input class="form-control-sm form-field nepaliFont"
-                                               type="text"
-                                               [value]="form.get('signatoryGrandParentName').value">
-                                        <br>
                                         बाबुको नाम:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
                                                [value]="form.get('signatoryParentName').value">
                                         <br>
+                                        बाजेको नाम:—
+                                        <input class="form-control-sm form-field nepaliFont"
+                                               type="text"
+                                               [value]="form.get('signatoryGrandParentName').value">
+                                        <br>
+
                                     </p>
                                 </div>
                             </div>
@@ -1272,13 +1273,13 @@
                                     <div *ngFor="let guarantor of form.get('guarantors')['controls']; index as i"
                                          formArrayName="guarantors" class="mt-4">
                                         <div [formGroupName]="i">
-                                            <p>दस्तखत : ...........................................</p>
-
-                                            <p> {{i + 1 | nepaliWord: 'unicode'}}. नाम:
+                                            <p>{{i + 1 | nepaliWord: 'unicode'}}. दस्तखत : ...........................................
+                                                <br>
+                                              नाम:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        formControlName="name">
-
+                                                <br>
                                                 ठेगाना:
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
@@ -1300,7 +1301,7 @@
                             <input class="form-control-sm form-field nepaliFont"
                                    type="text"
                                    formControlName="sahichhapEmployee">
-
+                            <p>
                             ईतिसम्बन्त
                             <input class="form-control-sm form-field nepaliFont"
                                    type="text"
@@ -1321,6 +1322,7 @@
                                    type="text"
                                    formControlName="docRoj">
                             शुभम् ।
+                            </p>
 
                         </div>
                         <div id="GuarantorSection" style="margin-top: 25px;">
@@ -1402,7 +1404,7 @@
                                                     <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            formControlName="guarantorIssuedDate">,
-                                                    जि.प्र.का. <input class="form-control-sm form-field nepaliFont"
+                                                    <b>जि.प्र.का.</b> <input class="form-control-sm form-field nepaliFont"
                                                                       type="text"
                                                                       formControlName="guarantorCitizenIssuedOffice">
 
@@ -1459,15 +1461,9 @@
                                             मितिः <input class="form-control-sm form-field nepaliFont"
                                                          type="text"
                                                          [value]="form.get('date').value">
+                                            दस्तखतः ...................
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <p>
-                                        दस्तखतः ...................
-                                    </p>
                                 </div>
                             </div>
                         </div>
