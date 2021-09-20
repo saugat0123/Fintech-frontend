@@ -1,4 +1,7 @@
-<div [ngResizable]="true">
+<div [ngResizable]="true"  [nbSpinner]="spinner"
+     class="m-0"
+     nbSpinnerMessage="Loading Data..."
+     nbSpinnerSize="giant">
     <nb-card>
         <nb-card-header>
             <strong>{{popUpTitle}}</strong>
@@ -274,10 +277,11 @@
         <nb-card-footer>
             <button
                     (click)="onSubmit()"
-                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid) || !showHideSoleForm"
+                    [disabled]="!stageType || (stageType === 'individually' ? individualType?.form?.invalid : combinedType?.form?.invalid) || !showHideSoleForm || spinner"
                     nbButton type="button">
                 <em class="fa fa-save"></em>
             </button>
         </nb-card-footer>
     </nb-card>
+
 </div>
