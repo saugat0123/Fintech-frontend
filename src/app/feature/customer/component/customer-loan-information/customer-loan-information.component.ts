@@ -53,7 +53,6 @@ import {LoanTag} from '../../../loan/model/loanTag';
 export class CustomerLoanInformationComponent implements OnInit {
 
 
-    sender= [];
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;
@@ -170,21 +169,21 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('params');
-        this.loanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((data: any) => {
-            if (!ObjectUtil.isEmpty(data.detail)) {
-                try {
-                    this.remitCustomerList = data.detail.filter((d) => d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN));
-                    if (this.remitCustomerList.length > 0) {
-                        this.isLoaded = true;
-                    }
-                } catch (ex) {
-                    if (ex !== this.breakException) {
-                        console.log(ex);
-                    }
-                }
-            }
-        });
+        // console.log('params');
+        // this.loanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((data: any) => {
+        //     if (!ObjectUtil.isEmpty(data.detail)) {
+        //         try {
+        //             this.remitCustomerList = data.detail.filter((d) => d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN));
+        //             if (this.remitCustomerList.length > 0) {
+        //                 this.isLoaded = true;
+        //             }
+        //         } catch (ex) {
+        //             if (ex !== this.breakException) {
+        //                 console.log(ex);
+        //             }
+        //         }
+        //     }
+        // });
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 console.log('paramsvalue', paramsValue);
