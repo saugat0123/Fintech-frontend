@@ -28,6 +28,7 @@ import {LoanType} from '../../../loan/model/loanType';
 import {Gender} from '../../../../@core/model/enum/gender';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {Attributes} from '../../../../@core/model/attributes';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -54,12 +55,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   hideSaveBtn = false;
   clientType = CustomerType;
   translatedValues: any;
+  translatedData: any;
   customer: Customer = new Customer();
+  customerId = undefined;
+  attributes: Attributes = new Attributes();
   company: CompanyInfo = new CompanyInfo();
   companyLocations: CompanyLocations = new CompanyLocations();
   disableLoanFacility = true;
   oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
   calendarType = CalendarType.AD;
+  disableTemplateData = true;
+  disableLoanTab = true;
+  disableTemplateTab = true;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -200,6 +207,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   saveCustomer() {
+
+    // Object.keys(this.userConfigForm.controls).forEach(key => {
+    //   this.translatedData[key] = this.attributes;
+    //   console.log(this.translatedData);
+    // });
+    //
+    // console.log(this.translatedData.branch.en, 'asdasdasdasd');
+
     this.submitted = true;
     // if (this.userConfigForm.invalid) {
     //   return;
@@ -329,7 +344,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           branch: this.userConfigForm.get('branch').value,
           customerType: clientType,
           customer: this.oneFormCustomer,
-          // company: this.company,
           loanDetails: this.userConfigForm.get('loanDetails').value,
           guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
         };
@@ -338,6 +352,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
+      console.log(res);
+      this.customerId = res.detail.customerInfoId;
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -395,6 +411,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   addEmptyLoan() {
     (this.userConfigForm.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
+          customerId: [undefined],
           loanType: [undefined],
           loanFacility: [undefined],
           proposedAmount: [undefined],
@@ -462,5 +479,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   async translate() {
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    console.log(this.translatedValues);
   }
 }
