@@ -46,11 +46,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
       dateOfApproval: [undefined],
       referenceNumber: [undefined],
-      nameOfCustomer: [undefined],
-      addressOfCustomer: [undefined],
       dateOfApplication: [undefined],
       purposeOfLoan: [undefined],
-      loanAmountFigure: [undefined],
       amountInWords: [undefined],
       fixedDepositReceiptAmountFigure: [undefined],
       fixedDepositReceiptAmountWords: [undefined],
