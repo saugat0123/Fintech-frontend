@@ -104,6 +104,10 @@ export class SmeComponent implements OnInit {
       loanDeedAmount: [undefined],
       guaranteeAmount: [undefined],
       signatureDate: [undefined],
+      sakshiDistrict: [undefined],
+      sakshiMunicipality: [undefined],
+      sakshiWard: [undefined],
+      sakshiName: [undefined],
       bankRepresentativeName: [undefined],
     });
   }

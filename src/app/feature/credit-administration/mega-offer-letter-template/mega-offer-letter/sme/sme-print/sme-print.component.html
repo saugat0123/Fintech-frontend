@@ -513,7 +513,23 @@
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     साक्षीः <br>
-                                    १. .................जिल्ला ...............। गा.वि.स/न.पा, वडा न ..............।।  बस्ने श्री <br>
+                                    १.
+                                    <span [ngClass]="{'nepaliFont num' : letter?.sakshiDistrict!== null && letter?.sakshiDistrict!== ''}">
+                                                {{letter?.sakshiDistrict=== null || letter?.sakshiDistrict=== '' ? '___________' : letter?.sakshiDistrict}}
+                                    </span>
+                                    जिल्ला
+                                    <span [ngClass]="{'nepaliFont num' : letter?.sakshiMunicipality!== null && letter?.sakshiMunicipality!== ''}">
+                                                {{letter?.sakshiMunicipality=== null || letter?.sakshiMunicipality=== '' ? '___________' : letter?.sakshiMunicipality}}
+                                    </span>
+                                    गा.वि.स/न.पा, वडा न
+                                    <span [ngClass]="{'nepaliFont num' : letter?.sakshiWard!== null && letter?.sakshiWard!== ''}">
+                                                {{letter?.sakshiWard=== null || letter?.sakshiWard=== '' ? '___________' : letter?.sakshiWard}}
+                                    </span>
+                                    बस्ने श्री
+                                    <span [ngClass]="{'nepaliFont num' : letter?.sakshiName!== null && letter?.sakshiName!== ''}">
+                                                {{letter?.sakshiName=== null || letter?.sakshiName=== '' ? '___________' : letter?.sakshiName}}
+                                    </span>
+                                    <br>
                                     २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
                                     <span [ngClass]="{'nepaliFont num' : letter?.bankRepresentativeName!== null && letter?.bankRepresentativeName!== ''}">
                                                 {{letter?.bankRepresentativeName=== null || letter?.bankRepresentativeName=== '' ? '___________' : letter?.bankRepresentativeName}}

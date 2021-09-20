@@ -77,7 +77,47 @@ export class SmeTemplateDataComponent implements OnInit {
       loanDeedAmount: [undefined],
       guaranteeAmount: [undefined],
       signatureDate: [undefined],
+      sakshiDistrict: [undefined],
+      sakshiMunicipality: [undefined],
+      sakshiWard: [undefined],
+      sakshiName: [undefined],
       bankRepresentativeName: [undefined],
+
+      //For translated data
+      dateOfGenerationTransVal: [undefined],
+      customerNameTransVal: [undefined],
+      customerAddressTransVal: [undefined],
+      applicationDateInADTransVal: [undefined],
+      vehicleDescriptionTransVal: [undefined],
+      loanAmountTransVal: [undefined],
+      loanAmountWordsTransVal: [undefined],
+      drawingPowerTransVal: [undefined],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
+      annualInterestRateTransVal: [undefined],
+      serviceChargeTransVal: [undefined],
+      serviceChargeWordsTransVal: [undefined],
+      communicationFeeTransVal: [undefined],
+      emiAmountTransVal: [undefined],
+      emiAmountWordsTransVal: [undefined],
+      numberOfEmiTransVal: [undefined],
+      collateralReleaseFeeTransVal: [undefined],
+      loanCommitmentFeeTransVal: [undefined],
+      branchNameTransVal: [undefined],
+      lateFeeTransVal: [undefined],
+      dealerNameTransVal: [undefined],
+      changeFeeBelow1CrTransVal: [undefined],
+      changeFeeAbove1CrTransVal: [undefined],
+      documentAccessFeeTransVal: [undefined],
+      promissoryNoteAmountTransVal: [undefined],
+      loanDeedAmountTransVal: [undefined],
+      guaranteeAmountTransVal: [undefined],
+      signatureDateTransVal: [undefined],
+      sakshiDistrictTransVal: [undefined],
+      sakshiMunicipalityTransVal: [undefined],
+      sakshiWardTransVal: [undefined],
+      sakshiNameTransVal: [undefined],
+      bankRepresentativeNameTransVal: [undefined],
     });
   }
 
@@ -91,6 +131,22 @@ export class SmeTemplateDataComponent implements OnInit {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+  }
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+    //   const val = this.translatedValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    console.log('checked Value', this[formControlName + 'Check']);
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+
+  clearForm(controlName) {
+    this.form.get(controlName).setValue(null);
   }
 
   submit() {
