@@ -1,5 +1,5 @@
 <div  class="col-md-12" [nbSpinner]="spinner" >
-    <p><strong>Video KYC Information</strong></p>
+    <h6 class="p-2">Video KYC Information</h6>
     <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-center">
         <thead>
         <tr class="text-white sb-bg-dark">
@@ -13,15 +13,46 @@
         </tr>
         </thead>
         <tbody *ngIf="!notNUll">
-        <tr *ngFor="let data of videoKyc; let i = index">
-            <td>{{i+1}}</td>
-            <td>{{data.time}}</td>
-            <td class="text-left pl-1">{{data.date}}</td>
-            <td>{{data.meetingLink}}</td>
-            <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
-            <td>{{data.recordedLink}}</td>
-            <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data, i)"size="tiny">Get Link</button></td>
-        </tr>
+      <ng-container *ngIf="(showBenf && showSender); else onlySender;">
+          <tr *ngFor="let data of videoKyc; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{data.time}}</td>
+              <td class="text-left pl-1">{{data.date}}</td>
+              <td>{{data.meetingLink}}</td>
+              <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
+              <td>{{data.recordedLink}}</td>
+              <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
+          </tr>
+      </ng-container>
+      <ng-template #onlySender>
+      <ng-container *ngIf="showSender === true; else onlyBenf;">
+                <tr *ngFor="let data of senderDetails; let i = index">
+                    <ng-container>
+                        <td>{{i+1}}</td>
+                        <td>{{data.time}}</td>
+                        <td class="text-left pl-1">{{data.date}}</td>
+                        <td>{{data.meetingLink}}</td>
+                        <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
+                        <td>{{data.recordedLink}}</td>
+                        <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
+                    </ng-container>
+                </tr>
+        </ng-container>
+      </ng-template>
+
+      <ng-template #onlyBenf>
+            <tr *ngFor="let data of benfDetails; let i = index">
+                <ng-container>
+                    <td>{{i+1}}</td>
+                    <td>{{data.time}}</td>
+                    <td class="text-left pl-1">{{data.date}}</td>
+                    <td>{{data.meetingLink}}</td>
+                    <td>{{(data.isBenf)?('Beneficiary'):'Sender'}}</td>
+                    <td>{{data.recordedLink}}</td>
+                    <td> <button nbButton *ngIf="data.status.toLowerCase() === 'active'" (click) ="generate(data)"size="tiny">Get Link</button></td>
+                </ng-container>
+                     </tr>
+        </ng-template>
         </tbody>
     </table>
 </div>

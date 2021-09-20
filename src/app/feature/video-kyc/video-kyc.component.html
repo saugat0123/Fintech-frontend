@@ -1,6 +1,6 @@
 <div class="container-full bg-light" [nbSpinner]="videoSpinner">
     <div class="row m-0">
-        <div *ngIf="isModal"  class="col-md-12 custom-header">
+        <div *ngIf="showHeader"  class="col-md-12 custom-header">
             <a (click)="close()" aria-label="Close" class="close pull-right cursor">
                 <span aria-hidden="true"><b>&times;</b></span>
             </a>
@@ -12,8 +12,8 @@
                 <nb-card-body>
                     <div class="row">
                         <div class="col-sm-12" #kycInfo>
-                            <app-video-kyc-information [remitCustomer]="remitCustomer"
-                                                       (remitEvent)="getEvent($event)"></app-video-kyc-information>
+                            <app-video-kyc-information [showSender]="showSender" [showBenf]="showBenificiary" [remitCustomer]="remitCustomer" [senderDetails]="senderDetailsArr"
+    [benfDetails]="benfDetailsArr" [isModal]="isModal" (remitEvent)="getEvent($event)"></app-video-kyc-information>
                         </div>
                     </div>
                     <div class="row">

@@ -21,6 +21,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 
 @Component({
@@ -81,6 +83,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   currentUserRoleType = LocalStorageUtil.getStorage().roleType;
   loanAction: any;
   loanActionList = [];
+  loan = [];
+  loanTag = LoanTag;
+  isLoaded = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -93,6 +98,10 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       key: CustomerGroupLoanComponent.LOAN_CHANGE,
       value: 'Change Loan'
     }];
+    this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((data: any) => {
+      this.loan = data.detail;
+      this.isLoaded = true;
+    });
   }
 
   getCustomerLoans() {
@@ -341,12 +350,16 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   }
 
-  // addVideoKyc(model) {
-  //   console.log('this is data', model);
-  //   this.customerLoanService.detail(model.id).subscribe((data) => {
-  //     console.log('this is  response', data);
-  //   });
-  // }
+  addVideoKyc(model) {
+    this.customerLoanService.detail(model.id).subscribe((data) => {
+      console.log('this is  response', data);
+      const ref =  this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
+      ref.componentInstance.showSender = false;
+      ref.componentInstance.showHeader = true;
+      ref.componentInstance.showBenificiary = true;
+      ref.componentInstance.remitCustomer = data.detail.remitCustomer;
+    });
+  }
   deleteLoan(id: number) {
     const ref = this.modalService.open(LoginPopUp);
     let isAuthorized = false;
