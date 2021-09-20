@@ -97,10 +97,10 @@ checkActiveLink() {
     this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
     this.seperate();
     this.videoKyc.forEach((data) => {
-      if (data.status.toLowerCase() === 'active' && data.isBenf === true) {
+      if ((data.status.toLowerCase() === 'active' && data.isBenf === true) && this.remitCustomer.beneficiaryId === data.beneficiaryId) {
         this.beneficiaryForm.patchValue(data);
         this.benfLink = false;
-      } else if (data.status.toLowerCase() === 'active' && data.isBenf === false) {
+      } else if ((data.status.toLowerCase() === 'active' && data.isBenf === false) && this.remitCustomer.beneficiaryId === data.beneficiaryId) {
         this.senderForm.patchValue(data);
         this.senderLink = false;
       } else {
@@ -184,6 +184,7 @@ checkLinkValidation(form: FormGroup) {
       this.toast.warning('Generate Meeting Link');
       return;
     }
+    console.log('form', form.get('isBenf').value);
     this.videoSpinner = true;
     let str = form.get('meetingLink').value;
     str = str.slice(50, str.length);
@@ -214,7 +215,8 @@ checkLinkValidation(form: FormGroup) {
     this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
     if (form.get('isBenf').value === true) {
       this.loanService.getLoansByCitizenship(this.benfDetails.beneficiaryIdentity.citizenship_no).subscribe((response: any) => {
-        if (!ObjectUtil.isEmpty(response.detail)) {
+        console.log('dasd', response);
+        if (response.detail.length > 0) {
           try {
             response.detail.forEach((remit, i) => {
               if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
@@ -244,8 +246,12 @@ checkLinkValidation(form: FormGroup) {
               console.log(ex);
             }
           }
+        } else {
+          this.saveVideo(form, this.remitCustomer);
+          this.closes();
         }
-      }); } else if (form.get('isBenf').value === false) {
+      });
+    } else if (form.get('isBenf').value === false) {
       this.saveVideo(form, this.remitCustomer);
       this.closes();
     }
