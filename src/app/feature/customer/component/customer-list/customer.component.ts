@@ -149,7 +149,8 @@ export class CustomerComponent implements OnInit {
             subsectorDetail: [undefined],
             customerCode: [undefined],
             bankingRelationship: [undefined],
-            branch: [undefined]
+            branch: [undefined],
+            branchIds: [undefined]
 
         });
     }
@@ -217,6 +218,8 @@ export class CustomerComponent implements OnInit {
             this.filterForm.get('customerCode').value;
         this.search.bankingRelationship = ObjectUtil.isEmpty(this.filterForm.get('bankingRelationship').value) ? undefined :
             this.filterForm.get('bankingRelationship').value;
+        this.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branchIds').value) ? undefined :
+            this.filterForm.get('branchIds').value;
         this.search.gender = undefined;
         this.search.maritalStatus = undefined;
         this.search.customerLegalDocumentAddress = undefined;
@@ -291,6 +294,7 @@ export class CustomerComponent implements OnInit {
         if (this.accessSpecific || this.accessAll) {
             this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
                 this.branchList = response.detail;
+                console.log(this.branchList);
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
