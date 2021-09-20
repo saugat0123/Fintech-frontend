@@ -18,7 +18,7 @@
                 <nb-checkbox (change)="checkboxVal($event, 'dateofGeneration')"></nb-checkbox>
             </td>
             <td>
-                <input [readOnly]="!this['dateofGeneration']" type="text" class="form-control nepaliFont">
+                <input formControlName="dateofGenerationTransVal" [readOnly]="!this['dateofGenerationCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -31,7 +31,7 @@
                 <nb-checkbox (change)="checkboxVal($event, 'customerName')"></nb-checkbox>
             </td>
             <td>
-                <input [readonly]="!this['customerName']" type="text" class="form-control nepaliFont">
+                <input [readonly]="!this['customerNameCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
                 <nb-checkbox (change)="checkboxVal($event, 'customerAddress')"></nb-checkbox>
             </td>
             <td>
-                <input [readOnly]="!this['customerAddress']" type="text" class="form-control nepaliFont">
+                <input formControlName="dateofGenerationTransVal" [readOnly]="!this['customerAddressCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -60,7 +60,7 @@
                 <nb-checkbox (change)="checkboxVal($event, 'applicationDateInAD')"></nb-checkbox>
             </td>
             <td>
-                <input [readOnly]="!this['applicationDateInAD']" type="text" class="form-control nepaliFont">
+                <input formControlName="applicationDateInADTransVal" [readOnly]="!this['applicationDateInADCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
 
@@ -73,7 +73,7 @@
                 <nb-checkbox (change)="checkboxVal($event, 'drawingPowerRate')"></nb-checkbox>
             </td>
             <td>
-                <input [readOnly]="!this['drawingPowerRate']" type="text" class="form-control nepaliFont">
+                <input formControlName="drawingPowerRateTransVal" [readOnly]="!this['drawingPowerRateCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
 
@@ -86,7 +86,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'baseRate')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['baseRate']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="baseRateTransVal" [readOnly]="!this['baseRateCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
 
         <tr>
@@ -98,7 +98,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'premiumRate')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['premiumRate']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="premiumRateTransVal" [readOnly]="!this['premiumRateCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
 
         <tr>
@@ -109,7 +109,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'yearlyFloatingInterestRate')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['yearlyFloatingInterestRate']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="yearlyFloatingInterestRateTransVal" [readOnly]="!this['yearlyFloatingInterestRateCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
 
@@ -123,7 +123,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'serviceCharge')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['serviceCharge']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="serviceChargeTransVal" [readOnly]="!this['serviceChargeCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -135,7 +135,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'serviceChargeWords')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['serviceChargeWords']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="serviceChargeWordsTransVal" [readOnly]="!this['serviceChargeWordsCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Communication Fee</td>
@@ -146,7 +146,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'communicationFee')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['communicationFee']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="communicationFeeTransVal" [readOnly]="!this['communicationFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>EMI Amount</td>
@@ -158,7 +158,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'emiAmount')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['emiAmount']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="emiAmountTransVal" [readOnly]="!this['emiAmountCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>EMI Amount Words</td>
@@ -169,7 +169,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'emiAmountWords')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['emiAmountWords']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="emiAmountWordsTransVal" [readOnly]="!this['emiAmountWordsCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -181,7 +181,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'emiCount')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['emiCount']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="emiCountTransVal" [readOnly]="!this['emiCountCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Loan Commitment Fee</td>
@@ -192,7 +192,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'loanCommitmentFee')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['loanCommitmentFee']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="loanCommitmentFeeTransVal" [readOnly]="!this['loanCommitmentFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Owners Name</td>
@@ -203,7 +203,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['ownersName']" type="text" class="form-control nepaliFont" ></td>
+            <td><input formControlName="ownersNameTransVal" [readOnly]="!this['ownersNameCheck']" type="text" class="form-control nepaliFont" ></td>
         </tr>
         <tr>
             <td>Owners Address</td>
@@ -214,7 +214,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'ownersAddress')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['ownersAddress']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="ownersAddressTransVal" [readOnly]="!this['ownersAddressCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -226,7 +226,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'propertyPlotNumber')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['propertyPlotNumber']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="propertyPlotNumberTransVal" [readOnly]="!this['propertyPlotNumberCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Property Area</td>
@@ -237,7 +237,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'propertyArea')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['propertyArea']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="propertyAreaTransVal" [readOnly]="!this['propertyAreaCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -249,7 +249,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'sheetNumber')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['sheetNumber']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="sheetNumberTransVal" [readOnly]="!this['sheetNumberCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Change Fee Below 1 Cr</td>
@@ -260,7 +260,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'changeFeeBelow1Cr')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['changeFeeBelow1Cr']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="changeFeeBelow1CrTransVal" [readOnly]="!this['changeFeeBelow1CrCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Change Fee Above 1 Cr</td>
@@ -271,7 +271,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'changeFeeAbove1Cr')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['changeFeeAbove1Cr']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="changeFeeAbove1CrTransVal" [readOnly]="!this['changeFeeAbove1CrCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Collateral Release Fee</td>
@@ -282,7 +282,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'collateralReleaseFee')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['collateralReleaseFee']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="collateralReleaseFeeTransVal" [readOnly]="!this['collateralReleaseFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Document Access Fee</td>
@@ -293,7 +293,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'documentAccessFee')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['documentAccessFee']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="documentAccessFeeTransVal" [readOnly]="!this['documentAccessFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Promissory Note Amount</td>
@@ -304,7 +304,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'promissoryNoteAmount')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['promissoryNoteAmount']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="promissoryNoteAmountTransVal" [readOnly]="!this['promissoryNoteAmountCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Loan Deed Amount</td>
@@ -315,7 +315,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'loanDeedAmount')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['loanDeedAmount']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="loanDeedAmountTransVal" [readOnly]="!this['loanDeedAmountCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -327,7 +327,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'pledgeAmount')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['pledgeAmount']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="pledgeAmountTransVal" [readOnly]="!this['pledgeAmountCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -339,7 +339,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'guarantorName1')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['guarantorName1']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="guarantorName1TransVal" [readOnly]="!this['guarantorName1Check']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -351,7 +351,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'guarantorAmount1')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['guarantorAmount1']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="guarantorAmount1TransVal" [readOnly]="!this['guarantorAmount1Check']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -363,7 +363,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'guarantorAmountWords1')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['guarantorAmountWords1']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="guarantorAmountWords1TransVal" [readOnly]="!this['guarantorAmountWords1Check']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Signature Date</td>
@@ -374,7 +374,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'signatureDate')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['signatureDate']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="signatureDateTransVal" [readOnly]="!this['signatureDateCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -386,7 +386,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'sakshiDistrict')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['sakshiDistrict']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="sakshiDistrictTransVal" [readOnly]="!this['sakshiDistrictCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -398,7 +398,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'sakshiMunicipality')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['sakshiMunicipality']" type="text" class="form-control nepaliFont"></td>
+            <td><input formControlName="sakshiMunicipalityTransVal" [readOnly]="!this['sakshiMunicipalityCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Sakshi Ward Num</td>
@@ -409,7 +409,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'sakshiWardNum')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['sakshiWardNum']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="sakshiWardNumTransVal" [readOnly]="!this['sakshiWardNumCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -421,7 +421,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'sakshiName')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['sakshiName']" type="text" class="form-control nepaliFont" ></td>
+            <td><input formControlName="sakshiNameTransVal" [readOnly]="!this['sakshiNameCheck']" type="text" class="form-control nepaliFont" ></td>
         </tr>
         <tr>
             <td>Employee Name</td>
@@ -432,7 +432,7 @@
             <td>
                 <nb-checkbox (change)="checkboxVal($event, 'employeeName')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="!this['employeeName']" type="text" class="form-control nepaliFont">
+            <td><input formControlName="employeeNameTransVal" [readOnly]="!this['employeeNameCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
     </table>
