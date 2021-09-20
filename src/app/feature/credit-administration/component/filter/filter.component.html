@@ -14,18 +14,18 @@
     </div>
   </div>
 
-    <div class="col-md-6 d-flex justify-content-end">
-<!--      <button (click)="openReport()" nbButton outline-->
-<!--              status="success" size="small" *ngIf="fromCadDashboard">-->
-<!--        <i aria-hidden="true" class="fas fa-file"></i></button>&nbsp;-->
-      <div>
-        <button nbButton size="tiny" nbTooltip="Add new customer"
-                (click)="openOfferLetterConfigModal()"><em
-                class="fa fa-plus"></em></button>
-      </div>
-      <button (click)="getReport()" nbButton outline
-              status="info" size="small">
-        <i aria-hidden="true" class="fa fa-download"></i></button>
+  <div class="col-md-6 d-flex justify-content-end">
+    <!--      <button (click)="openReport()" nbButton outline-->
+    <!--              status="success" size="small" *ngIf="fromCadDashboard">-->
+    <!--        <i aria-hidden="true" class="fas fa-file"></i></button>&nbsp;-->
+    <div>
+      <button nbButton size="tiny" nbTooltip="Add new customer"
+              (click)="openTemplate(chooseCusType)"><em
+          class="fa fa-plus"></em></button>
+    </div>
+    <button (click)="getReport()" nbButton outline
+            status="info" size="small">
+      <i aria-hidden="true" class="fa fa-download"></i></button>
   </div>
 
   <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
@@ -55,21 +55,24 @@
           <label class="form-group">Current Possession Under</label>
           <select class="form-control rounded" formControlName="toRole" id="toRole">
             <option [ngValue]="null">Select Role</option>
-            <option [ngValue]="role.id" *ngFor="let role of possessionRoleList">{{role?.roleName}}</option>
+            <option [ngValue]="role.id"
+                    *ngFor="let role of possessionRoleList">{{role?.roleName}}</option>
           </select>
         </div>
         <div class="col-md-3 mb-3" *ngIf="fromCadDashboard">
           <label class="form-group">Document Status</label>
           <select class="form-control rounded" formControlName="docStatus" id="docStatus">
             <option [ngValue]="null" hidden>Select Document Status</option>
-            <option *ngFor="let status of cadDocStatus" [ngValue]="status">{{status | replace:'_':' ' | titlecase}}</option>
+            <option *ngFor="let status of cadDocStatus"
+                    [ngValue]="status">{{status | replace:'_':' ' | titlecase}}</option>
           </select>
         </div>
-        <div class="col-md-3 mb-3" >
+        <div class="col-md-3 mb-3">
           <label class="form-group">Business Unit</label>
           <select class="form-control rounded" formControlName="clientType" id="clientType">
             <option [ngValue]="null" hidden>Select Business Unit</option>
-            <option *ngFor="let type of clientType" [ngValue]="type">{{type | replace:'_':' '}}</option>
+            <option *ngFor="let type of clientType"
+                    [ngValue]="type">{{type | replace:'_':' '}}</option>
           </select>
         </div>
 
@@ -87,5 +90,30 @@
     </form>
   </div>
 </div>
+
+<ng-template #chooseCusType>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Choose Customer Type</h4>
+    <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+      <span aria-hidden="true">&times;</span>
+    </a>
+  </div>
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="customerType" placeholder="Select Customer Type">
+          <ng-option value="INSTITUTION">INSTITUTION</ng-option>
+          <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success float-right" nbButton size="small"
+            (click)="getForm(customerType);onClose()">Next
+    </button>
+  </div>
+</ng-template>
 
 <app-overlay-spinner></app-overlay-spinner>

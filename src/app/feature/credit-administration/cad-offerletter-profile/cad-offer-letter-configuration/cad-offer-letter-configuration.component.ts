@@ -24,6 +24,9 @@ import {Branch} from '../../../admin/modal/branch';
 import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CompanyLocations} from '../../../admin/modal/companyLocations';
+import {LoanType} from '../../../loan/model/loanType';
+import {Gender} from '../../../../@core/model/enum/gender';
+import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -32,13 +35,15 @@ import {CompanyLocations} from '../../../admin/modal/companyLocations';
 })
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
+  @Input() customerType;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
   // @Input() customer: Customer;
   @Output()
   customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
-  loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
+  loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
+  loanTypeList = LoanType;
   branchList: Array<Branch> = new Array<Branch>();
   guarantorList: Array<Guarantor>;
   userConfigForm: FormGroup;
@@ -51,6 +56,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   customer: Customer = new Customer();
   company: CompanyInfo = new CompanyInfo();
   companyLocations: CompanyLocations = new CompanyLocations();
+  disableLoanFacility = true;
+  oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
 
 
   constructor(private formBuilder: FormBuilder,
@@ -73,8 +80,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.loanConfigService.getAll().subscribe((response: any) => {
-      this.loanTypeList = response.detail;
+    this.addEmptyLoan();
+    this.addGuarantor();
+    this.userConfigForm.get('clientType').patchValue(this.customerType);
+
+    this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+      this.loanFacilityList = response.detail;
+      this.userConfigForm.get('loanFacility').enable();
+      this.disableLoanFacility = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -143,11 +156,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDate: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      loanType: [undefined],
-      proposedAmount: [undefined],
-      status: [undefined],
-      createdOn: [undefined],
-      comments: [undefined],
+      loanDetails: this.formBuilder.array([]),
+
     });
   }
 
@@ -187,7 +197,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   //   });
   // }
 
-  save() {
+  saveCustomer() {
     this.submitted = true;
     // if (this.userConfigForm.invalid) {
     //   return;
@@ -195,7 +205,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.spinner = true;
 
 
-    this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
+    // this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
     // this.customer.customerCode = this.userConfigForm.get('customerCode').value;
     // this.customer.customerName = this.userConfigForm.get('name').value;
     // this.customer.customerCode = this.userConfigForm.get('customerCode').value;
@@ -222,14 +232,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
     const clientType = this.userConfigForm.get('clientType').value;
-    console.log(this.userConfigForm.get('clientType').value, 'adsasdasd');
-    this.customer.customerName = this.userConfigForm.get('name').value;
-
-    if (this.userConfigForm.get('clientType').value === 'INSTITUTION') {
-      this.company.companyName = this.userConfigForm.get('name').value;
-      this.company.email = this.userConfigForm.get('email').value;
-      this.company.contactNum = this.userConfigForm.get('contactNo').value;
-      this.company.registrationNumber = this.userConfigForm.get('registrationNo').value;
+    this.oneFormCustomer.customerCode = this.userConfigForm.get('customerCode').value;
+    this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
+    this.oneFormCustomer.companyName = this.userConfigForm.get('name').value;
+    this.oneFormCustomer.panNumber = this.userConfigForm.get('panNo').value;
+    this.oneFormCustomer.email = this.userConfigForm.get('email').value;
+    this.oneFormCustomer.registrationNumber = this.userConfigForm.get('registrationNo').value;
+    this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
+    this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
+    this.oneFormCustomer.gender = this.userConfigForm.get('gender').value === 'Male' ? 'MALE' : 'FEMALE';
+    this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
+    this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
+    this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
+    this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
       // this.company.establishmentDate = this.userConfigForm.get('registrationDate').value;
       // this.company.companyLegalDocumentAddress = JSON.stringify(
       //     this.userConfigForm.get('registeredMunicipality').value +
@@ -253,7 +268,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.company.currentWard = this.userConfigForm.get('currentWard').value;
       // this.company.currentDistrict = this.userConfigForm.get('currentDistrict').value;
       // this.company.currentMunicipality = this.userConfigForm.get('currentMunicipality').value;
-      this.company.customerCode = this.userConfigForm.get('customerCode').value;
+      // this.company.customerCode = this.userConfigForm.get('customerCode').value;
 
 
       // this.company.fatherName = this.userConfigForm.get('fatherName').value;
@@ -272,16 +287,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.company.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
       // this.company.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
       // this.company.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
-    } else {
-      console.log(this.userConfigForm.get('clientType').value, 'adsasdasd');
-      this.customer.customerName = this.userConfigForm.get('name').value;
-      this.customer.email = this.userConfigForm.get('email').value;
-      this.customer.contactNumber = this.userConfigForm.get('contactNo').value;
 
-      this.customer.customerCode = this.userConfigForm.get('customerCode').value;
-      // this.customer.gender = this.userConfigForm.get('gender').value === 'Male' ? Gender.MALE : Gender.FEMALE;
-      this.customer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
-      this.customer.dob = this.userConfigForm.get('dob').value;
       // this.customer.province = this.userConfigForm.get('permanentProvince').value;
       // this.customer.district = this.userConfigForm.get('permanentDistrict').value;
       // this.customer.municipalities = this.userConfigForm.get('permanentMunicipality').value;
@@ -290,10 +296,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
       // this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
       // this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
-      this.customer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
-      this.customer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
-
-    }
 
     // this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
     // const occupations = {
@@ -320,21 +322,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         //  this.customer.individualJsonData = this.setIndividualJsonData();
 
         // this.customer.isMicroCustomer = this.microCustomer;
-    const dat = {
+    const data = {
           branch: this.userConfigForm.get('branch').value,
           customerType: clientType,
-          customer: this.customer,
-          company: this.company,
+          customer: this.oneFormCustomer,
+          // company: this.company,
+          loanDetails: this.userConfigForm.get('loanDetails').value
         };
-    console.log(dat);
-    this.cadOneformService.saveCustomer(dat).subscribe(res => {
+    console.log(data);
+    console.log(this.userConfigForm.value);
+    this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
-      // this.close();
-      /*if (this.formValue.id == null) {
-          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer Info'));
-      } else {
-          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Customer Info'));
-      }*/
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -369,6 +368,41 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       }
       this.userConfigForm.get(s).updateValueAndValidity();
     });
+  }
+
+  setLoan(data) {
+    if (data.length === 0) {
+      this.addEmptyLoan();
+      return;
+    }
+    data.forEach(d => {
+      (this.userConfigForm.get('loanDetails') as FormArray).push(
+          this.formBuilder.group({
+            loanFacility: [d.loanFacility],
+            proposedAmount: [d.proposedAmount],
+            status: [d.status],
+            approvedOn: [d.approvedOn],
+            comments: [d.comments],
+          })
+      );
+    });
+  }
+
+  addEmptyLoan() {
+    (this.userConfigForm.get('loanDetails') as FormArray).push(
+        this.formBuilder.group({
+          loanType: [undefined],
+          loanFacility: [undefined],
+          proposedAmount: [undefined],
+          status: [undefined],
+          approvedOn: [undefined],
+          comments: [undefined],
+        })
+    );
+  }
+
+  removeLoan(i) {
+    (this.userConfigForm.get('loanDetails') as FormArray).removeAt(i);
   }
 
   addGuarantor() {
