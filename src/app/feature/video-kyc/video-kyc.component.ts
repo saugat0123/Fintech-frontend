@@ -98,10 +98,8 @@ checkActiveLink() {
     this.seperate();
     this.videoKyc.forEach((data) => {
       if (data.status.toLowerCase() === 'active' && data.isBenf === true) {
-        this.beneficiaryForm.patchValue(data);
         this.benfLink = false;
       } else if (data.status.toLowerCase() === 'active' && data.isBenf === false) {
-        this.senderForm.patchValue(data);
         this.senderLink = false;
       } else {
         this.senderLink = true;
@@ -225,6 +223,8 @@ close() {
       this.closes();
   }
   closes() {
+    this.buildSenderForm();
+    this.buildBenfFrom();
     if (this.isModal === true) {
       this.model.dismissAll();
       this.router.navigateByUrl('/RemitCustomerListComponent', {skipLocationChange: true}).then(() => {
