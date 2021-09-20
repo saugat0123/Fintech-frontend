@@ -55,7 +55,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   hideSaveBtn = false;
   clientType = CustomerType;
   translatedValues: any;
-  translatedData: any;
+  translatedData = {};
   customer: Customer = new Customer();
   customerId = undefined;
   attributes: Attributes = new Attributes();
@@ -119,7 +119,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       branch: [undefined],
       clientType: [undefined],
       name: [undefined],
-
       email: [undefined],
       contactNo: [undefined],
       panNo: [undefined],
@@ -208,10 +207,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   saveCustomer() {
 
-    // Object.keys(this.userConfigForm.controls).forEach(key => {
-    //   this.translatedData[key] = this.attributes;
-    //   console.log(this.translatedData);
-    // });
+
     //
     // console.log(this.translatedData.branch.en, 'asdasdasdasd');
 
@@ -336,18 +332,39 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // this.customer.netWorth = this.userConfigForm.get('netWorth').value;
 
     /** Remaining static read-write only data*/
-        //  this.customer.individualJsonData = this.setIndividualJsonData();
+    //  this.customer.individualJsonData = this.setIndividualJsonData();
 
-        // this.customer.isMicroCustomer = this.microCustomer;
+    // this.customer.isMicroCustomer = this.microCustomer;
 
+    Object.keys(this.userConfigForm.controls).forEach(key => {
+      if (key === 'loanDetails') {
+        return;
+      }
+      this.attributes = new Attributes();
+      console.log(key);
+      console.log(this.userConfigForm.get(key).value);
+      this.attributes.en = this.userConfigForm.get(key).value;
+      this.attributes.np = this.translatedValues[key];
+      this.translatedData[key] = this.attributes;
+      console.log(this.translatedData);
+    });
+
+    // const translationMap = new Map<String, Attributes>();
+
+    // const obj = Object.fromEntries(map);
+
+    // @ts-ignore
     const data = {
-          branch: this.userConfigForm.get('branch').value,
-          customerType: clientType,
-          customer: this.oneFormCustomer,
-          loanDetails: this.userConfigForm.get('loanDetails').value,
-          guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
-        };
-    console.log(data);
+      branch: this.userConfigForm.get('branch').value,
+      customerType: clientType,
+      customer: this.oneFormCustomer,
+      loanDetails: this.userConfigForm.get('loanDetails').value,
+      guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
+      translatedData: this.translatedData
+    };
+
+    //  data.translatedData = JSON.stringify(jsonObject);
+    console.log('final data:::::', data);
     console.log(this.userConfigForm.value);
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
