@@ -32,7 +32,7 @@ export class SiteVisitComponent implements OnInit {
 
   @ViewChild('currentResidentAddress', {static: true}) currentResidentAddress: CommonAddressComponent;
   @ViewChild('fixedAssetsAddress', {static: true}) fixedAssetsAddress: CommonAddressComponent;
-  @ViewChild('businessOfficeAddress', {static: false}) businessOfficeAddress: CommonAddressComponent;
+  @ViewChild('businessOfficeAddress', {static: true}) businessOfficeAddress: CommonAddressComponent;
 
   @ViewChildren('businessOfficeAddress1')
   businessOfficeAddress1: QueryList<CommonAddressComponent>;
@@ -119,17 +119,16 @@ export class SiteVisitComponent implements OnInit {
     return this.siteVisitFormGroup.controls;
   }
 
+  loaded = false;
   ngOnInit() {
     this.getRoleList();
-    console.log('formValue', this.formValue);
     if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
-      console.log('formDataForEdit', this.formDataForEdit);
     }
-    console.log('formDataForEdit111', this.formDataForEdit);
 
     this.buildForm();
+    this.previousData();
     if (this.formDataForEdit !== undefined) {
       this.populateData();
     } else {
@@ -201,10 +200,10 @@ export class SiteVisitComponent implements OnInit {
         staffRepresentativeName2: [this.formDataForEdit === undefined ? undefined :
             (this.formDataForEdit.businessSiteVisitDetails === undefined ? undefined
                 : this.formDataForEdit.businessSiteVisitDetails.staffRepresentativeName2)],
-        locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
-        mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
+        // locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+        //     : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
+        // mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+        //     : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
                 : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required],
@@ -501,7 +500,9 @@ export class SiteVisitComponent implements OnInit {
     this.setPayableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.payableAssets);
     this.setOtherCurrentInspectingStaffs(currentAssetsInspectionData.otherCurrentAssets.inspectingStaffs);
     this.setBankExposures(currentAssetsInspectionData.otherCurrentAssets.bankExposures);
-    this.setBusinessDetails(this.formDataForEdit.businessDetails);
+    if (!ObjectUtil.isEmpty(this.formDataForEdit.businessDetails)) {
+      this.setBusinessDetails(this.formDataForEdit.businessDetails);
+    }
   }
 
   staffsFormGroup(): FormGroup {
@@ -787,7 +788,6 @@ export class SiteVisitComponent implements OnInit {
     }
     if (this.currentResidentForm) {
       // current residential details
-      console.log('currentResidentAddress', this.currentResidentAddress);
       this.currentResidentAddress.onSubmit();
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid || this.currentResidentAddress.addressForm.invalid) {
       this.submitted = true;
@@ -804,7 +804,6 @@ export class SiteVisitComponent implements OnInit {
             if (value.addressForm.invalid || data.invalid) {
               this.business = true;
               value.submitted = true;
-              console.log('inside validation check');
               throw this.breakException;
             }
             if (i === index) {
@@ -831,7 +830,6 @@ export class SiteVisitComponent implements OnInit {
     this.overlay.show();
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
-    // console.log('siteVisitData', this.siteVisitData);
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {
@@ -1111,8 +1109,6 @@ export class SiteVisitComponent implements OnInit {
 
   addMoreBusinessSiteVisit() {
     (this.siteVisitFormGroup.get('businessDetails') as FormArray).push(this.businessDetailsFormGroup());
-    console.log('form', this.siteVisitFormGroup.get('businessDetails') as FormArray);
-    console.log('dsadsfadsf', this.siteVisitFormGroup.get('businessDetails')['controls']);
   }
 
   removeBusinessSiteVisit(index: number) {
@@ -1151,18 +1147,24 @@ export class SiteVisitComponent implements OnInit {
             businessSiteVisitLongitude: [singleData.businessSiteVisitLongitude],
             businessSiteVisitLatitude: [singleData.businessSiteVisitLatitude],
             findingsAndComments: [singleData.findingsAndComments],
+            locationPreview: [singleData.findingsAndComments],
+            mapAddress: [singleData.findingsAndComments],
           })
       );
     });
   }
 
-  // setRevaluationData(controlName, list, siteVisitId) {
-  //   this.siteVisitFormGroup.controls[controlName]['controls'].forEach((control, index) => {
-  //
-  //     const comp: any = list.filter(item => item.siteVisitId === (siteVisitId + index))[0];
-  //     control.get('revaluationData').setValue(comp.formGroup.value);
-  //   });
-  // }
+  previousData() {
+    if (!ObjectUtil.isEmpty(this.formValue)) {
+      this.formDataForEdit = JSON.parse(this.formValue.data);
+        const oldData1 = [];
+        if ((this.formDataForEdit.businessDetails === undefined || this.formDataForEdit.businessDetails === null)
+            && this.formDataForEdit.businessSiteVisitFormChecked) {
+          oldData1.push(this.formDataForEdit.businessSiteVisitDetails);
+          this.setBusinessDetails(oldData1);
+        }
+      }
+    }
 
 }
 

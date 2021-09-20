@@ -5,9 +5,6 @@ import {AddressService} from '../../@core/service/baseservice/address.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MunicipalityVdc} from '../admin/modal/municipality_VDC';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
-import {SecurityIds} from '../loan-information-template/security/security-initial-form/SecurityIds';
-import {NumberUtils} from '../../@core/utils/number-utils';
-import {SiteVisitIds} from '../loan-information-template/site-visit/siteVisitIds';
 
 @Component({
   selector: 'app-common-address',
@@ -28,7 +25,6 @@ export class CommonAddressComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    console.log( 'this is address', this.address);
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -89,46 +85,8 @@ export class CommonAddressComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log('I am here');
     this.submitted = true;
-    // console.log('addressForm', this.addressForm);
     this.submitData = this.addressForm.value;
-    console.log('submitData', this.submitData);
-  }
-
-
-  setAddressValue() {
-    if (!ObjectUtil.isEmpty(this.addressForm)) {
-      if (this.addressId.includes(SiteVisitIds.business, 0)) {
-        this.patchAddressData('province', 'district', 'municipalityVdc', 'ward', 'address1', 'address2');
-      } else if (this.addressId.includes(SiteVisitIds.current_aspect, 0)) {
-        this.patchAddressData('province', 'district', 'municipalityVdc', 'ward', 'address1', 'address2');
-      }
-    }
-  }
-
-  patchAddressData(province, district, municipalityVdc, ward, address1, address2) {
-    const i = this.addressId.replace(/[^0-9]/g, '');
-    const addressData = {
-      province: undefined,
-      district: undefined,
-      municipalityVdc: undefined,
-      ward: undefined,
-      address1: undefined,
-      address2: undefined,
-    };
-    addressData.address1 = this.addressForm.get('address1')[i].value;
-    addressData.address2 = this.addressForm.get('address2')[i].value;
-    // calcData.changeInFmv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-    //         [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedFmv -
-    //     this.oldValuation[i][fmv]);
-    // calcData.changeInDv = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-    //         [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedDv -
-    //     this.oldValuation[i][dv]);
-    // calcData.changeInConsideredValue = NumberUtils.isNumber(this.formGroup.get('revaluationDetails').value
-    //         [this.formGroup.get('revaluationDetails').value.length - 1].reValuatedConsideredValue -
-    //     this.oldValuation[i][considered]);
-    this.addressForm.patchValue(addressData);
   }
 
 }
