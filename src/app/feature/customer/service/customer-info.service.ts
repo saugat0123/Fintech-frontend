@@ -28,6 +28,7 @@ export class CustomerInfoSearch {
     maritalStatus: string;
     customerLegalDocumentAddress: string;
     branch: string;
+    branchIds: string;
 
 }
 
