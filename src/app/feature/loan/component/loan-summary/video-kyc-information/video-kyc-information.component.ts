@@ -48,6 +48,7 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
           response.detail.version = response.detail.version + 1;
           this.remitEvent.emit(response.detail);
           if (this.isModal === true) {
+            this.model.dismissAll();
             this.router.navigateByUrl('/RemitCustomerListComponent', {skipLocationChange: true}).then(() => {
               this.router.navigate(['/home/admin/remitLoan/incoming']);
             });
@@ -55,7 +56,6 @@ export class VideoKycInformationComponent implements OnInit , OnChanges{
             // this.router.navigate(['/home/admin/catalogue']);
           }
           this.toast.success('Status Changed');
-          this.model.dismissAll();
           this.spinner = false;
         }, (err) => {
           this.spinner = false;

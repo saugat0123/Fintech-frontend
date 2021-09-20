@@ -31,6 +31,7 @@ export class VideoKycComponent implements OnInit {
   @Input() showBenificiary;
   @Input() showSender;
   @Input() remitCustomer;
+  @Input() showHeader;
   senderLink = true;
   benfLink = true;
   senderForm: FormGroup;
@@ -62,7 +63,6 @@ export class VideoKycComponent implements OnInit {
   videoSpinner = false;
   breakException: any;
   ngOnInit() {
-    this.benfDetails = JSON.parse(this.remitCustomer.beneficiaryData);
     this.buildSenderForm();
     this.buildBenfFrom();
     this.checkActiveLink();
@@ -97,10 +97,10 @@ checkActiveLink() {
     this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
     this.seperate();
     this.videoKyc.forEach((data) => {
-      if ((data.status.toLowerCase() === 'active' && data.isBenf === true) && this.remitCustomer.beneficiaryId === data.beneficiaryId) {
+      if (data.status.toLowerCase() === 'active' && data.isBenf === true) {
         this.beneficiaryForm.patchValue(data);
         this.benfLink = false;
-      } else if ((data.status.toLowerCase() === 'active' && data.isBenf === false) && this.remitCustomer.beneficiaryId === data.beneficiaryId) {
+      } else if (data.status.toLowerCase() === 'active' && data.isBenf === false) {
         this.senderForm.patchValue(data);
         this.senderLink = false;
       } else {
@@ -127,7 +127,11 @@ checkActiveLink() {
   }
 
   generateVideoKycSender($event: MouseEvent) {
-    this.checkLinkValidation(this.senderForm);
+    if (ObjectUtil.isEmpty(this.senderForm.get('date').value) || ObjectUtil.isEmpty(this.senderForm.get('time').value) ||
+        !this.senderForm.get('date').valid) {
+      this.toast.warning('Validation Not Matched');
+      return;
+    }
     this.senderDetails = JSON.parse(this.remitCustomer.senderData);
     this.videoKycBody.agentEmail = this.agentDetails.email;
     this.videoKycBody.customerInfo = {
@@ -155,7 +159,11 @@ checkLinkValidation(form: FormGroup) {
   }
 }
   generateVideoKycBeneficiary($event: MouseEvent) {
-   this.checkLinkValidation(this.beneficiaryForm);
+    if (ObjectUtil.isEmpty(this.beneficiaryForm.get('date').value) || ObjectUtil.isEmpty(this.beneficiaryForm.get('time').value) ||
+        !this.beneficiaryForm.get('date').valid) {
+      this.toast.warning('Validation Not Matched');
+      return;
+    }
     this.benfDetails = JSON.parse(this.remitCustomer.beneficiaryData);
     this.videoKycBody.agentEmail = this.agentDetails.email;
     this.videoKycBody.customerInfo = {
@@ -175,10 +183,10 @@ checkLinkValidation(form: FormGroup) {
     });
   }
 
-  close() {
-    this.model.dismissAll();
-  }
 
+close() {
+    this.model.dismissAll();
+}
   save(form: FormGroup) {
     if (ObjectUtil.isEmpty(form.get('meetingLink').value)) {
       this.toast.warning('Generate Meeting Link');
@@ -213,52 +221,12 @@ checkLinkValidation(form: FormGroup) {
       this.videoKyc = [form.value];
     }
     this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
-    if (form.get('isBenf').value === true) {
-      this.loanService.getLoansByCitizenship(this.benfDetails.beneficiaryIdentity.citizenship_no).subscribe((response: any) => {
-        console.log('dasd', response);
-        if (response.detail.length > 0) {
-          try {
-            response.detail.forEach((remit, i) => {
-              if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-                if (!ObjectUtil.isEmpty(remit.remitCustomer.videoKyc)) {
-                  if (response.detail[i].remitCustomer.beneficiaryId === this.remitCustomer.beneficiaryId) {
-                    this.saveVideo(form, this.remitCustomer);
-                    this.closes();
-                    throw this.breakException;
-                  } else {
-                    const newVideo = JSON.parse(remit.remitCustomer.videoKyc);
-                    newVideo.push(form.value);
-                    response.detail[i].remitCustomer.videoKyc = JSON.stringify(newVideo);
-                    this.saveVideo(form, response.detail[i].remitCustomer);
-                    this.saveVideo(form, this.remitCustomer);
-                    this.closes();
-                    throw this.breakException;
-                  }
-                } else {
-                  this.saveVideo(form, this.remitCustomer);
-                  this.closes();
-                  throw this.breakException;
-                }
-              }
-            });
-          } catch (ex) {
-            if (ex !== this.breakException) {
-              console.log(ex);
-            }
-          }
-        } else {
-          this.saveVideo(form, this.remitCustomer);
-          this.closes();
-        }
-      });
-    } else if (form.get('isBenf').value === false) {
       this.saveVideo(form, this.remitCustomer);
       this.closes();
-    }
   }
   closes() {
-    this.model.dismissAll();
     if (this.isModal === true) {
+      this.model.dismissAll();
       this.router.navigateByUrl('/RemitCustomerListComponent', {skipLocationChange: true}).then(() => {
         this.router.navigate(['/home/admin/remitLoan/incoming']);
       });
@@ -282,7 +250,7 @@ checkLinkValidation(form: FormGroup) {
     }, err => {
       this.videoSpinner = false;
       this.toast.danger('OPPS!! Something Went Wrong');
-      this.model.dismissAll();
+      this.closes();
     });
   }
   seperate() {

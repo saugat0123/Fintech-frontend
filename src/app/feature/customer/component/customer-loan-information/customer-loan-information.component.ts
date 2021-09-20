@@ -158,7 +158,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     microCustomerTypeEnum = MicroCustomerType;
-    remitCustomer: any;
+    remitCustomerList: any;
     isLoaded = false;
     breakException: any;
     constructor(
@@ -174,15 +174,10 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.loanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((data: any) => {
             if (!ObjectUtil.isEmpty(data.detail)) {
                 try {
-                    data.detail.forEach((remit, i) => {
-                        if (remit.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-                            this.remitCustomer = data.detail[i].remitCustomer;
-                            if (!ObjectUtil.isEmpty(this.remitCustomer)) {
-                                this.isLoaded = true;
-                            }
-                            throw this.breakException;
-                        }
-                    });
+                    this.remitCustomerList = data.detail.filter((d) => d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN));
+                    if (this.remitCustomerList.length > 0) {
+                        this.isLoaded = true;
+                    }
                 } catch (ex) {
                     if (ex !== this.breakException) {
                         console.log(ex);

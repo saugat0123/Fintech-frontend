@@ -5,16 +5,16 @@
 
   <nb-card-body>
 
-    <nb-accordion>
-      <nb-accordion-item>
-        <nb-accordion-item-header>Video KYC</nb-accordion-item-header>
-        <nb-accordion-item-body *ngIf="isLoaded">
-          <div class="col-md-12">
-            <app-video-kyc [showBenificiary]="true" [remitCustomer]="remitCustomer"  [isModal]="false" ></app-video-kyc>
-          </div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
+<!--    <nb-accordion>-->
+<!--      <nb-accordion-item>-->
+<!--        <nb-accordion-item-header>Video KYC</nb-accordion-item-header>-->
+<!--        <nb-accordion-item-body *ngIf="isLoaded">-->
+<!--          <div class="col-md-12" *ngFor="let data of this.remitCustomerList">-->
+<!--            <app-video-kyc [showBenificiary]="true" [remitCustomer]="data?.remitCustomer"  [isModal]="false" ></app-video-kyc>-->
+<!--          </div>-->
+<!--        </nb-accordion-item-body>-->
+<!--      </nb-accordion-item>-->
+<!--    </nb-accordion>-->
 
     <nb-accordion>
       <nb-accordion-item #itemSiteVisit>
