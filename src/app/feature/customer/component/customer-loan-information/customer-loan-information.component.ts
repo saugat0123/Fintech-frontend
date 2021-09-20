@@ -41,10 +41,9 @@ import {PreviousSecurityComponent} from '../../../loan-information-template/prev
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute, Params} from "@angular/router";
-import {DateValidator} from '../../../../@core/validator/date-validator';
-import { DatePipe } from '@angular/common';
+import {ActivatedRoute, Params} from '@angular/router';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -54,7 +53,6 @@ import { DatePipe } from '@angular/common';
 export class CustomerLoanInformationComponent implements OnInit {
 
 
-    sender= [];
     @Input() public customerInfoId: number;
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;
@@ -159,16 +157,33 @@ export class CustomerLoanInformationComponent implements OnInit {
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     microCustomerTypeEnum = MicroCustomerType;
+    remitCustomerList: any;
+    isLoaded = false;
+    breakException: any;
     constructor(
         private activatedRoute: ActivatedRoute,
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
+        private loanService: LoanFormService
     ) {
     }
 
     ngOnInit() {
-        console.log('params');
-
+        // console.log('params');
+        // this.loanService.getLoansByLoanHolderId(this.customerInfoId).subscribe((data: any) => {
+        //     if (!ObjectUtil.isEmpty(data.detail)) {
+        //         try {
+        //             this.remitCustomerList = data.detail.filter((d) => d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN));
+        //             if (this.remitCustomerList.length > 0) {
+        //                 this.isLoaded = true;
+        //             }
+        //         } catch (ex) {
+        //             if (ex !== this.breakException) {
+        //                 console.log(ex);
+        //             }
+        //         }
+        //     }
+        // });
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 console.log('paramsvalue', paramsValue);

@@ -8,6 +8,9 @@ import {RemitCustomerService} from '../admin/component/remit-customer-list/servi
 import {NbToastrService} from '@nebular/theme';
 import {ObjectUtil} from '../../@core/utils/ObjectUtil';
 import {Router} from '@angular/router';
+import {CustomerService} from '../admin/service/customer.service';
+import {LoanFormService} from '../loan/component/loan-form/service/loan-form.service';
+import {LoanTag} from '../loan/model/loanTag';
 
 @Component({
   selector: 'app-video-kyc',
@@ -21,11 +24,14 @@ export class VideoKycComponent implements OnInit {
               private model: NgbModal,
               private remitService: RemitCustomerService,
               private toast: NbToastrService,
-              private router: Router) { }
+              private router: Router,
+              private customerService: CustomerService,
+              private loanService: LoanFormService) { }
   @Input() isModal;
   @Input() showBenificiary;
   @Input() showSender;
   @Input() remitCustomer;
+  @Input() showHeader;
   senderLink = true;
   benfLink = true;
   senderForm: FormGroup;
@@ -33,6 +39,8 @@ export class VideoKycComponent implements OnInit {
   senderDetails: any;
   benfDetails: any;
   agentDetails: any;
+  benfDetailsArr = [];
+  senderDetailsArr = [];
   videoKyc: any;
   videoKycBody = {
     "agentEmail": "agent@email.com",
@@ -87,6 +95,7 @@ export class VideoKycComponent implements OnInit {
 checkActiveLink() {
   if (this.remitCustomer.videoKyc !== null && !ObjectUtil.isEmpty(this.remitCustomer.videoKyc)) {
     this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
+    this.seperate();
     this.videoKyc.forEach((data) => {
       if (data.status.toLowerCase() === 'active' && data.isBenf === true) {
         this.beneficiaryForm.patchValue(data);
@@ -118,7 +127,11 @@ checkActiveLink() {
   }
 
   generateVideoKycSender($event: MouseEvent) {
-    this.checkLinkValidation(this.senderForm);
+    if (ObjectUtil.isEmpty(this.senderForm.get('date').value) || ObjectUtil.isEmpty(this.senderForm.get('time').value) ||
+        !this.senderForm.get('date').valid) {
+      this.toast.warning('Validation Not Matched');
+      return;
+    }
     this.senderDetails = JSON.parse(this.remitCustomer.senderData);
     this.videoKycBody.agentEmail = this.agentDetails.email;
     this.videoKycBody.customerInfo = {
@@ -146,7 +159,11 @@ checkLinkValidation(form: FormGroup) {
   }
 }
   generateVideoKycBeneficiary($event: MouseEvent) {
-   this.checkLinkValidation(this.beneficiaryForm);
+    if (ObjectUtil.isEmpty(this.beneficiaryForm.get('date').value) || ObjectUtil.isEmpty(this.beneficiaryForm.get('time').value) ||
+        !this.beneficiaryForm.get('date').valid) {
+      this.toast.warning('Validation Not Matched');
+      return;
+    }
     this.benfDetails = JSON.parse(this.remitCustomer.beneficiaryData);
     this.videoKycBody.agentEmail = this.agentDetails.email;
     this.videoKycBody.customerInfo = {
@@ -166,15 +183,16 @@ checkLinkValidation(form: FormGroup) {
     });
   }
 
-  close() {
-    this.model.dismissAll();
-  }
 
+close() {
+    this.model.dismissAll();
+}
   save(form: FormGroup) {
     if (ObjectUtil.isEmpty(form.get('meetingLink').value)) {
       this.toast.warning('Generate Meeting Link');
       return;
     }
+    console.log('form', form.get('isBenf').value);
     this.videoSpinner = true;
     let str = form.get('meetingLink').value;
     str = str.slice(50, str.length);
@@ -182,7 +200,7 @@ checkLinkValidation(form: FormGroup) {
       beneficiaryId: this.remitCustomer.beneficiaryId,
       id: str
     });
-    if (this.videoKyc !== null  && !ObjectUtil.isEmpty(this.videoKyc)) {
+    if (this.videoKyc !== null && !ObjectUtil.isEmpty(this.videoKyc)) {
       try {
         this.videoKyc.forEach((data, i) => {
           if (data.status.toLowerCase() === 'active' && data.isBenf === form.get('isBenf').value) {
@@ -192,17 +210,32 @@ checkLinkValidation(form: FormGroup) {
             if (i === this.videoKyc.length - 1) {
               this.videoKyc.push(form.value);
             }
-          }});
+          }
+        });
       } catch (ex) {
         if (ex !== this.breakException) {
           throw ex;
         }
       }
     } else {
-       this.videoKyc = [form.value];
+      this.videoKyc = [form.value];
     }
     this.remitCustomer.videoKyc = JSON.stringify(this.videoKyc);
-    this.remitService.saveRemitCustomer(this.remitCustomer).subscribe((data) => {
+      this.saveVideo(form, this.remitCustomer);
+      this.closes();
+  }
+  closes() {
+    if (this.isModal === true) {
+      this.model.dismissAll();
+      this.router.navigateByUrl('/RemitCustomerListComponent', {skipLocationChange: true}).then(() => {
+        this.router.navigate(['/home/admin/remitLoan/incoming']);
+      });
+    } else {
+      // this.router.navigate(['/home/admin/catalogue']);
+    }
+  }
+  saveVideo(form, remitCustomer) {
+    this.remitService.saveRemitCustomer(remitCustomer).subscribe((data) => {
       if (form.get('isBenf').value === true) {
         this.benfLink = false;
       } else if (form.get('isBenf').value === false) {
@@ -211,24 +244,30 @@ checkLinkValidation(form: FormGroup) {
       this.videoSpinner = false;
       data.detail.version = data.detail.version + 1;
       this.remitCustomer = data.detail;
+      this.seperate();
       this.videoKyc = this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
       this.toast.success('Saved Video Kyc Details');
-      this.model.dismissAll();
-      if (this.isModal === true) {
-        this.router.navigateByUrl('/RemitCustomerListComponent', {skipLocationChange: true}).then(() => {
-          this.router.navigate(['/home/admin/remitLoan/incoming']);
-        });
-      } else {
-          // this.router.navigate(['/home/admin/catalogue']);
-      }
     }, err => {
       this.videoSpinner = false;
       this.toast.danger('OPPS!! Something Went Wrong');
-      this.model.dismissAll();
+      this.closes();
+    });
+  }
+  seperate() {
+    this.videoKyc = JSON.parse(this.remitCustomer.videoKyc);
+    this.benfDetailsArr = [];
+    this.senderDetailsArr = [];
+    this.videoKyc.map(data => {
+      if (data.isBenf) {
+        this.benfDetailsArr.push(data);
+      } else {
+        this.senderDetailsArr.push(data);
+      }
     });
   }
   getEvent(data) {
     this.remitCustomer = data;
+    this.seperate();
     this.checkActiveLink();
     this.buildSenderForm();
     this.buildBenfFrom();
