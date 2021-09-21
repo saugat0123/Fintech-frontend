@@ -788,86 +788,8 @@
           </button>
         </nb-tab>
         <nb-tab tabId="2" tabTitle="Loan Details">
-          <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
-          <div *ngFor="let loan of userConfigForm.get('loanDetails')['controls']; let i = index"
-               formArrayName="loanDetails">
-            <input type="text" class="form-control" formControlName="customerId"
-                   [value]="customerId">
-            <table class="table table-borderless small table-4" [formGroupName]="i">
-              <tr>
-                <th colspan="2">{{i + 1}}. Loan Data</th>
-                <th>Translated Data</th>
-                <th>Correct Translation</th>
-              </tr>
-              <tr>
-                <td>Loan Type</td>
-                <td>
-                  <select class="custom-select" formControlName="loanType">
-                    <option [value]="null" disabled>Select Loan Type</option>
-                    <option *ngFor="let loanType of loanTypeList.value()"
-                            [value]="loanType?.key">{{loanType?.value}}</option>
-                  </select>
-                </td>
-                <td>{{translatedValues?.loanType}}</td>
-                <td><input type="text" class="form-control" formControlName="loanType"></td>
-              </tr>
-              <tr>
-                <td>Loan Facility</td>
-                <td>
-                  <select class="custom-select" formControlName="loanFacility"
-                  >
-                    <option [value]="null" selected hidden>Select Loan Facility</option>
-                    <option *ngFor="let loanFacility of loanFacilityList"
-                            [value]="loanFacility.id">{{loanFacility.name}}
-                    </option>
-                  </select>
-                </td>
-                <td>{{translatedValues?.loanType}}</td>
-                <td><input type="text" class="form-control" formControlName="loanType"></td>
-              </tr>
-              <tr>
-                <td>proposedAmount</td>
-                <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
-                <td>{{translatedValues?.proposedAmount}}</td>
-                <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
-              </tr>
-              <tr>
-                <td>status</td>
-                <td><input type="text" class="form-control" formControlName="status"></td>
-                <td>{{translatedValues?.status}}</td>
-                <td><input type="text" class="form-control" formControlName="status"></td>
-              </tr>
-              <tr>
-                <td>Approved On</td>
-                <td><input type="text" class="form-control" formControlName="approvedOn"></td>
-                <td>{{translatedValues?.approvedOn}}</td>
-                <td><input type="text" class="form-control" formControlName="approvedOn"></td>
-              </tr>
-              <tr>
-                <td>comments</td>
-                <td><input type="text" class="form-control" formControlName="comments"></td>
-                <td>{{translatedValues?.comments}}</td>
-                <td><input type="text" class="form-control" formControlName="comments"></td>
-              </tr>
-              <tr>
-                <td colspan="4">
-                  <button nbButton status="danger" size="small" class="float-left"
-                          (click)="removeLoan(i)"
-                          style="position: static"
-                          *ngIf="userConfigForm.get('loanDetails')['controls'].length > 1">
-                    <em class="fa fa-trash" style="color: white;"></em>
-                  </button>
-
-                </td>
-              </tr>
-            </table>
-            <hr>
-          </div>
-          <button class="float-right" nbButton (click)="saveCustomer()">save</button>
-          <button class="float-right" nbButton status="info" (click)="translate()">
-            Translate
-          </button>
-
+          <app-loan-create [data]="responseData"
+                           [customerType]="customerType"></app-loan-create>
         </nb-tab>
         <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा">
           <app-template-data [cadData]="cadData"></app-template-data>
