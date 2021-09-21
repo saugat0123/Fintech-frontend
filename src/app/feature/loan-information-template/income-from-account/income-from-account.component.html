@@ -5,6 +5,16 @@
                     formArrayName="incomeFromAccount">
       <div class="row">
         <div class="col-md-12" [formGroupName]="i">
+          <div class="row">
+            <div class="col-md-11">
+              <h5>{{i + 1}}) Income From Account</h5>
+            </div>
+            <div class="col-md-1" *ngIf="incomeFormGroup.get('incomeFromAccount')['length']>1">
+              <button (click)="removeIncomeFromAccount(i)" class="btn btn-sm btn-flat btn-danger" value="Delete">
+                <em class="fa fa-trash" style="color:white;"></em>
+              </button>
+            </div>
+          </div>
           <span><strong>Account No:</strong></span>
             <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
                    type="text" formControlName="accountNo"
@@ -222,7 +232,7 @@
         </nb-card-body>
       </nb-card>
       </ng-container>
-      <div class="col-md-6 text-right">
+      <div class="col-md-12 text-right">
         <input (click)="addIncomeFromAccount()" class="btn btn-sm btn-flat btn-primary"
                type="button" value="Add More"/>
       </div>

@@ -26,7 +26,7 @@ export class IncomeFromAccountComponent implements OnInit {
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
   srdbAffiliatedId = false;
-
+  currentFormData: Object;
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
 
@@ -139,26 +139,31 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateTotalIncomeDuringReview() {
     let totalIncomeDuringReview = 0;
-    totalIncomeDuringReview =
-        (this.incomeFormGroup.get('interestDuringReview').value +
-        this.incomeFormGroup.get('commissionDuringReview').value +
-        this.incomeFormGroup.get('otherChargesDuringReview').value +
-        this.incomeFormGroup.get('loanProcessingDuringReview').value +
-        this.incomeFormGroup.get('lcCommissionDuringReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value).toFixed(2);
-    this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
+      (this.incomeFormGroup.get('incomeFromAccount') as FormArray).controls.forEach(item => {
+          totalIncomeDuringReview =
+              (item.get('interestDuringReview').value +
+                  item.get('commissionDuringReview').value +
+                  item.get('otherChargesDuringReview').value +
+                  item.get('loanProcessingDuringReview').value +
+                  item.get('lcCommissionDuringReview').value +
+                  item.get('guaranteeCommissionDuringReview').value).toFixed(2);
+          item.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
+      });
   }
 
   calculateTotalIncomeAfterReview() {
     let totalIncomeAfterNextReview = 0;
-    totalIncomeAfterNextReview =
-        (this.incomeFormGroup.get('interestAfterNextReview').value +
-        this.incomeFormGroup.get('commissionAfterNextReview').value +
-        this.incomeFormGroup.get('otherChargesAfterNextReview').value +
-        this.incomeFormGroup.get('loanProcessingAfterNextReview').value +
-        this.incomeFormGroup.get('lcCommissionAfterNextReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
-    this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
+      (this.incomeFormGroup.get('incomeFromAccount') as FormArray).controls.forEach(item => {
+          totalIncomeAfterNextReview =
+              (item.get('interestAfterNextReview').value +
+                  item.get('commissionAfterNextReview').value +
+                  item.get('otherChargesAfterNextReview').value +
+                  item.get('loanProcessingAfterNextReview').value +
+                  item.get('lcCommissionAfterNextReview').value +
+                  item.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
+          item.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
+      });
+
   }
   scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -183,22 +188,18 @@ export class IncomeFromAccountComponent implements OnInit {
     this.submitted = true;
     if (this.incomeFormGroup.invalid) {
       this.scrollToFirstInvalidControl();
-      this.overlay.hide();
+      this.overlay.hide().then(r => console.log('Income From Account submitted.')) ;
       return;
     }
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.incomeDataObject = this.incomeFromAccountDataResponse;
     }
-    this.incomeDataObject.data = JSON.stringify(this.incomeFormGroup.value);
-    this.incomeFromAccountDataEmitter.emit(this.incomeDataObject);
+    this.currentFormData = this.incomeFormGroup.value;
+    this.incomeDataObject.data = JSON.stringify(this.currentFormData);
+    this.incomeFromAccountDataEmitter.emit(this.incomeDataObject.data);
   }
 
   onAdditionalFieldSelect(chk) {
-    if (chk) {
-      this.incomeFormGroup.get('accountTransactionForm').disable();
-    } else {
-      this.incomeFormGroup.get('accountTransactionForm').enable();
-    }
     this.isNewCustomer = chk;
   }
 
@@ -211,5 +212,8 @@ export class IncomeFromAccountComponent implements OnInit {
             data.push(this.dataForEdit);
             this.setIncomeFromAccount(data);
         }
+    }
+    removeIncomeFromAccount(incomeIndex) {
+        (this.incomeFormGroup.get('incomeFromAccount') as FormArray).removeAt(incomeIndex);
     }
 }
