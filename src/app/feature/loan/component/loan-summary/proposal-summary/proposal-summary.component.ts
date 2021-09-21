@@ -5,7 +5,6 @@ import {DocStatus} from '../../../model/docStatus';
 import {LoanType} from '../../../model/loanType';
 import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -48,7 +47,7 @@ export class ProposalSummaryComponent implements OnInit {
     showRepaymentMode = false;
     showPrincipalAmount = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-
+    breakException: any;
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
     }
@@ -62,23 +61,44 @@ export class ProposalSummaryComponent implements OnInit {
     }
 
     public getTotal(key: string): number {
-        const tempList = this.customerAllLoanList
-            .filter(l => JSON.parse(l.proposal.data)[key]);
-        const total = tempList
-            .map(l => JSON.parse(l.proposal.data)[key])
-            .reduce((a, b) => a + b, 0);
-        return this.isNumber(total);
+        if (this.check(this.customerAllLoanList)  === false) {
+            const tempList = this.customerAllLoanList
+                .filter(l => JSON.parse(l.proposal.data)[key]);
+            const total = tempList
+                .map(l => JSON.parse(l.proposal.data)[key])
+                .reduce((a, b) => a + b, 0);
+            return this.isNumber(total);
+        } else {
+            return this.isNumber(0);
+        }
+    }
+
+    public check(list: any): boolean {
+        let flag = false;
+        try {
+            list.forEach((data, i) => {
+                if (ObjectUtil.isEmpty(data.proposal.data)) {
+                    flag = true;
+                    throw  this.breakException;
+                }
+            });
+        } catch (e) {
+
+        }
+        return flag;
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
         this.fundedAndNonfundedList(loanList);
         let numb;
         if (funded) {
-            const tempList = this.customerFundedLoanList
-                .filter(l => JSON.parse(l.proposal.data)[key]);
-            numb = tempList
-                .map(l => JSON.parse(l.proposal.data)[key])
-                .reduce((a, b) => a + b, 0);
+            if (this.check(this.customerFundedLoanList) === false) {
+                const tempList = this.customerFundedLoanList
+                    .filter(l => JSON.parse(l.proposal.data)[key]);
+                numb = tempList
+                    .map(l => JSON.parse(l.proposal.data)[key])
+                    .reduce((a, b) => a + b, 0);
+            }
         } else {
             const tempList = this.customerNonFundedLoanList
                 .filter(l => JSON.parse(l.proposal.data)[key]);
