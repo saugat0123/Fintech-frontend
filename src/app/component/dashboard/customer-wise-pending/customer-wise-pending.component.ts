@@ -238,7 +238,6 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
     onClick(loanConfigId: number, customerId: number, l?) {
-        console.log('llll:', l);
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 'customerInfoId': l.customerInfo.id,
