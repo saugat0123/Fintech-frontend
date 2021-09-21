@@ -808,7 +808,7 @@
                         </tr>
                         <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
                             <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
+                            <td class="text-left pl-1">{{generalDoc?.docPath.substring(generalDoc?.docPath.lastIndexOf('/') + 1, generalDoc.docPath.length)}}</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
                                    class="fas fa-eye"></i></td>
