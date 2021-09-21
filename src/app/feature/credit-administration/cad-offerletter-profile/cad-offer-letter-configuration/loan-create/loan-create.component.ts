@@ -17,7 +17,6 @@ export class LoanCreateComponent implements OnInit {
   // @Input() form;
   @Input() data;
   @Input() customerType;
-  @Input() customerId;
   submitted = false;
   translatedValues: any;
   form: FormGroup;
@@ -41,6 +40,7 @@ export class LoanCreateComponent implements OnInit {
 
   loadData() {
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+      console.log(response);
       this.loanFacilityList = response.detail;
       console.log(response.detail);
     }, error => {
@@ -63,7 +63,7 @@ export class LoanCreateComponent implements OnInit {
     data.forEach(d => {
       (this.form.get('loanDetails') as FormArray).push(
           this.formBuilder.group({
-            loanFacility: [d.loanFacility],
+            loan: [d.loan],
             proposedAmount: [d.proposedAmount],
             status: [d.status],
             approvedOn: [d.approvedOn],
@@ -76,9 +76,9 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          customerId: this.customerId,
+          loanHolderId: this.data.customerInfoId,
           loanType: [undefined],
-          loanFacility: [undefined],
+          loan: [undefined],
           proposedAmount: [undefined],
           status: [undefined],
           approvedOn: [undefined],
@@ -100,18 +100,11 @@ export class LoanCreateComponent implements OnInit {
       ...this.data,
       ...this.form.get('loanDetails').value[0]
     };
-    console.log(finalObj);
     this.cadOneFormService.saveLoan(finalObj).subscribe(res => {
-      console.log(res);
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error while creating loan'));
     });
-    // Long customerInfoId;
-    // Long loanHolderId;
-    // Long companyInfoId;
-    // Long branchId;
-    // Long loan;
-    // String loanCategory;
-    // String proposedAmount;
-    // String comments;
-    // Long guarantorDetailId;
   }
 }
