@@ -1152,12 +1152,7 @@
                                               class="form-control"
                                               formControlName="holderPercentWardNumber"
                                               placeholder="ward" type="number">
-                                       <div *ngIf="(submitted) && proprietor.get('holderPercentWardNumber').invalid"
-                                            class="invalid-feedback">
-                                           <div *ngIf="proprietor.get('holderPercentWardNumber').errors.required">
-                                               Ward is required!
-                                           </div>
-                                       </div>
+
                                    </div>
                                    <div class="col-md-4 form-group" *ngIf="client !== clientName.MEGA">
                                        <label><strong>Citizenship Number</strong></label>
