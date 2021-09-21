@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -28,6 +28,9 @@ import {LoanType} from '../../../loan/model/loanType';
 import {Gender} from '../../../../@core/model/enum/gender';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {Attributes} from '../../../../@core/model/attributes';
+import {CustomerInfoNepaliComponent} from '../../../loan/component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
+import {LoanCreateComponent} from './loan-create/loan-create.component';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -43,6 +46,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   // @Input() customer: Customer;
   @Output()
   customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
+  @ViewChild('loan-create', {static: true}) loanCreateComponent: LoanCreateComponent;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
   branchList: Array<Branch> = new Array<Branch>();
@@ -54,12 +58,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   hideSaveBtn = false;
   clientType = CustomerType;
   translatedValues: any;
+  translatedData = {};
   customer: Customer = new Customer();
+  customerId = undefined;
+  attributes: Attributes = new Attributes();
   company: CompanyInfo = new CompanyInfo();
   companyLocations: CompanyLocations = new CompanyLocations();
   disableLoanFacility = true;
   oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
   calendarType = CalendarType.AD;
+  disableTemplateData = true;
+  disableLoanTab = true;
+  disableTemplateTab = true;
+  responseData: any;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -81,18 +92,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.addEmptyLoan();
     this.addGuarantor();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
-
-    this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
-      this.loanFacilityList = response.detail;
-      this.userConfigForm.get('loanFacility').enable();
-      this.disableLoanFacility = false;
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
-    });
     this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
       this.branchList = response.detail;
       this.branchList.sort((a, b) => a.name.localeCompare(b.name));
@@ -112,7 +113,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       branch: [undefined],
       clientType: [undefined],
       name: [undefined],
-
       email: [undefined],
       contactNo: [undefined],
       panNo: [undefined],
@@ -200,6 +200,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   saveCustomer() {
+
+
+    //
+    // console.log(this.translatedData.branch.en, 'asdasdasdasd');
+
     this.submitted = true;
     // if (this.userConfigForm.invalid) {
     //   return;
@@ -321,23 +326,46 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // this.customer.netWorth = this.userConfigForm.get('netWorth').value;
 
     /** Remaining static read-write only data*/
-        //  this.customer.individualJsonData = this.setIndividualJsonData();
+    //  this.customer.individualJsonData = this.setIndividualJsonData();
 
-        // this.customer.isMicroCustomer = this.microCustomer;
+    // this.customer.isMicroCustomer = this.microCustomer;
 
+    Object.keys(this.userConfigForm.controls).forEach(key => {
+      if (key === 'loanDetails') {
+        return;
+      }
+      this.attributes = new Attributes();
+      console.log(key);
+      console.log(this.userConfigForm.get(key).value);
+      this.attributes.en = this.userConfigForm.get(key).value;
+      this.attributes.np = this.translatedValues[key];
+      this.translatedData[key] = this.attributes;
+      console.log(this.translatedData);
+    });
+
+    // const translationMap = new Map<String, Attributes>();
+
+    // const obj = Object.fromEntries(map);
+
+    // @ts-ignore
     const data = {
-          branch: this.userConfigForm.get('branch').value,
-          customerType: clientType,
-          customer: this.oneFormCustomer,
-          // company: this.company,
-          loanDetails: this.userConfigForm.get('loanDetails').value,
-          guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
-        };
-    console.log(data);
+      branch: this.userConfigForm.get('branch').value,
+      customerType: clientType,
+      customer: this.oneFormCustomer,
+      loanDetails: this.userConfigForm.get('loanDetails').value,
+      guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
+      translatedData: this.translatedData
+    };
+
+    //  data.translatedData = JSON.stringify(jsonObject);
+    console.log('final data:::::', data);
     console.log(this.userConfigForm.value);
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
+      console.log(res);
+      this.customerId = res.detail.customerInfoId;
+      this.responseData = res.detail;
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -372,41 +400,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       }
       this.userConfigForm.get(s).updateValueAndValidity();
     });
-  }
-
-  setLoan(data) {
-    if (data.length === 0) {
-      this.addEmptyLoan();
-      return;
-    }
-    data.forEach(d => {
-      (this.userConfigForm.get('loanDetails') as FormArray).push(
-          this.formBuilder.group({
-            loanFacility: [d.loanFacility],
-            proposedAmount: [d.proposedAmount],
-            status: [d.status],
-            approvedOn: [d.approvedOn],
-            comments: [d.comments],
-          })
-      );
-    });
-  }
-
-  addEmptyLoan() {
-    (this.userConfigForm.get('loanDetails') as FormArray).push(
-        this.formBuilder.group({
-          loanType: [undefined],
-          loanFacility: [undefined],
-          proposedAmount: [undefined],
-          status: [undefined],
-          approvedOn: [undefined],
-          comments: [undefined],
-        })
-    );
-  }
-
-  removeLoan(i) {
-    (this.userConfigForm.get('loanDetails') as FormArray).removeAt(i);
   }
 
   addGuarantor() {
@@ -462,5 +455,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   async translate() {
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    console.log(this.translatedValues);
   }
 }
