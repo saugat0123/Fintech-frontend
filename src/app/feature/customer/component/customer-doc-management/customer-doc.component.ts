@@ -161,8 +161,7 @@ export class CustomerDocComponent implements OnInit {
                                 this.multiFile[i].docPath = singleDoc.docPath;
                                 this.multiFile[i].fileName = singleDoc.docPath
                                     .substring(singleDoc.docPath.lastIndexOf('/') + 1, singleDoc.docPath.length);
-                                this.multiFile[i].docIndex = (singleDoc.docIndex === null || singleDoc.docIndex === undefined ?
-                                    0 : singleDoc.docIndex);
+                                this.multiFile[i].docIndex = singleDoc.docIndex;
                             }
                         });
                     });
