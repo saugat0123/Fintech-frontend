@@ -77,7 +77,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.engNumber);
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.nepaliNumber);
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(loanAmountTemplate.nepaliWords);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
