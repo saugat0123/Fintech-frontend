@@ -1211,6 +1211,17 @@
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+            <div class="col-md-12">
+                <div class="row sb-medium py-2">
+                    <div class="col-md-12">
+                        <p><strong>Authority Comments</strong></p>
+                    </div>
+                    <div class="col-md-12 py-2">
+                        <span  [innerHTML]="(loanDataHolder?.authorityReviewComments) || 'NA' "></span>
+                    </div>
+                </div>
+                <hr>
+            </div>
 
             <div class="row mt-3">
                 <div [ngClass]="clientName.ICFC === client? 'col-md-12 disable-print': 'col-md-12'">
