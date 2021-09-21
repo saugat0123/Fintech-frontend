@@ -52,7 +52,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let loan of customerAllLoanList; let data of approvedLoans;"
+            <tr *ngFor="let loan of customerAllLoanList"
                 [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
                 <td class="text-left pl-1" (click)=" sendLoanId(loan?.id)">
                     <ng-container
@@ -68,15 +68,8 @@
                         Rs. {{(loan?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                     </span>
                     <span *ngIf="!(loan?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
-<!--                <td class="text-right pr-1" >-->
-<!--                    <span *ngIf="(loan?.proposal?.data | jsonParse)?.outStandingLimit">-->
-<!--                        Rs. {{(loan?.proposal?.data | jsonParse)?.outStandingLimit | currencyFormatter}}-->
-<!--                    </span>-->
-<!--                    <span *ngIf="!(loan?.proposal?.data | jsonParse)?.outStandingLimit">-</span>-->
-<!--                </td>-->
-
                 <td class="text-right pr-1">
-                    <span>{{data?.proposal?.outStandingLimit}}</span>
+                    <span>{{loan?.proposal?.outStandingLimit}}</span>
                  </td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount">
