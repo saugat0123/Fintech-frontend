@@ -46,6 +46,7 @@ export class CustomerDocComponent implements OnInit {
     pathValueData;
     multiFile: MultiFile[] = [];
     doc_index: number;
+    deleteDocPath: string;
 
     constructor(private documentService: DocumentService,
                 private loanService: LoanFormService,
@@ -63,11 +64,12 @@ export class CustomerDocComponent implements OnInit {
         this.currentRoleTypeMaker = roleType === RoleType.MAKER;
     }
 
-    openModel(model, documentName: string, documentId, index: number, doc_index: number) {
+    openModel(model, documentName: string, documentId, index: number, doc_index: number, doc_path: string) {
         this.documentName = documentName;
         this.documentId = documentId;
         this.index = index;
         this.doc_index = doc_index;
+        this.deleteDocPath = doc_path;
         this.modelService.open(model);
     }
 
@@ -183,7 +185,7 @@ export class CustomerDocComponent implements OnInit {
         this.modelService.dismissAll();
         const removeDocument = this.generalDocumentReq[this.index];
         const docId = removeDocument.id;
-        this.customerGeneralDocumentService.deleteDocument(docId, this.customerInfo.id, removeDocument.docPath, this.doc_index)
+        this.customerGeneralDocumentService.deleteDocument(docId, this.customerInfo.id, this.deleteDocPath, this.doc_index)
             .subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED '.concat(this.documentName)));
             this.refresh();
