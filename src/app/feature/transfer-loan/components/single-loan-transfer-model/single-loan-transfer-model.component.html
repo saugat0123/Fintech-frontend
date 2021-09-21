@@ -1,4 +1,8 @@
-<nb-card ngDraggable [ngResizable]="true">
+<nb-card ngDraggable [ngResizable]="true" [nbSpinner]="spinner"
+         class="m-0"
+         nbSpinnerMessage="Loading Data..."
+         nbSpinnerSize="giant"
+         >
     <nb-card-header>
         <strong>{{popUpTitle}}</strong>
         <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -85,7 +89,7 @@
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button (click)="onSubmit()" [disabled]="form.invalid || (!isSolUserSelected && isSolUserPresent)" nbButton type="button">
+        <button (click)="onSubmit()" [disabled]="form.invalid || (!isSolUserSelected && isSolUserPresent) || spinner" nbButton type="button">
             <em class="fa fa-save"></em>
         </button>
     </nb-card-footer>
