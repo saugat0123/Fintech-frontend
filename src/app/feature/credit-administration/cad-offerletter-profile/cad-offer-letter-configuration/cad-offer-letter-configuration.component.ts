@@ -71,6 +71,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   disableLoanTab = true;
   disableTemplateTab = true;
   responseData: any;
+  disableSave = true;
+  activeCustomerTab = true;
+  activeLoanTab = false;
+  activeTemplateDataTab = true;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -366,6 +370,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       console.log(res);
       this.customerId = res.detail.customerInfoId;
       this.responseData = res.detail;
+      this.activeCustomerTab = false;
+      this.activeLoanTab = true;
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -455,6 +461,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   async translate() {
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    this.disableSave = false;
     console.log(this.translatedValues);
   }
 }
