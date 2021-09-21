@@ -134,6 +134,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.formMaker();
             if (this.customer.customerRelatives === undefined || this.customer.customerRelatives.length < 1) {
                 this.createRelativesArray();
+            } else {
+                this.setRelatives(this.customer.customerRelatives);
             }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
