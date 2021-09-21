@@ -1,4 +1,4 @@
 export class Clients {
-  static MEGA = 'Mega Bank Nepal';
+  static MEGA = 'Nabil Bank Limited';
   static SB = 'SB Solutions Nepal';
 }
