@@ -4,7 +4,7 @@
         <h6 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h6>
         <p class="text-left"> </p>
         <span [ngClass]="{'nepaliFont num' : letter?.referenceNumber!== null && letter?.referenceNumber!== ''}">
-            {{letter?.referenceNumber === null || letter?.referenceNumber === '' ? '___________' : letter?.referenceNumber}}  </span>
+            {{letter?.referenceNumber === null || letter?.referenceNumber === '' ? '___________' : letter?.referenceNumber}}</span><br><br>
         <p class="text-left"> मिति:
             <span [ngClass]="{'nepaliFont num' : letter?.dateOfGeneration!== null && letter?.dateOfGeneration!== ''}">
             {{letter?.dateOfGeneration === null || letter?.dateOfGeneration === '' ? '___________' : letter?.dateOfGeneration}}  </span>
@@ -12,10 +12,10 @@
         </p>
         <div class="mb-2"> श्री :
             <span [ngClass]="{'nepaliFont num' : letter?.customerName!== null && letter?.customerName!== ''}">
-            {{letter?.customerName === null || letter?.customerName === '' ? '___________' : letter?.customerName}}  </span>
+            {{letter?.customerName === null || letter?.customerName === '' ? '___________' : letter?.customerName}}  </span><br><br>
             <div class="mb-1"> ठेगाना:
                 <span [ngClass]="{'nepaliFont num' : letter?.customerAddress!== null && letter?.customerAddress!== ''}">
-            {{letter?.customerAddress === null || letter?.customerAddress === '' ? '___________' : letter?.customerAddress}}  </span>
+            {{letter?.customerAddress === null || letter?.customerAddress === '' ? '___________' : letter?.customerAddress}}  </span><br><br>
             </div>
             <strong> बिषयः ऋणकर्जा सुविधा बारे ।</strong>
 
@@ -59,8 +59,7 @@
                         <td>
                             रु. <span [ngClass]="{'nepaliFont num' : letter?.loanAmount!== null && letter?.loanAmount!== ''}">
             {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}}  </span>
-                            ( अक्षेरुपी
-                            <span [ngClass]="{'nepaliFont num' : letter?.loanNameInWord!== null && letter?.loanNameInWord!== ''}">
+                            ( अक्षेरुपी <span [ngClass]="{'nepaliFont size' : letter?.loanNameInWord!== null && letter?.loanNameInWord!== ''}">
             {{letter?.loanNameInWord === null || letter?.loanNameInWord === '' ? '___________' : letter?.loanNameInWord}}  </span> मात्र )
                         </td>
                     </tr>
@@ -85,7 +84,7 @@
                             <span [ngClass]="{'nepaliFont num' : letter?.premiumRate!== null && letter?.premiumRate!== ''}">
             {{letter?.premiumRate === null || letter?.premiumRate === '' ? '___________' : letter?.premiumRate}}  </span>
                                 हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate )बार्षिक
-                            <span [ngClass]="{'nepaliFont num' : letter?.yearlyLoanRate!== null && letter?.yearlyLoanRate!== ''}">
+                            <span [ngClass]="{'nepaliFont size' : letter?.yearlyLoanRate!== null && letter?.yearlyLoanRate!== ''}">
             {{letter?.yearlyLoanRate === null || letter?.yearlyLoanRate === '' ? '___________' : letter?.yearlyLoanRate}}  </span>
                             % का दरले मासिक तिर्नु बुझाउनु पर्नेछ।
 
@@ -97,10 +96,10 @@
                             <span [ngClass]="{'nepaliFont num' : letter?.loanadminFee!== null && letter?.loanadminFee!== ''}">
             {{letter?.loanadminFee === null || letter?.loanadminFee === '' ? '___________' : letter?.loanadminFee}}  </span>
                              अक्षरेपी रु
-                            <span [ngClass]="{'nepaliFont num' : letter?.loanadminFeeWords!== null && letter?.loanadminFeeWords!== ''}">
+                            <span [ngClass]="{'nepaliFont size' : letter?.loanadminFeeWords!== null && letter?.loanadminFeeWords!== ''}">
             {{letter?.loanadminFeeWords === null || letter?.loanadminFeeWords === '' ? '___________' : letter?.loanadminFeeWords}} </span> मात्र ।) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।</li>
                             <li>कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन,
-                                रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा लिञदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्टे«शन तथा अन्य आवश्यक सूचना प्राप्त
+                                रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टेश नक्सा लिञदा लाग्ने शुल्क, सुरक्षित कारोबार रजिष्टेशन तथा अन्य आवश्यक सूचना प्राप्त
                                 गर्न र आधिकारिक निकायमा रजिष्ट्रेशन गर्न लाग्ने शुल्क तथा कुनै पनि खर्च, आदि बास्तबिक रकम ऋणी स्वयंले नै तिर्न
                                 बुझाउनु पर्नेछ । उक्त रकम तपाईको खातामा खर्च जनाई कटृा गरी भुक्तानी गरिनेछ ।</li></ul>
                             <li>धितो सुरक्षणमा रहेको चल सम्पत्तीहरु सुरक्षित कारोबार ऐन २०६३ बमोजिम बैंकले सम्बन्धित निकायमा विवरण दर्ता
@@ -114,7 +113,7 @@
                             <li>बबिमा बापतको शुल्क वा धितो मूल्यांकन/पूर्नमुल्यांकन शुल्क बापतको बास्तबिक रकम तपाईं ऋणी स्वयंले नै तिर्नु बुझाउनु
                                 पर्नेछ । सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत पक्षले बैंक समक्ष माग गरेमा बैंकले तपाईलाई पूर्व सूचना
                                 नदिई तपाईको खातामा खर्च जनाई सम्बन्धीत पक्षलाई भुक्तानी दिन सक्नेछ ।
-                                (not required for Commercial Auto loan without collateral) । </li>
+                                 </li>
                         </td>
                     </tr>
                     <tr>
@@ -124,7 +123,7 @@
                             अनुमानित तालिका बमोजिम मासिक रु.
                             <span [ngClass]="{'nepaliFont num' : letter?.emiAmount!== null && letter?.emiAmount!== ''}">
             {{letter?.emiAmount === null || letter?.emiAmount === '' ? '___________' : letter?.emiAmount}} </span>
-                            (अक्षरेपि रु. <span [ngClass]="{'nepaliFont num' : letter?.emiAmountInWords!== null && letter?.emiAmountInWords!== ''}">
+                            (अक्षरेपि रु. <span [ngClass]="{'nepaliFont size' : letter?.emiAmountInWords!== null && letter?.emiAmountInWords!== ''}">
             {{letter?.emiAmountInWords === null || letter?.emiAmountInWords === '' ? '___________' : letter?.emiAmountInWords}} </span>
                              मात्र)
                             का दरले <span [ngClass]="{'nepaliFont num' : letter?.emiNumber!== null && letter?.emiNumber!== ''}">
@@ -141,7 +140,7 @@
                             स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग
                             नभएको कर्जा सिमामा <span [ngClass]="{'nepaliFont num' : letter?.loanCommitmentFee!== null && letter?.loanCommitmentFee!== ''}">
             {{letter?.loanCommitmentFee === null || letter?.loanCommitmentFee === '' ? '___________' : letter?.loanCommitmentFee}} </span>
-                           प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
+                           प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ।
                         </td>
                     </tr>
                     <tr>
@@ -152,7 +151,7 @@
                             ऋणकर्जा स्वीकृत गरी यस बैंकको ऋण कर्जा भुक्तान गरिएमा यसरी अग्रिम भुक्तानी गरिने
                             ऋणकर्जा रकममा हालका लागि देहाय बमोजिम <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (क्धबउ)
                                 शुल्क </strong>  लाग्नेछ तर उल्लिखित दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन
-                            भई थप/घट हुनसक्नेछन । ।<br>
+                            भई थप/घट हुनसक्नेछन।<br>
 
                             <br>
                             <table>
@@ -188,20 +187,19 @@
             <div>
                 <h6> सुरक्षण विवरणः </h6>
                 <p><strong> क. </strong> ऋणकर्जाको सुरक्षण स्वरुप उपरोक्त सवारी साधन कर्जाबाट खरिद गरेको सवारी साधन आतंकबाद जोखिम र तेश्रो पक्षिय दायित्व समाहित भएको विस्तृत बिमालेख सहित बैंकको नाममा दर्ता गर्नु पर्नेछ । ।</p>
-                <p><strong> ख. </strong> श्री
-                    <span [ngClass]="{'nepaliFont num' : letter?.nameofGuarantors!== null && letter?.nameofGuarantors!== ''}">
-            {{letter?.nameofGuarantors === null || letter?.nameofGuarantors === '' ? '___________' : letter?.nameofGuarantors}} </span> </p>
+                <p><strong> ख. </strong> श्री<span [ngClass]="{'nepaliFont num' : letter?.nameofGuarantors!== null && letter?.nameofGuarantors!== ''}">
+            {{letter?.nameofGuarantors === null || letter?.nameofGuarantors === '' ? '___________' : letter?.nameofGuarantors}} </span>
                 ले बैकको पक्षमा रु.
                 <span [ngClass]="{'nepaliFont num' : letter?.guaranteedAmountFigure!== null && letter?.guaranteedAmountFigure!== ''}">
             {{letter?.guaranteedAmountFigure === null || letter?.guaranteedAmountFigure === '' ? '___________' : letter?.guaranteedAmountFigure}} </span>
                 (अक्षरेपि रु.
-                <span [ngClass]="{'nepaliFont num' : letter?.guaranteedAmountWords!== null && letter?.guaranteedAmountWords!== ''}">
+                <span [ngClass]="{'nepaliFont size' : letter?.guaranteedAmountWords!== null && letter?.guaranteedAmountWords!== ''}">
             {{letter?.guaranteedAmountWords === null || letter?.guaranteedAmountWords === '' ? '___________' : letter?.guaranteedAmountWords}} </span>
                 मात्र ।) बराबरको व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                 <p><strong> ग. </strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको नाममा देहाय बमोजिमको घर÷जग्गा धितोबन्धक पारित गरि दिनु पर्नेछ । </p>
 
                 <div class="mr-lg-5">
-                    <p> Collateral details of Land </p>
+                    <p><strong>Collateral details of Land</strong>  </p>
                     <p> धनी
                         <span [ngClass]="{'nepaliFont num' : letter?.ownerName!== null && letter?.ownerName!== ''}">
             {{letter?.ownerName === null || letter?.ownerName === '' ? '___________' : letter?.ownerName}} </span> </p>
@@ -309,7 +307,7 @@
 
                     <tr>
                         <td>१२.</td>
-                        <td> आवश्यक सम्पूर्ण कर्जा÷सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकत्ता
+                        <td> आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकत्ता
                             र निवेदन बमोजिम सवारी साधन कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
                             <span [ngClass]="{'nepaliFont num' : letter?.nameofBranch!== null && letter?.nameofBranch!== ''}">
             {{letter?.nameofBranch === null || letter?.nameofBranch === '' ? '___________' : letter?.nameofBranch}} </span>
@@ -320,7 +318,7 @@
                             <span [ngClass]="{'nepaliFont num' : letter?.loanAmount!== null && letter?.loanAmount!== ''}">
             {{letter?.loanAmount === null || letter?.loanAmount === '' ? '___________' : letter?.loanAmount}} </span>
                             (अक्षरेपि रु.
-                            <span [ngClass]="{'nepaliFont num' : letter?.loanAmountInWord!== null && letter?.loanAmountInWord!== ''}">
+                            <span [ngClass]="{'nepaliFont size' : letter?.loanAmountInWord!== null && letter?.loanAmountInWord!== ''}">
             {{letter?.loanAmountInWord === null || letter?.loanAmountInWord === '' ? '___________' : letter?.loanAmountInWord}} </span>
                            मात्र ।) बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।</td>
                     </tr>
@@ -355,7 +353,7 @@
                         <td>साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी नभएमा देहाय बमोजिमका दरले थप हर्जाना ब्याज लाग्नेछ ।<br>
                             <strong> क. साँवाको भाखा नाघेको अवस्थामाः </strong>
                             ऋण कर्जाहरुको साँवा निर्धारित समयमा भुक्तानी नभई भाखा नाघेको अवस्थामा विलम्बित अवधिका लगि
-                            भुक्तानी मिति नाघेको साँवा÷किस्ता रकममा वार्षिक २ प्रतिशत वा बैंकले समय समयमा तोकेको दरले थप हर्जाना ब्याज लाग्नेछ ।<br>
+                            भुक्तानी मिति नाघेको साँवा/किस्ता रकममा वार्षिक २ प्रतिशत वा बैंकले समय समयमा तोकेको दरले थप हर्जाना ब्याज लाग्नेछ ।<br>
                             <strong> ख. व्याजको भाखा नाघेको अवस्थामाः </strong>
                             ब्याज रकम निर्धारीत समय आषाढ, आश्विन, पौष, चैत्र मसान्त भित्रमा वा ऋण स्विकृत पत्रमा उल्लेख भए अनुसार भुक्तानी गर्नु पर्नेछ ।
                             यदि निर्धारित मितिमा कुनै ऋणकर्जा शिर्षकमा व्याज भुक्तानी नभई विलम्ब हुन गएमा विलम्ब भएको अवधिका लागि बक्यौता व्याज रकममा
@@ -439,7 +437,7 @@
 
                         <td>२४. </td>
                         <td>बैंकको पक्षमा धितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित रहेको सम्पत्तिहरु/सुरक्षणहरु बैंकको लिखित
-                            सहमति बेगर अन्य पक्षहरुको हक वा हितमा कुनै पनि तवरले पूनः धितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य कुनै व्यहोराले
+                            सहमति बेगर अन्य पक्षहरुको हक वा हितमा कुनै पनि तवरले पूनःधितोबन्धक/दृष्टिबन्धक/बन्धक वा अन्य कुनै व्यहोराले
                             तेश्रो पक्षको हक श्रृजना गरी दिन पाईने छैन । </td>
                     </tr>
                     <tr>
@@ -488,13 +486,11 @@
                     <tr>
                         <td>३२.</td>
                         <td> तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ ।
-                            क. रु.
-                            <span [ngClass]="{'nepaliFont num' : letter?.loanAmountInFigure!== null && letter?.loanAmountInFigure!== ''}">
+                            क. रु. <span [ngClass]="{'nepaliFont num' : letter?.loanAmountInFigure!== null && letter?.loanAmountInFigure!== ''}">
             {{letter?.loanAmountInFigure === null || letter?.loanAmountInFigure === '' ? '___________' : letter?.loanAmountInFigure}} </span>
                             को प्रतिज्ञा पत्र ।<br>
                             ख. निरन्तरताको लिखत ।<br>
-                            ग. रु.
-                            <span [ngClass]="{'nepaliFont num' : letter?.loanAmountInFigure!== null && letter?.loanAmountInFigure!== ''}">
+                            ग. रु. <span [ngClass]="{'nepaliFont num' : letter?.loanAmountInFigure!== null && letter?.loanAmountInFigure!== ''}">
             {{letter?.loanAmountInFigure === null || letter?.loanAmountInFigure === '' ? '___________' : letter?.loanAmountInFigure}} </span>
                            को ऋणकर्जा तमसुक ।<br>
 
@@ -504,11 +500,7 @@
                             छ.	तेश्रो पक्ष स्वामित्व हस्तान्तरण (यदि चुक्ताभुक्तानी नभएको अवस्थामा) का लागि  ऋणीको मञ्जुरीनामा ।<br>
                             ज.	रु.<span [ngClass]="{'nepaliFont num' : letter?.guaranteedAmountinFigure!== null && letter?.guaranteedAmountinFigure!== ''}">
             {{letter?.guaranteedAmountinFigure === null || letter?.guaranteedAmountinFigure === '' ? '___________' : letter?.guaranteedAmountinFigure}} </span>
-                           को श्री
-                            <span [ngClass]="{'nepaliFont num' : letter?.guaranteedAmountinFigure!== null && letter?.guaranteedAmountinFigure!== ''}">
-            {{letter?.guaranteedAmountinFigure === null || letter?.guaranteedAmountinFigure === '' ? '___________' : letter?.guaranteedAmountinFigure}} </span>
-
-                            <span [ngClass]="{'nepaliFont num' : letter?.guarantorsName!== null && letter?.guarantorsName!== ''}">
+                           को श्री <span [ngClass]="{'nepaliFont num' : letter?.guarantorsName!== null && letter?.guarantorsName!== ''}">
             {{letter?.guarantorsName === null || letter?.guarantorsName === '' ? '___________' : letter?.guarantorsName}} </span>
                             को व्यक्तिगत जमानतपत्र र सम्पत्ती विवरण ।<br>
                             झ. बहुबैंकिङ घोषणा पत्र ।<br>
@@ -525,44 +517,41 @@
                 <td> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा
                     तपाईंको मञ्जुरी सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण
                     स्वीकृति पत्रमा मञ्जुरी जनाएको मितिले ६० (साठ्ठी) दिनभित्र यस ऋण स्वीकृति पत्रमा ऋणीले बैंकलाई उपलब्ध गराउनु पर्ने
-                    भनी तोकिएको विवरण, सूचना, कागजात तथा सम्पूर्ण सुरक्षण सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु÷बुझाउनु भए पश्चातमात्र
+                    भनी तोकिएको विवरण, सूचना, कागजात तथा सम्पूर्ण सुरक्षण सम्बन्धी लिखतहरु बैंकको नियमानुसार गर्नु/बुझाउनु भए पश्चातमात्र
                     कर्जा सुविधा प्रवाह हुन सक्नेछ । अन्यथा, स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।</td>
                 </tr>
-                </table>
+                </table><br>
                 <div class="col-md-12 d-flex justify-content-between">
                     <div class="right-content">
 
                         .........................................
                         <p>
                             सम्पर्क अधिकृत
-                        </p>
+                        </p><br>
                     </div>
                     <div class="left-content">
 
                         .........................................
                         <p>
                             शाखा प्रबन्धक
-                        </p>
+                        </p><br>
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-md d-flex justify-content-between">
-                        <div class="left-content">
+                        <div class="left-content tim">
                             <span [ngClass]="{'nepaliFont num' : letter?.nameofRelationshipOfficer!== null && letter?.nameofRelationshipOfficer!== ''}">
-            {{letter?.nameofRelationshipOfficer === null || letter?.nameofRelationshipOfficer === '' ? '_______________' : letter?.nameofRelationshipOfficer}} </span><br>
-
-                            <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
-            {{letter?.branchName === null || letter?.branchName === '' ? '________________' : letter?.branchName}} </span>
-
+            {{letter?.nameofRelationshipOfficer === null || letter?.nameofRelationshipOfficer === '' ? '____________________' : letter?.nameofRelationshipOfficer}} </span><br><br><br><br>
+                            <span [ngClass]="{'nepaliFont num' : letter?.unitName!== null && letter?.unitName!== ''}">
+            {{letter?.unitName === null || letter?.unitName === '' ? '______________________' : letter?.unitName}} </span>
                         </div>
+
                         <div class="right-content">
                             <span [ngClass]="{'nepaliFont num' : letter?.nameofBranchManager!== null && letter?.nameofBranchManager!== ''}">
-            {{letter?.nameofBranchManager === null || letter?.nameofBranchManager === '' ? '________________' : letter?.nameofBranchManager}} </span><br>
+            {{letter?.nameofBranchManager === null || letter?.nameofBranchManager === '' ? '___________________' : letter?.nameofBranchManager}} </span><br><br><br><br>
                             <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
-            {{letter?.branchName === null || letter?.branchName === '' ? '_______________' : letter?.branchName}} </span>
-
-                        </div>
+            {{letter?.branchName === null || letter?.branchName === '' ? '__________________' : letter?.branchName}} </span></div>
                     </div>
                 </div>
                 <table class="table table-hover table-borderless">
@@ -572,7 +561,7 @@
                         कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम म/हामीलाई कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धी
                         पूर्ण जानकारी सहित बैंकले कालोसूचीमा राख्ने निर्णय गरेमा स्वीकार्छु/छौं । बैंकको उक्त निर्णय विरुद्ध म/हामीले
                         कहिं कतै उजुर वाजुर गर्ने छैन । यदि बैंकको निर्णय बिरुद्ध उजुर वाजुर गरेमा उक्त उजुरीबाट उत्पन्न हुने दायित्व र
-                        परिणाम म/हामीले नै उठाउने जिम्मेवारी लिन्छु÷छौं । यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको सम्पूर्ण लेना
+                        परिणाम म/हामीले नै उठाउने जिम्मेवारी लिन्छु/छौं । यदि मेरो/हाम्रो मृत्यु भएमा वा बहुलाएमा बैंकको सम्पूर्ण लेना
                         सहितको दायित्व मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी जिम्मेवारी लिन्छु/छौं ।</td><br>
                 </tr>
 
