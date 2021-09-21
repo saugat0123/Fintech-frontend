@@ -96,23 +96,15 @@ export class LoanCreateComponent implements OnInit {
   }
 
   save() {
-    console.log(this.form.get('loanDetails').value[0]);
     const finalObj = {
       ...this.data,
       ...this.form.get('loanDetails').value[0]
     };
-    console.log(finalObj);
     this.cadOneFormService.saveLoan(finalObj).subscribe(res => {
-      console.log(res);
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error while creating loan'));
     });
-    // Long customerInfoId;
-    // Long loanHolderId;
-    // Long companyInfoId;
-    // Long branchId;
-    // Long loan;
-    // String loanCategory;
-    // String proposedAmount;
-    // String comments;
-    // Long guarantorDetailId;
   }
 }

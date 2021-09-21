@@ -74,7 +74,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   disableSave = true;
   activeCustomerTab = true;
   activeLoanTab = false;
-  activeTemplateDataTab = false;
+  activeTemplateDataTab = true;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
