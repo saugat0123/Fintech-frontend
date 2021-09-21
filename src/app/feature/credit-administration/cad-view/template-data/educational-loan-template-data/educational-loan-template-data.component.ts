@@ -7,6 +7,12 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
+import {CadDocStatus} from '../../../model/CadDocStatus';
+import {OfferDocument} from '../../../model/OfferDocument';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {ToastService} from '../../../../../@core/utils';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -24,6 +30,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   spinner = false;
   finalSavedFlag: boolean;
   loanLimit = false;
+  existingOfferLetter = false;
+  offerLetterConst = NabilOfferLetterConst;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -32,7 +40,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private ngDialogRef: NbDialogRef<EducationalLoanTemplateDataComponent>,
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-      private translateService: SbTranslateService
+      private translateService: SbTranslateService,
+      private administrationService: CreditAdministrationService,
+      private toastService: ToastService,
   ) { }
 
   ngOnInit() {
@@ -45,6 +55,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       embassyName: [undefined],
       selectedCountry: [undefined],
       selectedSecurity: [undefined],
+      loanLimitChecked: [undefined],
+
       dateOfApproval: [undefined],
       referenceNumber: [undefined],
       dateOfApplication: [undefined],
@@ -93,7 +105,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       promissoryNoteAmount: [undefined],
       loanDeedAmount: [undefined],
 
-      //Translated Value
+      // Translated Value
       dateOfApprovalTransVal: [undefined],
       referenceNumberTransVal: [undefined],
       nameOfCustomerTransVal: [undefined],
@@ -144,13 +156,39 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       landAreaTransVal: [undefined],
       promissoryNoteAmountTransVal: [undefined],
       loanDeedAmountTransVal: [undefined],
-      loanLimitChecked: [undefined]
     });
   }
 
   submit() {
     console.log('Submitted Value ', this.form.value);
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+
+      this.spinner = true;
+      this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
+      if (this.existingOfferLetter) {
+          this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
+              if (offerLetterPath.docName.toString() ===
+                  this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
+                  offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+              }
+          });
+      } else {
+          const offerDocument = new OfferDocument();
+          offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
+          offerDocument.initialInformation = JSON.stringify(this.form.value);
+          console.log('initial Information Document ', offerDocument);
+          this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+      }
+
+      this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+          this.spinner = false;
+      }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+          this.spinner = false;
+      });
   }
 
   transferValue() {
