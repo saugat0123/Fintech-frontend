@@ -14,6 +14,23 @@
           <hr>
           <table class="table table-borderless table-4 mb-5">
             <tr>
+              <td colspan="2" class="text-center">
+                <b>
+                  Customer Details
+                </b>
+              </td>
+              <td class="text-center">
+                <b>
+                  Translated Value
+                </b>
+              </td>
+              <td class="text-center">
+                <b>
+                  Correction Data
+                </b>
+              </td>
+            </tr>
+            <tr>
               <td>
                 <label class="title" for="branch">Branch</label>
               </td>
@@ -25,7 +42,9 @@
                 </select>
               </td>
               <td>{{translatedValues?.branch}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="branch" type="text"/>
+              </td>
             </tr>
             <tr [hidden]="true">
               <td>
@@ -38,7 +57,9 @@
                 </select>
               </td>
               <td>{{translatedValues?.clientType}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="clientType" type="text"/>
+              </td>
             </tr>
             <tbody *ngIf="configForm?.clientType?.value != null">
             <tr>
@@ -55,7 +76,9 @@
               <td>
                 {{translatedValues?.customerCode}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="customerCode" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="name">Client Name</label></td>
@@ -67,7 +90,9 @@
                          type="text"/>
               </td>
               <td>{{translatedValues?.name}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="name" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="email">Email</label></td>
@@ -80,8 +105,11 @@
               </td>
               <td>
                 {{translatedValues?.email}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="email" type="text"/>
+              </td>
             </tr>
+
             <tr>
               <td><label class="title" for="contactNo">Contact No</label></td>
               <td><input class="form-control "
@@ -93,7 +121,9 @@
               </td>
               <td>
                 {{translatedValues?.contactNo}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="contactNo" type="text"/>
+              </td>
             </tr>
 
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
@@ -111,7 +141,9 @@
 
             <!--              </td>-->
             <!--              <td>  {{translatedValues?.dob}}</td>-->
-            <!--              <td></td>-->
+            <!--              <td>
+                <input class="form-control nepaliFont" formControlName="dob" type="text"/>
+              </td>-->
             <!--            </tr>-->
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
 
@@ -124,7 +156,9 @@
               </select>
               </td>
               <td>{{translatedValues?.gender}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="gender" type="text"/>
+              </td>
             </tr>
 
             <!--            <tr *ngIf="configForm?.gender?.value == 1">-->
@@ -221,7 +255,9 @@
               <td>
                 {{translatedValues?.citizenshipNo}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="citizenshipNo" type="text"/>
+              </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
               <td>
@@ -238,7 +274,9 @@
               <td>
                 {{translatedValues?.registrationNo}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="registrationNo" type="text"/>
+              </td>
             </tr>
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
             <!--              <td>-->
@@ -261,7 +299,9 @@
             <!--              <td>-->
             <!--                {{translatedValues?.citizenshipIssueDate}}-->
             <!--              </td>-->
-            <!--              <td></td>-->
+            <!--              <td>
+                <input class="form-control nepaliFont" formControlName="citizenshipIssueDate" type="text"/>
+              </td>-->
             <!--            </tr>-->
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">-->
             <!--              <td>-->
@@ -283,7 +323,9 @@
             <!--              <td>-->
             <!--                {{translatedValues?.registrationDate}}-->
             <!--              </td>-->
-            <!--              <td></td>-->
+            <!--              <td>
+                <input class="form-control nepaliFont" formControlName="registrationDate" type="text"/>
+              </td>-->
             <!--            </tr>-->
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td>
@@ -300,7 +342,9 @@
               <td>
                 {{translatedValues?.citizenshipIssueDistrict}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrict" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -315,7 +359,9 @@
               <td>
                 {{translatedValues?.panNo}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="panNo" type="text"/>
+              </td>
             </tr>
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
@@ -347,7 +393,9 @@
               <td>
                 {{translatedValues?.permanentProvince}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentProvince" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
@@ -361,7 +409,9 @@
               <td>
                 {{translatedValues?.permanentDistrict}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentDistrict" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title"
@@ -380,7 +430,9 @@
               <td>
                 {{translatedValues?.permanentMunicipality}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentMunicipality" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -397,7 +449,9 @@
               <td>
                 {{translatedValues?.permanentWard}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentWard" type="text"/>
+              </td>
 
             </tr>
             </tbody>
@@ -430,7 +484,9 @@
               <td>
                 {{translatedValues?.temporaryProvince}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="temporaryProvince" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryDistrict">District</label></td>
@@ -445,7 +501,9 @@
               <td>
                 {{translatedValues?.temporaryDistrict}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="temporaryDistrict" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryMunicipality">
@@ -465,7 +523,9 @@
               <td>
                 {{translatedValues?.temporaryMunicipality}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="temporaryMunicipality" type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="temporaryWard">Ward No</label>
@@ -481,7 +541,9 @@
               <td>
                 {{translatedValues?.temporaryWard}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="temporaryWard" type="text"/>
+              </td>
             </tr>
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
@@ -499,7 +561,9 @@
 
               </td>
               <td>{{translatedValues?.registeredMunType}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="registeredMunType" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -516,7 +580,9 @@
               <td>
                 {{translatedValues?.registeredProvince}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="registeredProvince" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -533,7 +599,9 @@
               <td>
                 {{translatedValues?.registeredDistrict}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="registeredDistrict" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -553,7 +621,9 @@
               <td>
                 {{translatedValues?.registeredMunicipality}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="registeredMunicipality" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -570,7 +640,9 @@
               <td>
                 {{translatedValues?.registeredWard}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentWard" type="text"/>
+              </td>
             </tr>
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
@@ -587,7 +659,9 @@
                 </select>
               </td>
               <td>{{translatedValues?.currentMunType}}</td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="currentMunType" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -604,7 +678,9 @@
               <td>
                 {{translatedValues?.currentProvince}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="currentProvince" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -621,7 +697,9 @@
               <td>
                 {{translatedValues?.currentDistrict}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="currentDistrict" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -641,7 +719,9 @@
               <td>
                 {{translatedValues?.currentMunicipality}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="currentMunicipality" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -658,7 +738,9 @@
               <td>
                 {{translatedValues?.currentWard}}
               </td>
-              <td></td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="currentWard" type="text"/>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -688,7 +770,9 @@
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.guarantorName}}</td>
-                <td></td>
+                <td>
+                  <input class="form-control nepaliFont" type="text" formControlName="guarantorName" />
+                </td>
               </tr>
               <tr>
                 <td>
@@ -703,7 +787,9 @@
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.citizenNumber}}</td>
-                <td></td>
+                <td>
+                  <input class="form-control nepaliFont" type="text" formControlName="citizenNumber" />
+                </td>
               </tr>
               <!--              <tr>-->
               <!--                <td>-->
@@ -724,7 +810,9 @@
               <!--                  <nb-datepicker format="yyyy-MM-dd" #issuedYear></nb-datepicker>-->
               <!--                </td>-->
               <!--                <td>{{translatedValues?.issuedYear}}</td>-->
-              <!--                <td></td>-->
+              <!--                <td>
+                  <input class="form-control nepaliFont" type="text" formControlName="issuedYear" />
+                </td>-->
               <!--              </tr>-->
               <tr>
                 <td>
@@ -740,7 +828,9 @@
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.issuedPlace}}</td>
-                <td></td>
+                <td>
+                  <input class="form-control nepaliFont" type="text" formControlName="issuedPlace" />
+                </td>
               </tr>
               <tr>
                 <td>
@@ -755,7 +845,9 @@
                          type="text"/>
                 </td>
                 <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
-                <td></td>
+                <td>
+                  <input class="form-control nepaliFont" type="text" formControlName="guarantorLegalDocumentAddress" />
+                </td>
               </tr>
               <tr>
                 <td>
