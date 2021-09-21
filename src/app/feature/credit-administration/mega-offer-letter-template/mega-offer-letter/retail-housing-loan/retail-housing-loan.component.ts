@@ -51,7 +51,6 @@ export class RetailHousingLoanComponent implements OnInit {
     nepData;
     external = [];
     loanHolderInfo;
-    percentTotal;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -69,358 +68,98 @@ export class RetailHousingLoanComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.checkOfferLetterData();
-        this.change(this.selectedArray);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
-    }
+        this.checkOfferLetterData();    }
 
 
     buildForm() {
         this.form = this.formBuilder.group({
-            date: [undefined],
-            loanData: this.formBuilder.array([]),
-            multiCollateral: this.formBuilder.array([]),
-            referenceNo: [undefined],
-            applicantRelative: [undefined],
-            applicantName: [undefined],
-            permanentAddress: [undefined],
-            currentAddress: [undefined],
-            mobileNo: [undefined],
-            housingFinance: this.formBuilder.array([]),
-            mortgageFinance: this.formBuilder.array([]),
-            mortgageOverdraft: this.formBuilder.array([]),
-            clearanceDate: [undefined],
-            selectedArray: undefined,
-            noteOfCollateral: this.note,
-            facility: undefined,
-            action: undefined,
-            registrationType: undefined,
-            applicantRelativeOne: undefined,
-            applicantRelativeTwo: undefined,
-            landNumber: undefined,
-            previousOwner: undefined,
-            landNumberPreviousOwnerShow: true,
-            tableShow: true,
-            insuranceExpDate: undefined,
-            byaj: undefined,
-            intervalTime: undefined,
-            idCardNo1: undefined,
-            idCardNo2: undefined,
-            pageCount: undefined,
+            dateOfGeneration: [undefined],
+            referenceNumber: [undefined],
+            customerName: [undefined],
+            customerAddress: [undefined],
+            applicationDateInAD: [undefined],
+            nameoftheVehicle: [undefined],
+            loanAmount: [undefined],
+            loanNameInWord: [undefined],
+            percent: [undefined],
+            baseRate: [undefined],
+            premiumRate: [undefined],
+            yearlyLoanRate: [undefined],
+            loanadminFee: [undefined],
+            loanadminFeeWords: [undefined],
+            fees: [undefined],
+            emiAmount: [undefined],
+            emiAmountInWords: [undefined],
+            emiNumber: [undefined],
+            loanCommitmentFee: [undefined],
+            nameofGuarantors: [undefined],
+            guarantorsName: [undefined],
+            nameofRelationshipOfficer: [undefined],
+            guaranteedAmountFigure: [undefined],
+            guaranteedAmountWords: [undefined],
+            ownerName: [undefined],
+            ownersAddress: [undefined],
+            propertyPlotNumber: [undefined],
+            propertyArea: [undefined],
+            sheetNumber: [undefined],
+            nameofBranchManager: [undefined],
+            nameofBranch: [undefined],
+            loanAmountInWord: [undefined],
+            loanAmountInFigure: [undefined],
+            guaranteedAmountinFigure: [undefined],
+            insuranceAmountinFigure: [undefined],
+            textFill: [undefined],
+            signatureDate: [undefined],
+            district: [undefined],
+            wardNum: [undefined],
+            witnessName: [undefined],
+            staffName: [undefined],
         });
     }
-
-
-    removeLoanDetail(index) {
-        (this.form.get('loanData') as FormArray).removeAt(index);
-    }
-
-    addTableData() {
-        (this.form.get('loanData') as FormArray).push(
-            this.formBuilder.group({
-                description: undefined,
-                sumInsured: undefined,
-                riskBearer: undefined,
-            })
-        );
-    }
-
-    setTableData(data) {
-        const formArray = this.form.get('loanData') as FormArray;
-        if (ObjectUtil.isEmpty(data)) {
-            this.addTableData();
-            return;
+    setLoanConfigData(data: any) {
+        let cadNepData = {
+            numberNepali: ')',
+            nepaliWords: 'सुन्य',
+        };
+        const customerAddress =
+            data.permanentMunicipality + ' , ' +
+            data.permanentWard + ' , ' +
+            data.permanentProvince + ' , ' +
+            data.permanentDistrict;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
-        data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                description: [value.description],
-                sumInsured: [value.sumInsured],
-                riskBearer: [value.riskBearer],
-            }));
+        this.form.patchValue({
+            customerName: data.name ? data.name : '',
+            customerAddress: customerAddress ? customerAddress : '',
+            loanAmount: cadNepData.numberNepali,
+            loanNameInWords: cadNepData.nepaliWords,
         });
     }
-
-    collateralFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            dhitoApplicantName: undefined,
-            district: undefined,
-            wardNo: undefined,
-            address: undefined,
-            stateKeyNo: undefined,
-            keyNo: undefined,
-            link: undefined,
-            garidinuparni: undefined,
-        });
-    }
-
-    addMoreCollateral() {
-        (this.form.get('multiCollateral') as FormArray).push(this.collateralFormGroup());
-    }
-
-    removeCollateral(index: number) {
-        (this.form.get('multiCollateral') as FormArray).removeAt(index);
-    }
-
-    setMultiCollateralLoanData(details) {
-        const multiCollateralDetails = this.form.get('multiCollateral') as FormArray;
-        details.forEach(data => {
-            multiCollateralDetails.push(
-                this.formBuilder.group({
-                    dhitoApplicantName: [data.dhitoApplicantName],
-                    district: [data.district],
-                    wardNo: [data.wardNo],
-                    address: [data.address],
-                    stateKeyNo: [data.stateKeyNo],
-                    keyNo: [data.keyNo],
-                    link: [data.link],
-                    garidinuparni: [data.garidinuparni],
-                })
-            );
-        });
-    }
-
     checkOfferLetterData() {
-        this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-            === this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING).toString())[0];
-        if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-            this.addEmptyHousingFinancial();
-            this.addEmptyMortgageOverdraft();
-            this.addEmptyMortgageFinance();
-            this.addTableData();
-            this.addMoreCollateral();
-            this.offerLetterDocument = new OfferDocument();
-            this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
-        } else {
-            const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-            this.selectedArray = initialInfo.selectedArray;
-            console.log(initialInfo);
-            this.initialInfoPrint = initialInfo;
-            console.log(this.offerLetterDocument);
-            this.existingOfferLetter = true;
-            this.form.patchValue(initialInfo, {emitEvent: false});
-            // this.form.get('noteOfCollateral').patchValue(this.note);
-            if (!ObjectUtil.isEmpty(initialInfo)) {
-                this.setHousingFinancial(initialInfo.housingFinance);
-                this.setMortgageFinance(initialInfo.mortgageFinance);
-                this.setMortgageOverdraft(initialInfo.mortgageOverdraft);
-                this.setTableData(initialInfo.loanData);
-                this.setMultiCollateralLoanData(initialInfo.multiCollateral);
-
+        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+                === this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING).toString())[0];
+            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+                this.offerLetterDocument = new OfferDocument();
+                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
+            } else {
+                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                this.initialInfoPrint = initialInfo;
+                this.existingOfferLetter = true;
+                this.form.patchValue(initialInfo, {emitEvent: false});
+                this.initialInfoPrint = initialInfo;
             }
-            this.initialInfoPrint = initialInfo;
-        }
-    }
-
-    addEmptyHousingFinancial() {
-        const formArray = this.form.get('housingFinance') as FormArray;
-        formArray.push(this.formBuilder.group({
-            Byaj: undefined,
-            loanAmount: undefined,
-            loanAmountInWord: undefined,
-            month: undefined,
-            prices: undefined,
-            loanAmountReturn: undefined,
-            loanAmountReturnInWord: undefined,
-            clearanceDate: undefined,
-            loanRate: undefined,
-            loanRateShow: true,
-            use: undefined,
-            years: undefined,
-            baseRate: undefined,
-            premiumRate: undefined,
-            yearlyRate: undefined,
-            maxAmount: undefined,
-            serviceChargePercent: undefined,
-            serviceChargeAmount: undefined,
-            sauwaRakam: undefined,
-            asulRakam: undefined,
-            pageCount: undefined
-        }));
-    }
-
-    setHousingFinancial(data) {
-        const formArray = this.form.get('housingFinance') as FormArray;
-        if (ObjectUtil.isEmpty(data)) {
-            this.addEmptyHousingFinancial();
-            return;
-        }
-        data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                Byaj: [value.Byaj],
-                loanAmount: [value.loanAmount],
-                loanAmountInWord: [value.loanAmountInWord],
-                month: [value.month],
-                prices: [value.prices],
-                loanAmountReturn: [value.loanAmountReturn],
-                loanAmountReturnInWord: [value.loanAmountReturnInWord],
-                clearanceDate: [value.clearanceDate],
-                loanRate: [value.loanRate],
-                loanRateShow: [value.loanRateShow],
-                use: [value.use],
-                years: [value.years],
-                baseRate: [value.baseRate],
-                premiumRate: [value.premiumRate],
-                yearlyRate: [value.yearlyRate],
-                maxAmount: [value.maxAmount],
-                serviceChargePercent: [value.serviceChargePercent],
-                serviceChargeAmount: [value.serviceChargeAmount],
-                sauwaRakam: [value.sauwaRakam],
-                asulRakam: [value.asulRakam],
-            }));
-        });
-    }
-
-    removeHousing(index) {
-        (this.form.get('housingFinance') as FormArray).removeAt(index);
-    }
-
-    addEmptyMortgageFinance() {
-        const formArray = this.form.get('mortgageFinance') as FormArray;
-        formArray.push(this.formBuilder.group({
-            loanAmount: undefined,
-            loanAmountInWord: undefined,
-            month: undefined,
-            prices: undefined,
-            loanAmountReturn: undefined,
-            loanAmountReturnInWord: undefined,
-            clearanceDate: undefined,
-            loanRate: undefined,
-            loanRateShow: true,
-            use: undefined,
-            years: undefined,
-            baseRate: undefined,
-            premiumRate: undefined,
-            yearlyRate: undefined,
-            maxAmount: undefined,
-            serviceChargePercent: undefined,
-            serviceChargeAmount: undefined,
-            purbaBhuktaniSulka1: undefined,
-            purbaBhuktaniSukla2: undefined,
-        }));
-    }
-
-    setMortgageFinance(data) {
-        const formArray = this.form.get('mortgageFinance') as FormArray;
-        if (ObjectUtil.isEmpty(data)) {
-            this.addEmptyMortgageFinance();
-            return;
-        }
-        data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                loanAmount: [value.loanAmount],
-                loanAmountInWord: [value.loanAmountInWord],
-                month: [value.month],
-                prices: [value.prices],
-                loanAmountReturn: [value.loanAmountReturn],
-                loanAmountReturnInWord: [value.loanAmountReturnInWord],
-                clearanceDate: [value.clearanceDate],
-                loanRate: [value.loanRate],
-                loanRateShow: [value.loanRateShow],
-                use: [value.use],
-                years: [value.years],
-                baseRate: [value.baseRate],
-                premiumRate: [value.premiumRate],
-                yearlyRate: [value.yearlyRate],
-                maxAmount: [value.maxAmount],
-                serviceChargePercent: [value.serviceChargePercent],
-                serviceChargeAmount: [value.serviceChargeAmount],
-                purbaBhuktaniSulka1: [value.purbaBhuktaniSulka1],
-                purbaBhuktaniSulka2: [value.purbaBhuktaniSulka2],
-            }));
-        });
-    }
-
-    removeMortgageFinance(index) {
-        (this.form.get('mortgageFinance') as FormArray).removeAt(index);
-    }
-
-    addEmptyMortgageOverdraft() {
-        const formArray = this.form.get('mortgageOverdraft') as FormArray;
-        formArray.push(this.formBuilder.group({
-            Byaj: undefined,
-            loanAmount: undefined,
-            loanAmountInWord: undefined,
-            month: undefined,
-            prices: undefined,
-            loanAmountReturn: undefined,
-            loanAmountReturnInWord: undefined,
-            clearanceDate: undefined,
-            loanRate: undefined,
-            loanRateShow: true,
-            use: undefined,
-            baseRate: undefined,
-            premiumRate: undefined,
-            yearlyRate: undefined,
-            maxAmount: undefined,
-            serviceChargePercent: undefined,
-            serviceChargeAmount: undefined,
-            timeInterval: undefined,
-            purbaBhuktaniSulka3: undefined,
-            pratibadhata: undefined,
-        }));
-    }
-
-    setMortgageOverdraft(data) {
-        const formArray = this.form.get('mortgageOverdraft') as FormArray;
-        if (ObjectUtil.isEmpty(data)) {
-            this.addEmptyMortgageOverdraft();
-            return;
-        }
-        data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                loanAmount: [value.loanAmount],
-                loanAmountInWord: [value.loanAmountInWord],
-                month: [value.month],
-                prices: [value.prices],
-                loanAmountReturn: [value.loanAmountReturn],
-                loanAmountReturnInWord: [value.loanAmountReturnInWord],
-                clearanceDate: [value.clearanceDate],
-                loanRate: [value.loanRate],
-                loanRateShow: [value.loanRateShow],
-                use: [value.use],
-                years: [value.years],
-                baseRate: [value.baseRate],
-                premiumRate: [value.premiumRate],
-                yearlyRate: [value.yearlyRate],
-                maxAmount: [value.maxAmount],
-                serviceChargePercent: [value.serviceChargePercent],
-                serviceChargeAmount: [value.serviceChargeAmount],
-                timeInterval: [value.timeInterval],
-                purbaBhuktaniSulka3: [value.purbaBhuktaniSulka3],
-                pratibadhata: [value.pratibadhata],
-            }));
-        });
-    }
-
-    removeMortgageOverdraft(index) {
-        (this.form.get('mortgageOverdraft') as FormArray).removeAt(index);
-    }
-
-    change(arraySelected) {
-        console.log(arraySelected, 'sel');
-        this.selectedArray = arraySelected;
-        this.housingFinanceSelected = this.mortgageFinanceSelected = this.mortgageOverdraftSelected = false;
-        if (!ObjectUtil.isEmpty(arraySelected)) {
-            arraySelected.forEach(selectedValue => {
-                switch (selectedValue) {
-                    case 'Housing Finance' :
-                        this.housingFinanceSelected = true;
-                        break;
-                    case 'Mortgage Finance' :
-                        this.mortgageFinanceSelected = true;
-                        break;
-                    case 'Mortgage Overdraft' :
-                        this.mortgageOverdraftSelected = true;
-                        break;
-                }
-            });
-
+        } else {
+            if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+                this.setLoanConfigData(this.loanHolderInfo);
+            }
         }
 
     }
-
 
     submit(): void {
         this.spinner = true;
@@ -429,14 +168,12 @@ export class RetailHousingLoanComponent implements OnInit {
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() === this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING).toString()) {
-                    this.form.get('selectedArray').patchValue(this.selectedArray);
                     offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.RETAIL_HOUSING);
-            this.form.get('selectedArray').patchValue(this.selectedArray);
             offerDocument.initialInformation = JSON.stringify(this.form.value);
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
@@ -455,49 +192,16 @@ export class RetailHousingLoanComponent implements OnInit {
         });
 
     }
-
-    removeOptionalField(formArrayName, index, formControlName) {
-        if (ObjectUtil.isEmpty(formArrayName)) {
-            this.form.get(formControlName).patchValue(false);
-            return;
-        }
-        this.form.get([formArrayName, index, formControlName]).patchValue(false);
-    }
-
-    undoRemovalOfOptionalField(formArrayName, index, formControlName) {
-        if (ObjectUtil.isEmpty(formArrayName)) {
-            this.form.get(formControlName).patchValue(true);
-            return;
-        }
-        this.form.get([formArrayName, index, formControlName]).patchValue(true);
-
-    }
-
-    nepaliToEng(event: any, i , formArrayName) {
-        this.form.get([formArrayName, i, 'loanAmountReturnInWord']).patchValue(event.nepVal);
-        this.form.get([formArrayName, i, 'loanAmountReturn']).patchValue(event.val);
-    }
-
-    calcYearlyRate(formArrayName, i ) {
-        const baseRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'baseRate']).value);
-        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'premiumRate']).value);
+    calcYearlyRate() {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get('baseRate').value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get('premiumRate').value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate);
         const asd = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-        this.form.get([formArrayName, i, 'yearlyRate']).patchValue(asd);
+        this.form.get('yearlyLoanRate').patchValue(asd);
     }
-    calcpercent(formArrayName, i ) {
-        const serviceChargePercent = this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i , 'serviceChargePercent']).value);
-        const returnVal = this.nepPercentWordPipe.transform(serviceChargePercent);
-        this.form.get([formArrayName, i, 'serviceChargeAmount']).patchValue(returnVal);
-    }
-
-    changeToNepAmount(event: any, i , formArrayName) {
-        this.form.get([formArrayName, i, 'loanAmountInWord']).patchValue(event.nepVal);
-        this.form.get([formArrayName, i, 'loanAmount']).patchValue(event.val);
-    }
-
-    patchFunction(formArrayName, i, formControlName) {
-        const patchValue1 = this.form.get([formArrayName, i, formControlName]).value;
-        return patchValue1;
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
     }
 }

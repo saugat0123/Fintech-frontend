@@ -23,3 +23,14 @@
 nb-card{
   max-height: 900px;
 }
+.hello{
+  width: 86%;
+  float: right;
+  border: 2px solid black !important;
+}
+.hello >tr{
+  border: 2px solid black !important;
+}
+.hello >tr >td{
+  border: 2px solid black !important;
+}
