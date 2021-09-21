@@ -123,6 +123,9 @@ export class LetterOfContinuityComponent implements OnInit {
             sincerlyTempAdress: [undefined],
             ParentsName: [undefined],
             grandParentsName: [undefined],
+            husbandwifeName: [undefined],
+            citizenshipNumber: [undefined],
+            district: [undefined],
 
             IdentifiedGuarantorName: [undefined],
             IdentifiedHintNo: [undefined],
@@ -183,6 +186,8 @@ export class LetterOfContinuityComponent implements OnInit {
     guarantorFormGroup(): FormGroup {
         return this.formBuilder.group({
             guarantorName: [undefined],
+            citizenshipNumber: [undefined],
+            district: [undefined],
             issuedPlace: [undefined]
 
         });
@@ -209,7 +214,9 @@ export class LetterOfContinuityComponent implements OnInit {
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
                 guarantorName: [value.name],
-                issuedPlace: [value.issuedPlace]
+                issuedPlace: [value.issuedPlace],
+                citizenshipNumber : [value.citizenshipNumber],
+                district : [value.district]
             }));
         });
 
