@@ -72,6 +72,8 @@ export class LoanFormComponent implements OnInit {
     loanFile: DmsLoanFile;
     loanTitle: string;
     loading = true;
+    approvedLoans = [];
+    approvedTerminatingLoan;
 
     totalTabCount = 0;
     nextTabId = 0;
@@ -258,6 +260,7 @@ export class LoanFormComponent implements OnInit {
         this.buildDocStatusForm();
         this.activatedRoute.queryParams.subscribe((data)=> {
             this.companyInfoId = data.customerInfoId;
+            this.getApprovedLoans(this.companyInfoId);
         })
 
         this.activatedRoute.queryParams.subscribe(
@@ -336,6 +339,19 @@ export class LoanFormComponent implements OnInit {
         this.loading = false;
     }
 
+    getApprovedLoans(id) {
+        this.nbSpinner=true;
+        this.loanFormService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+            this.nbSpinner=false;
+            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+            this.approvedLoans = this.approvedTerminatingLoan.filter((l) =>l.loan.loanNature === 'Terminating')
+            }, err => {
+            this.nbSpinner=false;
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'An Error has Occured'));
+        });
+    }
+
+
     docStatusForMaker() {
         DocStatus.values().forEach((value) => {
             if (value === DocStatus.value(DocStatus.DISCUSSION) ||
@@ -404,7 +420,7 @@ export class LoanFormComponent implements OnInit {
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Outstanding Update' && !ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating') {
+                    if ( value.name === 'Outstanding Update' && !ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating ') {
                         this.templateList.splice(index, 1);
                     }
                 });
