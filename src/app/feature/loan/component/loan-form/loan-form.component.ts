@@ -420,7 +420,7 @@ export class LoanFormComponent implements OnInit {
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Outstanding Update' && !ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating '&& this.approvedLoans.length !== 0) {
+                    if ( value.name === 'Outstanding Update') {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -512,17 +512,22 @@ export class LoanFormComponent implements OnInit {
                name: 'Obtainable Documents',
                templateUrl: null
            });
-           if (!ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating'  && this.approvedLoans.length !== 0) {
-               this.templateList.push({
-                   active:false,
-                   name:'Outstanding Update',
-                   templateUrl: null
-               })
-           }else{
-               this.toastService.show(new Alert(AlertType.ERROR, 'Hey Kabita mam Outstanding Update Removed hehehhe :)'));
-
-           }
        }
+        this.loanFormService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+            this.nbSpinner = false;
+            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+            this.approvedLoans = this.approvedTerminatingLoan.filter((l) => l.loan.loanNature === 'Terminating')
+            console.log('hi i am approved loans', this.approvedLoans);
+            if (this.approvedLoans.length !== 0) {
+                this.templateList.push({
+                        active: false,
+                        name: 'Outstanding Update',
+                        templateUrl: null
+                    }
+                )
+            }
+        });
+
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
                 this.templateList.push(this.templateList.splice(index, 1)[0]);

@@ -223,11 +223,10 @@
                         <app-obtained-document #obtainedDocument>
                         </app-obtained-document>
                     </ng-template>
-                    <div *ngIf="loanNature === 'Terminating' && approvedLoans.length !== 0" >
                         <ng-template ngbTabContent *ngIf="allList.name == 'Outstanding Update'">
                             <app-outstanding-update></app-outstanding-update>
                         </ng-template>
-                    </div>
+
                     <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
                         <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
                         <!--            </app-insurance>-->
