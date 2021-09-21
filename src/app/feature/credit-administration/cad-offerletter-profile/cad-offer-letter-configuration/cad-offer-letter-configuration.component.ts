@@ -60,6 +60,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   disableLoanFacility = true;
   oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
   calendarType = CalendarType.AD;
+  loantranslate: any;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -401,6 +402,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           status: [undefined],
           approvedOn: [undefined],
           comments: [undefined],
+
+          //Translated Value
+          loanTypeTransVal: [undefined],
+          loanFacilityTransVal: [undefined],
+          proposedAmountTransVal: [undefined],
+          statusTransVal: [undefined],
+          approvedOnTransVal: [undefined],
+          commentsTransVal: [undefined]
         })
     );
   }
@@ -462,5 +471,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   async translate() {
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+  }
+
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+    //   const val = this.translatedValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    console.log('checked Value', this[formControlName + 'Check']);
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+
+  clearForm(controlName) {
+    this.userConfigForm.get(controlName).setValue(null);
   }
 }

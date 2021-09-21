@@ -796,6 +796,7 @@
               <tr>
                 <th colspan="2">{{i + 1}}. Loan Data</th>
                 <th>Translated Data</th>
+                <th>Edit</th>
                 <th>Correct Translation</th>
               </tr>
               <tr>
@@ -808,7 +809,10 @@
                   </select>
                 </td>
                 <td>{{translatedValues?.loanType}}</td>
-                <td><input type="text" class="form-control" formControlName="loanType"></td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'loanType')"></nb-checkbox>
+                </td>
+                <td><input type="text" class="form-control nepaliFont" [readOnly]="!this['loanTypeCheck']" formControlName="loanTypeTransVal"/></td>
               </tr>
               <tr>
                 <td>Loan Facility</td>
@@ -821,32 +825,47 @@
                     </option>
                   </select>
                 </td>
-                <td>{{translatedValues?.loanType}}</td>
-                <td><input type="text" class="form-control" formControlName="loanType"></td>
+                <td>{{translatedValues?.loanFacility}}</td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'loanFacility')"></nb-checkbox>
+                </td>
+                <td><input type="text" class="form-control nepaliFont" [readOnly]="!this['loanFacilityCheck']" formControlName="loanFacilityTransVal"/></td>
               </tr>
               <tr>
                 <td>proposedAmount</td>
                 <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
                 <td>{{translatedValues?.proposedAmount}}</td>
-                <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'proposedAmount')"></nb-checkbox>
+                </td>
+                <td><input type="text" class="form-control nepaliFont" [readOnly]="!this['proposedAmountCheck']" formControlName="proposedAmountTransVal"/></td>
               </tr>
               <tr>
                 <td>status</td>
                 <td><input type="text" class="form-control" formControlName="status"></td>
                 <td>{{translatedValues?.status}}</td>
-                <td><input type="text" class="form-control" formControlName="status"></td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'status')"></nb-checkbox>
+                </td>
+                <td><input type="text" class="form-control nepaliFont" [readOnly]="!this['statusCheck']" formControlName="statusTransVal"/></td>
               </tr>
               <tr>
                 <td>Approved On</td>
                 <td><input type="text" class="form-control" formControlName="approvedOn"></td>
                 <td>{{translatedValues?.approvedOn}}</td>
-                <td><input type="text" class="form-control" formControlName="approvedOn"></td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'approvedOn')"></nb-checkbox>
+                </td>
+                <td><input type="text" class="form-control nepaliFont" [readOnly]="!this['approvedOnCheck']" formControlName="approvedOnTransVal"/></td>
               </tr>
               <tr>
                 <td>comments</td>
                 <td><input type="text" class="form-control" formControlName="comments"></td>
                 <td>{{translatedValues?.comments}}</td>
-                <td><input type="text" class="form-control" formControlName="comments"></td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'comments')"></nb-checkbox>
+                </td>
+                <td><input type="text" class="form-control nepaliFont" [readOnly]="!this['commentsCheck']" formControlName="commentsTransVal"/></td>
               </tr>
               <tr>
                 <td colspan="4">
@@ -863,7 +882,10 @@
             <hr>
           </div>
 
-
+          <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
+          <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
+            Translate
+          </button>
         </nb-tab>
         <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा">
           <app-template-data [cadData]="cadData"></app-template-data>
