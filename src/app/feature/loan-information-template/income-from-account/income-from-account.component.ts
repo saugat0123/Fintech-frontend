@@ -81,11 +81,17 @@ export class IncomeFromAccountComponent implements OnInit {
             lcCommissionDuringReview: singleData.lcCommissionDuringReview,
             lcCommissionAfterNextReview: singleData.lcCommissionAfterNextReview,
             guaranteeCommissionDuringReview: singleData.guaranteeCommissionDuringReview,
-            guaranteeCommissionAfterNextReview: singleData.guaranteeCommissionAfterNextReview,
-            accountTransactionForm: singleData.accountTransactionForm
+              guaranteeCommissionAfterNextReview: singleData.guaranteeCommissionAfterNextReview,
+              accountTransactionForm: this.formBuilder.group({
+                  creditTransactionNumber: [singleData.accountTransactionForm.creditTransactionNumber],
+                  creditTransactionValue: [singleData.accountTransactionForm.creditTransactionValue],
+                  debitTransactionNumber: [singleData.accountTransactionForm.debitTransactionNumber],
+                  debitTransactionValue: [singleData.accountTransactionForm.debitTransactionValue],
+                  repaymentTrackWithCurrentBank: [singleData.accountTransactionForm.repaymentTrackWithCurrentBank]
+              })
           })
       );
-        console.log('controls', controls);
+        // console.log('controls', controls);
     });
   }
 
@@ -200,9 +206,6 @@ export class IncomeFromAccountComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
             console.log('income to be array', this.incomeFromAccountDataResponse);
             const data = [];
-            // const dataFromResponse = {
-            //     incomeFromAccount: []
-            // };
             this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
             console.log('dataForEdit', this.dataForEdit);
             data.push(this.dataForEdit);
