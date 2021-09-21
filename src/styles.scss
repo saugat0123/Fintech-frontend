@@ -13,8 +13,8 @@
 //$color-bank-dark: #D3A22C;
 
 //sb solution
-$color-bank: #f9ff1b;
-$color-bank-dark: #007bff;
+$color-bank: #F58229;
+$color-bank-dark: #F58229;
 
 .bank-hr {
   height: 1px;
@@ -28,12 +28,12 @@ $color-bank-dark: #007bff;
 
 .bank-btn-color {
   background-color: $color-bank-dark;
-  color: #ffffff;
+  color: #F58229;
 }
 
 .bank-header-color {
   background-color: $color-bank-dark;
-  color: #ffffff;
+  color: #F58229;
 }
 
 .d-contents {
@@ -99,7 +99,7 @@ $color-bank-dark: #007bff;
 }
 
 .sb-bg-dark {
-  background-color: #0E63AE !important;
+  background-color: #F58229 !important;
 }
 .f-18{
   font-size: 18px;
@@ -127,7 +127,7 @@ input[type=number] {
 }
 
 .sb-bg-secondary {
-  background-color: #6EB1DF !important;
+  background-color: #F58229 !important;
 }
 /* shake keyframes */
 @keyframes shake {
