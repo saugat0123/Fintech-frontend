@@ -90,7 +90,7 @@
                                                    type="text"/> मात्र ) ।
                                         </td>
                                     </tr>
-                                    <tr *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else drawingPowerLand">
+                                    <tr class="highlited-Color" *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else drawingPowerLand">
                                         <td>
                                             ऋणकर्जा उपयोग गर्न सक्ने सिमा
                                             (Drawing Power)
@@ -115,7 +115,7 @@
                                         </td>
                                     </tr>
                                     <ng-template #drawingPowerLand>
-                                        <tr>
+                                        <tr class="highlited-Color">
                                             <td>
                                                 ऋणकर्जा उपयोग गर्न सक्ने सिमा
                                                 (Drawing Power)
@@ -132,7 +132,7 @@
                                             </td>
                                         </tr>
                                     </ng-template>
-                                    <tr *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landInterestRate">
+                                    <tr class="highlited-Color" *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landInterestRate">
                                         <td>
                                             ब्याज दरः
                                         </td>
@@ -162,7 +162,7 @@
                                         </td>
                                     </tr>
                                     <ng-template #landInterestRate>
-                                        <tr >
+                                        <tr class="highlited-Color">
                                             <td>
                                                 ब्याज दरः
                                             </td>
@@ -190,7 +190,7 @@
                                             ऋण प्रशासनिक शुल्क
                                         </td>
                                         <td>
-                                            <ng-container *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAdminFee">
+                                            <ng-container class="highlited-Color" *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAdminFee">
                                                 ऋण प्रशासनिक शुल्क बापत रु
                                                 <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="loanAdminFeeFigure"
@@ -212,7 +212,7 @@
                                             </ng-container>
                                             <br>
                                             <ng-template #landAdminFee>
-                                                <ul>
+                                                <ul class="highlited-Color">
                                                     <li>
                                                         ऋण प्रशासनिक शुल्क बापत
                                                         <input class="form-field form-control-sm nepaliFont"
@@ -246,7 +246,7 @@
                                             </ng-template>
                                         </td>
                                     </tr>
-                                    <tr *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else paidLoan">
+                                    <tr class="highlited-Color" *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else paidLoan">
                                         <td>
                                             चुक्ता भुक्तानीः
                                         </td>
@@ -255,7 +255,7 @@
                                             (Maturity) समयमा गर्नु पर्नेछ ।
                                         </td>
                                     </tr>
-                                    <ng-template #paidLoan>
+                                    <ng-template class="highlited-Color" #paidLoan>
                                         <tr>
                                             <td>चुक्ता भुक्तानीः</td>
                                             <td>
@@ -364,7 +364,7 @@
                                 </p>
                             </div>
                             <div class="col-md-12">
-                                <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAndBuildingSecuritySec">
+                                <p class="highlited-Color" *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAndBuildingSecuritySec">
                                     क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको श्री
                                     <input class="form-field form-control-sm nepaliFont col-3"
                                            formControlName="fixedDepositHolderName"
@@ -385,7 +385,7 @@
                                     अवधि बमोजिम आवधिक रुपमा नविकरण गरिनेछ र सो मुद्धती रसिदको सक्कल प्रति बैंकलाई हस्तान्तरण
                                     गर्नु पर्नेछ ।
                                 </p>
-                                <ng-template #landAndBuildingSecuritySec>
+                                <ng-template class="highlited-Color" #landAndBuildingSecuritySec>
                                     <p>
                                         क. स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
                                         बमोजिमको घर/जग्गा
@@ -509,7 +509,7 @@
                                             त्रैमास पछिको
                                             महिनाहरु अर्थात श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट ब्याज दरसमायोजन तथा
                                             संसोधन गरीनेछ ।
-                                            <ng-container *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
+                                            <ng-container class="highlited-Color" *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
                                                 बैंकको आधार दर (Base Rate) मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता
                                                 (EMI- Equated Monthly Installment ) मा भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा
                                                 निर्धारीत मासिक
@@ -579,14 +579,14 @@
                                     <tr>
                                         <td>७.</td>
                                         <td>
-                                            <p *ngIf="selectedCountry === 'AUSTRALIA'; else otherCountriesContents">
+                                            <p class="highlited-Color" *ngIf="selectedCountry === 'AUSTRALIA'; else otherCountriesContents">
                                                 कर्जा सिमा यदि आंशिक भुक्तानी भए पश्चात भुक्तानी भएको रकम
                                                 <b>
                                                     ऋण स्वीकृति पत्रको मितीले एक बर्ष भित्र पूनः कर्जा स्वरुप विद्यार्थीको
                                                     जिवन निर्वाह र/वा शैक्षिक खर्चको लागि उपयोग गर्न सकिनेछ ।
                                                 </b>
                                             </p>
-                                            <ng-template #otherCountriesContents>
+                                            <ng-template class="highlited-Color" #otherCountriesContents>
                                                 <p>
                                                     कर्जा सिमा यदि आंशिक भुक्तानी भए पश्चात भुक्तानी भएको रकम
                                                     <b>
@@ -693,27 +693,27 @@
                                             कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन
                                             फिर्ता हुनेछैन ।
                                             जुनसुकै कारणले
-                                            <ng-container *ngIf="selectedCountry === 'AUSTRALIA'; else embassyName">
+                                            <ng-container class="highlited-Color" *ngIf="selectedCountry === 'AUSTRALIA'; else embassyName">
                                                 अस्ट्रेलियन हाइ कमिसनले
                                             </ng-container>
                                             <ng-template #embassyName>
-                                                <span>{{nameOfEmbassy}}</span>ले
+                                                <span class="highlited-Color">{{nameOfEmbassy}}</span>ले
                                             </ng-template>
                                             भिसा अस्विकार गरेमा वा उल्लिखित विश्व
                                             विद्यालयले विद्यार्थी भर्ना
                                             गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन
-                                            फिर्ता हुनेछैन ।
-                                            जुनसुकै कारणले
-                                            <span>{{nameOfEmbassy}}</span> ले भिसा अस्विकार गरेमा वा उल्लिखित विश्व विद्यालयले विद्यार्थी
-                                            भर्ना गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td></td>-->
+<!--                                        <td>-->
+<!--                                            कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन-->
+<!--                                            फिर्ता हुनेछैन ।-->
+<!--                                            जुनसुकै कारणले-->
+<!--                                            <span class="text-success">{{nameOfEmbassy}}</span> ले भिसा अस्विकार गरेमा वा उल्लिखित विश्व विद्यालयले विद्यार्थी-->
+<!--                                            भर्ना गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
                                     <tr>
                                         <td>
                                             १३.
@@ -892,7 +892,7 @@
                                             माथिको कर्जाका लागि रु. ५,०००। परिवर्तन/संशोधन शुल्क लाग्नेछ ।
                                         </td>
                                     </tr>
-                                    <tr *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
+                                    <tr class="highlited-Color" *ngIf="selectedSecurity === 'LAND' || selectedSecurity === 'LAND_AND_BUILDING'">
                                         <td>२०.</td>
                                         <td>
                                             ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोबन्धक लेखीदिएको घर/जग्गाहरु फुकुवा
@@ -1006,19 +1006,19 @@
                                                 सम्पादन गर्नु पर्नेछ ।
                                             </p>
                                             <div *ngIf="selectedSecurity === 'FIXED_DEPOSIT'" class="col-md-12">
-                                                <p>
+                                                <p class="highlited-Color">
                                                     क. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="promissoryNoteAmount"
                                                            type="text"/> /- को प्रतिज्ञा पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ख. निरन्तरता पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ग. मोजरा पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     घ. श्री
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guaranteedAmountWords"
@@ -1028,7 +1028,7 @@
                                                            type="text"/> /- बराबरको
                                                     व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
-                                                <p>ह्. श्री
+                                                <p class="highlited-Color">ह्. श्री
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="nameOfFixedDeposit"
                                                            type="text"/> /- को रु
@@ -1038,29 +1038,29 @@
 
                                             </div>
                                             <div *ngIf="selectedSecurity === 'LAND'" class="col-md-12">
-                                                <p>
+                                                <p class="highlited-Color">
                                                     क. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="promissoryNoteAmount"
                                                            type="text"/> को प्रतिज्ञा पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ख. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="loanDeedAmount"
                                                            type="text"/>
                                                     ऋणकर्जा तमसुक ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ग. निरन्तरता पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     घ. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="pledgeAmountFigure"
                                                            type="text"/> /- को धितो बन्धक तमसुक ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ह्. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guaranteedAmountFigure"
@@ -1070,35 +1070,35 @@
                                                            type="text"/>
                                                     को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     च. मूल्याह्कन प्रतिवेदन प्राप्त । </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     छ. बहूबैकिङ्ग घोषणा पत्र । </p>
 
                                             </div>
                                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" class="col-md-12">
-                                                <p>
+                                                <p class="highlited-Color">
                                                     क.	रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="promissoryNoteAmount"
                                                            type="text"/> /- को प्रतिज्ञा पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ख.	रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="loanDeedAmount"
                                                            type="text"/> /- को ऋणकर्जा तमसुक ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ग.	निरन्तरता पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     घ.	रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="pledgeAmountFigure"
                                                            type="text"/> /- को धितो बन्धक तमसुक ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ह्. रु <input class="form-field form-control-sm nepaliFont"
                                                                   formControlName="guaranteedAmountFigure"
                                                                   type="text"/> बराबरकोे
@@ -1106,19 +1106,19 @@
                                                                 formControlName="guarantorName"
                                                                 type="text"/> को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     च.   मूल्याह्कन प्रतिवेदन प्राप्त ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     छ.   बहूबैकिङ्ग घोषणा पत्र ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     ज.   बैकर्श शर्त सहितको कम्तीमा रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="insuranceAmountFigure"
                                                            type="text"/> /-बराबरको भवनको विमालेख ।
                                                 </p>
-                                                <p>
+                                                <p class="highlited-Color">
                                                     झ.   भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
                                                 </p>
 
@@ -1178,8 +1178,11 @@
                                     </li>
                                     <li>
                                         म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको घोषणा भएको छैन
-                                        भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं । साथै मैले/हामीले त्यस बैंक सहित अन्य बैंक तथा वित्तिय संस्थाहरुबाट कुल एक
-                                        करोड भन्दा बढि ऋणकर्जा प्राप्त नगरेको समेत उदेघोष गर्दछु/गर्दछौं ।
+                                        भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
+                                        <span class="highlited-Color" *ngIf="loanLimit">
+                                            साथै मैले/हामीले त्यस बैंक सहित अन्य बैंक तथा वित्तिय संस्थाहरुबाट कुल एक
+                                            करोड भन्दा बढि ऋणकर्जा प्राप्त नगरेको समेत उदेघोष गर्दछु/गर्दछौं ।
+                                        </span>
                                     </li>
                                     <li>
                                         यस नबिल बैंक लिमिटेडका संस्थापक, संस्थापक शेयरधनीहरु, संचालक, प्रमुख कार्यकारी अधिकृत, कर्मचारी, चुक्ता

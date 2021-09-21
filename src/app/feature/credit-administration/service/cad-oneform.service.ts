@@ -26,6 +26,12 @@ export class CadOneformService extends BaseService<any> {
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
+    public saveLoan(obj: any): Observable<any> {
+        const api = `${this.getApi()}/loan/save`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
+
     public assignLoanToUser(obj: any): Observable<any> {
         const api = `${this.getApi()}/assign`;
         const req = ApiUtils.getRequest(api);

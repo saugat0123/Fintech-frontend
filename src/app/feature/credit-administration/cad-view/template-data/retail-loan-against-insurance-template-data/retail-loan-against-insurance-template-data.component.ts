@@ -20,8 +20,6 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
   buildRetailIns: FormGroup;
   translatedValues: any = {};
   spinner = false;
-  edi1 = true;
-  isReadonly = true;
   constructor(
       private formBuilder: FormBuilder,
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -75,7 +73,49 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
       sakshiMunicipality: [undefined],
       sakshiWardNum: [undefined],
       sakshiName: [undefined],
-      employeeName : [undefined]
+      employeeName : [undefined],
+
+      //For translated Value
+      dateofGenerationTransVal: [undefined],
+      customerNameTransVal: [undefined],
+      customerAddressTransVal: [undefined],
+      applicationDateInADTransVal: [undefined],
+      LoanTypeTransVal: [undefined],
+      LoanAmountTransVal: [undefined],
+      LoanAmountWordsTransVal: [undefined],
+      drawingPowerRateTransVal: [undefined],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
+      yearlyFloatingInterestRateTransVal: [undefined],
+      serviceChargeTransVal: [undefined],
+      serviceChargeWordsTransVal: [undefined],
+      communicationFeeTransVal: [undefined],
+      emiAmountTransVal: [undefined],
+      emiAmountWordsTransVal: [undefined],
+      emiCountTransVal: [undefined],
+      loanCommitmentFeeTransVal: [undefined],
+      ownersNameTransVal : [undefined],
+      ownersAddressTransVal: [undefined],
+      propertyPlotNumberTransVal: [undefined],
+      propertyAreaTransVal: [undefined],
+      sheetNumberTransVal: [undefined],
+      GuarantorNameTransVal: [undefined],
+      changeFeeBelow1CrTransVal: [undefined],
+      changeFeeAbove1CrTransVal: [undefined],
+      collateralReleaseFeeTransVal: [undefined],
+      documentAccessFeeTransVal: [undefined],
+      promissoryNoteAmountTransVal: [undefined],
+      loanDeedAmountTransVal : [undefined],
+      pledgeAmountTransVal : [undefined],
+      guarantorName1TransVal : [undefined],
+      guarantorAmount1TransVal : [undefined],
+      guarantorAmountWords1TransVal : [undefined],
+      signatureDateTransVal : [undefined],
+      sakshiDistrictTransVal: [undefined],
+      sakshiMunicipalityTransVal: [undefined],
+      sakshiWardNumTransVal: [undefined],
+      sakshiNameTransVal: [undefined],
+      employeeNameTransVal : [undefined]
     });
   }
 
@@ -89,8 +129,21 @@ export class RetailLoanAgainstInsuranceTemplateDataComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.buildRetailIns.get(wordLabel).patchValue(returnVal);
   }
-  edi(){
-    this.isReadonly = !this.isReadonly;
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+    //   const val = this.translatedValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    console.log('checked Value', this[formControlName + 'Check']);
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+
+  clearForm(controlName) {
+    this.buildRetailIns.get(controlName).setValue(null);
   }
   submit() {
 

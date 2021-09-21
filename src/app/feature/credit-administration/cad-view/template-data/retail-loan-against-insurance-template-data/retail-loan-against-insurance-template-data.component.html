@@ -2,8 +2,10 @@
 <form (ngSubmit)="submit()" [formGroup]="buildRetailIns">
     <table class="table table-borderless table-hover text-center sb-small table-sm">
         <tr>
-            <th colspan="2">Loan Data</th>
+            <th></th>
+            <th>Loan Data</th>
             <th>Nepali Translation</th>
+            <th>Edit</th>
             <th>Correct Translation</th>
         </tr>
         <tr>
@@ -11,10 +13,12 @@
             <td><input type="text" class="form-control" formControlName="dateofGeneration"></td>
             <td class="abc">
                 {{translatedValues?.dateofGeneration}}
-                <i *ngIf="translatedValues.dateofGeneration" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
             <td>
-                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.dateofGeneration}}">
+                <nb-checkbox (change)="checkboxVal($event, 'dateofGeneration')"></nb-checkbox>
+            </td>
+            <td>
+                <input formControlName="dateofGenerationTransVal" [readOnly]="!this['dateofGenerationCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -22,10 +26,12 @@
             <td><input type="text" class="form-control" formControlName="customerName"></td>
             <td class="abc">
                 {{translatedValues?.customerName}}
-                <i *ngIf="translatedValues.customerName" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
             <td>
-                <input [readonly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.customerName}}">
+                <nb-checkbox (change)="checkboxVal($event, 'customerName')"></nb-checkbox>
+            </td>
+            <td>
+                <input [readonly]="!this['customerNameCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -35,10 +41,12 @@
             </td>
             <td class="abc">
                 {{translatedValues?.customerAddress}}
-                <i *ngIf="translatedValues.customerAddress" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
             <td>
-                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.customerAddress}}">
+                <nb-checkbox (change)="checkboxVal($event, 'customerAddress')"></nb-checkbox>
+            </td>
+            <td>
+                <input formControlName="dateofGenerationTransVal" [readOnly]="!this['customerAddressCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -47,10 +55,12 @@
                 <input type="text" class="form-control" formControlName="applicationDateInAD">
             </td>
             <td class="abc">{{translatedValues?.applicationDateInAD}}
-                <i *ngIf="translatedValues.applicationDateInAD" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
             <td>
-                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.applicationDateInAD}}">
+                <nb-checkbox (change)="checkboxVal($event, 'applicationDateInAD')"></nb-checkbox>
+            </td>
+            <td>
+                <input formControlName="applicationDateInADTransVal" [readOnly]="!this['applicationDateInADCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
 
@@ -58,10 +68,12 @@
             <td>Drawing Power Rate</td>
             <td><input type="text" class="form-control" formControlName="drawingPowerRate"></td>
             <td class="abc">{{translatedValues?.drawingPowerRate}}
-                <i *ngIf="translatedValues.drawingPowerRate" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
             <td>
-                <input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.drawingPowerRate}}">
+                <nb-checkbox (change)="checkboxVal($event, 'drawingPowerRate')"></nb-checkbox>
+            </td>
+            <td>
+                <input formControlName="drawingPowerRateTransVal" [readOnly]="!this['drawingPowerRateCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
 
@@ -70,9 +82,11 @@
             <td><input type="text" class="form-control" formControlName="baseRate"></td>
             <td class="abc">
                 {{translatedValues.baseRate}}
-                <i *ngIf="translatedValues.baseRate" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.baseRate}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'baseRate')"></nb-checkbox>
+            </td>
+            <td><input formControlName="baseRateTransVal" [readOnly]="!this['baseRateCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
 
         <tr>
@@ -80,20 +94,22 @@
             <td><input type="text" class="form-control" formControlName="premiumRate"></td>
             <td class="abc">
                 {{translatedValues.premiumRate}}
-                <i *ngIf="translatedValues.baseRate" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.premiumRate}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'premiumRate')"></nb-checkbox>
+            </td>
+            <td><input formControlName="premiumRateTransVal" [readOnly]="!this['premiumRateCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
 
         <tr>
             <td>Yearly Floating Interest Rate</td>
             <td><input type="text" class="form-control" formControlName="yearlyFloatingInterestRate"></td>
             <td class="abc">
-                {{translatedValues.yearlyFloatingInterestRate}}
-                <i *ngIf="translatedValues.yearlyFloatingInterestRate" class="fas fa-edit edi" (click)="edi()"></i>
+                {{translatedValues.yearlyFloatingInterestRate}}</td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'yearlyFloatingInterestRate')"></nb-checkbox>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.yearlyFloatingInterestRate}}">
+            <td><input formControlName="yearlyFloatingInterestRateTransVal" [readOnly]="!this['yearlyFloatingInterestRateCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
 
@@ -103,9 +119,11 @@
                        (change)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"></td>
             <td class="abc">
                 {{translatedValues.serviceCharge}}
-                <i *ngIf="translatedValues.serviceCharge" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.serviceCharge}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'serviceCharge')"></nb-checkbox>
+            </td>
+            <td><input formControlName="serviceChargeTransVal" [readOnly]="!this['serviceChargeCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -113,20 +131,22 @@
             <td><input type="text" class="form-control" formControlName="serviceChargeWords"></td>
             <td class="abc">
                 {{translatedValues.serviceChargeWords}}
-                <i *ngIf="translatedValues.serviceChargeWords" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                               value="{{translatedValues?.serviceChargeWords}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'serviceChargeWords')"></nb-checkbox>
+            </td>
+            <td><input formControlName="serviceChargeWordsTransVal" [readOnly]="!this['serviceChargeWordsCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Communication Fee</td>
             <td><input type="text" class="form-control" formControlName="communicationFee"></td>
             <td class="abc">
                 {{translatedValues.communicationFee}}
-                <i *ngIf="translatedValues.communicationFee" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                               value="{{translatedValues?.communicationFee}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'communicationFee')"></nb-checkbox>
+            </td>
+            <td><input formControlName="communicationFeeTransVal" [readOnly]="!this['communicationFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>EMI Amount</td>
@@ -134,18 +154,22 @@
                        (change)="getNumAmountWord('emiAmount', 'emiAmountWords')"></td>
             <td class="abc">
                 {{translatedValues.emiAmount}}
-                <i *ngIf="translatedValues.emiAmount" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.emiAmount}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'emiAmount')"></nb-checkbox>
+            </td>
+            <td><input formControlName="emiAmountTransVal" [readOnly]="!this['emiAmountCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>EMI Amount Words</td>
             <td><input type="text" class="form-control" formControlName="emiAmountWords"></td>
             <td class="abc">
                 {{translatedValues.emiAmountWords}}
-                <i *ngIf="translatedValues.emiAmountWords" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.emiAmountWords}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'emiAmountWords')"></nb-checkbox>
+            </td>
+            <td><input formControlName="emiAmountWordsTransVal" [readOnly]="!this['emiAmountWordsCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -153,38 +177,44 @@
             <td><input type="text" class="form-control" formControlName="emiCount"></td>
             <td class="abc">
                 {{translatedValues.emiCount}}
-                <i *ngIf="translatedValues.emiCount" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.emiCount}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'emiCount')"></nb-checkbox>
             </td>
+            <td><input formControlName="emiCountTransVal" [readOnly]="!this['emiCountCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Loan Commitment Fee</td>
             <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
             <td class="abc">
                 {{translatedValues.loanCommitmentFee}}
-                <i *ngIf="translatedValues.loanCommitmentFee" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.loanCommitmentFee}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'loanCommitmentFee')"></nb-checkbox>
+            </td>
+            <td><input formControlName="loanCommitmentFeeTransVal" [readOnly]="!this['loanCommitmentFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Owners Name</td>
             <td><input type="text" class="form-control" formControlName="ownersName"></td>
             <td class="abc">
                 {{translatedValues.ownersName}}
-                <i *ngIf="translatedValues.ownersName" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.ownersName}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>
+            </td>
+            <td><input formControlName="ownersNameTransVal" [readOnly]="!this['ownersNameCheck']" type="text" class="form-control nepaliFont" ></td>
         </tr>
         <tr>
             <td>Owners Address</td>
             <td><input type="text" class="form-control" formControlName="ownersAddress"></td>
             <td class="abc">
                 {{translatedValues.ownersAddress}}
-                <i *ngIf="translatedValues.ownersAddress" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.ownersAddress}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'ownersAddress')"></nb-checkbox>
+            </td>
+            <td><input formControlName="ownersAddressTransVal" [readOnly]="!this['ownersAddressCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -192,19 +222,22 @@
             <td><input type="text" class="form-control" formControlName="propertyPlotNumber"></td>
             <td class="abc">
                 {{translatedValues.propertyPlotNumber}}
-                <i *ngIf="translatedValues.propertyPlotNumber" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.propertyPlotNumber}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'propertyPlotNumber')"></nb-checkbox>
+            </td>
+            <td><input formControlName="propertyPlotNumberTransVal" [readOnly]="!this['propertyPlotNumberCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Property Area</td>
             <td><input type="text" class="form-control" formControlName="propertyArea"></td>
             <td class="abc">
                 {{translatedValues.propertyArea}}
-                <i *ngIf="translatedValues.propertyArea" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.propertyArea}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'propertyArea')"></nb-checkbox>
+            </td>
+            <td><input formControlName="propertyAreaTransVal" [readOnly]="!this['propertyAreaCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -212,68 +245,77 @@
             <td><input type="text" class="form-control" formControlName="sheetNumber"></td>
             <td class="abc">
                 {{translatedValues.sheetNumber}}
-                <i *ngIf="translatedValues.sheetNumber" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sheetNumber}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'sheetNumber')"></nb-checkbox>
+            </td>
+            <td><input formControlName="sheetNumberTransVal" [readOnly]="!this['sheetNumberCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Change Fee Below 1 Cr</td>
             <td><input type="text" class="form-control" formControlName="changeFeeBelow1Cr"></td>
             <td class="abc">
                 {{translatedValues.changeFeeBelow1Cr}}
-                <i *ngIf="translatedValues.changeFeeBelow1Cr" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.changeFeeBelow1Cr}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'changeFeeBelow1Cr')"></nb-checkbox>
+            </td>
+            <td><input formControlName="changeFeeBelow1CrTransVal" [readOnly]="!this['changeFeeBelow1CrCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Change Fee Above 1 Cr</td>
             <td><input type="text" class="form-control" formControlName="changeFeeAbove1Cr"></td>
             <td class="abc">
                 {{translatedValues.changeFeeAbove1Cr}}
-                <i *ngIf="translatedValues.changeFeeAbove1Cr" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.changeFeeAbove1Cr}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'changeFeeAbove1Cr')"></nb-checkbox>
+            </td>
+            <td><input formControlName="changeFeeAbove1CrTransVal" [readOnly]="!this['changeFeeAbove1CrCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Collateral Release Fee</td>
             <td><input type="text" class="form-control" formControlName="collateralReleaseFee"></td>
             <td class="abc">
                 {{translatedValues.collateralReleaseFee}}
-                <i *ngIf="translatedValues.collateralReleaseFee" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.collateralReleaseFee}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'collateralReleaseFee')"></nb-checkbox>
+            </td>
+            <td><input formControlName="collateralReleaseFeeTransVal" [readOnly]="!this['collateralReleaseFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Document Access Fee</td>
             <td><input type="text" class="form-control" formControlName="documentAccessFee"></td>
             <td class="abc">
                 {{translatedValues.documentAccessFee}}
-                <i *ngIf="translatedValues.documentAccessFee" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.documentAccessFee}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'documentAccessFee')"></nb-checkbox>
+            </td>
+            <td><input formControlName="documentAccessFeeTransVal" [readOnly]="!this['documentAccessFeeCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Promissory Note Amount</td>
             <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"></td>
             <td class="abc">
                 {{translatedValues.promissoryNoteAmount}}
-                <i *ngIf="translatedValues.promissoryNoteAmount" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.promissoryNoteAmount}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'promissoryNoteAmount')"></nb-checkbox>
+            </td>
+            <td><input formControlName="promissoryNoteAmountTransVal" [readOnly]="!this['promissoryNoteAmountCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Loan Deed Amount</td>
             <td><input type="text" class="form-control" formControlName="loanDeedAmount"></td>
             <td class="abc">
                 {{translatedValues.loanDeedAmount}}
-                <i *ngIf="translatedValues.loanDeedAmount" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.loanDeedAmount}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'loanDeedAmount')"></nb-checkbox>
+            </td>
+            <td><input formControlName="loanDeedAmountTransVal" [readOnly]="!this['loanDeedAmountCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -281,9 +323,11 @@
             <td><input type="text" class="form-control" formControlName="pledgeAmount"></td>
             <td class="abc">
                 {{translatedValues.pledgeAmount}}
-                <i *ngIf="translatedValues.pledgeAmount" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.pledgeAmount}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'pledgeAmount')"></nb-checkbox>
+            </td>
+            <td><input formControlName="pledgeAmountTransVal" [readOnly]="!this['pledgeAmountCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -291,9 +335,11 @@
             <td><input type="text" class="form-control" formControlName="guarantorName1"></td>
             <td class="abc">
                 {{translatedValues.guarantorName1}}
-                <i *ngIf="translatedValues.guarantorName1" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.guarantorName1}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'guarantorName1')"></nb-checkbox>
+            </td>
+            <td><input formControlName="guarantorName1TransVal" [readOnly]="!this['guarantorName1Check']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -301,9 +347,11 @@
             <td><input type="text" class="form-control" formControlName="guarantorAmount1"></td>
             <td class="abc">
                 {{translatedValues.guarantorAmount1}}
-                <i *ngIf="translatedValues.guarantorAmount1" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.guarantorAmount1}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'guarantorAmount1')"></nb-checkbox>
+            </td>
+            <td><input formControlName="guarantorAmount1TransVal" [readOnly]="!this['guarantorAmount1Check']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -311,19 +359,22 @@
             <td><input type="text" class="form-control" formControlName="guarantorAmountWords1"></td>
             <td class="abc">
                 {{translatedValues.guarantorAmountWords1}}
-                <i *ngIf="translatedValues.guarantorAmountWords1" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.guarantorAmountWords1}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'guarantorAmountWords1')"></nb-checkbox>
+            </td>
+            <td><input formControlName="guarantorAmountWords1TransVal" [readOnly]="!this['guarantorAmountWords1Check']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Signature Date</td>
             <td><input type="text" class="form-control" formControlName="signatureDate"></td>
             <td class="abc">
                 {{translatedValues.signatureDate}}
-                <i *ngIf="translatedValues.signatureDate" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.signatureDate}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'signatureDate')"></nb-checkbox>
+            </td>
+            <td><input formControlName="signatureDateTransVal" [readOnly]="!this['signatureDateCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -331,9 +382,11 @@
             <td><input type="text" class="form-control" formControlName="sakshiDistrict"></td>
             <td class="abc">
                 {{translatedValues.sakshiDistrict}}
-                <i *ngIf="translatedValues.sakshiDistrict" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sakshiDistrict}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'sakshiDistrict')"></nb-checkbox>
+            </td>
+            <td><input formControlName="sakshiDistrictTransVal" [readOnly]="!this['sakshiDistrictCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -341,19 +394,22 @@
             <td><input type="text" class="form-control" formControlName="sakshiMunicipality"></td>
             <td class="abc">
                 {{translatedValues.sakshiMunicipality}}
-                <i *ngIf="translatedValues.sakshiMunicipality" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont"
-                       value="{{translatedValues?.sakshiMunicipality}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'sakshiMunicipality')"></nb-checkbox>
+            </td>
+            <td><input formControlName="sakshiMunicipalityTransVal" [readOnly]="!this['sakshiMunicipalityCheck']" type="text" class="form-control nepaliFont"></td>
         </tr>
         <tr>
             <td>Sakshi Ward Num</td>
             <td><input type="text" class="form-control" formControlName="sakshiWardNum"></td>
             <td class="abc">
                 {{translatedValues.sakshiWardNum}}
-                <i *ngIf="translatedValues.sakshiWardNum" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sakshiWardNum}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'sakshiWardNum')"></nb-checkbox>
+            </td>
+            <td><input formControlName="sakshiWardNumTransVal" [readOnly]="!this['sakshiWardNumCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
@@ -361,18 +417,22 @@
             <td><input type="text" class="form-control" formControlName="sakshiName"></td>
             <td class="abc">
                 {{translatedValues.sakshiName}}
-                <i *ngIf="translatedValues.sakshiName" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.sakshiName}}"></td>
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'sakshiName')"></nb-checkbox>
+            </td>
+            <td><input formControlName="sakshiNameTransVal" [readOnly]="!this['sakshiNameCheck']" type="text" class="form-control nepaliFont" ></td>
         </tr>
         <tr>
             <td>Employee Name</td>
             <td><input type="text" class="form-control" formControlName="employeeName"></td>
             <td class="abc">
                 {{translatedValues.employeeName}}
-                <i *ngIf="translatedValues.employeeName" class="fas fa-edit edi" (click)="edi()"></i>
             </td>
-            <td><input [readOnly]="isReadonly" type="text" class="form-control nepaliFont" value="{{translatedValues?.employeeName}}">
+            <td>
+                <nb-checkbox (change)="checkboxVal($event, 'employeeName')"></nb-checkbox>
+            </td>
+            <td><input formControlName="employeeNameTransVal" [readOnly]="!this['employeeNameCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
     </table>
