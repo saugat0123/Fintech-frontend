@@ -94,7 +94,8 @@ export class LoanCreateComponent implements OnInit {
 
   async translate() {
     this.spinner = true;
-    this.translatedValues = await this.translateService.translateForm(this.form);
+    this.translatedValues = await this.translateService.translateForm(this.form.get('loanDetails').value[0]);
+    console.log(this.translatedValues);
     this.spinner = false;
   }
 
