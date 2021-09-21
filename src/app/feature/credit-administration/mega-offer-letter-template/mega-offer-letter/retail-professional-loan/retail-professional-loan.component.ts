@@ -42,6 +42,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
     @Input() selectedSecurity;
     @Input() nameOfEmbassy;
     @Input() translatedValue;
+    @Input() loanLimit;
     @Output() newSavedVal = new EventEmitter();
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
