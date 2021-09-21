@@ -107,9 +107,7 @@
               </td>
               <td>
                 {{translatedValues?.email}}</td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="email" type="text"/>
-              </td>
+              <td></td>
             </tr>
 
             <tr>
@@ -904,7 +902,7 @@
         </nb-tab>
         <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
                 [disabled]="!activeLoanTab">
-          <app-loan-create [data]="responseData"
+          <app-loan-create [data]="responseData" *ngIf="responseData"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
         <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"
