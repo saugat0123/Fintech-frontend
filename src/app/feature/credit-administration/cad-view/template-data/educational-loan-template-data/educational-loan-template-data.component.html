@@ -38,6 +38,11 @@
                 </nb-select>
             </div>
         </div>
+        <div class="row pt-3 pl-2">
+            <div class="col-md-12 pt-3 pl-2">
+                <nb-checkbox #limitCheck (change)="loanChecked(limitCheck.checked)" [checked]="loanLimit"><i>Customer has total loan amount above One Crore</i></nb-checkbox>
+            </div>
+        </div>
 
         <div class="row mt-5">
             <table
@@ -314,6 +319,7 @@
                                           [selectedCountry]="selectedCountryVal"
                                           [translatedValue]="translatedValues"
                                           (newSavedVal)="getChildData($event)"
+                                          [loanLimit]="loanLimit"
                                           [nameOfEmbassy]="embassyName"></app-retail-professional-loan>
         </nb-card-body>
     </nb-card>
