@@ -8,10 +8,25 @@
       <span aria-hidden="true">×</span></a>
   </nb-card-header>
   <nb-card-body>
+<!--    <div class="d-flex justify-content-end">-->
+<!--      <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"-->
+<!--                      name="oneFormDateType">-->
+<!--        <nb-radio value="AD">AD</nb-radio>-->
+<!--        <nb-radio value="BS">BS</nb-radio>-->
+<!--      </nb-radio-group>-->
+<!--    </div>-->
     <form [formGroup]="userConfigForm">
+
       <nb-tabset (changeTab)="onChangeTab($event)">
         <nb-tab tabId="0" tabTitle="Client Details" #personal>
           <hr>
+          <div class="d-flex justify-content-end">
+            <nb-radio-group formControlName="calendarType" class="d-inline-flex"
+                            name="oneFormDateType">
+              <nb-radio value="AD">AD</nb-radio>
+              <nb-radio value="BS">BS</nb-radio>
+            </nb-radio-group>
+          </div>
           <table class="table table-borderless table-4 mb-5">
             <tr>
               <td>
@@ -101,13 +116,14 @@
                 <label class="title" for="name">DOB</label>
               </td>
               <td>
-                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dob"
+                <input *ngIf="userConfigForm.get('calendarType').value === 'AD'" [nbDatepicker]="dob"
                        class="table-input form-control"
                        formControlName="dob">
-                <!--                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"-->
-                <!--                              *ngIf="calendarType === 'BS'"-->
-                <!--                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>-->
-                <nb-datepicker format="yyyy-MM-dd" #dob></nb-datepicker>
+                                <app-calendar class="table-input form-control"
+                                        *ngIf="userConfigForm.get('calendarType').value === 'BS'"
+                                              [ePreDate]="userConfigForm.get('dob').value"
+                                              (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"></app-calendar>
+                <nb-datepicker #dob></nb-datepicker>
 
               </td>
               <td>  {{translatedValues?.dob}}</td>
@@ -245,18 +261,18 @@
                 <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>
               </td>
               <td>
-                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="citizenshipIssueDate"
+                <input *ngIf="userConfigForm.get('calendarType').value === 'AD'" [nbDatepicker]="citizenshipIssueDate"
                        class="form-control "
                        formControlName="citizenshipIssueDate"
                        id="citizenshipIssueDate"
                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"
                        name="citizenshipIssueDate" placeholder="Citizenship Issue Date"
                        type="text"/>
-
-                <!--                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"-->
-                <!--                              *ngIf="calendarType === 'BS'"-->
-                <!--                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>-->
-                <nb-datepicker format="yyyy-MM-dd" #citizenshipIssueDate></nb-datepicker>
+                <nepali-patro *ngIf="userConfigForm.get('calendarType').value === 'BS'" formControlName="registrationDate"></nepali-patro>
+<!--                                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"-->
+<!--                                              *ngIf="userConfigForm.get('calendarType').value === 'BS'"-->
+<!--                                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>-->
+                <nb-datepicker #citizenshipIssueDate></nb-datepicker>
               </td>
               <td>
                 {{translatedValues?.citizenshipIssueDate}}
@@ -268,17 +284,17 @@
                 <label class="title" for="registrationDate">Registration Date</label>
               </td>
               <td>
-                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationDate"
+                <input *ngIf="userConfigForm.get('calendarType').value === 'AD'" [nbDatepicker]="registrationDate"
                        class="form-control "
                        formControlName="registrationDate"
                        id="registrationDate"
                        [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"
                        name="registrationDate" placeholder="Registration Date"
                        type="text"/>
-                <!--                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"-->
-                <!--                              *ngIf="calendarType === 'BS'"-->
-                <!--                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>-->
-                <nb-datepicker format="yyyy-MM-dd" #registrationDate></nb-datepicker>
+                                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"
+                                              *ngIf="userConfigForm.get('calendarType').value === 'BS'"
+                                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>
+                <nb-datepicker #registrationDate></nb-datepicker>
               </td>
               <td>
                 {{translatedValues?.registrationDate}}
@@ -711,17 +727,17 @@
                 </td>
                 <td>
                   <input
-                      *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedYear"
+                      *ngIf="userConfigForm.get('calendarType').value === 'AD'" [nbDatepicker]="issuedYear"
                       class="form-control "
                       formControlName="issuedYear"
                       id="guarantorIssueDate"
                       autocomplete="off"
                       name="name" placeholder="Citizenship Issue Date"
                       type="text"/>
-                  <!--                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"-->
-                  <!--                              *ngIf="calendarType === 'BS'"-->
-                  <!--                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>-->
-                  <nb-datepicker format="yyyy-MM-dd" #issuedYear></nb-datepicker>
+                                  <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"
+                                                *ngIf="userConfigForm.get('calendarType').value === 'BS'"
+                                                [ePreDate]="userConfigForm.get('dob').value"></app-calendar>
+                  <nb-datepicker #issuedYear></nb-datepicker>
                 </td>
                 <td>{{translatedValues?.issuedYear}}</td>
                 <td></td>

@@ -84,6 +84,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.addEmptyLoan();
     this.addGuarantor();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
+    this.userConfigForm.get('calendarType').patchValue(this.calendarType);
 
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanFacilityList = response.detail;
@@ -112,6 +113,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       branch: [undefined],
       clientType: [undefined],
       name: [undefined],
+      calendarType: [undefined],
 
       email: [undefined],
       contactNo: [undefined],
