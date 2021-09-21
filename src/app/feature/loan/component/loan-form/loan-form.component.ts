@@ -420,7 +420,7 @@ export class LoanFormComponent implements OnInit {
                     }
                 });
                 this.templateList.forEach((value, index) => {
-                    if ( value.name === 'Outstanding Update' && !ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating ') {
+                    if ( value.name === 'Outstanding Update' && !ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating '&& this.approvedLoans.length !== 0) {
                         this.templateList.splice(index, 1);
                     }
                 });
@@ -512,12 +512,15 @@ export class LoanFormComponent implements OnInit {
                name: 'Obtainable Documents',
                templateUrl: null
            });
-           if (!ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating') {
+           if (!ObjectUtil.isEmpty(this.loanNature) && this.loanNature === 'Terminating'  && this.approvedLoans.length !== 0) {
                this.templateList.push({
                    active:false,
                    name:'Outstanding Update',
                    templateUrl: null
                })
+           }else{
+               this.toastService.show(new Alert(AlertType.ERROR, 'Hey Kabita mam Outstanding Update Removed hehehhe :)'));
+
            }
        }
         this.templateList.some((value, index) => {
