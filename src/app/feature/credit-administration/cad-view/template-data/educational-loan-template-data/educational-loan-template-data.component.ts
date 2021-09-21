@@ -169,7 +169,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   openModel(modalName) {
-    this.ngDialogRef.close();
     this.modelService.open(modalName, {size: 'xl', centered: true});
   }
 
