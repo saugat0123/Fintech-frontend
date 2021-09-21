@@ -506,19 +506,19 @@ export class LoanFormComponent implements OnInit {
     }
 
     pushProposalTemplateToLast() {
-       if (this.client === Clients.ICFC) {
+        this.nbSpinner=true;
+        this.loanFormService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+            this.nbSpinner = false;
+            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+            this.approvedLoans = this.approvedTerminatingLoan.filter((l) => l.loan.loanNature === 'Terminating')
+
            this.templateList.push({
                active: false,
                name: 'Obtainable Documents',
                templateUrl: null
            });
-       }
-        this.loanFormService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
-            this.nbSpinner = false;
-            this.approvedTerminatingLoan = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-            this.approvedLoans = this.approvedTerminatingLoan.filter((l) => l.loan.loanNature === 'Terminating')
-            console.log('hi i am approved loans', this.approvedLoans);
-            if (this.approvedLoans.length !== 0) {
+
+            if (this.approvedLoans.length !== 0 && this.loanNature === 'Terminating') {
                 this.templateList.push({
                         active: false,
                         name: 'Outstanding Update',
@@ -526,7 +526,7 @@ export class LoanFormComponent implements OnInit {
                     }
                 )
             }
-        });
+
 
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
@@ -536,7 +536,11 @@ export class LoanFormComponent implements OnInit {
             return false;
         });
         this.totalTabCount = this.templateList.length;
-    }
+    },error => {
+            this.nbSpinner=false;
+            console.log(error);
+        }
+    )}
 
     removeCrgGammaFromTemplateList() {
         this.templateList.forEach((value, index) => {

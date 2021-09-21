@@ -2,7 +2,8 @@
       nbSpinnerStatus="primary"
       nbSpinnerSize="large"
       nbSpinnerMessage="Loading Data ...">
-    <p style="text-align:left"> Customer had following terminating loan. Please update outstanding limit of each of them.Outstanding Limit Update </p>
+    <p style="text-align:left; font-weight: bold"><mark> *Customer had following terminating loan. Please update outstanding limit of each of them.</mark></p>
+    <h5 style="text-align: center; font-size: 15px">Outstanding Limit Update</h5>
     <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
         <tr>
             <th>S.No</th>
@@ -16,7 +17,7 @@
             <td>{{i + 1}}</td>
             <td>{{data?.loan?.name}}</td>
             <td>{{data?.lastModifiedAt | date}}</td>
-            <td>{{data?.proposal?.proposedLimit}}</td>
+            <td>{{data?.proposal?.proposedLimit |currency:'Rs '}}</td>
             <td>
                 <span>
                 <input type="number" class="form-control" #fieldValue
