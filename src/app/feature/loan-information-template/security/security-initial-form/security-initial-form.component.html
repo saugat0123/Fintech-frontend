@@ -3314,7 +3314,7 @@
                                 <input [ngClass]="{'is-invalid': (bondSecurity) && (bond.get('bondValue').errors)}"
                                        class="form-control rounded" formControlName="bondValue"
                                        placeholder="Bond Value"
-                                       type="text" required/>
+                                       type="number" required/>
                                 <div *ngIf="(bondSecurity) && (bond.get('bondValue').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="bond.get('bondValue').errors.required">
