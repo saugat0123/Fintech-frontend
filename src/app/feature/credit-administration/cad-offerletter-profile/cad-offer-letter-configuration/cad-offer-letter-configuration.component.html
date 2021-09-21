@@ -12,6 +12,7 @@
       <nb-tabset (changeTab)="onChangeTab($event)">
         <nb-tab tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
                 [disabled]="!activeCustomerTab" #personal>
+          <h4>Provide detail of {{ this.customerType }} customer.</h4>
           <hr>
           <table class="table table-borderless table-4 mb-5">
             <tr>
