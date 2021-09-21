@@ -35,7 +35,6 @@ export class LoanCreateComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.loadData();
-    this.addEmptyLoan();
   }
 
   loadData() {
@@ -53,6 +52,7 @@ export class LoanCreateComponent implements OnInit {
     this.form = this.formBuilder.group({
       loanDetails: this.formBuilder.array([])
     });
+    this.addEmptyLoan();
   }
 
   setLoan(data) {
