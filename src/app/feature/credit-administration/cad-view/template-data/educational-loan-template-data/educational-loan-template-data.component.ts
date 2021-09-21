@@ -36,6 +36,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('Cad Data', this.customerApprovedDoc);
     this.buildForm();
   }
 
