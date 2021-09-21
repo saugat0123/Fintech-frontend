@@ -34,6 +34,7 @@
                           <th>Preview</th>
                           <th>Status</th>
                           <th>Action</th>
+                          <th>Detail</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -64,9 +65,18 @@
                               <td class="cursor">
 
                               </td>
+                              <td>
+                                <span *ngIf="gDoc.checked">
+                                  <a class="px-2 cursor"
+                                     (click)="gDoc?.docPath ? toggleArray[i].toggled = !toggleArray[i].toggled:''"
+                                     nbTooltip="click to view detail Loan Data ">
+                                    <em class="fa fa-eye"></em>
+                                  </a>
+                                </span>
+                              </td>
                             </tr>
                             <ng-container *ngFor="let file of filterMultiFile(gDoc.id); let j=index">
-                              <tr *ngIf="gDoc.id === file.id">
+                              <tr *ngIf="gDoc.id === file.id && toggleArray[i].toggled">
                                   <td>
                                     {{i+1}}.{{j+1}}
                                   </td>
