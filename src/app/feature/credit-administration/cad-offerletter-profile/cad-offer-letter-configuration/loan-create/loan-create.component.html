@@ -23,7 +23,7 @@
       <tr>
         <td>Loan Facility</td>
         <td>
-          <select class="custom-select" formControlName="loanFacility"
+          <select class="custom-select" formControlName="loan"
           >
             <option [value]="null" selected hidden>Select Loan Facility</option>
             <option *ngFor="let loanFacility of loanFacilityList"
@@ -31,8 +31,8 @@
             </option>
           </select>
         </td>
-        <td>{{translatedValues?.loanType}}</td>
-        <td><input type="text" class="form-control" formControlName="loanType"></td>
+        <td>{{translatedValues?.loan}}</td>
+        <td><input type="text" class="form-control" formControlName="loan"></td>
       </tr>
       <tr>
         <td>proposedAmount</td>

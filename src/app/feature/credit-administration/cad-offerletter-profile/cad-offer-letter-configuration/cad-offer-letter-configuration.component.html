@@ -10,7 +10,8 @@
   <nb-card-body>
     <form [formGroup]="userConfigForm">
       <nb-tabset (changeTab)="onChangeTab($event)">
-        <nb-tab tabId="0" tabTitle="Client Details" #personal>
+        <nb-tab tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
+                [disabled]="!activeCustomerTab" #personal>
           <hr>
           <table class="table table-borderless table-4 mb-5">
             <tr>
@@ -275,7 +276,8 @@
                 {{translatedValues?.registrationNo}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="registrationNo" type="text"/>
+                <input class="form-control nepaliFont" formControlName="registrationNo"
+                       type="text"/>
               </td>
             </tr>
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
@@ -343,7 +345,8 @@
                 {{translatedValues?.citizenshipIssueDistrict}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrict" type="text"/>
+                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrict"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -394,7 +397,8 @@
                 {{translatedValues?.permanentProvince}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="permanentProvince" type="text"/>
+                <input class="form-control nepaliFont" formControlName="permanentProvince"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -410,7 +414,8 @@
                 {{translatedValues?.permanentDistrict}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="permanentDistrict" type="text"/>
+                <input class="form-control nepaliFont" formControlName="permanentDistrict"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -431,7 +436,8 @@
                 {{translatedValues?.permanentMunicipality}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="permanentMunicipality" type="text"/>
+                <input class="form-control nepaliFont" formControlName="permanentMunicipality"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -485,7 +491,8 @@
                 {{translatedValues?.temporaryProvince}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="temporaryProvince" type="text"/>
+                <input class="form-control nepaliFont" formControlName="temporaryProvince"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -502,7 +509,8 @@
                 {{translatedValues?.temporaryDistrict}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="temporaryDistrict" type="text"/>
+                <input class="form-control nepaliFont" formControlName="temporaryDistrict"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -524,7 +532,8 @@
                 {{translatedValues?.temporaryMunicipality}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="temporaryMunicipality" type="text"/>
+                <input class="form-control nepaliFont" formControlName="temporaryMunicipality"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -562,7 +571,8 @@
               </td>
               <td>{{translatedValues?.registeredMunType}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="registeredMunType" type="text"/>
+                <input class="form-control nepaliFont" formControlName="registeredMunType"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -581,7 +591,8 @@
                 {{translatedValues?.registeredProvince}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="registeredProvince" type="text"/>
+                <input class="form-control nepaliFont" formControlName="registeredProvince"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -600,7 +611,8 @@
                 {{translatedValues?.registeredDistrict}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="registeredDistrict" type="text"/>
+                <input class="form-control nepaliFont" formControlName="registeredDistrict"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -622,7 +634,8 @@
                 {{translatedValues?.registeredMunicipality}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="registeredMunicipality" type="text"/>
+                <input class="form-control nepaliFont" formControlName="registeredMunicipality"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -660,7 +673,8 @@
               </td>
               <td>{{translatedValues?.currentMunType}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentMunType" type="text"/>
+                <input class="form-control nepaliFont" formControlName="currentMunType"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -679,7 +693,8 @@
                 {{translatedValues?.currentProvince}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentProvince" type="text"/>
+                <input class="form-control nepaliFont" formControlName="currentProvince"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -698,7 +713,8 @@
                 {{translatedValues?.currentDistrict}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentDistrict" type="text"/>
+                <input class="form-control nepaliFont" formControlName="currentDistrict"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -720,7 +736,8 @@
                 {{translatedValues?.currentMunicipality}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentMunicipality" type="text"/>
+                <input class="form-control nepaliFont" formControlName="currentMunicipality"
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -771,7 +788,8 @@
                 </td>
                 <td>{{translatedValues?.guarantorName}}</td>
                 <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="guarantorName" />
+                  <input class="form-control nepaliFont" type="text"
+                         formControlName="guarantorName"/>
                 </td>
               </tr>
               <tr>
@@ -788,7 +806,8 @@
                 </td>
                 <td>{{translatedValues?.citizenNumber}}</td>
                 <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="citizenNumber" />
+                  <input class="form-control nepaliFont" type="text"
+                         formControlName="citizenNumber"/>
                 </td>
               </tr>
               <!--              <tr>-->
@@ -829,7 +848,7 @@
                 </td>
                 <td>{{translatedValues?.issuedPlace}}</td>
                 <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="issuedPlace" />
+                  <input class="form-control nepaliFont" type="text" formControlName="issuedPlace"/>
                 </td>
               </tr>
               <tr>
@@ -846,7 +865,8 @@
                 </td>
                 <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
                 <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="guarantorLegalDocumentAddress" />
+                  <input class="form-control nepaliFont" type="text"
+                         formControlName="guarantorLegalDocumentAddress"/>
                 </td>
               </tr>
               <tr>
@@ -874,16 +894,20 @@
               </tr>
             </table>
           </div>
-          <button class="float-right" nbButton (click)="saveCustomer()">save</button>
+          <button class="float-right" nbButton (click)="saveCustomer()" [disabled]="disableSave">
+            save
+          </button>
           <button class="float-right" nbButton status="info" (click)="translate()">
             Translate
           </button>
         </nb-tab>
-        <nb-tab tabId="2" tabTitle="Loan Details">
+        <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
+                [disabled]="!activeLoanTab">
           <app-loan-create [data]="responseData"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा">
+        <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"
+                [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData"></app-template-data>
         </nb-tab>
       </nb-tabset>

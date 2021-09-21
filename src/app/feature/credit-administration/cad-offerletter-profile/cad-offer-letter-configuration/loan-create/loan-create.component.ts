@@ -40,6 +40,7 @@ export class LoanCreateComponent implements OnInit {
 
   loadData() {
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+      console.log(response);
       this.loanFacilityList = response.detail;
       console.log(response.detail);
     }, error => {
@@ -62,7 +63,7 @@ export class LoanCreateComponent implements OnInit {
     data.forEach(d => {
       (this.form.get('loanDetails') as FormArray).push(
           this.formBuilder.group({
-            loanFacility: [d.loanFacility],
+            loan: [d.loan],
             proposedAmount: [d.proposedAmount],
             status: [d.status],
             approvedOn: [d.approvedOn],
@@ -77,7 +78,7 @@ export class LoanCreateComponent implements OnInit {
         this.formBuilder.group({
           loanHolderId: this.data.customerInfoId,
           loanType: [undefined],
-          loanFacility: [undefined],
+          loan: [undefined],
           proposedAmount: [undefined],
           status: [undefined],
           approvedOn: [undefined],
