@@ -80,6 +80,9 @@ export class SiteVisitComponent implements OnInit {
   }
 
   get inspectingStaffsDetailsForm1() {
+    console.log('testing', (<FormArray>(<FormGroup>(<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails'))
+        .get('insuranceVerification'))
+        .get('inspectingStaffsDetails')).controls);
     return (<FormArray>(<FormGroup>(<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails'))
     .get('insuranceVerification'))
     .get('inspectingStaffsDetails')).controls;
@@ -526,7 +529,7 @@ export class SiteVisitComponent implements OnInit {
   }
 
   addInspectingStaffsDetails() {
-    const controls = (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    const controls = (<FormArray>(<FormGroup>(<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails'))
     .get('insuranceVerification'))
     .get('inspectingStaffsDetails'));
     if (FormUtils.checkEmptyProperties(controls)) {
@@ -537,14 +540,14 @@ export class SiteVisitComponent implements OnInit {
   }
 
   deleteInspectingStaffsDetails(i) {
-    (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    (<FormArray>(<FormGroup>(<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails'))
     .get('insuranceVerification'))
     .get('inspectingStaffsDetails'))
     .removeAt(i);
   }
 
   inspectingStaffsDetailsLength() {
-    return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
+    return (<FormArray>(<FormGroup>(<FormArray>this.siteVisitFormGroup.get('currentAssetsDetails'))
     .get('insuranceVerification'))
     .get('inspectingStaffsDetails')).length;
   }
@@ -884,12 +887,12 @@ export class SiteVisitComponent implements OnInit {
 
   addStaffOfInsurance() {
     console.log('I am here');
-    // const controls = ((this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray)
-    // .get('insuranceVerification') as FormGroup)
-    // .get('inspectingStaffsDetails') as FormArray;
     const controls = ((this.siteVisitFormGroup.get('currentAssetsDetails') as FormArray)
         .get('insuranceVerification') as FormGroup)
         .get('inspectingStaffsDetails') as FormArray;
+    // const controls = (this.siteVisitFormGroup
+    //     .get(['currentAssetsDetails', 0, 'insuranceVerification']) as FormGroup)
+    //     .get('inspectingStaffsDetails') as FormArray;
     console.log('addData:::', controls);
     // controls.push(
     //     this.formBuilder.group({

@@ -258,11 +258,11 @@
                 </div>
             </div>
 
-
             <div [hidden]="!currentAssetsInspectionForm" class="row mt-3">
                 <h4 class="col-md-12">Current Assets Inspection - Stock</h4>
                 <div *ngFor="let currentAssets of siteVisitFormGroup.get('currentAssetsDetails')['controls']; let i = index"
                      formArrayName="currentAssetsDetails">
+                    <div [formGroupName]="i" class="row">
                     <div class="col-md-4 form-group">
                         <label class="title" for="dateOfInspection">Date Of Inspection</label>
                         <input [nbDatepicker]="datepicker1" class="form-control"
@@ -305,7 +305,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 form-group"
-                         *ngIf="currentAssets.get(['currentAssetsInspectionDetails','rents']).value === 'Rented/Leased'">
+                         *ngIf="currentAssets?.get('rents').value === 'Rented/Leased'">
                         <label class="title" for="rents">Is copy of rental/leased agreement obtained?</label>
                         <select class="custom-select" formControlName="rentLeased"
                                 id="rentLeased" name="rentLeased">
@@ -314,7 +314,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 form-group"
-                         *ngIf="currentAssets.get(['currentAssetsInspectionDetails','rents']).value === 'Rented/Leased'">
+                         *ngIf="currentAssets?.get('rents').value === 'Rented/Leased'">
                         <label class="title" for="isRentPmtUpToDate">IS Rent Pmt. Up to Date?</label>
                         <select class="custom-select" formControlName="isRentPmtUpToDate"
                                 id="isRentPmtUpToDate" name="isRentPmtUpToDate">
@@ -323,7 +323,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 form-group"
-                         *ngIf="currentAssets.get(['currentAssetsInspectionDetails','rents']).value === 'Rented/Leased'">
+                         *ngIf="currentAssets?.get('rents').value === 'Rented/Leased'">
                         <label class="title" for="isRentReceiptShown">IS Rent Receipt Up to Date?</label>
                         <select class="custom-select" formControlName="isRentReceiptShown"
                                 id="isRentReceiptShown" name="isRentReceiptShown">
@@ -444,8 +444,7 @@
                             <div class="text-right">
                                 <button
                                         (click)="addInspectingStaffsDetails()"
-                                        class="btn btn-sm btn-flat btn-primary"
-                                >Add Staff
+                                        class="btn btn-sm btn-flat btn-primary">Add Staff
                                 </button>
                             </div>
                         </div>
@@ -1037,6 +1036,7 @@
                                class="align-self-end btn btn-sm btn-danger btn-primary float-right"
                                type="button" value="Delete"/>
                     </div>
+                </div>
                 </div>
                 <div class="col-md-12">
                     <input (click)="addMoreCurrentAssets()" class="btn btn-sm btn-flat float-right btn-primary" type="button"
