@@ -43,7 +43,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       embassyName: [undefined],
       selectedCountry: [undefined],
       selectedSecurity: [undefined],
-
       dateOfApproval: [undefined],
       referenceNumber: [undefined],
       nameOfCustomer: [undefined],
@@ -93,7 +92,59 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       kittaNo: [undefined],
       landArea: [undefined],
       promissoryNoteAmount: [undefined],
-      loanDeedAmount: [undefined]
+      loanDeedAmount: [undefined],
+
+      //Translated Value
+      dateOfApprovalTransVal: [undefined],
+      referenceNumberTransVal: [undefined],
+      nameOfCustomerTransVal: [undefined],
+      addressOfCustomerTransVal: [undefined],
+      dateOfApplicationTransVal: [undefined],
+      purposeOfLoanTransVal: [undefined],
+      loanAmountFigureTransVal: [undefined],
+      amountInWordsTransVal: [undefined],
+      fixedDepositReceiptAmountFigureTransVal: [undefined],
+      fixedDepositReceiptAmountWordsTransVal: [undefined],
+      fixedDepositAmountNumberTransVal: [undefined],
+      distressValueTransVal: [undefined],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
+      interestRateTransVal: [undefined],
+      loanAdminFeeFigureTransVal: [undefined],
+      loanAdminFeeWordsTransVal: [undefined],
+      emiAmountFigureTransVal: [undefined],
+      emiAmountWordsTransVal: [undefined],
+      loanPeriodInMonthsTransVal: [undefined],
+      moratoriumPeriodInMonthsTransVal: [undefined],
+      loanCommitmentFeeInPercentageTransVal: [undefined],
+      fixedDepositHolderNameTransVal: [undefined],
+      fixedDepositAmountFigureTransVal: [undefined],
+      tenureFixedDepositTransVal: [undefined],
+      tenureDepositReceiptNumberTransVal: [undefined],
+      guarantorNameTransVal: [undefined],
+      guaranteedAmountFigureTransVal: [undefined],
+      guaranteedAmountWordsTransVal: [undefined],
+      nameOfBranchTransVal: [undefined],
+      nameOfEmbassyTransVal: [undefined],
+      nameOfFixedDepositTransVal: [undefined],
+      pledgeAmountFigureTransVal: [undefined],
+      insuranceAmountFigureTransVal: [undefined],
+      relationshipOfficerNameTransVal: [undefined],
+      branchManagerTransVal: [undefined],
+      sakhshiDistrictTransVal: [undefined],
+      sakhshiMunicipalityTransVal: [undefined],
+      sakhshiWardNoTransVal: [undefined],
+      sakhshiNameTransVal: [undefined],
+      approvalStaffNameTransVal: [undefined],
+      ownersNameTransVal: [undefined],
+      districtTransVal: [undefined],
+      municipalityTransVal: [undefined],
+      wardNoTransVal: [undefined],
+      seatNoTransVal: [undefined],
+      kittaNoTransVal: [undefined],
+      landAreaTransVal: [undefined],
+      promissoryNoteAmountTransVal: [undefined],
+      loanDeedAmountTransVal: [undefined]
     });
   }
 
@@ -151,6 +202,23 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+  }
+
+  checkboxVal(event, formControlName) {
+    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+    //   const val = this.translatedValues[formControlName];
+    //   this.form.get(formControlName + 'TransVal').patchValue(val);
+    // }
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    console.log('checked Value', this[formControlName + 'Check']);
+    if (!checkVal) {
+      this.clearForm(formControlName + 'TransVal');
+    }
+  }
+
+  clearForm(controlName) {
+    this.form.get(controlName).setValue(null);
   }
 }
 
