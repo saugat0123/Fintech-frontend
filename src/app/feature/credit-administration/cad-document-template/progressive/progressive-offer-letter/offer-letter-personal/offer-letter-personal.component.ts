@@ -57,6 +57,7 @@ export class OfferLetterPersonalComponent implements OnInit {
       });
         this.buildForm();
         this.checkOfferLetter();
+        console.log(this.cadOfferLetterApprovedDoc.nepData);
     }
 
     fillForm() {
@@ -77,7 +78,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.numberNepali);
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.numberNepali.valueOf());
+        console.log('value of', this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(loanAmountTemplate.numberNepali.valueOf()));
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(loanAmountTemplate.nepaliWords);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -460,14 +462,19 @@ export class OfferLetterPersonalComponent implements OnInit {
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate) - parseFloat(discountRate);
         const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get(['loanFacilityTable', index, target]).patchValue(finalValue);
+        console.log('baseRate', baseRate);
     }
 
     updateServiceCharge(formArrayName, i) {
         const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'loanLimitPercent']).value) / 100);
-        const amount = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'amount']).value));
+        // const amount = (this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'amount']).value).toFixed());
+        const amount = (this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'amount']).value));
         const loanLimitAmount = loanLimitPercent * amount;
         const asd = this.engToNepNumberPipe.transform(loanLimitAmount.toString());
         this.form.get([formArrayName, i, 'loanLimitAmount']).patchValue(asd);
+        console.log('Amount:', amount);
+        console.log('loanLimitPercent:', loanLimitPercent);
+        console.log('loanLimitAmount:', loanLimitAmount);
     }
 }
 

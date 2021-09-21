@@ -17,13 +17,27 @@
                                 </span>
                                 <br>
                                 स्थायी ठेगाना :
-                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
-                                    {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerMunicipality !== null && printDocForm?.customerMunicipality !== ''}">
+                                    {{printDocForm?.customerMunicipality === null || printDocForm?.customerMunicipality === '' ? '_________________' : printDocForm?.customerMunicipality}}
+                                </span>
+                                वडा नं.
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
+                                    {{printDocForm?.customerWardNum === null || printDocForm?.v === '' ? '_________________' : printDocForm?.customerWardNum}}
+                                </span>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerDistrict !== null && printDocForm?.customerDistrict !== ''}">
+                                    {{printDocForm?.customerDistrict === null || printDocForm?.customerDistrict === '' ? '_________________' : printDocForm?.customerDistrict}}
                                 </span>
                                 <br>
                                 हालः
-                                <span [ngClass]="{'nepaliFont' : printDocForm?.customerTemporaryAddress !== null && printDocForm?.customerTemporaryAddress !== ''}">
-                                    {{printDocForm?.customerTemporaryAddress === null || printDocForm?.customerTemporaryAddress === '' ? '_________________' : printDocForm?.customerTemporaryAddress}}
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryMunicipality !== null && printDocForm?.temporaryMunicipality !== ''}">
+                                    {{printDocForm?.temporaryMunicipality === null || printDocForm?.temporaryMunicipality === '' ? '_________________' : printDocForm?.temporaryMunicipality}}
+                                </span>
+                                वडा नं.
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryWardNum !== null && printDocForm?.temporaryWardNum !== ''}">
+                                    {{printDocForm?.temporaryWardNum === null || printDocForm?.temporaryWardNum === '' ? '_________________' : printDocForm?.temporaryWardNum}}
+                                </span>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.temporaryDistrict !== null && printDocForm?.temporaryDistrict !== ''}">
+                                    {{printDocForm?.temporaryDistrict === null || printDocForm?.temporaryDistrict === '' ? '_________________' : printDocForm?.temporaryDistrict}}
                                 </span>
                                 <br>
                                 मोबाइल नं.
