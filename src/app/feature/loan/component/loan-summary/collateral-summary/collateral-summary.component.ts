@@ -33,8 +33,10 @@ export class CollateralSummaryComponent implements OnInit {
   securityExposure = false;
   approvedLoans=[];
   outstandingAmount;
+  loanExposure = 0;
 
   constructor() {
+
   }
 
   ngOnInit() {
@@ -43,13 +45,12 @@ export class CollateralSummaryComponent implements OnInit {
   }
 
   filterLoan() {
-    console.log('total security amount',this.security.totalSecurityAmount);
     this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
     this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
     this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
     (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
     this.totalProposedAmount+= Number(this.fundedList[0].proposal.outStandingLimit || 0);
-    console.log('total proposed amount', this.totalProposedAmount, ' this.fundedList[0].proposal.outStandingLimit: ', this.fundedList[0].proposal.outStandingLimit);
+    this.loanExposure = (this.totalProposedAmount / this.security.totalSecurityAmount) *100;
 
 
   }
