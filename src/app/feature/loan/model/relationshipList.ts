@@ -113,6 +113,10 @@ export class RelationshipList {
       name: 'Proprietor',
     },
     {
+      id: 'Previous Owner',
+      name: 'Previous Owner',
+    },
+    {
       id: 'Other',
       name: 'Other',
     }
