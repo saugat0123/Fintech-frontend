@@ -2,8 +2,6 @@
   <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
   <div *ngFor="let loan of form.get('loanDetails')['controls']; let i = index"
        formArrayName="loanDetails">
-    <input type="text" class="form-control" formControlName="customerId"
-           [value]="customerId" hidden>
     <table class="table table-borderless small table-4" [formGroupName]="i">
       <tr>
         <th colspan="2">{{i + 1}}. Loan Data</th>

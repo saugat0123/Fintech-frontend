@@ -17,7 +17,6 @@ export class LoanCreateComponent implements OnInit {
   // @Input() form;
   @Input() data;
   @Input() customerType;
-  @Input() customerId;
   submitted = false;
   translatedValues: any;
   form: FormGroup;
@@ -76,7 +75,7 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          customerId: this.customerId,
+          loanHolderId: this.data.customerInfoId,
           loanType: [undefined],
           loanFacility: [undefined],
           proposedAmount: [undefined],
@@ -96,6 +95,7 @@ export class LoanCreateComponent implements OnInit {
   }
 
   save() {
+    console.log(this.form.get('loanDetails').value[0]);
     const finalObj = {
       ...this.data,
       ...this.form.get('loanDetails').value[0]
