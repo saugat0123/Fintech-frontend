@@ -23,6 +23,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   embassyName;
   spinner = false;
   finalSavedFlag: boolean;
+  loanLimit = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -141,12 +142,14 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       kittaNoTransVal: [undefined],
       landAreaTransVal: [undefined],
       promissoryNoteAmountTransVal: [undefined],
-      loanDeedAmountTransVal: [undefined]
+      loanDeedAmountTransVal: [undefined],
+      loanLimitChecked: [undefined]
     });
   }
 
   submit() {
     console.log('Submitted Value ', this.form.value);
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
   }
 
   transferValue() {
@@ -217,5 +220,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   clearForm(controlName) {
     this.form.get(controlName).setValue(null);
   }
+
+    loanChecked(data) {
+        this.loanLimit = data;
+    }
 }
 
