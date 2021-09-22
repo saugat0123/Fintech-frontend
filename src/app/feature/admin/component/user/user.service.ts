@@ -92,4 +92,9 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${UserService.API}/update-roles/${id}`);
         return this.http.post(req.url, obj, {headers: req.header});
     }
+
+  public getDefaultCommunityUser(): Observable<any> {
+    const req = ApiUtils.getRequest(`${this.getApi()}/get-default-community-user`);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }

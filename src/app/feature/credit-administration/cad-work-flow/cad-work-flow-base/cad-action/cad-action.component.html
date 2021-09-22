@@ -16,8 +16,11 @@
                 <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
                         (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)" *ngIf="isMaker">FORWARD
                 </button>
+                <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
+                        (click)="approvedForwardBackward(sendForwardBackward,'SEND TO BRANCH',false)" *ngIf="isCad">SEND TO BRANCH
+                </button>
                 <button nbButton size="small" status="primary" [nbTooltip]="approvedLabel"
-                        (click)="approvedForwardBackward(sendForwardBackward,'APPROVED',false)" *ngIf="!isMaker">
+                        (click)="approvedForwardBackward(sendForwardBackward,'APPROVED',false)" *ngIf="!isMaker && !isCad">
                     APPROVE
                 </button>
             </div>

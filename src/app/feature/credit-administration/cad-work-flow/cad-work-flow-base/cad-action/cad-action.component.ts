@@ -22,6 +22,7 @@ import {RoleType} from '../../../../admin/modal/roleType';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {DocAction} from '../../../../loan/model/docAction';
 
 @Component({
     selector: 'app-cad-action',
@@ -76,6 +77,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     sendForwardBackwardList = [];
     roleId;
     isMaker = false;
+    isCad = false;
     showHideReturnToRm = true;
     missingSignDoc = false;
     missingDraftDoc = false;
@@ -84,6 +86,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     isForApproveMaker = false;
     selectedTemplate;
     commentVar;
+    committeeDefaultUser;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -108,8 +111,10 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.roleId = LocalStorageUtil.getStorage().roleId;
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
+        } else if (LocalStorageUtil.getStorage().roleName === 'CAD') {
+          this.isCad = true;
         } else {
-            this.getNewDocStatusOnApprove();
+          this.getNewDocStatusOnApprove();
         }
         this.backwardTooltipMessageAndShowHideBackward();
 
@@ -135,9 +140,9 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
-        if (this.formAction.invalid) {
-            return;
-        }
+        // if (this.formAction.invalid) {
+        //     return;
+        // }
 
         this.onClose();
         this.closeNb();
@@ -252,7 +257,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
     }
 
-    approvedForwardBackward(template, val, returnToMaker) {
+    async approvedForwardBackward(template, val, returnToMaker) {
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
@@ -272,17 +277,52 @@ export class CadActionComponent implements OnInit, OnChanges {
             const refId = 0;
 
             this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
-                .subscribe((response: any) => {
-                    this.sendForwardBackwardList = [];
-                    this.sendForwardBackwardList = response.detail;
-                    if (this.sendForwardBackwardList.length !== 0) {
+            .subscribe((response: any) => {
+                this.sendForwardBackwardList = [];
+                this.sendForwardBackwardList = response.detail;
+                if (this.sendForwardBackwardList.length !== 0) {
 
-                        if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
-                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
-                        }
-                        this.getUserList(this.sendForwardBackwardList[0].role);
+                    if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
+                        this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
                     }
-                });
+                    this.getUserList(this.sendForwardBackwardList[0].role);
+                }
+            });
+
+        } else if (this.popUpTitle === 'SEND TO BRANCH') {
+            console.log('test');
+
+             await this.userService.getDefaultCommunityUser().subscribe(res => {
+               console.log(res, 'res');
+               this.committeeDefaultUser = res.detail;
+            });
+            console.log(this.committeeDefaultUser, 'this.committeeDefaultUser');
+            this.formAction = this.formBuilder.group(
+                {
+                    toRole: [undefined, Validators.required],
+                    toUser: this.committeeDefaultUser.id,
+                    cadId: [this.cadId],
+                    docAction: [DocAction.FORWARD],
+                    comment: [undefined, Validators.required],
+                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    isBackwardForMaker: returnToMaker,
+                }
+            );
+            const approvalType = 'CAD';
+            const refId = 0;
+
+            this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
+            .subscribe((response: any) => {
+                this.sendForwardBackwardList = [];
+                this.sendForwardBackwardList = response.detail;
+                if (this.sendForwardBackwardList.length !== 0) {
+
+                    if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
+                        this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
+                    }
+                    this.getUserList(this.sendForwardBackwardList[0].role);
+                }
+            });
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
