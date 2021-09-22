@@ -52,6 +52,7 @@ export class GuarantorComponent implements OnInit {
     docFolderName = 'guarantorDoc';
     occupation = Occupation.enumObject();
     sameAsCurrentChecked = false;
+    docHeading = 'Guarantor';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -324,7 +325,7 @@ export class GuarantorComponent implements OnInit {
     }
 
     documentPath(path, i) {
-        this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path);
+        this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path.toString());
     }
 
     sameAsAbove(i, event) {
