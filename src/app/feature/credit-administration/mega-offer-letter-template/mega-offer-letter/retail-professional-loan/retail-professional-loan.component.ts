@@ -36,7 +36,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
     ckeConfig = NepaliEditor.CK_CONFIG;
     nepData;
     loanHolderInfo;
-    customerInfo;
+    mapData;
     proTermLoanSelected = false;
     afterSave = false;
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -134,17 +134,17 @@ export class RetailProfessionalLoanComponent implements OnInit {
             } else {
                 console.log('Offer Document List', this.offerLetterDocument);
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-                this.selectedSecurity = initialInfo.selectedSecurity;
-                this.selectedCountry = initialInfo.selectedCountry;
-                this.loanLimit = initialInfo.loanLimitChecked;
-                this.nameOfEmbassy = initialInfo.embassyName;
+                this.selectedSecurity = initialInfo.selectedSecurity.en;
+                this.selectedCountry = initialInfo.selectedCountry.en;
+                this.loanLimit = initialInfo.loanLimitChecked.en;
+                this.nameOfEmbassy = initialInfo.embassyName.np;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
-                this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
+                // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
+                this.fillForm();
                 this.initialInfoPrint = initialInfo;
             }
-            this.fillForm();
         } else {
             this.fillForm();
         }
@@ -186,9 +186,6 @@ submit(): void {
     }
 
     fillForm() {
-        // if (!ObjectUtil.isEmpty(data)) {
-        //     this.retailProfessionalLoan.patchValue(data);
-        // }
         let cadNepData = {
             numberNepali: ')',
             nepaliWords: 'सुन्य',
@@ -196,13 +193,20 @@ submit(): void {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
             cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
-        const customerAddress = this.loanHolderInfo.permanentMunicipality + ' ' +
-            this.loanHolderInfo.permanentWard + ', ' + this.loanHolderInfo.permanentDistrict;
+        const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
+        const guarantorDetails = this.loanHolderInfo.guarantorDetails;
+        const customerAddress = this.loanHolderInfo.permanentMunicipality.np + ' ' +
+            this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np;
+        const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
+        console.log('Loan Amount', loanAmount);
+        console.log('proposed data', proposalData.proposedLimit);
+        console.log('Customer Details', this.loanHolderInfo);
+        console.log('Guarantor Details', guarantorDetails.en[0].guarantorName);
         this.retailProfessionalLoan.patchValue({
-            nameOfCustomer: this.loanHolderInfo.name ? this.loanHolderInfo.name : '',
+            nameOfCustomer: this.loanHolderInfo.name.np ? this.loanHolderInfo.name.np : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
-            loanAmountFigure: cadNepData.numberNepali,
-            amountInWords: cadNepData.nepaliWords,
+            loanAmountFigure: loanAmount,
+            guarantorName: guarantorDetails.en[0].guarantorName
         });
         this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
