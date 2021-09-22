@@ -521,6 +521,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.spinner = false;
   }
 
+  getCadApprovedData(data) {
+    this.cadData = data.customerApprovedLoanCadDocumentation;
+  }
+
   sameAsPermanent(event) {
     if (event.target.checked === true) {
       this.addressSameAsAbove = true;
