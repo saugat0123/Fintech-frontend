@@ -47,6 +47,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() shareSecurity;
     @Input() customerSecurityId;
     securityEmitValue: string;
+    @Input() approvedData: string;
 
     @ViewChildren('ownerKycApplicable')
     ownerKycApplicable: QueryList<OwnerKycApplicableComponent>;
@@ -169,7 +170,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     ngOnInit() {
-
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -188,7 +188,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        if (this.formData !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);

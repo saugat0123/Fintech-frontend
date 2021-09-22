@@ -24,7 +24,7 @@ import {SecurityCoverageAutoPrivate} from '../model/security-coverage-auto-priva
 import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {NepsePriceInfo} from '../../admin/modal/NepsePriceInfo';
 
 @Component({
@@ -47,6 +47,7 @@ export class SecurityComponent implements OnInit {
     guarantorsForm: FormGroup;
     securityForm: FormGroup;
     initialSecurityValue: Object;
+    approvedSecurityValue: Object;
     securityValueForEdit;
     province: Province = new Province();
     provinceList: Array<Province> = new Array<Province>();
@@ -106,6 +107,7 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
+            this.approvedSecurityValue = JSON.parse(this.securityValue.approvedData);
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
@@ -142,6 +144,7 @@ export class SecurityComponent implements OnInit {
     }
 
     setCrgSecurityForm(formData) {
+        if (!ObjectUtil.isEmpty(formData)) {
         this.securityForm = this.formBuilder.group({
             securityGuarantee: formData.securityGuarantee,
             buildingLocation: formData.buildingLocation,
@@ -153,6 +156,7 @@ export class SecurityComponent implements OnInit {
             securityCoverageAutoCommercial: [formData.securityCoverageAutoCommercial],
             securityCoverageAutoPrivate: [formData.securityCoverageAutoPrivate],
         });
+        }
     }
 
     setGuarantorsDetails(guarantorList: Array<Guarantor>): FormArray {
@@ -291,6 +295,9 @@ export class SecurityComponent implements OnInit {
         this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         this.securityData.totalDistressAmount = this.calculateDistressValue(mergedForm);
         this.securityData.data = JSON.stringify(mergedForm);
+        if (!ObjectUtil.isEmpty(this.approvedSecurityValue)) {
+            this.securityData.approvedData = JSON.stringify(this.approvedSecurityValue);
+        }
         this.securityData.guarantor = [];
         this.initialSecurity.selectedArray.forEach((selected) => {
             if (selected === 'ShareSecurity') {
@@ -437,7 +444,6 @@ export class SecurityComponent implements OnInit {
     }
 
     calculateDistressValue(securityData): number {
-        console.log('securityData', securityData);
         let totalDistressAmount = 0;
         securityData.selectedArray.forEach(selectedSecurity => {
             switch (selectedSecurity) {
@@ -464,7 +470,6 @@ export class SecurityComponent implements OnInit {
                     break;
             }
         });
-        console.log('totalDistressAmount', totalDistressAmount);
         return totalDistressAmount;
     }
 }
