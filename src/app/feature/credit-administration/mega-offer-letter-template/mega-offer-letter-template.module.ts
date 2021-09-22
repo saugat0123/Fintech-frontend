@@ -67,6 +67,9 @@ const COMPONENTS = [
         NgxPrintModule,
         CoreModule,
         NbAccordionModule,
+    ],
+    entryComponents: [
+        RetailProfessionalLoanComponent,
     ]
 })
 export class MegaOfferLetterTemplateModule {

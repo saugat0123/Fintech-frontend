@@ -35,7 +35,7 @@
         <td><input type="text" class="form-control" formControlName="loan"></td>
       </tr>
       <tr>
-        <td>proposedAmount</td>
+        <td>Proposed Amount</td>
         <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
         <td>{{translatedValues?.proposedAmount}}</td>
         <!--        <td><input type="text" class="form-control" formControlName="proposedAmount"></td>-->
@@ -72,7 +72,8 @@
     </table>
     <hr>
   </div>
-  <button class="float-right" nbButton type="submit" (click)="save()">save</button>
+  <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner">save
+  </button>
 </form>
 <button class="float-right" nbButton status="info" (click)="translate()">
   Translate
