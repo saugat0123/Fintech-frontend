@@ -387,7 +387,7 @@
 
 <!-- todo migrate this to separate component-->
 <ng-template #uploadModel>
-    <nb-card accent="primary">
+    <nb-card accent="primary" [nbSpinner]="spinners" nbSpinnerMessage="Please Wait ...." nbSpinnerSize="tiny"  >
         <nb-card-header>
             <strong>Upload {{documentName}} Document</strong>
         </nb-card-header>

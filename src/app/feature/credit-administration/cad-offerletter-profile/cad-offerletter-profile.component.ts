@@ -66,7 +66,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     docType = null;
     uploadFile;
     index;
-
+    spinners = false;
     toggleArray: { toggled: boolean }[] = [];
 
     roleType = LocalStorageUtil.getStorage().roleType;
@@ -133,9 +133,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     // todo move document upload to seperate to component
     submitOfferLetter() {
-        this.spinner = true;
         const formData: FormData = new FormData();
-
         formData.append('file', this.uploadFile);
         formData.append('customerApprovedDocId', this.cadOfferLetterApprovedDoc.id.toString());
         formData.append('offerLetterId', this.documentId.toString());
@@ -143,16 +141,17 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (this.customerInfoData.id === undefined) {
             return this.toastrService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));
         }
+        this.spinners = true;
         this.service.uploadOfferFile(formData).subscribe((response: any) => {
+            this.spinners = false;
             this.toastrService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
             this.modelService.dismissAll();
-            this.spinner = false;
             this.service.detail(this.cadOfferLetterApprovedDoc.id).subscribe((res: any) => {
                 this.responseCadData.emit(res.detail);
             });
         }, error => {
             this.modelService.dismissAll();
-            this.spinner = false;
+            this.spinners = false;
             this.toastrService.show(new Alert(AlertType.ERROR, error.error.message));
             console.error(error);
         });
