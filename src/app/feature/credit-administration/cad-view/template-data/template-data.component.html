@@ -3,25 +3,30 @@
         placeholder="Select Offer Letter"
         [(ngModel)]="offerLetterSelect"
         status="info">
-    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-        {{i.key | replace:'_':' ' }}
-    </nb-option>
+<!--    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">-->
+<!--        {{i.key | replace:'_':' ' }}-->
+<!--    </nb-option>-->
+    <nb-option value="EDUCATIONAL">EDUCATIONAL</nb-option>
+    <nb-option value="AUTO_LOAN_COMMERCIAL">AUTO LOAN COMMERCIAL</nb-option>
 </nb-select>
 
 <nb-card>
-<!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_PURCHASE_LOAN" [nbSpinner]="spinner">-->
-<!--        <app-retail-education-template-data></app-retail-education-template-data>-->
-<!--    </nb-card-body>-->
-<!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.COMMERCIAL_AUTO" [nbSpinner]="spinner">-->
-<!--        <app-hire-purchase-template-data></app-hire-purchase-template-data>-->
-<!--    </nb-card-body>-->
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.EDUCATIONAL" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.RETAIL_EDUCATIONAL" [nbSpinner]="spinner">
+        <app-retail-education-template-data></app-retail-education-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HIRE_PURCHASE" [nbSpinner]="spinner">
+        <app-hire-purchase-template-data></app-hire-purchase-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === 'EDUCATIONAL'">
         <app-educational-loan-template-data [customerApprovedDoc]="cadData" ></app-educational-loan-template-data>
     </nb-card-body>
-<!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_TAKEOVER_CASE" [nbSpinner]="spinner">-->
-<!--        <app-retail-loan-against-insurance-template-data></app-retail-loan-against-insurance-template-data>-->
-<!--    </nb-card-body>-->
-<!--    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.HOUSING_CONSTRUCTION_CASE_1" [nbSpinner]="spinner">-->
-<!--        <app-retail-mortgage-loan-template-data></app-retail-mortgage-loan-template-data>-->
-<!--    </nb-card-body>-->
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.RETAIL_LOAN_AGAINST_INSURANCE" [nbSpinner]="spinner">
+        <app-retail-loan-against-insurance-template-data></app-retail-loan-against-insurance-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.RETAIL_MORTGAGE_LOAN" [nbSpinner]="spinner">
+        <app-retail-mortgage-loan-template-data></app-retail-mortgage-loan-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === 'AUTO_LOAN_COMMERCIAL'">
+        <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>
+    </nb-card-body>
 </nb-card>

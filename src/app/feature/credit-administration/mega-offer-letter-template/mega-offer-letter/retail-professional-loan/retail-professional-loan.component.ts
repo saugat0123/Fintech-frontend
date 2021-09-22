@@ -60,8 +60,10 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        console.log('Data Received:', this.cadOfferLetterApprovedDoc);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            console.log('Loanholder Data:', this.loanHolderInfo);
         }
         this.checkOfferLetterData();
     }
