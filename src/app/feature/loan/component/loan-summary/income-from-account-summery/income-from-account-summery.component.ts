@@ -18,6 +18,7 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   newCustomerFlag: boolean[];
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  incomeFromAccountArray;
 
   constructor() {
   }
@@ -27,7 +28,12 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
       this.srdbAffiliatedId = true;
     }
     if (!ObjectUtil.isEmpty(this.formData)) {
+      const data = [];
       this.incomeFromAccount = JSON.parse(this.formData.data);
+      this.incomeFromAccount.incomeFromAccount.forEach(item => {
+        data.push(item);
+      });
+      this.incomeFromAccountArray = data;
       this.newCustomerFlag = this.incomeFromAccount.newCustomerChecked;
     }
   }
