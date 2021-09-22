@@ -238,8 +238,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   async translate() {
     this.spinner = true;
-    this.tdValues = await this.translateService.translateForm(this.form);
-    this.translatedData = this.tdValues;
+    this.translatedData = await this.translateService.translateForm(this.form);
+    this.tdValues = this.translatedData;
     this.spinner = false;
     this.btnDisable = false;
   }
