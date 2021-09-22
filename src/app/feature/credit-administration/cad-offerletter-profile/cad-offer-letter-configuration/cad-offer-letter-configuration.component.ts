@@ -465,4 +465,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.disableSave = false;
     this.spinner = false;
   }
+
+  getCadApprovedData(data) {
+    this.cadData = data.customerApprovedLoanCadDocumentation;
+  }
 }

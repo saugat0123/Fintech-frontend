@@ -906,6 +906,7 @@
         <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
                 [disabled]="!activeLoanTab">
           <app-loan-create [data]="responseData" *ngIf="responseData"
+                           (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
         <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"

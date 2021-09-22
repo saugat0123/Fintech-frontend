@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
@@ -17,6 +17,7 @@ export class LoanCreateComponent implements OnInit {
   // @Input() form;
   @Input() data;
   @Input() customerType;
+  @Output() cadApprovedData = new EventEmitter();
   submitted = false;
   translatedValues: any;
   form: FormGroup;
@@ -108,6 +109,7 @@ export class LoanCreateComponent implements OnInit {
     this.cadOneFormService.saveLoan(finalObj).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
+      this.cadApprovedData.emit(res.detail);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Error while creating loan'));
