@@ -193,11 +193,6 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       if (ObjectUtil.isEmpty(selectedSolUser)) {
         this.isNoUserSelectedSol = true;
         return;
-      } else {
-        this.form.patchValue({
-          solUser: null,
-          isSol: false
-        });
       }
     }
     const dialogRef = this.nbDialogService.open(VerificationActionModelComponent, {
@@ -312,6 +307,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       this.form.get('solUser').setValidators(Validators.required);
       this.form.get('solUser').updateValueAndValidity();
     } else {
+      this.isSolUserSelected = false;
       this.showHideSolUser = false;
       this.form.patchValue({
         solUser: null,
