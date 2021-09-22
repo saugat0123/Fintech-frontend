@@ -307,17 +307,17 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td>Guarantor Name</td>
-                    <td><input type="text" class="form-control" formControlName="guarantorName"/></td>
-                    <td class="abc">{{translatedData?.guarantorName}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'guarantorName')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['guarantorNameCheck']" formControlName="guarantorNameTransVal"/>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Guarantor Name</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="guarantorName"/></td>-->
+<!--                    <td class="abc">{{translatedData?.guarantorName}}</td>-->
+<!--                    <td>-->
+<!--                        <nb-checkbox (change)="checkboxVal($event, 'guarantorName')"></nb-checkbox>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['guarantorNameCheck']" formControlName="guarantorNameTransVal"/>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
                 <tr>
                     <td>Guaranteed Amount Figure</td>
@@ -356,19 +356,6 @@
                         <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfBranchCheck']" formControlName="nameOfBranchTransVal"/>
                     </td>
                 </tr>
-
-                <tr>
-                    <td>Name Of Embassy</td>
-                    <td><input type="text" class="form-control" formControlName="nameOfEmbassy"/></td>
-                    <td class="abc">{{translatedData?.nameOfEmbassy}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'nameOfEmbassy')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfEmbassyCheck']" formControlName="nameOfEmbassyTransVal"/>
-                    </td>
-                </tr>
-
                 <tr>
                     <td>Name Of Fixed Deposit</td>
                     <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>
