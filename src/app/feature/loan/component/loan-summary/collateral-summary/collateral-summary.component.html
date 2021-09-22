@@ -53,6 +53,24 @@
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
                 </tr>
+                <tr class="cursor" *ngFor="let data of approvedLoans; let i = index;" >
+                    <td>{{fundedList?.length + 1}}</td>
+                    <td class="text-left pl-1">{{data?.loan?.name}}</td>
+                  <td></td>
+                    <td class="text-right pr-1" >
+                    <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
+                        Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                    </span>
+                        <span *ngIf="!(data?.proposal?.data | jsonParse)?.existingLimit">-</span></td>
+                    <td class="text-right pr-1">
+                        <span>Rs {{data?.proposal?.outStandingLimit |currencyFormatter}}</span>
+                    </td>
+                    <td class="text-left pl-1">{{loanType[data?.loanType] || data?.loanType}}</td>
+                    <td class="text-left pl-1">{{data?.createdAt | date}} ({{data?.createdAt | engNepDate: false}})</td>
+                    <td class="text-right pr-1">{{data?.proposal?.collateralRequirement}}</td>
+                    <td class="text-right pr-1">Rs. {{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit) / 100 |currencyFormatter}}
+                    </td>
+                </tr>
             </ng-container>
             <tr class="sb-bg-secondary text-white">
                 <td></td>
@@ -111,9 +129,13 @@
             <mark class="alert-warning">Coverage%:</mark>
             <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |number : '1.0-2'}}%</strong>
         </div>
-        <div  class="col-md-2 sb-small">
-            <mark class="alert-warning">Loan Exposure:</mark>
-            <strong>{{this.loanExposure | number : '1.0-2'}}%</strong>
+        <div  class="col-md-2 sb-small" *ngFor="let model of fundedList">
+            <mark class="alert-warning">Loan Exposure FMV:</mark>
+            <strong>{{loanExposure| number : '1.0-2'}}%</strong>
+        </div>
+        <div  class="col-md-2 sb-small" *ngFor="let model of fundedList">
+            <mark class="alert-warning">Loan Exposure Dv:</mark>
+            <strong>Rs.{{loanExposureDv| number : '1.0-2'}}%</strong>
         </div>
     </ng-container>
 </div>

@@ -9,6 +9,8 @@ import {Clients} from '../../../../../../environments/Clients';
 import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {ActivatedRoute} from '@angular/router';
+import {DocStatus} from '../../../model/docStatus';
+import {ToastService} from '../../../../../@core/utils';
 
 @Component({
   selector: 'app-collateral-summary',
@@ -34,23 +36,39 @@ export class CollateralSummaryComponent implements OnInit {
   approvedLoans=[];
   outstandingAmount;
   loanExposure = 0;
-
-  constructor() {
+  loanExposureDv =0;
+  approvedTerminatingLoan;
+  companyInfoId;
+  approvedTerminatingLoanTotal = 0;
+  approvedRevolvingLoanTotal = 0;
+  proposedLimit =0;
+  constructor(
+      private customerLoanService: LoanFormService,
+      private loanFormService: LoanFormService,
+      private toastService: ToastService,
+      private activatedRoute: ActivatedRoute,
+  ) {
 
   }
 
   ngOnInit() {
-    this.filterLoan();
     this.displaySecurityExposure();
+    this.activatedRoute.queryParams.subscribe((data)=> {
+      this.companyInfoId = data.customerInfoId;
+      this.filterLoan();
+      this.getApprovedLoans(this.companyInfoId);
+      this.calculation();
+    })
   }
 
   filterLoan() {
+    this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+    this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+    })
     this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
     this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
-    this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
-    (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
-    this.totalProposedAmount+= Number(this.fundedList[0].proposal.outStandingLimit || 0);
-    this.loanExposure = (this.totalProposedAmount / this.security.totalSecurityAmount) *100;
+
+
 
 
   }
@@ -83,6 +101,53 @@ export class CollateralSummaryComponent implements OnInit {
       this.securityExposure = false;
     }
   }
+  getData(){
+
+  }
+  getApprovedLoans(id) {
+    this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
+      this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  calculation(){
+    this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
+      this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
+      console.log('approved loans', this.approvedLoans);
+      let approvedTerminatingLoanTotal = [];
+      this.approvedLoans.map(val => {
+        console.log('sum of terminating ', val.loan.loanNature, ' val.proposal.outStandingLimit: ', val.proposal.outStandingLimit);
+        if (val.loan.loanNature === 'Terminating') {
+          approvedTerminatingLoanTotal.push(val.proposal.outStandingLimit);
+          console.log('approvedTerminatingLoanTotal: ', approvedTerminatingLoanTotal)
+        }
+      });
+      this.approvedTerminatingLoanTotal = approvedTerminatingLoanTotal.reduce((a, b) => Number(a) + Number(b), 0);
+      console.log('this.approvedTerminatingLoanTotal: ', this.approvedTerminatingLoanTotal);
+
+      let approvedRevolvingLoanTotal =[];
+      this.approvedLoans.map(val => {
+        if (val.loan.loanNature === 'Revolving'){
+          approvedRevolvingLoanTotal.push(val.proposal.existingLimit);
+        }
+      });
+      this.approvedRevolvingLoanTotal =approvedRevolvingLoanTotal.reduce((a, b) => Number(a) + Number(b),0);
+      console.log('this. approvedRevolvingLoanTotal', this.approvedRevolvingLoanTotal);
+
+
+          this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
+          (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
+          console.log('approved terminating loan',this.approvedTerminatingLoanTotal);
+          console.log('this.total proposed amount', this.totalProposedAmount);
+          this.loanExposure = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal ) / this.security.totalSecurityAmount) *100;
+          console.log('loan Exposure', this.loanExposure);
+          this.loanExposureDv = ((this.totalProposedAmount + this.approvedRevolvingLoanTotal) / this.security.totalDistressAmount)*100;
+
+  }
+
+    )}
 
 
 }
