@@ -194,19 +194,19 @@ submit(): void {
             cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-        const guarantorDetails = this.loanHolderInfo.guarantorDetails;
-        const customerAddress = this.loanHolderInfo.permanentMunicipality.np + ' ' +
+        const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
+        const customerAddress = this.loanHolderInfo.permanentMunType.np + ' ' +
             this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np;
         const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
         console.log('Loan Amount', loanAmount);
         console.log('proposed data', proposalData.proposedLimit);
         console.log('Customer Details', this.loanHolderInfo);
-        console.log('Guarantor Details', guarantorDetails.en[0].guarantorName);
+        console.log('Guarantor Details', guarantorDetails.guarantorList[0].name);
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name.np ? this.loanHolderInfo.name.np : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
             loanAmountFigure: loanAmount,
-            guarantorName: guarantorDetails.en[0].guarantorName
+            guarantorName: guarantorDetails.guarantorList[0].name
         });
         this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
