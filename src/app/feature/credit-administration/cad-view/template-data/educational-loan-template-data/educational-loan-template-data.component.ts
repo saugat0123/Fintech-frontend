@@ -13,6 +13,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
+import {RetailProfessionalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -31,6 +32,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   finalSavedFlag: boolean;
   loanLimit = false;
   existingOfferLetter = false;
+  btnDisable = true;
+  previewBtn = true;
   offerLetterConst = NabilOfferLetterConst;
 
   constructor(
@@ -162,32 +165,40 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   submit() {
     console.log('Submitted Value ', this.form.value);
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
-
+    console.log('Translated data from the submitted values!', this.translatedValues);
       this.spinner = true;
+      this.btnDisable = true;
       this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
+      this.translatedValues.selectedCountry = this.form.get('selectedCountry').value;
+      this.translatedValues.selectedSecurity = this.form.get('selectedSecurity').value;
+      this.translatedValues.loanLimitChecked = this.loanLimit;
+
+    console.log('Translated Data', this.translatedValues);
 
       if (this.existingOfferLetter) {
           this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
               if (offerLetterPath.docName.toString() ===
                   this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
-                  offerLetterPath.initialInformation = JSON.stringify(this.form.value);
+                  offerLetterPath.initialInformation = JSON.stringify(this.translatedValues);
               }
           });
       } else {
           const offerDocument = new OfferDocument();
           offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
-          offerDocument.initialInformation = JSON.stringify(this.form.value);
-          console.log('initial Information Document ', offerDocument);
+          offerDocument.initialInformation = JSON.stringify(this.translatedValues);
+          console.log('initial Information Document:::: ', offerDocument);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
       }
 
       this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
           this.spinner = false;
+          this.previewBtn = this.btnDisable = false;
       }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-          this.spinner = false;
+          this.spinner = this.btnDisable = false;
       });
   }
 
@@ -199,34 +210,36 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       this.fieldFlag = true;
       this.selectedCountryVal = country;
       this.selectedSecurityVal = security;
-      if (!ObjectUtil.isEmpty(this.form.get('embassyName').value)) {
-        this.singleTranslate(this.form.get('embassyName').value);
-      }
+      // if (!ObjectUtil.isEmpty(this.form.get('embassyName').value)) {
+      //   this.singleTranslate(this.form.get('embassyName').value);
+      // }
       // this.embassyName = this.translateService.translate(this.form.get('embassyName').value);
       console.log('Embassy Name', this.embassyName);
     }
   }
 
-  openModel(modalName) {
-    this.modelService.open(modalName, {size: 'xl', centered: true});
+  openModel() {
+    // this.modelService.open(modalName, {size: 'xl', centered: true});
+    this.dialogService.open(RetailProfessionalLoanComponent, {
+      closeOnBackdropClick: false,
+      closeOnEsc: false,
+      hasBackdrop: false,
+      context: {
+        cadOfferLetterApprovedDoc: this.customerApprovedDoc,
+        preview: true,
+      }
+    });
   }
 
   onClose() {
     this.modelService.dismissAll();
   }
 
-  getChildData(savedFlag) {
-    console.log('getChild', savedFlag);
-    this.finalSavedFlag = savedFlag;
-    if (this.finalSavedFlag) {
-      this.onClose();
-    }
-  }
-
   async translate() {
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.form);
     this.spinner = false;
+    this.btnDisable = false;
   }
 
   async singleTranslate(data) {
@@ -262,5 +275,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     loanChecked(data) {
         this.loanLimit = data;
     }
+
+    // changeDocumentName(securityType) {
+    //     if (securityType === 'FIXED_DEPOSIT') {
+    //       this.docSecurityName = 'Class A';
+    //     } else {
+    //       this.docSecurityName = 'Class E';
+    //     }
+    // }
 }
 
