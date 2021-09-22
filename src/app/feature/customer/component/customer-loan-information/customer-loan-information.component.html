@@ -281,6 +281,7 @@
         <nb-accordion-item-body>
           <app-security *ngIf="itemSecurity.expanded"
                         (securityDataEmitter)="saveSecurity($event)"
+                        (submittedCheck)="submittedCheck1($event)"
                         [calendarType]="calendarType"
                         [fromProfile]="true"
                         [isMicroCustomer]="isMicroCustomer"
