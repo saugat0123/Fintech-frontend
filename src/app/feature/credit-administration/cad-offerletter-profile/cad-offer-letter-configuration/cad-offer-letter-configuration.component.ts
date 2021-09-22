@@ -321,7 +321,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
 
-    this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
+
+      this.oneFormCustomer.dob = this.dateTypeBS ? this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate) :
+          this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value);
     this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value.name;
     this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
     this.oneFormCustomer.province = this.userConfigForm.get('permanentProvince').value;
