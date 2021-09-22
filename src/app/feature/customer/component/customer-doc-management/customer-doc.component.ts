@@ -47,7 +47,6 @@ export class CustomerDocComponent implements OnInit {
     multiFile: MultiFile[] = [];
     doc_index: number;
     deleteDocPath: string;
-    toggleArray: { toggled: boolean }[] = [];
 
     constructor(private documentService: DocumentService,
                 private loanService: LoanFormService,
@@ -136,7 +135,6 @@ export class CustomerDocComponent implements OnInit {
     }
 
     getGeneralLoanConfigDocument() {
-        this.toggleArray = [];
         if (!ObjectUtil.isEmpty(this.customerInfo.customerType)) {
             let loanCycleId;
             if (CustomerType[this.customerInfo.customerType] === CustomerType.INSTITUTION) {
@@ -166,12 +164,6 @@ export class CustomerDocComponent implements OnInit {
                                 this.multiFile[i].docIndex = singleDoc.docIndex;
                             }
                         });
-                    });
-                    this.generalDocumentReq.forEach((generalDoc, i) => {
-                        console.log('loop ' + i);
-                        if (generalDoc.docPath !== null && generalDoc.docPath !== undefined) {
-                            this.toggleArray.push({toggled: false});
-                        }
                     });
                 }
             });
