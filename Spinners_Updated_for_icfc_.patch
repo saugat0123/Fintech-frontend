@@ -1,0 +1,493 @@
+Index: src/app/feature/loan-information-template/site-visit/site-visit.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/site-visit/site-visit.component.ts b/src/app/feature/loan-information-template/site-visit/site-visit.component.ts
+--- a/src/app/feature/loan-information-template/site-visit/site-visit.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/site-visit/site-visit.component.ts	(date 1630320165765)
+@@ -15,6 +15,7 @@
+ import {Clients} from '../../../../environments/Clients';
+ import {DateValidator} from '../../../@core/validator/date-validator';
+ import {Editor} from "../../../@core/utils/constants/editor";
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ 
+ declare let google: any;
+@@ -65,6 +66,7 @@
+   constructor(private formBuilder: FormBuilder,
+               dateService: NbDateService<Date>,
+               private toastService: ToastService,
++              private overlay: NgxSpinnerService,
+               private roleService: RoleService) {
+     this.date = dateService.today();
+   }
+@@ -806,6 +808,7 @@
+       this.siteVisitData = this.formValue;
+     }
+     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
++    this.overlay.show();
+     this.siteVisitDataEmitter.emit(this.siteVisitData.data);
+   }
+ 
+Index: src/app/feature/loan-information-template/financial/financial.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/financial/financial.component.ts b/src/app/feature/loan-information-template/financial/financial.component.ts
+--- a/src/app/feature/loan-information-template/financial/financial.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/financial/financial.component.ts	(date 1630320448396)
+@@ -26,6 +26,7 @@
+ import {NgSelectComponent} from '@ng-select/ng-select';
+ import {environment} from '../../../../environments/environment';
+ import {Clients} from '../../../../environments/Clients';
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+     selector: 'app-financial',
+@@ -189,6 +190,7 @@
+     constructor(private formBuilder: FormBuilder,
+                 private financialService: FinancialService,
+                 private modalService: NgbModal,
++                private overlay: NgxSpinnerService,
+                 private activatedRoute: ActivatedRoute) {
+     }
+ 
+@@ -615,6 +617,7 @@
+     }
+ 
+     onSubmit() {
++        this.overlay.show();
+         this.submitted = true;
+         switch (this.activeTab) {
+             case 'Income Statement':
+@@ -633,6 +636,7 @@
+             this.financialData = this.formData;
+         }
+         if (this.financialForm.invalid) {
++            this.overlay.hide();
+             return;
+         }
+         this.calculateAndSetHighestScore();
+Index: src/app/feature/customer/component/customer-loan-information/customer-loan-information.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/customer/component/customer-loan-information/customer-loan-information.component.ts b/src/app/feature/customer/component/customer-loan-information/customer-loan-information.component.ts
+--- a/src/app/feature/customer/component/customer-loan-information/customer-loan-information.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/customer/component/customer-loan-information/customer-loan-information.component.ts	(date 1630320611582)
+@@ -40,6 +40,7 @@
+ import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
+ import {Clients} from '../../../../../environments/Clients';
+ import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+     selector: 'app-customer-loan-information',
+@@ -155,7 +156,8 @@
+ 
+     constructor(
+         private toastService: ToastService,
+-        private customerInfoService: CustomerInfoService
++        private customerInfoService: CustomerInfoService,
++        private overlay: NgxSpinnerService
+     ) {
+     }
+ 
+@@ -248,11 +250,13 @@
+         this.siteVisit.data = data;
+         this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
+                 this.itemSiteVisit.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
+             });
+     }
+@@ -264,11 +268,13 @@
+         this.financial.data = data;
+         this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
+                 this.itemFinancial.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
+             });
+     }
+@@ -282,6 +288,7 @@
+             this.security.totalSecurityAmount = data.totalSecurityAmount;
+             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
+                 .subscribe(() => {
++                    this.overlay.hide();
+                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+                     if (!ObjectUtil.isEmpty(data.share)) {
+                         this.saveShare(data);
+@@ -291,6 +298,7 @@
+                     }
+                 }, error => {
+                     console.error(error);
++                    this.overlay.hide();
+                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
+                 });
+         }
+@@ -315,11 +323,13 @@
+         this.guarantors = data;
+         this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
+                 this.itemGuarantor.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
+             });
+     }
+@@ -331,11 +341,13 @@
+         this.insurance = data;
+         this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
+                 this.itemInsurance.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
+             });
+     }
+@@ -395,11 +407,13 @@
+         this.ciclResponse = data;
+         this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
+                 this.itemCicl.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
+             });
+     }
+@@ -411,11 +425,13 @@
+         this.incomeFromAccountDataResponse = data;
+         this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Income From Account!'));
+                 this.itemIncomeFromAccount.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
+             });
+     }
+@@ -443,11 +459,13 @@
+         this.creditChecklistGeneral = data;
+         this.customerInfoService.saveLoanInfo(this.creditChecklistGeneral, this.customerInfoId, TemplateName.CREDIT_CHECKlIST)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Checklist!'));
+                 this.itemloanChecklist.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
+             });
+     }
+@@ -555,11 +573,13 @@
+         this.reportingInfoLevels = data;
+         this.customerInfoService.saveLoanInfo(this.reportingInfoLevels, this.customerInfoId, TemplateName.CUSTOMER_REPORTING_INFO)
+             .subscribe(() => {
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save Customer Reporting Info!'));
+                 this.reportingInfoLevelAccordion.close();
+                 this.triggerCustomerRefresh.emit(true);
+             }, error => {
+                 console.error(error);
++                this.overlay.hide();
+                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Customer Reporting Info!'));
+             });
+     }
+Index: src/app/feature/loan-information-template/cicl/cicl.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/cicl/cicl.component.ts b/src/app/feature/loan-information-template/cicl/cicl.component.ts
+--- a/src/app/feature/loan-information-template/cicl/cicl.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/cicl/cicl.component.ts	(date 1630320045127)
+@@ -9,6 +9,7 @@
+ import {RelationshipList} from '../../loan/model/relationshipList';
+ import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
+ import {CalendarType} from '../../../@core/model/calendar-type';
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+   selector: 'app-cicl',
+@@ -39,6 +40,7 @@
+       private formBuilder: FormBuilder,
+       private toastService: ToastService,
+       private el: ElementRef,
++      private overlay: NgxSpinnerService
+   ) {
+   }
+ 
+@@ -171,14 +173,17 @@
+ 
+ 
+   onSubmit() {
++      this.overlay.show();
+   this.submitted = true;
+   if (this.ciclHistory === false) {
+       const controls = this.ciclForm.controls.ciclArray as FormArray;
+       controls.clearAsyncValidators();
+       controls.clear();
++      this.overlay.hide();
+   }
+     if (this.ciclHistory === true) {
+         if (this.ciclForm.invalid) {
++            this.overlay.hide();
+             this.scrollToFirstInvalidControl();
+             return;
+         }
+Index: src/app/feature/loan-information-template/insurance/insurance.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/insurance/insurance.component.ts b/src/app/feature/loan-information-template/insurance/insurance.component.ts
+--- a/src/app/feature/loan-information-template/insurance/insurance.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/insurance/insurance.component.ts	(date 1630319861103)
+@@ -4,6 +4,7 @@
+ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+ import {InsuranceList} from '../../loan/model/insuranceList';
+ import {Editor} from "../../../@core/utils/constants/editor";
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+     selector: 'app-insurance',
+@@ -26,7 +27,8 @@
+     ckEditor = Editor.CK_CONFIG;
+ 
+     constructor(
+-        private formBuilder: FormBuilder
++        private formBuilder: FormBuilder,
++        private overlay: NgxSpinnerService
+     ) {
+     }
+ 
+@@ -78,6 +80,7 @@
+ 
+ 
+     submit() {
++        this.overlay.show();
+         this.isSubmitted = true;
+         const formArray = this.form.get('formArray') as FormArray;
+         formArray['controls'].forEach((data => {
+Index: src/app/feature/loan-information-template/credit-checklist-general/credit-checklist-general.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/credit-checklist-general/credit-checklist-general.component.ts b/src/app/feature/loan-information-template/credit-checklist-general/credit-checklist-general.component.ts
+--- a/src/app/feature/loan-information-template/credit-checklist-general/credit-checklist-general.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/credit-checklist-general/credit-checklist-general.component.ts	(date 1630318803111)
+@@ -6,6 +6,7 @@
+ import {CustomerType} from '../../customer/model/customerType';
+ import {Clients} from '../../../../environments/Clients';
+ import {environment} from '../../../../environments/environment';
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+   selector: 'app-credit-checklist-general',
+@@ -28,7 +29,8 @@
+   optionList = ['Yes', 'No', 'Na'];
+   optionListRegulatory = ['Yes', 'No'];
+ 
+-  constructor(private formBuilder: FormBuilder) {
++  constructor(private formBuilder: FormBuilder,
++              private overlay: NgxSpinnerService) {
+   }
+ 
+   ngOnInit() {
+@@ -211,6 +213,7 @@
+   }
+ 
+   submitForm() {
++    this.overlay.show();
+     this.creditChecklistGeneral.data = JSON.stringify(this.formGroupCheckList.value);
+     this.creditChecklistGeneralEmitter.emit(this.creditChecklistGeneral);
+   }
+Index: src/app/feature/loan-information-template/guarantor/guarantor.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/guarantor/guarantor.component.ts b/src/app/feature/loan-information-template/guarantor/guarantor.component.ts
+--- a/src/app/feature/loan-information-template/guarantor/guarantor.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/guarantor/guarantor.component.ts	(date 1630319845376)
+@@ -16,6 +16,7 @@
+ import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
+ import {Occupation} from '../../admin/modal/occupation';
+ import {Editor} from "../../../@core/utils/constants/editor";
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+     selector: 'app-guarantor',
+@@ -59,6 +60,7 @@
+         private addressServices: AddressService,
+         private toastService: ToastService,
+         private blackListService: BlacklistService,
++        private overlay: NgxSpinnerService
+     ) {
+     }
+ 
+@@ -263,8 +265,10 @@
+     }
+ 
+     onSubmit() {
++        this.overlay.show();
+         this.submitted = true;
+         if (this.form.invalid) {
++            this.overlay.hide();
+             return;
+         }
+         if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {
+Index: src/app/feature/loan-information-template/income-from-account/income-from-account.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/income-from-account/income-from-account.component.ts b/src/app/feature/loan-information-template/income-from-account/income-from-account.component.ts
+--- a/src/app/feature/loan-information-template/income-from-account/income-from-account.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/income-from-account/income-from-account.component.ts	(date 1630319797905)
+@@ -8,6 +8,7 @@
+ import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
+ import {environment} from '../../../../environments/environment';
+ import {Editor} from "../../../@core/utils/constants/editor";
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+   selector: 'app-income-from-account',
+@@ -33,6 +34,7 @@
+ 
+   constructor(private formBuilder: FormBuilder,
+               private el: ElementRef,
++              private overlay: NgxSpinnerService
+   ) {
+   }
+ 
+@@ -140,9 +142,11 @@
+ 
+ 
+   submitForm() {
++    this.overlay.show();
+     this.submitted = true;
+     if (this.incomeFormGroup.invalid) {
+       this.scrollToFirstInvalidControl();
++      this.overlay.hide();
+       return;
+     }
+     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
+Index: src/app/feature/reporting/component/reporting-info-tagging/reporting-info-tagging.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/reporting/component/reporting-info-tagging/reporting-info-tagging.component.ts b/src/app/feature/reporting/component/reporting-info-tagging/reporting-info-tagging.component.ts
+--- a/src/app/feature/reporting/component/reporting-info-tagging/reporting-info-tagging.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/reporting/component/reporting-info-tagging/reporting-info-tagging.component.ts	(date 1630320826862)
+@@ -7,6 +7,7 @@
+ import {ToastService} from '../../../../@core/utils';
+ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+ import {ReportingInfoTaggingFormComponent} from '../reporting-info-tagging-form/reporting-info-tagging-form.component';
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+   selector: 'app-reporting-info-tagging',
+@@ -33,7 +34,8 @@
+   constructor(
+       private reportingInfoService: ReportingInfoService,
+       private toastService: ToastService,
+-      private formBuilder: FormBuilder
++      private formBuilder: FormBuilder,
++      private overlay: NgxSpinnerService
+   ) {
+   }
+ 
+@@ -85,6 +87,7 @@
+   }
+ 
+   public onSubmit(): void {
++    this.overlay.show();
+     if (this.taggingComponent) {
+       this.taggingComponent.onSubmit();
+     }
+Index: src/app/feature/loan-information-template/security/security.component.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/feature/loan-information-template/security/security.component.ts b/src/app/feature/loan-information-template/security/security.component.ts
+--- a/src/app/feature/loan-information-template/security/security.component.ts	(revision c2754ff4b25d9e96b3086cc4768297c600cf01d3)
++++ b/src/app/feature/loan-information-template/security/security.component.ts	(date 1630319687103)
+@@ -24,6 +24,7 @@
+ import {SecurityCoverageAutoCommercial} from '../model/security-coverage-auto-commercial';
+ import {Alert, AlertType} from '../../../@theme/model/Alert';
+ import {ToastService} from '../../../@core/utils';
++import {NgxSpinnerService} from "ngx-spinner";
+ 
+ @Component({
+     selector: 'app-security',
+@@ -88,6 +89,7 @@
+         private addressServices: AddressService,
+         private activatedRoute: ActivatedRoute,
+         private toastService: ToastService,
++        private overlay: NgxSpinnerService
+     ) {
+     }
+ 
+@@ -246,23 +248,23 @@
+ 
+ 
+     onSubmit() {
+-        this.spinner = true;
++        this.overlay.show();
+         this.submitted = true;
+         if (this.securityForm.invalid) {
+-            this.spinner = false;
++            this.overlay.hide();
+             return;
+         }
+         if (this.initialSecurity.selectedSecurity === undefined) {
+             this.initialSecurity.clearValidationAtInitialStage();
+         }
+         if (this.initialSecurity.securityForm.invalid) {
++            this.overlay.hide();
+             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+-            this.spinner = false;
+             return;
+         }
+         if (this.initialSecurity.shareSecurityForm.invalid) {
++            this.overlay.hide();
+             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
+-            this.spinner = false;
+             return;
+         }
+         if (!ObjectUtil.isEmpty(this.securityValue)) {
