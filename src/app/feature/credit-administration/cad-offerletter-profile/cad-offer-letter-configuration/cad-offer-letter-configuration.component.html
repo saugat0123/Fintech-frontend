@@ -153,9 +153,9 @@
               <td><select class="form-control" formControlName="gender" id="gender"
                           [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
                 <option [value]="null" hidden>Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Others">Others</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="OTHERS">Others</option>
               </select>
               </td>
               <td>{{translatedValues?.gender}}</td>
@@ -336,12 +336,18 @@
                 <label class="title" for="citizenshipNo">Citizenship Issue District</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="citizenshipIssueDistrict"
-                       id="citizenshipIssueDistrict"
-                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDistrict.errors}"
-                       name="name" placeholder="Citizenship Issue District"
-                       type="text"/>
+                <select (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
+                        [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
+                        class="custom-select"
+                        formControlName="citizenshipIssueDistrict"
+                        id="citizenshipIssueDistrict">
+                  <option [ngValue]="null" hidden>District</option>
+                  <option *ngFor="let district of allDistrictList"
+                          [ngValue]="district">
+                    {{district.name}}
+                  </option>
+                </select>
               </td>
               <td>
                 {{translatedValues?.citizenshipIssueDistrict}}
@@ -371,32 +377,48 @@
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
             <tr>
+            <td>
+              <strong>Permanent Address</strong>
+            </td>
+            </tr>
+<!--            <tr>-->
+<!--              <td><label class="title" for="permanentMunType">Municipality</label></td>-->
+<!--              <td>-->
+<!--                <select class="form-control" formControlName="permanentMunType"-->
+<!--                        id="permanentMunType"-->
+<!--                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">-->
+<!--                  <option value="0">Municipality</option>-->
+<!--                  <option value="1">VDC</option>-->
+<!--                </select>-->
+<!--              </td>-->
+<!--              <td>{{translatedValues?.permanentMunType}}</td>-->
+<!--              <td></td>-->
+<!--            </tr>-->
+            <tr>
+              <td><label class="title">Province</label></td>
               <td>
-                <strong>Permanent Address</strong>
-              </td>
-              <td>
-                <select class="form-control" formControlName="permanentMunType"
-                        id="permanentMunType"
-                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">
-                  <option value="0">Municipality</option>
-                  <option value="1">VDC</option>
+<!--                <input class="form-control "-->
+<!--                       formControlName="permanentProvince"-->
+<!--                       [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"-->
+<!--                       id="permanentProvince"-->
+<!--                       name="permanentProvince" placeholder="Province"-->
+<!--                       type="text"/>-->
+                <select (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
+                        [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
+                        class="custom-select"
+                        formControlName="permanentProvince"
+                        id="province">
+                  <option [ngValue]="null" hidden>Province</option>
+                  <option *ngFor="let provinceVal of provinceList"
+                          [ngValue]="provinceVal">
+                    {{provinceVal.name}}
+                  </option>
                 </select>
               </td>
-              <td>{{translatedValues?.permanentMunType}}</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label class="title" for="permanentProvince">Province</label></td>
+
               <td>
-                <input class="form-control "
-                       formControlName="permanentProvince"
-                       [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"
-                       id="permanentProvince"
-                       name="permanentProvince" placeholder="Province"
-                       type="text"/>
-              </td>
-              <td>
-                {{translatedValues?.permanentProvince}}
+                {{objectValueTranslater?.permanentProvince}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="permanentProvinceCT"
@@ -405,15 +427,21 @@
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
-              <td><input class="form-control "
-                         formControlName="permanentDistrict"
-                         [ngClass]="{'is-invalid': submitted && configForm.permanentDistrict.errors}"
-                         id="permanentDistrict"
-                         name="permanentDistrict" placeholder="District"
-                         type="text"/>
+              <td> <select (change)="getMunicipalitiesById(form?.permanentDistrict.value?.id, $event)"
+                           [compareWith]="compareFn"
+                           [ngClass]="{'is-invalid': submitted && form.permanentDistrict.errors}"
+                           class="custom-select"
+                           formControlName="permanentDistrict"
+                           id="permanentDistrict">
+                <option [ngValue]="null" hidden>District</option>
+                <option *ngFor="let districtVal of districts"
+                        [ngValue]="districtVal">
+                  {{districtVal.name}}
+                </option>
+              </select>
               </td>
               <td>
-                {{translatedValues?.permanentDistrict}}
+                {{objectValueTranslater?.permanentDistrict}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="permanentDistrictCT"
@@ -422,20 +450,24 @@
             </tr>
             <tr>
               <td><label class="title"
-                         for="permanentMunicipality">{{configForm.permanentMunType.value == 0
-                  ? 'Municipality' : 'VDC'}}</label>
+                         for="permanentMunicipality">Municipality or VDC</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="permanentMunicipality"
-                       [ngClass]="{'is-invalid': submitted && configForm.permanentMunicipality.errors}"
-                       id="permanentMunicipality"
-                       name="permanentMunicipality"
-                       placeholder="{{configForm.permanentMunType.value == 0 ? 'Municipality' : 'VDC'}}"
-                       type="text"/>
+                <select [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
+                        class="custom-select"
+                        formControlName="permanentMunicipality"
+                        id="permanentMunicipality"
+                        name="municipality">
+                  <option [ngValue]="null" hidden>Municipality</option>
+                  <option *ngFor="let municipalityVal of municipalities"
+                          [ngValue]="municipalityVal">
+                    {{municipalityVal.name}}
+                  </option>
+                </select>
               </td>
               <td>
-                {{translatedValues?.permanentMunicipality}}
+                {{objectValueTranslater?.permanentMunicipality}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="permanentMunicipalityCT"
@@ -462,35 +494,38 @@
               </td>
 
             </tr>
+            <td></td>
+            <td>
+                <nb-checkbox (change)="sameAsPermanent($event)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+            </td>
             </tbody>
-            <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+
+            <tbody *ngIf="addressSameAsAbove !== true && configForm?.clientType?.value == 'INDIVIDUAL'">
             <tr>
               <td>
                 <strong>Temporary Address</strong>
               </td>
-              <td>
-                <select class="form-control" formControlName="temporaryMunType"
-                        id="temporaryMunType"
-                        [ngClass]="{'is-invalid': submitted && configForm.temporaryMunType.errors}">
-                  <option value="0">Municipality</option>
-                  <option value="1">VDC</option>
-                </select>
-              </td>
-              <td>{{translatedValues?.temporaryMunType}}</td>
-              <td></td>
+
             </tr>
+            <br>
             <tr>
               <td><label class="title" for="temporaryProvince">Province</label></td>
               <td>
-                <input class="form-control "
-                       formControlName="temporaryProvince"
-                       [ngClass]="{'is-invalid': submitted && configForm.temporaryProvince.errors}"
-                       id="temporaryProvince"
-                       name="temporaryProvince" placeholder="Province"
-                       type="text"/>
+                <select (change)="getTempDistrictsById(form.temporaryProvince.value?.id , $event)"
+                        [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.temporaryProvince.errors}"
+                        class="custom-select"
+                        formControlName="temporaryProvince"
+                        id="temporaryProvince">
+                  <option [ngValue]="null" hidden>Province</option>
+                  <option *ngFor="let provinceVal of tempProvinceList"
+                          [ngValue]="provinceVal">
+                    {{provinceVal.name}}
+                  </option>
+                </select>
               </td>
               <td>
-                {{translatedValues?.temporaryProvince}}
+                {{objectValueTranslater?.temporaryProvince}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="temporaryProvinceCT"
@@ -500,15 +535,21 @@
             <tr>
               <td><label class="title" for="temporaryDistrict">District</label></td>
               <td>
-                <input class="form-control "
-                       formControlName="temporaryDistrict"
-                       [ngClass]="{'is-invalid': submitted && configForm.temporaryDistrict.errors}"
-                       id="temporaryDistrict"
-                       name="temporaryDistrict" placeholder="District"
-                       type="text"/>
+                <select (change)="getTempMunicipalitiesById(form?.temporaryDistrict.value?.id, $event)"
+                        [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.temporaryDistrict.errors}"
+                        class="custom-select"
+                        formControlName="temporaryDistrict"
+                        id="temporaryDistrict">
+                  <option [ngValue]="null" hidden>District</option>
+                  <option *ngFor="let districtVal of tempDistricts"
+                          [ngValue]="districtVal">
+                    {{districtVal.name}}
+                  </option>
+                </select>
               </td>
               <td>
-                {{translatedValues?.temporaryDistrict}}
+                {{objectValueTranslater?.temporaryDistrict}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="temporaryDistrictCT"
@@ -516,22 +557,25 @@
               </td>
             </tr>
             <tr>
-              <td><label class="title" for="temporaryMunicipality">
-
-                {{configForm.temporaryMunType.value == 0 ? 'Municipality' : 'VDC'}}
-              </label>
+              <td><label class="title"
+                         for="temporaryMunicipality">Municipality or VDC</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="temporaryMunicipality"
-                       [ngClass]="{'is-invalid': submitted && configForm.temporaryMunicipality.errors}"
-                       id="temporaryMunicipality"
-                       name="temporaryMunicipality"
-                       placeholder="{{configForm.temporaryMunType.value == 0 ? 'Municipality' : 'VDC'}}"
-                       type="text"/>
+                <select [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
+                        class="custom-select"
+                        formControlName="temporaryMunicipality"
+                        id="temporaryMunicipality"
+                        name="municipality">
+                  <option [ngValue]="null" hidden>Municipality</option>
+                  <option *ngFor="let municipalityVal of tempMunicipalities"
+                          [ngValue]="municipalityVal">
+                    {{municipalityVal.name}}
+                  </option>
+                </select>
               </td>
               <td>
-                {{translatedValues?.temporaryMunicipality}}
+                {{objectValueTranslater?.temporaryMunicipality}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="temporaryMunicipalityCT"
@@ -556,6 +600,7 @@
                 <input class="form-control nepaliFont" formControlName="temporaryWardCT" type="text"/>
               </td>
             </tr>
+
             </tbody>
             <tbody *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
             <tr>
