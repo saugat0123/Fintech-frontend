@@ -57,9 +57,9 @@ export class OfferLetterPersonalComponent implements OnInit {
           this.districtList = res.detail;
       });
         this.buildForm();
-        this.checkOfferLetter();
         this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        console.log(this.loanAmountTemplate);
+        console.log(this.loanAmountTemplate.numberNepali);
+        this.checkOfferLetter();
     }
 
     fillForm() {
@@ -79,7 +79,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.nepaliNumber);
+        console.log('this.loanAmountTemplate.numberNepali: ', this.loanAmountTemplate);
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -96,7 +97,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-            shreeName1: allGuarantors ? allGuarantors : ''
+            shreeName1: allGuarantors ? allGuarantors : '',
         });
         this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
         this.setGuarantors(this.nepaliData.guarantorDetails);
@@ -109,7 +110,10 @@ export class OfferLetterPersonalComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
-            this.fillForm();
+            console.log('loanAmountTemplate: ', this.loanAmountTemplate);
+            if (this.loanAmountTemplate) {
+                this.fillForm();
+            }
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
