@@ -36,9 +36,11 @@ export class SecurityComponent implements OnInit {
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
     @Output() securityDataEmitter = new EventEmitter();
+    @Output() submittedCheck = new EventEmitter();
     @Input() fromProfile;
     @Input() shareSecurity: ShareSecurity;
     @Input() isMicroCustomer: boolean;
+    @Input() submittedCheckFromParent: boolean;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -252,6 +254,7 @@ export class SecurityComponent implements OnInit {
         this.submitted = true;
         if (this.securityForm.invalid) {
             this.overlay.hide();
+            this.submitted = false;
             return;
         }
         if (this.initialSecurity.selectedSecurity === undefined) {
@@ -260,11 +263,13 @@ export class SecurityComponent implements OnInit {
         if (this.initialSecurity.securityForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             this.overlay.hide();
+            this.submitted = false;
             return;
         }
         if (this.initialSecurity.shareSecurityForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation'));
             this.overlay.hide();
+            this.submitted = false;
             return;
         }
         if (!ObjectUtil.isEmpty(this.securityValue)) {
@@ -329,6 +334,7 @@ export class SecurityComponent implements OnInit {
             this.securityData.guarantor.push(guarantor);
         }
         this.securityDataEmitter.emit(this.securityData);
+        this.submittedCheck.emit(this.submitted);
     }
 
     calculateTotalSecurity(securityData): number {
