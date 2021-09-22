@@ -13,6 +13,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
@@ -33,7 +34,8 @@ export class NepProposedAmountFormComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private service: CreditAdministrationService,
-                private router: RouterUtilsService) {
+                private router: RouterUtilsService,
+                private dialogRef: NbDialogRef<NepProposedAmountFormComponent>) {
     }
 
     ngOnInit() {
@@ -83,12 +85,17 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
             this.router.reloadCadProfileRoute(this.cadData.id);
+            this.closeForm();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated SUCCESSFULLY!!!'));
         }, error => {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
 
         });
+    }
+
+    closeForm() {
+        this.dialogRef.close();
     }
 
 
