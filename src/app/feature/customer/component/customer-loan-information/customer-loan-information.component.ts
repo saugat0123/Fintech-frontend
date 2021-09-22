@@ -303,6 +303,7 @@ export class CustomerLoanInformationComponent implements OnInit {
                     this.overlay.hide();
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
                 });
+            console.log('submittedCheck', this.submittedCheck);
         }
     }
 
@@ -317,6 +318,7 @@ export class CustomerLoanInformationComponent implements OnInit {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
             });
+        console.log('submittedCheck', this.submittedCheck);
     }
 
     saveGuarantor(data: GuarantorDetail) {

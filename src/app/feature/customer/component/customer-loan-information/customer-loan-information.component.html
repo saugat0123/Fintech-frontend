@@ -282,6 +282,7 @@
           <app-security *ngIf="itemSecurity.expanded"
                         (securityDataEmitter)="saveSecurity($event)"
                         (submittedCheck)="submittedCheck1($event)"
+                        [submittedCheckFromParent] = "submittedCheck"
                         [calendarType]="calendarType"
                         [fromProfile]="true"
                         [isMicroCustomer]="isMicroCustomer"
