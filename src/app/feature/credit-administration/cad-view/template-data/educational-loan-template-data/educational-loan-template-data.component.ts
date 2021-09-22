@@ -14,6 +14,7 @@ import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
 import {RetailProfessionalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
+import {Attributes} from '../../../../../@core/model/attributes';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -22,7 +23,7 @@ import {RetailProfessionalLoanComponent} from '../../../mega-offer-letter-templa
 })
 export class EducationalLoanTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  translatedValues: any = {};
+  tdValues: any = {};
   form: FormGroup;
   fieldFlag = false;
   selectedSecurityVal;
@@ -35,6 +36,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   btnDisable = true;
   previewBtn = true;
   offerLetterConst = NabilOfferLetterConst;
+  attributes;
+  translatedData;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -49,7 +52,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Cad Data', this.customerApprovedDoc);
     this.buildForm();
   }
 
@@ -163,31 +165,31 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   submit() {
-    console.log('Submitted Value ', this.form.value);
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
-    console.log('Translated data from the submitted values!', this.translatedValues);
       this.spinner = true;
       this.btnDisable = true;
       this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
-      this.translatedValues.selectedCountry = this.form.get('selectedCountry').value;
-      this.translatedValues.selectedSecurity = this.form.get('selectedSecurity').value;
-      this.translatedValues.loanLimitChecked = this.loanLimit;
-
-    console.log('Translated Data', this.translatedValues);
 
       if (this.existingOfferLetter) {
           this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
               if (offerLetterPath.docName.toString() ===
                   this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
-                  offerLetterPath.initialInformation = JSON.stringify(this.translatedValues);
+                  offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
               }
           });
       } else {
           const offerDocument = new OfferDocument();
           offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
-          offerDocument.initialInformation = JSON.stringify(this.translatedValues);
-          console.log('initial Information Document:::: ', offerDocument);
+          Object.keys(this.form.controls).forEach(key => {
+            if (key === 'loanDetails') {
+              return;
+            }
+            this.attributes = new Attributes();
+            this.attributes.en = this.form.get(key).value;
+            this.attributes.np = this.tdValues[key];
+            this.tdValues[key] = this.attributes;
+          });
+          offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
       }
 
@@ -214,7 +216,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       //   this.singleTranslate(this.form.get('embassyName').value);
       // }
       // this.embassyName = this.translateService.translate(this.form.get('embassyName').value);
-      console.log('Embassy Name', this.embassyName);
     }
   }
 
@@ -237,16 +238,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   async translate() {
     this.spinner = true;
-    this.translatedValues = await this.translateService.translateForm(this.form);
+    this.tdValues = await this.translateService.translateForm(this.form);
+    this.translatedData = this.tdValues;
     this.spinner = false;
     this.btnDisable = false;
-  }
-
-  async singleTranslate(data) {
-    this.spinner = true;
-    const value = await this.translateService.translate(data);
-    this.embassyName = value[0].translatedText;
-    this.spinner = false;
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -256,13 +251,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   checkboxVal(event, formControlName) {
-    // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
-    //   const val = this.translatedValues[formControlName];
+    // if (!ObjectUtil.isEmpty(this.tdValues[formControlName])) {
+    //   const val = this.tdValues[formControlName];
     //   this.form.get(formControlName + 'TransVal').patchValue(val);
     // }
     const checkVal = event.target.checked;
     this[formControlName + 'Check'] = checkVal;
-    console.log('checked Value', this[formControlName + 'Check']);
     if (!checkVal) {
       this.clearForm(formControlName + 'TransVal');
     }
