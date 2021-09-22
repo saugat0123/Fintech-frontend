@@ -48,7 +48,7 @@
                                 <input (change)="uploadDoc($event)" class="hide-type"
                                        id="uploadDocument{{i}}"
                                        type="file">
-                                <a (click)="openModel(uploadModel,gDoc.name,gDoc.id,i,0)" title="upload {{gDoc.name}}">
+                                <a (click)="openModel(uploadModel,gDoc.name,gDoc.id,i,0,'')" title="upload {{gDoc.name}}">
                                   <i class="fa fa-upload"></i>
                                 </a>
                               </td>
@@ -86,7 +86,7 @@
                                   </td>
                                   <td>
                                     <span *ngIf="gDoc.checked">
-                                      <i (click)="openModel(confirmation,gDoc.name,gDoc.id,i,file.docIndex)" class="fas fa-trash"></i>
+                                      <i (click)="openModel(confirmation,gDoc.name,gDoc.id,i,file.docIndex,file.docPath)" class="fas fa-trash"></i>
                                     </span>
                                   </td>
                               </tr>
