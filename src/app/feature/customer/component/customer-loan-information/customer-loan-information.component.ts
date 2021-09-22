@@ -153,7 +153,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
     spinner = false;
-
+    submittedCheck: boolean;
 
     constructor(
         private toastService: ToastService,
@@ -298,10 +298,12 @@ export class CustomerLoanInformationComponent implements OnInit {
                         this.itemSecurity.close();
                     }
                 }, error => {
+                    this.submittedCheck = false;
                     console.error(error);
                     this.overlay.hide();
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
                 });
+            console.log('submittedCheck', this.submittedCheck);
         }
     }
 
@@ -312,9 +314,11 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.itemSecurity.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
+                this.submittedCheck = false;
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
             });
+        console.log('submittedCheck', this.submittedCheck);
     }
 
     saveGuarantor(data: GuarantorDetail) {
@@ -625,5 +629,9 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Previous Security'));
             });
+    }
+
+    submittedCheck1(event) {
+        this.submittedCheck = event;
     }
 }
