@@ -164,7 +164,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                age: [undefined, Validators.required],
                 version: [0]
             })
         );
@@ -461,7 +460,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                age: [undefined, Validators.required],
                 version: [undefined]
             }));
         });
@@ -488,8 +486,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [singleRelatives.citizenshipNumber],
                 citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
-                age: [singleRelatives.age, Validators.required]
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore]
             }));
         });
     }
