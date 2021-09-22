@@ -89,6 +89,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   tempProvinceList: Array<Province> = new Array<Province>();
   tempDistricts: Array<District> = new Array<District>();
  tempMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+ dateTypeAD = false;
+ dateTypeBS = false;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -192,6 +194,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       guarantorDetails: this.formBuilder.array([]),
       loanDetails: this.formBuilder.array([]),
 
+
     });
   }
 
@@ -282,7 +285,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
-    this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
+
+    this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
     this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value.name;
     this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
     this.oneFormCustomer.province = this.userConfigForm.get('permanentProvince').value;
@@ -293,6 +297,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
+
     // this.company.establishmentDate = this.userConfigForm.get('registrationDate').value;
     // this.company.companyLegalDocumentAddress = JSON.stringify(
     //     this.userConfigForm.get('registeredMunicipality').value +
@@ -400,7 +405,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     //  data.translatedData = JSON.stringify(jsonObject);
     console.log('final data:::::', data);
-    console.log(this.userConfigForm.value);
+    console.log(this.oneFormCustomer);
     console.log(this.userConfigForm.value);
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
@@ -515,6 +520,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('temporaryDistrict').value.name,
       temporaryMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ? null :
           this.userConfigForm.get('temporaryMunicipality').value.name,
+        citizenshipIssueDistrict:  ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ? null :
+            this.userConfigForm.get('citizenshipIssueDistrict').value.name,
     });
     this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
@@ -611,7 +618,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentMunicipality: [undefined],
       temporaryProvince: [undefined],
       temporaryDistrict: [undefined],
-      temporaryMunicipality: [undefined]
+      temporaryMunicipality: [undefined],
+        citizenshipIssueDistrict: [undefined]
+
     });
   }
+
+    setDateTypeBS(){
+        this.dateTypeBS = true;
+        this.dateTypeAD = false;
+    }
+
+    setDateTypeAD(){
+        this.dateTypeBS = false;
+        this.dateTypeAD = true;
+    }
 }

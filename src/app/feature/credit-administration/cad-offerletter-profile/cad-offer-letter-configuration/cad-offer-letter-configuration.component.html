@@ -99,6 +99,34 @@
               </td>
             </tr>
             <tr>
+              <td>DOB</td>
+              <td>
+                <div class="row">&nbsp;<nb-radio (click)="setDateTypeBS()">BS</nb-radio>
+                  <nb-radio (click)="setDateTypeAD()">AD</nb-radio></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              </td>
+              <td>
+                <nepali-patro *ngIf="dateTypeBS" formControlName="dob" [responseType]="2"
+                              [displayNepali]="true">
+                </nepali-patro>
+                <input [nbDatepicker]="dob"
+                       *ngIf="dateTypeAD"
+                       class="form-control form-control-sm-error rounded"
+                       formControlName="dob"
+                       id="dateOfBirth"
+                       name="dateOfBirth"
+                       placeholder="Date of Birth"
+                       type="text">
+                <nb-datepicker #dob></nb-datepicker>
+              </td>
+              <td>
+
+              </td>
+            </tr>
+            <tr>
               <td><label class="title" for="email">Email</label></td>
               <td><input class="form-control "
                          formControlName="email"
@@ -350,7 +378,7 @@
                 </select>
               </td>
               <td>
-                {{translatedValues?.citizenshipIssueDistrict}}
+                {{objectValueTranslater?.citizenshipIssueDistrict}}
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrictCT"
