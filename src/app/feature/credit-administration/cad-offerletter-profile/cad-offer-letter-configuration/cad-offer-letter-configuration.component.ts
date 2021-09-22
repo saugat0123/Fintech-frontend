@@ -31,6 +31,10 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 import {Attributes} from '../../../../@core/model/attributes';
 import {CustomerInfoNepaliComponent} from '../../../loan/component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import {LoanCreateComponent} from './loan-create/loan-create.component';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {Province} from '../../../admin/modal/province';
+import {District} from '../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -75,6 +79,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   activeCustomerTab = true;
   activeLoanTab = false;
   activeTemplateDataTab = true;
+  addressSameAsAbove = false;
+  provinceList: Array<Province> = new Array<Province>();
+  districts: Array<District> = new Array<District>();
+  municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  allDistrictList: Array<District> = new Array<District>();
+  objectTranslateForm: FormGroup;
+  objectValueTranslater;
+  tempProvinceList: Array<Province> = new Array<Province>();
+  tempDistricts: Array<District> = new Array<District>();
+ tempMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -87,7 +101,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
               public datepipe: DatePipe,
               protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>,
               private http: HttpClient,
-              private translateService: SbTranslateService) {
+              private translateService: SbTranslateService,
+              private addressService: AddressService) {
   }
 
   get configForm() {
@@ -95,8 +110,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.addressService.getProvince().subscribe(
+        (response: any) => {
+          this.provinceList = response.detail;
+        });
+
+    this.addressService.getProvince().subscribe(
+        (response: any) => {
+          this.tempProvinceList = response.detail;
+        });
+
+    this.addressService.getAllDistrict().subscribe( (resp: any) => {
+      this.allDistrictList = resp.detail;
+    });
     this.buildForm();
     this.addGuarantor();
+    this.translateObjectValue();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
     this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
       this.branchList = response.detail;
@@ -287,11 +316,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.registrationNumber = this.userConfigForm.get('registrationNo').value;
     this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
-    this.oneFormCustomer.gender = this.userConfigForm.get('gender').value === 'Male' ? 'MALE' : 'FEMALE';
+    this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
     this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
-    this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
+    this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value.name;
     this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
+    this.oneFormCustomer.province = this.userConfigForm.get('permanentProvince').value;
+    this.oneFormCustomer.district = this.userConfigForm.get('permanentDistrict').value;
+    this.oneFormCustomer.municipalities = this.userConfigForm.get('permanentMunicipality').value;
+    this.oneFormCustomer.wardNumber = this.userConfigForm.get('permanentWard').value;
+    this.oneFormCustomer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
+    this.oneFormCustomer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
+    this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
+    this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
     // this.company.establishmentDate = this.userConfigForm.get('registrationDate').value;
     // this.company.companyLegalDocumentAddress = JSON.stringify(
     //     this.userConfigForm.get('registeredMunicipality').value +
@@ -403,6 +440,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     //  data.translatedData = JSON.stringify(jsonObject);
     console.log('final data:::::', data);
     console.log(this.userConfigForm.value);
+    console.log(this.userConfigForm.value);
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
@@ -510,14 +548,121 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     window.location.reload();
   }
 
+
   async translate() {
+
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    this.objectTranslateForm.patchValue({
+      permanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
+          this.userConfigForm.get('permanentProvince').value.name,
+      permanentDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ? null :
+          this.userConfigForm.get('permanentDistrict').value.name,
+      permanentMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ? null :
+          this.userConfigForm.get('permanentMunicipality').value.name,
+      temporaryProvince: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ? null :
+          this.userConfigForm.get('temporaryProvince').value.name,
+      temporaryDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ? null :
+          this.userConfigForm.get('temporaryDistrict').value.name,
+      temporaryMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ? null :
+          this.userConfigForm.get('temporaryMunicipality').value.name,
+    });
+    this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
     this.spinner = false;
   }
 
   getCadApprovedData(data) {
     this.cadData = data.customerApprovedLoanCadDocumentation;
+  }
+
+  sameAsPermanent(event) {
+    if (event.target.checked === true) {
+      this.addressSameAsAbove = true;
+      this.userConfigForm.patchValue({
+          temporaryProvince: this.userConfigForm.get('permanentProvince').value,
+          temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
+          temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
+                 temporaryWard: this.userConfigForm.get('permanentWard').value
+      });
+    } else {
+      this.addressSameAsAbove = false;
+        this.userConfigForm.patchValue({
+            temporaryProvince: undefined,
+            temporaryDistrict: undefined,
+            temporaryMunicipality: undefined,
+            temporaryWard: undefined
+        });
+    }
+  }
+
+  getDistrictsById(provinceId: number, event) {
+    console.log(provinceId);
+    const province = new Province();
+    province.id = provinceId;
+    this.addressService.getDistrictByProvince(province).subscribe(
+        (response: any) => {
+          this.districts = response.detail;
+          this.districts.sort((a, b) => a.name.localeCompare(b.name));
+        }
+    );
+  }
+
+  getTempDistrictsById(provinceId: number, event) {
+    console.log(provinceId);
+    const province = new Province();
+    province.id = provinceId;
+    this.addressService.getDistrictByProvince(province).subscribe(
+        (response: any) => {
+          this.tempDistricts = response.detail;
+          this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
+        }
+    );
+  }
+
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
+  get form() {
+    return this.userConfigForm.controls;
+  }
+
+  getMunicipalitiesById(districtId: number, event) {
+    const district = new District();
+    district.id = districtId;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalities = response.detail;
+          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get('permanentMunicipality').patchValue(null);
+          }
+        }
+    );
+  }
+  getTempMunicipalitiesById(districtId: number, event) {
+    const district = new District();
+    district.id = districtId;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.tempMunicipalities = response.detail;
+          this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get('temporaryMunicipality').patchValue(null);
+          }
+        }
+    );
+  }
+
+  translateObjectValue() {
+    this.objectTranslateForm = this.formBuilder.group({
+      permanentProvince: [undefined],
+      permanentDistrict: [undefined],
+      permanentMunicipality: [undefined],
+      temporaryProvince: [undefined],
+      temporaryDistrict: [undefined],
+      temporaryMunicipality: [undefined]
+    });
   }
 }
