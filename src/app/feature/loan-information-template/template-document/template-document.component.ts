@@ -51,6 +51,7 @@ export class TemplateDocumentComponent implements OnInit {
     formData.append('customerInfoId', this.customerInfo.id);
     formData.append('customerType', this.customerInfo.customerType);
     formData.append('folderName', this.docFolderName);
+    formData.append('uploadedDoc', (this.pathValueData === undefined ? '' : this.pathValueData));
     this.customerInfoService.upload(formData).subscribe((res: any) => {
       this.docPathEmitter.emit(res.detail);
       this.checked = true;
