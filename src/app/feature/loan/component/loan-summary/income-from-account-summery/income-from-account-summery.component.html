@@ -72,7 +72,7 @@
       </tr>
       </tbody>
     </table>
-    <app-income-from-account-view *ngIf="!newCustomerFlag"
+    <app-income-from-account-view *ngIf="incomeFromAccount?.newCustomerChecked === false"
                                   [data]="incomeFromAccount"></app-income-from-account-view>
   </div>
 </div>

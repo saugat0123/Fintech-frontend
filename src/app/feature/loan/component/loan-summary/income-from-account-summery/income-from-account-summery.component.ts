@@ -15,7 +15,6 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
   @Input() count;
   incomeFromAccount;
   srdbAffiliatedId = false;
-  newCustomerFlag: boolean[];
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
   incomeFromAccountArray;
@@ -34,7 +33,6 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
         data.push(item);
       });
       this.incomeFromAccountArray = data;
-      this.newCustomerFlag = this.incomeFromAccount.newCustomerChecked;
     }
   }
 
