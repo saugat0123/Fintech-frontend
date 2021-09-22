@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
 
 @Component({
   selector: 'app-retail-professional-loan-print',
@@ -15,7 +16,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input() security;
   @Input() embassy;
   loanHolderInfo;
-  offerLetterConst = MegaOfferLetterConst;
+  offerLetterConst = NabilOfferLetterConst;
   loanTypeArray = ['Professional Term Loan', 'Professional Overdraft Loan' ];
   proTermLoanSelected = false;
   proOverdraftLoanSelected = false;

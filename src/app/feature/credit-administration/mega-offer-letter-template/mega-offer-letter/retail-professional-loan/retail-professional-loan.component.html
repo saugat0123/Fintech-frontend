@@ -1,8 +1,13 @@
-<div id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}" xmlns="http://www.w3.org/1999/html">
+<div id="{{offerLetterConst.EDUCATIONAL}}" xmlns="http://www.w3.org/1999/html">
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="Saving Educational Loan offer letter.....">
+        <nb-card-header *ngIf="preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
         <nb-card-body>
             <div class="row">
                 <div class="col-sm-12">
@@ -1238,7 +1243,7 @@
         <nb-card-footer class="mb-3">
             <button nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint"
                     [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">Print
+                    ngxPrint printSectionId="{{offerLetterConst.EDUCATIONAL}}Print">Print
             </button>
         </nb-card-footer>
     </nb-card>

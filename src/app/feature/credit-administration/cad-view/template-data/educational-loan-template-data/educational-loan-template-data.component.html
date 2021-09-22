@@ -1,4 +1,4 @@
-<div>
+<div [nbSpinner]="spinner">
     <form (ngSubmit)="submit()" [formGroup]="form">
         <div class="row p-2">
             <div class="col-md-4">
@@ -599,35 +599,42 @@
 
             </table>
         </div>
-        <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
-        <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
-            Translate
-        </button>
+        <button nbButton status="info" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Submit</button>
     </form>
-    <button [disabled]="!fieldFlag"
-            class="float-right" nbButton
-            (click)="openModel(offerLetterModal)"
-            status="primary">
-        Preview
-    </button>
+    <div class="row d-flex justify-content-between">
+        <div>
+
+            <button nbButton status="primary" size="medium" class="float-right" (click)="translate()" [disabled]="!fieldFlag">
+                Translate
+            </button>
+        </div>
+        <div>
+            <button [disabled]="previewBtn"
+                    class="float-right" nbButton
+                    (click)="openModel()"
+                    status="primary">
+                Preview
+            </button>
+        </div>
+    </div>
+
 </div>
 
 
-<ng-template #offerLetterModal>
-    <nb-card accent="primary" style="max-height: 900px;">
-        <nb-card-header>
-            <a aria-label="Close"
-               (click)="onClose()"
-               class="close cursor" data-dismiss="modal">
-                <span aria-hidden="true">×</span></a>
-        </nb-card-header>
-        <nb-card-body>
-            <app-retail-professional-loan [cadOfferLetterApprovedDoc]="customerApprovedDoc" [selectedSecurity]="selectedSecurityVal"
-                                          [selectedCountry]="selectedCountryVal"
-                                          [translatedValue]="translatedValues"
-                                          (newSavedVal)="getChildData($event)"
-                                          [loanLimit]="loanLimit"
-                                          [nameOfEmbassy]="embassyName"></app-retail-professional-loan>
-        </nb-card-body>
-    </nb-card>
-</ng-template>
+<!--<ng-template #offerLetterModal>-->
+<!--    <nb-card accent="primary" style="max-height: 900px;">-->
+<!--        <nb-card-header>-->
+<!--            <a aria-label="Close"-->
+<!--               (click)="onClose()"-->
+<!--               class="close cursor" data-dismiss="modal">-->
+<!--                <span aria-hidden="true">×</span></a>-->
+<!--        </nb-card-header>-->
+<!--        <nb-card-body>-->
+<!--            <app-retail-professional-loan [cadOfferLetterApprovedDoc]="customerApprovedDoc" [selectedSecurity]="selectedSecurityVal"-->
+<!--                                          [selectedCountry]="selectedCountryVal"-->
+<!--                                          [translatedValue]="translatedValues"-->
+<!--                                          [loanLimit]="loanLimit"-->
+<!--                                          [nameOfEmbassy]="embassyName"></app-retail-professional-loan>-->
+<!--        </nb-card-body>-->
+<!--    </nb-card>-->
+<!--</ng-template>-->
