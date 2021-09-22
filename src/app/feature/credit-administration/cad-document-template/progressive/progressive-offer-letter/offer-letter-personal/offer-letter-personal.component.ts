@@ -58,7 +58,6 @@ export class OfferLetterPersonalComponent implements OnInit {
       });
         this.buildForm();
         this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        console.log(this.loanAmountTemplate.numberNepali);
         this.checkOfferLetter();
     }
 
@@ -79,7 +78,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
-        console.log('this.loanAmountTemplate.numberNepali: ', this.loanAmountTemplate);
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
         this.form.patchValue({
@@ -110,7 +108,6 @@ export class OfferLetterPersonalComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
-            console.log('loanAmountTemplate: ', this.loanAmountTemplate);
             if (this.loanAmountTemplate) {
                 this.fillForm();
             }
