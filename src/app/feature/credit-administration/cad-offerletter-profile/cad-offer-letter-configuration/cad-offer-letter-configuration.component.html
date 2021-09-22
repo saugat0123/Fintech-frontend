@@ -47,22 +47,24 @@
               </td>
               <td>{{translatedValues?.branch}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="branchCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="branchCT" readonly
+                       type="text"/>
               </td>
             </tr>
-            <tr [hidden]="true">
+            <tr hidden>
               <td>
                 <label class="title" for="clientType">Client Type</label>
               </td>
               <td>
-                <select class="form-control" formControlName="clientType" id="clientType">
+                <select class="form-control" formControlName="clientType" id="clientType" disabled>
                   <option value="INDIVIDUAL">INDIVIDUAL</option>
                   <option value="INSTITUTION">INSTITUTION</option>
                 </select>
               </td>
               <td>{{translatedValues?.clientType}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="clientTypeCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="clientTypeCT" readonly
+                       type="text"/>
               </td>
             </tr>
             <tbody *ngIf="configForm?.clientType?.value != null">
@@ -81,7 +83,8 @@
                 {{translatedValues?.customerCode}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="customerCodeCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="customerCodeCT" readonly
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -95,7 +98,8 @@
               </td>
               <td>{{translatedValues?.name}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="nameCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="nameCT" readonly
+                       type="text"/>
               </td>
             </tr>
             <tr>
@@ -124,7 +128,8 @@
               <td>
                 {{translatedValues?.contactNo}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="contactNoCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="contactNoCT" readonly
+                       type="text"/>
               </td>
             </tr>
 
@@ -144,7 +149,7 @@
             <!--              </td>-->
             <!--              <td>  {{translatedValues?.dob}}</td>-->
             <!--              <td>
-                <input class="form-control nepaliFont" formControlName="dobCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="dobCT" readonly type="text"/>
               </td>-->
             <!--            </tr>-->
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
@@ -160,7 +165,8 @@
               </td>
               <td>{{translatedValues?.gender}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="genderCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="genderCT" readonly
+                       type="text"/>
               </td>
             </tr>
 
@@ -259,7 +265,8 @@
                 {{translatedValues?.citizenshipNo}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipNoCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="citizenshipNoCT" readonly
+                       type="text"/>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
@@ -278,7 +285,7 @@
                 {{translatedValues?.registrationNo}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="registrationNoCT"
+                <input class="form-control nepaliFont" formControlName="registrationNoCT" readonly
                        type="text"/>
               </td>
             </tr>
@@ -304,7 +311,7 @@
             <!--                {{translatedValues?.citizenshipIssueDate}}-->
             <!--              </td>-->
             <!--              <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipIssueDateCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="citizenshipIssueDateCT" readonly type="text"/>
               </td>-->
             <!--            </tr>-->
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">-->
@@ -328,7 +335,7 @@
             <!--                {{translatedValues?.registrationDate}}-->
             <!--              </td>-->
             <!--              <td>
-                <input class="form-control nepaliFont" formControlName="registrationDateCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="registrationDateCT" readonly type="text"/>
               </td>-->
             <!--            </tr>-->
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
@@ -348,6 +355,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrictCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -359,13 +367,14 @@
                 <input class="form-control "
                        formControlName="panNo" id="panNo"
                        [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
-                       name="panNo" placeholder="PAN NoCT" type="text"/>
+                       name="panNo" placeholder="PAN No" type="text"/>
               </td>
               <td>
                 {{translatedValues?.panNo}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="panNoCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="panNoCT" readonly
+                       type="text"/>
               </td>
             </tr>
             </tbody>
@@ -400,6 +409,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="permanentProvinceCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -417,6 +427,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="permanentDistrictCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -439,6 +450,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="permanentMunicipalityCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -458,7 +470,8 @@
                 {{translatedValues?.permanentWard}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="permanentWardCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="permanentWardCT" readonly
+                       type="text"/>
               </td>
 
             </tr>
@@ -494,6 +507,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="temporaryProvinceCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -512,6 +526,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="temporaryDistrictCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -535,6 +550,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="temporaryMunicipalityCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -553,7 +569,8 @@
                 {{translatedValues?.temporaryWard}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="temporaryWardCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="temporaryWardCT" readonly
+                       type="text"/>
               </td>
             </tr>
             </tbody>
@@ -574,6 +591,7 @@
               <td>{{translatedValues?.registeredMunType}}</td>
               <td>
                 <input class="form-control nepaliFont" formControlName="registeredMunTypeCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -594,6 +612,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="registeredProvinceCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -614,6 +633,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="registeredDistrictCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -637,6 +657,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="registeredMunicipalityCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -656,7 +677,8 @@
                 {{translatedValues?.registeredWard}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="permanentWardCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="permanentWardCT" readonly
+                       type="text"/>
               </td>
             </tr>
             </tbody>
@@ -675,7 +697,7 @@
               </td>
               <td>{{translatedValues?.currentMunType}}</td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentMunTypeCT"
+                <input class="form-control nepaliFont" formControlName="currentMunTypeCT" readonly
                        type="text"/>
               </td>
             </tr>
@@ -695,7 +717,7 @@
                 {{translatedValues?.currentProvince}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentProvinceCT"
+                <input class="form-control nepaliFont" formControlName="currentProvinceCT" readonly
                        type="text"/>
               </td>
             </tr>
@@ -715,7 +737,7 @@
                 {{translatedValues?.currentDistrict}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentDistrictCT"
+                <input class="form-control nepaliFont" formControlName="currentDistrictCT" readonly
                        type="text"/>
               </td>
             </tr>
@@ -739,6 +761,7 @@
               </td>
               <td>
                 <input class="form-control nepaliFont" formControlName="currentMunicipalityCT"
+                       readonly
                        type="text"/>
               </td>
             </tr>
@@ -758,7 +781,8 @@
                 {{translatedValues?.currentWard}}
               </td>
               <td>
-                <input class="form-control nepaliFont" formControlName="currentWardCT" type="text"/>
+                <input class="form-control nepaliFont" formControlName="currentWardCT" readonly
+                       type="text"/>
               </td>
             </tr>
             </tbody>
@@ -773,9 +797,9 @@
 
           <div
               *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
-              class="table table-borderless table-4" formArrayName="guarantorDetails"
+              formArrayName="guarantorDetails"
               style="border: 1px solid rgba(255,255,255, 0.1)">
-            <table [formGroupName]="i">
+            <table [formGroupName]="i" class="table table-borderless table-4">
               <tr>
                 <td>
                   <label class="title">{{i + 1}}. Guarantor Name</label>
@@ -791,7 +815,7 @@
                 <td>{{translatedValues?.guarantorName}}</td>
                 <td>
                   <input class="form-control nepaliFont" type="text"
-                         formControlName="guarantorNameCT"/>
+                         formControlName="guarantorNameCT" readonly/>
                 </td>
               </tr>
               <tr>
@@ -809,7 +833,7 @@
                 <td>{{translatedValues?.citizenNumber}}</td>
                 <td>
                   <input class="form-control nepaliFont" type="text"
-                         formControlName="citizenNumberCT"/>
+                         formControlName="citizenNumberCT" readonly/>
                 </td>
               </tr>
               <!--              <tr>-->
@@ -850,7 +874,8 @@
                 </td>
                 <td>{{translatedValues?.issuedPlace}}</td>
                 <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="issuedPlaceCT"/>
+                  <input class="form-control nepaliFont" type="text" formControlName="issuedPlaceCT"
+                         readonly/>
                 </td>
               </tr>
               <tr>
@@ -868,7 +893,7 @@
                 <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
                 <td>
                   <input class="form-control nepaliFont" type="text"
-                         formControlName="guarantorLegalDocumentAddressCT"/>
+                         formControlName="guarantorLegalDocumentAddressCT" readonly/>
                 </td>
               </tr>
               <tr>
