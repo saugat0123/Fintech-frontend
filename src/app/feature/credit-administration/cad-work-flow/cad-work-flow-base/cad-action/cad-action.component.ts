@@ -9,7 +9,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LoanActionService} from '../../../../loan/loan-action/service/loan-action.service';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ToastService} from '../../../../../@core/utils';
-import {UserService} from '../../../../admin/component/user/user.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SocketService} from '../../../../../@core/service/socket.service';
@@ -23,6 +22,8 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/security-compliance-certificate/security-compliance-certificate.component';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {DocAction} from '../../../../loan/model/docAction';
+import {RoleService} from '../../../../admin/component/role-permission/role.service';
+import {UserService} from '../../../../../@core/service/user.service';
 
 @Component({
     selector: 'app-cad-action',
@@ -65,6 +66,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     roleType = RoleType;
     isOpened = false;
     forApproveMaker = [];
+    hasBranchMaker = false;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -87,6 +89,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     selectedTemplate;
     commentVar;
     committeeDefaultUser;
+    branchMakerRole;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -100,6 +103,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 private http: HttpClient,
                 private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
                 private cadService: CreditAdministrationService,
+                private roleService: RoleService,
                 private socketService: SocketService,
                 private routerUtilsService: RouterUtilsService,
                 private nbDialogService: NbDialogService,
@@ -107,6 +111,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        this.checkMakersInBranch();
+        console.log(this.selectedBranchId);
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
@@ -119,6 +125,15 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.backwardTooltipMessageAndShowHideBackward();
 
         this.checkForwardValidMessage();
+    }
+
+    checkMakersInBranch() {
+        this.userService.getUserListByBranchIdAndMakerActive(this.selectedBranchId).subscribe(res => {
+            if (res.detail.length > 0) {
+                this.hasBranchMaker = true;
+                this.branchMakerRole = res.detail[0].role;
+            }
+        });
     }
 
     checkForwardValidMessage() {
@@ -290,17 +305,13 @@ export class CadActionComponent implements OnInit, OnChanges {
             });
 
         } else if (this.popUpTitle === 'SEND TO BRANCH') {
-            console.log('test');
-
-             await this.userService.getDefaultCommunityUser().subscribe(res => {
-               console.log(res, 'res');
-               this.committeeDefaultUser = res.detail;
+            await this.userService.getDefaultCommunityUser().then(res => {
+                this.committeeDefaultUser = res.detail;
             });
-            console.log(this.committeeDefaultUser, 'this.committeeDefaultUser');
             this.formAction = this.formBuilder.group(
                 {
-                    toRole: [undefined, Validators.required],
-                    toUser: this.committeeDefaultUser.id,
+                    toRole: [this.branchMakerRole],
+                    toUser: this.committeeDefaultUser,
                     cadId: [this.cadId],
                     docAction: [DocAction.FORWARD],
                     comment: [undefined, Validators.required],

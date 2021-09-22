@@ -22,7 +22,7 @@ import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHiera
 export class OfferLetterListComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
-  searchObj = {docStatus: 'OFFER_PENDING'};
+  searchObj = {docStatus: 'OFFER_PENDING', toUser: ''};
   page = 1;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -34,6 +34,8 @@ export class OfferLetterListComponent implements OnInit {
   user: User = new User();
   roleType = RoleType;
   asc = false;
+  defaultCommunityUser;
+  static defaultCommunityUser;
 
   constructor(private service: CreditAdministrationService,
               private router: Router,
@@ -42,11 +44,18 @@ export class OfferLetterListComponent implements OnInit {
               private spinnerService: NgxSpinnerService) {
   }
 
-  static loadData(other: OfferLetterListComponent) {
+  static async loadData(other: OfferLetterListComponent) {
     other.spinner = true;
     other.currentIndexArray = [];
     other.toggleArray = [];
     other.loanList = [];
+    await other.userService.getDefaultCommunityUser().then(res => {
+      this.defaultCommunityUser = res.detail.id;
+    });
+    other.searchObj = {
+      docStatus: 'OFFER_PENDING',
+      toUser: this.defaultCommunityUser,
+    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       other.loanList = res.detail.content;
