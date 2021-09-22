@@ -482,9 +482,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   async translate() {
+    this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
     this.disableSave = false;
-    console.log(this.translatedValues);
+    this.spinner = false;
   }
 
   sameAsPermanent(event) {

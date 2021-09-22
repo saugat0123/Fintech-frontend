@@ -11,7 +11,9 @@
     <form [formGroup]="userConfigForm">
       <nb-tabset (changeTab)="onChangeTab($event)">
         <nb-tab tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
-                [disabled]="!activeCustomerTab" #personal>
+                [disabled]="!activeCustomerTab"
+                [nbSpinner]="spinner"
+                #personal>
           <h4>Provide detail of {{ this.customerType }} customer.</h4>
           <hr>
           <table class="table table-borderless table-4 mb-5">
@@ -107,9 +109,7 @@
               </td>
               <td>
                 {{translatedValues?.email}}</td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="email" type="text"/>
-              </td>
+              <td></td>
             </tr>
 
             <tr>
@@ -155,6 +155,7 @@
                 <option [value]="null" hidden>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
+                <option value="Others">Others</option>
               </select>
               </td>
               <td>{{translatedValues?.gender}}</td>
@@ -990,7 +991,7 @@
         </nb-tab>
         <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
                 [disabled]="!activeLoanTab">
-          <app-loan-create [data]="responseData"
+          <app-loan-create [data]="responseData" *ngIf="responseData"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
         <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"

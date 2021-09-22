@@ -7,6 +7,7 @@
 <!--        {{i.key | replace:'_':' ' }}-->
 <!--    </nb-option>-->
     <nb-option value="EDUCATIONAL">EDUCATIONAL</nb-option>
+    <nb-option value="AUTO_LOAN_COMMERCIAL">AUTO LOAN COMMERCIAL</nb-option>
 </nb-select>
 
 <nb-card>
@@ -24,5 +25,8 @@
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.RETAIL_MORTGAGE_LOAN" [nbSpinner]="spinner">
         <app-retail-mortgage-loan-template-data></app-retail-mortgage-loan-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === 'AUTO_LOAN_COMMERCIAL'">
+        <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>
     </nb-card-body>
 </nb-card>
