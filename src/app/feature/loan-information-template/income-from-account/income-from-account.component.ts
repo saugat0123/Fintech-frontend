@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Pattern} from '../../../@core/utils/constants/pattern';
@@ -7,7 +7,7 @@ import {RepaymentTrackCurrentBank} from '../../admin/modal/crg/RepaymentTrackCur
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-income-from-account',
@@ -26,7 +26,7 @@ export class IncomeFromAccountComponent implements OnInit {
   pattern = Pattern;
   repaymentTrack = RepaymentTrackCurrentBank.enumObject();
   srdbAffiliatedId = false;
-
+  currentFormData: Object;
   disabledLambda = environment.disableCrgLambda;
   disabledAlpha = environment.disableCrgAlpha;
 
@@ -36,56 +36,91 @@ export class IncomeFromAccountComponent implements OnInit {
   ) {
   }
 
-  get formControls() {
-    return this.incomeFormGroup.controls;
-  }
-
-  get transactionForm() {
-    return this.incomeFormGroup.controls.accountTransactionForm['controls'];
-  }
-
   ngOnInit() {
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
-      this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
-      this.incomeFormGroup.patchValue(this.dataForEdit);
-      if (!this.dataForEdit.newCustomerChecked && !ObjectUtil.isEmpty(this.dataForEdit.accountTransactionForm)) {
-      this.incomeFormGroup.get('accountTransactionForm').patchValue(this.dataForEdit.accountTransactionForm);
-      } else {
-        this.incomeFormGroup.get('accountTransactionForm').disable();
-      }
+    this.arrayData();
+    if (!this.incomeFromAccountDataResponse) {
+        this.addIncomeFromAccount();
     }
   }
 
   buildForm() {
     this.incomeFormGroup = this.formBuilder.group({
-      interestDuringReview: [undefined,
-        [Validators.required]],
-      interestAfterNextReview: [undefined,
-        [Validators.required]],
-      commissionDuringReview: [undefined],
-      commissionAfterNextReview: [undefined],
-      otherChargesDuringReview: [undefined],
-      otherChargesAfterNextReview: [undefined],
-      incomeFromTheAccount: [undefined,
-        Validators.required],
-      totalIncomeAfterNextReview: [undefined,
-        [Validators.required]],
-      totalIncomeDuringReview: [undefined,
-        [Validators.required]],
-      accountNo: [undefined],
-      newCustomerChecked: [false],
-      loanProcessingDuringReview: undefined,
-      loanProcessingAfterNextReview: undefined,
-      lcCommissionDuringReview: undefined,
-      lcCommissionAfterNextReview: undefined,
-      guaranteeCommissionDuringReview: undefined,
-      guaranteeCommissionAfterNextReview: undefined,
-      accountTransactionForm: this.buildAccountTransactionForm()
+      incomeFromAccount: this.formBuilder.array([])
     });
+  }
+
+  setIncomeFromAccount(currentData) {
+    const controls = this.incomeFormGroup.get('incomeFromAccount') as FormArray;
+    currentData.forEach(singleData => {
+      controls.push(
+          this.formBuilder.group({
+            interestDuringReview: [singleData.interestDuringReview, [Validators.required]],
+            interestAfterNextReview: [singleData.interestAfterNextReview, [Validators.required]],
+            commissionDuringReview: [singleData.commissionDuringReview],
+            commissionAfterNextReview: [singleData.commissionAfterNextReview],
+            otherChargesDuringReview: [singleData.otherChargesDuringReview],
+            otherChargesAfterNextReview: [singleData.otherChargesAfterNextReview],
+            incomeFromTheAccount: [singleData.incomeFromTheAccount, [Validators.required]],
+            totalIncomeAfterNextReview: [singleData.totalIncomeAfterNextReview, [Validators.required]],
+            totalIncomeDuringReview: [singleData.totalIncomeDuringReview, [Validators.required]],
+            accountNo: [singleData.accountNo],
+            newCustomerChecked: [singleData.newCustomerChecked],
+            loanProcessingDuringReview: singleData.loanProcessingDuringReview,
+            loanProcessingAfterNextReview: singleData.loanProcessingAfterNextReview,
+            lcCommissionDuringReview: singleData.lcCommissionDuringReview,
+            lcCommissionAfterNextReview: singleData.lcCommissionAfterNextReview,
+            guaranteeCommissionDuringReview: singleData.guaranteeCommissionDuringReview,
+              guaranteeCommissionAfterNextReview: singleData.guaranteeCommissionAfterNextReview,
+              accountTransactionForm: this.formBuilder.group({
+                  creditTransactionNumber: [singleData.accountTransactionForm.creditTransactionNumber,
+                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                  creditTransactionValue: [singleData.accountTransactionForm.creditTransactionValue ,
+                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                  debitTransactionNumber: [singleData.accountTransactionForm.debitTransactionNumber ,
+                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                  debitTransactionValue: [singleData.accountTransactionForm.debitTransactionValue ,
+                      [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                  repaymentTrackWithCurrentBank: [singleData.accountTransactionForm.repaymentTrackWithCurrentBank,
+                      !this.disabledLambda && !this.disabledAlpha ? Validators.required : undefined]
+              })
+          })
+      );
+    });
+  }
+
+  addIncomeFromAccount() {
+    const control = this.incomeFormGroup.get('incomeFromAccount') as FormArray;
+    control.push(
+        this.formBuilder.group({
+          interestDuringReview: [undefined,
+            [Validators.required]],
+          interestAfterNextReview: [undefined,
+            [Validators.required]],
+          commissionDuringReview: [undefined],
+          commissionAfterNextReview: [undefined],
+          otherChargesDuringReview: [undefined],
+          otherChargesAfterNextReview: [undefined],
+          incomeFromTheAccount: [undefined,
+            Validators.required],
+          totalIncomeAfterNextReview: [undefined,
+            [Validators.required]],
+          totalIncomeDuringReview: [undefined,
+            [Validators.required]],
+          accountNo: [undefined],
+          newCustomerChecked: [false],
+          loanProcessingDuringReview: undefined,
+          loanProcessingAfterNextReview: undefined,
+          lcCommissionDuringReview: undefined,
+          lcCommissionAfterNextReview: undefined,
+          guaranteeCommissionDuringReview: undefined,
+          guaranteeCommissionAfterNextReview: undefined,
+          accountTransactionForm: this.buildAccountTransactionForm()
+        })
+    );
   }
 
   buildAccountTransactionForm() {
@@ -100,26 +135,31 @@ export class IncomeFromAccountComponent implements OnInit {
 
   calculateTotalIncomeDuringReview() {
     let totalIncomeDuringReview = 0;
-    totalIncomeDuringReview =
-        (this.incomeFormGroup.get('interestDuringReview').value +
-        this.incomeFormGroup.get('commissionDuringReview').value +
-        this.incomeFormGroup.get('otherChargesDuringReview').value +
-        this.incomeFormGroup.get('loanProcessingDuringReview').value +
-        this.incomeFormGroup.get('lcCommissionDuringReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionDuringReview').value).toFixed(2);
-    this.incomeFormGroup.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
+      (this.incomeFormGroup.get('incomeFromAccount') as FormArray).controls.forEach(item => {
+          totalIncomeDuringReview =
+              (item.get('interestDuringReview').value +
+                  item.get('commissionDuringReview').value +
+                  item.get('otherChargesDuringReview').value +
+                  item.get('loanProcessingDuringReview').value +
+                  item.get('lcCommissionDuringReview').value +
+                  item.get('guaranteeCommissionDuringReview').value).toFixed(2);
+          item.get('totalIncomeDuringReview').setValue(totalIncomeDuringReview);
+      });
   }
 
   calculateTotalIncomeAfterReview() {
     let totalIncomeAfterNextReview = 0;
-    totalIncomeAfterNextReview =
-        (this.incomeFormGroup.get('interestAfterNextReview').value +
-        this.incomeFormGroup.get('commissionAfterNextReview').value +
-        this.incomeFormGroup.get('otherChargesAfterNextReview').value +
-        this.incomeFormGroup.get('loanProcessingAfterNextReview').value +
-        this.incomeFormGroup.get('lcCommissionAfterNextReview').value +
-        this.incomeFormGroup.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
-    this.incomeFormGroup.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
+      (this.incomeFormGroup.get('incomeFromAccount') as FormArray).controls.forEach(item => {
+          totalIncomeAfterNextReview =
+              (item.get('interestAfterNextReview').value +
+                  item.get('commissionAfterNextReview').value +
+                  item.get('otherChargesAfterNextReview').value +
+                  item.get('loanProcessingAfterNextReview').value +
+                  item.get('lcCommissionAfterNextReview').value +
+                  item.get('guaranteeCommissionAfterNextReview').value).toFixed(2);
+          item.get('totalIncomeAfterNextReview').setValue(totalIncomeAfterNextReview);
+      });
+
   }
   scrollToFirstInvalidControl() {
     const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -142,6 +182,12 @@ export class IncomeFromAccountComponent implements OnInit {
   submitForm() {
     this.overlay.show();
     this.submitted = true;
+        const data = this.incomeFormGroup.get('incomeFromAccount') as FormArray;
+        data.controls.forEach(item => {
+            const controls = item.get('accountTransactionForm') as FormGroup;
+            const newCustomer = item.value.newCustomerChecked;
+            this.changeValidation(controls, newCustomer);
+        });
     if (this.incomeFormGroup.invalid) {
       this.scrollToFirstInvalidControl();
       this.overlay.hide();
@@ -150,16 +196,54 @@ export class IncomeFromAccountComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.incomeDataObject = this.incomeFromAccountDataResponse;
     }
-    this.incomeDataObject.data = JSON.stringify(this.incomeFormGroup.value);
-    this.incomeFromAccountDataEmitter.emit(this.incomeDataObject);
+    this.currentFormData = this.incomeFormGroup.value;
+    this.incomeDataObject.data = JSON.stringify(this.currentFormData);
+    this.incomeFromAccountDataEmitter.emit(this.incomeDataObject.data);
   }
 
   onAdditionalFieldSelect(chk) {
-    if (chk) {
-      this.incomeFormGroup.get('accountTransactionForm').disable();
-    } else {
-      this.incomeFormGroup.get('accountTransactionForm').enable();
-    }
     this.isNewCustomer = chk;
   }
+    arrayData() {
+        if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
+            const data = [];
+            this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
+            if (this.dataForEdit.incomeFromAccount) {
+                this.dataForEdit.incomeFromAccount.forEach(item => {
+                    data.push(item);
+                });
+            } else {
+                data.push(this.dataForEdit);
+            }
+            this.setIncomeFromAccount(data);
+        }
+    }
+    removeIncomeFromAccount(incomeIndex) {
+        (this.incomeFormGroup.get('incomeFromAccount') as FormArray).removeAt(incomeIndex);
+    }
+    changeValidation(controls, newCustomer) {
+        if (newCustomer === true) {
+            controls.get('creditTransactionNumber').reset();
+            controls.get('creditTransactionNumber').setValidators(null);
+            controls.get('creditTransactionNumber').updateValueAndValidity();
+            controls.get('creditTransactionValue').reset();
+            controls.get('creditTransactionValue').setValidators(null);
+            controls.get('creditTransactionValue').updateValueAndValidity();
+            controls.get('debitTransactionNumber').reset();
+            controls.get('debitTransactionNumber').setValidators(null);
+            controls.get('debitTransactionNumber').updateValueAndValidity();
+            controls.get('debitTransactionValue').reset();
+            controls.get('debitTransactionValue').setValidators(null);
+            controls.get('debitTransactionValue').updateValueAndValidity();
+        } else {
+            controls.get('creditTransactionNumber').setValidators([Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]);
+            controls.get('creditTransactionNumber').updateValueAndValidity();
+            controls.get('creditTransactionValue').setValidators([Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]);
+            controls.get('creditTransactionValue').updateValueAndValidity();
+            controls.get('debitTransactionNumber').setValidators([Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]);
+            controls.get('debitTransactionNumber').updateValueAndValidity();
+            controls.get('debitTransactionValue').setValidators([Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]);
+            controls.get('debitTransactionValue').updateValueAndValidity();
+        }
+    }
 }
