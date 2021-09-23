@@ -65,6 +65,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
   sendForwardBackwardList = [];
   isSolUserPresent = false;
   isSolUserSelected = false;
+  spinner = false;
 
   constructor(
       public nbDialogRef: NbDialogRef<SingleLoanTransferModelComponent>,
@@ -108,7 +109,9 @@ export class SingleLoanTransferModelComponent implements OnInit  {
 
   // get all roll based on set hierarchy
   private getRoleData(): void {
+    this.spinner = true;
     this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId).subscribe((response: any) => {
+      this.spinner = false;
       this.transferRoleList = [];
       this.transferRoleList = response.detail;
     });
@@ -120,8 +123,10 @@ export class SingleLoanTransferModelComponent implements OnInit  {
         const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
 
+        this.spinner = true;
         this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
             .subscribe((response: any) => {
+              this.spinner = false;
               this.sendForwardBackwardList = [];
               this.sendForwardBackwardList = response.detail.sort(function(a, b) {
                 return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
@@ -146,9 +151,13 @@ export class SingleLoanTransferModelComponent implements OnInit  {
     this.selectedRole = role;
     this.isEmptyUser = false;
     this.showUserList = true;
+    this.spinner = true;
     this.roleService.detail(role.id).subscribe((res: any) => {
       role = res.detail;
+      this.spinner = false;
+      this.spinner = true;
       this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+        this.spinner = false;
         this.userList = response.detail;
         // check for empty user
         if (this.userList.length === 0) {
@@ -217,12 +226,15 @@ export class SingleLoanTransferModelComponent implements OnInit  {
 
   // method for sending notification and redirecting to dashboard
   private postAction() {
+    this.spinner = true;
     this.loanFormService.postLoanAction(this.form.value).subscribe((response: any) => {
+      this.spinner = false;
       const msg = `Document Has been Successfully ${this.form.get('docAction').value}`;
       this.toastService.show(new Alert(AlertType.SUCCESS, msg));
       this.sendLoanNotification(response.detail.customerLoanId);
       this.router.navigate(['/home/pending']);
     }, error => {
+      this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
@@ -271,7 +283,9 @@ export class SingleLoanTransferModelComponent implements OnInit  {
     this.form.patchValue({
       solUser: [undefined]
     });
+    this.spinner = true;
     this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+      this.spinner = false;
       this.solUserList = response.detail;
       this.isNoUserSol = false;
       this.isSolUserSelected = true;

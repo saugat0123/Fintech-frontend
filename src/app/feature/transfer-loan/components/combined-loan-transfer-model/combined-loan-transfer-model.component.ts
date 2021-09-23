@@ -70,6 +70,7 @@ export class CombinedLoanTransferModelComponent implements OnInit {
   isSolPresent = false;
   showHideSoleForm = false;
   singleSelectedToUser = [];
+  spinner = false;
 
   constructor(
       public nbDialogRef: NbDialogRef<CombinedLoanTransferModelComponent>,
@@ -86,7 +87,9 @@ export class CombinedLoanTransferModelComponent implements OnInit {
 
   ngOnInit() {
     this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
+    this.spinner = true;
     this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
+      this.spinner = false;
       this.combinedLoan = response.detail;
       this.combinedLoan.loans.forEach((l, i) => {
         this.isUserPresent[i] = true;
@@ -100,6 +103,7 @@ export class CombinedLoanTransferModelComponent implements OnInit {
         this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
       });
     }, error => {
+      this.spinner = false;
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load combined loan'));
     });
@@ -129,7 +133,9 @@ export class CombinedLoanTransferModelComponent implements OnInit {
     if (this.isSolPresent === false) {
       this.showHideSoleForm = true;
     }
+    this.spinner = true;
     this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+      this.spinner = false;
       this.combinedType.userList = response.detail;
       if (this.combinedType.userList.length === 0) {
         this.isUserNotPresentForCombine = true;
@@ -149,7 +155,9 @@ export class CombinedLoanTransferModelComponent implements OnInit {
     } else {
       this.showHideSoleForm = true;
     }
+    this.spinner = true;
     this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+      this.spinner = false;
       this.individualType.users.set(i, response.detail);
       const users: User[] = response.detail;
       this.isUserPresent[i] = true;
@@ -289,10 +297,12 @@ export class CombinedLoanTransferModelComponent implements OnInit {
   }
 
   private conditionalCombinedDataLoad(): void {
+    this.spinner = true;
     switch (this.popUpTitle) {
       case 'Transfer':
         this.approvalRoleHierarchyService.getDefault(this.approvalType, this.refId)
             .subscribe((response: any) => {
+              this.spinner = false;
               this.sendForwardBackwardList = [];
               this.sendForwardBackwardList = response.detail;
             });
@@ -302,11 +312,13 @@ export class CombinedLoanTransferModelComponent implements OnInit {
 
   // get all approval role list
   private getConditionalCombinedDataLoad(): void {
+    this.spinner = true;
     switch (this.popUpTitle) {
       case 'Transfer':
         const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
             .subscribe((response: any) => {
+              this.spinner = false;
               this.sendForwardBackwardApprovalList = [];
               this.sendForwardBackwardApprovalList = response.detail;
             });
@@ -333,11 +345,14 @@ export class CombinedLoanTransferModelComponent implements OnInit {
     } else {
       actions = this.individualType.form.get('actions').value;
     }
+    this. spinner = true;
     this.loanFormService.postCombinedLoanAction(actions, !isCombined).subscribe(() => {
+      this.spinner = false;
       const msg = `Document Has been Successfully ${this.docAction}`;
       this.toastService.show(new Alert(AlertType.SUCCESS, msg));
       this.router.navigate(['/home/pending']);
     }, error => {
+      this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
@@ -350,7 +365,9 @@ export class CombinedLoanTransferModelComponent implements OnInit {
   // individual
   public getIndividualUserSolList(role, i: number) {
     if (!ObjectUtil.isEmpty(role)) {
+      this.spinner = true;
       this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+        this.spinner = false;
         this.individualType.solUsers.set(i, response.detail);
         const users: User[] = response.detail;
         this.isSolUserPresent[i] = true;
@@ -398,7 +415,9 @@ export class CombinedLoanTransferModelComponent implements OnInit {
     this.combinedType.form.patchValue({
       solUser: null
     });
+    this.spinner = true;
     this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
+      this.spinner = false;
       this.combinedType.solUserList = response.detail;
       if (this.combinedType.solUserList.length === 1) {
         this.combinedType.form.patchValue({
