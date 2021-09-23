@@ -29,9 +29,14 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.formData)) {
       const data = [];
       this.incomeFromAccount = JSON.parse(this.formData.data);
-      this.incomeFromAccount.incomeFromAccount.forEach(item => {
-        data.push(item);
-      });
+      if (this.incomeFromAccount.incomeFromAccount) {
+        this.incomeFromAccount.incomeFromAccount.forEach(item => {
+          data.push(item);
+        });
+      } else {
+        console.log('it is single data');
+        data.push(this.incomeFromAccount);
+      }
       this.incomeFromAccountArray = data;
     }
   }
