@@ -28,7 +28,7 @@ export class SbTranslateService extends BaseService<String> {
         });
     }
 
-    async translateForm(form: FormGroup, formArrayData?) {
+    async translateForm(form: FormGroup, formArrayData?, index?) {
         const allValues = [];
         const allKeys = [];
         if (!ObjectUtil.isEmpty(form.get(`${formArrayData}`))) {
@@ -37,11 +37,13 @@ export class SbTranslateService extends BaseService<String> {
             let a: any;
             a = formArrayDataArrays.controls;
             for (let i = 0; i < a.length; i++) {
-                let individualData = a[i] as FormGroup;
-                for (const d of Object.entries(individualData.controls)) {
-                    if (d[1].value) {
-                        allKeys.push(d[0]);
-                        allValues.push(d[1].value.toString());
+                if (i === index) {
+                    let individualData = a[i] as FormGroup;
+                    for (const d of Object.entries(individualData.controls)) {
+                        if (d[1].value) {
+                            allKeys.push(d[0]);
+                            allValues.push(d[1].value.toString());
+                        }
                     }
                 }
             }

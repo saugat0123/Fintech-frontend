@@ -450,10 +450,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   async translateGuarantorData(i) {
     let alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
+    console.log('current guarantor index: ', i);
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
-      guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails');
-      console.log('guarantorsDetails: ', guarantorsDetails);
+      guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', i);
       this.userConfigForm.get(['guarantorDetails', i, 'translatedGuarantorName']).setValue(guarantorsDetails.guarantorName || '');
       this.userConfigForm.get(['guarantorDetails', i, 'translatedCitizenNumber']).setValue(guarantorsDetails.citizenNumber || '');
       this.userConfigForm.get(['guarantorDetails', i, 'translateIissuedPlace']).setValue(guarantorsDetails.issuedPlace || '');
