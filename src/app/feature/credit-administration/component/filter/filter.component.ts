@@ -170,7 +170,9 @@ export class FilterComponent implements OnInit {
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
-        oneFormCustomer: this.oneFormCustomerInfo
+        oneFormCustomer: this.oneFormCustomerInfo,
+        loanHolder: this.customerInfoData,
+        actionType: 'Provide'
       },
       hasBackdrop: false,
       dialogClass: 'model-full',

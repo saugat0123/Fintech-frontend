@@ -14,7 +14,7 @@
                 [disabled]="!activeCustomerTab"
                 [nbSpinner]="spinner"
                 #personal>
-          <h4>Provide detail of {{ this.customerType }} customer.</h4>
+          <h4>{{actionType}} detail of {{ this.customerType }} customer.</h4>
           <hr>
           <table class="table table-borderless table-4 mb-5">
             <tr>
@@ -102,7 +102,7 @@
                        type="text"/>
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td>DOB</td>
               <td>
                 <div class="row">&nbsp;
@@ -380,7 +380,7 @@
                         formControlName="citizenshipIssueDistrict"
                         id="citizenshipIssueDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let district of allDistrictList"
+                  <option  *ngFor="let district of allDistrictList"
                           [ngValue]="district">
                     {{district.name}}
                   </option>
@@ -442,14 +442,14 @@
 <!--                       id="permanentProvince"-->
 <!--                       name="permanentProvince" placeholder="Province"-->
 <!--                       type="text"/>-->
-                <select (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
+                <select #element (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
                         [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                         class="custom-select"
                         formControlName="permanentProvince"
                         id="province">
                   <option [ngValue]="null" hidden>Province</option>
-                  <option *ngFor="let provinceVal of provinceList"
+                  <option  *ngFor="let provinceVal of provinceList"
                           [ngValue]="provinceVal">
                     {{provinceVal.name}}
                   </option>
@@ -501,7 +501,7 @@
                         id="permanentMunicipality"
                         name="municipality">
                   <option [ngValue]="null" hidden>Municipality</option>
-                  <option *ngFor="let municipalityVal of municipalities"
+                  <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}}
                   </option>
@@ -586,7 +586,7 @@
                         formControlName="temporaryDistrict"
                         id="temporaryDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let districtVal of tempDistricts"
+                  <option  *ngFor="let districtVal of tempDistricts"
                           [ngValue]="districtVal">
                     {{districtVal.name}}
                   </option>
@@ -613,7 +613,7 @@
                         id="temporaryMunicipality"
                         name="municipality">
                   <option [ngValue]="null" hidden>Municipality</option>
-                  <option *ngFor="let municipalityVal of tempMunicipalities"
+                  <option  *ngFor="let municipalityVal of tempMunicipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}}
                   </option>
