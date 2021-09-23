@@ -9,7 +9,7 @@
             <th>S.No</th>
             <th>Loan Name</th>
             <th>Loan Approval Date</th>
-            <th>Proposed Amount</th>
+            <th>Existing Limit</th>
             <th>Outstanding Limit</th>
             <th>Update</th>
         </tr>
@@ -17,7 +17,7 @@
             <td>{{i + 1}}</td>
             <td>{{data?.loan?.name}}</td>
             <td>{{data?.lastModifiedAt | date}}</td>
-            <td>{{data?.proposal?.proposedLimit |currency:'Rs '}}</td>
+            <td>{{data?.proposal?.existingLimit |currency:'Rs '}}</td>
             <td>
                 <span>
                 <input type="number" class="form-control" #fieldValue
