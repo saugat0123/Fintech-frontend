@@ -103,12 +103,16 @@ export class AllDocumentViewComponent implements OnInit {
       docPaths.push(doc.docPath);
     }
     const guarantorDocument = this.taggedGuarantorWithDoc;
-    for (const doc of guarantorDocument) {
-      docPaths.push(doc.docPath);
+    for (const g of guarantorDocument) {
+      for (const doc of g.docPath.split(',')) {
+        docPaths.push(doc);
+      }
     }
     const insuranceDocument = this.insuranceWithDoc;
-    for (const doc of insuranceDocument) {
-      docPaths.push(doc.policyDocumentPath);
+    for (const i of insuranceDocument) {
+      for (const doc of i.policyDocumentPath.split(',')) {
+        docPaths.push(doc);
+      }
     }
     this.downloadAll(docPaths);
   }

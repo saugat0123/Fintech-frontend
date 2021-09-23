@@ -669,7 +669,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         const guarantorDocument = this.taggedGuarantorWithDoc;
         for (const g of guarantorDocument) {
-            for (const doc of g.docPath.split('')) {
+            for (const doc of g.docPath.split(',')) {
                 docPaths.push(doc);
             }
         }
