@@ -87,7 +87,7 @@
                     </div>
 
                 </div>
-                <app-template-document [customerInfo]="customerInfo" [docName]="formArrays.get('policyNumber').value" (docPathEmitter)="documentPath($event,i)" [pathValue]="formArrays.get('policyDocumentPath').value" [docTitle]="docTitle" [docFolderName]="docFolderName"></app-template-document>
+                <app-template-document [customerInfo]="customerInfo" [docName]="formArrays.get('policyNumber').value" (docPathEmitter)="documentPath($event,i)" [pathValue]="formArrays.get('policyDocumentPath').value" [docTitle]="docTitle" [docFolderName]="docFolderName" [heading]="docHeading"></app-template-document>
                 <i class="pb-5">Note:Policy Number is required to upload file</i>
                 <hr>
             </div>

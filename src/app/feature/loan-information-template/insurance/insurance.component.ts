@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Insurance} from '../../admin/modal/insurance';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {InsuranceList} from '../../loan/model/insuranceList';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-insurance',
@@ -23,6 +23,7 @@ export class InsuranceComponent implements OnInit {
     docTitle = 'Insurance Policy Document';
     docFolderName = 'insuranceDoc';
     assetsInsured = ['Stock', 'Building & Construction', 'Machineries/Equipment', 'Vehicle', 'Other'];
+    docHeading = 'Insurance';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -94,7 +95,7 @@ export class InsuranceComponent implements OnInit {
     }
 
     documentPath(path, index) {
-        this.form.get(['formArray', index, 'policyDocumentPath']).patchValue(path);
+        this.form.get(['formArray', index, 'policyDocumentPath']).patchValue(path.toString());
     }
 
 }

@@ -368,7 +368,6 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.itemInsurance.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
-                console.error(error);
                 this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
             });
