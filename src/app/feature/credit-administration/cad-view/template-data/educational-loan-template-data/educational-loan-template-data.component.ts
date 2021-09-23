@@ -37,6 +37,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   attributes;
   translatedData;
+  dateTypeBS = false;
+  dateTypeAD = false;
+  dateTypeBS1 = false;
+  dateTypeAD1 = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -191,6 +195,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
           this.translatedData = {};
           offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+        console.log('Customer Information', this.customerApprovedDoc.offerDocumentList);
       }
 
       this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe(() => {
@@ -270,6 +275,24 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     loanChecked(data) {
         this.loanLimit = data;
     }
+  setDateTypeBS(){
+    this.dateTypeBS = true;
+    this.dateTypeAD = false;
+  }
+
+  setDateTypeAD(){
+    this.dateTypeBS = false;
+    this.dateTypeAD = true;
+  }
+  setDateTypeBS1(){
+    this.dateTypeBS1 = true;
+    this.dateTypeAD1 = false;
+  }
+
+  setDateTypeAD1(){
+    this.dateTypeBS1 = false;
+    this.dateTypeAD1 = true;
+  }
 
     // changeDocumentName(securityType) {
     //     if (securityType === 'FIXED_DEPOSIT') {

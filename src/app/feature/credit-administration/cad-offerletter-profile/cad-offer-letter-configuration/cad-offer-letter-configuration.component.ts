@@ -91,6 +91,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
  tempMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
  dateTypeAD = false;
  dateTypeBS = false;
+ dateOption = [{value: 'AD', label: 'AD'},
+                {value: 'BS', label: 'BS'}];
+ vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -229,6 +232,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenshipIssueDistrictCT: [undefined],
       citizenshipIssueDate: [undefined],
       citizenshipIssueDateCT: [undefined],
+      municipalityOrVdc: [undefined],
+      municipalityOrVdcCT: [undefined],
+      dobDateType: [undefined],
+      dobDateTypeCT: [undefined],
+      issuedDate: [undefined],
+      issuedDateCT: [undefined],
       guarantorDetails: this.formBuilder.array([]),
     });
   }
@@ -258,57 +267,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return false;
   }
 
-  // submit() {
-  //   this.customer.customerName = this.userConfigForm.get('name').value;
-  //   this.customer.customerCode = this.userConfigForm.get('customerCode').value;
-  //   this.cadOneformService.saveCustomer(this.customer).subscribe(res => {
-  //     this.toastService.show(new Alert(AlertType.SUCCESS, 'User created successfully'));
-  //   }, error => {
-  //     console.error(error);
-  //     this.toastService.show(new Alert(AlertType.DANGER, 'Error creating user'));
-  //   });
-  // }
-
-
   saveCustomer() {
-
-
-    //
-    // console.log(this.translatedData.branch.en, 'asdasdasdasd');
-
     this.submitted = true;
-    // if (this.userConfigForm.invalid) {
-    //   return;
-    // }
     this.spinner = true;
-
-
-    // this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
-    // this.customer.customerCode = this.userConfigForm.get('customerCode').value;
-    // this.customer.customerName = this.userConfigForm.get('name').value;
-    // this.customer.customerCode = this.userConfigForm.get('customerCode').value;
-    // this.customer.province = this.userConfigForm.get('province').value;
-    // this.customer.district = this.userConfigForm.get('district').value;
-    // this.customer.municipalities = this.userConfigForm.get('municipalities').value;
-    // this.customer.wardNumber = this.userConfigForm.get('wardNumber').value;
-    // this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
-    // this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
-    // this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipalities').value;
-    // this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWardNumber').value;
-    // this.customer.contactNumber = this.userConfigForm.get('contactNumber').value;
-    // this.customer.email = this.userConfigForm.get('email').value;
-    // this.customer.dob = this.userConfigForm.get('dob').value;
-    // this.customer.initialRelationDate = this.userConfigForm.get('initialRelationDate').value;
-    // this.customer.citizenshipNumber = this.userConfigForm.get('citizenshipNumber').value;
-    // this.customer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssuedPlace').value;
-    // this.customer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssuedDate').value;
-    // this.customer.clientType = this.userConfigForm.get('clientType').value;
-    // this.customer.subsectorDetail = this.userConfigForm.get('subsectorDetail').value;
-    // this.customer.gender = this.userConfigForm.get('gender').value;
-    // this.customer.maritalStatus = this.userConfigForm.get('maritalStatus').value;
-    // this.customer.customerLegalDocumentAddress = this.userConfigForm.get('customerLegalDocumentAddress').value;
-
-
     const clientType = this.userConfigForm.get('clientType').value;
     this.oneFormCustomer.customerCode = this.userConfigForm.get('customerCode').value;
     this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
@@ -319,13 +280,29 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
+    const customer = {
+        relationMedium: this.userConfigForm.get('relationMedium').value,
+        husbandName: this.userConfigForm.get('husbandName').value,
+        fatherInLawName: this.userConfigForm.get('fatherInLawName').value,
+        grandFatherName: this.userConfigForm.get('grandFatherName').value,
+        fatherName: this.userConfigForm.get('fatherName').value,
+        municipalityOrVdc: this.userConfigForm.get('municipalityOrVdc').value
+    };
+    this.oneFormCustomer.individualJsonData = JSON.stringify(customer);
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
-
-
-      this.oneFormCustomer.dob = this.dateTypeBS ? this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate) :
-          this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value);
-    this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value.name;
-    this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
+    const dobDateType = this.userConfigForm.get('dobDateType').value;
+    if (dobDateType === 'AD') {
+        this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
+    } else {
+        this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
+    }
+    const issuedDate = this.userConfigForm.get('issuedDate').value;
+    if (issuedDate === 'AD') {
+        this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
+    } else {
+        this.oneFormCustomer.citizenshipIssuedDate = new Date(this.userConfigForm.get('citizenshipIssueDate').value.eDate);
+    }
+    this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
     this.oneFormCustomer.province = this.userConfigForm.get('permanentProvince').value;
     this.oneFormCustomer.district = this.userConfigForm.get('permanentDistrict').value;
     this.oneFormCustomer.municipalities = this.userConfigForm.get('permanentMunicipality').value;
@@ -334,84 +311,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
-
-    // this.company.establishmentDate = this.userConfigForm.get('registrationDate').value;
-    // this.company.companyLegalDocumentAddress = JSON.stringify(
-    //     this.userConfigForm.get('registeredMunicipality').value +
-    //     this.userConfigForm.get('registeredMunType').value +
-    //     this.userConfigForm.get('registeredDistrict').value +
-    //     this.userConfigForm.get('registeredProvince').value
-    // );
-    // this.companyLocations.address = this.userConfigForm.get('currentMunType').value +
-    //     this.userConfigForm.get('currentProvince').value +
-    //     this.userConfigForm.get('currentWard').value +
-    //     this.userConfigForm.get('currentDistrict').value +
-    //     this.userConfigForm.get('currentMunicipality').value;
-    //
-    // this.company.companyLocations = this.companyLocations;
-    // this.company.registeredMunicipality = this.userConfigForm.get('registeredMunicipality').value;
-    // this.company.registeredMunType = this.userConfigForm.get('registeredMunType').value;
-    // this.company.registeredDistrict = this.userConfigForm.get('registeredDistrict').value;
-    // this.company.registeredProvince = this.userConfigForm.get('registeredProvince').value;
-    // this.company.currentMunType = this.userConfigForm.get('currentMunType').value;
-    // this.company.currentProvince = this.userConfigForm.get('currentProvince').value;
-    // this.company.currentWard = this.userConfigForm.get('currentWard').value;
-    // this.company.currentDistrict = this.userConfigForm.get('currentDistrict').value;
-    // this.company.currentMunicipality = this.userConfigForm.get('currentMunicipality').value;
-    // this.company.customerCode = this.userConfigForm.get('customerCode').value;
-
-
-    // this.company.fatherName = this.userConfigForm.get('fatherName').value;
-    // this.company.grandFatherName = this.userConfigForm.get('grandFatherName').value;
-    // this.company.relationMedium = this.userConfigForm.get('relationMedium').value;
-    // this.company.husbandName = this.userConfigForm.get('husbandName').value;
-    // this.company.fatherInLawName = this.userConfigForm.get('fatherInLawName').value;
-    // this.company.panNumber = this.userConfigForm.get('panNo').value;
-    // this.company.province = this.userConfigForm.get('permanentProvince').value;
-    // this.company.district = this.userConfigForm.get('permanentDistrict').value;
-    // this.company.municipalities = this.userConfigForm.get('permanentMunicipality').value;
-    // this.company.wardNumber = this.userConfigForm.get('permanentWard').value;
-    // this.company.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
-    // this.company.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
-    // this.company.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
-    // this.company.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
-    // this.company.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
-    // this.company.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
-
-    // this.customer.province = this.userConfigForm.get('permanentProvince').value;
-    // this.customer.district = this.userConfigForm.get('permanentDistrict').value;
-    // this.customer.municipalities = this.userConfigForm.get('permanentMunicipality').value;
-    // this.customer.wardNumber = this.userConfigForm.get('permanentWard').value;
-    // this.customer.temporaryProvince = this.userConfigForm.get('temporaryProvince').value;
-    // this.customer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
-    // this.customer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
-    // this.customer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
-
-    // this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
-    // const occupations = {
-    //   multipleOccupation: this.userConfigForm.get('occupation').value,
-    //   otherOccupation: this.userConfigForm.get('otherOccupation').value
-    // };
-    // const incomeSource = {
-    //   multipleIncome: this.userConfigForm.get('incomeSource').value,
-    //   otherIncome: this.userConfigForm.get('otherIncome').value
-    // };
-    // this.customer.occupation = JSON.stringify(occupations);
-    // this.customer.incomeSource = JSON.stringify(incomeSource);
-    // this.customer.introduction = this.userConfigForm.get('introduction').value;
-    // this.customer.version = this.userConfigForm.get('version').value;
-    // const rawFromValue = this.userConfigForm.getRawValue();
-    // this.customer.customerRelatives = rawFromValue.customerRelatives;
-
-    /** banking relation setting data from child **/
-    // possibly can have more field in banking relationship
-    // this.customer.bankingRelationship = JSON.stringify(this.userConfigForm.get('bankingRelationship').value);
-    // this.customer.netWorth = this.userConfigForm.get('netWorth').value;
-
-    /** Remaining static read-write only data*/
-    //  this.customer.individualJsonData = this.setIndividualJsonData();
-
-    // this.customer.isMicroCustomer = this.microCustomer;
 
     Object.keys(this.userConfigForm.controls).forEach(key => {
       console.log(key);
@@ -422,20 +321,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         return;
       }
       this.attributes = new Attributes();
-      console.log(key);
-      console.log(this.userConfigForm.get(key).value);
       this.attributes.en = this.userConfigForm.get(key).value;
       this.attributes.np = this.translatedValues[key];
       this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
       this.translatedData[key] = this.attributes;
-      console.log(this.translatedData);
     });
-
-    // const translationMap = new Map<String, Attributes>();
-
-    // const obj = Object.fromEntries(map);
-
-    // @ts-ignore
     const data = {
       branch: this.userConfigForm.get('branch').value,
       customerType: clientType,
@@ -443,10 +333,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
       translatedData: this.translatedData
     };
-    //  data.translatedData = JSON.stringify(jsonObject);
-    console.log('final data:::::', data);
-    console.log(this.oneFormCustomer);
-    console.log(this.userConfigForm.value);
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
@@ -455,40 +341,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.responseData = res.detail;
       this.activeCustomerTab = false;
       this.activeLoanTab = true;
+      this.dialogRef.close();
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
-
-    // const data = JSON.stringify(this.userConfigForm.value);
-    // this.customerInfoService.updateNepaliConfigData(data, this.customerInfo.id).subscribe(res => {
-    //   this.customerInfoData = res.detail;
-    //   this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
-    //   this.spinner = false;
-    //   this.dialogRef.close(this.customerInfoData);
-    //   this.refreshPage();
-    // }, error => {
-    //   this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
-    //   console.log(error);
-    //   this.spinner = false;
-    //   this.dialogRef.close();
-    // });
-
   }
 
   closeModal() {
     this.dialogRef.close();
-  }
-
-  controlValidation(controlNames, addValidation) {
-    controlNames.forEach(s => {
-      if (addValidation) {
-        this.userConfigForm.get(s).setValidators(Validators.required);
-      } else {
-        this.userConfigForm.get(s).clearValidators();
-      }
-      this.userConfigForm.get(s).updateValueAndValidity();
-    });
   }
 
   addGuarantor() {
@@ -704,5 +565,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     setDateTypeAD(){
         this.dateTypeBS = false;
         this.dateTypeAD = true;
+    }
+
+    checkboxVal(event, formControlName) {
+        // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+        //   const val = this.translatedValues[formControlName];
+        //   this.form.get(formControlName + 'TransVal').patchValue(val);
+        // }
+        const checkVal = event.target.checked;
+        this[formControlName + 'Check'] = checkVal;
+        console.log('checked Value', this[formControlName + 'Check']);
+        if (!checkVal) {
+            this.clearForm(formControlName + 'CT');
+        }
+    }
+
+    clearForm(controlName) {
+        this.userConfigForm.get(controlName).setValue(null);
     }
 }

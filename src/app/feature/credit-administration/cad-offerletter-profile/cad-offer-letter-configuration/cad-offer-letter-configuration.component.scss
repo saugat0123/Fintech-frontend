@@ -19,20 +19,11 @@ input, select {
   td:first-child {
     text-align: right;
   }
-
-  &.table-4 {
-    td {
-      width: 25%;
-    }
-  }
-
   &.table-3 {
     td {
       width: 33%;
     }
   }
-
-
   .small {
     nb-select.appearance-outline.size-medium .select-button {
       margin-left: 0 !important;
@@ -64,3 +55,4 @@ input, select {
     }
   }
 }
+
