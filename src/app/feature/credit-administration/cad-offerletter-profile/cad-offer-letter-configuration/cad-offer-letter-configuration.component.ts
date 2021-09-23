@@ -35,6 +35,7 @@ import {AddressService} from '../../../../@core/service/baseservice/address.serv
 import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -47,10 +48,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
+  @Input() loanHolder: CustomerInfoData;
+  @Input() oneFormCustomer: OneFormCustomerDto;
   // @Input() customer: Customer;
   @Output()
   customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
   @ViewChild('loan-create', {static: true}) loanCreateComponent: LoanCreateComponent;
+  @Input() actionType;
+  @Input()
+  activeLoanTab = false;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
   branchList: Array<Branch> = new Array<Branch>();
@@ -69,7 +75,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   company: CompanyInfo = new CompanyInfo();
   companyLocations: CompanyLocations = new CompanyLocations();
   disableLoanFacility = true;
-  oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
+  // oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
   calendarType = CalendarType.AD;
   disableTemplateData = true;
   disableLoanTab = true;
@@ -77,7 +83,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   responseData: any;
   disableSave = true;
   activeCustomerTab = true;
-  activeLoanTab = false;
   activeTemplateDataTab = true;
   addressSameAsAbove = false;
   provinceList: Array<Province> = new Array<Province>();
@@ -125,6 +130,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.tempProvinceList = response.detail;
         });
 
+    if(!ObjectUtil.isEmpty(this.oneFormCustomer)){
+        this.getAllEditedDistrictAndMunicipalities();
+        this.dateTypeAD = true;
+    } else {
+        this.oneFormCustomer = new OneFormCustomerDto();
+    }
+
     this.addressService.getAllDistrict().subscribe( (resp: any) => {
       this.allDistrictList = resp.detail;
     });
@@ -152,13 +164,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       branchCT: [undefined],
       clientType: [undefined],
       clientTypeCT: [undefined],
-      name: [undefined],
+      name: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName],
       nameCT: [undefined],
-      email: [undefined],
+      email: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.email],
       emailCT: [undefined],
-      contactNo: [undefined],
+      contactNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber],
       contactNoCT: [undefined],
-      panNo: [undefined],
+      panNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.panNumber],
       panNoCT: [undefined],
       registrationNo: [undefined],
       registrationNoCT: [undefined],
@@ -186,7 +198,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       customerCodeCT: [undefined],
 
 
-      gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
+      gender: [undefined],
       genderCT: [undefined],
       fatherName: [undefined],
       fatherNameCT: [undefined],
@@ -198,33 +210,33 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       husbandNameCT: [undefined],
       fatherInLawName: [undefined],
       fatherInLawNameCT: [undefined],
-      citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
+      citizenshipNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber],
       citizenshipNoCT: [undefined],
       dob: [undefined],
       dobCT: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentProvinceCT: [undefined],
-      permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
+      permanentProvince: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province],
       // tslint:disable-next-line:max-line-length
-      permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
+      permanentDistrict: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district],
       permanentDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
-      permanentMunicipalityCT: [undefined],
+      permanentMunicipality: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities],
+        permanentMunicipalityCT: [undefined],
       permanentMunType: [0],
       permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
-      temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
-      temporaryProvinceCT: [undefined],
+      temporaryProvince: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince],
+        temporaryProvinceCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
-      temporaryDistrictCT: [undefined],
+      temporaryDistrict: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict],
+        temporaryDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
-      temporaryMunicipalityCT: [undefined],
-      permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
+      temporaryMunicipality: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities],
+        temporaryMunicipalityCT: [undefined],
+      permanentWard: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber],
       permanentWardCT: [undefined],
-      temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
+      temporaryWard: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber],
       temporaryWardCT: [undefined],
       temporaryMunType: [1],
       temporaryMunTypeCT: [undefined],
@@ -341,7 +353,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.responseData = res.detail;
       this.activeCustomerTab = false;
       this.activeLoanTab = true;
-      this.dialogRef.close();
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -497,6 +508,59 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     );
   }
 
+    getAllEditedDistrictAndMunicipalities() {
+        if (this.oneFormCustomer.province !== null) {
+            const province = new Province();
+            province.id = this.oneFormCustomer.province.id;
+            this.addressService.getDistrictByProvince(province).subscribe(
+                (response: any) => {
+                    this.districts = response.detail;
+                    this.districts.sort((a, b) => a.name.localeCompare(b.name));
+                }
+            );
+        }
+
+        if (this.oneFormCustomer.district !== null) {
+            const district = new District();
+            district.id = this.oneFormCustomer.district.id;
+            this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+                (response: any) => {
+                    this.municipalities = response.detail;
+                    this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+                    if (event !== null) {
+                        this.userConfigForm.get('permanentMunicipality').patchValue(null);
+                    }
+                }
+            );
+        }
+
+        if (this.oneFormCustomer.temporaryProvince !== null) {
+            const province = new Province();
+            province.id = this.oneFormCustomer.temporaryProvince.id;
+            this.addressService.getDistrictByProvince(province).subscribe(
+                (response: any) => {
+                    this.tempDistricts = response.detail;
+                    this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
+                }
+            );
+        }
+
+      if (this.oneFormCustomer.temporaryDistrict !== null) {
+          const district = new District();
+          district.id = this.oneFormCustomer.temporaryDistrict.id;
+          this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+              (response: any) => {
+                  this.tempMunicipalities = response.detail;
+                  this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+                  if (event !== null) {
+                      this.userConfigForm.get('temporaryMunicipality').patchValue(null);
+                  }
+              }
+          );
+      }
+  }
+
+
   getTempDistrictsById(provinceId: number, event) {
     console.log(provinceId);
     const province = new Province();
@@ -557,14 +621,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
   }
 
-    setDateTypeBS(){
-        this.dateTypeBS = true;
-        this.dateTypeAD = false;
-    }
-
-    setDateTypeAD(){
-        this.dateTypeBS = false;
-        this.dateTypeAD = true;
+    selectDateType(event) {
+        if (event === 'BS') {
+            this.dateTypeBS = true;
+            this.dateTypeAD = false;
+        }
+        if (event === 'AD') {
+            this.dateTypeBS = false;
+            this.dateTypeAD = true;
+        }
     }
 
     checkboxVal(event, formControlName) {

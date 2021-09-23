@@ -13,6 +13,7 @@ import {Proprietors} from '../../admin/modal/proprietors';
 import {BusinessType} from '../../admin/modal/businessType';
 
 export class OneFormCustomerDto {
+    customerInfoId: number;
     customerCode: string;
     customerName: string;
     dob: Date;
@@ -64,7 +65,6 @@ export class OneFormCustomerDto {
     contactPersons: string;
     profilePic: string;
     issuePlace: string;
-    contactNum: string;
     experience: string;
     succession: string;
     companyJsonData: string;
