@@ -56,13 +56,31 @@
                     <th>Correct Translation</th>
                 <tr>
                     <td>Date Of Approval</td>
-                    <td><input type="text" class="form-control" formControlName="dateOfApproval"/></td>
-                    <td class="abc">{{translatedData?.dateOfApproval}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'dateOfApproval')"></nb-checkbox>
+                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                            <nb-radio-group name="dataOfApproval">
+                                <nb-radio (click)="setDateTypeBS()"><span style="margin-left:-60px">BS</span></nb-radio>
+                                <nb-radio (click)="setDateTypeAD()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                            </nb-radio-group>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                     </td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['dateOfApprovalCheck']" formControlName="dateOfApprovalTransVal"/>
+                        <nepali-patro *ngIf="dateTypeBS" formControlName="dateOfApproval" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input [nbDatepicker]="doa"
+                               *ngIf="dateTypeAD"
+                               class="form-control form-control-sm-error rounded"
+                               formControlName="dateOfApproval"
+                               id="dateOfApproval"
+                               name="dateOfApproval"
+                               placeholder="Date of Approval"
+                               type="text">
+                        <nb-datepicker #doa></nb-datepicker>
                     </td>
                 </tr>
                 <tr>
@@ -76,15 +94,35 @@
                         <input type="text" class="form-control nepaliFont" [readOnly]="!this['referenceNumberCheck']" formControlName="referenceNumberTransVal"/>
                     </td>
                 </tr>
-                <tr>
+                <tr style="padding: 12px">
                     <td>Date Of Application</td>
-                    <td><input type="text" class="form-control" formControlName="dateOfApplication"/></td>
-                    <td class="abc">{{translatedData?.dateOfApplication}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'dateOfApplication')"></nb-checkbox>
+                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                            <nb-radio-group name="dataOfApplication">
+                                <nb-radio (click)="setDateTypeBS1()"><span style="margin-left:-60px">BS</span></nb-radio>
+                                <nb-radio (click)="setDateTypeAD1()" style="margin-left: 60px;margin-top: -35px;">
+                                    AD
+                                </nb-radio>
+                            </nb-radio-group>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                     </td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['dateOfApplicationCheck']" formControlName="dateOfApplicationTransVal"/>
+                        <nepali-patro *ngIf="dateTypeBS1" formControlName="dateOfApplication" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input [nbDatepicker]="doap"
+                               *ngIf="dateTypeAD1"
+                               class="form-control form-control-sm-error rounded"
+                               formControlName="dateOfApplication"
+                               id="dateOfApplication"
+                               name="dateOfApplication"
+                               placeholder="Date of Application"
+                               type="text">
+                        <nb-datepicker #doap></nb-datepicker>
                     </td>
                 </tr>
                 <tr>
