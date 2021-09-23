@@ -30,7 +30,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   selectedCountryVal;
   embassyName;
   spinner = false;
-  finalSavedFlag: boolean;
   loanLimit = false;
   existingOfferLetter = false;
   btnDisable = true;
@@ -189,6 +188,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
             this.attributes.np = this.tdValues[key];
             this.tdValues[key] = this.attributes;
           });
+          this.translatedData = {};
           offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
       }
@@ -197,6 +197,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
           this.spinner = false;
           this.previewBtn = this.btnDisable = false;
+          this.openModel();
       }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
