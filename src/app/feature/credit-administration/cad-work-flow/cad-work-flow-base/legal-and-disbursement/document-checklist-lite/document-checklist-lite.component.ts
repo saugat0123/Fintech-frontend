@@ -56,7 +56,7 @@ export class DocumentChecklistLiteComponent implements OnInit {
 
     ngOnInit() {
         this.displaySelectedData();
-        this.initial();
+        // this.initial();
 
     }
 

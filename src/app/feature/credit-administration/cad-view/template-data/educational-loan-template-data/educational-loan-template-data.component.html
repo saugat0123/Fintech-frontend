@@ -587,16 +587,16 @@
             </table>
         </div>
     </form>
-    <button [disabled]="previewBtn"
-            class="float-right" nbButton
-            (click)="openModel()"
-            status="primary">
-        Preview
-    </button>
+<!--    <button [disabled]="previewBtn"-->
+<!--            class="float-right" nbButton-->
+<!--            (click)="openModel()"-->
+<!--            status="primary">-->
+<!--        Preview-->
+<!--    </button>-->
+    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Save & Preview</button>
     <button nbButton size="medium" class="float-right" (click)="translate()" [disabled]="!fieldFlag">
         Translate
     </button>
-    <button nbButton status="info" (click)="submit()" size="medium" type="submit" class="float-right" [disabled]="btnDisable">Submit</button>
 
 </div>
 
