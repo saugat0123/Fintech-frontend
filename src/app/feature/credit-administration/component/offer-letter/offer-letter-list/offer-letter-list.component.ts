@@ -13,6 +13,7 @@ import {UserService} from '../../../../../@core/service/user.service';
 import {Stage} from '../../../../loan/model/stage';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHierarchy';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -22,7 +23,7 @@ import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHiera
 export class OfferLetterListComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
-  searchObj = {docStatus: 'OFFER_PENDING', toUser: ''};
+  searchObj = {docStatus: CadDocStatus.OFFER_AND_LEGAL_PENDING, toUser: ''};
   page = 1;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -53,7 +54,7 @@ export class OfferLetterListComponent implements OnInit {
       this.defaultCommunityUser = res.detail.id;
     });
     other.searchObj = {
-      docStatus: 'OFFER_PENDING',
+      docStatus: CadDocStatus.OFFER_AND_LEGAL_PENDING,
       toUser: this.defaultCommunityUser,
     };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
