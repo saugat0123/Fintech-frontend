@@ -17,6 +17,7 @@ import {UpdateCustomerCadInfoComponent} from './update-customer-cad-info/update-
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {LoanDataHolder} from '../../loan/model/loanData';
+import {NabilOfferLetterConst} from '../nabil-offer-letter-const';
 
 
 
@@ -63,8 +64,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.initial();
-                this.offerLetterTypes = MegaOfferLetterConst.enumObject();
-                this.offerLetterConst = MegaOfferLetterConst;
+                this.offerLetterTypes = NabilOfferLetterConst.enumObject();
+                this.offerLetterConst = NabilOfferLetterConst;
                 this.component = CadOfferLetterModalComponent;
     }
 

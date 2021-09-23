@@ -1,8 +1,13 @@
-<div id="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}" xmlns="http://www.w3.org/1999/html">
+<div id="{{offerLetterConst.EDUCATIONAL}}" xmlns="http://www.w3.org/1999/html">
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="Saving Educational Loan offer letter.....">
+        <nb-card-header *ngIf="preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
         <nb-card-body>
             <div class="row">
                 <div class="col-sm-12">
@@ -15,11 +20,13 @@
                                 <p>
                                     मितिः <input class="form-field form-control-sm nepaliFont"
                                                  formControlName="dateOfApproval"
+                                                 [value]="initialInfoPrint.dateOfApproval.np === undefined ? '' : initialInfoPrint.dateOfApproval.np "
                                                  type="text"/>
                                 </p>
                                 <p>
-                                    कर्जा सख्याः <input class="form-field form-control-sm nepaliFont"
+                                    कर्जा सख्याः <input class="form-field form-control-sm"
                                                         formControlName="referenceNumber"
+                                                        [value]="initialInfoPrint.referenceNumber.np === undefined ? '' : initialInfoPrint.referenceNumber.np "
                                                         type="text"/>
                                 </p>
                             </div>
@@ -27,7 +34,8 @@
                                 <p>
                                     श्री <input class="form-field form-control-sm nepaliFont col-3"
                                                 formControlName="nameOfCustomer"
-                                                type="text"/>
+                                                type="text"
+                                                value="{{loanHolderInfo.name.np}}"/>
                                 </p>
                                 <p>
                                     <input class="form-field form-control-sm nepaliFont col-3"
@@ -46,6 +54,7 @@
                                     तपाईंले मिति
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="dateOfApplication"
+                                           [value]="initialInfoPrint.dateOfApplication.np === undefined ? '' : initialInfoPrint.dateOfApplication.np "
                                            type="text"/>
                                     मा शैक्षिक कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा
                                     यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
@@ -70,6 +79,7 @@
                                             शैक्षिक कर्जा
                                             <input class="form-field form-control-sm nepaliFont"
                                                    formControlName="purposeOfLoan"
+                                                   [value]="initialInfoPrint.purposeOfLoan.np === undefined ? '' : initialInfoPrint.purposeOfLoan.np "
                                                    type="text"/>
                                             गर्ने प्रयोजनका निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                                         </td>
@@ -100,15 +110,18 @@
                                             राखिदिने रु
                                             <input class="form-field form-control-sm nepaliFont"
                                                    formControlName="fixedDepositReceiptAmountFigure"
+                                                   [value]="initialInfoPrint.fixedDepositReceiptAmountFigure.np === undefined ? '' : initialInfoPrint.fixedDepositReceiptAmountFigure.np "
                                                    (change)="getNumAmountWord('fixedDepositReceiptAmountFigure', 'fixedDepositReceiptAmountWords')"
                                                    type="text"/>/-
                                             (अक्षरेपि रु
                                             <input class="form-field form-control-sm nepaliFont longInput uniSize"
                                                    formControlName="fixedDepositReceiptAmountWords"
+                                                   [value]="initialInfoPrint.fixedDepositReceiptAmountWords.np === undefined ? '' : initialInfoPrint.fixedDepositReceiptAmountWords.np "
                                                    type="text"/>
                                             मात्र ) बराबरको मुद्धति रसिद
                                             <input class="form-field form-control-sm nepaliFont"
                                                    formControlName="fixedDepositAmountNumber"
+                                                   [value]="initialInfoPrint.fixedDepositAmountNumber.np === undefined ? '' : initialInfoPrint.fixedDepositAmountNumber.np "
                                                    type="text"/>
                                             को ९० प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
                                             गर्न सकिनेछ ।
@@ -126,6 +139,7 @@
                                                 द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value) कोे
                                                 <input class="form-field form-control-sm nepaliFont shortInput"
                                                        formControlName="distressValue"
+                                                       [value]="initialInfoPrint.distressValue.np === undefined ? '' : initialInfoPrint.distressValue.np "
                                                        type="text"/>
                                                 प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम
                                                 हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
@@ -141,11 +155,13 @@
                                             rate whichever is higher)
                                             <input class="form-field form-control-sm nepaliFont shortInput"
                                                    formControlName="baseRate"
+                                                   [value]="initialInfoPrint.baseRate.np === undefined ? '' : initialInfoPrint.baseRate.np "
                                                    (input)="calculateData('baseRate', 'premiumRate')"
                                                    type="text"/>
                                             +
                                             <input class="form-field form-control-sm nepaliFont shortInput"
                                                    formControlName="premiumRate"
+                                                   [value]="initialInfoPrint.premiumRate.np === undefined ? '' : initialInfoPrint.premiumRate.np "
                                                    (input)="calculateData('baseRate', 'premiumRate')"
                                                    type="text"/>
                                             प्रतिशत ब्याज दर प्रिमियम
@@ -153,6 +169,7 @@
                                             (Floating Interest Rate) बार्षिक
                                             <input class="form-field form-control-sm nepaliFont shortInput uniSize"
                                                    formControlName="interestRate"
+                                                   [value]="initialInfoPrint.interestRate.np === undefined ? '' : initialInfoPrint.interestRate.np "
                                                    type="text"/> % का दर निर्धारण गरीएकोछ र सो ब्याज रकम
                                             नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा वा
                                             ऋण स्विकृत पत्रमा उल्लेख
@@ -171,9 +188,11 @@
                                                 <input class="form-field form-control-sm nepaliFont shortInput"
                                                        (input)="calculateData('baseRate', 'premiumRate')"
                                                        formControlName="baseRate"
+                                                       [value]="initialInfoPrint.baseRate.np === undefined ? '' : initialInfoPrint.baseRate.np "
                                                        type="text"/> +
                                                 <input class="form-field form-control-sm nepaliFont shortInput"
                                                        formControlName="premiumRate"
+                                                       [value]="initialInfoPrint.premiumRate.np === undefined ? '' : initialInfoPrint.premiumRate.np "
                                                        (input)="calculateData('baseRate', 'premiumRate')"
                                                        type="text"/> प्रतिशत व्याज दर प्रिमियम
                                                 (Interest Premium Rate)
@@ -181,6 +200,7 @@
                                                 (Floating Interest Rate)बार्षिक
                                                 <input class="form-field form-control-sm nepaliFont shortInput uniSize"
                                                        formControlName="interestRate"
+                                                       [value]="initialInfoPrint.interestRate.np === undefined ? '' : initialInfoPrint.interestRate.np "
                                                        type="text"/> का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
                                             </td>
                                         </tr>
@@ -194,10 +214,12 @@
                                                 ऋण प्रशासनिक शुल्क बापत रु
                                                 <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="loanAdminFeeFigure"
+                                                       [value]="initialInfoPrint.loanAdminFeeFigure.np === undefined ? '' : initialInfoPrint.loanAdminFeeFigure.np "
                                                        (change)="getNumAmountWord('loanAdminFeeFigure', 'loanAdminFeeWords')"
                                                        type="text"/> /- (अक्षरेपी रु
                                                 <input class="form-field form-control-sm nepaliFont longInput uniSize"
                                                        formControlName="loanAdminFeeWords"
+                                                       [value]="initialInfoPrint.loanAdminFeeWords.np === undefined ? '' : initialInfoPrint.loanAdminFeeWords.np "
                                                        type="text"/>
                                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                                 कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त
@@ -217,10 +239,12 @@
                                                         ऋण प्रशासनिक शुल्क बापत
                                                         <input class="form-field form-control-sm nepaliFont"
                                                                formControlName="loanAdminFeeFigure"
+                                                               [value]="initialInfoPrint.loanAdminFeeFigure.np === undefined ? '' : initialInfoPrint.loanAdminFeeFigure.np "
                                                                (change)="getNumAmountWord('loanAdminFeeFigure', 'loanAdminFeeWords')"
                                                                type="text"/> ।(अक्षरेपी रु
                                                         <input class="form-field form-control-sm nepaliFont longInput uniSize"
                                                                formControlName="loanAdminFeeWords"
+                                                               [value]="initialInfoPrint.loanAdminFeeWords.np === undefined ? '' : initialInfoPrint.loanAdminFeeWords.np "
                                                                type="text"/> मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ । कर्जा
                                                         सूचना केन्द्र लिमिटेडबाट
                                                         सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना,
@@ -262,14 +286,17 @@
                                                 साञवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                                 <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="emiAmountFigure"
+                                                       [value]="initialInfoPrint.emiAmountFigure.np === undefined ? '' : initialInfoPrint.emiAmountFigure.np "
                                                        (change)="getNumAmountWord('emiAmountFigure', 'emiAmountWords')"
                                                        type="text"/>
                                                 (अक्षरेपि रु.
                                                 <input class="form-field form-control-sm nepaliFont longInput uniSize"
                                                        formControlName="emiAmountWords"
+                                                       [value]="initialInfoPrint.emiAmountWords.np === undefined ? '' : initialInfoPrint.emiAmountWords.np "
                                                        type="text"/> मात्र) का दरले
                                                 <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="loanPeriodInMonths"
+                                                       [value]="initialInfoPrint.loanPeriodInMonths.np === undefined ? '' : initialInfoPrint.loanPeriodInMonths.np "
                                                        type="text"/>
                                                 मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता
                                                 भुक्तानी गर्नु पर्नेछ ।
@@ -278,6 +305,7 @@
                                                 </u>
                                                 <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="moratoriumPeriodInMonths"
+                                                       [value]="initialInfoPrint.moratoriumPeriodInMonths.np === undefined ? '' : initialInfoPrint.moratoriumPeriodInMonths.np "
                                                        type="text"/> महिनाको ऋण भुक्तानी स्थगन अवधि ( Moratorium Period ) पछिको
                                                 महिना देखि अञग्रेजी पात्रोको
                                                 प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले
@@ -294,6 +322,7 @@
                                             सिमामा
                                             <input class="form-field form-control-sm nepaliFont smallInput"
                                                    formControlName="loanCommitmentFeeInPercentage"
+                                                   [value]="initialInfoPrint.loanCommitmentFeeInPercentage.np === undefined ? '' : initialInfoPrint.loanCommitmentFeeInPercentage.np "
                                                    type="text"/> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                                         </td>
                                     </tr>
@@ -368,17 +397,21 @@
                                     क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको श्री
                                     <input class="form-field form-control-sm nepaliFont col-3"
                                            formControlName="fixedDepositHolderName"
+                                           [value]="initialInfoPrint.fixedDepositHolderName.np === undefined ? '' : initialInfoPrint.fixedDepositHolderName.np "
                                            type="text"/> को
                                     नाममा रहेको रु.
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="fixedDepositAmountFigure"
+                                           [value]="initialInfoPrint.fixedDepositAmountFigure.np === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.np "
                                            type="text"/>/– बराबरको
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="tenureFixedDeposit"
+                                           [value]="initialInfoPrint.tenureFixedDeposit.np === undefined ? '' : initialInfoPrint.tenureFixedDeposit.np "
                                            type="text"/> बर्षे मुद्धति
                                     रसिद नं.
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="tenureDepositReceiptNumber"
+                                           [value]="initialInfoPrint.tenureDepositReceiptNumber.np === undefined ? '' : initialInfoPrint.tenureDepositReceiptNumber.np "
                                            type="text"/> उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न
                                     सक्ने अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ ।
                                     मुद्धति निक्षेप कर्जा समाप्ति
@@ -429,39 +462,46 @@
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont table-input"
                                                            formControlName="ownersName"
+                                                           [value]="initialInfoPrint.ownersName.np === undefined ? '' : initialInfoPrint.ownersName.np "
                                                            type="text"/>
                                                 </td>
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont table-input"
                                                            formControlName="district"
+                                                           [value]="initialInfoPrint.district.np === undefined ? '' : initialInfoPrint.district.np "
                                                            type="text"/>
                                                 </td>
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont table-input"
                                                            formControlName="municipality"
+                                                           [value]="initialInfoPrint.municipality.np === undefined ? '' : initialInfoPrint.municipality.np "
                                                            type="text"/>
                                                 </td>
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont table-input"
                                                            size="5"
                                                            formControlName="wardNo"
+                                                           [value]="initialInfoPrint.wardNo.np === undefined ? '' : initialInfoPrint.wardNo.np "
                                                            type="text"/>
                                                 </td>
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont smallInput table-input"
                                                            size="5"
                                                            formControlName="seatNo"
+                                                           [value]="initialInfoPrint.seatNo.np === undefined ? '' : initialInfoPrint.seatNo.np "
                                                            type="text"/>
                                                 </td>
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont table-input"
                                                            size="5"
                                                            formControlName="kittaNo"
+                                                           [value]="initialInfoPrint.kittaNo.np === undefined ? '' : initialInfoPrint.kittaNo.np "
                                                            type="text"/>
                                                 </td>
                                                 <td>
                                                     <input class="form-field form-control-sm nepaliFont table-input"
                                                            formControlName="landArea"
+                                                           [value]="initialInfoPrint.landArea.np === undefined ? '' : initialInfoPrint.landArea.np "
                                                            type="text"/>
                                                 </td>
                                             </tr>
@@ -477,10 +517,12 @@
                                     रु
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="guaranteedAmountFigure"
+                                           [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
                                            (change)="getNumAmountWord('guaranteedAmountFigure', 'guaranteedAmountWords')"
                                            type="text"/> /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm nepaliFont longInput uniSize"
                                                formControlName="guaranteedAmountWords"
+                                               [value]="initialInfoPrint.guaranteedAmountWords.np === undefined ? '' : initialInfoPrint.guaranteedAmountWords.np "
                                                type="text"/> मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
                             </div>
@@ -673,6 +715,7 @@
                                             नबिल बैंक लिमिटेडको,
                                             <input class="form-field form-control-sm nepaliFont"
                                                    formControlName="nameOfBranch"
+                                                   [value]="initialInfoPrint.nameOfBranch.np === undefined ? '' : initialInfoPrint.nameOfBranch.np "
                                                    type="text"/> शाखामा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
                                         </td>
                                     </tr>
@@ -1010,6 +1053,7 @@
                                                     क. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="promissoryNoteAmount"
+                                                           [value]="initialInfoPrint.promissoryNoteAmount.np === undefined ? '' : initialInfoPrint.promissoryNoteAmount.np "
                                                            type="text"/> /- को प्रतिज्ञा पत्र ।
                                                 </p>
                                                 <p class="highlited-Color">
@@ -1022,18 +1066,22 @@
                                                     घ. श्री
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guaranteedAmountWords"
+                                                           [value]="initialInfoPrint.guaranteedAmountWords.np === undefined ? '' : initialInfoPrint.guaranteedAmountWords.np "
                                                            type="text"/> /- को रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guaranteedAmountFigure"
+                                                           [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
                                                            type="text"/> /- बराबरको
                                                     व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
                                                 <p class="highlited-Color">ह्. श्री
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="nameOfFixedDeposit"
+                                                           [value]="initialInfoPrint.nameOfFixedDeposit.np === undefined ? '' : initialInfoPrint.nameOfFixedDeposit.np "
                                                            type="text"/> /- को रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="fixedDepositAmountFigure"
+                                                           [value]="initialInfoPrint.fixedDepositAmountFigure.np === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.np "
                                                            type="text"/>/ को सक्कल मुद्दती रसिद ।</p>
 
                                             </div>
@@ -1042,12 +1090,14 @@
                                                     क. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="promissoryNoteAmount"
+                                                           [value]="initialInfoPrint.promissoryNoteAmount.np === undefined ? '' : initialInfoPrint.promissoryNoteAmount.np "
                                                            type="text"/> को प्रतिज्ञा पत्र ।
                                                 </p>
                                                 <p class="highlited-Color">
                                                     ख. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="loanDeedAmount"
+                                                           [value]="initialInfoPrint.loanDeedAmount.np === undefined ? '' : initialInfoPrint.loanDeedAmount.np "
                                                            type="text"/>
                                                     ऋणकर्जा तमसुक ।
                                                 </p>
@@ -1058,12 +1108,14 @@
                                                     घ. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="pledgeAmountFigure"
+                                                           [value]="initialInfoPrint.pledgeAmountFigure.np === undefined ? '' : initialInfoPrint.pledgeAmountFigure.np "
                                                            type="text"/> /- को धितो बन्धक तमसुक ।
                                                 </p>
                                                 <p class="highlited-Color">
                                                     ह्. रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guaranteedAmountFigure"
+                                                           [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
                                                            type="text"/> बराबरकोे श्री
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guarantorName"
@@ -1081,12 +1133,14 @@
                                                     क.	रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="promissoryNoteAmount"
+                                                           [value]="initialInfoPrint.promissoryNoteAmount.np === undefined ? '' : initialInfoPrint.promissoryNoteAmount.np "
                                                            type="text"/> /- को प्रतिज्ञा पत्र ।
                                                 </p>
                                                 <p class="highlited-Color">
                                                     ख.	रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="loanDeedAmount"
+                                                           [value]="initialInfoPrint.loanDeedAmount.np === undefined ? '' : initialInfoPrint.loanDeedAmount.np "
                                                            type="text"/> /- को ऋणकर्जा तमसुक ।
                                                 </p>
                                                 <p class="highlited-Color">
@@ -1096,11 +1150,13 @@
                                                     घ.	रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="pledgeAmountFigure"
+                                                           [value]="initialInfoPrint.pledgeAmountFigure.np === undefined ? '' : initialInfoPrint.pledgeAmountFigure.np "
                                                            type="text"/> /- को धितो बन्धक तमसुक ।
                                                 </p>
                                                 <p class="highlited-Color">
                                                     ह्. रु <input class="form-field form-control-sm nepaliFont"
                                                                   formControlName="guaranteedAmountFigure"
+                                                                  [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
                                                                   type="text"/> बराबरकोे
                                                     श्री <input class="form-field form-control-sm nepaliFont"
                                                                 formControlName="guarantorName"
@@ -1116,6 +1172,7 @@
                                                     ज.   बैकर्श शर्त सहितको कम्तीमा रु
                                                     <input class="form-field form-control-sm nepaliFont"
                                                            formControlName="insuranceAmountFigure"
+                                                           [value]="initialInfoPrint.insuranceAmountFigure.np === undefined ? '' : initialInfoPrint.insuranceAmountFigure.np "
                                                            type="text"/> /-बराबरको भवनको विमालेख ।
                                                 </p>
                                                 <p class="highlited-Color">
@@ -1145,6 +1202,7 @@
                                 <br>
                                 <input class="form-field form-control-sm nepaliFont"
                                        formControlName="relationshipOfficerName"
+                                       [value]="initialInfoPrint.relationshipOfficerName.np === undefined ? '' : initialInfoPrint.relationshipOfficerName.np "
                                        type="text"/>
                             </div>
                             <div class="text-right">
@@ -1154,6 +1212,7 @@
                                 <br>
                                 <input class="form-field form-control-sm nepaliFont"
                                        formControlName="branchManager"
+                                       [value]="initialInfoPrint.branchManager.np === undefined ? '' : initialInfoPrint.branchManager.np "
                                        type="text"/>
                             </div>
                         </div>
@@ -1179,7 +1238,7 @@
                                     <li>
                                         म/हामी विरुद्ध दामासाही सम्बन्धि कुनै कारवाही भएको छैन र म/हामी हालसम्म दामासाहिमा परेको घोषणा भएको छैन
                                         भन्ने कुरा म/हामी उद्घोष गर्दछु/छौं ।
-                                        <span class="highlited-Color" *ngIf="loanLimit">
+                                        <span class="highlited-Color" *ngIf="!loanLimit">
                                             साथै मैले/हामीले त्यस बैंक सहित अन्य बैंक तथा वित्तिय संस्थाहरुबाट कुल एक
                                             करोड भन्दा बढि ऋणकर्जा प्राप्त नगरेको समेत उदेघोष गर्दछु/गर्दछौं ।
                                         </span>
@@ -1206,30 +1265,35 @@
                                 <li>
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="sakhshiDistrict"
+                                           [value]="initialInfoPrint.sakhshiDistrict.np === undefined ? '' : initialInfoPrint.sakhshiDistrict.np "
                                            type="text"/>
                                     जिल्ला
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="sakhshiMunicipality"
+                                           [value]="initialInfoPrint.sakhshiMunicipality.np === undefined ? '' : initialInfoPrint.sakhshiMunicipality.np "
                                            type="text"/>
                                     गा.वि.स/न.पा,
                                     वडा नंं.
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="sakhshiWardNo"
+                                           [value]="initialInfoPrint.sakhshiWardNo.np === undefined ? '' : initialInfoPrint.sakhshiWardNo.np "
                                            type="text"/>
                                     बस्ने श्री
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="sakhshiName"
+                                           [value]="initialInfoPrint.sakhshiName.np === undefined ? '' : initialInfoPrint.sakhshiName.np "
                                            type="text"/>
                                 </li>
                                 <li>
                                     कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="approvalStaffName"
+                                           [value]="initialInfoPrint.approvalStaffName.np === undefined ? '' : initialInfoPrint.approvalStaffName.np "
                                            type="text"/>
                                 </li>
                             </ul>
                         </div>
-                        <button nbButton status="success" type="submit">Save</button>
+<!--                        <button nbButton status="success" type="submit">Save</button>-->
                     </form>
                 </div>
             </div>
@@ -1237,7 +1301,7 @@
         <nb-card-footer class="mb-3">
             <button nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint"
                     [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.RETAIL_PROFESSIONAL_LOAN}}Print">Print
+                    ngxPrint printSectionId="{{offerLetterConst.EDUCATIONAL}}Print">Print
             </button>
         </nb-card-footer>
     </nb-card>

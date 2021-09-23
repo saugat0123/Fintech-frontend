@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
@@ -17,10 +17,11 @@ export class LoanCreateComponent implements OnInit {
   // @Input() form;
   @Input() data;
   @Input() customerType;
-  @Input() customerId;
+  @Output() cadApprovedData = new EventEmitter();
   submitted = false;
   translatedValues: any;
   form: FormGroup;
+  spinner = false;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
 
@@ -36,11 +37,11 @@ export class LoanCreateComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.loadData();
-    this.addEmptyLoan();
   }
 
   loadData() {
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
+      console.log(response);
       this.loanFacilityList = response.detail;
       console.log(response.detail);
     }, error => {
@@ -53,6 +54,7 @@ export class LoanCreateComponent implements OnInit {
     this.form = this.formBuilder.group({
       loanDetails: this.formBuilder.array([])
     });
+    this.addEmptyLoan();
   }
 
   setLoan(data) {
@@ -63,7 +65,7 @@ export class LoanCreateComponent implements OnInit {
     data.forEach(d => {
       (this.form.get('loanDetails') as FormArray).push(
           this.formBuilder.group({
-            loanFacility: [d.loanFacility],
+            loan: [d.loan],
             proposedAmount: [d.proposedAmount],
             status: [d.status],
             approvedOn: [d.approvedOn],
@@ -76,9 +78,9 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          customerId: this.customerId,
+          loanHolderId: this.data.customerInfoId,
           loanType: [undefined],
-          loanFacility: [undefined],
+          loan: [undefined],
           proposedAmount: [undefined],
           status: [undefined],
           approvedOn: [undefined],
@@ -91,27 +93,27 @@ export class LoanCreateComponent implements OnInit {
     (this.form.get('loanDetails') as FormArray).removeAt(i);
   }
 
-  translate() {
-
+  async translate() {
+    this.spinner = true;
+    this.translatedValues = await this.translateService.translateForm(this.form.get('loanDetails').value[0]);
+    console.log(this.translatedValues);
+    this.spinner = false;
   }
 
   save() {
+    this.spinner = true;
     const finalObj = {
       ...this.data,
       ...this.form.get('loanDetails').value[0]
     };
-    console.log(finalObj);
     this.cadOneFormService.saveLoan(finalObj).subscribe(res => {
-      console.log(res);
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
+      this.spinner = false;
+      this.cadApprovedData.emit(res.detail);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error while creating loan'));
+      this.spinner = false;
     });
-    // Long customerInfoId;
-    // Long loanHolderId;
-    // Long companyInfoId;
-    // Long branchId;
-    // Long loan;
-    // String loanCategory;
-    // String proposedAmount;
-    // String comments;
-    // Long guarantorDetailId;
   }
 }
