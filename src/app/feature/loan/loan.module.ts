@@ -12,7 +12,6 @@ import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbTooltipModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
-import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {BirthMarkLetterNepaliComponent} from '../cad-documents/cad-document-core/srdb-offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
@@ -97,7 +96,6 @@ const COMPONENTS = [
     CompanyInfoComponent,
     KycInfoComponent,
     DmsLoanFileComponent,
-    LoanActionComponent,
     BirthMarkLetterNepaliComponent,
     BirthMarkLetterPrintComponent,
     SuccessOfferLetterComponent,

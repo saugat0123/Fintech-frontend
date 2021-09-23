@@ -69,7 +69,7 @@
 <!--    <i class="col-md-1 fa fa-ban"></i>-->
   </button>
 
-  <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
+  <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end" *ngIf="!isDetailedView"
           ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
     PRINT
 <!--    <i class="col-md-1 fa fa-print"></i>-->
@@ -80,7 +80,7 @@
     Delete
 <!--    <i class="col-md-1 fa fa-ban"></i>-->
   </button>
-  <button class="btn-sm btn-toolbar d-flex justify-content-end" (click)="detailedViewAction()">
+  <button class="btn-sm btn-toolbar d-flex justify-content-end" *ngIf="!isDetailedView" (click)="detailedViewAction()">
     DETAILED-VIEW
 <!--    <em class="col-md-1 fa fa-eye"></em>-->
   </button>

@@ -17,6 +17,15 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 import {LoanDataHolder} from '../model/loanData';
+import {LoanType} from '../model/loanType';
+import {Document} from '../../admin/modal/document';
+import {EnumUtils} from '../../../@core/utils/enums.utils';
+import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.enum';
+import {User} from '../../admin/modal/user';
+import {LoanActionService} from './service/loan-action.service';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {ApprovalLimitService} from '../../admin/component/approvallimit/approval-limit.service';
+import {UserService} from '../../../@core/service/user.service';
 
 @Component({
     selector: 'app-loan-action',
@@ -33,19 +42,21 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
     @Input() loanFlags: CustomerLoanFlag[];
-    @Input() actionsList: ActionModel;
+     actionsList = new ActionModel();
     @Input() combinedLoanId: number;
-    @Input() hasDeferredDocs: boolean;
+    hasDeferredDocs: boolean;
     @Input() customerType;
     @Input() branchId;
-    @Input() customerLoanHolder: LoanDataHolder;
+    @Input() isDetailedView: boolean;
     public isMaker = false;
     public committeeRole = false;
     private dialogRef: NbDialogRef<any>;
     isOpen = false;
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-
+    user = new User();
+    loanDataHolder = new LoanDataHolder();
+    loanType = LoanType;
 
     constructor(
         private alertService: AlertService,
@@ -53,10 +64,15 @@ export class LoanActionComponent implements OnInit, OnChanges {
         private nbDialogService: NbDialogService,
         private router: Router,
         private loanFormService: LoanFormService,
+        private loanActionService: LoanActionService,
+        private loanConfigService: LoanConfigService,
+        private approvalLimitService: ApprovalLimitService,
+        private userService: UserService,
     ) {
     }
 
     ngOnInit() {
+        this.getLoanDataHolder();
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
@@ -125,7 +141,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     documentStatus: DocStatus.PENDING,
                     branchId: this.branchId,
                     isMaker: this.isMaker,
-                    customerLoanHolder: this.customerLoanHolder
+                    customerLoanHolder: this.loanDataHolder
                 };
                 break;
             case 'approve':
@@ -247,4 +263,112 @@ export class LoanActionComponent implements OnInit, OnChanges {
             }
         });
     }
+    getLoanDataHolder() {
+        this.userService.getLoggedInUser().subscribe(
+            (response: any) => {
+                this.user = response.detail;
+                this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
+            }
+        );
+        this.actionsList.approved = false;
+        this.actionsList.sendForward = false;
+        this.actionsList.edit = false;
+        this.actionsList.sendBackward = false;
+        this.actionsList.rejected = false;
+        this.actionsList.closed = false;
+        this.loanFormService.detail(this.id).subscribe(async (response: any) => {
+            this.loanDataHolder = response.detail;
+            this.loanCategory = this.loanDataHolder.loanCategory;
+            // this.currentIndex = this.loanDataHolder.previousList.length;
+
+            this.actionsList.approved = true;
+            this.actionsList.sendForward = true;
+            this.actionsList.edit = true;
+            this.actionsList.sendBackward = true;
+            this.actionsList.rejected = true;
+            this.actionsList.closed = true;
+            if ((this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) ||
+                (this.loanDataHolder.currentStage.toRole.roleType.toString() === 'MAKER')) {
+                this.actionsList.sendBackward = false;
+                this.actionsList.edit = true;
+                this.actionsList.approved = false;
+                this.actionsList.closed = false;
+            } else {
+                this.actionsList.edit = false;
+            }
+
+            if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                this.actionsList.approved = false;
+            } else {
+                this.actionsList.closed = false;
+            }
+            this.actionsList.loanApproveStatus = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
+
+            if (this.user.role.roleName !== 'admin') {
+                await this.loanActionService.getSendForwardList().subscribe((res: any) => {
+                    const forward = res.detail;
+                    if (forward.length === 0) {
+                        this.actionsList.sendForward = false;
+                    }
+                });
+            }
+            if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
+                this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
+                this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
+                this.actionsList.approved = false;
+                this.actionsList.sendForward = false;
+                this.actionsList.edit = false;
+                this.actionsList.sendBackward = false;
+                this.actionsList.rejected = false;
+                this.actionsList.closed = false;
+            }
+
+            await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
+                .subscribe((res: any) => {
+                    if (res.detail === undefined) {
+                        this.actionsList.approved = false;
+                    } else {
+                        if (this.loanDataHolder.proposal !== null
+                            && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
+                            this.actionsList.approved = false;
+                        }
+                    }
+                });
+            if (this.loanDataHolder.isSol) {
+                if (this.loanDataHolder.solUser.id !== this.user.id) {
+                    this.actionsList.approved = false;
+                }
+            }
+            // check deferred docs
+            let deferredDocs: Document[];
+            switch (this.loanDataHolder.loanType) {
+                case EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.initial;
+                    break;
+                case EnumUtils.getEnum(LoanType, LoanType.ENHANCED_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.enhance;
+                    break;
+                case EnumUtils.getEnum(LoanType, LoanType.RENEWED_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.renew;
+                    break;
+                case EnumUtils.getEnum(LoanType, LoanType.CLOSURE_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.closure;
+                    break;
+                case EnumUtils.getEnum(LoanType, LoanType.PARTIAL_SETTLEMENT_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.partialSettlement;
+                    break;
+                case EnumUtils.getEnum(LoanType, LoanType.FULL_SETTLEMENT_LOAN):
+                    deferredDocs = this.loanDataHolder.loan.fullSettlement;
+                    break;
+                default:
+                    deferredDocs = [];
+            }
+            deferredDocs = deferredDocs.filter((d) => (
+                !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
+            ));
+            const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
+            this.hasDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
+        });
+    }
+
 }
