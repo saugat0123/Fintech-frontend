@@ -30,7 +30,6 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   selectedCountryVal;
   embassyName;
   spinner = false;
-  finalSavedFlag: boolean;
   loanLimit = false;
   existingOfferLetter = false;
   btnDisable = true;
@@ -38,6 +37,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   attributes;
   translatedData;
+  dateTypeBS = false;
+  dateTypeAD = false;
+  dateTypeBS1 = false;
+  dateTypeAD1 = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -189,14 +192,17 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
             this.attributes.np = this.tdValues[key];
             this.tdValues[key] = this.attributes;
           });
+          this.translatedData = {};
           offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
+        console.log('Customer Information', this.customerApprovedDoc.offerDocumentList);
       }
 
       this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
           this.spinner = false;
           this.previewBtn = this.btnDisable = false;
+          this.openModel();
       }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -238,8 +244,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   async translate() {
     this.spinner = true;
-    this.tdValues = await this.translateService.translateForm(this.form);
-    this.translatedData = this.tdValues;
+    this.translatedData = await this.translateService.translateForm(this.form);
+    this.tdValues = this.translatedData;
     this.spinner = false;
     this.btnDisable = false;
   }
@@ -269,6 +275,24 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     loanChecked(data) {
         this.loanLimit = data;
     }
+  setDateTypeBS(){
+    this.dateTypeBS = true;
+    this.dateTypeAD = false;
+  }
+
+  setDateTypeAD(){
+    this.dateTypeBS = false;
+    this.dateTypeAD = true;
+  }
+  setDateTypeBS1(){
+    this.dateTypeBS1 = true;
+    this.dateTypeAD1 = false;
+  }
+
+  setDateTypeAD1(){
+    this.dateTypeBS1 = false;
+    this.dateTypeAD1 = true;
+  }
 
     // changeDocumentName(securityType) {
     //     if (securityType === 'FIXED_DEPOSIT') {
