@@ -685,4 +685,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.dateTypeBS = false;
         this.dateTypeAD = true;
     }
+
+    checkboxVal(event, formControlName) {
+        // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+        //   const val = this.translatedValues[formControlName];
+        //   this.form.get(formControlName + 'TransVal').patchValue(val);
+        // }
+        const checkVal = event.target.checked;
+        this[formControlName + 'Check'] = checkVal;
+        console.log('checked Value', this[formControlName + 'Check']);
+        if (!checkVal) {
+            this.clearForm(formControlName + 'CT');
+        }
+    }
+
+    clearForm(controlName) {
+        this.userConfigForm.get(controlName).setValue(null);
+    }
 }
