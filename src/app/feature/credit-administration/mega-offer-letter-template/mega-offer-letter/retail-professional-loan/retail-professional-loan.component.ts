@@ -195,7 +195,7 @@ submit(): void {
         }
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
         const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
-        const customerAddress = this.loanHolderInfo.permanentMunType.np + ' ' +
+        const customerAddress = this.loanHolderInfo.permanentMunicipality.np + ' ' +
             this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np;
         const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
         console.log('Loan Amount', loanAmount);
