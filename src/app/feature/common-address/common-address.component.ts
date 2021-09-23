@@ -19,7 +19,6 @@ export class CommonAddressComponent implements OnInit {
   addressForm: FormGroup;
   submitData;
   submitted = false;
-  @Input() addressId;
 
   constructor(private addressService: AddressService,
               private formBuilder: FormBuilder) { }
@@ -31,7 +30,6 @@ export class CommonAddressComponent implements OnInit {
         });
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.address)) {
-      // this.setAddressValue();
       if (!ObjectUtil.isEmpty(this.address.province)) {
         this.getDistrictsById(this.address.province.id, null);
         this.getMunicipalitiesById(this.address.district.id, null);
