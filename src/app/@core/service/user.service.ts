@@ -99,8 +99,13 @@ export class UserService extends BaseService<User> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getDefaultCommunityUser(): Promise<any> {
-        const req = ApiUtils.getRequest(`${this.getApi()}/get-default-community-user`);
-        return this.http.get(req.url, {headers: req.header}).toPromise();
-    }
+  public getDefaultCommunityUser(): Promise<any> {
+    const req = ApiUtils.getRequest(`${this.getApi()}/get-default-community-user`);
+    const community = this.http.get(req.url, {headers: req.header}).toPromise();
+    // @ts-ignore
+    community.then((res: any) => {
+      localStorage['defaultCommunityUser'] = JSON.stringify(res.detail);
+    });
+    return community;
+  }
 }
