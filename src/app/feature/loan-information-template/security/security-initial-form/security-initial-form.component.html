@@ -105,7 +105,7 @@
                                     land.get('landConsideredValue').invalid) }"
                                        class="form-control"
                                        formControlName="landConsideredValue"
-                                       id="landConsideredValue" name="total" placeholder="Considered Value">
+                                       id="landConsideredValue" name="total" placeholder="Considered Value" appDecimalNumber>
                                 <div *ngIf="(landSelected) && (land.get('landConsideredValue').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="land.get('landConsideredValue').errors.required">
@@ -122,19 +122,19 @@
                                        formControlName="marketValue"
                                        id="marketValue"
                                        name="marketValue" placeholder="Fair Market Value"
-                                       type="text"/>
+                                       type="text" appDecimalNumber/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="distressValue">{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</label>
-                                <input (change)="updateLandSecurityTotal(i)"
+                                <input (change)="updateLandSecurityTotal()"
                                        class="form-control rounded"
                                        formControlName="distressValue"
                                        id="distressValue"
                                        [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
                                        name="distressValue"
-                                       type="text"/>
+                                       type="text" appDecimalNumber/>
                             </div>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                                            formControlName="landValuator" (click)="valuator(null,'land',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.landValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -458,15 +458,13 @@
                     <table class="table table-bordered">
                         <thead class="thead-light">
                         <tr>
-                            <th>Total Considered Value</th>
                             <th>Total Fair Market Value</th>
-                            <th>Total {{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                            <th>Total Distress Value</th>
                             <th>Remarks</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{totalcv }}</td>
                             <td>{{totalmv}}</td>
                             <td>{{totaldv}}</td>
                             <td><input type="text" class="form-control" id="totalLandValueRemarks"
@@ -688,7 +686,7 @@
                                                formControlName="buildingFairMarketValue"
                                                id="buildingFairMarketValue"
                                                name="buildingFairMarketValue" placeholder="Apartment Fair Market Value"
-                                               type="text"/>
+                                               type="text" appDecimalNumber/>
                                         <div *ngIf="(apartmentSelected) && (building.get('buildingFairMarketValue').invalid)"
                                              class="invalid-feedback">
                                             <div *ngIf="building.get('buildingFairMarketValue').errors.required">
@@ -705,7 +703,7 @@
                                                id="buildingDistressValue"
                                                [placeholder]="(client == clientName?.EXCEL) ? 'Apartment Market Value' : 'Apartment Distress Value'"
                                                name="buildingDistressValue"
-                                               type="text"/>
+                                               type="text" appDecimalNumber/>
                                     </div>
                                 </div>
                             </div>
@@ -738,7 +736,7 @@
                                                    (click)="valuator(null,'apartment',i)">
                                             <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                             <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]"
-                                                       [value]="valuator">{{valuator.name}}</ng-option>
+                                                       [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                         </ng-select>
                                     </div>
                                 </div>
@@ -1377,7 +1375,7 @@
                                     <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
                                             class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
-                                           type="number">
+                                           type="number" appDecimalNumber>
                                     <div *ngIf="(landBuilding) && (landAndBuilding.get('landConsideredValue').invalid)"
                                          class="invalid-feedback">
                                         <div *ngIf="landAndBuilding.get('landConsideredValue').errors.required">
@@ -1446,7 +1444,7 @@
                                            formControlName="marketValue"
                                            name="marketValue"
                                            placeholder="Fair Market Value"
-                                           type="number"/>
+                                           type="number" appDecimalNumber/>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1456,7 +1454,7 @@
                                            formControlName="distressValue"
                                            name="distressValue"
                                            [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
-                                           type="text"/>
+                                           type="text" appDecimalNumber/>
                                 </div>
                             </div>
                         </div>
@@ -1563,7 +1561,7 @@
                                         <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                         <ng-option
                                                 *ngFor="let valuator of securityValuator.buildingValuator[i]"
-                                                [value]="valuator">{{valuator.name}}</ng-option>
+                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                     </ng-select>
                                 </div>
                             </div>
@@ -1827,7 +1825,7 @@
                                         <label for="landConsideredValueConstruction">Considered Value</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
-                                               placeholder="Considered Value" type="number">
+                                               placeholder="Considered Value" type="number" appDecimalNumber>
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -1887,7 +1885,7 @@
                                                formControlName="marketValueConstruction"
                                                name="marketValue"
                                                placeholder="Fair Market Value"
-                                               type="number"/>
+                                               type="number" appDecimalNumber/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1897,7 +1895,7 @@
                                                formControlName="distressValueConstruction"
                                                name="distressValue"
                                                [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
-                                               type="text"/>
+                                               type="text" appDecimalNumber/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -2063,7 +2061,7 @@
                                            formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -2356,7 +2354,7 @@
                                            formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
                                     <ng-option [value]="null">--Select Valuator Name--</ng-option>
                                     <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
-                                               [value]="valuator">{{valuator.name}}</ng-option>
+                                               [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</ng-option>
                                 </ng-select>
                             </div>
                         </div>
@@ -2719,40 +2717,6 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row" *ngIf="client === clientName?.ICFC">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Price Earning Ratio</label>
-                                            <input class="form-control" formControlName="priceEarningRatio"
-                                                   id="priceEarningRatio" name="priceEarningRatio"
-                                                   placeholder="Price Earning Ratio" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Price to Book Value</label>
-                                            <input class="form-control" formControlName="priceBookValue"
-                                                   id="priceBookValue" name="priceBookValue"
-                                                   placeholder="Price to Book Value" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Dividend Yield</label>
-                                            <input class="form-control" formControlName="dividendYeild"
-                                                   id="dividendYeild" name="dividendYeild"
-                                                   placeholder="Dividend Yield" type="number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="title">Dividend Payout Ratio</label>
-                                            <input class="form-control" formControlName="dividendPayoutRatio"
-                                                   id="dividendPayoutRatio" name="dividendPayoutRatio"
-                                                   placeholder="Dividend Payout Ratio" type="number">
-                                        </div>
-                                    </div>
-                            </div>
                         <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
                              class="d-flex justify-content-sm-end">
                             <button (click)="removeShareList(shareFieldIndex)"
@@ -3244,7 +3208,7 @@
                                 <label class="title">Considered Value</label>
                                 <input class="form-control rounded" formControlName="consideredValue"
                                        placeholder="Considered Value"
-                                       type="number"/>
+                                       type="number" appDecimalNumber/>
                             </div>
                         </div>
                         <div class="col-md-4">

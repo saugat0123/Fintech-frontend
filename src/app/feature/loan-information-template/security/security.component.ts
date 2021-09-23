@@ -339,7 +339,13 @@ export class SecurityComponent implements OnInit {
                     const landDetailsArray = securityData.initialForm.landDetails as Array<any>;
                     for (let i = 0; i < landDetailsArray.length; i++) {
                         if (landDetailsArray[i].revaluationData.isReValuated) {
-                            totalSecurityAmount += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+                            if (landDetailsArray[i].revaluationData.revaluationDetails === undefined ||
+                                landDetailsArray[i].revaluationData.revaluationDetails === null) {
+                                totalSecurityAmount += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+                            } else {
+                                totalSecurityAmount += Number(landDetailsArray[i].revaluationData.revaluationDetails
+                                    [landDetailsArray[i].revaluationData.revaluationDetails.length - 1].reValuatedConsideredValue);
+                            }
                         } else {
                             totalSecurityAmount += Number(landDetailsArray[i].landConsideredValue);
                         }
@@ -355,7 +361,13 @@ export class SecurityComponent implements OnInit {
                     const buildingDetailsArray = securityData.initialForm.buildingDetails as Array<any>;
                     for (let i = 0; i < buildingDetailsArray.length; i++) {
                         if (buildingDetailsArray[i].revaluationData.isReValuated) {
-                            totalSecurityAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+                            if (buildingDetailsArray[i].revaluationData.revaluationDetails === undefined ||
+                                buildingDetailsArray[i].revaluationData.revaluationDetails === null) {
+                                totalSecurityAmount += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+                            } else {
+                                totalSecurityAmount += Number(buildingDetailsArray[i].revaluationData.revaluationDetails
+                                    [buildingDetailsArray[i].revaluationData.revaluationDetails.length - 1].reValuatedFmv);
+                            }
                         } else {
                             totalSecurityAmount += Number(buildingDetailsArray[i].buildingFairMarketValue);
                         }
@@ -372,7 +384,13 @@ export class SecurityComponent implements OnInit {
                     const landBuildingArray = securityData.initialForm.landBuilding as Array<any>;
                     for (let i = 0; i < landBuildingArray.length; i++) {
                         if (landBuildingArray[i].revaluationData.isReValuated) {
-                            totalSecurityAmount += Number(landBuildingArray[i].revaluationData.reValuatedConsideredValue);
+                            if (landBuildingArray[i].revaluationData.revaluationDetails === undefined ||
+                                landBuildingArray[i].revaluationData.revaluationDetails === null) {
+                                totalSecurityAmount += Number(landBuildingArray[i].revaluationData.reValuatedConsideredValue);
+                            } else {
+                                totalSecurityAmount += Number(landBuildingArray[i].revaluationData.revaluationDetails
+                                    [landBuildingArray[i].revaluationData.revaluationDetails.length - 1].reValuatedConsideredValue);
+                            }
                         } else {
                             totalSecurityAmount += Number(landBuildingArray[i].landConsideredValue);
                         }

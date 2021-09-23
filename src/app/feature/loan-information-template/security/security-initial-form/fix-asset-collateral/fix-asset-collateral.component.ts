@@ -293,6 +293,7 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
         if (this.fixedAssetsForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
+            this.spinner = false;
             return;
         }
         this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {

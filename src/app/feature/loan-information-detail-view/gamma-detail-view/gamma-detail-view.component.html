@@ -228,22 +228,25 @@
                 <th>Succession Risk & Mitigation</th>
             </tr>
             <tr>
-                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A' | safeHtml"></td>
-                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'" class="text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.companyInfo?.successionPlanning || 'N/A' | safeHtml"></td>
+                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.successionRisk || 'N/A' | safeHtml"></td>
+                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.companyInfo?.successionPlanning || 'N/A' | safeHtml"></td>
+                <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.successionRisk || 'N/A' | safeHtml"></td>
             </tr>
             <tr  class="sb-bg-dark text-white">
                 <th>Security Risk & Mitigation</th>
             </tr>
             <tr>
-                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
-                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'" class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.securityRisk || 'N/A' | safeHtml"></td>
+                <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
+                <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION' && !isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="companyJsonData?.marketScenario?.securityRisk || 'N/A' | safeHtml"></td>
+                <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.securityRisk || 'N/A' | safeHtml"></td>
             </tr>
             <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">
                 <tr class="text-white sb-bg-dark">
                     <th>Income Risk & Mitigation</th>
                 </tr>
                 <tr>
-                    <td class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
+                    <td *ngIf="!isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
+                    <td *ngIf="isJointCustomer" class="text-justify pl-1 pr-1" [innerHTML]="jointCustomerData?.incomeRisk || 'N/A' | safeHtml"></td>
                 </tr>
             </ng-container>
             <ng-container *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">

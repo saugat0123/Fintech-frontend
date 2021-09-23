@@ -343,7 +343,13 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         const landDetailsArray = securityParsedData.initialForm.landDetails as Array<any>;
         for (let i = 0; i < landDetailsArray.length; i++) {
           if (landDetailsArray[i].revaluationData.isReValuated) {
-            totalFMV += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+            if (landDetailsArray[i].revaluationData.revaluationDetails === undefined ||
+                landDetailsArray[i].revaluationData.revaluationDetails === null) {
+              totalFMV += Number(landDetailsArray[i].revaluationData.reValuatedConsideredValue);
+            } else {
+              totalFMV += Number(landDetailsArray[i].revaluationData.revaluationDetails
+                  [landDetailsArray[i].revaluationData.revaluationDetails.length - 1].reValuatedConsideredValue);
+            }
           } else {
             totalFMV += Number(landDetailsArray[i].landConsideredValue);
           }
@@ -357,7 +363,13 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         const buildingDetailsArray = securityParsedData.initialForm.buildingDetails as Array<any>;
         for (let i = 0; i < buildingDetailsArray.length; i++) {
           if (buildingDetailsArray[i].revaluationData.isReValuated) {
-            totalFMV += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+            if (buildingDetailsArray[i].revaluationData.revaluationDetails === undefined ||
+                buildingDetailsArray[i].revaluationData.revaluationDetails === null) {
+              totalFMV += Number(buildingDetailsArray[i].revaluationData.reValuatedFmv);
+            } else {
+              totalFMV += Number(buildingDetailsArray[i].revaluationData.revaluationDetails
+                  [buildingDetailsArray[i].revaluationData.revaluationDetails.length - 1].reValuatedFmv);
+            }
           } else {
             totalFMV += Number(buildingDetailsArray[i].buildingFairMarketValue);
           }
@@ -371,7 +383,13 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
         const landBuildingsArray = securityParsedData.initialForm.landBuilding as Array<any>;
         for (let i = 0; i < landBuildingsArray.length; i++) {
           if (landBuildingsArray[i].revaluationData.isReValuated) {
-            totalFMV += Number(landBuildingsArray[i].revaluationData.reValuatedConsideredValue);
+            if (landBuildingsArray[i].revaluationData.revaluationDetails === undefined ||
+                landBuildingsArray[i].revaluationData.revaluationDetails === null) {
+              totalFMV += Number(landBuildingsArray[i].revaluationData.reValuatedConsideredValue);
+            } else {
+              totalFMV += Number(landBuildingsArray[i].revaluationData.revaluationDetails
+                  [landBuildingsArray[i].revaluationData.revaluationDetails.length - 1].reValuatedConsideredValue);
+            }
           } else {
             totalFMV += Number(landBuildingsArray[i].landConsideredValue);
           }
