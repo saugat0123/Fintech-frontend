@@ -208,13 +208,11 @@ export class IncomeFromAccountComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
             const data = [];
             this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);
-            console.log('dataForEdit', this.dataForEdit);
             if (this.dataForEdit.incomeFromAccount) {
                 this.dataForEdit.incomeFromAccount.forEach(item => {
                     data.push(item);
                 });
             } else {
-                console.log('it is single data!!! form');
                 data.push(this.dataForEdit);
             }
             this.setIncomeFromAccount(data);

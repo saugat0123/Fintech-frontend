@@ -34,7 +34,6 @@ export class IncomeFromAccountSummeryComponent implements OnInit {
           data.push(item);
         });
       } else {
-        console.log('it is single data');
         data.push(this.incomeFromAccount);
       }
       this.incomeFromAccountArray = data;
