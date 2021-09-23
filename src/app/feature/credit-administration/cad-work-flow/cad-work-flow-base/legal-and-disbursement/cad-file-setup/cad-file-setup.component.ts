@@ -48,24 +48,28 @@ export class CadFileSetupComponent implements OnInit {
         this.spinner = true;
         this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
             this.responseDocList = res.detail;
-            this.responseDocList.forEach(d => {
-                const dataDoc = {
-                    document: null,
-                    checked: null
-                };
-                dataDoc.document = d;
-                dataDoc.checked = false;
+            if (this.responseDocList.length > 0) {
+                this.responseDocList.forEach(d => {
+                    const dataDoc = {
+                        document: null,
+                        checked: null
+                    };
+                    dataDoc.document = d;
+                    dataDoc.checked = false;
 
-                this.cadData.requiredDocument.forEach(e => {
-                    if (d.id === e.id) {
-                        dataDoc.checked = true;
-                    }
+                    this.cadData.requiredDocument.forEach(e => {
+                        if (d.id === e.id) {
+                            dataDoc.checked = true;
+                        }
+                    });
+                    this.documentList.push(dataDoc);
+
+                    this.spinner = false;
+
                 });
-                this.documentList.push(dataDoc);
-
+            } else {
                 this.spinner = false;
-
-            });
+            }
             const array = (this.form.get('documents') as FormArray);
             this.documentList.forEach(d => {
                 array.push(this.formBuilder.group({
