@@ -341,7 +341,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.responseData = res.detail;
       this.activeCustomerTab = false;
       this.activeLoanTab = true;
-      this.dialogRef.close();
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
