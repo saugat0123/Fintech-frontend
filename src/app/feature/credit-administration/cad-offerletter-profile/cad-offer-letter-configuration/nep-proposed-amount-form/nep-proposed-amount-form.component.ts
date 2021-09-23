@@ -12,7 +12,6 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-nep-proposed-amount-form',
@@ -38,10 +37,11 @@ export class NepProposedAmountFormComponent implements OnInit {
 
     ngOnInit() {
         if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-            this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-            this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-            this.nepaliNumber.engNumber = number;
+            const data = this.cadData.assignedLoan.filter(r => r.proposal.data !== null);
+            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, data);
+                this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+                this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+                this.nepaliNumber.engNumber = number;
         } else {
             this.nepaliNumber = JSON.parse(this.cadData.nepData);
         }
