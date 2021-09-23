@@ -932,7 +932,7 @@
                         </tr>
                         <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
                             <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
+                            <td class="text-left pl-1">{{generalDoc.docPath.substring(generalDoc?.docPath.lastIndexOf('/') + 1, generalDoc.docPath.length)}}</td>
                             <td>
                                 <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
                                    class="fas fa-eye"></i></td>
@@ -956,22 +956,24 @@
                             <th>Download</th>
                         </tr>
                         </thead>
-                        <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
-                        <tr *ngIf="singleDoc?.docPath">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{singleDoc?.name}}</td>
-                            <td>Net Worth Document</td>
-                            <td>
-                                <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
-                                   class="fas fa-eye"></i></td>
+                        <ng-container *ngFor="let singleGuarantor of taggedGuarantorWithDoc; let i = index">
+                            <tbody *ngFor="let singleDoc of singleGuarantor.docPath.split(','); let j = index">
+                            <tr *ngIf="singleDoc">
+                                <td>{{i + 1}}</td>
+                                <td class="text-left pl-1">{{singleGuarantor?.name}}</td>
+                                <td>{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
+                                <td>
+                                    <i (click)="previewOfferLetterDocument(singleDoc,singleGuarantor?.name + 'Net Worth Doc')"
+                                       class="fas fa-eye"></i></td>
 
-                            <td>
-                                <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
-                                   aria-hidden="true" class="fa fa-download"
-                                   style="cursor: pointer"></i>
-                            </td>
-                        </tr>
-                        </tbody>
+                                <td>
+                                    <i (click)="downloadCustomerDocument(singleDoc, singleGuarantor?.name+' Net Worth Doc')"
+                                       aria-hidden="true" class="fa fa-download"
+                                       style="cursor: pointer"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </ng-container>
                     </table>
                 </div>
             </div>
@@ -989,23 +991,25 @@
                             <th>Download</th>
                         </tr>
                         </thead>
-                        <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
-                        <tr *ngIf="singleDoc.policyDocumentPath">
-                            <td>{{i + 1}}</td>
-                            <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
-                            <td class="text-left pl-1">{{singleDoc?.company}}</td>
-                            <td class="text-left pl-1">Insurance Policy</td>
-                            <td>
-                                <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"
-                                   class="fas fa-eye"></i></td>
+                        <ng-container *ngFor="let singleInsurance of insuranceWithDoc; let i = index">
+                            <tbody *ngFor="let singleDoc of singleInsurance.policyDocumentPath.split(','); let j = index">
+                            <tr *ngIf="singleDoc">
+                                <td>{{i + 1}}</td>
+                                <td class="text-right pr-1">{{singleInsurance?.policyNumber}}</td>
+                                <td class="text-left pl-1">{{singleInsurance?.company}}</td>
+                                <td class="text-left pl-1">{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
+                                <td>
+                                    <i (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"
+                                       class="fas fa-eye"></i></td>
 
-                            <td>
-                                <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
-                                   aria-hidden="true" class="fa fa-download"
-                                   style="cursor: pointer"></i>
-                            </td>
-                        </tr>
-                        </tbody>
+                                <td>
+                                    <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"
+                                       aria-hidden="true" class="fa fa-download"
+                                       style="cursor: pointer"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </ng-container>
                     </table>
                 </div>
             </div>
