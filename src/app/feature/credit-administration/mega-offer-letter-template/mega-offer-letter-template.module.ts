@@ -73,6 +73,7 @@ const COMPONENTS = [
     ],
     entryComponents: [
         RetailProfessionalLoanComponent,
+        PersonalOverdraftComponent,
     ]
 })
 export class MegaOfferLetterTemplateModule {

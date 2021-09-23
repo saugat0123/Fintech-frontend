@@ -2,8 +2,12 @@
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="retail housing.....">
-
+             nbSpinnerMessage="personal overdraft.....">
+        <nb-card-header *ngIf="preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
 
         <nb-card-body>
             <form [formGroup]="form">
@@ -779,13 +783,16 @@
                                 हकमा संस्थापक शेयरधनीहरु र सञचालकहरुको समेत र मेरो/हाम्रो तर्फबाट जमानीकर्ताको एकाघरको पारिवारिक सम्बन्ध नभएको र
                                 निजहरु सञग मेरो/हाम्रो कुनै किसिमको वित्तिय स्वार्थ नभएको समेत उद्घोष गर्दछु/छौं । </td>
                         </tr><br>
-                            <div class="left-content">
+                            <div style="float: right">
 
                                 .........................................
                                 <p>
                                     आधिकारिक हस्ताक्षर (ग्राहक)
                                 </p>
                             </div>
+                    <br>
+                    <br>
+                    <br>
                         <p>साक्षीः </p>
                         <p> १. जिल्ला <input class="form-field form-control-sm nepaliFont"
                                              name="district"

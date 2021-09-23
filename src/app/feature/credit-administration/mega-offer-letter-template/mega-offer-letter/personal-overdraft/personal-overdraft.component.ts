@@ -38,10 +38,8 @@ export class PersonalOverdraftComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   selectedArray = [];
   ckeConfig = NepaliEditor.CK_CONFIG;
-  note = '<ul><li><span style="font-family:Preeti">C0fL tyf JolQmutsf] ;DklQ v\'nfpg] lnvt -</span><span>Net Worth Statement<span style="font-family:Preeti">_ kmf]6f] tyf ;Dks{ 7]ufgf ;lxt k]z ug\'kg]{5 .</span></li>' +
-      '<li><span style="font-family:Preeti">tcGo a}+sx?;+u u/]sf] sf/f]jf/ af/] lnlvt ?kdf v\'nfpg\'kg]{ -</span><span>Multiple Banking Declaration<span style="font-family:Preeti">_ k]z ug\'{kg]{5 .</span></li> ' +
-      '<li><span style="font-family:Preeti">tpNn]lvt k|:tfljt crn ;DklQsf] k"0f{ d\'Nofªsg k|ltj]bg -</span><span>Complete Valuation Report<span style="font-family:Preeti">_ k]z ePkZrft dfq shf{ e\'Qmfg ul/g]5 .</span></li> </ul>';
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() preview;
 
   nepData;
   external = [];
@@ -56,7 +54,8 @@ export class PersonalOverdraftComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
-              private nepPercentWordPipe: NepaliPercentWordPipe) { }
+              private nepPercentWordPipe: NepaliPercentWordPipe,
+              private ref: NbDialogRef<PersonalOverdraftComponent>) { }
 
   ngOnInit() {
   this.buildPersonal();
@@ -185,6 +184,9 @@ buildPersonal() {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+  }
+  close() {
+    this.ref.close();
   }
 }
 
