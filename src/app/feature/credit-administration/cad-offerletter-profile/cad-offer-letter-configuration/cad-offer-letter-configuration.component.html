@@ -105,19 +105,22 @@
             <tr>
               <td>DOB</td>
               <td>
-                <div class="row">&nbsp;<nb-radio (click)="setDateTypeBS()">BS</nb-radio>
-                  <nb-radio (click)="setDateTypeAD()">AD</nb-radio></div>
+                <div class="row">
+                  <nb-radio-group name="dobDateType" #dobDateType class="d-inline-flex" formControlName="dobDateType">
+                    <nb-radio *ngFor="let option of dateOption" [value]="option.value">{{option.label}}</nb-radio>
+                  </nb-radio-group>&nbsp;
+                </div>
               </td>
             </tr>
             <tr>
               <td>
               </td>
               <td>
-                <nepali-patro *ngIf="dateTypeBS" formControlName="dob" [responseType]="2"
+                <nepali-patro *ngIf="dobDateType.value ==='BS'" formControlName="dob" [responseType]="2"
                               [displayNepali]="true">
                 </nepali-patro>
                 <input [nbDatepicker]="dob"
-                       *ngIf="dateTypeAD"
+                       *ngIf="dobDateType.value ==='AD'"
                        class="form-control form-control-sm-error rounded"
                        formControlName="dob"
                        id="dateOfBirth"
@@ -197,87 +200,82 @@
                        type="text"/>
               </td>
             </tr>
-
-            <!--            <tr *ngIf="configForm?.gender?.value == 1">-->
-            <!--              <td>-->
-            <!--                <label class="relationMedium" for="relationMedium">Relation Medium</label>-->
-            <!--              </td>-->
-            <!--              <td>-->
-            <!--                <select class="form-control" formControlName="relationMedium"-->
-            <!--                        id="relationMedium"-->
-            <!--                        [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">-->
-            <!--                  <option [value]="null" hidden>Select Relation Medium</option>-->
-            <!--                  <option value="0">Husband Relation</option>-->
-            <!--                  <option value="1">Father Relation</option>-->
-            <!--                </select>-->
-            <!--              </td>-->
-            <!--              <td>{{translatedValues?.relationMedium}}</td>-->
-            <!--              <td></td>-->
-            <!--            </tr>-->
-            <!--            <tr-->
-            <!--                *ngIf="configForm?.clientType?.value == 'INSTITUTION' && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
-            <!--              <td>-->
-            <!--                <label class="title" for="name">Father Name</label>-->
-            <!--              </td>-->
-            <!--              <td>-->
-            <!--                <input class="form-control "-->
-            <!--                       formControlName="fatherName"-->
-            <!--                       [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"-->
-            <!--                       id="fatherName"-->
-            <!--                       name="fatherName" placeholder="Father Name"-->
-            <!--                       type="text"/>-->
-            <!--              </td>-->
-            <!--              <td>-->
-            <!--                {{translatedValues?.fatherName}}-->
-            <!--              </td>-->
-            <!--              <td></td>-->
-            <!--            </tr>-->
-            <!--            <tr-->
-            <!--                *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && !(configForm?.gender?.value == 1) && configForm?.relationMedium?.value == 0">-->
-            <!--              <td>-->
-            <!--                <label class="title" for="grandFatherName">Grand Father Name</label>-->
-            <!--              </td>-->
-            <!--              <td>-->
-            <!--                <input class="form-control "-->
-            <!--                       formControlName="grandFatherName"-->
-            <!--                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"-->
-            <!--                       id="grandFatherName"-->
-            <!--                       name="grandFatherName" placeholder="Grand Father Name"-->
-            <!--                       type="text"/>-->
-            <!--              </td>-->
-            <!--              <td>-->
-            <!--                {{translatedValues?.grandFatherName}}-->
-            <!--              </td>-->
-            <!--              <td></td>-->
-            <!--            </tr>-->
-            <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 1 || configForm?.relationMedium?.value == 0)">-->
-
-            <!--              <td><label class="title" for="husbandName">Husband Name</label></td>-->
-            <!--              <td><input class="form-control "-->
-            <!--                         formControlName="husbandName"-->
-            <!--                         [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"-->
-            <!--                         id="husbandName"-->
-            <!--                         name="husbandName" placeholder="Husband Name"-->
-            <!--                         type="text"/></td>-->
-            <!--              <td>                {{translatedValues?.husbandName}}</td>-->
-            <!--              <td></td>-->
-            <!--              <td></td>-->
-
-            <!--            </tr>-->
-            <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 1 || configForm?.relationMedium?.value !== 0)">-->
-
-            <!--              <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>-->
-            <!--              <td><input class="form-control "-->
-            <!--                         formControlName="fatherInLawName"-->
-            <!--                         [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"-->
-            <!--                         id="fatherInLawName"-->
-            <!--                         name="fatherInLawName" placeholder="Father In Law Name"-->
-            <!--                         type="text"/></td>-->
-            <!--              <td>                {{translatedValues?.fatherInLawName}}</td>-->
-            <!--              <td></td>-->
-            <!--              <td></td>-->
-
-            <!--            </tr>-->
+            <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
+              <td>
+                <label class="relationMedium" for="relationMedium">Relation Medium</label>
+              </td>
+              <td>
+                <select class="form-control" formControlName="relationMedium"
+                        id="relationMedium"
+                        [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                  <option [value]="null" hidden>Select Relation Medium</option>
+                  <option value="0">Husband Relation</option>
+                  <option value="1">Father Relation</option>
+                </select>
+              </td>
+              <td>{{translatedValues?.relationMedium}}</td>
+              <td></td>
+            </tr>
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+              <td><label class="title" for="husbandName">Husband Name</label></td>
+              <td><input class="form-control "
+                         formControlName="husbandName"
+                         [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
+                         id="husbandName"
+                         name="husbandName" placeholder="Husband Name"
+                         type="text"/></td>
+              <td>                {{translatedValues?.husbandName}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+              <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
+              <td><input class="form-control "
+                         formControlName="fatherInLawName"
+                         [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
+                         id="fatherInLawName"
+                         name="fatherInLawName" placeholder="Father In Law Name"
+                         type="text"/></td>
+              <td>                {{translatedValues?.fatherInLawName}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+              <td>
+                <label class="title" for="grandFatherName">Grand Father Name</label>
+              </td>
+              <td>
+                <input class="form-control "
+                       formControlName="grandFatherName"
+                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
+                       id="grandFatherName"
+                       name="grandFatherName" placeholder="Grand Father Name"
+                       type="text"/>
+              </td>
+              <td>
+                {{translatedValues?.grandFatherName}}
+              </td>
+              <td></td>
+            </tr>
+            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+            (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+              <td>
+                <label class="title" for="name">Father Name</label>
+              </td>
+              <td>
+                <input class="form-control "
+                       formControlName="fatherName"
+                       [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
+                       id="fatherName"
+                       name="fatherName" placeholder="Father Name"
+                       type="text"/>
+              </td>
+              <td>
+                {{translatedValues?.fatherName}}
+              </td>
+              <td></td>
+            </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
               <td>
@@ -395,6 +393,38 @@
             </tr>
             <tr>
               <td>
+                <label class="title" for="issueDate">Issue Date</label>
+              </td>
+              <td>
+                <div class="row">
+                  <nb-radio-group name="issueDateType" formControlName="issuedDate"
+                                  #issueDateVal class="d-inline-flex">
+                    <nb-radio *ngFor="let option of dateOption"
+                              [value]="option.value">{{option.label}}</nb-radio>
+                  </nb-radio-group>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <nepali-patro *ngIf="issueDateVal.value ==='BS'" formControlName="dob" [responseType]="2"
+                              [displayNepali]="true">
+                </nepali-patro>
+                <input [nbDatepicker]="issueDate"
+                       *ngIf="issueDateVal.value ==='AD'"
+                       class="form-control form-control-sm-error rounded"
+                       formControlName="citizenshipIssueDate"
+                       id="issueDate"
+                       name="issueDate"
+                       placeholder="Issue Date"
+                       type="text">
+                <nb-datepicker #issueDate></nb-datepicker>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
                 <label class="title" for="panNo">PAN No</label>
               </td>
               <td>
@@ -488,10 +518,15 @@
               </td>
             </tr>
             <tr>
-              <td><label class="title"
-                         for="permanentMunicipality">Municipality or VDC</label>
+              <td>
+                <label class="title"
+                         for="permanentMunicipality">Municipality or VDC
+                </label>
               </td>
               <td>
+                <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
+                  <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                </nb-radio-group>
                 <select [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         class="custom-select"
