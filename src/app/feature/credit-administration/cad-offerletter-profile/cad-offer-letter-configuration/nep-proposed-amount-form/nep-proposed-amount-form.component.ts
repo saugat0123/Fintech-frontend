@@ -54,7 +54,7 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.nepForm = this.formBuilder.group({
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
-            initDate: [this.nepaliNumber.initDate, Validators.required],
+            initDate: [this.nepaliNumber.initDate],
         });
     }
 
@@ -81,11 +81,11 @@ export class NepProposedAmountFormComponent implements OnInit {
         }
         this.spinner = true;
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
-        console.log('sdfghjhihvjhghgjkhj', this.cadData.nepData);
+        console.log(this.cadData.nepData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
+            this.dialogRef.close();
             this.router.reloadCadProfileRoute(this.cadData.id);
-            this.closeForm();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated SUCCESSFULLY!!!'));
         }, error => {
             this.spinner = false;
@@ -94,7 +94,7 @@ export class NepProposedAmountFormComponent implements OnInit {
         });
     }
 
-    closeForm() {
+    closeModal() {
         this.dialogRef.close();
     }
 
