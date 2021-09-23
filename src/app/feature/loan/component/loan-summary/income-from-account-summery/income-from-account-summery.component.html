@@ -1,8 +1,8 @@
 <div class="row mt-2">
-  <div class="col-md-12">
-    <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. Income From Account' :
-            'Income From Account'}}</strong></p>
-    <label><strong>Account No: {{incomeFromAccount?.accountNo}}</strong></label>
+  <p><strong>{{count}} {{summaryType === summaryTypeName?.GAMMA ? '. Income From Account' :
+          'Income From Account'}}</strong></p>
+  <div class="col-md-12" *ngFor="let incomeFromAccount of incomeFromAccountArray; let i = index">
+    <label><strong>{{i+1}}. Account No: {{incomeFromAccount?.accountNo}}</strong></label>
     <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
       <thead>
       <tr class="sb-bg-dark text-white">
@@ -72,8 +72,9 @@
       </tr>
       </tbody>
     </table>
+    <app-income-from-account-view *ngIf="incomeFromAccount?.newCustomerChecked === false"
+                                  [data]="incomeFromAccount"></app-income-from-account-view>
   </div>
 </div>
 
-<app-income-from-account-view *ngIf="!newCustomerFlag"
-                              [data]="incomeFromAccount"></app-income-from-account-view>
+
