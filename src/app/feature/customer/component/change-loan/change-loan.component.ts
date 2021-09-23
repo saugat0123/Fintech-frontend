@@ -33,7 +33,6 @@ export class ChangeLoanComponent implements OnInit {
 
     @Input()
     customerLoanId: number;
-
     changeLoanForm: FormGroup;
     loanTag = LoanTag;
     constructor(private router: Router,
