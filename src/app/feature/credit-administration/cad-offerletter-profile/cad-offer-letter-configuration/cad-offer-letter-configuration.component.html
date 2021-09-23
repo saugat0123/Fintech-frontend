@@ -39,9 +39,9 @@
                 <label class="title" for="branch">Branch</label>
               </td>
               <td>
-                <select class="form-control" formControlName="branch" id="branch">
-                  <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                <select   class="form-control" formControlName="branch" id="branch">
+                  <option  [value]="null" hidden>Select Branch</option>
+                  <option [selected]="loanHolder.branch" *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
                   </option>
                 </select>
               </td>
@@ -105,31 +105,33 @@
             <tr>
               <td>DOB</td>
               <td>
-                <div class="row">&nbsp;<nb-radio (click)="setDateTypeBS()">BS</nb-radio>
-                  <nb-radio (click)="setDateTypeAD()">AD</nb-radio></div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-              </td>
-              <td>
-                <nepali-patro *ngIf="dateTypeBS" formControlName="dob" [responseType]="2"
-                              [displayNepali]="true">
-                </nepali-patro>
-                <input [nbDatepicker]="dob"
-                       *ngIf="dateTypeAD"
-                       class="form-control form-control-sm-error rounded"
-                       formControlName="dob"
-                       id="dateOfBirth"
-                       name="dateOfBirth"
-                       placeholder="Date of Birth"
-                       type="text">
-                <nb-datepicker #dob></nb-datepicker>
-              </td>
-              <td>
+                <div class="row">&nbsp;
+                <div class="col-md-4">
+                  <select #element (change)="selectDateType(element.value)" class="form-control">
+                    <option [value]="null" hidden>Date Type</option>
+                    <option value="BS">BS</option>
+                    <option value="AD" >AD</option>
+                  </select>
+                </div>
+                  <div class="col-md-7">
+                    <nepali-patro *ngIf="dateTypeBS" formControlName="dob" [responseType]="2"
+                                  [displayNepali]="true">
+                    </nepali-patro>
+                    <input [nbDatepicker]="dob"
+                           *ngIf="dateTypeAD"
+                           class="form-control form-control-sm-error rounded"
+                           formControlName="dob"
+                           id="dateOfBirth"
+                           name="dateOfBirth"
+                           placeholder="Date of Birth"
+                           type="text">
+                    <nb-datepicker #dob></nb-datepicker>
+                  </div>
 
+                </div>
               </td>
             </tr>
+
             <tr>
               <td><label class="title" for="email">Email</label></td>
               <td><input class="form-control "
@@ -183,12 +185,12 @@
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
 
               <td><label class="title" for="gender">Gender</label></td>
-              <td><select class="form-control" formControlName="gender" id="gender"
+              <td><select  class="form-control" formControlName="gender" id="gender"
                           [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
                 <option [value]="null" hidden>Select Gender</option>
-                <option value="MALE">Male</option>
-                <option value="FEMALE">Female</option>
-                <option value="OTHERS">Others</option>
+                <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
+                <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
+                <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
               </select>
               </td>
               <td>{{translatedValues?.gender}}</td>

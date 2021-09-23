@@ -24,6 +24,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
+import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 
 @Component({
     selector: 'app-filter',
@@ -49,6 +50,7 @@ export class FilterComponent implements OnInit {
   cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
   customerInfo = new Customer();
   customerType: any;
+  oneFormCustomerInfo: OneFormCustomerDto;
 
   constructor(private branchService: BranchService,
               private toastService: ToastService,
@@ -168,6 +170,7 @@ export class FilterComponent implements OnInit {
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
+        oneFormCustomer: this.oneFormCustomerInfo
       },
       hasBackdrop: false,
       dialogClass: 'model-full',

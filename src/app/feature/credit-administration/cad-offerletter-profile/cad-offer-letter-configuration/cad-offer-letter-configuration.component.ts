@@ -35,6 +35,7 @@ import {AddressService} from '../../../../@core/service/baseservice/address.serv
 import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -47,6 +48,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
+  @Input() loanHolder: CustomerInfoData;
+  @Input() oneFormCustomer: OneFormCustomerDto;
   // @Input() customer: Customer;
   @Output()
   customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
@@ -69,7 +72,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   company: CompanyInfo = new CompanyInfo();
   companyLocations: CompanyLocations = new CompanyLocations();
   disableLoanFacility = true;
-  oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
+  // oneFormCustomer: OneFormCustomerDto = new OneFormCustomerDto();
   calendarType = CalendarType.AD;
   disableTemplateData = true;
   disableLoanTab = true;
@@ -112,6 +115,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
+      console.log(this.oneFormCustomer, 'editData');
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -145,15 +149,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   buildForm() {
     this.userConfigForm = this.formBuilder.group({
-      branch: [undefined],
+      branch: [undefined, ],
       branchCT: [undefined],
       clientType: [undefined],
       clientTypeCT: [undefined],
-      name: [undefined],
+      name: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName],
       nameCT: [undefined],
-      email: [undefined],
+      email: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.email],
       emailCT: [undefined],
-      contactNo: [undefined],
+      contactNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber],
       contactNoCT: [undefined],
       panNo: [undefined],
       panNoCT: [undefined],
@@ -179,11 +183,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       currentDistrictCT: [undefined],
       currentMunicipality: [undefined],
       currentMunicipalityCT: [undefined],
-      customerCode: [undefined],
+      customerCode: [ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.customerCode ],
       customerCodeCT: [undefined],
 
 
-      gender: [this.checkIsIndividual() ? this.gender(this.customerInfo.gender) : undefined],
+      gender: [undefined],
       genderCT: [undefined],
       fatherName: [undefined],
       fatherNameCT: [undefined],
@@ -195,33 +199,33 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       husbandNameCT: [undefined],
       fatherInLawName: [undefined],
       fatherInLawNameCT: [undefined],
-      citizenshipNo: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customerInfo.idNumber) : undefined],
+      citizenshipNo: [undefined],
       citizenshipNoCT: [undefined],
       dob: [undefined],
       dobCT: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentProvinceCT: [undefined],
-      permanentProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.province.nepaliName) ? undefined : this.customer.province.nepaliName : undefined],
+      permanentProvince: [undefined],
       // tslint:disable-next-line:max-line-length
-      permanentDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.district.nepaliName) ? undefined : this.customer.district.nepaliName : undefined],
+      permanentDistrict: [undefined],
       permanentDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      permanentMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.municipalities.nepaliName) ? undefined : this.customer.municipalities.nepaliName : undefined],
-      permanentMunicipalityCT: [undefined],
+      permanentMunicipality: [undefined],
+        permanentMunicipalityCT: [undefined],
       permanentMunType: [0],
       permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
-      temporaryProvince: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryProvince.nepaliName) ? undefined : this.customer.temporaryProvince.nepaliName : undefined],
-      temporaryProvinceCT: [undefined],
+      temporaryProvince: [undefined],
+        temporaryProvinceCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      temporaryDistrict: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryDistrict.nepaliName) ? undefined : this.customer.temporaryDistrict.nepaliName : undefined],
-      temporaryDistrictCT: [undefined],
+      temporaryDistrict: [undefined],
+        temporaryDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      temporaryMunicipality: [this.checkIsIndividual() ? ObjectUtil.isEmpty(this.customer.temporaryMunicipalities.nepaliName) ? undefined : this.customer.temporaryMunicipalities.nepaliName : undefined],
-      temporaryMunicipalityCT: [undefined],
-      permanentWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.wardNumber) : undefined],
+      temporaryMunicipality: [undefined],
+        temporaryMunicipalityCT: [undefined],
+      permanentWard: [undefined],
       permanentWardCT: [undefined],
-      temporaryWard: [this.checkIsIndividual() ? this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
+      temporaryWard: [undefined],
       temporaryWardCT: [undefined],
       temporaryMunType: [1],
       temporaryMunTypeCT: [undefined],
@@ -676,13 +680,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
   }
 
-    setDateTypeBS(){
-        this.dateTypeBS = true;
-        this.dateTypeAD = false;
-    }
-
-    setDateTypeAD(){
-        this.dateTypeBS = false;
-        this.dateTypeAD = true;
+    selectDateType(event) {
+        if (event === 'BS') {
+            this.dateTypeBS = true;
+            this.dateTypeAD = false;
+        }
+        if (event === 'AD') {
+            this.dateTypeBS = false;
+            this.dateTypeAD = true;
+        }
     }
 }

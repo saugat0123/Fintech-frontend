@@ -64,7 +64,6 @@ export class OneFormCustomerDto {
     contactPersons: string;
     profilePic: string;
     issuePlace: string;
-    contactNum: string;
     experience: string;
     succession: string;
     companyJsonData: string;
