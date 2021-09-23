@@ -68,6 +68,7 @@ import {AdminModule} from '../admin/admin.module';
 import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/loan-create/loan-create.component';
 import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data/retail-housing-loan-template-data/retail-housing-loan-template-data.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -124,22 +125,23 @@ import {NepaliPatroModule} from 'nepali-patro';
     EducationalLoanTemplateDataComponent,
     LoanCreateComponent,
     RetailLoanAgainstInsuranceTemplateDataComponent,
-    RetailHousingLoanTemplateDataComponent],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NbDialogModule.forRoot(),
-        MegaOfferLetterTemplateModule,
-        CadDocumentTemplateModule,
-        RouterModule.forChild(routes),
-        NgSelectModule,
-        CoreModule,
-        MegaModule,
-        NgxPrintModule,
-        AngularDraggableModule,
-        NepaliCalendarModule,
-        AdminModule,
-        NepaliPatroModule,
+    RetailHousingLoanTemplateDataComponent,
+    PersonalOverdraftTemplateDataComponent],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NbDialogModule.forRoot(),
+    MegaOfferLetterTemplateModule,
+    CadDocumentTemplateModule,
+    RouterModule.forChild(routes),
+    NgSelectModule,
+    CoreModule,
+    MegaModule,
+    NgxPrintModule,
+    AngularDraggableModule,
+    NepaliCalendarModule,
+    AdminModule,
+  NepaliPatroModule,
     ],
   entryComponents: [
     AssignPopUpComponent,
