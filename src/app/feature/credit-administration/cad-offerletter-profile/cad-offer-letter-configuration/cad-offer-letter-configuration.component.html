@@ -438,7 +438,7 @@
             <tr>
               <td></td>
               <td>
-                <nepali-patro *ngIf="issueDateVal.value ==='BS'" formControlName="dob" [responseType]="2"
+                <nepali-patro *ngIf="issueDateVal.value ==='BS'" formControlName="citizenshipIssueDate" [responseType]="2"
                               [displayNepali]="true">
                 </nepali-patro>
                 <input [nbDatepicker]="issueDate"
@@ -563,7 +563,7 @@
               </td>
               <td>
                 <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
-                  <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                  <nb-radio *ngFor="let option of vdcOption" [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <select [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
@@ -572,7 +572,7 @@
                         id="permanentMunicipality"
                         name="municipality">
                   <option [ngValue]="null" hidden>Municipality</option>
-                  <option  *ngFor="let municipalityVal of municipalities"
+                  <option *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}}
                   </option>
@@ -614,7 +614,7 @@
             </tr>
             <td></td>
             <td>
-                <nb-checkbox (change)="sameAsPermanent($event)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+                <nb-checkbox [checked]="addressSameAsAbove" (change)="sameAsPermanent($event)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
             </td>
             </tbody>
 
@@ -679,12 +679,17 @@
               </td>
             </tr>
             <tr>
-              <td><label class="title"
-                         for="temporaryMunicipality">Municipality or VDC</label>
+              <td>
+                <label class="title"
+                       for="temporaryMunicipality">Municipality or VDC
+                </label>
               </td>
               <td>
+                <nb-radio-group name="MunicipalityOrVdc" formControlName="tempMunicipalitiesOrVdc" class="d-inline-flex">
+                  <nb-radio *ngFor="let option of vdcOption" [value]="option.value">{{option.label}}</nb-radio>
+                </nb-radio-group>
                 <select [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
+                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         class="custom-select"
                         formControlName="temporaryMunicipality"
                         id="temporaryMunicipality"

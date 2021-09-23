@@ -133,6 +133,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if(!ObjectUtil.isEmpty(this.oneFormCustomer)){
         this.getAllEditedDistrictAndMunicipalities();
         this.dateTypeAD = true;
+        this.addressSameAsAbove = this.oneFormCustomer.hasSameAddress;
     } else {
         this.oneFormCustomer = new OneFormCustomerDto();
     }
@@ -156,6 +157,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.patchValue(data);
       this.setGuarantors(data.guarantorDetails);
     }
+
+    this.patchValue();
+
   }
 
   buildForm() {
@@ -164,13 +168,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       branchCT: [undefined],
       clientType: [undefined],
       clientTypeCT: [undefined],
-      name: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName],
+      name: [undefined],
       nameCT: [undefined],
-      email: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.email],
+      email: [undefined],
       emailCT: [undefined],
-      contactNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber],
+      contactNo: [undefined],
       contactNoCT: [undefined],
-      panNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.panNumber],
+      panNo: [undefined],
       panNoCT: [undefined],
       registrationNo: [undefined],
       registrationNoCT: [undefined],
@@ -210,33 +214,33 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       husbandNameCT: [undefined],
       fatherInLawName: [undefined],
       fatherInLawNameCT: [undefined],
-      citizenshipNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber],
+      citizenshipNo: [undefined],
       citizenshipNoCT: [undefined],
       dob: [undefined],
       dobCT: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentProvinceCT: [undefined],
-      permanentProvince: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province],
+      permanentProvince: [undefined],
       // tslint:disable-next-line:max-line-length
-      permanentDistrict: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district],
+      permanentDistrict: [undefined],
       permanentDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      permanentMunicipality: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities],
+      permanentMunicipality: [undefined],
         permanentMunicipalityCT: [undefined],
       permanentMunType: [0],
       permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
-      temporaryProvince: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince],
+      temporaryProvince: [undefined],
         temporaryProvinceCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      temporaryDistrict: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict],
+      temporaryDistrict: [undefined],
         temporaryDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      temporaryMunicipality: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities],
+      temporaryMunicipality: [undefined],
         temporaryMunicipalityCT: [undefined],
-      permanentWard: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber],
+      permanentWard: [undefined],
       permanentWardCT: [undefined],
-      temporaryWard: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber],
+      temporaryWard: [undefined],
       temporaryWardCT: [undefined],
       temporaryMunType: [1],
       temporaryMunTypeCT: [undefined],
@@ -251,6 +255,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       issuedDate: [undefined],
       issuedDateCT: [undefined],
       guarantorDetails: this.formBuilder.array([]),
+        issuedDateType: [undefined],
+        tempMunicipalitiesOrVdc: [undefined],
+        customerInfoId: [undefined],
     });
   }
 
@@ -292,6 +299,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
+    this.oneFormCustomer.dobDateType = this.userConfigForm.get('dobDateType').value;
+    this.oneFormCustomer.issuedDateType = this.userConfigForm.get('issuedDate').value;
+    this.oneFormCustomer.municipalitiesOrVdc = this.userConfigForm.get('municipalityOrVdc').value;
+    this.oneFormCustomer.tempMunicipalitiesOrVdc = this.userConfigForm.get('tempMunicipalitiesOrVdc').value;
+      if (this.addressSameAsAbove) {
+          this.oneFormCustomer.hasSameAddress = true;
+      }
     const customer = {
         relationMedium: this.userConfigForm.get('relationMedium').value,
         husbandName: this.userConfigForm.get('husbandName').value,
@@ -324,20 +338,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
 
-    Object.keys(this.userConfigForm.controls).forEach(key => {
-      console.log(key);
-      if (key.indexOf('CT') > -1) {
-        return;
-      }
-      if (key === 'guarantorDetails') {
-        return;
-      }
-      this.attributes = new Attributes();
-      this.attributes.en = this.userConfigForm.get(key).value;
-      this.attributes.np = this.translatedValues[key];
-      this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
-      this.translatedData[key] = this.attributes;
-    });
+    // Object.keys(this.userConfigForm.controls).forEach(key => {
+    //   console.log(key);
+    //   if (key.indexOf('CT') > -1) {
+    //     return;
+    //   }
+    //   if (key === 'guarantorDetails') {
+    //     return;
+    //   }
+    //   this.attributes = new Attributes();
+    //   this.attributes.en = this.userConfigForm.get(key).value;
+    //   this.attributes.np = this.translatedValues[key];
+    //   this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+    //   this.translatedData[key] = this.attributes;
+    // });
     const data = {
       branch: this.userConfigForm.get('branch').value,
       customerType: clientType,
@@ -450,6 +464,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
     this.spinner = false;
+
   }
 
   getCadApprovedData(data) {
@@ -463,7 +478,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           temporaryProvince: this.userConfigForm.get('permanentProvince').value,
           temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
           temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
-                 temporaryWard: this.userConfigForm.get('permanentWard').value
+                 temporaryWard: this.userConfigForm.get('permanentWard').value,
+          tempMunicipalitiesOrVdc: this.userConfigForm.get('municipalityOrVdc').value
       });
     } else {
       this.addressSameAsAbove = false;
@@ -471,7 +487,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryProvince: undefined,
             temporaryDistrict: undefined,
             temporaryMunicipality: undefined,
-            temporaryWard: undefined
+            temporaryWard: undefined,
+            tempMunicipalitiesOrVdc: undefined
         });
     }
   }
@@ -627,5 +644,39 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     clearForm(controlName) {
         this.userConfigForm.get(controlName).setValue(null);
+    }
+
+    patchValue(): void {
+        if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
+
+            this.userConfigForm.patchValue({
+                branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.branch.id,
+                customerCode: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.customerCode,
+                name: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName,
+                email: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.email,
+                contactNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber,
+                panNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.panNumber,
+                citizenshipNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber,
+                permanentProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province,
+                permanentDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district,
+                // permanentMunicipality: this.oneFormCustomer.municipalities,
+                temporaryProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince,
+                temporaryDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict,
+                temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
+                permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber,
+                temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
+                issuedDate: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.issuedDateType,
+                dobDateType: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.dobDateType,
+                citizenshipIssueDate : ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : new Date(this.oneFormCustomer.citizenshipIssuedDate),
+                dob: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : new Date(this.oneFormCustomer.dob),
+                citizenshipIssueDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipIssuedPlace,
+                municipalityOrVdc: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalitiesOrVdc,
+                tempMunicipalitiesOrVdc: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.tempMunicipalitiesOrVdc,
+            });
+        }
+    }
+
+    munVdcValue(values: any) {
+        console.log(values);
     }
 }
