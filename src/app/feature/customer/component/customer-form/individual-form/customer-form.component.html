@@ -336,7 +336,7 @@
                   <span>Occupation is required</span>
                 </span>
                                    </div>
-                                   <div *ngIf="tempFlag.showOtherOccupation"
+                                   <div *ngIf="tempFlag.showOtherOccupation || individualJsonData.tempFlag.showOtherOccupation"
                                         class="col-md-12 mt-3 form-group">
                                        <label>Other occupation(s)</label>
                                        <input class="form-control" formControlName="otherOccupation" id="otherOccupation"
@@ -373,10 +373,11 @@
                                            <span class="text-danger small"> Income Source is required</span>
                                        </div>
                                    </div>
-                                   <div *ngIf="tempFlag.showOtherIncomeSource"
+                                   <div *ngIf="tempFlag.showOtherIncomeSource || individualJsonData.tempFlag.showOtherIncomeSource"
                                         class="col-md-12 mt-3 form-group">
                                        <label>Other Income Source</label>
-                                       <input class="form-control" formControlName="otherIncome" id="otherIncome"
+                                       <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.otherIncome.errors }"
+                                              class="form-control" formControlName="otherIncome" id="otherIncome"
                                               name="otherIncome" placeholder="Other Income source" type="text">
                                        <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
                                             class="invalid-feedback small">

@@ -9,4 +9,5 @@ export class IndividualJsonData {
     microCustomerDetail: any;
     grandFatherName: string;
     fatherName: string;
+    tempFlag: { showOtherOccupation: boolean; showOtherIncomeSource: boolean; hideIncomeSource: boolean };
 }
