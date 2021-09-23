@@ -635,7 +635,7 @@
                         </nb-accordion-item-body>
                     </nb-accordion-item>
                 </nb-accordion>
-                <app-remit-details [loanHolder]="loanDataHolder"></app-remit-details>
+                <app-remit-details *ngIf="isRemitLoan" [loanHolder]="loanDataHolder"></app-remit-details>
 
             </div>
 

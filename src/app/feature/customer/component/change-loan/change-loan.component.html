@@ -19,8 +19,13 @@
                         class="form-control"
                         name="loanId">
                     <option hidden> select Loan Type</option>
-                    <option *ngFor="let allList of loanList"
-                            [value]="allList.id">{{allList.name}}</option>
+                    <ng-container *ngFor="let allList of loanList">
+                        <option
+                                *ngIf="allList.loanTag !== loanTag.getKeyByValue(loanTag.REMIT_LOAN)"
+                                [value]="allList.id">{{allList.name}}</option>
+
+                    </ng-container>
+
                 </select>
             </div>
 
