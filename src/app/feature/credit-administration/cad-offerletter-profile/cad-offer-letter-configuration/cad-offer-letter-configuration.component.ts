@@ -498,16 +498,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   addGuarantorField() {
     return this.formBuilder.group({
       guarantorName: '',
+      translatedGuarantorName: [undefined],
       guarantorNameCT: '',
       issuedYear: '',
       issuedYearCT: '',
       issuedPlace: '',
+      translateIissuedPlace: [undefined],
       issuedPlaceCT: '',
       guarantorLegalDocumentAddress: '',
+      translateGuarantorLegalDocumentAddress: [undefined],
       guarantorLegalDocumentAddressCT: '',
       relationship: '',
       relationshipCT: '',
       citizenNumber: '',
+      translatedCitizenNumber: [undefined],
       citizenNumberCT: '',
     });
   }
@@ -535,12 +539,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorDetails.forEach(value => {
       formArray.push(this.formBuilder.group({
         guarantorName: [value.guarantorName],
+        translatedGuarantorName: [undefined],
         guarantorNameCT: [value.guarantorNameCT],
+        translatedCitizenNumber: [undefined],
         issuedYear: [value.issuedYear],
         issuedYearCT: [value.issuedYearCT],
         issuedPlace: [value.issuedPlace],
+        translateIissuedPlace: [undefined],
         issuedPlaceCT: [value.issuedPlaceCT],
         guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+        translateGuarantorLegalDocumentAddress: [undefined],
         guarantorLegalDocumentAddressCT: [value.guarantorLegalDocumentAddressCT],
         relationship: [value.relationship],
         relationshipCT: [value.relationshipCT],
@@ -556,9 +564,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   async translate() {
-
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    this.spinner = false;
     this.objectTranslateForm.patchValue({
       permanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
@@ -577,7 +585,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
     this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
-    this.spinner = false;
+  }
+
+  async translateGuarantorData(i) {
+    let alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
+    if (alluarantors.length > 0) {
+      let guarantorsDetails: any = [];
+      guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails');
+      console.log('guarantorsDetails: ', guarantorsDetails);
+      this.userConfigForm.get(['guarantorDetails', i, 'translatedGuarantorName']).setValue(guarantorsDetails.guarantorName || '');
+      this.userConfigForm.get(['guarantorDetails', i, 'translatedCitizenNumber']).setValue(guarantorsDetails.citizenNumber || '');
+      this.userConfigForm.get(['guarantorDetails', i, 'translateIissuedPlace']).setValue(guarantorsDetails.issuedPlace || '');
+      this.userConfigForm.get(['guarantorDetails', i, 'translateGuarantorLegalDocumentAddress']).setValue(guarantorsDetails.guarantorLegalDocumentAddress || '');
+    }
   }
 
   getCadApprovedData(data) {

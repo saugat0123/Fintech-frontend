@@ -885,7 +885,10 @@
                          name="name" placeholder="Guarantor Name"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.guarantorName}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="translatedGuarantorName" readonly/>
+                </td>
                 <td>
                   <input class="form-control nepaliFont" type="text"
                          formControlName="guarantorNameCT" readonly/>
@@ -903,7 +906,10 @@
                          name="name" placeholder="Citizenship No"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.citizenNumber}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="translatedCitizenNumber" readonly/>
+                </td>
                 <td>
                   <input class="form-control nepaliFont" type="text"
                          formControlName="citizenNumberCT" readonly/>
@@ -945,7 +951,10 @@
                          name="name" placeholder="Citizenship Issue District"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.issuedPlace}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="translateIissuedPlace" readonly/>
+                </td>
                 <td>
                   <input class="form-control nepaliFont" type="text" formControlName="issuedPlaceCT"
                          readonly/>
@@ -963,7 +972,10 @@
                          name="name" placeholder="Guarantor Address"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="translateGuarantorLegalDocumentAddress" readonly/>
+                </td>
                 <td>
                   <input class="form-control nepaliFont" type="text"
                          formControlName="guarantorLegalDocumentAddressCT" readonly/>
@@ -985,10 +997,15 @@
                 <td></td>
               </tr>
               <tr>
-                <td colspan="4" class="text-left">
-                  <button nbButton status="danger" size="medium" (click)="removeAtIndex(i)"
+                <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2" class="text-left">
+                  <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
                           style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
+                  </button>
+                </td>
+                <td [attr.colspan]="userConfigForm.get('guarantorDetails')['length'] > 1 ? '2' : '4'" class="text-right">
+                  <button nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
+                    Translate Guarantor Data
                   </button>
                 </td>
               </tr>
