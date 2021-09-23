@@ -239,7 +239,7 @@
                         <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanAdminFeeWordsCheck']" formControlName="loanAdminFeeWordsTransVal"/>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Emi Amount Figure</td>
                     <td><input type="text" class="form-control"
                                formControlName="emiAmountFigure"
@@ -252,7 +252,7 @@
                         <input type="text" class="form-control nepaliFont" [readOnly]="!this['emiAmountFigureCheck']" formControlName="emiAmountFigureTransVal"/>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
                     <td>Emi Amount Words</td>
                     <td><input type="text" class="form-control" formControlName="emiAmountWords"/></td>
                     <td class="abc">{{translatedData?.emiAmountWords}}</td>
@@ -263,7 +263,7 @@
                         <input type="text" class="form-control nepaliFont" [readOnly]="!this['emiAmountWordsCheck']" formControlName="emiAmountWordsTransVal"/>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
                     <td>Loan Period In Months</td>
                     <td><input type="text" class="form-control" formControlName="loanPeriodInMonths"/></td>
                     <td class="abc">{{translatedData?.loanPeriodInMonths}}</td>
@@ -273,7 +273,7 @@
                         <td>
                             <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanPeriodInMonthsCheck']" formControlName="loanPeriodInMonthsTransVal"/>
                         </td>
-                <tr>
+                <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
                     <td>Moratorium Period In Months</td>
                     <td><input type="text" class="form-control" formControlName="moratoriumPeriodInMonths"/></td>
                     <td class="abc">{{translatedData?.moratoriumPeriodInMonths}}</td>
@@ -309,7 +309,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
                     <td>Fixed Deposit Amount Figure</td>
                     <td><input type="text" class="form-control" formControlName="fixedDepositAmountFigure"/></td>
                     <td class="abc">{{translatedData?.fixedDepositAmountFigure}}</td>
@@ -382,19 +382,18 @@
                         <input type="text" class="form-control nepaliFont" [readOnly]="!this['guaranteedAmountWordsCheck']" formControlName="guaranteedAmountWordsTransVal"/>
                     </td>
                 </tr>
-
-                <tr>
-                    <td>Name Of Branch</td>
-                    <td><input type="text" class="form-control" formControlName="nameOfBranch"/></td>
-                    <td class="abc">{{translatedData?.nameOfBranch}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'nameOfBranch')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfBranchCheck']" formControlName="nameOfBranchTransVal"/>
-                    </td>
-                </tr>
-                <tr>
+<!--                <tr>-->
+<!--                    <td>Name Of Branch</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="nameOfBranch"/></td>-->
+<!--                    <td class="abc">{{translatedData?.nameOfBranch}}</td>-->
+<!--                    <td>-->
+<!--                        <nb-checkbox (change)="checkboxVal($event, 'nameOfBranch')"></nb-checkbox>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfBranchCheck']" formControlName="nameOfBranchTransVal"/>-->
+<!--                    </td>-->
+<!--                </tr>-->
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
                     <td>Name Of Fixed Deposit</td>
                     <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>
                     <td class="abc">{{translatedData?.nameOfFixedDeposit}}</td>
@@ -406,7 +405,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Pledge Amount Figure</td>
                     <td><input type="text" class="form-control" formControlName="pledgeAmountFigure"/></td>
                     <td class="abc">{{translatedData?.pledgeAmountFigure}}</td>
@@ -418,7 +417,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
                     <td>Insurance Amount Figure</td>
                     <td><input type="text" class="form-control" formControlName="insuranceAmountFigure"/></td>
                     <td class="abc">{{translatedData?.insuranceAmountFigure}}</td>
@@ -514,7 +513,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Property Owners Name (धनीको नाम थर)</td>
                     <td><input type="text" class="form-control" formControlName="ownersName"/></td>
                     <td class="abc">{{translatedData?.ownersName}}</td>
@@ -526,7 +525,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>District (जिल्ला)</td>
                     <td><input type="text" class="form-control" formControlName="district"/></td>
                     <td class="abc">{{translatedData?.district}}</td>
@@ -538,7 +537,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Municipality (नगर/गा.वि.स.)</td>
                     <td><input type="text" class="form-control" formControlName="municipality"/></td>
                     <td class="abc">{{translatedData?.municipality}}</td>
@@ -550,7 +549,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Ward No (वडा नं.)</td>
                     <td><input type="text" class="form-control" formControlName="wardNo"/></td>
                     <td class="abc">{{translatedData?.wardNo}}</td>
@@ -562,8 +561,8 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td>Seat No (सिट नं.)</td>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
+                    <td>Sit No (सिट नं.)</td>
                     <td><input type="text" class="form-control" formControlName="seatNo"/></td>
                     <td class="abc">{{translatedData?.seatNo}}</td>
                     <td>
@@ -574,7 +573,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Kitta No (कित्ता नं.)</td>
                     <td><input type="text" class="form-control" formControlName="kittaNo"/></td>
                     <td class="abc">{{translatedData?.kittaNo}}</td>
@@ -586,7 +585,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Land Area (क्षेत्रफल)</td>
                     <td><input type="text" class="form-control" formControlName="landArea"/></td>
                     <td class="abc">{{translatedData?.landArea}}</td>
@@ -598,7 +597,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Promissory Note Amount</td>
                     <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"/></td>
                     <td class="abc">{{translatedData?.promissoryNoteAmount}}</td>
@@ -610,7 +609,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Loan Deed Amount</td>
                     <td><input type="text" class="form-control" formControlName="loanDeedAmount"/></td>
                     <td class="abc">{{translatedData?.loanDeedAmount}}</td>
