@@ -24,6 +24,8 @@ import {NbAccordionModule} from '@nebular/theme';
 import {RetailLoanAgainstInsuranceComponent} from "./mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component";
 import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
 import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
+import { PersonalOverdraftComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft.component';
+import { PersonalOverdraftPrintComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft-print/personal-overdraft-print.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -49,7 +51,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -59,7 +61,8 @@ const COMPONENTS = [
         RetailMortgageComponent,
         RetailMortgageLoanComponent,
         RetailProfessionalLoanComponent,
-        RetailLoanAgainstInsuranceComponent
+        RetailLoanAgainstInsuranceComponent,
+        PersonalOverdraftComponent
     ],
     imports: [
         ThemeModule,

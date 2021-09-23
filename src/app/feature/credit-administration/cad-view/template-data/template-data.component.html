@@ -8,6 +8,7 @@
 <!--    </nb-option>-->
     <nb-option value="EDUCATIONAL">EDUCATIONAL</nb-option>
     <nb-option value="AUTO_LOAN_COMMERCIAL">AUTO LOAN COMMERCIAL</nb-option>
+    <nb-option value="PERSONAL_OVERDRAFT">PERSONAL OVERDRAFT</nb-option>
 </nb-select>
 
 <nb-card>
@@ -28,5 +29,8 @@
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === 'AUTO_LOAN_COMMERCIAL'">
         <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>
+    </nb-card-body>
+    <nb-card-body *ngIf="offerLetterSelect === 'PERSONAL_OVERDRAFT'">
+        <app-personal-overdraft-template-data></app-personal-overdraft-template-data>
     </nb-card-body>
 </nb-card>
