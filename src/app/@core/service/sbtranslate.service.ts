@@ -1,26 +1,24 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
 import {FormGroup} from '@angular/forms';
+import {BaseService} from "../BaseService";
+import {ApiUtils} from "../utils/api/ApiUtils";
 
 @Injectable({providedIn: 'root'})
-export class SbTranslateService {
-
-    apiKey = environment.GOOGLE_TRANSLATE_API_KEY;
-    translateURL = 'https://translation.googleapis.com/language/translate/v2?key=' + this.apiKey;
-    translateTarget = 'ne';
+export class SbTranslateService extends BaseService<String> {
+    static API = 'api/translate';
     translateRes = '';
     translatedValues: any = {};
     private spinner: boolean;
 
     constructor(readonly http: HttpClient) {
+        super(http);
     }
 
     async translate(q: any) {
-        return await this.http.post('' + this.translateURL, {
-            'q': q,
-            'target': this.translateTarget
-        }).toPromise().then((res: any) => {
+        this.spinner=true;
+        const req = ApiUtils.getRequest(`${SbTranslateService.API}`)
+        return  this.http.post(req.url, q, {headers: req.header}).toPromise().then((res: any) => {
             return res.data.translations;
             this.spinner = false;
         }, error => {
@@ -42,6 +40,10 @@ export class SbTranslateService {
             this.translatedValues[allKeys[index]] = f.translatedText;
         });
         return this.translatedValues;
+    }
+
+    protected getApi(): string {
+        return SbTranslateService.API;
     }
 
 }
