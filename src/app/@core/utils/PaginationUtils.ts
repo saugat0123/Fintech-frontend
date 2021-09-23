@@ -1,7 +1,7 @@
 import {Pageable} from '../service/baseservice/common-pageable';
 
 export class PaginationUtils {
-    public static PAGE_SIZE = 25;
+    public static PAGE_SIZE = 10;
 
     public static getPageable(res: any): Pageable {
 
