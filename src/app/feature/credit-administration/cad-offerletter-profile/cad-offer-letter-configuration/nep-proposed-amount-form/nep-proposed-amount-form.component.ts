@@ -42,7 +42,7 @@ export class NepProposedAmountFormComponent implements OnInit {
             let number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, data);
             secData.forEach((datas) => {
                 if (datas.remitCustomer !== null) {
-                    number +=  datas.loanHolder.remitCustomer.proposedAmount;
+                    number +=  datas.remitCustomer.proposedAmount;
                 }
             });
                 this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
