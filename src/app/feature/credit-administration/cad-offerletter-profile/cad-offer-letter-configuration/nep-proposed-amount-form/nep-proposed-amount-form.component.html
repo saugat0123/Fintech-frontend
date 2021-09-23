@@ -3,9 +3,13 @@
         <Form [formGroup]="nepForm">
             <div class="col-md-12 row">
                 <div class="col-md-6">
-                    <input type="number"
+                    <!--<input type="number"
                            [ngClass]="{'is-invalid': submitted && nepFormControls.engNumber.errors}"
                             placeholder="प्रस्तावित रकम"
+                           (change)="onChangeValue($event)" class="form-control"
+                           formControlName="engNumber"/>-->
+                    <input type="number"
+                           placeholder="प्रस्तावित रकम"
                            (change)="onChangeValue($event)" class="form-control"
                            formControlName="engNumber"/>
                 </div>

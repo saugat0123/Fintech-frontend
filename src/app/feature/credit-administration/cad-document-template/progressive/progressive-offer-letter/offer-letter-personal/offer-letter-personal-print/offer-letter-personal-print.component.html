@@ -327,8 +327,8 @@
                                 <td><b>प्रतिवद्धता शुल्क :</b></td>
                                 <td>
                                     रु.
-                                    <span [ngClass]="{'nepaliFont' : loanFacilityData?.pratibadhataAmount !== null && loanFacilityData?.pratibadhataAmount !== ''}">
-                                        {{loanFacilityData?.pratibadhataAmount === null || loanFacilityData?.pratibadhataAmount === '' ? '___________' : loanFacilityData?.pratibadhataAmount}}
+                                    <span [ngClass]="{'nepaliFont' : loanFacilityData?.amount !== null && loanFacilityData?.amount !== ''}">
+                                        {{loanFacilityData?.amount === null || loanFacilityData?.amount === '' ? '___________' : loanFacilityData?.amount}}
                                     </span>
                                     को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
                                     अग्रिम भुक्तानी गरेमा वा कर्जा
@@ -470,8 +470,8 @@
                                     लिगलगापात फाइनान्सको
                                     नाममा धितो वन्धकीको लिखत
                                     लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.dhitoLekhi !== null && printDocForm?.dhitoLekhi !== ''}">
-                                        {{printDocForm?.dhitoLekhi === null || printDocForm?.dhitoLekhi === '' ? '_________________' : printDocForm?.dhitoLekhi}}
+                                    <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                                        {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
                                     </span>
 
                                     मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
@@ -485,13 +485,13 @@
                                         {{printDocForm?.shreeName1 === null || printDocForm?.shreeName1 === '' ? '_________________' : printDocForm?.shreeName1}}
                                     </span>
                                     को रु
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.shreeAmount !== null && printDocForm?.shreeAmount !== ''}">
-                                        {{printDocForm?.shreeAmount === null || printDocForm?.shreeAmount === '' ? '____________' : printDocForm?.shreeAmount}}
+                                    <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                                        {{printDocForm?.amount === null || printDocForm?.amount === '' ? '____________' : printDocForm?.amount}}
                                     </span>
                                     /–
                                     (अक्षरेपी:
-                                    <span [ngClass]="{'nepaliFont' : printDocForm?.shreeAmount !== null && printDocForm?.shreeAmount !== ''}">
-                                        {{printDocForm?.shreeAmount === null || printDocForm?.shreeAmount === '' ? '____________________' : printDocForm?.shreeAmount}}
+                                    <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                                        {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '____________________' : printDocForm?.amountInWords}}
                                     </span>
                                     मात्र )को व्यक्तिगत जमानीको लिखत ।
                                 </td>

@@ -53,7 +53,7 @@ export class NepProposedAmountFormComponent implements OnInit {
     buildForm() {
         this.nepForm = this.formBuilder.group({
             nepaliNumber: [this.nepaliNumber.numberNepali],
-            engNumber: [this.nepaliNumber.engNumber, Validators.required],
+            engNumber: [this.nepaliNumber.engNumber],
             initDate: [this.nepaliNumber.initDate],
         });
     }
