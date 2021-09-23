@@ -959,7 +959,7 @@
                         <ng-container *ngFor="let singleGuarantor of taggedGuarantorWithDoc; let i = index">
                             <tbody *ngFor="let singleDoc of singleGuarantor.docPath.split(','); let j = index">
                             <tr *ngIf="singleDoc">
-                                <td>{{i + 1}}</td>
+                                <td>{{i + 1}}.{{j + 1}}</td>
                                 <td class="text-left pl-1">{{singleGuarantor?.name}}</td>
                                 <td>{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
                                 <td>
@@ -994,7 +994,7 @@
                         <ng-container *ngFor="let singleInsurance of insuranceWithDoc; let i = index">
                             <tbody *ngFor="let singleDoc of singleInsurance.policyDocumentPath.split(','); let j = index">
                             <tr *ngIf="singleDoc">
-                                <td>{{i + 1}}</td>
+                                <td>{{i + 1}}.{{j + 1}}</td>
                                 <td class="text-right pr-1">{{singleInsurance?.policyNumber}}</td>
                                 <td class="text-left pl-1">{{singleInsurance?.company}}</td>
                                 <td class="text-left pl-1">{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
