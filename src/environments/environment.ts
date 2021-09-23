@@ -17,7 +17,7 @@ import {Clients} from './Clients';
  */
 export const environment = {
   production: false,
-  client: Clients.NABIL,
+  client: Clients.MEGA,
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   GOOGLE_TRANSLATE_API_KEY : "AIzaSyAxz2WxgB-dxnUt_Udv9SpuyPJEb8hGsV0",
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
