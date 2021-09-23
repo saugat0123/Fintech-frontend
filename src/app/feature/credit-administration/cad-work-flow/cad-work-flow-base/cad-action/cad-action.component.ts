@@ -305,9 +305,9 @@ export class CadActionComponent implements OnInit, OnChanges {
             });
 
         } else if (this.popUpTitle === 'SEND TO BRANCH') {
-            await this.userService.getDefaultCommunityUser().then(res => {
-                this.committeeDefaultUser = res.detail;
-            });
+            // await this.userService.getDefaultCommunityUser().then(res => {
+            //     this.committeeDefaultUser = res.detail;
+            // });
             this.formAction = this.formBuilder.group(
                 {
                     toRole: [this.branchMakerRole],
@@ -317,6 +317,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
+                    sendToBranch: true,
                 }
             );
             const approvalType = 'CAD';
