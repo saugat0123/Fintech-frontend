@@ -14,7 +14,7 @@
                 [disabled]="!activeCustomerTab"
                 [nbSpinner]="spinner"
                 #personal>
-          <h4>Provide detail of {{ this.customerType }} customer.</h4>
+          <h4>{{actionType}} detail of {{ this.customerType }} customer.</h4>
           <hr>
           <table class="table table-borderless table-4 mb-5">
             <tr>
@@ -146,7 +146,6 @@
                 <nb-datepicker #dob></nb-datepicker>
               </td>
               <td>
-
               </td>
             </tr>
             <tr>
@@ -207,12 +206,12 @@
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
 
               <td><label class="title" for="gender">Gender</label></td>
-              <td><select class="form-control" formControlName="gender" id="gender"
+              <td><select  class="form-control" formControlName="gender" id="gender"
                           [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
                 <option [value]="null" hidden>Select Gender</option>
-                <option value="MALE">Male</option>
-                <option value="FEMALE">Female</option>
-                <option value="OTHERS">Others</option>
+                <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
+                <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
+                <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
               </select>
               </td>
               <td>{{translatedValues?.gender}}</td>
@@ -399,14 +398,14 @@
                 <label class="title" for="citizenshipNo">Citizenship Issue District</label>
               </td>
               <td>
-                <select (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
+                <select
                         [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                         class="custom-select"
                         formControlName="citizenshipIssueDistrict"
                         id="citizenshipIssueDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let district of allDistrictList"
+                  <option  *ngFor="let district of allDistrictList"
                           [ngValue]="district">
                     {{district.name}}
                   </option>
@@ -506,14 +505,14 @@
 <!--                       id="permanentProvince"-->
 <!--                       name="permanentProvince" placeholder="Province"-->
 <!--                       type="text"/>-->
-                <select (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
+                <select #element (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
                         [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                         class="custom-select"
                         formControlName="permanentProvince"
                         id="province">
                   <option [ngValue]="null" hidden>Province</option>
-                  <option *ngFor="let provinceVal of provinceList"
+                  <option  *ngFor="let provinceVal of provinceList"
                           [ngValue]="provinceVal">
                     {{provinceVal.name}}
                   </option>
@@ -573,7 +572,7 @@
                         id="permanentMunicipality"
                         name="municipality">
                   <option [ngValue]="null" hidden>Municipality</option>
-                  <option *ngFor="let municipalityVal of municipalities"
+                  <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}}
                   </option>
@@ -663,7 +662,7 @@
                         formControlName="temporaryDistrict"
                         id="temporaryDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let districtVal of tempDistricts"
+                  <option  *ngFor="let districtVal of tempDistricts"
                           [ngValue]="districtVal">
                     {{districtVal.name}}
                   </option>
@@ -691,7 +690,7 @@
                         id="temporaryMunicipality"
                         name="municipality">
                   <option [ngValue]="null" hidden>Municipality</option>
-                  <option *ngFor="let municipalityVal of tempMunicipalities"
+                  <option  *ngFor="let municipalityVal of tempMunicipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}}
                   </option>
