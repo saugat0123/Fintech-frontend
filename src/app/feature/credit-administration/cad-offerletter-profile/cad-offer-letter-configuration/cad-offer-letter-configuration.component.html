@@ -965,6 +965,13 @@
             </tbody>
           </table>
 
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="float-right" nbButton size="small" status="info" (click)="translate()">
+                Translate Customer Data
+              </button>
+            </div>
+          </div>
 
           <h4>Guarantors
             <button nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
@@ -1129,9 +1136,6 @@
           </div>
           <button class="float-right" nbButton (click)="saveCustomer()" [disabled]="disableSave">
             save
-          </button>
-          <button class="float-right" nbButton status="info" (click)="translate()">
-            Translate
           </button>
         </nb-tab>
         <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
