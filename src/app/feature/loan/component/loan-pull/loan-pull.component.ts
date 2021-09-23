@@ -118,7 +118,7 @@ export class LoanPullComponent implements OnInit {
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
+    this.searchObj = Object.assign(value, {docStatus: 'OFFER_AND_LEGAL_PENDING'});
     LoanPullComponent.loadData(this);
   }
 
@@ -160,7 +160,7 @@ export class LoanPullComponent implements OnInit {
   }
 
   sortFilter(sortBy, dir) {
-    this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', sortBy: sortBy, sortOrder: dir});
+    this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_AND_LEGAL_PENDING', sortBy: sortBy, sortOrder: dir});
     LoanPullComponent.loadData(this);
   }
 
@@ -169,7 +169,7 @@ export class LoanPullComponent implements OnInit {
     this.cadService.getRoleInCad().subscribe((res: any) => {
       const roleListInCAD = res.detail;
       const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
-      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', toRole: role.role.id});
+      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_AND_LEGAL_PENDING', toRole: role.role.id});
       LoanPullComponent.loadData(this);
       this.spinner = false;
 
