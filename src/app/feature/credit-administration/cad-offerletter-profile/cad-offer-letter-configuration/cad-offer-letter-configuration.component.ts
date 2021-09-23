@@ -212,7 +212,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       fatherInLawNameCT: [undefined],
       citizenshipNo: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber],
       citizenshipNoCT: [undefined],
-      dob: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : new Date(this.oneFormCustomer.dob)],
+      dob: [undefined],
       dobCT: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentProvinceCT: [undefined],
