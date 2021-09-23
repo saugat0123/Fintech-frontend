@@ -223,6 +223,10 @@ export class SiteVisitComponent implements OnInit {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'insuranceVerification']) as FormGroup)
             .get('inspectingStaffsDetails') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+          this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+          return;
+        }
         controls.push(this.staffsFormGroup());
     }
 
@@ -252,16 +256,20 @@ export class SiteVisitComponent implements OnInit {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'receivablesAndPayables']) as FormGroup)
             .get('parties') as FormArray;
-        // if (FormUtils.checkEmptyProperties(controls)) {
-        //   this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
-        //   return;
-        // }
+        if (FormUtils.checkEmptyProperties(controls)) {
+          this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+          return;
+        }
         controls.push(this.partyFormGroup());
     }
 
     addPayablePartyForm(i) {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'payable']) as FormGroup).get('parties') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+            return;
+        }
         controls.push(this.partyFormGroup());
     }
 
@@ -300,6 +308,10 @@ export class SiteVisitComponent implements OnInit {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
             .get('receivableAssets') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+            return;
+        }
         controls.push(this.assetsFormGroup());
     }
 
@@ -319,6 +331,10 @@ export class SiteVisitComponent implements OnInit {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
             .get('payableAssets') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+            return;
+        }
         controls.push(this.assetsFormGroup());
     }
 
@@ -368,6 +384,10 @@ export class SiteVisitComponent implements OnInit {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
             .get('bankExposures') as FormArray;
+        if (FormUtils.checkEmptyProperties(controls)) {
+            this.toastService.show(new Alert(AlertType.INFO, 'Please Fil All Data To Add More'));
+            return;
+        }
         controls.push(this.bankExposureFormGroup());
     }
 
@@ -579,10 +599,10 @@ export class SiteVisitComponent implements OnInit {
         const controls = (this.siteVisitFormGroup
             .get(['currentAssetsDetails', i, 'otherCurrentAssets']) as FormGroup)
             .get('inspectingStaffs') as FormArray;
-        // if (FormUtils.checkEmptyProperties(controls)) {
-        //   this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Staffs Data To Add More'));
-        //   return;
-        // }
+        if (FormUtils.checkEmptyProperties(controls)) {
+          this.toastService.show(new Alert(AlertType.INFO, 'Please Fill All Staffs Data To Add More'));
+          return;
+        }
         controls.push(
             this.formBuilder.group({
                 name: [undefined],
@@ -996,18 +1016,7 @@ export class SiteVisitComponent implements OnInit {
                         comments: [singleData.insuranceVerification.comments],
                         stockValueConfirmed: [singleData.insuranceVerification.stockValueConfirmed],
                         insuranceVerificationPosition: [singleData.insuranceVerification.insuranceVerificationPosition],
-                        inspectingStaffsDetails: this.formBuilder.array([
-                            // this.formBuilder.group({
-                            //   staffRepresentativeNameDesignation:
-                            //       [singleData.insuranceVerification.inspectingStaffsDetails.staffRepresentativeNameDesignation],
-                            //   staffRepresentativeName:
-                            //       [singleData.insuranceVerification.inspectingStaffsDetails.staffRepresentativeName],
-                            //   staffRepresentativeNameDesignation2:
-                            //       [singleData.insuranceVerification.inspectingStaffsDetails.staffRepresentativeNameDesignation2],
-                            //   staffRepresentativeName2:
-                            //       [singleData.insuranceVerification.inspectingStaffsDetails.staffRepresentativeName2],
-                            // })
-                        ])
+                        inspectingStaffsDetails: this.formBuilder.array([])
                     }),
                     majorInquiriesAndObservations: this.formBuilder.group({
                         businessNature: [singleData.majorInquiriesAndObservations.businessNature],
