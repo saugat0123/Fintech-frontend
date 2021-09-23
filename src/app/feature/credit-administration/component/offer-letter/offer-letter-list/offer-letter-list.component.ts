@@ -23,7 +23,7 @@ import {CadDocStatus} from '../../../model/CadDocStatus';
 export class OfferLetterListComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
-  searchObj = {docStatus: CadDocStatus.OFFER_AND_LEGAL_PENDING, toUser: ''};
+  searchObj = {docStatus: 'OFFER_AND_LEGAL_PENDING', toUser: ''};
   page = 1;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -54,7 +54,7 @@ export class OfferLetterListComponent implements OnInit {
       this.defaultCommunityUser = res.detail.id;
     });
     other.searchObj = {
-      docStatus: CadDocStatus.OFFER_AND_LEGAL_PENDING,
+      docStatus: 'OFFER_AND_LEGAL_PENDING',
       toUser: this.defaultCommunityUser,
     };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {

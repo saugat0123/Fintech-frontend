@@ -183,7 +183,7 @@ export class LoanPullComponent implements OnInit {
     this.pullValues = {
       cadId: customerLoanId,
       docAction: DocAction.value(DocAction.PULLED),
-      documentStatus: CadDocStatus.OFFER_AND_LEGAL_PENDING,
+      documentStatus: 'OFFER_AND_LEGAL_PENDING',
       comment: 'PULLED',
       toUser: LocalStorageUtil.getStorage().user,
       toRole: LocalStorageUtil.getStorage().role,
