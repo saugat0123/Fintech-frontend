@@ -38,7 +38,13 @@ export class NepProposedAmountFormComponent implements OnInit {
     ngOnInit() {
         if (ObjectUtil.isEmpty(this.cadData.nepData)) {
             const data = this.cadData.assignedLoan.filter(r => r.proposal.data !== null);
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, data);
+            const secData = this.cadData.assignedLoan.filter(r => r.proposal.data === null);
+            let number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, data);
+            secData.forEach((datas) => {
+                if (datas.remitCustomer !== null) {
+                    number +=  datas.loanHolder.remitCustomer.proposedAmount;
+                }
+            });
                 this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
                 this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
                 this.nepaliNumber.engNumber = number;
