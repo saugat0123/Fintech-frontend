@@ -57,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="popUpTitle === 'FORWARD' && userList?.length > 1" class="col-md-6 py-4 px-3">
+                    <div *ngIf="popUpTitle === 'FORWARD' && userList?.length > 1 && !toUserNull" class="col-md-6 py-4 px-3">
                         <select (change)="errorMsgStatus=false" class="form-control" formControlName="toUser"
                                 placeholder="select  User">
                             <option [value]="null" hidden>Select To</option>
@@ -68,6 +68,11 @@
 
                     <p *ngIf="errorMsgStatus" class="text-danger"><sup>*</sup>{{errorMsg}}</p>
                 </div>
+
+                <div class="col-md-12">
+                    <label><input type="checkbox" formControlName="toUserNull" (change)="updateToUserNull($event)"> Send to Community Pool</label>
+                </div>
+
                 <div *ngIf="isForApproveMaker" class="col-md-12 py-4 px-3">
                     <select (change)="errorMsgStatus=false" class="form-control" formControlName="toUser"
                             placeholder="select  User">

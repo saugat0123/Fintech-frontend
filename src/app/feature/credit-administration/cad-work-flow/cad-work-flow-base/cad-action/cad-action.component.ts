@@ -91,6 +91,7 @@ export class CadActionComponent implements OnInit, OnChanges {
   commentVar;
   committeeDefaultUser;
   branchMakerRole;
+  toUserNull;
 
   constructor(private router: ActivatedRoute,
               private route: Router,
@@ -297,6 +298,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             toUser: [undefined],
             cadId: [this.cadId],
             docAction: [val],
+            toUserNull: [undefined],
             comment: [undefined, Validators.required],
             documentStatus: [this.currentStatus],
             isBackwardForMaker: returnToMaker,
@@ -441,4 +443,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.checkForwardValidMessage();
   }
 
+  updateToUserNull($event) {
+    this.toUserNull = this.formAction.get('toUserNull').value;
+  }
 }
