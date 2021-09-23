@@ -419,11 +419,11 @@ export class CustomerLoanInformationComponent implements OnInit {
             });
     }
 
-    saveIncomeFromAccount(data: IncomeFromAccount) {
+    saveIncomeFromAccount(data: string) {
         if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
             this.incomeFromAccountDataResponse = new IncomeFromAccount();
         }
-        this.incomeFromAccountDataResponse = data;
+        this.incomeFromAccountDataResponse.data = data;
         this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
             .subscribe(() => {
                 this.overlay.hide();

@@ -1,10 +1,22 @@
 <nb-card>
   <nb-card-body>
     <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
+      <ng-container *ngFor="let incomeFromAccount of incomeFormGroup?.get('incomeFromAccount')['controls']; let i = index"
+                    formArrayName="incomeFromAccount">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" [formGroupName]="i">
+          <div class="row">
+            <div class="col-md-11">
+              <h5>{{i + 1}}) Income From Account</h5>
+            </div>
+            <div class="col-md-1" *ngIf="incomeFormGroup.get('incomeFromAccount')['length']>1">
+              <button (click)="removeIncomeFromAccount(i)" class="btn btn-sm btn-flat btn-danger" value="Delete">
+                <em class="fa fa-trash" style="color:white;"></em>
+              </button>
+            </div>
+          </div>
           <span><strong>Account No:</strong></span>
-            <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
+            <input [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('accountNo').errors }"
                    type="text" formControlName="accountNo"
                    placeholder="Account Number" nbInput size="medium" name="accountNo"><br>
           <br>
@@ -18,33 +30,33 @@
             </thead>
             <tr>
               <td>Gross Interest</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestDuringReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('interestDuringReview').errors }"
                          class="form-control text-center"
                          formControlName="interestDuringReview"
                          type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestDuringReview.invalid"
+                <div *ngIf="(submitted) && incomeFromAccount.get('interestDuringReview').invalid"
                      class="invalid-feedback">
-                  <span *ngIf="formControls.interestDuringReview.errors.required">Interest During Review is required.</span>
+                  <span *ngIf="incomeFromAccount.get('interestDuringReview').errors.required">Interest During Review is required.</span>
                 </div>
               </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.interestAfterNextReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('interestAfterNextReview').errors }"
                          class="form-control text-center"
                          formControlName="interestAfterNextReview"
                          type="number" appDecimalNumber>
-                <div *ngIf="(submitted) && formControls.interestAfterNextReview.invalid"
+                <div *ngIf="(submitted) && incomeFromAccount.get('interestAfterNextReview').invalid"
                      class="invalid-feedback">
-                  <span *ngIf="formControls.interestAfterNextReview.errors.required">i]Interest After Next Review is required.</span>
+                  <span *ngIf="incomeFromAccount.get('interestAfterNextReview').errors.required">Interest After Next Review is required.</span>
                 </div>
               </td>
             </tr>
             <tr>
               <td>Fee and Commission</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionDuringReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('commissionDuringReview').errors }"
                          class="form-control text-center"
                          formControlName="commissionDuringReview"
                          type="number" appDecimalNumber>
               </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.commissionAfterNextReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('commissionAfterNextReview').errors }"
                          class="form-control text-center"
                          formControlName="commissionAfterNextReview"
                          type="number" appDecimalNumber>
@@ -93,12 +105,12 @@
             </ng-container>
             <tr>
               <td>Other Charges</td>
-              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesDuringReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeDuringReview()" [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('otherChargesDuringReview').errors }"
                          class="form-control text-center"
                          formControlName="otherChargesDuringReview"
                          type="number" appDecimalNumber>
               </td>
-              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && formControls.otherChargesAfterNextReview.errors }"
+              <td><input (keyup)="calculateTotalIncomeAfterReview()" [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('otherChargesAfterNextReview').errors }"
                          class="form-control text-center"
                          formControlName="otherChargesAfterNextReview"
                          type="number" appDecimalNumber>
@@ -115,15 +127,15 @@
             </tr>
           </table>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" [formGroupName]="i">
           <div class="form-group">
             <label for="remark"><strong>Remark</strong></label>
-            <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"
+            <textarea [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('incomeFromTheAccount').errors }"
                       class="form-control" formControlName="incomeFromTheAccount" id="remark"
                       name="remark" placeholder="Remark" rows="3"></textarea>
-            <div *ngIf="(submitted) && formControls.incomeFromTheAccount.invalid"
+            <div *ngIf="(submitted) && incomeFromAccount.get('incomeFromTheAccount').invalid"
                  class="invalid-feedback">
-              <span *ngIf="formControls.incomeFromTheAccount.errors.required">Remark is required.</span>
+              <span *ngIf="incomeFromAccount.get('incomeFromTheAccount').errors.required">Remark is required.</span>
             </div>
 
           </div>
@@ -131,13 +143,14 @@
       </div>
 
 
-      <nb-card>
+      <nb-card [formGroupName]="i">
         <nb-card-header>
           <div class="row d-flex justify-content-center">
             <h6>Account History</h6>
           </div>
           <nb-checkbox #chek formControlName="newCustomerChecked"
-                       (checkedChange)="onAdditionalFieldSelect(chek.checked)" [checked]="formControls.newCustomerChecked.value">
+                       (checkedChange)="onAdditionalFieldSelect(chek?.checked)"
+                       [checked]="incomeFromAccount.get('newCustomerChecked').value">
             <strong>New Customer</strong>
           </nb-checkbox>
         </nb-card-header>
@@ -158,9 +171,9 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="creditTransactionNumber"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionNumber?.invalid }"
+                           [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('accountTransactionForm').get('creditTransactionNumber').errors }"
                            appDecimalNumber>
-                  <div *ngIf="(submitted) && transactionForm?.creditTransactionNumber?.invalid"
+                  <div *ngIf="(submitted) && incomeFromAccount.get('accountTransactionForm').get('creditTransactionNumber').invalid"
                        class="invalid-feedback">
                     <span>Invalid Credit Transaction Number.</span>
                   </div>
@@ -168,8 +181,8 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="creditTransactionValue"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.creditTransactionValue?.invalid}" appDecimalNumber>
-                  <div *ngIf="(submitted) && transactionForm?.creditTransactionValue?.invalid"
+                           [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('accountTransactionForm').get('creditTransactionValue').errors}" appDecimalNumber>
+                  <div *ngIf="(submitted) && incomeFromAccount.get('accountTransactionForm').get('creditTransactionValue').invalid"
                        class="invalid-feedback">
                     <span>Invalid Credit Transaction Value.</span>
                   </div>
@@ -180,8 +193,8 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="debitTransactionNumber"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionNumber?.invalid }" appDecimalNumber>
-                  <div *ngIf="(submitted) && transactionForm?.debitTransactionNumber?.invalid"
+                           [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('accountTransactionForm').get('debitTransactionNumber').errors }" appDecimalNumber>
+                  <div *ngIf="(submitted) && incomeFromAccount.get('accountTransactionForm').get('debitTransactionNumber').invalid"
                        class="invalid-feedback">
                     <span>Invalid Debit Transaction Number.</span>
                   </div>
@@ -189,8 +202,8 @@
                 <td>
                     <input class="text-center form-control"
                            formControlName="debitTransactionValue"
-                           [ngClass]="{ 'is-invalid': (submitted) && transactionForm?.debitTransactionValue?.invalid }" appDecimalNumber>
-                    <div *ngIf="(submitted) && transactionForm?.debitTransactionValue?.invalid"
+                           [ngClass]="{ 'is-invalid': (submitted) && incomeFromAccount.get('accountTransactionForm').get('debitTransactionValue').errors }" appDecimalNumber>
+                    <div *ngIf="(submitted) && incomeFromAccount.get('accountTransactionForm').get('debitTransactionValue').invalid"
                          class="invalid-feedback">
                       <span>Invalid Debit Transaction Value.</span>
                     </div>
@@ -199,18 +212,18 @@
               </tbody>
             </table>
           </div>
-          <div class="col" *ngIf="!disabledAlpha && !disabledLambda">
+          <div class="col" *ngIf="!disabledAlpha && !disabledLambda" [formGroupName]="i">
             <label for="repaymentTrackWithCurrentBank">
               <strong>Repayment track in our bank</strong></label><strong
                   class="text-danger">*</strong>
             <select id="repaymentTrackWithCurrentBank" class="form-control text-center"
                     formControlName="repaymentTrackWithCurrentBank"
-                    [ngClass]="{'is-invalid': submitted && transactionForm?.repaymentTrackWithCurrentBank.invalid}">
+                    [ngClass]="{'is-invalid': submitted && incomeFromAccount.get('accountTransactionForm').repaymentTrackWithCurrentBank?.invalid}">
               <option [ngValue]="null" hidden selected>--Select Repayment Track--</option>
               <option *ngFor="let m of repaymentTrack"
                       [value]="m?.value">{{m?.value}}</option>
             </select>
-            <div *ngIf="(submitted) && transactionForm?.repaymentTrackWithCurrentBank.invalid"
+            <div *ngIf="(submitted) && incomeFromAccount.get('accountTransactionForm').repaymentTrackWithCurrentBank?.invalid"
                  class="invalid-feedback">
               Repayment Track is Required
             </div>
@@ -218,7 +231,11 @@
           </div>
         </nb-card-body>
       </nb-card>
-
+      </ng-container>
+      <div class="col-md-12 text-right">
+        <input (click)="addIncomeFromAccount()" class="btn btn-sm btn-flat btn-primary"
+               type="button" value="Add More"/>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
