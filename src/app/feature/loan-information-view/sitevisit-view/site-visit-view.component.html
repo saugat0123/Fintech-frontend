@@ -11,15 +11,15 @@
         <th>Nearby</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['ownerName']}}</td>
-        <td class="text-left pl-1"> {{formData['currentResidentDetails']['address']?.province?.name}},
-            {{formData['currentResidentDetails']['address']?.district?.name}},
-            {{formData['currentResidentDetails']['address']?.municipalityVdc?.name}},
+        <td class="text-left pl-1">{{formData['currentResidentDetails']['ownerName'] || 'NA'}}</td>
+        <td class="text-left pl-1"> {{formData['currentResidentDetails']['address']?.province?.name || 'NA'}},
+            {{formData['currentResidentDetails']['address']?.district?.name || 'NA'}},
+            {{formData['currentResidentDetails']['address']?.municipalityVdc?.name || 'NA'}},
         </td>
-        <td class="text-right pr-1">{{formData['currentResidentDetails']['address']?.ward}}</td>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address1}}</td>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address2}}</td>
-        <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy']}}</td>
+        <td class="text-right pr-1">{{formData['currentResidentDetails']['address']?.ward || 'NA'}}</td>
+        <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address1 || 'NA'}}</td>
+        <td class="text-left pl-1">{{formData['currentResidentDetails']['address']?.address2 || 'NA'}}</td>
+        <td class="text-left pl-1">{{formData['currentResidentDetails']['nearBy'] || 'NA'}}</td>
     </tr>
     <tr class="text-white sb-bg-dark">
         <th>Staff Representative Designation 1</th>
@@ -30,12 +30,12 @@
         <th>Latitude</th>
     </tr>
     <tr>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName2}}</td>
-        <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisitLongitude']}}</td>
-        <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisiLatitude']}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation || 'NA'}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName || 'NA'}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeNameDesignation2 || 'NA'}}</td>
+        <td class="text-left pl-1">{{formData?.currentResidentDetails?.staffRepresentativeName2 || 'NA'}}</td>
+        <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisitLongitude'] || 'NA'}}</td>
+        <td class="text-right pr-1">{{formData['currentResidentDetails']['currentSiteVisiLatitude'] || 'NA'}}</td>
     </tr>
 
 </table>
@@ -142,12 +142,12 @@
     </tr>
     <tr *ngFor="let data of formData['businessDetails']; let i = index">
         <td>{{i + 1}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeName}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation2}}</td>
-        <td class="text-left pl-1">{{data?.staffRepresentativeName2}}</td>
-        <td class="text-right pr-1">{{data?.businessSiteVisitLongitude}}</td>
-        <td class="text-right pr-1">{{data?.businessSiteVisitLatitude}}</td>
+        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation || 'NA'}}</td>
+        <td class="text-left pl-1">{{data?.staffRepresentativeName || 'NA'}}</td>
+        <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation2 || 'NA'}}</td> || 'NA'
+        <td class="text-left pl-1">{{data?.staffRepresentativeName2 || 'NA'}}</td>
+        <td class="text-right pr-1">{{data?.businessSiteVisitLongitude || 'NA'}}</td>
+        <td class="text-right pr-1">{{data?.businessSiteVisitLatitude || 'NA'}}</td>
     </tr>
 </table>
 <table *ngIf="formData['businessSiteVisitFormChecked'] === true && this.formData['businessDetails'] !== null"
