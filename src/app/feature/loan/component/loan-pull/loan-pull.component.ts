@@ -17,6 +17,14 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {CreditAdministrationService} from '../../../credit-administration/service/credit-administration.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Stage} from '../../model/stage';
+import {DocAction} from '../../model/docAction';
+import {DocStatus} from '../../model/docStatus';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ToastService} from '../../../../@core/utils';
+import {LoanFormService} from '../loan-form/service/loan-form.service';
+import {CadDocStatus} from '../../../credit-administration/model/CadDocStatus';
 // import {RouterUtilsService} from '../../../utils/router-utils.service';
 // import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 // import {User} from '../../../../admin/modal/user';
@@ -44,19 +52,24 @@ export class LoanPullComponent implements OnInit {
   currentIndexArray: { currentIndex: number }[] = [];
   user: User = new User();
   roleType = RoleType;
+  pullValues: any;
   asc = false;
   searchObj = {
     isPULL: 'true'
   };
+
   defaultCommunityUser;
 
   // static defaultCommunityUser;
+  formAction: FormGroup;
 
-  constructor(private service: CreditAdministrationService,
+  constructor(private cadService: CreditAdministrationService,
               private router: Router,
+              private modalService: NgbModal,
+              private loanFormService: LoanFormService,
               private userService: UserService,
               public routeService: RouterUtilsService,
-              private spinnerService: NgxSpinnerService) {
+              public toastService: ToastService,) {
   }
 
   static async loadData(other: LoanPullComponent) {
@@ -70,7 +83,7 @@ export class LoanPullComponent implements OnInit {
     other.searchObj = {
       isPULL: 'true'
     };
-    other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
+    other.cadService.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       other.loanList = res.detail.content;
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
@@ -153,7 +166,7 @@ export class LoanPullComponent implements OnInit {
 
   setDefaultCADROLE() {
     this.spinner = true;
-    this.service.getRoleInCad().subscribe((res: any) => {
+    this.cadService.getRoleInCad().subscribe((res: any) => {
       const roleListInCAD = res.detail;
       const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
       this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', toRole: role.role.id});
@@ -163,6 +176,36 @@ export class LoanPullComponent implements OnInit {
     }, error => {
       this.spinner = false;
       console.log(error);
+    });
+  }
+
+  onPullClick(template, customerLoanId, userId, loanList) {
+    this.pullValues = {
+      cadId: customerLoanId,
+      docAction: DocAction.value(DocAction.PULLED),
+      documentStatus: CadDocStatus.OFFER_PENDING,
+      comment: 'PULLED',
+      toUser: LocalStorageUtil.getStorage().user,
+      toRole: LocalStorageUtil.getStorage().role,
+      customerLoanDtoList: loanList
+    };
+    this.modalService.open(template);
+  }
+
+  onClose() {
+    this.modalService.dismissAll();
+  }
+
+  confirm() {
+    this.onClose();
+    this.cadService.assignLoanToUser(this.pullValues).subscribe((response: any) => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+          this.formAction.get('docAction').value));
+
+      LoanPullComponent.loadData(this);
+    }, error => {
+      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
     });
   }
 }

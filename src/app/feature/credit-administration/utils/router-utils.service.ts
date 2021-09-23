@@ -108,25 +108,26 @@ export class RouterUtilsService {
   }
 
   routeOnConditionProfileOrSummary(cadDocumentId, model) {
-    this.userService.getLoggedInUser().subscribe((res: any) => {
-      const user: User = res.detail;
-      if (user.role.roleType === 'CAD_LEGAL') {
-        if (user.role.id.toString() === model.cadCurrentStage.toRole.id.toString()) {
-          this.loadProfileWithState(cadDocumentId, model);
-        } else {
-          this.routeSummaryWithStateAndEncryptPath(model);
-        }
-      } else if (user.role.roleType === RoleType.CAD_ADMIN || user.role.roleType === RoleType.CAD_SUPERVISOR) {
-        this.routeSummaryWithStateAndEncryptPath(model);
-      } else {
-        if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
-          this.loadProfileWithState(cadDocumentId, model);
-        } else {
-          this.routeSummaryWithStateAndEncryptPath(model);
-        }
-      }
-
-    });
+    this.loadProfileWithState(cadDocumentId, model);
+    // this.userService.getLoggedInUser().subscribe((res: any) => {
+    //   const user: User = res.detail;
+    //   if (user.role.roleType === 'CAD_LEGAL') {
+    //     if (user.role.id.toString() === model.cadCurrentStage.toRole.id.toString()) {
+    //       this.loadProfileWithState(cadDocumentId, model);
+    //     } else {
+    //       this.routeSummaryWithStateAndEncryptPath(model);
+    //     }
+    //   } else if (user.role.roleType === RoleType.CAD_ADMIN || user.role.roleType === RoleType.CAD_SUPERVISOR) {
+    //     this.routeSummaryWithStateAndEncryptPath(model);
+    //   } else {
+    //     if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
+    //       this.loadProfileWithState(cadDocumentId, model);
+    //     } else {
+    //       this.routeSummaryWithStateAndEncryptPath(model);
+    //     }
+    //   }
+    //
+    // });
 
   }
 

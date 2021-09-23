@@ -50,11 +50,10 @@
                             <em class="fas fa-info-circle text-info"></em>
                         </a>
 
-                        <a class="px-2 cursor"
-                           (click)="routeService.previewCadDoc(model?.id)"
-                           nbTooltip="click to view detail ">
-                            Pull
-                        </a>
+                        <a
+                            *ngIf="!(model?.cadCurrentStage?.toUser?.id)"
+                            (click)="onPullClick(pullDocument,model.id,model?.currentStage?.toUser?.id, model?.assignedLoan)"><i
+                            class="fas fa-angle-double-down"></i> pull</a>
 
                     </td>
                 </tr>
@@ -161,3 +160,30 @@
     </nb-card-body>
 </nb-card>
 
+<ng-template #pullDocument>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Pull Loan Document</h4>
+        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        Do you want to pull this Document?
+
+
+        <div class="col-md-12">
+            <form>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                        NO
+                    </button>
+                    <button type="submit" class="btn btn-success float-right" (click)="confirm()">YES
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</ng-template>

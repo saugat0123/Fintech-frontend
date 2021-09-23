@@ -68,6 +68,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                     storage.roleName = user.role.roleName;
                     storage.roleType = user.role.roleType;
                     storage.roleId = (user.role.id).toString();
+                    storage.role = (user.role);
+                    storage.user = user;
                     LocalStorageUtil.setStorage(storage);
                 }, error => console.error(error));
                 await this.productModeService.getProductUtils().subscribe((response: any) => {
