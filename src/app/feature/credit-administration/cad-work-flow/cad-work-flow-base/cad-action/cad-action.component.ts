@@ -205,40 +205,52 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     postAction() {
         this.isForApproveMaker = false;
-        this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
-            this.onClose();
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-                this.formAction.get('docAction').value));
-            this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
-        }, error => {
-            this.forApproveMaker = [];
-            switch (error.status) {
-                case 417:
-                    this.commentVar = this.formAction.get('comment').value;
-                    // tslint:disable-next-line:max-line-length
-                    this.cadService.getMakerUserByBranchID
-                    (this.cadOfferLetterApprovedDoc.loanHolder.branch.id).subscribe((resUser: any) => {
-                        this.approvedForwardBackward(this.selectedTemplate, 'APPROVED', false);
-                        this.isForApproveMaker = true;
-                        this.forApproveMaker = resUser.detail;
-                        if (this.forApproveMaker.length < 1) {
-                            this.toastService.show(new Alert(AlertType.ERROR, 'NO User Found Please Contact Admin'));
-                        } else {
-                            this.formAction.patchValue({
-                                toRole: this.forApproveMaker[this.forApproveMaker.length - 1].role,
-                                toUser: this.forApproveMaker[this.forApproveMaker.length - 1],
-                                customApproveSelection: true,
-                                comment: this.commentVar
+        if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_CHECKER) {
+            this.cadService.checkByCadChecker(this.formAction.value).subscribe(res => {
+                this.onClose();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                    this.formAction.get('docAction').value));
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.DANGER, 'Error while approving document ' +
+                    this.formAction.get('docAction').value));
+            });
+        } else {
+            this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
+                this.onClose();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                    this.formAction.get('docAction').value));
+                this.routerUtilsService.routeSummaryAndEncryptPathID(this.cadId);
+            }, error => {
+                this.forApproveMaker = [];
+                switch (error.status) {
+                    case 417:
+                        this.commentVar = this.formAction.get('comment').value;
+                        // tslint:disable-next-line:max-line-length
+                        this.cadService.getMakerUserByBranchID
+                        (this.cadOfferLetterApprovedDoc.loanHolder.branch.id).subscribe((resUser: any) => {
+                            this.approvedForwardBackward(this.selectedTemplate, 'APPROVED', false);
+                            this.isForApproveMaker = true;
+                            this.forApproveMaker = resUser.detail;
+                            if (this.forApproveMaker.length < 1) {
+                                this.toastService.show(new Alert(AlertType.ERROR, 'NO User Found Please Contact Admin'));
+                            } else {
+                                this.formAction.patchValue({
+                                    toRole: this.forApproveMaker[this.forApproveMaker.length - 1].role,
+                                    toUser: this.forApproveMaker[this.forApproveMaker.length - 1],
+                                    customApproveSelection: true,
+                                    comment: this.commentVar
 
-                            });
-                        }
-                    }, error1 => this.toastService.show(new Alert(AlertType.ERROR, error1.error.message)));
-                    break;
-            }
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                                });
+                            }
+                        }, error1 => this.toastService.show(new Alert(AlertType.ERROR, error1.error.message)));
+                        break;
+                }
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
-        });
+            });
 
+        }
     }
 
     public getUserList(role) {
@@ -291,7 +303,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             const approvalType = 'CAD';
             const refId = 0;
 
-            this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
+            this.approvalRoleHierarchyService.findAll(approvalType, refId)
             .subscribe((response: any) => {
                 this.sendForwardBackwardList = [];
                 this.sendForwardBackwardList = response.detail;
@@ -322,19 +334,6 @@ export class CadActionComponent implements OnInit, OnChanges {
             );
             const approvalType = 'CAD';
             const refId = 0;
-
-            this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
-            .subscribe((response: any) => {
-                this.sendForwardBackwardList = [];
-                this.sendForwardBackwardList = response.detail;
-                if (this.sendForwardBackwardList.length !== 0) {
-
-                    if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
-                        this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
-                    }
-                    this.getUserList(this.sendForwardBackwardList[0].role);
-                }
-            });
 
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();

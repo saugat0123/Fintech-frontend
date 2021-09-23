@@ -5,10 +5,6 @@
                 <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
                       [disabled]="isBackwardDisabled"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
                 </button>
-                <button nbButton size="small" outline status="success" shape="rectangle"
-                        *ngIf="!isMaker && showHideReturnToRm" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
-                    RM
-                </button>
             </div>
             <div class="float-right">
                 <button  nbButton size="small" status="primary" nbTooltip="Upload & Print SCC File"

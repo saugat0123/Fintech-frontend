@@ -197,15 +197,16 @@ export class LoanPullComponent implements OnInit {
   }
 
   confirm() {
+    this.spinner = true;
     this.onClose();
     this.cadService.assignLoanToUser(this.pullValues).subscribe((response: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
           this.formAction.get('docAction').value));
-
       LoanPullComponent.loadData(this);
+      this.spinner = false;
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-
+      this.spinner = false;
     });
   }
 }
