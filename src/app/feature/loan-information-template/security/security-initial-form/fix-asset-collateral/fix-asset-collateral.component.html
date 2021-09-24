@@ -9,6 +9,13 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
+            <div class="col-md-12 text-right">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType">
+                    <nb-radio value="AD">AD</nb-radio>
+                    <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+            </div>
             <div class="col-md-4">
                 <span><strong>Select Last Site Visit Date</strong></span>
                 <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
@@ -27,14 +34,25 @@
                     <div class="row mt-3">
                         <div class="col-md-4 form-group">
                             <label class="title" for="date">Date</label>
-                            <input nbInput fullWidth
+
+                            <input *ngIf="calendarType === 'AD'" [nbDatepicker]="date" class="form-control"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.date?.errors }"
-                                   class="form-control" formControlName="date" id="date"
-                                   type="date">
-                            <div *ngIf="(submitted) && form.date?.invalid"
-                                 class="invalid-feedback">
-                                <span *ngIf="form.date?.errors.required">Date is required</span>
-                            </div>
+                                   formControlName="date"
+                                   id="date"
+                                   placeholder="Date" />
+
+                            <app-calendar  (messageToEmit)="fixedAssetsForm.get('date').patchValue($event?.eDate)"
+                                           *ngIf="calendarType === 'BS'"
+                                           [ePreDate]=" fixedAssetsForm.get('date').value"></app-calendar>
+                            <nb-datepicker #date></nb-datepicker>
+                                <div *ngIf="submitted && form.date.errors" class="small text-danger">
+                                    <div *ngIf="form.date.errors.required">
+                                       Date is Required
+                                    </div>
+                                </div>
+
+
+
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="title" for="personContacted">Person Contacted</label>
