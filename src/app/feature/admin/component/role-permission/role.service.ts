@@ -39,6 +39,13 @@ export class RoleService extends BaseService<Role> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getRolesByRoleType(roleType: String): Observable<any> {
+        const api = `${RoleService.API}/get-roles-by-role-type`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, roleType,{headers: req.header});
+    }
+
     public update(obj: Object): Observable<any> {
         const api = `${RoleService.API}/edit`;
         const req = ApiUtils.getRequest(api);

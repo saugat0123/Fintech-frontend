@@ -7,21 +7,22 @@ import {Router} from '@angular/router';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {ApprovalRoleHierarchy} from '../../approval/ApprovalRoleHierarchy';
 import {UserService} from '../../../../@core/service/user.service';
-import {RouterUtilsService} from '../../../credit-administration/utils/router-utils.service';
+import {RouterUtilsService} from '../../utils/router-utils.service';
 import {User} from '../../../admin/modal/user';
-import {LoanType} from '../../model/loanType';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CreditAdministrationService} from '../../../credit-administration/service/credit-administration.service';
+import {CreditAdministrationService} from '../../service/credit-administration.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
-import {Stage} from '../../model/stage';
-import {DocAction} from '../../model/docAction';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormGroup} from '@angular/forms';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
-import {LoanFormService} from '../loan-form/service/loan-form.service';
+import {CadDocStatus} from '../../model/CadDocStatus';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
+import {LoanType} from '../../../loan/model/loanType';
+import {Stage} from '../../../loan/model/stage';
+import {ApprovalRoleHierarchy} from '../../../loan/approval/ApprovalRoleHierarchy';
+import {DocAction} from '../../../loan/model/docAction';
 // import {RouterUtilsService} from '../../../utils/router-utils.service';
 // import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 // import {User} from '../../../../admin/modal/user';
@@ -32,11 +33,11 @@ import {LoanFormService} from '../loan-form/service/loan-form.service';
 // import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHierarchy';
 
 @Component({
-  selector: 'app-loan-pull',
-  templateUrl: './loan-pull.component.html',
-  styleUrls: ['./loan-pull.component.scss']
+  selector: 'app-cad-pull',
+  templateUrl: './cad-pull.component.html',
+  styleUrls: ['./cad-pull.component.scss']
 })
-export class LoanPullComponent implements OnInit {
+export class CadPullComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
   page = 1;
@@ -66,10 +67,11 @@ export class LoanPullComponent implements OnInit {
               private loanFormService: LoanFormService,
               private userService: UserService,
               public routeService: RouterUtilsService,
-              public toastService: ToastService,) {
+              public toastService: ToastService,
+  ) {
   }
 
-  static async loadData(other: LoanPullComponent) {
+  static async loadData(other: CadPullComponent) {
     other.spinner = true;
     other.currentIndexArray = [];
     other.toggleArray = [];
@@ -84,7 +86,7 @@ export class LoanPullComponent implements OnInit {
       other.spinner = false;
       other.loanList = res.detail.content;
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
-      // other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
+      other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
       // tslint:disable-next-line:max-line-length
       other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
       other.pageable = PaginationUtils.getPageable(res.detail);
@@ -100,23 +102,23 @@ export class LoanPullComponent implements OnInit {
     if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
       this.setDefaultCADROLE();
     } else {
-      LoanPullComponent.loadData(this);
+      CadPullComponent.loadData(this);
     }
   }
 
   changePage(page: number) {
     this.page = page;
-    LoanPullComponent.loadData(this);
+    CadPullComponent.loadData(this);
   }
 
   loadProfile(cadDocumentId, model) {
-    this.routeService.routeSummaryWithStateAndEncryptPath(model);
+    this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
   }
 
 
   setSearchValue(value) {
-    this.searchObj = Object.assign(value, {docStatus: 'OFFER_AND_LEGAL_PENDING'});
-    LoanPullComponent.loadData(this);
+    this.searchObj = Object.assign(value, {docStatus: 'OFFER_PENDING'});
+    CadPullComponent.loadData(this);
   }
 
   userDetail() {
@@ -149,14 +151,16 @@ export class LoanPullComponent implements OnInit {
         } else {
           stage = loan[0].previousList[0];
         }
+
+        stage.lastModifiedAt = loan[0].lastModifiedAt;
         return stage;
       }
     }
   }
 
   sortFilter(sortBy, dir) {
-    this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_AND_LEGAL_PENDING', sortBy: sortBy, sortOrder: dir});
-    LoanPullComponent.loadData(this);
+    this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', sortBy: sortBy, sortOrder: dir});
+    CadPullComponent.loadData(this);
   }
 
   setDefaultCADROLE() {
@@ -164,8 +168,8 @@ export class LoanPullComponent implements OnInit {
     this.cadService.getRoleInCad().subscribe((res: any) => {
       const roleListInCAD = res.detail;
       const role: ApprovalRoleHierarchy = roleListInCAD.filter(c => c.role.roleName === 'CAD')[0];
-      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_AND_LEGAL_PENDING', toRole: role.role.id});
-      LoanPullComponent.loadData(this);
+      this.searchObj = Object.assign(this.searchObj, {docStatus: 'OFFER_PENDING', toRole: role.role.id});
+      CadPullComponent.loadData(this);
       this.spinner = false;
 
     }, error => {
@@ -178,7 +182,7 @@ export class LoanPullComponent implements OnInit {
     this.pullValues = {
       cadId: customerLoanId,
       docAction: DocAction.value(DocAction.PULLED),
-      documentStatus: 'OFFER_AND_LEGAL_PENDING',
+      documentStatus: CadDocStatus.OFFER_AND_LEGAL_PENDING,
       comment: 'PULLED',
       toUser: LocalStorageUtil.getStorage().user,
       toRole: LocalStorageUtil.getStorage().role,
@@ -192,16 +196,15 @@ export class LoanPullComponent implements OnInit {
   }
 
   confirm() {
-    this.spinner = true;
     this.onClose();
     this.cadService.assignLoanToUser(this.pullValues).subscribe((response: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-          this.pullValues.docAction));
-      LoanPullComponent.loadData(this);
-      this.spinner = false;
+          this.formAction.get('docAction').value));
+
+      CadPullComponent.loadData(this);
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-      this.spinner = false;
+
     });
   }
 }

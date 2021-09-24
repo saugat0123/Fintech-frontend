@@ -16,13 +16,14 @@
                             <div class="col-md-12">
                                 <h4 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र</h4>
                             </div>
-                            <div class="col-md-12 mt-4">
+                            <div class="col-md-3">
                                 <p>
-                                    मितिः <input class="form-field form-control-sm nepaliFont"
-                                                 formControlName="dateOfApproval"
-                                                 [value]="initialInfoPrint.dateOfApproval.np === undefined ? '' : initialInfoPrint.dateOfApproval.np "
-                                                 type="text"/>
+                                    मितिः <nepali-patro formControlName="dateOfApproval"
+                                                        [responseType]="2"
+                                                        [displayNepali]="true"></nepali-patro>
                                 </p>
+                            </div>
+                            <div class="col-md-12 mt-4">
                                 <p>
                                     कर्जा सख्याः <input class="form-field form-control-sm"
                                                         formControlName="referenceNumber"
