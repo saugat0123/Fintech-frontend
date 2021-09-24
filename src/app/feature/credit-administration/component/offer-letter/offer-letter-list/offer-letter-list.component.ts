@@ -160,7 +160,7 @@ export class OfferLetterListComponent implements OnInit {
           customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,
           customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.loanHolder,
           loanHolder: resp.detail.loanHolder,
-          oneFormCustomer: resp.detail.customerInfo,
+          oneFormCustomer: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
           actionType: 'Edit',
           activeLoanTab: true
         },

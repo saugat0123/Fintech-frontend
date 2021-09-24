@@ -120,6 +120,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
+      console.log(this.oneFormCustomer);
+      console.log(this.loanHolder);
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
