@@ -69,6 +69,7 @@ import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-
 import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data/retail-housing-loan-template-data/retail-housing-loan-template-data.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
+import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -126,7 +127,8 @@ import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data
     LoanCreateComponent,
     RetailLoanAgainstInsuranceTemplateDataComponent,
     RetailHousingLoanTemplateDataComponent,
-    PersonalOverdraftTemplateDataComponent],
+    PersonalOverdraftTemplateDataComponent,
+    CadPullComponent],
   imports: [
     ThemeModule,
     CommonModule,
