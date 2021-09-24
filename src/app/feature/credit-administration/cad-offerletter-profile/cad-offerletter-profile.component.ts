@@ -73,7 +73,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     roleType = LocalStorageUtil.getStorage().roleType;
 
     ngOnInit() {
-        console.log('cad offer letter approved doc', this.cadOfferLetterApprovedDoc);
         let agentOfferDoc = [];
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
             let obj = {
@@ -86,7 +85,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             obj.signedPath = offer.pathSigned;
             agentOfferDoc.push(obj);
         });
-        console.log('agent offer doc', agentOfferDoc);
 
         this.initial();
         switch (this.client) {
