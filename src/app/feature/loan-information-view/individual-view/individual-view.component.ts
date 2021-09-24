@@ -33,6 +33,10 @@ export class IndividualViewComponent implements OnInit {
   age: number;
   summaryType = environment.summaryType;
   summaryTypeName = SummaryType;
+  otherData = {
+    otherIncomeData: false,
+    otherOccupationData: false,
+  };
 
   constructor() {
   }
@@ -42,6 +46,20 @@ export class IndividualViewComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
+      }
+      if (!ObjectUtil.isEmpty(this.individual.incomeSource || this.individual.occupation)) {
+        const income = JSON.parse(this.individual.incomeSource);
+        const occupation = JSON.parse(this.individual.occupation);
+        occupation.multipleOccupation.forEach(t => {
+          if (t === 'Other') {
+            this.otherData.otherOccupationData = true;
+          }
+        });
+        income.multipleIncome.forEach(t => {
+          if (t === 'Other') {
+            this.otherData.otherIncomeData = true;
+          }
+        });
       }
     }
     if (!ObjectUtil.isEmpty(this.individual.jointInfo)) {

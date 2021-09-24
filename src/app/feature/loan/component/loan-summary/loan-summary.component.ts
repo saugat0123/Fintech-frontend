@@ -186,6 +186,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     obtainableDocuments = Array<ObtainableDoc>();
     otherObtainableDocuments = Array<string>();
+
+    // Set Other value
+    otherData = {
+        otherIncomeData: false,
+        otherOccupationData: false,
+    };
+
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -243,6 +250,20 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
             this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
             this.isJointInfo = true;
+        }
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+            const income = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
+            const occupation = JSON.parse(this.loanDataHolder.customerInfo.occupation);
+            occupation.multipleOccupation.forEach(t => {
+                if (t === 'Other') {
+                    this.otherData.otherOccupationData = true;
+                }
+            });
+            income.multipleIncome.forEach(t => {
+                if (t === 'Other') {
+                    this.otherData.otherIncomeData = true;
+                }
+            });
         }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;

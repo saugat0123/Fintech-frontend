@@ -1203,7 +1203,7 @@
     <nb-card-footer class="py-4">
         <div class="d-flex justify-content-end">
             <button nbButton status="info" (click)="changeAction(closeForm)" class=" mr-2">close</button>
-            <button nbButton (click)="onSubmit(basicJointInfo.value)">save</button>
+            <button nbButton (click)="onSubmit(basicJointInfo.value)" *ngIf="!spinner">save</button>
         </div>
     </nb-card-footer>
 </nb-card>

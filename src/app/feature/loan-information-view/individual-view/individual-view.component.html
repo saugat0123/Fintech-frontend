@@ -11,7 +11,7 @@
         <th>Date of birth(AD/BS)</th>
         <th>Age</th>
         <th>Citizenship no.</th>
-        <th>Citizenship Issued Date(AD/BS)</th>
+        <th colspan="2">Citizenship Issued Date(AD/BS)</th>
         <th>Issued Place</th>
         <th>Gender</th>
         <th>Marital Status</th>
@@ -25,7 +25,7 @@
         <td class="text-left pl-1">{{individual?.dob | date}} ({{individual?.dob | engNepDate: false}})</td>
         <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
         <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
-        <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} ({{individual?.citizenshipIssuedDate | engNepDate: false}})</td>
+        <td colspan="2" class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}} ({{individual?.citizenshipIssuedDate | engNepDate: false}})</td>
         <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
         <td class="text-left pl-1">{{customerInfo?.gender}}</td>
         <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
@@ -33,25 +33,29 @@
       </tbody>
       <thead>
       <tr class="text-white sb-bg-dark">
-        <th *ngIf="client !== clientName.MEGA">Father's Name</th>
-        <th *ngIf="client !== clientName.MEGA">Grandfather's Name</th>
+        <th>Father's Name</th>
+        <th>Grandfather's Name</th>
         <th>Mobile Number</th>
         <th>LandLine Number</th>
         <th>Email</th>
         <th>Occupation</th>
+        <th *ngIf="otherData?.otherOccupationData">Other Occupation</th>
         <th>Income Source</th>
+        <th *ngIf="otherData?.otherIncomeData">Other Income Source</th>
         <th>Client Type</th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-        <td class="text-left pl-1" *ngIf="client !== clientName.MEGA">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+        <td class="text-left pl-1">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+        <td class="text-left pl-1">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
         <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
         <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
         <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
         <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+        <td *ngIf="otherData?.otherOccupationData" class="text-left pl-1">{{(individual?.occupation| jsonParse)?.otherOccupation || 'NA'}}</td>
         <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
+        <td *ngIf="otherData?.otherIncomeData" class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.otherIncome || 'NA'}}</td>
         <td class="text-left pl-1">{{customerInfo?.clientType}}</td>
       </tr>
       <tr class="text-white sb-bg-dark">

@@ -456,7 +456,9 @@
                                 <th>Mobile Number</th>
                                 <th>LandLine Number</th>
                                 <th>Occupation</th>
+                                <th *ngIf="otherData?.otherOccupationData">Other Occupation</th>
                                 <th>Income Source</th>
+                                <th *ngIf="otherData?.otherIncomeData">Other Income Source</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -471,9 +473,9 @@
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                                 <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                                <td class="pl-1" *ngIf="otherData.otherOccupationData">{{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.otherOccupation || 'NA'}}</td>
                                 <td class="pl-1">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
-
-
+                                <td class="pl-1" *ngIf="otherData?.otherIncomeData">{{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.otherIncome || 'NA'}}</td>
                             </tr>
                             <tr class="text-white sb-bg-dark">
                                 <th *ngIf="client !== clientName.MEGA">Father's Name</th>
@@ -494,29 +496,6 @@
                             </tr>
                             </tbody>
                         </table>
-                        <!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
-                        <!--                               id="print-borrower-table">-->
-                        <!--                            <thead>-->
-                        <!--                            <tr class="text-white sb-bg-dark">-->
-                        <!--                                <th>Name</th>-->
-                        <!--                                <th>Date Of Birth</th>-->
-                        <!--                                <th>Citizenship Number</th>-->
-                        <!--                                <th>Mobile Number</th>-->
-                        <!--                                <th>Occupation</th>-->
-                        <!--                                <th>Income Source</th>-->
-                        <!--                            </tr>-->
-                        <!--                            </thead>-->
-                        <!--                            <tbody>-->
-                        <!--                            <tr>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>-->
-                        <!--                            </tr>-->
-                        <!--                            </tbody>-->
-                        <!--                        </table>-->
                     </div>
 
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">

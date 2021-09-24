@@ -188,6 +188,10 @@ export class GammaLoanSummaryComponent implements OnInit {
   summaryTypeName = SummaryType;
   companyInfo: any;
   loanSummary = 'loanSummary';
+  otherData = {
+    otherIncomeData: false,
+    otherOccupationData: false,
+  };
 
   constructor(
       @Inject(DOCUMENT) private _document: Document,
@@ -229,6 +233,20 @@ export class GammaLoanSummaryComponent implements OnInit {
     }
     if (this.loanDataHolder.loanCategory === 'INSTITUTION') {
       this.companyInfo = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+    }
+    if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+      const income = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
+      const occupation = JSON.parse(this.loanDataHolder.customerInfo.occupation);
+      occupation.multipleOccupation.forEach(t => {
+        if (t === 'Other') {
+          this.otherData.otherOccupationData = true;
+        }
+      });
+      income.multipleIncome.forEach(t => {
+        if (t === 'Other') {
+          this.otherData.otherIncomeData = true;
+        }
+      });
     }
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
