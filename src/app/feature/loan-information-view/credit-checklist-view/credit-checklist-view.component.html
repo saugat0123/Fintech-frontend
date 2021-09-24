@@ -636,44 +636,6 @@
                     </tr>
                     </tbody>
                 </table>
- <label><strong>NRB Directive No. 6. 8. (Ga)</strong></label>
-                <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
-                    <thead>
-                    <tr  *ngIf="fromProfile">
-                        <th></th>
-                        <th></th>
-                        <th colspan="3">
-
-                        </th>
-
-                    </tr>
-                    <tr class="text-white sb-bg-dark">
-                        <th class="px-2">SN</th>
-                        <th class="px-2">Prohibition on Lending against assets as security/ collateral owned by:</th>
-                        <th *ngIf="fromProfile" class="px-2">Yes</th>
-                        <th *ngIf="fromProfile" class="px-2">No</th>
-                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
-                        <th class="width px-2">Remarks</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td class="text-justify px-2">
-                            	None of the assets that have been pledged as the collateral / security for the loan belong to (a) Promoter, (b) Director of the Bank, (c) Chief Executive or by members of his/her family.  </td>
-                        <ng-container *ngIf="fromProfile">
-                            <td *ngFor="let option of optionListRegulatory"><input
-                                    [value]="option" formControlName="prohibited" type="radio"></td>
-                        </ng-container>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.prohibited}}</td>
-
-                        <td *ngIf="fromProfile"><input class="form-control" formControlName="prohibitedRemark"
-                                                       placeholder="Remarks"></td>
-                        <td *ngIf="!fromProfile">{{dataForEdit?.prohibitedRemark}}</td>
-
-                    </tr>
-                    </tbody>
-                </table>
                 <label><strong>NRB Directive No. 6. 8. (Nga)</strong></label>
                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                     <thead>
