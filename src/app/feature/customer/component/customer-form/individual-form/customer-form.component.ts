@@ -102,6 +102,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         hideIncomeSource: false
     };
 
+
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType = [];
@@ -138,6 +139,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
+            this.onIncomeSourceChange();
         } else {
             if (this.client === this.clientName.SHINE_RESUNGA) {
                 this.addRelatives();
@@ -554,6 +556,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.get('otherOccupation').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherOccupation = false;
+            this.basicInfo.get('otherOccupation').setValue(null);
             this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
@@ -584,6 +587,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.get('otherIncome').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherIncomeSource = false;
+            this.basicInfo.get('otherIncome').setValue(null);
             this.basicInfo.get('otherIncome').setValidators(null);
         }
         this.basicInfo.get('otherIncome').updateValueAndValidity();
