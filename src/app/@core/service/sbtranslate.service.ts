@@ -1,8 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 import {BaseService} from "../BaseService";
 import {ApiUtils} from "../utils/api/ApiUtils";
+import { ObjectUtil } from '../utils/ObjectUtil';
 
 @Injectable({providedIn: 'root'})
 export class SbTranslateService extends BaseService<String> {
@@ -27,19 +28,46 @@ export class SbTranslateService extends BaseService<String> {
         });
     }
 
-    async translateForm(form: FormGroup) {
-        const allValues = [];
-        const allKeys = [];
-        for (const d of Object.entries(form.controls)) {
-            if (d[1].value !== null) {
-                allKeys.push(d[0]);
-                allValues.push(d[1].value.toString());
+    async translateForm(form: FormGroup, formArrayData?, index?) {
+        if (!ObjectUtil.isEmpty(form.get(`${formArrayData}`)) && formArrayData) {
+            console.log('from if');
+            const allValues = [];
+            const allKeys = [];
+            // to map form array values that located inside the formControl
+            let formArrayDataArrays: FormArray = form.get(`${formArrayData}`) as FormArray;
+            let a: any;
+            a = formArrayDataArrays.controls;
+            for (let i = 0; i < a.length; i++) {
+                if (i === index) {
+                    let individualData = a[i] as FormGroup;
+                    for (const d of Object.entries(individualData.controls)) {
+                        if (d[1].value) {
+                            allKeys.push(d[0]);
+                            allValues.push(d[1].value.toString());
+                        }
+                    }
+                }
             }
+            (await this.translate(allValues)).forEach((f, index) => {
+                this.translatedValues[allKeys[index]] = f.translatedText;
+            });
+            return this.translatedValues;
+        } else {
+            const allValues = [];
+            const allKeys = [];
+            console.log('from else');
+            // to map normal formcontrol values
+            for (const d of Object.entries(form.controls)) {
+                if (d[1].value !== null && d[0] !== formArrayData) {
+                    allKeys.push(d[0]);
+                    allValues.push(d[1].value.toString());
+                }
+            }
+            (await this.translate(allValues)).forEach((f, index) => {
+                this.translatedValues[allKeys[index]] = f.translatedText;
+            });
+            return this.translatedValues;
         }
-        (await this.translate(allValues)).forEach((f, index) => {
-            this.translatedValues[allKeys[index]] = f.translatedText;
-        });
-        return this.translatedValues;
     }
 
     protected getApi(): string {
