@@ -376,7 +376,8 @@
                                    <div *ngIf="tempFlag.showOtherIncomeSource"
                                         class="col-md-12 mt-3 form-group">
                                        <label>Other Income Source</label>
-                                       <input class="form-control" formControlName="otherIncome" id="otherIncome"
+                                       <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.otherIncome.errors }"
+                                              class="form-control" formControlName="otherIncome" id="otherIncome"
                                               name="otherIncome" placeholder="Other Income source" type="text">
                                        <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
                                             class="invalid-feedback small">
