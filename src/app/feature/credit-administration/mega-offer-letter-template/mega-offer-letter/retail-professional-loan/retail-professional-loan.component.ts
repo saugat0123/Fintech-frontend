@@ -64,10 +64,12 @@ export class RetailProfessionalLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('Cad Approved Doc', this.cadOfferLetterApprovedDoc);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
+        console.log('Loan holder info', this.loanHolderInfo);
         this.checkOfferLetterData();
     }
 
@@ -211,7 +213,7 @@ submit(): void {
             nameOfCustomer: this.loanHolderInfo.name.np ? this.loanHolderInfo.name.np : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
             loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-            guarantorName: guarantorDetails.guarantorList[0].name ? guarantorDetails.guarantorList[0].name : '',
+            guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
             nameOfBranch: branchName ? branchName : '',
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             // dateOfApproval: this.initialInfoPrint.dateOfApproval.en ? this.initialInfoPrint.dateOfApproval.en : '',
