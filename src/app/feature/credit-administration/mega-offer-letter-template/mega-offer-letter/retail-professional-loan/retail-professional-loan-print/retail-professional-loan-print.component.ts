@@ -3,6 +3,9 @@ import {MegaOfferLetterConst} from '../../../../mega-offer-letter-const';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-retail-professional-loan-print',
@@ -17,34 +20,41 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input() embassy;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
-  loanTypeArray = ['Professional Term Loan', 'Professional Overdraft Loan' ];
   proTermLoanSelected = false;
-  proOverdraftLoanSelected = false;
-  mortgageFinance = false;
   mortgageOverdraft = false;
   land;
   selectedSecurity: string;
   selectedCountry: string;
   nameOfEmbassy: any;
+  customerAddress;
+  proposedAmount;
+  guarantorName;
+  branchName;
 
-  constructor() {
+  constructor( private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+               private engToNepNumberPipe: EngToNepaliNumberPipe,
+               private currencyFormatPipe: CurrencyFormatterPipe) {
   }
 
   ngOnInit() {
-        this.availableLoanType(this.letter['loanTypeSelectedArray']);
         this.selectedCountry = this.country;
         this.selectedSecurity = this.security;
         this.nameOfEmbassy = this.embassy;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+      let totalLoanAmount = 0;
+      this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+        const val = value.proposal.proposedLimit;
+        totalLoanAmount = totalLoanAmount + val;
+      });
+      this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      this.customerAddress =  this.loanHolderInfo.permanentMunicipality.np + '-' +
+          this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
+          this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
+      const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
+      this.guarantorName = guarantorDetails.guarantorList[0].name;
+      this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
     }
-    console.log(this.loanHolderInfo , 'Loan Data');
-  }
-  availableLoanType($event) {
-    this.loanTypeArray.forEach( () => {
-      $event.includes('Professional Term Loan') ? this.proTermLoanSelected = true : this.proTermLoanSelected = false;
-      $event.includes('Professional Overdraft Loan') ? this.proOverdraftLoanSelected = true : this.proOverdraftLoanSelected = false;
-    });
   }
 
 }
