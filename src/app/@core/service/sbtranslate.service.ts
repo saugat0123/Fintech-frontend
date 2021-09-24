@@ -29,9 +29,10 @@ export class SbTranslateService extends BaseService<String> {
     }
 
     async translateForm(form: FormGroup, formArrayData?, index?) {
-        const allValues = [];
-        const allKeys = [];
-        if (!ObjectUtil.isEmpty(form.get(`${formArrayData}`))) {
+        if (!ObjectUtil.isEmpty(form.get(`${formArrayData}`)) && formArrayData) {
+            console.log('from if');
+            const allValues = [];
+            const allKeys = [];
             // to map form array values that located inside the formControl
             let formArrayDataArrays: FormArray = form.get(`${formArrayData}`) as FormArray;
             let a: any;
@@ -47,7 +48,14 @@ export class SbTranslateService extends BaseService<String> {
                     }
                 }
             }
+            (await this.translate(allValues)).forEach((f, index) => {
+                this.translatedValues[allKeys[index]] = f.translatedText;
+            });
+            return this.translatedValues;
         } else {
+            const allValues = [];
+            const allKeys = [];
+            console.log('from else');
             // to map normal formcontrol values
             for (const d of Object.entries(form.controls)) {
                 if (d[1].value !== null && d[0] !== formArrayData) {
@@ -55,12 +63,11 @@ export class SbTranslateService extends BaseService<String> {
                     allValues.push(d[1].value.toString());
                 }
             }
+            (await this.translate(allValues)).forEach((f, index) => {
+                this.translatedValues[allKeys[index]] = f.translatedText;
+            });
+            return this.translatedValues;
         }
-
-        (await this.translate(allValues)).forEach((f, index) => {
-            this.translatedValues[allKeys[index]] = f.translatedText;
-        });
-        return this.translatedValues;
     }
 
     protected getApi(): string {
