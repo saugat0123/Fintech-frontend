@@ -1118,6 +1118,139 @@
                 <td></td>
                 <td></td>
               </tr>
+
+              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+
+                <td><label class="title" for="gender">Gender</label></td>
+                <td><select  class="form-control" formControlName="gender" id="gender">
+                  <option [value]="null" hidden>Select Gender</option>
+                  <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
+                  <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
+                  <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
+                </select>
+                </td>
+                <td>
+                  <!-- <input class="form-control" formControlName="genderTrans" readonly
+                    type="text"/> -->
+                </td>
+                <td>
+                  <!-- <nb-checkbox (change)="checkboxVal($event, 'gender')"></nb-checkbox> -->
+                </td>
+                <td>
+                  <!-- <input class="form-control fatherNameTrans" formControlName="genderCT" [readOnly]="!this['genderCheck']"
+                         type="text"/> -->
+                </td>
+              </tr>
+              
+
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'">
+                <td>
+                  <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                </td>
+                <td>
+                  <select class="form-control" formControlName="relationMedium"
+                    id="relationMedium">
+                    <option [value]="null" hidden>Select Relation Medium</option>
+                    <option value="0">Husband Relation</option>
+                    <option value="1">Father Relation</option>
+                  </select>
+                </td>
+                <td>
+                </td>
+                <td></td>
+              </tr>
+              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+                <td><label class="title" for="husbandName">Husband Name</label></td>
+                <td><input class="form-control "
+                           formControlName="husbandName"
+                           id="husbandName"
+                           name="husbandName" placeholder="Husband Name"
+                           type="text"/></td>
+                <td>
+                  <input class="form-control" formControlName="husbandNameTrans" readonly
+                    type="text"/>
+                </td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'husbandName')"></nb-checkbox>
+                </td>
+                <td>
+                  <input class="form-control nepaliFont" formControlName="husbandNameCT" [readOnly]="!this['husbandNameCheck']"
+                         type="text"/>
+                </td>
+              </tr>
+              
+              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+                <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
+                <td><input class="form-control "
+                           formControlName="fatherInLawName"
+                           id="fatherInLawName"
+                           name="fatherInLawName" placeholder="Father In Law Name"
+                           type="text"/></td>
+                <td>
+                  <input class="form-control" formControlName="fatherInLawNameTrans" readonly
+                    type="text"/>
+                </td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'fatherInLawName')"></nb-checkbox>
+                </td>
+                <td>
+                  <input class="form-control nepaliFont" formControlName="fatherInLawNameCT" [readOnly]="!this['fatherInLawNameCheck']"
+                         type="text"/>
+                </td>
+              </tr>
+
+              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+               (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+                <td>
+                  <label class="title" for="grandFatherName">Grand Father Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="grandFatherName"
+                         id="grandFatherName"
+                         name="grandFatherName" placeholder="Grand Father Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" formControlName="grandFatherNameTrans" readonly
+                    type="text"/>
+                </td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'grandFatherName')"></nb-checkbox>
+                </td>
+                <td>
+                  <input class="form-control nepaliFont" formControlName="grandFatherNameCT" [readOnly]="!this['grandFatherNameCheck']"
+                         type="text"/>
+                </td>
+              </tr>
+
+              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+              (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+                <td>
+                  <label class="title" for="name">Father Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="fatherName"
+                         id="fatherName"
+                         name="fatherName" placeholder="Father Name"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" formControlName="fatherNameTrans" readonly
+                    type="text"/>
+                </td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'fatherName')"></nb-checkbox>
+                </td>
+                <td>
+                  <input class="form-control nepaliFont" formControlName="fatherNameCT" [readOnly]="!this['fatherNameCheck']"
+                         type="text"/>
+                </td>
+              </tr>
+
+
+              <!-- added ended -->
               <tr>
                 <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2" class="text-left">
                   <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
