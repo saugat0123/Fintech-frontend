@@ -61,7 +61,8 @@ import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-de
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-    LoanDeedIndividualComponent
+      LoanDeedIndividualComponent,
+      LoanDeedIndividualPrintComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
