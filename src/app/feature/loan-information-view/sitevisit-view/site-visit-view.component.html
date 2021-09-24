@@ -137,7 +137,7 @@
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
-        <th>Longitude</th>
+        <th colspan="2">Longitude</th>
         <th>Latitude</th>
     </tr>
     <tr *ngFor="let data of formData['businessDetails']; let i = index">
@@ -146,7 +146,7 @@
         <td class="text-left pl-1">{{data?.staffRepresentativeName || 'NA'}}</td>
         <td class="text-left pl-1">{{data?.staffRepresentativeNameDesignation2 || 'NA'}}</td>
         <td class="text-left pl-1">{{data?.staffRepresentativeName2 || 'NA'}}</td>
-        <td class="text-right pr-1">{{data?.businessSiteVisitLongitude || 'NA'}}</td>
+        <td colspan="2" class="text-right pr-1">{{data?.businessSiteVisitLongitude || 'NA'}}</td>
         <td class="text-right pr-1">{{data?.businessSiteVisitLatitude || 'NA'}}</td>
     </tr>
 </table>
