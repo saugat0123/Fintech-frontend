@@ -1355,12 +1355,14 @@
                                         त्यस वित्तीय संस्थाको मिति
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
+                                               [value]="form.get('date').value"
                                                formControlName="secondLetterDate"
-                                               [value]="form.get('date')"> को
+                                               > को
                                         पत्र नं. <input class="form-control-sm form-field nepaliFont"
                                                         type="text"
+                                                        [value]="form.get('patraNum').value"
                                                         formControlName="secondPatraNo"
-                                                        [value]="form.get('patraNum').value">
+                                                        >
                                         बमोजिम श्री
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"

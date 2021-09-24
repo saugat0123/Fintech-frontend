@@ -96,6 +96,11 @@ export class OfferLetterPersonalComponent implements OnInit {
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
             shreeName1: allGuarantors ? allGuarantors : '',
+            dhitoLekhi: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
+            shreeAmount: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
+            shreeAmountInWord: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : '',
+            amount2: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
+            amountInWords2: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
         });
         this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
         this.setGuarantors(this.nepaliData.guarantorDetails);
