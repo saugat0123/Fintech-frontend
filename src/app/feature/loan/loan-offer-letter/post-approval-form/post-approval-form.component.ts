@@ -89,7 +89,7 @@ export class PostApprovalFormComponent implements OnInit {
 
     static loadData(other: PostApprovalFormComponent) {
         other.spinnerService.show();
-        other.catalogueService.search.committee = 'true';
+        // other.catalogueService.search.committee = 'true';
             // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.loanDataHolderList = response.detail.content;

@@ -19,7 +19,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class OfferLetterApprovedComponent implements OnInit {
 
     // todo dynamic search obj for approve , pending
-    searchObj = {docStatus: 'OFFER_APPROVED'};
+    searchObj = {docStatus: 'OFFER_AND_LEGAL_APPROVED'};
     page = 1;
     spinner = false;
     pageable: Pageable = new Pageable();
@@ -75,7 +75,7 @@ export class OfferLetterApprovedComponent implements OnInit {
 
 
     setSearchValue(value) {
-        this.searchObj = Object.assign(value, {docStatus: 'OFFER_APPROVED'});
+        this.searchObj = Object.assign(value, {docStatus: 'OFFER_AND_LEGAL_APPROVED'});
         OfferLetterApprovedComponent.loadData(this);
     }
 

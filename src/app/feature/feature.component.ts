@@ -37,15 +37,15 @@ export class FeatureComponent implements OnInit {
     this.items = this.menuService.getMenus().subscribe(res => {
           this.menus = [...res.detail];
           const storage = LocalStorageUtil.getStorage();
-          if (storage.roleType === RoleType[RoleType.COMMITTEE]) {
+
             const tempMenu = {
               id: null,
               title: 'Pull',
               link: '/home/loan/pull',
               icon: 'arrowhead-down-outline'
-            };
+            }
             this.menus.push(tempMenu);
-          }
+
           storage.menus = this.menus;
           LocalStorageUtil.setStorage(storage);
         },

@@ -99,7 +99,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
  dateOption = [{value: 'AD', label: 'AD'},
                 {value: 'BS', label: 'BS'}];
  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
-
+ translatedGuarantorDetails = [];
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private branchService: BranchService,
@@ -323,9 +323,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
-
     Object.keys(this.userConfigForm.controls).forEach(key => {
-      console.log(key);
+      // console.log(key);
       if (key.indexOf('CT') > -1) {
         return;
       }
@@ -338,6 +337,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
       this.translatedData[key] = this.attributes;
     });
+    this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
+
     const data = {
       branch: this.userConfigForm.get('branch').value,
       customerType: clientType,
@@ -370,22 +371,45 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   addGuarantorField() {
     return this.formBuilder.group({
       guarantorName: '',
+      guarantorNameTrans: [undefined],
       guarantorNameCT: '',
       issuedYear: '',
       issuedYearCT: '',
       issuedPlace: '',
+      issuedPlaceTrans: [undefined],
       issuedPlaceCT: '',
       guarantorLegalDocumentAddress: '',
+      guarantorLegalDocumentAddressTrans: [undefined],
       guarantorLegalDocumentAddressCT: '',
       relationship: '',
       relationshipCT: '',
       citizenNumber: '',
+      citizenNumberTrans: [undefined],
       citizenNumberCT: '',
+      genderCT: '',
+      gender: '',
+      genderTrans: [undefined],
+      relationMediumCT: [undefined],
+      relationMedium: [undefined],
+      husbandNameCT: [undefined],
+      husbandName: [undefined],
+      husbandNameTrans: [undefined],
+      fatherInLawNameCT: [undefined],
+      fatherInLawName: [undefined],
+      fatherInLawNameTrans: [undefined],
+      grandFatherNameCT: [undefined],
+      grandFatherName: [undefined],
+      grandFatherNameTrans: [undefined],
+      fatherNameCT: [undefined],
+      fatherName: [undefined],
+      fatherNameTrans: [undefined],
+
     });
   }
 
   removeAtIndex(i: any) {
     (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    this.translatedGuarantorDetails.splice(i, 1)
   }
 
   onChangeTab(event) {
@@ -407,13 +431,38 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorDetails.forEach(value => {
       formArray.push(this.formBuilder.group({
         guarantorName: [value.guarantorName],
+        guarantorNameTrans: [undefined],
         guarantorNameCT: [value.guarantorNameCT],
+        citizenNumberTrans: [undefined],
         issuedYear: [value.issuedYear],
         issuedYearCT: [value.issuedYearCT],
         issuedPlace: [value.issuedPlace],
+        issuedPlaceTrans: [undefined],
         issuedPlaceCT: [value.issuedPlaceCT],
         guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+        guarantorLegalDocumentAddressTrans: [undefined],
         guarantorLegalDocumentAddressCT: [value.guarantorLegalDocumentAddressCT],
+        genderCT: [value.genderCT],
+        gender: [value.gender],
+        genderTrans: [undefined],
+        relationMediumCT: [value.relationMediumCT],
+        relationMedium: [value.relationMedium],
+        husbandNameCT: [value.husbandNameCT],
+        husbandName: [value.husbandName],
+        husbandNameTrans: [undefined],
+
+        fatherInLawNameCT: [value.fatherInLawNameCT],
+        fatherInLawName: [value.fatherInLawName],
+        fatherInLawNameTrans: [undefined],
+
+        grandFatherNameCT: [value.grandFatherNameCT],
+        grandFatherName: [value.grandFatherName],
+        grandFatherNameTrans: [undefined],
+
+        fatherNameCT: [value.fatherNameCT],
+        fatherName: [value.fatherName],
+        fatherNameTrans: [undefined],
+        
         relationship: [value.relationship],
         relationshipCT: [value.relationshipCT],
         citizenNumber: [value.citizenNumber],
@@ -428,9 +477,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   async translate() {
-
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    this.spinner = false;
     this.objectTranslateForm.patchValue({
       permanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
@@ -449,7 +498,43 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
     this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
-    this.spinner = false;
+  }
+
+  async translateGuarantorData(index) {
+    let alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
+    if (alluarantors.length > 0) {
+      let guarantorsDetails: any = [];
+      guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+      this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).setValue(guarantorsDetails.guarantorName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).setValue(guarantorsDetails.issuedPlace || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'guarantorLegalDocumentAddressTrans']).setValue(guarantorsDetails.guarantorLegalDocumentAddress || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).setValue(guarantorsDetails.gender || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).setValue(guarantorsDetails.husbandName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).setValue(guarantorsDetails.fatherInLawName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
+
+      // translate guarantorsDetails
+      let formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      let newArr = {};
+      // for (let i = 0; i < a.length; i++) {
+        let individualData = a[index] as FormGroup;
+        Object.keys(individualData.controls).forEach(key => {
+          if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+            return;
+          }
+            this.attributes = new Attributes();
+            this.attributes.en = individualData.get(key).value;
+            this.attributes.np = guarantorsDetails[key];
+            this.attributes.ct = individualData.get(key + 'CT').value;
+            newArr[key] = this.attributes;
+        });
+        this.translatedGuarantorDetails[index] = newArr;
+      // end guarantorDetails
+    }
   }
 
   getCadApprovedData(data) {

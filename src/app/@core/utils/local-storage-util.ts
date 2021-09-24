@@ -3,6 +3,8 @@ import {CryptoJsUtil} from './crypto-js-util';
 import {environment} from '../../../environments/environment';
 import {BankUtils, ProductUtils} from '../../feature/admin/service/product-mode.service';
 import {NbMenuItem} from '@nebular/theme';
+import {Role} from '../../feature/admin/modal/role';
+import {User} from '../../feature/admin/modal/user';
 
 export class LocalStorageUtil {
   /**
@@ -47,9 +49,11 @@ export class LocalStorage {
   roleType: string;
   roleAccess: string;
   userId: string;
+  user: User;
   userFullName: string;
   userProfilePicture: string;
   roleId: string;
+  role: Role;
   productMode: string;
   branch: string;
   productUtil: ProductUtils;

@@ -21,12 +21,13 @@ import {ThemeModule} from '../../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
-import {RetailLoanAgainstInsuranceComponent} from "./mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component";
+import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
 import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
 import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
 import { PersonalOverdraftComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft.component';
 import { PersonalOverdraftPrintComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft-print/personal-overdraft-print.component';
 import { PersonalLoanAndPersonalOverdraftComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -66,13 +67,14 @@ const COMPONENTS = [
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent
     ],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NgxPrintModule,
-        CoreModule,
-        NbAccordionModule,
-    ],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NgxPrintModule,
+    CoreModule,
+    NbAccordionModule,
+    NepaliPatroModule,
+  ],
     entryComponents: [
         RetailProfessionalLoanComponent,
         PersonalOverdraftComponent,
