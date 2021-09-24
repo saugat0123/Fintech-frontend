@@ -409,7 +409,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   removeAtIndex(i: any) {
     (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
-    this.translatedGuarantorDetails.splice(i, 1)
+    this.translatedGuarantorDetails.splice(i, 1);
   }
 
   onChangeTab(event) {
