@@ -386,6 +386,24 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenNumber: '',
       citizenNumberTrans: [undefined],
       citizenNumberCT: '',
+      genderCT: '',
+      gender: '',
+      genderTrans: [undefined],
+      relationMediumCT: [undefined],
+      relationMedium: [undefined],
+      husbandNameCT: [undefined],
+      husbandName: [undefined],
+      husbandNameTrans: [undefined],
+      fatherInLawNameCT: [undefined],
+      fatherInLawName: [undefined],
+      fatherInLawNameTrans: [undefined],
+      grandFatherNameCT: [undefined],
+      grandFatherName: [undefined],
+      grandFatherNameTrans: [undefined],
+      fatherNameCT: [undefined],
+      fatherName: [undefined],
+      fatherNameTrans: [undefined],
+
     });
   }
 
@@ -424,6 +442,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
         guarantorLegalDocumentAddressTrans: [undefined],
         guarantorLegalDocumentAddressCT: [value.guarantorLegalDocumentAddressCT],
+        genderCT: [value.genderCT],
+        gender: [value.gender],
+        genderTrans: [undefined],
+        relationMediumCT: [value.relationMediumCT],
+        relationMedium: [value.relationMedium],
+        husbandNameCT: [value.husbandNameCT],
+        husbandName: [value.husbandName],
+        husbandNameTrans: [undefined],
+
+        fatherInLawNameCT: [value.fatherInLawNameCT],
+        fatherInLawName: [value.fatherInLawName],
+        fatherInLawNameTrans: [undefined],
+
+        grandFatherNameCT: [value.grandFatherNameCT],
+        grandFatherName: [value.grandFatherName],
+        grandFatherNameTrans: [undefined],
+
+        fatherNameCT: [value.fatherNameCT],
+        fatherName: [value.fatherName],
+        fatherNameTrans: [undefined],
+        
         relationship: [value.relationship],
         relationshipCT: [value.relationshipCT],
         citizenNumber: [value.citizenNumber],
@@ -470,6 +509,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
       this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).setValue(guarantorsDetails.issuedPlace || '');
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorLegalDocumentAddressTrans']).setValue(guarantorsDetails.guarantorLegalDocumentAddress || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).setValue(guarantorsDetails.gender || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).setValue(guarantorsDetails.husbandName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).setValue(guarantorsDetails.fatherInLawName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
 
       // translate guarantorsDetails
       let formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;
