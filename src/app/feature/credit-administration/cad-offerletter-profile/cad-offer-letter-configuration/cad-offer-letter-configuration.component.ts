@@ -99,7 +99,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
  dateOption = [{value: 'AD', label: 'AD'},
                 {value: 'BS', label: 'BS'}];
  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
-
+ translatedGuarantorDetails = [];
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private branchService: BranchService,
@@ -258,7 +258,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       issuedDateCT: [undefined],
       guarantorDetails: this.formBuilder.array([]),
         issuedDateType: [undefined],
-        tempMunicipalitiesOrVdc: [undefined],
+        // tempMunicipalitiesOrVdc: [undefined],
         customerInfoId: [undefined],
     });
   }
@@ -339,21 +339,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
+    Object.keys(this.userConfigForm.controls).forEach(key => {
+      // console.log(key);
+      if (key.indexOf('CT') > -1) {
+        return;
+      }
+      if (key === 'guarantorDetails') {
+        return;
+      }
+      this.attributes = new Attributes();
+      this.attributes.en = this.userConfigForm.get(key).value;
+      this.attributes.np = this.translatedValues[key];
+      this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
+      this.translatedData[key] = this.attributes;
+    });
+    this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
-    // Object.keys(this.userConfigForm.controls).forEach(key => {
-    //   console.log(key);
-    //   if (key.indexOf('CT') > -1) {
-    //     return;
-    //   }
-    //   if (key === 'guarantorDetails') {
-    //     return;
-    //   }
-    //   this.attributes = new Attributes();
-    //   this.attributes.en = this.userConfigForm.get(key).value;
-    //   this.attributes.np = this.translatedValues[key];
-    //   this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
-    //   this.translatedData[key] = this.attributes;
-    // });
     const data = {
       branch: this.userConfigForm.get('branch').value,
       customerType: clientType,
@@ -386,22 +387,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   addGuarantorField() {
     return this.formBuilder.group({
       guarantorName: '',
+      guarantorNameTrans: [undefined],
       guarantorNameCT: '',
       issuedYear: '',
       issuedYearCT: '',
       issuedPlace: '',
+      issuedPlaceTrans: [undefined],
       issuedPlaceCT: '',
       guarantorLegalDocumentAddress: '',
+      guarantorLegalDocumentAddressTrans: [undefined],
       guarantorLegalDocumentAddressCT: '',
       relationship: '',
       relationshipCT: '',
       citizenNumber: '',
+      citizenNumberTrans: [undefined],
       citizenNumberCT: '',
     });
   }
 
   removeAtIndex(i: any) {
     (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
+    this.translatedGuarantorDetails.splice(i, 1)
   }
 
   onChangeTab(event) {
@@ -423,12 +429,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorDetails.forEach(value => {
       formArray.push(this.formBuilder.group({
         guarantorName: [value.guarantorName],
+        guarantorNameTrans: [undefined],
         guarantorNameCT: [value.guarantorNameCT],
+        citizenNumberTrans: [undefined],
         issuedYear: [value.issuedYear],
         issuedYearCT: [value.issuedYearCT],
         issuedPlace: [value.issuedPlace],
+        issuedPlaceTrans: [undefined],
         issuedPlaceCT: [value.issuedPlaceCT],
         guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+        guarantorLegalDocumentAddressTrans: [undefined],
         guarantorLegalDocumentAddressCT: [value.guarantorLegalDocumentAddressCT],
         relationship: [value.relationship],
         relationshipCT: [value.relationshipCT],
@@ -444,9 +454,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   async translate() {
-
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
+    this.spinner = false;
     this.objectTranslateForm.patchValue({
       permanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
@@ -465,8 +475,38 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
     this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
-    this.spinner = false;
+  }
 
+  async translateGuarantorData(index) {
+    let alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
+    if (alluarantors.length > 0) {
+      let guarantorsDetails: any = [];
+      guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+      this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).setValue(guarantorsDetails.guarantorName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).setValue(guarantorsDetails.issuedPlace || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'guarantorLegalDocumentAddressTrans']).setValue(guarantorsDetails.guarantorLegalDocumentAddress || '');
+
+      // translate guarantorsDetails
+      let formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      let newArr = {};
+      // for (let i = 0; i < a.length; i++) {
+        let individualData = a[index] as FormGroup;
+        Object.keys(individualData.controls).forEach(key => {
+          if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+            return;
+          }
+            this.attributes = new Attributes();
+            this.attributes.en = individualData.get(key).value;
+            this.attributes.np = guarantorsDetails[key];
+            this.attributes.ct = individualData.get(key + 'CT').value;
+            newArr[key] = this.attributes;
+        });
+        this.translatedGuarantorDetails[index] = newArr;
+      // end guarantorDetails
+    }
   }
 
   getCadApprovedData(data) {
@@ -649,7 +689,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     patchValue(): void {
-        if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
+        if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
 
             this.userConfigForm.patchValue({
                 branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.branch.id,
