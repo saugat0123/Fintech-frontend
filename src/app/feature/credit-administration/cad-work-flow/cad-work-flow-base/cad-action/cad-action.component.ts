@@ -24,6 +24,7 @@ import {SecurityComplianceCertificateComponent} from '../legal-and-disbursement/
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
+import {LaxmiOfferLetterConst} from '../../../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 
 @Component({
     selector: 'app-cad-action',
@@ -88,6 +89,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     isForApproveMaker = false;
     selectedTemplate;
     commentVar;
+    hasRequierdDocument = false;
 
     constructor(private router: ActivatedRoute,
                 private route: Router,
@@ -108,6 +110,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log('from cad action', this.cadOfferLetterApprovedDoc);
+        this.checkCadDocument();
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
@@ -134,6 +138,21 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
     }
 
+    checkCadDocument() {
+        const cadDocuments: any = this.cadOfferLetterApprovedDoc.offerDocumentList;
+        let index = 0;
+        if (cadDocuments.length > 0) {
+            cadDocuments.forEach((data) => {
+                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && (!ObjectUtil.isEmpty(data.pathSigned) || !ObjectUtil.isEmpty(data.draftPath)))
+                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT) && (!ObjectUtil.isEmpty(data.pathSigned) || !ObjectUtil.isEmpty(data.draftPath)))) {
+                    index += 1;
+                }
+            });
+            if (index === 2 || index > 2) {
+                this.hasRequierdDocument = true;
+            }
+        }
+    }
     onSubmit(templateLogin) {
         console.log(this.formAction);
         this.errorMsgStatus = false;
@@ -257,6 +276,10 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
+        if (!this.hasRequierdDocument) {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
+            return;
+        }
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
@@ -385,7 +408,10 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        console.log('file changed');
         this.checkForwardValidMessage();
+        this.checkCadDocument();
+
     }
 
 }
