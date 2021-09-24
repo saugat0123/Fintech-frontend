@@ -17,6 +17,8 @@ import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.compo
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
+import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
+import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 
 
 
@@ -34,7 +36,9 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent],
+    PromissoryNoteJointComponent,
+    LoanDeedIndividualComponent,
+    LoanDeedIndividualPrintComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -56,7 +60,9 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent
+    PromissoryNoteJointComponent,
+      LoanDeedIndividualComponent,
+      LoanDeedIndividualPrintComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
