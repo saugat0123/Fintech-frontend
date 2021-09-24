@@ -1,229 +1,190 @@
-
-<div *ngIf="!productUtils?.CUSTOMER_BASE_LOAN">
-<nb-card>
+<nb-card [nbSpinner]="spinner" accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large">
     <nb-card-header>
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <button
-                        nbButton shape="rectangle" status="primary"
-                        (click)="isFilterCollapsed = !isFilterCollapsed"
-                        [attr.aria-expanded]="!isFilterCollapsed"
-                        aria-controls="searchModel">
-                    <i class="fa fa-filter"> Filter</i>
-                </button>
+        <div class="row">
+            <div class="col-md-12">
+<!--                <app-filter (eventEmitter)="setSearchValue($event)" [isDefaultCADROLEFILTER]="true" ></app-filter>-->
             </div>
-
         </div>
-        <div class="col-md-12 d-flex justify-content-end">
-
-            <button nbButton outline status="info"
-               (click)="getCsv()">
-                <i class="fa fa-download" aria-hidden="true"></i></button>
-
-        </div>
-        <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
-            <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
-                <div class="row py-3">
-                    <div class="col-md-3" *ngIf="accessSpecific || accessAll">
-                        <select class="custom-select" formControlName="branch">
-                            <option [value]="null" selected hidden>Select Branch</option>
-                            <option [value]="null">All Branches</option>
-                            <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="custom-select" formControlName="loanType">
-                            <option [value]="null" selected hidden>Select Loan Type</option>
-                            <option [value]="null">All Loan Types</option>
-                            <option *ngFor="let loanType of loanTypeList"
-                                    [value]="loanType.id">{{loanType.name}}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
-                               (change)="checkIfDateFiltration()" formControlName="startDate"
-                               placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
-                        <nb-datepicker #startDate></nb-datepicker>
-                        <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
-                    </div>
-                    <div class="col-md-3">
-                        <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
-                               (change)="checkIfDateFiltration()" formControlName="endDate"
-                               placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
-                        <nb-datepicker #endDate></nb-datepicker>
-                        <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
-                    </div>
-
-
-                    <div class="col-md-3">
-                        <select class="custom-select" formControlName="loanNewRenew">
-                            <option [value]="null" selected hidden>Select Type</option>
-                            <option [value]="null">All Types</option>
-                            <option *ngFor="let status of loanType.values()"
-                                    [value]="status">{{loanType[status]}}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-3">
-                        <input id="customerName" class="form-control rounded" formControlName="customerName"
-                               placeholder="Enter customer name">
-                    </div>
-                </div>
-
-                <div class="col-md-12 p-0">
-                    <button nbButton status="info" shape="rectangle" class="mr-2"
-                            [disabled]="!filterForm.valid"
-                            type="submit">Search
-                    </button>
-                    <button (click)="clearSearch()" shape="rectangle" nbButton status="danger">Clear</button>
-                </div>
-            </form>
-        </div>
-
+        <h6 class="text-center">Pool Document</h6>
     </nb-card-header>
     <nb-card-body>
-        <br>
-        <table id="add-branch-table" class="table table-bordered table-hover table-sm sb-small text-center">
+        <table class="table table-bordered table-hover table-sm sb-small text-center ">
             <thead>
             <tr class="text-white sb-bg-dark">
+                <th>S.N</th>
                 <th>Branch</th>
-                <th>Customer Name</th>
-                <th>Loan Facility</th>
-                <th>Proposed Amount</th>
-                <th>Type</th>
+                <th>Province</th>
+                <th class="cursor" nbTooltip="Sort By" (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer Name <em class="fas fa-sort"></em></th>
                 <th>Status</th>
-                <th>Possession Under/Days</th>
-                <th>Loan lifespan</th>
+                <th>From</th>
+                <th class="cursor" nbTooltip="Sort By"  (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Date <em class="fas fa-sort"></em></th>
+                <th>Loan Document No</th>
+                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Initiator</th>
+                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Approved Date</th>
+                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>
+                <th>Preview</th>
 
-                <th>Action</th>
-                <th>Checked/History</th>
+
             </tr>
             </thead>
-            <tbody *ngFor="let model of loanDataHolderList;let i=index" class="cursor">
-            <tr>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.loanHolder?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
-                    <span
-                            class="d-flex justify-content-end">Rs .{{model?.proposal?.proposedLimit | currencyFormatter}}</span>
-                </td>
-                <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">
-                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>
-                        {{model?.currentStage?.toUser?.name}}
-                        / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
-                    </div>
-                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
-                        model?.documentStatus.toString()==="REJECTED" ||
-                        model?.documentStatus.toString()==="APPROVED")'>
-                        {{model?.currentStage?.toUser?.name}}
-                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length - 1].lastModifiedAt)}}
-                    </div>
-                </td>
-                <td (click)="onClick(model.loan.id,model.id)">
-                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
-                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
-                        model?.documentStatus.toString()==="REJECTED" ||
-                        model?.documentStatus.toString()==="APPROVED")'>
-                        {{getDaysDifference(model?.currentStage?.lastModifiedAt, model?.currentStage?.createdAt)}}
-                    </div>
-                </td>
+            <tbody>
+            <ng-container *ngFor="let model of loanList;let i=index">
+                <tr class="cursor" >
+                    <td (click)="loadProfile(model?.id,model)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date:'medium'}} </td>
+                    <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
+<!--                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.loanStage?.fromUser?.name}}</td>-->
+<!--                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.assignedLoan[0]?.currentStage?.lastModifiedAt | date :'medium'}}</td>-->
+<!--                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-{{model?.cadCurrentStage?.toRole?.roleName}}</td>-->
+                    <td>
+                        <a class="px-2 cursor"
+                           (click)="routeService.previewCadDoc(model?.id)"
+                           nbTooltip="click to view detail ">
+                            <em class="fas fa-info-circle text-info"></em>
+                        </a>
 
-                <td>
-                    <a (click)="onPullClick(pullDocument,model.id,model?.currentStage?.toUser?.id)"><i
-                            class="fas fa-angle-double-down"></i> pull</a>
-                </td>
+                        <a
+                            *ngIf="!(model?.cadCurrentStage?.toUser?.id)"
+                            (click)="onPullClick(pullDocument,model.id,model?.currentStage?.toUser?.id, model?.assignedLoan)"
+                            nbTooltip="PULL"><i
+                            class="fas fa-angle-double-down"></i> </a>
 
-                <td>
-                <span *ngIf="model.pulled"
-                      style="color:limegreen"><i
-                        class="fas fa-check-circle"></i></span>
-                    <span *ngIf="!model.pulled || model.pulled === null"
-                          style="color:red"><i class="fas fa-times-circle"></i></span>/
-                    <i class="fas fa-eye" (click)="toggleArray[i].toggled = !toggleArray[i].toggled" nbTooltip="Click to see Loan History"></i>
-                </td>
-
-            </tr>
-            <ng-container *ngIf="toggleArray[i].toggled">
-                <tr><td colspan="10"><b>Loan History</b></td></tr>
-                <tr class="text-white sb-bg-dark">
-                    <td>Date</td>
-                    <td>From User</td>
-                    <td>From Role</td>
-                    <td>To User</td>
-                    <td>To Role</td>
-                    <td>Action</td>
-                    <td colspan="4">Comment</td>
+                    </td>
                 </tr>
-                <tr *ngFor="let previous of model?.previousList">
-                    <td>{{previous?.lastModifiedAt | date}}</td>
-                    <td>{{previous?.fromUser?.name}}</td>
-                    <td>{{previous?.fromRole?.roleName}}</td>
+                <ng-container *ngIf="toggleArray[i].toggled">
+                    <tr>
+                        <td colspan="10"><b>Post Approval Document Comments</b></td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <th>S.N</th>
+                        <th>Date</th>
+                        <th>From User</th>
 
-                    <td>{{previous?.toUser.name}}</td>
-                    <td>{{previous?.toRole.roleName}}</td>
+                        <th>To User</th>
 
-                    <td>{{previous?.docAction}}</td>
-                    <td colspan="6">{{previous.comment}}</td>
-                </tr>
-                <tr>
-                    <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
-                    <td>{{model?.currentStage?.fromUser?.name}}</td>
-                    <td>{{model?.currentStage?.fromRole?.roleName}}</td>
-                    <td>{{model?.currentStage?.toUser.name}}</td>
-                    <td>{{model?.currentStage?.toRole.roleName}}</td>
-                    <td>{{model?.currentStage?.docAction}}</td>
-                    <td colspan="6">{{model?.currentStage?.comment}}</td>
+                        <th>Status</th>
+                        <th class="cmt-width" colspan="5">Remarks</th>
+                    </tr>
 
-                </tr>
-                <tr class="sb-bg-dark"><td colspan="12">.</td> </tr>
+                    <tr *ngFor="let previousList of model?.previousList ; let j = index">
+                        <td>{{j + 1}}</td>
+                        <td>
+                            {{previousList?.lastModifiedAt | date}}
+                        </td>
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{previousList?.fromUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <span>({{previousList?.fromRole?.roleName}})</span>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{previousList?.toUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    ({{previousList?.toRole?.roleName}})
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>{{previousList?.docAction | replace:'_':' '}}</td>
+                        <td class="text-left px-2" colspan="5">
+                            {{ previousList?.comment}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{currentIndexArray[i].currentIndex + 1 }}</td>
+                        <td>{{model?.cadCurrentStage?.lastModifiedAt | date}}</td>
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{model?.cadCurrentStage?.fromUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <span>({{model?.cadCurrentStage?.fromRole?.roleName}})</span>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    {{model?.cadCurrentStage?.toUser?.name}}</div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-center">
+                                    <span>({{model?.cadCurrentStage?.toRole?.roleName}})</span>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>{{model?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
+                        <td class="text-left px-2" colspan="5">
+
+                            {{model?.cadCurrentStage?.comment}}
+
+
+                        </td>
+                    </tr>
+                    <tr class="sb-bg-dark text-white">
+                        <td colspan="10">.</td>
+                    </tr>
+                </ng-container>
             </ng-container>
-
             </tbody>
         </table>
         <!-- ===================table-pagination==================== -->
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
+
     </nb-card-body>
-
-    <ng-template #pullDocument>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">Pull Loan Document</h4>
-            <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-                <span aria-hidden="true">&times;</span>
-            </a>
-        </div>
-        <div class="modal-body">
-            Do you want to pull this Document?
-
-
-            <div class="col-md-12">
-                <form>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
-                            NO
-                        </button>
-                        <button type="submit" class="btn btn-success float-right" (click)="confirm()">YES
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-
-
-        </div>
-    </ng-template>
-
-
 </nb-card>
-</div>
 
-<div *ngIf="productUtils?.CUSTOMER_BASE_LOAN">
-    <app-customer-wise-loan-pull></app-customer-wise-loan-pull>
-</div>
+<ng-template #pullDocument>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Pull Loan Document</h4>
+        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        Do you want to pull this Document?
+
+
+        <div class="col-md-12">
+            <form>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                        NO
+                    </button>
+                    <button type="submit" class="btn btn-success float-right" (click)="confirm()">YES
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</ng-template>

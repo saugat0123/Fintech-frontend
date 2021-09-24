@@ -57,7 +57,9 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 LocalStorageUtil.setStorage(storage);
 
                 await this.userService.getLoggedInUser().toPromise().then((res: any) => {
-                    const user: User = res.detail;
+                  console.log(res);
+                  console.log(storage);
+                  const user: User = res.detail;
                     storage.userId = (user.id).toString();
                     storage.username = user.username;
                     storage.userFullName = user.name;
@@ -66,6 +68,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                     storage.roleName = user.role.roleName;
                     storage.roleType = user.role.roleType;
                     storage.roleId = (user.role.id).toString();
+                    storage.role = (user.role);
+                    storage.user = user;
                     LocalStorageUtil.setStorage(storage);
                 }, error => console.error(error));
                 await this.productModeService.getProductUtils().subscribe((response: any) => {
@@ -82,7 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
               });
                 await this.userService.getAuthenticatedUserBranches().toPromise().then((response: any) => {
                     storage.branch = response.detail;
-                    LocalStorageUtil.setStorage(storage);
+                  LocalStorageUtil.setStorage(storage);
                 }, error => console.error(error));
                 await this.productModeService.getAll().toPromise().then((response: any) => {
                     const productMode: ProductUtils = response.detail;

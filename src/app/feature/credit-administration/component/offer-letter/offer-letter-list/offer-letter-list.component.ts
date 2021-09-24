@@ -17,6 +17,7 @@ import {NbDialogService} from '@nebular/theme';
 import {CadOfferLetterConfigurationComponent} from '../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
 import {CadOneformService} from '../../../service/cad-oneform.service';
 import {CustomerType} from '../../../../customer/model/customerType';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -26,7 +27,7 @@ import {CustomerType} from '../../../../customer/model/customerType';
 export class OfferLetterListComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
-  searchObj = {docStatus: 'OFFER_PENDING'};
+  searchObj = {docStatus: 'OFFER_AND_LEGAL_PENDING'};
   page = 1;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -48,17 +49,23 @@ export class OfferLetterListComponent implements OnInit {
               private cadOneFormService: CadOneformService) {
   }
 
-  static loadData(other: OfferLetterListComponent) {
+  static async loadData(other: OfferLetterListComponent) {
     other.spinner = true;
     other.currentIndexArray = [];
     other.toggleArray = [];
     other.loanList = [];
+    // await other.userService.getDefaultCommunityUser().then(res => {
+    //   this.defaultCommunityUser = res.detail.id;
+    // });
+    other.searchObj = {
+      docStatus: 'OFFER_AND_LEGAL_PENDING',
+    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
       console.log(res.detail);
       other.loanList = res.detail.content;
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
-      other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
+      // other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
       // tslint:disable-next-line:max-line-length
       other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
       other.pageable = PaginationUtils.getPageable(res.detail);

@@ -112,4 +112,12 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public checkByCadChecker(obj: any): Observable<any> {
+        const api = `${this.getApi()}/check-cad`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
+
+
 }

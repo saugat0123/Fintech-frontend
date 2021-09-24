@@ -97,7 +97,7 @@ export class LoanOfferLetterComponent implements OnInit {
 
     static loadData(other: LoanOfferLetterComponent) {
         other.spinnerService.show();
-        other.catalogueService.search.committee = 'true';
+        // other.catalogueService.search.committee = 'true';
         if (other.isCAD_ADMIN) {
             // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
