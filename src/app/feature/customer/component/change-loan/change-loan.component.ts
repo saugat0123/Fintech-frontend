@@ -10,6 +10,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Status} from '../../../../@core/Status';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 @Component({
     selector: 'app-change-loan',
@@ -32,9 +33,8 @@ export class ChangeLoanComponent implements OnInit {
 
     @Input()
     customerLoanId: number;
-
     changeLoanForm: FormGroup;
-
+    loanTag = LoanTag;
     constructor(private router: Router,
                 private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
