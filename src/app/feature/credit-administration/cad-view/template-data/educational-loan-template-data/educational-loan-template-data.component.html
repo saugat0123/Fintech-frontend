@@ -407,17 +407,17 @@
 <!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfBranchCheck']" formControlName="nameOfBranchTransVal"/>-->
 <!--                    </td>-->
 <!--                </tr>-->
-<!--                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">-->
-<!--                    <td>Name Of Fixed Deposit</td>-->
-<!--                    <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>-->
-<!--                    <td class="abc">{{translatedData?.nameOfFixedDeposit}}</td>-->
-<!--                    <td>-->
-<!--                        <nb-checkbox (change)="checkboxVal($event, 'nameOfFixedDeposit')"></nb-checkbox>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfFixedDepositCheck']" formControlName="nameOfFixedDepositTransVal"/>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
+                    <td>Name Of Fixed Deposit</td>
+                    <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>
+                    <td class="abc">{{translatedData?.nameOfFixedDeposit}}</td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'nameOfFixedDeposit')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfFixedDepositCheck']" formControlName="nameOfFixedDepositTransVal"/>
+                    </td>
+                </tr>
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Pledge Amount Figure</td>
