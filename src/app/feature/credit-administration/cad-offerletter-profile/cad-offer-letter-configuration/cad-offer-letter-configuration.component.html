@@ -46,7 +46,7 @@
               <td>
                 <select class="form-control" formControlName="branch" id="branch">
                   <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                  <option *ngFor="let branch of branchList" [value]="branch.name">{{branch.name}}
                   </option>
                 </select>
               </td>
@@ -407,19 +407,11 @@
                   <option [ngValue]="null" hidden>District</option>
                   <option  *ngFor="let district of allDistrictList"
                           [ngValue]="district">
-                    {{district.name}}
+                    {{district.name}} || {{district.nepaliName}}
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.citizenshipIssueDistrict}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'citizenshipIssueDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrictCT" [readOnly]="!this['citizenshipIssueDistrictCheck']" type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -514,21 +506,11 @@
                   <option [ngValue]="null" hidden>Province</option>
                   <option  *ngFor="let provinceVal of provinceList"
                           [ngValue]="provinceVal">
-                    {{provinceVal.name}}
+                    {{provinceVal.name}} || {{provinceVal.nepaliName}}
                   </option>
                 </select>
               </td>
-
-              <td>
-                {{objectValueTranslater?.permanentProvince}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentProvince')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentProvinceCT" [readOnly]="!this['permanentProvinceCheck']"
-                       type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
@@ -541,19 +523,11 @@
                 <option [ngValue]="null" hidden>District</option>
                 <option *ngFor="let districtVal of districts"
                         [ngValue]="districtVal">
-                  {{districtVal.name}}
+                  {{districtVal.name}} || {{districtVal.nepaliName}}
                 </option>
               </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentDistrict}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentDistrictCT" [readOnly]="!this['permanentDistrictCheck']" type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -573,19 +547,11 @@
                         name="municipality">
                   <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
-                    {{municipalityVal.name}}
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentMunicipality}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentMunicipality')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentMunicipalityCT" [readOnly]="!this['permanentMunicipalityCheck']"   type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td>
