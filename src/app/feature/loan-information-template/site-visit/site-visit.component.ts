@@ -125,10 +125,15 @@ export class SiteVisitComponent implements OnInit {
             const stringFormData = this.formValue.data;
             this.formDataForEdit = JSON.parse(stringFormData);
         }
-
         this.buildForm();
         this.previousData();
         if (this.formDataForEdit !== undefined) {
+            if (ObjectUtil.isEmpty(this.formDataForEdit.businessDetails)) {
+                this.addMoreBusinessSiteVisit();
+            }
+            if (ObjectUtil.isEmpty(this.formDataForEdit.currentAssetsDetails)) {
+                this.addMoreCurrentAssets();
+            }
             this.populateData();
         } else {
             this.addMoreBusinessSiteVisit();
