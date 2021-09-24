@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 // import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 // import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 // import {LoanType} from '../../../../loan/model/loanType';
-import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {RoleType} from '../../../admin/modal/roleType';
@@ -18,13 +17,11 @@ import {CreditAdministrationService} from '../../../credit-administration/servic
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Stage} from '../../model/stage';
 import {DocAction} from '../../model/docAction';
-import {DocStatus} from '../../model/docStatus';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
-import {CadDocStatus} from '../../../credit-administration/model/CadDocStatus';
 // import {RouterUtilsService} from '../../../utils/router-utils.service';
 // import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 // import {User} from '../../../../admin/modal/user';
@@ -201,7 +198,7 @@ export class LoanPullComponent implements OnInit {
     this.onClose();
     this.cadService.assignLoanToUser(this.pullValues).subscribe((response: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-          this.formAction.get('docAction').value));
+          this.pullValues.docAction));
       LoanPullComponent.loadData(this);
       this.spinner = false;
     }, error => {
