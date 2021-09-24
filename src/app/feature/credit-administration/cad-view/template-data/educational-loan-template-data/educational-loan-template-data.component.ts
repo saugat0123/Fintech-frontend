@@ -50,6 +50,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   allDistrictList: Array<District> = new Array<District>();
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
+  cadDocStatus = CadDocStatus.key();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -209,7 +210,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
       this.spinner = true;
       this.btnDisable = true;
-      this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_AND_LEGAL_PENDING;
+      this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
       if (this.existingOfferLetter) {
           this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
