@@ -209,7 +209,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
       this.spinner = true;
       this.btnDisable = true;
-      this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+      this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_AND_LEGAL_PENDING;
 
       if (this.existingOfferLetter) {
           this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
