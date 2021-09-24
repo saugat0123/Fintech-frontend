@@ -89,6 +89,7 @@ export class NepProposedAmountFormComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated SUCCESSFULLY!!!'));
         }, error => {
             this.spinner = false;
+            this.dialogRef.close();
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
 
         });
