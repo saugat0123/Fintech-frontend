@@ -47,8 +47,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
     nameOfEmbassy;
     loanLimit;
     docSecurityName;
-    translatedNepaliData: any = {};
-    translatedData: any = {};
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
@@ -149,7 +147,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
                 this.fillForm();
-                console.log('loan Limit checked', this.loanLimit);
                 this.initialInfoPrint = initialInfo;
             }
         } else {
@@ -217,7 +214,7 @@ submit(): void {
             guarantorName: guarantorDetails.guarantorList[0].name ? guarantorDetails.guarantorList[0].name : '',
             nameOfBranch: branchName ? branchName : '',
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-            dateOfApproval: this.initialInfoPrint.dateOfApproval.en ? this.initialInfoPrint.dateOfApproval.en : '',
+            // dateOfApproval: this.initialInfoPrint.dateOfApproval.en ? this.initialInfoPrint.dateOfApproval.en : '',
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
