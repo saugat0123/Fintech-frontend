@@ -393,8 +393,8 @@
                             </table>
                         </div>
 
-                <label>Regulatory Compliance Checklist</label><br/>
-                <label>NRB Directive No. 6.6 Ka</label>
+                <label><strong>Regulatory Compliance Checklist</strong></label><br/>
+                <label><strong>NRB Directive No. 6. 8. (ka)</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
                                     <tr *ngIf="fromProfile" class="text-white sb-bg-dark">
@@ -495,7 +495,7 @@
                                 </table>
 
 
-                <label>NRB Directive No. 6.6 Kha</label>
+                <label><strong>NRB Directive No. 6. 8. (kha)</strong></label>
                                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
                                     <thead>
                                     <tr  *ngIf="fromProfile">
@@ -520,7 +520,9 @@
                                     <tbody>
                                     <tr>
                                         <td>1.</td>
-                                        <td class="text-justify px-2">The Borrower or his undivided family member is not a Promoter of the Bank
+                                        <td class="text-justify px-2">
+                                            1.	The Borrower is not a Promoter or a Shareholder in the Promoter Group or the members
+                                            of the Borrower’s undivided family holding more than 1% of the total shares of the Bank and Bank’s employee.
                                         </td>
                                         <ng-container *ngIf="fromProfile">
                                             <td *ngFor="let option of optionListRegulatory"><input
@@ -535,10 +537,9 @@
                                     </tr>
                                     <tr>
                                         <td>2.</td>
-                                        <td class="text-justify px-2">The Borrower or member of the Borrower's undivided family does not hold more
-                                            than 1% of the total shares of <input *ngIf="fromProfile" class="form-control"
-                                                                                  formControlName="bankName"
-                                                                                  placeholder="Bank Name">
+                                        <td class="text-justify px-2">2.	The Borrower is not (a) Director, (b) individual/firm/company/ corporation holding 1%
+                                            or more shares of the bank, (c) Chief Executive, (d) current Statutory Auditor, (e) Legal
+                                            Advisor or family members of these individuals or (f) firm/ company/ corporation holding right to nominate or appoint Director of the Bank.
                                             <span *ngIf="!fromProfile"><b>{{dataForEdit?.bankName}}</b></span> .
                                         </td>
                                         <ng-container *ngIf="fromProfile">
@@ -554,7 +555,12 @@
                                     </tr>
                                     <tr>
                                         <td>3.</td>
-                                        <td class="text-justify px-2">A employee of the bank is not a Partner or Guarantor.
+                                        <td class="text-justify px-2">3.	A Partner or a Guarantor with financial interest in the Borrowing firm / company:
+                                            <br>
+                                            •	does not hold more than 1% of the shares of the Bank
+                                            <br>
+                                            •	is not an employee of the Bank.
+
                                         </td>
                                         <ng-container *ngIf="fromProfile">
 
@@ -570,7 +576,12 @@
                                     </tr>
                                     <tr>
                                         <td>4.</td>
-                                        <td class="text-justify px-2">Borrower does not have any other form of financial interest in the Bank
+                                        <td class="text-justify px-2">4.	A shareholder with 10% of total voting rights in the Borrowing firm/ company:
+                                            <br>
+                                            •	does not hold more than 1% of the shares of the Bank
+                                            <br>
+                                            •	is not an employee of the Bank.
+
                                         </td>
                                         <ng-container *ngIf="fromProfile">
 
@@ -584,45 +595,126 @@
                                         <td *ngIf="!fromProfile">{{dataForEdit?.financialInterestRemark}}</td>
 
                                     </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td class="text-justify px-2">None of that assets that have been pledged as the collateral /security for
-                                            the
-                                            loan belong to a Director, Promoter, Chief Executive of the Bank or to members
-                                            of his/her family.
-                                        </td>
-                                        <ng-container *ngIf="fromProfile">
-
-                                            <td *ngFor="let option of optionListRegulatory"><input
-                                                    [value]="option" formControlName="collateral" type="radio"></td>
-                                        </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.collateral}}</td>
-
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="collateralRemark"
-                                                                       placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.collateralRemark}}</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>6.</td>
-                                        <td class="text-justify px-2">A Director of the Bank or an Employee of the Bank does not hold more than
-                                            15%
-                                            pf the total voting rights in the Borrowing firm/Company.
-                                        </td>
-                                        <ng-container *ngIf="fromProfile">
-
-                                            <td *ngFor="let option of optionListRegulatory"><input
-                                                    [value]="option" formControlName="votingRight" type="radio"></td>
-                                        </ng-container>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRight}}</td>
-
-                                        <td *ngIf="fromProfile"><input class="form-control" formControlName="votingRightRemark"
-                                                                       placeholder="Remarks"></td>
-                                        <td *ngIf="!fromProfile">{{dataForEdit?.votingRightRemark}}</td>
-
-                                    </tr>
                                     </tbody>
                                 </table>
+
+                <label><strong>NRB Directive No. 6. 8. (Ga)</strong></label>
+                <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                    <thead>
+                    <tr  *ngIf="fromProfile">
+                        <th></th>
+                        <th></th>
+                        <th colspan="3">
+
+                        </th>
+
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th class="px-2">SN</th>
+                        <th class="px-2">Prohibition on Lending against assets as security/ collateral owned by:</th>
+                        <th *ngIf="fromProfile" class="px-2">Yes</th>
+                        <th *ngIf="fromProfile" class="px-2">No</th>
+                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
+                        <th class="width px-2">Remarks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1.</td>
+                        <td class="text-justify px-2">
+                            	None of the assets that have been pledged as the collateral / security for the loan belong to (a) Promoter, (b) Director of the Bank, (c) Chief Executive or by members of his/her family.  </td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="prohibited" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.prohibited}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="prohibitedRemark"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.prohibitedRemark}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <label><strong>NRB Directive No. 6. 8. (Nga)</strong></label>
+                <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                    <thead>
+                    <tr  *ngIf="fromProfile">
+                        <th></th>
+                        <th></th>
+                        <th colspan="3">
+                        </th>
+
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th class="px-2">SN</th>
+                        <th class="px-2">Prohibition on Lending to empanelled valuator</th>
+                        <th *ngIf="fromProfile" class="px-2">Yes</th>
+                        <th *ngIf="fromProfile" class="px-2">No</th>
+                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
+                        <th class="width px-2">Remarks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1.</td>
+                        <td class="text-justify px-2">
+                            The Borrower is not an empanelled valuator of the Bank.  </td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="valuator" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.valuator}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="valuatorRemark"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.valuatorRemark}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <label><strong>NRB Directive No. 6. 15</strong></label>
+                <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+                    <thead>
+                    <tr  *ngIf="fromProfile">
+                        <th></th>
+                        <th></th>
+                        <th colspan="3">
+                            <button (click)="directiveKhaYesAll()"
+                                    class="btn-sm sb-small sb-bg-dark text-white">Click to say yes to all
+                            </button>
+                        </th>
+
+                    </tr>
+                    <tr class="text-white sb-bg-dark">
+                        <th class="px-2">SN</th>
+                        <th class="px-2">Prohibition on Lending</th>
+                        <th *ngIf="fromProfile" class="px-2">Yes</th>
+                        <th *ngIf="fromProfile" class="px-2">No</th>
+                        <th *ngIf="!fromProfile" class="px-2">Yes/No</th>
+                        <th class="width px-2">Remarks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1.</td>
+                        <td class="text-justify px-2">
+                            Financials of the Borrower is not audited by an individual or partnership accountancy firm owned by share holder of the Bank holding 1% or more shares of the Bank.
+                        </td>
+                        <ng-container *ngIf="fromProfile">
+                            <td *ngFor="let option of optionListRegulatory"><input
+                                    [value]="option" formControlName="borrower" type="radio"></td>
+                        </ng-container>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.borrower}}</td>
+
+                        <td *ngIf="fromProfile"><input class="form-control" formControlName="borrowerRemark"
+                                                       placeholder="Remarks"></td>
+                        <td *ngIf="!fromProfile">{{dataForEdit?.borrowerRemark}}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+<label><strong>This checklist is not applicable where facilities extended are secured against Fixed Deposit Receipts of Laxmi Bank Limited or against securities of Nepal Government and Nepal Rastra Bank__________________.</strong></label>
                 <div *ngIf="client === clientName.LAXMI">
                 <label  >AML / CFT Checklist</label>
                 <table class="table table-bordered text-center table-responsive-md table-sm sb-small">

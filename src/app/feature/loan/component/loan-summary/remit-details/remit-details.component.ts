@@ -18,6 +18,7 @@ export class RemitDetailsComponent implements OnInit {
     senderDetails: any;
     documentDetails: any;
     isNull = true;
+    newDocDetails = [];
 
     ngOnInit() {
         this.remit = this.loanHolder.remitCustomer;
@@ -28,10 +29,16 @@ export class RemitDetailsComponent implements OnInit {
             this.beneficiaryDetails = JSON.parse(this.remit.beneficiaryData);
             this.documentDetails = JSON.parse(this.remit.remitFilePathData);
         }
+        this.documentDetails.forEach((data, i) => {
+            if (data instanceof Array) {
+            } else {
+                this.newDocDetails.push(data);
+            }
+        });
+
     }
 
     opendocument(filePath: any) {
-        console.log('get file path', filePath);
         let fileName = filePath.fullpath;
         const link = document.createElement('a');
         link.href = fileName;
