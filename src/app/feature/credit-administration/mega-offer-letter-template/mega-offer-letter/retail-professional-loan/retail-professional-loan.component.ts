@@ -19,6 +19,7 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 
 @Component({
     selector: 'app-retail-professional-loan',
@@ -46,6 +47,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
     nameOfEmbassy;
     loanLimit;
     docSecurityName;
+    translatedNepaliData: any = {};
+    translatedData: any = {};
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
@@ -57,13 +60,13 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
-                private ref: NbDialogRef<RetailProfessionalLoanComponent>
+                private ref: NbDialogRef<RetailProfessionalLoanComponent>,
+                private translateService: SbTranslateService
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
-        console.log('cad Admin module', this.cadOfferLetterApprovedDoc);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
@@ -120,7 +123,11 @@ export class RetailProfessionalLoanComponent implements OnInit {
             kittaNo: [undefined],
             landArea: [undefined],
             promissoryNoteAmount: [undefined],
-            loanDeedAmount: [undefined]
+            loanDeedAmount: [undefined],
+            selectedCountry: [undefined],
+            selectedSecurity: [undefined],
+            embassyName: [undefined],
+            loanLimitChecked: [undefined],
         });
     }
 
@@ -132,7 +139,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.offerLetterDocument = new OfferDocument();
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
             } else {
-                console.log('Offer Document List', this.offerLetterDocument);
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 this.selectedSecurity = initialInfo.selectedSecurity.en;
                 this.selectedCountry = initialInfo.selectedCountry.en;
@@ -143,6 +149,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
                 this.fillForm();
+                console.log('loan Limit checked', this.loanLimit);
                 this.initialInfoPrint = initialInfo;
             }
         } else {
@@ -153,6 +160,11 @@ export class RetailProfessionalLoanComponent implements OnInit {
 submit(): void {
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+
+        this.retailProfessionalLoan.get('selectedCountry').patchValue(this.selectedCountry);
+        this.retailProfessionalLoan.get('selectedSecurity').patchValue(this.selectedSecurity);
+        this.retailProfessionalLoan.get('loanLimitChecked').patchValue(this.loanLimit);
+        this.retailProfessionalLoan.get('embassyName').patchValue(this.nameOfEmbassy);
 
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
@@ -186,29 +198,27 @@ submit(): void {
     }
 
     fillForm() {
-        let cadNepData = {
-            numberNepali: ')',
-            nepaliWords: 'सुन्य',
-        };
-        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
-            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        }
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
         const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
-        const customerAddress = this.loanHolderInfo.permanentMunicipality.np + ' ' +
-            this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np;
+        const customerAddress = this.loanHolderInfo.permanentMunicipality.np + '-' +
+            this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
+            this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
         const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
-        console.log('Loan Amount', loanAmount);
-        console.log('proposed data', proposalData.proposedLimit);
-        console.log('Customer Details', this.loanHolderInfo);
-        console.log('Guarantor Details', guarantorDetails.guarantorList[0].name);
+        let totalLoanAmount = 0;
+        this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+            const val = value.proposal.proposedLimit;
+            totalLoanAmount = totalLoanAmount + val;
+        });
+        const branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name.np ? this.loanHolderInfo.name.np : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
-            loanAmountFigure: loanAmount,
-            guarantorName: guarantorDetails.guarantorList[0].name
+            loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+            guarantorName: guarantorDetails.guarantorList[0].name ? guarantorDetails.guarantorList[0].name : '',
+            nameOfBranch: branchName ? branchName : '',
+            amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount)
         });
-        this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
+        // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
 
     getNumAmountWord(numLabel, wordLabel) {
