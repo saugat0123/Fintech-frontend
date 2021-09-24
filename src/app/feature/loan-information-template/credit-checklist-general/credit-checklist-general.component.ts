@@ -84,10 +84,6 @@ export class CreditChecklistGeneralComponent implements OnInit {
       guarantorOfBankRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.guarantorOfBankRemark)],
       financialInterest: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.financialInterest)],
       financialInterestRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.financialInterestRemark)],
-      collateral: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.collateral)],
-      collateralRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.collateralRemark)],
-      votingRight: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.votingRight)],
-      votingRightRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.votingRightRemark)],
       bankName: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.bankName)],
       selfDeclaration: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.selfDeclaration)],
       applicantPG: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.applicantPG)],
@@ -145,6 +141,12 @@ export class CreditChecklistGeneralComponent implements OnInit {
       documentRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.documentRemark)],
       operatorsRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.operatorsRemark)],
       kycRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.kycRemark)],
+      prohibitedRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.prohibitedRemark)],
+      prohibited: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.prohibited)],
+      valuator: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.valuator)],
+      valuatorRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.valuatorRemark)],
+      borrower: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrower)],
+      borrowerRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.borrowerRemark)],
 
     });
   }
@@ -168,22 +170,21 @@ export class CreditChecklistGeneralComponent implements OnInit {
     this.formGroupCheckList.get('borrowerPromoter').patchValue('Yes');
   }
 
-  directiveKaYesAll() {
+  directiveAll() {
     this.formGroupCheckList.get('director').patchValue('Yes');
     this.formGroupCheckList.get('bankPost').patchValue('Yes');
     this.formGroupCheckList.get('share').patchValue('Yes');
     this.formGroupCheckList.get('guarantor').patchValue('Yes');
-  }
-
-  directiveKhaYesAll() {
     this.formGroupCheckList.get('promoter').patchValue('Yes');
     this.formGroupCheckList.get('shareOfBank').patchValue('Yes');
     this.formGroupCheckList.get('guarantorOfBank').patchValue('Yes');
     this.formGroupCheckList.get('financialInterest').patchValue('Yes');
-    this.formGroupCheckList.get('collateral').patchValue('Yes');
-    this.formGroupCheckList.get('votingRight').patchValue('Yes');
-
+    this.formGroupCheckList.get('prohibited').patchValue('Yes');
+    this.formGroupCheckList.get('valuator').patchValue('Yes');
+    this.formGroupCheckList.get('borrower').patchValue('Yes');
   }
+
+
   AMLYesAll() {
     this.formGroupCheckList.get('information').patchValue('Yes');
     this.formGroupCheckList.get('form').patchValue('Yes');
