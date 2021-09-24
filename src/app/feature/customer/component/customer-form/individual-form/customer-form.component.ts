@@ -102,6 +102,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         hideIncomeSource: false
     };
 
+
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType = [];
@@ -117,7 +118,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     ckeConfig = Editor.CK_CONFIG;
 
     ngOnInit() {
-        console.log('other', this.tempFlag.showOtherIncomeSource);
         this.getProvince();
         this.getAllDistrict();
         this.getClientType();
@@ -126,7 +126,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         if (!ObjectUtil.isEmpty(this.formValue)) {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
-                console.log('individualJsonData', this.individualJsonData);
             }
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
@@ -140,6 +139,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.setRelatives(this.customer.customerRelatives);
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
+            this.onIncomeSourceChange();
         } else {
             if (this.client === this.clientName.SHINE_RESUNGA) {
                 this.addRelatives();
@@ -450,7 +450,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
-        individualJsonData.tempFlag = this.tempFlag;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -557,6 +556,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.get('otherOccupation').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherOccupation = false;
+            this.basicInfo.get('otherOccupation').setValue(null);
             this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
@@ -583,15 +583,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     onIncomeSourceChange() {
         const isOtherSourceSelected = this.basicInfo.get('incomeSource').value.includes('Other');
         if (isOtherSourceSelected) {
-            console.log('if');
             this.tempFlag.showOtherIncomeSource = true;
             this.basicInfo.get('otherIncome').setValidators(Validators.required);
         } else {
-            console.log('else');
             this.tempFlag.showOtherIncomeSource = false;
+            this.basicInfo.get('otherIncome').setValue(null);
             this.basicInfo.get('otherIncome').setValidators(null);
         }
-        console.log('showOtherIncomeSource', this.tempFlag.showOtherIncomeSource);
         this.basicInfo.get('otherIncome').updateValueAndValidity();
     }
 
