@@ -527,7 +527,14 @@
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>District (जिल्ला)</td>
-                    <td><input type="text" class="form-control" formControlName="district"/></td>
+                    <td>
+                        <select formControlName="district" class="custom-select" id="district"
+                        (change)="getMunicipalityByDistrict(form.get('district').value)">
+                            <option [ngValue]="null" hidden>District</option>
+                            <option *ngFor="let district of allDistrictList"
+                            [ngValue]="district">{{district.name}}</option>
+                        </select>
+                    </td>
                     <td class="abc">{{translatedData?.district}}</td>
                     <td>
                         <nb-checkbox (change)="checkboxVal($event, 'district')"></nb-checkbox>
@@ -539,7 +546,20 @@
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Municipality (नगर/गा.वि.स.)</td>
-                    <td><input type="text" class="form-control" formControlName="municipality"/></td>
+                    <td>
+                        <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
+                            <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                        </nb-radio-group>
+                        <select class="custom-select"
+                                formControlName="municipality"
+                                id="municipality"
+                                name="municipality">
+                            <option  *ngFor="let municipalityVal of municipalityList"
+                                     [ngValue]="municipalityVal">
+                                {{municipalityVal.name}}
+                            </option>
+                        </select>
+                    </td>
                     <td class="abc">{{translatedData?.municipality}}</td>
                     <td>
                         <nb-checkbox (change)="checkboxVal($event, 'municipality')"></nb-checkbox>
