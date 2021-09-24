@@ -260,11 +260,13 @@
                                                         गरे बापत प्रति
                                                         सूचना रु २,०००/- शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी
                                                         लिईनेछ ।
-                                                        बमा बापतको शुल्क वा धितो मूल्याह्कन/पूर्नमुल्याह्कन शुल्क बापतको बास्तबिक
-                                                        रकम तपाईं ऋणी स्वयंले नै तिर्नु बुझाउनु पर्नेछ ।
-                                                        सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत पक्षले बैंक समक्ष माग गरेमा
-                                                        बैंकले तपाईलाई पूर्व सूचना नदिई तपाईको खातामा खर्च
-                                                        जनाई सम्बन्धीत पक्षलाई भुक्तानी दिन सक्नेछ ।
+                                                        <span *ngIf="selectedSecurity !== 'LAND'">
+                                                            बमा बापतको शुल्क वा धितो मूल्याह्कन/पूर्नमुल्याह्कन शुल्क बापतको बास्तबिक
+                                                            रकम तपाईं ऋणी स्वयंले नै तिर्नु बुझाउनु पर्नेछ ।
+                                                            सो सेवा सम्बन्धी कुनै वक्यौता रहि सम्बन्धीत पक्षले बैंक समक्ष माग गरेमा
+                                                            बैंकले तपाईलाई पूर्व सूचना नदिई तपाईको खातामा खर्च
+                                                            जनाई सम्बन्धीत पक्षलाई भुक्तानी दिन सक्नेछ ।
+                                                        </span>
                                                     </li>
                                                 </ul>
                                             </ng-template>
@@ -511,7 +513,7 @@
                                 </ng-template>
                                 <p>
                                     ख. श्री
-                                    <input class="form-field form-control-sm nepaliFont col-3"
+                                    <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
                                            type="text"/> ले बैंकको पक्षमा
                                     रु
@@ -646,7 +648,7 @@
                                         </td>
                                         <td>
                                             <div class="col-md-12">
-                                                <p *ngIf="selectedSecurity !== 'FIXED_DEPOSIT'; else landDataNo8">
+                                                <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landDataNo8">
                                                     क. तपाईंको कर्जा वापतको ब्याज भुक्तानी नेपाली पात्रो बमोजिम प्रत्येक आषाढ,
                                                     आश्विन, पौष र चैत्र मसान्तमा तपाईंको खाताबाट कट्टा गरिनेछ ।
                                                 </p>
@@ -713,9 +715,8 @@
                                             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
                                             आवश्यक्ता र निवेदन बमोजिम शैक्षिक कर्जा तपाईंले यस
                                             नबिल बैंक लिमिटेडको,
-                                            <input class="form-field form-control-sm nepaliFont"
+                                            <input class="form-field form-control-sm"
                                                    formControlName="nameOfBranch"
-                                                   [value]="initialInfoPrint.nameOfBranch.np === undefined ? '' : initialInfoPrint.nameOfBranch.np "
                                                    type="text"/> शाखामा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
                                         </td>
                                     </tr>
@@ -740,7 +741,7 @@
                                                 अस्ट्रेलियन हाइ कमिसनले
                                             </ng-container>
                                             <ng-template #embassyName>
-                                                <span class="highlited-Color">{{nameOfEmbassy}}</span>ले
+                                                <span class="highlited-Color">{{nameOfEmbassy}}</span> ले
                                             </ng-template>
                                             भिसा अस्विकार गरेमा वा उल्लिखित विश्व
                                             विद्यालयले विद्यार्थी भर्ना
@@ -1263,26 +1264,10 @@
                             </p>
                             <ul class="nepaliList">
                                 <li>
-                                    <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="sakhshiDistrict"
-                                           [value]="initialInfoPrint.sakhshiDistrict.np === undefined ? '' : initialInfoPrint.sakhshiDistrict.np "
-                                           type="text"/>
-                                    जिल्ला
-                                    <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="sakhshiMunicipality"
-                                           [value]="initialInfoPrint.sakhshiMunicipality.np === undefined ? '' : initialInfoPrint.sakhshiMunicipality.np "
-                                           type="text"/>
-                                    गा.वि.स/न.पा,
-                                    वडा नंं.
-                                    <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="sakhshiWardNo"
-                                           [value]="initialInfoPrint.sakhshiWardNo.np === undefined ? '' : initialInfoPrint.sakhshiWardNo.np "
-                                           type="text"/>
-                                    बस्ने श्री
-                                    <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="sakhshiName"
-                                           [value]="initialInfoPrint.sakhshiName.np === undefined ? '' : initialInfoPrint.sakhshiName.np "
-                                           type="text"/>
+                                    ____________________ जिल्ला
+                                    ______________________ गा.वि.स/न.पा,
+                                    वडा नंं. _________
+                                    बस्ने श्री ____________________________
                                 </li>
                                 <li>
                                     कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री

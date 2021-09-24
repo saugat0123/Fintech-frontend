@@ -195,14 +195,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
           this.translatedData = {};
           offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
-        console.log('Customer Information', this.customerApprovedDoc.offerDocumentList);
       }
 
       this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
           this.spinner = false;
           this.previewBtn = this.btnDisable = false;
-          this.openModel();
       }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -275,23 +273,30 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     loanChecked(data) {
         this.loanLimit = data;
     }
-  setDateTypeBS(){
+  setDateTypeBS() {
     this.dateTypeBS = true;
     this.dateTypeAD = false;
   }
 
-  setDateTypeAD(){
+  setDateTypeAD() {
     this.dateTypeBS = false;
     this.dateTypeAD = true;
   }
-  setDateTypeBS1(){
+  setDateTypeBS1() {
     this.dateTypeBS1 = true;
     this.dateTypeAD1 = false;
   }
 
-  setDateTypeAD1(){
+  setDateTypeAD1() {
     this.dateTypeBS1 = false;
     this.dateTypeAD1 = true;
+  }
+
+  calInterestRate() {
+    const baseRate = this.form.get('baseRate').value;
+    const premiumRate = this.form.get('premiumRate').value;
+    const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+    this.form.get('interestRate').patchValue(sum);
   }
 
     // changeDocumentName(securityType) {
