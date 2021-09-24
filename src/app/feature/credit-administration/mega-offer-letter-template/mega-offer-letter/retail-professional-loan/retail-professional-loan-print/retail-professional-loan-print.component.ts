@@ -31,9 +31,9 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   guarantorName;
   branchName;
 
-  constructor( private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-               private engToNepNumberPipe: EngToNepaliNumberPipe,
-               private currencyFormatPipe: CurrencyFormatterPipe) {
+  constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+               public engToNepNumberPipe: EngToNepaliNumberPipe,
+               public currencyFormatPipe: CurrencyFormatterPipe) {
   }
 
   ngOnInit() {

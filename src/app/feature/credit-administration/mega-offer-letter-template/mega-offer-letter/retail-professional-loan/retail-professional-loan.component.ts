@@ -56,10 +56,10 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 private administrationService: CreditAdministrationService,
                 protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private routerUtilsService: RouterUtilsService,
-                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-                private engToNepNumberPipe: EngToNepaliNumberPipe,
-                private currencyFormatPipe: CurrencyFormatterPipe,
-                private nepToEngNumberPipe: NepaliToEngNumberPipe,
+                public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                public engToNepNumberPipe: EngToNepaliNumberPipe,
+                public currencyFormatPipe: CurrencyFormatterPipe,
+                public nepToEngNumberPipe: NepaliToEngNumberPipe,
                 private ref: NbDialogRef<RetailProfessionalLoanComponent>,
                 private translateService: SbTranslateService
     ) {
@@ -216,7 +216,8 @@ submit(): void {
             loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
             guarantorName: guarantorDetails.guarantorList[0].name ? guarantorDetails.guarantorList[0].name : '',
             nameOfBranch: branchName ? branchName : '',
-            amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount)
+            amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            dateOfApproval: this.initialInfoPrint.dateOfApproval.en ? this.initialInfoPrint.dateOfApproval.en : '',
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
