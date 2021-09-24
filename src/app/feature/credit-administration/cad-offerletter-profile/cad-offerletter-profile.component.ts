@@ -71,6 +71,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     toggleArray: { toggled: boolean }[] = [];
 
     roleType = LocalStorageUtil.getStorage().roleType;
+    hasRequierdDocument = false;
 
     ngOnInit() {
         let agentOfferDoc = [];
@@ -87,6 +88,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         });
 
         this.initial();
+        this.checkCadDocument();
         switch (this.client) {
             case this.clientList.LAXMI:
                 this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
@@ -110,7 +112,21 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 break;
         }
     }
-
+    checkCadDocument() {
+        const cadDocuments: any = this.cadOfferLetterApprovedDoc.offerDocumentList;
+        let index = 0;
+        if (cadDocuments.length > 0) {
+            cadDocuments.forEach((data) => {
+                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && (!ObjectUtil.isEmpty(data.draftPath)))
+                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT) && (!ObjectUtil.isEmpty(data.draftPath)))) {
+                    index += 1;
+                }
+            });
+            if (index === 2 || index > 2) {
+                this.hasRequierdDocument = true;
+            }
+        }
+    }
     initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
@@ -228,6 +244,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         this.initial();
+        this.checkCadDocument();
     }
 
     openModal(template) {
@@ -246,4 +263,5 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             this.spinner = false;
         }
     }
+
 }
