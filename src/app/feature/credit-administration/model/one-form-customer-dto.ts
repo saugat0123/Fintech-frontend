@@ -69,10 +69,6 @@ export class OneFormCustomerDto {
     succession: string;
     companyJsonData: string;
     companyLegalDocumentAddress: string;
-    hasSameAddress: boolean;
-    dobDateType: string;
-    issuedDateType: string;
-     municipalitiesOrVdc: string;
-    tempMunicipalitiesOrVdc: string;
+
 
 }

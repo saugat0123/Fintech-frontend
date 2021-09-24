@@ -120,8 +120,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
-      console.log(this.oneFormCustomer);
-      console.log(this.loanHolder);
+    //   console.log(this.oneFormCustomer);
+    //   console.log(this.loanHolder);
+    // console.log(JSON.parse(this.loanHolder.nepData));
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -135,7 +136,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if(!ObjectUtil.isEmpty(this.oneFormCustomer)){
         this.getAllEditedDistrictAndMunicipalities();
         this.dateTypeAD = true;
-        this.addressSameAsAbove = this.oneFormCustomer.hasSameAddress;
     } else {
         this.oneFormCustomer = new OneFormCustomerDto();
     }
@@ -161,6 +161,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     this.patchValue();
+    this.patchNepData();
 
   }
 
@@ -257,8 +258,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       issuedDate: [undefined],
       issuedDateCT: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-        issuedDateType: [undefined],
-        // tempMunicipalitiesOrVdc: [undefined],
         customerInfoId: [undefined],
     });
   }
@@ -301,13 +300,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
-    this.oneFormCustomer.dobDateType = this.userConfigForm.get('dobDateType').value;
-    this.oneFormCustomer.issuedDateType = this.userConfigForm.get('issuedDate').value;
-    this.oneFormCustomer.municipalitiesOrVdc = this.userConfigForm.get('municipalityOrVdc').value;
-    this.oneFormCustomer.tempMunicipalitiesOrVdc = this.userConfigForm.get('tempMunicipalitiesOrVdc').value;
-      if (this.addressSameAsAbove) {
-          this.oneFormCustomer.hasSameAddress = true;
-      }
+
     const customer = {
         relationMedium: this.userConfigForm.get('relationMedium').value,
         husbandName: this.userConfigForm.get('husbandName').value,
@@ -339,6 +332,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryDistrict = this.userConfigForm.get('temporaryDistrict').value;
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
+    this.oneFormCustomer.customerInfoId = ObjectUtil.isEmpty(this.loanHolder) ? null : this.loanHolder.id;
     Object.keys(this.userConfigForm.controls).forEach(key => {
       // console.log(key);
       if (key.indexOf('CT') > -1) {
@@ -548,55 +542,57 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
     getAllEditedDistrictAndMunicipalities() {
-        if (this.oneFormCustomer.province !== null) {
-            const province = new Province();
-            province.id = this.oneFormCustomer.province.id;
-            this.addressService.getDistrictByProvince(province).subscribe(
-                (response: any) => {
-                    this.districts = response.detail;
-                    this.districts.sort((a, b) => a.name.localeCompare(b.name));
-                }
-            );
-        }
+       if(this.loanHolder.customerType === CustomerType.INDIVIDUAL){
+         if (this.oneFormCustomer.province !== null) {
+           const province = new Province();
+           province.id = this.oneFormCustomer.province.id;
+           this.addressService.getDistrictByProvince(province).subscribe(
+               (response: any) => {
+                 this.districts = response.detail;
+                 this.districts.sort((a, b) => a.name.localeCompare(b.name));
+               }
+           );
+         }
 
-        if (this.oneFormCustomer.district !== null) {
-            const district = new District();
-            district.id = this.oneFormCustomer.district.id;
-            this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-                (response: any) => {
-                    this.municipalities = response.detail;
-                    this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
-                    if (event !== null) {
-                        this.userConfigForm.get('permanentMunicipality').patchValue(null);
-                    }
-                }
-            );
-        }
+         if (this.oneFormCustomer.district !== null) {
+           const district = new District();
+           district.id = this.oneFormCustomer.district.id;
+           this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+               (response: any) => {
+                 this.municipalities = response.detail;
+                 this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+                 if (event !== null) {
+                   this.userConfigForm.get('permanentMunicipality').patchValue(null);
+                 }
+               }
+           );
+         }
 
-        if (this.oneFormCustomer.temporaryProvince !== null) {
-            const province = new Province();
-            province.id = this.oneFormCustomer.temporaryProvince.id;
-            this.addressService.getDistrictByProvince(province).subscribe(
-                (response: any) => {
-                    this.tempDistricts = response.detail;
-                    this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
-                }
-            );
-        }
+         if (this.oneFormCustomer.temporaryProvince !== null) {
+           const province = new Province();
+           province.id = this.oneFormCustomer.temporaryProvince.id;
+           this.addressService.getDistrictByProvince(province).subscribe(
+               (response: any) => {
+                 this.tempDistricts = response.detail;
+                 this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
+               }
+           );
+         }
 
-      if (this.oneFormCustomer.temporaryDistrict !== null) {
-          const district = new District();
-          district.id = this.oneFormCustomer.temporaryDistrict.id;
-          this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-              (response: any) => {
-                  this.tempMunicipalities = response.detail;
-                  this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
-                  if (event !== null) {
-                      this.userConfigForm.get('temporaryMunicipality').patchValue(null);
-                  }
-              }
-          );
-      }
+         if (this.oneFormCustomer.temporaryDistrict !== null) {
+           const district = new District();
+           district.id = this.oneFormCustomer.temporaryDistrict.id;
+           this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+               (response: any) => {
+                 this.tempMunicipalities = response.detail;
+                 this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+                 if (event !== null) {
+                   this.userConfigForm.get('temporaryMunicipality').patchValue(null);
+                 }
+               }
+           );
+         }
+       }
   }
 
 
@@ -707,15 +703,25 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
                 permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber,
                 temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
-                issuedDate: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.issuedDateType,
-                dobDateType: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.dobDateType,
                 citizenshipIssueDate : ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : new Date(this.oneFormCustomer.citizenshipIssuedDate),
                 dob: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : new Date(this.oneFormCustomer.dob),
                 citizenshipIssueDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipIssuedPlace,
-                municipalityOrVdc: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalitiesOrVdc,
-                tempMunicipalitiesOrVdc: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.tempMunicipalitiesOrVdc,
+
             });
         }
+    }
+
+    patchNepData(){
+      if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
+        const nepData = (JSON.parse(this.loanHolder.nepData));
+        this.userConfigForm.patchValue({
+          branchCT: ObjectUtil.isEmpty(nepData.branch.np) ? undefined : nepData.branch.np,
+          customerCodeCT: ObjectUtil.isEmpty(nepData.customerCode.np) ? undefined : nepData.customerCode.np,
+          nameCT: ObjectUtil.isEmpty(nepData.name.np) ? undefined : nepData.name.np,
+          emailCT:  ObjectUtil.isEmpty(nepData.email.np) ? undefined : nepData.email.np,
+          contactNoCT:  ObjectUtil.isEmpty(nepData.contactNo.np) ? undefined : nepData.contactNo.np,
+        });
+      }
     }
 
     munVdcValue(values: any) {
