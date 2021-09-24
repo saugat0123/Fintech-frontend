@@ -45,6 +45,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     isOpen = false;
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    transferred = false;
 
 
     constructor(
@@ -198,11 +199,15 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     public onEdit() {
+        if (this.catalogueStatus === true) {
+            this.transferred = true;
+        }
         this.router.navigate(['/home/loan/loanForm'], {
             queryParams: {
                 loanId: this.loanConfigId,
                 customerId: this.id,
-                loanCategory: this.loanCategory
+                loanCategory: this.loanCategory,
+                transferred : this.transferred
             }
         });
     }
