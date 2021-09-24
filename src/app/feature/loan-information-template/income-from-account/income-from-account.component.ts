@@ -56,7 +56,7 @@ export class IncomeFromAccountComponent implements OnInit {
   setIncomeFromAccount(currentData) {
     const controls = this.incomeFormGroup.get('incomeFromAccount') as FormArray;
     currentData.forEach(singleData => {
-        if ( currentData.accountTransactionForm === undefined) {
+        if ( singleData.accountTransactionForm === undefined) {
             controls.push(
                 this.formBuilder.group({
                     interestDuringReview: [singleData.interestDuringReview, [Validators.required]],
