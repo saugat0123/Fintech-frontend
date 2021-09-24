@@ -26,7 +26,6 @@ export class RouteGuard implements CanActivate {
         await this.menuService.getMenus().toPromise().then(res => {
               this.menus = [...res.detail];
               const storage = LocalStorageUtil.getStorage();
-              if (storage.roleType === RoleType[RoleType.COMMITTEE]) {
                 const tempMenu = {
                   id: null,
                   title: 'Pull',
@@ -34,7 +33,6 @@ export class RouteGuard implements CanActivate {
                   icon: 'arrowhead-down-outline'
                 };
                 this.menus.push(tempMenu);
-              }
               storage.menus = this.menus;
               LocalStorageUtil.setStorage(storage);
 
