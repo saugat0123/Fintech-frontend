@@ -46,6 +46,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     transferred = false;
+    loanStatus;
 
 
     constructor(
@@ -71,6 +72,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
             this.showCadDocumentRoute = true;
         }
         this.committeeRole = roleType === RoleType.COMMITTEE;
+        this.loanFormService.detail(this.id).subscribe(async (response: any) => {
+            this.loanStatus = response.detail.documentStatus;
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
