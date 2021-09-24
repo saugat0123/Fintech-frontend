@@ -15,6 +15,10 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {ToastService} from '../../../../../@core/utils';
 import {RetailProfessionalLoanComponent} from '../../../mega-offer-letter-template/mega-offer-letter/retail-professional-loan/retail-professional-loan.component';
 import {Attributes} from '../../../../../@core/model/attributes';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {Province} from '../../../../admin/modal/province';
+import {District} from '../../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 
 @Component({
   selector: 'app-educational-loan-template-data',
@@ -41,6 +45,11 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
+  provinceList: Array<Province> = new Array<Province>();
+  districtList: Array<District> = new Array<District>();
+  municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  allDistrictList: Array<District> = new Array<District>();
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -52,10 +61,38 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private translateService: SbTranslateService,
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
+      private addressService: AddressService,
   ) { }
 
   ngOnInit() {
     this.buildForm();
+    // get all province list
+    this.getAllProvince();
+    // get all district list
+    this.getAllDistrict();
+
+  }
+
+  public getAllProvince(): void {
+    this.addressService.getProvince().subscribe((response: any) => {
+      this.provinceList = response.detail;
+    });
+  }
+
+  public getAllDistrict(): void {
+    this.addressService.getAllDistrict().subscribe((response: any) => {
+      this.allDistrictList = response.detail;
+    });
+  }
+
+  public getMunicipalityByDistrict(district): void {
+   this.addressService.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
+     this.municipalityList = response.detail;
+     this.municipalityList.sort((a, b) => a.name.localeCompare(b.name));
+     if (event !== null) {
+       this.form.get('municipality').patchValue(null);
+     }
+   });
   }
 
   buildForm() {
@@ -164,6 +201,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       landAreaTransVal: [undefined],
       promissoryNoteAmountTransVal: [undefined],
       loanDeedAmountTransVal: [undefined],
+      municipalityOrVdc: [undefined],
     });
   }
 
