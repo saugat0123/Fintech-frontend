@@ -228,15 +228,16 @@
 
             </tr>
             </thead>
-            <tbody *ngFor="let document of documentDetails; let i = index">
-            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_state) ? (i + 1) : 'N/A'}}</td>
-            <td>{{(beneficiaryDetails.beneficiaryAddress.benef_permanent_district) ? (document.name) : 'N/A'}}</td>
-            <td>
-                <span class="ml-1">
+            <tbody *ngFor="let document of newDocDetails; let i = index">
+            <ng-container *ngIf="document!==null">
+                <td>{{(document.name) ? (i + 1) : 'N/A'}}</td>
+                <td>{{(document.name) ? (document.name) : 'N/A'}}</td>
+                <td>
+                <span class="ml-1" *ngIf="document.fullpath !== null">
                     <a (click)="opendocument(document)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
                 </span>
-            </td>
-
+                </td>
+            </ng-container>
             </tbody>
         </table>
 
