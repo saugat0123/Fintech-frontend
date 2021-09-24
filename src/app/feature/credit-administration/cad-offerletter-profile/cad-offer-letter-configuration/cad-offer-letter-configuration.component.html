@@ -438,7 +438,7 @@
             <tr>
               <td></td>
               <td>
-                <nepali-patro *ngIf="issueDateVal.value ==='BS'" formControlName="dob" [responseType]="2"
+                <nepali-patro *ngIf="issueDateVal.value ==='BS'" formControlName="citizenshipIssueDate" [responseType]="2"
                               [displayNepali]="true">
                 </nepali-patro>
                 <input [nbDatepicker]="issueDate"
@@ -571,7 +571,6 @@
                         formControlName="permanentMunicipality"
                         id="permanentMunicipality"
                         name="municipality">
-                  <option [ngValue]="null" hidden>Municipality</option>
                   <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}}
