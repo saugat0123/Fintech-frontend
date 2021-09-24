@@ -55,7 +55,6 @@ export class IncomeFromAccountComponent implements OnInit {
 
   setIncomeFromAccount(currentData) {
     const controls = this.incomeFormGroup.get('incomeFromAccount') as FormArray;
-      console.log('account transaction form', currentData.accountTransactionForm);
     currentData.forEach(singleData => {
         if ( currentData.accountTransactionForm === undefined) {
             controls.push(
