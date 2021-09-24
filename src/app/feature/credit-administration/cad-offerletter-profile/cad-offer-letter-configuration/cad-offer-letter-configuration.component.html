@@ -963,6 +963,13 @@
             </tbody>
           </table>
 
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="float-right" nbButton size="small" status="info" (click)="translate()">
+                Translate Customer Data
+              </button>
+            </div>
+          </div>
 
           <h4>Guarantors
             <button nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
@@ -986,7 +993,10 @@
                          name="name" placeholder="Guarantor Name"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.guarantorName}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorNameTrans" readonly/>
+                </td>
                 <td>
                   <nb-checkbox (change)="checkboxVal($event, 'guarantorName')"></nb-checkbox>
                 </td>
@@ -1007,7 +1017,10 @@
                          name="name" placeholder="Citizenship No"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.citizenNumber}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="citizenNumberTrans" readonly/>
+                </td>
                 <td>
                   <nb-checkbox (change)="checkboxVal($event, 'citizenNumber')"></nb-checkbox>
                 </td>
@@ -1054,7 +1067,10 @@
                          name="name" placeholder="Citizenship Issue District"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.issuedPlace}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="issuedPlaceTrans" readonly/>
+                </td>
                 <td>
                   <nb-checkbox (change)="checkboxVal($event, 'issuedPlace')"></nb-checkbox>
                 </td>
@@ -1074,7 +1090,10 @@
                          name="name" placeholder="Guarantor Address"
                          type="text"/>
                 </td>
-                <td>{{translatedValues?.guarantorLegalDocumentAddress}}</td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="guarantorLegalDocumentAddressTrans" readonly/>
+                </td>
                 <td>
                   <nb-checkbox (change)="checkboxVal($event, 'guarantorLegalDocumentAddress')"></nb-checkbox>
                 </td>
@@ -1099,10 +1118,15 @@
                 <td></td>
               </tr>
               <tr>
-                <td colspan="4" class="text-left">
-                  <button nbButton status="danger" size="medium" (click)="removeAtIndex(i)"
+                <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2" class="text-left">
+                  <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
                           style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
+                  </button>
+                </td>
+                <td [attr.colspan]="userConfigForm.get('guarantorDetails')['length'] > 1 ? '3' : '5'" class="text-right">
+                  <button nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
+                    Translate Guarantor Data
                   </button>
                 </td>
               </tr>
@@ -1110,9 +1134,6 @@
           </div>
           <button class="float-right" nbButton (click)="saveCustomer()" [disabled]="disableSave">
             save
-          </button>
-          <button class="float-right" nbButton status="info" (click)="translate()">
-            Translate
           </button>
         </nb-tab>
         <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
