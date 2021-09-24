@@ -54,7 +54,6 @@ export class ProfileViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('documents', this.cadOfferLetterApprovedDoc);
         switch (this.client) {
             case this.clientList.EXCEL:
                 this.offerLetterTypes = ExcelOfferLetterConst.enumObject();

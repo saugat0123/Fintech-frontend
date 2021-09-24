@@ -110,7 +110,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('from cad action', this.cadOfferLetterApprovedDoc);
         this.checkCadDocument();
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
@@ -408,7 +407,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('file changed');
         this.checkForwardValidMessage();
         this.checkCadDocument();
 
