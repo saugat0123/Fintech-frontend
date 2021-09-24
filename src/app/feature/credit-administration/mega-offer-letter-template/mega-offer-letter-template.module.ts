@@ -26,6 +26,7 @@ import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-
 import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
 import { PersonalOverdraftComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft.component';
 import { PersonalOverdraftPrintComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft-print/personal-overdraft-print.component';
+import {NepaliPatroModule} from 'nepali-patro';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -64,13 +65,14 @@ const COMPONENTS = [
         RetailLoanAgainstInsuranceComponent,
         PersonalOverdraftComponent
     ],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NgxPrintModule,
-        CoreModule,
-        NbAccordionModule,
-    ],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NgxPrintModule,
+    CoreModule,
+    NbAccordionModule,
+    NepaliPatroModule,
+  ],
     entryComponents: [
         RetailProfessionalLoanComponent,
         PersonalOverdraftComponent,
