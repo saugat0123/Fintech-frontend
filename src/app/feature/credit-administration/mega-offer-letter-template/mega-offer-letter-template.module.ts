@@ -26,6 +26,7 @@ import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-
 import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
 import { PersonalOverdraftComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft.component';
 import { PersonalOverdraftPrintComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft-print/personal-overdraft-print.component';
+import { PersonalLoanAndPersonalOverdraftComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -51,7 +52,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -62,7 +63,8 @@ const COMPONENTS = [
         RetailMortgageLoanComponent,
         RetailProfessionalLoanComponent,
         RetailLoanAgainstInsuranceComponent,
-        PersonalOverdraftComponent
+        PersonalOverdraftComponent,
+        PersonalLoanAndPersonalOverdraftComponent
     ],
     imports: [
         ThemeModule,
