@@ -52,8 +52,9 @@
 
                         <a
                             *ngIf="!(model?.cadCurrentStage?.toUser?.id)"
-                            (click)="onPullClick(pullDocument,model.id,model?.currentStage?.toUser?.id, model?.assignedLoan)"><i
-                            class="fas fa-angle-double-down"></i> pull</a>
+                            (click)="onPullClick(pullDocument,model.id,model?.currentStage?.toUser?.id, model?.assignedLoan)"
+                            nbTooltip="PULL"><i
+                            class="fas fa-angle-double-down"></i> </a>
 
                     </td>
                 </tr>

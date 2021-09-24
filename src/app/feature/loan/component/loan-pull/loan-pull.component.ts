@@ -110,7 +110,7 @@ export class LoanPullComponent implements OnInit {
   }
 
   loadProfile(cadDocumentId, model) {
-    this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
+    this.routeService.routeSummaryWithStateAndEncryptPath(model);
   }
 
 
@@ -149,8 +149,6 @@ export class LoanPullComponent implements OnInit {
         } else {
           stage = loan[0].previousList[0];
         }
-
-        stage.lastModifiedAt = loan[0].lastModifiedAt;
         return stage;
       }
     }
