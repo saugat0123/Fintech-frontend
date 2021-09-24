@@ -25,6 +25,7 @@ import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer
 import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {LaxmiOfferLetterComponent} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter.component';
+import {OfferLetterDocType} from "../model/OfferLetteDocrTypeEnum";
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -73,6 +74,19 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     hasRequierdDocument = false;
 
     ngOnInit() {
+        let agentOfferDoc = [];
+        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
+            let obj = {
+                docName: '',
+                draftPath: '',
+                signedPath: ''
+            };
+            obj.docName = offer.docName;
+            obj.draftPath = offer.draftPath;
+            obj.signedPath = offer.pathSigned;
+            agentOfferDoc.push(obj);
+        });
+
         this.initial();
         this.checkCadDocument();
         switch (this.client) {
@@ -115,7 +129,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
     initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        console.log(this.cadOfferLetterApprovedDoc.assignedLoan, 'sd');
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
     }
 
@@ -207,7 +220,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             },
             closeOnBackdropClick: false
         }).onClose.subscribe((res: any) => {
-            console.log('update', res);
             if (!ObjectUtil.isEmpty(res)) {
                 this.responseCadData.emit(res);
             }
@@ -226,7 +238,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             .subscribe(value => {
                 if (!ObjectUtil.isEmpty(value)) {
                     this.customerInfoData = value;
-                    console.log(value);
                 }
             });
     }
