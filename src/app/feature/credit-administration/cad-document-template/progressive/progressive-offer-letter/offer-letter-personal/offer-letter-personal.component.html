@@ -7,7 +7,7 @@
                         <div class="row d-flex justify-content-around" style="margin-top: 50px">
                             <div class="col-md-6">
                                 <p>
-                                    पत्र संख्या:
+                                    <b> पत्र संख्या: </b>
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="patraNum">
@@ -15,7 +15,7 @@
                             </div>
                             <div class="col-md-6">
                                 <p class="text-right">
-                                    मिती:
+                                    <b> मिती: </b>
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
                                            formControlName="date">
@@ -24,47 +24,57 @@
                             </div>
                         </div>
                         <div style="margin-top: 30px">
-
-                            <p>श्री
+                            <p>
+                            <b>श्री</b>>
 
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
-                                       [value]="form.get('customerName').value">
-                                (ऋणीको नाम)
+                                       [value]="loanHolderInfo.name">
+                                <b> (ऋणीको नाम) </b>
                             </p>
-                            <p>
-                                स्थायी ठेगाना
+
+                                <b> स्थायी ठेगाना</b>
+                            <div>
+                               <strong>प्रदेश </strong>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text" readonly
-                                       [value]="form.get('customerMunicipality').value">
-                                वडा नं.
+                                       [value]="loanHolderInfo?.permanentProvince">
+
+                              <strong>जिल्ला</strong>
+                              <input class="form-control-sm form-field nepaliFont"
+                                     type="text" readonly
+                                     [value]="loanHolderInfo?.permanentDistrict">
+
+                              <strong> वडा नं.</strong>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text" readonly
-                                       [value]="form.get('customerWardNum').value">
-                                <input class="form-control-sm form-field nepaliFont"
-                                       readonly
-                                       type="text"
-                                       [value]="form.get('customerDistrict').value">
+                                       [value]="loanHolderInfo?.permanentWard">
 
-                            </p>
+                          </div>
+
+
+                               <b> हाल ठेगाना</b>
+                            <div>
+                               <strong>प्रदेश </strong>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       [value]="loanHolderInfo?.temporaryProvince">
+
+                               <strong>जिल्ला</strong>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       [value]="loanHolderInfo?.temporaryDistrict">
+
+                               <strong> वडा नं.</strong>
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       [value]="loanHolderInfo?.temporaryWard">
+                           </div>
                             <p>
-                                हाल
-                                <input class="form-control-sm form-field nepaliFont"
-                                       readonly
-                                       type="text"
-                                       [value]="form.get('temporaryMunicipality').value">
-                                वडा नं.
-                                <input class="form-control-sm form-field nepaliFont"
-                                       readonly
-                                       type="text"
-                                       [value]="form.get('temporaryWardNum').value">
-                                <input class="form-control-sm form-field nepaliFont"
-                                       readonly
-                                       type="text"
-                                       [value]="form.get('temporaryDistrict').value">
-                            </p>
-                            <p>
-                                मोबाइल नं.
+                                <b> मोबाइल नं. </b>
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        formControlName="customerMobile">

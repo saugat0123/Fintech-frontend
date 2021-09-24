@@ -33,6 +33,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    loanHolderInfo;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -51,6 +52,9 @@ export class OfferLetterPersonalComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.checkOfferLetter();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        }
     }
 
     fillForm() {
@@ -74,8 +78,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-            amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
-            amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
+            // amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
+            // amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
