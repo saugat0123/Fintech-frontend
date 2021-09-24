@@ -6,18 +6,18 @@
             </div>
             <div class="col-md-12 mt-4">
                 <p>
-                    मितिः <span class="nepaliFont font-weight-bold">{{letter?.dateOfApproval}}</span>
+                    मितिः <span class=" font-weight-bold">{{letter?.dateOfApproval.np}}</span>
                 </p>
                 <p>
-                    कर्जा सख्याः <span class="nepaliFont font-weight-bold">{{letter?.referenceNumber}}</span>
+                    कर्जा सख्याः <span class=" font-weight-bold">{{letter?.referenceNumber.np}}</span>
                 </p>
             </div>
             <div class="col-md-12">
                 <p>
-                    श्री <span class="nepaliFont font-weight-bold">{{letter?.nameOfCustomer}}</span>
+                    श्री <span class=" font-weight-bold">{{loanHolderInfo?.name.np}}</span>
                 </p>
                 <p>
-                    <span class="nepaliFont font-weight-bold">{{letter?.addressOfCustomer}}</span>
+                    <span class=" font-weight-bold">{{customerAddress}}</span>
                 </p>
             </div>
             <div class="col-md-12">
@@ -29,7 +29,7 @@
                 </p>
                 <p>
                     तपाईंले मिति
-                    <span class="nepaliFont font-weight-bold">{{letter?.dateOfApplication}}</span>
+                    <span class=" font-weight-bold">{{letter?.dateOfApplication.np}}</span>
                     मा शैक्षिक कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा
                     यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
                     रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -49,7 +49,7 @@
                         <td style="width: 20%">१. कर्जा प्रकार/ प्रयोजनः</td>
                         <td>
                             शैक्षिक कर्जा
-                            <span class="nepaliFont font-weight-bold">{{letter?.purposeOfLoan}}</span>
+                            <span class=" font-weight-bold">{{letter?.purposeOfLoan.np}}</span>
                             गर्ने प्रयोजनका निमित्त मात्र कर्जा प्रयोग गर्न सकिनेछ ।
                         </td>
                     </tr>
@@ -59,9 +59,9 @@
                         </td>
                         <td>
                             रु
-                            <span class="nepaliFont font-weight-bold">{{letter?.loanAmountFigure}}</span> /-
+                            <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /-
                             (अक्षरेपि रु
-                            <span class="nepaliFont font-weight-bold uniSize">{{letter?.amountInWords}}</span> मात्र ) ।
+                            <span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(proposedAmount)}}</span> मात्र ) ।
                         </td>
                     </tr>
                     <tr *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else drawingPowerLand">
@@ -72,11 +72,11 @@
                         <td>
                             कर्जाको सुरक्षण वापत बैंकको पक्षमा ग्रहणाधिकार (Lien) र/वा हकाधिकार हुने गरी
                             राखिदिने रु
-                            <span class="nepaliFont font-weight-bold">{{letter?.fixedDepositReceiptAmountFigure}}</span>/-
+                            <span class="font-weight-bold">{{letter?.fixedDepositReceiptAmountFigure.np}}</span>/-
                             (अक्षरेपि रु
-                            <span class="nepaliFont font-weight-bold uniSize">{{letter?.fixedDepositReceiptAmountWords}}</span>
+                            <span class="font-weight-bold uniSize">{{letter?.fixedDepositReceiptAmountWords.np}}</span>
                             मात्र ) बराबरको मुद्धति रसिद
-                            <span class="nepaliFont font-weight-bold">{{letter?.fixedDepositAmountNumber}}</span>
+                            <span class="font-weight-bold">{{letter?.fixedDepositAmountNumber.np}}</span>
                             को ९० प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
                             गर्न सकिनेछ ।
                         </td>
@@ -91,7 +91,7 @@
                                 कर्जाको सुरक्षण वापत बैंकको पक्षमा धितो लेखिदिने/लेखिदिएको घर/जग्गाको बैंकको
                                 आधिकारिक मुल्याह्कनकर्ता
                                 द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value) कोे
-                                <span class="nepaliFont font-weight-bold">{{letter?.distressValue}}</span>
+                                <span class=" font-weight-bold">{{letter?.distressValue.np}}</span>
                                 प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम
                                 हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
                             </td>
@@ -104,13 +104,13 @@
                         <td>
                             प्रकाशित आधार दर वा मुद्धती व्याजदरमध्ये जुन बढी हुन्छ, (Base Rate or Time Deposit
                             rate whichever is higher)
-                            <span class="nepaliFont font-weight-bold">{{letter?.baseRate}}</span>
+                            <span class=" font-weight-bold">{{letter?.baseRate.np}}</span>
                             +
-                            <span class="nepaliFont font-weight-bold">{{letter?.premiumRate}}</span>
+                            <span class=" font-weight-bold">{{letter?.premiumRate.np}}</span>
                             प्रतिशत ब्याज दर प्रिमियम
                             (interest Rate Premium) हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर
                             (Floating Interest Rate) बार्षिक
-                            <span class="nepaliFont font-weight-bold">{{letter?.interestRate}}</span>
+                            <span class=" font-weight-bold">{{letter?.interestRate.np}}</span>
                             % का दर निर्धारण गरीएकोछ र सो ब्याज रकम
                             नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा वा
                             ऋण स्विकृत पत्रमा उल्लेख
@@ -126,12 +126,12 @@
                             </td>
                             <td>
                                 प्रकाशित आधार दर (Base Rate)
-                                <span class="nepaliFont font-weight-bold">{{letter?.baseRate}}</span> +
-                                <span class="nepaliFont font-weight-bold">{{letter?.premiumRate}}</span> प्रतिशत व्याज दर प्रिमियम
+                                <span class=" font-weight-bold">{{letter?.baseRate.np}}</span> +
+                                <span class=" font-weight-bold">{{letter?.premiumRate.np}}</span> प्रतिशत व्याज दर प्रिमियम
                                 (Interest Premium Rate)
                                 हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर
                                 (Floating Interest Rate)बार्षिक
-                                <span class="nepaliFont font-weight-bold">{{letter?.interestRate}}</span> का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
+                                <span class=" font-weight-bold">{{letter?.interestRate.np}}</span> का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
                             </td>
                         </tr>
                     </ng-template>
@@ -142,8 +142,8 @@
                         <td>
                             <ng-container *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAdminFee">
                                 ऋण प्रशासनिक शुल्क बापत रु
-                                <span class="nepaliFont font-weight-bold">{{letter?.loanAdminFeeFigure}}</span> /- (अक्षरेपी रु
-                                <span class="nepaliFont font-weight-bold uniSize">{{letter?.loanAdminFeeWords}}</span>
+                                <span class=" font-weight-bold">{{letter?.loanAdminFeeFigure.np}}</span> /- (अक्षरेपी रु
+                                <span class=" font-weight-bold uniSize">{{letter?.loanAdminFeeWords.np}}</span>
                                 मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ ।
                                 कर्जा सूचना केन्द्र लिमिटेडबाट सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त
                                 गरिने साख सूचना, घर/जग्गाको मुल्याड्ढन, रजिष्ट्रेशन, ब्लु प्रिन्ट तथा टे«श नक्सा
@@ -160,8 +160,8 @@
                                 <ul>
                                     <li>
                                         ऋण प्रशासनिक शुल्क बापत
-                                        <span class="nepaliFont font-weight-bold">{{letter?.loanAdminFeeFigure}}</span> ।(अक्षरेपी रु
-                                        <span class="nepaliFont font-weight-bold uniSize">{{letter?.loanAdminFeeWords}}</span>
+                                        <span class=" font-weight-bold">{{letter?.loanAdminFeeFigure.np}}</span> ।(अक्षरेपी रु
+                                        <span class=" font-weight-bold uniSize">{{letter?.loanAdminFeeWords.np}}</span>
                                         मात्र) तपाईंको खातामा खर्च जनाई कटृा गरी लिईनेछ । कर्जा
                                         सूचना केन्द्र लिमिटेडबाट
                                         सुचना प्राप्त गर्न सोध पुछ खर्च, अन्य बैंकबाट प्राप्त गरिने साख सूचना,
@@ -201,16 +201,16 @@
                             <td>चुक्ता भुक्तानीः</td>
                             <td>
                                 साञवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
-                                <span class="nepaliFont font-weight-bold">{{letter?.emiAmountFigure}}</span>
+                                <span class=" font-weight-bold">{{letter?.emiAmountFigure.np}}</span>
                                 (अक्षरेपि रु.
-                                <span class="nepaliFont font-weight-bold uniSize">{{letter?.emiAmountWords}}</span> मात्र) का दरले
-                                <span class="nepaliFont font-weight-bold">{{letter?.loanPeriodInMonths}}</span>
+                                <span class=" font-weight-bold uniSize">{{letter?.emiAmountWords.np}}</span> मात्र) का दरले
+                                <span class=" font-weight-bold">{{letter?.loanPeriodInMonths.np}}</span>
                                 मासिक किस्ता (Equated Monthly Installment) हरुमा सम्पुर्ण कर्जा चुक्ता
                                 भुक्तानी गर्नु पर्नेछ ।
                                 <u class="font-weight-bold">
                                     द्रष्टब्यः
                                 </u>
-                                <span class="nepaliFont font-weight-bold">{{letter?.moratoriumPeriodInMonths}}</span>
+                                <span class=" font-weight-bold">{{letter?.moratoriumPeriodInMonths.np}}</span>
                                 महिनाको ऋण भुक्तानी स्थगन अवधि ( Moratorium Period ) पछिको
                                 महिना देखि अञग्रेजी पात्रोको
                                 प्रत्येक २० तारिखका दिन किस्ताको भुक्तानी मिति हुनेछ । तथापि शुरु देखिनै तपाईंले
@@ -225,7 +225,7 @@
                         <td>
                             स्वीकृत दीर्घकालिन कर्जा सिमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा
                             सिमामा
-                            <span class="nepaliFont font-weight-bold">{{letter?.loanCommitmentFeeInPercentage}}</span>  प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
+                            <span class=" font-weight-bold">{{letter?.loanCommitmentFeeInPercentage.np}}</span>  प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                         </td>
                     </tr>
                     <tr>
@@ -297,12 +297,12 @@
             <div class="col-md-12">
                 <p *ngIf="selectedSecurity === 'FIXED_DEPOSIT'; else landAndBuildingSecuritySec">
                     क. नबिल बैंक लिमिटेडद्धारा जारी गरिएको श्री
-                    <span class="nepaliFont font-weight-bold">{{letter?.fixedDepositHolderName}}</span>  को
+                    <span class=" font-weight-bold">{{letter?.fixedDepositHolderName.np}}</span>  को
                     नाममा रहेको रु.
-                    <span class="nepaliFont font-weight-bold">{{letter?.fixedDepositAmountFigure}}</span> /– बराबरको
-                    <span class="nepaliFont font-weight-bold">{{letter?.tenureFixedDeposit}}</span>  बर्षे मुद्धति
+                    <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.np}}</span> /– बराबरको
+                    <span class=" font-weight-bold">{{letter?.tenureFixedDeposit.np}}</span>  बर्षे मुद्धति
                     रसिद नं.
-                    <span class="nepaliFont font-weight-bold">{{letter?.tenureDepositReceiptNumber}}</span>
+                    <span class=" font-weight-bold">{{letter?.tenureDepositReceiptNumber.np}}</span>
                     उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न
                     सक्ने अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी गरी दिनु पर्नेछ ।
                     मुद्धति निक्षेप कर्जा समाप्ति
@@ -350,25 +350,25 @@
                         <tbody>
                         <tr>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.ownersName}}</span>
+                                <span class=" font-weight-bold">{{letter?.ownersName.np}}</span>
                             </td>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.district}}</span>
+                                <span class=" font-weight-bold">{{letter?.district.np}}</span>
                             </td>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.municipality}}</span>
+                                <span class=" font-weight-bold">{{letter?.municipality.np}}</span>
                             </td>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.wardNo}}</span>
+                                <span class=" font-weight-bold">{{letter?.wardNo.np}}</span>
                             </td>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.seatNo}}</span>
+                                <span class=" font-weight-bold">{{letter?.seatNo.np}}</span>
                             </td>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.kittaNo}}</span>
+                                <span class=" font-weight-bold">{{letter?.kittaNo.np}}</span>
                             </td>
                             <td>
-                                <span class="nepaliFont font-weight-bold">{{letter?.landArea}}</span>
+                                <span class=" font-weight-bold">{{letter?.landArea.np}}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -376,10 +376,10 @@
                 </ng-template>
                 <p>
                     ख. श्री
-                    <span class="nepaliFont font-weight-bold">{{letter?.guarantorName}}</span>  ले बैंकको पक्षमा
+                    <span class=" font-weight-bold">{{guarantorName}}</span>  ले बैंकको पक्षमा
                     रु
-                    <span class="nepaliFont font-weight-bold">{{letter?.guaranteedAmountFigure}}</span>  /-(अक्षरेपि
-                    रु.<span class="nepaliFont font-weight-bold uniSize">{{letter?.guaranteedAmountWords}}</span>  मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                    <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span>  /-(अक्षरेपि
+                    रु.<span class=" font-weight-bold uniSize">{{letter?.guaranteedAmountWords.np}}</span>  मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                 </p>
             </div>
             <div class="col-md-12">
@@ -569,7 +569,7 @@
                             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको
                             आवश्यक्ता र निवेदन बमोजिम शैक्षिक कर्जा तपाईंले यस
                             नबिल बैंक लिमिटेडको,
-                            <span class="nepaliFont font-weight-bold">{{letter?.nameOfBranch}}</span>
+                            <span class=" font-weight-bold">{{branchName}}</span>
                             शाखामा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
                         </td>
                     </tr>
@@ -594,7 +594,7 @@
                                 अस्ट्रेलियन हाइ कमिसनले
                             </ng-container>
                             <ng-template #embassyName>
-                                <span>{{nameOfEmbassy}}</span>ले
+                                <span>{{nameOfEmbassy}}</span> ले
                             </ng-template>
                             भिसा अस्विकार गरेमा वा उल्लिखित विश्व
                             विद्यालयले विद्यार्थी भर्ना
@@ -607,7 +607,7 @@
                             कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन
                             फिर्ता हुनेछैन ।
                             जुनसुकै कारणले
-                            <span class="nepaliFont font-weight-bold">{{nameOfEmbassy}}</span>
+                            <span class=" font-weight-bold">{{nameOfEmbassy}}</span>
                             ले भिसा अस्विकार गरेमा वा उल्लिखित विश्व विद्यालयले विद्यार्थी
                             भर्ना गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।
                         </td>
@@ -910,7 +910,7 @@
                             <div *ngIf="selectedSecurity === 'FIXED_DEPOSIT'" class="col-md-12">
                                 <p>
                                     क. रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.promissoryNoteAmount}}</span> /- को प्रतिज्ञा पत्र ।
+                                    <span class=" font-weight-bold">{{letter?.promissoryNoteAmount.np}}</span> /- को प्रतिज्ञा पत्र ।
                                 </p>
                                 <p>
                                     ख. निरन्तरता पत्र ।
@@ -920,23 +920,23 @@
                                 </p>
                                 <p>
                                     घ. श्री
-                                    <span class="nepaliFont font-weight-bold">{{letter?.guaranteedAmountWords}}</span> /- को रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.guaranteedAmountFigure}}</span> /- बराबरको
+                                    <span class=" font-weight-bold">{{letter?.guaranteedAmountWords.np}}</span> /- को रु
+                                    <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> /- बराबरको
                                     व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
                                 <p>ह्. श्री
-                                    <span class="nepaliFont font-weight-bold">{{letter?.nameOfFixedDeposit}}</span> /- को रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.fixedDepositAmountFigure}}</span>/ को सक्कल मुद्दती रसिद ।</p>
+                                    <span class=" font-weight-bold">{{letter?.nameOfFixedDeposit.np}}</span> /- को रु
+                                    <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.np}}</span>/ को सक्कल मुद्दती रसिद ।</p>
 
                             </div>
                             <div *ngIf="selectedSecurity === 'LAND'" class="col-md-12">
                                 <p>
                                     क. रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.promissoryNoteAmount}}</span> को प्रतिज्ञा पत्र ।
+                                    <span class=" font-weight-bold">{{letter?.promissoryNoteAmount.np}}</span> को प्रतिज्ञा पत्र ।
                                 </p>
                                 <p>
                                     ख. रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.loanDeedAmount}}</span>
+                                    <span class=" font-weight-bold">{{letter?.loanDeedAmount.np}}</span>
                                     ऋणकर्जा तमसुक ।
                                 </p>
                                 <p>
@@ -944,12 +944,12 @@
                                 </p>
                                 <p>
                                     घ. रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.pledgeAmountFigure}}</span> /- को धितो बन्धक तमसुक ।
+                                    <span class=" font-weight-bold">{{letter?.pledgeAmountFigure.np}}</span> /- को धितो बन्धक तमसुक ।
                                 </p>
                                 <p>
                                     ह्. रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.guaranteedAmountFigure}}</span> बराबरकोे श्री
-                                    <span class="nepaliFont font-weight-bold">{{letter?.guarantorName}}</span>
+                                    <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> बराबरकोे श्री
+                                    <span class=" font-weight-bold">{{guarantorName}}</span>
                                     को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
                                 <p>
@@ -961,22 +961,22 @@
                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" class="col-md-12">
                                 <p>
                                     क.	रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.promissoryNoteAmount}}</span> /- को प्रतिज्ञा पत्र ।
+                                    <span class=" font-weight-bold">{{letter?.promissoryNoteAmount.np}}</span> /- को प्रतिज्ञा पत्र ।
                                 </p>
                                 <p>
                                     ख.	रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.loanDeedAmount}}</span> /- को ऋणकर्जा तमसुक ।
+                                    <span class=" font-weight-bold">{{letter?.loanDeedAmount.np}}</span> /- को ऋणकर्जा तमसुक ।
                                 </p>
                                 <p>
                                     ग.	निरन्तरता पत्र ।
                                 </p>
                                 <p>
                                     घ.	रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.pledgeAmountFigure}}</span> /- को धितो बन्धक तमसुक ।
+                                    <span class=" font-weight-bold">{{letter?.pledgeAmountFigure.np}}</span> /- को धितो बन्धक तमसुक ।
                                 </p>
                                 <p>
-                                    ह्. रु <span class="nepaliFont font-weight-bold">{{letter?.guaranteedAmountFigure}}</span> बराबरकोे
-                                    श्री <span class="nepaliFont font-weight-bold">{{letter?.guarantorName}}</span> को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
+                                    ह्. रु <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> बराबरकोे
+                                    श्री <span class=" font-weight-bold">{{guarantorName}}</span> को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
                                 <p>
                                     च.   मूल्याह्कन प्रतिवेदन प्राप्त ।
@@ -986,7 +986,7 @@
                                 </p>
                                 <p>
                                     ज.   बैकर्श शर्त सहितको कम्तीमा रु
-                                    <span class="nepaliFont font-weight-bold">{{letter?.insuranceAmountFigure}}</span> /-बराबरको भवनको विमालेख ।
+                                    <span class=" font-weight-bold">{{letter?.insuranceAmountFigure.np}}</span> /-बराबरको भवनको विमालेख ।
                                 </p>
                                 <p>
                                     झ.   भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
@@ -1013,14 +1013,14 @@
                 <br>
                 सम्पर्क अधिकृत
                 <br>
-                <span class="nepaliFont font-weight-bold">{{letter?.relationshipOfficerName}}</span>
+                <span class=" font-weight-bold">{{letter?.relationshipOfficerName.np}}</span>
             </div>
             <div class="text-right">
                 .............................
                 <br>
                 शाखा प्रवन्धक
                 <br>
-                <span class="nepaliFont font-weight-bold">{{letter?.branchManager}}</span>
+                <span class=" font-weight-bold">{{letter?.branchManager.np}}</span>
             </div>
         </div>
         <div class="row">
@@ -1067,18 +1067,18 @@
             </p>
             <ul class="nepaliList">
                 <li>
-                    <span class="nepaliFont font-weight-bold">{{letter?.sakhshiDistrict}}</span>
+                    <span class=" font-weight-bold">_______________________________</span>
                     जिल्ला
-                    <span class="nepaliFont font-weight-bold">{{letter?.sakhshiMunicipality}}</span>
+                    <span class=" font-weight-bold">______________________________</span>
                     गा.वि.स/न.पा,
                     वडा नंं.
-                    <span class="nepaliFont font-weight-bold">{{letter?.sakhshiWardNo}}</span>
+                    <span class=" font-weight-bold">______________</span>
                     बस्ने श्री
-                    <span class="nepaliFont font-weight-bold">{{letter?.sakhshiName}}</span>
+                    <span class=" font-weight-bold">______________________________</span>
                 </li>
                 <li>
                     कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
-                    <span class="nepaliFont font-weight-bold">{{letter?.approvalStaffName}}</span>
+                    <span class=" font-weight-bold">{{letter?.approvalStaffName.np}}</span>
                 </li>
             </ul>
         </div>
