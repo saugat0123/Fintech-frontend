@@ -117,8 +117,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         let index = 0;
         if (cadDocuments.length > 0) {
             cadDocuments.forEach((data) => {
-                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && (!ObjectUtil.isEmpty(data.pathSigned) || !ObjectUtil.isEmpty(data.draftPath)))
-                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT) && (!ObjectUtil.isEmpty(data.pathSigned) || !ObjectUtil.isEmpty(data.draftPath)))) {
+                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && (!ObjectUtil.isEmpty(data.draftPath)))
+                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT) && (!ObjectUtil.isEmpty(data.draftPath)))) {
                     index += 1;
                 }
             });
