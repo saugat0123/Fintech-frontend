@@ -26,6 +26,7 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     disbursementComment: string;
     additionalDocumentList: Array<AdditionalDocument>;
     nepData: any;
+    isChecked: boolean;
     requiredDocument: Array<Document>;
 
 

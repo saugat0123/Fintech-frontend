@@ -98,4 +98,14 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${this.getApi()}/users/branch/${bId}/maker-active`);
         return this.http.get(req.url, {headers: req.header});
     }
+
+  public getDefaultCommunityUser(): Promise<any> {
+    const req = ApiUtils.getRequest(`${this.getApi()}/get-default-community-user`);
+    const community = this.http.get(req.url, {headers: req.header}).toPromise();
+    // @ts-ignore
+    community.then((res: any) => {
+      localStorage['defaultCommunityUser'] = JSON.stringify(res.detail);
+    });
+    return community;
+  }
 }
