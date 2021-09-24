@@ -16,14 +16,13 @@
                             <div class="col-md-12">
                                 <h4 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र</h4>
                             </div>
-                            <div class="col-md-3">
-                                <p>
-                                    मितिः <nepali-patro formControlName="dateOfApproval"
-                                                        [responseType]="2"
-                                                        [displayNepali]="true"></nepali-patro>
-                                </p>
-                            </div>
                             <div class="col-md-12 mt-4">
+                                <p>
+                                    मितिः <input class="form-field form-control-sm nepaliFont"
+                                                 formControlName="dateOfApproval"
+                                                 [value]="initialInfoPrint.dateOfApproval.np === undefined ? '' : initialInfoPrint.dateOfApproval.np "
+                                                 type="text"/>
+                                </p>
                                 <p>
                                     कर्जा सख्याः <input class="form-field form-control-sm"
                                                         formControlName="referenceNumber"
@@ -111,7 +110,7 @@
                                             राखिदिने रु
                                             <input class="form-field form-control-sm nepaliFont"
                                                    formControlName="fixedDepositReceiptAmountFigure"
-                                                   [value]="initialInfoPrint.fixedDepositReceiptAmountFigure.np === undefined ? '' : initialInfoPrint.fixedDepositReceiptAmountFigure.np "
+                                                   [value]="initialInfoPrint.fixedDepositAmountFigure.np === undefined ? '' : initialInfoPrint.fixedDepositAmountFigure.np"
                                                    (change)="getNumAmountWord('fixedDepositReceiptAmountFigure', 'fixedDepositReceiptAmountWords')"
                                                    type="text"/>/-
                                             (अक्षरेपि रु
@@ -1279,7 +1278,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <button *ngIf="!preview" nbButton status="success" type="submit">Save</button>
+<!--                        <button *ngIf="!preview" nbButton status="success" type="submit">Save</button>-->
                     </form>
                 </div>
             </div>

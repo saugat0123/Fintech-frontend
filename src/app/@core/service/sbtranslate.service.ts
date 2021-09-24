@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
-import {BaseService} from "../BaseService";
-import {ApiUtils} from "../utils/api/ApiUtils";
+import {BaseService} from '../BaseService';
+import {ApiUtils} from '../utils/api/ApiUtils';
 import { ObjectUtil } from '../utils/ObjectUtil';
 
 @Injectable({providedIn: 'root'})
@@ -17,8 +17,8 @@ export class SbTranslateService extends BaseService<String> {
     }
 
     async translate(q: any) {
-        this.spinner=true;
-        const req = ApiUtils.getRequest(`${SbTranslateService.API}`)
+        this.spinner = true;
+        const req = ApiUtils.getRequest(`${SbTranslateService.API}`);
         return  this.http.post(req.url, q, {headers: req.header}).toPromise().then((res: any) => {
             return res.data.translations;
             this.spinner = false;
@@ -30,16 +30,15 @@ export class SbTranslateService extends BaseService<String> {
 
     async translateForm(form: FormGroup, formArrayData?, index?) {
         if (!ObjectUtil.isEmpty(form.get(`${formArrayData}`)) && formArrayData) {
-            console.log('from if');
             const allValues = [];
             const allKeys = [];
             // to map form array values that located inside the formControl
-            let formArrayDataArrays: FormArray = form.get(`${formArrayData}`) as FormArray;
+            const formArrayDataArrays: FormArray = form.get(`${formArrayData}`) as FormArray;
             let a: any;
             a = formArrayDataArrays.controls;
             for (let i = 0; i < a.length; i++) {
                 if (i === index) {
-                    let individualData = a[i] as FormGroup;
+                    const individualData = a[i] as FormGroup;
                     for (const d of Object.entries(individualData.controls)) {
                         if (d[1].value && d[1].value !== undefined) {
                             allKeys.push(d[0]);
@@ -55,7 +54,6 @@ export class SbTranslateService extends BaseService<String> {
         } else {
             const allValues = [];
             const allKeys = [];
-            console.log('from else');
             // to map normal formcontrol values
             for (const d of Object.entries(form.controls)) {
                 if (d[1].value !== null && d[0] !== formArrayData && d[1].value !== undefined) {
