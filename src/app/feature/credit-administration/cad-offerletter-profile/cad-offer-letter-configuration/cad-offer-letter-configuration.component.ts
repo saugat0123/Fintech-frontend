@@ -36,6 +36,7 @@ import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {LoanDataHolder} from '../../../loan/model/loanData';
+import {NepaliCalendarService, NepaliDayPipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -122,7 +123,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   ngOnInit() {
     //   console.log(this.oneFormCustomer);
     //   console.log(this.loanHolder);
-    // console.log(JSON.parse(this.loanHolder.nepData));
+    //  console.log(JSON.parse(this.loanHolder.nepData));
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -160,8 +161,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.setGuarantors(data.guarantorDetails);
     }
 
+    if(this.loanHolder.customerType === CustomerType.INDIVIDUAL){
+
+    }
+
     this.patchValue();
     this.patchNepData();
+    this.patchIndividualData();
 
   }
 
@@ -732,6 +738,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
 
             this.userConfigForm.patchValue({
+              gender: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.gender,
                 branch: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.branch.id,
                 customerCode: ObjectUtil.isEmpty(this.loanHolder) ? undefined : this.loanHolder.customerCode,
                 name: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName,
@@ -759,11 +766,40 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
         const nepData = (JSON.parse(this.loanHolder.nepData));
         this.userConfigForm.patchValue({
-          branchCT: ObjectUtil.isEmpty(nepData.branch.np) ? undefined : nepData.branch.np,
-          customerCodeCT: ObjectUtil.isEmpty(nepData.customerCode.np) ? undefined : nepData.customerCode.np,
-          nameCT: ObjectUtil.isEmpty(nepData.name.np) ? undefined : nepData.name.np,
-          emailCT:  ObjectUtil.isEmpty(nepData.email.np) ? undefined : nepData.email.np,
-          contactNoCT:  ObjectUtil.isEmpty(nepData.contactNo.np) ? undefined : nepData.contactNo.np,
+          panNo : ObjectUtil.isEmpty(nepData.panNo) ? undefined : nepData.panNo.en,
+          branchCT: ObjectUtil.isEmpty(nepData.branch) ? undefined : nepData.branch.np,
+          customerCodeCT: ObjectUtil.isEmpty(nepData.customerCode) ? undefined : nepData.customerCode.np,
+          nameCT: ObjectUtil.isEmpty(nepData.name) ? undefined : nepData.name.np,
+          emailCT:  ObjectUtil.isEmpty(nepData.email) ? undefined : nepData.email.np,
+          contactNoCT:  ObjectUtil.isEmpty(nepData.contactNo) ? undefined : nepData.contactNo.np,
+          panNoCT: ObjectUtil.isEmpty(nepData.panNo) ? undefined : nepData.panNo.np,
+
+          citizenshipNoCT: ObjectUtil.isEmpty(nepData.citizenshipNumber) ? undefined : nepData.citizenshipNumber.np,
+          genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
+          permanentProvinceCT: ObjectUtil.isEmpty(nepData.permanentProvince) ? undefined : nepData.permanentProvince.np,
+          permanentDistrictCT: ObjectUtil.isEmpty(nepData.permanentDistrict) ? undefined : nepData.permanentDistrict.np,
+          permanentMunicipality: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
+          temporaryProvinceCT: ObjectUtil.isEmpty(nepData.temporaryProvince) ? undefined : nepData.temporaryProvince.np,
+          temporaryDistrictCT: ObjectUtil.isEmpty(nepData.temporaryDistrict) ? undefined : nepData.temporaryDistrict.np,
+          temporaryMunicipalityCT: ObjectUtil.isEmpty(nepData.temporaryMunicipality) ? undefined : nepData.temporaryMunicipality.np,
+          permanentWardCT: ObjectUtil.isEmpty(nepData.permanentWard) ? undefined : nepData.permanentWard.np,
+          temporaryWardCT: ObjectUtil.isEmpty(nepData.temporaryWard) ? undefined : nepData.temporaryWard.np,
+          citizenshipIssueDateCT : ObjectUtil.isEmpty(nepData.citizenshipIssueDate) ? undefined : nepData.citizenshipIssueDate.np,
+          // dobCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
+          // citizenshipIssueDistrictCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
+
+        });
+      }
+    }
+
+    patchIndividualData(){
+      if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
+        const memberData = JSON.parse(this.oneFormCustomer.individualJsonData);
+        this.userConfigForm.patchValue({
+          fatherName: ObjectUtil.isEmpty(memberData.fatherName) ? undefined : memberData.fatherName,
+          grandFatherName: ObjectUtil.isEmpty(memberData.grandFatherName) ? undefined : memberData.grandFatherName,
+          husbandName: ObjectUtil.isEmpty(memberData.husbandName) ? undefined : memberData.husbandName,
+          fatherInLawName : ObjectUtil.isEmpty(memberData.fatherInLawName) ? undefined : memberData.fatherInLawName,
         });
       }
     }
