@@ -38,7 +38,7 @@
                     <input type="checkbox" formControlName="landOtherBranchChecked"> Property on another branch location
                     <div class="row justify-content-end">
                         <button class="btn btn-primary sb-small mr-2"
-                                (click)="openSiteVisitModel('Land Security'+' '+(i+1))">Inspect Site Visit</button>
+                                (click)="openSiteVisitModel('Land Security'+' '+(i+1))" [disabled]="securityForm.invalid ">Inspect Site Visit</button>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
@@ -487,7 +487,7 @@
                     <div [formGroupName]="i">
                         <div class="row justify-content-end">
                             <button class="btn btn-primary sb-small mr-2"
-                                    (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))">Inspect Site Visit</button>
+                                    (click)="openSiteVisitModel('Apartment Security'+' '+(i+1))" [disabled]="securityForm.invalid">Inspect Site Visit</button>
                         </div>
                         <ng-template #apartment>
                             <input type="checkbox" formControlName="apartmentOtherBranchChecked"> Property on another
@@ -1272,7 +1272,7 @@
                     class="font-weight-bold">
                     <div class="row justify-content-end">
                         <button class="btn btn-primary sb-small mr-2"
-                                (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1))">Inspect Site Visit</button>
+                                (click)="openSiteVisitModel('Land And Building Security'+' '+(i+1))" [disabled]="securityForm.invalid">Inspect Site Visit</button>
                     </div>
                     <div class="row">
                         <div class="col-md-10">
