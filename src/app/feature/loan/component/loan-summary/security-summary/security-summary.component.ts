@@ -219,7 +219,7 @@ export class SecuritySummaryComponent implements OnInit {
     private calculateTotalBondSecurityAmount(): void {
         const bondSecurity = this.formData['initialForm']['bondSecurity'];
         bondSecurity.forEach(value => {
-            this.totalBondSecurityValue += value.bondValue;
+            this.totalBondSecurityValue += Number(value.bondValue);
         });
     }
 }
