@@ -112,15 +112,11 @@ export class LoanCreateComponent implements OnInit {
   }
 
   async translate(index) {
-    console.log('index: ', index);
-    console.log('this.form: ', this.form);
     let allLoans = this.form.get('loanDetails').value as FormArray;
-    console.log('allLoans: ', allLoans);
     if (allLoans.length > 0) {
       this.spinner = true;
       let loanDetails: any = [];
       loanDetails = await this.translateService.translateForm(this.form, 'loanDetails', index);
-      console.log('translateLoanForm: ', loanDetails);
       this.form.get(['loanDetails', index, 'loanTrans']).setValue(loanDetails.loan || '');
       this.form.get(['loanDetails', index, 'proposedAmountTrans']).setValue(loanDetails.proposedAmount || '');
 
@@ -129,7 +125,6 @@ export class LoanCreateComponent implements OnInit {
       a = formArrayDataArrays.controls;
       let newArr = {};
       let individualData = a[index] as FormGroup;
-      console.log('individualData: ', individualData);
       Object.keys(individualData.controls).forEach(key => {
         console.log('key: ', key);
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
@@ -145,7 +140,6 @@ export class LoanCreateComponent implements OnInit {
       });
       this.translatedLoanDataDetails[index] = newArr;
       // end loanDetails
-      console.log('this.translatedLoanDataDetails: ', this.translatedLoanDataDetails);
       this.spinner = false;
     }
   }
@@ -159,7 +153,6 @@ export class LoanCreateComponent implements OnInit {
         nepData: this.translatedLoanDataDetails[index]
       })
     });
-    console.log('loanDetailsToSave: ', loanDetailsToSave);
     this.cadOneFormService.saveLoan(loanDetailsToSave).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
