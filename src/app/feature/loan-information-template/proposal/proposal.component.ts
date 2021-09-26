@@ -93,7 +93,6 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
-      console.log('formDataForEdit', this.formDataForEdit);
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
