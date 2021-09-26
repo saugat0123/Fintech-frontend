@@ -55,12 +55,11 @@ import {NepProposedAmountFormComponent} from './cad-offerletter-profile/cad-offe
 import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-and-disbursement/cad-file-setup/cad-file-setup.component';
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
-import {LoanActionModalComponent} from "../loan/loan-action/loan-action-modal/loan-action-modal.component";
+import {CadLegalDocActionModalComponent} from "./cad-legal-doc-action-modal/cad-legal-doc-action-modal.component";
 
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
-        LoanActionModalComponent,
         AssignPopUpComponent,
         LoanListComponent,
         VerifyPopUpComponent,
@@ -69,6 +68,7 @@ import {LoanActionModalComponent} from "../loan/loan-action/loan-action-modal/lo
         ExposureComponent,
         OfferLetterListComponent,
         CadOfferLetterProfileComponent,
+        CadLegalDocActionModalComponent,
         DocumentChecklistComponent,
         FeesCommissionComponent,
         CadOfferLetterModalComponent,
@@ -119,7 +119,6 @@ import {LoanActionModalComponent} from "../loan/loan-action/loan-action-modal/lo
     ProgressiveModule,
   ],
     entryComponents: [
-        LoanActionModalComponent,
         AssignPopUpComponent,
         VerifyPopUpComponent,
         CadOfferLetterModalComponent,
@@ -131,6 +130,7 @@ import {LoanActionModalComponent} from "../loan/loan-action/loan-action-modal/lo
         SecurityComplianceCertificateComponent,
         AdditionalExposureComponent,
         CadOfferLetterConfigurationComponent,
+        CadLegalDocActionModalComponent,
         CadFileSetupComponent],
     exports: [CadFileSetupComponent]
 })

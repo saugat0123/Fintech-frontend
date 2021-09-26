@@ -30,6 +30,7 @@ import {DocAction} from "../../loan/model/docAction";
 import {DocStatus} from "../../loan/model/docStatus";
 import {LoanActionModalComponent} from "../../loan/loan-action/loan-action-modal/loan-action-modal.component";
 import {LoanActionCombinedModalComponent} from "../../loan/loan-action/loan-action-combined-modal/loan-action-combined-modal.component";
+import {CadLegalDocActionModalComponent} from "../cad-legal-doc-action-modal/cad-legal-doc-action-modal.component";
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -157,7 +158,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 };
                 break;
         }
-        this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
+        this.dialogRef = this.nbDialogService.open(CadLegalDocActionModalComponent, {
             context,
             closeOnBackdropClick: false,
             hasBackdrop: false,
