@@ -403,6 +403,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       fatherNameCT: [undefined],
       fatherName: [undefined],
       fatherNameTrans: [undefined],
+      radioCitizenIssuedDate: [undefined],
+      radioCitizenIssuedDateTrans: [undefined],
+      radioCitizenIssuedDateCT: [undefined],
+      citizenIssuedDate: [undefined],
+      citizenIssuedDateTrans: [undefined],
+      citizenIssuedDateCT: [undefined],
 
     });
   }

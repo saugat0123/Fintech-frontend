@@ -407,19 +407,11 @@
                   <option [ngValue]="null" hidden>District</option>
                   <option  *ngFor="let district of allDistrictList"
                           [ngValue]="district">
-                    {{district.name}}
+                    {{district.name}} || {{district.nepaliName}}
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.citizenshipIssueDistrict}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'citizenshipIssueDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrictCT" [readOnly]="!this['citizenshipIssueDistrictCheck']" type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -514,21 +506,11 @@
                   <option [ngValue]="null" hidden>Province</option>
                   <option  *ngFor="let provinceVal of provinceList"
                           [ngValue]="provinceVal">
-                    {{provinceVal.name}}
+                    {{provinceVal.name}} || {{provinceVal.nepaliName}}
                   </option>
                 </select>
               </td>
-
-              <td>
-                {{objectValueTranslater?.permanentProvince}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentProvince')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentProvinceCT" [readOnly]="!this['permanentProvinceCheck']"
-                       type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
@@ -541,19 +523,11 @@
                 <option [ngValue]="null" hidden>District</option>
                 <option *ngFor="let districtVal of districts"
                         [ngValue]="districtVal">
-                  {{districtVal.name}}
+                  {{districtVal.name}} || {{districtVal.nepaliName}}
                 </option>
               </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentDistrict}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentDistrictCT" [readOnly]="!this['permanentDistrictCheck']" type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -573,19 +547,11 @@
                         name="municipality">
                   <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
-                    {{municipalityVal.name}}
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentMunicipality}}
-              </td>
-              <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentMunicipality')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentMunicipalityCT" [readOnly]="!this['permanentMunicipalityCheck']"   type="text"/>
-              </td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -965,7 +931,7 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="float-right" nbButton size="small" status="info" (click)="translate()">
+              <button (click)="translate()" class="float-right" nbButton size="small" status="info">
                 Translate Customer Data
               </button>
             </div>
@@ -1060,23 +1026,46 @@
                     District</label>
                 </td>
                 <td>
-                  <input class="form-control "
-                         formControlName="issuedPlace"
-                         id="guarantorIssueDistrict"
-                         autocomplete="off"
-                         name="name" placeholder="Citizenship Issue District"
-                         type="text"/>
+                  <select class="custom-select" id="guarantorIssueDistrict" formControlName="issuedPlace">
+                    <option [ngValue]="null" hidden>District</option>
+                    <option  *ngFor="let district of allDistrictList"
+                             [ngValue]="district.name">
+                      {{district.name}} || {{district.nepaliName}}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="title" for="citizenshipIssuedDate">Citizenship Issue Date</label>
                 </td>
                 <td>
-                  <input class="form-control" type="text"
-                         formControlName="issuedPlaceTrans" readonly/>
+                  <div class="row">
+                    <nb-radio-group name="citizenshipIssuedDate" formControlName="radioCitizenIssuedDate"
+                                    #citizenshipIssueDateVal class="d-inline-flex">
+                      <nb-radio *ngFor="let option of dateOption"
+                                [value]="option.value">{{option.label}}</nb-radio>
+                    </nb-radio-group>
+                  </div>
                 </td>
+              </tr>
+              <tr>
+                <td></td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'issuedPlace')"></nb-checkbox>
+                  <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'" formControlName="citizenIssuedDate" [responseType]="2"
+                                [displayNepali]="true">
+                  </nepali-patro>
+                  <input [nbDatepicker]="citizenshipDate"
+                         *ngIf="citizenshipIssueDateVal.value ==='AD'"
+                         class="form-control form-control-sm-error rounded"
+                         formControlName="citizenIssuedDate"
+                         id="citizenshipIssuedDate"
+                         name="citizenIssuedDate"
+                         placeholder="Citizenship Issue Date"
+                         type="text">
+                  <nb-datepicker #citizenshipDate></nb-datepicker>
                 </td>
-                <td>
-                  <input class="form-control nepaliFont" type="text" formControlName="issuedPlaceCT" [readOnly]="!this['issuedPlaceCheck']"/>
-                </td>
+                <td></td>
               </tr>
               <tr>
                 <td>

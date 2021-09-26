@@ -77,7 +77,13 @@
       <!--        </td>-->
       <!--      </tr>-->
       <tr>
-        <td colspan="5">
+        <td colspan="3">
+          <button nbButton status="danger" size="small" class="float-left" (click)="removeLoan(i)" style="position: static"
+            *ngIf="form.get('loanDetails')['controls'].length > 1">
+            <em class="fa fa-trash" style="color: white;"></em>
+          </button>
+        </td>
+        <td colspan="2">
           <button class="float-right" size="tiny" nbButton status="info" (click)="translate(i)">
             Translate Loan Details
           </button>
