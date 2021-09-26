@@ -419,13 +419,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       fatherNameCT: [undefined],
       fatherName: [undefined],
       fatherNameTrans: [undefined],
+      radioCitizenIssuedDate: [undefined],
+      radioCitizenIssuedDateTrans: [undefined],
+      radioCitizenIssuedDateCT: [undefined],
+      citizenIssuedDate: [undefined],
+      citizenIssuedDateTrans: [undefined],
+      citizenIssuedDateCT: [undefined],
 
     });
   }
 
   removeAtIndex(i: any) {
     (this.userConfigForm.get('guarantorDetails') as FormArray).removeAt(i);
-    this.translatedGuarantorDetails.splice(i, 1)
+    this.translatedGuarantorDetails.splice(i, 1);
   }
 
   onChangeTab(event) {
