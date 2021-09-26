@@ -87,7 +87,8 @@
                        formControlName="customerCode"
                        [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
                        name="customerCode" placeholder="Customer Code"
-                       type="text"/>
+                       type="text"
+                       [readOnly]="loanHolder?.customerCode" />
               </td>
               <td>
                 {{translatedValues?.customerCode}}
@@ -123,7 +124,7 @@
               <td>
                 <div class="row">
                   <nb-radio-group name="dobDateType" #dobDateType class="d-inline-flex" formControlName="dobDateType">
-                    <nb-radio *ngFor="let option of dateOption" [value]="option.value">{{option.label}}</nb-radio>
+                    <nb-radio *ngFor="let option of dateOption" [checked]="" [value]="option.value">{{option.label}}</nb-radio>
                   </nb-radio-group>&nbsp;
                 </div>
               </td>
@@ -537,16 +538,15 @@
               </td>
               <td>
                 <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
-                  <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                  <nb-radio *ngFor="let option of vdcOption" [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <select [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         class="custom-select"
                         formControlName="permanentMunicipality"
-                        id="permanentMunicipality"
-                        name="municipality">
-                  <option [ngValue]="null" hidden>Municipality</option>
-                  <option  *ngFor="let municipalityVal of municipalities"
+                        id="permanentMunicipality">
+                  <option [ngValue]="null" hidden>Municipality or VDC</option>
+                  <option *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
                     {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
@@ -580,7 +580,7 @@
             </tr>
             <td></td>
             <td>
-                <nb-checkbox (change)="sameAsPermanent($event)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+                <nb-checkbox [checked]="addressSameAsAbove" (change)="sameAsPermanent($event)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
             </td>
             </tbody>
 
