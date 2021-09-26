@@ -275,10 +275,10 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
-        if (!this.hasRequierdDocument) {
-            this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
-            return;
-        }
+        // if (!this.hasRequierdDocument) {
+        //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
+        //     return;
+        // }
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];

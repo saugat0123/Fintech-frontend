@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -26,6 +26,10 @@ import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-let
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {LaxmiOfferLetterComponent} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter.component';
 import {OfferLetterDocType} from "../model/OfferLetteDocrTypeEnum";
+import {DocAction} from "../../loan/model/docAction";
+import {DocStatus} from "../../loan/model/docStatus";
+import {LoanActionModalComponent} from "../../loan/loan-action/loan-action-modal/loan-action-modal.component";
+import {LoanActionCombinedModalComponent} from "../../loan/loan-action/loan-action-combined-modal/loan-action-combined-modal.component";
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -72,9 +76,12 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     roleType = LocalStorageUtil.getStorage().roleType;
     hasRequierdDocument = false;
+    private dialogRef: NbDialogRef<any>;
+    isOpen = false;
+    legalDoc = [];
+
 
     ngOnInit() {
-        let agentOfferDoc = [];
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
             let obj = {
                 docName: '',
@@ -84,8 +91,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             obj.docName = offer.docName;
             obj.draftPath = offer.draftPath;
             obj.signedPath = offer.pathSigned;
-            agentOfferDoc.push(obj);
+            this.legalDoc.push(obj);
         });
+
+        console.log('agent offer doc', this.legalDoc);
 
         this.initial();
         this.checkCadDocument();
@@ -112,13 +121,58 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 break;
         }
     }
+
+    close() {
+        if (this.isOpen) {
+            this.dialogRef.close();
+            this.isOpen = false;
+        }
+    }
+
+    public loanAction(action: 'send legal doc to sender' | 'send legal doc to agent'): void {
+        let beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
+        console.log('cad loan', beneficiaryId);
+        this.close();
+        let context;
+        switch (action) {
+            case 'send legal doc to sender':
+                context = {
+                    beneficiaryId: beneficiaryId,
+                    popUpTitle: 'Send Legal Doc To Sender',
+                    docAction: 'SEND_BACK_TO_SENDER',
+                    docActionMsg: 'Send Legal Doc',
+                    legalDoc: this.legalDoc,
+                    documentStatus: DocStatus.SEND_BACK_TO_SENDER
+                };
+                break;
+
+            case 'send legal doc to agent':
+                context = {
+                    beneficiaryId: beneficiaryId,
+                    popUpTitle: 'Send Legal Doc To Agent',
+                    docAction: 'SEND_BACK_TO_AGENT',
+                    legalDoc: this.legalDoc,
+                    docActionMsg: 'Send Legal Doc',
+                    documentStatus: DocStatus.SEND_BACK_TO_AGENT
+                };
+                break;
+        }
+        this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
+            context,
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+        });
+        this.isOpen = true;
+    }
+
     checkCadDocument() {
         const cadDocuments: any = this.cadOfferLetterApprovedDoc.offerDocumentList;
         let index = 0;
         if (cadDocuments.length > 0) {
             cadDocuments.forEach((data) => {
-                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && (!ObjectUtil.isEmpty(data.draftPath)))
-                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT) && (!ObjectUtil.isEmpty(data.draftPath)))) {
+                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
+                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
                     index += 1;
                 }
             });
@@ -127,6 +181,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             }
         }
     }
+
     initial() {
         this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
@@ -249,19 +304,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     openModal(template) {
         this.modelService.open(template);
-    }
-
-    sendToRemitterAction(b: boolean) {
-        this.spinner = true;
-        if (b) {
-            this.modelService.dismissAll();
-            this.toastrService.show(new Alert(AlertType.SUCCESS, 'Transfer success'));
-            this.spinner = false;
-        } else {
-            this.modelService.dismissAll();
-            this.toastrService.show(new Alert(AlertType.WARNING, 'Transfer cancelled'));
-            this.spinner = false;
-        }
     }
 
 }

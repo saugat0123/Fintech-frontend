@@ -29,6 +29,7 @@ import {Editor} from '../../../../@core/utils/constants/editor';
 export class LoanActionModalComponent implements OnInit {
 
     @Input() beneficiaryId: any;
+    @Input() legalDoc: any;
     @Input() isRemitLoan: any;
     @Input() loanConfigId: number;
     @Input() customerLoanId: number;
@@ -122,85 +123,108 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        console.log('beneficiary id', this.beneficiaryId);
-        console.log('on submit', this.loanConfigId);
+        let comment = this.formAction.value.comment;
 
         let docAction = this.formAction.value.docAction;
-        console.log('doc action', docAction);
-        this.submitted = true;
-        if (this.formAction.invalid) {
-            return;
+        let docActionMSG = this.formAction.value.docActionMsg;
+        if (docActionMSG === 'Send Legal Doc') {
+            let sendDocToRemit = {
+                beneficiaryId: this.beneficiaryId,
+                legalDoc: JSON.stringify(this.legalDoc),
+                remarks: comment,
+                status: this.docAction
+            };
+            console.log('we sending legal doc to remit app', sendDocToRemit);
+            this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
+                this.nbDialogRef.close();
+
+                console.log('response', res);
+            }, error => {
+                this.nbDialogRef.close();
+
+                console.log(error);
+            });
+        } else {
+
+            this.submitted = true;
+            if (this.formAction.invalid) {
+                return;
+            }
+            if (this.isMaker) {
+                const isSolSelected = this.formAction.get('isSol').value;
+                if (isSolSelected) {
+                    const selectedSolUser = this.formAction.get('solUser').value;
+                    if (ObjectUtil.isEmpty(selectedSolUser)) {
+                        this.isNoUserSelectedSol = true;
+                        return;
+                    }
+                }
+            }
+
+            const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+                context: {
+                    toUser: this.formAction.get('toUser').value,
+                    toRole: this.formAction.get('toRole').value,
+                    action: this.docAction
+                }
+            });
+            dialogRef.onClose.subscribe((verified: boolean) => {
+                if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
+                    let beneficiaryObj = {
+                        "beneficiaryId": this.beneficiaryId,
+                        "status": docAction,
+                        "remarks": this.formAction.value.comment
+                    };
+                    this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                        if (verified === true) {
+                            this.postAction();
+                            this.nbDialogRef.close();
+                        }
+                    }, error => {
+                        console.log(error);
+                    });
+                } else if (this.isRemitLoan && docAction === 'APPROVED') {
+                    let beneficiaryObj = {
+                        "beneficiaryId": this.beneficiaryId,
+                        "status": docAction,
+                        "remarks": this.formAction.value.comment
+                    }
+                    this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                        if (verified === true) {
+                            this.postAction();
+                            this.nbDialogRef.close();
+                        }
+                    }, error => {
+                        console.log(error);
+                    });
+
+                } else if (docAction === 'REJECT') {
+                    let beneficiaryObj = {
+                        "beneficiaryId": this.beneficiaryId,
+                        "status": "REJECTED",
+                        "remarks": this.formAction.value.comment
+                    }
+                    this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                        if (verified === true) {
+                            this.postAction();
+                            this.nbDialogRef.close();
+                        }
+                    }, error => {
+                        console.log(error);
+                    });
+
+                } else {
+                    if (verified === true) {
+                        this.postAction();
+                        this.nbDialogRef.close();
+                    }
+                }
+            });
+
+
         }
-        if (this.isMaker) {
-            const isSolSelected = this.formAction.get('isSol').value;
-            if (isSolSelected) {
-                const selectedSolUser = this.formAction.get('solUser').value;
-                if (ObjectUtil.isEmpty(selectedSolUser)) {
-                    this.isNoUserSelectedSol = true;
-                    return;
-                }
-            }
-        }
 
-        const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-            context: {
-                toUser: this.formAction.get('toUser').value,
-                toRole: this.formAction.get('toRole').value,
-                action: this.docAction
-            }
-        });
-        dialogRef.onClose.subscribe((verified: boolean) => {
-            if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
-                let beneficiaryObj = {
-                    "beneficiaryId": this.beneficiaryId,
-                    "status": docAction,
-                    "remarks": this.formAction.value.comment
-                };
-                this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
-                    if (verified === true) {
-                        this.postAction();
-                        this.nbDialogRef.close();
-                    }
-                }, error => {
-                    console.log(error);
-                });
-            } else if (this.isRemitLoan && docAction === 'APPROVED') {
-                let beneficiaryObj = {
-                    "beneficiaryId": this.beneficiaryId,
-                    "status": docAction,
-                    "remarks": this.formAction.value.comment
-                }
-                this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
-                    if (verified === true) {
-                        this.postAction();
-                        this.nbDialogRef.close();
-                    }
-                }, error => {
-                    console.log(error);
-                });
 
-            } else if (docAction === 'REJECT') {
-                let beneficiaryObj = {
-                    "beneficiaryId": this.beneficiaryId,
-                    "status": "REJECTED",
-                    "remarks": this.formAction.value.comment
-                }
-                this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
-                    if (verified === true) {
-                        this.postAction();
-                        this.nbDialogRef.close();
-                    }
-                }, error => {
-                    console.log(error);
-                });
-
-            } else {
-                if (verified === true) {
-                    this.postAction();
-                    this.nbDialogRef.close();
-                }
-            }
-        });
     }
 
     private buildForm(): FormGroup {

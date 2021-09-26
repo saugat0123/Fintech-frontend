@@ -94,6 +94,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post('http://202.166.201.232/api/forwardback-application', object);
     }
 
+    public sendLegalDocumentBackToSenderOrAgent(object): Observable<any> {
+        return this.http.post('http://202.166.201.232/api/forwardback-legaldoc', object);
+    }
+
     public postCombinedLoanAction(object: any[], stageSingle: boolean): Observable<any> {
         const req = ApiUtils.getRequest(`${LoanFormService.API}/action/combined?stageSingle=${stageSingle}`);
         return this.http.post(req.url, object, {headers: req.header});
