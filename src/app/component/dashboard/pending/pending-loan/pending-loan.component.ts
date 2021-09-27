@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 import {CatalogueSearch, CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
@@ -21,6 +21,7 @@ export class PendingLoanComponent implements OnInit {
     closedCount: number;
     initCount: number;
     postApprovalDocStat;
+    companyInfoId: any;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(
@@ -28,14 +29,20 @@ export class PendingLoanComponent implements OnInit {
         private loanFormService: LoanFormService,
         private catalogueService: CatalogueService,
         private customerOfferLetterService: CustomerOfferLetterService,
-        private creditAdminService: CreditAdministrationService
+        private creditAdminService: CreditAdministrationService,
+        private activatedRoute: ActivatedRoute,
     ) {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe((data)=> {
+            this.companyInfoId = data.customerInfoId;
+            console.log('responce', data);
+        })
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
+                console.log('responce 2', response);
                 this.pendingCount = response.detail.pending;
                 this.approvedCount = response.detail.Approved;
                 this.rejectedCount = response.detail.Rejected;
@@ -59,6 +66,7 @@ export class PendingLoanComponent implements OnInit {
             queryParams: {
                 redirect: true,
                 search: search.documentStatus
+
             }
         });
     }
@@ -66,6 +74,7 @@ export class PendingLoanComponent implements OnInit {
     getPostApprovalDocStat() {
         this.customerOfferLetterService.getPostApprovedDocStat().subscribe((res: any) => {
             this.postApprovalDocStat = res.detail;
+            console.log('responce 3', res);
         });
     }
 }
