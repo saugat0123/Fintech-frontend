@@ -70,8 +70,8 @@ export class LoanCreateComponent implements OnInit {
           this.formBuilder.group({
             loan: [d.loan],
             proposedAmount: [d.proposedAmount],
-            status: [d.status],
-            approvedOn: [d.approvedOn],
+            // status: [d.status],
+            // approvedOn: [d.approvedOn],
             comments: [d.comments],
           })
       );
@@ -81,24 +81,13 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          loanHolderId: this.translatedLoanDataDetails,
-          loanHolderCT: this.translatedLoanDataDetails,
-          loanHolderTrans: this.translatedLoanDataDetails,
-          loanType: [undefined],
-          loanTypeCT: [undefined],
-          loanTypeTrans: [undefined],
+          loanHolderId: this.data.customerInfoId,
           loan: [undefined],
           loanCT: [undefined],
           loanTrans: [undefined],
           proposedAmount: [undefined],
           proposedAmountCT: [undefined],
           proposedAmountTrans: [undefined],
-          status: [undefined],
-          statusCT: [undefined],
-          statusTrans: [undefined],
-          approvedOn: [undefined],
-          approvedOnCT: [undefined],
-          approvedOnTrans: [undefined],
           comments: [undefined],
           commentsCT: [undefined],
           commentsTrans: [undefined],
@@ -144,16 +133,28 @@ export class LoanCreateComponent implements OnInit {
     }
   }
 
+  deleteCTAndTransContorls(index) {
+    let formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      let individualData = a[index] as FormGroup;
+      Object.keys(individualData.controls).forEach(key => {
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+          individualData.removeControl(key);
+        }
+      });
+  }
   save() {
     this.spinner = true;
     let loanDetailsToSave = [];
     this.translatedLoanDataDetails.forEach((val, index) => {
+      this.deleteCTAndTransContorls(index);
       loanDetailsToSave.push({...this.data,
         ...this.form.get('loanDetails').value[index],
-        nepData: this.translatedLoanDataDetails[index]
-      })
+        nepData: JSON.stringify(this.translatedLoanDataDetails[index])
+      });
     });
-    this.cadOneFormService.saveLoan(loanDetailsToSave).subscribe(res => {
+    this.cadOneFormService.saveLoan({'loanDetails': loanDetailsToSave}).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
       this.cadApprovedData.emit(res.detail);
