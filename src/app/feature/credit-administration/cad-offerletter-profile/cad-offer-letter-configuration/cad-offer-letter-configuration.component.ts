@@ -447,6 +447,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryWardTrans: [undefined],
 
       isSameTemporaryAndPermanent: [false],
+      isSameTemporaryAndPermanentCT: [undefined],
+      isSameTemporaryAndPermanentTrans: [undefined],
 
       nepData: [undefined]
     });
@@ -536,6 +538,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryWardCT: [value.temporaryWardCT],
         temporaryWardTrans: [undefined],
         isSameTemporaryAndPermanent: [value.isSameTemporaryAndPermanent],
+        isSameTemporaryAndPermanentCT: [undefined],
+        isSameTemporaryAndPermanentTrans: [undefined],
         nepData: [value.nepData],
       }));
     });
@@ -622,6 +626,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // for (let i = 0; i < a.length; i++) {
         const individualData = a[index] as FormGroup;
         Object.keys(individualData.controls).forEach(key => {
+          console.log('key: ', key);
           if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
             return;
           }
