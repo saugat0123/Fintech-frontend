@@ -19,13 +19,14 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     offerDocumentList: Array<OfferDocument>;
     cadStageList: string;
     previousList: Array<any>;
-    docStatus: CadDocStatus;
+    docStatus: string;
     feesAndCommission: string;
     exposure: Exposure;
     data: any;
     disbursementComment: string;
     additionalDocumentList: Array<AdditionalDocument>;
     nepData: any;
+    isChecked: boolean;
     requiredDocument: Array<Document>;
 
 

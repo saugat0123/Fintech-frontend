@@ -7,19 +7,20 @@
   <nb-card-body>
     <div>
       <div [ngSwitch]="documentId">
-        <app-assignment-of-receivable *ngSwitchCase="cadTemplate.ASSIGNMENT_OF_RECEIVABLE"
+        <app-assignment-of-receivable *ngSwitchCase="nabilCadTemplate.PROMISSORY_LETTER_INDIVIDUAL"
                                       [cadData]="cadData" [documentId]="documentId"
                                       [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
-        <app-deed-hypo-of-machinery *ngSwitchCase="cadTemplate.DEED_HYPO_OF_MACHINERY_COMPONENT"
+        <app-loan-deed-individual *ngSwitchCase="nabilCadTemplate.LOAN_DEED_INDIVIDUAL"
                                     [cadData]="cadData" [documentId]="documentId"
-                                    [customerLoanId]="customerLoanId"></app-deed-hypo-of-machinery>
-        <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK" [cadData]="cadData"
+                                    [customerLoanId]="customerLoanId"></app-loan-deed-individual>
+        <app-hypo-of-stock *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_INDIVIDUAL" [cadData]="cadData"
                            [documentId]="documentId"
                            [customerLoanId]="customerLoanId"></app-hypo-of-stock>
         <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
                                [documentId]="documentId"
                                [customerLoanId]="customerLoanId"></app-loan-deed-company>
-        <app-manjurinama-for-company *ngSwitchCase="cadTemplate.MANJURINAMA_FOR_COMPANY"
+
+        <app-manjurinama-for-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF"
                                      [cadData]="cadData" [documentId]="documentId"
                                      [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
         <app-personal-guarantee-company *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"

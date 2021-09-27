@@ -160,17 +160,17 @@ export class CustomerComponent implements OnInit {
 
     /* associate id is customer or company id*/
     customerProfile(associateId, id, customerType) {
-        if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
-            this.router.navigate(['/home/customer/profile/' + associateId], {
-                queryParams: {
-                    customerType: customerType,
-                    customerInfoId: id
-                }
-            });
-        } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
-            this.router.navigate(['/home/customer/company-profile/' + associateId],
-                {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
-        }
+        // if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
+        //     this.router.navigate(['/home/customer/profile/' + associateId], {
+        //         queryParams: {
+        //             customerType: customerType,
+        //             customerInfoId: id
+        //         }
+        //     });
+        // } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
+        //     this.router.navigate(['/home/customer/company-profile/' + associateId],
+        //         {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
+        // }
     }
 
     onSearch() {

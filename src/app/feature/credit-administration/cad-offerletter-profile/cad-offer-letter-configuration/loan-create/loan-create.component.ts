@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
@@ -7,6 +7,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ToastService} from '../../../../../@core/utils';
 import {CadOneformService} from '../../../service/cad-oneform.service';
+import { Attributes } from '../../../../../@core/model/attributes';
 
 @Component({
   selector: 'app-loan-create',
@@ -17,11 +18,15 @@ export class LoanCreateComponent implements OnInit {
   // @Input() form;
   @Input() data;
   @Input() customerType;
+  @Output() cadApprovedData = new EventEmitter();
   submitted = false;
   translatedValues: any;
   form: FormGroup;
+  spinner = false;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
+  attributes: Attributes = new Attributes();
+  translatedLoanDataDetails = [];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -35,7 +40,6 @@ export class LoanCreateComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.loadData();
-    this.addEmptyLoan();
   }
 
   loadData() {
@@ -53,6 +57,7 @@ export class LoanCreateComponent implements OnInit {
     this.form = this.formBuilder.group({
       loanDetails: this.formBuilder.array([])
     });
+    this.addEmptyLoan();
   }
 
   setLoan(data) {
@@ -76,35 +81,86 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          loanHolderId: this.data.customerInfoId,
+          loanHolderId: this.translatedLoanDataDetails,
+          loanHolderCT: this.translatedLoanDataDetails,
+          loanHolderTrans: this.translatedLoanDataDetails,
           loanType: [undefined],
+          loanTypeCT: [undefined],
+          loanTypeTrans: [undefined],
           loan: [undefined],
+          loanCT: [undefined],
+          loanTrans: [undefined],
           proposedAmount: [undefined],
+          proposedAmountCT: [undefined],
+          proposedAmountTrans: [undefined],
           status: [undefined],
+          statusCT: [undefined],
+          statusTrans: [undefined],
           approvedOn: [undefined],
+          approvedOnCT: [undefined],
+          approvedOnTrans: [undefined],
           comments: [undefined],
+          commentsCT: [undefined],
+          commentsTrans: [undefined],
         })
     );
   }
 
   removeLoan(i) {
     (this.form.get('loanDetails') as FormArray).removeAt(i);
+    this.translatedLoanDataDetails.splice(i, 1);
   }
 
-  translate() {
+  async translate(index) {
+    let allLoans = this.form.get('loanDetails').value as FormArray;
+    if (allLoans.length > 0) {
+      this.spinner = true;
+      let loanDetails: any = [];
+      loanDetails = await this.translateService.translateForm(this.form, 'loanDetails', index);
+      this.form.get(['loanDetails', index, 'loanTrans']).setValue(loanDetails.loan || '');
+      this.form.get(['loanDetails', index, 'proposedAmountTrans']).setValue(loanDetails.proposedAmount || '');
 
+      let formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      let newArr = {};
+      let individualData = a[index] as FormGroup;
+      Object.keys(individualData.controls).forEach(key => {
+        console.log('key: ', key);
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+          return;
+        }
+        if (key === 'loan' || key === 'proposedAmount') {
+          this.attributes = new Attributes();
+          this.attributes.en = individualData.get(key).value;
+          this.attributes.np = loanDetails[key];
+          this.attributes.ct = individualData.get(key + 'CT').value;
+          newArr[key] = this.attributes;
+        }
+      });
+      this.translatedLoanDataDetails[index] = newArr;
+      // end loanDetails
+      this.spinner = false;
+    }
   }
 
   save() {
-    const finalObj = {
-      ...this.data,
-      ...this.form.get('loanDetails').value[0]
-    };
-    this.cadOneFormService.saveLoan(finalObj).subscribe(res => {
+    this.spinner = true;
+    let loanDetailsToSave = [];
+    this.translatedLoanDataDetails.forEach((val, index) => {
+      loanDetailsToSave.push({...this.data,
+        ...this.form.get('loanDetails').value[index],
+        nepData: this.translatedLoanDataDetails[index]
+      })
+    });
+    this.cadOneFormService.saveLoan(loanDetailsToSave).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
+      this.spinner = false;
+      this.cadApprovedData.emit(res.detail);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Error while creating loan'));
+      this.spinner = false;
     });
   }
 }

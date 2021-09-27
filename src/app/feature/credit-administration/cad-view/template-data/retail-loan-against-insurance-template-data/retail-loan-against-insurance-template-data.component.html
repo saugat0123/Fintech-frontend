@@ -31,7 +31,7 @@
                 <nb-checkbox (change)="checkboxVal($event, 'customerName')"></nb-checkbox>
             </td>
             <td>
-                <input [readonly]="!this['customerNameCheck']" type="text" class="form-control nepaliFont">
+                <input formControlName="customerNameTransVal" [readonly]="!this['customerNameCheck']" type="text" class="form-control nepaliFont">
             </td>
         </tr>
         <tr>
