@@ -5,7 +5,9 @@ export enum RoleType {
     CAD_ADMIN = 'CAD_ADMIN',
     ADMIN = 'ADMIN',
     CAD_SUPERVISOR = 'CAD_SUPERVISOR',
-    CAD_LEGAL = 'CAD_LEGAL'
+    CAD_LEGAL = 'CAD_LEGAL',
+    CRC = 'CRC',
+    COPS = 'COPS'
 }
 
 export namespace RoleType {

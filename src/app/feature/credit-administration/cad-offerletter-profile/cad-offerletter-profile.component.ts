@@ -83,18 +83,19 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
 
     ngOnInit() {
+        console.log('cad offer letter', this.cadOfferLetterApprovedDoc.offerDocumentList);
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
             let obj = {
+                id: 0,
                 docName: '',
                 draftPath: '',
-                signedPath: ''
+                pathSigned: ''
             };
+            obj.id = offer.id;
             obj.docName = offer.docName;
             obj.draftPath = offer.draftPath;
-            obj.signedPath = offer.pathSigned;
             this.legalDoc.push(obj);
         });
-
         console.log('agent offer doc', this.legalDoc);
 
         this.initial();
