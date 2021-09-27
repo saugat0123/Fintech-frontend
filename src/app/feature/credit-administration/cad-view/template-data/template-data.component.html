@@ -30,7 +30,7 @@
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT">
         <app-personal-overdraft-template-data [cadData]="cadData"></app-personal-overdraft-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.SME" [nbSpinner]="spinner">
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN" [nbSpinner]="spinner">
         <app-sme-template-data></app-sme-template-data>
     </nb-card-body>
 </nb-card>
