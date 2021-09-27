@@ -107,7 +107,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             (response: any) => {
                 this.user = response.detail;
                 this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
-                // this.actionsList.roleTypeCommittee = this.user.role.roleType === 'COMMITTEE';
             }
         );
         this.getLoanDataHolder();
