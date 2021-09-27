@@ -16,6 +16,10 @@ import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
     selector: 'app-offer-letter-personal',
@@ -36,6 +40,9 @@ export class OfferLetterPersonalComponent implements OnInit {
     loanHolderInfo;
     guarantorDetails=[];
     userConfigForm: FormGroup;
+    cadData: CustomerApprovedLoanCadDocumentation;
+    nepaliNumber = new NepaliNumberAndWords();
+
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -59,9 +66,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.guarantorDetails = this.loanHolderInfo.guarantorDetails;
             console.log('loan holder info', this.loanHolderInfo);
             console.log('this.guarantor deatail', this.guarantorDetails);
-            this.guarantorDetails.map(val => {
-                this.form.get('shreeName1').patchValue(val.name);
-            })
         }
     }
 

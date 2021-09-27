@@ -509,7 +509,7 @@
                                         <input
                                                 class="form-control-sm form-field nepaliFont"
                                                 type="text"
-                                                (input)="getNumAmountWord('shreeAmount', 'shreeAmountInWord')"
+                                                [value]="nepaliNumber.engNumber"
                                                 formControlName="shreeAmount">
                                         /–
                                         (अक्षरेपी:
@@ -1018,7 +1018,7 @@
                                                 श्री
                                                 <input class="form-control-sm form-field nepaliFont"
                                                        type="text"
-                                                       [value]="form.get('customerName').value">
+                                                       [value]="loanHolderInfo.name">
 
                                                 <br>
 
@@ -1180,31 +1180,31 @@
                                         दस्तखत गर्नेको नाम
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               [value]="form.get('customerName').value">
+                                               [value]="loanHolderInfo.name">
                                         <br>
                                         नागरिकता नं., मिति र कार्यालय:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               [value]="form.get('signatoryCitizenshipNum').value">,
+                                               [value]="loanHolderInfo.citizenshipNo">,
 
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               [value]="form.get('signatoryCitizenshipIssueDate').value">
+                                               [value]="loanHolderInfo.citizenshipIssueDate">
                                         जि.प्र.का.
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               [value]="form.get('signatoryCitizenshipIssuePlace').value">
+                                               [value]="loanHolderInfo.citizenshipIssueDistrict">
 
                                         <br>
                                         बाजेको नाम:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               [value]="form.get('signatoryGrandParentName').value">
+                                               [value]="loanHolderInfo.grandFatherName">
                                         <br>
                                         बाबुको नाम:—
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               [value]="form.get('signatoryParentName').value">
+                                               [value]="loanHolderInfo.fatherName">
                                         <br>
                                     </p>
                                 </div>
