@@ -118,6 +118,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     save() {
         this.submitted = true;
+
         if (this.userConfigForm.invalid) {
             return;
         }
@@ -127,6 +128,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.customerInfoData = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated!!!'));
             this.spinner = false;
+            this.reloadPage();
             this.dialogRef.close(this.customerInfoData);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while Updating data!!!'));
@@ -134,6 +136,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.spinner = false;
             this.dialogRef.close();
         });
+
 
     }
 
@@ -198,5 +201,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 citizenNumber: [value.citizenNumber]
             }));
         });
+    }
+
+    reloadPage() {
+        window.location.reload();
     }
 }
