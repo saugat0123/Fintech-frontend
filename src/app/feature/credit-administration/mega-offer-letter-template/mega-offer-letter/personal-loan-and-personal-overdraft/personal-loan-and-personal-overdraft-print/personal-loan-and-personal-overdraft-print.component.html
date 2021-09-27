@@ -396,11 +396,8 @@
             {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>
                         <span [ngClass]="{'nepaliFont num' : letter?.loanAmountinFigure!== null && letter?.loanAmountinFigure!== ''}">
             {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>।
-                        (अक्षरेपि रु<input class="form-field form-control-sm nepaliFont"
-                                           formControlName="loanAmountinWords"
-                                           name="loanAmountinWords"
-                                           placeholder=" ऋण रकम "
-                                           type="text"/>मात्र) को अधिविकर्ष सिमा राखिनेछ ।
+                        (अक्षरेपि रु  <span [ngClass]="{'nepaliFont num' : letter?.loanAmountinWords!== null && letter?.loanAmountinWords!== ''}">
+            {{letter?.loanAmountinWords === null || letter?.loanAmountinWords === '' ? '___________' : letter?.loanAmountinWords}}</span> मात्र) को अधिविकर्ष सिमा राखिनेछ ।
                 </tr>
 
 
@@ -408,33 +405,25 @@
                     <td>११.</td>
                     <td>कर्जा प्रवाह निवेदन लगायतका आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा
                         गरिदिए पश्चात तपाईंको
-                        यस नबिल बैंक लिमिटेडमा रहेको खाता नं. <input
-                                class="form-field form-control-sm nepaliFont"
-                                formControlName="accountNumberOfCustomer"
-                                name="accountNumberOfCustomer"
-                                placeholder=" ग्राहक खाता नम्बर "
-                                type="text"/>
-                        मा रु. <input class="form-field form-control-sm nepaliFont"
-                                      formControlName="loanAmountinFigure"
-                                      name="loanAmountinFigure"
-                                      placeholder=" ऋण रकम "
-                                      type="text"/> व्यक्तिगत कर्जा प्रवाह गरिनेछ ।
+                        यस नबिल बैंक लिमिटेडमा रहेको खाता नं.
+                        <span [ngClass]="{'nepaliFont num' : letter?.accountNumberOfCustomer!== null && letter?.accountNumberOfCustomer!== ''}">
+            {{letter?.accountNumberOfCustomer === null || letter?.accountNumberOfCustomer === '' ? '___________' : letter?.accountNumberOfCustomer}}</span>
+
+                        मा रु.
+                        <span [ngClass]="{'nepaliFont num' : letter?.loanAmountinFigure!== null && letter?.loanAmountinFigure!== ''}">
+            {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>
+                         व्यक्तिगत कर्जा प्रवाह गरिनेछ ।
                     </td>
                 </tr>
                 <tr>
                     <td>१२.</td>
                     <td>यो ऋण कर्जा सुविधा तथा ऋणकर्जासंग सम्वन्धित शर्त बन्देजनामाहरु तपाई
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="nameofCompanyCustomerWorking"
-                               name="nameofCompanyCustomerWorking"
-                               placeholder=" कम्पनीको नाम "
-                               type="text"/> मा कर्मचारीको हैसियतमा आवद्ध रहुन्जेल सम्मका लागि मात्र कायम रहनेछ
-                        ।
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="nameofCompanyCustomerWorking"
-                               name="nameofCompanyCustomerWorking"
-                               placeholder=" कम्पनीको नाम "
-                               type="text"/> संग तपाईको आवद्धता टुटे पश्चात पनि ऋण कर्जा सुविधा
+                        <span [ngClass]="{'nepaliFont num' : letter?.nameofCompanyCustomerWorking!== null && letter?.nameofCompanyCustomerWorking!== ''}">
+            {{letter?.nameofCompanyCustomerWorking === null || letter?.nameofCompanyCustomerWorking === '' ? '___________' : letter?.nameofCompanyCustomerWorking}}</span>
+                       मा कर्मचारीको हैसियतमा आवद्ध रहुन्जेल सम्मका लागि मात्र कायम रहनेछ ।
+                        <span [ngClass]="{'nepaliFont num' : letter?.nameofCompanyCustomerWorking!== null && letter?.nameofCompanyCustomerWorking!== ''}">
+            {{letter?.nameofCompanyCustomerWorking === null || letter?.nameofCompanyCustomerWorking === '' ? '___________' : letter?.nameofCompanyCustomerWorking}}</span>
+                        संग तपाईको आवद्धता टुटे पश्चात पनि ऋण कर्जा सुविधा
                         उपभोग गर्न चाहेमा ऋण कर्जा सुविधा संग सम्बन्धित शर्त तथा बन्देजनामाहरु पुनरावलोकन गर्ने
                         वा
                         नगर्ने सम्पूर्ण अधिकार बैंकसंग सुरक्षित रहनेछ ।
@@ -442,11 +431,10 @@
                 </tr>
                 <tr>
                     <td>१३.</td>
-                    <td> कथंकदाचित <input class="form-field form-control-sm nepaliFont"
-                                          formControlName="nameofCompanyCustomerWorking"
-                                          name="nameofCompanyCustomerWorking"
-                                          placeholder=" कम्पनीको नाम "
-                                          type="text"/> संग तपाईको आवद्धता टुटे पश्चात बैंकको ऋण कर्जा सुविधासंग
+                    <td> कथंकदाचित
+                        <span [ngClass]="{'nepaliFont num' : letter?.nameofCompanyCustomerWorking!== null && letter?.nameofCompanyCustomerWorking!== ''}">
+            {{letter?.nameofCompanyCustomerWorking === null || letter?.nameofCompanyCustomerWorking === '' ? '___________' : letter?.nameofCompanyCustomerWorking}}</span>
+                        संग तपाईको आवद्धता टुटे पश्चात बैंकको ऋण कर्जा सुविधासंग
                         संबन्धित नयाञ
                         शर्त तथा बन्देजनामाहरु निर्धारण गर्नेछ र सोही अनुरुपको ऋणीको सामथ्र्यता बैंकलाई
                         स्वीकार्य नभएमा तपाईले
@@ -656,31 +644,23 @@
                     <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन
                         गर्नु पर्नेछ।
                         <p style="margin-left:100px">
-                            क. रु <input class="form-field form-control-sm nepaliFont"
-                                         formControlName="loanAmountinFigure"
-                                         name="loanAmountinFigure"
-                                         placeholder=" ऋण रकम "
-                                         type="text"/>को प्रतिज्ञा पत्र ।
+                            क. रु <span [ngClass]="{'nepaliFont num' : letter?.loanAmountinFigure!== null && letter?.loanAmountinFigure!== ''}">
+            {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>
+                            को प्रतिज्ञा पत्र ।
                             <br>
                             ख. निरन्तरताको लिखत ।
                             <br>
-                            ग. रु <input class="form-field form-control-sm nepaliFont"
-                                         formControlName="loanAmountinFigure"
-                                         name="loanAmountinFigure"
-                                         placeholder=" ऋण रकम "
-                                         type="text"/> को ऋणकर्जा तमसुक ।
+                            ग. रु <span [ngClass]="{'nepaliFont num' : letter?.loanAmountinFigure!== null && letter?.loanAmountinFigure!== ''}">
+            {{letter?.loanAmountinFigure === null || letter?.loanAmountinFigure === '' ? '___________' : letter?.loanAmountinFigure}}</span>
+                            को ऋणकर्जा तमसुक ।
                             <br>
                             घ. ब्याज, किस्ता तथा अन्य
-                            शुल्कहरु असुल गर्न श्री <input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="NameofCustomer"
-                                                           name="NameofCustomer"
-                                                           placeholder="नाम"
-                                                           type="text"/>
-                            को खाता नं <input class="form-field form-control-sm nepaliFont"
-                                              formControlName="accountofCustomer"
-                                              name="accountofCustomer"
-                                              placeholder="ग्राहकको खाता"
-                                              type="text"/> बाट खर्च कटाउने अख्तीयारी पत्र ।
+                            शुल्कहरु असुल गर्न श्री <span [ngClass]="{'nepaliFont num' : letter?.NameofCustomer!== null && letter?.NameofCustomer!== ''}">
+            {{letter?.NameofCustomer === null || letter?.NameofCustomer === '' ? '___________' : letter?.NameofCustomer}}</span>
+
+                            को खाता नं <span [ngClass]="{'nepaliFont num' : letter?.accountofCustomer!== null && letter?.accountofCustomer!== ''}">
+            {{letter?.accountofCustomer === null || letter?.accountofCustomer === '' ? '___________' : letter?.accountofCustomer}}</span>
+                          बाट खर्च कटाउने अख्तीयारी पत्र ।
                             <br>
                             ह्. स्थाई लेखा नम्बरको प्रमाण पत्र ।
                             <br>
@@ -690,11 +670,9 @@
                             <br>
                             झ. ऋणीबाट (undertaking letter ) ।
                             <br><br>
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="freeText"
-                                   name="freeText"
-                                   placeholder=" "
-                                   type="text"/>
+                            <span [ngClass]="{'nepaliFont num' : letter?.freeText!== null && letter?.freeText!== ''}">
+            {{letter?.freeText === null || letter?.freeText === '' ? '___________' : letter?.freeText}}</span>
+
                         </p>
                     </td>
                 </tr>
@@ -728,29 +706,21 @@
             <div class="row mt-3">
                 <div class="col-md d-flex justify-content-between">
                     <div class="left-content">
-                        <input class="form-field form-control-sm nepaliFont ios"
-                               formControlName="relationshipofficerName"
-                               name="relationshipofficerName"
-                               placeholder="सम्बन्ध अधिकारी को नाम"
-                               type="text"/><br><br>
+                        <span [ngClass]="{'nepaliFont num' : letter?.relationshipofficerName!== null && letter?.relationshipofficerName!== ''}">
+            {{letter?.relationshipofficerName === null || letter?.relationshipofficerName === '' ? '___________' : letter?.relationshipofficerName}}</span>
+                        <br><br>
+                        <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
+            {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
 
-                        <input class="form-field form-control-sm nepaliFont ios"
-                               formControlName="branchName"
-                               name="branchName"
-                               placeholder="शाखाको नाम"
-                               type="text"/>
+
                     </div>
                     <div class="right-content">
-                        <input class="form-field form-control-sm nepaliFont ios"
-                               formControlName="relationshipofficerName"
-                               name="relationshipofficerName"
-                               placeholder="सम्बन्ध अधिकारी को नाम"
-                               type="text"/><br><br>
-                        <input class="form-field form-control-sm nepaliFont ios"
-                               formControlName="branchName"
-                               name="branchName"
-                               placeholder="शाखाको नाम"
-                               type="text"/>
+                         <span [ngClass]="{'nepaliFont num' : letter?.relationshipofficerName!== null && letter?.relationshipofficerName!== ''}">
+            {{letter?.relationshipofficerName === null || letter?.relationshipofficerName === '' ? '___________' : letter?.relationshipofficerName}}</span>
+                      <br><br>
+                        <span [ngClass]="{'nepaliFont num' : letter?.branchName!== null && letter?.branchName!== ''}">
+            {{letter?.branchName === null || letter?.branchName === '' ? '___________' : letter?.branchName}}</span>
+
                     </div>
                 </div>
             </div>
@@ -817,38 +787,28 @@
                 .........................................
                 <p>
                     आधिकारिक हस्ताक्षर (ग्राहक)
-                    <input class="form-field form-control-sm nepaliFont"
-                           name="date"
-                           formControlName="date"
-                           placeholder="मिति"
-                           type="text"/>
+                    <span [ngClass]="{'nepaliFont num' : letter?.date!== null && letter?.date!== ''}">
+            {{letter?.date === null || letter?.date === '' ? '___________' : letter?.date}}</span>
                 </p>
             </div>
             <br>
             <br>
             <br>
             <p>साक्षीः </p>
-            <p> १. जिल्ला <input class="form-field form-control-sm nepaliFont"
-                                 name="district"
-                                 formControlName="district"
-                                 placeholder=""
-                                 type="text"/> । गा.वि.स/न.पा,
-                वडा नं <input class="form-field form-control-sm nepaliFont"
-                              name="wardNum"
-                              formControlName="wardNum"
-                              placeholder=""
-                              type="text"/>
-                बस्ने श्री <input class="form-field form-control-sm nepaliFont"
-                                  name="witnessName"
-                                  formControlName="witnessName"
-                                  placeholder=""
-                                  type="text"/></p><br>
+            <p> १. जिल्ला <span [ngClass]="{'nepaliFont num' : letter?.district!== null && letter?.district!== ''}">
+            {{letter?.district === null || letter?.district === '' ? '___________' : letter?.district}}</span>। गा.वि.स/न.पा,
+                वडा नं <span [ngClass]="{'nepaliFont num' : letter?.wardNum!== null && letter?.wardNum!== ''}">
+            {{letter?.wardNum === null || letter?.wardNum === '' ? '___________' : letter?.wardNum}}</span>
+
+                बस्ने श्री <span [ngClass]="{'nepaliFont num' : letter?.witnessName!== null && letter?.witnessName!== ''}">
+            {{letter?.witnessName === null || letter?.witnessName === '' ? '___________' : letter?.witnessName}}</span>
+                </p><br>
             <p> २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो
                 भनी सनाखत गर्ने नबिल बैंक लि.
-                का कर्मचारी श्री <input class="form-field form-control-sm nepaliFont"
-                                        name="staffName"
-                                        formControlName="staffName"
-                                        placeholder=""
-                                        type="text"/>। </p>
+                का कर्मचारी श्री
+                <span [ngClass]="{'nepaliFont num' : letter?.staffName!== null && letter?.staffName!== ''}">
+            {{letter?.staffName === null || letter?.staffName === '' ? '___________' : letter?.staffName}}</span> । </p>
 
         </div>
+    </div>
+</div>
