@@ -7,4 +7,5 @@ export class ActionModel {
     closed: boolean;
     roleTypeMaker: boolean;
     loanApproveStatus: boolean;
+    roleTypeCommittee: boolean;
 }
