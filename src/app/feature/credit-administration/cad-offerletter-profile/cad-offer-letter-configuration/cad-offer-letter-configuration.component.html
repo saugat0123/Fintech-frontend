@@ -1385,10 +1385,10 @@
                 </tr>
                 <td></td>
                 <td>
-                    <nb-checkbox formControlName="isSameTemporaryAndPermanent" name="isSameTemporaryAndPermanent" (change)="setGuarantorAddressSameAsPermanent($event, i, userConfigForm.get('guarantorDetails', i, 'isSameTemporaryAndPermanent').value)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+                    <nb-checkbox formControlName="isSameTemporaryAndPermanent" name="isSameTemporaryAndPermanent" (change)="setGuarantorAddressSameAsPermanent($event, i)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
                 </td>
               </tbody>
-              <tbody *ngIf="userConfigForm.get('guarantorDetails', i, 'isSameTemporaryAndPermanent').value">
+              <tbody *ngIf="!userConfigForm.get(['guarantorDetails', i, 'isSameTemporaryAndPermanent']).value">
                 <tr>
                   <td>
                     <strong>Temporary Address</strong>
