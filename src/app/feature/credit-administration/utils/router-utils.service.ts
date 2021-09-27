@@ -106,7 +106,7 @@ export class RouterUtilsService {
     routeOnConditionProfileOrSummary(cadDocumentId, model) {
         this.userService.getLoggedInUser().subscribe((res: any) => {
             const user: User = res.detail;
-            if (user.role.roleType === 'CAD_LEGAL') {
+            if ((user.role.roleType === 'CAD_LEGAL') || (user.role.roleType === 'CRC')) {
                 if (user.role.id.toString() === model.cadCurrentStage.toRole.id.toString()) {
                     this.loadProfileWithState(cadDocumentId, model);
                 } else {

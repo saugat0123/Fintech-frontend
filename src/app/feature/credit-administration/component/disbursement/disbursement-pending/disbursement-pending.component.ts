@@ -74,6 +74,7 @@ export class DisbursementPendingComponent implements OnInit {
     }
 
     loadProfile(cadDocumentId, model) {
+        console.log('load profile');
         this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
     }
 
