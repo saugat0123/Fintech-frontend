@@ -276,8 +276,11 @@
                                 <div class="col-md-4"
                                      *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
                                     <div class="form-group">
-                                        <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
-                                            Rate(%)</strong></label>
+                                        <label class="title" for="premiumRateOnBaseRate">
+                                            <strong *ngIf="loanTitle === 'LOAN AGAINST FDR'; else nextLoanTitle">Premium Rate On Coupon Rate(%)</strong></label>
+                                            <ng-template #nextLoanTitle>
+                                                <strong>Premium Rate On Base Rate(%)</strong>
+                                            </ng-template>
                                         <input
                                                 class="form-control"
                                                 class="form-control" formControlName="premiumRateOnBaseRate"
