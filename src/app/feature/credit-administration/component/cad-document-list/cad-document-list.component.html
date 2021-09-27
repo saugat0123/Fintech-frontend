@@ -37,7 +37,7 @@
                         {{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.loanHolder?.customerType}}</td>
-                    <td (click)="loadSummary(model)">{{model?.docStatus | replace:'_':' '}}</td>
+                    <td (click)="loadSummary(model)">{{(model?.docStatus | replace:'_':' ') | disbursementToLimit}}</td>
                     <td (click)="loadSummary(model)">{{model?.cadCurrentStage?.toUser?.name}}</td>
                     <td (click)="loadSummary(model)">{{model?.assignedLoan?.length}}</td>
                     <td *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)"><a (click)="openAssignPopUp(model)"
@@ -98,7 +98,7 @@
                             </div>
                         </td>
 
-                        <td>{{previousList?.docAction | replace:'_':' '}}</td>
+                        <td>{{(previousList?.docAction | replace:'_':' ') | disbursementToLimit}}</td>
                         <td class="text-left px-2" colspan="5">
                             {{ previousList?.comment}}
                         </td>
