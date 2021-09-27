@@ -70,6 +70,7 @@ import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data
 import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
 import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
+import {NabilModule} from './cad-document-template/nabil/nabil.module';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -129,21 +130,22 @@ import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
     RetailHousingLoanTemplateDataComponent,
     PersonalOverdraftTemplateDataComponent,
     CadPullComponent],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NbDialogModule.forRoot(),
-    MegaOfferLetterTemplateModule,
-    CadDocumentTemplateModule,
-    RouterModule.forChild(routes),
-    NgSelectModule,
-    CoreModule,
-    MegaModule,
-    NgxPrintModule,
-    AngularDraggableModule,
-    NepaliCalendarModule,
-    AdminModule,
-  NepaliPatroModule,
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NbDialogModule.forRoot(),
+        MegaOfferLetterTemplateModule,
+        CadDocumentTemplateModule,
+        RouterModule.forChild(routes),
+        NgSelectModule,
+        CoreModule,
+        MegaModule,
+        NgxPrintModule,
+        AngularDraggableModule,
+        NepaliCalendarModule,
+        AdminModule,
+        NepaliPatroModule,
+        NabilModule,
     ],
   entryComponents: [
     AssignPopUpComponent,
