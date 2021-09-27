@@ -99,7 +99,7 @@
 
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
-                                           [value]="form.get('customerName').value">
+                                           [value]="loanHolderInfo.name">
 
                                     (उप्रान्त ऋणी भनिएको) ले श्री प्रोग्रेशिभ फाइनान्स लिमिटेड (उप्रान्त फाइनान्स
                                     भनिएको)मा पेश गरेको कर्जा आवेदन उपर कारवाही हुदा
@@ -111,7 +111,7 @@
 
                                     <input class="form-control-sm form-field nepaliFont"
                                            type="text"
-                                           [value]="form.get('customerName').value">
+                                           [value]="loanHolderInfo.name">
 
                                     (यस पछि “ऋणी” भनिएको)<br>
                                     १.२ श्री प्रोग्रेशिभ फाइनान्स लिमिटेड (यसपछि “फाइनान्स” भनिएको)
@@ -497,12 +497,14 @@
 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td><b>२.१</b></td>
+                                <tr *ngFor="let d of guarantorDetails; let k=index ">
+                                    <td><b>२.{{k+1}}</b></td>
                                     <td><b>श्री </b>
+                                        <b>{{k+1}}</b>
                                         <input class="form-control-sm form-field nepaliFont"
                                                type="text"
-                                               formControlName="shreeName1">
+                                               formControlName="shreeName1"
+                                               [value]="d.name">
                                         को रु
                                         <input
                                                 class="form-control-sm form-field nepaliFont"

@@ -34,6 +34,8 @@ export class OfferLetterPersonalComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     loanHolderInfo;
+    guarantorDetails=[];
+    userConfigForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -54,6 +56,12 @@ export class OfferLetterPersonalComponent implements OnInit {
         this.checkOfferLetter();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            this.guarantorDetails = this.loanHolderInfo.guarantorDetails;
+            console.log('loan holder info', this.loanHolderInfo);
+            console.log('this.guarantor deatail', this.guarantorDetails);
+            this.guarantorDetails.map(val => {
+                this.form.get('shreeName1').patchValue(val.name);
+            })
         }
     }
 
