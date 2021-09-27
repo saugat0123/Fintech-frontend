@@ -13,6 +13,11 @@ import {UserService} from '../../../../../@core/service/user.service';
 import {Stage} from '../../../../loan/model/stage';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHierarchy';
+import {NbDialogService} from '@nebular/theme';
+import {CadOfferLetterConfigurationComponent} from '../../../cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {CadOneformService} from '../../../service/cad-oneform.service';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-offer-letter-list',
@@ -22,7 +27,7 @@ import {ApprovalRoleHierarchy} from '../../../../loan/approval/ApprovalRoleHiera
 export class OfferLetterListComponent implements OnInit {
 
   // todo dynamic search obj for approve , pending
-  searchObj = {docStatus: 'OFFER_PENDING'};
+  searchObj = {docStatus: 'OFFER_AND_LEGAL_PENDING'};
   page = 1;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -39,19 +44,28 @@ export class OfferLetterListComponent implements OnInit {
               private router: Router,
               private userService: UserService,
               public routeService: RouterUtilsService,
-              private spinnerService: NgxSpinnerService) {
+              private spinnerService: NgxSpinnerService,
+              private dialogService: NbDialogService,
+              private cadOneFormService: CadOneformService) {
   }
 
-  static loadData(other: OfferLetterListComponent) {
+  static async loadData(other: OfferLetterListComponent) {
     other.spinner = true;
     other.currentIndexArray = [];
     other.toggleArray = [];
     other.loanList = [];
+    // await other.userService.getDefaultCommunityUser().then(res => {
+    //   this.defaultCommunityUser = res.detail.id;
+    // });
+    other.searchObj = {
+      docStatus: 'OFFER_AND_LEGAL_PENDING',
+    };
     other.service.getCadListPaginationWithSearchObject(other.searchObj, other.page, PaginationUtils.PAGE_SIZE).subscribe((res: any) => {
       other.spinner = false;
+      console.log(res.detail);
       other.loanList = res.detail.content;
       other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
-      other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
+      // other.loanList.forEach((l) => l.loanStage = other.getInitiator(l.assignedLoan));
       // tslint:disable-next-line:max-line-length
       other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
       other.pageable = PaginationUtils.getPageable(res.detail);
@@ -63,6 +77,9 @@ export class OfferLetterListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.cadOneFormService.getCustomerInfo(10056).subscribe( resp => {
+    //   console.log(resp.detail);
+    // });
     this.userDetail();
     if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
       this.setDefaultCADROLE();
@@ -140,5 +157,24 @@ export class OfferLetterListComponent implements OnInit {
       this.spinner = false;
       console.log(error);
     });
+  }
+
+  onEdit(id: any) {
+    this.cadOneFormService.getCustomerInfo(id).subscribe(resp => {
+      console.log(resp);
+      this.dialogService.open(CadOfferLetterConfigurationComponent, {
+        context: {
+          customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,
+          customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.loanHolder,
+          loanHolder: resp.detail.loanHolder,
+          oneFormCustomer: resp.detail.customerInfo,
+          actionType: 'Edit',
+          activeLoanTab: true
+        },
+        hasBackdrop: false,
+        dialogClass: 'model-full',
+      });
+    });
+
   }
 }

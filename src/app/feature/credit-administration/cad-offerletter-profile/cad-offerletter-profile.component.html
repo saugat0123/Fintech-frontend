@@ -43,7 +43,7 @@
           </div>
           <nb-card class="mt-3" *ngIf="roleType !== 'MAKER'">
             <nb-card-header>
-              <strong>Generate Offer Letter</strong>
+              <strong>View Offer Letter</strong>
             </nb-card-header>
             <nb-card-body>
               <div class="row">
@@ -66,7 +66,7 @@
                               (cadOfferLetterApprovedDoc?.docStatus === 'LEGAL_APPROVED' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ||
                               cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_APPROVED')">
-                    Generate
+                    View
                   </button>
                 </div>
               </div>
@@ -385,10 +385,6 @@
                     </tr>
                     </tbody>
                   </table>
-                  <app-cad-loan-document [cadData]="cadOfferLetterApprovedDoc"
-                                         *ngIf="cadOfferLetterApprovedDoc"></app-cad-loan-document>
-                  <app-general-document [cadData]="cadOfferLetterApprovedDoc"
-                                        *ngIf="cadOfferLetterApprovedDoc"></app-general-document>
                 </div>
               </div>
             </div>

@@ -67,6 +67,10 @@ import { SmeTemplateDataComponent } from './cad-view/template-data/sme-template-
 import { EducationalLoanTemplateDataComponent } from './cad-view/template-data/educational-loan-template-data/educational-loan-template-data.component';
 import {AdminModule} from '../admin/admin.module';
 import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/loan-create/loan-create.component';
+import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data/retail-housing-loan-template-data/retail-housing-loan-template-data.component';
+import {NepaliPatroModule} from 'nepali-patro';
+import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
+import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -122,6 +126,9 @@ import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-
     EducationalLoanTemplateDataComponent,
     LoanCreateComponent,
     RetailLoanAgainstInsuranceTemplateDataComponent,
+    RetailHousingLoanTemplateDataComponent,
+    PersonalOverdraftTemplateDataComponent,
+    CadPullComponent,
     SmeTemplateDataComponent],
   imports: [
     ThemeModule,
@@ -137,7 +144,8 @@ import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-
     AngularDraggableModule,
     NepaliCalendarModule,
     AdminModule,
-  ],
+  NepaliPatroModule,
+    ],
   entryComponents: [
     AssignPopUpComponent,
     VerifyPopUpComponent,

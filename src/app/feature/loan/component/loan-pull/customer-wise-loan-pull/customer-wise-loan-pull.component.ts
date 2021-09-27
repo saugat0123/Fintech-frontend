@@ -95,7 +95,7 @@ export class CustomerWiseLoanPullComponent implements OnInit {
         other.toggleArray = [];
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
-        other.catalogueService.search.committee = 'true';
+        // other.catalogueService.search.committee = 'true';
         other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanHolderLoanList = response.detail.content;
             other.loanHolderLoanList.forEach(() => other.toggleArray.push({toggled: false}));
