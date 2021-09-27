@@ -39,6 +39,7 @@ export class NepProposedAmountFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('cadData', this.cadData);
         if (ObjectUtil.isEmpty(this.cadData.nepData)) {
             const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
             this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
@@ -53,8 +54,8 @@ export class NepProposedAmountFormComponent implements OnInit {
     buildForm() {
         this.nepForm = this.formBuilder.group({
             nepaliNumber: [this.nepaliNumber.numberNepali],
-            engNumber: [this.nepaliNumber.engNumber],
-            initDate: [this.nepaliNumber.initDate],
+            engNumber: [this.nepaliNumber.engNumber, Validators.required],
+            initDate: [this.nepaliNumber.initDate, Validators.required],
         });
     }
 
@@ -80,8 +81,10 @@ export class NepProposedAmountFormComponent implements OnInit {
             return;
         }
         this.spinner = true;
+        this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
+        console.log('nepaliNumber', this.nepaliNumber);
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
-        console.log(this.cadData.nepData);
+        console.log('NepData', this.cadData.nepData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
             this.dialogRef.close();

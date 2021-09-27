@@ -17,6 +17,9 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
     selector: 'app-offer-letter-personal',
@@ -35,7 +38,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     districtList;
-    loanAmountTemplate;
+    loanAmountTemplate = new NepaliNumberAndWords();
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -57,7 +60,17 @@ export class OfferLetterPersonalComponent implements OnInit {
           this.districtList = res.detail;
       });
         this.buildForm();
-        this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadOfferLetterApprovedDoc.assignedLoan);
+            this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+            this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+            this.loanAmountTemplate.engNumber = number;
+        } else {
+            this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
+        // this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        console.log('this.loanAmountTemplate', this.loanAmountTemplate);
+        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.checkOfferLetter();
     }
 
