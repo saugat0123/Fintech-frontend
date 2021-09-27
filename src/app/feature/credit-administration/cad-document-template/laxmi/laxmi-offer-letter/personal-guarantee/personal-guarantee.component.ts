@@ -71,10 +71,10 @@ export class PersonalGuaranteeComponent implements OnInit {
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
             temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-            guarantorName: this.nepaliData.guarantorDetails[0].name ? this.nepaliData.guarantorDetails[0].name : '',
-            guarantorCitizenshipNum: this.nepaliData.guarantorDetails[0].citizenNumber ? this.nepaliData.guarantorDetails[0].citizenNumber : '',
-            guarantorCitizenshipIssuePlace: this.nepaliData.guarantorDetails[0].issuedPlace ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
-            guarantorCitizenshipIssueDate: this.nepaliData.guarantorDetails[0].issuedYear ? this.nepaliData.guarantorDetails[0].issuedYear : '',
+            guarantorName: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].name) : '' ? this.nepaliData.guarantorDetails[0].name : ''  ,
+            guarantorCitizenshipNum: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].citizenNumber) : '' ? this.nepaliData.guarantorDetails[0].citizenNumber : ''  ,
+            guarantorCitizenshipIssuePlace: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedPlace) : '' ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
+            guarantorCitizenshipIssueDate: (this.nepaliData.guarantorDetails.length > 0) ? !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].issuedDate) : '' ? this.nepaliData.guarantorDetails[0].issuedDate : '',
         });
     }
 
