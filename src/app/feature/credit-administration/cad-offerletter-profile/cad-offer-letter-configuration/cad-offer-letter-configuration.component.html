@@ -30,11 +30,6 @@
               </th>
               <th class="text-center">
                 <b>
-                  Edit
-                </b>
-              </th>
-              <th class="text-center">
-                <b>
                   Correction Data
                 </b>
               </th>
@@ -46,16 +41,13 @@
               <td>
                 <select class="form-control" formControlName="branch" id="branch">
                   <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                  <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
                   </option>
                 </select>
               </td>
-              <td>{{translatedValues?.branch}}</td>
+              <td>{{objectValueTranslater?.branch}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'branch')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="branchCT" [readOnly]="!this['branchCheck']" type="text"/>
+                <input class="form-control" formControlName="branchCT" type="text" [value]="objectValueTranslater?.branch"/>
               </td>
             </tr>
             <tr hidden>
@@ -70,11 +62,7 @@
               </td>
               <td>{{translatedValues?.clientType}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'clientType')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="clientTypeCT" [readOnly]="!this['clientTypeCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="clientTypeCT" type="text" [value]="translatedValues?.clientType"/>
               </td>
             </tr>
             <tbody *ngIf="configForm?.clientType?.value != null">
@@ -93,11 +81,7 @@
                 {{translatedValues?.customerCode}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'customerCode')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="customerCodeCT" [readOnly]="!this['customerCodeCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="customerCodeCT" type="text" [value]="translatedValues?.customerCode"/>
               </td>
             </tr>
             <tr>
@@ -111,11 +95,7 @@
               </td>
               <td>{{translatedValues?.name}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'name')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="nameCT" [readOnly]="!this['nameCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="nameCT" type="text" [value]="translatedValues?.name"/>
               </td>
             </tr>
             <tr>
@@ -145,8 +125,8 @@
                        type="text">
                 <nb-datepicker #dob></nb-datepicker>
               </td>
-              <td>
-              </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><label class="title" for="email">Email</label></td>
@@ -174,11 +154,7 @@
               <td>
                 {{translatedValues?.contactNo}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'contactNo')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="contactNoCT" [readOnly]="!this['contactNoCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="contactNoCT" type="text" [value]="translatedValues?.contactNo"/>
               </td>
             </tr>
 
@@ -216,11 +192,7 @@
               </td>
               <td>{{translatedValues?.gender}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'gender')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="genderCT" [readOnly]="!this['genderCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="genderCT" type="text" [value]="translatedValues?.gender"/>
               </td>
             </tr>
             <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
@@ -247,9 +219,8 @@
                          id="husbandName"
                          name="husbandName" placeholder="Husband Name"
                          type="text"/></td>
-              <td>                {{translatedValues?.husbandName}}</td>
-              <td></td>
-              <td></td>
+              <td>{{translatedValues?.husbandName}}</td>
+              <td><input class="form-control" formControlName="husbandNameCT" type="text" [value]="translatedValues?.husbandName"/></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
               <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
@@ -259,9 +230,8 @@
                          id="fatherInLawName"
                          name="fatherInLawName" placeholder="Father In Law Name"
                          type="text"/></td>
-              <td>                {{translatedValues?.fatherInLawName}}</td>
-              <td></td>
-              <td></td>
+              <td>{{translatedValues?.fatherInLawName}}</td>
+              <td><input class="form-control" formControlName="fatherInLawNameCT" type="text" [value]="translatedValues?.fatherInLawName"/></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
              (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
@@ -279,7 +249,7 @@
               <td>
                 {{translatedValues?.grandFatherName}}
               </td>
-              <td></td>
+              <td><input class="form-control" formControlName="grandFatherNameCT" type="text" [value]="translatedValues?.grandFatherName"/></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
@@ -297,7 +267,7 @@
               <td>
                 {{translatedValues?.fatherName}}
               </td>
-              <td></td>
+              <td><input class="form-control" formControlName="fatherNameCT" type="text" [value]="translatedValues?.fatherName"/></td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
               <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
@@ -314,11 +284,7 @@
                 {{translatedValues?.citizenshipNo}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'citizenshipNo')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipNoCT" [readOnly]="!this['citizenshipNoCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="citizenshipNoCT" type="text" [value]="translatedValues?.citizenshipNo"/>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
@@ -337,11 +303,7 @@
                 {{translatedValues?.registrationNo}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'registrationNo')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="registrationNoCT" [readOnly]="!this['registrationNoCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="registrationNoCT" type="text" [value]="translatedValues?.registrationNo"/>
               </td>
             </tr>
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
@@ -415,10 +377,7 @@
                 {{objectValueTranslater?.citizenshipIssueDistrict}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'citizenshipIssueDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrictCT" [readOnly]="!this['citizenshipIssueDistrictCheck']" type="text"/>
+                <input class="form-control" formControlName="citizenshipIssueDistrictCT" type="text" [value]="objectValueTranslater?.citizenshipIssueDistrict"/>
               </td>
             </tr>
             <tr>
@@ -467,11 +426,7 @@
                 {{translatedValues?.panNo}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'panNo')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="panNoCT" [readOnly]="!this['panNoCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="panNoCT" type="text" [value]="translatedValues?.panNo"/>
               </td>
             </tr>
             </tbody>
@@ -523,11 +478,7 @@
                 {{objectValueTranslater?.permanentProvince}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentProvince')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentProvinceCT" [readOnly]="!this['permanentProvinceCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="permanentProvinceCT" type="text" [value]="objectValueTranslater?.permanentProvince"/>
               </td>
             </tr>
             <tr>
@@ -549,10 +500,7 @@
                 {{objectValueTranslater?.permanentDistrict}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentDistrictCT" [readOnly]="!this['permanentDistrictCheck']" type="text"/>
+                <input class="form-control" formControlName="permanentDistrictCT" type="text" [value]="objectValueTranslater?.permanentDistrict"/>
               </td>
             </tr>
             <tr>
@@ -581,10 +529,7 @@
                 {{objectValueTranslater?.permanentMunicipality}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentMunicipality')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentMunicipalityCT" [readOnly]="!this['permanentMunicipalityCheck']"   type="text"/>
+                <input class="form-control" formControlName="permanentMunicipalityCT"  type="text" [value]="objectValueTranslater?.permanentMunicipality"/>
               </td>
             </tr>
             <tr>
@@ -603,11 +548,7 @@
                 {{translatedValues?.permanentWard}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'permanentWard')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentWardCT" [readOnly]="!this['permanentWardCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="permanentWardCT" type="text" [value]="translatedValues?.permanentWard"/>
               </td>
 
             </tr>
@@ -637,7 +578,7 @@
                   <option [ngValue]="null" hidden>Province</option>
                   <option *ngFor="let provinceVal of tempProvinceList"
                           [ngValue]="provinceVal">
-                    {{provinceVal.name}}
+                    {{provinceVal.name}}|| {{provinceVal.nepaliName}}
                   </option>
                 </select>
               </td>
@@ -645,10 +586,7 @@
                 {{objectValueTranslater?.temporaryProvince}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'temporaryProvince')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="temporaryProvinceCT" [readOnly]="!this['temporaryProvinceCheck']" type="text"/>
+                <input class="form-control" formControlName="temporaryProvinceCT" type="text" [value]="objectValueTranslater?.temporaryProvince"/>
               </td>
             </tr>
             <tr>
@@ -663,7 +601,7 @@
                   <option [ngValue]="null" hidden>District</option>
                   <option  *ngFor="let districtVal of tempDistricts"
                           [ngValue]="districtVal">
-                    {{districtVal.name}}
+                    {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
                 </select>
               </td>
@@ -671,10 +609,7 @@
                 {{objectValueTranslater?.temporaryDistrict}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'temporaryDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="temporaryDistrictCT" [readOnly]="!this['temporaryDistrictCheck']" type="text"/>
+                <input class="form-control" formControlName="temporaryDistrictCT" type="text" [value]="objectValueTranslater?.temporaryDistrict"/>
               </td>
             </tr>
             <tr>
@@ -682,16 +617,18 @@
                          for="temporaryMunicipality">Municipality or VDC</label>
               </td>
               <td>
+                <nb-radio-group name="temporaryMunicipalityOrVdc" formControlName="temporaryMunicipalityOrVdc" class="d-inline-flex">
+                  <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                </nb-radio-group>
                 <select [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
                         class="custom-select"
                         formControlName="temporaryMunicipality"
                         id="temporaryMunicipality"
                         name="municipality">
-                  <option [ngValue]="null" hidden>Municipality</option>
                   <option  *ngFor="let municipalityVal of tempMunicipalities"
                           [ngValue]="municipalityVal">
-                    {{municipalityVal.name}}
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
               </td>
@@ -699,10 +636,7 @@
                 {{objectValueTranslater?.temporaryMunicipality}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'temporaryMunicipality')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="temporaryMunicipalityCT" [readOnly]="!this['temporaryMunicipalityCheck']"  type="text"/>
+                <input class="form-control" formControlName="temporaryMunicipalityCT" type="text" [value]="objectValueTranslater?.temporaryMunicipality"/>
               </td>
             </tr>
             <tr>
@@ -720,11 +654,7 @@
                 {{translatedValues?.temporaryWard}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'temporaryWard')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="temporaryWardCT" [readOnly]="!this['temporaryWardCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="temporaryWardCT" type="text" [value]="translatedValues?.temporaryWard"/>
               </td>
             </tr>
 
@@ -745,10 +675,7 @@
               </td>
               <td>{{translatedValues?.registeredMunType}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'registeredMunType')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="registeredMunTypeCT" [readOnly]="!this['registeredMunTypeCheck']" type="text"/>
+                <input class="form-control" formControlName="registeredMunTypeCT" type="text" [value]="translatedValues?.registeredMunType"/>
               </td>
             </tr>
             <tr>
@@ -767,10 +694,7 @@
                 {{translatedValues?.registeredProvince}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'registeredProvince')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="registeredProvinceCT" [readOnly]="!this['registeredProvinceCheck']" type="text"/>
+                <input class="form-control" formControlName="registeredProvinceCT" type="text" [value]="translatedValues?.registeredProvince"/>
               </td>
             </tr>
             <tr>
@@ -789,10 +713,7 @@
                 {{translatedValues?.registeredDistrict}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'registeredDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="registeredDistrictCT" [readOnly]="!this['registeredDistrictCheck']" type="text"/>
+                <input class="form-control" formControlName="registeredDistrictCT" type="text" [value]="translatedValues?.registeredDistrict"/>
               </td>
             </tr>
             <tr>
@@ -814,10 +735,7 @@
                 {{translatedValues?.registeredMunicipality}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'registeredMunicipality')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="registeredMunicipalityCT" [readOnly]="!this['registeredMunicipalityCheck']" type="text"/>
+                <input class="form-control" formControlName="registeredMunicipalityCT" type="text" [value]="translatedValues?.registeredMunicipality"/>
               </td>
             </tr>
             <tr>
@@ -836,11 +754,7 @@
                 {{translatedValues?.registeredWard}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'registeredWard')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="permanentWardCT" [readOnly]="!this['registeredWardCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="permanentWardCT" type="text" [value]="translatedValues?.registeredWard"/>
               </td>
             </tr>
             </tbody>
@@ -859,11 +773,7 @@
               </td>
               <td>{{translatedValues?.currentMunType}}</td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'currentMunType')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="currentMunTypeCT" [readOnly]="!this['currentMunTypeCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="currentMunTypeCT" type="text" [value]="translatedValues?.currentMunType"/>
               </td>
             </tr>
             <tr>
@@ -882,11 +792,7 @@
                 {{translatedValues?.currentProvince}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'currentProvince')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="currentProvinceCT" [readOnly]="!this['currentProvinceCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="currentProvinceCT" type="text" [value]="translatedValues?.currentProvince"/>
               </td>
             </tr>
             <tr>
@@ -905,11 +811,7 @@
                 {{translatedValues?.currentDistrict}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'currentDistrict')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="currentDistrictCT" [readOnly]="!this['currentDistrictCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="currentDistrictCT" type="text" [value]="translatedValues?.currentDistrict"/>
               </td>
             </tr>
             <tr>
@@ -931,10 +833,7 @@
                 {{translatedValues?.currentMunicipality}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'currentMunicipality')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="currentMunicipalityCT" [readOnly]="!this['currentMunicipalityCheck']" type="text"/>
+                <input class="form-control" formControlName="currentMunicipalityCT" type="text" [value]="translatedValues?.currentMunicipality"/>
               </td>
             </tr>
             <tr>
@@ -953,11 +852,7 @@
                 {{translatedValues?.currentWard}}
               </td>
               <td>
-                <nb-checkbox (change)="checkboxVal($event, 'currentWard')"></nb-checkbox>
-              </td>
-              <td>
-                <input class="form-control nepaliFont" formControlName="currentWardCT" [readOnly]="!this['currentWardCheck']"
-                       type="text"/>
+                <input class="form-control" formControlName="currentWardCT" type="text" [value]="translatedValues?.currentWard"/>
               </td>
             </tr>
             </tbody>
@@ -998,11 +893,7 @@
                          formControlName="guarantorNameTrans" readonly/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'guarantorName')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" type="text"
-                         formControlName="guarantorNameCT" [readOnly]="!this['guarantorNameCheck']"/>
+                  <input class="form-control" type="text" formControlName="guarantorNameCT" [value]="guarantor.get('guarantorNameTrans').value"/>
                 </td>
               </tr>
               <tr>
@@ -1022,11 +913,7 @@
                          formControlName="citizenNumberTrans" readonly/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'citizenNumber')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" type="text"
-                         formControlName="citizenNumberCT" [readOnly]="!this['citizenNumberCheck']"/>
+                  <input class="form-control" type="text" formControlName="citizenNumberCT" [value]="guarantor.get('citizenNumberTrans').value"/>
                 </td>
               </tr>
               <!--              <tr>-->
@@ -1068,6 +955,13 @@
                     </option>
                   </select>
                 </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="issuedPlaceTrans" readonly/>
+                </td>
+                <td>
+                  <input class="form-control" type="text" formControlName="guarantorNameCT" [value]="guarantor.get('issuedPlaceTrans').value"/>
+                </td>
               </tr>
               <tr>
                 <td>
@@ -1103,7 +997,7 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="gurantedAmount">Guranted Amount</label>
+                  <label class="title" for="gurantedAmount">Guaranteed Amount</label>
                 </td>
                 <td>
                   <input class="form-control "
@@ -1118,11 +1012,7 @@
                          formControlName="gurantedAmountTrans" readonly/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'gurantedAmount')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" type="text"
-                         formControlName="gurantedAmountCT" [readOnly]="!this['gurantedAmountCheck']"/>
+                  <input class="form-control" type="text" formControlName="gurantedAmountCT" [value]="guarantor.get('gurantedAmountTrans').value"/>
                 </td>
               </tr>
 
@@ -1139,14 +1029,14 @@
                             [value]="relationship.value">{{relationship?.value}}</option>
                   </select>
                 </td>
-                <td></td>
-                <td></td>
+                <td><input class="form-control" readonly type="text" [value]="guarantor.get('relationship').value"/></td>
+                <td><input class="form-control" formControlName="relationshipCT" type="text" [value]="guarantor.get('relationship').value"/></td>
               </tr>
 
               <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
 
                 <td><label class="title" for="gender">Gender</label></td>
-                <td><select  class="form-control" formControlName="gender" id="gender">
+                <td><select  class="form-control" formControlName="gender" id="gender{{i}}">
                   <option [value]="null" hidden>Select Gender</option>
                   <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
                   <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
@@ -1154,15 +1044,11 @@
                 </select>
                 </td>
                 <td>
-                  <!-- <input class="form-control" formControlName="genderTrans" readonly
-                    type="text"/> -->
+                   <input class="form-control" formControlName="genderTrans" readonly
+                    type="text"/>
                 </td>
                 <td>
-                  <!-- <nb-checkbox (change)="checkboxVal($event, 'gender')"></nb-checkbox> -->
-                </td>
-                <td>
-                  <!-- <input class="form-control fatherNameTrans" formControlName="genderCT" [readOnly]="!this['genderCheck']"
-                         type="text"/> -->
+                   <input class="form-control fatherNameTrans" formControlName="genderCT" type="text" [value]="guarantor.get('genderTrans').value"/>
                 </td>
               </tr>
               
@@ -1173,7 +1059,7 @@
                 </td>
                 <td>
                   <select class="form-control" formControlName="relationMedium"
-                    id="relationMedium">
+                    id="relationMedium{{i}}">
                     <option [value]="null" hidden>Select Relation Medium</option>
                     <option value="0">Husband Relation</option>
                     <option value="1">Father Relation</option>
@@ -1187,7 +1073,7 @@
                 <td><label class="title" for="husbandName">Husband Name</label></td>
                 <td><input class="form-control "
                            formControlName="husbandName"
-                           id="husbandName"
+                           id="husbandName{{i}}"
                            name="husbandName" placeholder="Husband Name"
                            type="text"/></td>
                 <td>
@@ -1195,11 +1081,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'husbandName')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" formControlName="husbandNameCT" [readOnly]="!this['husbandNameCheck']"
-                         type="text"/>
+                  <input class="form-control" formControlName="husbandNameCT" type="text" [value]="guarantor.get('husbandNameTrans').value"/>
                 </td>
               </tr>
               
@@ -1207,7 +1089,7 @@
                 <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
                 <td><input class="form-control "
                            formControlName="fatherInLawName"
-                           id="fatherInLawName"
+                           id="fatherInLawName{{i}}"
                            name="fatherInLawName" placeholder="Father In Law Name"
                            type="text"/></td>
                 <td>
@@ -1215,11 +1097,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'fatherInLawName')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" formControlName="fatherInLawNameCT" [readOnly]="!this['fatherInLawNameCheck']"
-                         type="text"/>
+                  <input class="form-control" formControlName="fatherInLawNameCT" type="text" [value]="guarantor.get('fatherInLawNameTrans').value"/>
                 </td>
               </tr>
 
@@ -1231,7 +1109,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="grandFatherName"
-                         id="grandFatherName"
+                         id="grandFatherName{{i}}"
                          name="grandFatherName" placeholder="Grand Father Name"
                          type="text"/>
                 </td>
@@ -1240,11 +1118,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'grandFatherName')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" formControlName="grandFatherNameCT" [readOnly]="!this['grandFatherNameCheck']"
-                         type="text"/>
+                  <input class="form-control" formControlName="grandFatherNameCT" type="text" [value]="guarantor.get('grandFatherNameTrans').value"/>
                 </td>
               </tr>
 
@@ -1256,7 +1130,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="fatherName"
-                         id="fatherName"
+                         id="fatherName{{i}}"
                          name="fatherName" placeholder="Father Name"
                          type="text"/>
                 </td>
@@ -1265,11 +1139,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <nb-checkbox (change)="checkboxVal($event, 'fatherName')"></nb-checkbox>
-                </td>
-                <td>
-                  <input class="form-control nepaliFont" formControlName="fatherNameCT" [readOnly]="!this['fatherNameCheck']"
-                         type="text"/>
+                  <input class="form-control" formControlName="fatherNameCT" type="text" [value]="guarantor.get('fatherNameTrans').value"/>
                 </td>
               </tr>
 
@@ -1291,7 +1161,7 @@
                             [compareWith]="compareFn"
                             class="custom-select"
                             formControlName="permanentProvince"
-                            id="province">
+                            id="province{{i}}">
                       <option [ngValue]="null" hidden>Province</option>
                       <option  *ngFor="let provinceVal of provinceList"
                               [ngValue]="provinceVal">
@@ -1301,11 +1171,10 @@
                   </td>
                   <td>
                     <input class="form-control" formControlName="permanentProvinceTrans" [readOnly]="!this['permanentProvinceTransCheck']"
-                           type="text"/>
+                           type="text" [value]="addressTranslatedValue?.permanentProvince"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="permanentProvinceCT" [readOnly]="!this['permanentProvinceCheck']"
-                           type="text"/>
+                    <input class="form-control" formControlName="permanentProvinceCT" type="text" [value]="addressTranslatedValue?.permanentProvince"/>
                   </td>
                 </tr>
                 <tr>
@@ -1314,7 +1183,7 @@
                                [compareWith]="compareFn"
                                class="custom-select"
                                formControlName="permanentDistrict"
-                               id="permanentDistrict">
+                               id="permanentDistrict{{i}}">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let districtVal of districts"
                             [ngValue]="districtVal">
@@ -1324,10 +1193,10 @@
                   </td>
                   <td>
                     <input class="form-control" formControlName="permanentDistrictTrans" [readOnly]="!this['permanentDistrictCheck']"
-                           type="text"/>
+                           type="text" [value]="addressTranslatedValue?.permanentDistrict"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="permanentDistrictCT" [readOnly]="!this['permanentDistrictCheck']" type="text"/>
+                    <input class="form-control" formControlName="permanentDistrictCT" type="text" [value]="addressTranslatedValue?.permanentDistrict"/>
                   </td>
                 </tr>
 
@@ -1338,15 +1207,14 @@
                     </label>
                   </td>
                   <td>
-                    <!-- <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
+                    <nb-radio-group name="guarantorPermanentMunicipalityOrVdc" formControlName="guarantorPermanentMunicipalityOrVdc" class="d-inline-flex">
                       <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                    </nb-radio-group> -->
+                    </nb-radio-group>
                     <select [compareWith]="compareFn"
                             class="custom-select"
                             formControlName="permanentMunicipality"
-                            id="permanentMunicipality"
+                            id="permanentMunicipality{{i}}"
                             name="municipality">
-                      <option [ngValue]="null" hidden>Municipality or VDC</option>
                       <option  *ngFor="let municipalityVal of municipalities"
                               [ngValue]="municipalityVal">
                               {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
@@ -1355,14 +1223,14 @@
                   </td>
                   <td>
                     <input class="form-control" formControlName="permanentMunicipalityTrans" [readOnly]="!this['permanentMunicipalityCheck']"
-                           type="text"/>
+                           type="text" [value]="addressTranslatedValue?.permanentMunicipality"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="permanentMunicipalityCT" [readOnly]="!this['permanentMunicipalityCheck']" type="text"/>
+                    <input class="form-control" formControlName="permanentMunicipalityCT" type="text" [value]="addressTranslatedValue?.permanentMunicipality"/>
                   </td>
                 </tr>
 
-                
+
                 <tr>
                   <td>
                     <label class="title" for="permanentWard">Ward No</label>
@@ -1370,7 +1238,7 @@
                   <td>
                     <input class="form-control "
                            formControlName="permanentWard"
-                           id="permanentWard"
+                           id="permanentWard{{i}}"
                            name="permanentWard" placeholder="Ward No"
                            type="text"/>
                   </td>
@@ -1379,9 +1247,9 @@
                            type="text"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="permanentWardCT" [readOnly]="!this['permanentWardCheck']" type="text"/>
+                    <input class="form-control" formControlName="permanentWardCT" type="text" [value]="guarantor.get('permanentWardTrans').value"/>
                   </td>
-    
+
                 </tr>
                 <td></td>
                 <td>
@@ -1401,7 +1269,7 @@
                             [compareWith]="compareFn"
                             class="custom-select"
                             formControlName="temporaryProvince"
-                            id="temporaryProvince">
+                            id="temporaryProvince{{i}}">
                       <option [ngValue]="null" hidden>Province</option>
                       <option  *ngFor="let provinceVal of provinceList"
                               [ngValue]="provinceVal">
@@ -1411,11 +1279,10 @@
                   </td>
                   <td>
                     <input class="form-control" formControlName="temporaryProvinceTrans" [readOnly]="!this['temporaryProvinceCheck']"
-                           type="text"/>
+                           type="text" [value]="addressTranslatedValue?.temporaryProvince"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="temporaryProvinceCT" [readOnly]="!this['temporaryProvinceCheck']"
-                           type="text"/>
+                    <input class="form-control" formControlName="temporaryProvinceCT" type="text" [value]="addressTranslatedValue?.temporaryProvince"/>
                   </td>
                 </tr>
                 <tr>
@@ -1424,7 +1291,7 @@
                                [compareWith]="compareFn"
                                class="custom-select"
                                formControlName="temporaryDistrict"
-                               id="temporaryDistrict">
+                               id="temporaryDistrict{{i}}">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let districtVal of districts"
                             [ngValue]="districtVal">
@@ -1434,10 +1301,10 @@
                   </td>
                   <td>
                     <input class="form-control" formControlName="temporaryDistrictTrans" [readOnly]="!this['temporaryDistrictCheck']"
-                           type="text"/>
+                           type="text" [value]="addressTranslatedValue?.temporaryDistrict"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="temporaryDistrictCT" [readOnly]="!this['temporaryDistrictCheck']" type="text"/>
+                    <input class="form-control" formControlName="temporaryDistrictCT" type="text" [value]="addressTranslatedValue?.temporaryDistrict"/>
                   </td>
                 </tr>
 
@@ -1448,12 +1315,14 @@
                     </label>
                   </td>
                   <td>
+                    <nb-radio-group name="guarantorTemporaryMunicipalityOrVdc" formControlName="guarantorTemporaryMunicipalityOrVdc" class="d-inline-flex">
+                      <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                    </nb-radio-group>
                     <select [compareWith]="compareFn"
                             class="custom-select"
                             formControlName="temporaryMunicipality"
-                            id="temporaryMunicipality"
+                            id="temporaryMunicipality{{i}}"
                             name="municipality">
-                      <option [ngValue]="null" hidden>Municipality or VDC</option>
                       <option  *ngFor="let municipalityVal of municipalities"
                               [ngValue]="municipalityVal">
                               {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
@@ -1462,13 +1331,13 @@
                   </td>
                   <td>
                     <input class="form-control" formControlName="temporaryMunicipalityTrans" [readOnly]="!this['temporaryMunicipalityCheck']"
-                           type="text"/>
+                           type="text" [value]="addressTranslatedValue?.temporaryMunicipality"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="temporaryMunicipalityCT" [readOnly]="!this['temporaryMunicipalityCheck']" type="text"/>
+                    <input class="form-control" formControlName="temporaryMunicipalityCT" type="text" [value]="addressTranslatedValue?.temporaryMunicipality"/>
                   </td>
                 </tr>
-              
+
                 <tr>
                   <td>
                     <label class="title" for="permanentWard">Ward No</label>
@@ -1476,7 +1345,7 @@
                   <td>
                     <input class="form-control "
                            formControlName="temporaryWard"
-                           id="temporaryWard"
+                           id="temporaryWard{{i}}"
                            name="temporaryWard" placeholder="Ward No"
                            type="text"/>
                   </td>
@@ -1485,9 +1354,9 @@
                            type="text"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="temporaryWardCT" [readOnly]="!this['temporaryWardCheck']" type="text"/>
+                    <input class="form-control" formControlName="temporaryWardCT" type="text" [value]="guarantor.get('temporaryWardTrans').value"/>
                   </td>
-    
+
                 </tr>
                 <br>
               </tbody>
