@@ -1,0 +1,265 @@
+<div [nbSpinner]="spinner" class="container text-justify row nepali"
+     id="{{offerLetterConst.CONSENT_LETTER_INDIVIDUAL}}">
+
+    <div class="col-md-12 viewFull">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <p>श्री प्रोग्रेशिभ फाइनान्स लिमिटेड<br>
+                <input class="form-field nepaliFont form-control-sm text-left" formControlName="branch" type="text">
+                शाखा कार्यालय। </p>
+            <br>
+            <h6 class="text-center">विषय :- सहमती वारे।</h6>
+            <div class="row">
+                <p>
+
+                    महोदय,<br>
+
+                    त्यस फाइनान्सवाट
+                    <input class="form-field nepaliFont form-control-sm text-left" formControlName="name" type="text">
+                    उपभोग गरिरहेको तथा गर्ने विभिन्न शिर्षकका कर्जा,
+                    सुविधाहरुका लागि सूरक्षण वापत धितो स्वरुप मेरो/हाम्रो एकाघर परिवारका
+                    पति/पत्नी/छोरा/छोरी/धर्मपुत्र/धर्मपुत्री/
+                    बुवा/आमा/सौतेनीआमा/दाजु/भाई/दिदि/बहिनी/सासु/ससुसा/भाउजु/बुहारी तथा कम्पनी
+                    हेयरदाता श्री <input class="form-field nepaliFont form-control-sm text-left" formControlName="fname"
+                                         type="text">को नाउंमा जग्गा धनि प्रमाण पूर्जा भै
+                    हकभोगमा रहेको तपसिलमा उल्लेख भए बमोजिमको जायजेथा सूरक्षण वापत फाइनान्सलाई धितो लेखि दिएमा
+                    मेरो/हाम्रो पूर्ण रुपमा सहमति छ।
+                    उपरोक्त फर्म/कम्पनी/संस्था/व्यक्तीले त्यस बैक संग लिएका र लिने विभिन्न शिर्षकका कर्जा, सुविधाहरु
+                    साथै भविष्यमा उपभोग गर्ने थप कर्जा,
+                    सुविधाहरु तथा त्यसमा लाग्ने व्याज, जरिवाना तथा अन्य शुल्क समेत नतिरे नवूझाएमा बैंक तथा वित्तीय
+                    संस्था सम्बन्धी ऐन २०७३,
+                    प्रचलित एने कानून तथा फाइनान्सको नियम अनूसार तपसिलमा उल्लेखित जायजेथाबाट असुल उपर गरेमा मेरो/हाम्रो
+                    पूर्ण मन्जूरी छ।
+                    पछि उक्त जायजेथामा मेरो/हाम्रो पनि हक लाग्ने हो निजले मात्र धितो लेखिदिदैमा मेरो/हाम्रो हक जाने होइन
+                    भनि कहि कतै उजूर वाजूर गर्ने छैन गरे यसै सहमति
+                    पत्रलाई आधार मानि मेरो/हाम्रो दावी खारेज होस् भनि यो सहमति पत्रको कागजमा सहिछाप गरी प्रोग्रेशिभ
+                    फाइनान्स लि.लाई दियाँ।
+                </p>
+
+                <div class="col">
+
+                    <p class="text-center font-weight-bold">
+                        तपशिल
+                        <br>
+                        रोक्का राख्ने जायजेथाको विवरण
+                    </p>
+
+                </div>
+
+                <br>
+                <table class="table-bordered table text-center ">
+                    <thead>
+                    <tr>
+                        <th width="25%">घर जग्गाधनिको नाम र तिनपूस्ते</th>
+                        <th width="15%">जिल्ला.</th>
+                        <th width="15%">जग्गाको न.पा.र गा.वि.स.,वडानं.</th>
+                        <th width="10%">कि.नं.</th>
+                        <th width="15%"> क्षेत्रफल बर्ग मि.</th>
+                        <th width="20%">सिट न.</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p> जग्गाधनिको नाम:- <br>
+                            <input class="form-field nepaliFont form-control"
+                                   formControlName="gharName"
+                                   type="text">
+                            </p>
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control"
+                                   formControlName="district"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control"
+                                   formControlName="wadNo"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control"
+                                   formControlName="kiNo"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-field  nepaliFont form-control"
+                                   formControlName="bargaMeter"
+                                   type="text">
+                        </td>
+                        <td>
+                            <input class="form-field nepaliFont form-control"
+                                   formControlName="sitNo"
+                                   type="text">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-12 float-right">
+                    <button (click)="addSahamati()" class="btn btn-primary btn-sm float-right "
+                            size="tiny" type="button">साक्षी थप्नुहोस्<i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div *ngFor="let guarantor of form.get('sahamati')['controls']; let i=index"
+                     formArrayName="sahamati">
+                    <div [formGroupName]="i">
+
+                        <div>
+                            <table class="table-bordered table text-center ">
+                                <thead>
+                                <tr>
+                                    <th width="30%">सहमति दिनेहरुको विवरण</th>
+                                    <th width="15%">धितोधनि संगको नाता.</th>
+                                    <th width="15%">दस्तखत</th>
+                                    <th width="40%">औंठाछाप</th>
+
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <p>नाम:-<br></p>
+                                        <input class="form-field nepaliFont form-control" formControlName="sahamatiName"
+                                               type="text"></td>
+                                    <td><input class="form-field nepaliFont form-control"
+                                               formControlName="relationship"
+                                               type="text"></td>
+                                    <td><input class="form-field nepaliFont form-control" formControlName="signature"
+                                               type="text"></td>
+                                    <td>
+                                        <table class="table  table-bordered fingerXap">
+                                            <thead>
+                                            <tr>
+                                                <th>दाँ.</th>
+                                                <th>बाँ.</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><span class="signature-area"></span></td>
+                                                <td><span class="signature-area"></span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="form.get('sahamati')['length']>1" class="col-md-3 float-right">
+                                <button (click)="removeSahamati(i)"
+                                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                        value="Delete">
+                                    <em class="fas fa-trash" style="color: white;">
+                                        Delete Sahamati
+                                    </em>
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
+
+            <b class="text-left">साक्षी :</b>
+            <br>
+            <div class="col-md-12 float-right">
+                <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right "
+                        size="tiny" type="button">साक्षी थप्नुहोस्<i
+                        class="fas fa-plus"></i></button>
+            </div>
+            <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
+                 formArrayName="guarantorDetails">
+                <div [formGroupName]="i">
+
+                    <div>
+                        <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
+
+
+                        <table class="table-bordered table text-center ">
+                            <thead>
+                            <tr>
+                                <th width="10%">नाम</th>
+                                <th width="10%">ना.प्र.नं.</th>
+                                <th width="15%">मिति</th>
+                                <th width="15%">जि.प्र.का.</th>
+                                <th width="15%">जिल्ला</th>
+                                <th width="25%">गा.पा./न.पा.</th>
+                                <th width="10%">वडा नं.</th>
+
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><input class="form-field nepaliFont form-control" formControlName="name"
+                                           type="text"></td>
+                                <td><input class="form-field nepaliFont form-control"
+                                           formControlName="citizenNumber"
+                                           type="text"></td>
+                                <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
+                                           type="text"></td>
+                                <td><input class="form-field nepaliFont form-control"
+                                           formControlName="guarantorCDOoffice"
+                                           type="text"></td>
+                                <td><input class="form-field  nepaliFont form-control"
+                                           formControlName="guarantorDistrict"
+                                           type="text"></td>
+                                <td><input class="form-field nepaliFont form-control"
+                                           formControlName="guarantorMunicipality"
+                                           type="text"></td>
+                                <td><input class="form-field nepaliFont form-control"
+                                           formControlName="guarantorWadNo"
+                                           type="text"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
+                            <button (click)="removeGuarantor(i)"
+                                    class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                    value="Delete">
+                                <em class="fas fa-trash" style="color: white;">
+                                    Delete Guarantor
+                                </em>
+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                ईति सम्बत <input class="form-field nepaliFont form-control-sm"
+                                 formControlName="itisambatYear"
+                                 type="text">
+                साल <input class="form-field nepaliFont form-control-sm" formControlName="itisambatMonth"
+                           type="text">
+                महिना <input class="form-field nepaliFont form-control-sm" formControlName="itisambatDay"
+                             type="text">
+                गते <input class="form-field nepaliFont form-control-sm" formControlName="itisambatTime"
+                           type="text">
+                रोज शुभम् <input class="form-field nepaliFont form-control-sm"
+                                 formControlName="itisambatRojSubham"
+                                 type="text">।
+            </p>
+
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right" nbButton status="success" type="submit">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button [disabled]="!initialInfoPrint"
+                [useExistingCss]="true"
+                class="btn btn-primary d-print-none"
+                ngxPrint
+                printSectionId="print-section-{{ offerLetterConst.CONSENT_LETTER_INDIVIDUAL}}"> Print
+        </button>
+    </div>
+</div>
+<app-consent-letter-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                     hidden></app-consent-letter-individual-print>
