@@ -83,21 +83,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
 
     ngOnInit() {
-        console.log('cad offer letter', this.cadOfferLetterApprovedDoc.offerDocumentList);
-        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
-            let obj = {
-                id: 0,
-                docName: '',
-                draftPath: '',
-                pathSigned: ''
-            };
-            obj.id = offer.id;
-            obj.docName = offer.docName;
-            obj.draftPath = offer.draftPath;
-            this.legalDoc.push(obj);
-        });
-        console.log('agent offer doc', this.legalDoc);
-
         this.initial();
         this.checkCadDocument();
         switch (this.client) {
@@ -132,8 +117,19 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     public loanAction(action: 'send legal doc to sender' | 'send legal doc to agent'): void {
-        let beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
-        console.log('cad loan', beneficiaryId);
+        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
+            const obj = {
+                id: 0,
+                docName: '',
+                draftPath: '',
+                pathSigned: ''
+            };
+            obj.id = offer.id;
+            obj.docName = offer.docName;
+            obj.draftPath = offer.draftPath;
+            this.legalDoc.push(obj);
+        });
+        const beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
         this.close();
         let context;
         switch (action) {
@@ -234,6 +230,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             this.modelService.dismissAll();
             this.service.detail(this.cadOfferLetterApprovedDoc.id).subscribe((res: any) => {
                 this.responseCadData.emit(res.detail);
+                this.cadOfferLetterApprovedDoc = res.detail;
             });
         }, error => {
             this.modelService.dismissAll();
