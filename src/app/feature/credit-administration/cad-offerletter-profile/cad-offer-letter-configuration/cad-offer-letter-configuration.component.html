@@ -407,7 +407,7 @@
                   <option [ngValue]="null" hidden>District</option>
                   <option  *ngFor="let district of allDistrictList"
                           [ngValue]="district">
-                    {{district.name}}
+                          {{district.name}} || {{district.nepaliName}}
                   </option>
                 </select>
               </td>
@@ -514,7 +514,7 @@
                   <option [ngValue]="null" hidden>Province</option>
                   <option  *ngFor="let provinceVal of provinceList"
                           [ngValue]="provinceVal">
-                    {{provinceVal.name}}
+                          {{provinceVal.name}} || {{provinceVal.nepaliName}}
                   </option>
                 </select>
               </td>
@@ -541,7 +541,7 @@
                 <option [ngValue]="null" hidden>District</option>
                 <option *ngFor="let districtVal of districts"
                         [ngValue]="districtVal">
-                  {{districtVal.name}}
+                        {{districtVal.name}} || {{districtVal.nepaliName}}
                 </option>
               </select>
               </td>
@@ -573,7 +573,7 @@
                         name="municipality">
                   <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
-                    {{municipalityVal.name}}
+                          {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </option>
                 </select>
               </td>
