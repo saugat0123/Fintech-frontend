@@ -6,7 +6,8 @@ export enum NabilOfferLetterConst {
     // COMMERCIAL_AUTO,
     // HOUSING_PURCHASE_LOAN,
     EDUCATIONAL,
-    PERSONAL_OVERDRAFT
+    PERSONAL_OVERDRAFT,
+    PERSONAL_LOAN
 }
 
 export namespace NabilOfferLetterConst {
@@ -26,6 +27,8 @@ export namespace NabilOfferLetterConst {
                 return 'Educational Loan';
             case NabilOfferLetterConst.PERSONAL_OVERDRAFT:
                 return 'Personal Overdraft';
+            case NabilOfferLetterConst.PERSONAL_OVERDRAFT:
+                return 'Personal Loan';
         }
     }
 
