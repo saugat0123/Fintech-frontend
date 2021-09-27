@@ -56,7 +56,10 @@ export class LoanPullComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     toggleArray: { toggled: boolean }[] = [];
-    productUtils:ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    isCombine = false;
+    formVal = [];
+    combinedIds;
 
 
     constructor(
@@ -224,16 +227,49 @@ export class LoanPullComponent implements OnInit {
         this.isFilterCollapsed = true;
     }
 
-    onPullClick(template, customerLoanId, userId) {
+    onPullClick(template, customerLoanId, loans) {
+        const customerLoan: LoanDataHolder = loans;
+        this.formVal = [];
+        if (ObjectUtil.isEmpty(customerLoan.combinedLoan)) {
+            this.isCombine = false;
 
-        this.formAction.patchValue({
-                customerLoanId: customerLoanId,
-                docAction: DocAction.value(DocAction.PULLED),
-                documentStatus: DocStatus.PENDING,
-                comment: 'PULLED'
-            }
-        );
-        this.modalService.open(template);
+            this.formAction.patchValue({
+                    customerLoanId: customerLoanId,
+                    docAction: DocAction.value(DocAction.PULLED),
+                    documentStatus: DocStatus.PENDING,
+                    comment: 'PULLED'
+                }
+            );
+        } else {
+            this.isCombine = true;
+            // Get all combined loan ids
+            this.loanDataHolderList.forEach(l1 => {
+                if (l1.combinedLoan !== null && !ObjectUtil.isEmpty(l1) && l1.id === customerLoanId) {
+                    this.combinedIds = l1.id;
+                    console.log(l1.combinedLoan.id);
+                    this.loanDataHolderList.forEach(l2 => {
+                        if (l2.combinedLoan !== null && l2.combinedLoan.id === l1.combinedLoan.id && l2.id !== l1.id) {
+                            this.combinedIds = this.combinedIds + ',' + l2.id;
+                        }
+                    });
+                }
+            });
+            const customerLoanIdList = this.combinedIds.split(',').map(Number);
+            this.formVal = customerLoanIdList.map(c => {
+                return {
+                    customerLoanId: c,
+                    docAction: DocAction.value(DocAction.PULLED),
+                    documentStatus: DocStatus.PENDING,
+                    comment: 'PULLED'
+                };
+            });
+        }
+
+        // this.modalService.open(template);
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'on-pull-click full-width modal'
+        });
     }
 
     onClose() {
@@ -253,15 +289,25 @@ export class LoanPullComponent implements OnInit {
 
     confirm() {
         this.onClose();
-        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-                this.formAction.get('docAction').value));
+        if (this.isCombine) {
+            this.loanFormService.postCombinedLoanAction(this.formVal, false).subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                    'PULLED'));
+                LoanPullComponent.loadData(this);
+            }, error => {
+                this.spinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
-            LoanPullComponent.loadData(this);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-
-        });
+            });
+        } else {
+            this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                    this.formAction.get('docAction').value));
+                LoanPullComponent.loadData(this);
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            });
+        }
     }
 
     onChange(data, onActionChange) {
