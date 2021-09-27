@@ -39,7 +39,6 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
   selectedArray = [];
   ckeConfig = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
-  @Input() preview;
   nepData;
   external = [];
   loanHolderInfo;
@@ -71,10 +70,12 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
       dateofApplication: [undefined],
       purposeofLoan: [undefined],
       loanAmountinFigure: [undefined],
-      loanAmountInWords: [undefined],
+      loanAmountinWords: [undefined],
       baseRate: [undefined],
       premiumRate: [undefined],
       yearlyInterestRate: [undefined],
+      loanAdminFeeinFigure: [undefined],
+      loanAdminFeeinWords: [undefined],
       loanadminFee: [undefined],
       emiInFigure: [undefined],
       emiInWords: [undefined],
@@ -92,6 +93,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
       date: [undefined],
       district: [undefined],
       wardNum: [undefined],
+      freeText: [undefined],
       witnessName: [undefined],
       staffName: [undefined],
     });
