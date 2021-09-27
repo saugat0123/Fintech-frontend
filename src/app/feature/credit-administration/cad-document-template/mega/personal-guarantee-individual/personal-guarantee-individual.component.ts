@@ -83,11 +83,11 @@ export class PersonalGuaranteeIndividualComponent implements OnInit {
       guarantorName: [undefined],
       citizenshipNumber: [undefined],
       citizenshipIssuedDistrict: [undefined],
-      citizenshipIssueDate: [undefined],
-      year: [undefined],
-      month: [undefined],
-      date: [undefined],
-      day: [undefined],
+      citizenshipIssuedDate: [undefined],
+      year1: [undefined],
+      month1: [undefined],
+      date1: [undefined],
+      day1: [undefined],
     });
   }
   getNumAmountWord(numLabel, wordLabel) {
