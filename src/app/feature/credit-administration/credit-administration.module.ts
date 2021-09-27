@@ -63,6 +63,7 @@ import { HirePurchaseTemplateDataComponent } from './cad-view/template-data/hire
 import { RetailEducationTemplateDataComponent } from './cad-view/template-data/retail-education-template-data/retail-education-template-data.component';
 import { RetailMortgageLoanTemplateDataComponent } from './cad-view/template-data/retail-mortgage-loan-template-data/retail-mortgage-loan-template-data.component';
 import { RetailLoanAgainstInsuranceTemplateDataComponent } from './cad-view/template-data/retail-loan-against-insurance-template-data/retail-loan-against-insurance-template-data.component';
+import { SmeTemplateDataComponent } from './cad-view/template-data/sme-template-data/sme-template-data.component';
 import { EducationalLoanTemplateDataComponent } from './cad-view/template-data/educational-loan-template-data/educational-loan-template-data.component';
 import {AdminModule} from '../admin/admin.module';
 import { LoanCreateComponent } from './cad-offerletter-profile/cad-offer-letter-configuration/loan-create/loan-create.component';
@@ -70,7 +71,6 @@ import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data
 import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
 import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
-import {NabilModule} from './cad-document-template/nabil/nabil.module';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -129,23 +129,23 @@ import {NabilModule} from './cad-document-template/nabil/nabil.module';
     RetailLoanAgainstInsuranceTemplateDataComponent,
     RetailHousingLoanTemplateDataComponent,
     PersonalOverdraftTemplateDataComponent,
-    CadPullComponent],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        NbDialogModule.forRoot(),
-        MegaOfferLetterTemplateModule,
-        CadDocumentTemplateModule,
-        RouterModule.forChild(routes),
-        NgSelectModule,
-        CoreModule,
-        MegaModule,
-        NgxPrintModule,
-        AngularDraggableModule,
-        NepaliCalendarModule,
-        AdminModule,
-        NepaliPatroModule,
-        NabilModule,
+    CadPullComponent,
+    SmeTemplateDataComponent],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    NbDialogModule.forRoot(),
+    MegaOfferLetterTemplateModule,
+    CadDocumentTemplateModule,
+    RouterModule.forChild(routes),
+    NgSelectModule,
+    CoreModule,
+    MegaModule,
+    NgxPrintModule,
+    AngularDraggableModule,
+    NepaliCalendarModule,
+    AdminModule,
+  NepaliPatroModule,
     ],
   entryComponents: [
     AssignPopUpComponent,

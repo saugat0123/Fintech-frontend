@@ -378,9 +378,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       issuedPlace: '',
       issuedPlaceTrans: [undefined],
       issuedPlaceCT: '',
-      guarantorLegalDocumentAddress: '',
-      guarantorLegalDocumentAddressTrans: [undefined],
-      guarantorLegalDocumentAddressCT: '',
+      // guarantorLegalDocumentAddress: '',
+      // guarantorLegalDocumentAddressTrans: [undefined],
+      // guarantorLegalDocumentAddressCT: '',
       relationship: '',
       relationshipCT: '',
       citizenNumber: '',
@@ -412,6 +412,34 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       gurantedAmount: [undefined],
       gurantedAmountCT: [undefined],
       gurantedAmountTrans: [undefined],
+      permanentProvince: [undefined],
+      permanentProvinceCT: [undefined],
+      permanentProvinceTrans: [undefined],
+      permanentDistrict: [undefined],
+      permanentDistrictCT: [undefined],
+      permanentDistrictTrans: [undefined],
+      permanentMunicipality: [undefined],
+      permanentMunicipalityCT: [undefined],
+      permanentMunicipalityTrans: [undefined],
+      permanentWard: [undefined],
+      permanentWardCT: [undefined],
+      permanentWardTrans: [undefined],
+
+      temporaryProvince: [undefined],
+      temporaryProvinceCT: [undefined],
+      temporaryProvinceTrans: [undefined],
+      temporaryDistrict: [undefined],
+      temporaryDistrictCT: [undefined],
+      temporaryDistrictTrans: [undefined],
+      temporaryMunicipality: [undefined],
+      temporaryMunicipalityCT: [undefined],
+      temporaryMunicipalityTrans: [undefined],
+      temporaryWard: [undefined],
+      temporaryWardCT: [undefined],
+      temporaryWardTrans: [undefined],
+
+      isSameTemporaryAndPermanent: [false],
+
       nepData: [undefined]
     });
   }
@@ -448,9 +476,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         issuedPlace: [value.issuedPlace],
         issuedPlaceTrans: [undefined],
         issuedPlaceCT: [value.issuedPlaceCT],
-        guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
-        guarantorLegalDocumentAddressTrans: [undefined],
-        guarantorLegalDocumentAddressCT: [value.guarantorLegalDocumentAddressCT],
+        // guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
+        // guarantorLegalDocumentAddressTrans: [undefined],
+        // guarantorLegalDocumentAddressCT: [value.guarantorLegalDocumentAddressCT],
         genderCT: [value.genderCT],
         gender: [value.gender],
         genderTrans: [undefined],
@@ -479,6 +507,33 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         gurantedAmount: [value.gurantedAmount],
         gurantedAmountCT: [value.gurantedAmountCT],
         gurantedAmountTrans: [undefined],
+
+        permanentProvince: [value.permanentProvince],
+        permanentProvinceCT: [value.permanentProvinceCT],
+        permanentProvinceTrans: [undefined],
+        permanentDistrict: [value.permanentDistrict],
+        permanentDistrictCT: [value.permanentDistrictCT],
+        permanentDistrictTrans: [undefined],
+        permanentMunicipality: [value.permanentMunicipality],
+        permanentMunicipalityCT: [value.permanentMunicipalityCT],
+        permanentMunicipalityTrans: [undefined],
+        permanentWard: [value.permanentWard],
+        permanentWardCT: [value.permanentWardCT],
+        permanentWardTrans: [undefined],
+
+        temporaryProvince: [value.temporaryProvince],
+        temporaryProvinceCT: [value.temporaryProvinceCT],
+        temporaryProvinceTrans: [undefined],
+        temporaryDistrict: [value.temporaryDistrict],
+        temporaryDistrictCT: [value.temporaryDistrictCT],
+        temporaryDistrictTrans: [undefined],
+        temporaryMunicipality: [value.temporaryMunicipality],
+        temporaryMunicipalityCT: [value.temporaryMunicipalityCT],
+        temporaryMunicipalityTrans: [undefined],
+        temporaryWard: [value.temporaryWard],
+        temporaryWardCT: [value.temporaryWardCT],
+        temporaryWardTrans: [undefined],
+        isSameTemporaryAndPermanent: [value.isSameTemporaryAndPermanent],
         nepData: [value.nepData],
       }));
     });
@@ -521,7 +576,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).setValue(guarantorsDetails.guarantorName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
       this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).setValue(guarantorsDetails.issuedPlace || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'guarantorLegalDocumentAddressTrans']).setValue(guarantorsDetails.guarantorLegalDocumentAddress || '');
+      // this.userConfigForm.get(['guarantorDetails', index, 'guarantorLegalDocumentAddressTrans']).setValue(guarantorsDetails.guarantorLegalDocumentAddress || '');
       this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).setValue(guarantorsDetails.gender || '');
       this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).setValue(guarantorsDetails.husbandName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).setValue(guarantorsDetails.fatherInLawName || '');
@@ -588,6 +643,48 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     );
   }
 
+  // get district/municipalities for guarantors
+  getGuarantorDistrictsById(provinceId: number, event, index) {
+    const province = new Province();
+    province.id = provinceId;
+    this.addressService.getDistrictByProvince(province).subscribe(
+        (response: any) => {
+          this.districts = response.detail;
+          this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
+          }
+        }
+    );
+  }
+  getGuarantorMunicipalitiesById(districtId: number, event, index) {
+    const district = new District();
+    district.id = districtId;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalities = response.detail;
+          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  setGuarantorAddressSameAsPermanent(event, i, val) {
+    if (event.target.checked === true) {
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipality']).value);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentWard']).value);
+    } else {
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(null);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(null);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(null);
+      this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(null);
+    }
+  }
+  
     getAllEditedDistrictAndMunicipalities() {
         if (this.oneFormCustomer.province !== null) {
             const province = new Province();
