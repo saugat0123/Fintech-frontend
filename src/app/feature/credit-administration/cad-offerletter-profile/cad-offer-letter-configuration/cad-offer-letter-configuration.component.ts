@@ -337,7 +337,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
       this.translatedData[key] = this.attributes;
     });
-    this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
+    // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
     const data = {
       branch: this.userConfigForm.get('branch').value,
@@ -409,7 +409,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenIssuedDate: [undefined],
       citizenIssuedDateTrans: [undefined],
       citizenIssuedDateCT: [undefined],
-
+      gurantedAmount: [undefined],
+      gurantedAmountCT: [undefined],
+      gurantedAmountTrans: [undefined],
+      nepData: [undefined]
     });
   }
 
@@ -473,6 +476,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         relationshipCT: [value.relationshipCT],
         citizenNumber: [value.citizenNumber],
         citizenNumberCT: [value.citizenNumberCT],
+        gurantedAmount: [value.gurantedAmount],
+        gurantedAmountCT: [value.gurantedAmountCT],
+        gurantedAmountTrans: [undefined],
+        nepData: [value.nepData],
       }));
     });
   }
@@ -520,6 +527,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).setValue(guarantorsDetails.fatherInLawName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).setValue(guarantorsDetails.gurantedAmount || '');
 
       // translate guarantorsDetails
       let formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;
@@ -539,6 +547,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             newArr[key] = this.attributes;
         });
         this.translatedGuarantorDetails[index] = newArr;
+        this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
       // end guarantorDetails
     }
   }
