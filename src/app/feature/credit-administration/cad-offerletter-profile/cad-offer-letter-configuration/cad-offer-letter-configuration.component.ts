@@ -438,7 +438,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryWardCT: [undefined],
       temporaryWardTrans: [undefined],
 
-      isSameTemporaryAndPermanent: [undefined],
+      isSameTemporaryAndPermanent: [false],
 
       nepData: [undefined]
     });
@@ -645,18 +645,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   // get district/municipalities for guarantors
   getGuarantorDistrictsById(provinceId: number, event, index) {
-    console.log(`getGuarantorDistrictsById: `, provinceId);
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
           this.districts = response.detail;
           this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
+          }
         }
     );
   }
   getGuarantorMunicipalitiesById(districtId: number, event, index) {
-    console.log(`getGuarantorMunicipalitiesById: `, districtId);
     const district = new District();
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
@@ -671,7 +672,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   setGuarantorAddressSameAsPermanent(event, i, val) {
-    console.log(event, ' userConfigForm.get: ', val);
     if (event.target.checked === true) {
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).value);
       this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).value);
