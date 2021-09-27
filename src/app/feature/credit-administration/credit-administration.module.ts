@@ -71,6 +71,7 @@ import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data
 import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
 import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
+import {NabilModule} from './cad-document-template/nabil/nabil.module';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -145,8 +146,9 @@ import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
     AngularDraggableModule,
     NepaliCalendarModule,
     AdminModule,
-  NepaliPatroModule,
-    ],
+    NepaliPatroModule,
+    NabilModule,
+  ],
   entryComponents: [
     AssignPopUpComponent,
     VerifyPopUpComponent,
