@@ -130,7 +130,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             this.legalDoc.push(obj);
         });
         const beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
-        console.log('cad loan', beneficiaryId);
         this.close();
         let context;
         switch (action) {
@@ -218,7 +217,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     submitOfferLetter() {
         const formData: FormData = new FormData();
         formData.append('file', this.uploadFile);
-        console.log('file', this.uploadFile);
         formData.append('customerApprovedDocId', this.cadOfferLetterApprovedDoc.id.toString());
         formData.append('offerLetterId', this.documentId.toString());
         formData.append('type', this.docType.toString());
