@@ -33,6 +33,7 @@ export class LetterOfLeinComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmountTemplate;
 
   constructor(private dialogRef: NbDialogRef<LetterOfLeinComponent>,
               private formBuilder: FormBuilder,
@@ -46,6 +47,7 @@ export class LetterOfLeinComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
     this.fillForm();
   }
 
@@ -59,6 +61,9 @@ export class LetterOfLeinComponent implements OnInit {
         }
       });
     }
+
+    this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
+    this.form.get('amountInWords').patchValue(this.loanAmountTemplate.nepaliWords);
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
@@ -122,8 +127,16 @@ export class LetterOfLeinComponent implements OnInit {
       tablePaisa: [undefined],
       customerName: [undefined],
       customerAddress: [undefined],
-      companyStamp: [undefined]
+      companyStamp: [undefined],
+      amount: [undefined],
+      amountInWords: [undefined]
     });
+  }
+
+  convertAmountInWords(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(convertedVal);
   }
 
 
