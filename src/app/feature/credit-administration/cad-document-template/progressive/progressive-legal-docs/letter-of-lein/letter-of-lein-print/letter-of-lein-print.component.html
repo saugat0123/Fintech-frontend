@@ -56,6 +56,10 @@
           </tr>
           <tr>
             <td rowspan="2">
+              <span [ngClass]="{'nepaliFont' : printDocForm?.muddatiKhata !== null && printDocForm?.muddatiKhata !== ''}">
+    {{printDocForm?.muddatiKhata === null || printDocForm?.muddatiKhata === '' ? '_________________' : printDocForm?.muddatiKhata}}
+</span></td>
+            <td rowspan="2">
                 <span [ngClass]="{'nepaliFont' : printDocForm?.jariBranch !== null && printDocForm?.jariBranch !== ''}">
     {{printDocForm?.jariBranch === null || printDocForm?.jariBranch === '' ? '_________________' : printDocForm?.jariBranch}}
 </span>

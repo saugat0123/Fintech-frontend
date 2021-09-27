@@ -120,7 +120,7 @@ export class LetterOfLeinComponent implements OnInit {
     this.form = this.formBuilder.group({
       date: [undefined],
       branchName: [undefined],
-      chaltiKhataNo: [undefined],
+      muddatiKhata: [undefined],
       jariBranch: [undefined],
       khatawalName: [undefined],
       tableAmount: [undefined],
