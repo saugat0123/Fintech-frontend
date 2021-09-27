@@ -401,7 +401,8 @@ export class CatalogueComponent implements OnInit {
                 this.router.navigate(['/home/loan/summary'], {
                 queryParams: {
                     loanConfigId: res.detail.loan.id,
-                    customerId: res.detail.id
+                    customerId: res.detail.id,
+                    customerInfoId: res.detail.loanHolder.id
                 }
             });
             }, error => {
