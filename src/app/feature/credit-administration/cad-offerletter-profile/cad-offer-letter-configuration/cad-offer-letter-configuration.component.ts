@@ -632,9 +632,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             newArr[key] = this.attributes;
         });
         this.translatedGuarantorDetails[index] = newArr;
+        this.deleteCTAndTransContorls(index);
         this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
       // end guarantorDetails
     }
+  }
+
+  // deleteCTAndTransContorls from form controls
+  deleteCTAndTransContorls(index) {
+    let formArrayDataArrays: FormArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      let individualData = a[index] as FormGroup;
+      Object.keys(individualData.controls).forEach(key => {
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+          individualData.removeControl(key);
+        }
+      });
   }
 
   getCadApprovedData(data) {
