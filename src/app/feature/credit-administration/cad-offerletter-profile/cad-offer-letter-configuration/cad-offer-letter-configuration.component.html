@@ -219,7 +219,6 @@
                          id="husbandName"
                          name="husbandName" placeholder="Husband Name"
                          type="text"/></td>
-              <td>                {{translatedValues?.husbandName}}</td>
               <td>{{translatedValues?.husbandName}}</td>
               <td><input class="form-control" formControlName="husbandNameCT" type="text" [value]="translatedValues?.husbandName"/></td>
             </tr>
@@ -989,28 +988,6 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="guarantorAddress">Guarantor Address</label>
-                </td>
-                <td>
-                  <input class="form-control "
-                         formControlName="guarantorLegalDocumentAddress"
-                         id="guarantorAddress"
-                         autocomplete="off"
-                         name="name" placeholder="Guarantor Address"
-                         type="text"/>
-                </td>
-                <td>
-                  <input class="form-control" type="text"
-                         formControlName="guarantorLegalDocumentAddressTrans" readonly/>
-                </td>
-                <td>
-                  <input class="form-control" type="text" formControlName="guarantorLegalDocumentAddressCT"/>
-                </td>
-              </tr>
-
-
-              <tr>
-                <td>
                   <label class="title" for="gurantedAmount">Guaranteed Amount</label>
                 </td>
                 <td>
@@ -1163,6 +1140,224 @@
 
 
               <!-- added ended -->
+              <!-- guarantor temporaryAddress/permanentAddress start-->
+              <tbody>
+                <tr>
+                  <td>
+                    <label class="title" for="guarantorAddress">
+                      <strong>Permanent Address</strong>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label class="title">Province</label></td>
+                  <td>
+                    <select #element (change)="getGuarantorDistrictsById(userConfigForm.get(['guarantorDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
+                            [compareWith]="compareFn"
+                            class="custom-select"
+                            formControlName="permanentProvince"
+                            id="province">
+                      <option [ngValue]="null" hidden>Province</option>
+                      <option  *ngFor="let provinceVal of provinceList"
+                              [ngValue]="provinceVal">
+                              {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentProvinceTrans" [readOnly]="!this['permanentProvinceTransCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentProvinceCT" [readOnly]="!this['permanentProvinceCheck']"
+                           type="text"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label class="title" for="permanentDistrict">District</label></td>
+                  <td> <select (change)="getGuarantorMunicipalitiesById(userConfigForm.get(['guarantorDetails', i, 'permanentDistrict'])?.value?.id , $event, i)"
+                               [compareWith]="compareFn"
+                               class="custom-select"
+                               formControlName="permanentDistrict"
+                               id="permanentDistrict">
+                    <option [ngValue]="null" hidden>District</option>
+                    <option *ngFor="let districtVal of districts"
+                            [ngValue]="districtVal">
+                            {{districtVal.name}} || {{districtVal.nepaliName}}
+                    </option>
+                  </select>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentDistrictTrans" [readOnly]="!this['permanentDistrictCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentDistrictCT" [readOnly]="!this['permanentDistrictCheck']" type="text"/>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label class="title"
+                             for="permanentMunicipality">Municipality or VDC
+                    </label>
+                  </td>
+                  <td>
+                    <!-- <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
+                      <nb-radio *ngFor="let option of vdcOption" [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                    </nb-radio-group> -->
+                    <select [compareWith]="compareFn"
+                            class="custom-select"
+                            formControlName="permanentMunicipality"
+                            id="permanentMunicipality"
+                            name="municipality">
+                      <option [ngValue]="null" hidden>Municipality or VDC</option>
+                      <option  *ngFor="let municipalityVal of municipalities"
+                              [ngValue]="municipalityVal">
+                              {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentMunicipalityTrans" [readOnly]="!this['permanentMunicipalityCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentMunicipalityCT" [readOnly]="!this['permanentMunicipalityCheck']" type="text"/>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>
+                    <label class="title" for="permanentWard">Ward No</label>
+                  </td>
+                  <td>
+                    <input class="form-control "
+                           formControlName="permanentWard"
+                           id="permanentWard"
+                           name="permanentWard" placeholder="Ward No"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentWardTrans" [readOnly]="!this['permanentWardCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="permanentWardCT" [readOnly]="!this['permanentWardCheck']" type="text"/>
+                  </td>
+
+                </tr>
+                <td></td>
+                <td>
+                    <nb-checkbox formControlName="isSameTemporaryAndPermanent" name="isSameTemporaryAndPermanent" (change)="setGuarantorAddressSameAsPermanent($event, i)"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
+                </td>
+              </tbody>
+              <tbody *ngIf="!userConfigForm.get(['guarantorDetails', i, 'isSameTemporaryAndPermanent']).value">
+                <tr>
+                  <td>
+                    <strong>Temporary Address</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label class="title">Province</label></td>
+                  <td>
+                    <select #element (change)="getGuarantorDistrictsById(userConfigForm.get(['guarantorDetails', i, 'temporaryProvince'])?.value?.id, $event, i)"
+                            [compareWith]="compareFn"
+                            class="custom-select"
+                            formControlName="temporaryProvince"
+                            id="temporaryProvince">
+                      <option [ngValue]="null" hidden>Province</option>
+                      <option  *ngFor="let provinceVal of provinceList"
+                              [ngValue]="provinceVal">
+                              {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryProvinceTrans" [readOnly]="!this['temporaryProvinceCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryProvinceCT" [readOnly]="!this['temporaryProvinceCheck']"
+                           type="text"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td><label class="title" for="temporaryDistrict">District</label></td>
+                  <td> <select (change)="getGuarantorMunicipalitiesById(userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict'])?.value?.id , $event, i)"
+                               [compareWith]="compareFn"
+                               class="custom-select"
+                               formControlName="temporaryDistrict"
+                               id="temporaryDistrict">
+                    <option [ngValue]="null" hidden>District</option>
+                    <option *ngFor="let districtVal of districts"
+                            [ngValue]="districtVal">
+                            {{districtVal.name}} || {{districtVal.nepaliName}}
+                    </option>
+                  </select>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryDistrictTrans" [readOnly]="!this['temporaryDistrictCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryDistrictCT" [readOnly]="!this['temporaryDistrictCheck']" type="text"/>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label class="title"
+                             for="temporaryMunicipality">Municipality or VDC
+                    </label>
+                  </td>
+                  <td>
+                    <select [compareWith]="compareFn"
+                            class="custom-select"
+                            formControlName="temporaryMunicipality"
+                            id="temporaryMunicipality"
+                            name="municipality">
+                      <option [ngValue]="null" hidden>Municipality or VDC</option>
+                      <option  *ngFor="let municipalityVal of municipalities"
+                              [ngValue]="municipalityVal">
+                              {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryMunicipalityTrans" [readOnly]="!this['temporaryMunicipalityCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryMunicipalityCT" [readOnly]="!this['temporaryMunicipalityCheck']" type="text"/>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label class="title" for="permanentWard">Ward No</label>
+                  </td>
+                  <td>
+                    <input class="form-control "
+                           formControlName="temporaryWard"
+                           id="temporaryWard"
+                           name="temporaryWard" placeholder="Ward No"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryWardTrans" [readOnly]="!this['temporaryWardCheck']"
+                           type="text"/>
+                  </td>
+                  <td>
+                    <input class="form-control" formControlName="temporaryWardCT" [readOnly]="!this['temporaryWardCheck']" type="text"/>
+                  </td>
+
+                </tr>
+                <br>
+              </tbody>
+              <!-- end guarantor temporaryAddress/permanenetAddress -->
+
               <tr>
                 <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2" class="text-left">
                   <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
