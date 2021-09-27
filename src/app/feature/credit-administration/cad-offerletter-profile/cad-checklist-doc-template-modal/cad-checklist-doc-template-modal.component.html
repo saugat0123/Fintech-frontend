@@ -13,9 +13,8 @@
         <app-loan-deed-individual *ngSwitchCase="nabilCadTemplate.LOAN_DEED_INDIVIDUAL"
                                     [cadData]="cadData" [documentId]="documentId"
                                     [customerLoanId]="customerLoanId"></app-loan-deed-individual>
-        <!--<app-hypo-of-stock *ngSwitchCase="nabilCadTemplate.HYPO_OF_STOCK
-                               [customerLoanId]="customerLoanId"></app-loan-deed-company>-->
-
+        <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK"
+                           [customerLoanId]="customerLoanId"></app-hypo-of-stock>
         <app-manjurinama-for-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF"
                                      [cadData]="cadData" [documentId]="documentId"
                                      [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
