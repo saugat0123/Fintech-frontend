@@ -60,7 +60,7 @@
                             {{letterData?.loanAmount === null || letterData?.loanAmount === '' ? '___________' : letterData?.loanAmount}}
                         </span>
                             (अक्षरेपी
-                            <span [ngClass]="{'nepaliFont outside' : letterData?.loanAmountWords !== null && letterData?.loanAmountWords !== ''}">
+                            <span [ngClass]="{'nepaliFont inside' : letterData?.loanAmountWords !== null && letterData?.loanAmountWords !== ''}">
                             {{letterData?.loanAmountWords === null || letterData?.loanAmountWords === '' ? '___________' : letterData?.loanAmountWords}}
                         </span>
                             तथा भविष्यमा उल्लिखित
@@ -107,7 +107,7 @@
                                     {{letterData?.loanAmount === null || letterData?.loanAmount === '' ? '___________' : letterData?.loanAmount}}
                         </span>
                                     (अक्षरेपी
-                                    <span [ngClass]="{'nepaliFont outside' : letterData?.loanAmountWords !== null && letterData?.loanAmountWords !== ''}">
+                                    <span [ngClass]="{'nepaliFont inside' : letterData?.loanAmountWords !== null && letterData?.loanAmountWords !== ''}">
                             {{letterData?.loanAmountWords === null || letterData?.loanAmountWords === '' ? '___________' : letterData?.loanAmountWords}}
                         </span>
                                     मात्र) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी,
