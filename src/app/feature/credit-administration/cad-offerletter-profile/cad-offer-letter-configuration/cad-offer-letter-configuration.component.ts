@@ -409,6 +409,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenIssuedDate: [undefined],
       citizenIssuedDateTrans: [undefined],
       citizenIssuedDateCT: [undefined],
+      gurantedAmount: [undefined],
+      gurantedAmountCT: [undefined],
+      gurantedAmountTrans: [undefined],
       nepData: [undefined]
     });
   }
@@ -473,6 +476,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         relationshipCT: [value.relationshipCT],
         citizenNumber: [value.citizenNumber],
         citizenNumberCT: [value.citizenNumberCT],
+        gurantedAmount: [value.gurantedAmount],
+        gurantedAmountCT: [value.gurantedAmountCT],
+        gurantedAmountTrans: [undefined],
         nepData: [value.nepData],
       }));
     });
@@ -521,6 +527,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).setValue(guarantorsDetails.fatherInLawName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).setValue(guarantorsDetails.gurantedAmount || '');
 
       // translate guarantorsDetails
       let formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;

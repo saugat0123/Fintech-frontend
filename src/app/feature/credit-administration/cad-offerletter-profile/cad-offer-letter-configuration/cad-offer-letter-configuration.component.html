@@ -407,11 +407,19 @@
                   <option [ngValue]="null" hidden>District</option>
                   <option  *ngFor="let district of allDistrictList"
                           [ngValue]="district">
-                    {{district.name}} || {{district.nepaliName}}
+                    {{district.name}}
                   </option>
                 </select>
               </td>
-              <td></td>
+              <td>
+                {{objectValueTranslater?.citizenshipIssueDistrict}}
+              </td>
+              <td>
+                <nb-checkbox (change)="checkboxVal($event, 'citizenshipIssueDistrict')"></nb-checkbox>
+              </td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="citizenshipIssueDistrictCT" [readOnly]="!this['citizenshipIssueDistrictCheck']" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -506,11 +514,21 @@
                   <option [ngValue]="null" hidden>Province</option>
                   <option  *ngFor="let provinceVal of provinceList"
                           [ngValue]="provinceVal">
-                    {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                    {{provinceVal.name}}
                   </option>
                 </select>
               </td>
-              <td></td>
+
+              <td>
+                {{objectValueTranslater?.permanentProvince}}
+              </td>
+              <td>
+                <nb-checkbox (change)="checkboxVal($event, 'permanentProvince')"></nb-checkbox>
+              </td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentProvinceCT" [readOnly]="!this['permanentProvinceCheck']"
+                       type="text"/>
+              </td>
             </tr>
             <tr>
               <td><label class="title" for="permanentDistrict">District</label></td>
@@ -523,11 +541,19 @@
                 <option [ngValue]="null" hidden>District</option>
                 <option *ngFor="let districtVal of districts"
                         [ngValue]="districtVal">
-                  {{districtVal.name}} || {{districtVal.nepaliName}}
+                  {{districtVal.name}}
                 </option>
               </select>
               </td>
-              <td></td>
+              <td>
+                {{objectValueTranslater?.permanentDistrict}}
+              </td>
+              <td>
+                <nb-checkbox (change)="checkboxVal($event, 'permanentDistrict')"></nb-checkbox>
+              </td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentDistrictCT" [readOnly]="!this['permanentDistrictCheck']" type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -547,11 +573,19 @@
                         name="municipality">
                   <option  *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
-                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                    {{municipalityVal.name}}
                   </option>
                 </select>
               </td>
-              <td></td>
+              <td>
+                {{objectValueTranslater?.permanentMunicipality}}
+              </td>
+              <td>
+                <nb-checkbox (change)="checkboxVal($event, 'permanentMunicipality')"></nb-checkbox>
+              </td>
+              <td>
+                <input class="form-control nepaliFont" formControlName="permanentMunicipalityCT" [readOnly]="!this['permanentMunicipalityCheck']"   type="text"/>
+              </td>
             </tr>
             <tr>
               <td>
@@ -931,7 +965,7 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button (click)="translate()" class="float-right" nbButton size="small" status="info">
+              <button class="float-right" nbButton size="small" status="info" (click)="translate()">
                 Translate Customer Data
               </button>
             </div>
@@ -1091,6 +1125,34 @@
                          formControlName="guarantorLegalDocumentAddressCT" [readOnly]="!this['guarantorLegalDocumentAddressCheck']"/>
                 </td>
               </tr>
+
+
+              <tr>
+                <td>
+                  <label class="title" for="gurantedAmount">Guranted Amount</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="gurantedAmount"
+                         id="gurantedAmount"
+                         autocomplete="off"
+                         name="gurantedAmount" placeholder="Guranted Amount"
+                         type="text"/>
+                </td>
+                <td>
+                  <input class="form-control" type="text"
+                         formControlName="gurantedAmountTrans" readonly/>
+                </td>
+                <td>
+                  <nb-checkbox (change)="checkboxVal($event, 'gurantedAmount')"></nb-checkbox>
+                </td>
+                <td>
+                  <input class="form-control nepaliFont" type="text"
+                         formControlName="gurantedAmountCT" [readOnly]="!this['gurantedAmountCheck']"/>
+                </td>
+              </tr>
+
+
               <tr>
                 <td>
                   <label class="relationMedium" for="guarantorRelationship">Guarantor
