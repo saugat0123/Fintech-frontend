@@ -52,7 +52,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
           this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
           this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
       const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
-      this.guarantorName = guarantorDetails.guarantorList[0].name;
+      this.guarantorName = this.loanHolderInfo.guarantorDetails[0].guarantorName.np;
       this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
     }
   }

@@ -6,7 +6,10 @@
             </div>
             <div class="col-md-12 mt-4">
                 <p>
-                    मितिः <span class=" font-weight-bold">{{letter?.dateOfApproval.np}}</span>
+                    मितिः <span *ngIf="letter.dateOfApproval.en.nDate; else dateOfApprovalPrint" class="font-weight-bold">{{letter?.dateOfApproval.en.nDate}}</span>
+                    <ng-template #dateOfApprovalPrint>
+                        <span class=" font-weight-bold">{{(letter?.dateOfApproval.en | date) | engNepDate: true}}</span>
+                    </ng-template>
                 </p>
                 <p>
                     कर्जा सख्याः <span class=" font-weight-bold">{{letter?.referenceNumber.np}}</span>
@@ -29,7 +32,8 @@
                 </p>
                 <p>
                     तपाईंले मिति
-                    <span class=" font-weight-bold">{{letter?.dateOfApplication.np}}</span>
+                    <span *ngIf="letter.dateOfApplication.en.nDate !== undefined" class="font-weight-bold">{{letter?.dateOfApplication.en.nDate}}</span>
+                    <span *ngIf="letter.dateOfApplication.en.nDate === undefined" class="font-weight-bold">{{(letter?.dateOfApplication.en | date) | engNepDate: true}}</span>
                     मा शैक्षिक कर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा
                     यस बैंकले देहाय बमोजिमका ऋणकर्जा देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
                     रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -353,10 +357,10 @@
                                 <span class=" font-weight-bold">{{letter?.ownersName.np}}</span>
                             </td>
                             <td>
-                                <span class=" font-weight-bold">{{letter?.district.np}}</span>
+                                <span class=" font-weight-bold">{{letter?.district.en.nepaliName}}</span>
                             </td>
                             <td>
-                                <span class=" font-weight-bold">{{letter?.municipality.np}}</span>
+                                <span class=" font-weight-bold">{{letter?.municipality.en.nepaliName}}</span>
                             </td>
                             <td>
                                 <span class=" font-weight-bold">{{letter?.wardNo.np}}</span>
@@ -382,7 +386,7 @@
                     रु.<span class=" font-weight-bold uniSize">{{letter?.guaranteedAmountWords.np}}</span>  मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                 </p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mb-5">
                 <table class="table table-borderless">
                     <tr>
                         <td>२.</td>
@@ -461,17 +465,23 @@
                             लाग्नेछ ।
                         </td>
                     </tr>
+                </table>
+            </div>
+            <div>
+                <table class="table table-borderless">
                     <tr>
                         <td>
                             ६.
                         </td>
                         <td>
-                            ऋणी, जमानतकर्ता वा ऋणी फर्म, कम्पनी वा संस्था भए सोका प्रोप्राईटर, संचालक, साझेदार,
-                            नेपाल राष्ट्र बैंकले
-                            तोकिए बमोजिमको प्रतिशतभन्दा बढी शेयर लिने शेयरधनी वा अन्य कुनै प्रकारको स्वामित्व
-                            हुने व्यक्ति, उल्लिखित सबै व्यक्तिका
-                            परिवार तथा निजहरु कही कतै हिताधिकारी भए सोको विवरण तथा निजहरुको परिचय खुल्ने प्रमाण
-                            समेत यस बैकमा पेश गर्नुपर्नेछ ।
+                           <p>
+                               ऋणी, जमानतकर्ता वा ऋणी फर्म, कम्पनी वा संस्था भए सोका प्रोप्राईटर, संचालक, साझेदार,
+                               नेपाल राष्ट्र बैंकले
+                               तोकिए बमोजिमको प्रतिशतभन्दा बढी शेयर लिने शेयरधनी वा अन्य कुनै प्रकारको स्वामित्व
+                               हुने व्यक्ति, उल्लिखित सबै व्यक्तिका
+                               परिवार तथा निजहरु कही कतै हिताधिकारी भए सोको विवरण तथा निजहरुको परिचय खुल्ने प्रमाण
+                               समेत यस बैकमा पेश गर्नुपर्नेछ ।
+                           </p>
                         </td>
                     </tr>
                     <tr>
@@ -528,37 +538,43 @@
                             </div>
                         </td>
                     </tr>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-borderless">
                     <tr>
                         <td>९.</td>
                         <td>
-                            तपाईंले बैंकको नाममा माथि उल्लेखित घर/जग्गा धितोबन्धक पारित गरिदिनु पर्नेछ र आगलागी,
-                            भुकम्प,
-                            दंगा/हड्ताल जस्ता जोखिमबाट हुने क्षती, दुर्भावनापूर्ण क्षती र आतंकवाद आदि जस्ता
-                            जोखिमहरु समेटिएको ट्ठबैंकिé शर्तÞ
-                            (द्यबलपभचक ऋबिगकभ) सहितको कम्तिमा ऋणकर्जा अवधि सम्मको लागि, भवनको बिमालेख पेश
-                            गर्नुपर्नेछ (जहाञ लागू हुन्छ) ।
-                            साथै ऋणीले बिमालेखको अवधि समाप्त हुनुभन्दा कम्तिमा सात दिन अगावै नविकरण गरिएको
-                            बिमालेख बैंकमा पेश गर्नु पर्नेछ ।
-                            बिमालेख नविकरण नगरिएको वा बिमा गरिएको सम्पत्ति वा सम्पत्ति राखिएको स्थान परिवर्तन
-                            भएको वा बिमालेखमा भएको व्यवस्थाको
-                            आधारमा बीमा कम्पनीलाई जानकारी दिइनु पर्ने आवश्यक जानकारी नदिइएको वा पर्याप्त रकमको
-                            बिमालेख नगरिएको अवस्थामा
-                            बैंकलाई धितो लेखिदिएको चल अचल सम्पत्तिहरुमा पूर्ण वा आंशिक रुपले हानी नोक्सानी भएमा
-                            सो हानी नोक्सानीको जिम्मेवार ऋणी स्वयं
-                            हुनुपर्नेछ । यसप्रकार बीमा गराउनु पर्ने सोको नवीकरण गराउनु पर्ने लगायतका बीमा
-                            सम्बन्धी सम्पूर्ण कार्य ऋणीको प्राथमिक दायित्व रहेको
-                            कुरामा तपाईं मञ्जुरी व्यक्त गर्नुहुन्छ । तथापि, बैंकले उपर्युक्त सयमसम्म पनि नवीकृत
-                            बीमालेख ऋणीबाट प्राप्त नगरेमा धितोमा रहेका सम्पत्तिहरुको
-                            बिमालेख बैंक स्वयंले तपाईंलाई जानकारी नगराई नविकरण गराउन, बीमा कम्पनी परिवर्तन गर्न
-                            बीमांक रकम तोक्न वा परिवर्तन गर्न लगायत बीमा
-                            सम्बन्धी कुनै पनि कार्य गर्न सक्नेछ । यसरी बैंकले बीमा सम्बन्धी कार्य गराउंदा लाग्ने
-                            बिमालेख लगायतका शुल्क/दस्तुर तपाईको खातामा खर्च जनाइनेछ ।
-                            तपाईंले माथि उल्लिखित समयमा नै बैंकमा नवीकरण भएको बीमालेख नबुझाउनु भएका कारणले बीमा
-                            दोहोरो हुन गएमा सोको लागि बैंक जिम्मेवार नहुने
-                            कुरामा तपाईंको मञ्जुरी रहनेछ । बीमालेख नवीकरण गराउने लगायतका बीमा सम्बन्धी कुनै पनि
-                            कार्य गर्न बैंक बाध्य नहुने र यसबाट तपाईं वा अन्य
-                            कसैलाई कुनै क्षति हुन गएमा सोको लागि बैंक जिम्मेवार हुने छैन भन्ने कुरामा तपाईंको
-                            मञ्जुरी रहेकोछ ।
+                            <p>
+                                तपाईंले बैंकको नाममा माथि उल्लेखित घर/जग्गा धितोबन्धक पारित गरिदिनु पर्नेछ र आगलागी,
+                                भुकम्प,
+                                दंगा/हड्ताल जस्ता जोखिमबाट हुने क्षती, दुर्भावनापूर्ण क्षती र आतंकवाद आदि जस्ता
+                                जोखिमहरु समेटिएको ट्ठबैंकिé शर्तÞ
+                                (द्यबलपभचक ऋबिगकभ) सहितको कम्तिमा ऋणकर्जा अवधि सम्मको लागि, भवनको बिमालेख पेश
+                                गर्नुपर्नेछ (जहाञ लागू हुन्छ) ।
+                                साथै ऋणीले बिमालेखको अवधि समाप्त हुनुभन्दा कम्तिमा सात दिन अगावै नविकरण गरिएको
+                                बिमालेख बैंकमा पेश गर्नु पर्नेछ ।
+                                बिमालेख नविकरण नगरिएको वा बिमा गरिएको सम्पत्ति वा सम्पत्ति राखिएको स्थान परिवर्तन
+                                भएको वा बिमालेखमा भएको व्यवस्थाको
+                                आधारमा बीमा कम्पनीलाई जानकारी दिइनु पर्ने आवश्यक जानकारी नदिइएको वा पर्याप्त रकमको
+                                बिमालेख नगरिएको अवस्थामा
+                                बैंकलाई धितो लेखिदिएको चल अचल सम्पत्तिहरुमा पूर्ण वा आंशिक रुपले हानी नोक्सानी भएमा
+                                सो हानी नोक्सानीको जिम्मेवार ऋणी स्वयं
+                                हुनुपर्नेछ । यसप्रकार बीमा गराउनु पर्ने सोको नवीकरण गराउनु पर्ने लगायतका बीमा
+                                सम्बन्धी सम्पूर्ण कार्य ऋणीको प्राथमिक दायित्व रहेको
+                                कुरामा तपाईं मञ्जुरी व्यक्त गर्नुहुन्छ । तथापि, बैंकले उपर्युक्त सयमसम्म पनि नवीकृत
+                                बीमालेख ऋणीबाट प्राप्त नगरेमा धितोमा रहेका सम्पत्तिहरुको
+                                बिमालेख बैंक स्वयंले तपाईंलाई जानकारी नगराई नविकरण गराउन, बीमा कम्पनी परिवर्तन गर्न
+                                बीमांक रकम तोक्न वा परिवर्तन गर्न लगायत बीमा
+                                सम्बन्धी कुनै पनि कार्य गर्न सक्नेछ । यसरी बैंकले बीमा सम्बन्धी कार्य गराउंदा लाग्ने
+                                बिमालेख लगायतका शुल्क/दस्तुर तपाईको खातामा खर्च जनाइनेछ ।
+                                तपाईंले माथि उल्लिखित समयमा नै बैंकमा नवीकरण भएको बीमालेख नबुझाउनु भएका कारणले बीमा
+                                दोहोरो हुन गएमा सोको लागि बैंक जिम्मेवार नहुने
+                                कुरामा तपाईंको मञ्जुरी रहनेछ । बीमालेख नवीकरण गराउने लगायतका बीमा सम्बन्धी कुनै पनि
+                                कार्य गर्न बैंक बाध्य नहुने र यसबाट तपाईं वा अन्य
+                                कसैलाई कुनै क्षति हुन गएमा सोको लागि बैंक जिम्मेवार हुने छैन भन्ने कुरामा तपाईंको
+                                मञ्जुरी रहेकोछ ।
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -601,17 +617,21 @@
                             गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।
                         </td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन
-                            फिर्ता हुनेछैन ।
-                            जुनसुकै कारणले
-                            <span class=" font-weight-bold">{{nameOfEmbassy}}</span>
-                            ले भिसा अस्विकार गरेमा वा उल्लिखित विश्व विद्यालयले विद्यार्थी
-                            भर्ना गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।
-                        </td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <td></td>-->
+<!--                        <td>-->
+<!--                            कर्जा सूचना लगायतका बैंकको सेवा शुल्कहरु अग्रीम रुपमा बैंकमा जम्मा गर्नुपर्नेछ जुन-->
+<!--                            फिर्ता हुनेछैन ।-->
+<!--                            जुनसुकै कारणले-->
+<!--                            <span class=" font-weight-bold">{{nameOfEmbassy}}</span>-->
+<!--                            ले भिसा अस्विकार गरेमा वा उल्लिखित विश्व विद्यालयले विद्यार्थी-->
+<!--                            भर्ना गर्न अस्विकार गरेमा वा भर्ना रद्द गरेमा बैंक जवाफदेही हुनेछैन ।-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                </table>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-borderless">
                     <tr>
                         <td>
                             १३.
@@ -633,7 +653,7 @@
                                     मिति नाघेको साञवा/किस्ता रकममा वार्षिक २ प्रतिशत वा बैंकले समय समयमा तोकेको
                                     दरले थप हर्जाना ब्याज लाग्नेछ ।
                                 </p>
-                                <p>
+                                <p class="mt-lg-5">
                                     <u class="font-weight-bold">
                                         ख. व्याजको भाखा नाघेको अवस्थामाः
                                     </u>
@@ -874,6 +894,10 @@
                             हर्जाना ब्याज लाग्नेछ ।
                         </td>
                     </tr>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-borderless">
                     <tr>
                         <td>
                             {{selectedSecurity !== 'FIXED_DEPOSIT'? '२७.' : '२६.'}}
@@ -910,7 +934,7 @@
                             <div *ngIf="selectedSecurity === 'FIXED_DEPOSIT'" class="col-md-12">
                                 <p>
                                     क. रु
-                                    <span class=" font-weight-bold">{{letter?.promissoryNoteAmount.np}}</span> /- को प्रतिज्ञा पत्र ।
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /- को प्रतिज्ञा पत्र ।
                                 </p>
                                 <p>
                                     ख. निरन्तरता पत्र ।
@@ -925,18 +949,18 @@
                                     व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
                                 <p>ह्. श्री
-                                    <span class=" font-weight-bold">{{letter?.nameOfFixedDeposit.np}}</span> /- को रु
+                                    <span class=" font-weight-bold">{{letter?.fixedDepositHolderName.np}}</span> /- को रु
                                     <span class=" font-weight-bold">{{letter?.fixedDepositAmountFigure.np}}</span>/ को सक्कल मुद्दती रसिद ।</p>
 
                             </div>
                             <div *ngIf="selectedSecurity === 'LAND'" class="col-md-12">
                                 <p>
                                     क. रु
-                                    <span class=" font-weight-bold">{{letter?.promissoryNoteAmount.np}}</span> को प्रतिज्ञा पत्र ।
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> को प्रतिज्ञा पत्र ।
                                 </p>
                                 <p>
                                     ख. रु
-                                    <span class=" font-weight-bold">{{letter?.loanDeedAmount.np}}</span>
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span>
                                     ऋणकर्जा तमसुक ।
                                 </p>
                                 <p>
@@ -944,7 +968,7 @@
                                 </p>
                                 <p>
                                     घ. रु
-                                    <span class=" font-weight-bold">{{letter?.pledgeAmountFigure.np}}</span> /- को धितो बन्धक तमसुक ।
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /- को धितो बन्धक तमसुक ।
                                 </p>
                                 <p>
                                     ह्. रु
@@ -961,18 +985,18 @@
                             <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" class="col-md-12">
                                 <p>
                                     क.	रु
-                                    <span class=" font-weight-bold">{{letter?.promissoryNoteAmount.np}}</span> /- को प्रतिज्ञा पत्र ।
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /- को प्रतिज्ञा पत्र ।
                                 </p>
                                 <p>
                                     ख.	रु
-                                    <span class=" font-weight-bold">{{letter?.loanDeedAmount.np}}</span> /- को ऋणकर्जा तमसुक ।
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /- को ऋणकर्जा तमसुक ।
                                 </p>
                                 <p>
                                     ग.	निरन्तरता पत्र ।
                                 </p>
                                 <p>
                                     घ.	रु
-                                    <span class=" font-weight-bold">{{letter?.pledgeAmountFigure.np}}</span> /- को धितो बन्धक तमसुक ।
+                                    <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /- को धितो बन्धक तमसुक ।
                                 </p>
                                 <p>
                                     ह्. रु <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> बराबरकोे

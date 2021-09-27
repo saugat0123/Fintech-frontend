@@ -47,6 +47,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
     nameOfEmbassy;
     loanLimit;
     docSecurityName;
+    guarantorData;
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
@@ -70,6 +71,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
         console.log('Loan holder info', this.loanHolderInfo);
+        this.guarantorData = this.loanHolderInfo.guarantorDetails;
         this.checkOfferLetterData();
     }
 
@@ -105,7 +107,6 @@ export class RetailProfessionalLoanComponent implements OnInit {
             guaranteedAmountFigure: [undefined],
             guaranteedAmountWords: [undefined],
             nameOfBranch: [undefined],
-            nameOfFixedDeposit: [undefined],
             pledgeAmountFigure: [undefined],
             insuranceAmountFigure: [undefined],
             relationshipOfficerName: [undefined],
@@ -146,6 +147,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.nameOfEmbassy = initialInfo.embassyName.np;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
+                console.log('Initial Info Data', this.initialInfoPrint.dateOfApproval.en.nDate);
                 // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
                 this.fillForm();
@@ -198,7 +200,6 @@ submit(): void {
 
     fillForm() {
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-        const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
         const customerAddress = this.loanHolderInfo.permanentMunicipality.np + '-' +
             this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
             this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
