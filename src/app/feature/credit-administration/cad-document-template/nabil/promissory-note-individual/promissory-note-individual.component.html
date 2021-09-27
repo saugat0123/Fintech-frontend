@@ -12,7 +12,8 @@
                                                                 placeholder="मिति"
                                                                 type="text"/>
                             <table class="table table-bordered" style="width: 40%">
-                                रु <input class="form-field form-control-sm nepaliFont"
+                                रु <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                class="form-field form-control-sm nepaliFont"
                                           name="loanamountinFigure"
                                           formControlName="loanamountinFigure"
                                           placeholder=" रकम "
@@ -179,7 +180,8 @@
                                                   placeholder=""
                                                   type="text"/> जना आगे,
                                 तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा तपाईले निर्देशन दिएको
-                                वा अह्राएको ब्यक्ति/संस्थालाई रु.<input class="form-field form-control-sm nepaliFont"
+                                वा अह्राएको ब्यक्ति/संस्थालाई रु.<input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
+                                        class="form-field form-control-sm nepaliFont"
                                                                         name="loanamountinFigure"
                                                                         formControlName="loanamountinFigure"
                                                                         placeholder="ऋण रकम"
