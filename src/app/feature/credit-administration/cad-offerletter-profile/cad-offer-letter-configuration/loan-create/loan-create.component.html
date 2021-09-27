@@ -92,6 +92,6 @@
     </table>
     <hr>
   </div>
-  <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner">save
+  <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner || form.invalid || isTranslatedLoanDetails">save
   </button>
 </form>

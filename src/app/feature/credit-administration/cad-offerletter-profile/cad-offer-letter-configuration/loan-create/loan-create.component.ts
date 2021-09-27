@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {LoanType} from '../../../../loan/model/loanType';
@@ -27,6 +27,7 @@ export class LoanCreateComponent implements OnInit {
   loanTypeList = LoanType;
   attributes: Attributes = new Attributes();
   translatedLoanDataDetails = [];
+  isTranslatedLoanDetails = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -68,10 +69,8 @@ export class LoanCreateComponent implements OnInit {
     data.forEach(d => {
       (this.form.get('loanDetails') as FormArray).push(
           this.formBuilder.group({
-            loan: [d.loan],
-            proposedAmount: [d.proposedAmount],
-            // status: [d.status],
-            // approvedOn: [d.approvedOn],
+            loan: [d.loan, Validators.required],
+            proposedAmount: [d.proposedAmount, Validators.required],
             comments: [d.comments],
           })
       );
@@ -81,11 +80,11 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          loanHolderId: this.data.customerInfoId,
-          loan: [undefined],
+          loanHolderId: [this.data.customerInfoId, Validators.required],
+          loan: [this.data.customerInfoId, Validators.required],
           loanCT: [undefined],
           loanTrans: [undefined],
-          proposedAmount: [undefined],
+          proposedAmount: [undefined, Validators.required],
           proposedAmountCT: [undefined],
           proposedAmountTrans: [undefined],
           comments: [undefined],
@@ -129,6 +128,7 @@ export class LoanCreateComponent implements OnInit {
       });
       this.translatedLoanDataDetails[index] = newArr;
       // end loanDetails
+      this.isTranslatedLoanDetails = true;
       this.spinner = false;
     }
   }
