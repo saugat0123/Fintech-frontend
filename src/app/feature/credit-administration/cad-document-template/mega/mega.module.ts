@@ -17,6 +17,7 @@ import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.compo
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
+import { PersonalGuaranteeIndividual } from './personal-guarantee-individual/personal-guarantee-individual';
 
 
 
@@ -34,7 +35,8 @@ import {NgxPrintModule} from 'ngx-print';
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent],
+    PromissoryNoteJointComponent,
+    PersonalGuaranteeIndividual],
   imports: [
     CommonModule,
     ReactiveFormsModule,
