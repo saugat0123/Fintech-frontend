@@ -129,6 +129,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
             selectedSecurity: [undefined],
             embassyName: [undefined],
             loanLimitChecked: [undefined],
+            additionalGuarantorDetails: [undefined],
         });
     }
 
@@ -171,13 +172,14 @@ submit(): void {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
                     this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
-                    offerLetterPath.initialInformation = JSON.stringify(this.retailProfessionalLoan.value);
+                    offerLetterPath.additionalDetails = this.retailProfessionalLoan.get('additionalGuarantorDetails').value;
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
             offerDocument.initialInformation = JSON.stringify(this.retailProfessionalLoan.value);
+            offerDocument.additionalDetails = this.retailProfessionalLoan.get('additionalGuarantorDetails').value;
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
 

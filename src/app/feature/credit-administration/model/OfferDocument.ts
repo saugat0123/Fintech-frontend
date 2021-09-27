@@ -7,5 +7,6 @@ export class OfferDocument extends BaseEntity{
     supportedInformation: string;
     pathSigned: string;
     draftPath: string;
+    additionalDetails: string;
     offerDocType: OfferDocType;
 }
