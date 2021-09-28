@@ -23,13 +23,14 @@ import {NbDialogService} from '@nebular/theme';
 import {Customer} from '../../../admin/modal/customer';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
-import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
+import {CustomerSubType} from '../../../customer/model/customerSubType';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
-    selector: 'app-filter',
-    templateUrl: './filter.component.html',
-    styleUrls: ['./filter.component.scss']
+  selector: 'app-filter',
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
   isFilterCollapsed = true;
@@ -49,8 +50,13 @@ export class FilterComponent implements OnInit {
   customerInfoData = new CustomerInfoData();
   cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
   customerInfo = new Customer();
-  customerType: any;
   oneFormCustomerInfo: OneFormCustomerDto;
+  customerType = CustomerType;
+  institutionCustomerType: any;
+  jointCustomerNum: any;
+  createClientType: any;
+  subCustomerType = CustomerSubType;
+  createSubClientType: any;
 
   constructor(private branchService: BranchService,
               private toastService: ToastService,
@@ -64,7 +70,7 @@ export class FilterComponent implements OnInit {
   ) {
   }
 
-    ngOnInit() {
+  ngOnInit() {
 
     this.buildFilterForm();
     this.userService.getLoggedInUser().subscribe(res => {
@@ -96,7 +102,7 @@ export class FilterComponent implements OnInit {
     });
     this.getClientType();
 
-    }
+  }
 
   buildFilterForm() {
     this.filterForm = this.formBuilder.group({
@@ -163,10 +169,13 @@ export class FilterComponent implements OnInit {
     this.modalService.open(CadReportComponent, {size: 'xl'});
   }
 
-  getForm(customerType) {
+  getForm() {
     this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
       context: {
-        customerType: customerType,
+        customerType: this.createClientType,
+        customerSubType: this.createSubClientType,
+        jointCustomerNum: this.jointCustomerNum,
+        institutionCustomerType: this.institutionCustomerType,
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
