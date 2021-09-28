@@ -636,12 +636,8 @@
                         आधिकारिक हस्ताक्षर (ग्राहक)
                     </p> <br>
                     <p class="text-left"> मिति:
-
-                        <input class="form-field form-control-sm nepaliFont col-7"
-                               formControlName="dateofSignature"
-                               name="dateofSignature"
-                               placeholder=""
-                               type="text"/>
+                        <span [ngClass]="{'nepaliFont num' : letter?.dateofSignature!== null && letter?.dateofSignature!== ''}">
+                        {{letter?.dateofSignature === null || letter?.dateofSignature === '' ? '___________' : letter?.dateofSignature}}</span>
                     </p>
                 </div>
                 <br>
