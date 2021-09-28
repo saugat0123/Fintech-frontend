@@ -114,7 +114,7 @@
               *ngIf="createClientType === customerType.INDIVIDUAL && createSubClientType === subCustomerType.JOINT"
               [(ngModel)]="jointCustomerNum"
               class="form-control"
-              [min]="1"
+              min="2"
               type="number"
               placeholder="Number of joint customer"
               required>
