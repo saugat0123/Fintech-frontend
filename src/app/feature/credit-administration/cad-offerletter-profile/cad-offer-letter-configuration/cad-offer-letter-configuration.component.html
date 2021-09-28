@@ -70,23 +70,19 @@
 
             <tbody *ngIf="configForm?.clientType?.value != null">
             <tr *ngIf="customerType === clientType.INSTITUTION">
+              <td>Institution Type</td>
               <td>
-                <ng-select formControlName="institutionCustomerSubType"
-                           placeholder="Select Institution Customer Type"
-                           required>
-                  <ng-option [value]="clientSubType.PRIVATE_PUBLIC">Pvt Ltd or Public</ng-option>
-                  <ng-option [value]="clientSubType.PROPRIETORSHIP">PROPRIETERSHIP</ng-option>
-                  <ng-option [value]="clientSubType.PARTNERSHIP">PARTNERSHIP</ng-option>
-                </ng-select>
+                <select class="form-control"
+                        formControlName="institutionCustomerSubType"
+                        placeholder="Select Institution Customer Type"
+                        required>
+                  <option [value]="clientSubType.PRIVATE_PUBLIC">Pvt Ltd or Public</option>
+                  <option [value]="clientSubType.PROPRIETORSHIP">PROPRIETERSHIP</option>
+                  <option [value]="clientSubType.PARTNERSHIP">PARTNERSHIP</option>
+                </select>
               </td>
-              <td>
-                {{translatedValues?.institutionCustomerSubType}}
-              </td>
-              <td>
-                <input class="form-control" formControlName="institutionCustomerSubTypeCT"
-                       type="text"
-                       [value]="translatedValues?.institutionCustomerSubType"/>
-              </td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td>
@@ -98,7 +94,7 @@
                        [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
                        name="customerCode" placeholder="Customer Code"
                        type="text"
-                       [readOnly]="loanHolder?.customerCode" />
+                       [readOnly]="loanHolder?.customerCode"/>
               </td>
               <td>
                 {{translatedValues?.customerCode}}
@@ -603,7 +599,8 @@
             </tr>
             <td></td>
             <td>
-              <nb-checkbox [checked]="addressSameAsAbove" (change)="sameAsPermanent($event)"><i>Check if Temporary Address is same
+              <nb-checkbox [checked]="addressSameAsAbove" (change)="sameAsPermanent($event)"><i>Check
+                if Temporary Address is same
                 as Permanent Address</i></nb-checkbox>
             </td>
             </tbody>
@@ -1674,7 +1671,7 @@
                 </td>
                 <td>
                   <input class="form-control" type="text" formControlName="guarantorNameCT"
-                         />
+                  />
                 </td>
               </tr>
               <tr>
@@ -1695,7 +1692,7 @@
                 </td>
                 <td>
                   <input class="form-control" type="text" formControlName="citizenNumberCT"
-                         />
+                  />
                 </td>
               </tr>
               <!--              <tr>-->
@@ -1743,7 +1740,7 @@
                          formControlName="issuedPlaceTrans" readonly/>
                 </td>
                 <td>
-                  <input class="form-control" type="text" formControlName="issuedPlaceCT" />
+                  <input class="form-control" type="text" formControlName="issuedPlaceCT"/>
                 </td>
               </tr>
               <tr>
@@ -1798,7 +1795,7 @@
                 </td>
                 <td>
                   <input class="form-control" type="text" formControlName="gurantedAmountCT"
-                         />
+                  />
                 </td>
               </tr>
 
@@ -1818,7 +1815,7 @@
                 <td><input class="form-control" readonly type="text"
                            formControlName="relationshipTrans"/></td>
                 <td><input class="form-control" formControlName="relationshipCT" type="text"
-                           /></td>
+                /></td>
               </tr>
 
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
@@ -1833,11 +1830,11 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="genderTrans" readonly
-                         type="text" />
+                         type="text"/>
                 </td>
                 <td>
                   <input class="form-control " formControlName="genderCT" type="text"
-                         />
+                  />
                 </td>
               </tr>
 
@@ -1871,7 +1868,7 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="husbandNameCT" type="text"
-                         />
+                  />
                 </td>
               </tr>
 
@@ -1888,7 +1885,7 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="fatherInLawNameCT" type="text"
-                         />
+                  />
                 </td>
               </tr>
 
@@ -1910,7 +1907,7 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="grandFatherNameCT" type="text"
-                         />
+                  />
                 </td>
               </tr>
 
@@ -1932,7 +1929,7 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="fatherNameCT" type="text"
-                         />
+                  />
                 </td>
               </tr>
 
@@ -2053,7 +2050,7 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="permanentWardCT" type="text"
-                         />
+                  />
                 </td>
 
               </tr>
@@ -2177,7 +2174,7 @@
                 </td>
                 <td>
                   <input class="form-control" formControlName="temporaryWardCT" type="text"
-                         />
+                  />
                 </td>
 
               </tr>
