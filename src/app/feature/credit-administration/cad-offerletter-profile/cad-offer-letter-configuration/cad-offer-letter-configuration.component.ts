@@ -475,6 +475,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       dobDateTypeCT: [value.dobDateTypeCT ? value.dobDateTypeCT : undefined],
       issuedDate: [value.issuedDate ? value.issuedDate : undefined],
       issuedDateCT: [value.issuedDateCT ? value.issuedDateCT : undefined],
+
+      isSameTemporaryAndPermanent: [false],
+      isSameTemporaryAndPermanentCT: [undefined],
+      isSameTemporaryAndPermanentTrans: [undefined],
     });
   }
 

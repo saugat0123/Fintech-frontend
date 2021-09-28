@@ -1473,14 +1473,16 @@
               </tr>
               <td></td>
               <td>
-                <nb-checkbox (change)="setJointCustomerAddressSameAsPermanent($event, i)"><i>Check
+                <nb-checkbox formControlName="isSameTemporaryAndPermanent"
+                             name="isSameTemporaryAndPermanent"
+                             (change)="setJointCustomerAddressSameAsPermanent($event, i)"><i>Check
                   if Temporary Address is
                   same as Permanent Address</i></nb-checkbox>
               </td>
               </tbody>
 
               <tbody
-                  *ngIf="addressSameAsAbove !== true && configForm?.clientType?.value == 'INDIVIDUAL'">
+                  *ngIf="!userConfigForm.get(['jointCustomerDetails', i, 'isSameTemporaryAndPermanent']).value">
               <tr>
                 <td>
                   <strong>Temporary Address</strong>
