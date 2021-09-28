@@ -108,7 +108,6 @@ export class ProposalComponent implements OnInit {
         this.proposalForm.patchValue(this.groupExposureData);
         this.setGroupExposureData(this.groupExposureData);
       }
-      this.onChange();
     } else {
       this.setActiveBaseRate();
       this.addGroupExposureData();
