@@ -10,7 +10,6 @@
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 20px;
   &:focus {
     outline: none;
   }
@@ -19,7 +18,7 @@
   }
   .container-name div {
     display: inline-block;
-    width: 100vh;
+    width: 500px;
     min-height: 50px;
     background-color: #eee;
     height: auto;
@@ -48,4 +47,7 @@
     margin: 10px 70px;
   }
 
+}
+.sizefont {
+  font-size: 23px;
 }
