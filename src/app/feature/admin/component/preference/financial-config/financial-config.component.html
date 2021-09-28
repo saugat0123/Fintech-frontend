@@ -42,14 +42,14 @@
       <tr *ngFor="let fiscalYear of fiscalYears; let i= index">
         <td>{{i+1}}</td>
         <td>{{fiscalYear.year}}</td>
-        <td>{{fiscalYear.qOneStartDate}}</td>
-        <td>{{fiscalYear.qOneEndDate}}</td>
-        <td>{{fiscalYear.qTwoStartDate}}</td>
-        <td>{{fiscalYear.qTwoEndDate}}</td>
-        <td>{{fiscalYear.qThreeStartDate}}</td>
-        <td>{{fiscalYear.qThreeEndDate}}</td>
-        <td>{{fiscalYear.qFourStartDate}}</td>
-        <td>{{fiscalYear.qFourEndDate}}</td>
+        <td>{{fiscalYear?.qOneStartDate | date}}</td>
+        <td>{{fiscalYear?.qOneEndDate | date}}</td>
+        <td>{{fiscalYear?.qTwoStartDate | date}}</td>
+        <td>{{fiscalYear?.qTwoEndDate | date}}</td>
+        <td>{{fiscalYear?.qThreeStartDate | date}}</td>
+        <td>{{fiscalYear?.qThreeEndDate | date}}</td>
+        <td>{{fiscalYear?.qFourStartDate | date}}</td>
+        <td>{{fiscalYear?.qFourEndDate | date}}</td>
         <td><nb-checkbox [checked]="fiscalYear.isCurrentYear == true"
                          onClick="return false;"></nb-checkbox>
         </td>
