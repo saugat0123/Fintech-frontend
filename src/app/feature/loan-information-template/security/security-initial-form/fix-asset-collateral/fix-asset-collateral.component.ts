@@ -29,7 +29,7 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 export class FixAssetCollateralComponent implements OnInit {
 
     fixedAssetsForm: FormGroup;
-    @Input() calendarType: CalendarType;
+    calendarType = CalendarType.AD;
     @Input() securityId: number;
     @Input() security: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();

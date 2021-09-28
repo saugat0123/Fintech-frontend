@@ -39,11 +39,12 @@
                                    [ngClass]="{ 'is-invalid': (submitted) && form.date?.errors }"
                                    formControlName="date"
                                    id="date"
-                                   placeholder="Date" />
+                                   type="text"
+                                   placeholder="" />
 
                             <app-calendar  (messageToEmit)="fixedAssetsForm.get('date').patchValue($event?.eDate)"
-                                           *ngIf="calendarType === 'BS'"
-                                           [ePreDate]=" fixedAssetsForm.get('date').value"></app-calendar>
+                                           *ngIf="calendarType === 'BS' "
+                                           [ePreDate]=" fixedAssetsForm.get('date').value " ></app-calendar>
                             <nb-datepicker #date></nb-datepicker>
                                 <div *ngIf="submitted && form.date.errors" class="small text-danger">
                                     <div *ngIf="form.date.errors.required">
