@@ -9,7 +9,9 @@ export enum MegaOfferLetterConst {
     RETAIL_MORTGAGE_LOAN,
     RETAIL_EDUCATIONAL_ENGLISH,
     RETAIL_LOAN_AGAINST_INSURANCE,
-    personal_overdraft
+    personal_overdraft,
+    home_loan,
+    personal_loan_and_personal_overdraft
 }
 
 export namespace MegaOfferLetterConst {
