@@ -382,6 +382,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
       this.translatedData[key] = this.attributes;
     });
+
+    this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
+      const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
+    if (issueDateType === 'AD') {
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value)
+    } else if (issueDateType === 'BS') {
+      const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate))
+    }
+    });
+
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
     const jointInfoArr = this.userConfigForm.get('jointCustomerDetails').value;
@@ -980,10 +992,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).setValue(guarantorsDetails.relationship || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).setValue(guarantorsDetails.relationship || '');
-      const dobDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-          dobDateType === 'AD' ? this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value : new Date(this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate)
-      );
+
       this.addressFromGroup = this.formBuilder.group({
         permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name || '',
         permanentDistrict: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.name || '',
