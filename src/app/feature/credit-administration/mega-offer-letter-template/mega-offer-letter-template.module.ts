@@ -29,6 +29,8 @@ import { PersonalOverdraftPrintComponent } from './mega-offer-letter/personal-ov
 import { PersonalLoanAndPersonalOverdraftComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalLoanAndPersonalOverdraftPrintComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft-print/personal-loan-and-personal-overdraft-print.component';
+import { PersonalLoanComponent } from './mega-offer-letter/personal-loan/personal-loan.component';
+import { PersonalLoanPrintComponent } from './mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -54,7 +56,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -66,7 +68,8 @@ const COMPONENTS = [
         RetailProfessionalLoanComponent,
         RetailLoanAgainstInsuranceComponent,
         PersonalOverdraftComponent,
-        PersonalLoanAndPersonalOverdraftComponent
+        PersonalLoanAndPersonalOverdraftComponent,
+        PersonalLoanComponent
     ],
   imports: [
     ThemeModule,
@@ -80,6 +83,7 @@ const COMPONENTS = [
         RetailProfessionalLoanComponent,
         PersonalOverdraftComponent,
         PersonalLoanAndPersonalOverdraftComponent,
+        PersonalLoanComponent
     ]
 })
 export class MegaOfferLetterTemplateModule {
