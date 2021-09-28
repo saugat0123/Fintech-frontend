@@ -144,7 +144,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
 
   submit(): void {
     this.spinner = true;
-    this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+    this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
