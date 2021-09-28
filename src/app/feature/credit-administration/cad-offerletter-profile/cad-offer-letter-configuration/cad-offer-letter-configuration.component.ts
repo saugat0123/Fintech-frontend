@@ -209,41 +209,41 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       panNo: [undefined],
       panNoCT: [undefined, Validators.required],
       registrationNo: [undefined],
-      registrationNoCT: [undefined, Validators.required],
+      registrationNoCT: [undefined],
       registrationDate: [undefined],
       registrationDateCT: [undefined],
       registeredMunicipality: [undefined],
-      registeredMunicipalityCT: [undefined, Validators.required],
+      registeredMunicipalityCT: [undefined],
       registeredMunType: [undefined],
-      registeredMunTypeCT: [undefined, Validators.required],
+      registeredMunTypeCT: [undefined],
       registeredDistrict: [undefined],
-      registeredDistrictCT: [undefined, Validators.required],
+      registeredDistrictCT: [undefined],
       registeredProvince: [undefined],
-      registeredProvinceCT: [undefined, Validators.required],
+      registeredProvinceCT: [undefined],
       currentMunType: [undefined],
-      currentMunTypeCT: [undefined, Validators.required],
+      currentMunTypeCT: [undefined],
       currentProvince: [undefined],
-      currentProvinceCT: [undefined, Validators.required],
+      currentProvinceCT: [undefined],
       currentWard: [undefined],
-      currentWardCT: [undefined, Validators.required],
+      currentWardCT: [undefined],
       currentDistrict: [undefined],
-      currentDistrictCT: [undefined, Validators.required],
+      currentDistrictCT: [undefined],
       currentMunicipality: [undefined],
-      currentMunicipalityCT: [undefined, Validators.required],
+      currentMunicipalityCT: [undefined],
       customerCode: [undefined],
       customerCodeCT: [undefined, Validators.required],
       gender: [undefined],
       genderCT: [undefined, Validators.required],
       fatherName: [undefined],
-      fatherNameCT: [undefined, Validators.required],
+      fatherNameCT: [undefined],
       grandFatherName: [undefined],
-      grandFatherNameCT: [undefined, Validators.required],
+      grandFatherNameCT: [undefined],
       relationMedium: [undefined],
-      relationMediumCT: [undefined, Validators.required],
+      relationMediumCT: [undefined],
       husbandName: [undefined],
-      husbandNameCT: [undefined, Validators.required],
+      husbandNameCT: [undefined],
       fatherInLawName: [undefined],
-      fatherInLawNameCT: [undefined, Validators.required],
+      fatherInLawNameCT: [undefined],
       citizenshipNo: [undefined],
       citizenshipNoCT: [undefined, Validators.required],
       dob: [undefined],
@@ -258,7 +258,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentMunicipality: [undefined],
       permanentMunicipalityCT: [undefined, Validators.required],
       permanentMunType: [0],
-      permanentMunTypeCT: [0, Validators.required],
+      permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
       temporaryProvince: [undefined],
       temporaryProvinceCT: [undefined, Validators.required],
@@ -273,15 +273,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryWard: [undefined],
       temporaryWardCT: [undefined, Validators.required],
       temporaryMunType: [1],
-      temporaryMunTypeCT: [undefined, Validators.required],
+      temporaryMunTypeCT: [undefined],
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDistrictCT: [undefined, Validators.required],
       citizenshipIssueDate: [undefined],
       citizenshipIssueDateCT: [undefined],
       municipalityOrVdc: [undefined],
-      municipalityOrVdcCT: [undefined, Validators.required],
+      municipalityOrVdcCT: [undefined],
       temporaryMunicipalityOrVdc: [undefined],
-      temporaryMunicipalityOrVdcCT: [undefined, Validators.required],
+      temporaryMunicipalityOrVdcCT: [undefined],
       dobDateType: [undefined],
       dobDateTypeCT: [undefined],
       issuedDate: [undefined],
@@ -547,21 +547,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
   }
 
-  public clearValidationForGender(value): void {
-    if (value === '0') {
-      this.userConfigForm.get('grandFatherName').clearValidators();
-      this.userConfigForm.get('grandFatherName').updateValueAndValidity();
-      this.userConfigForm.get('fatherName').clearValidators();
-      this.userConfigForm.get('fatherName').updateValueAndValidity();
-    }
-    if (value === '1') {
-      this.userConfigForm.get('husbandName').clearValidators();
-      this.userConfigForm.get('husbandName').updateValueAndValidity();
-      this.userConfigForm.get('fatherInLawName').clearValidators();
-      this.userConfigForm.get('fatherInLawName').updateValueAndValidity();
-    }
-  }
-
   addGuarantorField() {
     return this.formBuilder.group({
       guarantorName: '',
@@ -777,7 +762,32 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('citizenshipIssueDistrictCT').value.name,
     });
     this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
+    this.setCustomerCTData();
     this.disableSave = false;
+  }
+
+  private setCustomerCTData(): void {
+    this.userConfigForm.get('branchCT').patchValue(this.objectValueTranslater.branch);
+    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
+    this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
+    this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
+    this.userConfigForm.get('relationMediumCT').patchValue(this.translatedValues.relationMedium);
+    this.userConfigForm.get('husbandNameCT').patchValue(this.translatedValues.husbandName);
+    this.userConfigForm.get('fatherInLawNameCT').patchValue(this.translatedValues.fatherInLawName);
+    this.userConfigForm.get('grandFatherNameCT').patchValue(this.translatedValues.grandFatherName);
+    this.userConfigForm.get('fatherNameCT').patchValue(this.translatedValues.fatherName);
+    this.userConfigForm.get('citizenshipNoCT').patchValue(this.translatedValues.citizenshipNo);
+    this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
+    this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
+    this.userConfigForm.get('permanentProvinceCT').patchValue(this.objectValueTranslater.permanentProvince);
+    this.userConfigForm.get('permanentDistrictCT').patchValue(this.objectValueTranslater.permanentDistrict);
+    this.userConfigForm.get('permanentMunicipalityCT').patchValue(this.objectValueTranslater.permanentMunicipality);
+    this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
+    this.userConfigForm.get('temporaryProvinceCT').patchValue(this.objectValueTranslater.temporaryProvince);
+    this.userConfigForm.get('temporaryDistrictCT').patchValue(this.objectValueTranslater.temporaryDistrict);
+    this.userConfigForm.get('temporaryMunicipalityCT').patchValue(this.objectValueTranslater.temporaryMunicipality);
+    this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
   }
 
 
