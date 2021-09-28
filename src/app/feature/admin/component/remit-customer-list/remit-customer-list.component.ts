@@ -78,7 +78,7 @@ export class RemitCustomerListComponent implements OnInit {
          senderCountry: [undefined],
          agentName: [undefined],
          proposedAmount: [undefined],
-         sendToBranch: [undefined],
+         // branch: [undefined],
          preferredBranch: [undefined]
      });
  }
