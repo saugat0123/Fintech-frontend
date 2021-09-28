@@ -1,4 +1,4 @@
-<nb-card class="col-md-6" ngDraggable [ngResizable]="true">
+<nb-card class="col-md-6"ngDraggable [ngResizable]="true">
     <nb-card-header>
         <strong>{{popUpTitle}}</strong>
         <button (click)="nbDialogRef.close()" aria-label="Close"
@@ -7,7 +7,7 @@
                 status="primary">
             <span aria-hidden="true">×</span></button>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body  [nbSpinner]="spinner" nbSpinnerSize="tiny" nbSpinnerMessage="Documents are forwarding to remote side......" >
         <form [formGroup]="formAction" role="form">
 
             <p *ngIf="additionalDetails?.hasDeferredDocs" class="text-danger">
