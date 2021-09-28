@@ -145,6 +145,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
                 if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
                     this.offerLetterData = this.offerLetterDocument;
+                    this.retailProfessionalLoan.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
                 }
                 this.selectedSecurity = initialInfo.selectedSecurity.en;
                 this.selectedCountry = initialInfo.selectedCountry.en;
@@ -214,16 +215,14 @@ submit(): void {
             const val = value.proposal.proposedLimit;
             totalLoanAmount = totalLoanAmount + val;
         });
-        const branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
         this.retailProfessionalLoan.patchValue({
             nameOfCustomer: this.loanHolderInfo.name.np ? this.loanHolderInfo.name.np : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
             loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-            guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-            nameOfBranch: branchName ? branchName : '',
+            // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
+            nameOfBranch: this.loanHolderInfo.branch.np ? this.loanHolderInfo.branch.np : '',
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-            additionalGuarantorDetails: this.offerLetterData.supportedInformation ? this.offerLetterData.supportedInformation : '',
-            // dateOfApproval: this.initialInfoPrint.dateOfApproval.en ? this.initialInfoPrint.dateOfApproval.en : '',
+            // additionalGuarantorDetails: this.offerLetterData.supportedInformation === null ? '' : this.offerLetterData.supportedInformation,
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
