@@ -70,6 +70,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   clientType = CustomerType;
   translatedValues: any;
   addressTranslatedValue: any;
+  jointCustomerAddressTranslatedValue: any;
   translatedData = {};
   customer: Customer = new Customer();
   customerId = undefined;
@@ -102,6 +103,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     {value: 'BS', label: 'BS'}];
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   translatedGuarantorDetails = [];
+  translatedJointCustomerDetails = [];
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -384,101 +386,111 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   addJointCustomerDetailFields(value: any) {
     return this.formBuilder.group({
       branch: [value.branch ? value.branch : undefined],
+      branchTrans: [value.branchTrans ? value.branchTrans : undefined],
       branchCT: [value.branchCT ? value.branchCT : undefined],
       clientType: [value.clientType ? value.clientType : undefined],
+      clientTypeTrans: [value.clientTypeTrans ? value.clientTypeTrans : undefined],
       clientTypeCT: [value.clientTypeCT ? value.clientTypeCT : undefined],
       name: [value.name ? value.name : undefined],
+      nameTrans: [value.nameTrans ? value.nameTrans : undefined],
       nameCT: [value.nameCT ? value.nameCT : undefined],
       email: [value.email ? value.email : undefined],
+      emailTrans: [value.emailTrans ? value.emailTrans : undefined],
       emailCT: [value.emailCT ? value.emailCT : undefined],
       contactNo: [value.contactNo ? value.contactNo : undefined],
+      contactNoTrans: [value.contactNoTrans ? value.contactNoTrans : undefined],
       contactNoCT: [value.contactNoCT ? value.contactNoCT : undefined],
       panNo: [value.panNo ? value.panNo : undefined],
+      panNoTrans: [value.panNoTrans ? value.panNoTrans : undefined],
       panNoCT: [value.panNoCT ? value.panNoCT : undefined],
-      registrationNo: [value.registrationNo ? value.registrationNo : undefined],
-      registrationNoCT: [value.registrationNoCT ? value.registrationNoCT : undefined],
-      registrationDate: [value.registrationDate ? value.registrationDate : undefined],
-      registrationDateCT: [value.registrationDateCT ? value.registrationDateCT : undefined],
-      registeredMunicipality: [value.registeredMunicipality ? value.registeredMunicipality : undefined],
-      registeredMunicipalityCT: [value.registeredMunicipalityCT ? value.registeredMunicipalityCT : undefined],
-      registeredMunType: [value.registeredMunType ? value.registeredMunType : undefined],
-      registeredMunTypeCT: [value.registeredMunTypeCT ? value.registeredMunTypeCT : undefined],
-      registeredDistrict: [value.registeredDistrict ? value.registeredDistrict : undefined],
-      registeredDistrictCT: [value.registeredDistrictCT ? value.registeredDistrictCT : undefined],
-      registeredProvince: [value.registeredProvince ? value.registeredProvince : undefined],
-      registeredProvinceCT: [value.registeredProvinceCT ? value.registeredProvinceCT : undefined],
-      currentMunType: [value.currentMunType ? value.currentMunType : undefined],
-      currentMunTypeCT: [value.currentMunTypeCT ? value.currentMunTypeCT : undefined],
-      currentProvince: [value.currentProvince ? value.currentProvince : undefined],
-      currentProvinceCT: [value.currentProvinceCT ? value.currentProvinceCT : undefined],
-      currentWard: [value.currentWard ? value.currentWard : undefined],
-      currentWardCT: [value.currentWardCT ? value.currentWardCT : undefined],
-      currentDistrict: [value.currentDistrict ? value.currentDistrict : undefined],
-      currentDistrictCT: [value.currentDistrictCT ? value.currentDistrictCT : undefined],
-      currentMunicipality: [value.currentMunicipality ? value.currentMunicipality : undefined],
-      currentMunicipalityCT: [value.currentMunicipalityCT ? value.currentMunicipalityCT : undefined],
       customerCode: [value.customerCode ? value.customerCode : undefined],
+      customerCodeTrans: [value.customerCodeTrans ? value.customerCodeTrans : undefined],
       customerCodeCT: [value.customerCodeCT ? value.customerCodeCT : undefined],
 
-
       gender: [value.gender ? value.gender : undefined],
+      genderTrans: [value.genderTrans ? value.genderTrans : undefined],
       genderCT: [value.genderCT ? value.genderCT : undefined],
       fatherName: [value.fatherName ? value.fatherName : undefined],
+      fatherNameTrans: [value.fatherNameTrans ? value.fatherNameTrans : undefined],
       fatherNameCT: [value.fatherNameCT ? value.fatherNameCT : undefined],
       grandFatherName: [value.grandFatherName ? value.grandFatherName : undefined],
+      grandFatherNameTrans: [value.grandFatherNameTrans ? value.grandFatherNameTrans : undefined],
       grandFatherNameCT: [value.grandFatherNameCT ? value.grandFatherNameCT : undefined],
       relationMedium: [value.relationMedium ? value.relationMedium : undefined],
+      relationMediumTrans: [value.relationMediumTrans ? value.relationMediumTrans : undefined],
       relationMediumCT: [value.relationMediumCT ? value.relationMediumCT : undefined],
       husbandName: [value.husbandName ? value.husbandName : undefined],
+      husbandNameTrans: [value.husbandNameTrans ? value.husbandNameTrans : undefined],
       husbandNameCT: [value.husbandNameCT ? value.husbandNameCT : undefined],
       fatherInLawName: [value.fatherInLawName ? value.fatherInLawName : undefined],
+      fatherInLawNameTrans: [value.fatherInLawNameTrans ? value.fatherInLawNameTrans : undefined],
       fatherInLawNameCT: [value.fatherInLawNameCT ? value.fatherInLawNameCT : undefined],
       citizenshipNo: [value.citizenshipNo ? value.citizenshipNo : undefined],
+      citizenshipNoTrans: [value.citizenshipNoTrans ? value.citizenshipNoTrans : undefined],
       citizenshipNoCT: [value.citizenshipNoCT ? value.citizenshipNoCT : undefined],
       dob: [value.dob ? value.dob : undefined],
+      dobTrans: [value.dobTrans ? value.dobTrans : undefined],
       dobCT: [value.dobCT ? value.dobCT : undefined],
       // tslint:disable-next-line:max-line-length
+      //Trans tslint:disable-nextTrans-line:maxTrans-line-length
       permanentProvinceCT: [value.permanentProvinceCT ? value.permanentProvinceCT : undefined],
       permanentProvince: [value.permanentProvince ? value.permanentProvince : undefined],
       // tslint:disable-next-line:max-line-length
       permanentDistrict: [value.permanentDistrict ? value.permanentDistrict : undefined],
+      permanentDistrictTrans: [value.permanentDistrictTrans ? value.permanentDistrictTrans : undefined],
       permanentDistrictCT: [value.permanentDistrictCT ? value.permanentDistrictCT : undefined],
       // tslint:disable-next-line:max-line-length
       permanentMunicipality: [value.permanentMunicipality ? value.permanentMunicipality : undefined],
+      permanentMunicipalityTrans: [value.permanentMunicipalityTrans ? value.permanentMunicipalityTrans : undefined],
       permanentMunicipalityCT: [value.permanentMunicipalityCT ? value.permanentMunicipalityCT : undefined],
       permanentMunType: [0],
+      permanentMunTypeTrans: [0],
       permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
       temporaryProvince: [value.temporaryProvince ? value.temporaryProvince : undefined],
+      temporaryProvinceTrans: [value.temporaryProvinceTrans ? value.temporaryProvinceTrans : undefined],
       temporaryProvinceCT: [value.temporaryProvinceCT ? value.temporaryProvinceCT : undefined],
       // tslint:disable-next-line:max-line-length
       temporaryDistrict: [value.temporaryDistrict ? value.temporaryDistrict : undefined],
+      temporaryDistrictTrans: [value.temporaryDistrictTrans ? value.temporaryDistrictTrans : undefined],
       temporaryDistrictCT: [value.temporaryDistrictCT ? value.temporaryDistrictCT : undefined],
       // tslint:disable-next-line:max-line-length
       temporaryMunicipality: [value.temporaryMunicipality ? value.temporaryMunicipality : undefined],
+      temporaryMunicipalityTrans: [value.temporaryMunicipalityTrans ? value.temporaryMunicipalityTrans : undefined],
       temporaryMunicipalityCT: [value.temporaryMunicipalityCT ? value.temporaryMunicipalityCT : undefined],
       permanentWard: [value.permanentWard ? value.permanentWard : undefined],
+      permanentWardTrans: [value.permanentWardTrans ? value.permanentWardTrans : undefined],
       permanentWardCT: [value.permanentWardCT ? value.permanentWardCT : undefined],
       temporaryWard: [value.temporaryWard ? value.temporaryWard : undefined],
+      temporaryWardTrans: [value.temporaryWardTrans ? value.temporaryWardTrans : undefined],
       temporaryWardCT: [value.temporaryWardCT ? value.temporaryWardCT : undefined],
       temporaryMunType: [1],
+      temporaryMunTypeTrans: [1],
       temporaryMunTypeCT: [value.temporaryMunTypeCT ? value.temporaryMunTypeCT : undefined],
       citizenshipIssueDistrict: [value.citizenshipIssueDistrict ? value.citizenshipIssueDistrict : undefined],
+      citizenshipIssueDistrictTrans: [value.citizenshipIssueDistrictTrans ? value.citizenshipIssueDistrictTrans : undefined],
       citizenshipIssueDistrictCT: [value.citizenshipIssueDistrictCT ? value.citizenshipIssueDistrictCT : undefined],
       citizenshipIssueDate: [value.citizenshipIssueDate ? value.citizenshipIssueDate : undefined],
+      citizenshipIssueDateTrans: [value.citizenshipIssueDateTrans ? value.citizenshipIssueDateTrans : undefined],
       citizenshipIssueDateCT: [value.citizenshipIssueDateCT ? value.citizenshipIssueDateCT : undefined],
       municipalityOrVdc: [value.municipalityOrVdc ? value.municipalityOrVdc : undefined],
+      municipalityOrVdcTrans: [value.municipalityOrVdcTrans ? value.municipalityOrVdcTrans : undefined],
       municipalityOrVdcCT: [value.municipalityOrVdcCT ? value.municipalityOrVdcCT : undefined],
       temporaryMunicipalityOrVdc: [value.temporaryMunicipalityOrVdc ? value.temporaryMunicipalityOrVdc : undefined],
+      temporaryMunicipalityOrVdcTrans: [value.temporaryMunicipalityOrVdcTrans ? value.temporaryMunicipalityOrVdcTrans : undefined],
       temporaryMunicipalityOrVdcCT: [value.temporaryMunicipalityOrVdcCT ? value.temporaryMunicipalityOrVdcCT : undefined],
       dobDateType: [value.dobDateType ? value.dobDateType : undefined],
+      dobDateTypeTrans: [value.dobDateTypeTrans ? value.dobDateTypeTrans : undefined],
       dobDateTypeCT: [value.dobDateTypeCT ? value.dobDateTypeCT : undefined],
       issuedDate: [value.issuedDate ? value.issuedDate : undefined],
+      issuedDateTrans: [value.issuedDateTrans ? value.issuedDateTrans : undefined],
       issuedDateCT: [value.issuedDateCT ? value.issuedDateCT : undefined],
 
       isSameTemporaryAndPermanent: [false],
       isSameTemporaryAndPermanentCT: [undefined],
       isSameTemporaryAndPermanentTrans: [undefined],
+
+      nepData: [undefined]
     });
   }
 
@@ -493,6 +505,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       formArray.push(this.addJointCustomerDetailFields(value));
     });
   }
+
+  removeJointCustomerDetails(i: any) {
+    (this.userConfigForm.get('jointCustomerDetails') as FormArray).removeAt(i);
+    this.translatedJointCustomerDetails.splice(i, 1);
+  }
+
 
   addGuarantor() {
     (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
@@ -714,6 +732,82 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.disableSave = false;
   }
 
+
+  async translateJointCustomerData(index) {
+    const allJointCustomers = this.userConfigForm.get('jointCustomerDetails').value as FormArray;
+    if (allJointCustomers.length > 0) {
+      let jointCustomerDetails: any = [];
+      jointCustomerDetails = await this.translateService.translateForm(this.userConfigForm, 'jointCustomerDetails', index);
+
+      this.userConfigForm.get(['jointCustomerDetails', index, 'branchTrans']).setValue(jointCustomerDetails.branch || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'nameTrans']).setValue(jointCustomerDetails.name || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'emailTrans']).setValue(jointCustomerDetails.email || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'contactNoTrans']).setValue(jointCustomerDetails.contactNo || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'panNoTrans']).setValue(jointCustomerDetails.panNo || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).setValue(jointCustomerDetails.customerCode || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'genderTrans']).setValue(jointCustomerDetails.gender || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameTrans']).setValue(jointCustomerDetails.fatherName || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'grandFatherNameTrans']).setValue(jointCustomerDetails.grandFatherName || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'relationMediumTrans']).setValue(jointCustomerDetails.relationMedium || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'husbandNameTrans']).setValue(jointCustomerDetails.husbandName || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'fatherInLawNameTrans']).setValue(jointCustomerDetails.fatherInLawName || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipNoTrans']).setValue(jointCustomerDetails.citizenshipNo || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'dobTrans']).setValue(jointCustomerDetails.dob || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDistrictTrans']).setValue(jointCustomerDetails.citizenshipIssueDistrict || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'citizenshipIssueDateTrans']).setValue(jointCustomerDetails.citizenshipIssueDate || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'municipalityOrVdcTrans']).setValue(jointCustomerDetails.municipalityOrVdc || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'dobDateTypeTrans']).setValue(jointCustomerDetails.dobDateType || '');
+      this.userConfigForm.get(['jointCustomerDetails', index, 'issuedDateTrans']).setValue(jointCustomerDetails.issuedDate || '');
+
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'guarantorNameTrans']).setValue(jointCustomerDetails.guarantorName || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'guarantorNameTrans']).setValue(jointCustomerDetails.guarantorName || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'citizenNumberTrans']).setValue(jointCustomerDetails.citizenNumber || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'issuedPlaceTrans']).setValue(jointCustomerDetails.issuedPlace || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'genderTrans']).setValue(jointCustomerDetails.gender || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'husbandNameTrans']).setValue(jointCustomerDetails.husbandName || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'fatherInLawNameTrans']).setValue(jointCustomerDetails.fatherInLawName || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'grandFatherNameTrans']).setValue(jointCustomerDetails.grandFatherName || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameTrans']).setValue(jointCustomerDetails.fatherName || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'gurantedAmountTrans']).setValue(jointCustomerDetails.gurantedAmount || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'permanentWardTrans']).setValue(jointCustomerDetails.permanentWard || '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardTrans']).setValue(jointCustomerDetails.temporaryWard || '');
+
+      this.addressFromGroup = this.formBuilder.group({
+        permanentProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvince']).value,
+        permanentDistrict: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrict']).value,
+        permanentMunicipality: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipality']).value,
+        temporaryProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryProvince']).value,
+        temporaryDistrict: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryDistrict']).value,
+        temporaryMunicipality: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryMunicipality']).value,
+      });
+
+      this.jointCustomerAddressTranslatedValue = await this.translateService.translateForm(this.addressFromGroup);
+
+      // translate jointCustomerDetails
+      const formArrayDataArrays: FormArray = this.userConfigForm.get(`jointCustomerDetails`) as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      const newArr = {};
+      // for (let i = 0; i < a.length; i++) {
+      const individualData = a[index] as FormGroup;
+      Object.keys(individualData.controls).forEach(key => {
+        console.log('key: ', key);
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+          return;
+        }
+        this.attributes = new Attributes();
+        this.attributes.en = individualData.get(key).value;
+        this.attributes.np = jointCustomerDetails[key];
+        this.attributes.ct = individualData.get(key + 'CT').value;
+        newArr[key] = this.attributes;
+      });
+      this.translatedGuarantorDetails[index] = newArr;
+      this.deleteJointCustomerCTAndTransControls(index);
+      this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
+      // end guarantorDetails
+    }
+  }
+
   async translateGuarantorData(index) {
     const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
     if (alluarantors.length > 0) {
@@ -765,6 +859,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
       // end guarantorDetails
     }
+  }
+
+  // deleteCTAndTransContorls from form controls
+  deleteJointCustomerCTAndTransControls(index) {
+    let formArrayDataArrays: FormArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
+    let a: any;
+    a = formArrayDataArrays.controls;
+    let individualData = a[index] as FormGroup;
+    Object.keys(individualData.controls).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+        individualData.removeControl(key);
+      }
+    });
   }
 
   // deleteCTAndTransContorls from form controls
