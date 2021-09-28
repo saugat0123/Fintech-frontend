@@ -1,9 +1,13 @@
-<div class="text-justify nep" id="{{offerLetterConst.personal_loan_and_personal_overdraft}}"
-     xmlns="http://www.w3.org/1999/html">
+<div class="text-justify nep" id="{{offerLetterConst.personal_loan_and_personal_overdraft}}">
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
              nbSpinnerMessage="personal loan and personal overdraft.....">
+        <nb-card-header *ngIf="preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
 
         <nb-card-body>
             <form [formGroup]="form">
@@ -930,6 +934,7 @@
         </nb-card-footer>
     </nb-card>
 </div>
+
 <app-personal-loan-and-personal-overdraft-print *ngIf="initialInfoPrint"
                               [letter]="initialInfoPrint"
                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"

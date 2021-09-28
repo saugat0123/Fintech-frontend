@@ -39,6 +39,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
   selectedArray = [];
   ckeConfig = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() preview;
   nepData;
   external = [];
   loanHolderInfo;
@@ -53,6 +54,7 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
+              private ref: NbDialogRef<PersonalLoanAndPersonalOverdraftComponent>
   ) { }
 
   ngOnInit() {
@@ -182,5 +184,8 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+  }
+  close() {
+    this.ref.close();
   }
 }

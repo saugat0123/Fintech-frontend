@@ -1,0 +1,192 @@
+<div>
+    <form (ngSubmit)="submit()" [formGroup]="form">
+        <table class="table table-borderless table-hover text-center sb-small table-sm">
+            <tr>
+                <th></th>
+                <th>Loan Data</th>
+                <th>Nepali Translation</th>
+                <th>Edit</th>
+                <th>Correct Translation</th>
+            </tr>
+            <tr>
+                <td>Reference Number</td>
+                <td><input type="text" class="form-control" formControlName="referenceNumber"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.referenceNumber}}"></td>
+            </tr>
+            <tr>
+                <td>Date of Approval </td>
+                <td><input type="text" class="form-control" formControlName="dateofApproval"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.dateofApproval}}"></td>
+            </tr>
+            <tr>
+                <td>Customer Name</td>
+                <td><input type="text" class="form-control" formControlName="customerName"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.customerName}}"></td>
+            </tr>
+            <tr>
+                <td>Customer Address</td>
+                <td><input type="text" class="form-control" formControlName="customerAddress"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.customerAddress}}"></td>
+            </tr>
+            <tr>
+                <td>Date of Application</td>
+                <td><input type="text" class="form-control" formControlName="dateofApplication"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.dateofApplication}}"></td>
+            </tr>
+            <tr>
+                <td>Purpose of Loan</td>
+                <td><input type="text" class="form-control" formControlName="purposeofLoan"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.purposeofLoan}}"></td>
+            </tr>
+            <tr>
+                <td>Loan Amount in Figure</td>
+                <td><input type="text" class="form-control" formControlName="loanAmountinFigure"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.loanAmountinFigure}}"></td>
+            </tr>
+            <tr>
+                <td>Loan Amount in Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAmountinWords"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.loanAmountinWords}}"></td>
+            </tr>
+            <tr>
+                <td>Base Rate</td>
+                <td><input type="text" class="form-control" formControlName="baseRate"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.baseRate}}"></td>
+            </tr>
+            <tr>
+                <td>Premium Rate</td>
+                <td><input type="text" class="form-control" formControlName="premiumRate"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.premiumRate}}"></td>
+            </tr>
+            <tr>
+                <td>Yearly Interest Rate</td>
+                <td><input type="text" class="form-control" formControlName="yearlyInterestRate"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.yearlyInterestRate}}"></td>
+            </tr>
+            <tr>
+                <td>Loan Admin Fee in Figure</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinFigure"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.loanAdminFeeinFigure}}"></td>
+            </tr>
+            <tr>
+                <td>Loan Admin Fee in Words</td>
+                <td><input type="text" class="form-control" formControlName="loanAdminFeeinWords"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.loanAdminFeeinWords}}"></td>
+            </tr>
+            <tr>
+                <td>Loan admin Fee</td>
+                <td><input type="text" class="form-control" formControlName="loanadminFee"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.loanadminFee}}"></td>
+            </tr>
+            <tr>
+                <td>Emi In Figure</td>
+                <td><input type="text" class="form-control" formControlName="emiInFigure"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.emiInFigure}}"></td>
+            </tr>
+            <tr>
+                <td>Emi In Words</td>
+                <td><input type="text" class="form-control" formControlName="emiInWords"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.emiInWords}}"></td>
+            </tr>
+            <tr>
+                <td>Loan Expiry Date</td>
+                <td><input type="text" class="form-control" formControlName="loanExpiryDate"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.loanExpiryDate}}"></td>
+            </tr>
+            <tr>
+                <td>Name of Guarantors</td>
+                <td><input type="text" class="form-control" formControlName="nameofGuarantors"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.nameofGuarantors}}"></td>
+            </tr>
+            <tr>
+                <td>Guaranteed Amount In Figure</td>
+                <td><input type="text" class="form-control" formControlName="guaranteedAmountInFigure"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.guaranteedAmountInFigure}}"></td>
+            </tr>
+            <tr>
+                <td>Guaranteed Amount In Words</td>
+                <td><input type="text" class="form-control" formControlName="guaranteedAmountInWords"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.guaranteedAmountInWords}}"></td>
+            </tr>
+            <tr>
+                <td>Name of Branch</td>
+                <td><input type="text" class="form-control" formControlName="nameofBranch"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.nameofBranch}}"></td>
+            </tr>
+            <tr>
+                <td>Account Number Of Customer</td>
+                <td><input type="text" class="form-control" formControlName="accountNumberOfCustomer"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.accountNumberOfCustomer}}"></td>
+            </tr>
+            <tr>
+                <td>Name of Company Customer Working</td>
+                <td><input type="text" class="form-control" formControlName="nameofCompanyCustomerWorking"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.nameofCompanyCustomerWorking}}"></td>
+            </tr>
+            <tr>
+                <td>Name of Customer</td>
+                <td><input type="text" class="form-control" formControlName="NameofCustomer"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.NameofCustomer}}"></td>
+            </tr>
+            <tr>
+                <td>Account of Customer</td>
+                <td><input type="text" class="form-control" formControlName="accountofCustomer"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.accountofCustomer}}"></td>
+            </tr>
+            <tr>
+                <td>Relationship officer Name</td>
+                <td><input type="text" class="form-control" formControlName="relationshipofficerName"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.relationshipofficerName}}"></td>
+            </tr>
+            <tr>
+                <td>Branch Name</td>
+                <td><input type="text" class="form-control" formControlName="branchName"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.branchName}}"></td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td><input type="text" class="form-control" formControlName="date"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.date}}"></td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td><input type="text" class="form-control" formControlName="district"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.district}}"></td>
+            </tr>
+            <tr>
+                <td>Ward Num</td>
+                <td><input type="text" class="form-control" formControlName="wardNum"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.wardNum}}"></td>
+            </tr>
+            <tr>
+                <td>Free Text</td>
+                <td><input type="text" class="form-control" formControlName="freeText"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.freeText}}"></td>
+            </tr>
+            <tr>
+                <td>Witness Name</td>
+                <td><input type="text" class="form-control" formControlName="witnessName"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.witnessName}}"></td>
+            </tr>
+            <tr>
+                <td>Staff Name</td>
+                <td><input type="text" class="form-control" formControlName="staffName"></td>
+                <td><input type="text" class="form-control" value="{{translatedValues?.staffName}}"></td>
+            </tr>
+        </table>
+        <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
+        <button nbButton status="info" size="medium" type="submit" class="float-right" (click)="openModel()">Preview</button>
+        <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
+            Translate
+        </button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
