@@ -63,6 +63,7 @@ export class NepProposedAmountFormComponent implements OnInit {
         let number = 0;
         if (!ObjectUtil.isEmpty(event.target.value)) {
             number = event.target.value;
+            console.log('number', number);
         }
         this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
         this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);

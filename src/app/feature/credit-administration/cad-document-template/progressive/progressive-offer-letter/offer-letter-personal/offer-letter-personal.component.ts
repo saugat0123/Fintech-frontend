@@ -16,9 +16,9 @@ import {NbDialogRef} from '@nebular/theme';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
 import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 
 @Component({
@@ -37,8 +37,12 @@ export class OfferLetterPersonalComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
-    districtList;
-    loanAmountTemplate = new NepaliNumberAndWords();
+    loanHolderInfo;
+    guarantorDetails=[];
+    userConfigForm: FormGroup;
+    cadData: CustomerApprovedLoanCadDocumentation;
+    nepaliNumber = new NepaliNumberAndWords();
+
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -51,48 +55,34 @@ export class OfferLetterPersonalComponent implements OnInit {
                 private toastService: ToastService,
                 private routerUtilsService: RouterUtilsService,
                 private customerOfferLetterService: CustomerOfferLetterService,
-                private addressService: AddressService,
                 private dialogRef: NbDialogRef<OfferLetterPersonalComponent>) {
     }
 
     ngOnInit() {
-      this.addressService.getAllDistrict().subscribe((res: any) => {
-          this.districtList = res.detail;
-      });
         this.buildForm();
-        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadOfferLetterApprovedDoc.assignedLoan);
-            this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-            this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-            this.loanAmountTemplate.engNumber = number;
-        } else {
-            this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        }
-        // this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        console.log('this.loanAmountTemplate', this.loanAmountTemplate);
-        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.checkOfferLetter();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            this.guarantorDetails = this.loanHolderInfo.guarantorDetails;
+            console.log('loan holder info', this.loanHolderInfo);
+            console.log('this.guarantor deatail', this.guarantorDetails);
+        }
     }
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        let allGuarantors = '';
-        (JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData).guarantorDetails).forEach(guarantor => {
-            allGuarantors = allGuarantors + guarantor.name + ', ';
-        });
-        allGuarantors = allGuarantors.slice(0, -2);
 
+        const loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        //const allGuarantors =
 
         const customerAddress =
-            this.nepaliData.permanentMunicipality + ' वडा नं. ' +
+            this.nepaliData.permanentMunicipality + ' j8f g. ' +
             this.nepaliData.permanentWard + ' , ' +
             this.nepaliData.permanentDistrict;
         const customerTempAddress =
-            this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
+            this.nepaliData.temporaryMunicipality + ' j8f g. ' +
             this.nepaliData.temporaryWard + ' , ' +
             this.nepaliData.temporaryDistrict;
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
-        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',
             customerAddress: customerAddress ? customerAddress : '',
@@ -100,24 +90,22 @@ export class OfferLetterPersonalComponent implements OnInit {
             customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
             customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
             customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+            // amount: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
+            // amount2: loanAmountTemplate.numberNepali ? loanAmountTemplate.numberNepali : '',
             signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
             signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
             signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
             signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
             signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+            // shreeName1: this.nepaliData.guarantorDetails.name[0] ? this.nepaliData.guarantorDetails.name[0] : '',
             temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
             temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-            shreeName1: allGuarantors ? allGuarantors : '',
-            dhitoLekhi: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-            shreeAmount: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-            shreeAmountInWord: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : '',
-            amount2: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-            amountInWords2: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
+            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : ''
         });
         this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
         this.setGuarantors(this.nepaliData.guarantorDetails);
         this.addEmptySecurityDetail();
+
     }
 
     checkOfferLetter() {
@@ -126,9 +114,7 @@ export class OfferLetterPersonalComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
-            if (this.loanAmountTemplate) {
-                this.fillForm();
-            }
+            this.fillForm();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
@@ -232,19 +218,19 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setEmptyGuarantors(data) {
+        console.log('Guarantor data from loan config', data);
         const formArray = this.form.get('guarantorDetails') as FormArray;
         if (data.length === 0) {
             this.addEmptyGuarantor();
             return;
         }
         data.forEach(value => {
+            console.log('value ------>', value);
             formArray.push(this.formBuilder.group({
                 jamaniKartaName: [value.name],
                 guarantorCitizenshipNo: [value.citizenNumber],
                 guarantorIssuedDate: [value.issuedYear],
                 guarantorCitizenIssuedOffice: [value.issuedPlace],
-                guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
-                name: [value.name],
             }));
         });
     }
@@ -255,8 +241,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             guarantorCitizenshipNo: [undefined],
             guarantorIssuedDate: [undefined],
             guarantorCitizenIssuedOffice: [undefined],
-            name: [undefined],
-            guarantorLegalDocumentAddress: [undefined]
         });
     }
 
@@ -323,7 +307,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             amountInWords2: [undefined],
 
             financeBranch: [undefined],
-            financeMunicipality: [undefined],
             financeWardNum: [undefined],
             financeDistrict: [undefined],
             financeTelephoneNum: [undefined],
@@ -482,13 +465,4 @@ export class OfferLetterPersonalComponent implements OnInit {
         const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
         this.form.get(['loanFacilityTable', index, target]).patchValue(finalValue);
     }
-
-    updateServiceCharge(formArrayName, i) {
-        const loanLimitPercent = Number(this.nepToEngNumberPipe.transform(this.form.get([formArrayName, i, 'loanLimitPercent']).value) / 100);
-        const amount = this.loanAmountTemplate.engNumber;
-        const loanLimitAmount = loanLimitPercent * amount;
-        const asd = this.engToNepNumberPipe.transform(loanLimitAmount.toString());
-        this.form.get([formArrayName, i, 'loanLimitAmount']).patchValue(asd);
-    }
 }
-
