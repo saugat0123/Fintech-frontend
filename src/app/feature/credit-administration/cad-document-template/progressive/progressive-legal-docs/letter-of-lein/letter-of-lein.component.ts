@@ -63,7 +63,6 @@ export class LetterOfLeinComponent implements OnInit {
       this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
     }
     //this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-    console.log('cadData', this.cadData);
     this.fillForm();
   }
 
