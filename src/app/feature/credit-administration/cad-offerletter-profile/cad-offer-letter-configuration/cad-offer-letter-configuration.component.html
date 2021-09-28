@@ -894,7 +894,7 @@
                          formControlName="guarantorNameTrans" readonly/>
                 </td>
                 <td>
-                  <input class="form-control" type="text" formControlName="guarantorNameCT" [value]="guarantor.get('guarantorNameTrans').value"/>
+                  <input class="form-control" type="text" formControlName="guarantorNameCT" />
                 </td>
               </tr>
               <tr>
@@ -914,7 +914,7 @@
                          formControlName="citizenNumberTrans" readonly/>
                 </td>
                 <td>
-                  <input class="form-control" type="text" formControlName="citizenNumberCT" [value]="guarantor.get('citizenNumberTrans').value"/>
+                  <input class="form-control" type="text" formControlName="citizenNumberCT" />
                 </td>
               </tr>
               <!--              <tr>-->
@@ -961,7 +961,7 @@
                          formControlName="issuedPlaceTrans" readonly/>
                 </td>
                 <td>
-                  <input class="form-control" type="text" formControlName="guarantorNameCT" [value]="guarantor.get('issuedPlaceTrans').value"/>
+                  <input class="form-control" type="text" formControlName="issuedPlaceCT" />
                 </td>
               </tr>
               <tr>
@@ -1013,7 +1013,7 @@
                          formControlName="gurantedAmountTrans" readonly/>
                 </td>
                 <td>
-                  <input class="form-control" type="text" formControlName="gurantedAmountCT" [value]="guarantor.get('gurantedAmountTrans').value"/>
+                  <input class="form-control" type="text" formControlName="gurantedAmountCT" />
                 </td>
               </tr>
 
@@ -1030,8 +1030,8 @@
                             [value]="relationship.value">{{relationship?.value}}</option>
                   </select>
                 </td>
-                <td><input class="form-control" readonly type="text" [value]="guarantor.get('relationship').value"/></td>
-                <td><input class="form-control" formControlName="relationshipCT" type="text" [value]="guarantor.get('relationship').value"/></td>
+                <td><input class="form-control" readonly type="text" formControlName="relationshipTrans" /></td>
+                <td><input class="form-control" formControlName="relationshipCT" type="text" /></td>
               </tr>
 
               <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
@@ -1046,10 +1046,10 @@
                 </td>
                 <td>
                    <input class="form-control" formControlName="genderTrans" readonly
-                    type="text"/>
+                    type="text" />
                 </td>
                 <td>
-                   <input class="form-control fatherNameTrans" formControlName="genderCT" type="text" [value]="guarantor.get('genderTrans').value"/>
+                   <input class="form-control" formControlName="genderCT" type="text"/>
                 </td>
               </tr>
               
@@ -1082,7 +1082,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <input class="form-control" formControlName="husbandNameCT" type="text" [value]="guarantor.get('husbandNameTrans').value"/>
+                  <input class="form-control" formControlName="husbandNameCT" type="text" />
                 </td>
               </tr>
               
@@ -1098,7 +1098,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <input class="form-control" formControlName="fatherInLawNameCT" type="text" [value]="guarantor.get('fatherInLawNameTrans').value"/>
+                  <input class="form-control" formControlName="fatherInLawNameCT" type="text" />
                 </td>
               </tr>
 
@@ -1119,7 +1119,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <input class="form-control" formControlName="grandFatherNameCT" type="text" [value]="guarantor.get('grandFatherNameTrans').value"/>
+                  <input class="form-control" formControlName="grandFatherNameCT" type="text" />
                 </td>
               </tr>
 
@@ -1140,7 +1140,7 @@
                     type="text"/>
                 </td>
                 <td>
-                  <input class="form-control" formControlName="fatherNameCT" type="text" [value]="guarantor.get('fatherNameTrans').value"/>
+                  <input class="form-control" formControlName="fatherNameCT" type="text" />
                 </td>
               </tr>
 
@@ -1248,7 +1248,7 @@
                            type="text"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="permanentWardCT" type="text" [value]="guarantor.get('permanentWardTrans').value"/>
+                    <input class="form-control" formControlName="permanentWardCT" type="text" />
                   </td>
 
                 </tr>
@@ -1355,7 +1355,7 @@
                            type="text"/>
                   </td>
                   <td>
-                    <input class="form-control" formControlName="temporaryWardCT" type="text" [value]="guarantor.get('temporaryWardTrans').value"/>
+                    <input class="form-control" formControlName="temporaryWardCT" type="text" />
                   </td>
 
                 </tr>
