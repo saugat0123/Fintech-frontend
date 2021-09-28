@@ -295,8 +295,42 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.spinner = true;
     this.translatedData = await this.translateService.translateForm(this.form);
     this.tdValues = this.translatedData;
+    this.setTemplatedCTData();
     this.spinner = false;
     this.btnDisable = false;
+  }
+
+  private setTemplatedCTData(): void {
+    this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
+    this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
+    this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
+    this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
+    this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
+    this.form.get('interestRateTransVal').patchValue(this.translatedData.interestRate);
+    this.form.get('loanAdminFeeFigureTransVal').patchValue(this.translatedData.loanAdminFeeFigure);
+    this.form.get('loanAdminFeeWordsTransVal').patchValue(this.translatedData.loanAdminFeeWords);
+    this.form.get('emiAmountFigureTransVal').patchValue(this.translatedData.emiAmountFigure);
+    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
+    this.form.get('loanPeriodInMonthsTransVal').patchValue(this.translatedData.loanPeriodInMonths);
+    this.form.get('moratoriumPeriodInMonthsTransVal').patchValue(this.translatedData.moratoriumPeriodInMonths);
+    this.form.get('loanCommitmentFeeInPercentageTransVal').patchValue(this.translatedData.loanCommitmentFeeInPercentage);
+    this.form.get('fixedDepositHolderNameTransVal').patchValue(this.translatedData.fixedDepositHolderName);
+    this.form.get('fixedDepositAmountFigureTransVal').patchValue(this.translatedData.fixedDepositAmountFigure);
+    this.form.get('fixedDepositReceiptAmountWordsTransVal').patchValue(this.translatedData.fixedDepositReceiptAmountWords);
+    this.form.get('tenureFixedDepositTransVal').patchValue(this.translatedData.tenureFixedDeposit);
+    this.form.get('tenureDepositReceiptNumberTransVal').patchValue(this.translatedData.tenureDepositReceiptNumber);
+    this.form.get('guaranteedAmountFigureTransVal').patchValue(this.translatedData.guaranteedAmountFigure);
+    this.form.get('guaranteedAmountWordsTransVal').patchValue(this.translatedData.guaranteedAmountWords);
+    this.form.get('pledgeAmountFigureTransVal').patchValue(this.translatedData.pledgeAmountFigure);
+    this.form.get('insuranceAmountFigureTransVal').patchValue(this.translatedData.insuranceAmountFigure);
+    this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
+    this.form.get('branchManagerTransVal').patchValue(this.translatedData.branchManager);
+    this.form.get('approvalStaffNameTransVal').patchValue(this.translatedData.approvalStaffName);
+    this.form.get('ownersNameTransVal').patchValue(this.translatedData.ownersName);
+    this.form.get('wardNoTransVal').patchValue(this.translatedData.wardNo);
+    this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
+    this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
+    this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
