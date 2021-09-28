@@ -47,6 +47,9 @@ export class LoanDeedIndividualComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
         }
+        console.log("individual data: ", this.individualData);
+        this.fillForm();
+
     }
 
     buildForm() {
@@ -87,6 +90,15 @@ export class LoanDeedIndividualComponent implements OnInit {
             plotNo1: [undefined],
             area1: [undefined]
         });
+    }
+
+    fillForm(){
+        this.loanDeedIndividual.patchValue(
+            {
+                permanentDistrict: this.individualData.name.np,
+                fatherName: this.individualData.fatherName.np,
+            }
+        )
     }
 
     submit() {
