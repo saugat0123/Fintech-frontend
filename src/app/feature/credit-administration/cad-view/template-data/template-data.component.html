@@ -27,13 +27,13 @@
 <!--    <nb-card-body *ngIf="offerLetterSelect === 'AUTO_LOAN_COMMERCIAL'">-->
 <!--        <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>-->
 <!--    </nb-card-body>-->
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT">
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT" [nbSpinner]="spinner">
         <app-personal-overdraft-template-data [cadData]="cadData"></app-personal-overdraft-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.AUTO_LOAN" [nbSpinner]="spinner">
         <app-sme-template-data></app-sme-template-data>
     </nb-card-body>
-    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN">
-        <app-personal-loan-template-data [cadData]="cadData"></app-personal-loan-template-data>
+    <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN" [nbSpinner]="spinner">
+        <app-personal-loan-template-data [customerApprovedDoc]="cadData"></app-personal-loan-template-data>
     </nb-card-body>
 </nb-card>

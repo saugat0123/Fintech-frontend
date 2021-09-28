@@ -102,6 +102,7 @@ export class PersonalLoanComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        console.log('Vital INformation:', this.offerLetterDocument);
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.personalLoan.patchValue(initialInfo, {emitEvent: false});

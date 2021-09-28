@@ -120,7 +120,10 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   submit() {
     this.spinner = true;
     this.btnDisable = true;
+    console.log('Doc Error',this.customerApprovedDoc);
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+
+
     if (this.existingOfferLetter) {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===

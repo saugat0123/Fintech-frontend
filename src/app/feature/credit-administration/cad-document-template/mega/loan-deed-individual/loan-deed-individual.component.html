@@ -26,7 +26,7 @@
                      formControlName="branchName"
                      placeholder=""
                      type="text"/>
-              शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक भनिएको छ) लिखत गरी दिने ऋणीका नाम
+              शाखा कार्यालयमा रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक भनिएको छ) लिखत गरी दिने ऋणीका नाम
               <input class="form-field form-control-sm nepaliFont"
                      formControlName="grandFatherName"
                      placeholder=""
@@ -272,7 +272,8 @@
 
             <div class="row disable-print">
               <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="loanDeedIndividualPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
+                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="loanDeedIndividualPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
                          ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_INDIVIDUAL}}Print">Print
                 </button>

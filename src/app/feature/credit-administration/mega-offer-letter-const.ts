@@ -11,6 +11,7 @@ export enum MegaOfferLetterConst {
     RETAIL_LOAN_AGAINST_INSURANCE,
     personal_overdraft,
     PERSONAL_LOAN,
+    home_loan
 }
 
 export namespace MegaOfferLetterConst {
@@ -38,6 +39,8 @@ export namespace MegaOfferLetterConst {
               return 'personal overdraft';
           case MegaOfferLetterConst.PERSONAL_LOAN:
               return 'Personal Loan';
+          case MegaOfferLetterConst.home_loan:
+              return 'home loan';
       }
     }
 
