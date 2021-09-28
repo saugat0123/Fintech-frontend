@@ -547,8 +547,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       guarantorName: '',
       guarantorNameTrans: [undefined],
       guarantorNameCT: '',
-      issuedYear: '',
-      issuedYearCT: '',
       issuedPlace: '',
       issuedPlaceTrans: [undefined],
       issuedPlaceCT: '',
@@ -648,8 +646,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         guarantorNameTrans: [undefined],
         guarantorNameCT: [value.guarantorNameCT],
         citizenNumberTrans: [undefined],
-        issuedYear: [value.issuedYear],
-        issuedYearCT: [value.issuedYearCT],
         issuedPlace: [value.issuedPlace],
         issuedPlaceTrans: [undefined],
         issuedPlaceCT: [value.issuedPlaceCT],
@@ -866,7 +862,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).setValue(guarantorsDetails.relationship || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).setValue(guarantorsDetails.relationship || '');
-
+      const dobDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+        dobDateType === 'AD' ? this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value : new Date(this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate)
+      )
       this.addressFromGroup = this.formBuilder.group({
         permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name || '',
         permanentDistrict: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.name || '',
@@ -925,7 +924,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     a = formArrayDataArrays.controls;
     let individualData = a[index] as FormGroup;
     Object.keys(individualData.controls).forEach(key => {
-      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || key.indexOf('MunicipalityOrVdc') > -1) {
         individualData.removeControl(key);
       }
     });
