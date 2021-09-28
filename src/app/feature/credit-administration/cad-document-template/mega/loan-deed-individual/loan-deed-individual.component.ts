@@ -45,7 +45,7 @@ export class LoanDeedIndividualComponent implements OnInit {
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-            this.individualData = JSON.parse(this.cadData.loanHolder.nepData);``
+            this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
         }
     }
 
