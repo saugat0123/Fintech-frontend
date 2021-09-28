@@ -627,9 +627,9 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <nb-accordion *ngIf="isRemitLoan" class="disable-print">
+                <nb-accordion *ngIf="isRemitLoan">
                     <nb-accordion-item>
-                        <nb-accordion-item-header><h6>Video KYC</h6></nb-accordion-item-header>
+                        <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video KYC</h6></nb-accordion-item-header>
                         <nb-accordion-item-body>
                                 <app-video-kyc [showSender]="true"  [remitCustomer]="loanDataHolder.remitCustomer"  [isModal]="false" ></app-video-kyc>
                         </nb-accordion-item-body>

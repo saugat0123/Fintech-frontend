@@ -1,26 +1,26 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from "../../../@core/service/user.service";
+import {UserService} from '../../../@core/service/user.service';
 import {User} from '../../admin/modal/user';
-import {LoanActionVerificationComponent} from "../../loan/loan-action/loan-action-verification/loan-action-verification.component";
-import {Alert,AlertType} from "../../../@theme/model/Alert";
-import {LoanFormService} from "../../loan/component/loan-form/service/loan-form.service";
-import {ToastService} from "../../../@core/utils";
+import {LoanActionVerificationComponent} from '../../loan/loan-action/loan-action-verification/loan-action-verification.component';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
+import {ToastService} from '../../../@core/utils';
 import {Router} from '@angular/router';
-import {DocStatus} from "../../loan/model/docStatus";
-import {LoanDataHolder} from "../../loan/model/loanData";
-import {DocAction} from "../../loan/model/docAction";
-import {LoanStage} from "../../loan/model/loanStage";
-import {SocketService} from "../../../@core/service/socket.service";
-import {LocalStorageUtil} from "../../../@core/utils/local-storage-util";
-import {ApprovalRoleHierarchyService} from "../../loan/approval/approval-role-hierarchy.service";
-import {Role} from "../../admin/modal/role";
-import {ObjectUtil} from "../../../@core/utils/ObjectUtil";
-import {RoleType} from "../../admin/modal/roleType";
-import {RoleService} from "../../admin/component/role-permission/role.service";
+import {DocStatus} from '../../loan/model/docStatus';
+import {LoanDataHolder} from '../../loan/model/loanData';
+import {DocAction} from '../../loan/model/docAction';
+import {LoanStage} from '../../loan/model/loanStage';
+import {SocketService} from '../../../@core/service/socket.service';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {ApprovalRoleHierarchyService} from '../../loan/approval/approval-role-hierarchy.service';
+import {Role} from '../../admin/modal/role';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {RoleType} from '../../admin/modal/roleType';
+import {RoleService} from '../../admin/component/role-permission/role.service';
 
-import {Editor} from "../../../@core/utils/constants/editor";
+import {Editor} from '../../../@core/utils/constants/editor';
 
 @Component({
     selector: 'app-cad-legal-doc-action-modal',
@@ -58,7 +58,7 @@ export class CadLegalDocActionModalComponent implements OnInit {
     isEmptyUser = false;
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
-
+    spinner = false;
     // selectedRoleForSol:Role = undefined;
 
     constructor(
@@ -124,12 +124,13 @@ export class CadLegalDocActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        let comment = this.formAction.value.comment;
+        this.spinner = true;
+        const comment = this.formAction.value.comment;
 
-        let docAction = this.formAction.value.docAction;
-        let docActionMSG = this.formAction.value.docActionMsg;
+        const docAction = this.formAction.value.docAction;
+        const docActionMSG = this.formAction.value.docActionMsg;
         if (docActionMSG === 'Send Legal Doc') {
-            let sendDocToRemit = {
+            const sendDocToRemit = {
                 beneficiaryId: this.beneficiaryId,
                 legalDoc: JSON.stringify(this.legalDoc),
                 remarks: comment,
@@ -137,12 +138,13 @@ export class CadLegalDocActionModalComponent implements OnInit {
             };
             console.log('we sending legal doc to remit app', sendDocToRemit);
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
+                this.spinner = false;
                 this.nbDialogRef.close();
-
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Sucessfully Forwarded Document To Agent/Sender'));
                 console.log('response', res);
             }, error => {
+                this.spinner = false;
                 this.nbDialogRef.close();
-
                 console.log(error);
             });
         } else {
@@ -171,10 +173,10 @@ export class CadLegalDocActionModalComponent implements OnInit {
             });
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
-                    let beneficiaryObj = {
-                        "beneficiaryId": this.beneficiaryId,
-                        "status": docAction,
-                        "remarks": this.formAction.value.comment
+                    const beneficiaryObj = {
+                        'beneficiaryId': this.beneficiaryId,
+                        'status': docAction,
+                        'remarks': this.formAction.value.comment
                     };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
@@ -185,11 +187,11 @@ export class CadLegalDocActionModalComponent implements OnInit {
                         console.log(error);
                     });
                 } else if (this.isRemitLoan && docAction === 'APPROVED') {
-                    let beneficiaryObj = {
-                        "beneficiaryId": this.beneficiaryId,
-                        "status": docAction,
-                        "remarks": this.formAction.value.comment
-                    }
+                    const beneficiaryObj = {
+                        'beneficiaryId': this.beneficiaryId,
+                        'status': docAction,
+                        'remarks': this.formAction.value.comment
+                    };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
                             this.postAction();
@@ -200,11 +202,11 @@ export class CadLegalDocActionModalComponent implements OnInit {
                     });
 
                 } else if (docAction === 'REJECT') {
-                    let beneficiaryObj = {
-                        "beneficiaryId": this.beneficiaryId,
-                        "status": "REJECTED",
-                        "remarks": this.formAction.value.comment
-                    }
+                    const beneficiaryObj = {
+                        'beneficiaryId': this.beneficiaryId,
+                        'status': 'REJECTED',
+                        'remarks': this.formAction.value.comment
+                    };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
                             this.postAction();
@@ -224,7 +226,6 @@ export class CadLegalDocActionModalComponent implements OnInit {
 
 
         }
-
 
     }
 
