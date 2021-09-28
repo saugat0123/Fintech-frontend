@@ -157,7 +157,6 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     }
 
     submit() {
-        this.form.get('loanLimitChecked').patchValue(this.loanLimit);
         this.spinner = true;
         this.btnDisable = true;
         this.cadData.docStatus = CadDocStatus.OFFER_PENDING;
