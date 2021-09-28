@@ -165,9 +165,9 @@ export class OfferLetterListComponent implements OnInit {
       this.dialogService.open(CadOfferLetterConfigurationComponent, {
         context: {
           customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,
-          customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.loanHolder,
+          customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
           loanHolder: resp.detail.loanHolder,
-          oneFormCustomer: resp.detail.customerInfo,
+          oneFormCustomer: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
           actionType: 'Edit',
           activeLoanTab: true
         },
