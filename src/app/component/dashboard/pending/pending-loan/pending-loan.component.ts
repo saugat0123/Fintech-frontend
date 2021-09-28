@@ -7,6 +7,7 @@ import {CustomerOfferLetterService} from '../../../../feature/loan/service/custo
 import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {CreditAdministrationService} from '../../../../feature/credit-administration/service/credit-administration.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class PendingLoanComponent implements OnInit {
     closedCount: number;
     initCount: number;
     postApprovalDocStat;
-    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    productUtils: ProductUtils = null;
 
     constructor(
         private router: Router,
@@ -33,6 +34,9 @@ export class PendingLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(LocalStorageUtil.getStorage().productUtil)) {
+        this.productUtils = LocalStorageUtil.getStorage().productUtil;
+        }
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
