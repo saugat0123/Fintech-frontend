@@ -1086,7 +1086,8 @@
                     <td>
                       <select class="form-control" formControlName="branch" id="branch">
                         <option [value]="null" hidden>Select Branch</option>
-                        <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
+                        <option *ngFor="let branch of branchList"
+                                [ngValue]="branch.name">{{branch.name}}
                         </option>
                       </select>
                     </td>
@@ -1252,7 +1253,7 @@
                       />
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
+                  <tr *ngIf="userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE'">
                     <td>
                       <label class="relationMedium" for="relationMedium">Relation Medium</label>
                     </td>
@@ -1272,7 +1273,7 @@
                       />
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['jointCustomerDetails',i, 'relationMedium']).value === 0)">
                     <td><label class="title">Husband Name</label></td>
                     <td><input class="form-control "
                                formControlName="husbandName"
@@ -1286,7 +1287,7 @@
                       />
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['jointCustomerDetails',i, 'relationMedium']).value == 0)">
                     <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
                     <td><input class="form-control "
                                formControlName="fatherInLawName"
@@ -1302,7 +1303,7 @@
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+             (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['jointCustomerDetails', i, 'relationMedium']).value == 0)">
                     <td>
                       <label class="title" for="grandFatherName">Grand Father Name</label>
                     </td>
@@ -1322,7 +1323,7 @@
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-            (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+            (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['jointCustomerDetails', i, 'relationMedium']).value == 0)">
                     <td>
                       <label class="title" for="name">Father Name</label>
                     </td>
