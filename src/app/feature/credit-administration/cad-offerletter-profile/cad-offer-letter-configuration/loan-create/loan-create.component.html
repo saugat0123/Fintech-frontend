@@ -1,5 +1,5 @@
 <form [formGroup]="form" [nbSpinner]="spinner">
-  <!--  <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>-->
+   <button nbButton status="primary" size="tiny" (click)="addEmptyLoan()">Add Loan</button>
   <div *ngFor="let loan of form.get('loanDetails')['controls']; let i = index"
        formArrayName="loanDetails">
     <table class="table table-borderless small table-4" [formGroupName]="i">
@@ -31,13 +31,20 @@
             </option>
           </select>
         </td>
-        <td>{{translatedValues?.loan}}</td>
-        <td><input type="text" class="form-control" formControlName="loan"></td>
+        <td>
+          <input type="text" class="form-control" formControlName="loanTrans" readonly>
+        </td>
+        <td><input type="text" class="form-control" formControlName="loanCT"></td>
       </tr>
       <tr>
         <td>Proposed Amount</td>
         <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
-        <td>{{translatedValues?.proposedAmount}}</td>
+        <td>
+          <input type="text" class="form-control" formControlName="proposedAmountTrans" readonly />
+        </td>
+        <td>
+          <input type="text" class="form-control" formControlName="proposedAmountCT" />
+        </td>
         <!--        <td><input type="text" class="form-control" formControlName="proposedAmount"></td>-->
       </tr>
       <!--      <tr>-->
@@ -69,12 +76,22 @@
 
       <!--        </td>-->
       <!--      </tr>-->
+      <tr>
+        <td colspan="3">
+          <button nbButton status="danger" size="small" class="float-left" (click)="removeLoan(i)" style="position: static"
+            *ngIf="form.get('loanDetails')['controls'].length > 1">
+            <em class="fa fa-trash" style="color: white;"></em>
+          </button>
+        </td>
+        <td colspan="2">
+          <button class="float-right" size="tiny" nbButton status="info" (click)="translate(i)">
+            Translate Loan Details
+          </button>
+        </td>
+      </tr>
     </table>
     <hr>
   </div>
   <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner">save
   </button>
 </form>
-<!--<button class="float-right" nbButton status="info" (click)="translate()">-->
-<!--  Translate-->
-<!--</button>-->

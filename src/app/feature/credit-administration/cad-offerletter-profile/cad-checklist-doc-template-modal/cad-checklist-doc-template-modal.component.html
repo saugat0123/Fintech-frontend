@@ -7,22 +7,21 @@
   <nb-card-body>
     <div>
       <div [ngSwitch]="documentId">
-        <app-assignment-of-receivable *ngSwitchCase="nabilCadTemplate.PROMISSORY_LETTER_INDIVIDUAL"
+        <app-promissory-note-individual *ngSwitchCase="nabilCadTemplate.PROMISSORY_LETTER_INDIVIDUAL"
                                       [cadData]="cadData" [documentId]="documentId"
-                                      [customerLoanId]="customerLoanId"></app-assignment-of-receivable>
+                                      [customerLoanId]="customerLoanId"></app-promissory-note-individual>
         <app-loan-deed-individual *ngSwitchCase="nabilCadTemplate.LOAN_DEED_INDIVIDUAL"
                                     [cadData]="cadData" [documentId]="documentId"
                                     [customerLoanId]="customerLoanId"></app-loan-deed-individual>
-        <app-hypo-of-stock *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_INDIVIDUAL" [cadData]="cadData"
-                           [documentId]="documentId"
+        <app-hypo-of-stock *ngSwitchCase="cadTemplate.HYPO_OF_STOCK"
                            [customerLoanId]="customerLoanId"></app-hypo-of-stock>
         <app-loan-deed-company *ngSwitchCase="cadTemplate.LOAN_DEED_COMPANY" [cadData]="cadData"
                                [documentId]="documentId"
                                [customerLoanId]="customerLoanId"></app-loan-deed-company>
 
-        <app-manjurinama-for-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF"
+        <app-letter-of-set-off *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF"
                                      [cadData]="cadData" [documentId]="documentId"
-                                     [customerLoanId]="customerLoanId"></app-manjurinama-for-company>
+                                     [customerLoanId]="customerLoanId"></app-letter-of-set-off>
         <app-personal-guarantee-company *ngSwitchCase="cadTemplate.PERSONAL_GUARANTEE_COMPANY"
                                         [cadData]="cadData" [documentId]="documentId"
                                         [customerLoanId]="customerLoanId"></app-personal-guarantee-company>
@@ -54,6 +53,10 @@
                                    [cadData]="cadData" [documentId]="documentId"
                                    [customerLoanId]="customerLoanId"
                                    [nepaliAmount]="nepaliNumber"></app-promissory-note-joint>
+        <app-personal-guarantee-individual *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_INDIVIDUAL"
+                                   [cadData]="cadData" [documentId]="documentId"
+                                   [customerLoanId]="customerLoanId"
+                                   [nepaliAmount]="nepaliNumber"></app-personal-guarantee-individual>
 
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>

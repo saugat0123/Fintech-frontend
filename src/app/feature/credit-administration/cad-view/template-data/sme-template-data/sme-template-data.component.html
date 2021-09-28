@@ -1,0 +1,434 @@
+<nb-select
+        fullWidth
+        placeholder="Select Offer Letter"
+        [(ngModel)]="offerLetterSelect"
+        status="info">
+    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
+        {{i.key | replace:'_':' ' }}
+    </nb-option>
+</nb-select>
+
+<nb-card *ngIf="offerLetterSelect === offerLetterConst.SME" [nbSpinner]="spinner">
+    <nb-card-body>
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <table class="table table-borderless table-hover text-center sb-small table-sm">
+                <tr>
+                    <th></th>
+                    <th>Loan Data</th>
+                    <th>Nepali Translation</th>
+                    <th>Edit</th>
+                    <th>Correct Translation</th>
+                </tr>
+                <tr>
+                    <td> Date Of Generation</td>
+                    <td><input type="text" class="form-control" formControlName="dateOfGeneration"></td>
+                    <td class="abc">
+                        {{translatedValues?.dateOfGeneration}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'dateOfGeneration')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['dateOfGenerationCheck']" formControlName="dateOfGenerationTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Customer Name</td>
+                    <td><input type="text" class="form-control" formControlName="customerName"></td>
+                    <td class="abc">{{translatedValues?.customerName}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'customerName')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['customerNameCheck']" formControlName="customerNameTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Customer Address</td>
+                    <td><input type="text" class="form-control" formControlName="customerAddress"></td>
+                    <td class="abc">{{translatedValues?.customerAddress}}">
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'customerAddress')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['customerAddressCheck']" formControlName="customerAddressTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Application Date in AD</td>
+                    <td><input type="text" class="form-control" formControlName="applicationDateInAD"></td>
+                    <td class="abc">{{translatedValues.applicationDateInAD}}
+                    </td>
+                    <td>
+                     <nb-checkbox (change)="checkboxVal($event, 'applicationDateInAD')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['applicationDateInADCheck']" formControlName="applicationDateInADTransVal"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Loan Amount</td>
+                    <td><input type="text" class="form-control" formControlName="loanAmount" (change)="getNumAmountWord('loanAmount', 'loanAmountWords')"></td>
+                    <td class="abc">{{translatedValues?.loanAmount}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'loanAmount')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['ownersNameCheck']" formControlName="ownersNameTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Loan Amount Words</td>
+                    <td><input type="text" class="form-control" formControlName="loanAmountWords"></td>
+                    <td class="abc">{{translatedValues?.loanAmountWords}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'loanAmountWords')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanAmountWordsCheck']" formControlName="loanAmountWordsTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Drawing Power </td>
+                    <td><input type="text" class="form-control" formControlName="drawingPower"></td>
+                    <td class="abc">{{translatedValues?.drawingPower}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'drawingPower')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['drawingPowerCheck']" formControlName="drawingPowerTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Base Rate</td>
+                    <td><input type="text" class="form-control" formControlName="baseRate"></td>
+                    <td class="abc">
+                        {{translatedValues.baseRate}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'baseRate')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['baseRateCheck']" formControlName="baseRateTransVal"/>
+                    </td>
+                </tr>
+                                <tr>
+                    <td>Premium Rate</td>
+                    <td><input type="text" class="form-control" formControlName="premiumRate"></td>
+                    <td class="abc">
+                        {{translatedValues.premiumRate}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'premiumRate')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['premiumRateCheck']" formControlName="premiumRateTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Annual Interest Rate</td>
+                    <td><input type="text" class="form-control" formControlName="annualInterestRate"></td>
+                    <td class="abc">{{translatedValues?.annualInterestRate}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'annualInterestRate')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['annualInterestRateCheck']" formControlName="annualInterestRateTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Service Charge</td>
+                    <td><input type="text" class="form-control" formControlName="serviceCharge" (change)="getNumAmountWord('serviceCharge', 'serviceChargeWords')"></td>
+                    <td class="abc">{{translatedValues?.serviceCharge}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'annualInterestRate')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['serviceChargeCheck']" formControlName="serviceChargeTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Service Charge Words</td>
+                    <td><input type="text" class="form-control" formControlName="serviceChargeWords"></td>
+                    <td class="abc">
+                        {{translatedValues.serviceChargeWords}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'serviceChargeWords')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['serviceChargeWordsCheck']" formControlName="serviceChargeWordsTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Communication Fee</td>
+                    <td><input type="text" class="form-control" formControlName="communicationFee"></td>
+                    <td class="abc">
+                        {{translatedValues.communicationFee}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'communicationFee')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['communicationFeeCheck']" formControlName="communicationFeeTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>EMI Amount</td>
+                    <td><input type="text" class="form-control" formControlName="emiAmount" (change)="getNumAmountWord('emiAmount', 'emiAmountWords')"></td>
+                    <td class="abc">
+                        {{translatedValues.emiAmount}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'emiAmount')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['emiAmountCheck']" formControlName="emiAmountTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>EMI Amount Words</td>
+                    <td><input type="text" class="form-control" formControlName="emiAmountWords"></td>
+                    <td class="abc">{{translatedValues?.emiAmountWords}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'emiAmountWords')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['emiAmountWordsCheck']" formControlName="emiAmountWordsTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Number of EMI</td>
+                    <td><input type="text" class="form-control" formControlName="numberOfEmi"></td>
+                    <td class="abc">
+                        {{translatedValues.numberOfEmi}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'numberOfEmi')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['numberOfEmiCheck']" formControlName="numberOfEmiTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Loan Commitment Fee</td>
+                    <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
+                    <td class="abc">
+                        {{translatedValues.loanCommitmentFee}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'loanCommitmentFee')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanCommitmentFeeCheck']" formControlName="loanCommitmentFeeTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Branch Name</td>
+                    <td><input type="text" class="form-control" formControlName="branchName"></td>
+                    <td class="abc">{{translatedValues?.branchName}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'branchName')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['branchNameCheck']" formControlName="branchNameTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dealer Name</td>
+                    <td><input type="text" class="form-control" formControlName="dealerName"></td>
+                    <td class="abc">
+                        {{translatedValues.dealerName}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'dealerName')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['dealerNameCheck']" formControlName="dealerNameTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Late Fee</td>
+                    <td><input type="text" class="form-control" formControlName="lateFee"></td>
+                    <td class="abc">
+                        {{translatedValues.lateFee}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'lateFee')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['lateFeeCheck']" formControlName="lateFeeTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Change Fee Below 1 Cr</td>
+                    <td><input type="text" class="form-control" formControlName="changeFeeBelow1Cr"></td>
+                    <td class="abc">
+                        {{translatedValues.changeFeeBelow1Cr}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'changeFeeBelow1Cr')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['changeFeeBelow1CrCheck']" formControlName="changeFeeBelow1CrTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Change Fee Above 1 Cr</td>
+                    <td><input type="text" class="form-control" formControlName="changeFeeAbove1Cr"></td>
+                    <td class="abc">
+                        {{translatedValues.changeFeeAbove1Cr}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'changeFeeAbove1Cr')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['changeFeeAbove1CrCheck']" formControlName="changeFeeAbove1CrTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Collateral Release Fee</td>
+                    <td><input type="text" class="form-control" formControlName="collateralReleaseFee"></td>
+                    <td class="abc">
+                        {{translatedValues.collateralReleaseFee}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'collateralReleaseFee')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['collateralReleaseFeeCheck']" formControlName="collateralReleaseFeeTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Document Access Fee</td>
+                    <td><input type="text" class="form-control" formControlName="documentAccessFee"></td>
+                    <td class="abc">
+                        {{translatedValues.documentAccessFee}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'documentAccessFee')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['documentAccessFeeCheck']" formControlName="documentAccessFeeTransVal"/>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Promissory Note Amount</td>
+                    <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"></td>
+                    <td class="abc">
+                        {{translatedValues.promissoryNoteAmount}}
+                    </td>
+                    <td>
+                     <nb-checkbox (change)="checkboxVal($event, 'promissoryNoteAmount')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['promissoryNoteAmountCheck']" formControlName="promissoryNoteAmountTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Guarantee Amount</td>
+                    <td><input type="text" class="form-control" formControlName="guaranteeAmount"></td>
+                    <td class="abc">
+                        {{translatedValues.guaranteeAmount}}
+                    </td>
+                    <td>
+                     <nb-checkbox (change)="checkboxVal($event, 'guaranteeAmount')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['guaranteeAmountCheck']" formControlName="guaranteeAmountTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Signature Date</td>
+                    <td><input type="text" class="form-control" formControlName="signatureDate"></td>
+                    <td class="abc">{{translatedValues?.signatureDate}}
+                    </td>
+                    <td>
+                         <nb-checkbox (change)="checkboxVal($event, 'signatureDate')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['signatureDateCheck']" formControlName="signatureDateTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sakshi District</td>
+                    <td><input type="text" class="form-control" formControlName="sakshiDistrict"></td>
+                    <td class="abc">{{translatedValues?.sakshiDistrict}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'sakshiDistrict')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['sakshiDistrictCheck']" formControlName="sakshiDistrictTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sakshi Municipality</td>
+                    <td><input type="text" class="form-control" formControlName="sakshiMunicipality"></td>
+                    <td class="abc">{{translatedValues?.sakshiMunicipality}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'sakshiMunicipality')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['sakshiMunicipalityCheck']" formControlName="sakshiMunicipalityTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sakshi Ward</td>
+                    <td><input type="text" class="form-control" formControlName="sakshiWard"></td>
+                    <td class="abc">{{translatedValues?.sakshiWard}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'sakshiWard')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['sakshiWardCheck']" formControlName="sakshiWardTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sakshi Name</td>
+                    <td><input type="text" class="form-control" formControlName="sakshiName"></td>
+                    <td class="abc">{{translatedValues?.sakshiName}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'sakshiName')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['sakshiNameCheck']" formControlName="sakshiNameTransVal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bank Representative Name</td>
+                    <td><input type="text" class="form-control" formControlName="bankRepresentativeName"></td>
+                    <td class="abc">
+                        {{translatedValues.bankRepresentativeName}}
+                    </td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'bankRepresentativeName')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['bankRepresentativeNameCheck']" formControlName="bankRepresentativeNameTransVal"/>
+                    </td>
+                </tr>
+
+            </table>
+            <button nbButton status="info" size="medium" type="submit" class="float-right">Submit</button>
+            <button nbButton status="primary" size="medium" type="submit" class="float-right" (click)="translate()">
+                Translate
+            </button>
+        </form>
+    </nb-card-body>
+</nb-card>
+
