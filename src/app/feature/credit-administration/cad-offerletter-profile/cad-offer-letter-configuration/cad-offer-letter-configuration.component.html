@@ -48,7 +48,7 @@
               </td>
               <td>{{objectValueTranslater?.branch}}</td>
               <td>
-                <input class="form-control" formControlName="branchCT" type="text" [value]="objectValueTranslater?.branch"/>
+                <input class="form-control" formControlName="branchCT" type="text"/>
               </td>
             </tr>
             <tr hidden>
@@ -363,20 +363,19 @@
               </td>
               <td>
                 <ng-select
-                        bindLabel="name"
                         [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
+                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrict.errors}"
                         formControlName="citizenshipIssueDistrict"
                         id="citizenshipIssueDistrict"
                         [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
-                 <ng-option *ngFor="let district of allDistrictList" [value]="district">{{district.name}}</ng-option>
+                    <ng-option *ngFor="let issuedDistrict of allDistrictList" [value]="issuedDistrict.name">{{issuedDistrict.name}}</ng-option>
                 </ng-select>
               </td>
               <td>
                 {{objectValueTranslater?.citizenshipIssueDistrict}}
               </td>
               <td>
-                <input class="form-control" formControlName="citizenshipIssueDistrictCT" type="text" [value]="objectValueTranslater?.citizenshipIssueDistrict"/>
+                <input class="form-control" formControlName="citizenshipIssueDistrictCT" type="text" />
               </td>
             </tr>
             <tr>
@@ -513,9 +512,8 @@
                   <nb-radio *ngFor="let option of vdcOption" [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <ng-select
-                       bindLabel="name"
+                        bindLabel="name"
                         [compareWith]="compareFn"
-
                         [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         formControlName="permanentMunicipality"
                         id="permanentMunicipality"

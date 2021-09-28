@@ -174,7 +174,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.patchValue();
     this.patchNepData();
     this.patchIndividualData();
-    this.patchGuarantorsData();
+    // this.patchGuarantorsData();
+    this.patchCorrectionData();
 
   }
 
@@ -601,7 +602,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipalityCT').value) ? null :
           this.userConfigForm.get('temporaryMunicipalityCT').value.name,
         citizenshipIssueDistrict:  ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ? null :
-            this.userConfigForm.get('citizenshipIssueDistrict').value.name,
+            this.userConfigForm.get('citizenshipIssueDistrict').value,
       citizenshipIssueDistrictCT:  ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrictCT').value) ? null :
           this.userConfigForm.get('citizenshipIssueDistrictCT').value.name,
     });
@@ -971,9 +972,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 contactNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber,
                 panNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.panNumber,
                 citizenshipNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber,
-              permanentMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
                 permanentProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province,
                 permanentDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district,
+              permanentMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
                 temporaryProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince,
                 temporaryDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict,
                 temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
@@ -1029,15 +1030,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       }
     }
 
-    patchGuarantorsData(): void{
-      const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-     this.loanHolder.guarantors.guarantorList.forEach( value => {
-       console.log(value);
-       formArray[0].patchValue({
-         guarantorName: value.name
-       });
-     });
-    }
+    // patchGuarantorsData(): void{
+    //   const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+    //  this.loanHolder.guarantors.guarantorList.forEach( value => {
+    //    console.log(value);
+    //    formArray[0].patchValue({
+    //      guarantorName: value.name
+    //    });
+    //  });
+    // }
+
+
+  patchCorrectionData(): void {
+    this.userConfigForm.patchValue({
+      branchCT: !ObjectUtil.isEmpty(this.translatedValues.branch) ? this.translatedValues.branch : this.nepData.branch.ct,
+    });
+  }
 
     munVdcValue(values: any) {
         console.log(values);
