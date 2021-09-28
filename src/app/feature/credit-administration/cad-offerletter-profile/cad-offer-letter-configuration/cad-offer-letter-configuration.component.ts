@@ -33,6 +33,7 @@ import {AddressService} from '../../../../@core/service/baseservice/address.serv
 import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {CustomerSubType} from '../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -68,6 +69,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   relationshipList = RelationshipNepali.enumObject();
   hideSaveBtn = false;
   clientType = CustomerType;
+  clientSubType = CustomerSubType;
   translatedValues: any;
   addressTranslatedValue: any;
   jointCustomerAddressTranslatedValue: any;
@@ -801,9 +803,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.attributes.ct = individualData.get(key + 'CT').value;
         newArr[key] = this.attributes;
       });
-      this.translatedGuarantorDetails[index] = newArr;
+      this.translatedJointCustomerDetails[index] = newArr;
       this.deleteJointCustomerCTAndTransControls(index);
-      this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
+      this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).patchValue(JSON.stringify(newArr));
       // end guarantorDetails
     }
   }

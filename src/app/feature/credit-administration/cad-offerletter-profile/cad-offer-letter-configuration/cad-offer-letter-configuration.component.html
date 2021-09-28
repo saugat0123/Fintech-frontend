@@ -912,711 +912,714 @@
           </div>
 
           <div
-              *ngFor="let jointCustomer of userConfigForm.get('jointCustomerDetails')['controls']; let i = index"
-              formArrayName="jointCustomerDetails">
-            <div [formGroupName]="i">
-              <table class="table table-borderless table-4 mb-5">
-                <tr>
-                  <th colspan="2" class="text-center">
-                    <b>
-                      Customer Details
-                    </b>
-                  </th>
-                  <th class="text-center">
-                    <b>
-                      Translated Value
-                    </b>
-                  </th>
-                  <th class="text-center">
-                    <b>
-                      Correction Data
-                    </b>
-                  </th>
-                </tr>
-                <tr>
+              *ngIf="customerType === clientType.INDIVIDUAL && personalCustomerType === clientSubType.JOINT && jointCustomerNum > 0">
+            <div
+                *ngFor="let jointCustomer of userConfigForm.get('jointCustomerDetails')['controls']; let i = index"
+                formArrayName="jointCustomerDetails">
+              <div [formGroupName]="i">
+                <table class="table table-borderless table-4 mb-5">
+                  <tr>
+                    <th colspan="2" class="text-center">
+                      <b>
+                        Customer Details
+                      </b>
+                    </th>
+                    <th class="text-center">
+                      <b>
+                        Translated Value
+                      </b>
+                    </th>
+                    <th class="text-center">
+                      <b>
+                        Correction Data
+                      </b>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="title" for="branch">Branch</label>
+                    </td>
+                    <td>
+                      <select class="form-control" formControlName="branch" id="branch">
+                        <option [value]="null" hidden>Select Branch</option>
+                        <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
+                        </option>
+                      </select>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="branchTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="branchCT" type="text"
+                             [value]="jointCustomer.get('branchTrans').value"/>
+                    </td>
+                  </tr>
+                  <!--              <tr hidden>-->
+                  <!--                <td>-->
+                  <!--                  <label class="title" for="clientType">Client Type</label>-->
+                  <!--                </td>-->
+                  <!--                <td>-->
+                  <!--                  <select class="form-control" formControlName="clientType" id="clientType"-->
+                  <!--                          disabled>-->
+                  <!--                    <option value="INDIVIDUAL">INDIVIDUAL</option>-->
+                  <!--                    <option value="INSTITUTION">INSTITUTION</option>-->
+                  <!--                  </select>-->
+                  <!--                </td>-->
+                  <!--                <td>{{translatedValues?.clientType}}</td>-->
+                  <!--                <td>-->
+                  <!--                  <input class="form-control" formControlName="clientTypeCT" type="text"-->
+                  <!--                         [value]="translatedValues?.clientType"/>-->
+                  <!--                </td>-->
+                  <!--              </tr>-->
+                  <tbody *ngIf="configForm?.clientType?.value != null">
+                  <tr>
+                    <td>
+                      <label class="title">Customer Code</label>
+                    </td>
+                    <td>
+                      <input class="form-control"
+                             formControlName="customerCode"
+                             [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
+                             name="customerCode" placeholder="Customer Code"
+                             type="text"/>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="customerCodeTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="customerCodeCT" type="text"
+                             [value]="jointCustomer.get('customerCodeTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="title" for="name">Client Name</label></td>
+                    <td><input class="form-control "
+                               formControlName="name"
+                               id="name"
+                               [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+                               name="name" placeholder="Client Name"
+                               type="text"/>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="nameTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="nameCT" type="text"
+                             [value]="jointCustomer.get('nameTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>DOB</td>
+                    <td>
+                      <div class="row">
+                        <nb-radio-group name="dobDateType" #dobDateType class="d-inline-flex"
+                                        formControlName="dobDateType">
+                          <nb-radio *ngFor="let option of dateOption"
+                                    [value]="option.value">{{option.label}}</nb-radio>
+                        </nb-radio-group>&nbsp;
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    </td>
+                    <td>
+                      <nepali-patro *ngIf="dobDateType.value ==='BS'" formControlName="dob"
+                                    [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="dob"
+                             *ngIf="dobDateType.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="dob"
+                             id="dateOfBirth"
+                             name="dateOfBirth"
+                             placeholder="Date of Birth"
+                             type="text">
+                      <nb-datepicker #dob></nb-datepicker>
+                    </td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><label class="title" for="email">Email</label></td>
+                    <td><input class="form-control"
+                               formControlName="email"
+                               id="email"
+                               [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
+                               name="email" placeholder="Email"
+                               type="text"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+
+                  <tr>
+                    <td><label class="title" for="contactNo">Contact No</label></td>
+                    <td><input class="form-control "
+                               formControlName="contactNo"
+                               id="contactNo"
+                               [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
+                               name="contactNo" placeholder="Contact No"
+                               type="text"/>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="contactNoTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="contactNoCT" type="text"
+                             [value]="jointCustomer.get('contactNoTrans').value"/>
+                    </td>
+                  </tr>
+
+                  <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
+                  <!--              <td>-->
+                  <!--                <label class="title" for="name">DOB</label>-->
+                  <!--              </td>-->
+                  <!--              <td>-->
+                  <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dob"-->
+                  <!--                       class="table-input form-control"-->
+                  <!--                       formControlName="dob">-->
+                  <!--                &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
+                  <!--                &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
+                  <!--                &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
+                  <!--                <nb-datepicker format="yyyy-MM-dd" #dob></nb-datepicker>-->
+
+                  <!--              </td>-->
+                  <!--              <td>  {{translatedValues?.dob}}</td>
                   <td>
-                    <label class="title" for="branch">Branch</label>
-                  </td>
-                  <td>
-                    <select class="form-control" formControlName="branch" id="branch">
-                      <option [value]="null" hidden>Select Branch</option>
-                      <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
+                  <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>-->
+                  <!--              <td>
+                      <input class="form-control nepaliFont" formControlName="dobCT" [readOnly]="!this['branchCheck']" type="text"/>
+                    </td>-->
+                  <!--            </tr>-->
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+
+                    <td><label class="title" for="gender">Gender</label></td>
+                    <td><select class="form-control" formControlName="gender" id="gender"
+                                [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
+                      <option [value]="null" hidden>Select Gender</option>
+                      <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
+                      <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female
+                      </option>
+                      <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others
                       </option>
                     </select>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="branchTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="branchCT" type="text"
-                           [value]="jointCustomer.get('branchTrans').value"/>
-                  </td>
-                </tr>
-                <!--              <tr hidden>-->
-                <!--                <td>-->
-                <!--                  <label class="title" for="clientType">Client Type</label>-->
-                <!--                </td>-->
-                <!--                <td>-->
-                <!--                  <select class="form-control" formControlName="clientType" id="clientType"-->
-                <!--                          disabled>-->
-                <!--                    <option value="INDIVIDUAL">INDIVIDUAL</option>-->
-                <!--                    <option value="INSTITUTION">INSTITUTION</option>-->
-                <!--                  </select>-->
-                <!--                </td>-->
-                <!--                <td>{{translatedValues?.clientType}}</td>-->
-                <!--                <td>-->
-                <!--                  <input class="form-control" formControlName="clientTypeCT" type="text"-->
-                <!--                         [value]="translatedValues?.clientType"/>-->
-                <!--                </td>-->
-                <!--              </tr>-->
-                <tbody *ngIf="configForm?.clientType?.value != null">
-                <tr>
-                  <td>
-                    <label class="title">Customer Code</label>
-                  </td>
-                  <td>
-                    <input class="form-control"
-                           formControlName="customerCode"
-                           [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
-                           name="customerCode" placeholder="Customer Code"
-                           type="text"/>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="customerCodeTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="customerCodeCT" type="text"
-                           [value]="jointCustomer.get('customerCodeTrans').value"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td><label class="title" for="name">Client Name</label></td>
-                  <td><input class="form-control "
-                             formControlName="name"
-                             id="name"
-                             [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
-                             name="name" placeholder="Client Name"
-                             type="text"/>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="nameTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="nameCT" type="text"
-                           [value]="jointCustomer.get('nameTrans').value"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>DOB</td>
-                  <td>
-                    <div class="row">
-                      <nb-radio-group name="dobDateType" #dobDateType class="d-inline-flex"
-                                      formControlName="dobDateType">
-                        <nb-radio *ngFor="let option of dateOption"
-                                  [value]="option.value">{{option.label}}</nb-radio>
-                      </nb-radio-group>&nbsp;
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  </td>
-                  <td>
-                    <nepali-patro *ngIf="dobDateType.value ==='BS'" formControlName="dob"
-                                  [responseType]="2"
-                                  [displayNepali]="true">
-                    </nepali-patro>
-                    <input [nbDatepicker]="dob"
-                           *ngIf="dobDateType.value ==='AD'"
-                           class="form-control form-control-sm-error rounded"
-                           formControlName="dob"
-                           id="dateOfBirth"
-                           name="dateOfBirth"
-                           placeholder="Date of Birth"
-                           type="text">
-                    <nb-datepicker #dob></nb-datepicker>
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><label class="title" for="email">Email</label></td>
-                  <td><input class="form-control"
-                             formControlName="email"
-                             id="email"
-                             [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
-                             name="email" placeholder="Email"
-                             type="text"/>
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <td><label class="title" for="contactNo">Contact No</label></td>
-                  <td><input class="form-control "
-                             formControlName="contactNo"
-                             id="contactNo"
-                             [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
-                             name="contactNo" placeholder="Contact No"
-                             type="text"/>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="contactNoTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="contactNoCT" type="text"
-                           [value]="jointCustomer.get('contactNoTrans').value"/>
-                  </td>
-                </tr>
-
-                <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
-                <!--              <td>-->
-                <!--                <label class="title" for="name">DOB</label>-->
-                <!--              </td>-->
-                <!--              <td>-->
-                <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dob"-->
-                <!--                       class="table-input form-control"-->
-                <!--                       formControlName="dob">-->
-                <!--                &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
-                <!--                <nb-datepicker format="yyyy-MM-dd" #dob></nb-datepicker>-->
-
-                <!--              </td>-->
-                <!--              <td>  {{translatedValues?.dob}}</td>
-                <td>
-                <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>-->
-                <!--              <td>
-                    <input class="form-control nepaliFont" formControlName="dobCT" [readOnly]="!this['branchCheck']" type="text"/>
-                  </td>-->
-                <!--            </tr>-->
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
-
-                  <td><label class="title" for="gender">Gender</label></td>
-                  <td><select class="form-control" formControlName="gender" id="gender"
-                              [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
-                    <option [value]="null" hidden>Select Gender</option>
-                    <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
-                    <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female
-                    </option>
-                    <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others
-                    </option>
-                  </select>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="genderTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="genderCT" type="text"
-                           [value]="jointCustomer.get('genderTrans').value"/>
-                  </td>
-                </tr>
-                <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
-                  <td>
-                    <label class="relationMedium" for="relationMedium">Relation Medium</label>
-                  </td>
-                  <td>
-                    <select class="form-control" formControlName="relationMedium"
-                            id="relationMedium"
-                            [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
-                      <option [value]="null" hidden>Select Relation Medium</option>
-                      <option value="0">Husband Relation</option>
-                      <option value="1">Father Relation</option>
-                    </select>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="relationMediumTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="relationMediumCT" type="text"
-                           [value]="jointCustomer.get('relationMediumTrans').value"/>
-                  </td>
-                </tr>
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-                  <td><label class="title" for="husbandName">Husband Name</label></td>
-                  <td><input class="form-control "
-                             formControlName="husbandName"
-                             [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                             id="husbandName"
-                             name="husbandName" placeholder="Husband Name"
-                             type="text"/></td>
-                  <td><input class="form-control" type="text"
-                             formControlName="husbandNameTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="husbandNameCT" type="text"
-                           [value]="jointCustomer.get('husbandNameTrans').value"/>
-                  </td>
-                </tr>
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-                  <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
-                  <td><input class="form-control "
-                             formControlName="fatherInLawName"
-                             [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
-                             id="fatherInLawName"
-                             name="fatherInLawName" placeholder="Father In Law Name"
-                             type="text"/></td>
-                  <td><input class="form-control" type="text"
-                             formControlName="fatherInLawNameTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="fatherInLawNameCT" type="text"
-                           [value]="jointCustomer.get('fatherInLawNameTrans').value"/>
-                  </td>
-                </tr>
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="genderTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="genderCT" type="text"
+                             [value]="jointCustomer.get('genderTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
+                    <td>
+                      <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                    </td>
+                    <td>
+                      <select class="form-control" formControlName="relationMedium"
+                              id="relationMedium"
+                              [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
+                        <option [value]="null" hidden>Select Relation Medium</option>
+                        <option value="0">Husband Relation</option>
+                        <option value="1">Father Relation</option>
+                      </select>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="relationMediumTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="relationMediumCT" type="text"
+                             [value]="jointCustomer.get('relationMediumTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+                    <td><label class="title" for="husbandName">Husband Name</label></td>
+                    <td><input class="form-control "
+                               formControlName="husbandName"
+                               [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
+                               id="husbandName"
+                               name="husbandName" placeholder="Husband Name"
+                               type="text"/></td>
+                    <td><input class="form-control" type="text"
+                               formControlName="husbandNameTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="husbandNameCT" type="text"
+                             [value]="jointCustomer.get('husbandNameTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+                    <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
+                    <td><input class="form-control "
+                               formControlName="fatherInLawName"
+                               [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
+                               id="fatherInLawName"
+                               name="fatherInLawName" placeholder="Father In Law Name"
+                               type="text"/></td>
+                    <td><input class="form-control" type="text"
+                               formControlName="fatherInLawNameTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="fatherInLawNameCT" type="text"
+                             [value]="jointCustomer.get('fatherInLawNameTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
              (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
-                  <td>
-                    <label class="title" for="grandFatherName">Grand Father Name</label>
-                  </td>
-                  <td>
-                    <input class="form-control "
-                           formControlName="grandFatherName"
-                           [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
-                           id="grandFatherName"
-                           name="grandFatherName" placeholder="Grand Father Name"
-                           type="text"/>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="grandFatherNameTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="grandFatherNameCT" type="text"
-                           [value]="jointCustomer.get('grandFatherNameTrans').value"/>
-                  </td>
-                </tr>
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+                    <td>
+                      <label class="title" for="grandFatherName">Grand Father Name</label>
+                    </td>
+                    <td>
+                      <input class="form-control "
+                             formControlName="grandFatherName"
+                             [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
+                             id="grandFatherName"
+                             name="grandFatherName" placeholder="Grand Father Name"
+                             type="text"/>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="grandFatherNameTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="grandFatherNameCT" type="text"
+                             [value]="jointCustomer.get('grandFatherNameTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
-                  <td>
-                    <label class="title" for="name">Father Name</label>
-                  </td>
-                  <td>
-                    <input class="form-control "
-                           formControlName="fatherName"
-                           [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
-                           id="fatherName"
-                           name="fatherName" placeholder="Father Name"
-                           type="text"/>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="fatherNameTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="fatherNameCT" type="text"
-                           [value]="jointCustomer.get('fatherNameTrans').value"/>
-                  </td>
-                </tr>
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
-                  <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
-                  <td>
-                    <input class="form-control "
-                           formControlName="citizenshipNo"
-                           id="citizenshipNo"
-                           [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
-                           name="citizenshipNo" placeholder="Citizenship No"
-                           type="text"/>
+                    <td>
+                      <label class="title" for="name">Father Name</label>
+                    </td>
+                    <td>
+                      <input class="form-control "
+                             formControlName="fatherName"
+                             [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
+                             id="fatherName"
+                             name="fatherName" placeholder="Father Name"
+                             type="text"/>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="fatherNameTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="fatherNameCT" type="text"
+                             [value]="jointCustomer.get('fatherNameTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                    <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
+                    <td>
+                      <input class="form-control "
+                             formControlName="citizenshipNo"
+                             id="citizenshipNo"
+                             [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
+                             name="citizenshipNo" placeholder="Citizenship No"
+                             type="text"/>
 
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="citizenshipNoTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="citizenshipNoCT" type="text"
-                           [value]="jointCustomer.get('citizenshipNoTrans').value"/>
-                  </td>
-                </tr>
-                <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
-                <!--              <td>-->
-                <!--                <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
-                <!--              </td>-->
-                <!--              <td>-->
-                <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="citizenshipIssueDate"-->
-                <!--                       class="form-control "-->
-                <!--                       formControlName="citizenshipIssueDate"-->
-                <!--                       id="citizenshipIssueDate"-->
-                <!--                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"-->
-                <!--                       name="citizenshipIssueDate" placeholder="Citizenship Issue Date"-->
-                <!--                       type="text"/>-->
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="citizenshipNoTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="citizenshipNoCT" type="text"
+                             [value]="jointCustomer.get('citizenshipNoTrans').value"/>
+                    </td>
+                  </tr>
+                  <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
+                  <!--              <td>-->
+                  <!--                <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
+                  <!--              </td>-->
+                  <!--              <td>-->
+                  <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="citizenshipIssueDate"-->
+                  <!--                       class="form-control "-->
+                  <!--                       formControlName="citizenshipIssueDate"-->
+                  <!--                       id="citizenshipIssueDate"-->
+                  <!--                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"-->
+                  <!--                       name="citizenshipIssueDate" placeholder="Citizenship Issue Date"-->
+                  <!--                       type="text"/>-->
 
-                <!--                &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
-                <!--                <nb-datepicker format="yyyy-MM-dd" #citizenshipIssueDate></nb-datepicker>-->
-                <!--              </td>-->
-                <!--              <td>-->
-                <!--                {{translatedValues?.citizenshipIssueDate}}-->
-                <!--              </td>-->
-                <!--              <td>
-                    <input class="form-control nepaliFont" formControlName="citizenshipIssueDateCT" [readOnly]="!this['branchCheck']" type="text"/>
-                  </td>-->
-                <!--            </tr>-->
-                <!--            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">-->
-                <!--              <td>-->
-                <!--                <label class="title" for="registrationDate">Registration Date</label>-->
-                <!--              </td>-->
-                <!--              <td>-->
-                <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationDate"-->
-                <!--                       class="form-control "-->
-                <!--                       formControlName="registrationDate"-->
-                <!--                       id="registrationDate"-->
-                <!--                       [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"-->
-                <!--                       name="registrationDate" placeholder="Registration Date"-->
-                <!--                       type="text"/>-->
-                <!--                &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
-                <!--                &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
-                <!--                <nb-datepicker format="yyyy-MM-dd" #registrationDate></nb-datepicker>-->
-                <!--              </td>-->
-                <!--              <td>-->
-                <!--                {{translatedValues?.registrationDate}}-->
-                <!--              </td>-->
-                <!--              <td>
-                    <input class="form-control nepaliFont" formControlName="registrationDateCT" [readOnly]="!this['branchCheck']" type="text"/>
-                  </td>-->
-                <!--            </tr>-->
-                <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
-                  <td>
-                    <label class="title" for="citizenshipNo">Citizenship Issue District</label>
-                  </td>
-                  <td>
-                    <select
+                  <!--                &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
+                  <!--                &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
+                  <!--                &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
+                  <!--                <nb-datepicker format="yyyy-MM-dd" #citizenshipIssueDate></nb-datepicker>-->
+                  <!--              </td>-->
+                  <!--              <td>-->
+                  <!--                {{translatedValues?.citizenshipIssueDate}}-->
+                  <!--              </td>-->
+                  <!--              <td>
+                      <input class="form-control nepaliFont" formControlName="citizenshipIssueDateCT" [readOnly]="!this['branchCheck']" type="text"/>
+                    </td>-->
+                  <!--            </tr>-->
+                  <!--            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">-->
+                  <!--              <td>-->
+                  <!--                <label class="title" for="registrationDate">Registration Date</label>-->
+                  <!--              </td>-->
+                  <!--              <td>-->
+                  <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationDate"-->
+                  <!--                       class="form-control "-->
+                  <!--                       formControlName="registrationDate"-->
+                  <!--                       id="registrationDate"-->
+                  <!--                       [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"-->
+                  <!--                       name="registrationDate" placeholder="Registration Date"-->
+                  <!--                       type="text"/>-->
+                  <!--                &lt;!&ndash;                <app-calendar (messageToEmit)="userConfigForm.get('dob').patchValue($event?.eDate)"&ndash;&gt;-->
+                  <!--                &lt;!&ndash;                              *ngIf="calendarType === 'BS'"&ndash;&gt;-->
+                  <!--                &lt;!&ndash;                              [ePreDate]="userConfigForm.get('dob').value"></app-calendar>&ndash;&gt;-->
+                  <!--                <nb-datepicker format="yyyy-MM-dd" #registrationDate></nb-datepicker>-->
+                  <!--              </td>-->
+                  <!--              <td>-->
+                  <!--                {{translatedValues?.registrationDate}}-->
+                  <!--              </td>-->
+                  <!--              <td>
+                      <input class="form-control nepaliFont" formControlName="registrationDateCT" [readOnly]="!this['branchCheck']" type="text"/>
+                    </td>-->
+                  <!--            </tr>-->
+                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                    <td>
+                      <label class="title" for="citizenshipNo">Citizenship Issue District</label>
+                    </td>
+                    <td>
+                      <select
+                          [compareWith]="compareFn"
+                          [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
+                          class="custom-select"
+                          formControlName="citizenshipIssueDistrict"
+                          id="citizenshipIssueDistrict">
+                        <option [ngValue]="null" hidden>District</option>
+                        <option *ngFor="let district of allDistrictList"
+                                [ngValue]="district">
+                          {{district.name}} || {{district.nepaliName}}
+                        </option>
+                      </select>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="citizenshipIssueDistrictTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="citizenshipIssueDistrictCT"
+                             type="text"
+                             [value]="jointCustomer.get('citizenshipIssueDistrictTrans').value"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="title" for="issueDate">Issue Date</label>
+                    </td>
+                    <td>
+                      <div class="row">
+                        <nb-radio-group name="issueDateType" formControlName="issuedDate"
+                                        #issueDateVal class="d-inline-flex">
+                          <nb-radio *ngFor="let option of dateOption"
+                                    [value]="option.value">{{option.label}}</nb-radio>
+                        </nb-radio-group>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <nepali-patro *ngIf="issueDateVal.value ==='BS'"
+                                    formControlName="citizenshipIssueDate" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="issueDate"
+                             *ngIf="issueDateVal.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="citizenshipIssueDate"
+                             id="issueDate"
+                             name="issueDate"
+                             placeholder="Issue Date"
+                             type="text">
+                      <nb-datepicker #issueDate></nb-datepicker>
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="title" for="panNo">PAN No</label>
+                    </td>
+                    <td>
+                      <input class="form-control "
+                             formControlName="panNo" id="panNo"
+                             [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
+                             name="panNo" placeholder="PAN No" type="text"/>
+                    </td>
+                    <td><input class="form-control" type="text"
+                               formControlName="panNoTrans" readonly/></td>
+                    <td>
+                      <input class="form-control" formControlName="panNoCT" type="text"
+                             [value]="jointCustomer.get('panNoTrans').value"/>
+                    </td>
+                  </tr>
+                  </tbody>
+                  <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                  <tr>
+                    <td>
+                      <strong>Permanent Address</strong>
+                    </td>
+                  </tr>
+                  <!--              &lt;!&ndash;            <tr>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;              <td><label class="title" for="permanentMunType">Municipality</label></td>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;              <td>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                <select class="form-control" formControlName="permanentMunType"&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                        id="permanentMunType"&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                  <option value="0">Municipality</option>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                  <option value="1">VDC</option>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                </select>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;              </td>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;              <td>{{translatedValues?.permanentMunType}}</td>-->
+                  <!--              <td>-->
+                  <!--              <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;              <td></td>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;            </tr>&ndash;&gt;-->
+                  <tr>
+                    <td><label class="title">Province</label></td>
+                    <td>
+                      <select #element
+                              (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
+                              [compareWith]="compareFn"
+                              [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
+                              class="custom-select"
+                              formControlName="permanentProvince"
+                      >
+                        <option [ngValue]="null" hidden>Province</option>
+                        <option *ngFor="let provinceVal of provinceList"
+                                [ngValue]="provinceVal">
+                          {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                        </option>
+                      </select>
+                    </td>
+
+                    <td>
+                      <input class="form-control" formControlName="permanentProvinceTrans"
+                             [readOnly]="!this['permanentProvinceTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentProvince"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentProvinceCT" type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentProvince"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="title" for="permanentDistrict">District</label></td>
+                    <td><select
+                        (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
                         [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
+                        [ngClass]="{'is-invalid': submitted && form.permanentDistrict.errors}"
                         class="custom-select"
-                        formControlName="citizenshipIssueDistrict"
-                        id="citizenshipIssueDistrict">
-                      <option [ngValue]="null" hidden>District</option>
-                      <option *ngFor="let district of allDistrictList"
-                              [ngValue]="district">
-                        {{district.name}} || {{district.nepaliName}}
-                      </option>
-                    </select>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="citizenshipIssueDistrictTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="citizenshipIssueDistrictCT"
-                           type="text"
-                           [value]="jointCustomer.get('citizenshipIssueDistrictTrans').value"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="title" for="issueDate">Issue Date</label>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <nb-radio-group name="issueDateType" formControlName="issuedDate"
-                                      #issueDateVal class="d-inline-flex">
-                        <nb-radio *ngFor="let option of dateOption"
-                                  [value]="option.value">{{option.label}}</nb-radio>
-                      </nb-radio-group>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>
-                    <nepali-patro *ngIf="issueDateVal.value ==='BS'"
-                                  formControlName="citizenshipIssueDate" [responseType]="2"
-                                  [displayNepali]="true">
-                    </nepali-patro>
-                    <input [nbDatepicker]="issueDate"
-                           *ngIf="issueDateVal.value ==='AD'"
-                           class="form-control form-control-sm-error rounded"
-                           formControlName="citizenshipIssueDate"
-                           id="issueDate"
-                           name="issueDate"
-                           placeholder="Issue Date"
-                           type="text">
-                    <nb-datepicker #issueDate></nb-datepicker>
-                  </td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="title" for="panNo">PAN No</label>
-                  </td>
-                  <td>
-                    <input class="form-control "
-                           formControlName="panNo" id="panNo"
-                           [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
-                           name="panNo" placeholder="PAN No" type="text"/>
-                  </td>
-                  <td><input class="form-control" type="text"
-                             formControlName="panNoTrans" readonly/></td>
-                  <td>
-                    <input class="form-control" formControlName="panNoCT" type="text"
-                           [value]="jointCustomer.get('panNoTrans').value"/>
-                  </td>
-                </tr>
-                </tbody>
-                <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
-                <tr>
-                  <td>
-                    <strong>Permanent Address</strong>
-                  </td>
-                </tr>
-                <!--              &lt;!&ndash;            <tr>&ndash;&gt;-->
-                <!--              &lt;!&ndash;              <td><label class="title" for="permanentMunType">Municipality</label></td>&ndash;&gt;-->
-                <!--              &lt;!&ndash;              <td>&ndash;&gt;-->
-                <!--              &lt;!&ndash;                <select class="form-control" formControlName="permanentMunType"&ndash;&gt;-->
-                <!--              &lt;!&ndash;                        id="permanentMunType"&ndash;&gt;-->
-                <!--              &lt;!&ndash;                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">&ndash;&gt;-->
-                <!--              &lt;!&ndash;                  <option value="0">Municipality</option>&ndash;&gt;-->
-                <!--              &lt;!&ndash;                  <option value="1">VDC</option>&ndash;&gt;-->
-                <!--              &lt;!&ndash;                </select>&ndash;&gt;-->
-                <!--              &lt;!&ndash;              </td>&ndash;&gt;-->
-                <!--              &lt;!&ndash;              <td>{{translatedValues?.permanentMunType}}</td>-->
-                <!--              <td>-->
-                <!--              <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>&ndash;&gt;-->
-                <!--              &lt;!&ndash;              <td></td>&ndash;&gt;-->
-                <!--              &lt;!&ndash;            </tr>&ndash;&gt;-->
-                <tr>
-                  <td><label class="title">Province</label></td>
-                  <td>
-                    <select #element
-                            (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
-                            [compareWith]="compareFn"
-                            [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
-                            class="custom-select"
-                            formControlName="permanentProvince"
-                    >
-                      <option [ngValue]="null" hidden>Province</option>
-                      <option *ngFor="let provinceVal of provinceList"
-                              [ngValue]="provinceVal">
-                        {{provinceVal.name}} || {{provinceVal.nepaliName}}
-                      </option>
-                    </select>
-                  </td>
-
-                  <td>
-                    <input class="form-control" formControlName="permanentProvinceTrans"
-                           [readOnly]="!this['permanentProvinceTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentProvince"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentProvinceCT" type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentProvince"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td><label class="title" for="permanentDistrict">District</label></td>
-                  <td><select
-                      (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
-                      [compareWith]="compareFn"
-                      [ngClass]="{'is-invalid': submitted && form.permanentDistrict.errors}"
-                      class="custom-select"
-                      formControlName="permanentDistrict"
-                      id="permanentDistrict">
-                    <option [ngValue]="null" hidden>District</option>
-                    <option *ngFor="let districtVal of districts"
-                            [ngValue]="districtVal">
-                      {{districtVal.name}} || {{districtVal.nepaliName}}
-                    </option>
-                  </select>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentDistrictTrans"
-                           [readOnly]="!this['permanentDistrictTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentDistrict"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentDistrictCT" type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentDistrict"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="title"
-                           for="permanentMunicipality">Municipality or VDC
-                    </label>
-                  </td>
-                  <td>
-                    <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc"
-                                    class="d-inline-flex">
-                      <nb-radio *ngFor="let option of vdcOption"
-                                [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                    </nb-radio-group>
-                    <select [compareWith]="compareFn"
-                            [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
-                            class="custom-select"
-                            formControlName="permanentMunicipality"
-                            id="permanentMunicipality"
-                            name="municipality">
-                      <option *ngFor="let municipalityVal of municipalities"
-                              [ngValue]="municipalityVal">
-                        {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                      </option>
-                    </select>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentMunicipalityTrans"
-                           [readOnly]="!this['permanentMunicipalityTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentMunicipality"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentMunicipalityCT"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentMunicipality"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="title" for="permanentWard">Ward No</label>
-                  </td>
-                  <td>
-                    <input class="form-control "
-                           formControlName="permanentWard"
-                           [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                           id="permanentWard"
-                           name="permanentMunicipality" placeholder="Ward No"
-                           type="text"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentWardTrans"
-                           [readOnly]="!this['permanentWardTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="permanentWardCT" type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
-                  </td>
-
-                </tr>
-                <td></td>
-                <td>
-                  <nb-checkbox formControlName="isSameTemporaryAndPermanent"
-                               name="isSameTemporaryAndPermanent"
-                               (change)="setJointCustomerAddressSameAsPermanent($event, i)"><i>Check
-                    if Temporary Address is
-                    same as Permanent Address</i></nb-checkbox>
-                </td>
-                </tbody>
-
-                <tbody
-                    *ngIf="!userConfigForm.get(['jointCustomerDetails', i, 'isSameTemporaryAndPermanent']).value">
-                <tr>
-                  <td>
-                    <strong>Temporary Address</strong>
-                  </td>
-
-                </tr>
-                <br>
-                <tr>
-                  <td><label class="title">Province</label></td>
-                  <td>
-                    <select
-                        (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
-                        [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.temporaryProvince.errors}"
-                        class="custom-select"
-                        formControlName="temporaryProvince">
-                      <option [ngValue]="null" hidden>Province</option>
-                      <option *ngFor="let provinceVal of tempProvinceList"
-                              [ngValue]="provinceVal">
-                        {{provinceVal.name}}|| {{provinceVal.nepaliName}}
-                      </option>
-                    </select>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryProvinceTrans"
-                           [readOnly]="!this['temporaryProvinceTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryProvince"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryProvinceCT" type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryProvince"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td><label class="title">District</label></td>
-                  <td>
-                    <select
-                        (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
-                        [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.temporaryDistrict.errors}"
-                        class="custom-select"
-                        formControlName="temporaryDistrict"
-                    >
+                        formControlName="permanentDistrict"
+                        id="permanentDistrict">
                       <option [ngValue]="null" hidden>District</option>
                       <option *ngFor="let districtVal of districts"
                               [ngValue]="districtVal">
                         {{districtVal.name}} || {{districtVal.nepaliName}}
                       </option>
                     </select>
-                  </td>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentDistrictTrans"
+                             [readOnly]="!this['permanentDistrictTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentDistrict"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentDistrictCT" type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentDistrict"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="title"
+                             for="permanentMunicipality">Municipality or VDC
+                      </label>
+                    </td>
+                    <td>
+                      <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc"
+                                      class="d-inline-flex">
+                        <nb-radio *ngFor="let option of vdcOption"
+                                  [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                      </nb-radio-group>
+                      <select [compareWith]="compareFn"
+                              [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
+                              class="custom-select"
+                              formControlName="permanentMunicipality"
+                              id="permanentMunicipality"
+                              name="municipality">
+                        <option *ngFor="let municipalityVal of municipalities"
+                                [ngValue]="municipalityVal">
+                          {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                        </option>
+                      </select>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentMunicipalityTrans"
+                             [readOnly]="!this['permanentMunicipalityTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentMunicipality"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentMunicipalityCT"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentMunicipality"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="title" for="permanentWard">Ward No</label>
+                    </td>
+                    <td>
+                      <input class="form-control "
+                             formControlName="permanentWard"
+                             [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
+                             id="permanentWard"
+                             name="permanentMunicipality" placeholder="Ward No"
+                             type="text"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentWardTrans"
+                             [readOnly]="!this['permanentWardTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="permanentWardCT" type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.permanentWard"/>
+                    </td>
+
+                  </tr>
+                  <td></td>
                   <td>
-                    <input class="form-control" formControlName="temporaryDistrictTrans"
-                           [readOnly]="!this['temporaryDistrictTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryDistrict"/>
+                    <nb-checkbox formControlName="isSameTemporaryAndPermanent"
+                                 name="isSameTemporaryAndPermanent"
+                                 (change)="setJointCustomerAddressSameAsPermanent($event, i)"><i>Check
+                      if Temporary Address is
+                      same as Permanent Address</i></nb-checkbox>
                   </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryDistrictCT" type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryDistrict"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td><label class="title"
-                             for="temporaryMunicipality">Municipality or VDC</label>
-                  </td>
-                  <td>
-                    <nb-radio-group name="temporaryMunicipalityOrVdc"
-                                    formControlName="temporaryMunicipalityOrVdc"
-                                    class="d-inline-flex">
-                      <nb-radio *ngFor="let option of vdcOption"
-                                [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                    </nb-radio-group>
-                    <select [compareWith]="compareFn"
-                            [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
-                            class="custom-select"
-                            formControlName="temporaryMunicipality"
-                            id="temporaryMunicipality"
-                            name="municipality">
-                      <option *ngFor="let municipalityVal of municipalities"
-                              [ngValue]="municipalityVal">
-                        {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                      </option>
-                    </select>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryMunicipalityTrans"
-                           [readOnly]="!this['temporaryMunicipalityTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryMunicipality"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryMunicipalityCT"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryMunicipality"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td><label class="title" for="temporaryWard">Ward No</label>
-                  </td>
-                  <td>
-                    <input class="form-control "
-                           formControlName="temporaryWard"
-                           [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                           id="temporaryWard"
-                           name="temporaryWard" placeholder="Ward No"
-                           type="text"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryWardTrans"
-                           [readOnly]="!this['temporaryWardTransCheck']"
-                           type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryWard"/>
-                  </td>
-                  <td>
-                    <input class="form-control" formControlName="temporaryWardCT" type="text"
-                           [value]="jointCustomerAddressTranslatedValue?.temporaryWard"/>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <button nbButton (click)="translateJointCustomerData(i)" class="float-right">Translate
-                Joint Customer
-              </button>
+                  </tbody>
+
+                  <tbody
+                      *ngIf="!userConfigForm.get(['jointCustomerDetails', i, 'isSameTemporaryAndPermanent']).value">
+                  <tr>
+                    <td>
+                      <strong>Temporary Address</strong>
+                    </td>
+
+                  </tr>
+                  <br>
+                  <tr>
+                    <td><label class="title">Province</label></td>
+                    <td>
+                      <select
+                          (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
+                          [compareWith]="compareFn"
+                          [ngClass]="{'is-invalid': submitted && form.temporaryProvince.errors}"
+                          class="custom-select"
+                          formControlName="temporaryProvince">
+                        <option [ngValue]="null" hidden>Province</option>
+                        <option *ngFor="let provinceVal of tempProvinceList"
+                                [ngValue]="provinceVal">
+                          {{provinceVal.name}}|| {{provinceVal.nepaliName}}
+                        </option>
+                      </select>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryProvinceTrans"
+                             [readOnly]="!this['temporaryProvinceTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryProvince"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryProvinceCT" type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryProvince"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="title">District</label></td>
+                    <td>
+                      <select
+                          (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
+                          [compareWith]="compareFn"
+                          [ngClass]="{'is-invalid': submitted && form.temporaryDistrict.errors}"
+                          class="custom-select"
+                          formControlName="temporaryDistrict"
+                      >
+                        <option [ngValue]="null" hidden>District</option>
+                        <option *ngFor="let districtVal of districts"
+                                [ngValue]="districtVal">
+                          {{districtVal.name}} || {{districtVal.nepaliName}}
+                        </option>
+                      </select>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryDistrictTrans"
+                             [readOnly]="!this['temporaryDistrictTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryDistrict"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryDistrictCT" type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryDistrict"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="title"
+                               for="temporaryMunicipality">Municipality or VDC</label>
+                    </td>
+                    <td>
+                      <nb-radio-group name="temporaryMunicipalityOrVdc"
+                                      formControlName="temporaryMunicipalityOrVdc"
+                                      class="d-inline-flex">
+                        <nb-radio *ngFor="let option of vdcOption"
+                                  [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                      </nb-radio-group>
+                      <select [compareWith]="compareFn"
+                              [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
+                              class="custom-select"
+                              formControlName="temporaryMunicipality"
+                              id="temporaryMunicipality"
+                              name="municipality">
+                        <option *ngFor="let municipalityVal of municipalities"
+                                [ngValue]="municipalityVal">
+                          {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                        </option>
+                      </select>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryMunicipalityTrans"
+                             [readOnly]="!this['temporaryMunicipalityTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryMunicipality"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryMunicipalityCT"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryMunicipality"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="title" for="temporaryWard">Ward No</label>
+                    </td>
+                    <td>
+                      <input class="form-control "
+                             formControlName="temporaryWard"
+                             [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
+                             id="temporaryWard"
+                             name="temporaryWard" placeholder="Ward No"
+                             type="text"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryWardTrans"
+                             [readOnly]="!this['temporaryWardTransCheck']"
+                             type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryWard"/>
+                    </td>
+                    <td>
+                      <input class="form-control" formControlName="temporaryWardCT" type="text"
+                             [value]="jointCustomerAddressTranslatedValue?.temporaryWard"/>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <button nbButton (click)="translateJointCustomerData(i)" class="float-right">
+                  Translate
+                  Joint Customer
+                </button>
+              </div>
             </div>
           </div>
-
           <h4>Guarantors
             <button nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
               Guarantor

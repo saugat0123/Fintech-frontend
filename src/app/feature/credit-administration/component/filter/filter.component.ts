@@ -24,7 +24,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
-import {CustomerSubType} from '../../../customer/model/CustomerSubType';
+import {CustomerSubType} from '../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-filter',
@@ -167,12 +167,13 @@ export class FilterComponent implements OnInit {
     this.modalService.open(CadReportComponent, {size: 'xl'});
   }
 
-  getForm(customerType, personalCustomerType, jointCustomerNum, institutionCustomerType) {
+  getForm() {
     this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
       context: {
-        customerType: customerType,
-        personalCustomerType: personalCustomerType,
-        jointCustomerNum: jointCustomerNum,
+        customerType: this.customerType,
+        personalCustomerType: this.personalCustomerType,
+        jointCustomerNum: this.jointCustomerNum,
+        institutionCustomerType: this.institutionCustomerType,
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
