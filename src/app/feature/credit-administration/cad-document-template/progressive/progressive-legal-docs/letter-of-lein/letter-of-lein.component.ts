@@ -15,6 +15,11 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-letter-of-lein',
@@ -33,7 +38,7 @@ export class LetterOfLeinComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate;
+  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfLeinComponent>,
               private formBuilder: FormBuilder,
@@ -42,12 +47,23 @@ export class LetterOfLeinComponent implements OnInit {
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService,) {
+              private customerOfferLetterService: CustomerOfferLetterService,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe) {
   }
 
   ngOnInit() {
     this.buildForm();
-    this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
+      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+      this.loanAmountTemplate.engNumber = number;
+    } else {
+      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+    }
+    //this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
+    console.log('cadData', this.cadData);
     this.fillForm();
   }
 
