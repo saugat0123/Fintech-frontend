@@ -1,7 +1,7 @@
 
 export enum NabilOfferLetterConst {
     // HOUSING_TAKEOVER_CASE,
-    // AUTO_LOAN,
+    AUTO_LOAN,
     // HOUSING_CONSTRUCTION_CASE_1,
     // COMMERCIAL_AUTO,
     // HOUSING_PURCHASE_LOAN,

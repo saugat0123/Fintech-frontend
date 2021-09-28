@@ -40,7 +40,7 @@ export class SbTranslateService extends BaseService<String> {
                 if (i === index) {
                     const individualData = a[i] as FormGroup;
                     for (const d of Object.entries(individualData.controls)) {
-                        if (d[1].value) {
+                        if (d[1].value && d[1].value !== undefined) {
                             allKeys.push(d[0]);
                             allValues.push(d[1].value.toString());
                         }
@@ -56,7 +56,7 @@ export class SbTranslateService extends BaseService<String> {
             const allKeys = [];
             // to map normal formcontrol values
             for (const d of Object.entries(form.controls)) {
-                if (d[1].value !== null && d[0] !== formArrayData) {
+                if (d[1].value !== null && d[0] !== formArrayData && d[1].value !== undefined) {
                     allKeys.push(d[0]);
                     allValues.push(d[1].value.toString());
                 }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {LoanType} from '../../../../loan/model/loanType';
@@ -27,6 +27,7 @@ export class LoanCreateComponent implements OnInit {
   loanTypeList = LoanType;
   attributes: Attributes = new Attributes();
   translatedLoanDataDetails = [];
+  isTranslatedLoanDetails = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -68,10 +69,8 @@ export class LoanCreateComponent implements OnInit {
     data.forEach(d => {
       (this.form.get('loanDetails') as FormArray).push(
           this.formBuilder.group({
-            loan: [d.loan],
-            proposedAmount: [d.proposedAmount],
-            status: [d.status],
-            approvedOn: [d.approvedOn],
+            loan: [d.loan, Validators.required],
+            proposedAmount: [d.proposedAmount, Validators.required],
             comments: [d.comments],
           })
       );
@@ -81,24 +80,13 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          loanHolderId: this.translatedLoanDataDetails,
-          loanHolderCT: this.translatedLoanDataDetails,
-          loanHolderTrans: this.translatedLoanDataDetails,
-          loanType: [undefined],
-          loanTypeCT: [undefined],
-          loanTypeTrans: [undefined],
-          loan: [undefined],
+          loanHolderId: [this.data.customerInfoId, Validators.required],
+          loan: [this.data.customerInfoId, Validators.required],
           loanCT: [undefined],
           loanTrans: [undefined],
-          proposedAmount: [undefined],
+          proposedAmount: [undefined, Validators.required],
           proposedAmountCT: [undefined],
           proposedAmountTrans: [undefined],
-          status: [undefined],
-          statusCT: [undefined],
-          statusTrans: [undefined],
-          approvedOn: [undefined],
-          approvedOnCT: [undefined],
-          approvedOnTrans: [undefined],
           comments: [undefined],
           commentsCT: [undefined],
           commentsTrans: [undefined],
@@ -140,20 +128,33 @@ export class LoanCreateComponent implements OnInit {
       });
       this.translatedLoanDataDetails[index] = newArr;
       // end loanDetails
+      this.isTranslatedLoanDetails = true;
       this.spinner = false;
     }
   }
 
+  deleteCTAndTransContorls(index) {
+    let formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
+      let a: any;
+      a = formArrayDataArrays.controls;
+      let individualData = a[index] as FormGroup;
+      Object.keys(individualData.controls).forEach(key => {
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+          individualData.removeControl(key);
+        }
+      });
+  }
   save() {
     this.spinner = true;
     let loanDetailsToSave = [];
     this.translatedLoanDataDetails.forEach((val, index) => {
+      this.deleteCTAndTransContorls(index);
       loanDetailsToSave.push({...this.data,
         ...this.form.get('loanDetails').value[index],
-        nepData: this.translatedLoanDataDetails[index]
-      })
+        nepData: JSON.stringify(this.translatedLoanDataDetails[index])
+      });
     });
-    this.cadOneFormService.saveLoan(loanDetailsToSave).subscribe(res => {
+    this.cadOneFormService.saveLoan({'loanDetails': loanDetailsToSave}).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
       this.cadApprovedData.emit(res.detail);

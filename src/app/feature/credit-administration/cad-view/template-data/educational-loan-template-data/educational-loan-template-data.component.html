@@ -407,17 +407,17 @@
 <!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfBranchCheck']" formControlName="nameOfBranchTransVal"/>-->
 <!--                    </td>-->
 <!--                </tr>-->
-                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">
-                    <td>Name Of Fixed Deposit</td>
-                    <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>
-                    <td class="abc">{{translatedData?.nameOfFixedDeposit}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'nameOfFixedDeposit')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfFixedDepositCheck']" formControlName="nameOfFixedDepositTransVal"/>
-                    </td>
-                </tr>
+<!--                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">-->
+<!--                    <td>Name Of Fixed Deposit</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="nameOfFixedDeposit"/></td>-->
+<!--                    <td class="abc">{{translatedData?.nameOfFixedDeposit}}</td>-->
+<!--                    <td>-->
+<!--                        <nb-checkbox (change)="checkboxVal($event, 'nameOfFixedDeposit')"></nb-checkbox>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['nameOfFixedDepositCheck']" formControlName="nameOfFixedDepositTransVal"/>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
                     <td>Pledge Amount Figure</td>
@@ -631,29 +631,29 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td>Promissory Note Amount</td>
-                    <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"/></td>
-                    <td class="abc">{{translatedData?.promissoryNoteAmount}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'promissoryNoteAmount')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['promissoryNoteAmountCheck']" formControlName="promissoryNoteAmountTransVal"/>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Promissory Note Amount</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="promissoryNoteAmount"/></td>-->
+<!--                    <td class="abc">{{translatedData?.promissoryNoteAmount}}</td>-->
+<!--                    <td>-->
+<!--                        <nb-checkbox (change)="checkboxVal($event, 'promissoryNoteAmount')"></nb-checkbox>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['promissoryNoteAmountCheck']" formControlName="promissoryNoteAmountTransVal"/>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
-                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
-                    <td>Loan Deed Amount</td>
-                    <td><input type="text" class="form-control" formControlName="loanDeedAmount"/></td>
-                    <td class="abc">{{translatedData?.loanDeedAmount}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'loanDeedAmount')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanDeedAmountCheck']" formControlName="loanDeedAmountTransVal"/>
-                    </td>
-                </tr>
+<!--                <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">-->
+<!--                    <td>Loan Deed Amount</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="loanDeedAmount"/></td>-->
+<!--                    <td class="abc">{{translatedData?.loanDeedAmount}}</td>-->
+<!--                    <td>-->
+<!--                        <nb-checkbox (change)="checkboxVal($event, 'loanDeedAmount')"></nb-checkbox>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanDeedAmountCheck']" formControlName="loanDeedAmountTransVal"/>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
             </table>
         </div>
