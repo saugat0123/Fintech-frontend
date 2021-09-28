@@ -227,19 +227,22 @@
                                        <label for="panNumber"><strong>PAN</strong></label>
                                        <div class="input-group mb-3">
                                            <input #PanNumber
-                                               [ngClass]="{ 'is-invalid':submitted && form.companyPAN?.errors }"
-                                               class="form-control rounded"
-                                               formControlName="companyPAN"
-                                               id="panNumber"
-                                               placeholder="Enter PAN"
-                                               type="number"/>
+                                                  [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
+                                                  class="form-control rounded"
+                                                  formControlName="companyPAN"
+                                                  id="panNumber"
+                                                  placeholder="Enter PAN"
+                                                  type="text" (input)="checkPanNumberNumber(PanNumber.value)"/>
                                            <div *ngIf="submitted && form.companyPAN.errors"
                                                 class="invalid-feedback">
                                                <div *ngIf="form.companyPAN.errors.required">
                                                    PAN is required.
                                                </div>
-                                               <div *ngIf="form.companyPAN.errors.min">
+                                               <div *ngIf="form.companyPAN.errors.maxlength || form.companyPAN.errors.minlength">
                                                    Length should be of 9 digit
+                                               </div>
+                                               <div *ngIf="form.companyPAN.errors.cannotContainSpace" >
+                                                   White space is invalid
                                                </div>
                                            </div>
                                        </div>
