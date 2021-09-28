@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ToastService} from "../../../../../@core/utils";
 import {RouterUtilsService} from "../../../utils/router-utils.service";
@@ -24,7 +24,7 @@ import {CadOfferLetterModalComponent} from "../../../cad-offerletter-profile/cad
   templateUrl: './personal-guarantee-individual.component.html',
   styleUrls: ['./personal-guarantee-individual.component.scss']
 })
-export class PersonalGuaranteeIndividualComponent implements OnInit {
+export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -33,6 +33,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit {
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   individualData;
+  taggedGuarantorsDetailsInLoan = [];
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
@@ -48,24 +49,47 @@ export class PersonalGuaranteeIndividualComponent implements OnInit {
       private routerUtilsService: RouterUtilsService
   ) { }
 
+  ngOnChanges() {
+    console.log('cadData: ', this.cadData);
+    console.log('cadData: ', this.cadData);
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.taggedGuarantorsDetailsInLoan = this.cadData.assignedLoan[0].taggedGuarantors;
+    }
+  }
+
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(individualCadFile => {
-        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.guarantorindividualGroup.patchValue(initialInfo);
-        }
-      });
-    }
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.individualData = JSON.parse(this.cadData.loanHolder.nepData);``
-    }
+    // if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+    //   this.cadData.cadFileList.forEach(individualCadFile => {
+    //     if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+    //       const initialInfo = JSON.parse(individualCadFile.initialInformation);
+    //       this.initialInfoPrint = initialInfo;
+    //       this.guarantorindividualGroup.patchValue(initialInfo);
+    //     }
+    //   });
+    // }
+    // if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+    //   this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+    // }
+    console.log('this.guarantorindividualGroup: ', this.guarantorindividualGroup.value);
   }
 
   buildForm() {
     this.guarantorindividualGroup = this.formBuilder.group({
+      individualGuarantors: this.formBuilder.array([])
+    });
+    this.initIndividualGuarantors();
+  }
+
+  removeIndividualGuarantors(i) {
+    (this.guarantorindividualGroup.get('individualGuarantors') as FormArray).removeAt(i);
+  }
+
+  addIndividualGuarantorsForm() {
+    (this.guarantorindividualGroup.get('individualGuarantors') as FormArray).push(this.initIndividualGuarantors());
+  }
+  initIndividualGuarantors() {
+    return this.formBuilder.group({
       branchName: [undefined],
       grandFatherName: [undefined],
       father_husbandName: [undefined],
@@ -90,6 +114,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit {
       day1: [undefined],
     });
   }
+
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.guarantorindividualGroup.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
