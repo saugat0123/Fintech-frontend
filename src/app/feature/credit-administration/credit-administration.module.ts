@@ -71,6 +71,7 @@ import { RetailHousingLoanTemplateDataComponent } from './cad-view/template-data
 import {NepaliPatroModule} from 'nepali-patro';
 import { PersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-overdraft-template-data/personal-overdraft-template-data.component';
 import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
+import { PersonalLoanAndPersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-loan-and-personal-overdraft-template-data/personal-loan-and-personal-overdraft-template-data.component';
 import {NabilModule} from './cad-document-template/nabil/nabil.module';
 
 @NgModule({
@@ -131,7 +132,8 @@ import {NabilModule} from './cad-document-template/nabil/nabil.module';
     RetailHousingLoanTemplateDataComponent,
     PersonalOverdraftTemplateDataComponent,
     CadPullComponent,
-    SmeTemplateDataComponent],
+    SmeTemplateDataComponent,
+    PersonalLoanAndPersonalOverdraftTemplateDataComponent],
   imports: [
     ThemeModule,
     CommonModule,
