@@ -1,6 +1,7 @@
 export enum CustomerType {
   INDIVIDUAL = 'INDIVIDUAL',
-  INSTITUTION = 'INSTITUTION'
+  INSTITUTION = 'INSTITUTION',
+  JOINT = 'JOINT'
 }
 
 export namespace CustomerType {
