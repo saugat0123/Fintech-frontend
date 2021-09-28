@@ -48,6 +48,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
     loanLimit;
     docSecurityName;
     guarantorData;
+    offerLetterData;
     constructor(private formBuilder: FormBuilder,
                 private customerOfferLetterService: CustomerOfferLetterService,
                 private toastService: ToastService,
@@ -65,8 +66,8 @@ export class RetailProfessionalLoanComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('Cad Approved Doc', this.cadOfferLetterApprovedDoc);
         this.buildForm();
+        console.log('Final Provided Value:::: ', this.cadOfferLetterApprovedDoc);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
@@ -142,13 +143,15 @@ export class RetailProfessionalLoanComponent implements OnInit {
                 this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
             } else {
                 const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+                    this.offerLetterData = this.offerLetterDocument;
+                }
                 this.selectedSecurity = initialInfo.selectedSecurity.en;
                 this.selectedCountry = initialInfo.selectedCountry.en;
                 this.loanLimit = initialInfo.loanLimitChecked.en;
                 this.nameOfEmbassy = initialInfo.embassyName.np;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
-                console.log('Initial Info Data', this.initialInfoPrint.dateOfApproval.en.nDate);
                 // this.retailProfessionalLoan.patchValue(initialInfo, {emitEvent: false});
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
                 this.fillForm();
@@ -161,7 +164,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
 
 submit(): void {
         this.spinner = true;
-        this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
+        this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
         this.retailProfessionalLoan.get('selectedCountry').patchValue(this.selectedCountry);
         this.retailProfessionalLoan.get('selectedSecurity').patchValue(this.selectedSecurity);
@@ -172,14 +175,14 @@ submit(): void {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
                     this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
-                    offerLetterPath.additionalDetails = this.retailProfessionalLoan.get('additionalGuarantorDetails').value;
+                    offerLetterPath.supportedInformation = this.retailProfessionalLoan.get('additionalGuarantorDetails').value;
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
             offerDocument.initialInformation = JSON.stringify(this.retailProfessionalLoan.value);
-            offerDocument.additionalDetails = this.retailProfessionalLoan.get('additionalGuarantorDetails').value;
+            offerDocument.supportedInformation = this.retailProfessionalLoan.get('additionalGuarantorDetails').value;
             this.cadOfferLetterApprovedDoc.offerDocumentList.push(offerDocument);
         }
 
@@ -219,6 +222,7 @@ submit(): void {
             guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
             nameOfBranch: branchName ? branchName : '',
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            additionalGuarantorDetails: this.offerLetterData.supportedInformation ? this.offerLetterData.supportedInformation : '',
             // dateOfApproval: this.initialInfoPrint.dateOfApproval.en ? this.initialInfoPrint.dateOfApproval.en : '',
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);

@@ -1145,9 +1145,11 @@
                                                     छ. बहूबैकिङ्ग घोषणा पत्र । </p>
                                                 <table class="table table-borderless">
                                                     <tr>
-                                                        <td style="width: 2%;" class="text-left">ज.</td>
+                                                        <td style="width: 2%;" class="text-left">
+                                                            <p class="highlited-Color">ज.</p>
+                                                        </td>
                                                         <td>
-                                                            <textarea rows="6" id="additionalGuarantorDetails" class="form-control" formControlName="additionalGuarantorDetails"
+                                                            <textarea rows="6" id="additionalGuarantorDetails" class="form-control nepaliFont customFont" formControlName="additionalGuarantorDetails"
                                                                       placeholder="Free Text"></textarea>
                                                         </td>
                                                     </tr>
@@ -1201,8 +1203,8 @@
                                                 <p class="highlited-Color">
                                                     झ.   भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
                                                 </p>
-                                                <p>
-                                                    ण. <textarea rows="6" class="form-control" formControlName="additionalGuarantorDetails"
+                                                <p class="highlited-Color">
+                                                    ण. <textarea rows="6" class="form-control nepaliFont" formControlName="additionalGuarantorDetails"
                                                                  placeholder="Free Text"></textarea>
                                                 </p>
                                             </div>
@@ -1303,7 +1305,7 @@
                                 </li>
                             </ul>
                         </div>
-<!--                        <button *ngIf="!preview" nbButton status="success" type="submit">Save</button>-->
+                        <button *ngIf="!preview" nbButton status="success" type="submit">Save</button>
                     </form>
                 </div>
             </div>
@@ -1321,5 +1323,6 @@
                                     [security]="this.selectedSecurity"
                                     [country]="this.selectedCountry"
                                     [embassy]="nameOfEmbassy"
+                                    [offerData] = offerLetterData
                                     hidden></app-retail-professional-loan-print>
 

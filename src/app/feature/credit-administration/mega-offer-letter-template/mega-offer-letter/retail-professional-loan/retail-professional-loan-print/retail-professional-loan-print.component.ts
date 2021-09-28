@@ -18,6 +18,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input() country;
   @Input() security;
   @Input() embassy;
+  @Input() offerData;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
   proTermLoanSelected = false;
