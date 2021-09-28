@@ -88,6 +88,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit {
       month1: [undefined],
       date1: [undefined],
       day1: [undefined],
+      freeText: [undefined]
     });
   }
   getNumAmountWord(numLabel, wordLabel) {
