@@ -12,6 +12,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CustomerType} from '../../../../customer/model/customerType';
+import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -23,13 +24,13 @@ export class LetterOfSetOffComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  @Input() preview;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   nepData;
   individualData;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   customerType = CustomerType;
-
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -57,7 +58,33 @@ export class LetterOfSetOffComponent implements OnInit {
 
   buildForm() {
     this.letterOfSetOff = this.formBuilder.group({
-
+      Date: [undefined],
+      GrandFatherName: [undefined],
+      FatherName: [undefined],
+      District: [undefined],
+      VDC: [undefined],
+      WardNo: [undefined],
+      date: [undefined],
+      loanamountinFigure: [undefined],
+      loanamountinWords: [undefined],
+      nameofGrandFather: [undefined],
+      nameofFather: [undefined],
+      Age: [undefined],
+      NameofPerson: [undefined],
+      CitizenshipNo: [undefined],
+      dateofIssue: [undefined],
+      nameofIssuedDistrict: [undefined],
+      Number: [undefined],
+      Interest: [undefined],
+      nameofBranchLocated: [undefined],
+      signature: [undefined],
+      nameofWitness: [undefined],
+      witnessDistrict1: [undefined],
+      witnessMunicipalityOrVdc1: [undefined],
+      witnessWardNo1: [undefined],
+      witnessAge1: [undefined],
+      witnessName1: [undefined],
+      CustomerName: [undefined],
     });
   }
 

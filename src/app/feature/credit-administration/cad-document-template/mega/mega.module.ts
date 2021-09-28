@@ -19,8 +19,6 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {NgxPrintModule} from 'ngx-print';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
-import { LetterOfSetOffComponent } from './letter-of-set-off/letter-of-set-off.component';
-import { LetterOfSetOffPrintComponent } from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 
@@ -43,8 +41,6 @@ import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
-    LetterOfSetOffComponent,
-    LetterOfSetOffPrintComponent,
     LoanDeedIndividualPrintComponent,
     PersonalGuaranteeIndividualComponent,
     PersonalGuaranteeIndividualPrintComponent],
@@ -72,8 +68,7 @@ import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
-    LetterOfSetOffComponent,
-    LetterOfSetOffPrintComponent,
+
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
     PersonalGuaranteeIndividualComponent
