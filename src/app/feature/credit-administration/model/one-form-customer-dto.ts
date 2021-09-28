@@ -70,4 +70,5 @@ export class OneFormCustomerDto {
     companyJsonData: string;
     companyLegalDocumentAddress: string;
 
+
 }
