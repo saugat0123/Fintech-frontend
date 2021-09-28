@@ -35,6 +35,7 @@ export class PersonalLoanComponent implements OnInit {
    laiTermLoanSelected = false;
   editor = NepaliEditor.CK_CONFIG;
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() preview;
   loanHolderInfo;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
