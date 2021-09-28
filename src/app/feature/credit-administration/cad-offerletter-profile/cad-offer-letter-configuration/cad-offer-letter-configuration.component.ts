@@ -106,6 +106,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 {value: 'BS', label: 'BS'}];
  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
  translatedGuarantorDetails = [];
+  nepData;
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private branchService: BranchService,
@@ -166,6 +167,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.setGuarantors(data.guarantorDetails);
     }
 
+    if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
+      this.nepData = (JSON.parse(this.loanHolder.nepData));
+    }
 
     this.patchValue();
     this.patchNepData();
@@ -951,7 +955,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 contactNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.contactNumber,
                 panNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.panNumber,
                 citizenshipNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber,
-
+              permanentMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
                 permanentProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province,
                 permanentDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district,
                 temporaryProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince,
@@ -960,7 +964,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber,
                 temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
                 citizenshipIssueDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipIssuedPlace,
-              permanentMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
+
 
             });
         }
@@ -969,9 +973,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     patchNepData(){
       if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
         const nepData = (JSON.parse(this.loanHolder.nepData));
+        console.log(nepData);
         this.userConfigForm.patchValue({
           panNo : ObjectUtil.isEmpty(nepData.panNo) ? undefined : nepData.panNo.en,
-          branchCT: ObjectUtil.isEmpty(nepData.branch) ? undefined : nepData.branch.np,
+          branchCT: ObjectUtil.isEmpty(nepData.branch) ? undefined : nepData.branch.ct,
           customerCodeCT: ObjectUtil.isEmpty(nepData.customerCode) ? undefined : nepData.customerCode.np,
           nameCT: ObjectUtil.isEmpty(nepData.name) ? undefined : nepData.name.np,
           emailCT:  ObjectUtil.isEmpty(nepData.email) ? undefined : nepData.email.np,

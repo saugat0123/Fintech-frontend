@@ -39,11 +39,12 @@
                 <label class="title" for="branch">Branch</label>
               </td>
               <td>
-                <select class="form-control" formControlName="branch" id="branch">
-                  <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
-                  </option>
-                </select>
+                <ng-select bindLabel="name" [placeholder]="loanHolder.branch == null ? 'Select branch' : ''" formControlName="branch" id="branch">
+<!--                  <option [value]="null" hidden>Select Branch</option>-->
+<!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
+<!--                  </option>-->
+                  <ng-option *ngFor="let branch of branchList" [value]="branch">{{branch.name}}</ng-option>
+                </ng-select>
               </td>
               <td>{{objectValueTranslater?.branch}}</td>
               <td>
@@ -361,18 +362,15 @@
                 <label class="title" for="citizenshipNo">Citizenship Issue District</label>
               </td>
               <td>
-                <select
+                <ng-select
+                        bindLabel="name"
                         [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
-                        class="custom-select"
                         formControlName="citizenshipIssueDistrict"
-                        id="citizenshipIssueDistrict">
-                  <option [ngValue]="null" hidden>District</option>
-                  <option  *ngFor="let district of allDistrictList"
-                          [ngValue]="district">
-                          {{district.name}} || {{district.nepaliName}}
-                  </option>
-                </select>
+                        id="citizenshipIssueDistrict"
+                        [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
+                 <ng-option *ngFor="let district of allDistrictList" [value]="district">{{district.name}}</ng-option>
+                </ng-select>
               </td>
               <td>
                 {{objectValueTranslater?.citizenshipIssueDistrict}}
@@ -514,17 +512,19 @@
                 <nb-radio-group name="MunicipalityOrVdc" formControlName="municipalityOrVdc" class="d-inline-flex">
                   <nb-radio *ngFor="let option of vdcOption" [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
-                <select [compareWith]="compareFn"
+                <ng-select
+                       bindLabel="name"
+                        [compareWith]="compareFn"
+
                         [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
-                        class="custom-select"
                         formControlName="permanentMunicipality"
-                        id="permanentMunicipality">
-                  <option [ngValue]="null" hidden>Municipality or VDC</option>
-                  <option *ngFor="let municipalityVal of municipalities"
-                          [ngValue]="municipalityVal">
+                        id="permanentMunicipality"
+                    [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
+                  <ng-option *ngFor="let municipalityVal of municipalities"
+                          [value]="municipalityVal">
                           {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </option>
-                </select>
+                  </ng-option>
+                </ng-select>
               </td>
               <td>
                 {{objectValueTranslater?.permanentMunicipality}}
