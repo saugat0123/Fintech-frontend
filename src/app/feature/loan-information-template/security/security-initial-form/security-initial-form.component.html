@@ -105,7 +105,7 @@
                                     land.get('landConsideredValue').invalid) }"
                                        class="form-control"
                                        formControlName="landConsideredValue"
-                                       id="landConsideredValue" name="total" placeholder="Considered Value">
+                                       id="landConsideredValue" name="total" placeholder="Considered Value" appDecimalNumber>
                                 <div *ngIf="(landSelected) && (land.get('landConsideredValue').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="land.get('landConsideredValue').errors.required">
@@ -122,7 +122,7 @@
                                        formControlName="marketValue"
                                        id="marketValue"
                                        name="marketValue" placeholder="Fair Market Value"
-                                       type="text"/>
+                                       type="text" appDecimalNumber/>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -134,7 +134,7 @@
                                        id="distressValue"
                                        [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
                                        name="distressValue"
-                                       type="text"/>
+                                       type="text" appDecimalNumber/>
                             </div>
                         </div>
                     </div>
@@ -1377,7 +1377,7 @@
                                     <input [ngClass]="{ 'is-invalid': (landBuilding) && (landAndBuilding.get('landConsideredValue').errors)}"
                                             class="form-control" formControlName="landConsideredValue"
                                            id="landBuildingConsideredValue" name="total" placeholder="Considered Value"
-                                           type="number">
+                                           type="number" appDecimalNumber>
                                     <div *ngIf="(landBuilding) && (landAndBuilding.get('landConsideredValue').invalid)"
                                          class="invalid-feedback">
                                         <div *ngIf="landAndBuilding.get('landConsideredValue').errors.required">
@@ -1446,7 +1446,7 @@
                                            formControlName="marketValue"
                                            name="marketValue"
                                            placeholder="Fair Market Value"
-                                           type="number"/>
+                                           type="number" appDecimalNumber/>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -1456,7 +1456,7 @@
                                            formControlName="distressValue"
                                            name="distressValue"
                                            [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
-                                           type="text"/>
+                                           type="text" appDecimalNumber/>
                                 </div>
                             </div>
                         </div>
@@ -1827,7 +1827,7 @@
                                         <label for="landConsideredValueConstruction">Considered Value</label>
                                         <input class="form-control" formControlName="landConsideredValueConstruction"
                                                id="landConsideredValueConstruction" name="total"
-                                               placeholder="Considered Value" type="number">
+                                               placeholder="Considered Value" type="number" appDecimalNumber>
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -1867,7 +1867,7 @@
                                                formControlName="costPerSquareConstruction"
                                                name="costPerSquare"
                                                placeholder="Cost per sqf"
-                                               type="number"/>
+                                               type="number" appDecimalNumber/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1876,7 +1876,7 @@
                                         <input class="form-control rounded"
                                                formControlName="totalCostConstruction"
                                                name="totalCost" placeholder="Total Estimate Cost"
-                                               type="number"/>
+                                               type="number" appDecimalNumber/>
                                     </div>
                                 </div>
 
@@ -1897,7 +1897,7 @@
                                                formControlName="distressValueConstruction"
                                                name="distressValue"
                                                [placeholder]="(client === clientName?.EXCEL) ? 'Market Value' : 'Distress Value'"
-                                               type="text"/>
+                                               type="text" appDecimalNumber/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1906,7 +1906,7 @@
                                         <input class="form-control rounded"
                                                formControlName="progessCost"
                                                name="progessCost" placeholder="Progess Cost"
-                                               type="number"/>
+                                               type="number" appDecimalNumber/>
                                     </div>
                                 </div>
                                 <!--                                To do: need to remove if not required in future-->
@@ -3244,7 +3244,7 @@
                                 <label class="title">Considered Value</label>
                                 <input class="form-control rounded" formControlName="consideredValue"
                                        placeholder="Considered Value"
-                                       type="number"/>
+                                       type="number" appDecimalNumber/>
                             </div>
                         </div>
                         <div class="col-md-4">
