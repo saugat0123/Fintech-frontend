@@ -102,7 +102,7 @@
             <tr class="text-white sb-bg-dark">
                 <th>Bank Name</th>
                 <th>Bank Swift Code</th>
-                <th>Local Loan Amount</th>
+                <th>Tenure</th>
                 <th>Loan Amount</th>
                 <th>Loan Purpose</th>
             </tr>
@@ -110,7 +110,7 @@
             <tbody>
             <td>{{(senderDetails.senderBanking.bank_name) ? (senderDetails.senderBanking.bank_name) : 'N/A'}}</td>
             <td>{{(senderDetails.senderBanking.bank_swift_code) ? (senderDetails.senderBanking.bank_swift_code) : 'N/A'}}</td>
-            <td>{{(senderDetails.senderBanking.local_loans_amount) ? (senderDetails.senderBanking.local_loans_amount) : 'N/A'}}</td>
+            <td>{{(senderDetails.senderBanking.loan_tenor) ? (senderDetails.senderBanking.loan_tenor) : 'N/A'}}</td>
             <td>{{(senderDetails.senderBanking.loan_amount) ? (senderDetails.senderBanking.loan_amount) : 'N/A'}}</td>
             <td>{{(senderDetails.senderBanking.loan_purpose) ? (senderDetails.senderBanking.loan_purpose) : 'N/A'}}</td>
             </tbody>
