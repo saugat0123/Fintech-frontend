@@ -71,14 +71,14 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
     // if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
     //   this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     // }
-    console.log('this.guarantorindividualGroup: ', this.guarantorindividualGroup.value);
+    console.log('this.taggedGuarantorsDetailsInLoan: ', this.taggedGuarantorsDetailsInLoan);
   }
 
   buildForm() {
     this.guarantorindividualGroup = this.formBuilder.group({
       individualGuarantors: this.formBuilder.array([])
     });
-    this.initIndividualGuarantors();
+    this.taggedGuarantorsDetailsForm();
   }
 
   removeIndividualGuarantors(i) {
@@ -114,6 +114,40 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
       day1: [undefined],
       freeText: [undefined]
     });
+  }
+
+  taggedGuarantorsDetailsForm() {
+    if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
+      this.taggedGuarantorsDetailsInLoan.forEach(val => {
+        (this.guarantorindividualGroup.get('individualGuarantors') as FormArray).push(
+          this.formBuilder.group({
+            branchName: [undefined],
+            grandFatherName: [undefined],
+            father_husbandName: [undefined],
+            district: [undefined],
+            VDCMunicipality: [undefined],
+            ward: [undefined],
+            temporarydistrict: [undefined],
+            temporaryVDCMunicipality: [undefined],
+            temporaryward: [undefined],
+            borrowerName: [undefined],
+            loanPurpose: [undefined],
+            sanctionIssueDate: [undefined],
+            loanAmount: [undefined],
+            loanAmountWords: [undefined],
+            guarantorName: [undefined],
+            citizenshipNumber: [undefined],
+            citizenshipIssuedDistrict: [undefined],
+            citizenshipIssuedDate: [undefined],
+            year1: [undefined],
+            month1: [undefined],
+            date1: [undefined],
+            day1: [undefined],
+            freeText: [undefined]
+          })
+        )
+      });
+    }
   }
 
   getNumAmountWord(numLabel, wordLabel) {
