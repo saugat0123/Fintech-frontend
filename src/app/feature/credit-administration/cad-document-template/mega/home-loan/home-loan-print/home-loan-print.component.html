@@ -1,6 +1,6 @@
 <div id="{{offerLetterConst.home_loan}}Print">
 
-    <div class="form-group viewFull" style="height: auto">
+    <div class="viewFull" style="height: auto">
         <h6 class="text-center"> ऋणकर्जा सुविधा स्वीकृति पत्र </h6>
             <p class="text-left"> </p><span [ngClass]="{'nepaliFont num' : letter?.referenceNumber!== null && letter?.referenceNumber!== ''}">
             {{letter?.referenceNumber === null || letter?.referenceNumber === '' ? '___________' : letter?.referenceNumber}}</span>
@@ -29,7 +29,7 @@
                     </p>
                 </div>
 
-                <div class="row form-group">
+                <div>
 
                     <p>१.</p>
                     <table class="table table-bordered">
