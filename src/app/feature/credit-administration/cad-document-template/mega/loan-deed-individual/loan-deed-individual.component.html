@@ -1,7 +1,7 @@
 <div class="container nep text-justify">
   <form (ngSubmit)="submit()" [formGroup]="loanDeedIndividual"  class="nep" id="loanDeedIndividualPrint">
     <div class="row">
-      <div class="col-md-12 viewFull" style="overflow-y: auto; height:100vh;">
+      <div class="col-md-12 viewFull" style="overflow-y: auto; height:80vh;">
         <div class="nep">
           <div>
             <p class="text-center" style="font-size:16pt;"><b>विषयः ऋण तमसुक </b></p>
@@ -272,8 +272,6 @@
 
             <div class="row disable-print">
               <div class="col-md-12 text-right">
-                <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss"
-                        printSectionId="loanDeedIndividualPrint" (click)="submit()" class="mr-2" status="basic">Save & Print</button>
                 <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
                          ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_INDIVIDUAL}}Print">Print
                 </button>
