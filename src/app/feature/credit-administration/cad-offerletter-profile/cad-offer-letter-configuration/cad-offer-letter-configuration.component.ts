@@ -645,8 +645,23 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         temporaryMunicipality: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value.name || '',
       });
 
+      // translate temp/permanent address and patch accordingly
       this.addressTranslatedValue = await this.translateService.translateForm(this.addressFromGroup);
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).setValue(this.addressTranslatedValue.permanentProvince || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).setValue(this.addressTranslatedValue.permanentProvince || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).setValue(this.addressTranslatedValue.permanentDistrict || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).setValue(this.addressTranslatedValue.permanentDistrict || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityTrans']).setValue(this.addressTranslatedValue.permanentMunicipality || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipalityCT']).setValue(this.addressTranslatedValue.permanentMunicipality || '');
 
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceTrans']).setValue(this.addressTranslatedValue.temporaryProvince || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvinceCT']).setValue(this.addressTranslatedValue.temporaryProvince || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictTrans']).setValue(this.addressTranslatedValue.temporaryDistrict || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrictCT']).setValue(this.addressTranslatedValue.temporaryDistrict || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityTrans']).setValue(this.addressTranslatedValue.temporaryMunicipality || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).setValue(this.addressTranslatedValue.temporaryMunicipality || '');
+
+      
       // translate guarantorsDetails
       const formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;
       let a: any;
