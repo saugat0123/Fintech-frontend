@@ -5,8 +5,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {PersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-overdraft/personal-overdraft.component';
+import { NbDialogService} from '@nebular/theme';
 import {CadDocStatus} from '../../../model/CadDocStatus';
 import {OfferDocument} from '../../../model/OfferDocument';
 import {Attributes} from '../../../../../@core/model/attributes';
@@ -18,143 +17,185 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
 
 
-
 @Component({
-  selector: 'app-personal-loan-and-personal-overdraft-template-data',
-  templateUrl: './personal-loan-and-personal-overdraft-template-data.component.html',
-  styleUrls: ['./personal-loan-and-personal-overdraft-template-data.component.scss']
+    selector: 'app-personal-loan-and-personal-overdraft-template-data',
+    templateUrl: './personal-loan-and-personal-overdraft-template-data.component.html',
+    styleUrls: ['./personal-loan-and-personal-overdraft-template-data.component.scss']
 })
 export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements OnInit {
-  @Input() cadData: CustomerApprovedLoanCadDocumentation;
-  offerLetterTypes = [];
-  offerLetterConst = NabilOfferLetterConst;
-  offerLetterSelect;
-  translatedValues: any = {};
-  form: FormGroup;
-  spinner = false;
-  btnDisable = true;
-  loanLimit = false;
-  existingOfferLetter = false;
-  attributes;
-  tdValues: any = {};
-  translatedData;
-  previewBtn = true;
+    @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    offerLetterTypes = [];
+    offerLetterConst = NabilOfferLetterConst;
+    offerLetterSelect;
+    translatedValues: any = {};
+    form: FormGroup;
+    spinner = false;
+    btnDisable = true;
+    loanLimit = false;
+    existingOfferLetter = false;
+    attributes;
+    tdValues: any = {};
+    translatedData;
+    dateTypeBS = false;
+    dateTypeAD = false;
+    dateTypeBS1 = false;
+    dateTypeAD1 = false;
+    previewBtn = true;
 
-  constructor(
-      private formBuilder: FormBuilder,
-      private dialogService: NbDialogService,
-      private modelService: NgbModal,
-      private nepToEngNumberPipe: NepaliToEngNumberPipe,
-      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-      private translateService: SbTranslateService,
-      private administrationService: CreditAdministrationService,
-      private toastService: ToastService,
-  ) { }
-
-  ngOnInit() {
-    this.buildPersonal();
-  }
-  buildPersonal() {
-    this.form = this.formBuilder.group({
-      referenceNumber: [undefined],
-      dateofApproval: [undefined],
-      customerName: [undefined],
-      customerAddress: [undefined],
-      dateofApplication: [undefined],
-      purposeofLoan: [undefined],
-      loanAmountinFigure: [undefined],
-      loanAmountinWords: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      yearlyInterestRate: [undefined],
-      loanAdminFeeinFigure: [undefined],
-      loanAdminFeeinWords: [undefined],
-      loanadminFee: [undefined],
-      emiInFigure: [undefined],
-      emiInWords: [undefined],
-      loanExpiryDate: [undefined],
-      nameofGuarantors: [undefined],
-      guaranteedAmountInFigure: [undefined],
-      guaranteedAmountInWords: [undefined],
-      nameofBranch: [undefined],
-      accountNumberOfCustomer: [undefined],
-      nameofCompanyCustomerWorking: [undefined],
-      NameofCustomer: [undefined],
-      accountofCustomer: [undefined],
-      relationshipofficerName: [undefined],
-      branchName: [undefined],
-      date: [undefined],
-      district: [undefined],
-      wardNum: [undefined],
-      freeText: [undefined],
-      witnessName: [undefined],
-      staffName: [undefined],
-    });
-  }
-
-  async translate() {
-    this.spinner = true;
-    this.translatedValues = await this.translateService.translateForm(this.form);
-    this.spinner = false;
-  }
-
-  getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(returnVal);
-  }
-  openModel() {
-    // this.modelService.open(modalName, {size: 'xl', centered: true});
-    this.dialogService.open(PersonalLoanAndPersonalOverdraftComponent, {
-      closeOnBackdropClick: false,
-      closeOnEsc: false,
-      hasBackdrop: false,
-      context: {
-        cadOfferLetterApprovedDoc: this.cadData,
-        preview: true,
-      }
-    });
-  }
-  submit() {
-    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
-    this.spinner = true;
-    this.btnDisable = true;
-    this.cadData.docStatus = 'OFFER_AND_LEGAL_PENDING';
-
-    if (this.existingOfferLetter) {
-      this.cadData.offerDocumentList.forEach(offerLetterPath => {
-        if (offerLetterPath.docName.toString() ===
-            this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString()) {
-          offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
-        }
-      });
-    } else {
-      const offerDocument = new OfferDocument();
-      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
-      Object.keys(this.form.controls).forEach(key => {
-        if (key === 'loanDetails') {
-          return;
-        }
-        this.attributes = new Attributes();
-        this.attributes.en = this.form.get(key).value;
-        this.attributes.np = this.tdValues[key];
-        this.tdValues[key] = this.attributes;
-      });
-      this.translatedData = {};
-      offerDocument.initialInformation = JSON.stringify(this.tdValues);
-      this.cadData.offerDocumentList.push(offerDocument);
+    constructor(
+        private formBuilder: FormBuilder,
+        private dialogService: NbDialogService,
+        private modelService: NgbModal,
+        private nepToEngNumberPipe: NepaliToEngNumberPipe,
+        private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+        private translateService: SbTranslateService,
+        private administrationService: CreditAdministrationService,
+        private toastService: ToastService,
+    ) {
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-      this.spinner = false;
-      this.previewBtn = this.btnDisable = false;
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-      this.spinner = this.btnDisable = false;
-    });
+    ngOnInit() {
+        this.buildPersonal();
+    }
 
-  }
+    buildPersonal() {
+        this.form = this.formBuilder.group({
+            referenceNumber: [undefined],
+            dateofApproval: [undefined],
+            customerName: [undefined],
+            customerAddress: [undefined],
+            dateofApplication: [undefined],
+            purposeofLoan: [undefined],
+            loanAmountinFigure: [undefined],
+            loanAmountinWords: [undefined],
+            baseRate: [undefined],
+            premiumRate: [undefined],
+            yearlyInterestRate: [undefined],
+            loanAdminFeeinFigure: [undefined],
+            loanAdminFeeinWords: [undefined],
+            loanadminFee: [undefined],
+            emiInFigure: [undefined],
+            emiInWords: [undefined],
+            loanExpiryDate: [undefined],
+            nameofGuarantors: [undefined],
+            guaranteedAmountInFigure: [undefined],
+            guaranteedAmountInWords: [undefined],
+            nameofBranch: [undefined],
+            accountNumberOfCustomer: [undefined],
+            nameofCompanyCustomerWorking: [undefined],
+            NameofCustomer: [undefined],
+            accountofCustomer: [undefined],
+            relationshipofficerName: [undefined],
+            branchName: [undefined],
+            date: [undefined],
+            district: [undefined],
+            wardNum: [undefined],
+            freeText: [undefined],
+            witnessName: [undefined],
+            staffName: [undefined],
+        });
+    }
+
+    async translate() {
+        this.spinner = true;
+        this.translatedValues = await this.translateService.translateForm(this.form);
+        this.spinner = false;
+    }
+
+    getNumAmountWord(numLabel, wordLabel) {
+        const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+        const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+        this.form.get(wordLabel).patchValue(returnVal);
+    }
+
+    checkboxVal(event, formControlName) {
+        // if (!ObjectUtil.isEmpty(this.translatedValues[formControlName])) {
+        //   const val = this.translatedValues[formControlName];
+        //   this.form.get(formControlName + 'TransVal').patchValue(val);
+        // }
+        const checkVal = event.target.checked;
+        this[formControlName + 'Check'] = checkVal;
+        console.log('checked Value', this[formControlName + 'Check']);
+        if (!checkVal) {
+            this.clearForm(formControlName + 'TransVal');
+        }
+    }
+
+    clearForm(controlName) {
+        this.form.get(controlName).setValue(null);
+    }
+    setDateTypeBS() {
+        this.dateTypeBS = true;
+        this.dateTypeAD = false;
+    }
+
+    setDateTypeAD() {
+        this.dateTypeBS = false;
+        this.dateTypeAD = true;
+    }
+
+    setDateTypeBS1() {
+        this.dateTypeBS1 = true;
+        this.dateTypeAD1 = false;
+    }
+
+    setDateTypeAD1() {
+        this.dateTypeBS1 = false;
+        this.dateTypeAD1 = true;
+    }
+    openModel() {
+        // this.modelService.open(modalName, {size: 'xl', centered: true});
+        this.dialogService.open(PersonalLoanAndPersonalOverdraftComponent, {
+            closeOnBackdropClick: false,
+            closeOnEsc: false,
+            hasBackdrop: false,
+            context: {
+                cadOfferLetterApprovedDoc: this.cadData,
+                preview: true,
+            }
+        });
+    }
+
+    submit() {
+        this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+        this.spinner = true;
+        this.btnDisable = true;
+        this.cadData.docStatus = CadDocStatus.OFFER_PENDING;
+
+        if (this.existingOfferLetter) {
+            this.cadData.offerDocumentList.forEach(offerLetterPath => {
+                if (offerLetterPath.docName.toString() ===
+                    this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString()) {
+                    offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+                }
+            });
+        } else {
+            const offerDocument = new OfferDocument();
+            offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
+            Object.keys(this.form.controls).forEach(key => {
+                if (key === 'loanDetails') {
+                    return;
+                }
+                this.attributes = new Attributes();
+                this.attributes.en = this.form.get(key).value;
+                this.attributes.np = this.tdValues[key];
+                this.tdValues[key] = this.attributes;
+            });
+            this.translatedData = {};
+            offerDocument.initialInformation = JSON.stringify(this.tdValues);
+            this.cadData.offerDocumentList.push(offerDocument);
+        }
+
+        this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.spinner = false;
+            this.previewBtn = this.btnDisable = false;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.spinner = this.btnDisable = false;
+        });
+
+    }
 
 }
