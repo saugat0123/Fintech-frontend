@@ -35,7 +35,7 @@ export class CollateralSummaryComponent implements OnInit {
   securityExposure = false;
   approvedLoans=[];
   outstandingAmount;
-  loanExposure = 0;
+  loanExposureFmv = 0;
   loanExposureDv =0;
   approvedTerminatingLoan;
   companyInfoId;
@@ -67,10 +67,6 @@ export class CollateralSummaryComponent implements OnInit {
     })
     this.fundedList = this.customerAllLoanList.filter((l) => l.loan.isFundable);
     this.nonFundedList = this.customerAllLoanList.filter((l) => !l.loan.isFundable);
-
-
-
-
   }
 
   calculateRequiredCollateral(list: LoanDataHolder[]) {
@@ -101,9 +97,6 @@ export class CollateralSummaryComponent implements OnInit {
       this.securityExposure = false;
     }
   }
-  getData(){
-
-  }
   getApprovedLoans(id) {
     this.customerLoanService.getFinalLoanListByLoanHolderId(id).subscribe((response: any) => {
       this.approvedLoans = response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
@@ -115,17 +108,13 @@ export class CollateralSummaryComponent implements OnInit {
   calculation(){
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.companyInfoId).subscribe((response: any) => {
       this.approvedLoans =response.detail.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]);
-      console.log('approved loans', this.approvedLoans);
       let approvedTerminatingLoanTotal = [];
       this.approvedLoans.map(val => {
-        console.log('sum of terminating ', val.loan.loanNature, ' val.proposal.outStandingLimit: ', val.proposal.outStandingLimit);
         if (val.loan.loanNature === 'Terminating') {
           approvedTerminatingLoanTotal.push(val.proposal.outStandingLimit);
-          console.log('approvedTerminatingLoanTotal: ', approvedTerminatingLoanTotal)
         }
       });
       this.approvedTerminatingLoanTotal = approvedTerminatingLoanTotal.reduce((a, b) => Number(a) + Number(b), 0);
-      console.log('this.approvedTerminatingLoanTotal: ', this.approvedTerminatingLoanTotal);
 
       let approvedRevolvingLoanTotal =[];
       this.approvedLoans.map(val => {
@@ -134,16 +123,13 @@ export class CollateralSummaryComponent implements OnInit {
         }
       });
       this.approvedRevolvingLoanTotal =approvedRevolvingLoanTotal.reduce((a, b) => Number(a) + Number(b),0);
-      console.log('this. approvedRevolvingLoanTotal', this.approvedRevolvingLoanTotal);
+
 
 
           this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
           (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
-          console.log('approved terminating loan',this.approvedTerminatingLoanTotal);
-          console.log('this.total proposed amount', this.totalProposedAmount);
-          this.loanExposure = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal ) / this.security.totalSecurityAmount) *100;
-          console.log('loan Exposure', this.loanExposure);
-          this.loanExposureDv = ((this.totalProposedAmount + this.approvedRevolvingLoanTotal) / this.security.totalDistressAmount)*100;
+          this.loanExposureFmv = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal ) / this.security.totalSecurityAmount) *100;
+          this.loanExposureDv = ((this.totalProposedAmount + this.approvedRevolvingLoanTotal + this.approvedTerminatingLoanTotal) / this.security.totalDistressAmount)*100;
 
   }
 

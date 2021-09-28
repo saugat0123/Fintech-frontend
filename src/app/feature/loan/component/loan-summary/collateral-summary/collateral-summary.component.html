@@ -36,7 +36,7 @@
             <ng-container *ngFor="let model of fundedList;  let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
-                    <td class="text-left pl-1">{{model?.loan?.name}}</td>
+                    <td class="text-left pl-1">{{model?.loan?.name}}<b *ngIf="model.loan.loanNature==='Terminating'">(T)</b><b *ngIf="model.loan.loanNature === 'Revolving'">(R)</b></td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td class="text-right pr-1" >
@@ -54,8 +54,8 @@
                     </td>
                 </tr>
                 <tr class="cursor" *ngFor="let data of approvedLoans; let i = index;" >
-                    <td>{{fundedList?.length + 1}}</td>
-                    <td class="text-left pl-1">{{data?.loan?.name}}</td>
+                    <td>{{fundedList.length+i + 1}}</td>
+                    <td class="text-left pl-1">{{data?.loan?.name}}<b *ngIf="data.loan.loanNature==='Terminating'">(T)</b><b *ngIf="data.loan.loanNature === 'Revolving'">(R)</b></td>
                   <td></td>
                     <td class="text-right pr-1" >
                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
@@ -131,7 +131,7 @@
         </div>
         <div  class="col-md-2 sb-small" *ngFor="let model of fundedList">
             <mark class="alert-warning">Loan Exposure FMV:</mark>
-            <strong>{{loanExposure| number : '1.0-2'}}%</strong>
+            <strong>{{loanExposureFmv| number : '1.0-2'}}%</strong>
         </div>
         <div  class="col-md-2 sb-small" *ngFor="let model of fundedList">
             <mark class="alert-warning">Loan Exposure Dv:</mark>

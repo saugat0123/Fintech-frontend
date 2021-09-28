@@ -518,7 +518,7 @@ export class LoanFormComponent implements OnInit {
                templateUrl: null
            });
 
-            if (this.approvedLoans.length !== 0 && this.loanNature === 'Terminating') {
+            if (this.approvedLoans.length !== 0) {
                 this.templateList.push({
                         active: false,
                         name: 'Outstanding Update',
