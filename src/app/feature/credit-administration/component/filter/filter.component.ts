@@ -57,6 +57,7 @@ export class FilterComponent implements OnInit {
   createClientType: any;
   subCustomerType = CustomerSubType;
   createSubClientType: any;
+  createSubInstituteType: any;
 
   constructor(private branchService: BranchService,
               private toastService: ToastService,
@@ -175,7 +176,7 @@ export class FilterComponent implements OnInit {
         customerType: this.createClientType,
         customerSubType: this.createSubClientType,
         jointCustomerNum: this.jointCustomerNum,
-        institutionCustomerType: this.institutionCustomerType,
+        institutionSubType: this.createSubInstituteType,
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
