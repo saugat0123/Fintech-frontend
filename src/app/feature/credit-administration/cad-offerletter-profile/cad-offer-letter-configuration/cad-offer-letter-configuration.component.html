@@ -2019,43 +2019,6 @@
                     <input class="form-control" formControlName="permanentMunicipalityCT" type="text" />
                   </td>
                 </tr>
-
-              <tr>
-                <td>
-                  <label class="title"
-                         for="permanentMunicipality">Municipality or VDC
-                  </label>
-                </td>
-                <td>
-                  <nb-radio-group name="guarantorPermanentMunicipalityOrVdc"
-                                  formControlName="guarantorPermanentMunicipalityOrVdc"
-                                  class="d-inline-flex">
-                    <nb-radio *ngFor="let option of vdcOption"
-                              [value]="vdcOption.values()">{{option.label}}</nb-radio>
-                  </nb-radio-group>
-                  <select [compareWith]="compareFn"
-                          class="custom-select"
-                          formControlName="permanentMunicipality"
-                          id="permanentMunicipality{{i}}"
-                          name="municipality">
-                    <option *ngFor="let municipalityVal of municipalities"
-                            [ngValue]="municipalityVal">
-                      {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                    </option>
-                  </select>
-                </td>
-                <td>
-                  <input class="form-control" formControlName="permanentMunicipalityTrans"
-                         [readOnly]="!this['permanentMunicipalityCheck']"
-                         type="text" [value]="addressTranslatedValue?.permanentMunicipality"/>
-                </td>
-                <td>
-                  <input class="form-control" formControlName="permanentMunicipalityCT" type="text"
-                         [value]="addressTranslatedValue?.permanentMunicipality"/>
-                </td>
-              </tr>
-
-
               <tr>
                 <td>
                   <label class="title" for="permanentWard">Ward No</label>
