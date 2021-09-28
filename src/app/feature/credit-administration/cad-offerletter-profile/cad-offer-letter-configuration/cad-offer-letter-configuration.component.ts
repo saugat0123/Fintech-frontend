@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -25,18 +25,14 @@ import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CompanyLocations} from '../../../admin/modal/companyLocations';
 import {LoanType} from '../../../loan/model/loanType';
-import {Gender} from '../../../../@core/model/enum/gender';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {Attributes} from '../../../../@core/model/attributes';
-import {CustomerInfoNepaliComponent} from '../../../loan/component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import {LoanCreateComponent} from './loan-create/loan-create.component';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
-import {LoanDataHolder} from '../../../loan/model/loanData';
-import {NepaliCalendarService, NepaliDayPipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -176,91 +172,91 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   buildForm() {
     this.userConfigForm = this.formBuilder.group({
       branch: [undefined],
-      branchCT: [undefined],
+      branchCT: [undefined, Validators.required],
       clientType: [undefined],
       clientTypeCT: [undefined],
       name: [undefined],
-      nameCT: [undefined],
+      nameCT: [undefined, Validators.required],
       email: [undefined],
       emailCT: [undefined],
       contactNo: [undefined],
-      contactNoCT: [undefined],
+      contactNoCT: [undefined, Validators.required],
       panNo: [undefined],
-      panNoCT: [undefined],
+      panNoCT: [undefined, Validators.required],
       registrationNo: [undefined],
-      registrationNoCT: [undefined],
+      registrationNoCT: [undefined, Validators.required],
       registrationDate: [undefined],
       registrationDateCT: [undefined],
       registeredMunicipality: [undefined],
-      registeredMunicipalityCT: [undefined],
+      registeredMunicipalityCT: [undefined, Validators.required],
       registeredMunType: [undefined],
-      registeredMunTypeCT: [undefined],
+      registeredMunTypeCT: [undefined, Validators.required],
       registeredDistrict: [undefined],
-      registeredDistrictCT: [undefined],
+      registeredDistrictCT: [undefined, Validators.required],
       registeredProvince: [undefined],
-      registeredProvinceCT: [undefined],
+      registeredProvinceCT: [undefined, Validators.required],
       currentMunType: [undefined],
-      currentMunTypeCT: [undefined],
+      currentMunTypeCT: [undefined, Validators.required],
       currentProvince: [undefined],
-      currentProvinceCT: [undefined],
+      currentProvinceCT: [undefined, Validators.required],
       currentWard: [undefined],
-      currentWardCT: [undefined],
+      currentWardCT: [undefined, Validators.required],
       currentDistrict: [undefined],
-      currentDistrictCT: [undefined],
+      currentDistrictCT: [undefined, Validators.required],
       currentMunicipality: [undefined],
-      currentMunicipalityCT: [undefined],
+      currentMunicipalityCT: [undefined, Validators.required],
       customerCode: [undefined],
-      customerCodeCT: [undefined],
+      customerCodeCT: [undefined, Validators.required],
       gender: [undefined],
-      genderCT: [undefined],
+      genderCT: [undefined, Validators.required],
       fatherName: [undefined],
-      fatherNameCT: [undefined],
+      fatherNameCT: [undefined, Validators.required],
       grandFatherName: [undefined],
-      grandFatherNameCT: [undefined],
+      grandFatherNameCT: [undefined, Validators.required],
       relationMedium: [undefined],
-      relationMediumCT: [undefined],
+      relationMediumCT: [undefined, Validators.required],
       husbandName: [undefined],
-      husbandNameCT: [undefined],
+      husbandNameCT: [undefined, Validators.required],
       fatherInLawName: [undefined],
-      fatherInLawNameCT: [undefined],
+      fatherInLawNameCT: [undefined, Validators.required],
       citizenshipNo: [undefined],
-      citizenshipNoCT: [undefined],
+      citizenshipNoCT: [undefined, Validators.required],
       dob: [undefined],
       dobCT: [undefined],
       // tslint:disable-next-line:max-line-length
-      permanentProvinceCT: [undefined],
+      permanentProvinceCT: [undefined, Validators.required],
       permanentProvince: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentDistrict: [undefined],
-      permanentDistrictCT: [undefined],
+      permanentDistrictCT: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       permanentMunicipality: [undefined],
-      permanentMunicipalityCT: [undefined],
+      permanentMunicipalityCT: [undefined, Validators.required],
       permanentMunType: [0],
-      permanentMunTypeCT: [0],
+      permanentMunTypeCT: [0, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryProvince: [undefined],
-      temporaryProvinceCT: [undefined],
+      temporaryProvinceCT: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryDistrict: [undefined],
-      temporaryDistrictCT: [undefined],
+      temporaryDistrictCT: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryMunicipality: [undefined],
-      temporaryMunicipalityCT: [undefined],
+      temporaryMunicipalityCT: [undefined, Validators.required],
       permanentWard: [undefined],
-      permanentWardCT: [undefined],
+      permanentWardCT: [undefined, Validators.required],
       temporaryWard: [undefined],
-      temporaryWardCT: [undefined],
+      temporaryWardCT: [undefined, Validators.required],
       temporaryMunType: [1],
-      temporaryMunTypeCT: [undefined],
+      temporaryMunTypeCT: [undefined, Validators.required],
       citizenshipIssueDistrict: [undefined],
-      citizenshipIssueDistrictCT: [undefined],
+      citizenshipIssueDistrictCT: [undefined, Validators.required],
       citizenshipIssueDate: [undefined],
       citizenshipIssueDateCT: [undefined],
       municipalityOrVdc: [undefined],
-      municipalityOrVdcCT: [undefined],
+      municipalityOrVdcCT: [undefined, Validators.required],
       temporaryMunicipalityOrVdc: [undefined],
-      temporaryMunicipalityOrVdcCT: [undefined],
+      temporaryMunicipalityOrVdcCT: [undefined, Validators.required],
       dobDateType: [undefined],
       dobDateTypeCT: [undefined],
       issuedDate: [undefined],
@@ -297,6 +293,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   saveCustomer() {
     this.submitted = true;
     this.spinner = true;
+    if (this.userConfigForm.invalid) {
+      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
+      this.spinner = false;
+      return;
+    }
     const clientType = this.userConfigForm.get('clientType').value;
     this.oneFormCustomer.customerCode = this.userConfigForm.get('customerCode').value;
     this.oneFormCustomer.customerName = this.userConfigForm.get('name').value;
@@ -384,6 +385,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   addGuarantor() {
     (this.userConfigForm.get('guarantorDetails') as FormArray).push(this.addGuarantorField());
+  }
+
+  public clearValidationForGender(value): void {
+    if (value === '0') {
+      this.userConfigForm.get('grandFatherName').clearValidators();
+      this.userConfigForm.get('grandFatherName').updateValueAndValidity();
+      this.userConfigForm.get('fatherName').clearValidators();
+      this.userConfigForm.get('fatherName').updateValueAndValidity();
+    }
+    if (value === '1') {
+      this.userConfigForm.get('husbandName').clearValidators();
+      this.userConfigForm.get('husbandName').updateValueAndValidity();
+      this.userConfigForm.get('fatherInLawName').clearValidators();
+      this.userConfigForm.get('fatherInLawName').updateValueAndValidity();
+    }
   }
 
   addGuarantorField() {
@@ -516,7 +532,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         fatherNameCT: [value.fatherNameCT],
         fatherName: [value.fatherName],
         fatherNameTrans: [undefined],
-        
+
         relationship: [value.relationship],
         relationshipCT: [value.relationshipCT],
         citizenNumber: [value.citizenNumber],
@@ -657,10 +673,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   // deleteCTAndTransContorls from form controls
   deleteCTAndTransContorls(index) {
-    let formArrayDataArrays: FormArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+    const formArrayDataArrays: FormArray = this.userConfigForm.get('guarantorDetails') as FormArray;
       let a: any;
       a = formArrayDataArrays.controls;
-      let individualData = a[index] as FormGroup;
+      const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
           individualData.removeControl(key);
@@ -777,7 +793,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
     getAllEditedDistrictAndMunicipalities() {
-       if(this.loanHolder.customerType === CustomerType.INDIVIDUAL){
+       if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
          if (this.oneFormCustomer.province !== null) {
            const province = new Province();
            province.id = this.oneFormCustomer.province.id;
@@ -925,7 +941,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     patchValue(): void {
 
-    if(this.loanHolder.customerType === CustomerType.INDIVIDUAL){
+    if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
       this.userConfigForm.get('dobDateType').patchValue(JSON.parse(this.loanHolder.nepData).dobDateType.en);
       this.userConfigForm.get('issuedDate').patchValue(JSON.parse(this.loanHolder.nepData).issuedDate.en);
       this.userConfigForm.get('permanentMunType').patchValue(JSON.parse(this.loanHolder.nepData).permanentMunType.en);
@@ -965,7 +981,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
     }
 
-    patchNepData(){
+    patchNepData() {
       if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
         const nepData = (JSON.parse(this.loanHolder.nepData));
         this.userConfigForm.patchValue({
@@ -995,7 +1011,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       }
     }
 
-    patchIndividualData(){
+    patchIndividualData() {
       if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
         const memberData = JSON.parse(this.oneFormCustomer.individualJsonData);
         this.userConfigForm.patchValue({
