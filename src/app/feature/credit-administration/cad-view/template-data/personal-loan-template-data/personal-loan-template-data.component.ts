@@ -18,7 +18,6 @@ import {OfferDocument} from "../../../model/OfferDocument";
 import {Attributes} from "../../../../../@core/model/attributes";
 import {Alert, AlertType} from "../../../../../@theme/model/Alert";
 import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
-import {RetailProfessionalLoanComponent} from "../../../mega-offer-letter-template/mega-offer-letter/retail-professional-loan/retail-professional-loan.component";
 import {PersonalLoanComponent} from "../../../mega-offer-letter-template/mega-offer-letter/personal-loan/personal-loan.component";
 
 @Component({
@@ -27,6 +26,7 @@ import {PersonalLoanComponent} from "../../../mega-offer-letter-template/mega-of
   styleUrls: ['./personal-loan-template-data.component.scss']
 })
 export class PersonalLoanTemplateDataComponent implements OnInit {
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   tdValues: any = {};
   form: FormGroup;
@@ -221,7 +221,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('interestRate').patchValue(sum);
+    this.form.get('yearlyFloatingInterestRate').patchValue(sum);
   }
 
 }
