@@ -19,6 +19,8 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {NgxPrintModule} from 'ngx-print';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import { LetterOfSetOffComponent } from './letter-of-set-off/letter-of-set-off.component';
+import { LetterOfSetOffPrintComponent } from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 
 
 
@@ -38,7 +40,9 @@ import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
-    LoanDeedIndividualPrintComponent],
+    LoanDeedIndividualPrintComponent,
+    LetterOfSetOffComponent,
+    LetterOfSetOffPrintComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -61,10 +65,12 @@ import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed
     LoanDeedSingleComponent,
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
-      LoanDeedIndividualComponent,
-      LoanDeedIndividualPrintComponent
+    LoanDeedIndividualComponent,
+    LoanDeedIndividualPrintComponent,
+    LetterOfSetOffComponent,
+    LetterOfSetOffPrintComponent
   ],
-  entryComponents: [DeedHypoOfMachineryComponent
+  entryComponents: [DeedHypoOfMachineryComponent, LetterOfSetOffComponent, LetterOfSetOffPrintComponent
   ]
 
 })
