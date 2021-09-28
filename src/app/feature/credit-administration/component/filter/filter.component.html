@@ -101,25 +101,34 @@
             <ng-option [value]="customerType.INDIVIDUAL">PERSONAL</ng-option>
           </ng-select>
         </div>
-        <div class="form-group">
-          <ng-select *ngIf="createClientType === customerType.INDIVIDUAL"
-                     [(ngModel)]="createSubClientType"
+        <div class="form-group" *ngIf="createClientType === customerType.INDIVIDUAL">
+          <ng-select [(ngModel)]="createSubClientType"
                      placeholder="Select Personal Customer Type" required>
             <ng-option [value]="subCustomerType.JOINT">JOINT</ng-option>
             <ng-option [value]="subCustomerType.PERSONAL">INDIVIDUAL</ng-option>
           </ng-select>
         </div>
-        <div class="form-group">
-          <input
-              *ngIf="createClientType === customerType.INDIVIDUAL && createSubClientType === subCustomerType.JOINT"
-              [(ngModel)]="jointCustomerNum"
-              class="form-control"
-              min="2"
-              type="number"
-              placeholder="Number of joint customer"
-              required>
+        <div class="form-group"
+             *ngIf="createClientType === customerType.INDIVIDUAL && createSubClientType === subCustomerType.JOINT">
+          <input [(ngModel)]="jointCustomerNum"
+                 class="form-control"
+                 min="2"
+                 type="number"
+                 placeholder="Number of joint customer"
+                 required>
         </div>
 
+        <div class="form-group"
+             *ngIf="createClientType === customerType.INSTITUTION">
+          <select class="form-control"
+                  [(ngModel)]="createSubInstituteType"
+                  placeholder="Select Institution Customer Type"
+                  required>
+            <option [value]="subCustomerType.PRIVATE_PUBLIC">Pvt Ltd or Public</option>
+            <option [value]="subCustomerType.PROPRIETORSHIP">PROPRIETERSHIP</option>
+            <option [value]="subCustomerType.PARTNERSHIP">PARTNERSHIP</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>

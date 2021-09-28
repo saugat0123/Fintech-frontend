@@ -69,21 +69,6 @@
             </tr>
 
             <tbody *ngIf="configForm?.clientType?.value != null">
-            <tr *ngIf="customerType === clientType.INSTITUTION">
-              <td>Institution Type</td>
-              <td>
-                <select class="form-control"
-                        formControlName="institutionCustomerSubType"
-                        placeholder="Select Institution Customer Type"
-                        required>
-                  <option [value]="clientSubType.PRIVATE_PUBLIC">Pvt Ltd or Public</option>
-                  <option [value]="clientSubType.PROPRIETORSHIP">PROPRIETERSHIP</option>
-                  <option [value]="clientSubType.PARTNERSHIP">PARTNERSHIP</option>
-                </select>
-              </td>
-              <td></td>
-              <td></td>
-            </tr>
             <tr>
               <td>
                 <label class="title">Customer Code</label>
@@ -586,7 +571,7 @@
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                        id="permanentWard"
                        name="permanentMunicipality" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
               <td>
                 {{translatedValues?.permanentWard}}
@@ -702,7 +687,7 @@
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                        id="temporaryWard"
                        name="temporaryWard" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
               <td>
                 {{translatedValues?.temporaryWard}}
@@ -807,7 +792,7 @@
                        [ngClass]="{'is-invalid': submitted && configForm.registeredWard.errors}"
                        id="registeredWard"
                        name="registeredMunicipality" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
               <td>
                 {{translatedValues?.registeredWard}}
@@ -910,7 +895,7 @@
                        [ngClass]="{'is-invalid': submitted && configForm.currentWard.errors}"
                        id="currentWard"
                        name="currentWard" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
               <td>
                 {{translatedValues?.currentWard}}
@@ -1486,7 +1471,7 @@
                              [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                              id="permanentWard"
                              name="permanentMunicipality" placeholder="Ward No"
-                             type="text"/>
+                             type="number"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentWardTrans"
@@ -1618,7 +1603,7 @@
                              [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
                              id="temporaryWard"
                              name="temporaryWard" placeholder="Ward No"
-                             type="text"/>
+                             type="number"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="temporaryWardTrans"
@@ -2037,7 +2022,7 @@
                          formControlName="permanentWard"
                          id="permanentWard{{i}}"
                          name="permanentWard" placeholder="Ward No"
-                         type="text"/>
+                         type="number"/>
                 </td>
                 <td>
                   <input class="form-control" formControlName="permanentWardTrans"
@@ -2159,7 +2144,7 @@
                          formControlName="temporaryWard"
                          id="temporaryWard{{i}}"
                          name="temporaryWard" placeholder="Ward No"
-                         type="text"/>
+                         type="number"/>
                 </td>
                 <td>
                   <input class="form-control" formControlName="temporaryWardTrans"

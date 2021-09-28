@@ -45,7 +45,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   @Input() customerType;
   @Input() customerSubType;
   @Input() jointCustomerNum: Number;
-  @Input() institutionCustomerType;
+  @Input() institutionSubType;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
@@ -158,10 +158,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
-    console.log(this.customerType);
-    console.log(this.customerSubType);
-    console.log(this.jointCustomerNum);
-    console.log(this.institutionCustomerType);
     if (this.jointCustomerNum > 1) {
       for (let i = 1; i < this.jointCustomerNum; i++) {
         this.addJointCustomerDetails();
@@ -385,16 +381,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
+    const jointInfoArr = this.userConfigForm.get('jointCustomerDetails').value;
+    jointInfoArr.push(this.oneFormCustomer);
     const data = {
       branch: this.userConfigForm.get('branch').value,
       customerType: clientType,
-      customerSubType: this.customerSubType,
+      customerSubType: (this.customerType === CustomerType.INDIVIDUAL) ? this.customerSubType : this.institutionSubType,
       customer: this.oneFormCustomer,
       guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
-      isJointCustomer: this.customerSubType === CustomerSubType.JOINT ? true : false,
-      jointInfo: this.userConfigForm.get('jointCustomerDetails').value,
+      isJointCustomer: (this.customerSubType === CustomerSubType.JOINT && this.jointCustomerNum > 1) ? true : false,
+      jointInfo: JSON.stringify(jointInfoArr),
       translatedData: this.translatedData
     };
+    console.log(data);
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
