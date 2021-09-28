@@ -41,14 +41,18 @@
               <td>
                 <select class="form-control" formControlName="branch" id="branch">
                   <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
-                  </option>
+                  <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
                 </select>
               </td>
               <td>{{objectValueTranslater?.branch}}</td>
               <td>
-                <input class="form-control" formControlName="branchCT" type="text"
-                       [value]="objectValueTranslater?.branch"/>
+                <input class="form-control"
+                       [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
+                       formControlName="branchCT" type="text"/>
+                <div *ngIf="submitted && configForm.branchCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.branchCT.errors.required">Branch is required</div>
+                </div>
               </td>
             </tr>
             <tr hidden>
@@ -85,8 +89,13 @@
                 {{translatedValues?.customerCode}}
               </td>
               <td>
-                <input class="form-control" formControlName="customerCodeCT" type="text"
-                       [value]="translatedValues?.customerCode"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.customerCodeCT.errors}"
+                       formControlName="customerCodeCT" type="text"/>
+                <div *ngIf="submitted && configForm.customerCodeCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -100,8 +109,13 @@
               </td>
               <td>{{translatedValues?.name}}</td>
               <td>
-                <input class="form-control" formControlName="nameCT" type="text"
-                       [value]="translatedValues?.name"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.nameCT.errors}"
+                       formControlName="nameCT" type="text"/>
+                <div *ngIf="submitted && configForm.nameCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.nameCT.errors.required">Name is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -163,8 +177,13 @@
               <td>
                 {{translatedValues?.contactNo}}</td>
               <td>
-                <input class="form-control" formControlName="contactNoCT" type="text"
-                       [value]="translatedValues?.contactNo"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
+                       formControlName="contactNoCT" type="text" />
+                <div *ngIf="submitted && configForm.contactNoCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
+                </div>
               </td>
             </tr>
 
@@ -202,8 +221,13 @@
               </td>
               <td>{{translatedValues?.gender}}</td>
               <td>
-                <input class="form-control" formControlName="genderCT" type="text"
-                       [value]="translatedValues?.gender"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.genderCT.errors}"
+                       formControlName="genderCT" type="text"/>
+                <div *ngIf="submitted && configForm.genderCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.genderCT.errors.required">Gender is required</div>
+                </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
@@ -220,7 +244,15 @@
                 </select>
               </td>
               <td>{{translatedValues?.relationMedium}}</td>
-              <td></td>
+              <td>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.relationMediumCT.errors}"
+                       formControlName="relationMediumCT" type="text"/>
+                <div *ngIf="submitted && configForm.relationMediumCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.relationMediumCT.errors.required">Relation medium is required</div>
+                </div>
+              </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
               <td><label class="title" for="husbandName">Husband Name</label></td>
@@ -231,8 +263,15 @@
                          name="husbandName" placeholder="Husband Name"
                          type="text"/></td>
               <td>{{translatedValues?.husbandName}}</td>
-              <td><input class="form-control" formControlName="husbandNameCT" type="text"
-                         [value]="translatedValues?.husbandName"/></td>
+              <td>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.husbandNameCT.errors}"
+                       formControlName="husbandNameCT" type="text"/>
+                <div *ngIf="submitted && configForm.husbandNameCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.husbandNameCT.errors.required">Husband name is required</div>
+                </div>
+              </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
               <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
@@ -243,8 +282,15 @@
                          name="fatherInLawName" placeholder="Father In Law Name"
                          type="text"/></td>
               <td>{{translatedValues?.fatherInLawName}}</td>
-              <td><input class="form-control" formControlName="fatherInLawNameCT" type="text"
-                         [value]="translatedValues?.fatherInLawName"/></td>
+              <td>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.fatherInLawNameCT.errors}"
+                       formControlName="fatherInLawNameCT" type="text"/>
+                <div *ngIf="submitted && configForm.fatherInLawNameCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.fatherInLawNameCT.errors.required">Father in law name is required</div>
+                </div>
+              </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
              (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
@@ -262,8 +308,15 @@
               <td>
                 {{translatedValues?.grandFatherName}}
               </td>
-              <td><input class="form-control" formControlName="grandFatherNameCT" type="text"
-                         [value]="translatedValues?.grandFatherName"/></td>
+              <td>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherNameCT.errors}"
+                       formControlName="grandFatherNameCT" type="text"/>
+                <div *ngIf="submitted && configForm.grandFatherNameCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.grandFatherNameCT.errors.required">Grand Father name is required</div>
+                </div>
+              </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
@@ -281,8 +334,16 @@
               <td>
                 {{translatedValues?.fatherName}}
               </td>
-              <td><input class="form-control" formControlName="fatherNameCT" type="text"
-                         [value]="translatedValues?.fatherName"/></td>
+              <td>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.fatherNameCT.errors}"
+                       formControlName="fatherNameCT" type="text"
+                         [value]="translatedValues?.fatherName"/>
+                <div *ngIf="submitted && configForm.fatherNameCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.fatherNameCT.errors.required">Father name is required</div>
+                </div>
+              </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
               <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
@@ -299,8 +360,13 @@
                 {{translatedValues?.citizenshipNo}}
               </td>
               <td>
-                <input class="form-control" formControlName="citizenshipNoCT" type="text"
-                       [value]="translatedValues?.citizenshipNo"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipNoCT.errors}"
+                       formControlName="citizenshipNoCT" type="text"/>
+                <div *ngIf="submitted && configForm.citizenshipNoCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.citizenshipNoCT.errors.required">Citizenship no is required</div>
+                </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
@@ -396,8 +462,13 @@
                 {{objectValueTranslater?.citizenshipIssueDistrict}}
               </td>
               <td>
-                <input class="form-control" formControlName="citizenshipIssueDistrictCT" type="text"
-                       [value]="objectValueTranslater?.citizenshipIssueDistrict"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrictCT.errors}"
+                       formControlName="citizenshipIssueDistrictCT" type="text"/>
+                <div *ngIf="submitted && configForm.citizenshipIssueDistrictCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.citizenshipIssueDistrictCT.errors.required">District is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -447,8 +518,13 @@
                 {{translatedValues?.panNo}}
               </td>
               <td>
-                <input class="form-control" formControlName="panNoCT" type="text"
-                       [value]="translatedValues?.panNo"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.panNoCT.errors}"
+                       formControlName="panNoCT" type="text"/>
+                <div *ngIf="submitted && configForm.panNoCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.panNoCT.errors.required">Pan no is required</div>
+                </div>
               </td>
             </tr>
             </tbody>
@@ -501,8 +577,13 @@
                 {{objectValueTranslater?.permanentProvince}}
               </td>
               <td>
-                <input class="form-control" formControlName="permanentProvinceCT" type="text"
-                       [value]="objectValueTranslater?.permanentProvince"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
+                       formControlName="permanentProvinceCT" type="text"/>
+                <div *ngIf="submitted && configForm.permanentProvinceCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.permanentProvinceCT.errors.required">Province is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -525,8 +606,13 @@
                 {{objectValueTranslater?.permanentDistrict}}
               </td>
               <td>
-                <input class="form-control" formControlName="permanentDistrictCT" type="text"
-                       [value]="objectValueTranslater?.permanentDistrict"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
+                       formControlName="permanentDistrictCT" type="text"/>
+                <div *ngIf="submitted && configForm.permanentDistrictCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.permanentDistrictCT.errors.required">District is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -557,8 +643,13 @@
                 {{objectValueTranslater?.permanentMunicipality}}
               </td>
               <td>
-                <input class="form-control" formControlName="permanentMunicipalityCT" type="text"
-                       [value]="objectValueTranslater?.permanentMunicipality"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.permanentMunicipalityCT.errors}"
+                       formControlName="permanentMunicipalityCT" type="text"/>
+                <div *ngIf="submitted && configForm.permanentMunicipalityCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.permanentMunicipalityCT.errors.required">Municipality is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -577,8 +668,14 @@
                 {{translatedValues?.permanentWard}}
               </td>
               <td>
-                <input class="form-control" formControlName="permanentWardCT" type="text"
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
+                       formControlName="permanentWardCT" type="text"
                        [value]="translatedValues?.permanentWard"/>
+                <div *ngIf="submitted && configForm.permanentWardCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.permanentWardCT.errors.required">Ward no is required</div>
+                </div>
               </td>
 
             </tr>
@@ -619,8 +716,14 @@
                 {{objectValueTranslater?.temporaryProvince}}
               </td>
               <td>
-                <input class="form-control" formControlName="temporaryProvinceCT" type="text"
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
+                       formControlName="temporaryProvinceCT" type="text"
                        [value]="objectValueTranslater?.temporaryProvince"/>
+                <div *ngIf="submitted && configForm.temporaryProvinceCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.temporaryProvinceCT.errors.required">Province is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -644,8 +747,13 @@
                 {{objectValueTranslater?.temporaryDistrict}}
               </td>
               <td>
-                <input class="form-control" formControlName="temporaryDistrictCT" type="text"
-                       [value]="objectValueTranslater?.temporaryDistrict"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
+                       formControlName="temporaryDistrictCT" type="text"/>
+                <div *ngIf="submitted && configForm.temporaryDistrictCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.temporaryDistrictCT.errors.required">District is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -674,8 +782,13 @@
                 {{objectValueTranslater?.temporaryMunicipality}}
               </td>
               <td>
-                <input class="form-control" formControlName="temporaryMunicipalityCT" type="text"
-                       [value]="objectValueTranslater?.temporaryMunicipality"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
+                       formControlName="temporaryMunicipalityCT" type="text"/>
+                <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.temporaryMunicipalityCT.errors.required">Municipality is required</div>
+                </div>
               </td>
             </tr>
             <tr>
@@ -693,8 +806,13 @@
                 {{translatedValues?.temporaryWard}}
               </td>
               <td>
-                <input class="form-control" formControlName="temporaryWardCT" type="text"
-                       [value]="translatedValues?.temporaryWard"/>
+                <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.temporaryWardCT.errors}"
+                       formControlName="temporaryWardCT" type="text"/>
+                <div *ngIf="submitted && configForm.temporaryWardCT.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="configForm.temporaryWardCT.errors.required">Ward is required</div>
+                </div>
               </td>
             </tr>
 
