@@ -7,7 +7,7 @@
                 status="primary">
             <span aria-hidden="true">×</span></button>
     </nb-card-header>
-    <nb-card-body  [nbSpinner]="spinner" nbSpinnerSize="tiny" nbSpinnerMessage="Documents are forwarding to remote side......" >
+    <nb-card-body  [nbSpinner]="spinner" nbSpinnerSize="tiny" nbSpinnerMessage="Documents are being sent..." >
         <form [formGroup]="formAction" role="form">
 
             <p *ngIf="additionalDetails?.hasDeferredDocs" class="text-danger">
