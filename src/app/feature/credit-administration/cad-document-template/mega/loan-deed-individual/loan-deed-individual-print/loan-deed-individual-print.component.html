@@ -5,19 +5,8 @@
                 <div>
                     <p class="text-center" style="font-size:16pt;"><b>विषयः ऋण तमसुक </b></p>
                     <p>
-                        लिखितम धनीका नाम
-                        <span [ngClass]="{'nepaliFont outside' : letterData?.permanentDistrict !== null && letterData?.permanentDistrict !== ''}">
-                            {{letterData?.permanentDistrict === null || letterData?.permanentDistrict === '' ? '___________' : letterData?.permanentDistrict}}
-                        </span>
-                        जिल्ला
-                        <span [ngClass]="{'nepaliFont outside' : letterData?.permanentMunicipality !== null && letterData?.permanentMunicipality !== ''}">
-                            {{letterData?.permanentMunicipality === null || letterData?.permanentMunicipality === '' ? '___________' : letterData?.permanentMunicipality}}
-                        </span>
-                        महानगरपालिका
-                        <span [ngClass]="{'nepaliFont outside' : letterData?.placeName !== null && letterData?.placeName !== ''}">
-                            {{letterData?.placeName === null || letterData?.placeName === '' ? '___________' : letterData?.placeName}}
-                        </span>
-                        स्थित नविल हाउसमा मुख्य कार्यालय रहिएको
+                        लिखितम धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ
+                        महानगरपालिका कमलादि स्थित नविल हाउसमा मुख्य कार्यालय रहिएको
                         <span [ngClass]="{'nepaliFont outside' : letterData?.branchName !== null && letterData?.branchName !== ''}">
                             {{letterData?.branchName === null || letterData?.branchName === '' ? '___________' : letterData?.branchName}}
                         </span>
@@ -29,7 +18,11 @@
                         <span [ngClass]="{'nepaliFont outside' : letterData?.fatherName !== null && letterData?.fatherName !== ''}">
                             {{letterData?.fatherName === null || letterData?.fatherName === '' ? '___________' : letterData?.fatherName}}
                         </span>
-                        को छोरा जिल्ला
+                        को छोरा
+                        <span [ngClass]="{'nepaliFont outside' : letterData?.District !== null && letterData?.District !== ''}">
+                            {{letterData?.District === null || letterData?.District === '' ? '___________' : letterData?.District}}
+                        </span>
+                        जिल्ला
                         <span [ngClass]="{'nepaliFont outside' : letterData?.Municipality !== null && letterData?.Municipality !== ''}">
                             {{letterData?.Municipality === null || letterData?.Municipality === '' ? '___________' : letterData?.Municipality}}
                         </span>
