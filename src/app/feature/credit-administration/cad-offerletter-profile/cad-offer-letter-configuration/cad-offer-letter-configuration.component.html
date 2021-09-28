@@ -41,7 +41,8 @@
               <td>
                 <select class="form-control" formControlName="branch" id="branch">
                   <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
+                  <option *ngFor="let branch of branchList"
+                          [ngValue]="branch">{{branch.name}}</option>
                 </select>
               </td>
               <td>{{objectValueTranslater?.branch}}</td>
@@ -68,7 +69,7 @@
               <td>{{translatedValues?.clientType}}</td>
               <td>
                 <input class="form-control" formControlName="clientTypeCT" type="text"
-                       [value]="translatedValues?.clientType"/>
+                />
               </td>
             </tr>
 
@@ -94,7 +95,8 @@
                        formControlName="customerCodeCT" type="text"/>
                 <div *ngIf="submitted && configForm.customerCodeCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required</div>
+                  <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -179,7 +181,7 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
-                       formControlName="contactNoCT" type="text" />
+                       formControlName="contactNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.contactNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
@@ -250,7 +252,9 @@
                        formControlName="relationMediumCT" type="text"/>
                 <div *ngIf="submitted && configForm.relationMediumCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.relationMediumCT.errors.required">Relation medium is required</div>
+                  <div *ngIf="configForm.relationMediumCT.errors.required">Relation medium is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -269,7 +273,8 @@
                        formControlName="husbandNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.husbandNameCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.husbandNameCT.errors.required">Husband name is required</div>
+                  <div *ngIf="configForm.husbandNameCT.errors.required">Husband name is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -288,7 +293,9 @@
                        formControlName="fatherInLawNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.fatherInLawNameCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.fatherInLawNameCT.errors.required">Father in law name is required</div>
+                  <div *ngIf="configForm.fatherInLawNameCT.errors.required">Father in law name is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -314,7 +321,9 @@
                        formControlName="grandFatherNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.grandFatherNameCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.grandFatherNameCT.errors.required">Grand Father name is required</div>
+                  <div *ngIf="configForm.grandFatherNameCT.errors.required">Grand Father name is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -338,7 +347,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.fatherNameCT.errors}"
                        formControlName="fatherNameCT" type="text"
-                         [value]="translatedValues?.fatherName"/>
+                />
                 <div *ngIf="submitted && configForm.fatherNameCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.fatherNameCT.errors.required">Father name is required</div>
@@ -365,7 +374,9 @@
                        formControlName="citizenshipNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipNoCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.citizenshipNoCT.errors.required">Citizenship no is required</div>
+                  <div *ngIf="configForm.citizenshipNoCT.errors.required">Citizenship no is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -386,7 +397,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="registrationNoCT" type="text"
-                       [value]="translatedValues?.registrationNo"/>
+                />
               </td>
             </tr>
 
@@ -467,7 +478,9 @@
                        formControlName="citizenshipIssueDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipIssueDistrictCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.citizenshipIssueDistrictCT.errors.required">District is required</div>
+                  <div *ngIf="configForm.citizenshipIssueDistrictCT.errors.required">District is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -582,7 +595,8 @@
                        formControlName="permanentProvinceCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentProvinceCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.permanentProvinceCT.errors.required">Province is required</div>
+                  <div *ngIf="configForm.permanentProvinceCT.errors.required">Province is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -611,7 +625,8 @@
                        formControlName="permanentDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentDistrictCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.permanentDistrictCT.errors.required">District is required</div>
+                  <div *ngIf="configForm.permanentDistrictCT.errors.required">District is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -648,7 +663,9 @@
                        formControlName="permanentMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentMunicipalityCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.permanentMunicipalityCT.errors.required">Municipality is required</div>
+                  <div *ngIf="configForm.permanentMunicipalityCT.errors.required">Municipality is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -671,7 +688,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
                        formControlName="permanentWardCT" type="text"
-                       [value]="translatedValues?.permanentWard"/>
+                />
                 <div *ngIf="submitted && configForm.permanentWardCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.permanentWardCT.errors.required">Ward no is required</div>
@@ -719,10 +736,11 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
                        formControlName="temporaryProvinceCT" type="text"
-                       [value]="objectValueTranslater?.temporaryProvince"/>
+                />
                 <div *ngIf="submitted && configForm.temporaryProvinceCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.temporaryProvinceCT.errors.required">Province is required</div>
+                  <div *ngIf="configForm.temporaryProvinceCT.errors.required">Province is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -752,7 +770,8 @@
                        formControlName="temporaryDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryDistrictCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.temporaryDistrictCT.errors.required">District is required</div>
+                  <div *ngIf="configForm.temporaryDistrictCT.errors.required">District is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -787,7 +806,9 @@
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.temporaryMunicipalityCT.errors.required">Municipality is required</div>
+                  <div *ngIf="configForm.temporaryMunicipalityCT.errors.required">Municipality is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -834,7 +855,7 @@
               <td>{{translatedValues?.registeredMunType}}</td>
               <td>
                 <input class="form-control" formControlName="registeredMunTypeCT" type="text"
-                       [value]="translatedValues?.registeredMunType"/>
+                />
               </td>
             </tr>
             <tr>
@@ -854,7 +875,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="registeredProvinceCT" type="text"
-                       [value]="translatedValues?.registeredProvince"/>
+                />
               </td>
             </tr>
             <tr>
@@ -874,7 +895,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="registeredDistrictCT" type="text"
-                       [value]="translatedValues?.registeredDistrict"/>
+                />
               </td>
             </tr>
             <tr>
@@ -897,7 +918,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="registeredMunicipalityCT" type="text"
-                       [value]="translatedValues?.registeredMunicipality"/>
+                />
               </td>
             </tr>
             <tr>
@@ -917,7 +938,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="permanentWardCT" type="text"
-                       [value]="translatedValues?.registeredWard"/>
+                />
               </td>
             </tr>
             </tbody>
@@ -937,7 +958,7 @@
               <td>{{translatedValues?.currentMunType}}</td>
               <td>
                 <input class="form-control" formControlName="currentMunTypeCT" type="text"
-                       [value]="translatedValues?.currentMunType"/>
+                />
               </td>
             </tr>
             <tr>
@@ -957,7 +978,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="currentProvinceCT" type="text"
-                       [value]="translatedValues?.currentProvince"/>
+                />
               </td>
             </tr>
             <tr>
@@ -977,7 +998,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="currentDistrictCT" type="text"
-                       [value]="translatedValues?.currentDistrict"/>
+                />
               </td>
             </tr>
             <tr>
@@ -1000,7 +1021,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="currentMunicipalityCT" type="text"
-                       [value]="translatedValues?.currentMunicipality"/>
+                />
               </td>
             </tr>
             <tr>
@@ -1020,7 +1041,7 @@
               </td>
               <td>
                 <input class="form-control" formControlName="currentWardCT" type="text"
-                       [value]="translatedValues?.currentWard"/>
+                />
               </td>
             </tr>
             </tbody>
@@ -1073,7 +1094,7 @@
                                formControlName="branchTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="branchCT" type="text"
-                             [value]="jointCustomer.get('branchTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <!--              <tr hidden>-->
@@ -1090,7 +1111,7 @@
                   <!--                <td>{{translatedValues?.clientType}}</td>-->
                   <!--                <td>-->
                   <!--                  <input class="form-control" formControlName="clientTypeCT" type="text"-->
-                  <!--                         [value]="translatedValues?.clientType"/>-->
+                  <!--                         />-->
                   <!--                </td>-->
                   <!--              </tr>-->
                   <tbody *ngIf="configForm?.clientType?.value != null">
@@ -1109,14 +1130,13 @@
                                formControlName="customerCodeTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="customerCodeCT" type="text"
-                             [value]="jointCustomer.get('customerCodeTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr>
                     <td><label class="title" for="name">Client Name</label></td>
                     <td><input class="form-control "
                                formControlName="name"
-                               id="name"
                                [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
                                name="name" placeholder="Client Name"
                                type="text"/>
@@ -1125,7 +1145,7 @@
                                formControlName="nameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="nameCT" type="text"
-                             [value]="jointCustomer.get('nameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -1187,7 +1207,7 @@
                                formControlName="contactNoTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="contactNoCT" type="text"
-                             [value]="jointCustomer.get('contactNoTrans').value"/>
+                      />
                     </td>
                   </tr>
 
@@ -1229,7 +1249,7 @@
                                formControlName="genderTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="genderCT" type="text"
-                             [value]="jointCustomer.get('genderTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
@@ -1249,22 +1269,21 @@
                                formControlName="relationMediumTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="relationMediumCT" type="text"
-                             [value]="jointCustomer.get('relationMediumTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-                    <td><label class="title" for="husbandName">Husband Name</label></td>
+                    <td><label class="title">Husband Name</label></td>
                     <td><input class="form-control "
                                formControlName="husbandName"
                                [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                               id="husbandName"
                                name="husbandName" placeholder="Husband Name"
                                type="text"/></td>
                     <td><input class="form-control" type="text"
                                formControlName="husbandNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="husbandNameCT" type="text"
-                             [value]="jointCustomer.get('husbandNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
@@ -1279,7 +1298,7 @@
                                formControlName="fatherInLawNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="fatherInLawNameCT" type="text"
-                             [value]="jointCustomer.get('fatherInLawNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
@@ -1299,7 +1318,7 @@
                                formControlName="grandFatherNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="grandFatherNameCT" type="text"
-                             [value]="jointCustomer.get('grandFatherNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
@@ -1319,7 +1338,7 @@
                                formControlName="fatherNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="fatherNameCT" type="text"
-                             [value]="jointCustomer.get('fatherNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
@@ -1337,7 +1356,7 @@
                                formControlName="citizenshipNoTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="citizenshipNoCT" type="text"
-                             [value]="jointCustomer.get('citizenshipNoTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
@@ -1412,7 +1431,7 @@
                     <td>
                       <input class="form-control" formControlName="citizenshipIssueDistrictCT"
                              type="text"
-                             [value]="jointCustomer.get('citizenshipIssueDistrictTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -1462,7 +1481,7 @@
                                formControlName="panNoTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="panNoCT" type="text"
-                             [value]="jointCustomer.get('panNoTrans').value"/>
+                      />
                     </td>
                   </tr>
                   </tbody>
