@@ -96,37 +96,30 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <ng-select [(ngModel)]="customerType" placeholder="Select Customer Type" required>
-            <ng-option value="INSTITUTION">INSTITUTION</ng-option>
-            <ng-option value="INDIVIDUAL">PERSONAL</ng-option>
+          <ng-select [(ngModel)]="createClientType" placeholder="Select Customer Type" required>
+            <ng-option [value]="customerType.INSTITUTION">INSTITUTION</ng-option>
+            <ng-option [value]="customerType.INDIVIDUAL">PERSONAL</ng-option>
           </ng-select>
         </div>
         <div class="form-group">
-          <ng-select *ngIf="customerType === 'INDIVIDUAL'" [(ngModel)]="personalCustomerType"
+          <ng-select *ngIf="createClientType === customerType.INDIVIDUAL"
+                     [(ngModel)]="createSubClientType"
                      placeholder="Select Personal Customer Type" required>
-            <ng-option value="JOINT">JOINT</ng-option>
-            <ng-option value="SINGLE">INDIVIDUAL</ng-option>
+            <ng-option [value]="subCustomerType.JOINT">JOINT</ng-option>
+            <ng-option [value]="subCustomerType.PERSONAL">INDIVIDUAL</ng-option>
           </ng-select>
         </div>
         <div class="form-group">
-          <input *ngIf="customerType === 'INDIVIDUAL' && personalCustomerType === 'JOINT'"
-                 [(ngModel)]="jointCustomerNum"
-                 class="form-control"
-                 [min]="1"
-                 type="number"
-                 placeholder="Number of joint customer"
-                 required>
+          <input
+              *ngIf="createClientType === customerType.INDIVIDUAL && createSubClientType === subCustomerType.JOINT"
+              [(ngModel)]="jointCustomerNum"
+              class="form-control"
+              [min]="1"
+              type="number"
+              placeholder="Number of joint customer"
+              required>
         </div>
-        <div class="form-group">
-          <ng-select *ngIf="customerType === 'INSTITUTION'"
-                     [(ngModel)]="institutionCustomerType"
-                     placeholder="Select Institution Customer Type"
-                     required>
-            <ng-option value="Private">Pvt Ltd or Public</ng-option>
-            <ng-option value="PROPRIETERSHIP">PROPRIETERSHIP</ng-option>
-            <ng-option value="PARTNERSHIP">PARTNERSHIP</ng-option>
-          </ng-select>
-        </div>
+
       </div>
     </div>
   </div>

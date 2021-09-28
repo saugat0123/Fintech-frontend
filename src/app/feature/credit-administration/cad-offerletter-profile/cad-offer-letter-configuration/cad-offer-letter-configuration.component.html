@@ -67,7 +67,27 @@
                        [value]="translatedValues?.clientType"/>
               </td>
             </tr>
+
             <tbody *ngIf="configForm?.clientType?.value != null">
+            <tr *ngIf="customerType === clientType.INSTITUTION">
+              <td>
+                <ng-select formControlName="institutionCustomerSubType"
+                           placeholder="Select Institution Customer Type"
+                           required>
+                  <ng-option [value]="clientSubType.PRIVATE_PUBLIC">Pvt Ltd or Public</ng-option>
+                  <ng-option [value]="clientSubType.PROPRIETORSHIP">PROPRIETERSHIP</ng-option>
+                  <ng-option [value]="clientSubType.PARTNERSHIP">PARTNERSHIP</ng-option>
+                </ng-select>
+              </td>
+              <td>
+                {{translatedValues?.institutionCustomerSubType}}
+              </td>
+              <td>
+                <input class="form-control" formControlName="institutionCustomerSubTypeCT"
+                       type="text"
+                       [value]="translatedValues?.institutionCustomerSubType"/>
+              </td>
+            </tr>
             <tr>
               <td>
                 <label class="title">Customer Code</label>
@@ -166,7 +186,7 @@
               </td>
             </tr>
 
-            <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
+            <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
             <!--              <td>-->
             <!--                <label class="title" for="name">DOB</label>-->
             <!--              </td>-->
@@ -187,7 +207,7 @@
                 <input class="form-control nepaliFont" formControlName="dobCT" [readOnly]="!this['branchCheck']" type="text"/>
               </td>-->
             <!--            </tr>-->
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
 
               <td><label class="title" for="gender">Gender</label></td>
               <td><select class="form-control" formControlName="gender" id="gender"
@@ -220,7 +240,7 @@
               <td>{{translatedValues?.relationMedium}}</td>
               <td></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
               <td><label class="title" for="husbandName">Husband Name</label></td>
               <td><input class="form-control "
                          formControlName="husbandName"
@@ -232,7 +252,7 @@
               <td><input class="form-control" formControlName="husbandNameCT" type="text"
                          [value]="translatedValues?.husbandName"/></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
               <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
               <td><input class="form-control "
                          formControlName="fatherInLawName"
@@ -244,7 +264,7 @@
               <td><input class="form-control" formControlName="fatherInLawNameCT" type="text"
                          [value]="translatedValues?.fatherInLawName"/></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
              (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
               <td>
                 <label class="title" for="grandFatherName">Grand Father Name</label>
@@ -263,7 +283,7 @@
               <td><input class="form-control" formControlName="grandFatherNameCT" type="text"
                          [value]="translatedValues?.grandFatherName"/></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
               <td>
                 <label class="title" for="name">Father Name</label>
@@ -282,7 +302,7 @@
               <td><input class="form-control" formControlName="fatherNameCT" type="text"
                          [value]="translatedValues?.fatherName"/></td>
             </tr>
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
               <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
               <td>
                 <input class="form-control "
@@ -321,7 +341,9 @@
                        [value]="translatedValues?.registrationNo"/>
               </td>
             </tr>
-            <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
+
+
+            <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
             <!--              <td>-->
             <!--                <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
             <!--              </td>-->
@@ -370,7 +392,7 @@
                 <input class="form-control nepaliFont" formControlName="registrationDateCT" [readOnly]="!this['branchCheck']" type="text"/>
               </td>-->
             <!--            </tr>-->
-            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
               <td>
                 <label class="title" for="citizenshipNo">Citizenship Issue District</label>
               </td>
@@ -448,7 +470,7 @@
               </td>
             </tr>
             </tbody>
-            <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+            <tbody *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
             <tr>
               <td>
                 <strong>Permanent Address</strong>
@@ -586,7 +608,7 @@
             </tbody>
 
             <tbody
-                *ngIf="addressSameAsAbove !== true && configForm?.clientType?.value == 'INDIVIDUAL'">
+                *ngIf="addressSameAsAbove !== true && configForm?.clientType?.value == clientType.INDIVIDUAL">
             <tr>
               <td>
                 <strong>Temporary Address</strong>
@@ -912,7 +934,7 @@
           </div>
 
           <div
-              *ngIf="customerType === clientType.INDIVIDUAL && personalCustomerType === clientSubType.JOINT && jointCustomerNum > 0">
+              *ngIf="customerType === clientType.INDIVIDUAL && customerSubType === clientSubType.JOINT && jointCustomerNum > 0">
             <div
                 *ngFor="let jointCustomer of userConfigForm.get('jointCustomerDetails')['controls']; let i = index"
                 formArrayName="jointCustomerDetails">
@@ -1068,7 +1090,7 @@
                     </td>
                   </tr>
 
-                  <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
+                  <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
                   <!--              <td>-->
                   <!--                <label class="title" for="name">DOB</label>-->
                   <!--              </td>-->
@@ -1089,7 +1111,7 @@
                       <input class="form-control nepaliFont" formControlName="dobCT" [readOnly]="!this['branchCheck']" type="text"/>
                     </td>-->
                   <!--            </tr>-->
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
 
                     <td><label class="title" for="gender">Gender</label></td>
                     <td><select class="form-control" formControlName="gender" id="gender"
@@ -1129,7 +1151,7 @@
                              [value]="jointCustomer.get('relationMediumTrans').value"/>
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
                     <td><label class="title" for="husbandName">Husband Name</label></td>
                     <td><input class="form-control "
                                formControlName="husbandName"
@@ -1144,7 +1166,7 @@
                              [value]="jointCustomer.get('husbandNameTrans').value"/>
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
                     <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
                     <td><input class="form-control "
                                formControlName="fatherInLawName"
@@ -1159,7 +1181,7 @@
                              [value]="jointCustomer.get('fatherInLawNameTrans').value"/>
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
              (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
                     <td>
                       <label class="title" for="grandFatherName">Grand Father Name</label>
@@ -1179,7 +1201,7 @@
                              [value]="jointCustomer.get('grandFatherNameTrans').value"/>
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
                     <td>
                       <label class="title" for="name">Father Name</label>
@@ -1199,7 +1221,7 @@
                              [value]="jointCustomer.get('fatherNameTrans').value"/>
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                     <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
                     <td>
                       <input class="form-control "
@@ -1217,7 +1239,7 @@
                              [value]="jointCustomer.get('citizenshipNoTrans').value"/>
                     </td>
                   </tr>
-                  <!--            <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">-->
+                  <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
                   <!--              <td>-->
                   <!--                <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
                   <!--              </td>-->
@@ -1266,7 +1288,7 @@
                       <input class="form-control nepaliFont" formControlName="registrationDateCT" [readOnly]="!this['branchCheck']" type="text"/>
                     </td>-->
                   <!--            </tr>-->
-                  <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                     <td>
                       <label class="title" for="citizenshipNo">Citizenship Issue District</label>
                     </td>
@@ -1343,7 +1365,7 @@
                     </td>
                   </tr>
                   </tbody>
-                  <tbody *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+                  <tbody *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                   <tr>
                     <td>
                       <strong>Permanent Address</strong>
@@ -1613,10 +1635,13 @@
                   </tr>
                   </tbody>
                 </table>
-                <button nbButton (click)="translateJointCustomerData(i)" class="float-right">
-                  Translate
-                  Joint Customer
-                </button>
+                <div class="clearfix">
+                  <button nbButton (click)="translateJointCustomerData(i)" class="float-right">
+                    Translate
+                    Joint Customer
+                  </button>
+                </div>
+
               </div>
             </div>
           </div>
@@ -1796,7 +1821,7 @@
                            [value]="guarantor.get('relationship').value"/></td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL'">
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
 
                 <td><label class="title" for="gender">Gender</label></td>
                 <td><select class="form-control" formControlName="gender" id="gender{{i}}">
@@ -1833,7 +1858,7 @@
                 </td>
                 <td></td>
               </tr>
-              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title" for="husbandName">Husband Name</label></td>
                 <td><input class="form-control "
                            formControlName="husbandName"
@@ -1850,7 +1875,7 @@
                 </td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
                 <td><input class="form-control "
                            formControlName="fatherInLawName"
@@ -1867,7 +1892,7 @@
                 </td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
                (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td>
                   <label class="title" for="grandFatherName">Grand Father Name</label>
@@ -1889,7 +1914,7 @@
                 </td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == 'INDIVIDUAL' &&
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
               (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td>
                   <label class="title" for="name">Father Name</label>

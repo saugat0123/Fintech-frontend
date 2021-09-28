@@ -42,10 +42,10 @@ import {CustomerSubType} from '../../../customer/model/customerSubType';
 })
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
-  @Input() customerType: String;
-  @Input() personalCustomerType: String;
-  @Input() jointCustomerNum: String;
-  @Input() institutionCustomerType: String;
+  @Input() customerType;
+  @Input() customerSubType;
+  @Input() jointCustomerNum: Number;
+  @Input() institutionCustomerType;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
@@ -152,7 +152,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
-    this.addJointCustomerDetails();
+    console.log(this.customerType);
+    console.log(this.customerSubType);
+    console.log(this.jointCustomerNum);
+    console.log(this.institutionCustomerType);
+    if (this.jointCustomerNum > 0) {
+      for (let i = 0; i < this.jointCustomerNum; i++) {
+        this.userConfigForm.get('jointCustomerDetails')['controls'].push(this.addJointCustomerDetailFields({}));
+      }
+    }
+
     this.addGuarantor();
     this.translateObjectValue();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
@@ -176,6 +185,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       branchCT: [undefined],
       clientType: [undefined],
       clientTypeCT: [undefined],
+      institutionCustomerSubType: [undefined],
+      institutionCustomerSubTypeCT: [undefined],
       name: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.customerName],
       nameCT: [undefined],
       email: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.email],

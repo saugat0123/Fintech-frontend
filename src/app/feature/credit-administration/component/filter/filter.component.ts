@@ -25,6 +25,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerApprovedLoanCadDocumentation} from '../../model/customerApprovedLoanCadDocumentation';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
   selector: 'app-filter',
@@ -49,12 +50,13 @@ export class FilterComponent implements OnInit {
   customerInfoData = new CustomerInfoData();
   cadOfferLetterApprovedDoc = new CustomerApprovedLoanCadDocumentation();
   customerInfo = new Customer();
-  customerType: any;
   oneFormCustomerInfo: OneFormCustomerDto;
-  personalCustomerType: any;
+  customerType = CustomerType;
   institutionCustomerType: any;
   jointCustomerNum: any;
-  customerSubType = CustomerSubType;
+  createClientType: any;
+  subCustomerType = CustomerSubType;
+  createSubClientType: any;
 
   constructor(private branchService: BranchService,
               private toastService: ToastService,
@@ -170,8 +172,8 @@ export class FilterComponent implements OnInit {
   getForm() {
     this.nbDialogService.open(CadOfferLetterConfigurationComponent, {
       context: {
-        customerType: this.customerType,
-        personalCustomerType: this.personalCustomerType,
+        customerType: this.createClientType,
+        customerSubType: this.createSubClientType,
         jointCustomerNum: this.jointCustomerNum,
         institutionCustomerType: this.institutionCustomerType,
         cadData: this.cadOfferLetterApprovedDoc,
