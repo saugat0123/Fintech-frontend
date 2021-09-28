@@ -169,6 +169,8 @@ export class LoanActionModalComponent implements OnInit {
                 }
             });
             dialogRef.onClose.subscribe((verified: boolean) => {
+                console.log('benefff id', this.beneficiaryId);
+                console.log('inside loan action modal');
                 if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
                     let beneficiaryObj = {
                         "beneficiaryId": this.beneficiaryId,
