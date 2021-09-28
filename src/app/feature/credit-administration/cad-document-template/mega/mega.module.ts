@@ -11,7 +11,7 @@ import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-
 import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assignment-of-receivable.component';
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
-import {NbButtonModule, NbCardModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
@@ -19,6 +19,8 @@ import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-n
 import {NgxPrintModule} from 'ngx-print';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
 import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import { HomeLoanComponent } from './home-loan/home-loan.component';
+import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-print.component';
 
 
 
@@ -38,32 +40,36 @@ import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-de
     PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
-    LoanDeedIndividualPrintComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NbCardModule,
-    NbButtonModule,
-    NgxPrintModule
-  ],
-  exports: [
-    AssignmentOfReceivableComponent,
-    DeedHypoOfMachineryComponent,
-    HypoOfStockComponent,
-    LoanDeedCompanyComponent,
-    ManjurinamaForCompanyComponent,
-    PersonalGuaranteeCompanyComponent,
-    PersonalGuaranteeJointBorrowerComponent,
-    PersonalGuaranteePersonToPersonComponent,
-    PromissoryNoteSingleBorrowerComponent,
-    TrustReceiptNepaliLimitComponent,
-    LoanDeedMultipleComponent,
-    LoanDeedSingleComponent,
-    PromissoryNoteCompanyComponent,
-    PromissoryNoteJointComponent,
-      LoanDeedIndividualComponent,
-      LoanDeedIndividualPrintComponent
-  ],
+    LoanDeedIndividualPrintComponent,
+    HomeLoanComponent,
+    HomeLoanPrintComponent],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NbCardModule,
+        NbButtonModule,
+        NgxPrintModule,
+        NbSpinnerModule
+    ],
+    exports: [
+        AssignmentOfReceivableComponent,
+        DeedHypoOfMachineryComponent,
+        HypoOfStockComponent,
+        LoanDeedCompanyComponent,
+        ManjurinamaForCompanyComponent,
+        PersonalGuaranteeCompanyComponent,
+        PersonalGuaranteeJointBorrowerComponent,
+        PersonalGuaranteePersonToPersonComponent,
+        PromissoryNoteSingleBorrowerComponent,
+        TrustReceiptNepaliLimitComponent,
+        LoanDeedMultipleComponent,
+        LoanDeedSingleComponent,
+        PromissoryNoteCompanyComponent,
+        PromissoryNoteJointComponent,
+        LoanDeedIndividualComponent,
+        LoanDeedIndividualPrintComponent,
+        HomeLoanComponent
+    ],
   entryComponents: [DeedHypoOfMachineryComponent
   ]
 
