@@ -95,16 +95,41 @@
 
     <div class="row">
       <div class="col-md-12">
-        <ng-select [(ngModel)]="customerType" placeholder="Select Customer Type">
-          <ng-option value="INSTITUTION">INSTITUTION</ng-option>
-          <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
-        </ng-select>
+        <div class="form-group">
+          <ng-select [(ngModel)]="customerType" placeholder="Select Customer Type">
+            <ng-option value="INSTITUTION">INSTITUTION</ng-option>
+            <ng-option value="INDIVIDUAL">PERSONAL</ng-option>
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <ng-select *ngIf="customerType === 'INDIVIDUAL'" [(ngModel)]="personalCustomerType"
+                     placeholder="Select Personal Customer Type">
+            <ng-option value="JOINT">JOINT</ng-option>
+            <ng-option value="SINGLE">INDIVIDUAL</ng-option>
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <input *ngIf="customerType === 'INDIVIDUAL' && personalCustomerType === 'JOINT'" [(ngModel)]="jointCustomerNum"
+                 class="form-control"
+                 min="1"
+                 type="number"
+                 placeholder="Number of joint customer">
+        </div>
+        <div class="form-group">
+          <ng-select *ngIf="customerType === 'INSTITUTION'"
+                     [(ngModel)]="institutionCustomerType"
+                     placeholder="Select Institution Customer Type">
+            <ng-option value="Private">Pvt Ltd or Public</ng-option>
+            <ng-option value="PROPRIETERSHIP">PROPRIETERSHIP</ng-option>
+            <ng-option value="PARTNERSHIP">PARTNERSHIP</ng-option>
+          </ng-select>
+        </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <button class="btn btn-success float-right" nbButton size="small"
-            (click)="getForm(customerType);onClose()">Next
+            (click)="getForm(customerType, personalCustomerType, jointCustomerNum, institutionCustomerType);onClose()">Next
     </button>
   </div>
 </ng-template>

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -25,17 +25,14 @@ import {BranchService} from '../../../admin/component/branch/branch.service';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {CompanyLocations} from '../../../admin/modal/companyLocations';
 import {LoanType} from '../../../loan/model/loanType';
-import {Gender} from '../../../../@core/model/enum/gender';
 import {OneFormCustomerDto} from '../../model/one-form-customer-dto';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {Attributes} from '../../../../@core/model/attributes';
-import {CustomerInfoNepaliComponent} from '../../../loan/component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import {LoanCreateComponent} from './loan-create/loan-create.component';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
-import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -44,7 +41,10 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 })
 export class CadOfferLetterConfigurationComponent implements OnInit {
 
-  @Input() customerType;
+  @Input() customerType: String;
+  @Input() personalCustomerType: String;
+  @Input() jointCustomerNum: String;
+  @Input() institutionCustomerType: String;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
@@ -95,13 +95,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   objectValueTranslater;
   tempProvinceList: Array<Province> = new Array<Province>();
   tempDistricts: Array<District> = new Array<District>();
- tempMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
- dateTypeAD = false;
- dateTypeBS = false;
- dateOption = [{value: 'AD', label: 'AD'},
-                {value: 'BS', label: 'BS'}];
- vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
- translatedGuarantorDetails = [];
+  tempMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
+  dateTypeAD = false;
+  dateTypeBS = false;
+  dateOption = [{value: 'AD', label: 'AD'},
+    {value: 'BS', label: 'BS'}];
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
+  translatedGuarantorDetails = [];
+
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private branchService: BranchService,
@@ -121,6 +122,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return this.userConfigForm.controls;
   }
 
+  get form() {
+    return this.userConfigForm.controls;
+  }
+
   ngOnInit() {
     this.addressService.getProvince().subscribe(
         (response: any) => {
@@ -133,16 +138,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
 
     if (!ObjectUtil.isEmpty(this.oneFormCustomer)) {
-        this.getAllEditedDistrictAndMunicipalities();
-        this.dateTypeAD = true;
+      this.getAllEditedDistrictAndMunicipalities();
+      this.dateTypeAD = true;
     } else {
-        this.oneFormCustomer = new OneFormCustomerDto();
+      this.oneFormCustomer = new OneFormCustomerDto();
     }
 
-    this.addressService.getAllDistrict().subscribe( (resp: any) => {
+    this.addressService.getAllDistrict().subscribe((resp: any) => {
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
+    this.addJointCustomerDetails();
     this.addGuarantor();
     this.translateObjectValue();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
@@ -224,18 +230,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentMunicipality: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities],
-        permanentMunicipalityCT: [undefined],
+      permanentMunicipalityCT: [undefined],
       permanentMunType: [0],
       permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
       temporaryProvince: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince],
-        temporaryProvinceCT: [undefined],
+      temporaryProvinceCT: [undefined],
       // tslint:disable-next-line:max-line-length
       temporaryDistrict: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict],
-        temporaryDistrictCT: [undefined],
+      temporaryDistrictCT: [undefined],
       // tslint:disable-next-line:max-line-length
       temporaryMunicipality: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities],
-        temporaryMunicipalityCT: [undefined],
+      temporaryMunicipalityCT: [undefined],
       permanentWard: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.wardNumber],
       permanentWardCT: [undefined],
       temporaryWard: [ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber],
@@ -254,6 +260,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       dobDateTypeCT: [undefined],
       issuedDate: [undefined],
       issuedDateCT: [undefined],
+      jointCustomerDetails: this.formBuilder.array([]),
       guarantorDetails: this.formBuilder.array([]),
     });
   }
@@ -297,27 +304,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
     this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
     const customer = {
-        relationMedium: this.userConfigForm.get('relationMedium').value,
-        husbandName: this.userConfigForm.get('husbandName').value,
-        fatherInLawName: this.userConfigForm.get('fatherInLawName').value,
-        grandFatherName: this.userConfigForm.get('grandFatherName').value,
-        fatherName: this.userConfigForm.get('fatherName').value,
-        municipalityOrVdc: this.userConfigForm.get('municipalityOrVdc').value,
-        temporaryMunicipalityOrVdc: this.userConfigForm.get('temporaryMunicipalityOrVdc').value,
+      relationMedium: this.userConfigForm.get('relationMedium').value,
+      husbandName: this.userConfigForm.get('husbandName').value,
+      fatherInLawName: this.userConfigForm.get('fatherInLawName').value,
+      grandFatherName: this.userConfigForm.get('grandFatherName').value,
+      fatherName: this.userConfigForm.get('fatherName').value,
+      municipalityOrVdc: this.userConfigForm.get('municipalityOrVdc').value,
+      temporaryMunicipalityOrVdc: this.userConfigForm.get('temporaryMunicipalityOrVdc').value,
     };
     this.oneFormCustomer.individualJsonData = JSON.stringify(customer);
     this.oneFormCustomer.citizenshipNumber = this.userConfigForm.get('citizenshipNo').value;
     const dobDateType = this.userConfigForm.get('dobDateType').value;
     if (dobDateType === 'AD') {
-        this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
+      this.oneFormCustomer.dob = this.userConfigForm.get('dob').value;
     } else {
-        this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
+      this.oneFormCustomer.dob = new Date(this.userConfigForm.get('dob').value.eDate);
     }
     const issuedDate = this.userConfigForm.get('issuedDate').value;
     if (issuedDate === 'AD') {
-        this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
+      this.oneFormCustomer.citizenshipIssuedDate = this.userConfigForm.get('citizenshipIssueDate').value;
     } else {
-        this.oneFormCustomer.citizenshipIssuedDate = new Date(this.userConfigForm.get('citizenshipIssueDate').value.eDate);
+      this.oneFormCustomer.citizenshipIssuedDate = new Date(this.userConfigForm.get('citizenshipIssueDate').value.eDate);
     }
     this.oneFormCustomer.citizenshipIssuedPlace = this.userConfigForm.get('citizenshipIssueDistrict').value;
     this.oneFormCustomer.province = this.userConfigForm.get('permanentProvince').value;
@@ -329,11 +336,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryMunicipalities = this.userConfigForm.get('temporaryMunicipality').value;
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
     Object.keys(this.userConfigForm.controls).forEach(key => {
-      // console.log(key);
+      console.log(key);
       if (key.indexOf('CT') > -1) {
         return;
       }
-      if (key === 'guarantorDetails') {
+      if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
         return;
       }
       this.attributes = new Attributes();
@@ -349,6 +356,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       customerType: clientType,
       customer: this.oneFormCustomer,
       guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
+      jointCustomerDetails: this.userConfigForm.get('jointCustomerDetails').value,
       translatedData: this.translatedData
     };
     this.cadOneformService.saveCustomer(data).subscribe(res => {
@@ -367,6 +375,119 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   closeModal() {
     this.dialogRef.close();
+  }
+
+  addJointCustomerDetails() {
+    (this.userConfigForm.get('jointCustomerDetails') as FormArray).push(this.addJointCustomerDetailFields({}));
+  }
+
+  addJointCustomerDetailFields(value: any) {
+    return this.formBuilder.group({
+      branch: [value.branch ? value.branch : undefined],
+      branchCT: [value.branchCT ? value.branchCT : undefined],
+      clientType: [value.clientType ? value.clientType : undefined],
+      clientTypeCT: [value.clientTypeCT ? value.clientTypeCT : undefined],
+      name: [value.name ? value.name : undefined],
+      nameCT: [value.nameCT ? value.nameCT : undefined],
+      email: [value.email ? value.email : undefined],
+      emailCT: [value.emailCT ? value.emailCT : undefined],
+      contactNo: [value.contactNo ? value.contactNo : undefined],
+      contactNoCT: [value.contactNoCT ? value.contactNoCT : undefined],
+      panNo: [value.panNo ? value.panNo : undefined],
+      panNoCT: [value.panNoCT ? value.panNoCT : undefined],
+      registrationNo: [value.registrationNo ? value.registrationNo : undefined],
+      registrationNoCT: [value.registrationNoCT ? value.registrationNoCT : undefined],
+      registrationDate: [value.registrationDate ? value.registrationDate : undefined],
+      registrationDateCT: [value.registrationDateCT ? value.registrationDateCT : undefined],
+      registeredMunicipality: [value.registeredMunicipality ? value.registeredMunicipality : undefined],
+      registeredMunicipalityCT: [value.registeredMunicipalityCT ? value.registeredMunicipalityCT : undefined],
+      registeredMunType: [value.registeredMunType ? value.registeredMunType : undefined],
+      registeredMunTypeCT: [value.registeredMunTypeCT ? value.registeredMunTypeCT : undefined],
+      registeredDistrict: [value.registeredDistrict ? value.registeredDistrict : undefined],
+      registeredDistrictCT: [value.registeredDistrictCT ? value.registeredDistrictCT : undefined],
+      registeredProvince: [value.registeredProvince ? value.registeredProvince : undefined],
+      registeredProvinceCT: [value.registeredProvinceCT ? value.registeredProvinceCT : undefined],
+      currentMunType: [value.currentMunType ? value.currentMunType : undefined],
+      currentMunTypeCT: [value.currentMunTypeCT ? value.currentMunTypeCT : undefined],
+      currentProvince: [value.currentProvince ? value.currentProvince : undefined],
+      currentProvinceCT: [value.currentProvinceCT ? value.currentProvinceCT : undefined],
+      currentWard: [value.currentWard ? value.currentWard : undefined],
+      currentWardCT: [value.currentWardCT ? value.currentWardCT : undefined],
+      currentDistrict: [value.currentDistrict ? value.currentDistrict : undefined],
+      currentDistrictCT: [value.currentDistrictCT ? value.currentDistrictCT : undefined],
+      currentMunicipality: [value.currentMunicipality ? value.currentMunicipality : undefined],
+      currentMunicipalityCT: [value.currentMunicipalityCT ? value.currentMunicipalityCT : undefined],
+      customerCode: [value.customerCode ? value.customerCode : undefined],
+      customerCodeCT: [value.customerCodeCT ? value.customerCodeCT : undefined],
+
+
+      gender: [value.gender ? value.gender : undefined],
+      genderCT: [value.genderCT ? value.genderCT : undefined],
+      fatherName: [value.fatherName ? value.fatherName : undefined],
+      fatherNameCT: [value.fatherNameCT ? value.fatherNameCT : undefined],
+      grandFatherName: [value.grandFatherName ? value.grandFatherName : undefined],
+      grandFatherNameCT: [value.grandFatherNameCT ? value.grandFatherNameCT : undefined],
+      relationMedium: [value.relationMedium ? value.relationMedium : undefined],
+      relationMediumCT: [value.relationMediumCT ? value.relationMediumCT : undefined],
+      husbandName: [value.husbandName ? value.husbandName : undefined],
+      husbandNameCT: [value.husbandNameCT ? value.husbandNameCT : undefined],
+      fatherInLawName: [value.fatherInLawName ? value.fatherInLawName : undefined],
+      fatherInLawNameCT: [value.fatherInLawNameCT ? value.fatherInLawNameCT : undefined],
+      citizenshipNo: [value.citizenshipNo ? value.citizenshipNo : undefined],
+      citizenshipNoCT: [value.citizenshipNoCT ? value.citizenshipNoCT : undefined],
+      dob: [value.dob ? value.dob : undefined],
+      dobCT: [value.dobCT ? value.dobCT : undefined],
+      // tslint:disable-next-line:max-line-length
+      permanentProvinceCT: [value.permanentProvinceCT ? value.permanentProvinceCT : undefined],
+      permanentProvince: [value.permanentProvince ? value.permanentProvince : undefined],
+      // tslint:disable-next-line:max-line-length
+      permanentDistrict: [value.permanentDistrict ? value.permanentDistrict : undefined],
+      permanentDistrictCT: [value.permanentDistrictCT ? value.permanentDistrictCT : undefined],
+      // tslint:disable-next-line:max-line-length
+      permanentMunicipality: [value.permanentMunicipality ? value.permanentMunicipality : undefined],
+      permanentMunicipalityCT: [value.permanentMunicipalityCT ? value.permanentMunicipalityCT : undefined],
+      permanentMunType: [0],
+      permanentMunTypeCT: [0],
+      // tslint:disable-next-line:max-line-length
+      temporaryProvince: [value.temporaryProvince ? value.temporaryProvince : undefined],
+      temporaryProvinceCT: [value.temporaryProvinceCT ? value.temporaryProvinceCT : undefined],
+      // tslint:disable-next-line:max-line-length
+      temporaryDistrict: [value.temporaryDistrict ? value.temporaryDistrict : undefined],
+      temporaryDistrictCT: [value.temporaryDistrictCT ? value.temporaryDistrictCT : undefined],
+      // tslint:disable-next-line:max-line-length
+      temporaryMunicipality: [value.temporaryMunicipality ? value.temporaryMunicipality : undefined],
+      temporaryMunicipalityCT: [value.temporaryMunicipalityCT ? value.temporaryMunicipalityCT : undefined],
+      permanentWard: [value.permanentWard ? value.permanentWard : undefined],
+      permanentWardCT: [value.permanentWardCT ? value.permanentWardCT : undefined],
+      temporaryWard: [value.temporaryWard ? value.temporaryWard : undefined],
+      temporaryWardCT: [value.temporaryWardCT ? value.temporaryWardCT : undefined],
+      temporaryMunType: [1],
+      temporaryMunTypeCT: [value.temporaryMunTypeCT ? value.temporaryMunTypeCT : undefined],
+      citizenshipIssueDistrict: [value.citizenshipIssueDistrict ? value.citizenshipIssueDistrict : undefined],
+      citizenshipIssueDistrictCT: [value.citizenshipIssueDistrictCT ? value.citizenshipIssueDistrictCT : undefined],
+      citizenshipIssueDate: [value.citizenshipIssueDate ? value.citizenshipIssueDate : undefined],
+      citizenshipIssueDateCT: [value.citizenshipIssueDateCT ? value.citizenshipIssueDateCT : undefined],
+      municipalityOrVdc: [value.municipalityOrVdc ? value.municipalityOrVdc : undefined],
+      municipalityOrVdcCT: [value.municipalityOrVdcCT ? value.municipalityOrVdcCT : undefined],
+      temporaryMunicipalityOrVdc: [value.temporaryMunicipalityOrVdc ? value.temporaryMunicipalityOrVdc : undefined],
+      temporaryMunicipalityOrVdcCT: [value.temporaryMunicipalityOrVdcCT ? value.temporaryMunicipalityOrVdcCT : undefined],
+      dobDateType: [value.dobDateType ? value.dobDateType : undefined],
+      dobDateTypeCT: [value.dobDateTypeCT ? value.dobDateTypeCT : undefined],
+      issuedDate: [value.issuedDate ? value.issuedDate : undefined],
+      issuedDateCT: [value.issuedDateCT ? value.issuedDateCT : undefined],
+    });
+  }
+
+  setJointCustomerDetails(jointCustomerDetails: any) {
+    if (ObjectUtil.isEmpty(jointCustomerDetails)) {
+      this.addJointCustomerDetails();
+      return;
+    }
+    const formArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
+
+    jointCustomerDetails.forEach(value => {
+      formArray.push(this.addJointCustomerDetailFields(value));
+    });
   }
 
   addGuarantor() {
@@ -549,7 +670,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     window.location.reload();
   }
 
-
   async translate() {
     this.spinner = true;
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
@@ -581,12 +701,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('temporaryMunicipality').value.name,
       temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipalityCT').value) ? null :
           this.userConfigForm.get('temporaryMunicipalityCT').value.name,
-        citizenshipIssueDistrict:  ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ? null :
-            this.userConfigForm.get('citizenshipIssueDistrict').value.name,
-      citizenshipIssueDistrictCT:  ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrictCT').value) ? null :
+      citizenshipIssueDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ? null :
+          this.userConfigForm.get('citizenshipIssueDistrict').value.name,
+      citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrictCT').value) ? null :
           this.userConfigForm.get('citizenshipIssueDistrictCT').value.name,
     });
-    this.objectValueTranslater = await  this.translateService.translateForm(this.objectTranslateForm);
+    this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
     this.disableSave = false;
   }
 
@@ -624,21 +744,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       a = formArrayDataArrays.controls;
       const newArr = {};
       // for (let i = 0; i < a.length; i++) {
-        const individualData = a[index] as FormGroup;
-        Object.keys(individualData.controls).forEach(key => {
-          console.log('key: ', key);
-          if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
-            return;
-          }
-            this.attributes = new Attributes();
-            this.attributes.en = individualData.get(key).value;
-            this.attributes.np = guarantorsDetails[key];
-            this.attributes.ct = individualData.get(key + 'CT').value;
-            newArr[key] = this.attributes;
-        });
-        this.translatedGuarantorDetails[index] = newArr;
-        this.deleteCTAndTransContorls(index);
-        this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
+      const individualData = a[index] as FormGroup;
+      Object.keys(individualData.controls).forEach(key => {
+        console.log('key: ', key);
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+          return;
+        }
+        this.attributes = new Attributes();
+        this.attributes.en = individualData.get(key).value;
+        this.attributes.np = guarantorsDetails[key];
+        this.attributes.ct = individualData.get(key + 'CT').value;
+        newArr[key] = this.attributes;
+      });
+      this.translatedGuarantorDetails[index] = newArr;
+      this.deleteCTAndTransContorls(index);
+      this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
       // end guarantorDetails
     }
   }
@@ -646,14 +766,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   // deleteCTAndTransContorls from form controls
   deleteCTAndTransContorls(index) {
     let formArrayDataArrays: FormArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-      let a: any;
-      a = formArrayDataArrays.controls;
-      let individualData = a[index] as FormGroup;
-      Object.keys(individualData.controls).forEach(key => {
-        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
-          individualData.removeControl(key);
-        }
-      });
+    let a: any;
+    a = formArrayDataArrays.controls;
+    let individualData = a[index] as FormGroup;
+    Object.keys(individualData.controls).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
+        individualData.removeControl(key);
+      }
+    });
   }
 
   getCadApprovedData(data) {
@@ -664,19 +784,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if (event.target.checked === true) {
       this.addressSameAsAbove = true;
       this.userConfigForm.patchValue({
-          temporaryProvince: this.userConfigForm.get('permanentProvince').value,
-          temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
-          temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
-                 temporaryWard: this.userConfigForm.get('permanentWard').value
+        temporaryProvince: this.userConfigForm.get('permanentProvince').value,
+        temporaryDistrict: this.userConfigForm.get('permanentDistrict').value,
+        temporaryMunicipality: this.userConfigForm.get('permanentMunicipality').value,
+        temporaryWard: this.userConfigForm.get('permanentWard').value
       });
     } else {
       this.addressSameAsAbove = false;
-        this.userConfigForm.patchValue({
-            temporaryProvince: undefined,
-            temporaryDistrict: undefined,
-            temporaryMunicipality: undefined,
-            temporaryWard: undefined
-        });
+      this.userConfigForm.patchValue({
+        temporaryProvince: undefined,
+        temporaryDistrict: undefined,
+        temporaryMunicipality: undefined,
+        temporaryWard: undefined
+      });
     }
   }
 
@@ -693,6 +813,49 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   // get district/municipalities for guarantors
+  getJointCustomerDistrictsById(provinceId: number, event, index) {
+    const province = new Province();
+    province.id = provinceId;
+    this.addressService.getDistrictByProvince(province).subscribe(
+        (response: any) => {
+          this.districts = response.detail;
+          this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrict']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  getJointCustomerMunicipalitiesById(districtId: number, event, index) {
+    const district = new District();
+    district.id = districtId;
+    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalities = response.detail;
+          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+          if (event !== null) {
+            this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipality']).patchValue(null);
+          }
+        }
+    );
+  }
+
+  setJointCustomerAddressSameAsPermanent(event, i, val) {
+    if (event.target.checked === true) {
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince']).patchValue(this.userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince']).value);
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict']).patchValue(this.userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value);
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryMunicipality']).patchValue(this.userConfigForm.get(['jointCustomerDetails', i, 'permanentMunicipality']).value);
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryWard']).patchValue(this.userConfigForm.get(['jointCustomerDetails', i, 'permanentWard']).value);
+    } else {
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince']).patchValue(null);
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict']).patchValue(null);
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryMunicipality']).patchValue(null);
+      this.userConfigForm.get(['jointCustomerDetails', i, 'temporaryWard']).patchValue(null);
+    }
+  }
+
+  // get district/municipalities for guarantors
   getGuarantorDistrictsById(provinceId: number, event, index) {
     const province = new Province();
     province.id = provinceId;
@@ -706,6 +869,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
     );
   }
+
   getGuarantorMunicipalitiesById(districtId: number, event, index) {
     const district = new District();
     district.id = districtId;
@@ -734,58 +898,57 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
   }
 
-    getAllEditedDistrictAndMunicipalities() {
-        if (this.oneFormCustomer.province !== null) {
-            const province = new Province();
-            province.id = this.oneFormCustomer.province.id;
-            this.addressService.getDistrictByProvince(province).subscribe(
-                (response: any) => {
-                    this.districts = response.detail;
-                    this.districts.sort((a, b) => a.name.localeCompare(b.name));
-                }
-            );
-        }
+  getAllEditedDistrictAndMunicipalities() {
+    if (this.oneFormCustomer.province !== null) {
+      const province = new Province();
+      province.id = this.oneFormCustomer.province.id;
+      this.addressService.getDistrictByProvince(province).subscribe(
+          (response: any) => {
+            this.districts = response.detail;
+            this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          }
+      );
+    }
 
-        if (this.oneFormCustomer.district !== null) {
-            const district = new District();
-            district.id = this.oneFormCustomer.district.id;
-            this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-                (response: any) => {
-                    this.municipalities = response.detail;
-                    this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
-                    if (event !== null) {
-                        this.userConfigForm.get('permanentMunicipality').patchValue(null);
-                    }
-                }
-            );
-        }
+    if (this.oneFormCustomer.district !== null) {
+      const district = new District();
+      district.id = this.oneFormCustomer.district.id;
+      this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+          (response: any) => {
+            this.municipalities = response.detail;
+            this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+            if (event !== null) {
+              this.userConfigForm.get('permanentMunicipality').patchValue(null);
+            }
+          }
+      );
+    }
 
-        if (this.oneFormCustomer.temporaryProvince !== null) {
-            const province = new Province();
-            province.id = this.oneFormCustomer.temporaryProvince.id;
-            this.addressService.getDistrictByProvince(province).subscribe(
-                (response: any) => {
-                    this.tempDistricts = response.detail;
-                    this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
-                }
-            );
-        }
+    if (this.oneFormCustomer.temporaryProvince !== null) {
+      const province = new Province();
+      province.id = this.oneFormCustomer.temporaryProvince.id;
+      this.addressService.getDistrictByProvince(province).subscribe(
+          (response: any) => {
+            this.tempDistricts = response.detail;
+            this.tempDistricts.sort((a, b) => a.name.localeCompare(b.name));
+          }
+      );
+    }
 
-      if (this.oneFormCustomer.temporaryDistrict !== null) {
-          const district = new District();
-          district.id = this.oneFormCustomer.temporaryDistrict.id;
-          this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-              (response: any) => {
-                  this.tempMunicipalities = response.detail;
-                  this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
-                  if (event !== null) {
-                      this.userConfigForm.get('temporaryMunicipality').patchValue(null);
-                  }
-              }
-          );
-      }
+    if (this.oneFormCustomer.temporaryDistrict !== null) {
+      const district = new District();
+      district.id = this.oneFormCustomer.temporaryDistrict.id;
+      this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+          (response: any) => {
+            this.tempMunicipalities = response.detail;
+            this.tempMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
+            if (event !== null) {
+              this.userConfigForm.get('temporaryMunicipality').patchValue(null);
+            }
+          }
+      );
+    }
   }
-
 
   getTempDistrictsById(provinceId: number, event) {
     console.log(provinceId);
@@ -803,10 +966,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
-  get form() {
-    return this.userConfigForm.controls;
-  }
-
   getMunicipalitiesById(districtId: number, event) {
     const district = new District();
     district.id = districtId;
@@ -820,6 +979,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
     );
   }
+
   getTempMunicipalitiesById(districtId: number, event) {
     const district = new District();
     district.id = districtId;
@@ -856,26 +1016,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
   }
 
-    selectDateType(event) {
-        if (event === 'BS') {
-            this.dateTypeBS = true;
-            this.dateTypeAD = false;
-        }
-        if (event === 'AD') {
-            this.dateTypeBS = false;
-            this.dateTypeAD = true;
-        }
+  selectDateType(event) {
+    if (event === 'BS') {
+      this.dateTypeBS = true;
+      this.dateTypeAD = false;
     }
+    if (event === 'AD') {
+      this.dateTypeBS = false;
+      this.dateTypeAD = true;
+    }
+  }
 
-    checkboxVal(event, formControlName) {
-        const checkVal = event.target.checked;
-        this[formControlName + 'Check'] = checkVal;
-        if (!checkVal) {
-            this.clearForm(formControlName + 'CT');
-        }
+  checkboxVal(event, formControlName) {
+    const checkVal = event.target.checked;
+    this[formControlName + 'Check'] = checkVal;
+    if (!checkVal) {
+      this.clearForm(formControlName + 'CT');
     }
+  }
 
-    clearForm(controlName) {
-        this.userConfigForm.get(controlName).setValue(null);
-    }
+  clearForm(controlName) {
+    this.userConfigForm.get(controlName).setValue(null);
+  }
 }
