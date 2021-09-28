@@ -22,6 +22,8 @@
 <!--                                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-retail-loan-against-insurance>-->
             <app-personal-overdraft *ngSwitchCase="offerLetterTypeConst.PERSONAL_OVERDRAFT"
                                     [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-personal-overdraft>
+            <app-personal-loan-and-personal-overdraft *ngSwitchCase="offerLetterTypeConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT"
+                                                      [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-personal-loan-and-personal-overdraft>
             <app-home-loan *ngSwitchCase="offerLetterTypeConst.HOME_LOAN"
                            [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-home-loan>
         </div>
