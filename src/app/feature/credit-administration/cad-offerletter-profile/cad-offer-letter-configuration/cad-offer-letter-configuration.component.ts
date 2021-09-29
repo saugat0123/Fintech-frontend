@@ -137,7 +137,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -183,7 +182,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       const data = JSON.parse(this.customerInfo.nepData);
       this.userConfigForm.patchValue(data);
       this.setGuarantors(data.guarantorDetails);
-
     }
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
@@ -195,8 +193,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.patchValue();
     this.patchNepData();
     this.patchIndividualData();
-    // this.patchGuarantorsData();
-
 
   }
 
@@ -258,7 +254,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       dobCT: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentProvinceCT: [undefined, Validators.required],
-      permanentProvince: [undefined],
+      permanentProvince: [ObjectUtil.setUndefinedIfNull(this.oneFormCustomer.municipalities)],
       // tslint:disable-next-line:max-line-length
       permanentDistrict: [undefined],
       permanentDistrictCT: [undefined, Validators.required],
@@ -268,7 +264,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentMunType: [0],
       permanentMunTypeCT: [0],
       // tslint:disable-next-line:max-line-length
-      temporaryProvince: [undefined],
+      temporaryProvince: [ObjectUtil.setUndefinedIfNull(this.oneFormCustomer.temporaryProvince)],
       temporaryProvinceCT: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryDistrict: [undefined],
@@ -891,11 +887,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('citizenshipIssueDistrict').value,
       citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrictCT').value) ? null :
           this.userConfigForm.get('citizenshipIssueDistrictCT').value.name,
+        registeredProvince :  ObjectUtil.isEmpty(this.userConfigForm.get('registeredProvince').value) ? null :
+            this.userConfigForm.get('registeredProvince').value.name,
+        registeredDistrict:  ObjectUtil.isEmpty(this.userConfigForm.get('registeredDistrict').value) ? null :
+            this.userConfigForm.get('registeredDistrict').value.name,
+        registeredMunicipality:  ObjectUtil.isEmpty(this.userConfigForm.get('registeredMunicipality').value) ? null :
+            this.userConfigForm.get('registeredMunicipality').value.name,
+        currentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('currentProvince').value) ? null :
+            this.userConfigForm.get('currentProvince').value.name,
+        currentDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('currentDistrict').value) ? null :
+            this.userConfigForm.get('currentDistrict').value.name,
+        currentMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('currentMunicipality').value) ? null :
+            this.userConfigForm.get('currentMunicipality').value.name,
     });
     this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
     this.setCustomerCTData();
     this.patchCorrectData();
-    this.disableSave = false;
+
+      this.setInstitutionCTValue();
+
+      this.disableSave = false;
   }
 
   async translateJointCustomerData(index) {
@@ -1356,7 +1367,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryMunicipality: [undefined],
       temporaryMunicipalityCT: [undefined],
       citizenshipIssueDistrict: [undefined],
-      citizenshipIssueDistrictCT: [undefined]
+      citizenshipIssueDistrictCT: [undefined],
+        registeredProvince: [undefined],
+        registeredDistrict: [undefined],
+        registeredMunicipality: [undefined],
+        currentProvince: [undefined],
+        currentDistrict: [undefined],
+        currentMunicipality: [undefined]
 
     });
   }
@@ -1413,7 +1430,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         citizenshipNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.citizenshipNumber,
         permanentProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.province,
         permanentDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.district,
-        permanentMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
+        // permanentMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.municipalities,
         temporaryProvince: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryProvince,
         temporaryDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict,
         temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
@@ -1555,26 +1572,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             });
 
             this.editedTranslatedValueForm.patchValue({
-                branch: this.nepData.branch.np,
-                name: this.nepData.name.np,
-                contactNo: this.nepData.contactNo.np,
-                gender: this.nepData.gender.np,
-                relationMedium: this.nepData.relationMedium.np,
-                husbandName: this.nepData.husbandName.np,
-                fatherInLawName: this.nepData.fatherInLawName.np,
-                grandFatherName: this.nepData.grandFatherName.np,
-                fatherName: this.nepData.fatherName.np,
-                citizenshipNo: this.nepData.citizenshipNo.np,
-                citizenshipIssueDistrict: this.nepData.citizenshipIssueDistrict.np,
-                panNo: this.nepData.panNo.np,
-                permanentProvince: this.nepData.permanentProvince.np,
-                permanentDistrict: this.nepData.permanentDistrict.np,
-                permanentMunicipality: this.nepData.permanentMunicipality.np,
-                permanentWard: this.nepData.permanentWard.np,
-                temporaryProvince: this.nepData.temporaryProvince.np,
-                temporaryDistrict: this.nepData.temporaryDistrict.np,
-                temporaryMunicipality: this.nepData.temporaryMunicipality.np,
-                temporaryWard: this.nepData.temporaryWard.np,
+                branch: ObjectUtil.setUndefinedIfNull(this.nepData.branch.np),
+                name: ObjectUtil.setUndefinedIfNull(this.nepData.name.np),
+                contactNo: ObjectUtil.setUndefinedIfNull(this.nepData.contactNo.np),
+                gender: ObjectUtil.setUndefinedIfNull(this.nepData.gender.np),
+                relationMedium: ObjectUtil.isEmpty(this.nepData.relationMedium) ? undefined : this.nepData.relationMedium.np,
+                husbandName: ObjectUtil.isEmpty(this.nepData.husbandName) ? undefined : this.nepData.husbandName.np,
+                fatherInLawName: ObjectUtil.isEmpty(this.nepData.fatherInLawName) ? undefined : this.nepData.fatherInLawName.np,
+                grandFatherName: ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.np,
+                fatherName: ObjectUtil.setUndefinedIfNull(this.nepData.fatherName.np),
+                citizenshipNo: ObjectUtil.setUndefinedIfNull(this.nepData.citizenshipNo.np),
+                citizenshipIssueDistrict: ObjectUtil.setUndefinedIfNull(this.nepData.citizenshipIssueDistrict.np),
+                panNo: ObjectUtil.setUndefinedIfNull(this.nepData.panNo.np),
+                permanentProvince: ObjectUtil.setUndefinedIfNull(this.nepData.permanentProvince.np),
+                permanentDistrict: ObjectUtil.setUndefinedIfNull(this.nepData.permanentDistrict.np),
+                permanentMunicipality: ObjectUtil.setUndefinedIfNull(this.nepData.permanentMunicipality.np),
+                permanentWard: ObjectUtil.setUndefinedIfNull(this.nepData.permanentWard.np),
+                temporaryProvince: ObjectUtil.setUndefinedIfNull(this.nepData.temporaryProvince.np),
+                temporaryDistrict: ObjectUtil.setUndefinedIfNull(this.nepData.temporaryDistrict.np),
+                temporaryMunicipality: ObjectUtil.setUndefinedIfNull(this.nepData.temporaryMunicipality.np),
+                temporaryWard: ObjectUtil.setUndefinedIfNull(this.nepData.temporaryWard.np),
             });
 
             this.objectValueTranslater = await this.translateService.translateForm(this.editedTranslatedValueForm);
@@ -1582,5 +1599,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
 
     }
+
+
+    setInstitutionCTValue(): void {
+        this.userConfigForm.patchValue({
+            currentProvinceCT: this.objectValueTranslater.currentProvince,
+            currentDistrictCT: this.objectValueTranslater.currentDistrict,
+            currentMunicipalityCT: this.objectValueTranslater.currentMunicipality,
+            registeredProvinceCT: this.objectValueTranslater.registeredProvince,
+            registeredDistrictCT: this.objectValueTranslater.registeredDistrict,
+            registeredMunicipalityCT: this.objectValueTranslater.registeredMunicipality,
+        });
+    }
+
 
 }
