@@ -100,7 +100,6 @@ export class PersonalLoanComponent implements OnInit {
 
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-      this.fillForm();
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
@@ -111,6 +110,8 @@ export class PersonalLoanComponent implements OnInit {
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
+        this.fillForm();
+        this.initialInfoPrint = initialInfo;
       }
     } else {
       this.fillForm();
@@ -146,7 +147,7 @@ export class PersonalLoanComponent implements OnInit {
       accountNumber: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
       // freeText: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
       relationshipOfficer: this.tempData.relationshipOfficer.ct ? this.tempData.relationshipOfficer.ct : '',
-      unitName : this.tempData.unitName.ct ? this.tempData.unitName.ct : '',
+      unitName : this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
       managerName: this.tempData.managerName.ct ? this.tempData.managerName.ct : '',
       // signatureDate : this.tempData.signatureDate.ct ? this.tempData.signatureDate.ct : '',
       sakshiDistrict: this.tempData.sakshiDistrict.ct ? this.tempData.sakshiDistrict.ct : '',
