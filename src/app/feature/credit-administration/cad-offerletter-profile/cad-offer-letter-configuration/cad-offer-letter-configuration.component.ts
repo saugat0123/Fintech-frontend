@@ -88,7 +88,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   responseData: any;
   disableSave = true;
   activeCustomerTab = true;
-  activeTemplateDataTab = true;
+  activeTemplateDataTab = false;
   addressSameAsAbove = false;
   provinceList: Array<Province> = new Array<Province>();
   tempGuarantorProvinceList: Array<Province> = new Array<Province>();
@@ -466,6 +466,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.responseData = res.detail;
       this.activeCustomerTab = false;
       this.activeLoanTab = true;
+      this.activeTemplateDataTab = false;
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
@@ -1136,6 +1137,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   getCadApprovedData(data) {
     this.cadData = data.customerApprovedLoanCadDocumentation;
+    this.activeCustomerTab = false;
+    this.activeLoanTab = false;
+    this.activeTemplateDataTab = true;
   }
 
   sameAsPermanent(event) {
@@ -1524,6 +1528,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       registeredDistrictCT: this.objectValueTranslater.registeredDistrict,
       registeredMunicipalityCT: this.objectValueTranslater.registeredMunicipality,
     });
+  }
+
+  loanDetailsSuccess() {
+    this.activeCustomerTab = false;
+    this.activeLoanTab = true;
+    this.activeTemplateDataTab = false;
   }
 
   private setCustomerTransData(): void {
