@@ -135,8 +135,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       tenureFixedDeposit: [undefined],
       tenureDepositReceiptNumber: [undefined],
       guarantorName: [undefined],
-      guaranteedAmountFigure: [undefined],
-      guaranteedAmountWords: [undefined],
+      // guaranteedAmountFigure: [undefined],
+      // guaranteedAmountWords: [undefined],
       nameOfBranch: [undefined],
       nameOfEmbassy: [undefined],
       nameOfFixedDeposit: [undefined],
@@ -160,6 +160,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       loanDeedAmount: [undefined],
 
       // Translated Value
+      embassyNameTransVal: [undefined],
+      selectedCountryTransVal: [undefined],
+      selectedSecurityTransVal: [undefined],
+      loanLimitCheckedTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
       referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
@@ -184,8 +188,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       tenureFixedDepositTransVal: [undefined, Validators.required],
       tenureDepositReceiptNumberTransVal: [undefined, Validators.required],
       guarantorNameTransVal: [undefined],
-      guaranteedAmountFigureTransVal: [undefined, Validators.required],
-      guaranteedAmountWordsTransVal: [undefined, Validators.required],
+      // guaranteedAmountFigureTransVal: [undefined, Validators.required],
+      // guaranteedAmountWordsTransVal: [undefined, Validators.required],
       nameOfBranchTransVal: [undefined],
       nameOfEmbassyTransVal: [undefined],
       nameOfFixedDepositTransVal: [undefined],
@@ -208,6 +212,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       promissoryNoteAmountTransVal: [undefined],
       loanDeedAmountTransVal: [undefined],
       municipalityOrVdc: [undefined],
+      municipalityOrVdcTransVal: [undefined],
     });
   }
 
@@ -247,12 +252,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
           const offerDocument = new OfferDocument();
           offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL);
           Object.keys(this.form.controls).forEach(key => {
-            if (key === 'loanDetails') {
+            if ( key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
               return;
             }
             this.attributes = new Attributes();
             this.attributes.en = this.form.get(key).value;
             this.attributes.np = this.tdValues[key];
+            this.attributes.ct = this.form.get(key + 'TransVal').value;
             this.tdValues[key] = this.attributes;
           });
           this.translatedData = {};
@@ -318,12 +324,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       });
       this.objectTranslate = await this.translateService.translateForm(this.objectForm);
     }
-    this.setTemplatedCTData();
+    this.setTemplatedCTData(this.translatedData);
     this.spinner = false;
     this.btnDisable = false;
   }
 
-  private setTemplatedCTData(): void {
+  private setTemplatedCTData(data): void {
     this.form.get('referenceNumberTransVal').patchValue(this.translatedData.referenceNumber);
     this.form.get('purposeOfLoanTransVal').patchValue(this.translatedData.purposeOfLoan);
     this.form.get('distressValueTransVal').patchValue(this.translatedData.distressValue);
@@ -342,8 +348,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('fixedDepositReceiptAmountWordsTransVal').patchValue(this.translatedData.fixedDepositReceiptAmountWords);
     this.form.get('tenureFixedDepositTransVal').patchValue(this.translatedData.tenureFixedDeposit);
     this.form.get('tenureDepositReceiptNumberTransVal').patchValue(this.translatedData.tenureDepositReceiptNumber);
-    this.form.get('guaranteedAmountFigureTransVal').patchValue(this.translatedData.guaranteedAmountFigure);
-    this.form.get('guaranteedAmountWordsTransVal').patchValue(this.translatedData.guaranteedAmountWords);
+    // this.form.get('guaranteedAmountFigureTransVal').patchValue(this.translatedData.guaranteedAmountFigure);
+    // this.form.get('guaranteedAmountWordsTransVal').patchValue(this.translatedData.guaranteedAmountWords);
     this.form.get('pledgeAmountFigureTransVal').patchValue(this.translatedData.pledgeAmountFigure);
     this.form.get('insuranceAmountFigureTransVal').patchValue(this.translatedData.insuranceAmountFigure);
     this.form.get('relationshipOfficerNameTransVal').patchValue(this.translatedData.relationshipOfficerName);
@@ -354,6 +360,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
     this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
+    this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
+    if (!ObjectUtil.isEmpty(data.embassyName)) {
+      this.form.get('embassyNameTransVal').patchValue(data.embassyName);
+    }
+    this.form.get('selectedCountryTransVal').patchValue(data.selectedCountry.en);
+    this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.form.get('districtTransVal').patchValue(this.objectTranslate.district);
       this.form.get('municipalityTransVal').patchValue(this.objectTranslate.municipality);
@@ -397,12 +409,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key === 'loanDetails') {
+      if ( key.indexOf('TransVal') > -1 || key === 'municipalityOrVdc') {
         return;
       }
       this.attributes = new Attributes();
       this.attributes.en = this.form.get(key).value;
       this.attributes.np = this.tdValues[key];
+      this.attributes.ct = this.form.get(key + 'TransVal').value;
       this.tdValues[key] = this.attributes;
     });
   }
