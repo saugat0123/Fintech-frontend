@@ -417,13 +417,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get('jointCustomerDetails').value.forEach(jcd => {
         jointInfoArr.push(jcd);
       });
-      console.log(jointInfoArr);
       this.oneFormCustomer.isJointCustomer = (this.customerSubType === CustomerSubType.JOINT) ? true : false;
       this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
     }
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
     Object.keys(this.userConfigForm.controls).forEach(key => {
-      console.log(key);
       if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !this.userConfigForm.get(key).value) {
         return;
       }
@@ -464,7 +462,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
-      console.log(res);
       this.customerId = res.detail.customerInfoId;
       this.responseData = res.detail;
       this.activeCustomerTab = false;
@@ -988,12 +985,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryWardTrans']).setValue(jointCustomerDetails.temporaryWard || '');
 
       this.addressFromGroup = this.formBuilder.group({
-        permanentProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvince']).value,
-        permanentDistrict: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrict']).value,
-        permanentMunicipality: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipality']).value,
-        temporaryProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryProvince']).value,
-        temporaryDistrict: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryDistrict']).value,
-        temporaryMunicipality: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryMunicipality']).value,
+        permanentProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvince']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'permanentProvince']).value.name : '',
+        permanentDistrict: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrict']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'permanentDistrict']).value.name : '',
+        permanentMunicipality: this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipality']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'permanentMunicipality']).value.name : '',
+        temporaryProvince: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryProvince']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryProvince']).value.name : '',
+        temporaryDistrict: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryDistrict']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryDistrict']).value.name : '',
+        temporaryMunicipality: this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryMunicipality']).value ? this.userConfigForm.get(['jointCustomerDetails', index, 'temporaryMunicipality']).value.name : '',
       });
 
       this.jointCustomerAddressTranslatedValue = await this.translateService.translateForm(this.addressFromGroup);
@@ -1013,7 +1010,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // for (let i = 0; i < a.length; i++) {
       const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
-        // console.log('key: ', key);
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
           return;
         }
@@ -1062,12 +1058,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).setValue(guarantorsDetails.relationship || '');
 
       this.addressFromGroup = this.formBuilder.group({
-        permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name || '',
-        permanentDistrict: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.name || '',
-        permanentMunicipality: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value.name || '',
-        temporaryProvince: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value.name || '',
-        temporaryDistrict: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value.name || '',
-        temporaryMunicipality: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value.name || '',
+        permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value ? this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name : '',
+        permanentDistrict: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value ? this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.name : '',
+        permanentMunicipality: this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value ? this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).value.name : '',
+        temporaryProvince: this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value ? this.userConfigForm.get(['guarantorDetails', index, 'temporaryProvince']).value.name : '',
+        temporaryDistrict: this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value ? this.userConfigForm.get(['guarantorDetails', index, 'temporaryDistrict']).value.name : '',
+        temporaryMunicipality: this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value ? this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipality']).value.name : '',
       });
 
       // translate temp/permanent address and patch accordingly
@@ -1165,7 +1161,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   getDistrictsById(provinceId: number, event) {
-    console.log(provinceId);
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
@@ -1346,7 +1341,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   getTempDistrictsById(provinceId: number, event) {
-    console.log(provinceId);
     const province = new Province();
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
@@ -1451,7 +1445,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get('citizenshipIssueDate').patchValue(JSON.parse(this.loanHolder.nepData).citizenshipIssueDate.en);
       this.userConfigForm.get('relationMedium').patchValue(Number(JSON.parse(this.oneFormCustomer.individualJsonData).relationMedium));
       this.userConfigForm.get('municipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).municipalityOrVdc);
-      console.log(this.userConfigForm.get('dobDateType').value);
     }
 
 
@@ -1520,10 +1513,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         fatherInLawName: ObjectUtil.isEmpty(memberData.fatherInLawName) ? undefined : memberData.fatherInLawName,
       });
     }
-  }
-
-  munVdcValue(values: any) {
-    console.log(values);
   }
 
   setInstitutionCTValue(): void {
