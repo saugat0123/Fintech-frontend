@@ -576,12 +576,9 @@
                             [ngValue]="district">{{district.name}}</option>
                         </select>
                     </td>
-                    <td class="abc">{{translatedData?.district}}</td>
+                    <td class="abc">{{objectTranslate?.district}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'district')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['districtCheck']" formControlName="districtTransVal"/>
+                        <input type="text" class="form-control" formControlName="districtTransVal"/>
                     </td>
                 </tr>
 
@@ -601,12 +598,9 @@
                             </option>
                         </select>
                     </td>
-                    <td class="abc">{{translatedData?.municipality}}</td>
+                    <td class="abc">{{objectTranslate?.municipality}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'municipality')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['municipalityCheck']" formControlName="municipalityTransVal"/>
+                        <input type="text" class="form-control" formControlName="municipalityTransVal"/>
                     </td>
                 </tr>
 
