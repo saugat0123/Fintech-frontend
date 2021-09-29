@@ -70,7 +70,7 @@ export class OfferLetterPersonalComponent implements OnInit {
         }
         // this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         this.checkOfferLetter();
-
+        this.fillForm();
     }
 
     fillForm() {
