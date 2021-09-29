@@ -8,6 +8,8 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ToastService} from '../../../../../@core/utils';
 import {CadOneformService} from '../../../service/cad-oneform.service';
 import { Attributes } from '../../../../../@core/model/attributes';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-loan-create',
@@ -35,6 +37,8 @@ export class LoanCreateComponent implements OnInit {
       private loanConfigService: LoanConfigService,
       private toastService: ToastService,
       private cadOneFormService: CadOneformService,
+      private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+      private currencyFormatterPipe: CurrencyFormatterPipe,
   ) {
   }
 
@@ -100,7 +104,7 @@ export class LoanCreateComponent implements OnInit {
   }
 
   async translate(index) {
-    let allLoans = this.form.get('loanDetails').value as FormArray;
+    const allLoans = this.form.get('loanDetails').value as FormArray;
     if (allLoans.length > 0) {
       this.spinner = true;
       let loanDetails: any = [];
@@ -108,11 +112,11 @@ export class LoanCreateComponent implements OnInit {
       this.form.get(['loanDetails', index, 'loanTrans']).setValue(loanDetails.loan || '');
       this.form.get(['loanDetails', index, 'proposedAmountTrans']).setValue(loanDetails.proposedAmount || '');
 
-      let formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
+      const formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
       let a: any;
       a = formArrayDataArrays.controls;
-      let newArr = {};
-      let individualData = a[index] as FormGroup;
+      const newArr = {};
+      const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
         console.log('key: ', key);
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
@@ -134,10 +138,10 @@ export class LoanCreateComponent implements OnInit {
   }
 
   deleteCTAndTransContorls(index) {
-    let formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
+    const formArrayDataArrays: FormArray = this.form.get(`loanDetails`) as FormArray;
       let a: any;
       a = formArrayDataArrays.controls;
-      let individualData = a[index] as FormGroup;
+      const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
         if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1) {
           individualData.removeControl(key);
@@ -146,15 +150,7 @@ export class LoanCreateComponent implements OnInit {
   }
   save() {
     this.spinner = true;
-    let loanDetailsToSave = [];
-    this.translatedLoanDataDetails.forEach((val, index) => {
-      this.deleteCTAndTransContorls(index);
-      loanDetailsToSave.push({...this.data,
-        ...this.form.get('loanDetails').value[index],
-        nepData: JSON.stringify(this.translatedLoanDataDetails[index])
-      });
-    });
-    this.cadOneFormService.saveLoan({'loanDetails': loanDetailsToSave}).subscribe(res => {
+    this.cadOneFormService.saveLoan(this.form.value).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
       this.cadApprovedData.emit(res.detail);
@@ -163,5 +159,12 @@ export class LoanCreateComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Error while creating loan'));
       this.spinner = false;
     });
+  }
+
+  public patchValue(index) {
+    const proposedAmount = this.engToNepaliNumberPipe.transform(
+        this.currencyFormatterPipe.transform(this.form.get(['loanDetails', index, 'proposedAmount']).value));
+    this.form.get(['loanDetails', index, 'proposedAmountTrans']).patchValue(proposedAmount);
+    this.form.get(['loanDetails', index, 'proposedAmountCT']).patchValue(proposedAmount);
   }
 }

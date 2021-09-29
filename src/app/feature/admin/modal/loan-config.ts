@@ -5,6 +5,7 @@ import {OfferLetter} from './offerLetter';
 export class LoanConfig {
     id: number;
     name: string;
+    nepaliName: string;
     interestRate: number;
     totalPoints: number;
     eligibilityPoints: number;
