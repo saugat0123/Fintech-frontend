@@ -11,18 +11,16 @@ import { PromissoryNoteSingleBorrowerComponent } from './promissory-note-single-
 import { AssignmentOfReceivableComponent } from './assignment-of-receivable/assignment-of-receivable.component';
 import { DeedHypoOfMachineryComponent } from './deed-hypo-of-machinery/deed-hypo-of-machinery.component';
 import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
-import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
-import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 import { HomeLoanComponent } from './home-loan/home-loan.component';
 import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-print.component';
-import { LetterOfSetOffComponent } from './letter-of-set-off/letter-of-set-off.component';
-import { LetterOfSetOffPrintComponent } from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 
@@ -47,9 +45,6 @@ import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-
     LoanDeedIndividualPrintComponent,
     HomeLoanComponent,
     HomeLoanPrintComponent,
-    LetterOfSetOffComponent,
-    LetterOfSetOffPrintComponent,
-    LoanDeedIndividualPrintComponent,
     PersonalGuaranteeIndividualComponent,
     PersonalGuaranteeIndividualPrintComponent
 ],
@@ -77,8 +72,6 @@ import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
-    LetterOfSetOffComponent,
-    LetterOfSetOffPrintComponent,
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
     PersonalGuaranteeIndividualComponent,
