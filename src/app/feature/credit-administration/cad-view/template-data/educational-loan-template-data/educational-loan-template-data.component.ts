@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -52,6 +52,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
   cadDocStatus = CadDocStatus.key();
   offerLetterDocument: OfferDocument;
+  submitted = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -65,6 +66,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
   ) { }
+
+  get Form() {
+    return this.form.controls;
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -154,46 +159,46 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
       // Translated Value
       dateOfApprovalTransVal: [undefined],
-      referenceNumberTransVal: [undefined],
+      referenceNumberTransVal: [undefined, Validators.required],
       nameOfCustomerTransVal: [undefined],
       addressOfCustomerTransVal: [undefined],
       dateOfApplicationTransVal: [undefined],
-      purposeOfLoanTransVal: [undefined],
+      purposeOfLoanTransVal: [undefined, Validators.required],
       loanAmountFigureTransVal: [undefined],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
-      fixedDepositReceiptAmountWordsTransVal: [undefined],
+      fixedDepositReceiptAmountWordsTransVal: [undefined, Validators.required],
       fixedDepositAmountNumberTransVal: [undefined],
       distressValueTransVal: [undefined],
-      baseRateTransVal: [undefined],
-      premiumRateTransVal: [undefined],
-      interestRateTransVal: [undefined],
-      loanAdminFeeFigureTransVal: [undefined],
-      loanAdminFeeWordsTransVal: [undefined],
+      baseRateTransVal: [undefined, Validators.required],
+      premiumRateTransVal: [undefined, Validators.required],
+      interestRateTransVal: [undefined, Validators.required],
+      loanAdminFeeFigureTransVal: [undefined, Validators.required],
+      loanAdminFeeWordsTransVal: [undefined, Validators.required],
       emiAmountFigureTransVal: [undefined],
       emiAmountWordsTransVal: [undefined],
       loanPeriodInMonthsTransVal: [undefined],
       moratoriumPeriodInMonthsTransVal: [undefined],
-      loanCommitmentFeeInPercentageTransVal: [undefined],
-      fixedDepositHolderNameTransVal: [undefined],
-      fixedDepositAmountFigureTransVal: [undefined],
-      tenureFixedDepositTransVal: [undefined],
-      tenureDepositReceiptNumberTransVal: [undefined],
+      loanCommitmentFeeInPercentageTransVal: [undefined, Validators.required],
+      fixedDepositHolderNameTransVal: [undefined, Validators.required],
+      fixedDepositAmountFigureTransVal: [undefined, Validators.required],
+      tenureFixedDepositTransVal: [undefined, Validators.required],
+      tenureDepositReceiptNumberTransVal: [undefined, Validators.required],
       guarantorNameTransVal: [undefined],
-      guaranteedAmountFigureTransVal: [undefined],
-      guaranteedAmountWordsTransVal: [undefined],
+      guaranteedAmountFigureTransVal: [undefined, Validators.required],
+      guaranteedAmountWordsTransVal: [undefined, Validators.required],
       nameOfBranchTransVal: [undefined],
       nameOfEmbassyTransVal: [undefined],
       nameOfFixedDepositTransVal: [undefined],
       pledgeAmountFigureTransVal: [undefined],
       insuranceAmountFigureTransVal: [undefined],
-      relationshipOfficerNameTransVal: [undefined],
-      branchManagerTransVal: [undefined],
+      relationshipOfficerNameTransVal: [undefined, Validators.required],
+      branchManagerTransVal: [undefined, Validators.required],
       sakhshiDistrictTransVal: [undefined],
       sakhshiMunicipalityTransVal: [undefined],
       sakhshiWardNoTransVal: [undefined],
       sakhshiNameTransVal: [undefined],
-      approvalStaffNameTransVal: [undefined],
+      approvalStaffNameTransVal: [undefined, Validators.required],
       ownersNameTransVal: [undefined],
       districtTransVal: [undefined],
       municipalityTransVal: [undefined],
@@ -208,6 +213,12 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   submit() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
+      this.spinner = false;
+      return;
+    }
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
       this.spinner = true;
       this.btnDisable = true;
