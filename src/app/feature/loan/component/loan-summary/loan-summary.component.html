@@ -37,17 +37,28 @@
                             size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
                             class="px-2">customer Profile</span></button>
 
-                    <button *ngIf="!disableApprovalSheetFlag"
-                            nbButton
-                            shape="rectangle"
-                            status="primary"
-                            class="float-right"
-                            size="tiny" (click)="goToApprovalSheet()">
-                        <span class="text-right px-2">
-                            Approval Sheet
-                        </span>
-                        <em class="fas fa-forward"></em>
-                    </button>
+                    <div class="fa-pull-right">
+                        <button *ngIf="!disableApprovalSheetFlag"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="tiny" (click)="openModel(updateProposal)"
+                                [disabled]="disableUpdateProposal">
+                            <span class="text-right px-2">
+                                Update Proposal
+                            </span>
+                        </button>
+                        <button *ngIf="!disableApprovalSheetFlag"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="tiny" (click)="goToApprovalSheet()">
+                            <span class="text-right px-2">
+                                Approval Sheet
+                            </span>
+                            <em class="fas fa-forward"></em>
+                        </button>
+                    </div>
                     <!--
                     uncomment if needed
                     <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
@@ -1414,3 +1425,106 @@
         </nb-card-body>
     </nb-card>
 </section>
+<ng-template #updateProposal>
+    <nb-card accent="primary">
+        <nb-card-header>
+            <strong>Update Proposal</strong>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="form-group">
+                <form (ngSubmit)="onSubmit()" [formGroup]="proposalForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
+                        <input
+                                [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
+                                class="form-control"
+                                [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
+                                formControlName="proposedLimit" id="proposedLimit"
+                                name="proposedLimit" placeholder="Proposed limit"
+                                type="number"  appDecimalNumber>
+                        <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
+                             class="invalid-feedback">
+                            <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
+
+                            <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
+                            <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{loanDataHolder.loan.minimumProposedAmount}}</strong></span>
+                        </div>
+                    </div>
+
+                    <div *ngIf="((isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral) || true">
+                        <div class="form-group">
+                            <label class="title" for="interestRate"><strong>Interest
+                                Rate(%)</strong></label>
+                            <input
+                                    class="form-control" formControlName="interestRate"
+                                    id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
+                                    [(ngModel)]="interestLimit"
+                                    type="number" (input)="checkRepaymentMode(); checkCustomRepaymentMode()" appDecimalNumber
+                            >
+                            <!--                    <div *ngIf="(submitted) && formControls.interestRate.invalid"-->
+                            <!--                         class="invalid-feedback">-->
+                            <!--                      <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>-->
+                            <!--                      <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>-->
+                            <!--                    </div>-->
+                        </div>
+                    </div>
+
+<!--                    <div class="col-md-4"-->
+<!--                         *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">-->
+                        <div class="form-group">
+                            <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
+                            <input
+                                    class="form-control" formControlName="baseRate" id="baseRate"
+                                    name="baseRate" placeholder="Base Rate(%)"
+                                    type="number" appDecimalNumber>
+                            <!--                    <div *ngIf="(submitted) && formControls.baseRate.invalid"-->
+                            <!--                         class="invalid-feedback">-->
+                            <!--                      <span-->
+                            <!--                          *ngIf="formControls.baseRate.errors.required">Base Rate is required</span>-->
+
+                            <!--                      <span *ngIf="formControls.baseRate.errors.min">Base Rate must be positive numerical value.</span>-->
+                            <!--                    </div>-->
+                        </div>
+<!--                    </div>-->
+
+                    <div class="form-group">
+                        <label class="title" for="serviceCharge"><strong>Service Charge </strong>
+                            <input
+                                    formControlName="serviceChargeMethod"
+                                    name="serviceChargeMethod" type="radio"
+                                    value="PERCENT"><strong>% </strong>
+                            <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
+                                   type="radio" value="FLAT"><strong> Flat</strong>
+                            <!--                      <small-->
+                            <!--                          *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required"-->
+                            <!--                          style="color:#DC3545">-->
+                            <!--                        Charge method is required-->
+                            <!--                      </small>-->
+                        </label>
+                        <input
+                                class="form-control" formControlName="serviceCharge"
+                                id="serviceCharge"
+                                name="serviceCharge" placeholder="Service charge"
+                                type="number" appDecimalNumber>
+                        <!--                    <div *ngIf="(submitted) && formControls.serviceCharge.invalid"-->
+                        <!--                         class="invalid-feedback">-->
+                        <!--                      <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>-->
+
+                        <!--                      <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>-->
+                        <!--                    </div>-->
+                    </div>
+
+
+                </form>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <button
+                    (click)="onSubmit()"
+
+                    nbButton type="button">
+                <em class="fa fa-save"></em>
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

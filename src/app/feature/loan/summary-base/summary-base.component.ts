@@ -143,7 +143,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.edit = false;
             }
 
-            if ((this.user.role.roleType === 'COMMITTEE') &&
+            if (this.user.role.signApprovalSheet &&
                 this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId) {
                 this.actionsList.roleTypeCommittee = true;
             } else {

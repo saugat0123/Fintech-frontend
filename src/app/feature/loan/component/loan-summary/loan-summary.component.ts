@@ -48,6 +48,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-loan-summary',
@@ -190,6 +191,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     otherObtainableDocuments = Array<string>();
     spinner = false;
     spinnerMsg = 'Please Wait!!';
+    disableUpdateProposal = true;
+    submitted = false;
+    proposalForm: FormGroup;
+    minimumAmountLimit = 0;
+    isGeneral = false;
+    isShare = false;
+    isFundable = false;
+    isTerminating = false;
+    isRevolving = false;
+    isFixedDeposit = false;
+    isVehicle = false;
+    interestLimit: number;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -273,6 +286,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.combinedLoanId)) {
             this.id = this.combinedLoanId;
         }
+        this.isFundable = this.loanConfig.isFundable;
+        this.isRevolving = this.loanConfig.loanNature.toString() === 'Revolving';
+        this.isTerminating = this.loanConfig.loanNature.toString() === 'Terminating';
+        if (this.isRevolving) {
+            this.isGeneral = false;
+        }
+        if (!this.isFundable) {
+            this.isGeneral = false;
+        }
+        this.isFixedDeposit = this.loanConfig.loanTag === 'FIXED_DEPOSIT';
+        this.isShare = this.loanConfig.loanTag === 'SHARE_SECURITY';
+        this.isVehicle = this.loanConfig.loanTag === 'VEHICLE';
     }
 
     ngOnDestroy(): void {
@@ -480,6 +505,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         // getting fiscal years
         this.getFiscalYears();
+        this.disableUpdateProposal = !(this.loanDataHolder.currentStage.toUser.role.signApprovalSheet &&
+            (this.loanDataHolder.currentStage.toUser.id.toString() === LocalStorageUtil.getStorage().userId));
     }
 
     getAllLoans(customerInfoId: number): void {
@@ -780,6 +807,43 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }, error =>  {
             this.spinner = false;
         });
+    }
+
+    openModel(model) {
+        this.modalService.open(model);
+    }
+
+    get formControls() {
+        return this.proposalForm.controls;
+    }
+
+    onSubmit () {
+        this.modalService.dismissAll();
+        alert('saved');
+    }
+
+    checkRepaymentMode() {
+        /*if (this.showInstallmentAmount) {
+            this.proposalForm.get('interestAmount').patchValue(0);
+            const repaymentMode = this.proposalForm.get('repaymentMode').value;
+            switch (repaymentMode) {
+                case 'EMI':
+                    this.calculateEmiEqiAmount('emi');
+                    break;
+                case 'EQI':
+                    this.calculateEmiEqiAmount('eqi');
+                    break;
+            }
+        } else {
+            this.proposalForm.get('installmentAmount').patchValue(0);
+        }*/
+    }
+
+    checkCustomRepaymentMode() {
+        /*if (this.showRepaymentMode) {
+            this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModePrincipal').value , 'PRINCIPAL');
+            this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModeInterest').value , 'INTEREST');
+        }*/
     }
 }
 
