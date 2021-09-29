@@ -100,10 +100,10 @@
                 <td></td>
                 <td>Total</td>
                 <td class="text-right pr-1">Rs. {{setField('totalProposedAmount' , proposalUtil.calculateTotalFromProposalList(loanDataKey.PROPOSE_LIMIT, customerAllLoanList)) | currencyFormatter}}</td>
-                <td></td>
-                <td></td>
+                <td> Rs {{existingLimitTotal | currencyFormatter}}</td>
+                <td> Rs {{outstandingLimitTotal | currencyFormatter}}</td>
                 <td colspan="3"></td>
-                <td class="text-right pr-1">Rs. {{setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList)) | currencyFormatter}}</td>
+                <td class="text-right pr-1">Rs. {{setField('totalRequiredCollateral' , calculateRequiredCollateral(customerAllLoanList) + approvedCollateralTotal) | currencyFormatter}}</td>
             </tr>
             </tbody>
         </table>
@@ -127,7 +127,7 @@
         </div>
         <div  class="col-md-2 sb-small">
             <mark class="alert-warning">Coverage%:</mark>
-            <strong>{{(security?.totalSecurityAmount/totalProposedAmount)*100 |number : '1.0-2'}}%</strong>
+            <strong>{{coverage |number : '1.0-2'}}%</strong>
         </div>
         <div  class="col-md-2 sb-small" *ngFor="let model of fundedList">
             <mark class="alert-warning">Loan Exposure FMV:</mark>

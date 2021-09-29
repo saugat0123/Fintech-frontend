@@ -41,7 +41,11 @@ export class CollateralSummaryComponent implements OnInit {
   companyInfoId;
   approvedTerminatingLoanTotal = 0;
   approvedRevolvingLoanTotal = 0;
+  existingLimitTotal =0;
+  outstandingLimitTotal=0;
   proposedLimit =0;
+  approvedCollateralTotal =0;
+  coverage =0;
   constructor(
       private customerLoanService: LoanFormService,
       private loanFormService: LoanFormService,
@@ -124,12 +128,32 @@ export class CollateralSummaryComponent implements OnInit {
       });
       this.approvedRevolvingLoanTotal =approvedRevolvingLoanTotal.reduce((a, b) => Number(a) + Number(b),0);
 
+      let existingLimitTotal = [];
+      this.approvedLoans.map(val => {
+        existingLimitTotal.push(val.proposal.existingLimit);
+      });
+      this.existingLimitTotal = existingLimitTotal.reduce((a,b) => Number(a) + Number(b),0);
 
+          let outstandingLimitTotal = [];
+          this.approvedLoans.map(val => {
+            outstandingLimitTotal.push(val.proposal.outStandingLimit);
+          });
+          this.outstandingLimitTotal = outstandingLimitTotal.reduce((a,b) => Number(a) + Number(b),0);
+
+          let approvedCollateralTotal = 0;
+          this.approvedLoans.forEach(value => {
+            if(value.proposal) {
+              approvedCollateralTotal += value.proposal.proposedLimit *(value.proposal.collateralRequirement/100);
+              console.log('approved collateral total', approvedCollateralTotal);
+            }
+          });
+          this.approvedCollateralTotal = approvedCollateralTotal;
 
           this.totalProposedAmount =  ProposalCalculationUtils.calculateTotalFromProposalList
           (LoanDataKey.PROPOSE_LIMIT, this.customerAllLoanList);
           this.loanExposureFmv = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal ) / this.security.totalSecurityAmount) *100;
           this.loanExposureDv = ((this.totalProposedAmount + this.approvedRevolvingLoanTotal + this.approvedTerminatingLoanTotal) / this.security.totalDistressAmount)*100;
+          this.coverage = (this.security.totalSecurityAmount/(this.totalProposedAmount+this.approvedTerminatingLoanTotal+this.approvedRevolvingLoanTotal))*100;
 
   }
 
