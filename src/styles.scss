@@ -182,6 +182,7 @@ button {
     margin-bottom: 100px !important;
   }
   .pageBreak {
-    page-break-after: always;
+    page-break-before: always !important;
+    page-break-after: always !important;
   }
 }

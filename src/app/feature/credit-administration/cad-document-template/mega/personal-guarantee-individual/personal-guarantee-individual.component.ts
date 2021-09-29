@@ -1,28 +1,31 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ToastService} from "../../../../../@core/utils";
-import {RouterUtilsService} from "../../../utils/router-utils.service";
-import {CreditAdministrationService} from "../../../service/credit-administration.service";
-import {NepaliCurrencyWordPipe} from "../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../@core/pipe/currency-formatter.pipe";
-import {NepaliToEngNumberPipe} from "../../../../../@core/pipe/nepali-to-eng-number.pipe";
-import {NepaliPercentWordPipe} from "../../../../../@core/pipe/nepali-percent-word.pipe";
-import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
-import {NepaliNumberAndWords} from "../../../model/nepaliNumberAndWords";
-import {NabilDocumentChecklist} from "../../../../admin/modal/nabil-document-checklist.enum";
-import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
-import {CadFile} from "../../../model/CadFile";
-import {Document} from "../../../../admin/modal/document";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {NbDialogRef} from "@nebular/theme";
-import {CadOfferLetterModalComponent} from "../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ToastService } from "../../../../../@core/utils";
+import { RouterUtilsService } from "../../../utils/router-utils.service";
+import { CreditAdministrationService } from "../../../service/credit-administration.service";
+import { NepaliCurrencyWordPipe } from "../../../../../@core/pipe/nepali-currency-word.pipe";
+import { EngToNepaliNumberPipe } from "../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import { CurrencyFormatterPipe } from "../../../../../@core/pipe/currency-formatter.pipe";
+import { NepaliToEngNumberPipe } from "../../../../../@core/pipe/nepali-to-eng-number.pipe";
+import { NepaliPercentWordPipe } from "../../../../../@core/pipe/nepali-percent-word.pipe";
+import { CustomerApprovedLoanCadDocumentation } from "../../../model/customerApprovedLoanCadDocumentation";
+import { NepaliNumberAndWords } from "../../../model/nepaliNumberAndWords";
+import { NabilDocumentChecklist } from "../../../../admin/modal/nabil-document-checklist.enum";
+import { ObjectUtil } from "../../../../../@core/utils/ObjectUtil";
+import { CadFile } from "../../../model/CadFile";
+import { Document } from "../../../../admin/modal/document";
+import { Alert, AlertType } from "../../../../../@theme/model/Alert";
+import { NbDialogRef } from "@nebular/theme";
+import { CadOfferLetterModalComponent } from "../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component";
+import { EngNepDatePipe } from "nepali-patro";
+import { ProposalCalculationUtils } from "../../../../loan/component/loan-summary/ProposalCalculationUtils";
+import { LoanDataKey } from "../../../../../@core/utils/constants/loan-data-key";
 
 @Component({
-  selector: 'app-personal-guarantee-individual',
-  templateUrl: './personal-guarantee-individual.component.html',
-  styleUrls: ['./personal-guarantee-individual.component.scss']
+  selector: "app-personal-guarantee-individual",
+  templateUrl: "./personal-guarantee-individual.component.html",
+  styleUrls: ["./personal-guarantee-individual.component.scss"],
 })
 export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
@@ -34,27 +37,44 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   offerLetterConst = NabilDocumentChecklist;
   individualData;
   taggedGuarantorsDetailsInLoan = [];
+  loanHolderNepData: any;
+  offerDocumentDetails: any;
+  nepaliNumber = new NepaliNumberAndWords();
   constructor(
-      private formBuilder: FormBuilder,
-      private router: Router,
-      private toastService: ToastService,
-      private routerUtilService: RouterUtilsService,
-      private administrationService: CreditAdministrationService,
-      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-      private engToNepNumberPipe: EngToNepaliNumberPipe,
-      private currencyFormatPipe: CurrencyFormatterPipe,
-      private nepToEngNumberPipe: NepaliToEngNumberPipe,
-      private nepPercentWordPipe: NepaliPercentWordPipe,
-      private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService
-  ) { }
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private toastService: ToastService,
+    private routerUtilService: RouterUtilsService,
+    private administrationService: CreditAdministrationService,
+    private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+    private engToNepNumberPipe: EngToNepaliNumberPipe,
+    private currencyFormatPipe: CurrencyFormatterPipe,
+    private nepToEngNumberPipe: NepaliToEngNumberPipe,
+    private englishNepaliDatePipe: EngNepDatePipe,
+    private nepPercentWordPipe: NepaliPercentWordPipe,
+    private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+    private routerUtilsService: RouterUtilsService
+  ) {}
 
   ngOnChanges() {
-    console.log('cadData: ', this.cadData);
-    console.log('cadData: ', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
-      this.taggedGuarantorsDetailsInLoan = this.cadData.assignedLoan[0].taggedGuarantors;
+      this.loanHolderNepData = this.cadData.loanHolder.nepData
+        ? JSON.parse(this.cadData.loanHolder.nepData)
+        : this.cadData.loanHolder.nepData;
+      this.cadData.assignedLoan.map((value) => {
+        value.taggedGuarantors.forEach((val) => {
+          this.taggedGuarantorsDetailsInLoan.push(val);
+        });
+      });
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      }
     }
+    this.taggedGuarantorsDetailsInLoan = Array.from(
+      new Set(
+        this.taggedGuarantorsDetailsInLoan.map((val) => JSON.stringify(val))
+      )
+    ).map((val) => JSON.parse(val));
   }
 
   ngOnInit() {
@@ -71,23 +91,32 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
     // if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
     //   this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     // }
-    console.log('this.taggedGuarantorsDetailsInLoan: ', this.taggedGuarantorsDetailsInLoan);
   }
 
   buildForm() {
     this.guarantorindividualGroup = this.formBuilder.group({
-      individualGuarantors: this.formBuilder.array([])
+      individualGuarantors: this.formBuilder.array([]),
     });
     this.taggedGuarantorsDetailsForm();
+    this.calulation();
   }
 
   removeIndividualGuarantors(i) {
-    (this.guarantorindividualGroup.get('individualGuarantors') as FormArray).removeAt(i);
+    (
+      this.guarantorindividualGroup.get("individualGuarantors") as FormArray
+    ).removeAt(i);
+  }
+
+  refreshGuarantors() {
+    this.buildForm();
   }
 
   addIndividualGuarantorsForm() {
-    (this.guarantorindividualGroup.get('individualGuarantors') as FormArray).push(this.initIndividualGuarantors());
+    (
+      this.guarantorindividualGroup.get("individualGuarantors") as FormArray
+    ).push(this.initIndividualGuarantors());
   }
+
   initIndividualGuarantors() {
     return this.formBuilder.group({
       branchName: [undefined],
@@ -101,73 +130,156 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
       temporaryward: [undefined],
       borrowerName: [undefined],
       loanPurpose: [undefined],
-      sanctionIssueDate: [undefined],
+      dateOfApproval: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       guarantorName: [undefined],
-      citizenshipNumber: [undefined],
-      citizenshipIssuedDistrict: [undefined],
-      citizenshipIssuedDate: [undefined],
-      year1: [undefined],
-      month1: [undefined],
-      date1: [undefined],
-      day1: [undefined],
-      freeText: [undefined]
+      guarantorFatherOrHusbandName: [undefined],
+      guarantorGrandFatherName: [undefined],
+
+      guarantorPermanentDistrict: [undefined],
+      guarantorPermanentMunicipality: [undefined],
+      guarantorPermanentWard: [undefined],
+
+      guarantorTemporaryDistrict: [undefined],
+      guarantorTemporaryMunicipality: [undefined],
+      guarantorTemporaryWard: [undefined],
+
+      guarantorCitizenNumber: [undefined],
+      guarantorCitzenIssuedPlace: [undefined],
+      guarantorCitzenIssuedDate: [undefined],
+      gurantedAmount: [undefined],
+
+      year: [undefined],
+      month: [undefined],
+      day: [undefined],
+      date: [undefined],
+      freeText: [undefined],
     });
   }
 
   taggedGuarantorsDetailsForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
-      this.taggedGuarantorsDetailsInLoan.forEach(val => {
-        (this.guarantorindividualGroup.get('individualGuarantors') as FormArray).push(
+      this.taggedGuarantorsDetailsInLoan.forEach((val) => {
+        const individualGuarantorNepData = val.nepData
+          ? JSON.parse(val.nepData)
+          : val.nepData;
+        if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
+          return;
+        }
+        (
+          this.guarantorindividualGroup.get("individualGuarantors") as FormArray
+        ).push(
           this.formBuilder.group({
-            branchName: [undefined],
-            grandFatherName: [undefined],
-            father_husbandName: [undefined],
-            district: [undefined],
-            VDCMunicipality: [undefined],
-            ward: [undefined],
+            branchName: [this.loanHolderNepData.branch.ct || ""],
+            grandFatherName: [this.loanHolderNepData.grandFatherName.ct || ""],
+            father_husbandName: [this.loanHolderNepData.fatherName.ct || ""],
+            district: [this.loanHolderNepData.permanentDistrict.ct || ""],
+            VDCMunicipality: [
+              this.loanHolderNepData.permanentMunicipality.ct || "",
+            ],
+            ward: [this.loanHolderNepData.permanentWard.ct || ""],
             temporarydistrict: [undefined],
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
-            borrowerName: [undefined],
-            loanPurpose: [undefined],
-            sanctionIssueDate: [undefined],
+            borrowerName: [this.loanHolderNepData.name.ct || ""],
+            loanPurpose: [this.offerDocumentDetails.purposeOfLoan.ct || ""],
+            dateOfApproval: [this.englishNepaliDatePipe.transform(this.offerDocumentDetails.dateOfApproval.en, true) || "",],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
-            guarantorName: [undefined],
-            citizenshipNumber: [undefined],
-            citizenshipIssuedDistrict: [undefined],
-            citizenshipIssuedDate: [undefined],
-            year1: [undefined],
-            month1: [undefined],
-            date1: [undefined],
-            day1: [undefined],
-            freeText: [undefined]
+            guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
+            guarantorName: [individualGuarantorNepData.guarantorName.ct || ""],
+            guarantorFatherOrHusbandName: [
+              individualGuarantorNepData.fatherName.ct || "",
+            ],
+            guarantorGrandFatherName: [
+              individualGuarantorNepData.grandFatherName.ct || "",
+            ],
+
+            guarantorPermanentDistrict: [
+              individualGuarantorNepData.permanentDistrict.ct || "",
+            ],
+            guarantorPermanentMunicipality: [
+              individualGuarantorNepData.permanentMunicipality.ct || "",
+            ],
+            guarantorPermanentWard: [
+              individualGuarantorNepData.permanentWard.ct || "",
+            ],
+
+            guarantorTemporaryDistrict: [
+              individualGuarantorNepData.temporaryDistrict.ct || "",
+            ],
+            guarantorTemporaryMunicipality: [
+              individualGuarantorNepData.temporaryMunicipality.ct || "",
+            ],
+            guarantorTemporaryWard: [
+              individualGuarantorNepData.temporaryWard.ct || "",
+            ],
+
+            guarantorCitizenNumber: [
+              individualGuarantorNepData.citizenNumber.ct || "",
+            ],
+            guarantorCitzenIssuedPlace: [
+              individualGuarantorNepData.issuedPlace.ct || "",
+            ],
+            guarantorCitzenIssuedDate: [
+              this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en, true) || "",
+            ],
+            gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
+            year: [undefined],
+            month: [undefined],
+            day: [undefined],
+            date: [undefined],
+            freeText: [undefined],
           })
-        )
+        );
       });
     }
   }
 
+
+  calulation() {
+    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
+        const number = ProposalCalculationUtils.calculateTotalFromProposalListKey(this.cadData.assignedLoan);
+        this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
+        this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
+        this.nepaliNumber.engNumber = number;
+    } else {
+        this.nepaliNumber = JSON.parse(this.cadData.nepData);
+    }
+
+  }
+
   getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.guarantorindividualGroup.get(numLabel).value);
+    const wordLabelVar = this.nepToEngNumberPipe.transform(
+      this.guarantorindividualGroup.get(numLabel).value
+    );
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.guarantorindividualGroup.get(wordLabel).patchValue(returnVal);
   }
-  submit(){
+  submit() {
     let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+    if (
+      !ObjectUtil.isEmpty(this.cadData) &&
+      !ObjectUtil.isEmpty(this.cadData.cadFileList)
+    ) {
+      this.cadData.cadFileList.forEach((singleCadFile) => {
+        if (
+          singleCadFile.customerLoanId === this.customerLoanId &&
+          singleCadFile.cadDocument.id === this.documentId
+        ) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.guarantorindividualGroup.value);
+          singleCadFile.initialInformation = JSON.stringify(
+            this.guarantorindividualGroup.value
+          );
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.guarantorindividualGroup.value);
+        cadFile.initialInformation = JSON.stringify(
+          this.guarantorindividualGroup.value
+        );
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -176,21 +288,28 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.guarantorindividualGroup.value);
+      cadFile.initialInformation = JSON.stringify(
+        this.guarantorindividualGroup.value
+      );
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
       this.cadData.cadFileList.push(cadFile);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
-      this.dialogRef.close();
-      this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
-      this.dialogRef.close();
-    });
+    this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(
+      () => {
+        this.toastService.show(
+          new Alert(AlertType.SUCCESS, "Successfully saved ")
+        );
+        this.dialogRef.close();
+        this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+      },
+      (error) => {
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, "Failed to save "));
+        this.dialogRef.close();
+      }
+    );
   }
 }
