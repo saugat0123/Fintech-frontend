@@ -76,8 +76,6 @@ export class CadLegalDocActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('loan config id', this.loanConfigId);
-        console.log('is remit loan in modal', this.isRemitLoan);
         this.formAction = this.buildForm();
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();

@@ -30,7 +30,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
-    @Input() beneficiaryId : any;
+    @Input() beneficiaryId: any;
     @Input() catalogueStatus = false;
     @Input() loanFlags: CustomerLoanFlag[];
     @Input() actionsList: ActionModel;
@@ -59,8 +59,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.loanFormService.detail(this.id).subscribe((data) => {
-    this.status = data.detail.documentStatus;
-});
+            this.status = data.detail.documentStatus;
+        });
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
@@ -117,7 +117,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     this.loanFlags.sort((a, b) => a.order - b.order);
                     this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
 
-                        return;
+                    return;
                 }
                 context = {
                     popUpTitle: 'Send Forward',
@@ -136,7 +136,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 if (this.loanFlags && this.loanFlags.length > 0) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
 
-                        return;
+                    return;
                 }
                 context = {
                     popUpTitle: 'Approve',
@@ -217,14 +217,14 @@ export class LoanActionComponent implements OnInit, OnChanges {
         } else {
             context.combinedLoanId = this.combinedLoanId;
             context.isMaker = this.isMaker;
-            context.branchId =  this.branchId,
-            this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent,
-                {
-                    context,
-                    closeOnBackdropClick: false,
-                    hasBackdrop: false,
-                    hasScroll: true
-                });
+            context.branchId = this.branchId,
+                this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent,
+                    {
+                        context,
+                        closeOnBackdropClick: false,
+                        hasBackdrop: false,
+                        hasScroll: true
+                    });
 
         }
         this.isOpen = true;

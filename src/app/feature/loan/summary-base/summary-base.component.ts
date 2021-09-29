@@ -120,8 +120,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
-            if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.remitCustomer)) {
-                this.beneficiaryId = this.loanDataHolder.loanHolder.remitCustomer.beneficiaryId;
+            console.log('loan holder', this.loanDataHolder);
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {
+                this.beneficiaryId = this.loanDataHolder.remitCustomer.beneficiaryId;
+                console.log('final beneficiary id', this.beneficiaryId);
             }
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
