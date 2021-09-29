@@ -365,9 +365,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.temporaryWardNumber = this.userConfigForm.get('temporaryWard').value;
     this.oneFormCustomer.customerInfoId = ObjectUtil.isEmpty(this.loanHolder) ? null : this.loanHolder.id;
     if (this.customerSubType === CustomerSubType.JOINT) {
+      // tslint:disable-next-line:no-shadowed-variable
+      const jointInfoArr = [];
+      jointInfoArr.push(this.oneFormCustomer);
+      this.userConfigForm.get('jointCustomerDetails').value.forEach(jcd => {
+        jointInfoArr.push(jcd);
+      });
+      console.log(jointInfoArr);
       this.oneFormCustomer.isJointCustomer = (this.customerSubType === CustomerSubType.JOINT) ? true : false;
-      this.oneFormCustomer.jointInfo = JSON.stringify(this.userConfigForm.get('jointCustomerDetails').value);
+      this.oneFormCustomer.jointInfo = JSON.stringify(jointInfoArr);
     }
+    this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
     Object.keys(this.userConfigForm.controls).forEach(key => {
       console.log(key);
       if (key.indexOf('CT') > -1) {
@@ -385,13 +393,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
-    if (issueDateType === 'AD') {
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value)
-    } else if (issueDateType === 'BS') {
-      const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate))
-    }
+      if (issueDateType === 'AD') {
+        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+            this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
+      } else if (issueDateType === 'BS') {
+        const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
+      }
     });
 
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
@@ -592,7 +600,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         dobTrans: [value.dobTrans ? value.dobTrans : undefined],
         dobCT: [value.dobCT ? value.dobCT : undefined],
         // tslint:disable-next-line:max-line-length
-        //Trans tslint:disable-nextTrans-line:maxTrans-line-length
+        // Trans tslint:disable-nextTrans-line:maxTrans-line-length
         permanentProvinceCT: [value.permanentProvinceCT ? value.permanentProvinceCT : undefined],
         permanentProvince: [value.permanentProvince ? value.permanentProvince : undefined],
         // tslint:disable-next-line:max-line-length
@@ -1046,10 +1054,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   // deleteCTAndTransContorls from form controls
   deleteJointCustomerCTAndTransControls(index) {
-    let formArrayDataArrays: FormArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
+    const formArrayDataArrays: FormArray = this.userConfigForm.get('jointCustomerDetails') as FormArray;
     let a: any;
     a = formArrayDataArrays.controls;
-    let individualData = a[index] as FormGroup;
+    const individualData = a[index] as FormGroup;
     Object.keys(individualData.controls).forEach(key => {
       if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || key.indexOf('MunicipalityOrVdc') > -1) {
         individualData.removeControl(key);

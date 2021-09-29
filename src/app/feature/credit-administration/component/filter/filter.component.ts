@@ -124,7 +124,10 @@ export class FilterComponent implements OnInit {
   clear() {
     this.filterForm.reset();
     this.eventEmitter.emit(this.filterForm.value);
-
+    this.jointCustomerNum = undefined;
+    this.createClientType = undefined;
+    this.createSubClientType = undefined;
+    this.createSubInstituteType = undefined;
   }
 
   getUserList() {
@@ -201,6 +204,7 @@ export class FilterComponent implements OnInit {
 
   onClose() {
     this.modalService.dismissAll();
+    this.clear();
   }
 
 }
