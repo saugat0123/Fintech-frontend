@@ -177,7 +177,7 @@
 <!--                    </td>-->
 <!--                </tr>-->
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
-                    <td>Distress Value</td>
+                    <td>Drawing Power(%of Distress Value)</td>
                     <td><input type="text" class="form-control" formControlName="distressValue"/></td>
                     <td class="abc">{{translatedData?.distressValue}}</td>
                     <td>
@@ -392,37 +392,37 @@
 <!--                    </td>-->
 <!--                </tr>-->
 
-                <tr>
-                    <td>Guaranteed Amount Figure</td>
-                    <td><input type="text" class="form-control"
-                               formControlName="guaranteedAmountFigure"
-                                (input)="getNumAmountWord('guaranteedAmountFigure','guaranteedAmountWords')"/></td>
-                    <td class="abc">{{translatedData?.guaranteedAmountFigure}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.guaranteedAmountFigureTransVal.errors }"
-                               formControlName="guaranteedAmountFigureTransVal"/>
-                        <div *ngIf="submitted && Form.guaranteedAmountFigureTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.guaranteedAmountFigureTransVal.errors.required">Guaranteed amount figure is required</div>
-                        </div>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Guaranteed Amount Figure</td>-->
+<!--                    <td><input type="text" class="form-control"-->
+<!--                               formControlName="guaranteedAmountFigure"-->
+<!--                                (input)="getNumAmountWord('guaranteedAmountFigure','guaranteedAmountWords')"/></td>-->
+<!--                    <td class="abc">{{translatedData?.guaranteedAmountFigure}}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.guaranteedAmountFigureTransVal.errors }"-->
+<!--                               formControlName="guaranteedAmountFigureTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.guaranteedAmountFigureTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.guaranteedAmountFigureTransVal.errors.required">Guaranteed amount figure is required</div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
-                <tr>
-                    <td>Guaranteed Amount Words</td>
-                    <td><input type="text" class="form-control" formControlName="guaranteedAmountWords"/></td>
-                    <td class="abc">{{translatedData?.guaranteedAmountWords}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.guaranteedAmountWordsTransVal.errors }"
-                               formControlName="guaranteedAmountWordsTransVal"/>
-                        <div *ngIf="submitted && Form.guaranteedAmountWordsTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.guaranteedAmountWordsTransVal.errors.required">Guaranteed amount words is required</div>
-                        </div>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Guaranteed Amount Words</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="guaranteedAmountWords"/></td>-->
+<!--                    <td class="abc">{{translatedData?.guaranteedAmountWords}}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.guaranteedAmountWordsTransVal.errors }"-->
+<!--                               formControlName="guaranteedAmountWordsTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.guaranteedAmountWordsTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.guaranteedAmountWordsTransVal.errors.required">Guaranteed amount words is required</div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
 <!--                <tr>-->
 <!--                    <td>Name Of Branch</td>-->
 <!--                    <td><input type="text" class="form-control" formControlName="nameOfBranch"/></td>-->
