@@ -378,12 +378,12 @@
                         </tbody>
                     </table>
                 </ng-template>
-                <p>
-                    ख. श्री
-                    <span class=" font-weight-bold">{{guarantorName}}</span>  ले बैंकको पक्षमा
+                <p *ngFor="let data of guarantorData; let i = index;">
+                    {{i + 2 | nepaliWord}}. श्री
+                    <span class=" font-weight-bold">{{guarantorParse(data.nepData, 'guarantorName')}}</span>  ले बैंकको पक्षमा
                     रु
-                    <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span>  /-(अक्षरेपि
-                    रु.<span class=" font-weight-bold uniSize">{{letter?.guaranteedAmountWords.np}}</span>  मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
+                    <span class=" font-weight-bold">{{guarantorParse(data.nepData, 'gurantedAmount')}}</span>  /-(अक्षरेपि
+                    रु.<span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))}}</span>  मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                 </p>
             </div>
             <div class="col-md-12 mb-5">
@@ -944,8 +944,12 @@
                                 </p>
                                 <p>
                                     घ. श्री
-                                    <span class=" font-weight-bold">{{letter?.guaranteedAmountWords.np}}</span> /- को रु
-                                    <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> /- बराबरको
+                                    <span class=" font-weight-bold">{{guarantorName}}</span>
+                                    को बैकको पक्षमा रु
+                                    <span class=" font-weight-bold">{{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}</span> /-
+                                    (अक्षरेपी
+                                    <span class=" font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))}}</span>
+                                    मात्र ) बराबरको
                                     व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
                                 <p>ह्. श्री
@@ -972,7 +976,7 @@
                                 </p>
                                 <p>
                                     ह्. रु
-                                    <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> बराबरकोे श्री
+                                    <span class=" font-weight-bold">{{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}</span> बराबरकोे श्री
                                     <span class=" font-weight-bold">{{guarantorName}}</span>
                                     को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
@@ -1002,7 +1006,7 @@
                                     <span class=" font-weight-bold">{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}</span> /- को धितो बन्धक तमसुक ।
                                 </p>
                                 <p>
-                                    ह्. रु <span class=" font-weight-bold">{{letter?.guaranteedAmountFigure.np}}</span> बराबरकोे
+                                    ह्. रु <span class=" font-weight-bold">{{guarantorParse(guarantorData[0].nepData, 'gurantedAmount')}}</span> बराबरकोे
                                     श्री <span class=" font-weight-bold">{{guarantorName}}</span> को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                 </p>
                                 <p>

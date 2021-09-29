@@ -573,10 +573,16 @@
                         (change)="getMunicipalityByDistrict(form.get('district').value)">
                             <option [ngValue]="null" hidden>District</option>
                             <option *ngFor="let district of allDistrictList"
-                            [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                            [ngValue]="district">{{district.name}}</option>
                         </select>
                     </td>
-                    <td class="abc"></td>
+                    <td class="abc">{{translatedData?.district}}</td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'district')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['districtCheck']" formControlName="districtTransVal"/>
+                    </td>
                 </tr>
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
@@ -591,11 +597,17 @@
                                 name="municipality">
                             <option  *ngFor="let municipalityVal of municipalityList"
                                      [ngValue]="municipalityVal">
-                                {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                {{municipalityVal.name}}
                             </option>
                         </select>
                     </td>
-                    <td class="abc"></td>
+                    <td class="abc">{{translatedData?.municipality}}</td>
+                    <td>
+                        <nb-checkbox (change)="checkboxVal($event, 'municipality')"></nb-checkbox>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['municipalityCheck']" formControlName="municipalityTransVal"/>
+                    </td>
                 </tr>
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">

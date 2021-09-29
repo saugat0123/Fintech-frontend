@@ -45,7 +45,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   @Input() customerType;
   @Input() customerSubType;
   @Input() jointCustomerNum: Number;
-  @Input() institutionCustomerType;
+  @Input() institutionSubType;
   @Input() customerInfo: CustomerInfoData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() guarantorDetail: GuarantorDetail;
@@ -158,10 +158,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
-    console.log(this.customerType);
-    console.log(this.customerSubType);
-    console.log(this.jointCustomerNum);
-    console.log(this.institutionCustomerType);
     if (this.jointCustomerNum > 1) {
       for (let i = 1; i < this.jointCustomerNum; i++) {
         this.addJointCustomerDetails();
@@ -370,9 +366,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.customerInfoId = ObjectUtil.isEmpty(this.loanHolder) ? null : this.loanHolder.id;
     if (this.customerSubType === CustomerSubType.JOINT) {
       this.oneFormCustomer.isJointCustomer = (this.customerSubType === CustomerSubType.JOINT) ? true : false;
-      this.oneFormCustomer.jointInfo = JSON.stringify([
-        this.customer, this.userConfigForm.get('jointCustomerDetails').value
-      ]);
+      this.oneFormCustomer.jointInfo = JSON.stringify(this.userConfigForm.get('jointCustomerDetails').value);
     }
     Object.keys(this.userConfigForm.controls).forEach(key => {
       console.log(key);
@@ -388,16 +382,28 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.attributes.ct = this.userConfigForm.get(key + 'CT').value;
       this.translatedData[key] = this.attributes;
     });
+
+    this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
+      const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
+    if (issueDateType === 'AD') {
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value)
+    } else if (issueDateType === 'BS') {
+      const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate))
+    }
+    });
+
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
+    const jointInfoArr = this.userConfigForm.get('jointCustomerDetails').value;
+    jointInfoArr.push(this.oneFormCustomer);
     const data = {
       branch: this.userConfigForm.get('branch').value,
       customerType: clientType,
-      customerSubType: this.customerSubType,
+      customerSubType: (this.customerType === CustomerType.INDIVIDUAL) ? this.customerSubType : this.institutionSubType,
       customer: this.oneFormCustomer,
       guarantorDetails: this.userConfigForm.get('guarantorDetails').value,
-      isJointCustomer: this.customerSubType === CustomerSubType.JOINT ? true : false,
-      jointInfo: this.userConfigForm.get('jointCustomerDetails').value,
       translatedData: this.translatedData
     };
     this.cadOneformService.saveCustomer(data).subscribe(res => {
@@ -470,6 +476,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           // tslint:disable-next-line:max-line-length
           permanentProvinceCT: [undefined],
           permanentProvince: [undefined],
+          permanentProvinceTrans: [undefined],
           // tslint:disable-next-line:max-line-length
           permanentDistrict: [undefined],
           permanentDistrictTrans: [undefined],
@@ -873,31 +880,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.disableSave = false;
   }
 
-  private setCustomerCTData(): void {
-    this.userConfigForm.get('branchCT').patchValue(this.objectValueTranslater.branch);
-    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
-    this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
-    this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
-    this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
-    this.userConfigForm.get('relationMediumCT').patchValue(this.translatedValues.relationMedium);
-    this.userConfigForm.get('husbandNameCT').patchValue(this.translatedValues.husbandName);
-    this.userConfigForm.get('fatherInLawNameCT').patchValue(this.translatedValues.fatherInLawName);
-    this.userConfigForm.get('grandFatherNameCT').patchValue(this.translatedValues.grandFatherName);
-    this.userConfigForm.get('fatherNameCT').patchValue(this.translatedValues.fatherName);
-    this.userConfigForm.get('citizenshipNoCT').patchValue(this.translatedValues.citizenshipNo);
-    this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
-    this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
-    this.userConfigForm.get('permanentProvinceCT').patchValue(this.objectValueTranslater.permanentProvince);
-    this.userConfigForm.get('permanentDistrictCT').patchValue(this.objectValueTranslater.permanentDistrict);
-    this.userConfigForm.get('permanentMunicipalityCT').patchValue(this.objectValueTranslater.permanentMunicipality);
-    this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
-    this.userConfigForm.get('temporaryProvinceCT').patchValue(this.objectValueTranslater.temporaryProvince);
-    this.userConfigForm.get('temporaryDistrictCT').patchValue(this.objectValueTranslater.temporaryDistrict);
-    this.userConfigForm.get('temporaryMunicipalityCT').patchValue(this.objectValueTranslater.temporaryMunicipality);
-    this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
-  }
-
-
   async translateJointCustomerData(index) {
     const allJointCustomers = this.userConfigForm.get('jointCustomerDetails').value as FormArray;
     if (allJointCustomers.length > 0) {
@@ -1010,10 +992,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).setValue(guarantorsDetails.relationship || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).setValue(guarantorsDetails.relationship || '');
-      const dobDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
-      this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-        dobDateType === 'AD' ? this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value : new Date(this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate)
-      )
+
       this.addressFromGroup = this.formBuilder.group({
         permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name || '',
         permanentDistrict: this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value.name || '',
@@ -1471,5 +1450,29 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   munVdcValue(values: any) {
     console.log(values);
+  }
+
+  private setCustomerCTData(): void {
+    this.userConfigForm.get('branchCT').patchValue(this.objectValueTranslater.branch);
+    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
+    this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
+    this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
+    this.userConfigForm.get('relationMediumCT').patchValue(this.translatedValues.relationMedium);
+    this.userConfigForm.get('husbandNameCT').patchValue(this.translatedValues.husbandName);
+    this.userConfigForm.get('fatherInLawNameCT').patchValue(this.translatedValues.fatherInLawName);
+    this.userConfigForm.get('grandFatherNameCT').patchValue(this.translatedValues.grandFatherName);
+    this.userConfigForm.get('fatherNameCT').patchValue(this.translatedValues.fatherName);
+    this.userConfigForm.get('citizenshipNoCT').patchValue(this.translatedValues.citizenshipNo);
+    this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
+    this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
+    this.userConfigForm.get('permanentProvinceCT').patchValue(this.objectValueTranslater.permanentProvince);
+    this.userConfigForm.get('permanentDistrictCT').patchValue(this.objectValueTranslater.permanentDistrict);
+    this.userConfigForm.get('permanentMunicipalityCT').patchValue(this.objectValueTranslater.permanentMunicipality);
+    this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
+    this.userConfigForm.get('temporaryProvinceCT').patchValue(this.objectValueTranslater.temporaryProvince);
+    this.userConfigForm.get('temporaryDistrictCT').patchValue(this.objectValueTranslater.temporaryDistrict);
+    this.userConfigForm.get('temporaryMunicipalityCT').patchValue(this.objectValueTranslater.temporaryMunicipality);
+    this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
   }
 }
