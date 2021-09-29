@@ -96,7 +96,7 @@
             <ng-container *ngIf="contact?.length > 1">
               <div>{{contact[1]?.contactName}}</div>
               <div>{{contact[1]?.contactNumber}}</div>
-              <div>{{contact[1]?.email}}</div>
+              <div *ngIf="contact[1]?.contactEmail !== null">{{contact[1]?.contactEmail}}</div>
               <div>{{contact[1]?.functionalPosition}}</div>
             </ng-container>
             <span *ngIf="contact?.length == 1">N/A</span>
