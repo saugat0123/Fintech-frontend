@@ -323,6 +323,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   saveCustomer() {
     this.submitted = true;
     this.spinner = true;
+    if (this.addressSameAsAbove) {
+        this.clearValidationForTemporaryAddress();
+    }
     if (this.userConfigForm.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -1510,4 +1513,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryMunicipalityCT').patchValue(this.objectValueTranslater.temporaryMunicipality);
     this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
   }
+
+    private clearValidationForTemporaryAddress(): void {
+        this.userConfigForm.get('temporaryProvinceCT').clearValidators();
+        this.userConfigForm.get('temporaryProvinceCT').updateValueAndValidity();
+        this.userConfigForm.get('temporaryDistrictCT').clearValidators();
+        this.userConfigForm.get('temporaryDistrictCT').updateValueAndValidity();
+        this.userConfigForm.get('temporaryMunicipalityCT').clearValidators();
+        this.userConfigForm.get('temporaryWardCT').updateValueAndValidity();
+    }
 }
