@@ -91,9 +91,11 @@ export class AlphaDetailViewComponent implements OnInit {
       this.securityId = this.loanHolder.security.id;
     }
 
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-      this.isJointCustomer = true;
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+        this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+        this.isJointCustomer = true;
+      }
     }
   }
 
