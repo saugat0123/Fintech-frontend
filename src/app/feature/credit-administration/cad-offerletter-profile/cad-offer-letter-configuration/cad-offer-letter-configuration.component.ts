@@ -314,6 +314,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   saveCustomer() {
     this.submitted = true;
     this.spinner = true;
+    if (this.addressSameAsAbove) {
+        this.clearValidationForTemporaryAddress();
+    }
     if (this.userConfigForm.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -874,10 +877,25 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('citizenshipIssueDistrict').value.name,
       citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrictCT').value) ? null :
           this.userConfigForm.get('citizenshipIssueDistrictCT').value.name,
+        registeredProvince :  ObjectUtil.isEmpty(this.userConfigForm.get('registeredProvince').value) ? null :
+            this.userConfigForm.get('registeredProvince').value.name,
+        registeredDistrict:  ObjectUtil.isEmpty(this.userConfigForm.get('registeredDistrict').value) ? null :
+            this.userConfigForm.get('registeredDistrict').value.name,
+        registeredMunicipality:  ObjectUtil.isEmpty(this.userConfigForm.get('registeredMunicipality').value) ? null :
+            this.userConfigForm.get('registeredMunicipality').value.name,
+        currentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('currentProvince').value) ? null :
+            this.userConfigForm.get('currentProvince').value.name,
+        currentDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('currentDistrict').value) ? null :
+            this.userConfigForm.get('currentDistrict').value.name,
+        currentMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('currentMunicipality').value) ? null :
+            this.userConfigForm.get('currentMunicipality').value.name,
     });
     this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
-    this.setCustomerCTData();
-    this.disableSave = false;
+      this.setCustomerCTData();
+
+      this.setInstitutionCTValue();
+
+      this.disableSave = false;
   }
 
   async translateJointCustomerData(index) {
@@ -1338,7 +1356,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       temporaryMunicipality: [undefined],
       temporaryMunicipalityCT: [undefined],
       citizenshipIssueDistrict: [undefined],
-      citizenshipIssueDistrictCT: [undefined]
+      citizenshipIssueDistrictCT: [undefined],
+        registeredProvince: [undefined],
+        registeredDistrict: [undefined],
+        registeredMunicipality: [undefined],
+        currentProvince: [undefined],
+        currentDistrict: [undefined],
+        currentMunicipality: [undefined]
 
     });
   }
@@ -1475,4 +1499,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryMunicipalityCT').patchValue(this.objectValueTranslater.temporaryMunicipality);
     this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
   }
+
+    private clearValidationForTemporaryAddress(): void {
+        this.userConfigForm.get('temporaryProvinceCT').clearValidators();
+        this.userConfigForm.get('temporaryProvinceCT').updateValueAndValidity();
+        this.userConfigForm.get('temporaryDistrictCT').clearValidators();
+        this.userConfigForm.get('temporaryDistrictCT').updateValueAndValidity();
+        this.userConfigForm.get('temporaryMunicipalityCT').clearValidators();
+        this.userConfigForm.get('temporaryWardCT').updateValueAndValidity();
+    }
+
+    setInstitutionCTValue(): void {
+        this.userConfigForm.patchValue({
+            currentProvinceCT: this.objectValueTranslater.currentProvince,
+            currentDistrictCT: this.objectValueTranslater.currentDistrict,
+            currentMunicipalityCT: this.objectValueTranslater.currentMunicipality,
+            registeredProvinceCT: this.objectValueTranslater.registeredProvince,
+            registeredDistrictCT: this.objectValueTranslater.registeredDistrict,
+            registeredMunicipalityCT: this.objectValueTranslater.registeredMunicipality,
+        });
+    }
+
+
 }

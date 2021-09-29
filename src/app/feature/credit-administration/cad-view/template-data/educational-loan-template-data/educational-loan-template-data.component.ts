@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +29,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   tdValues: any = {};
   form: FormGroup;
+  objectForm: FormGroup;
   fieldFlag = false;
   selectedSecurityVal;
   selectedCountryVal;
@@ -41,6 +42,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   attributes;
   translatedData;
+  objectTranslate;
   dateTypeBS = false;
   dateTypeAD = false;
   dateTypeBS1 = false;
@@ -49,9 +51,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   allDistrictList: Array<District> = new Array<District>();
-  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   cadDocStatus = CadDocStatus.key();
   offerLetterDocument: OfferDocument;
+  submitted = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -65,6 +68,10 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       private toastService: ToastService,
       private addressService: AddressService,
   ) { }
+
+  get Form() {
+    return this.form.controls;
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -154,46 +161,43 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
       // Translated Value
       dateOfApprovalTransVal: [undefined],
-      referenceNumberTransVal: [undefined],
-      nameOfCustomerTransVal: [undefined],
-      addressOfCustomerTransVal: [undefined],
+      referenceNumberTransVal: [undefined, Validators.required],
       dateOfApplicationTransVal: [undefined],
-      purposeOfLoanTransVal: [undefined],
-      loanAmountFigureTransVal: [undefined],
+      purposeOfLoanTransVal: [undefined, Validators.required],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
-      fixedDepositReceiptAmountWordsTransVal: [undefined],
+      fixedDepositReceiptAmountWordsTransVal: [undefined, Validators.required],
       fixedDepositAmountNumberTransVal: [undefined],
       distressValueTransVal: [undefined],
-      baseRateTransVal: [undefined],
-      premiumRateTransVal: [undefined],
-      interestRateTransVal: [undefined],
-      loanAdminFeeFigureTransVal: [undefined],
-      loanAdminFeeWordsTransVal: [undefined],
+      baseRateTransVal: [undefined, Validators.required],
+      premiumRateTransVal: [undefined, Validators.required],
+      interestRateTransVal: [undefined, Validators.required],
+      loanAdminFeeFigureTransVal: [undefined, Validators.required],
+      loanAdminFeeWordsTransVal: [undefined, Validators.required],
       emiAmountFigureTransVal: [undefined],
       emiAmountWordsTransVal: [undefined],
       loanPeriodInMonthsTransVal: [undefined],
       moratoriumPeriodInMonthsTransVal: [undefined],
-      loanCommitmentFeeInPercentageTransVal: [undefined],
-      fixedDepositHolderNameTransVal: [undefined],
-      fixedDepositAmountFigureTransVal: [undefined],
-      tenureFixedDepositTransVal: [undefined],
-      tenureDepositReceiptNumberTransVal: [undefined],
+      loanCommitmentFeeInPercentageTransVal: [undefined, Validators.required],
+      fixedDepositHolderNameTransVal: [undefined, Validators.required],
+      fixedDepositAmountFigureTransVal: [undefined, Validators.required],
+      tenureFixedDepositTransVal: [undefined, Validators.required],
+      tenureDepositReceiptNumberTransVal: [undefined, Validators.required],
       guarantorNameTransVal: [undefined],
-      guaranteedAmountFigureTransVal: [undefined],
-      guaranteedAmountWordsTransVal: [undefined],
+      guaranteedAmountFigureTransVal: [undefined, Validators.required],
+      guaranteedAmountWordsTransVal: [undefined, Validators.required],
       nameOfBranchTransVal: [undefined],
       nameOfEmbassyTransVal: [undefined],
       nameOfFixedDepositTransVal: [undefined],
       pledgeAmountFigureTransVal: [undefined],
       insuranceAmountFigureTransVal: [undefined],
-      relationshipOfficerNameTransVal: [undefined],
-      branchManagerTransVal: [undefined],
+      relationshipOfficerNameTransVal: [undefined, Validators.required],
+      branchManagerTransVal: [undefined, Validators.required],
       sakhshiDistrictTransVal: [undefined],
       sakhshiMunicipalityTransVal: [undefined],
       sakhshiWardNoTransVal: [undefined],
       sakhshiNameTransVal: [undefined],
-      approvalStaffNameTransVal: [undefined],
+      approvalStaffNameTransVal: [undefined, Validators.required],
       ownersNameTransVal: [undefined],
       districtTransVal: [undefined],
       municipalityTransVal: [undefined],
@@ -208,6 +212,15 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   }
 
   submit() {
+    this.submitted = true;
+    if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
+      this.clearConditionalValidation();
+    }
+    if (this.form.invalid) {
+      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
+      this.spinner = false;
+      return;
+    }
     this.form.get('loanLimitChecked').patchValue(this.loanLimit);
       this.spinner = true;
       this.btnDisable = true;
@@ -227,6 +240,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
                   this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
                   this.mappedData();
                   offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+                  this.translatedData = {};
               }
           });
       } else {
@@ -242,6 +256,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
             this.tdValues[key] = this.attributes;
           });
           this.translatedData = {};
+          this.deleteCTAndTransContorls(this.tdValues);
           offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
       }
@@ -250,7 +265,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
           this.customerApprovedDoc = res.detail;
           this.spinner = false;
-          this.previewBtn = this.btnDisable = false;
+          this.previewBtn = false;
+          this.btnDisable = true;
       }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -295,6 +311,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.spinner = true;
     this.translatedData = await this.translateService.translateForm(this.form);
     this.tdValues = this.translatedData;
+    if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
+      this.objectForm = this.formBuilder.group({
+        district: this.form.get('district').value.name,
+        municipality: this.form.get('municipality').value.name,
+      });
+      this.objectTranslate = await this.translateService.translateForm(this.objectForm);
+    }
     this.setTemplatedCTData();
     this.spinner = false;
     this.btnDisable = false;
@@ -331,6 +354,23 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
     this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
+    if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
+      this.form.get('districtTransVal').patchValue(this.objectTranslate.district);
+      this.form.get('municipalityTransVal').patchValue(this.objectTranslate.municipality);
+    }
+  }
+
+  private clearConditionalValidation(): void {
+    this.form.get('fixedDepositHolderNameTransVal').clearValidators();
+    this.form.get('fixedDepositHolderNameTransVal').updateValueAndValidity();
+    this.form.get('fixedDepositReceiptAmountWordsTransVal').clearValidators();
+    this.form.get('fixedDepositReceiptAmountWordsTransVal').updateValueAndValidity();
+    this.form.get('fixedDepositAmountFigureTransVal').clearValidators();
+    this.form.get('fixedDepositAmountFigureTransVal').updateValueAndValidity();
+    this.form.get('tenureFixedDepositTransVal').clearValidators();
+    this.form.get('tenureFixedDepositTransVal').updateValueAndValidity();
+    this.form.get('tenureDepositReceiptNumberTransVal').clearValidators();
+    this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -394,6 +434,16 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.form.get('interestRate').patchValue(sum);
+  }
+
+  // deleteCTAndTransContorls from form controls
+  deleteCTAndTransContorls(data) {
+    const individualData = data as FormGroup;
+    Object.keys(data).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('TransVal') > -1) {
+        delete individualData[key];
+      }
+    });
   }
 
     // changeDocumentName(securityType) {
