@@ -218,6 +218,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   submit() {
     this.submitted = true;
+    if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
+      this.clearConditionalValidation();
+    }
     if (this.form.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -314,11 +317,13 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.spinner = true;
     this.translatedData = await this.translateService.translateForm(this.form);
     this.tdValues = this.translatedData;
-    this.objectForm = this.formBuilder.group({
-      district: this.form.get('district').value.name,
-      municipality: this.form.get('municipality').value.name,
-    });
-    this.objectTranslate = await this.translateService.translateForm(this.objectForm);
+    if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
+      this.objectForm = this.formBuilder.group({
+        district: this.form.get('district').value.name,
+        municipality: this.form.get('municipality').value.name,
+      });
+      this.objectTranslate = await this.translateService.translateForm(this.objectForm);
+    }
     this.setTemplatedCTData(this.translatedData);
     this.spinner = false;
     this.btnDisable = false;
@@ -359,10 +364,23 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('embassyNameTransVal').patchValue(data.embassyName.np);
     this.form.get('selectedCountryTransVal').patchValue(data.selectedCountry.en);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
-    if (this.selectedSecurityVal !== 'FIXED_DEPOSIT') {
+    if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {
       this.form.get('districtTransVal').patchValue(this.objectTranslate.district);
       this.form.get('municipalityTransVal').patchValue(this.objectTranslate.municipality);
     }
+  }
+
+  private clearConditionalValidation(): void {
+    this.form.get('fixedDepositHolderNameTransVal').clearValidators();
+    this.form.get('fixedDepositHolderNameTransVal').updateValueAndValidity();
+    this.form.get('fixedDepositReceiptAmountWordsTransVal').clearValidators();
+    this.form.get('fixedDepositReceiptAmountWordsTransVal').updateValueAndValidity();
+    this.form.get('fixedDepositAmountFigureTransVal').clearValidators();
+    this.form.get('fixedDepositAmountFigureTransVal').updateValueAndValidity();
+    this.form.get('tenureFixedDepositTransVal').clearValidators();
+    this.form.get('tenureFixedDepositTransVal').updateValueAndValidity();
+    this.form.get('tenureDepositReceiptNumberTransVal').clearValidators();
+    this.form.get('tenureDepositReceiptNumberTransVal').updateValueAndValidity();
   }
 
   getNumAmountWord(numLabel, wordLabel) {
