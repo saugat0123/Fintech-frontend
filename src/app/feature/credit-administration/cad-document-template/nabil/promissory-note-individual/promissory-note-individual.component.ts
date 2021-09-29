@@ -57,7 +57,6 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    console.log('Individual Data:', this.individualData);
     this.fillform();
   }
 
