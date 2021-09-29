@@ -8,11 +8,11 @@
                     </p>
                     <p>लिखितम् <span
                             [ngClass]="{'nepaliFont outside' : letterData?.nameofGrandFather !== null && letterData?.nameofGrandFather !== ''}">
-                            {{letterData?.nameofGrandFather === null || letterData?.nameofGrandFather === '' ? '___________' : letterData?.nameofGrandFather}}</span>
+                            {{letterData?.GrandFatherName === null || letterData?.nameofGrandFather === '' ? '___________' : letterData?.nameofGrandFather}}</span>
 
                         को नाती/नातिनी/बुहारी <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.nameofFather !== null && letterData?.nameofFather !== ''}">
-                            {{letterData?.nameofFather === null || letterData?.nameofFather === '' ? '___________' : letterData?.nameofFather}}</span>
+                            {{letterData?.FatherName === null || letterData?.nameofFather === '' ? '___________' : letterData?.nameofFather}}</span>
                         को छोरा/छोरी/श्रीमती <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.District !== null && letterData?.District !== ''}">
                             {{letterData?.District === null || letterData?.District === '' ? '___________' : letterData?.District}}</span>
@@ -30,7 +30,7 @@
 
                         को श्री/श्रीमती/सुश्री <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.NameofPerson !== null && letterData?.NameofPerson !== ''}">
-                            {{letterData?.NameofPerson === null || letterData?.NameofPerson === '' ? '___________' : letterData?.NameofPerson}}</span>
+                            {{letterData?.CustomerName === null || letterData?.NameofPerson === '' ? '___________' : letterData?.NameofPerson}}</span>
 
                         (ना.प्र.नं. <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.CitizenshipNo !== null && letterData?.CitizenshipNo !== ''}">
@@ -42,9 +42,11 @@
                         जिल्ला प्रशासन कार्यालय
                         <span [ngClass]="{'nepaliFont outside' : letterData?.nameofIssuedDistrict !== null && letterData?.nameofIssuedDistrict !== ''}">
                             {{letterData?.nameofIssuedDistrict === null || letterData?.nameofIssuedDistrict === '' ? '___________' : letterData?.nameofIssuedDistrict}}</span>)—१
+                        र
                     </p>
-                    <p>
+
                     <br><br>
+                    <p>
                     आगे तपाई नबिल बैंक लिमिटेड, शाखा कार्यालय <input class="form-field form-control-sm nepaliFont"
                                                                      formControlName="NameofPerson"
                                                                      placeholder=""
