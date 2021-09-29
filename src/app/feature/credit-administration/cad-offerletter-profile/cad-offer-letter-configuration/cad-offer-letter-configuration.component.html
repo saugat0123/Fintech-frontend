@@ -45,7 +45,8 @@
                           [ngValue]="branch">{{branch.name}}</option>
                 </select>
               </td>
-              <td>{{objectValueTranslater?.branch}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="branchTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
@@ -66,7 +67,8 @@
                   <option value="INSTITUTION">INSTITUTION</option>
                 </select>
               </td>
-              <td>{{translatedValues?.clientType}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="clientTypeTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="clientTypeCT" type="text"
                 />
@@ -86,9 +88,8 @@
                        type="text"
                        [readOnly]="loanHolder?.customerCode"/>
               </td>
-              <td>
-                {{translatedValues?.customerCode}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="customerCodeTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.customerCodeCT.errors}"
@@ -109,7 +110,8 @@
                          name="name" placeholder="Client Name"
                          type="text"/>
               </td>
-              <td>{{translatedValues?.name}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="nameTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.nameCT.errors}"
@@ -163,7 +165,8 @@
                          type="text"/>
               </td>
               <td>
-                {{translatedValues?.email}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="emailTrans" type="text"></td>
               <td></td>
             </tr>
 
@@ -176,8 +179,8 @@
                          name="contactNo" placeholder="Contact No"
                          type="text"/>
               </td>
-              <td>
-                {{translatedValues?.contactNo}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="contactNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
@@ -221,7 +224,8 @@
                 <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
               </select>
               </td>
-              <td>{{translatedValues?.gender}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="genderTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.genderCT.errors}"
@@ -245,7 +249,8 @@
                   <option value="1">Father Relation</option>
                 </select>
               </td>
-              <td>{{translatedValues?.relationMedium}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="relationMediumTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.relationMediumCT.errors}"
@@ -266,7 +271,8 @@
                          id="husbandName"
                          name="husbandName" placeholder="Husband Name"
                          type="text"/></td>
-              <td>{{translatedValues?.husbandName}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="husbandNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.husbandNameCT.errors}"
@@ -286,7 +292,8 @@
                          id="fatherInLawName"
                          name="fatherInLawName" placeholder="Father In Law Name"
                          type="text"/></td>
-              <td>{{translatedValues?.fatherInLawName}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="fatherInLawNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.fatherInLawNameCT.errors}"
@@ -312,9 +319,8 @@
                        name="grandFatherName" placeholder="Grand Father Name"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.grandFatherName}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="grandFatherNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.grandFatherNameCT.errors}"
@@ -340,9 +346,8 @@
                        name="fatherName" placeholder="Father Name"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.fatherName}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="fatherNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.fatherNameCT.errors}"
@@ -365,9 +370,8 @@
                        type="text"/>
 
               </td>
-              <td>
-                {{translatedValues?.citizenshipNo}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="citizenshipNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.citizenshipNoCT.errors}"
@@ -392,9 +396,8 @@
                        name="registrationNo" placeholder="Registration No"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.registrationNo}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registrationNoTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registrationNoCT" type="text"
                 />
@@ -469,9 +472,8 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.citizenshipIssueDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="citizenshipIssueDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrictCT.errors}"
@@ -527,9 +529,8 @@
                        [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
                        name="panNo" placeholder="PAN No" type="text"/>
               </td>
-              <td>
-                {{translatedValues?.panNo}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="panNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.panNoCT.errors}"
@@ -586,9 +587,8 @@
                 </select>
               </td>
 
-              <td>
-                {{objectValueTranslater?.permanentProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
@@ -616,9 +616,8 @@
                 </option>
               </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
@@ -654,9 +653,8 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentMunicipality}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipalityCT.errors}"
@@ -681,9 +679,8 @@
                        name="permanentMunicipality" placeholder="Ward No"
                        type="number"/>
               </td>
-              <td>
-                {{translatedValues?.permanentWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentWardTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
@@ -729,9 +726,8 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.temporaryProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
@@ -761,9 +757,8 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.temporaryDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
@@ -797,9 +792,8 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.temporaryMunicipality}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
@@ -823,9 +817,8 @@
                        name="temporaryWard" placeholder="Ward No"
                        type="number"/>
               </td>
-              <td>
-                {{translatedValues?.temporaryWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryWardTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.temporaryWardCT.errors}"
@@ -852,7 +845,8 @@
                 </select>
 
               </td>
-              <td>{{translatedValues?.registeredMunType}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredMunTypeTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registeredMunTypeCT" type="text"
                 />
@@ -870,9 +864,8 @@
                        name="registeredProvince" placeholder="Province"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.registeredProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registeredProvinceCT" type="text"
                 />
@@ -890,9 +883,8 @@
                        name="registeredDistrict" placeholder="District"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.registeredDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registeredDistrictCT" type="text"
                 />
@@ -913,11 +905,11 @@
                        placeholder="{{configForm.registeredMunType.value == 0 ? 'Municipality' : 'VDC'}}"
                        type="text"/>
               </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryWardTrans" type="text"></td>
               <td>
-                {{translatedValues?.registeredMunicipality}}
-              </td>
-              <td>
-                <input class="form-control" formControlName="registeredMunicipalityCT" type="text"
+                <input class="form-control" formControlName="registeredMunicipalityTrans"
+                       type="text"
                 />
               </td>
             </tr>
@@ -933,9 +925,8 @@
                        name="registeredMunicipality" placeholder="Ward No"
                        type="number"/>
               </td>
-              <td>
-                {{translatedValues?.registeredWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredWardTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="permanentWardCT" type="text"
                 />
@@ -955,7 +946,9 @@
                   <option value="1">VDC</option>
                 </select>
               </td>
-              <td>{{translatedValues?.currentMunType}}</td>
+
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentMunTypeTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentMunTypeCT" type="text"
                 />
@@ -973,9 +966,8 @@
                        name="currentProvince" placeholder="Province"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.currentProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentProvinceCT" type="text"
                 />
@@ -993,9 +985,8 @@
                        name="currentDistrict" placeholder="District"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.currentDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentDistrictCT" type="text"
                 />
@@ -1016,9 +1007,8 @@
                        placeholder="{{configForm.currentMunType.value == 0 ? 'Municipality' : 'VDC'}}"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.currentMunicipality}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentMunicipalityCT" type="text"
                 />
@@ -1036,9 +1026,8 @@
                        name="currentWard" placeholder="Ward No"
                        type="number"/>
               </td>
-              <td>
-                {{translatedValues?.currentWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentWardTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentWardCT" type="text"
                 />

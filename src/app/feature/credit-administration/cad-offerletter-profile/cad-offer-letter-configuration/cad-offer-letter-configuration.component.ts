@@ -191,96 +191,139 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm = this.formBuilder.group({
       branch: [undefined],
       branchCT: [undefined, Validators.required],
+      branchTrans: [undefined, Validators.required],
       clientType: [undefined],
       clientTypeCT: [undefined],
+      clientTypeTrans: [undefined],
       institutionCustomerSubType: [undefined],
       institutionCustomerSubTypeCT: [undefined],
+      institutionCustomerSubTypeTrans: [undefined],
       name: [undefined],
       nameCT: [undefined, Validators.required],
+      nameTrans: [undefined, Validators.required],
       email: [undefined],
       emailCT: [undefined],
+      emailTrans: [undefined],
       contactNo: [undefined],
       contactNoCT: [undefined, Validators.required],
+      contactNoTrans: [undefined, Validators.required],
       panNo: [undefined],
       panNoCT: [undefined, Validators.required],
+      panNoTrans: [undefined, Validators.required],
       registrationNo: [undefined],
       registrationNoCT: [undefined],
+      registrationNoTrans: [undefined],
       registrationDate: [undefined],
       registrationDateCT: [undefined],
+      registrationDateTrans: [undefined],
       registeredMunicipality: [undefined],
       registeredMunicipalityCT: [undefined],
+      registeredMunicipalityTrans: [undefined],
       registeredMunType: [undefined],
       registeredMunTypeCT: [undefined],
+      registeredMunTypeTrans: [undefined],
       registeredDistrict: [undefined],
       registeredDistrictCT: [undefined],
+      registeredDistrictTrans: [undefined],
       registeredProvince: [undefined],
       registeredProvinceCT: [undefined],
+      registeredProvinceTrans: [undefined],
       currentMunType: [undefined],
       currentMunTypeCT: [undefined],
+      currentMunTypeTrans: [undefined],
       currentProvince: [undefined],
       currentProvinceCT: [undefined],
+      currentProvinceTrans: [undefined],
       currentWard: [undefined],
       currentWardCT: [undefined],
+      currentWardTrans: [undefined],
       currentDistrict: [undefined],
       currentDistrictCT: [undefined],
+      currentDistrictTrans: [undefined],
       currentMunicipality: [undefined],
       currentMunicipalityCT: [undefined],
+      currentMunicipalityTrans: [undefined],
       customerCode: [undefined],
       customerCodeCT: [undefined, Validators.required],
+      customerCodeTrans: [undefined, Validators.required],
       gender: [undefined],
       genderCT: [undefined, Validators.required],
+      genderTrans: [undefined, Validators.required],
       fatherName: [undefined],
       fatherNameCT: [undefined],
+      fatherNameTrans: [undefined],
       grandFatherName: [undefined],
       grandFatherNameCT: [undefined],
+      grandFatherNameTrans: [undefined],
       relationMedium: [undefined],
       relationMediumCT: [undefined],
+      relationMediumTrans: [undefined],
       husbandName: [undefined],
       husbandNameCT: [undefined],
+      husbandNameTrans: [undefined],
       fatherInLawName: [undefined],
       fatherInLawNameCT: [undefined],
+      fatherInLawNameTrans: [undefined],
       citizenshipNo: [undefined],
       citizenshipNoCT: [undefined, Validators.required],
+      citizenshipNoTrans: [undefined, Validators.required],
       dob: [undefined],
       dobCT: [undefined],
+      dobTrans: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentProvinceCT: [undefined, Validators.required],
+      permanentProvinceTrans: [undefined, Validators.required],
       permanentProvince: [undefined],
       // tslint:disable-next-line:max-line-length
       permanentDistrict: [undefined],
       permanentDistrictCT: [undefined, Validators.required],
+      permanentDistrictTrans: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       permanentMunicipality: [undefined],
       permanentMunicipalityCT: [undefined, Validators.required],
+      permanentMunicipalityTrans: [undefined, Validators.required],
       permanentMunType: [0],
       permanentMunTypeCT: [0],
+      permanentMunTypeTrans: [0],
       // tslint:disable-next-line:max-line-length
       temporaryProvince: [undefined],
       temporaryProvinceCT: [undefined, Validators.required],
+      temporaryProvinceTrans: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryDistrict: [undefined],
       temporaryDistrictCT: [undefined, Validators.required],
+      temporaryDistrictTrans: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryMunicipality: [undefined],
       temporaryMunicipalityCT: [undefined, Validators.required],
+      temporaryMunicipalityTrans: [undefined, Validators.required],
       permanentWard: [undefined],
       permanentWardCT: [undefined, Validators.required],
+      permanentWardTrans: [undefined, Validators.required],
       temporaryWard: [undefined],
       temporaryWardCT: [undefined, Validators.required],
+      temporaryWardTrans: [undefined, Validators.required],
       temporaryMunType: [1],
       temporaryMunTypeCT: [undefined],
+      temporaryMunTypeTrans: [undefined],
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDistrictCT: [undefined, Validators.required],
+      citizenshipIssueDistrictTrans: [undefined, Validators.required],
       citizenshipIssueDate: [undefined],
       citizenshipIssueDateCT: [undefined],
+      citizenshipIssueDateTrans: [undefined],
       municipalityOrVdc: [undefined],
       municipalityOrVdcCT: [undefined],
+      municipalityOrVdcTrans: [undefined],
       temporaryMunicipalityOrVdc: [undefined],
       temporaryMunicipalityOrVdcCT: [undefined],
+      temporaryMunicipalityOrVdcTrans: [undefined],
       dobDateType: [undefined],
       dobDateTypeCT: [undefined],
+      dobDateTypeTrans: [undefined],
       issuedDate: [undefined],
       issuedDateCT: [undefined],
+      issuedDateTrans: [undefined],
       jointCustomerDetails: this.formBuilder.array([]),
       guarantorDetails: this.formBuilder.array([]),
     });
@@ -885,6 +928,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     });
     this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
     this.setCustomerCTData();
+    this.setCustomerTransData();
     this.disableSave = false;
   }
 
@@ -963,7 +1007,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.translatedJointCustomerDetails[index] = newArr;
       this.deleteJointCustomerCTAndTransControls(index);
       this.userConfigForm.get(['jointCustomerDetails', index, 'nepData']).patchValue(JSON.stringify(newArr));
-      // end guarantorDetails
+
     }
   }
 
@@ -1455,6 +1499,51 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   munVdcValue(values: any) {
     console.log(values);
+  }
+
+  private setCustomerTransData(): void {
+    this.userConfigForm.get('branchTrans').patchValue(this.objectValueTranslater.branch);
+    this.userConfigForm.get('clientTypeTrans').patchValue(this.objectValueTranslater.clientType);
+    this.userConfigForm.get('nameTrans').patchValue(this.objectValueTranslater.name);
+    this.userConfigForm.get('emailTrans').patchValue(this.objectValueTranslater.email);
+    this.userConfigForm.get('contactNoTrans').patchValue(this.objectValueTranslater.contactNo);
+    this.userConfigForm.get('panNoTrans').patchValue(this.objectValueTranslater.panNo);
+    this.userConfigForm.get('registrationNoTrans').patchValue(this.objectValueTranslater.registrationNo);
+    this.userConfigForm.get('registrationDateTrans').patchValue(this.objectValueTranslater.registrationDate);
+    this.userConfigForm.get('registeredMunicipalityTrans').patchValue(this.objectValueTranslater.registeredMunicipality);
+    this.userConfigForm.get('registeredMunTypeTrans').patchValue(this.objectValueTranslater.registeredMunType);
+    this.userConfigForm.get('registeredDistrictTrans').patchValue(this.objectValueTranslater.registeredDistrict);
+    this.userConfigForm.get('registeredProvinceTrans').patchValue(this.objectValueTranslater.registeredProvince);
+    this.userConfigForm.get('currentMunTypeTrans').patchValue(this.objectValueTranslater.currentMunType);
+    this.userConfigForm.get('currentProvinceTrans').patchValue(this.objectValueTranslater.currentProvince);
+    this.userConfigForm.get('currentWardTrans').patchValue(this.objectValueTranslater.currentWard);
+    this.userConfigForm.get('currentDistrictTrans').patchValue(this.objectValueTranslater.currentDistrict);
+    this.userConfigForm.get('currentMunicipalityTrans').patchValue(this.objectValueTranslater.currentMunicipality);
+    this.userConfigForm.get('customerCodeTrans').patchValue(this.objectValueTranslater.customerCode);
+    this.userConfigForm.get('genderTrans').patchValue(this.objectValueTranslater.gender);
+    this.userConfigForm.get('fatherNameTrans').patchValue(this.objectValueTranslater.fatherName);
+    this.userConfigForm.get('grandFatherNameTrans').patchValue(this.objectValueTranslater.grandFatherName);
+    this.userConfigForm.get('relationMediumTrans').patchValue(this.objectValueTranslater.relationMedium);
+    this.userConfigForm.get('husbandNameTrans').patchValue(this.objectValueTranslater.husbandName);
+    this.userConfigForm.get('fatherInLawNameTrans').patchValue(this.objectValueTranslater.fatherInLawName);
+    this.userConfigForm.get('citizenshipNoTrans').patchValue(this.objectValueTranslater.citizenshipNo);
+    this.userConfigForm.get('dobTrans').patchValue(this.objectValueTranslater.dob);
+    this.userConfigForm.get('permanentProvinceTrans').patchValue(this.objectValueTranslater.permanentProvince);
+    this.userConfigForm.get('permanentDistrictTrans').patchValue(this.objectValueTranslater.permanentDistrict);
+    this.userConfigForm.get('permanentMunicipalityTrans').patchValue(this.objectValueTranslater.permanentMunicipality);
+    this.userConfigForm.get('permanentMunTypeTrans').patchValue(this.objectValueTranslater.permanentMunType);
+    this.userConfigForm.get('temporaryProvinceTrans').patchValue(this.objectValueTranslater.temporaryProvince);
+    this.userConfigForm.get('temporaryDistrictTrans').patchValue(this.objectValueTranslater.temporaryDistrict);
+    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(this.objectValueTranslater.temporaryMunicipality);
+    this.userConfigForm.get('permanentWardTrans').patchValue(this.objectValueTranslater.permanentWard);
+    this.userConfigForm.get('temporaryWardTrans').patchValue(this.objectValueTranslater.temporaryWard);
+    this.userConfigForm.get('temporaryMunTypeTrans').patchValue(this.objectValueTranslater.temporaryMunType);
+    this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
+    this.userConfigForm.get('citizenshipIssueDateTrans').patchValue(this.objectValueTranslater.citizenshipIssueDate);
+    this.userConfigForm.get('municipalityOrVdcTrans').patchValue(this.objectValueTranslater.municipalityOrVdc);
+    this.userConfigForm.get('temporaryMunicipalityOrVdcTrans').patchValue(this.objectValueTranslater.temporaryMunicipalityOrVdc);
+    this.userConfigForm.get('dobDateTypeTrans').patchValue(this.objectValueTranslater.dobDateType);
+    this.userConfigForm.get('issuedDateTrans').patchValue(this.objectValueTranslater.issuedDate);
   }
 
   private setCustomerCTData(): void {
