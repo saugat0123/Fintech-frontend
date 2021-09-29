@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -155,11 +155,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
       // Translated Value
       dateOfApprovalTransVal: [undefined],
       referenceNumberTransVal: [undefined],
-      nameOfCustomerTransVal: [undefined],
-      addressOfCustomerTransVal: [undefined],
       dateOfApplicationTransVal: [undefined],
       purposeOfLoanTransVal: [undefined],
-      loanAmountFigureTransVal: [undefined],
       amountInWordsTransVal: [undefined],
       fixedDepositReceiptAmountFigureTransVal: [undefined],
       fixedDepositReceiptAmountWordsTransVal: [undefined],
@@ -227,6 +224,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
                   this.offerLetterConst.value(this.offerLetterConst.EDUCATIONAL).toString()) {
                   this.mappedData();
                   offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
+                  this.translatedData = {};
               }
           });
       } else {
@@ -242,6 +240,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
             this.tdValues[key] = this.attributes;
           });
           this.translatedData = {};
+          this.deleteCTAndTransContorls(this.tdValues);
           offerDocument.initialInformation = JSON.stringify(this.tdValues);
           this.customerApprovedDoc.offerDocumentList.push(offerDocument);
       }
@@ -250,7 +249,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
           this.customerApprovedDoc = res.detail;
           this.spinner = false;
-          this.previewBtn = this.btnDisable = false;
+          this.previewBtn = false;
+          this.btnDisable = true;
       }, error => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -394,6 +394,16 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.form.get('interestRate').patchValue(sum);
+  }
+
+  // deleteCTAndTransContorls from form controls
+  deleteCTAndTransContorls(data) {
+    const individualData = data as FormGroup;
+    Object.keys(data).forEach(key => {
+      if (key.indexOf('CT') > -1 || key.indexOf('TransVal') > -1) {
+        delete individualData[key];
+      }
+    });
   }
 
     // changeDocumentName(securityType) {
