@@ -424,9 +424,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.oneFormCustomer.customerSubType = this.customerType === CustomerType.INDIVIDUAL ? this.customerSubType : this.institutionSubType;
     Object.keys(this.userConfigForm.controls).forEach(key => {
       console.log(key);
-      if (key.indexOf('CT') > -1) {
+      if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !this.userConfigForm.get(key).value) {
         return;
       }
+
       if (key === 'guarantorDetails' || key === 'jointCustomerDetails') {
         return;
       }
@@ -484,9 +485,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           branch: [undefined],
           branchTrans: [undefined],
           branchCT: [undefined],
-          clientType: [undefined],
-          clientTypeTrans: [undefined],
-          clientTypeCT: [undefined],
+          // clientType: [undefined],
+          // clientTypeTrans: [undefined],
+          // clientTypeCT: [undefined],
           name: [undefined],
           nameTrans: [undefined],
           nameCT: [undefined],
