@@ -361,7 +361,9 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
     this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
     this.form.get('loanLimitCheckedTransVal').patchValue(this.loanLimit);
-    this.form.get('embassyNameTransVal').patchValue(data.embassyName.np);
+    if (!ObjectUtil.isEmpty(data.embassyName)) {
+      this.form.get('embassyNameTransVal').patchValue(data.embassyName);
+    }
     this.form.get('selectedCountryTransVal').patchValue(data.selectedCountry.en);
     this.form.get('selectedSecurityTransVal').patchValue(data.selectedSecurity.en);
     if (this.selectedSecurityVal === 'LAND' || this.selectedSecurityVal === 'LAND_AND_BUILDING') {

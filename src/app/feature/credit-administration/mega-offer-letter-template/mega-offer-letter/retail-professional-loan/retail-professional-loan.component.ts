@@ -208,7 +208,7 @@ submit(): void {
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
         const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
             this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-            this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+            this.loanHolderInfo.permanentProvince.ct;
         const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
         let totalLoanAmount = 0;
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -246,10 +246,14 @@ submit(): void {
 
     guarantorParse(nepData, key, trans?) {
         const data = JSON.parse(nepData);
-        if (ObjectUtil.isEmpty(trans)) {
-            return data[key].ct;
-        } else {
-            return data[key].en;
+        try {
+            if (ObjectUtil.isEmpty(trans)) {
+                return data[key].ct;
+            } else {
+                return data[key].en;
+            }
+        } catch (exp) {
+            console.log(exp);
         }
     }
 
