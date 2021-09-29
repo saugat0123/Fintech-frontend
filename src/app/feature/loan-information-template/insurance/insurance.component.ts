@@ -59,8 +59,10 @@ export class InsuranceComponent implements OnInit {
                 company: [ObjectUtil.setUndefinedIfNull(data.company)],
                 insuredAmount: [ObjectUtil.setUndefinedIfNull(data.insuredAmount)],
                 premiumAmount: [ObjectUtil.setUndefinedIfNull(data.premiumAmount)],
-                issuedDate: new Date(data.issuedDate),
-                expiryDate: new Date(data.expiryDate),
+                issuedDate: [ObjectUtil.isEmpty(data.issuedDate) ?
+                    undefined : new Date(data.issuedDate)],
+                expiryDate:  [ObjectUtil.isEmpty(data.expiryDate) ?
+                    undefined : new Date(data.expiryDate)],
                 policyType: [ObjectUtil.setUndefinedIfNull(data.policyType)],
                 policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber)],
                 policyDocumentPath: [ObjectUtil.setUndefinedIfNull(data.policyDocumentPath)],
