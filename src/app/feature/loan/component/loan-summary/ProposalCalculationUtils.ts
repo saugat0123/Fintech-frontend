@@ -25,4 +25,17 @@ export class ProposalCalculationUtils {
         }
 
     }
+
+
+
+public static calculateTotalFromProposalListKey( loanList: LoanDataHolder[]): number {
+    let numb;
+        const tempList = loanList
+            .filter(l => JSON.parse(String(l.proposal.proposedLimit)));
+        numb = tempList
+            .map(l => JSON.parse(String(l.proposal.proposedLimit)))
+            .reduce((a, b) => a + b, 0);
+    return this.isNumber(numb);
+}
+
 }
