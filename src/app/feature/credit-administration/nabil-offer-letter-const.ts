@@ -35,6 +35,8 @@ export namespace NabilOfferLetterConst {
                 return 'Personal Loan';
             case NabilOfferLetterConst.HOME_LOAN:
                 return 'Home Loan';
+            case NabilOfferLetterConst.PERSONAL_LOAN:
+                return 'Personal Loan';
         }
     }
 
