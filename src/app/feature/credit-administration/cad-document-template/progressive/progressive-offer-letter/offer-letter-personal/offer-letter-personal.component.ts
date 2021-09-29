@@ -70,7 +70,6 @@ export class OfferLetterPersonalComponent implements OnInit {
         }
         // this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         this.checkOfferLetter();
-        this.fillForm();
     }
 
     fillForm() {
@@ -81,6 +80,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 allGuarantors = allGuarantors + guarantor.name + ', ';
             });
             allGuarantors = allGuarantors.slice(0, -2);
+            allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
             const customerAddress =
                 this.nepaliData.permanentMunicipality + ' वडा नं. ' +
                 this.nepaliData.permanentWard + ' , ' +
@@ -118,7 +118,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             amount2: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
             amountInWords2: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
         });
-        this.addEmptySecurityDetail();
+
     }
 
     checkOfferLetter() {
@@ -128,15 +128,17 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
             this.fillForm();
+            this.addEmptySecurityDetail();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
-            this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            this.setGuarantors(initialInfo.guarantors);
+            // this.setEmptyGuarantors(initialInfo.guarantorDetails);
+            // this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
+            this.fillForm();
         }
     }
 
