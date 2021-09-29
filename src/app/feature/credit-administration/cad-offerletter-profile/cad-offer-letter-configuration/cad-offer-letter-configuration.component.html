@@ -1332,20 +1332,20 @@
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
-                    <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
+                    <td><label class="title" for="citizenNumber">Citizenship No</label></td>
                     <td>
                       <input class="form-control "
-                             formControlName="citizenshipNo"
-                             id="citizenshipNo"
-                             [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
-                             name="citizenshipNo" placeholder="Citizenship No"
+                             formControlName="citizenNumber"
+                             id="citizenNumber"
+                             [ngClass]="{'is-invalid': submitted && configForm.citizenNumber.errors}"
+                             name="citizenNumber" placeholder="Citizenship No"
                              type="text"/>
 
                     </td>
                     <td><input class="form-control" type="text"
-                               formControlName="citizenshipNoTrans" readonly/></td>
+                               formControlName="citizenNumberTrans" readonly/></td>
                     <td>
-                      <input class="form-control" formControlName="citizenshipNoCT" type="text"
+                      <input class="form-control" formControlName="citizenNumberCT" type="text"
                       />
                     </td>
                   </tr>
@@ -1508,7 +1508,7 @@
                       >
                         <option [ngValue]="null" hidden>Province</option>
                         <option *ngFor="let provinceVal of provinceList"
-                                [ngValue]="provinceVal">
+                                [ngValue]="provinceVal.name">
                           {{provinceVal.name}} || {{provinceVal.nepaliName}}
                         </option>
                       </select>
@@ -1536,7 +1536,7 @@
                         id="permanentDistrict">
                       <option [ngValue]="null" hidden>District</option>
                       <option *ngFor="let districtVal of districts"
-                              [ngValue]="districtVal">
+                              [ngValue]="districtVal.name">
                         {{districtVal.name}} || {{districtVal.nepaliName}}
                       </option>
                     </select>
