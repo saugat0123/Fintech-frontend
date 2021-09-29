@@ -42,7 +42,7 @@
                                     को श्री/श्रीमती/सुश्री
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="CustomerName"
-                                           placeholder=""
+                                           placeholder="व्यक्तिको नाम"
                                            type="text"/>
                                     (ना.प्र.नं
                                     <input class="form-field form-control-sm nepaliFont"
@@ -52,67 +52,62 @@
                                     मिति
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="dateofIssue"
-                                           placeholder=""
+                                           placeholder="जारी मिति"
                                            type="text"/>
                                     /जिल्ला प्रशासन कार्यालय
                                     <input class="form-field form-control-sm nepaliFont"
                                            formControlName="nameofIssuedDistrict"
-                                           placeholder=""
+                                           placeholder="जारी जिल्लाको नाम"
                                            type="text"/> )–१
                                 </p>
                             </div>
                         <div *ngIf="cadData.loanHolder.customerType === customerType.JOINT">
                             <p>
-                                र
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="nameofGrandFather"
-                                   placeholder=""
-                                   type="text"/>
-                            को/की नाती/नातिनी/बुहारीDAG
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="nameofFather"
-                                   placeholder=""
-                                   type="text"/>
-                            को/की छोरा/छोरी/श्रीमती
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="District"
-                                   placeholder=""
-                                   type="text"/>
-                            जिल्ला
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="VDC"
-                                   placeholder=""
-                                   type="text"/>
-                            न.पा./गा.वि.स. वडा नं.
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="WardNo"
-                                   placeholder=""
-                                   type="text"/>
-                            बस्ने बर्ष
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="Age"
-                                   placeholder=""
-                                   type="text"/>
-                            को श्री/श्रीमती/सुश्री
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="NameofPerson"
-                                   placeholder=""
-                                   type="text"/>
-                            (ना.प्र.नं
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="CitizenshipNo"
-                                   placeholder=""
-                                   type="text"/>
-                            मिति
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="dateofIssue"
-                                   placeholder=""
-                                   type="text"/>
-                            / जिल्ला प्रशासन कार्यालय
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="nameofIssuedDistrict"
-                                   placeholder=""
-                                   type="text"/>)–१,
+                                र <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="GrandFatherName"
+                                              placeholder="हजुरबुबाको नाम"
+                                              type="text"/>
+                                को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                                formControlName="FatherName"
+                                                                placeholder="बुबाको नाम"
+                                                                type="text"/>
+                                को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                               formControlName="District"
+                                                               placeholder="जिल्ला"
+                                                               type="text"/>
+                                जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="VDC"
+                                              placeholder="गाविस"
+                                              type="text"/>
+                                न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                              formControlName="WardNo"
+                                                              placeholder="वार्ड नं"
+                                                              type="text"/>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="Age"
+                                       placeholder="उमेर"
+                                       type="text"/>
+                                को श्री/श्रीमती/सुश्री
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="CustomerName"
+                                       placeholder="व्यक्तिको नाम"
+                                       type="text"/>
+                                (ना.प्र.नं
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="CitizenshipNo"
+                                       placeholder=""
+                                       type="text"/>
+                                मिति
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="dateofIssue"
+                                       placeholder="जारी मिति"
+                                       type="text"/>
+                                /जिल्ला प्रशासन कार्यालय
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="nameofIssuedDistrict"
+                                       placeholder="जारी जिल्लाको नाम"
+                                       type="text"/> )–१,
                             समेत जम्मा
                             <input class="form-field form-control-sm nepaliFont"
                                    formControlName="Number"
@@ -122,350 +117,381 @@
                         </div>
                     </div>
 
-<!--                    <p class="text-center"><strong> वा </strong></p>-->
+                    <p class="text-center"><strong> वा </strong></p>
 
-<!--                        <p>-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> ऐन २०-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>बमोजिम नेपाल सरकार-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> मा-->
-<!--                            मिति <input class="form-field form-control-sm nepaliFont"-->
-<!--                                        formControlName="issueDate"-->
-<!--                                        placeholder=""-->
-<!--                                        type="text"/>-->
-<!--                            मा दर्ता नं. <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                formControlName=""-->
-<!--                                                placeholder=""-->
-<!--                                                type="text"/>-->
-<!--                            अन्तर्गत दर्ता भई <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                     formControlName=""-->
-<!--                                                     placeholder=""-->
-<!--                                                     type="text"/>-->
-<!--                            जिल्ला <input class="form-field form-control-sm nepaliFont"-->
-<!--                                          formControlName=""-->
-<!--                                          placeholder=""-->
-<!--                                          type="text"/>-->
-<!--                            न.पा/गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                         formControlName=""-->
-<!--                                                         placeholder=""-->
-<!--                                                         type="text"/>,-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            मा ठेगाना भएको श्री <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                       formControlName=""-->
-<!--                                                       placeholder=""-->
-<!--                                                       type="text"/>-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            को प्रोप्राईटर/ साझेदारहरु / अख्तियार प्राप्त <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                                                 formControlName=""-->
-<!--                                                                                 placeholder=""-->
-<!--                                                                                 type="text"/>-->
-<!--                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                            formControlName=""-->
-<!--                                                            placeholder=""-->
-<!--                                                            type="text"/>-->
-<!--                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                           formControlName=""-->
-<!--                                                           placeholder=""-->
-<!--                                                           type="text"/>-->
-<!--                            जिल्ला <input class="form-field form-control-sm nepaliFont"-->
-<!--                                          formControlName=""-->
-<!--                                          placeholder=""-->
-<!--                                          type="text"/>-->
-<!--                            न.पा./गा.वि.स. वडा नं <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                         formControlName=""-->
-<!--                                                         placeholder=""-->
-<!--                                                         type="text"/>-->
-<!--                            बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            को श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                          formControlName=""-->
-<!--                                                          placeholder=""-->
-<!--                                                          type="text"/>-->
-<!--                            (ना.प्र.नं <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            मिति <input class="form-field form-control-sm nepaliFont"-->
-<!--                                        formControlName=""-->
-<!--                                        placeholder=""-->
-<!--                                        type="text"/>-->
-<!--                            / जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                             formControlName=""-->
-<!--                                                             placeholder=""-->
-<!--                                                             type="text"/> )–१,-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की नाती/नातिनी/बुहारी-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की छोरा/छोरी/श्रीमती-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> जिल्ला-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> न.पा./गा.वि.स. वडा नं.-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> बस्ने बर्ष-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                                               formControlName=""-->
-<!--                                                                               placeholder=""-->
-<!--                                                                               type="text"/>-->
-<!--                            (ना.प्र.नं <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            मिति <input class="form-field form-control-sm nepaliFont"-->
-<!--                                        formControlName=""-->
-<!--                                        placeholder=""-->
-<!--                                        type="text"/>-->
-<!--                            जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                           formControlName=""-->
-<!--                                                           placeholder=""-->
-<!--                                                           type="text"/> )–१,-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की नाती/नातिनी/बुहारी-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की छोरा/छोरी/श्रीमती-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> जिल्ला-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> न.पा./गा.वि.स. वडा नं.-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> बस्ने बर्ष-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को श्री/श्रीमती/सुश्री-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            (ना.प्र.नं <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            मिति <input class="form-field form-control-sm nepaliFont"-->
-<!--                                        formControlName=""-->
-<!--                                        placeholder=""-->
-<!--                                        type="text"/>-->
-<!--                            / जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                             formControlName=""-->
-<!--                                                             placeholder=""-->
-<!--                                                             type="text"/> )–१ र-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की नाती/नातिनी/बुहारी-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की छोरा/छोरी/श्रीमती-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> जिल्ला-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>न.पा./गा.वि.स. वडा नं.-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>बस्ने बर्ष-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>को श्री/श्रीमती/सुश्री-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            (ना.प्र.नं. <input class="form-field form-control-sm nepaliFont"-->
-<!--                                               formControlName=""-->
-<!--                                               placeholder=""-->
-<!--                                               type="text"/>-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            / जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                             formControlName=""-->
-<!--                                                             placeholder=""-->
-<!--                                                             type="text"/> )–१,-->
-<!--                            समेत जम्मा <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/> जना (जसलाई यस पछि <strong>‘कारणी‘</strong> भनिएको छ)-->
-<!--                            <br><br>-->
-<!--                            लिखितम् <input class="form-field form-control-sm nepaliFont"-->
-<!--                                           formControlName=""-->
-<!--                                           placeholder=""-->
-<!--                                           type="text"/>-->
-<!--                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                            formControlName=""-->
-<!--                                                            placeholder=""-->
-<!--                                                            type="text"/>-->
-<!--                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                           formControlName=""-->
-<!--                                                           placeholder=""-->
-<!--                                                           type="text"/>-->
-<!--                            जिल्ला <input class="form-field form-control-sm nepaliFont"-->
-<!--                                          formControlName=""-->
-<!--                                          placeholder=""-->
-<!--                                          type="text"/>-->
-<!--                            न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                          formControlName=""-->
-<!--                                                          placeholder=""-->
-<!--                                                          type="text"/>-->
-<!--                            बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            को श्री/श्रीमती/सुश्री <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                          formControlName=""-->
-<!--                                                          placeholder=""-->
-<!--                                                          type="text"/>-->
-<!--                            (ना.प्र.नं <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            मिति <input class="form-field form-control-sm nepaliFont"-->
-<!--                                        formControlName=""-->
-<!--                                        placeholder=""-->
-<!--                                        type="text"/>-->
-<!--                            /जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                            formControlName=""-->
-<!--                                                            placeholder=""-->
-<!--                                                            type="text"/> )–१ र-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की नाती/नातिनी/बुहारी-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> को/की छोरा/छोरी/श्रीमती-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> जिल्ला-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> न.पा./गा.वि.स. वडा नं.-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> बस्ने बर्ष-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>को श्री/श्रीमती/सुश्री-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            (ना.प्र.नं <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/>-->
-<!--                            मिति <input class="form-field form-control-sm nepaliFont"-->
-<!--                                        formControlName=""-->
-<!--                                        placeholder=""-->
-<!--                                        type="text"/>-->
-<!--                            /जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"-->
-<!--                                                            formControlName=""-->
-<!--                                                            placeholder=""-->
-<!--                                                            type="text"/> ) –१,-->
-<!--                            समेत जम्मा <input class="form-field form-control-sm nepaliFont"-->
-<!--                                              formControlName=""-->
-<!--                                              placeholder=""-->
-<!--                                              type="text"/> जना-->
+                        <p>
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/> ऐन २०
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>बमोजिम नेपाल सरकार
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/> मा
+                            मिति <input class="form-field form-control-sm nepaliFont"
+                                        formControlName="issueDate"
+                                        placeholder=""
+                                        type="text"/>
+                            मा दर्ता नं. <input class="form-field form-control-sm nepaliFont"
+                                                formControlName=""
+                                                placeholder=""
+                                                type="text"/>
+                            अन्तर्गत दर्ता भई <input class="form-field form-control-sm nepaliFont"
+                                                     formControlName=""
+                                                     placeholder=""
+                                                     type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                          formControlName=""
+                                          placeholder=""
+                                          type="text"/>
+                            न.पा/गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                         formControlName=""
+                                                         placeholder=""
+                                                         type="text"/>,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>
+                            मा ठेगाना भएको श्री <input class="form-field form-control-sm nepaliFont"
+                                                       formControlName=""
+                                                       placeholder=""
+                                                       type="text"/>
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>
+                            को प्रोप्राईटर/ साझेदारहरु / अख्तियार प्राप्त <input class="form-field form-control-sm nepaliFont"
+                                                                                 formControlName="GrandFatherName"
+                                                                                 placeholder="हजुरबुबाको नाम"
+                                                                                 type="text"/>
+                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="FatherName"
+                                                            placeholder="बुबाको नाम"
+                                                            type="text"/>
+                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="District"
+                                                           placeholder="जिल्ला"
+                                                           type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="VDC"
+                                          placeholder="गाविस"
+                                          type="text"/>
+                            न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                          formControlName="WardNo"
+                                                          placeholder="वार्ड नं"
+                                                          type="text"/>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="Age"
+                                   placeholder="उमेर"
+                                   type="text"/>
+                            को श्री/श्रीमती/सुश्री
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CustomerName"
+                                   placeholder="व्यक्तिको नाम"
+                                   type="text"/>
+                            (ना.प्र.नं
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CitizenshipNo"
+                                   placeholder=""
+                                   type="text"/>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="dateofIssue"
+                                   placeholder="जारी मिति"
+                                   type="text"/>
+                            /जिल्ला प्रशासन कार्यालय
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="nameofIssuedDistrict"
+                                   placeholder="जारी जिल्लाको नाम"
+                                   type="text"/> )–१,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="GrandFatherName"
+                                   placeholder="हजुरबुबाको नाम"
+                                   type="text"/>
+                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="FatherName"
+                                                            placeholder="बुबाको नाम"
+                                                            type="text"/>
+                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="District"
+                                                           placeholder="जिल्ला"
+                                                           type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="VDC"
+                                          placeholder="गाविस"
+                                          type="text"/>
+                            न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                          formControlName="WardNo"
+                                                          placeholder="वार्ड नं"
+                                                          type="text"/>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="Age"
+                                   placeholder="उमेर"
+                                   type="text"/>
+                            को श्री/श्रीमती/सुश्री
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CustomerName"
+                                   placeholder="व्यक्तिको नाम"
+                                   type="text"/>
+                            (ना.प्र.नं
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CitizenshipNo"
+                                   placeholder=""
+                                   type="text"/>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="dateofIssue"
+                                   placeholder="जारी मिति"
+                                   type="text"/>
+                            /जिल्ला प्रशासन कार्यालय
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="nameofIssuedDistrict"
+                                   placeholder="जारी जिल्लाको नाम"
+                                   type="text"/> )–१,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="GrandFatherName"
+                                   placeholder="हजुरबुबाको नाम"
+                                   type="text"/>
+                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="FatherName"
+                                                            placeholder="बुबाको नाम"
+                                                            type="text"/>
+                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="District"
+                                                           placeholder="जिल्ला"
+                                                           type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="VDC"
+                                          placeholder="गाविस"
+                                          type="text"/>
+                            न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                          formControlName="WardNo"
+                                                          placeholder="वार्ड नं"
+                                                          type="text"/>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="Age"
+                                   placeholder="उमेर"
+                                   type="text"/>
+                            को श्री/श्रीमती/सुश्री
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CustomerName"
+                                   placeholder="व्यक्तिको नाम"
+                                   type="text"/>
+                            (ना.प्र.नं
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CitizenshipNo"
+                                   placeholder=""
+                                   type="text"/>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="dateofIssue"
+                                   placeholder="जारी मिति"
+                                   type="text"/>
+                            /जिल्ला प्रशासन कार्यालय
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="nameofIssuedDistrict"
+                                   placeholder="जारी जिल्लाको नाम"
+                                   type="text"/> )–१,
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="GrandFatherName"
+                                   placeholder="हजुरबुबाको नाम"
+                                   type="text"/>
+                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="FatherName"
+                                                            placeholder="बुबाको नाम"
+                                                            type="text"/>
+                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="District"
+                                                           placeholder="जिल्ला"
+                                                           type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="VDC"
+                                          placeholder="गाविस"
+                                          type="text"/>
+                            न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                          formControlName="WardNo"
+                                                          placeholder="वार्ड नं"
+                                                          type="text"/>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="Age"
+                                   placeholder="उमेर"
+                                   type="text"/>
+                            को श्री/श्रीमती/सुश्री
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CustomerName"
+                                   placeholder="व्यक्तिको नाम"
+                                   type="text"/>
+                            (ना.प्र.नं
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CitizenshipNo"
+                                   placeholder=""
+                                   type="text"/>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="dateofIssue"
+                                   placeholder="जारी मिति"
+                                   type="text"/>
+                            /जिल्ला प्रशासन कार्यालय
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="nameofIssuedDistrict"
+                                   placeholder="जारी जिल्लाको नाम"
+                                   type="text"/> )–१,
+                            समेत जम्मा <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="Number"
+                                              placeholder=""
+                                              type="text"/> जना (जसलाई यस पछि <strong>‘कारणी‘</strong> भनिएको छ)
+                            <br><br>
+                            लिखितम् <input class="form-field form-control-sm nepaliFont"
+                                             formControlName="GrandFatherName"
+                                             placeholder="हजुरबुबाको नाम"
+                                             type="text"/>
+                            को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="FatherName"
+                                                            placeholder="बुबाको नाम"
+                                                            type="text"/>
+                            को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                           formControlName="District"
+                                                           placeholder="जिल्ला"
+                                                           type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                          formControlName="VDC"
+                                          placeholder="गाविस"
+                                          type="text"/>
+                            न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                          formControlName="WardNo"
+                                                          placeholder="वार्ड नं"
+                                                          type="text"/>
+                            बस्ने बर्ष
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="Age"
+                                   placeholder="उमेर"
+                                   type="text"/>
+                            को श्री/श्रीमती/सुश्री
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CustomerName"
+                                   placeholder="व्यक्तिको नाम"
+                                   type="text"/>
+                            (ना.प्र.नं
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="CitizenshipNo"
+                                   placeholder=""
+                                   type="text"/>
+                            मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="dateofIssue"
+                                   placeholder="जारी मिति"
+                                   type="text"/>
+                            /जिल्ला प्रशासन कार्यालय
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName="nameofIssuedDistrict"
+                                   placeholder="जारी जिल्लाको नाम"
+                                   type="text"/> )–१
+                        र <input class="form-field form-control-sm nepaliFont"
+                                 formControlName="GrandFatherName"
+                                 placeholder="हजुरबुबाको नाम"
+                                 type="text"/>
+                        को/की नाती/नातिनी/बुहारी <input class="form-field form-control-sm nepaliFont"
+                                                        formControlName="FatherName"
+                                                        placeholder="बुबाको नाम"
+                                                        type="text"/>
+                        को/की छोरा/छोरी/श्रीमती <input class="form-field form-control-sm nepaliFont"
+                                                       formControlName="District"
+                                                       placeholder="जिल्ला"
+                                                       type="text"/>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                      formControlName="VDC"
+                                      placeholder="गाविस"
+                                      type="text"/>
+                        न.पा./गा.वि.स. वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                      formControlName="WardNo"
+                                                      placeholder="वार्ड नं"
+                                                      type="text"/>
+                        बस्ने बर्ष
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="Age"
+                               placeholder="उमेर"
+                               type="text"/>
+                        को श्री/श्रीमती/सुश्री
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="CustomerName"
+                               placeholder="व्यक्तिको नाम"
+                               type="text"/>
+                        (ना.प्र.नं
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="CitizenshipNo"
+                               placeholder=""
+                               type="text"/>
+                        मिति
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="dateofIssue"
+                               placeholder="जारी मिति"
+                               type="text"/>
+                        /जिल्ला प्रशासन कार्यालय
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="nameofIssuedDistrict"
+                               placeholder="जारी जिल्लाको नाम"
+                               type="text"/> )–१,
+                            समेत जम्मा <input class="form-field form-control-sm nepaliFont"
+                                              formControlName="Number"
+                                              placeholder=""
+                                              type="text"/> जना
 
-<!--                        </p>-->
-<!--                    <p class="text-center"><strong> वा </strong></p>-->
-<!--                         <p>-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> ऐन २०-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>बमोजिम नेपाल सरकार-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> मा मिति-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>मा दर्ता नं-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> अन्तर्गत दर्ता भई-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>जिल्ला-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>न.पा./गा.वि.स., वडा नं.-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/>स्थित रजिष्टर्ड कार्यालय रहेको श्री.-->
-<!--                            <input class="form-field form-control-sm nepaliFont"-->
-<!--                                   formControlName=""-->
-<!--                                   placeholder=""-->
-<!--                                   type="text"/> (जसलाई यस पछि <strong>‘ऋणी’</strong> भनिएको छ)-->
-<!--                    </p>-->
+                        </p>
+                    <p class="text-center"><strong> वा </strong></p>
+                         <p>
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/> ऐन २०
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>बमोजिम नेपाल सरकार
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/> मा मिति
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>मा दर्ता नं
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/> अन्तर्गत दर्ता भई
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>जिल्ला
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>न.पा./गा.वि.स., वडा नं.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/>स्थित रजिष्टर्ड कार्यालय रहेको श्री.
+                            <input class="form-field form-control-sm nepaliFont"
+                                   formControlName=""
+                                   placeholder=""
+                                   type="text"/> (जसलाई यस पछि <strong>‘ऋणी’</strong> भनिएको छ)
+                    </p>
                     <p>
                             <br><br>
                             आगे तपाई नबिल बैंक लिमिटेड, शाखा कार्यालय <input class="form-field form-control-sm nepaliFont"
@@ -564,16 +590,31 @@
                             <div class="col-md-12">
                                 <h5 class="text-center"> साक्षीः </h5>
                                 <p>
-                                    १.
-                                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict1" formControlName="witnessDistrict1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{letterOfSetOff.get('witnessDistrict1').value ? letterOfSetOff.get('witnessDistrict1').value  : '========='}}</b></span>
-                                    जिल्ला
-                                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessMunicipalityOrVdc1" formControlName="witnessMunicipalityOrVdc1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{letterOfSetOff.get('witnessMunicipalityOrVdc1').value ? letterOfSetOff.get('witnessMunicipalityOrVdc1').value  : '========='}}</b></span>
-                                    न.पा./गा.वि.स. वडा नं.
-                                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessWardNo1" formControlName="witnessWardNo1" placeholder="" type="text" size="5"><span class="print-only nepaliFont"><b>{{letterOfSetOff.get('witnessWardNo1').value ? letterOfSetOff.get('witnessWardNo1').value  : '========='}}</b></span>
-                                    बस्ने बर्ष
-                                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge1" formControlName="witnessAge1" placeholder="" type="text" size="5"><span class="print-only nepaliFont"><b>{{letterOfSetOff.get('witnessAge1').value ? letterOfSetOff.get('witnessAge1').value  : '========='}}</b></span>
-                                    को/की
-                                    <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName1" formControlName="witnessName1" placeholder="" type="text"><span class="print-only nepaliFont"><b>{{letterOfSetOff.get('witnessName1').value ? letterOfSetOff.get('witnessName1').value  : '========='}}</b></span>
+                                    १. <input class="form-field form-control-sm nepaliFont"
+                                              name="District"
+                                              formControlName="District"
+                                              placeholder="जिल्ला"
+                                              type="text"/>
+                                    जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                                  name="VDC"
+                                                  formControlName="VDC"
+                                                  placeholder="गाविस"
+                                                  type="text"/> न.पा.गा.वि.स. वडा नं
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           name="WardNo"
+                                           formControlName="WardNo"
+                                           placeholder="वार्ड नं"
+                                           type="text"/>।
+                                    बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"
+                                                      name="Age"
+                                                      formControlName="Age"
+                                                      placeholder="उमेर"
+                                                      type="text"/>को/की <input
+                                        class="form-field form-control-sm nepaliFont"
+                                        name="nameofWitness"
+                                        formControlName="nameofWitness"
+                                        placeholder="साक्षी को नाम"
+                                        type="text"/>
                                 </p>
                                 <p>
                                     २. कारणीले मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी
@@ -584,31 +625,17 @@
                                 </p>
                             </div>
                         </div>
-
-<!--                        <div class="row disable-print">-->
-<!--                            <div class="col-md-12 text-right">-->
-<!--                                <button nbButton-->
-<!--                                        [disabled]="!initialInfoPrint"-->
-<!--                                        status="info"-->
-<!--                                        class="mb-4 float-right"-->
-<!--                                        [useExistingCss]="true"-->
-<!--                                        ngxPrint printSectionId="{{offerLetterConst.LETTER_OF_SET_OFF}}Print">Print-->
-<!--                                </button>-->
-<!--                                <button nbButton status="success"(click)="submit()">Save</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
                 </div>
             </div>
         </div>
     </form>
-    <div class="row disable-print">
-        <div class="col-md-12 text-right">
-<!--            <button nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint"-->
-<!--                    [useExistingCss]="true"-->
-<!--                    ngxPrint printSectionId="{{offerLetterConst.LETTER_OF_SET_OFF}}Print">Print-->
+<!--    <div class="row" style="float: right">-->
+<!--        <div class="col-md-12 text-right">-->
+<!--            <button nbButton status="success"(click)="submit()">Save</button>-->
+<!--            <button  nbButton status="info"  [disabled]="!initialInfoPrint" [useExistingCss]="true"-->
+<!--                                     ngxPrint printSectionId="{{offerLetterConst.LETTER_OF_SET_OFF}}Print">Print-->
 <!--            </button>-->
-            <button nbButton status="success"(click)="submit()">Save</button>
-        </div>
-    </div>
+<!--        </div>-->
+<!--    </div>-->
 </div>
 <app-letter-of-set-off-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden></app-letter-of-set-off-print>

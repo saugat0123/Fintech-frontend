@@ -85,6 +85,7 @@ export class LetterOfSetOffComponent implements OnInit {
       witnessAge1: [undefined],
       witnessName1: [undefined],
       CustomerName: [undefined],
+      NameofWitness: [undefined],
     });
   }
 
