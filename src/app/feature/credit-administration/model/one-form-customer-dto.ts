@@ -9,6 +9,7 @@ import {CompanyLocations} from '../../admin/modal/companyLocations';
 import {ManagementTeam} from '../../admin/modal/management-team';
 import {Proprietors} from '../../admin/modal/proprietors';
 import {BusinessType} from '../../admin/modal/businessType';
+import {CustomerSubType} from '../../customer/model/customerSubType';
 
 export class OneFormCustomerDto {
   customerInfoId: number;
@@ -69,5 +70,6 @@ export class OneFormCustomerDto {
   companyLegalDocumentAddress: string;
   jointInfo: string;
   isJointCustomer: Boolean;
+  customerSubType: CustomerSubType;
 
 }

@@ -283,14 +283,12 @@
 
                         </div>
                         <br/>
-                        <button nbButton status="success" (click)="submit()">Save</button>
-                        <button nbButton
-                                [disabled]="!initialInfoPrint"
-                                status="info"
-                                class="mb-4 float-right"
-                                [useExistingCss]="true"
-                                ngxPrint printSectionId="{{offerLetterConst.PROMISSORY_LETTER_INDIVIDUAL}}Print">Print
-                        </button>
+                        <div class="col-md-12 text-right">
+                            <button  nbButton status="info" class="mb-4 float-right" [disabled]="!initialInfoPrint" [useExistingCss]="true"
+                                     ngxPrint printSectionId="{{offerLetterConst.PROMISSORY_LETTER_INDIVIDUAL}}Print">Print
+                            </button>
+                            <button nbButton status="success" (click)="submit()">Save</button>
+                        </div>
 
                     </div>
                 </div>
