@@ -95,8 +95,13 @@ export class LoanDeedIndividualComponent implements OnInit {
     fillForm(){
         this.loanDeedIndividual.patchValue(
             {
-                permanentDistrict: this.individualData.name.np,
-                fatherName: this.individualData.fatherName.np,
+                branchName: this.individualData.branch.ct,
+                grandFatherName: this.individualData.grandFatherName.ct,
+                fatherName: this.individualData.fatherName.ct,
+                District: this.individualData.permanentDistrict.ct,
+                Municipality: this.individualData.permanentMunicipality.ct,
+                WadNo: this.individualData.permanentWard.ct,
+                borrowerName: this.individualData.name.ct,
             }
         )
     }
