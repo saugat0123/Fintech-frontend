@@ -89,8 +89,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [undefined],
-            citizenshipIssueDate: [undefined],
+            citizenshipIssueDistrict: [this.customer.citizenshipIssuedPlace ? (this.customer.citizenshipIssuedPlace) : ''],
+            citizenshipIssueDate: [this.customer.citizenshipIssuedDate ? (this.customer.citizenshipIssuedDate) : ''],
         });
     }
 
