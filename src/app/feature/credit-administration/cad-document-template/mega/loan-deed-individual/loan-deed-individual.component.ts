@@ -88,7 +88,13 @@ export class LoanDeedIndividualComponent implements OnInit {
             Municipality1: [undefined],
             WadNo1: [undefined],
             plotNo1: [undefined],
-            area1: [undefined]
+            area1: [undefined],
+            propertyOwnerName2: [undefined],
+            District2: [undefined],
+            Municipality2: [undefined],
+            WadNo2: [undefined],
+            plotNo2: [undefined],
+            area2: [undefined]
         });
     }
 
