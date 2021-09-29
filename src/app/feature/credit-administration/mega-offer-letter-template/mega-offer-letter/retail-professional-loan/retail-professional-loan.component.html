@@ -531,20 +531,20 @@
                                         </table>
                                     </div>
                                 </ng-template>
-                                <p>
-                                    ख. श्री
+                                <p *ngFor="let data of guarantorData; let i = index;">
+                                    {{i + 2 | nepaliWord}}. श्री
                                     <input class="form-field form-control-sm col-3"
                                            formControlName="guarantorName"
+                                           [value]="guarantorParse(data.nepData, 'guarantorName')"
                                            type="text"/> ले बैंकको पक्षमा
                                     रु
                                     <input class="form-field form-control-sm"
                                            formControlName="guaranteedAmountFigure"
-                                           [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
-                                           (change)="getNumAmountWord('guaranteedAmountFigure', 'guaranteedAmountWords')"
+                                           [value]="guarantorParse(data.nepData, 'gurantedAmount')"
                                            type="text"/> /-(अक्षरेपि
                                     रु. <input class="form-field form-control-sm longInput uniSize"
                                                formControlName="guaranteedAmountWords"
-                                               [value]="initialInfoPrint.guaranteedAmountWords.np === undefined ? '' : initialInfoPrint.guaranteedAmountWords.np "
+                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
                                                type="text"/> मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
                             </div>
@@ -1085,13 +1085,18 @@
                                                 <p class="highlited-Color">
                                                     घ. श्री
                                                     <input class="form-field form-control-sm"
+                                                           formControlName="guarantorName"
+                                                           [value]="guarantorParse(guarantorData[0].nepData, 'guarantorName')"
+                                                           type="text"/>
+                                                    को बैकको पक्षमा रु
+                                                    <input class="form-field form-control-sm"
                                                            formControlName="guaranteedAmountWords"
-                                                           [value]="initialInfoPrint.guaranteedAmountWords.np === undefined ? '' : initialInfoPrint.guaranteedAmountWords.np "
-                                                           type="text"/> /- को रु
+                                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                                           type="text"/> /- (अक्षरेपी रु
                                                     <input class="form-field form-control-sm"
                                                            formControlName="guaranteedAmountFigure"
-                                                           [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
-                                                           type="text"/> /- बराबरको
+                                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                                           type="text"/> मात्र) बराबरको
                                                     व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
                                                 <p class="highlited-Color">ह्. श्री
@@ -1132,10 +1137,11 @@
                                                     ह्. रु
                                                     <input class="form-field form-control-sm"
                                                            formControlName="guaranteedAmountFigure"
-                                                           [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
+                                                           [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                            type="text"/> बराबरकोे श्री
                                                     <input class="form-field form-control-sm"
                                                            formControlName="guarantorName"
+                                                           [value]="guarantorParse(guarantorData[0].nepData, 'guarantorName')"
                                                            type="text"/>
                                                     को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
@@ -1181,10 +1187,11 @@
                                                 <p class="highlited-Color">
                                                     ह्. रु <input class="form-field form-control-sm"
                                                                   formControlName="guaranteedAmountFigure"
-                                                                  [value]="initialInfoPrint.guaranteedAmountFigure.np === undefined ? '' : initialInfoPrint.guaranteedAmountFigure.np "
+                                                                  [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
                                                                   type="text"/> बराबरकोे
                                                     श्री <input class="form-field form-control-sm"
                                                                 formControlName="guarantorName"
+                                                                [value]="guarantorParse(guarantorData[0].nepData, 'guarantorName')"
                                                                 type="text"/> को व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                                 </p>
                                                 <p class="highlited-Color">
@@ -1305,7 +1312,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <button *ngIf="!preview" nbButton status="success" type="submit">Save</button>
+                        <button nbButton status="success" type="submit">Save</button>
                     </form>
                 </div>
             </div>
