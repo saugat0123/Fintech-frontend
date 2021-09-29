@@ -57,6 +57,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.fillform();
   }
 
   buildForm() {
@@ -81,7 +82,22 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       nameofWitness: [undefined],
     });
   }
-
+  fillform() {
+    this.form.patchValue(
+        {
+          nameofBranchLocated: this.individualData.branch.ct,
+          nameofGrandFather: this.individualData.grandFatherName.ct,
+          nameofFather: this.individualData.fatherName.ct,
+          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          dateofIssue: this.individualData.issuedDate.ct,
+          CitizenshipNo: this.individualData.citizenshipNo.ct,
+          NameofPerson: this.individualData.name.ct,
+          WardNo: this.individualData.permanentWard.ct,
+          VDC: this.individualData.permanentMunicipality.ct,
+          District: this.individualData.permanentDistrict.ct
+        }
+    );
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
