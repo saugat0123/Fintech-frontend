@@ -37,6 +37,8 @@ export class PersonalLoanComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() preview;
   loanHolderInfo;
+  tempData;
+  afterSave = false;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -47,12 +49,15 @@ export class PersonalLoanComponent implements OnInit {
               private currencyFormatPipe: CurrencyFormatterPipe,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
               private nepPercentWordPipe: NepaliPercentWordPipe,
-              protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>) { }
+              protected dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+              private ref: NbDialogRef<PersonalLoanComponent>,
+              private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit(): void {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
     }
     this.checkOfferLetterData();
   }
@@ -95,6 +100,7 @@ export class PersonalLoanComponent implements OnInit {
 
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+      this.fillForm();
       this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
           === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString())[0];
       if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
@@ -102,17 +108,54 @@ export class PersonalLoanComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Vital INformation:', this.offerLetterDocument);
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
-        this.personalLoan.patchValue(initialInfo, {emitEvent: false});
-        this.initialInfoPrint = initialInfo;
+        this.selectedArray = initialInfo.loanTypeSelectedArray;
       }
     } else {
-      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
-        this.setLoanConfigData(this.loanHolderInfo);
-      }
+      this.fillForm();
     }
+  }
+  fillForm() {
+    const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
+    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
+        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
+    let totalLoanAmount = 0;
+    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+      const val = value.proposal.proposedLimit;
+      totalLoanAmount = totalLoanAmount + val;
+    });
+    this.personalLoan.patchValue({
+      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+      customerAddress: customerAddress ? customerAddress : '',
+      loanAmount: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+      loanAmountWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+      // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
+      branchName: this.tempData.branch.ct ? this.tempData.branch.ct : '',
+      baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
+      premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
+      refNumber: this.tempData.refNumber.ct ? this.tempData.refNumber.ct : '',
+      loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      yearlyFloatingInterestRate: this.tempData.yearlyFloatingInterestRate.ct ? this.tempData.yearlyFloatingInterestRate.ct : '',
+      loanAdminFee: this.tempData.loanAdminFee.ct ? this.tempData.loanAdminFee.ct : '',
+      emiAmount: this.tempData.emiAmount.ct ? this.tempData.emiAmount.ct : '',
+      emiAmountWords: this.tempData.emiAmountWords.ct ? this.tempData.emiAmountWords.ct : '',
+      companyName: this.tempData.companyName.ct ? this.tempData.companyName.ct : '',
+      accountNumber: this.tempData.accountNumber.ct ? this.tempData.accountNumber.ct : '',
+      // freeText: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
+      relationshipOfficer: this.tempData.relationshipOfficer.ct ? this.tempData.relationshipOfficer.ct : '',
+      unitName : this.tempData.unitName.ct ? this.tempData.unitName.ct : '',
+      managerName: this.tempData.managerName.ct ? this.tempData.managerName.ct : '',
+      // signatureDate : this.tempData.signatureDate.ct ? this.tempData.signatureDate.ct : '',
+      sakshiDistrict: this.tempData.sakshiDistrict.ct ? this.tempData.sakshiDistrict.ct : '',
+      sakshiMunicipality: this.tempData.sakshiMunicipality.ct ? this.tempData.sakshiMunicipality.ct : '',
+      sakshiWardNum: this.tempData.sakshiWardNum.ct ? this.tempData.sakshiWardNum.ct : '',
+      sakshiName: this.tempData.sakshiName.ct ? this.tempData.sakshiName.ct : '',
+      employeeName : this.tempData.employeeName.ct ? this.tempData.employeeName.ct : '',
+    });
+    // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
   }
   setLoanConfigData(data) {
     let cadNepData = {
@@ -160,16 +203,21 @@ export class PersonalLoanComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadOfferLetterApprovedDoc).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Personal Loan Data'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.afterSave = true;
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Personal Loan Data'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.spinner = false;
       this.dialogRef.close();
-      this.routerUtilService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
+      this.afterSave = false;
+      this.routerUtilsService.reloadCadProfileRoute(this.cadOfferLetterApprovedDoc.id);
     });
+  }
+  close() {
+    this.ref.close();
   }
 }

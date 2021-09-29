@@ -5,6 +5,11 @@
             nbSpinnerSize="large"
             nbSpinnerMessage="Saving Retail Housing offer letter....."
             id="{{offerLetterConst.PERSONAL_LOAN}}">
+        <nb-card-header *ngIf="preview">
+            <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+        </nb-card-header>
         <nb-card-body>
             <div class="row">
                 <div class="col-md-12">
