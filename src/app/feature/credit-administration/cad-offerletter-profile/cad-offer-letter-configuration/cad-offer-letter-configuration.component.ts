@@ -111,6 +111,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   translatedJointCustomerDetails = [];
   nepData;
   individualData;
+  editedTranslatedValueForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -188,6 +189,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.individualData = (JSON.parse(this.oneFormCustomer.individualJsonData));
     }
 
+    this.editedTranslateValues();
     this.patchValue();
     this.patchNepData();
     this.patchIndividualData();
@@ -1522,4 +1524,59 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.userConfigForm.get('temporaryMunicipalityCT').clearValidators();
         this.userConfigForm.get('temporaryWardCT').updateValueAndValidity();
     }
+
+    async editedTranslateValues() {
+        if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
+            this.editedTranslatedValueForm = this.formBuilder.group({
+                branch: [undefined],
+                name: [undefined],
+                contactNo: [undefined],
+                gender: [undefined],
+                relationMedium: [undefined],
+                husbandName: [undefined],
+                fatherInLawName: [undefined],
+                grandFatherName: [undefined],
+                fatherName: [undefined],
+                citizenshipNo: [undefined],
+                citizenshipIssueDistrict: [undefined],
+                panNo: [undefined],
+                permanentProvince: [undefined],
+                permanentDistrict: [undefined],
+                permanentMunicipality: [undefined],
+                permanentWard: [undefined],
+                temporaryProvince: [undefined],
+                temporaryDistrict: [undefined],
+                temporaryMunicipality: [undefined],
+                temporaryWard: [undefined]
+            });
+
+            this.editedTranslatedValueForm.patchValue({
+                branch: this.nepData.branch.np,
+                name: this.nepData.name.np,
+                contactNo: this.nepData.contactNo.np,
+                gender: this.nepData.gender.np,
+                relationMedium: this.nepData.relationMedium.np,
+                husbandName: this.nepData.husbandName.np,
+                fatherInLawName: this.nepData.fatherInLawName.np,
+                grandFatherName: this.nepData.grandFatherName.np,
+                fatherName: this.nepData.fatherName.np,
+                citizenshipNo: this.nepData.citizenshipNo.np,
+                citizenshipIssueDistrict: this.nepData.citizenshipIssueDistrict.np,
+                panNo: this.nepData.panNo.np,
+                permanentProvince: this.nepData.permanentProvince.np,
+                permanentDistrict: this.nepData.permanentDistrict.np,
+                permanentMunicipality: this.nepData.permanentMunicipality.np,
+                permanentWard: this.nepData.permanentWard.np,
+                temporaryProvince: this.nepData.temporaryProvince.np,
+                temporaryDistrict: this.nepData.temporaryDistrict.np,
+                temporaryMunicipality: this.nepData.temporaryMunicipality.np,
+                temporaryWard: this.nepData.temporaryWard.np,
+            });
+
+            this.objectValueTranslater = await this.translateService.translateForm(this.editedTranslatedValueForm);
+            this.translatedValues =  await this.translateService.translateForm(this.editedTranslatedValueForm);
+        }
+
+    }
+
 }

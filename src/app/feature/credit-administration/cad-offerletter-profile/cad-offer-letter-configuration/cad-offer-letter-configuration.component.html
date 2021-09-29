@@ -170,8 +170,7 @@
                          type="text"/>
               </td>
               <td>
-                {{loanHolder !== null && loanHolder.branch !== undefined ?
-                      nepData?.email?.np :translatedValues?.email}}</td>
+                {{translatedValues?.email}}</td>
               <td></td>
             </tr>
 
@@ -669,13 +668,14 @@
                             [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <ng-select
+
                         bindLabel="name"
                         [compareWith]="compareFn"
                         [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         formControlName="permanentMunicipality"
                         id="permanentMunicipality"
                     [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
-                  <ng-option *ngFor="let municipalityVal of municipalities"
+                  <ng-option  *ngFor="let municipalityVal of municipalities"
                           [value]="municipalityVal">
                           {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </ng-option>
@@ -834,6 +834,8 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.temporaryMunicipality?.np :translatedValues?.temporaryMunicipality"
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
