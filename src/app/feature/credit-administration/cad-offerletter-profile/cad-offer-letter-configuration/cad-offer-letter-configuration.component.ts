@@ -315,7 +315,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.submitted = true;
     this.spinner = true;
     if (this.addressSameAsAbove) {
-        console.log('inside same as above');
         this.clearValidationForTemporaryAddress();
     }
     if (this.userConfigForm.invalid) {
