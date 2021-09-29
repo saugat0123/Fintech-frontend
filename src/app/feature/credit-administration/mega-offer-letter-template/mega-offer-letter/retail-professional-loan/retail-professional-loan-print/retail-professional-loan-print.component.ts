@@ -53,8 +53,10 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.customerAddress =  this.loanHolderInfo.permanentMunicipality.np + '-' +
           this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
-          this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
-      this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
+          this.loanHolderInfo.permanentProvince.np;
+      if (!ObjectUtil.isEmpty(this.guarantorData)) {
+        this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
+      }
       this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
     }
   }

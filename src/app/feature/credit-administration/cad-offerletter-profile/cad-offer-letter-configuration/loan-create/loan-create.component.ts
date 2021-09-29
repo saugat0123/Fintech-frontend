@@ -150,15 +150,7 @@ export class LoanCreateComponent implements OnInit {
   }
   save() {
     this.spinner = true;
-    const loanDetailsToSave = [];
-    this.translatedLoanDataDetails.forEach((val, index) => {
-      this.deleteCTAndTransContorls(index);
-      loanDetailsToSave.push({...this.data,
-        ...this.form.get('loanDetails').value[index],
-        nepData: JSON.stringify(this.translatedLoanDataDetails[index])
-      });
-    });
-    this.cadOneFormService.saveLoan({'loanDetails': loanDetailsToSave}).subscribe(res => {
+    this.cadOneFormService.saveLoan(this.form.value).subscribe(res => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan created successfully'));
       this.spinner = false;
       this.cadApprovedData.emit(res.detail);
