@@ -24,24 +24,30 @@ p {
   margin-left: -30px !important;
 }
 
+.print-only {
+  display: none !important;
+}
 
 @media print {
-  p{
+  p {
     line-height: 1.9;
   }
-  .nepaliFont{
+  .nepaliFont {
     font-size: 16px;
   }
-  .outside{
+  .outside {
     font-size: 28px !important;
   }
-  .outsidenum{
-    font-size: 26px ;
+  .outsidenum {
+    font-size: 26px;
   }
-  .num{
+  .num {
     font-size: 22px !important;
   }
-  .inside{
+  .inside {
     font-size: 16px;
-  }  
+  }
+  .print-only {
+    display: inline-block !important;
+  }
 }
