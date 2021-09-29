@@ -36,18 +36,19 @@
             </tr>
             <tr>
               <td>
-                <label class="title" for="branch">Branch</label>
+                <label class="title">Branch</label>
               </td>
               <td>
-                <select class="form-control" formControlName="branch" id="branch">
+                <select class="form-control" formControlName="branch">
                   <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
+                  <option *ngFor="let branch of branchList"
+                          [ngValue]="branch">{{branch.name}}</option>
                 </select>
               </td>
-              <td>{{objectValueTranslater?.branch}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="branchTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
                        formControlName="branchCT" type="text"/>
                 <div *ngIf="submitted && configForm.branchCT.errors"
                      class="invalid-feedback">
@@ -57,37 +58,23 @@
             </tr>
             <tr hidden>
               <td>
-                <label class="title" for="clientType">Client Type</label>
+                <label class="title">Client Type</label>
               </td>
               <td>
-                <select class="form-control" formControlName="clientType" id="clientType" disabled>
+                <select class="form-control" formControlName="clientType" disabled>
                   <option value="INDIVIDUAL">INDIVIDUAL</option>
                   <option value="INSTITUTION">INSTITUTION</option>
                 </select>
               </td>
-              <td>{{translatedValues?.clientType}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="clientTypeTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="clientTypeCT" type="text"
-                       [value]="translatedValues?.clientType"/>
+                />
               </td>
             </tr>
 
             <tbody *ngIf="configForm?.clientType?.value != null">
-            <tr *ngIf="customerType === clientType.INSTITUTION">
-              <td>Institution Type</td>
-              <td>
-                <select class="form-control"
-                        formControlName="institutionCustomerSubType"
-                        placeholder="Select Institution Customer Type"
-                        required>
-                  <option [value]="clientSubType.PRIVATE_PUBLIC">Pvt Ltd or Public</option>
-                  <option [value]="clientSubType.PROPRIETORSHIP">PROPRIETERSHIP</option>
-                  <option [value]="clientSubType.PARTNERSHIP">PARTNERSHIP</option>
-                </select>
-              </td>
-              <td></td>
-              <td></td>
-            </tr>
             <tr>
               <td>
                 <label class="title">Customer Code</label>
@@ -95,37 +82,34 @@
               <td>
                 <input class="form-control "
                        formControlName="customerCode"
-                       [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
                        name="customerCode" placeholder="Customer Code"
                        type="text"
                        [readOnly]="loanHolder?.customerCode"/>
               </td>
-              <td>
-                {{translatedValues?.customerCode}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="customerCodeTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.customerCodeCT.errors}"
                        formControlName="customerCodeCT" type="text"/>
                 <div *ngIf="submitted && configForm.customerCodeCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required</div>
+                  <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
-              <td><label class="title" for="name">Client Name</label></td>
+              <td><label class="title">Client Name</label></td>
               <td><input class="form-control "
                          formControlName="name"
-                         id="name"
-                         [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
+
                          name="name" placeholder="Client Name"
                          type="text"/>
               </td>
-              <td>{{translatedValues?.name}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="nameTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.nameCT.errors}"
                        formControlName="nameCT" type="text"/>
                 <div *ngIf="submitted && configForm.nameCT.errors"
                      class="invalid-feedback">
@@ -157,7 +141,7 @@
                        *ngIf="dobDateType.value ==='AD'"
                        class="form-control form-control-sm-error rounded"
                        formControlName="dob"
-                       id="dateOfBirth"
+
                        name="dateOfBirth"
                        placeholder="Date of Birth"
                        type="text">
@@ -167,34 +151,32 @@
               <td></td>
             </tr>
             <tr>
-              <td><label class="title" for="email">Email</label></td>
+              <td><label class="title">Email</label></td>
               <td><input class="form-control "
                          formControlName="email"
-                         id="email"
-                         [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
+
                          name="email" placeholder="Email"
                          type="text"/>
               </td>
               <td>
-                {{translatedValues?.email}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="emailTrans" type="text"></td>
               <td></td>
             </tr>
 
             <tr>
-              <td><label class="title" for="contactNo">Contact No</label></td>
+              <td><label class="title">Contact No</label></td>
               <td><input class="form-control "
                          formControlName="contactNo"
-                         id="contactNo"
-                         [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
+
                          name="contactNo" placeholder="Contact No"
                          type="text"/>
               </td>
-              <td>
-                {{translatedValues?.contactNo}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="contactNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
-                       formControlName="contactNoCT" type="text" />
+                       formControlName="contactNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.contactNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
@@ -204,7 +186,7 @@
 
             <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
             <!--              <td>-->
-            <!--                <label class="title" for="name">DOB</label>-->
+            <!--                <label class="title" >DOB</label>-->
             <!--              </td>-->
             <!--              <td>-->
             <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dob"-->
@@ -225,8 +207,8 @@
             <!--            </tr>-->
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
 
-              <td><label class="title" for="gender">Gender</label></td>
-              <td><select class="form-control" formControlName="gender" id="gender"
+              <td><label class="title">Gender</label></td>
+              <td><select class="form-control" formControlName="gender"
                           [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
                 <option [value]="null" hidden>Select Gender</option>
                 <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
@@ -234,10 +216,10 @@
                 <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
               </select>
               </td>
-              <td>{{translatedValues?.gender}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="genderTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.genderCT.errors}"
                        formControlName="genderCT" type="text"/>
                 <div *ngIf="submitted && configForm.genderCT.errors"
                      class="invalid-feedback">
@@ -247,113 +229,112 @@
             </tr>
             <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
               <td>
-                <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                <label class="relationMedium">Relation Medium</label>
               </td>
               <td>
                 <select class="form-control" formControlName="relationMedium"
-                        id="relationMedium"
+
                         [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
                   <option [value]="null" hidden>Select Relation Medium</option>
                   <option value="0">Husband Relation</option>
                   <option value="1">Father Relation</option>
                 </select>
               </td>
-              <td>{{translatedValues?.relationMedium}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="relationMediumTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.relationMediumCT.errors}"
                        formControlName="relationMediumCT" type="text"/>
                 <div *ngIf="submitted && configForm.relationMediumCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.relationMediumCT.errors.required">Relation medium is required</div>
+                  <div *ngIf="configForm.relationMediumCT.errors.required">Relation medium is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-              <td><label class="title" for="husbandName">Husband Name</label></td>
+              <td><label class="title">Husband Name</label></td>
               <td><input class="form-control "
                          formControlName="husbandName"
-                         [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                         id="husbandName"
+
                          name="husbandName" placeholder="Husband Name"
                          type="text"/></td>
-              <td>{{translatedValues?.husbandName}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="husbandNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.husbandNameCT.errors}"
                        formControlName="husbandNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.husbandNameCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.husbandNameCT.errors.required">Husband name is required</div>
+                  <div *ngIf="configForm.husbandNameCT.errors.required">Husband name is required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-              <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
+              <td><label class="title">Father In Law Name</label></td>
               <td><input class="form-control "
                          formControlName="fatherInLawName"
-                         [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
-                         id="fatherInLawName"
+
                          name="fatherInLawName" placeholder="Father In Law Name"
                          type="text"/></td>
-              <td>{{translatedValues?.fatherInLawName}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="fatherInLawNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.fatherInLawNameCT.errors}"
                        formControlName="fatherInLawNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.fatherInLawNameCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.fatherInLawNameCT.errors.required">Father in law name is required</div>
+                  <div *ngIf="configForm.fatherInLawNameCT.errors.required">Father in law name is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
              (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
               <td>
-                <label class="title" for="grandFatherName">Grand Father Name</label>
+                <label class="title">Grand Father Name</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="grandFatherName"
-                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
-                       id="grandFatherName"
+
                        name="grandFatherName" placeholder="Grand Father Name"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.grandFatherName}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="grandFatherNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherNameCT.errors}"
                        formControlName="grandFatherNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.grandFatherNameCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.grandFatherNameCT.errors.required">Grand Father name is required</div>
+                  <div *ngIf="configForm.grandFatherNameCT.errors.required">Grand Father name is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
               <td>
-                <label class="title" for="name">Father Name</label>
+                <label class="title">Father Name</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="fatherName"
-                       [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
-                       id="fatherName"
+
                        name="fatherName" placeholder="Father Name"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.fatherName}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="fatherNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.fatherNameCT.errors}"
                        formControlName="fatherNameCT" type="text"
-                         [value]="translatedValues?.fatherName"/>
+                />
                 <div *ngIf="submitted && configForm.fatherNameCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.fatherNameCT.errors.required">Father name is required</div>
@@ -361,60 +342,57 @@
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
-              <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
+              <td><label class="title">Citizenship No</label></td>
               <td>
                 <input class="form-control "
                        formControlName="citizenshipNo"
-                       id="citizenshipNo"
-                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
+
                        name="citizenshipNo" placeholder="Citizenship No"
                        type="text"/>
 
               </td>
-              <td>
-                {{translatedValues?.citizenshipNo}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="citizenshipNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipNoCT.errors}"
                        formControlName="citizenshipNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipNoCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.citizenshipNoCT.errors.required">Citizenship no is required</div>
+                  <div *ngIf="configForm.citizenshipNoCT.errors.required">Citizenship no is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">
               <td>
-                <label class="title" for="registrationNo">Registration No</label>
+                <label class="title">Registration No</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="registrationNo"
-                       id="registrationNo"
-                       [ngClass]="{'is-invalid': submitted && configForm.registrationNo.errors}"
+
                        name="registrationNo" placeholder="Registration No"
                        type="text"/>
               </td>
-              <td>
-                {{translatedValues?.registrationNo}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registrationNoTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registrationNoCT" type="text"
-                       [value]="translatedValues?.registrationNo"/>
+                />
               </td>
             </tr>
 
 
             <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
             <!--              <td>-->
-            <!--                <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
+            <!--                <label class="title" >Citizenship Issue Date</label>-->
             <!--              </td>-->
             <!--              <td>-->
             <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="citizenshipIssueDate"-->
             <!--                       class="form-control "-->
             <!--                       formControlName="citizenshipIssueDate"-->
-            <!--                       id="citizenshipIssueDate"-->
+            <!--                       -->
             <!--                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"-->
             <!--                       name="citizenshipIssueDate" placeholder="Citizenship Issue Date"-->
             <!--                       type="text"/>-->
@@ -433,13 +411,13 @@
             <!--            </tr>-->
             <!--            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">-->
             <!--              <td>-->
-            <!--                <label class="title" for="registrationDate">Registration Date</label>-->
+            <!--                <label class="title" >Registration Date</label>-->
             <!--              </td>-->
             <!--              <td>-->
             <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationDate"-->
             <!--                       class="form-control "-->
             <!--                       formControlName="registrationDate"-->
-            <!--                       id="registrationDate"-->
+            <!--                       -->
             <!--                       [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"-->
             <!--                       name="registrationDate" placeholder="Registration Date"-->
             <!--                       type="text"/>-->
@@ -457,15 +435,14 @@
             <!--            </tr>-->
             <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
               <td>
-                <label class="title" for="citizenshipNo">Citizenship Issue District</label>
+                <label class="title">Citizenship Issue District</label>
               </td>
               <td>
                 <select
                     [compareWith]="compareFn"
-                    [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                     class="custom-select"
                     formControlName="citizenshipIssueDistrict"
-                    id="citizenshipIssueDistrict">
+                >
                   <option [ngValue]="null" hidden>District</option>
                   <option *ngFor="let district of allDistrictList"
                           [ngValue]="district">
@@ -473,22 +450,22 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.citizenshipIssueDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="citizenshipIssueDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrictCT.errors}"
                        formControlName="citizenshipIssueDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipIssueDistrictCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.citizenshipIssueDistrictCT.errors.required">District is required</div>
+                  <div *ngIf="configForm.citizenshipIssueDistrictCT.errors.required">District is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="issueDate">Issue Date</label>
+                <label class="title">Issue Date</label>
               </td>
               <td>
                 <div class="row">
@@ -511,7 +488,7 @@
                        *ngIf="issueDateVal.value ==='AD'"
                        class="form-control form-control-sm-error rounded"
                        formControlName="citizenshipIssueDate"
-                       id="issueDate"
+
                        name="issueDate"
                        placeholder="Issue Date"
                        type="text">
@@ -521,20 +498,17 @@
             </tr>
             <tr>
               <td>
-                <label class="title" for="panNo">PAN No</label>
+                <label class="title">PAN No</label>
               </td>
               <td>
                 <input class="form-control "
-                       formControlName="panNo" id="panNo"
-                       [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
+                       formControlName="panNo"
                        name="panNo" placeholder="PAN No" type="text"/>
               </td>
-              <td>
-                {{translatedValues?.panNo}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="panNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.panNoCT.errors}"
                        formControlName="panNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.panNoCT.errors"
                      class="invalid-feedback">
@@ -550,10 +524,10 @@
               </td>
             </tr>
             <!--            <tr>-->
-            <!--              <td><label class="title" for="permanentMunType">Municipality</label></td>-->
+            <!--              <td><label class="title" >Municipality</label></td>-->
             <!--              <td>-->
             <!--                <select class="form-control" formControlName="permanentMunType"-->
-            <!--                        id="permanentMunType"-->
+            <!--                        -->
             <!--                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">-->
             <!--                  <option value="0">Municipality</option>-->
             <!--                  <option value="1">VDC</option>-->
@@ -570,13 +544,12 @@
                 <!--                <input class="form-control "-->
                 <!--                       formControlName="permanentProvince"-->
                 <!--                       [ngClass]="{'is-invalid': submitted && configForm.permanentProvince.errors}"-->
-                <!--                       id="permanentProvince"-->
+                <!--                       -->
                 <!--                       name="permanentProvince" placeholder="Province"-->
                 <!--                       type="text"/>-->
                 <select #element
                         (change)="getDistrictsById(form.permanentProvince.value?.id , $event)"
                         [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                         class="custom-select"
                         formControlName="permanentProvince"
                 >
@@ -588,28 +561,26 @@
                 </select>
               </td>
 
-              <td>
-                {{objectValueTranslater?.permanentProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
                        formControlName="permanentProvinceCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentProvinceCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.permanentProvinceCT.errors.required">Province is required</div>
+                  <div *ngIf="configForm.permanentProvinceCT.errors.required">Province is required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
-              <td><label class="title" for="permanentDistrict">District</label></td>
+              <td><label class="title">District</label></td>
               <td><select
                   (change)="getMunicipalitiesById(form?.permanentDistrict.value?.id, $event)"
                   [compareWith]="compareFn"
-                  [ngClass]="{'is-invalid': submitted && form.permanentDistrict.errors}"
                   class="custom-select"
                   formControlName="permanentDistrict"
-                  id="permanentDistrict">
+              >
                 <option [ngValue]="null" hidden>District</option>
                 <option *ngFor="let districtVal of districts"
                         [ngValue]="districtVal">
@@ -617,23 +588,22 @@
                 </option>
               </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
                        formControlName="permanentDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentDistrictCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.permanentDistrictCT.errors.required">District is required</div>
+                  <div *ngIf="configForm.permanentDistrictCT.errors.required">District is required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
               <td>
                 <label class="title"
-                       for="permanentMunicipality">Municipality or VDC
+                >Municipality or VDC
                 </label>
               </td>
               <td>
@@ -643,10 +613,9 @@
                             [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <select [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         class="custom-select"
                         formControlName="permanentMunicipality"
-                        id="permanentMunicipality">
+                >
                   <option [ngValue]="null" hidden>Municipality or VDC</option>
                   <option *ngFor="let municipalityVal of municipalities"
                           [ngValue]="municipalityVal">
@@ -654,39 +623,36 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.permanentMunicipality}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.permanentMunicipalityCT.errors}"
                        formControlName="permanentMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentMunicipalityCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.permanentMunicipalityCT.errors.required">Municipality is required</div>
+                  <div *ngIf="configForm.permanentMunicipalityCT.errors.required">Municipality is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="permanentWard">Ward No</label>
+                <label class="title">Ward No</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="permanentWard"
-                       [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                       id="permanentWard"
+
                        name="permanentMunicipality" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
-              <td>
-                {{translatedValues?.permanentWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="permanentWardTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
                        formControlName="permanentWardCT" type="text"
-                       [value]="translatedValues?.permanentWard"/>
+                />
                 <div *ngIf="submitted && configForm.permanentWardCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.permanentWardCT.errors.required">Ward no is required</div>
@@ -712,14 +678,13 @@
             </tr>
             <br>
             <tr>
-              <td><label class="title" for="temporaryProvince">Province</label></td>
+              <td><label class="title">Province</label></td>
               <td>
                 <select (change)="getTempDistrictsById(form.temporaryProvince.value?.id , $event)"
                         [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.temporaryProvince.errors}"
                         class="custom-select"
                         formControlName="temporaryProvince"
-                        id="temporaryProvince">
+                >
                   <option [ngValue]="null" hidden>Province</option>
                   <option *ngFor="let provinceVal of tempProvinceList"
                           [ngValue]="provinceVal">
@@ -727,17 +692,16 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.temporaryProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
                        formControlName="temporaryProvinceCT" type="text"
-                       [value]="objectValueTranslater?.temporaryProvince"/>
+                />
                 <div *ngIf="submitted && configForm.temporaryProvinceCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.temporaryProvinceCT.errors.required">Province is required</div>
+                  <div *ngIf="configForm.temporaryProvinceCT.errors.required">Province is required
+                  </div>
                 </div>
               </td>
             </tr>
@@ -747,7 +711,6 @@
                 <select
                     (change)="getTempMunicipalitiesById(form?.temporaryDistrict.value?.id, $event)"
                     [compareWith]="compareFn"
-                    [ngClass]="{'is-invalid': submitted && form.temporaryDistrict.errors}"
                     class="custom-select"
                     formControlName="temporaryDistrict"
                 >
@@ -758,22 +721,21 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.temporaryDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
                        formControlName="temporaryDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryDistrictCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.temporaryDistrictCT.errors.required">District is required</div>
+                  <div *ngIf="configForm.temporaryDistrictCT.errors.required">District is required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
               <td><label class="title"
-                         for="temporaryMunicipality">Municipality or VDC</label>
+              >Municipality or VDC</label>
               </td>
               <td>
                 <nb-radio-group name="temporaryMunicipalityOrVdc"
@@ -782,10 +744,9 @@
                             [value]="vdcOption.values()">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <select [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
                         class="custom-select"
                         formControlName="temporaryMunicipality"
-                        id="temporaryMunicipality"
+
                         name="municipality">
                   <option *ngFor="let municipalityVal of tempMunicipalities"
                           [ngValue]="municipalityVal">
@@ -793,36 +754,33 @@
                   </option>
                 </select>
               </td>
-              <td>
-                {{objectValueTranslater?.temporaryMunicipality}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.temporaryMunicipalityCT.errors.required">Municipality is required</div>
+                  <div *ngIf="configForm.temporaryMunicipalityCT.errors.required">Municipality is
+                    required
+                  </div>
                 </div>
               </td>
             </tr>
             <tr>
-              <td><label class="title" for="temporaryWard">Ward No</label>
+              <td><label class="title">Ward No</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="temporaryWard"
-                       [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                       id="temporaryWard"
+
                        name="temporaryWard" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
-              <td>
-                {{translatedValues?.temporaryWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryWardTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       [ngClass]="{'is-invalid': submitted && configForm.temporaryWardCT.errors}"
                        formControlName="temporaryWardCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryWardCT.errors"
                      class="invalid-feedback">
@@ -839,100 +797,114 @@
               </td>
               <td>
                 <select class="form-control" formControlName="registeredMunType"
-                        id="registeredMunType"
+
                         [ngClass]="{'is-invalid': submitted && configForm.registeredMunType.errors}">
                   <option value="0">Municipality</option>
                   <option value="1">VDC</option>
+                  <option value="2">Rural</option>
                 </select>
 
               </td>
-              <td>{{translatedValues?.registeredMunType}}</td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredMunTypeTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registeredMunTypeCT" type="text"
-                       [value]="translatedValues?.registeredMunType"/>
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="registeredProvince">Province</label>
+                <label class="title">Province</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="registeredProvince"
-                       [ngClass]="{'is-invalid': submitted && configForm.registeredProvince.errors}"
-                       id="registeredProvince"
-                       name="registeredProvince" placeholder="Province"
-                       type="text"/>
+                <select #element
+                        (change)="getDistrictsById(form.registeredProvince.value?.id , $event)"
+                        [compareWith]="compareFn"
+                        class="custom-select"
+                        formControlName="registeredProvince"
+
+                >
+                  <option [ngValue]="null" hidden>Province</option>
+                  <option *ngFor="let provinceVal of provinceList"
+                          [ngValue]="provinceVal">
+                    {{provinceVal.name}} || {{provinceVal.nepaliName}}
+                  </option>
+                </select>
               </td>
-              <td>
-                {{translatedValues?.registeredProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registeredProvinceCT" type="text"
-                       [value]="translatedValues?.registeredProvince"/>
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="registeredDistrict">District</label>
+                <label class="title">District</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="registeredDistrict"
-                       [ngClass]="{'is-invalid': submitted && configForm.registeredDistrict.errors}"
-                       id="registeredDistrict"
-                       name="registeredDistrict" placeholder="District"
-                       type="text"/>
+                <select
+                    (change)="getMunicipalitiesById(form?.registeredDistrict.value?.id, $event)"
+                    [compareWith]="compareFn"
+                    class="custom-select"
+                    formControlName="registeredDistrict"
+                >
+                  <option [ngValue]="null" hidden>District</option>
+                  <option *ngFor="let districtVal of districts"
+                          [ngValue]="districtVal">
+                    {{districtVal.name}} || {{districtVal.nepaliName}}
+                  </option>
+                </select>
               </td>
-              <td>
-                {{translatedValues?.registeredDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="registeredDistrictCT" type="text"
-                       [value]="translatedValues?.registeredDistrict"/>
+                />
               </td>
             </tr>
             <tr>
               <td>
                 <label class="title"
-                       for="registeredMunicipality">{{configForm.registeredMunType.value == 0
+                >{{configForm.registeredMunType.value == 0
                     ? 'Municipality' : 'VDC'}}</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="registeredMunicipality"
-                       [ngClass]="{'is-invalid': submitted && configForm.registeredMunicipality.errors}"
-                       id="registeredMunicipality"
-                       name="registeredMunicipality"
-                       placeholder="{{configForm.registeredMunType.value == 0 ? 'Municipality' : 'VDC'}}"
-                       type="text"/>
+                <select [compareWith]="compareFn"
+                        class="custom-select"
+                        formControlName="registeredMunicipality"
+                >
+                  <option [ngValue]="null" hidden>Municipality or VDC</option>
+                  <option *ngFor="let municipalityVal of municipalities"
+                          [ngValue]="municipalityVal">
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                  </option>
+                </select>
               </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="temporaryWardTrans" type="text"></td>
               <td>
-                {{translatedValues?.registeredMunicipality}}
-              </td>
-              <td>
-                <input class="form-control" formControlName="registeredMunicipalityCT" type="text"
-                       [value]="translatedValues?.registeredMunicipality"/>
+                <input class="form-control" formControlName="registeredMunicipalityTrans"
+                       type="text"
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="registeredWard">Ward No</label>
+                <label class="title">Ward No</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="permanentWard"
-                       [ngClass]="{'is-invalid': submitted && configForm.registeredWard.errors}"
-                       id="registeredWard"
+
                        name="registeredMunicipality" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
-              <td>
-                {{translatedValues?.registeredWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="registeredWardTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="permanentWardCT" type="text"
-                       [value]="translatedValues?.registeredWard"/>
+                />
               </td>
             </tr>
             </tbody>
@@ -942,100 +914,116 @@
                 <strong>Current Address</strong>
               </td>
               <td class="offset-10 col-md-2">
-                <select class="form-control" formControlName="currentMunType"
-                        id="currentMunType"
-                        [ngClass]="{'is-invalid': submitted && configForm.currentMunType.errors}">
+                <select
+                    class="form-control" formControlName="currentMunType"
+
+                    [ngClass]="{'is-invalid': submitted && configForm.currentMunType.errors}">
                   <option value="0">Municipality</option>
                   <option value="1">VDC</option>
+                  <option value="2">Rural</option>
                 </select>
               </td>
-              <td>{{translatedValues?.currentMunType}}</td>
+
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentMunTypeTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentMunTypeCT" type="text"
-                       [value]="translatedValues?.currentMunType"/>
+
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="currentProvince">Province</label>
+                <label class="title">Province</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="currentProvince"
-                       [ngClass]="{'is-invalid': submitted && configForm.currentProvince.errors}"
-                       id="currentProvince"
-                       name="currentProvince" placeholder="Province"
-                       type="text"/>
+                <select (change)="getTempDistrictsById(form.currentProvince.value?.id , $event)"
+                        [compareWith]="compareFn"
+                        class="custom-select"
+                        formControlName="currentProvince"
+                >
+                  <option [ngValue]="null" hidden>Province</option>
+                  <option *ngFor="let provinceVal of tempProvinceList"
+                          [ngValue]="provinceVal">
+                    {{provinceVal.name}}|| {{provinceVal.nepaliName}}
+                  </option>
+                </select>
               </td>
-              <td>
-                {{translatedValues?.currentProvince}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentProvinceCT" type="text"
-                       [value]="translatedValues?.currentProvince"/>
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="currentDistrict">District</label>
+                <label class="title">District</label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="currentDistrict"
-                       [ngClass]="{'is-invalid': submitted && configForm.currentDistrict.errors}"
-                       id="currentDistrict"
-                       name="currentDistrict" placeholder="District"
-                       type="text"/>
+                <select
+                    (change)="getTempMunicipalitiesById(form?.currentDistrict.value?.id, $event)"
+                    [compareWith]="compareFn"
+                    class="custom-select"
+                    formControlName="currentDistrict"
+
+                >
+                  <option [ngValue]="null" hidden>District</option>
+                  <option *ngFor="let districtVal of tempDistricts"
+                          [ngValue]="districtVal">
+                    {{districtVal.name}} || {{districtVal.nepaliName}}
+                  </option>
+                </select>
               </td>
-              <td>
-                {{translatedValues?.currentDistrict}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentDistrictCT" type="text"
-                       [value]="translatedValues?.currentDistrict"/>
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="currentMunicipality">
+                <label class="title">
                   {{configForm.currentMunType.value == 0 ? 'Municipality' : 'VDC'}}
                 </label>
               </td>
               <td>
-                <input class="form-control "
-                       formControlName="currentMunicipality"
-                       [ngClass]="{'is-invalid': submitted && configForm.currentMunicipality.errors}"
-                       id="currentMunicipality"
-                       name="currentMunicipality"
-                       placeholder="{{configForm.currentMunType.value == 0 ? 'Municipality' : 'VDC'}}"
-                       type="text"/>
+                <select [compareWith]="compareFn"
+                        class="custom-select"
+                        formControlName="currentMunicipality"
+
+                        name="municipality">
+                  <option *ngFor="let municipalityVal of tempMunicipalities"
+                          [ngValue]="municipalityVal">
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                  </option>
+                </select>
               </td>
               <td>
                 {{translatedValues?.currentMunicipality}}
               </td>
               <td>
                 <input class="form-control" formControlName="currentMunicipalityCT" type="text"
-                       [value]="translatedValues?.currentMunicipality"/>
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <label class="title" for="currentWard">Ward No</label>
+                <label class="title">Ward No</label>
               </td>
               <td>
                 <input class="form-control "
                        formControlName="currentWard"
-                       [ngClass]="{'is-invalid': submitted && configForm.currentWard.errors}"
-                       id="currentWard"
+
                        name="currentWard" placeholder="Ward No"
-                       type="text"/>
+                       type="number"/>
               </td>
-              <td>
-                {{translatedValues?.currentWard}}
-              </td>
+              <td><input disabled readonly class="form-control"
+                         formControlName="currentWardTrans" type="text"></td>
               <td>
                 <input class="form-control" formControlName="currentWardCT" type="text"
-                       [value]="translatedValues?.currentWard"/>
+                />
               </td>
             </tr>
             </tbody>
@@ -1075,12 +1063,13 @@
                   </tr>
                   <tr>
                     <td>
-                      <label class="title" for="branch">Branch</label>
+                      <label class="title">Branch</label>
                     </td>
                     <td>
-                      <select class="form-control" formControlName="branch" id="branch">
+                      <select class="form-control" formControlName="branch">
                         <option [value]="null" hidden>Select Branch</option>
-                        <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
+                        <option *ngFor="let branch of branchList"
+                                [ngValue]="branch.name">{{branch.name}}
                         </option>
                       </select>
                     </td>
@@ -1088,15 +1077,15 @@
                                formControlName="branchTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="branchCT" type="text"
-                             [value]="jointCustomer.get('branchTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <!--              <tr hidden>-->
                   <!--                <td>-->
-                  <!--                  <label class="title" for="clientType">Client Type</label>-->
+                  <!--                  <label class="title" >Client Type</label>-->
                   <!--                </td>-->
                   <!--                <td>-->
-                  <!--                  <select class="form-control" formControlName="clientType" id="clientType"-->
+                  <!--                  <select class="form-control" formControlName="clientType" -->
                   <!--                          disabled>-->
                   <!--                    <option value="INDIVIDUAL">INDIVIDUAL</option>-->
                   <!--                    <option value="INSTITUTION">INSTITUTION</option>-->
@@ -1105,7 +1094,7 @@
                   <!--                <td>{{translatedValues?.clientType}}</td>-->
                   <!--                <td>-->
                   <!--                  <input class="form-control" formControlName="clientTypeCT" type="text"-->
-                  <!--                         [value]="translatedValues?.clientType"/>-->
+                  <!--                         />-->
                   <!--                </td>-->
                   <!--              </tr>-->
                   <tbody *ngIf="configForm?.clientType?.value != null">
@@ -1116,7 +1105,6 @@
                     <td>
                       <input class="form-control"
                              formControlName="customerCode"
-                             [ngClass]="{'is-invalid': submitted && configForm.customerCode.errors}"
                              name="customerCode" placeholder="Customer Code"
                              type="text"/>
                     </td>
@@ -1124,15 +1112,13 @@
                                formControlName="customerCodeTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="customerCodeCT" type="text"
-                             [value]="jointCustomer.get('customerCodeTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr>
-                    <td><label class="title" for="name">Client Name</label></td>
+                    <td><label class="title">Client Name</label></td>
                     <td><input class="form-control "
                                formControlName="name"
-                               id="name"
-                               [ngClass]="{'is-invalid': submitted && configForm.name.errors}"
                                name="name" placeholder="Client Name"
                                type="text"/>
                     </td>
@@ -1140,7 +1126,7 @@
                                formControlName="nameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="nameCT" type="text"
-                             [value]="jointCustomer.get('nameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -1167,7 +1153,7 @@
                              *ngIf="dobDateType.value ==='AD'"
                              class="form-control form-control-sm-error rounded"
                              formControlName="dob"
-                             id="dateOfBirth"
+
                              name="dateOfBirth"
                              placeholder="Date of Birth"
                              type="text">
@@ -1177,11 +1163,10 @@
                     <td></td>
                   </tr>
                   <tr>
-                    <td><label class="title" for="email">Email</label></td>
+                    <td><label class="title">Email</label></td>
                     <td><input class="form-control"
                                formControlName="email"
-                               id="email"
-                               [ngClass]="{'is-invalid': submitted && configForm.email.errors}"
+
                                name="email" placeholder="Email"
                                type="text"/>
                     </td>
@@ -1190,11 +1175,10 @@
                   </tr>
 
                   <tr>
-                    <td><label class="title" for="contactNo">Contact No</label></td>
+                    <td><label class="title">Contact No</label></td>
                     <td><input class="form-control "
                                formControlName="contactNo"
-                               id="contactNo"
-                               [ngClass]="{'is-invalid': submitted && configForm.contactNo.errors}"
+
                                name="contactNo" placeholder="Contact No"
                                type="text"/>
                     </td>
@@ -1202,13 +1186,13 @@
                                formControlName="contactNoTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="contactNoCT" type="text"
-                             [value]="jointCustomer.get('contactNoTrans').value"/>
+                      />
                     </td>
                   </tr>
 
                   <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
                   <!--              <td>-->
-                  <!--                <label class="title" for="name">DOB</label>-->
+                  <!--                <label class="title" >DOB</label>-->
                   <!--              </td>-->
                   <!--              <td>-->
                   <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dob"-->
@@ -1229,8 +1213,8 @@
                   <!--            </tr>-->
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
 
-                    <td><label class="title" for="gender">Gender</label></td>
-                    <td><select class="form-control" formControlName="gender" id="gender"
+                    <td><label class="title">Gender</label></td>
+                    <td><select class="form-control" formControlName="gender"
                                 [ngClass]="{'is-invalid': submitted && configForm.gender.errors}">
                       <option [value]="null" hidden>Select Gender</option>
                       <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
@@ -1244,16 +1228,16 @@
                                formControlName="genderTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="genderCT" type="text"
-                             [value]="jointCustomer.get('genderTrans').value"/>
+                      />
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.gender?.value == 'FEMALE'">
+                  <tr *ngIf="userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE'">
                     <td>
-                      <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                      <label class="relationMedium">Relation Medium</label>
                     </td>
                     <td>
                       <select class="form-control" formControlName="relationMedium"
-                              id="relationMedium"
+
                               [ngClass]="{'is-invalid': submitted && configForm.relationMedium.errors}">
                         <option [value]="null" hidden>Select Relation Medium</option>
                         <option value="0">Husband Relation</option>
@@ -1264,49 +1248,45 @@
                                formControlName="relationMediumTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="relationMediumCT" type="text"
-                             [value]="jointCustomer.get('relationMediumTrans').value"/>
+                      />
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-                    <td><label class="title" for="husbandName">Husband Name</label></td>
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['jointCustomerDetails',i, 'relationMedium']).value == 0)">
+                    <td><label class="title">Husband Name</label></td>
                     <td><input class="form-control "
                                formControlName="husbandName"
-                               [ngClass]="{'is-invalid': submitted && configForm.husbandName.errors}"
-                               id="husbandName"
                                name="husbandName" placeholder="Husband Name"
                                type="text"/></td>
                     <td><input class="form-control" type="text"
                                formControlName="husbandNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="husbandNameCT" type="text"
-                             [value]="jointCustomer.get('husbandNameTrans').value"/>
+                      />
                     </td>
                   </tr>
-                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (configForm?.gender?.value == 'FEMALE' && configForm?.relationMedium?.value == 0)">
-                    <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
+                  <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['jointCustomerDetails',i, 'relationMedium']).value == 0)">
+                    <td><label class="title">Father In Law Name</label></td>
                     <td><input class="form-control "
                                formControlName="fatherInLawName"
-                               [ngClass]="{'is-invalid': submitted && configForm.fatherInLawName.errors}"
-                               id="fatherInLawName"
+
                                name="fatherInLawName" placeholder="Father In Law Name"
                                type="text"/></td>
                     <td><input class="form-control" type="text"
                                formControlName="fatherInLawNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="fatherInLawNameCT" type="text"
-                             [value]="jointCustomer.get('fatherInLawNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-             (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+             (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['jointCustomerDetails', i, 'relationMedium']).value == 0)">
                     <td>
-                      <label class="title" for="grandFatherName">Grand Father Name</label>
+                      <label class="title">Grand Father Name</label>
                     </td>
                     <td>
                       <input class="form-control "
                              formControlName="grandFatherName"
-                             [ngClass]="{'is-invalid': submitted && configForm.grandFatherName.errors}"
-                             id="grandFatherName"
+
                              name="grandFatherName" placeholder="Grand Father Name"
                              type="text"/>
                     </td>
@@ -1314,19 +1294,18 @@
                                formControlName="grandFatherNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="grandFatherNameCT" type="text"
-                             [value]="jointCustomer.get('grandFatherNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
-            (configForm?.gender?.value == 'FEMALE' || configForm?.gender?.value == 'MALE' || configForm?.gender?.value == 'OTHERS') && !(configForm?.relationMedium?.value == 0)">
+            (userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['jointCustomerDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['jointCustomerDetails', i, 'relationMedium']).value == 0)">
                     <td>
-                      <label class="title" for="name">Father Name</label>
+                      <label class="title">Father Name</label>
                     </td>
                     <td>
                       <input class="form-control "
                              formControlName="fatherName"
-                             [ngClass]="{'is-invalid': submitted && configForm.fatherName.errors}"
-                             id="fatherName"
+
                              name="fatherName" placeholder="Father Name"
                              type="text"/>
                     </td>
@@ -1334,36 +1313,35 @@
                                formControlName="fatherNameTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="fatherNameCT" type="text"
-                             [value]="jointCustomer.get('fatherNameTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
-                    <td><label class="title" for="citizenshipNo">Citizenship No</label></td>
+                    <td><label class="title">Citizenship No</label></td>
                     <td>
                       <input class="form-control "
-                             formControlName="citizenshipNo"
-                             id="citizenshipNo"
-                             [ngClass]="{'is-invalid': submitted && configForm.citizenshipNo.errors}"
-                             name="citizenshipNo" placeholder="Citizenship No"
+                             formControlName="citizenNumber"
+
+                             name="citizenNumber" placeholder="Citizenship No"
                              type="text"/>
 
                     </td>
                     <td><input class="form-control" type="text"
-                               formControlName="citizenshipNoTrans" readonly/></td>
+                               formControlName="citizenNumberTrans" readonly/></td>
                     <td>
-                      <input class="form-control" formControlName="citizenshipNoCT" type="text"
-                             [value]="jointCustomer.get('citizenshipNoTrans').value"/>
+                      <input class="form-control" formControlName="citizenNumberCT" type="text"
+                      />
                     </td>
                   </tr>
                   <!--            <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">-->
                   <!--              <td>-->
-                  <!--                <label class="title" for="citizenshipIssueDate">Citizenship Issue Date</label>-->
+                  <!--                <label class="title" >Citizenship Issue Date</label>-->
                   <!--              </td>-->
                   <!--              <td>-->
                   <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="citizenshipIssueDate"-->
                   <!--                       class="form-control "-->
                   <!--                       formControlName="citizenshipIssueDate"-->
-                  <!--                       id="citizenshipIssueDate"-->
+                  <!--                       -->
                   <!--                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipIssueDate.errors}"-->
                   <!--                       name="citizenshipIssueDate" placeholder="Citizenship Issue Date"-->
                   <!--                       type="text"/>-->
@@ -1382,13 +1360,13 @@
                   <!--            </tr>-->
                   <!--            <tr *ngIf="configForm?.clientType?.value == 'INSTITUTION'">-->
                   <!--              <td>-->
-                  <!--                <label class="title" for="registrationDate">Registration Date</label>-->
+                  <!--                <label class="title" >Registration Date</label>-->
                   <!--              </td>-->
                   <!--              <td>-->
                   <!--                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationDate"-->
                   <!--                       class="form-control "-->
                   <!--                       formControlName="registrationDate"-->
-                  <!--                       id="registrationDate"-->
+                  <!--                       -->
                   <!--                       [ngClass]="{'is-invalid': submitted && configForm.registrationDate.errors}"-->
                   <!--                       name="registrationDate" placeholder="Registration Date"-->
                   <!--                       type="text"/>-->
@@ -1406,15 +1384,14 @@
                   <!--            </tr>-->
                   <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                     <td>
-                      <label class="title" for="citizenshipNo">Citizenship Issue District</label>
+                      <label class="title">Citizenship Issue District</label>
                     </td>
                     <td>
                       <select
                           [compareWith]="compareFn"
-                          [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                           class="custom-select"
                           formControlName="citizenshipIssueDistrict"
-                          id="citizenshipIssueDistrict">
+                      >
                         <option [ngValue]="null" hidden>District</option>
                         <option *ngFor="let district of allDistrictList"
                                 [ngValue]="district">
@@ -1427,12 +1404,12 @@
                     <td>
                       <input class="form-control" formControlName="citizenshipIssueDistrictCT"
                              type="text"
-                             [value]="jointCustomer.get('citizenshipIssueDistrictTrans').value"/>
+                      />
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <label class="title" for="issueDate">Issue Date</label>
+                      <label class="title">Issue Date</label>
                     </td>
                     <td>
                       <div class="row">
@@ -1455,7 +1432,7 @@
                              *ngIf="issueDateVal.value ==='AD'"
                              class="form-control form-control-sm-error rounded"
                              formControlName="citizenshipIssueDate"
-                             id="issueDate"
+
                              name="issueDate"
                              placeholder="Issue Date"
                              type="text">
@@ -1465,19 +1442,18 @@
                   </tr>
                   <tr>
                     <td>
-                      <label class="title" for="panNo">PAN No</label>
+                      <label class="title">PAN No</label>
                     </td>
                     <td>
                       <input class="form-control "
-                             formControlName="panNo" id="panNo"
-                             [ngClass]="{'is-invalid': submitted && configForm.panNo.errors}"
+                             formControlName="panNo"
                              name="panNo" placeholder="PAN No" type="text"/>
                     </td>
                     <td><input class="form-control" type="text"
                                formControlName="panNoTrans" readonly/></td>
                     <td>
                       <input class="form-control" formControlName="panNoCT" type="text"
-                             [value]="jointCustomer.get('panNoTrans').value"/>
+                      />
                     </td>
                   </tr>
                   </tbody>
@@ -1488,10 +1464,10 @@
                     </td>
                   </tr>
                   <!--              &lt;!&ndash;            <tr>&ndash;&gt;-->
-                  <!--              &lt;!&ndash;              <td><label class="title" for="permanentMunType">Municipality</label></td>&ndash;&gt;-->
+                  <!--              &lt;!&ndash;              <td><label class="title" >Municipality</label></td>&ndash;&gt;-->
                   <!--              &lt;!&ndash;              <td>&ndash;&gt;-->
                   <!--              &lt;!&ndash;                <select class="form-control" formControlName="permanentMunType"&ndash;&gt;-->
-                  <!--              &lt;!&ndash;                        id="permanentMunType"&ndash;&gt;-->
+                  <!--              &lt;!&ndash;                        &ndash;&gt;-->
                   <!--              &lt;!&ndash;                        [ngClass]="{'is-invalid': submitted && configForm.permanentMunType.errors}">&ndash;&gt;-->
                   <!--              &lt;!&ndash;                  <option value="0">Municipality</option>&ndash;&gt;-->
                   <!--              &lt;!&ndash;                  <option value="1">VDC</option>&ndash;&gt;-->
@@ -1508,13 +1484,12 @@
                       <select #element
                               (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
                               [compareWith]="compareFn"
-                              [ngClass]="{'is-invalid': submitted && form.permanentProvince.errors}"
                               class="custom-select"
                               formControlName="permanentProvince"
                       >
                         <option [ngValue]="null" hidden>Province</option>
                         <option *ngFor="let provinceVal of provinceList"
-                                [ngValue]="provinceVal">
+                                [ngValue]="provinceVal.name">
                           {{provinceVal.name}} || {{provinceVal.nepaliName}}
                         </option>
                       </select>
@@ -1532,17 +1507,16 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><label class="title" for="permanentDistrict">District</label></td>
+                    <td><label class="title">District</label></td>
                     <td><select
                         (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'permanentDistrict']).value?.id, $event, i)"
                         [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentDistrict.errors}"
                         class="custom-select"
                         formControlName="permanentDistrict"
-                        id="permanentDistrict">
+                    >
                       <option [ngValue]="null" hidden>District</option>
                       <option *ngFor="let districtVal of districts"
-                              [ngValue]="districtVal">
+                              [ngValue]="districtVal.name">
                         {{districtVal.name}} || {{districtVal.nepaliName}}
                       </option>
                     </select>
@@ -1561,7 +1535,7 @@
                   <tr>
                     <td>
                       <label class="title"
-                             for="permanentMunicipality">Municipality or VDC
+                      >Municipality or VDC
                       </label>
                     </td>
                     <td>
@@ -1571,10 +1545,9 @@
                                   [value]="vdcOption.values()">{{option.label}}</nb-radio>
                       </nb-radio-group>
                       <select [compareWith]="compareFn"
-                              [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                               class="custom-select"
                               formControlName="permanentMunicipality"
-                              id="permanentMunicipality"
+
                               name="municipality">
                         <option *ngFor="let municipalityVal of municipalities"
                                 [ngValue]="municipalityVal">
@@ -1596,15 +1569,14 @@
                   </tr>
                   <tr>
                     <td>
-                      <label class="title" for="permanentWard">Ward No</label>
+                      <label class="title">Ward No</label>
                     </td>
                     <td>
                       <input class="form-control "
                              formControlName="permanentWard"
-                             [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                             id="permanentWard"
+
                              name="permanentMunicipality" placeholder="Ward No"
-                             type="text"/>
+                             type="number"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="permanentWardTrans"
@@ -1643,7 +1615,6 @@
                       <select
                           (change)="getJointCustomerDistrictsById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryProvince'])?.value?.id , $event, i)"
                           [compareWith]="compareFn"
-                          [ngClass]="{'is-invalid': submitted && form.temporaryProvince.errors}"
                           class="custom-select"
                           formControlName="temporaryProvince">
                         <option [ngValue]="null" hidden>Province</option>
@@ -1670,7 +1641,6 @@
                       <select
                           (change)="getJointCustomerMunicipalitiesById(userConfigForm.get(['jointCustomerDetails', i, 'temporaryDistrict'])?.value?.id, $event, i)"
                           [compareWith]="compareFn"
-                          [ngClass]="{'is-invalid': submitted && form.temporaryDistrict.errors}"
                           class="custom-select"
                           formControlName="temporaryDistrict"
                       >
@@ -1694,7 +1664,7 @@
                   </tr>
                   <tr>
                     <td><label class="title"
-                               for="temporaryMunicipality">Municipality or VDC</label>
+                    >Municipality or VDC</label>
                     </td>
                     <td>
                       <nb-radio-group name="temporaryMunicipalityOrVdc"
@@ -1704,10 +1674,9 @@
                                   [value]="vdcOption.values()">{{option.label}}</nb-radio>
                       </nb-radio-group>
                       <select [compareWith]="compareFn"
-                              [ngClass]="{'is-invalid': submitted && form.temporaryMunicipality.errors}"
                               class="custom-select"
                               formControlName="temporaryMunicipality"
-                              id="temporaryMunicipality"
+
                               name="municipality">
                         <option *ngFor="let municipalityVal of municipalities"
                                 [ngValue]="municipalityVal">
@@ -1728,15 +1697,14 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><label class="title" for="temporaryWard">Ward No</label>
+                    <td><label class="title">Ward No</label>
                     </td>
                     <td>
                       <input class="form-control "
                              formControlName="temporaryWard"
-                             [ngClass]="{'is-invalid': submitted && configForm.permanentWard.errors}"
-                             id="temporaryWard"
+
                              name="temporaryWard" placeholder="Ward No"
-                             type="text"/>
+                             type="number"/>
                     </td>
                     <td>
                       <input class="form-control" formControlName="temporaryWardTrans"
@@ -1778,7 +1746,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="guarantorName"
-                         id="guarantorName"
+
                          autocomplete="off"
                          name="name" placeholder="Guarantor Name"
                          type="text"/>
@@ -1799,7 +1767,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="citizenNumber"
-                         id="guarantorCitizenshipNum"
+
                          autocomplete="off"
                          name="name" placeholder="Citizenship No"
                          type="text"/>
@@ -1815,14 +1783,14 @@
               </tr>
               <!--              <tr>-->
               <!--                <td>-->
-              <!--                  <label class="title" for="guarantorIssueDate">Citizenship Issue Date</label>-->
+              <!--                  <label class="title" >Citizenship Issue Date</label>-->
               <!--                </td>-->
               <!--                <td>-->
               <!--                  <input-->
               <!--                      *ngIf="calendarType === 'AD'" [nbDatepicker]="issuedYear"-->
               <!--                      class="form-control "-->
               <!--                      formControlName="issuedYear"-->
-              <!--                      id="guarantorIssueDate"-->
+              <!--                      -->
               <!--                      autocomplete="off"-->
               <!--                      name="name" placeholder="Citizenship Issue Date"-->
               <!--                      type="text"/>-->
@@ -1840,11 +1808,11 @@
               <!--              </tr>-->
               <tr>
                 <td>
-                  <label class="title" for="guarantorIssueDistrict">Citizenship Issue
+                  <label class="title">Citizenship Issue
                     District</label>
                 </td>
                 <td>
-                  <select class="custom-select" id="guarantorIssueDistrict"
+                  <select class="custom-select"
                           formControlName="issuedPlace">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let district of allDistrictList"
@@ -1863,7 +1831,7 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="citizenshipIssuedDate">Citizenship Issue Date</label>
+                  <label class="title">Citizenship Issue Date</label>
                 </td>
                 <td>
                   <div class="row">
@@ -1880,14 +1848,14 @@
                 <td></td>
                 <td>
                   <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                formControlName="citizenIssuedDate" [responseType]="2"
+                                formControlName="citizenIssuedDate" [responseType]="0"
                                 [displayNepali]="true">
                   </nepali-patro>
                   <input [nbDatepicker]="citizenshipDate"
                          *ngIf="citizenshipIssueDateVal.value ==='AD'"
                          class="form-control form-control-sm-error rounded"
                          formControlName="citizenIssuedDate"
-                         id="citizenshipIssuedDate"
+
                          name="citizenIssuedDate"
                          placeholder="Citizenship Issue Date"
                          type="text">
@@ -1897,12 +1865,12 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="gurantedAmount">Guaranteed Amount</label>
+                  <label class="title">Guaranteed Amount</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="gurantedAmount"
-                         id="gurantedAmount"
+
                          autocomplete="off"
                          name="gurantedAmount" placeholder="Guranted Amount"
                          type="text"/>
@@ -1920,12 +1888,12 @@
 
               <tr>
                 <td>
-                  <label class="relationMedium" for="guarantorRelationship">Guarantor
+                  <label class="relationMedium">Guarantor
                     Relation</label>
                 </td>
                 <td>
                   <select class="form-control" formControlName="relationship"
-                          id="guarantorRelationship">
+                  >
                     <option *ngFor="let relationship of relationshipList"
                             [value]="relationship.value">{{relationship?.value}}</option>
                   </select>
@@ -1938,8 +1906,8 @@
 
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
 
-                <td><label class="title" for="gender">Gender</label></td>
-                <td><select class="form-control" formControlName="gender" id="gender{{i}}">
+                <td><label class="title">Gender</label></td>
+                <td><select class="form-control" formControlName="gender">
                   <option [value]="null" hidden>Select Gender</option>
                   <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
                   <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
@@ -1959,11 +1927,10 @@
 
               <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'">
                 <td>
-                  <label class="relationMedium" for="relationMedium">Relation Medium</label>
+                  <label class="relationMedium">Relation Medium</label>
                 </td>
                 <td>
-                  <select class="form-control" formControlName="relationMedium"
-                          id="relationMedium{{i}}">
+                  <select class="form-control" formControlName="relationMedium">
                     <option [value]="null" hidden>Select Relation Medium</option>
                     <option value="0">Husband Relation</option>
                     <option value="1">Father Relation</option>
@@ -1974,12 +1941,12 @@
                 <td></td>
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
-                <td><label class="title" for="husbandName">Husband Name</label></td>
+                <td><label class="title">Husband Name</label></td>
                 <td><input class="form-control "
                            formControlName="husbandName"
-                           id="husbandName{{i}}"
                            name="husbandName" placeholder="Husband Name"
-                           type="text"/></td>
+                           type="text"/>
+                </td>
                 <td>
                   <input class="form-control" formControlName="husbandNameTrans" readonly
                          type="text"/>
@@ -1991,12 +1958,12 @@
               </tr>
 
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
-                <td><label class="title" for="fatherInLawName">Father In Law Name</label></td>
+                <td><label class="title">Father In Law Name</label></td>
                 <td><input class="form-control "
                            formControlName="fatherInLawName"
-                           id="fatherInLawName{{i}}"
                            name="fatherInLawName" placeholder="Father In Law Name"
-                           type="text"/></td>
+                           type="text"/>
+                </td>
                 <td>
                   <input class="form-control" formControlName="fatherInLawNameTrans" readonly
                          type="text"/>
@@ -2010,12 +1977,11 @@
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
                (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td>
-                  <label class="title" for="grandFatherName">Grand Father Name</label>
+                  <label class="title">Grand Father Name</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="grandFatherName"
-                         id="grandFatherName{{i}}"
                          name="grandFatherName" placeholder="Grand Father Name"
                          type="text"/>
                 </td>
@@ -2032,12 +1998,11 @@
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL &&
               (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE' || userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS') && !(userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td>
-                  <label class="title" for="name">Father Name</label>
+                  <label class="title">Father Name</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="fatherName"
-                         id="fatherName{{i}}"
                          name="fatherName" placeholder="Father Name"
                          type="text"/>
                 </td>
@@ -2057,7 +2022,7 @@
               <tbody>
               <tr>
                 <td>
-                  <label class="title" for="guarantorAddress">
+                  <label class="title">
                     <strong>Permanent Address</strong>
                   </label>
                 </td>
@@ -2069,8 +2034,7 @@
                           (change)="getGuarantorDistrictsById(userConfigForm.get(['guarantorDetails', i, 'permanentProvince'])?.value?.id, $event, i)"
                           [compareWith]="compareFn"
                           class="custom-select"
-                          formControlName="permanentProvince"
-                          id="province{{i}}">
+                          formControlName="permanentProvince">
                     <option [ngValue]="null" hidden>Province</option>
                     <option *ngFor="let provinceVal of provinceList"
                             [ngValue]="provinceVal">
@@ -2088,13 +2052,12 @@
                 </td>
               </tr>
               <tr>
-                <td><label class="title" for="permanentDistrict">District</label></td>
+                <td><label class="title">District</label></td>
                 <td><select
                     (change)="getGuarantorMunicipalitiesById(userConfigForm.get(['guarantorDetails', i, 'permanentDistrict'])?.value?.id , $event, i)"
                     [compareWith]="compareFn"
                     class="custom-select"
-                    formControlName="permanentDistrict"
-                    id="permanentDistrict{{i}}">
+                    formControlName="permanentDistrict">
                   <option [ngValue]="null" hidden>District</option>
                   <option *ngFor="let districtVal of districts"
                           [ngValue]="districtVal">
@@ -2115,7 +2078,7 @@
               <tr>
                 <td>
                   <label class="title"
-                         for="permanentMunicipality">Municipality or VDC
+                  >Municipality or VDC
                   </label>
                 </td>
                 <td>
@@ -2127,9 +2090,7 @@
                   </nb-radio-group>
                   <select [compareWith]="compareFn"
                           class="custom-select"
-                          formControlName="permanentMunicipality"
-                          id="permanentMunicipality{{i}}"
-                          name="municipality">
+                          formControlName="permanentMunicipality">
                     <option *ngFor="let municipalityVal of municipalities"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
@@ -2148,14 +2109,13 @@
               </tr>
               <tr>
                 <td>
-                  <label class="title" for="permanentWard">Ward No</label>
+                  <label class="title">Ward No</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="permanentWard"
-                         id="permanentWard{{i}}"
                          name="permanentWard" placeholder="Ward No"
-                         type="text"/>
+                         type="number"/>
                 </td>
                 <td>
                   <input class="form-control" formControlName="permanentWardTrans"
@@ -2190,8 +2150,7 @@
                           (change)="getGuarantorTempDistrictsById(userConfigForm.get(['guarantorDetails', i, 'temporaryProvince'])?.value?.id, $event, i)"
                           [compareWith]="compareFn"
                           class="custom-select"
-                          formControlName="temporaryProvince"
-                          id="temporaryProvince{{i}}">
+                          formControlName="temporaryProvince">
                     <option [ngValue]="null" hidden>Province</option>
                     <option *ngFor="let provinceVal of tempGuarantorProvinceList"
                             [ngValue]="provinceVal">
@@ -2209,13 +2168,12 @@
                 </td>
               </tr>
               <tr>
-                <td><label class="title" for="temporaryDistrict">District</label></td>
+                <td><label class="title">District</label></td>
                 <td><select
                     (change)="getGuarantorTempMunicipalitiesById(userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict'])?.value?.id , $event, i)"
                     [compareWith]="compareFn"
                     class="custom-select"
-                    formControlName="temporaryDistrict"
-                    id="temporaryDistrict{{i}}">
+                    formControlName="temporaryDistrict">
                   <option [ngValue]="null" hidden>District</option>
                   <option *ngFor="let districtVal of tempGuarantorDistricts"
                           [ngValue]="districtVal">
@@ -2236,7 +2194,7 @@
               <tr>
                 <td>
                   <label class="title"
-                         for="temporaryMunicipality">Municipality or VDC
+                  >Municipality or VDC
                   </label>
                 </td>
                 <td>
@@ -2249,7 +2207,6 @@
                   <select [compareWith]="compareFn"
                           class="custom-select"
                           formControlName="temporaryMunicipality"
-                          id="temporaryMunicipality{{i}}"
                           name="municipality">
                     <option *ngFor="let municipalityVal of tempGuarantorMunicipalities"
                             [ngValue]="municipalityVal">
@@ -2270,14 +2227,13 @@
 
               <tr>
                 <td>
-                  <label class="title" for="permanentWard">Ward No</label>
+                  <label class="title">Ward No</label>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="temporaryWard"
-                         id="temporaryWard{{i}}"
                          name="temporaryWard" placeholder="Ward No"
-                         type="text"/>
+                         type="number"/>
                 </td>
                 <td>
                   <input class="form-control" formControlName="temporaryWardTrans"
@@ -2312,7 +2268,7 @@
             </table>
           </div>
           <button class="float-right" nbButton (click)="saveCustomer()">
-            save
+            Save & Next
           </button>
         </nb-tab>
         <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"

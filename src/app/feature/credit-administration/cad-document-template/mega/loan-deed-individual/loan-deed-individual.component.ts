@@ -45,8 +45,11 @@ export class LoanDeedIndividualComponent implements OnInit {
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-            this.individualData = JSON.parse(this.cadData.loanHolder.nepData);``
+            this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
         }
+        console.log("individual data: ", this.individualData);
+        this.fillForm();
+
     }
 
     buildForm() {
@@ -87,6 +90,20 @@ export class LoanDeedIndividualComponent implements OnInit {
             plotNo1: [undefined],
             area1: [undefined]
         });
+    }
+
+    fillForm(){
+        this.loanDeedIndividual.patchValue(
+            {
+                branchName: this.individualData.branch.ct,
+                grandFatherName: this.individualData.grandFatherName.ct,
+                fatherName: this.individualData.fatherName.ct,
+                District: this.individualData.permanentDistrict.ct,
+                Municipality: this.individualData.permanentMunicipality.ct,
+                WadNo: this.individualData.permanentWard.ct,
+                borrowerName: this.individualData.name.ct,
+            }
+        )
     }
 
     submit() {

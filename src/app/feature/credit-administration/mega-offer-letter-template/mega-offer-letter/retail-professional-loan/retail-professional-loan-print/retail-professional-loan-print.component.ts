@@ -31,6 +31,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   proposedAmount;
   guarantorName;
   branchName;
+  guarantorData;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -47,14 +48,25 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
         const val = value.proposal.proposedLimit;
         totalLoanAmount = totalLoanAmount + val;
       });
+      this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.customerAddress =  this.loanHolderInfo.permanentMunicipality.np + '-' +
           this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
-          this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
-      const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
-      this.guarantorName = this.loanHolderInfo.guarantorDetails[0].guarantorName.np;
+          this.loanHolderInfo.permanentProvince.np;
+      if (!ObjectUtil.isEmpty(this.guarantorData)) {
+        this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
+      }
       this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
+    }
+  }
+
+  guarantorParse(nepData, key, trans?) {
+    const data = JSON.parse(nepData);
+    if (ObjectUtil.isEmpty(trans)) {
+      return data[key].ct;
+    } else {
+      return data[key].en;
     }
   }
 

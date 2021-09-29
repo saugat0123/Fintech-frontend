@@ -72,7 +72,7 @@ export class RetailProfessionalLoanComponent implements OnInit {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         }
         console.log('Loan holder info', this.loanHolderInfo);
-        this.guarantorData = this.loanHolderInfo.guarantorDetails;
+        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         this.checkOfferLetterData();
     }
 
@@ -206,9 +206,9 @@ submit(): void {
 
     fillForm() {
         const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-        const customerAddress = this.loanHolderInfo.permanentMunicipality.np + '-' +
-            this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
-            this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
+        const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
+            this.loanHolderInfo.permanentProvince.ct;
         const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
         let totalLoanAmount = 0;
         this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -216,13 +216,12 @@ submit(): void {
             totalLoanAmount = totalLoanAmount + val;
         });
         this.retailProfessionalLoan.patchValue({
-            nameOfCustomer: this.loanHolderInfo.name.np ? this.loanHolderInfo.name.np : '',
+            nameOfCustomer: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.cy : '',
             addressOfCustomer: customerAddress ? customerAddress : '',
             loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
             // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-            nameOfBranch: this.loanHolderInfo.branch.np ? this.loanHolderInfo.branch.np : '',
+            nameOfBranch: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
             amountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-            // additionalGuarantorDetails: this.offerLetterData.supportedInformation === null ? '' : this.offerLetterData.supportedInformation,
         });
         // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
     }
@@ -243,6 +242,19 @@ submit(): void {
 
     close() {
         this.ref.close();
+    }
+
+    guarantorParse(nepData, key, trans?) {
+        const data = JSON.parse(nepData);
+        try {
+            if (ObjectUtil.isEmpty(trans)) {
+                return data[key].ct;
+            } else {
+                return data[key].en;
+            }
+        } catch (exp) {
+            console.log(exp);
+        }
     }
 
     changeDocumentName(securityType) {

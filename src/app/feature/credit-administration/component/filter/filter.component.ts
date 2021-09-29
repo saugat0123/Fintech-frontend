@@ -57,6 +57,7 @@ export class FilterComponent implements OnInit {
   createClientType: any;
   subCustomerType = CustomerSubType;
   createSubClientType: any;
+  createSubInstituteType: any;
 
   constructor(private branchService: BranchService,
               private toastService: ToastService,
@@ -123,7 +124,10 @@ export class FilterComponent implements OnInit {
   clear() {
     this.filterForm.reset();
     this.eventEmitter.emit(this.filterForm.value);
-
+    this.jointCustomerNum = undefined;
+    this.createClientType = undefined;
+    this.createSubClientType = undefined;
+    this.createSubInstituteType = undefined;
   }
 
   getUserList() {
@@ -175,7 +179,7 @@ export class FilterComponent implements OnInit {
         customerType: this.createClientType,
         customerSubType: this.createSubClientType,
         jointCustomerNum: this.jointCustomerNum,
-        institutionCustomerType: this.institutionCustomerType,
+        institutionSubType: this.createSubInstituteType,
         cadData: this.cadOfferLetterApprovedDoc,
         customerInfo: this.customerInfoData,
         customer: this.customerInfo,
@@ -200,6 +204,7 @@ export class FilterComponent implements OnInit {
 
   onClose() {
     this.modalService.dismissAll();
+    this.clear();
   }
 
 }

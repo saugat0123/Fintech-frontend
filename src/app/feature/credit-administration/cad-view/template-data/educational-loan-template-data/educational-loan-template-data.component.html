@@ -52,7 +52,6 @@
                     <th></th>
                     <th>Loan Data</th>
                     <th>Nepali Translation</th>
-                    <th>Edit</th>
                     <th>Correct Translation</th>
                 <tr>
                     <td>Date Of Approval</td>
@@ -88,10 +87,13 @@
                     <td><input type="text" class="form-control" formControlName="referenceNumber"/></td>
                     <td class="abc">{{translatedData?.referenceNumber}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'referenceNumber')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['referenceNumberCheck']" formControlName="referenceNumberTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.referenceNumberTransVal.errors }"
+                               formControlName="referenceNumberTransVal"/>
+                        <div *ngIf="submitted && Form.referenceNumberTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.referenceNumberTransVal.errors.required">Reference number is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr style="padding: 12px">
@@ -130,10 +132,13 @@
                     <td><input type="text" class="form-control" formControlName="purposeOfLoan"/></td>
                     <td class="abc">{{translatedData?.purposeOfLoan}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'purposeOfLoan')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['purposeOfLoanCheck']" formControlName="purposeOfLoanTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.purposeOfLoanTransVal.errors }"
+                               formControlName="purposeOfLoanTransVal"/>
+                        <div *ngIf="submitted && Form.purposeOfLoanTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.purposeOfLoanTransVal.errors.required">Purpose of loan is required</div>
+                        </div>
                     </td>
                 </tr>
 <!--                <tr *ngIf="selectedSecurityVal === 'FIXED_DEPOSIT'">-->
@@ -172,14 +177,11 @@
 <!--                    </td>-->
 <!--                </tr>-->
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
-                    <td>Distress Value</td>
+                    <td>Drawing Power(%of Distress Value)</td>
                     <td><input type="text" class="form-control" formControlName="distressValue"/></td>
                     <td class="abc">{{translatedData?.distressValue}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'distressValue')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['distressValueCheck']" formControlName="distressValueTransVal"/>
+                        <input type="text" class="form-control" formControlName="distressValueTransVal"/>
                     </td>
                 </tr>
                 <tr>
@@ -187,10 +189,13 @@
                     <td><input type="text" class="form-control" formControlName="baseRate" (change)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.baseRate}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'baseRate')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['baseRateCheck']" formControlName="baseRateTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
+                               formControlName="baseRateTransVal"/>
+                        <div *ngIf="submitted && Form.baseRateTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.baseRateTransVal.errors.required">Base rate is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -198,10 +203,13 @@
                     <td><input type="text" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.premiumRate}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'premiumRate')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['premiumRateCheck']" formControlName="premiumRateTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
+                               formControlName="premiumRateTransVal"/>
+                        <div *ngIf="submitted && Form.premiumRateTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.premiumRateTransVal.errors.required">Premium rate is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -209,10 +217,13 @@
                     <td><input type="text" class="form-control" formControlName="interestRate"/></td>
                     <td class="abc">{{translatedData?.interestRate}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'interestRate')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['interestRateCheck']" formControlName="interestRateTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.interestRateTransVal.errors }"
+                               formControlName="interestRateTransVal"/>
+                        <div *ngIf="submitted && Form.interestRateTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.interestRateTransVal.errors.required">Interest rate is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -222,10 +233,13 @@
                                 (input)="getNumAmountWord('loanAdminFeeFigure', 'loanAdminFeeWords')"/></td>
                     <td class="abc">{{translatedData?.loanAdminFeeFigure}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'loanAdminFeeFigure')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanAdminFeeFigureCheck']" formControlName="loanAdminFeeFigureTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeFigureTransVal.errors }"
+                               formControlName="loanAdminFeeFigureTransVal"/>
+                        <div *ngIf="submitted && Form.loanAdminFeeFigureTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.loanAdminFeeFigureTransVal.errors.required">Loan admin fee is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -233,10 +247,13 @@
                     <td><input type="text" class="form-control" formControlName="loanAdminFeeWords"/></td>
                     <td class="abc">{{translatedData?.loanAdminFeeWords}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'loanAdminFeeWords')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanAdminFeeWordsCheck']" formControlName="loanAdminFeeWordsTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeWordsTransVal.errors }"
+                               formControlName="loanAdminFeeWordsTransVal"/>
+                        <div *ngIf="submitted && Form.loanAdminFeeWordsTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.loanAdminFeeWordsTransVal.errors.required">Loan admin fee is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
@@ -246,10 +263,7 @@
                                 (input)="getNumAmountWord('emiAmountFigure', 'emiAmountWords')"/></td>
                     <td class="abc">{{translatedData?.emiAmountFigure}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'emiAmountFigure')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['emiAmountFigureCheck']" formControlName="emiAmountFigureTransVal"/>
+                        <input type="text" class="form-control" formControlName="emiAmountFigureTransVal"/>
                     </td>
                 </tr>
                 <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
@@ -257,31 +271,22 @@
                     <td><input type="text" class="form-control" formControlName="emiAmountWords"/></td>
                     <td class="abc">{{translatedData?.emiAmountWords}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'emiAmountWords')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['emiAmountWordsCheck']" formControlName="emiAmountWordsTransVal"/>
+                        <input type="text" class="form-control" formControlName="emiAmountWordsTransVal"/>
                     </td>
                 </tr>
                 <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
                     <td>Loan Period In Months</td>
                     <td><input type="text" class="form-control" formControlName="loanPeriodInMonths"/></td>
                     <td class="abc">{{translatedData?.loanPeriodInMonths}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'loanPeriodInMonths')"></nb-checkbox>
-                    </td>
                         <td>
-                            <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanPeriodInMonthsCheck']" formControlName="loanPeriodInMonthsTransVal"/>
+                            <input type="text" class="form-control" formControlName="loanPeriodInMonthsTransVal"/>
                         </td>
                 <tr *ngIf="selectedSecurityVal === 'LAND' || selectedSecurityVal === 'LAND_AND_BUILDING'">
                     <td>Moratorium Period In Months</td>
                     <td><input type="text" class="form-control" formControlName="moratoriumPeriodInMonths"/></td>
                     <td class="abc">{{translatedData?.moratoriumPeriodInMonths}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'moratoriumPeriodInMonths')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['moratoriumPeriodInMonthsCheck']" formControlName="moratoriumPeriodInMonthsTransVal"/>
+                        <input type="text" class="form-control" formControlName="moratoriumPeriodInMonthsTransVal"/>
                     </td>
             </tr>
 
@@ -290,10 +295,13 @@
                     <td><input type="text" class="form-control" formControlName="loanCommitmentFeeInPercentage"/></td>
                     <td class="abc">{{translatedData?.loanCommitmentFeeInPercentage}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'loanCommitmentFeeInPercentage')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['loanCommitmentFeeInPercentageCheck']" formControlName="loanCommitmentFeeInPercentageTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.loanCommitmentFeeInPercentageTransVal.errors }"
+                               formControlName="loanCommitmentFeeInPercentageTransVal"/>
+                        <div *ngIf="submitted && Form.loanCommitmentFeeInPercentageTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.loanCommitmentFeeInPercentageTransVal.errors.required">Loan commitment fee is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -302,10 +310,13 @@
                     <td><input type="text" class="form-control" formControlName="fixedDepositHolderName"/></td>
                     <td class="abc">{{translatedData?.fixedDepositHolderName}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'fixedDepositHolderName')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['fixedDepositHolderNameCheck']" formControlName="fixedDepositHolderNameTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.fixedDepositHolderNameTransVal.errors }"
+                               formControlName="fixedDepositHolderNameTransVal"/>
+                        <div *ngIf="submitted && Form.fixedDepositHolderNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.fixedDepositHolderNameTransVal.errors.required">Fixed deposit holder name is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -314,10 +325,13 @@
                     <td><input type="text" class="form-control" formControlName="fixedDepositAmountFigure" (input)="getNumAmountWord('fixedDepositAmountFigure', 'fixedDepositReceiptAmountWords')"/></td>
                     <td class="abc">{{translatedData?.fixedDepositAmountFigure}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'fixedDepositAmountFigure')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['fixedDepositAmountFigureCheck']" formControlName="fixedDepositAmountFigureTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.fixedDepositAmountFigureTransVal.errors }"
+                               formControlName="fixedDepositAmountFigureTransVal"/>
+                        <div *ngIf="submitted && Form.fixedDepositAmountFigureTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.fixedDepositAmountFigureTransVal.errors.required">Fixed deposit amount figure is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -326,12 +340,13 @@
                     <td><input type="text" class="form-control" formControlName="fixedDepositReceiptAmountWords"/></td>
                     <td class="abc">{{translatedData?.fixedDepositReceiptAmountWords}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'fixedDepositReceiptAmountWords')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont"
-                               [readOnly]="!this['fixedDepositReceiptAmountWordsCheck']"
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.fixedDepositReceiptAmountWordsTransVal.errors }"
                                formControlName="fixedDepositReceiptAmountWordsTransVal"/>
+                        <div *ngIf="submitted && Form.fixedDepositReceiptAmountWordsTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.fixedDepositReceiptAmountWordsTransVal.errors.required">Fixed deposit amount is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -340,10 +355,13 @@
                     <td><input type="text" class="form-control" formControlName="tenureFixedDeposit"/></td>
                     <td class="abc">{{translatedData?.tenureFixedDeposit}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'tenureFixedDeposit')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['tenureFixedDepositCheck']" formControlName="tenureFixedDepositTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.tenureFixedDepositTransVal.errors }"
+                               formControlName="tenureFixedDepositTransVal"/>
+                        <div *ngIf="submitted && Form.tenureFixedDepositTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.tenureFixedDepositTransVal.errors.required">Tenure of fixed deposit is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -352,10 +370,13 @@
                     <td><input type="text" class="form-control" formControlName="tenureDepositReceiptNumber"/></td>
                     <td class="abc">{{translatedData?.tenureDepositReceiptNumber}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'tenureDepositReceiptNumber')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['tenureDepositReceiptNumberCheck']" formControlName="tenureDepositReceiptNumberTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.tenureDepositReceiptNumberTransVal.errors }"
+                               formControlName="tenureDepositReceiptNumberTransVal"/>
+                        <div *ngIf="submitted && Form.tenureDepositReceiptNumberTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.tenureDepositReceiptNumberTransVal.errors.required">Fixed deposit receipt is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -371,31 +392,37 @@
 <!--                    </td>-->
 <!--                </tr>-->
 
-                <tr>
-                    <td>Guaranteed Amount Figure</td>
-                    <td><input type="text" class="form-control"
-                               formControlName="guaranteedAmountFigure"
-                                (input)="getNumAmountWord('guaranteedAmountFigure','guaranteedAmountWords')"/></td>
-                    <td class="abc">{{translatedData?.guaranteedAmountFigure}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'guaranteedAmountFigure')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['guaranteedAmountFigureCheck']" formControlName="guaranteedAmountFigureTransVal"/>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Guaranteed Amount Figure</td>-->
+<!--                    <td><input type="text" class="form-control"-->
+<!--                               formControlName="guaranteedAmountFigure"-->
+<!--                                (input)="getNumAmountWord('guaranteedAmountFigure','guaranteedAmountWords')"/></td>-->
+<!--                    <td class="abc">{{translatedData?.guaranteedAmountFigure}}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.guaranteedAmountFigureTransVal.errors }"-->
+<!--                               formControlName="guaranteedAmountFigureTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.guaranteedAmountFigureTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.guaranteedAmountFigureTransVal.errors.required">Guaranteed amount figure is required</div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
 
-                <tr>
-                    <td>Guaranteed Amount Words</td>
-                    <td><input type="text" class="form-control" formControlName="guaranteedAmountWords"/></td>
-                    <td class="abc">{{translatedData?.guaranteedAmountWords}}</td>
-                    <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'guaranteedAmountWords')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['guaranteedAmountWordsCheck']" formControlName="guaranteedAmountWordsTransVal"/>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td>Guaranteed Amount Words</td>-->
+<!--                    <td><input type="text" class="form-control" formControlName="guaranteedAmountWords"/></td>-->
+<!--                    <td class="abc">{{translatedData?.guaranteedAmountWords}}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="form-control"-->
+<!--                               [ngClass]="{ 'is-invalid':submitted && Form.guaranteedAmountWordsTransVal.errors }"-->
+<!--                               formControlName="guaranteedAmountWordsTransVal"/>-->
+<!--                        <div *ngIf="submitted && Form.guaranteedAmountWordsTransVal.errors"-->
+<!--                             class="invalid-feedback">-->
+<!--                            <div *ngIf="Form.guaranteedAmountWordsTransVal.errors.required">Guaranteed amount words is required</div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
 <!--                <tr>-->
 <!--                    <td>Name Of Branch</td>-->
 <!--                    <td><input type="text" class="form-control" formControlName="nameOfBranch"/></td>-->
@@ -424,10 +451,7 @@
                     <td><input type="text" class="form-control" formControlName="pledgeAmountFigure"/></td>
                     <td class="abc">{{translatedData?.pledgeAmountFigure}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'pledgeAmountFigure')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['pledgeAmountFigureCheck']" formControlName="pledgeAmountFigureTransVal"/>
+                        <input type="text" class="form-control" formControlName="pledgeAmountFigureTransVal"/>
                     </td>
                 </tr>
 
@@ -436,10 +460,7 @@
                     <td><input type="text" class="form-control" formControlName="insuranceAmountFigure"/></td>
                     <td class="abc">{{translatedData?.insuranceAmountFigure}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'insuranceAmountFigure')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['insuranceAmountFigureCheck']" formControlName="insuranceAmountFigureTransVal"/>
+                        <input type="text" class="form-control" formControlName="insuranceAmountFigureTransVal"/>
                     </td>
                 </tr>
 
@@ -448,10 +469,13 @@
                     <td><input type="text" class="form-control" formControlName="relationshipOfficerName"/></td>
                     <td class="abc">{{translatedData?.relationshipOfficerName}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'relationshipOfficerName')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['relationshipOfficerNameCheck']" formControlName="relationshipOfficerNameTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.relationshipOfficerNameTransVal.errors }"
+                               formControlName="relationshipOfficerNameTransVal"/>
+                        <div *ngIf="submitted && Form.relationshipOfficerNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.relationshipOfficerNameTransVal.errors.required">Relationship officer name is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -460,10 +484,13 @@
                     <td><input type="text" class="form-control" formControlName="branchManager"/></td>
                     <td class="abc">{{translatedData?.branchManager}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'branchManager')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['branchManagerCheck']" formControlName="branchManagerTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.branchManagerTransVal.errors }"
+                               formControlName="branchManagerTransVal"/>
+                        <div *ngIf="submitted && Form.branchManagerTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.branchManagerTransVal.errors.required">Branch manager is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -520,10 +547,13 @@
                     <td><input type="text" class="form-control" formControlName="approvalStaffName"/></td>
                     <td class="abc">{{translatedData?.approvalStaffName}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'approvalStaffName')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['approvalStaffNameCheck']" formControlName="approvalStaffNameTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.approvalStaffNameTransVal.errors }"
+                               formControlName="approvalStaffNameTransVal"/>
+                        <div *ngIf="submitted && Form.approvalStaffNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.approvalStaffNameTransVal.errors.required">Approval staff name is required</div>
+                        </div>
                     </td>
                 </tr>
 
@@ -532,10 +562,7 @@
                     <td><input type="text" class="form-control" formControlName="ownersName"/></td>
                     <td class="abc">{{translatedData?.ownersName}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'ownersName')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['ownersNameCheck']" formControlName="ownersNameTransVal"/>
+                        <input type="text" class="form-control" formControlName="ownersNameTransVal"/>
                     </td>
                 </tr>
 
@@ -546,10 +573,13 @@
                         (change)="getMunicipalityByDistrict(form.get('district').value)">
                             <option [ngValue]="null" hidden>District</option>
                             <option *ngFor="let district of allDistrictList"
-                            [ngValue]="district">{{district.name}} || {{district.nepaliName}}</option>
+                            [ngValue]="district">{{district.name}}</option>
                         </select>
                     </td>
-                    <td class="abc"></td>
+                    <td class="abc">{{objectTranslate?.district}}</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="districtTransVal"/>
+                    </td>
                 </tr>
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
@@ -564,11 +594,14 @@
                                 name="municipality">
                             <option  *ngFor="let municipalityVal of municipalityList"
                                      [ngValue]="municipalityVal">
-                                {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                                {{municipalityVal.name}}
                             </option>
                         </select>
                     </td>
-                    <td class="abc"></td>
+                    <td class="abc">{{objectTranslate?.municipality}}</td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="municipalityTransVal"/>
+                    </td>
                 </tr>
 
                 <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
@@ -576,10 +609,7 @@
                     <td><input type="text" class="form-control" formControlName="wardNo"/></td>
                     <td class="abc">{{translatedData?.wardNo}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'wardNo')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['wardNoCheck']" formControlName="wardNoTransVal"/>
+                        <input type="text" class="form-control" formControlName="wardNoTransVal"/>
                     </td>
                 </tr>
 
@@ -588,10 +618,7 @@
                     <td><input type="text" class="form-control" formControlName="seatNo"/></td>
                     <td class="abc">{{translatedData?.seatNo}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'seatNo')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['seatNoCheck']" formControlName="seatNoTransVal"/>
+                        <input type="text" class="form-control" formControlName="seatNoTransVal"/>
                     </td>
                 </tr>
 
@@ -600,10 +627,7 @@
                     <td><input type="text" class="form-control" formControlName="kittaNo"/></td>
                     <td class="abc">{{translatedData?.kittaNo}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'kittaNo')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['kittaNoCheck']" formControlName="kittaNoTransVal"/>
+                        <input type="text" class="form-control" formControlName="kittaNoTransVal"/>
                     </td>
                 </tr>
 
@@ -612,10 +636,7 @@
                     <td><input type="text" class="form-control" formControlName="landArea"/></td>
                     <td class="abc">{{translatedData?.landArea}}</td>
                     <td>
-                        <nb-checkbox (change)="checkboxVal($event, 'landArea')"></nb-checkbox>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['landAreaCheck']" formControlName="landAreaTransVal"/>
+                        <input type="text" class="form-control" formControlName="landAreaTransVal"/>
                     </td>
                 </tr>
 
