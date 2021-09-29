@@ -29,6 +29,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   tdValues: any = {};
   form: FormGroup;
+  objectForm: FormGroup;
   fieldFlag = false;
   selectedSecurityVal;
   selectedCountryVal;
@@ -41,6 +42,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   offerLetterConst = NabilOfferLetterConst;
   attributes;
   translatedData;
+  objectTranslate;
   dateTypeBS = false;
   dateTypeAD = false;
   dateTypeBS1 = false;
@@ -49,7 +51,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
   districtList: Array<District> = new Array<District>();
   municipalityList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   allDistrictList: Array<District> = new Array<District>();
-  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}];
+  vdcOption = [{value: 'Municipality', label: 'Municipality'}, {value: 'VDC', label: 'VDC'}, {value: 'Rural', label: 'Rural'}];
   cadDocStatus = CadDocStatus.key();
   offerLetterDocument: OfferDocument;
   submitted = false;
@@ -306,6 +308,11 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.spinner = true;
     this.translatedData = await this.translateService.translateForm(this.form);
     this.tdValues = this.translatedData;
+    this.objectForm = this.formBuilder.group({
+      district: this.form.get('district').value.name,
+      municipality: this.form.get('municipality').value.name,
+    });
+    this.objectTranslate = await this.translateService.translateForm(this.objectForm);
     this.setTemplatedCTData();
     this.spinner = false;
     this.btnDisable = false;
@@ -342,6 +349,8 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('seatNoTransVal').patchValue(this.translatedData.seatNo);
     this.form.get('kittaNoTransVal').patchValue(this.translatedData.kittaNo);
     this.form.get('landAreaTransVal').patchValue(this.translatedData.landArea);
+    this.form.get('districtTransVal').patchValue(this.objectTranslate.district);
+    this.form.get('municipalityTransVal').patchValue(this.objectTranslate.municipality);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
