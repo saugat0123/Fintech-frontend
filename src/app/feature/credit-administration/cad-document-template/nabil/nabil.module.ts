@@ -4,6 +4,7 @@ import { PromissoryNoteIndividualComponent } from './promissory-note-individual/
 import {ReactiveFormsModule} from '@angular/forms';
 import { PromissoryNoteIndividualPrintComponent } from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
+import {NbButtonModule} from '@nebular/theme';
 
 
 
@@ -15,7 +16,8 @@ import {NgxPrintModule} from 'ngx-print';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        NgxPrintModule
+        NgxPrintModule,
+        NbButtonModule
     ]
 })
 export class NabilModule { }
