@@ -105,10 +105,10 @@
             <div class="col-md-5">{{contactPerson?.contactNumber}}</div>
         </div>
 
-        <div class="row" *ngIf="contactPerson?.contactEmail !== null">
+        <div class="row">
             <div class="col-md-7">
                 <span> <strong>Email :</strong></span></div>
-            <div class="col-md-5">{{contactPerson?.contactEmail}}</div>
+            <div class="col-md-5">{{contactPerson?.contactEmail || '-'}}</div>
         </div>
 
         <div class="row">
