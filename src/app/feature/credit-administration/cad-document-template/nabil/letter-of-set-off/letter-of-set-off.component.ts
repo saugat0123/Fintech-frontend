@@ -73,6 +73,7 @@ export class LetterOfSetOffComponent implements OnInit {
       NameofPerson: [undefined],
       CitizenshipNo: [undefined],
       dateofIssue: [undefined],
+      issueDate: [undefined],
       nameofIssuedDistrict: [undefined],
       Number: [undefined],
       Interest: [undefined],
