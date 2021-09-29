@@ -178,10 +178,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
     });
+      console.log(this.customerInfo);
     if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
       const data = JSON.parse(this.customerInfo.nepData);
       this.userConfigForm.patchValue(data);
       this.setGuarantors(data.guarantorDetails);
+
     }
 
     if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer) ) {
@@ -779,6 +781,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
     guarantorDetails.forEach(value => {
       formArray.push(this.formBuilder.group({
+          id: [value.id],
         guarantorName: [value.guarantorName],
         guarantorNameTrans: [undefined],
         guarantorNameCT: [value.guarantorNameCT],
@@ -1392,6 +1395,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get('citizenshipIssueDate').patchValue(JSON.parse(this.loanHolder.nepData).citizenshipIssueDate.en);
       this.userConfigForm.get('relationMedium').patchValue(Number(JSON.parse(this.oneFormCustomer.individualJsonData).relationMedium));
       this.userConfigForm.get('municipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).municipalityOrVdc);
+      this.userConfigForm.get('temporaryMunicipalityOrVdc').patchValue(JSON.parse(this.oneFormCustomer.individualJsonData).temporaryMunicipalityOrVdc);
       console.log(this.userConfigForm.get('dobDateType').value);
     }
 
