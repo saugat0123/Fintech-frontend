@@ -100,11 +100,11 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           nameofFather: this.individualData.fatherName.ct,
           nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
           dateofIssue: this.individualData.issuedDate.ct,
-          CitizenshipNo: this.individualData.citizenshipNo.ct,
-          NameofPerson: this.individualData.name.ct,
-          WardNo: this.individualData.permanentWard.ct,
-          // VDC: this.individualData.permanentMunicipality.ct,
-          District: this.individualData.permanentDistrict.ct,
+          citizenshipNo: this.individualData.citizenshipNo.ct,
+          nameofPerson: this.individualData.name.ct,
+          wardNo: this.individualData.permanentWard.ct,
+          vdc: this.individualData.permanentMunicipality.ct,
+          district: this.individualData.permanentDistrict.ct,
         }
     );
   }
