@@ -211,37 +211,37 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       panNoCT: [undefined, Validators.required],
       panNoTrans: [undefined, Validators.required],
       registrationNo: [undefined],
-      registrationNoCT: [undefined],
+      registrationNoCT: [undefined, Validators.required],
       registrationNoTrans: [undefined],
       registrationDate: [undefined],
       registrationDateCT: [undefined],
       registrationDateTrans: [undefined],
       registeredMunicipality: [undefined],
       registeredMunicipalityCT: [undefined],
-      registeredMunicipalityTrans: [undefined],
+      registeredMunicipalityTrans: [undefined, Validators.required],
       registeredMunType: [undefined],
-      registeredMunTypeCT: [undefined],
+      registeredMunTypeCT: [undefined, Validators.required],
       registeredMunTypeTrans: [undefined],
       registeredDistrict: [undefined],
-      registeredDistrictCT: [undefined],
+      registeredDistrictCT: [undefined, Validators.required],
       registeredDistrictTrans: [undefined],
       registeredProvince: [undefined],
-      registeredProvinceCT: [undefined],
+      registeredProvinceCT: [undefined, Validators.required],
       registeredProvinceTrans: [undefined],
       currentMunType: [undefined],
-      currentMunTypeCT: [undefined],
+      currentMunTypeCT: [undefined, Validators.required],
       currentMunTypeTrans: [undefined],
       currentProvince: [undefined],
-      currentProvinceCT: [undefined],
+      currentProvinceCT: [undefined, Validators.required],
       currentProvinceTrans: [undefined],
       currentWard: [undefined],
-      currentWardCT: [undefined],
+      currentWardCT: [undefined, Validators.required],
       currentWardTrans: [undefined],
       currentDistrict: [undefined],
-      currentDistrictCT: [undefined],
+      currentDistrictCT: [undefined, Validators.required],
       currentDistrictTrans: [undefined],
       currentMunicipality: [undefined],
-      currentMunicipalityCT: [undefined],
+      currentMunicipalityCT: [undefined, Validators.required],
       currentMunicipalityTrans: [undefined],
       customerCode: [undefined],
       customerCodeCT: [undefined, Validators.required],
@@ -360,6 +360,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if (this.addressSameAsAbove) {
       this.clearValidationForTemporaryAddress();
     }
+    if (this.customerType === 'INSTITUTION') {
+      this.clearValidationForIndividualCustomer();
+    }
+    if (this.customerType === 'INDIVIDUAL') {
+      this.clearValidationForInstitutionalCustomer();
+    }
+    const invalidControls = [];
+    const controls = this.userConfigForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalidControls.push(name);
+      }
+    }
+    console.log('invalidControls', invalidControls);
     if (this.userConfigForm.invalid) {
       this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
       this.spinner = false;
@@ -555,7 +569,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           temporaryMunicipalityCT: [undefined],
           permanentWard: [undefined],
           permanentWardTrans: [undefined],
-          permanentWardCT: [undefined],
+          permanentWardCT: [undefined, Validators.required],
           temporaryWard: [undefined],
           temporaryWardTrans: [undefined],
           temporaryWardCT: [undefined],
@@ -1612,6 +1626,74 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryDistrictCT').updateValueAndValidity();
     this.userConfigForm.get('temporaryMunicipalityCT').clearValidators();
     this.userConfigForm.get('temporaryWardCT').updateValueAndValidity();
+  }
+
+  private clearValidationForIndividualCustomer(): void {
+    this.userConfigForm.get('genderCT').clearValidators();
+    this.userConfigForm.get('genderCT').updateValueAndValidity();
+    this.userConfigForm.get('genderTrans').clearValidators();
+    this.userConfigForm.get('genderTrans').updateValueAndValidity();
+    this.userConfigForm.get('citizenshipNoCT').clearValidators();
+    this.userConfigForm.get('citizenshipNoCT').updateValueAndValidity();
+    this.userConfigForm.get('citizenshipNoTrans').clearValidators();
+    this.userConfigForm.get('citizenshipNoTrans').updateValueAndValidity();
+    this.userConfigForm.get('permanentProvinceCT').clearValidators();
+    this.userConfigForm.get('permanentProvinceCT').updateValueAndValidity();
+    this.userConfigForm.get('permanentProvinceTrans').clearValidators();
+    this.userConfigForm.get('permanentProvinceTrans').updateValueAndValidity();
+    this.userConfigForm.get('permanentDistrictCT').clearValidators();
+    this.userConfigForm.get('permanentDistrictCT').updateValueAndValidity();
+    this.userConfigForm.get('permanentDistrictTrans').clearValidators();
+    this.userConfigForm.get('permanentDistrictTrans').updateValueAndValidity();
+    this.userConfigForm.get('permanentMunicipalityCT').clearValidators();
+    this.userConfigForm.get('permanentMunicipalityCT').updateValueAndValidity();
+    this.userConfigForm.get('permanentMunicipalityTrans').clearValidators();
+    this.userConfigForm.get('permanentMunicipalityTrans').updateValueAndValidity();
+    this.userConfigForm.get('temporaryProvinceCT').clearValidators();
+    this.userConfigForm.get('temporaryProvinceCT').updateValueAndValidity();
+    this.userConfigForm.get('temporaryProvinceTrans').clearValidators();
+    this.userConfigForm.get('temporaryProvinceTrans').updateValueAndValidity();
+    this.userConfigForm.get('temporaryDistrictCT').clearValidators();
+    this.userConfigForm.get('temporaryDistrictCT').updateValueAndValidity();
+    this.userConfigForm.get('temporaryDistrictTrans').clearValidators();
+    this.userConfigForm.get('temporaryDistrictTrans').updateValueAndValidity();
+    this.userConfigForm.get('temporaryMunicipalityCT').clearValidators();
+    this.userConfigForm.get('temporaryMunicipalityCT').updateValueAndValidity();
+    this.userConfigForm.get('temporaryMunicipalityTrans').clearValidators();
+    this.userConfigForm.get('temporaryMunicipalityTrans').updateValueAndValidity();
+    this.userConfigForm.get('temporaryWardCT').clearValidators();
+    this.userConfigForm.get('temporaryWardCT').updateValueAndValidity();
+    this.userConfigForm.get('temporaryWardTrans').clearValidators();
+    this.userConfigForm.get('temporaryWardTrans').updateValueAndValidity();
+    this.userConfigForm.get('citizenshipIssueDistrictCT').clearValidators();
+    this.userConfigForm.get('citizenshipIssueDistrictCT').updateValueAndValidity();
+    this.userConfigForm.get('citizenshipIssueDistrictTrans').clearValidators();
+    this.userConfigForm.get('citizenshipIssueDistrictTrans').updateValueAndValidity();
+  }
+
+  private clearValidationForInstitutionalCustomer(): void {
+    this.userConfigForm.get('registrationNoCT').clearValidators();
+    this.userConfigForm.get('registrationNoCT').updateValueAndValidity();
+    this.userConfigForm.get('registeredMunTypeCT').clearValidators();
+    this.userConfigForm.get('registeredMunTypeCT').updateValueAndValidity();
+    this.userConfigForm.get('registeredProvinceCT').clearValidators();
+    this.userConfigForm.get('registeredProvinceCT').updateValueAndValidity();
+    this.userConfigForm.get('registeredDistrictCT').clearValidators();
+    this.userConfigForm.get('registeredDistrictCT').updateValueAndValidity();
+    this.userConfigForm.get('registeredMunicipalityTrans').clearValidators();
+    this.userConfigForm.get('registeredMunicipalityTrans').updateValueAndValidity();
+    this.userConfigForm.get('permanentWardCT').clearValidators();
+    this.userConfigForm.get('permanentWardCT').updateValueAndValidity();
+    this.userConfigForm.get('currentMunTypeCT').clearValidators();
+    this.userConfigForm.get('currentMunTypeCT').updateValueAndValidity();
+    this.userConfigForm.get('currentProvinceCT').clearValidators();
+    this.userConfigForm.get('currentProvinceCT').updateValueAndValidity();
+    this.userConfigForm.get('currentDistrictCT').clearValidators();
+    this.userConfigForm.get('currentDistrictCT').updateValueAndValidity();
+    this.userConfigForm.get('currentMunicipalityCT').clearValidators();
+    this.userConfigForm.get('currentMunicipalityCT').updateValueAndValidity();
+    this.userConfigForm.get('currentWardCT').clearValidators();
+    this.userConfigForm.get('currentWardCT').updateValueAndValidity();
   }
 
 
