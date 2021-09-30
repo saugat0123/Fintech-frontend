@@ -15,28 +15,31 @@
                 </td>
             </tr>
             <ng-container>
-                <tr *ngIf="customerLoan.loan.loanTag === loanTag.getKeyByValue(loanTag.REMIT_LOAN); else otherLoan">
+                <div *ngIf="customerLoan.loan.loanTag === loanTag.getKeyByValue(loanTag.REMIT_LOAN); else otherLoan">
                     <tr *ngIf="(customerLoan.remitCustomer.remitFilePathData | jsonParse).length < 1">
-                NO DOCUMENT available in this loan
-                </tr>
-                <tr>
-                    <td class="text-left">
-                        <div class="col-md-12 ">
-                            <div class="row">
-                                <div class="col-md-3 img-hover flex-wrap"
-                                     *ngFor="let data of ((customerLoan.remitCustomer.remitFilePathData | jsonParse));let i =index"
-                                     [nbTooltip]="data?.name">
-                                    <a (click)="service.openDocuments(data?.fullpath)" class="cursor"><em
-                                            [className]="service.SET_CLASS_NAME"></em>
-                                        <span class="mx-1"> {{data?.name?.length > 15 ?
-                                            data?.name?.substring(0, 12) + '..' :
-                                            data?.name}}</span></a>
+                        NO DOCUMENT available in this loan
+                    </tr>
+                    <tr *ngIf="customerLoan.loan.loanTag === loanTag.getKeyByValue(loanTag.REMIT_LOAN); else otherLoan">
+                        <td class="text-left">
+                            <div class="col-md-12 ">
+                                <div class="row">
+                                    <div class="col-md-3 img-hover flex-wrap"
+                                         *ngFor="let data of ((customerLoan.remitCustomer.remitFilePathData | jsonParse));let i =index"
+                                         [nbTooltip]="data?.name">
+                                        <a (click)="service.openDocuments(data?.fullpath)" class="cursor"><em
+                                                [className]="service.SET_CLASS_NAME"></em>
+                                            <span class="mx-1"> {{data?.name?.length > 15 ?
+                                                data?.name?.substring(0, 12) + '..' :
+                                                data?.name}}</span></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                </div>
+
+
                 <ng-template #otherLoan>
                     <tr *ngIf="customerLoan?.customerDocument?.length < 1">
                         NO DOCUMENT available in this loan
