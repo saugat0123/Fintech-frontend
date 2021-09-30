@@ -1,19 +1,20 @@
-<div class="container nep text-justify" >
-    <form [formGroup]="guarantorindividualGroup" class="nepali" id="print-section">
+<div class="container text-justify">
+    <form [formGroup]="guarantorindividualGroup" id="print-section">
         <div class="row" *ngFor="let guarantors of guarantorindividualGroup.get('individualGuarantors')['controls']; let i = index"
         formArrayName="individualGuarantors">
             <div class="col-md-12" [formGroupName]="i">
                     <div>
                         <h3><p style="text-align: center; font-size:18px"><strong>व्यक्तिगत जमानतको लिखत</strong></p></h3>
                     </div>
-                    <div class="nep align">
+                    <div class="guarantors-details">
                         <div>
                             <p>
                                 लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका बीणा मार्ग तीनधारा दरवारर्मा स्थित नबिल
                                 सेन्टरमा मूख्य कार्यालय रहि
-                                <input class="form-field form-control-sm num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="branchName"
                                     formControlName="branchName" placeholder="शाखा कार्यालय" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'branchName']).value}}</strong></span>
                                 मा शाखा कार्यालय रहेको नबिल बैंक लिमिटेड
                                 (जसलाई यस उप्रान्त "धनी बैंक" भनिएको छ ) को पक्षमा व्यक्तिगत जमानतको लिखत गरी दिने
                                 <strong>
@@ -22,55 +23,65 @@
                                 मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त <strong>"जमानतदिने"</strong>भनिएको छ आगे.
                             </p>
                             <p>
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="grandFatherName"
                                     formControlName="grandFatherName" placeholder="हजुरबुबा वा ससुराको नाम" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'grandFatherName']).value}}</strong></span>
                                 को नाति/नातिनीबुहारी
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="father_husbandName"
                                     formControlName="father_husbandName" placeholder="बुबा वा पतिको नाम" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'father_husbandName']).value}}</strong></span>
                                 को छोरा/छोरी/श्रीमती
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="district"
                                     formControlName="district" placeholder="जिल्ला" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'district']).value}}</strong></span>
                                 जिल्ला
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="VDCMunicipality"
                                     formControlName="VDCMunicipality" placeholder="गाउँ विकास वा नगरपालिका" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'VDCMunicipality']).value}}</strong></span>
                                 गा.वि.स./नगर वडा नं.
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="ward"
                                     formControlName="ward" placeholder="वार्ड" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'ward']).value}}</strong></span>
                                 बस्ने श्री
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="borrowerName"
                                     formControlName="borrowerName" placeholder="ऋण लिनेको नाम" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'borrowerName']).value}}</strong></span>
                             </p>
                             <p>
                                 (जसलाई यस उप्रान्त <strong>"ऋणी"</strong> भनिएको छ) लाई
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="loanPurpose"
                                     formControlName="loanPurpose" placeholder="ऋण उद्देश्य" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'loanPurpose']).value}}</strong></span>
                                 गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकबाट
                                 निज ऋणीको नाममा जारी भएको मिति
-                                <input class="form-field form-control-sm  num"
+                                <input class="form-field form-control-sm d-print-none"
                                     name="dateOfApproval"
                                     formControlName="dateOfApproval" placeholder="स्वीकृति जारी मिति" type="text"/>
+                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'dateOfApproval']).value}}</strong></span>
                                 को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग
                                 सुविधाहरु जम्मा रु.
-                                <input class="form-field form-control-sm "
+                                <input class="form-field form-control-sm d-print-none"
                                     name="loanAmount"
                                     formControlName="loanAmount"
                                     placeholder="ऋण रकम"
                                     value="{{nepaliNumber.numberNepali}}"
                                     type="text"/>
+                                    <span class="print-only"><strong>{{nepaliNumber.numberNepali}}</strong></span>
                                 (अक्षरेपी
-                                <input class="form-field form-control-sm "
+                                <input class="form-field form-control-sm d-print-none"
                                     name="loanAmountWords"
                                     formControlName="loanAmountWords"
                                     placeholder="ऋण रकम"
                                     value="{{nepaliNumber.nepaliWords}}"
                                     type="text"/>
+                                    <span class="print-only"><strong>{{nepaliNumber.nepaliWords}}</strong></span>
                                 तथा भविष्यमा उल्लिखित
                                 ऋणसिमा समय समयमा नविकरण गरी थप प्राप्त गरेमा सो समेतको सुरक्षण वापत तपाई धनी बैंकबाट
                                 माथवर/हैसियतवाल
@@ -111,17 +122,19 @@
                                     </td>
                                     <td>
                                         यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु.
-                                        <input class="form-field form-control-sm "
+                                        <input class="form-field form-control-sm d-print-none"
                                             name="gurantedAmount"
                                             formControlName="gurantedAmount"
                                             placeholder="ऋण रकम"
                                             type="text"/>
+                                            <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'gurantedAmount']).value}}</strong></span>
                                         (अक्षरेपी
-                                        <input class="form-field form-control-sm "
+                                        <input class="form-field form-control-sm d-print-none"
                                             name="guaranteAmountInWord"
                                             formControlName="guaranteAmountInWord"
                                             placeholder="ऋण रकम"
                                             type="text"/>
+                                            <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guaranteAmountInWord']).value}}</strong></span>
                                         ) मात्र) र सो मा नियमानुसार लाग्ने ब्याज, कमिसन, फी,
                                         शुल्क आदिमा सिमित हुनेछ ।
                                     </td>
@@ -326,72 +339,83 @@
                                             १.
                                         </td>
                                         <td>
-                                            __________________________________
                                             <p>
                                                 नाम:
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorName"
                                                     formControlName="guarantorName"
                                                     placeholder="ग्यारेन्टरको नाम"
                                                     type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorName']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 बाबु/श्रीमान :
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorFatherOrHusbandName"
                                                     formControlName="guarantorFatherOrHusbandName" placeholder="बाबु वा श्रीमानको नाम" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorFatherOrHusbandName']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 बाजे/ससुरा:
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorGrandFatherName"
                                                     formControlName="guarantorGrandFatherName" placeholder="बाजे वा ससुराको नाम" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorGrandFatherName']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 स्थायी ठेगाना :
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorPermanentDistrict"
                                                     formControlName="guarantorPermanentDistrict" placeholder="जिल्ला" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorPermanentDistrict']).value}}</strong></span>
                                                 जिल्ला
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorPermanentMunicipality"
                                                     formControlName="guarantorPermanentMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorPermanentMunicipality']).value}}</strong></span>
                                                 गा.वि.स./नगर,
                                                 वडा नं.
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorPermanentWard"
                                                     formControlName="guarantorPermanentWard" placeholder="वडा नं" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorPermanentWard']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 हालको ठेगाना :
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorTemporaryDistrict"
                                                     formControlName="guarantorTemporaryDistrict" placeholder="जिल्ला" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryDistrict']).value}}</strong></span>
                                                 जिल्ला
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorTemporaryMunicipality"
                                                     formControlName="guarantorTemporaryMunicipality" placeholder="गा.वि.स. वा नगर" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryMunicipality']).value}}</strong></span>
                                                 गा.वि.स./नगर,
                                                 वडा नं.
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorTemporaryWard"
                                                     formControlName="guarantorTemporaryWard" placeholder="वडा नं" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorTemporaryWard']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 ना.प्र.नं.
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorCitizenNumber"
                                                     formControlName="guarantorCitizenNumber" placeholder="ना प्र नं" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitizenNumber']).value}}</strong></span>
                                                 जारी गर्ने कार्यालय
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorCitzenIssuedPlace"
                                                     formControlName="guarantorCitzenIssuedPlace" placeholder="जारी गर्ने कार्यालय" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedPlace']).value}}</strong></span>
                                             </p>
                                             <p>
                                                 जारी मिति:
-                                                <input class="form-field form-control-sm  num"
+                                                <input class="form-field form-control-sm d-print-none"
                                                     name="guarantorCitzenIssuedDate"
                                                     formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति" type="text"/>
+                                                    <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'guarantorCitzenIssuedDate']).value}}</strong></span>
                                             </p>
                                         </td>
                                 </table>
@@ -399,21 +423,25 @@
                             <div>
                                 <p style="text-align:center">
                                     ईति सम्वत्
-                                    <input class="form-field form-control-sm nepaliFont num"
+                                    <input class="form-field form-control-sm nepaliFont d-print-none"
                                         name="year"
                                         formControlName="year" placeholder="साल" type="text"/>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value}}</strong></span>
                                     साल
-                                    <input class="form-field form-control-sm nepaliFont num"
+                                    <input class="form-field form-control-sm nepaliFont d-print-none"
                                         name="month"
                                         formControlName="month" placeholder="महिना" type="text"/>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value}}</strong></span>
                                     महिना
-                                    <input class="form-field form-control-sm nepaliFont num"
+                                    <input class="form-field form-control-sm nepaliFont d-print-none"
                                         name="day"
                                         formControlName="day" placeholder="गते" type="text"/>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value}}</strong></span>
                                     गते रोज
-                                    <input class="form-field form-control-sm nepaliFont num"
+                                    <input class="form-field form-control-sm nepaliFont d-print-none"
                                         name="date"
                                         formControlName="date" placeholder="दिन" type="text"/>
+                                        <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value}}</strong></span>
                                     शुभम् ।
                                 </p>
                             </div>
@@ -421,13 +449,13 @@
                     </div>
                     <div class="pageBreak"></div>
             </div>
-            <div class="row d-print-none">
+            <!-- <div class="row d-print-none">
                 <div class="col-sm-6 text-left">
                     <button nbButton status="danger" size="small" (click)="removeIndividualGuarantors(i)">
                         <em class="fa fa-trash" style="color: white;"></em>
                     </button>
                 </div>
-            </div>
+            </div> -->
             <hr class ="d-print-none mt-2 mb-2 w-100 "/>
         </div>
         <!-- <div *ngIf="guarantorindividualGroup.get('individualGuarantors')['length'] > 0" class="row d-print-none">
@@ -442,12 +470,12 @@
         </div>
     </form>
     <div class="row mt-5 ml-0">
-        <div class="col-md-6 text-left">
+        <!-- <div class="col-md-6 text-left">
             <button nbButton status="primary" (click)="refreshGuarantors()" outline title="Refresh Data" size="small">
                 <i class="fas fa-sync-alt"></i>
             </button>
-        </div>
-        <div class="col-md-6 text-right">
+        </div> -->
+        <div class="col-md-12 text-right">
             <button [useExistingCss]="true" class="d-print-none" printSectionId="print-section"
                 nbButton size="small" status="info" outline ngxPrint>Print &nbsp;&nbsp;
                 <em class="fa fa-print" style="color: rgb(47, 3, 168);"></em>
@@ -455,4 +483,4 @@
         </div>
     </div>
 </div>
-<!-- <app-personal-guarantee-individual-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden></app-personal-guarantee-individual-print> -->
+<!-- <app-personal-guarantee-individual-print *ngIf="initialInfoPrint" [letterData]="this.guarantorindividualGroup.get('individualGuarantors')" hidden></app-personal-guarantee-individual-print> -->
