@@ -10,7 +10,7 @@
   <nb-card-body>
     <form [formGroup]="userConfigForm">
       <nb-tabset (changeTab)="onChangeTab($event)">
-        <nb-tab tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
+        <nb-tab *ngIf="!hideCustomer" tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
                 [disabled]="!activeCustomerTab"
                 [nbSpinner]="spinner"
                 #personal>

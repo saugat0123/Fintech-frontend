@@ -131,13 +131,14 @@
 
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
         <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
-        <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model.id)"><em class="fa fa-edit"></em></button></td>
+        <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model.id)"><em class="fa fa-edit"></em></button>
+          <button nbButton status="warning" size="tiny"
+                  (click)="applyLoan(model.id)">
+            <em class="fa fa-plus-circle"></em></button>
+          </td>
 <!--        <td *ngIf="transferCustomer">-->
 <!--          <div>-->
-<!--            <button nbButton status="warning" size="tiny"-->
-<!--                    (click)="onTransferClick(transferCust, model)">-->
-<!--              <em class="fa fa-arrow-circle-right"></em></button>-->
-<!--          </div>-->
+
 
 <!--        </td>-->
       </tr>

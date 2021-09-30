@@ -450,6 +450,27 @@ export class CustomerComponent implements OnInit {
     }
 
     editCustomerOrCheckEditable(id: number) {
+        console.log(id);
+        this.cadOneFormService.getCustomerInfo(id).subscribe(resp => {
+            console.log(resp);
+            this.dialogService.open(CadOfferLetterConfigurationComponent, {
+                context: {
+                    customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,
+                    customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
+                    loanHolder: resp.detail.loanHolder,
+                    oneFormCustomer: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
+                    actionType: 'Edit',
+                    activeLoanTab: false,
+                    customerSubType: resp.detail.loanHolder.customerSubType,
+                    hideLoan: true
+                },
+                hasBackdrop: false,
+                dialogClass: 'model-full',
+            });
+        });
+    }
+
+    applyLoan(id: number): void {
         this.cadOneFormService.getCustomerInfo(id).subscribe(resp => {
             console.log(resp);
             this.dialogService.open(CadOfferLetterConfigurationComponent, {
@@ -461,12 +482,12 @@ export class CustomerComponent implements OnInit {
                     actionType: 'Edit',
                     activeLoanTab: true,
                     customerSubType: resp.detail.loanHolder.customerSubType,
-                    hideLoan: true
+                    hideLoan: false,
+                    hideCustomer: true,
                 },
                 hasBackdrop: false,
                 dialogClass: 'model-full',
             });
         });
     }
-
 }

@@ -61,6 +61,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   activeLoanTab = false;
   @Input()
   hideLoan = false;
+  @Input()
+  hideCustomer = false;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
   branchList: Array<Branch> = new Array<Branch>();
@@ -141,6 +143,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.activeLoanTab){
+      this.responseData = this.loanHolder;
+    }
     this.addressService.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -1809,28 +1814,28 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
 
   private editedTransData(): void {
-    this.userConfigForm.get('branchTrans').patchValue(this.nepData.branch.np);
-    this.userConfigForm.get('nameTrans').patchValue(this.nepData.name.np);
-    this.userConfigForm.get('emailTrans').patchValue(this.nepData.email.np);
-    this.userConfigForm.get('contactNoTrans').patchValue(this.nepData.contactNo.np);
-    this.userConfigForm.get('panNoTrans').patchValue(this.nepData.panNo.np);
-    this.userConfigForm.get('customerCodeTrans').patchValue(this.nepData.customerCode.np);
-    this.userConfigForm.get('genderTrans').patchValue(this.nepData.gender.np);
+    this.userConfigForm.get('branchTrans').patchValue(ObjectUtil.isEmpty(this.nepData.branch) ? undefined : this.nepData.branch.np);
+    this.userConfigForm.get('nameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.name) ? undefined : this.nepData.name.np);
+    this.userConfigForm.get('emailTrans').patchValue(ObjectUtil.isEmpty(this.nepData.email) ? undefined : this.nepData.email.np);
+    this.userConfigForm.get('contactNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.contactNo) ? undefined : this.nepData.contactNo.np);
+    this.userConfigForm.get('panNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.panNo) ? undefined : this.nepData.panNo.np);
+    this.userConfigForm.get('customerCodeTrans').patchValue(ObjectUtil.isEmpty(this.nepData.customerCode) ? undefined : this.nepData.customerCode.np);
+    this.userConfigForm.get('genderTrans').patchValue(ObjectUtil.isEmpty(this.nepData.gender) ? undefined : this.nepData.gender.np);
     this.userConfigForm.get('fatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.np);
     this.userConfigForm.get('grandFatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.np);
     this.userConfigForm.get('relationMediumTrans').patchValue(ObjectUtil.isEmpty(this.nepData.relationMedium) ? undefined : this.nepData.relationMedium.np);
     this.userConfigForm.get('husbandNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.husbandName) ? undefined : this.nepData.husbandName.np);
     this.userConfigForm.get('fatherInLawNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherInLawName) ? undefined : this.nepData.fatherInLawName.np);
-    this.userConfigForm.get('citizenshipNoTrans').patchValue(this.nepData.citizenshipNo.np);
-    this.userConfigForm.get('permanentProvinceTrans').patchValue(this.nepData.permanentProvince.np);
-    this.userConfigForm.get('permanentDistrictTrans').patchValue(this.nepData.permanentDistrict.np);
-    this.userConfigForm.get('permanentMunicipalityTrans').patchValue(this.nepData.permanentMunicipality.np);
-    this.userConfigForm.get('temporaryProvinceTrans').patchValue(this.nepData.temporaryProvince.np);
-    this.userConfigForm.get('temporaryDistrictTrans').patchValue(this.nepData.temporaryDistrict.np);
-    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(this.nepData.temporaryMunicipality.np);
-    this.userConfigForm.get('permanentWardTrans').patchValue(this.nepData.permanentWard.np);
-    this.userConfigForm.get('temporaryWardTrans').patchValue(this.nepData.temporaryWard.np);
-    this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(this.nepData.citizenshipIssueDistrict.np);
+    this.userConfigForm.get('citizenshipNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipNo) ? undefined : this.nepData.citizenshipNo.np);
+    this.userConfigForm.get('permanentProvinceTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentProvince) ? undefined : this.nepData.permanentProvince.np);
+    this.userConfigForm.get('permanentDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentDistrict) ? undefined : this.nepData.permanentDistrict.np);
+    this.userConfigForm.get('permanentMunicipalityTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentMunicipality) ? undefined : this.nepData.permanentMunicipality.np);
+    this.userConfigForm.get('temporaryProvinceTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryProvince) ? undefined : this.nepData.temporaryProvince.np);
+    this.userConfigForm.get('temporaryDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryDistrict) ? undefined : this.nepData.temporaryDistrict.np);
+    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryMunicipality) ? undefined : this.nepData.temporaryMunicipality.np);
+    this.userConfigForm.get('permanentWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined : this.nepData.permanentWard.np);
+    this.userConfigForm.get('temporaryWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryWard) ? undefined : this.nepData.temporaryWard.np);
+    this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.np);
 
   }
 
