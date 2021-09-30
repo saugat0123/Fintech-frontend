@@ -69,55 +69,56 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         }
         // this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        console.log('this.loanAmountTemplate', this.loanAmountTemplate);
-        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         this.checkOfferLetter();
     }
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         let allGuarantors = '';
-        (JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData).guarantorDetails).forEach(guarantor => {
-            allGuarantors = allGuarantors + guarantor.name + ', ';
-        });
-        allGuarantors = allGuarantors.slice(0, -2);
-
-
-        const customerAddress =
-            this.nepaliData.permanentMunicipality + ' वडा नं. ' +
-            this.nepaliData.permanentWard + ' , ' +
-            this.nepaliData.permanentDistrict;
-        const customerTempAddress =
-            this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
-            this.nepaliData.temporaryWard + ' , ' +
-            this.nepaliData.temporaryDistrict;
+        if (!ObjectUtil.isEmpty(this.nepaliData)) {
+            (this.nepaliData.guarantorDetails).forEach(guarantor => {
+                allGuarantors = allGuarantors + guarantor.name + ', ';
+            });
+            allGuarantors = allGuarantors.slice(0, -2);
+            allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
+            const customerAddress =
+                this.nepaliData.permanentMunicipality + ' वडा नं. ' +
+                this.nepaliData.permanentWard + ' , ' +
+                this.nepaliData.permanentDistrict;
+            const customerTempAddress =
+                this.nepaliData.temporaryMunicipality + ' वडा नं. ' +
+                this.nepaliData.temporaryWard + ' , ' +
+                this.nepaliData.temporaryDistrict;
+            this.form.patchValue({
+                customerName: this.nepaliData.name ? this.nepaliData.name : '',
+                customerAddress: customerAddress ? customerAddress : '',
+                customerTemporaryAddress: customerTempAddress ? customerTempAddress : '',
+                customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+                customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+                signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+                signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+                signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+                signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+                temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+                temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
+                shreeName1: allGuarantors ? allGuarantors : '',
+            });
+            this.setGuarantors(this.nepaliData.guarantorDetails);
+            this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
+        }
         this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
         this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
         this.form.patchValue({
-            customerName: this.nepaliData.name ? this.nepaliData.name : '',
-            customerAddress: customerAddress ? customerAddress : '',
-            customerTemporaryAddress: customerTempAddress ? customerTempAddress : '',
-            customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-            customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-            customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-            signatoryCitizenshipNum: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-            signatoryCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-            signatoryCitizenshipIssuePlace: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-            signatoryParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-            signatoryGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-            temporaryMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-            temporaryWardNum: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-            temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-            shreeName1: allGuarantors ? allGuarantors : '',
             dhitoLekhi: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
             shreeAmount: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
             shreeAmountInWord: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : '',
             amount2: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
             amountInWords2: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
         });
-        this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
-        this.setGuarantors(this.nepaliData.guarantorDetails);
-        this.addEmptySecurityDetail();
+
     }
 
     checkOfferLetter() {
@@ -126,18 +127,18 @@ export class OfferLetterPersonalComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER_PERSONAL);
-            if (this.loanAmountTemplate) {
-                this.fillForm();
-            }
+            this.fillForm();
+            this.addEmptySecurityDetail();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
-            this.setEmptyGuarantors(initialInfo.guarantorDetails);
-            this.setGuarantors(initialInfo.guarantors);
+            // this.setEmptyGuarantors(initialInfo.guarantorDetails);
+            // this.setGuarantors(initialInfo.guarantors);
             this.setSecurityDetails(initialInfo.securityDetails);
             this.setLoanFacility(initialInfo.loanFacilityTable);
             this.form.patchValue(initialInfo);
+            this.fillForm();
         }
     }
 
