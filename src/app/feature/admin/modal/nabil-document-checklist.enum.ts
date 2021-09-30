@@ -3,4 +3,5 @@ export enum NabilDocumentChecklist {
     LOAN_DEED_INDIVIDUAL = '1051',
     PERSONAL_GUARANTEE_INDIVIDUAL = '1052',
     LETTER_OF_SET_OFF = '1053',
+    PROMISSORY_LETTER_COMPANY = '1054',
 }
