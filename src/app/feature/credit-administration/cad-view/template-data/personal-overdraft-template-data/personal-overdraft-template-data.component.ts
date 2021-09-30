@@ -14,6 +14,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-personal-overdraft-template-data',
@@ -35,6 +36,8 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
   tdValues: any = {};
   translatedData;
   previewBtn = true;
+  selectedSecurityVal: any;
+  valueSelected = false;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -50,6 +53,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      selectedSecurity: [undefined],
       loanLimitChecked: [undefined],
       referenceNumber: [undefined],
       dateofApproval: [undefined],
@@ -120,6 +124,7 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
       wardNumTransVal: [undefined],
       witnessNameTransVal: [undefined],
       staffNameTransVal: [undefined],
+      selectedSecurityTransVal: [undefined],
     });
   }
 
@@ -207,4 +212,12 @@ export class PersonalOverdraftTemplateDataComponent implements OnInit {
     });
   }
 
+  transferValue() {
+    const security = this.form.get('selectedSecurity').value;
+    console.log('Security Value : ', security);
+    if (!ObjectUtil.isEmpty(security)) {
+      this.selectedSecurityVal = security;
+      this.valueSelected = true;
+    }
+  }
 }

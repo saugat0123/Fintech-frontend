@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-hire-purchase-template-data',
@@ -13,6 +14,8 @@ export class HirePurchaseTemplateDataComponent implements OnInit {
   translatedValues: any = {};
   form: FormGroup;
   spinner = false;
+  selectedSecurity;
+  selectedFlag = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -66,6 +69,7 @@ export class HirePurchaseTemplateDataComponent implements OnInit {
       witnessWardNo: [undefined],
       witnessName: [undefined],
       approvalStaffName: [undefined],
+      selectedSecurity: [undefined],
     });
   }
 
@@ -83,5 +87,13 @@ export class HirePurchaseTemplateDataComponent implements OnInit {
 
   submit() {
 
+  }
+
+  transferValue() {
+    const selectedData = this.form.get('selectedSecurity').value;
+    if (!ObjectUtil.isEmpty(selectedData)) {
+      this.selectedSecurity = selectedData;
+      this.selectedFlag = true;
+    }
   }
 }

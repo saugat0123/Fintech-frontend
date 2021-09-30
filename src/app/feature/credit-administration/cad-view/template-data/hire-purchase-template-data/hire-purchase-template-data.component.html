@@ -1,6 +1,19 @@
 <div>
     <form (ngSubmit)="submit()" [formGroup]="form">
-        <table class="table table-borderless table-hover text-center sb-small table-sm">
+        <div class="col-md-4">
+            <label><strong>Select Security</strong></label>
+            <nb-select
+                    fullWidth
+                    placeholder="Select Security Type"
+                    formControlName="selectedSecurity"
+                    (selectedChange)="transferValue()"
+                    status="info">
+                <nb-option value="LAND">Land</nb-option>
+                <nb-option value="LAND_BUILDING">Land And Building</nb-option>
+                <nb-option value="LAND_BUILDING">Without Collateral</nb-option>
+            </nb-select>
+        </div>
+        <table *ngIf="selectedFlag" class="table table-borderless table-hover text-center sb-small table-sm">
             <tr>
                 <th colspan="2">Loan Data</th>
                 <th>Nepali Translation</th>

@@ -1,14 +1,14 @@
-<nb-select
-        fullWidth
-        placeholder="Select Offer Letter"
-        [(ngModel)]="offerLetterSelect"
-        status="info">
-    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">
-        {{i.key | replace:'_':' ' }}
-    </nb-option>
-</nb-select>
+<!--<nb-select-->
+<!--        fullWidth-->
+<!--        placeholder="Select Offer Letter"-->
+<!--        [(ngModel)]="offerLetterSelect"-->
+<!--        status="info">-->
+<!--    <nb-option *ngFor="let i of offerLetterTypes" [value]="i.value">-->
+<!--        {{i.key | replace:'_':' ' }}-->
+<!--    </nb-option>-->
+<!--</nb-select>-->
 
-<nb-card *ngIf="offerLetterSelect === offerLetterConst.SME" [nbSpinner]="spinner">
+<nb-card [nbSpinner]="spinner">
     <nb-card-body>
         <form (ngSubmit)="submit()" [formGroup]="form">
             <table class="table table-borderless table-hover text-center sb-small table-sm">
@@ -47,7 +47,7 @@
                 <tr>
                     <td>Customer Address</td>
                     <td><input type="text" class="form-control" formControlName="customerAddress"></td>
-                    <td class="abc">{{translatedValues?.customerAddress}}">
+                    <td class="abc">{{translatedValues?.customerAddress}}
                     </td>
                     <td>
                          <nb-checkbox (change)="checkboxVal($event, 'customerAddress')"></nb-checkbox>
@@ -78,7 +78,7 @@
                          <nb-checkbox (change)="checkboxVal($event, 'loanAmount')"></nb-checkbox>
                     </td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['ownersNameCheck']" formControlName="ownersNameTransVal"/>
+                        <input type="text" class="form-control nepaliFont" [readOnly]="!this['ownersNameCheck']" formControlName="loanAmountTransVal"/>
                     </td>
                 </tr>
                 <tr>
