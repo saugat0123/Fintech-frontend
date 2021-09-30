@@ -85,6 +85,7 @@ export class LoanDeedCompanyComponent implements OnInit {
       yearinFigure: [undefined],
       month: [undefined],
       date: [undefined],
+      days: [undefined],
     });
   }
   submit() {

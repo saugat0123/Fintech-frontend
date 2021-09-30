@@ -102,28 +102,28 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                    <td><input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="facilityName"
                                                formControlName="facilityName"
                                                placeholder=""
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="loanAmount"
                                                formControlName="loanAmount"
                                                placeholder=""
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="interest"
                                                formControlName="interest"
                                                placeholder=""
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="expiryDate"
                                                formControlName="expiryDate"
                                                placeholder=""
@@ -131,14 +131,14 @@
                                     </td>
                                 </tr>
                                 </tbody>
-                            </table>
-                            <P>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.<input class="form-field form-control-sm nepaliFont disable-print col-9"
+                            </table><br>
+                            <P>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.<input class="form-field form-control-sm outside disable-print col-2"
                                                                          (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                                                          name="loanamountinFigure"
                                                                          formControlName="loanamountinFigure"
                                                                          placeholder="ऋण रकम"
-                                                                         type="text"/>
-                                । (अक्षरेपी <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                                                         type="text"/>। <br>
+                                (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                                    name="loanamountinWords"
                                                    formControlName="loanamountinWords"
                                                    placeholder="रकम"
@@ -159,21 +159,21 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                    <td><input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="propertyOwnerName"
                                                formControlName="propertyOwnerName"
                                                placeholder=""
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="district"
                                                formControlName="district"
                                                placeholder=""
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="vdc"
                                                formControlName="vdc"
                                                placeholder=""
@@ -187,14 +187,14 @@
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="plotNo"
                                                formControlName="plotNo"
                                                placeholder=""
                                                type="text"/>
                                     </td>
                                     <td>
-                                        <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                        <input class="form-field form-control-sm nepaliFont disable-print col-6"
                                                name="area"
                                                formControlName="area"
                                                placeholder=""
@@ -204,27 +204,33 @@
                                 </tbody>
                             </table>
 
-                            <label>free text</label>
+                            <label> </label>
                             <textarea id="freetext" name="freetext"
                                       rows="5" cols="33">
                                     For Example Vechicle detail/Excess Amount Clause
                             </textarea><br>
 
-                            <p class="text-center"><b> ईति सम्वत्  <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                            <p class="text-center"><b> ईति सम्वत्
+                                <input class="form-field form-control-sm outside disable-print col-2"
                                                                           name="yearinFigure "
                                                                           formControlName="yearinFigure"
                                                                           placeholder=""
                                                                           type="text"/>
-                                साल <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                साल <input class="form-field form-control-sm outside disable-print col-2"
                                            name="month "
                                            formControlName="month"
                                            placeholder=""
-                                           type="text"/>
-                                महिना <input class="form-field form-control-sm nepaliFont disable-print col-9"
+                                           type="text"/><br>
+                                महिना <input class="form-field form-control-sm outside disable-print col-2"
                                              name="date"
                                              formControlName="date"
                                              placeholder=""
-                                             type="text"/> गते रोज Days शुभम् </b></p>
+                                             type="text"/><br>
+                                गते रोज <input class="form-field form-control-sm outside disable-print col-2"
+                                                                              name="days"
+                                                                              formControlName="days"
+                                                                              placeholder=""
+                                                                              type="text"/> शुभम् </b></p>
 
 
                         </div>

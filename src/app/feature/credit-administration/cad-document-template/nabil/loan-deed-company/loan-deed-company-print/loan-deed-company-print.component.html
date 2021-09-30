@@ -176,7 +176,10 @@
                         महिना <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.date !== null && letterData?.date !== ''}">
                             {{letterData?.date === null || letterData?.date === '' ? '___________' : letterData?.date}}</span>
-                        गते रोज Days शुभम् </b></p>
+                        गते रोज <span
+                                [ngClass]="{'nepaliFont outside' : letterData?.days !== null && letterData?.days !== ''}">
+                            {{letterData?.days === null || letterData?.days === '' ? '___________' : letterData?.days}}</span>
+                         शुभम् </b></p>
 
 
                 </div>
