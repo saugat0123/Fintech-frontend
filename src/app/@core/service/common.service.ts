@@ -21,6 +21,17 @@ export class CommonService {
             link.click();
         }
     }
+    public openDocuments(file) {
+        let fileName = file;
+        if (file !== null) {
+            fileName = `${file}?${Math.floor(Math.random() * 100) + 1}`;
+
+            const link = document.createElement('a');
+            link.href = fileName;
+            link.target = '_blank';
+            link.click();
+        }
+    }
 
 
     public download(url: string, name: string): void {
