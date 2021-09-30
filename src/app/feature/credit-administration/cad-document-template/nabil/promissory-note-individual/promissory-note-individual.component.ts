@@ -93,6 +93,13 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     });
   }
   fillform() {
+    let totalLoan = 0;
+    this.cadData.assignedLoan.forEach(val => {
+      const proposedAmount = val.proposal.proposedLimit;
+      totalLoan = totalLoan + proposedAmount;
+    });
+    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
     this.form.patchValue(
         {
           nameofBranchLocated: this.individualData.branch.ct,
@@ -105,6 +112,8 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           wardNo: this.individualData.permanentWard.ct,
           vdc: this.individualData.permanentMunicipality.ct,
           district: this.individualData.permanentDistrict.ct,
+          loanamountinFigure: finalAmount,
+          loanamountinWords: loanAmountWord
         }
     );
   }
