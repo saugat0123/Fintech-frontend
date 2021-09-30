@@ -3,6 +3,7 @@ import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Comments} from '../../admin/modal/comments';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-previous-security',
@@ -21,7 +22,8 @@ export class PreviousSecurityComponent implements OnInit {
     securityDataObject = new Comments();
     checked = false;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private overlay: NgxSpinnerService) {
     }
 
     ngOnInit() {
@@ -56,6 +58,7 @@ export class PreviousSecurityComponent implements OnInit {
     }
 
     submitForm() {
+        this.overlay.show();
         this.submitted = true;
         if (!ObjectUtil.isEmpty(this.securityDataResponse)) {
             this.securityDataObject = this.securityDataResponse;

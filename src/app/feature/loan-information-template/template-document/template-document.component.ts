@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {DmsLoanFileComponent} from '../../loan/component/loan-main-template/dms-loan-file/dms-loan-file.component';
+import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
   selector: 'app-template-document',
@@ -22,7 +23,8 @@ export class TemplateDocumentComponent implements OnInit {
   checked = false;
 
   constructor(private customerInfoService: CustomerInfoService,
-              private toast: ToastService) {
+              private toast: ToastService,
+              private loanService: LoanFormService) {
   }
 
   ngOnInit() {
@@ -59,9 +61,13 @@ export class TemplateDocumentComponent implements OnInit {
   }
 
   deleteDocument(): void {
-    delete this.pathValue;
-    this.docPathEmitter.emit(this.pathValue);
-    this.checked = false;
+    this.loanService.deleteCustomerDocFromSystem(this.pathValue).subscribe((res: any) => {
+      delete this.pathValue;
+      this.docPathEmitter.emit(this.pathValue);
+      this.checked = false;
+    }, error => {
+      this.toast.show(new Alert(AlertType.WARNING, 'Unable to delete document!'));
+    });
   }
 
 }

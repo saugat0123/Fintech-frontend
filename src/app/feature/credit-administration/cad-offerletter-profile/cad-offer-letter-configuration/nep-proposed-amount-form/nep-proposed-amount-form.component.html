@@ -10,12 +10,11 @@
                            formControlName="engNumber"/>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" placeholder="मिति"
-                           [ngClass]="{'is-invalid': submitted && nepFormControls.initDate.errors}"
+                    <input [ngClass]="{'is-invalid': submitted && nepFormControls.initDate.errors}"
+                           type="text"
+                           placeholder="मिति"
                            class="form-control form-control-sm nepaliFont" formControlName="initDate"/>
                 </div>
-
-
             </div>
             <hr>
             <div class="col-md-12">

@@ -40,6 +40,7 @@ import {PreviousSecurity} from '../../../admin/modal/previousSecurity';
 import {PreviousSecurityComponent} from '../../../loan-information-template/previous-security/previous-security.component';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroCrgParams} from '../../../loan/model/MicroCrgParams';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -151,11 +152,13 @@ export class CustomerLoanInformationComponent implements OnInit {
     clientName = Clients;
     checkedPreviousSecurity = false;
     checkedPreviousComments = false;
-
+    spinner = false;
+    submittedCheck: boolean;
 
     constructor(
         private toastService: ToastService,
-        private customerInfoService: CustomerInfoService
+        private customerInfoService: CustomerInfoService,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -248,11 +251,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.siteVisit.data = data;
         this.customerInfoService.saveLoanInfo(this.siteVisit, this.customerInfoId, TemplateName.SITE_VISIT)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
                 this.itemSiteVisit.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
             });
     }
@@ -264,11 +269,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.financial.data = data;
         this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
                 this.itemFinancial.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
             });
     }
@@ -282,6 +289,7 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.security.totalSecurityAmount = data.totalSecurityAmount;
             this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
                 .subscribe(() => {
+                    this.overlay.hide();
                     this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
                     if (!ObjectUtil.isEmpty(data.share)) {
                         this.saveShare(data);
@@ -290,9 +298,12 @@ export class CustomerLoanInformationComponent implements OnInit {
                         this.itemSecurity.close();
                     }
                 }, error => {
+                    this.submittedCheck = false;
                     console.error(error);
+                    this.overlay.hide();
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
                 });
+            console.log('submittedCheck', this.submittedCheck);
         }
     }
 
@@ -303,9 +314,11 @@ export class CustomerLoanInformationComponent implements OnInit {
                 this.itemSecurity.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
+                this.submittedCheck = false;
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
             });
+        console.log('submittedCheck', this.submittedCheck);
     }
 
     saveGuarantor(data: GuarantorDetail) {
@@ -315,11 +328,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.guarantors = data;
         this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
                 this.itemGuarantor.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
             });
     }
@@ -331,11 +346,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.insurance = data;
         this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
                 this.itemInsurance.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
             });
     }
@@ -395,11 +412,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.ciclResponse = data;
         this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
                 this.itemCicl.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
             });
     }
@@ -411,11 +430,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.incomeFromAccountDataResponse = data;
         this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Income From Account!'));
                 this.itemIncomeFromAccount.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
             });
     }
@@ -427,11 +448,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.netTradingAssets = data;
         this.customerInfoService.saveLoanInfo(this.netTradingAssets, this.customerInfoId, TemplateName.NET_TRADING_ASSETS)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Net Trading Assets!'));
                 this.itemNetTradingAssets.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Net Trading Assets)!'));
             });
     }
@@ -443,11 +466,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.creditChecklistGeneral = data;
         this.customerInfoService.saveLoanInfo(this.creditChecklistGeneral, this.customerInfoId, TemplateName.CREDIT_CHECKlIST)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Checklist!'));
                 this.itemloanChecklist.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Credit Checklist!'));
             });
     }
@@ -475,11 +500,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.borrowerPortfolio = data;
         this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.BORROWER_PORTFOLIO)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
                 this.loanPortfolio.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
             });
     }
@@ -491,11 +518,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.microBorrowerFinancial = data;
         this.customerInfoService.saveLoanInfo(this.microBorrowerFinancial, this.customerInfoId, TemplateName.BASEL_RISK_EXPOSURE)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Basel Wise Risk Exposure!'));
                 this.baselRiskAccordion.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Basel Wise Risk Exposure!'));
             });
     }
@@ -507,11 +536,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.borrowerPortfolio = data;
         this.customerInfoService.saveLoanInfo(this.borrowerPortfolio, this.customerInfoId, TemplateName.MICRO_BORROWER_FINANCIAL)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Borrower Portfolio!'));
                 this.borrowerFinancialHighlight.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save  Borrower Portfolio!'));
             });
     }
@@ -571,11 +602,13 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.commentsDataResponse = data;
         this.customerInfoService.saveLoanInfo(this.commentsDataResponse, this.customerInfoId, TemplateName.COMMENTS)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Comments!'));
                 this.commentsFromAccount.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Comments)!'));
             });
     }
@@ -587,12 +620,18 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.securityDataResponse = data;
         this.customerInfoService.saveLoanInfo(this.securityDataResponse, this.customerInfoId, TemplateName.PREVIOUS_SECURITY)
             .subscribe(() => {
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Previous Security'));
                 this.dataFromPreviousSecurity.close();
                 this.triggerCustomerRefresh.emit(true);
             }, error => {
                 console.error(error);
+                this.overlay.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Previous Security'));
             });
+    }
+
+    submittedCheck1(event) {
+        this.submittedCheck = event;
     }
 }

@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Insurance} from '../../admin/modal/insurance';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {InsuranceList} from '../../loan/model/insuranceList';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-insurance',
@@ -24,7 +25,8 @@ export class InsuranceComponent implements OnInit {
     assetsInsured = ['Stock', 'Building & Construction', 'Machineries/Equipment', 'Vehicle', 'Other'];
 
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private overlay: NgxSpinnerService
     ) {
     }
 
@@ -57,8 +59,10 @@ export class InsuranceComponent implements OnInit {
                 company: [ObjectUtil.setUndefinedIfNull(data.company)],
                 insuredAmount: [ObjectUtil.setUndefinedIfNull(data.insuredAmount)],
                 premiumAmount: [ObjectUtil.setUndefinedIfNull(data.premiumAmount)],
-                issuedDate: [data.issuedDate],
-                expiryDate: [data.expiryDate],
+                issuedDate: [ObjectUtil.isEmpty(data.issuedDate) ?
+                    undefined : new Date(data.issuedDate)],
+                expiryDate:  [ObjectUtil.isEmpty(data.expiryDate) ?
+                    undefined : new Date(data.expiryDate)],
                 policyType: [ObjectUtil.setUndefinedIfNull(data.policyType)],
                 policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber)],
                 policyDocumentPath: [ObjectUtil.setUndefinedIfNull(data.policyDocumentPath)],
@@ -76,6 +80,7 @@ export class InsuranceComponent implements OnInit {
 
 
     submit() {
+        this.overlay.show();
         this.isSubmitted = true;
         const formArray = this.form.get('formArray') as FormArray;
         formArray['controls'].forEach((data => {

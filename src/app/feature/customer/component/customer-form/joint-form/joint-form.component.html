@@ -680,20 +680,6 @@
                                                                </div>
                                                            </div>
                                                        </div>
-                                                       <div class="col-md-2">
-                                                           <div class="form-group">
-                                                               <label for="age1{{i}}"><strong>Age</strong></label>
-                                                               <input class="form-control"
-                                                                      formControlName="age"
-                                                                      id="age1{{i}}"
-                                                                      name="age1{{i}}"
-                                                                      type="number"
-                                                                      [ngClass]="{'is-invalid': (submitted) && joinCustomerInfo.get(['customerRelations',ii,'age']).errors}">
-                                                               <div *ngIf="submitted && joinCustomerInfo.get(['customerRelations',ii,'age']).errors" class="small text-danger">
-                                                                   Age is required
-                                                               </div>
-                                                           </div>
-                                                       </div>
                                                        <div *ngIf="joinCustomerInfo.get('customerRelations')['length']>1" class="col-md-3 float-right">
                                                            <button (click)="removeRelation(i,ii)"
                                                                    class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"

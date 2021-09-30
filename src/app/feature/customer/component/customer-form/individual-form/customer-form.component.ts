@@ -164,7 +164,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                age: [undefined, Validators.required],
                 version: [0]
             })
         );
@@ -252,6 +251,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
@@ -263,28 +263,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
             } else {
-                if (this.client !== this.clientName.SHINE_RESUNGA) {
-                    const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
-                    ageControl.controls.filter(f => {
-                        f.get('age').clearValidators();
-                        f.get('age').updateValueAndValidity();
-                    });
-                }
+
                 if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
                     this.spinner = false;
                     return;
                 }
-                if (this.microCustomer) {
-                    this.microIndividualFormComponent.onSubmit();
-                    if (this.microIndividualFormComponent.microCustomerForm.invalid) {
-                        this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
-                        return;
-                    }
-                }
+
                 {
-                    this.spinner = true;
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
@@ -473,7 +460,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                age: [undefined, Validators.required],
                 version: [undefined]
             }));
         });
@@ -500,8 +486,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [singleRelatives.citizenshipNumber],
                 citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
-                age: [singleRelatives.age, Validators.required]
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore]
             }));
         });
     }

@@ -26,6 +26,7 @@ import {
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-financial',
@@ -189,6 +190,7 @@ export class FinancialComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
                 private modalService: NgbModal,
+                private overlay: NgxSpinnerService,
                 private activatedRoute: ActivatedRoute) {
     }
 
@@ -267,7 +269,7 @@ export class FinancialComponent implements OnInit {
             emiWithProposal: [undefined, !this.disableCrgAlphaParams && !this.isBusinessLoan ? Validators.required : undefined],
             emiGrossMonthly: [undefined],
             emiNetMonthly: [undefined],
-            note: [undefined],
+            remark: [undefined],
 
             existingObligationOtherBank: [undefined],
             totalObligationCurrentBank: [undefined],
@@ -614,6 +616,7 @@ export class FinancialComponent implements OnInit {
     }
 
     onSubmit() {
+        this.overlay.show().then(r => console.log('Income & Expenses data submitted.') );
         this.submitted = true;
         switch (this.activeTab) {
             case 'Income Statement':
@@ -632,6 +635,7 @@ export class FinancialComponent implements OnInit {
             this.financialData = this.formData;
         }
         if (this.financialForm.invalid) {
+            this.overlay.hide().then(r => console.log('Income & Expenses data submitted.')) ;
             return;
         }
         this.calculateAndSetHighestScore();

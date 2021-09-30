@@ -52,6 +52,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     loanTag = LoanTag;
     summaryType = environment.summaryType;
     summaryTypeName = SummaryType;
+    spinner=false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -119,8 +120,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.sendBackward = false;
         this.actionsList.rejected = false;
         this.actionsList.closed = false;
+        this.spinner=true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
+            this.spinner=false;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
 
@@ -148,8 +151,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
             this.actionsList.loanApproveStatus = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
 
             if (this.user.role.roleName !== 'admin') {
+                this.spinner=true;
                 await this.loanActionService.getSendForwardList().subscribe((res: any) => {
                     const forward = res.detail;
+                    this.spinner=false;
                     if (forward.length === 0) {
                         this.actionsList.sendForward = false;
                     }
@@ -165,15 +170,17 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.rejected = false;
                 this.actionsList.closed = false;
             }
-
+            this.spinner=true;
             await this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory)
                 .subscribe((res: any) => {
+                    this.spinner=false;
                     if (res.detail === undefined) {
                         this.actionsList.approved = false;
                     } else {
                         if (this.loanDataHolder.proposal !== null
                             && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
                             this.actionsList.approved = false;
+                            this.spinner=false;
                         }
                     }
                 });

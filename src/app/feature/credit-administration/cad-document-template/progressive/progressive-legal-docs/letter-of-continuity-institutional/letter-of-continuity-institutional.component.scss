@@ -1,0 +1,34 @@
+@import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component";
+
+.Sincerely {
+  margin-left: 100px;
+  width: 70%;
+}
+
+#fingerXap {
+  width: 500px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+#signature {
+  margin-left: 200px;
+}
+
+.guaranter {
+  display: flex;
+  flex-wrap: initial;
+  flex-direction: row;
+  margin-left: 100px;
+}
+#marginX{
+  margin-right: 100px;
+}
+.guaranter1 {
+  width: 50%;
+}
+
+.guaranter2 {
+  width: 50%;
+  margin-left: 100px;
+}

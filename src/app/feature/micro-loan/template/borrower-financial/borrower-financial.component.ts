@@ -6,6 +6,7 @@ import {FiscalYearModalComponent} from '../../../loan-information-template/finan
 import {ModalResponse} from '../../../../@core/utils';
 import {FinancialDeleteComponentComponent} from '../../../loan-information-template/financial/financial-delete-component/financial-delete-component.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-borrower-financial',
@@ -23,6 +24,7 @@ export class BorrowerFinancialComponent implements OnInit {
   currentFormData;
 
   constructor(protected formBuilder: FormBuilder,
+              private overlay: NgxSpinnerService,
               protected modalService: NgbModal) {
   }
 
@@ -101,6 +103,7 @@ export class BorrowerFinancialComponent implements OnInit {
   }
 
   onSubmit() {
+    this.overlay.show();
     const currentFormData = {
       fiscalYear: this.fiscalYear,
       auditorList: this.auditorList,
