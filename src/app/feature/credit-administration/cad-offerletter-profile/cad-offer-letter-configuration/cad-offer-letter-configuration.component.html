@@ -2413,16 +2413,16 @@
             </table>
           </div>
           <button class="float-right" nbButton (click)="saveCustomer()">
-            Save & Next
+           {{hideLoan===true ? 'Save' :  'Save & Next'}}
           </button>
         </nb-tab>
-        <nb-tab tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
+        <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
                 [disabled]="!activeLoanTab">
           <app-loan-create [data]="responseData" *ngIf="responseData"
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"
+        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"
                 [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData"></app-template-data>
         </nb-tab>

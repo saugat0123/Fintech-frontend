@@ -59,6 +59,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   @Input() actionType;
   @Input()
   activeLoanTab = false;
+  @Input()
+  hideLoan = false;
   loanFacilityList: Array<LoanConfig> = new Array<LoanConfig>();
   loanTypeList = LoanType;
   branchList: Array<Branch> = new Array<Branch>();
@@ -493,6 +495,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     };
     this.cadOneformService.saveCustomer(data).subscribe(res => {
       this.spinner = false;
+      if (this.hideLoan === true) {
+        this.closeModal();
+        return;
+      }
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
       this.customerId = res.detail.customerInfoId;
       this.responseData = res.detail;
