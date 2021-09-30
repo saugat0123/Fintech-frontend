@@ -91,6 +91,24 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
     // if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
     //   this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     // }
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.loanHolderNepData = this.cadData.loanHolder.nepData
+        ? JSON.parse(this.cadData.loanHolder.nepData)
+        : this.cadData.loanHolder.nepData;
+      this.cadData.assignedLoan.map((value) => {
+        value.taggedGuarantors.forEach((val) => {
+          this.taggedGuarantorsDetailsInLoan.push(val);
+        });
+      });
+      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      }
+    }
+    this.taggedGuarantorsDetailsInLoan = Array.from(
+      new Set(
+        this.taggedGuarantorsDetailsInLoan.map((val) => JSON.stringify(val))
+      )
+    ).map((val) => JSON.parse(val));
   }
 
   buildForm() {

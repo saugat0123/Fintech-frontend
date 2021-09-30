@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
 import {Province} from "../../../../admin/modal/province";
 import {District} from "../../../../admin/modal/district";
@@ -46,7 +46,11 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
+  dateTypeBS2 = false;
+  dateTypeAD2 = false;
+  offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
+  submitted = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -81,53 +85,64 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       branchName: [undefined],
       accountNumber: [undefined],
       relationshipOfficer: [undefined],
-      unitName : [undefined],
       managerName: [undefined],
       signatureDate : [undefined],
-      sakshiDistrict: [undefined],
-      sakshiMunicipality: [undefined],
-      sakshiWardNum: [undefined],
-      sakshiName: [undefined],
+      // sakshiDistrict: [undefined],
+      // sakshiMunicipality: [undefined],
+      // sakshiWardNum: [undefined],
+      // sakshiName: [undefined],
       employeeName : [undefined],
 
       // Translated Value
-      refNumberTransVal: [undefined],
+      refNumberTransVal: [undefined,Validators.required],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      loanPurposeTransVal: [undefined],
-      baseRateTransVal: [undefined],
-      premiumRateTransVal: [undefined],
-      yearlyFloatingInterestRateTransVal: [undefined],
-      loanAdminFeeTransVal: [undefined],
-      emiAmountTransVal: [undefined],
+      loanPurposeTransVal: [undefined,Validators.required],
+      baseRateTransVal: [undefined,Validators.required],
+      premiumRateTransVal: [undefined,Validators.required],
+      yearlyFloatingInterestRateTransVal: [undefined,Validators.required],
+      loanAdminFeeTransVal: [undefined,Validators.required],
+      emiAmountTransVal: [undefined,Validators.required],
       emiAmountWordsTransVal: [undefined],
-      companyNameTransVal: [undefined],
-      branchNameTransVal: [undefined],
-      accountNumberTransVal: [undefined],
-      relationshipOfficerTransVal: [undefined],
-      unitNameTransVal: [undefined],
-      managerNameTransVal: [undefined],
+      companyNameTransVal: [undefined,Validators.required],
+      branchNameTransVal: [undefined,Validators.required],
+      accountNumberTransVal: [undefined,Validators.required],
+      relationshipOfficerTransVal: [undefined,Validators.required],
+      managerNameTransVal: [undefined,Validators.required],
       signatureDateTransVal: [undefined],
-      sakshiDistrictTransVal: [undefined],
-      sakshiMunicipalityTransVal: [undefined],
-      sakshiWardNumTransVal: [undefined],
-      sakshiNameTransVal: [undefined],
-      employeeNameTransVal: [undefined]
+      // sakshiDistrictTransVal: [undefined,Validators.required],
+      // sakshiMunicipalityTransVal: [undefined,Validators.required],
+      // sakshiWardNumTransVal: [undefined,Validators.required],
+      // sakshiNameTransVal: [undefined,Validators.required],
+      employeeNameTransVal: [undefined,Validators.required]
 
     });
   }
 
   submit() {
+    this.submitted =true;
+    if (this.form.invalid) {
+      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
+      this.spinner = false;
+      return;
+    }
     this.spinner = true;
     this.btnDisable = true;
-    console.log('Doc Error',this.customerApprovedDoc);
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
 
+    if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+      this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString())[0];
+      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        this.existingOfferLetter = true;
+      }
+    }
 
     if (this.existingOfferLetter) {
       this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN).toString()) {
+          this.mappedData();
           offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
         }
       });
@@ -135,12 +150,13 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN);
       Object.keys(this.form.controls).forEach(key => {
-        if (key === 'loanDetails') {
+        if (key.indexOf('TransVal') > -1) {
           return;
         }
         this.attributes = new Attributes();
         this.attributes.en = this.form.get(key).value;
         this.attributes.np = this.tdValues[key];
+        this.attributes.ct = this.form.get(key + 'TransVal').value;
         this.tdValues[key] = this.attributes;
       });
       this.translatedData = {};
@@ -148,15 +164,36 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       this.customerApprovedDoc.offerDocumentList.push(offerDocument);
     }
 
-    this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe(() => {
+    this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.customerApprovedDoc = res.detail;
       this.spinner = false;
-      this.previewBtn = this.btnDisable = false;
+      this.previewBtn = false;
+      this.btnDisable = true;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-      this.spinner = this.btnDisable = false;
+      this.spinner = false;
+      this.btnDisable = true;
     });
+  }
+
+  mappedData() {
+    Object.keys(this.form.controls).forEach(key => {
+      Object.keys(this.form.controls).forEach(key => {
+        if (key.indexOf('TransVal') > -1) {
+          return;
+        }
+        this.attributes = new Attributes();
+        this.attributes.en = this.form.get(key).value;
+        this.attributes.np = this.tdValues[key];
+        this.attributes.ct = this.form.get(key + 'TransVal').value;
+        this.tdValues[key] = this.attributes;
+      });
+    });
+  }
+  get Form() {
+    return this.form.controls;
   }
 
   openModel() {
@@ -179,8 +216,32 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.spinner = true;
     this.translatedData = await this.translateService.translateForm(this.form);
     this.tdValues = this.translatedData;
+    this.setTemplatedCTData();
     this.spinner = false;
     this.btnDisable = false;
+  }
+  private setTemplatedCTData(): void {
+    this.form.get('refNumberTransVal').patchValue(this.translatedData.refNumber);
+    this.form.get('dateOfApprovalTransVal').patchValue(this.translatedData.dateOfApproval);
+    this.form.get('dateofApplicationTransVal').patchValue(this.translatedData.dateofApplication);
+    this.form.get('loanPurposeTransVal').patchValue(this.translatedData.loanPurpose);
+    this.form.get('baseRateTransVal').patchValue(this.translatedData.baseRate);
+    this.form.get('premiumRateTransVal').patchValue(this.translatedData.premiumRate);
+    this.form.get('yearlyFloatingInterestRateTransVal').patchValue(this.translatedData.yearlyFloatingInterestRate);
+    this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
+    this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
+    this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
+    this.form.get('branchNameTransVal').patchValue(this.translatedData.branchName);
+    this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
+    this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
+    this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
+    this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
+    this.form.get('signatureDateTransVal').patchValue(this.translatedData.signatureDate);
+    /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
+    this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
+    this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
+    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
+    this.form.get('employeeNameTransVal').patchValue(this.translatedData.employeeName);
   }
 
   getNumAmountWord(numLabel, wordLabel) {
@@ -218,6 +279,15 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   setDateTypeAD1() {
     this.dateTypeBS1 = false;
     this.dateTypeAD1 = true;
+  }
+  setDateTypeBS2() {
+    this.dateTypeBS2 = true;
+    this.dateTypeAD2 = false;
+  }
+
+  setDateTypeAD2() {
+    this.dateTypeBS2 = false;
+    this.dateTypeAD2 = true;
   }
 
   calInterestRate() {

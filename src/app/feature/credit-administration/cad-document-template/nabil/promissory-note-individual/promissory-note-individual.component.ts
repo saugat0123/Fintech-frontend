@@ -67,22 +67,39 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       loanamountinWords: [undefined],
       nameofGrandFather: [undefined],
       nameofFather: [undefined],
-      District: [undefined],
-      VDC: [undefined],
-      WardNo: [undefined],
-      Age: [undefined],
-      NameofPerson: [undefined],
-      CitizenshipNo: [undefined],
+      district: [undefined],
+      vdc: [undefined],
+      wardNo: [undefined],
+      age: [undefined],
+      nameofPerson: [undefined],
+      citizenshipNo: [undefined],
       dateofIssue: [undefined],
       nameofIssuedDistrict: [undefined],
-      Number: [undefined],
-      Interest: [undefined],
+      totalPeople: [undefined],
+      sakshiDistrict: [undefined],
+      sakshiVdc: [undefined],
+      sakshiWardNo: [undefined],
+      sakshiAge: [undefined],
+      nameofWitness: [undefined],
+      interest: [undefined],
+      sakshiDistrict1: [undefined],
+      sakshiVdc1: [undefined],
+      sakshiWardNo1: [undefined],
+      sakshiAge1: [undefined],
+      nameofWitness1: [undefined],
       nameofBranchLocated: [undefined],
       signature: [undefined],
-      nameofWitness: [undefined],
+      nameofStaff: [undefined],
     });
   }
   fillform() {
+    let totalLoan = 0;
+    this.cadData.assignedLoan.forEach(val => {
+      const proposedAmount = val.proposal.proposedLimit;
+      totalLoan = totalLoan + proposedAmount;
+    });
+    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
     this.form.patchValue(
         {
           nameofBranchLocated: this.individualData.branch.ct,
@@ -90,11 +107,13 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           nameofFather: this.individualData.fatherName.ct,
           nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
           dateofIssue: this.individualData.issuedDate.ct,
-          CitizenshipNo: this.individualData.citizenshipNo.ct,
-          NameofPerson: this.individualData.name.ct,
-          WardNo: this.individualData.permanentWard.ct,
-          VDC: this.individualData.permanentMunicipality.ct,
-          District: this.individualData.permanentDistrict.ct
+          citizenshipNo: this.individualData.citizenshipNo.ct,
+          nameofPerson: this.individualData.name.ct,
+          wardNo: this.individualData.permanentWard.ct,
+          vdc: this.individualData.permanentMunicipality.ct,
+          district: this.individualData.permanentDistrict.ct,
+          loanamountinFigure: finalAmount,
+          loanamountinWords: loanAmountWord
         }
     );
   }

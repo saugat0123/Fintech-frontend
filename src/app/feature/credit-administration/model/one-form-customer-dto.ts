@@ -26,7 +26,7 @@ export class OneFormCustomerDto {
   initialRelationDate: Date;
   citizenshipNumber: string;
   citizenshipIssuedDate: Date;
-  citizenshipIssuedPlace: District;
+  citizenshipIssuedPlace: string;
   status: string;
   customerRelatives: Array<CustomerRelative>;
   occupation: string;

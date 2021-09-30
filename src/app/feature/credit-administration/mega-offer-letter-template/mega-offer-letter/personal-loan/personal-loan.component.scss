@@ -2,6 +2,10 @@ p{
   line-height: 1.9;
   font-size: 16px;
 }
+nb-card{
+  max-height: 100vh !important;
+  width: 100% !important;
+}
 .nep {
   font-size: 16px;
   line-height: 1.9;
@@ -30,4 +34,10 @@ input::-webkit-input-placeholder {
 }
 .hello > tr > td{
   border: 1px solid black !important;
+}
+.customFont {
+  font-size: 22px;
+}
+.nepaliList {
+  list-style-type: devanagari;
 }
