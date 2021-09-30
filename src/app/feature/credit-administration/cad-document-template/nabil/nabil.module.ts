@@ -7,14 +7,19 @@ import {NgxPrintModule} from 'ngx-print';
 import {NbButtonModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
+import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.component';
+import { LoanDeedCompanyPrintComponent } from './loan-deed-company/loan-deed-company-print/loan-deed-company-print.component';
 
 
 @NgModule({
     declarations: [PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
-        LetterOfSetOffPrintComponent],
+        LetterOfSetOffPrintComponent,
+        LoanDeedCompanyComponent,
+        LoanDeedCompanyPrintComponent],
     exports: [
         PromissoryNoteIndividualComponent,
-        LetterOfSetOffComponent
+        LetterOfSetOffComponent,
+        LoanDeedCompanyComponent,
     ],
     imports: [
         CommonModule,
