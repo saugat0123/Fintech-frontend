@@ -35,6 +35,8 @@ import {LoanStage} from '../../../loan/model/loanStage';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
 import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {CadOfferLetterConfigurationComponent} from '../../../credit-administration/cad-offerletter-profile/cad-offer-letter-configuration/cad-offer-letter-configuration.component';
+import {CadOneformService} from '../../../credit-administration/service/cad-oneform.service';
 
 @Component({
     selector: 'app-customer-component',
@@ -89,7 +91,8 @@ export class CustomerComponent implements OnInit {
                 private customerGroupService: CustomerGroupService,
                 private companyInfoService: CompanyInfoService,
                 private location: AddressService,
-                private userService: UserService
+                private userService: UserService,
+                private cadOneFormService: CadOneformService
     ) {
     }
 
@@ -251,16 +254,7 @@ export class CustomerComponent implements OnInit {
 
     }
 
-    editCustomerOrCheckEditable(model) {
-        this.customerLoanService.isCustomerEditable(model.id).subscribe((res: any) => {
-            if (res.detail === true) {
-                this.editCustomer(model);
-            } else {
-                this.toastService.show(new Alert(AlertType.ERROR, model.name + ' is not editable. There are pending loans.'));
-                CustomerComponent.loadData(this);
-            }
-        });
-    }
+
 
     editCustomer(model) {
         if (CustomerType.INDIVIDUAL === CustomerType[model.customerType]) {
@@ -455,4 +449,45 @@ export class CustomerComponent implements OnInit {
         }
     }
 
+    editCustomerOrCheckEditable(id: number) {
+        console.log(id);
+        this.cadOneFormService.getCustomerById(id).subscribe(resp => {
+            console.log(resp);
+            this.dialogService.open(CadOfferLetterConfigurationComponent, {
+                context: {
+                    customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,
+                    customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
+                    loanHolder: resp.detail.loanHolder,
+                    oneFormCustomer: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
+                    actionType: 'Edit',
+                    activeLoanTab: false,
+                    customerSubType: resp.detail.loanHolder.customerSubType,
+                    hideLoan: true
+                },
+                hasBackdrop: false,
+                dialogClass: 'model-full',
+            });
+        });
+    }
+
+    applyLoan(id: number): void {
+        this.cadOneFormService.getCustomerById(id).subscribe(resp => {
+            console.log(resp);
+            this.dialogService.open(CadOfferLetterConfigurationComponent, {
+                context: {
+                    customerType: resp.detail.customerType === 'individual' ? CustomerType.INDIVIDUAL : CustomerType.INSTITUTION,
+                    customerInfo: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
+                    loanHolder: resp.detail.loanHolder,
+                    oneFormCustomer: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
+                    actionType: 'Edit',
+                    activeLoanTab: true,
+                    customerSubType: resp.detail.loanHolder.customerSubType,
+                    hideLoan: false,
+                    hideCustomer: true,
+                },
+                hasBackdrop: false,
+                dialogClass: 'model-full',
+            });
+        });
+    }
 }

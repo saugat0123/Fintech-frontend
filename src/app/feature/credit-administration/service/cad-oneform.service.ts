@@ -33,7 +33,13 @@ export class CadOneformService extends BaseService<any> {
     }
 
     public getCustomerInfo(id: number): Observable<any>{
-        const api = `${this.getApi()}/customer/${id}`;
+        const api = `${this.getApi()}/customer-by-cad-id/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getCustomerById(id: number): Observable<any>{
+        const api = `${this.getApi()}/customer-by-id/${id}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
