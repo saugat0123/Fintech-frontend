@@ -1,0 +1,53 @@
+.nep {
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 10px 50px;
+}
+
+.form-field {
+  background: yellow;
+  margin: 0px 5px 5px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
+}
+p {
+  line-height: 1.9;
+}
+
+.ml-0 {
+  margin-left: -30px !important;
+}
+
+.print-only {
+  display: none !important;
+}
+
+@media print {
+  p {
+    line-height: 1.9;
+  }
+  .nepaliFont {
+    font-size: 16px;
+  }
+  .outside {
+    font-size: 28px !important;
+  }
+  .outsidenum {
+    font-size: 26px;
+  }
+  .num {
+    font-size: 22px !important;
+  }
+  .inside {
+    font-size: 16px;
+  }
+  .print-only {
+    display: inline-block !important;
+  }
+}
