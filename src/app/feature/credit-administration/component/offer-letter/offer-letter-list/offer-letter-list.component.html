@@ -25,7 +25,7 @@
 <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Approved Date</th>-->
 <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>-->
                 <th>Preview</th>
-                <th>Action</th>
+<!--                <th>Action</th>-->
 
 
             </tr>
@@ -51,13 +51,13 @@
                             <em class="fas fa-info-circle text-info"></em>
                         </a>
                     </td>
-                    <td>
-                        <div>
-                            <button nbButton status="warning" size="tiny"
-                                    (click)="onEdit(model?.id)">
-                                <em class="fa fa-edit"></em></button>
-                        </div>
-                    </td>
+<!--                    <td>-->
+<!--                        <div>-->
+<!--                            <button nbButton status="warning" size="tiny"-->
+<!--                                    (click)="onEdit(model?.id)">-->
+<!--                                <em class="fa fa-edit"></em></button>-->
+<!--                        </div>-->
+<!--                    </td>-->
                 </tr>
                 <ng-container *ngIf="toggleArray[i].toggled">
                     <tr>

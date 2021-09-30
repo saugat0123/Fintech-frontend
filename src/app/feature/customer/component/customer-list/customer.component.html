@@ -131,8 +131,8 @@
 
         <td (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.contactNo || 'NA'}}</td>
         <td *ngIf="this.showBranchProvince" (click)="customerProfile(model.associateId,model.id,model.customerType)">{{model?.branch?.province?.name}}</td>
-        <td><button  nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model.id)"><em class="fa fa-edit"></em></button>
-          <button nbButton status="warning" size="tiny"
+        <td><button nbTooltip="Edit Customer" nbButton size="tiny" shape="rectangle" (click)="editCustomerOrCheckEditable(model.id)"><em class="fa fa-edit"></em></button>
+          <button nbTooltip="Apply Loan" nbButton status="warning" size="tiny"
                   (click)="applyLoan(model.id)">
             <em class="fa fa-plus-circle"></em></button>
           </td>
