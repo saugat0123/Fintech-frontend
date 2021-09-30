@@ -21,6 +21,9 @@ import {RoleType} from '../../admin/modal/roleType';
 import {RoleService} from '../../admin/component/role-permission/role.service';
 
 import {Editor} from '../../../@core/utils/constants/editor';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-cad-legal-doc-action-modal',
@@ -59,6 +62,13 @@ export class CadLegalDocActionModalComponent implements OnInit {
     showUserList = true;
     ckeConfig = Editor.CK_CONFIG;
     spinner = false;
+    falseCredential = false;
+    falseCredentialMessage;
+    private securityUrl = ApiConfig.TOKEN;
+    private headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
+    });
     // selectedRoleForSol:Role = undefined;
 
     constructor(
@@ -71,7 +81,10 @@ export class CadLegalDocActionModalComponent implements OnInit {
         private router: Router,
         private socketService: SocketService,
         private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private http: HttpClient,
+        private modalService: NgbModal,
+
     ) {
     }
 
@@ -347,7 +360,9 @@ export class CadLegalDocActionModalComponent implements OnInit {
         });
 
     }
-
+openLogin(temp) {
+        this.modalService.open(temp);
+}
     isSolChecked(event) {
         if (event) {
             this.showHideSolUser = true;
@@ -372,5 +387,23 @@ export class CadLegalDocActionModalComponent implements OnInit {
             this.formAction.get('solUser').updateValueAndValidity();
         }
     }
+    onLogin(dataValue) {
 
+        const data: { email: string, password: string } = dataValue.value;
+        data.email = LocalStorageUtil.getStorage().username;
+        const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+        this.http.post(this.securityUrl, requestBody, {headers: this.headers})
+            .subscribe(
+                () => {
+                    this.modalService.dismissAll();
+                    this.onSubmit();
+                },
+                error => {
+                    this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
+                    this.falseCredential = true;
+                }
+            );
+
+
+    }
 }
