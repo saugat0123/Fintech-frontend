@@ -169,7 +169,8 @@ export class OfferLetterListComponent implements OnInit {
           loanHolder: resp.detail.loanHolder,
           oneFormCustomer: resp.detail.customerType === 'individual' ? resp.detail.customerInfo : resp.detail.companyInfo,
           actionType: 'Edit',
-          activeLoanTab: true
+          activeLoanTab: true,
+          customerSubType: resp.detail.loanHolder.customerSubType
         },
         hasBackdrop: false,
         dialogClass: 'model-full',

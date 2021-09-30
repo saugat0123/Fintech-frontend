@@ -1,0 +1,40 @@
+import {Province} from '../../admin/modal/province';
+import {District} from '../../admin/modal/district';
+import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
+
+export class OneFormGuarantors {
+    id: number;
+    guarantorName: string;
+    permanentProvince: Province;
+    permanentDistrict: District;
+    permanentMunicipality: MunicipalityVdc;
+    citizenNumber: string;
+    citizenIssuedDate: Date;
+    issuedPlace: string;
+    contactNumber: string;
+    fatherName: string;
+    grandFatherName: string;
+    relationship: string;
+    docPath: string;
+    netWorth: number;
+    consentOfLegalHeirs: boolean;
+    temporaryProvince: Province;
+    temporaryDistrict: District;
+    temporaryMunicipality: MunicipalityVdc;
+    streetName: string;
+    permanentWard: number;
+    streetNameTemporary: string;
+    temporaryWard: number;
+    dateOfBirth: Date;
+    motherName: string;
+    spouseName: string;
+    fatherInLaw: string;
+    profession: string;
+    background: string;
+    guarantorLegalDocumentAddress: string;
+    permanentAddressLineOne: string;
+    permanentAddressLineTwo: string;
+    temporaryAddressLineOne: string;
+    temporaryAddressLineTwo: string;
+    nepData: string;
+}
