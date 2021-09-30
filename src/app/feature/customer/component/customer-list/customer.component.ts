@@ -451,7 +451,7 @@ export class CustomerComponent implements OnInit {
 
     editCustomerOrCheckEditable(id: number) {
         console.log(id);
-        this.cadOneFormService.getCustomerInfo(id).subscribe(resp => {
+        this.cadOneFormService.getCustomerById(id).subscribe(resp => {
             console.log(resp);
             this.dialogService.open(CadOfferLetterConfigurationComponent, {
                 context: {
@@ -471,7 +471,7 @@ export class CustomerComponent implements OnInit {
     }
 
     applyLoan(id: number): void {
-        this.cadOneFormService.getCustomerInfo(id).subscribe(resp => {
+        this.cadOneFormService.getCustomerById(id).subscribe(resp => {
             console.log(resp);
             this.dialogService.open(CadOfferLetterConfigurationComponent, {
                 context: {
