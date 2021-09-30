@@ -75,7 +75,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       citizenshipNo: [undefined],
       dateofIssue: [undefined],
       nameofIssuedDistrict: [undefined],
-      number: [undefined],
+      totalPeople: [undefined],
       sakshiDistrict: [undefined],
       sakshiVdc: [undefined],
       sakshiWardNo: [undefined],
