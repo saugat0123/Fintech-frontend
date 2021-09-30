@@ -39,16 +39,21 @@
                 <label class="title">Branch</label>
               </td>
               <td>
-                <select class="form-control" formControlName="branch">
-                  <option [value]="null" hidden>Select Branch</option>
-                  <option *ngFor="let branch of branchList"
-                          [ngValue]="branch">{{branch.name}}</option>
-                </select>
+                <ng-select bindLabel="name" [placeholder]="loanHolder.branch == null ? 'Select branch' : ''" formControlName="branch">
+<!--                  <option [value]="null" hidden>Select Branch</option>-->
+<!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
+<!--                  </option>-->
+                  <ng-option *ngFor="let branch of branchList" [value]="branch">{{branch?.name}}</ng-option>
+                </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
-                         formControlName="branchTrans" type="text"></td>
+                         formControlName="branchTrans" type="text"
+                    ></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
+                       [value]="loanHolder !== null && loanHolder.branch !== undefined ?
+                        nepData?.branch?.ct: translatedValues?.branch"
                        formControlName="branchCT" type="text"/>
                 <div *ngIf="submitted && configForm.branchCT.errors"
                      class="invalid-feedback">
@@ -90,6 +95,9 @@
                          formControlName="customerCodeTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.customerCodeCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.customerCode !== undefined ?
+                       nepData?.customerCode?.ct : translatedValues?.customerCode"
                        formControlName="customerCodeCT" type="text"/>
                 <div *ngIf="submitted && configForm.customerCodeCT.errors"
                      class="invalid-feedback">
@@ -110,6 +118,9 @@
                          formControlName="nameTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.nameCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.branch !== undefined ?
+                        nepData?.name?.ct : translatedValues?.name"
                        formControlName="nameCT" type="text"/>
                 <div *ngIf="submitted && configForm.nameCT.errors"
                      class="invalid-feedback">
@@ -176,7 +187,10 @@
                          formControlName="contactNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
-                       formControlName="contactNoCT" type="text"/>
+                       [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.contactNo !== undefined ?
+                        nepData?.contactNo?.ct :translatedValues?.contactNo"
+                       formControlName="contactNoCT" type="text" />
                 <div *ngIf="submitted && configForm.contactNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
@@ -220,6 +234,9 @@
                          formControlName="genderTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.genderCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.gender !== undefined ?
+                       nepData?.gender?.ct :translatedValues?.gender"
                        formControlName="genderCT" type="text"/>
                 <div *ngIf="submitted && configForm.genderCT.errors"
                      class="invalid-feedback">
@@ -264,6 +281,9 @@
                          formControlName="husbandNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.husbandNameCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                          nepData?.husbandName?.ct :translatedValues?.husbandName"
                        formControlName="husbandNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.husbandNameCT.errors"
                      class="invalid-feedback">
@@ -283,6 +303,9 @@
                          formControlName="fatherInLawNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.fatherInLawNameCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                          nepData?.fatherInLawName?.ct :translatedValues?.fatherInLawName"
                        formControlName="fatherInLawNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.fatherInLawNameCT.errors"
                      class="invalid-feedback">
@@ -308,6 +331,9 @@
                          formControlName="grandFatherNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.grandFatherNameCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                         nepData?.grandFatherName?.ct :translatedValues?.grandFatherName"
                        formControlName="grandFatherNameCT" type="text"/>
                 <div *ngIf="submitted && configForm.grandFatherNameCT.errors"
                      class="invalid-feedback">
@@ -333,6 +359,9 @@
                          formControlName="fatherNameTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.fatherNameCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                         nepData?.fatherName?.ct :translatedValues?.fatherName"
                        formControlName="fatherNameCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.fatherNameCT.errors"
@@ -355,6 +384,9 @@
                          formControlName="citizenshipNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.citizenshipNoCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                        nepData?.citizenshipNo?.ct :translatedValues?.citizenshipNo"
                        formControlName="citizenshipNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipNoCT.errors"
                      class="invalid-feedback">
@@ -446,22 +478,22 @@
                 <label class="title">Citizenship Issue District</label>
               </td>
               <td>
-                <select
-                    [compareWith]="compareFn"
-                    class="custom-select"
-                    formControlName="citizenshipIssueDistrict"
-                >
-                  <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let district of allDistrictList"
-                          [ngValue]="district">
-                    {{district.name}} || {{district.nepaliName}}
-                  </option>
-                </select>
+                <ng-select
+                        [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrict.errors}"
+                        formControlName="citizenshipIssueDistrict"
+                        id="citizenshipIssueDistrict"
+                        [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
+                    <ng-option *ngFor="let issuedDistrict of allDistrictList" [value]="issuedDistrict.name">{{issuedDistrict.name}}</ng-option>
+                </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="citizenshipIssueDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrictCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.citizenshipIssueDistrict?.ct :objectValueTranslater?.citizenshipIssueDistrict"
                        formControlName="citizenshipIssueDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipIssueDistrictCT.errors"
                      class="invalid-feedback">
@@ -517,6 +549,9 @@
                          formControlName="panNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.panNoCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                        nepData?.panNo?.ct :translatedValues?.panNo"
                        formControlName="panNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.panNoCT.errors"
                      class="invalid-feedback">
@@ -573,6 +608,9 @@
                          formControlName="permanentProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                        nepData?.permanentProvince?.ct :objectValueTranslater?.permanentProvince"
                        formControlName="permanentProvinceCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentProvinceCT.errors"
                      class="invalid-feedback">
@@ -600,6 +638,9 @@
                          formControlName="permanentDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                        nepData?.permanentDistrict?.ct :objectValueTranslater?.permanentDistrict"
                        formControlName="permanentDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentDistrictCT.errors"
                      class="invalid-feedback">
@@ -620,21 +661,27 @@
                   <nb-radio *ngFor="let option of vdcOption"
                             [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
-                <select [compareWith]="compareFn"
-                        class="custom-select"
+                <ng-select
+
+                        bindLabel="name"
+                        [compareWith]="compareFn"
+                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
                         formControlName="permanentMunicipality"
-                >
-                  <option [ngValue]="null" hidden>Municipality or VDC</option>
-                  <option *ngFor="let municipalityVal of municipalities"
-                          [ngValue]="municipalityVal">
-                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
-                  </option>
-                </select>
+                        id="permanentMunicipality"
+                    [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
+                  <ng-option  *ngFor="let municipalityVal of municipalities"
+                          [value]="municipalityVal">
+                          {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                  </ng-option>
+                </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="permanentMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.permanentMunicipalityCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.permanentMunicipality?.ct :objectValueTranslater?.permanentMunicipality"
                        formControlName="permanentMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentMunicipalityCT.errors"
                      class="invalid-feedback">
@@ -659,6 +706,9 @@
                          formControlName="permanentWardTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && configForm.permanentWardCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.permanentWard?.ct :translatedValues?.permanentWard"
                        formControlName="permanentWardCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.permanentWardCT.errors"
@@ -704,6 +754,9 @@
                          formControlName="temporaryProvinceTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.temporaryProvince?.ct :objectValueTranslater?.temporaryProvince"
                        formControlName="temporaryProvinceCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.temporaryProvinceCT.errors"
@@ -733,6 +786,9 @@
                          formControlName="temporaryDistrictTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.temporaryDistrict?.ct :objectValueTranslater?.temporaryDistrict"
                        formControlName="temporaryDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryDistrictCT.errors"
                      class="invalid-feedback">
@@ -749,7 +805,7 @@
                 <nb-radio-group name="temporaryMunicipalityOrVdc"
                                 formControlName="temporaryMunicipalityOrVdc" class="d-inline-flex">
                   <nb-radio *ngFor="let option of vdcOption"
-                            [value]="vdcOption.values()">{{option.label}}</nb-radio>
+                            [value]="option.value">{{option.label}}</nb-radio>
                 </nb-radio-group>
                 <select [compareWith]="compareFn"
                         class="custom-select"
@@ -766,6 +822,7 @@
                          formControlName="temporaryMunicipalityTrans" type="text"></td>
               <td>
                 <input class="form-control"
+                       [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
