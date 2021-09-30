@@ -25,12 +25,9 @@ import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer
 import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {LaxmiOfferLetterComponent} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter.component';
-import {OfferLetterDocType} from "../model/OfferLetteDocrTypeEnum";
-import {DocAction} from "../../loan/model/docAction";
-import {DocStatus} from "../../loan/model/docStatus";
-import {LoanActionModalComponent} from "../../loan/loan-action/loan-action-modal/loan-action-modal.component";
-import {LoanActionCombinedModalComponent} from "../../loan/loan-action/loan-action-combined-modal/loan-action-combined-modal.component";
-import {CadLegalDocActionModalComponent} from "../cad-legal-doc-action-modal/cad-legal-doc-action-modal.component";
+import {DocStatus} from '../../loan/model/docStatus';
+import {CadLegalDocActionModalComponent} from '../cad-legal-doc-action-modal/cad-legal-doc-action-modal.component';
+import {LoanTag} from '../../loan/model/loanTag';
 
 @Component({
     selector: 'app-cad-offerletter-profile',
@@ -46,7 +43,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     // change this on basis of bank
     offerLetterConst;
     excelOfferLetterConst = ExcelOfferLetterConst;
-
+    isRemit = false;
     constructor(
         private activatedRoute: ActivatedRoute,
         private service: CreditAdministrationService,
@@ -85,6 +82,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.initial();
         this.checkCadDocument();
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+            this.isRemit = true;
+        }
         switch (this.client) {
             case this.clientList.LAXMI:
                 this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
@@ -246,21 +246,28 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.uploadFile = event.target.files[0];
     }
 
-    previewClick(file) {
+    previewClick(file, direct) {
         let fileName = this.uploadFile;
-        if (file !== null) {
-            fileName = ApiConfig.URL + '/' + file;
-
+        if (direct) {
             const link = document.createElement('a');
-            link.href = fileName;
+            link.href = file;
             link.target = '_blank';
             link.click();
         } else {
-            const downloadUrl = window.URL.createObjectURL(fileName);
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.target = '_blank';
-            link.click();
+            if (file !== null) {
+                fileName = ApiConfig.URL + '/' + file;
+
+                const link = document.createElement('a');
+                link.href = fileName;
+                link.target = '_blank';
+                link.click();
+            } else {
+                const downloadUrl = window.URL.createObjectURL(fileName);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.target = '_blank';
+                link.click();
+            }
         }
     }
 
