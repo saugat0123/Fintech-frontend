@@ -34,6 +34,7 @@ import {Province} from '../../../admin/modal/province';
 import {District} from '../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 import {CustomerSubType} from '../../../customer/model/customerSubType';
+import {OneFormGuarantors} from '../../model/oneFormGuarantors';
 
 @Component({
   selector: 'app-cad-offer-letter-configuration',
@@ -112,6 +113,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   nepData;
   individualData;
   editedTranslatedValueForm: FormGroup;
+  oneFormGuarantorsList: Array<OneFormGuarantors> = new Array<OneFormGuarantors>();
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -167,7 +169,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       }
     }
 
-    this.addGuarantor();
+
+    if(!ObjectUtil.isEmpty(this.loanHolder.guarantors)){
+      this.setGuarantors(this.loanHolder.guarantors.guarantorList);
+    }else {
+      this.addGuarantor();
+    }
+
     this.translateObjectValue();
     this.userConfigForm.get('clientType').patchValue(this.customerType);
     this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
@@ -365,6 +373,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   saveCustomer() {
+    this.addGuarantor();
     this.submitted = true;
     this.spinner = true;
     if (this.addressSameAsAbove) {
@@ -446,16 +455,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.translatedData[key] = this.attributes;
     });
 
-    this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
-      const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
-      if (issueDateType === 'AD') {
-        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-            this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
-      } else if (issueDateType === 'BS') {
-        const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
-      }
-    });
+    // this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
+    //   const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
+    //   if (issueDateType === 'AD') {
+    //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+    //         this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
+    //   } else if (issueDateType === 'BS') {
+    //     const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+    //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
+    //   }
+    // });
 
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
@@ -820,12 +829,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   setGuarantors(guarantorDetails: any) {
     const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-    if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-      if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
-        const guarantorList = this.customerInfo.guarantors.guarantorList;
-        this.guarantorList = guarantorList;
-      }
-    }
+    // if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
+    //   if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
+    //     const guarantorList = this.customerInfo.guarantors.guarantorList;
+    //     this.guarantorList = guarantorList;
+    //   }
+    // }
+    console.log(guarantorDetails, 'listtttt');
     guarantorDetails.forEach(value => {
       formArray.push(this.formBuilder.group({
           id: [value.id],
@@ -1731,6 +1741,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryWardTrans').patchValue(this.nepData.temporaryWard.np);
     this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(this.nepData.citizenshipIssueDistrict.np);
 
+  }
+
+  addGuarantors(): void {
+    const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+    const guarantor = new OneFormGuarantors();
+    guarantor.issuedPlace = formArray.get('issuedPlace').value;
+    guarantor.guarantorName = formArray.get('guarantorName').value;
+    this.oneFormGuarantorsList.push(guarantor);
+    console.log(this.oneFormGuarantorsList, 'GLIST');
   }
 
 }
