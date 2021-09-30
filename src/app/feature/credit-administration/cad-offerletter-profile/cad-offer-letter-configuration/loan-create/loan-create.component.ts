@@ -84,8 +84,8 @@ export class LoanCreateComponent implements OnInit {
   addEmptyLoan() {
     (this.form.get('loanDetails') as FormArray).push(
         this.formBuilder.group({
-          loanHolderId: [this.data.customerInfoId, Validators.required],
-          loan: [this.data.customerInfoId, Validators.required],
+          loanHolderId: [this.data.customerInfoId ? this.data.customerInfoId : this.data.id, Validators.required],
+          loan: [this.data.customerInfoId ? this.data.customerInfoId : this.data.id, Validators.required],
           loanCT: [undefined],
           loanTrans: [undefined],
           proposedAmount: [undefined, Validators.required],
