@@ -5,8 +5,8 @@
       <h6 class="text-center">निरन्तरताको पत्र<br>
         (Letter of Continuity)</h6>
       <b class="text-left">
-        प्रोग्रेशिभफाईनान्स लिमिटेड, <br>
-        न्युरोड |
+        प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
+        <span class="nepaliFont">{{printDocForm?.branchName}}</span> शाखा |
       </b>
 
       <br>
@@ -14,20 +14,17 @@
       <div class="row col-md-12">
         <p>
           महोदय,<br>
-          म/हामीले लिएको ऋण कर्जाको लागि मैले/हामीले गरि दिएको यसै साथ संलग्न प्रतिज्ञा पत्रमाउल्लेख
-          भएको
+          म/हामीले लिएको ऋण कर्जाको लागि मैले/हामीले गरि दिएको यसै साथ संलग्न प्रतिज्ञा पत्रमा उल्लेख
+          भएको रु.
           <span class="nepaliFont">{{printDocForm?.amount}}</span>
-          -(अक्षरेपि <span class="nepaliFont">{{printDocForm?.amountInWord}}</span>
-          |) र सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम तिर्न वुझाउन र पछि भविष्यमालिने सम्पूर्ण
-          ऋण कर्जा समेतको लागिवित्तीय संस्थालाई सुरक्षण वापत उपलब्ध
-          गराएको प्रतिज्ञापत्रको आधारमावित्तीय संस्थाले हालप्रदान गरेको कर्जा र भविष्यमाप्रदानगर्ने
-          घटीबढी कर्जा रकमतिर्न वुझाउनबांकी
-          रहेमा म/हामी जिम्मेवार छु/छौं ।
-          यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउनबांकी रकमभविष्यमा थपघट भई वा समय समयमाचुक्तागरिने
-          किस्ताको कारण कुनै समयमा
-          सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहनगएमा पनि तत्पश्चातको कारोवारबाट पुनःकायमहुनजाने
-          कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट सोझै झिकी हिसावमिला नगर्नुहुन यो निरन्तरताको पत्रमा
-          सहिछाप गरि दिएको छु/छौ ।
+          /- (अक्षरेपि <span class="nepaliFont">{{printDocForm?.amountInWord}}</span>
+          |) र सो मा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन र पछि भविष्यमा
+          लिने सम्पूर्ण ऋण कर्जा समेतको लागि वित्तीय संस्थालाई सुरक्षण वापत उपलब्ध गराएको प्रतिज्ञापत्रको
+          आधारमा वित्तीय संस्थाले हाल प्रदान गरेको कर्जा र भविष्यमा प्रदान गर्ने घटीबढी कर्जा रकम तिर्न
+          वुझाउन बांकी रहेमा म/हामी जिम्मेवार छु/छौं । यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउन बांकी रकम
+          भविष्यमा थपघट भई वा समय समयमा चुक्ता गरिने किस्ताको कारण कुनै समयमा सून्य व्यालेन्स
+          वा क्रेडिट व्यालेन्स नै रहन गएमा पनि तत्पश्चातको कारोवारबाट पुनः कायम हुन जाने कर्जा रकम समेतमा
+          मेरो/हाम्रो खाताबाट सोझै झिकी हिसाव मिलान गर्नुहुन यो निरन्तरताको पत्रमा सहिछाप गरि दिएको छु/छौ ।
         </p>
       </div>
       <p class="text-center"><b>भवदीय,</b></p>
@@ -36,20 +33,38 @@
       <div class="row col-md-12 Sincerely">
 
         <p>
-          दस्तखत :— ..............
+          दस्तखत र संस्थाको छाप :— ..............
           <br>
 
           दस्तखत गर्नेको नाम :— <span class="nepaliFont">{{printDocForm?.sincerlyName}}</span>
+          <b>(ना.प्र.नं</b>
+          <span class="nepaliFont">{{printDocForm?.sincerlyCitizenshipNo}}</span>
+          <b>मिति</b> <span class="nepaliFont">{{printDocForm?.sincerlyCitizenshipIssueDate}}</span>
+
+          <b>जि.प्र.का.</b> <span class="nepaliFont">{{printDocForm?.sincerlyCDOoffice}}</span>
+          <b>)</b>
           <br>
           <br>
-          ठेगाना :—स्थायी <span class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+          स्थायी ठेगाना :— <span class="nepaliFont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+          जिल्ला
+          <span class="nepaliFont">{{printDocForm?.sincerlyPermanentMuniciplity}}</span>
+          गा.पा./न.पा.वडा नं
+          <span class="nepaliFont">{{printDocForm?.sincerlyPermanentWadNo}}</span>
+          (साबिक
+          <span class="nepaliFont">{{printDocForm?.sincerlySabikVDC}}</span>
+          गा.बि.स.वडा नं.
+          <span class="nepaliFont">{{printDocForm?.sincerlySabikWadNo}}</span>)
           <br>
           हालको ठेगाना <span class="nepaliFont">{{printDocForm?.sincerlyTempAdress}}</span>
+          जिल्ला
+          <span class="nepaliFont">{{printDocForm?.sincerlyTempMunicipality}}</span>
+          गा.पा./न.पा.वडा नं.
+          <span class="nepaliFont">{{printDocForm?.sincerlyTempWadNo}}</span>
           <br>
           <br>
           वावु/आमाको नाम :- <span class="nepaliFont">{{printDocForm?.ParentsName}}</span>
           <br>
-          बाजेको नाम :- <span class="nepaliFont">{{printDocForm?.grandParentsName}}</span>
+          वाजे/बजैको नाम :- <span class="nepaliFont">{{printDocForm?.grandParentsName}}</span>
           <br>
           पति/पत्निको नाम:- <span class="nepaliFont">{{printDocForm?.husbanWifeName}}</span>
         </p>
@@ -131,7 +146,7 @@
       <div class="row">
 
         <b class="text-left">
-          प्रोग्रेशिभफाईनान्स लिमिटेड, <br>
+          प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
           <span class="nepaliFont">{{printDocForm?.branchName}}</span>
           शाखा ।
         </b>

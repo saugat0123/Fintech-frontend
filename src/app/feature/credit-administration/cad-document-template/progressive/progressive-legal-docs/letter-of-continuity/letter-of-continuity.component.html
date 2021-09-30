@@ -2,11 +2,14 @@
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <h6 class="text-center">निरन्तरताको पत्र<br>
-        (Letter of Continuity)</h6>
+      <h6 class="text-center">निरन्तरताको पत्र</h6>
+        <h6 class="text-center">(Letter of Continuity)</h6>
       <b class="text-left">
-        प्रोग्रेशिभफाईनान्स लिमिटेड, <br>
-        न्युरोड |
+        प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
+        <input class="form-field form-control-sm nepaliFont"
+               formControlName="branchName"
+               placeholder=""
+               readonly type="text"/> शाखा |
       </b>
 
       <br>
@@ -15,89 +18,128 @@
         <p>
           महोदय,<br>
           म/हामीले लिएको ऋण कर्जाको लागि मैले/हामीले गरि दिएको यसै साथ संलग्न प्रतिज्ञा पत्रमा उल्लेख
-          भएको
+          भएको रु.
           <input (change)="getNumAmountWord('amount','amountInWord')"
                  class="form-field form-control-sm nepaliFont"
                  formControlName="amount"
                  placeholder="" type="text"/>
-          -(अक्षरेपि <input class="form-field form-control-sm nepaliFont"
+          /- (अक्षेरुपी रु.<input class="form-field form-control-sm nepaliFont"
                             formControlName="amountInWord"
                             placeholder=""
-                            readonly type="text"/>
-          |) र सोमा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन र पछि भविष्यमा लिने
-          सम्पूर्ण ऋण कर्जा समेतको लागि वित्तीय संस्थालाई सुरक्षण वापत उपलब्ध
-          गराएको प्रतिज्ञा पत्रको आधारमा वित्तीय संस्थाले हाल प्रदान गरेको कर्जा र भविष्यमा प्रदान गर्ने
-          घटीबढी कर्जा रकम तिर्न वुझाउन बांकी
-          रहेमा म/हामी जिम्मेवार छु/छौं ।
-          यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउन बांकी रकम भविष्यमा थपघट भई वा समय समयमा चुक्ता गरिने
-          किस्ताको कारण कुनै समयमा
-          सून्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहन गएमा पनि तत्पश्चातको कारोवारबाट पुन:कायम हुन जाने
-          कर्जा रकम समेतमा मेरो/हाम्रो खाताबाट सोझै झिकी हिसावमिलान गर्नुहुन यो निरन्तरताको पत्रमा
-          सहिछाप गरि दिएको छु/छौ ।
+                            readonly type="text"/>) र सो मा बैंक नियमानुसार लाग्ने व्याज समेतको रकम कलम तिर्न वुझाउन र पछि भविष्यमा
+          लिने सम्पूर्ण ऋण कर्जा समेतको लागि वित्तीय संस्थालाई सुरक्षण वापत उपलब्ध गराएको प्रतिज्ञापत्रको
+          आधारमा वित्तीय संस्थाले हाल प्रदान गरेको कर्जा र भविष्यमा प्रदान गर्ने घटीबढी कर्जा रकम तिर्न
+          वुझाउन बांकी रहेमा म/हामी जिम्मेवार छु/छौं । यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउन बांकी रकम
+          भविष्यमा थपघट भई वा समय समयमा चुक्ता गरिने किस्ताको कारण कुनै समयमा सून्य व्यालेन्स
+          वा क्रेडिट व्यालेन्स नै रहन गएमा पनि तत्पश्चातको कारोवारबाट पुनः कायम हुन जाने कर्जा रकम समेतमा
+          मेरो/हाम्रो खाताबाट सोझै झिकी हिसाव मिलान गर्नुहुन यो निरन्तरताको पत्रमा सहिछाप गरि दिएको छु/छौ ।
         </p>
       </div>
       <p class="text-center"><b>भवदीय,</b></p>
       <br>
 
       <div class="row col-md-12 Sincerely text-center">
-
-        <p>
-          दस्तखत :— ..............
-          <br>
-
-          दस्तखत गर्नेको नाम :—<input class="form-field form-control-sm nepaliFont"
-                                      formControlName="sincerlyName"
-                                      placeholder=""
-                                      type="text"/>
-          <br>
-          <br>
-          ठेगाना :—स्थायी <input class="form-field form-control-sm nepaliFont"
-                                 formControlName="sincerlyPermanentAddress"
-                                 placeholder=""
-                                 type="text"/>
-          <br>
-          हालको ठेगाना <input class="form-field form-control-sm nepaliFont"
-                              formControlName="sincerlyTempAdress"
-                              placeholder=""
-                              type="text"/>
-          <br>
-          <br>
-          वावु/आमाको नाम :- <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="ParentsName"
-                                   placeholder=""
-                                   type="text"/>
-          <br>
-          बाजेको नाम :- <input class="form-field form-control-sm nepaliFont"
-                               formControlName="grandParentsName"
+<table>
+  <tr>
+    <td style="text-align: right;width: 20%">दस्तखत र संस्थाको छाप :—</td>
+    <td style="text-align: left;width: 80%">............................</td>
+  </tr>
+  <tr>
+    <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">दस्तखत गर्नेको नाम :—</td>
+    <td style="text-align: left"><input class="form-field form-control-sm nepaliFont"
+               formControlName="sincerlyName"
+               placeholder=""
+               type="text"/>
+      <b>(ना.प्र.नं</b><input class="form-field form-control-sm nepaliFont"
+                       formControlName="sincerlyCitizenshipNo"
+                       placeholder=""
+                       type="text"/>
+      <b>मिति</b> <input class="form-field form-control-sm nepaliFont"
+                  formControlName="sincerlyCitizenshipIssueDate"
+                  placeholder=""
+                  type="text"/> <b>जि.प्र.का.</b> <input class="form-field form-control-sm nepaliFont"
+                                                  formControlName="sincerlyCDOoffice"
+                                                  placeholder=""
+                                                         type="text"/><b>)</b></td>
+  </tr>
+  <tr>
+    <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">स्थायी ठेगाना :—</td>
+    <td style="text-align: left"><input class="form-field form-control-sm nepaliFont"
+               formControlName="sincerlyPermanentAddress"
+               placeholder=""
+               type="text"/>
+      जिल्ला <input class="form-field form-control-sm nepaliFont"
+                    formControlName="sincerlyPermanentMuniciplity"
+                    placeholder=""
+                    type="text"/>
+      गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                               formControlName="sincerlyPermanentWadNo"
                                placeholder=""
                                type="text"/>
-          <br>
-          पति/पत्निको नाम:— <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="husbanWifeName"
-                                   placeholder=""
-                                   type="text"/>
-        </p>
-
-      </div>
-
-      <div class="row" id="signature">
-
-        औठा छाप:
-        <table class="table  table-bordered" id="fingerXap">
-          <thead>
-          <tr>
-            <th>दाँ.</th>
-            <th>बाँ.</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><span class="signature-area"></span></td>
-            <td><span class="signature-area"></span></td>
-          </tr>
-          </tbody>
-        </table>
-
+      (साबिक <input class="form-field form-control-sm nepaliFont"
+                    formControlName="sincerlySabikVDC"
+                    placeholder=""
+                    type="text"/>
+      गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont"
+                             formControlName="sincerlySabikWadNo"
+                             placeholder=""
+                             type="text"/>)</td>
+  </tr>
+  <tr>
+    <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको ठेगाना :—</td>
+    <td style="text-align: left"><input class="form-field form-control-sm nepaliFont"
+               formControlName="sincerlyTempAdress"
+               placeholder=""
+               type="text"/>
+      जिल्ला<input class="form-field form-control-sm nepaliFont"
+                   formControlName="sincerlyTempMunicipality"
+                   placeholder=""
+                   type="text"/>
+      गा.पा./न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont"
+                                formControlName="sincerlyTempWadNo"
+                                placeholder=""
+                                type="text"/>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: right;width: 20%">वावु/आमाको नाम :—</td>
+    <td style="text-align: left"><input class="form-field form-control-sm nepaliFont"
+               formControlName="ParentsName"
+               placeholder=""
+               type="text"/></td>
+  </tr>
+  <tr>
+    <td style="text-align: right;width: 20%">वाजे/बजैको नाम :—</td>
+    <td style="text-align: left"><input class="form-field form-control-sm nepaliFont"
+               formControlName="grandParentsName"
+               placeholder=""
+               type="text"/></td>
+  </tr>
+  <tr>
+    <td style="text-align: right;width: 20%">पति/पत्निको नाम :—</td>
+    <td style="text-align: left"><input class="form-field form-control-sm nepaliFont"
+               formControlName="husbanWifeName"
+               placeholder=""
+               type="text"/></td>
+  </tr>
+  <tr>
+    <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">औठा छाप :—</td>
+    <td style="text-align: left"><table class="table  table-bordered" id="fingerXap">
+      <thead>
+      <tr>
+        <th>दाँ.</th>
+        <th>बाँ.</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><span class="signature-area"></span></td>
+        <td><span class="signature-area"></span></td>
+      </tr>
+      </tbody>
+    </table></td>
+  </tr>
+</table>
 
       </div>
       <br>
@@ -117,22 +159,42 @@
           <table class="table table-responsive-md table-bordered text-center">
             <thead>
             <tr>
-
-              <th>नाम</th>
-              <th>ठेगाना</th>
-              <th>दस्तखत</th>
+              <td>दस्तखत:</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>नाम:</td>
+              <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                         formControlName="guarantorName"
+                         placeholder="" type="text"/>
+                (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                                 formControlName="guarantorCitizenshipNo"
+                                 placeholder=""
+                                 type="text"/>
+                मिति <input class="form-field form-control-sm nepaliFont"
+                            formControlName="guarantorCitizenshipIssueDate"
+                            placeholder=""
+                            type="text"/> जि.प्र.का. <input class="form-field form-control-sm nepaliFont"
+                                                            formControlName="guarantorCDOoffice"
+                                                            placeholder=""
+                                                            type="text"/>)
+              </td>
+            </tr>
+            <tr>
+              <td>ठेगाना:</td>
+              <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                             formControlName="issuedPlace"
+                             placeholder="" type="text"/>जिल्ला <input class="form-field form-control-sm nepaliFont"
+                                                                       formControlName="guarantorPermanentMuniciplity"
+                                                                       placeholder=""
+                                                                       type="text"/>
+              गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                                       formControlName="guarantorPermanentWadNo"
+                                       placeholder=""
+                                       type="text"/></td>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td><input class="form-field form-control-sm nepaliFont "
-                         formControlName="guarantorName"
-                         placeholder="" type="text"/>
-              <td><input class="form-field form-control-sm nepaliFont "
-                         formControlName="issuedPlace"
-                         placeholder="" type="text"/></td>
-              <td></td>
-            </tr>
             </tbody>
           </table>
           <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
