@@ -4,6 +4,7 @@ import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {CommonService} from '../../../../../@core/service/common.service';
+import {LoanTag} from '../../../../loan/model/loanTag';
 
 @Component({
     selector: 'app-cad-loan-document',
@@ -14,7 +15,7 @@ export class CadLoanDocumentComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     customerLoanList: Array<LoanDataHolder>;
     setClassName = 'far fa-file-pdf fa-1x text-danger';
-
+    loanTag = LoanTag;
     constructor(public service: CommonService) {
     }
 
