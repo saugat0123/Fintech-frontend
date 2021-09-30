@@ -18,6 +18,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   @Input() country;
   @Input() security;
   @Input() embassy;
+  @Input() offerData;
   loanHolderInfo;
   offerLetterConst = NabilOfferLetterConst;
   proTermLoanSelected = false;
@@ -30,6 +31,7 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
   proposedAmount;
   guarantorName;
   branchName;
+  guarantorData;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -46,14 +48,25 @@ export class RetailProfessionalLoanPrintComponent implements OnInit {
         const val = value.proposal.proposedLimit;
         totalLoanAmount = totalLoanAmount + val;
       });
+      this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.customerAddress =  this.loanHolderInfo.permanentMunicipality.np + '-' +
-          this.loanHolderInfo.permanentWard.np + ', ' + this.loanHolderInfo.permanentDistrict.np + ' ,' +
-          this.loanHolderInfo.permanentProvince.np + ' प्रदेश ';
-      const guarantorDetails = this.cadOfferLetterApprovedDoc.loanHolder.guarantors;
-      this.guarantorName = guarantorDetails.guarantorList[0].name;
-      this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.name;
+      this.customerAddress =  this.loanHolderInfo.permanentMunicipality.ct + '-' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
+          this.loanHolderInfo.permanentProvince.ct;
+      if (!ObjectUtil.isEmpty(this.guarantorData)) {
+        this.guarantorName = this.guarantorParse(this.guarantorData[0].nepData, 'guarantorName');
+      }
+      this.branchName = this.loanHolderInfo.branch.ct;
+    }
+  }
+
+  guarantorParse(nepData, key, trans?) {
+    const data = JSON.parse(nepData);
+    if (ObjectUtil.isEmpty(trans)) {
+      return data[key].ct;
+    } else {
+      return data[key].en;
     }
   }
 

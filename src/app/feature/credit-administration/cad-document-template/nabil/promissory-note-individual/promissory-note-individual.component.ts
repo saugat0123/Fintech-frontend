@@ -57,6 +57,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    this.fillform();
   }
 
   buildForm() {
@@ -66,22 +67,47 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       loanamountinWords: [undefined],
       nameofGrandFather: [undefined],
       nameofFather: [undefined],
-      District: [undefined],
-      VDC: [undefined],
-      WardNo: [undefined],
-      Age: [undefined],
-      NameofPerson: [undefined],
-      CitizenshipNo: [undefined],
+      district: [undefined],
+      vdc: [undefined],
+      wardNo: [undefined],
+      age: [undefined],
+      nameofPerson: [undefined],
+      citizenshipNo: [undefined],
       dateofIssue: [undefined],
       nameofIssuedDistrict: [undefined],
-      Number: [undefined],
-      Interest: [undefined],
+      totalPeople: [undefined],
+      sakshiDistrict: [undefined],
+      sakshiVdc: [undefined],
+      sakshiWardNo: [undefined],
+      sakshiAge: [undefined],
+      nameofWitness: [undefined],
+      interest: [undefined],
+      sakshiDistrict1: [undefined],
+      sakshiVdc1: [undefined],
+      sakshiWardNo1: [undefined],
+      sakshiAge1: [undefined],
+      nameofWitness1: [undefined],
       nameofBranchLocated: [undefined],
       signature: [undefined],
-      nameofWitness: [undefined],
+      nameofStaff: [undefined],
     });
   }
-
+  fillform() {
+    this.form.patchValue(
+        {
+          nameofBranchLocated: this.individualData.branch.ct,
+          nameofGrandFather: this.individualData.grandFatherName.ct,
+          nameofFather: this.individualData.fatherName.ct,
+          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          dateofIssue: this.individualData.issuedDate.ct,
+          citizenshipNo: this.individualData.citizenshipNo.ct,
+          nameofPerson: this.individualData.name.ct,
+          wardNo: this.individualData.permanentWard.ct,
+          vdc: this.individualData.permanentMunicipality.ct,
+          district: this.individualData.permanentDistrict.ct,
+        }
+    );
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {

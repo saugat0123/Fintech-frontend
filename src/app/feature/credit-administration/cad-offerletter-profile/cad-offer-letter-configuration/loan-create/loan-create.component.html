@@ -27,18 +27,14 @@
           >
             <option [value]="null" selected hidden>Select Loan Facility</option>
             <option *ngFor="let loanFacility of loanFacilityList"
-                    [value]="loanFacility.id">{{loanFacility.name}}
+                    [value]="loanFacility.id">{{loanFacility.name}}||{{loanFacility.nepaliName}}
             </option>
           </select>
         </td>
-        <td>
-          <input type="text" class="form-control" formControlName="loanTrans" readonly>
-        </td>
-        <td><input type="text" class="form-control" formControlName="loanCT"></td>
       </tr>
       <tr>
         <td>Proposed Amount</td>
-        <td><input type="text" class="form-control" formControlName="proposedAmount"></td>
+        <td><input type="text" class="form-control" formControlName="proposedAmount" (change)="patchValue(i)"></td>
         <td>
           <input type="text" class="form-control" formControlName="proposedAmountTrans" readonly />
         </td>
@@ -84,14 +80,14 @@
           </button>
         </td>
         <td colspan="2">
-          <button class="float-right" size="tiny" nbButton status="info" (click)="translate(i)">
-            Translate Loan Details
-          </button>
+<!--          <button class="float-right" size="tiny" nbButton status="info" (click)="translate(i)">-->
+<!--            Translate Loan Details-->
+<!--          </button>-->
         </td>
       </tr>
     </table>
     <hr>
   </div>
-  <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner || form.invalid || isTranslatedLoanDetails">save
+  <button class="float-right" nbButton type="submit" (click)="save()" [disabled]="spinner">Save & Next
   </button>
 </form>
