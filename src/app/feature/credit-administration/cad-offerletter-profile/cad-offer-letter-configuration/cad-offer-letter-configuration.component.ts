@@ -373,7 +373,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   saveCustomer() {
-    this.addGuarantor();
     this.submitted = true;
     this.spinner = true;
     if (this.addressSameAsAbove) {
@@ -455,16 +454,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.translatedData[key] = this.attributes;
     });
 
-    // this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
-    //   const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
-    //   if (issueDateType === 'AD') {
-    //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-    //         this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
-    //   } else if (issueDateType === 'BS') {
-    //     const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-    //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
-    //   }
-    // });
+    this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
+      const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
+      if (issueDateType === 'AD') {
+        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+            this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
+      } else if (issueDateType === 'BS') {
+        const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
+      }
+    });
 
     // this.translatedData['guarantorDetails'] = this.translatedGuarantorDetails;
 
@@ -829,9 +828,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   setGuarantors(guarantorDetails: any) {
     const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
-    // if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
-    //   if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
-    //     const guarantorList = this.customerInfo.guarantors.guarantorList;
+    // if (!ObjectUtil.isEmpty(this.loanHolder.guarantors)) {
+    //   if (!ObjectUtil.isEmpty(this.loanHolder.guarantors.guarantorList)) {
+    //     const guarantorList = this.loanHolder.guarantors.guarantorList;
     //     this.guarantorList = guarantorList;
     //   }
     // }
@@ -905,6 +904,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         isSameTemporaryAndPermanentCT: [undefined],
         isSameTemporaryAndPermanentTrans: [undefined],
         nepData: [value.nepData],
+        radioCitizenIssuedDate: [undefined],
+        citizenIssuedDate: [undefined],
+
       }));
     });
   }
@@ -1465,7 +1467,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
       this.userConfigForm.get('dobDateType').patchValue(JSON.parse(this.loanHolder.nepData).dobDateType.en);
       this.userConfigForm.get('issuedDate').patchValue(JSON.parse(this.loanHolder.nepData).issuedDate.en);
-      this.userConfigForm.get('permanentMunType').patchValue(JSON.parse(this.loanHolder.nepData).permanentMunType.en);
+      this.userConfigForm.get('permanentMunType').patchValue(ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).permanentMunType)
+      ? undefined : JSON.parse(this.loanHolder.nepData).permanentMunType.en);
       this.addressSameAsAbove = JSON.parse(this.oneFormCustomer.individualJsonData).sameAddress;
       this.userConfigForm.get('dob').patchValue(JSON.parse(this.loanHolder.nepData).dob.en);
       this.userConfigForm.get('citizenshipIssueDate').patchValue(JSON.parse(this.loanHolder.nepData).citizenshipIssueDate.en);
@@ -1725,8 +1728,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('panNoTrans').patchValue(this.nepData.panNo.np);
     this.userConfigForm.get('customerCodeTrans').patchValue(this.nepData.customerCode.np);
     this.userConfigForm.get('genderTrans').patchValue(this.nepData.gender.np);
-    this.userConfigForm.get('fatherNameTrans').patchValue(this.nepData.fatherName.np);
-    this.userConfigForm.get('grandFatherNameTrans').patchValue(this.nepData.grandFatherName.np);
+    this.userConfigForm.get('fatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.np);
+    this.userConfigForm.get('grandFatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.np);
     this.userConfigForm.get('relationMediumTrans').patchValue(ObjectUtil.isEmpty(this.nepData.relationMedium) ? undefined : this.nepData.relationMedium.np);
     this.userConfigForm.get('husbandNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.husbandName) ? undefined : this.nepData.husbandName.np);
     this.userConfigForm.get('fatherInLawNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherInLawName) ? undefined : this.nepData.fatherInLawName.np);
