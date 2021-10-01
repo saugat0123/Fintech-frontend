@@ -29,7 +29,7 @@ import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {ToastService} from '../../../../@core/utils';
+import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -48,7 +48,8 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
-import {FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProposalService} from '../../../loan-update/service/proposal.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -58,6 +59,8 @@ import {FormGroup} from '@angular/forms';
 export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     @Output() changeToApprovalSheetActive = new EventEmitter<string>();
+
+    @Output() refreshLoanSummary = new EventEmitter<boolean>();
 
     @Input() loanData;
     loanDataHolder: LoanDataHolder;
@@ -193,7 +196,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     spinnerMsg = 'Please Wait!!';
     disableUpdateProposal = true;
     submitted = false;
-    proposalForm: FormGroup;
     minimumAmountLimit = 0;
     isGeneral = false;
     isShare = false;
@@ -203,6 +205,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     isFixedDeposit = false;
     isVehicle = false;
     interestLimit: number;
+    proposalForm: FormGroup;
+    formDataForEdit: Object;
+    baseRate: Number;
+    interestRate: Number;
+    premiumRateOnBaseRate: Number;
+    fundableNonFundableSelcted = false;
+    loanNatureSelected = false;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -223,6 +232,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private formBuilder: FormBuilder,
+        private proposalService: ProposalService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -287,17 +298,26 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.id = this.combinedLoanId;
         }
         this.isFundable = this.loanConfig.isFundable;
-        this.isRevolving = this.loanConfig.loanNature.toString() === 'Revolving';
-        this.isTerminating = this.loanConfig.loanNature.toString() === 'Terminating';
-        if (this.isRevolving) {
-            this.isGeneral = false;
+        this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(this.loanConfig.isFundable);
+        this.isFixedDeposit = this.loanConfig.loanTag === 'FIXED_DEPOSIT';
+        this.isGeneral = this.loanConfig.loanTag === 'GENERAL';
+        this.isShare = this.loanConfig.loanTag === 'SHARE_SECURITY';
+        this.isVehicle = this.loanConfig.loanTag === 'VEHICLE';
+        if (!ObjectUtil.isEmpty(this.loanConfig.loanNature)) {
+            this.loanNatureSelected = true;
+            this.isRevolving = this.loanConfig.loanNature === 0;
+            this.isTerminating = this.loanConfig.loanNature === 1;
+            if (this.isRevolving) {
+                this.isGeneral = false;
+            }
         }
         if (!this.isFundable) {
             this.isGeneral = false;
         }
-        this.isFixedDeposit = this.loanConfig.loanTag === 'FIXED_DEPOSIT';
-        this.isShare = this.loanConfig.loanTag === 'SHARE_SECURITY';
-        this.isVehicle = this.loanConfig.loanTag === 'VEHICLE';
+        if (this.isFixedDeposit) {
+            this.loanNatureSelected = false;
+            this.fundableNonFundableSelcted = false;
+        }
     }
 
     ngOnDestroy(): void {
@@ -810,6 +830,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     openModel(model) {
+        this.buildForm();
         this.modalService.open(model);
     }
 
@@ -818,32 +839,57 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     onSubmit () {
-        this.modalService.dismissAll();
-        alert('saved');
+        this.formDataForEdit['baseRate'] = (this.proposalForm.controls['baseRate'].value);
+        this.formDataForEdit['proposedLimit'] = (this.proposalForm.controls['proposedLimit'].value);
+        this.formDataForEdit['interestRate'] = (this.proposalForm.controls['interestRate'].value);
+        this.formDataForEdit['premiumRateOnBaseRate'] = (this.proposalForm.controls['premiumRateOnBaseRate'].value);
+
+        this.proposalData.data = JSON.stringify(this.formDataForEdit);
+        this.proposalData.proposedLimit = this.proposalForm.controls['proposedLimit'].value;
+
+        this.proposalService.saveProposal(this.proposalData.id, this.proposalData).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Proposal!'));
+            this.modalService.dismissAll();
+            this.refresh();
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Proposal!'));
+        });
     }
 
-    checkRepaymentMode() {
-        /*if (this.showInstallmentAmount) {
-            this.proposalForm.get('interestAmount').patchValue(0);
-            const repaymentMode = this.proposalForm.get('repaymentMode').value;
-            switch (repaymentMode) {
-                case 'EMI':
-                    this.calculateEmiEqiAmount('emi');
-                    break;
-                case 'EQI':
-                    this.calculateEmiEqiAmount('eqi');
-                    break;
+    buildForm() {
+        // Build proposal form
+        this.proposalForm = this.formBuilder.group({
+            proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
+            interestRate: [undefined],
+            baseRate: [undefined],
+            premiumRateOnBaseRate: [undefined]
+        });
+
+        // Fill form values
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+            this.formDataForEdit = JSON.parse(this.loanDataHolder.proposal.data);
+            if (this.formDataForEdit !== null && this.formDataForEdit !== undefined && !ObjectUtil.isEmpty(this.formDataForEdit)) {
+                this.proposalForm.setValue({
+                    proposedLimit: this.formDataForEdit['proposedLimit'],
+                    baseRate: this.formDataForEdit['baseRate'],
+                    interestRate: this.formDataForEdit['interestRate'],
+                    premiumRateOnBaseRate: this.formDataForEdit['premiumRateOnBaseRate']
+                });
             }
-        } else {
-            this.proposalForm.get('installmentAmount').patchValue(0);
-        }*/
+        }
     }
 
-    checkCustomRepaymentMode() {
-        /*if (this.showRepaymentMode) {
-            this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModePrincipal').value , 'PRINCIPAL');
-            this.calculateRepaymentModeAmounts(this.proposalForm.get('repaymentModeInterest').value , 'INTEREST');
-        }*/
+    updateRate() {
+        this.baseRate = this.proposalForm.controls['baseRate'].value;
+        this.interestRate = this.proposalForm.controls['interestRate'].value;
+        // @ts-ignore
+        this.premiumRateOnBaseRate = (this.interestRate - this.baseRate).toPrecision(2);
+        this.proposalForm.controls['premiumRateOnBaseRate'].patchValue(this.premiumRateOnBaseRate);
+    }
+
+    refresh() {
+        this.refreshLoanSummary.emit(true);
     }
 }
 

@@ -242,4 +242,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.approvalSheetActive = false;
         this.loanSummaryActive = true;
     }
+
+    refreshLoanSummary() {
+        this.loanDataHolder = undefined;
+        this.getLoanDataHolder();
+    }
 }
