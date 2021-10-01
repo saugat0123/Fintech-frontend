@@ -42,7 +42,13 @@
                     <td><input type="text" class="form-control" formControlName="refNumber"/></td>
                     <td class="abc">{{translatedData?.refNumber}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="refNumberTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.refNumberTransVal.errors }"
+                               formControlName="refNumberTransVal"/>
+                        <div *ngIf="submitted && Form.refNumberTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.refNumberTransVal.errors.required">Reference number is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr style="padding: 12px">
@@ -81,7 +87,13 @@
                     <td><input type="text" class="form-control" formControlName="loanPurpose"/></td>
                     <td class="abc">{{translatedData?.loanPurpose}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="loanPurposeTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
+                               formControlName="loanPurposeTransVal"/>
+                        <div *ngIf="submitted && Form.loanPurposeTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.loanPurposeTransVal.errors.required">Purpose of loan is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -89,7 +101,13 @@
                     <td><input type="text" class="form-control" formControlName="baseRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.baseRate}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="baseRateTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.baseRateTransVal.errors }"
+                               formControlName="baseRateTransVal"/>
+                        <div *ngIf="submitted && Form.baseRateTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.baseRateTransVal.errors.required">Base rate is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -97,7 +115,13 @@
                     <td><input type="text" class="form-control" formControlName="premiumRate" (input)="calInterestRate()"/></td>
                     <td class="abc">{{translatedData?.premiumRate}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="premiumRateTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.premiumRateTransVal.errors }"
+                               formControlName="premiumRateTransVal"/>
+                        <div *ngIf="submitted && Form.premiumRateTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.premiumRateTransVal.errors.required">Premium rate is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -105,7 +129,13 @@
                     <td><input type="text" class="form-control" formControlName="yearlyFloatingInterestRate"/></td>
                     <td class="abc">{{translatedData?.yearlyFloatingInterestRate}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="yearlyFloatingInterestRateTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.yearlyFloatingInterestRateTransVal.errors }"
+                               formControlName="yearlyFloatingInterestRateTransVal"/>
+                        <div *ngIf="submitted && Form.yearlyFloatingInterestRateTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.yearlyFloatingInterestRateTransVal.errors.required">Interest rate is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -116,7 +146,13 @@
                     </td>
                     <td class="abc">{{translatedData?.loanAdminFee}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="loanAdminFeeTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.loanAdminFeeTransVal.errors }"
+                               formControlName="loanAdminFeeTransVal"/>
+                        <div *ngIf="submitted && Form.loanAdminFeeTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.loanAdminFeeTransVal.errors.required">Loan admin fee is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -126,7 +162,13 @@
                                (input)="getNumAmountWord('emiAmount', 'emiAmountWords')"/></td>
                     <td class="abc">{{translatedData?.emiAmount}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="emiAmountTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.emiAmountTransVal.errors }"
+                               formControlName="emiAmountTransVal"/>
+                        <div *ngIf="submitted && Form.emiAmountTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.emiAmountTransVal.errors.required">EMI amount is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -134,7 +176,7 @@
                     <td><input type="text" class="form-control" formControlName="emiAmountWords"/></td>
                     <td class="abc">{{translatedData?.emiAmountWords}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="emiAmountWordsTransVal"/>
+                        <input type="text" class="form-control" formControlName="emiAmountWordsTransVal"/>
                     </td>
                 </tr>
                 <tr>
@@ -142,7 +184,13 @@
                     <td><input type="text" class="form-control" formControlName="companyName"/></td>
                     <td class="abc">{{translatedData?.companyName}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="companyNameTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.companyNameTransVal.errors }"
+                               formControlName="companyNameTransVal"/>
+                        <div *ngIf="submitted && Form.companyNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.companyNameTransVal.errors.required">Name of Company is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -150,7 +198,13 @@
                     <td><input type="text" class="form-control" formControlName="branchName"/></td>
                     <td class="abc">{{translatedData?.branchName}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="branchNameTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.branchNameTransVal.errors }"
+                               formControlName="branchNameTransVal"/>
+                        <div *ngIf="submitted && Form.branchNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.branchNameTransVal.errors.required">Name of Branch is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -158,7 +212,13 @@
                     <td><input type="text" class="form-control" formControlName="accountNumber"/></td>
                     <td class="abc">{{translatedData?.accountNumber}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="accountNumberTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.accountNumberTransVal.errors }"
+                               formControlName="accountNumberTransVal"/>
+                        <div *ngIf="submitted && Form.accountNumberTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.accountNumberTransVal.errors.required">Account Number is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -166,7 +226,13 @@
                     <td><input type="text" class="form-control" formControlName="relationshipOfficer"/></td>
                     <td class="abc">{{translatedData?.relationshipOfficer}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="relationshipOfficerTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.relationshipOfficerTransVal.errors }"
+                               formControlName="relationshipOfficerTransVal"/>
+                        <div *ngIf="submitted && Form.relationshipOfficerTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.relationshipOfficerTransVal.errors.required">Relationship Officer name is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -174,15 +240,50 @@
                     <td><input type="text" class="form-control" formControlName="managerName"/></td>
                     <td class="abc">{{translatedData?.managerName}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont" formControlName="managerNameTransVal"/>
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.managerNameTransVal.errors }"
+                               formControlName="managerNameTransVal"/>
+                        <div *ngIf="submitted && Form.managerNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.managerNameTransVal.errors.required">Branch Manager name is required</div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
+                    <td>Signature Date</td>
+                    <td>
+                        <div class="row" style="margin-left: 5px; margin-top: -8px;">
+                            <nb-radio-group name="signatureDate">
+                                <nb-radio (click)="setDateTypeBS2()"><span style="margin-left:-60px">BS</span></nb-radio>
+                                <nb-radio (click)="setDateTypeAD2()" style="margin-left: 60px;margin-top: -35px;">AD</nb-radio>
+                            </nb-radio-group>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <nepali-patro *ngIf="dateTypeBS2" formControlName="signatureDate" [responseType]="2"
+                                      [displayNepali]="true">
+                        </nepali-patro>
+                        <input [nbDatepicker]="dos"
+                               *ngIf="dateTypeAD2"
+                               class="form-control form-control-sm-error rounded"
+                               formControlName="signatureDate"
+                               id="signatureDate"
+                               name="signatureDate"
+                               placeholder="Date of Signature"
+                               type="text">
+                        <nb-datepicker #dos></nb-datepicker>
+                    </td>
+                </tr>
+                <!--<tr>
                     <td>Witness District</td>
                     <td><input type="text" class="form-control" formControlName="sakshiDistrict"/></td>
                     <td class="abc">{{translatedData?.sakshiDistrict}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont"
+                        <input type="text" class="form-control"
                                formControlName="sakshiDistrictTransVal"/>
                     </td>
                 </tr>
@@ -191,7 +292,7 @@
                     <td><input type="text" class="form-control" formControlName="sakshiMunicipality"/></td>
                     <td class="abc">{{translatedData?.sakshiMunicipality}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont"
+                        <input type="text" class="form-control"
                                formControlName="sakshiMunicipalityTransVal"/>
                     </td>
                 </tr>
@@ -200,7 +301,7 @@
                     <td><input type="text" class="form-control" formControlName="sakshiWardNum"/></td>
                     <td class="abc">{{translatedData?.sakshiWardNum}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont"
+                        <input type="text" class="form-control"
                                formControlName="sakshiWardNumTransVal"/>
                     </td>
                 </tr>
@@ -209,17 +310,22 @@
                     <td><input type="text" class="form-control" formControlName="sakshiName"/></td>
                     <td class="abc">{{translatedData?.sakshiName}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont"
+                        <input type="text" class="form-control"
                                formControlName="sakshiNameTransVal"/>
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td>Approval Staff Name</td>
                     <td><input type="text" class="form-control" formControlName="employeeName"/></td>
                     <td class="abc">{{translatedData?.employeeName}}</td>
                     <td>
-                        <input type="text" class="form-control nepaliFont"
+                        <input type="text" class="form-control"
+                               [ngClass]="{ 'is-invalid':submitted && Form.employeeNameTransVal.errors }"
                                formControlName="employeeNameTransVal"/>
+                        <div *ngIf="submitted && Form.employeeNameTransVal.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="Form.employeeNameTransVal.errors.required">Approval Staff name is required</div>
+                        </div>
                     </td>
                 </tr>
             </table>
