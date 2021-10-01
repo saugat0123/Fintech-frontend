@@ -357,19 +357,11 @@ export class LoanFormComponent implements OnInit {
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+            if (this.transferred === 'true') {
+                this.filterTemplateList(this.templateList);
+            }
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
-                if (this.transferred === 'true') {
-                    const list = this.templateList;
-                    this.templateList = [];
-                    let index = 0;
-                    list.forEach(item => {
-                        if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
-                            this.templateList[index] = item;
-                            index++;
-                        }
-                    });
-                }
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Company Info') {
                         this.templateList.splice(index, 1);
@@ -414,6 +406,9 @@ export class LoanFormComponent implements OnInit {
 
             // Remove Customer Info Template for Business Loan Type
             if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
+                if (this.transferred === 'true') {
+                    this.filterTemplateList(this.templateList);
+                }
                 this.templateList.forEach((value, i) => {
                     if (value.name === 'Customer Info') {
                         this.templateList.splice(i, 1);
@@ -858,5 +853,19 @@ export class LoanFormComponent implements OnInit {
     goToCustomer() {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+    }
+
+    filterTemplateList(templateList) {
+        if (this.transferred === 'true') {
+            const list = this.templateList;
+            this.templateList = [];
+            let index = 0;
+            list.forEach(item => {
+                if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
+                    this.templateList[index] = item;
+                    index++;
+                }
+            });
+        }
     }
 }
