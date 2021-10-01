@@ -95,16 +95,46 @@
 
     <div class="row">
       <div class="col-md-12">
-        <ng-select [(ngModel)]="customerType" placeholder="Select Customer Type">
-          <ng-option value="INSTITUTION">INSTITUTION</ng-option>
-          <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
-        </ng-select>
+        <div class="form-group">
+          <ng-select [(ngModel)]="createClientType" placeholder="Select Customer Type" required>
+            <ng-option [value]="customerType.INSTITUTION">INSTITUTION</ng-option>
+            <ng-option [value]="customerType.INDIVIDUAL">PERSONAL</ng-option>
+          </ng-select>
+        </div>
+        <div class="form-group" *ngIf="createClientType === customerType.INDIVIDUAL">
+          <ng-select [(ngModel)]="createSubClientType"
+                     placeholder="Select Personal Customer Type" required>
+            <ng-option [value]="subCustomerType.JOINT">JOINT</ng-option>
+            <ng-option [value]="subCustomerType.PERSONAL">INDIVIDUAL</ng-option>
+          </ng-select>
+        </div>
+        <div class="form-group"
+             *ngIf="createClientType === customerType.INDIVIDUAL && createSubClientType === subCustomerType.JOINT">
+          <input [(ngModel)]="jointCustomerNum"
+                 class="form-control"
+                 min="2"
+                 type="number"
+                 placeholder="Number of joint customer"
+                 required>
+        </div>
+
+        <div class="form-group"
+             *ngIf="createClientType === customerType.INSTITUTION">
+          <select class="form-control"
+                  [(ngModel)]="createSubInstituteType"
+                  placeholder="Select Institution Customer Type"
+                  required>
+            <option [value]="subCustomerType.PRIVATE_PUBLIC">Pvt Ltd or Public</option>
+            <option [value]="subCustomerType.PROPRIETORSHIP">PROPRIETERSHIP</option>
+            <option [value]="subCustomerType.PARTNERSHIP">PARTNERSHIP</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <button class="btn btn-success float-right" nbButton size="small"
-            (click)="getForm(customerType);onClose()">Next
+            (click)="getForm();onClose()">Next
     </button>
   </div>
 </ng-template>

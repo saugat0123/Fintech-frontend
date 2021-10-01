@@ -21,12 +21,16 @@ import {ThemeModule} from '../../../@theme/theme.module';
 import {NgxPrintModule} from 'ngx-print';
 import {CoreModule} from '../../../@core/core.module';
 import {NbAccordionModule} from '@nebular/theme';
-import {RetailLoanAgainstInsuranceComponent} from "./mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component";
+import {RetailLoanAgainstInsuranceComponent} from './mega-offer-letter/retail-loan-against-insurance/retail-loan-against-insurance.component';
 import { RetailAgainstInsPrintComponent } from './mega-offer-letter/retail-loan-against-insurance/retail-against-ins-print/retail-against-ins-print.component';
 import { CustomInputComponent } from './mega-offer-letter/custom-input/custom-input.component';
 import { PersonalOverdraftComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft.component';
 import { PersonalOverdraftPrintComponent } from './mega-offer-letter/personal-overdraft/personal-overdraft-print/personal-overdraft-print.component';
+import { PersonalLoanAndPersonalOverdraftComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
 import {NepaliPatroModule} from 'nepali-patro';
+import { PersonalLoanAndPersonalOverdraftPrintComponent } from './mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft-print/personal-loan-and-personal-overdraft-print.component';
+import { PersonalLoanComponent } from './mega-offer-letter/personal-loan/personal-loan.component';
+import { PersonalLoanPrintComponent } from './mega-offer-letter/personal-loan/personal-loan-print/personal-loan-print.component';
 
 const COMPONENTS = [
     MegaOfferLetterComponent,
@@ -52,7 +56,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent],
+    declarations: [...COMPONENTS, RetailAgainstInsPrintComponent, CustomInputComponent, PersonalOverdraftComponent, PersonalOverdraftPrintComponent, PersonalLoanAndPersonalOverdraftComponent, PersonalLoanAndPersonalOverdraftPrintComponent, PersonalLoanComponent, PersonalLoanPrintComponent],
     exports: [
         HayerPurchaseComponent,
         RetailEducationalLoanComponent,
@@ -63,7 +67,9 @@ const COMPONENTS = [
         RetailMortgageLoanComponent,
         RetailProfessionalLoanComponent,
         RetailLoanAgainstInsuranceComponent,
-        PersonalOverdraftComponent
+        PersonalOverdraftComponent,
+        PersonalLoanAndPersonalOverdraftComponent,
+        PersonalLoanComponent
     ],
   imports: [
     ThemeModule,
@@ -76,6 +82,8 @@ const COMPONENTS = [
     entryComponents: [
         RetailProfessionalLoanComponent,
         PersonalOverdraftComponent,
+        PersonalLoanAndPersonalOverdraftComponent,
+        PersonalLoanComponent
     ]
 })
 export class MegaOfferLetterTemplateModule {

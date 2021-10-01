@@ -4,6 +4,9 @@
   text-align: justify;
   text-justify: inter-word;
 }
+.nepaliFont{
+  font-size: 16px;
+}
 .form-field {
   background: yellow;
   margin: 0px 5px;
@@ -47,4 +50,9 @@
     text-justify: inter-word;
     margin: 10px 70px;
   }
+  .outside {
+    font-family: Preeti;
+    font-size: 16px !important;
+  }
+
 }
