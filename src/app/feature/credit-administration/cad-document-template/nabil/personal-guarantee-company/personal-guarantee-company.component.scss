@@ -1,33 +1,50 @@
+.longInput{
+  width: 400px;
+}
+
+.shortInput{
+  width: 50px;
+}
+
 .nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
+  margin: 10px 50px;
 }
+
 .form-field {
   background: yellow;
-  margin: 0px 5px;
+  margin: 0px 5px 5px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
   &:focus {
     outline: none;
   }
-  .table-row{
-    width:32px;
-  }
-  .container-name div {
-    display: inline-block;
-    width: 500px;
-    min-height: 50px;
-    background-color: #eee;
-    height: auto;
-  }
 }
 
-p.box-border{
-  border: 1px solid;
-  padding:20px;
+li {
+  list-style-type: none;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
+}
+
+.lh-30 {
+  line-height: 30px;
+  text-align: justify;
+}
+
+ol.conditions {
+  padding: 15px !important;
+}
+
+ol.conditions li {
+  list-style: devanagari;
+  line-height: 30px !important;
 }
 
 @media screen {
