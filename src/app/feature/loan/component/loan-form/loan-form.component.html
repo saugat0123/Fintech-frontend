@@ -76,7 +76,7 @@
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)" [destroyOnHide]="false">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)" [disabled]="isBlackListed">
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
                         <!--            <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
                         <!--                            [formValue]="loanDocument?.customerInfo"-->
                         <!--                            [calendarType]="calendarType"-->
@@ -89,14 +89,14 @@
                                                  [loanId]="id"></app-individual-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
                         <app-kyc-info [formValue]="loanDocument?.customerInfo" #kycInfo>
                         </app-kyc-info>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'General' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'General'">
                         <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Company Info' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
                         <!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
                         <!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
                         <!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
@@ -107,11 +107,11 @@
                                                    [loanId]="id"></app-company-info-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
                         <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
                         <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'CICL' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <div class="py-4">
                             <app-cicl-view #cicl
 
@@ -119,13 +119,13 @@
                             ></app-cicl-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
                         <app-credit-grading #creditGrading
                                             [fromProfile]="false"
                                             [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma
                                                        [fromProfile]="true"
@@ -133,7 +133,7 @@
                                                        [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Financial' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <div class="py-4">
                             <app-financial-view #financial
                                                 [customerType]="loanHolder?.customerType"
@@ -142,14 +142,14 @@
                             ></app-financial-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
                         <div class="py-4">
                             <app-site-visit-view #siteVisit
                                                  [siteVisit]="loanHolder?.siteVisit"
                                                  *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Security' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
                         <!--            <app-security #security [securityValue]="loanDocument?.security"-->
                         <!--                          [calendarType]="calendarType"-->
                         <!--                          [loanTag]="loanTag"-->
@@ -164,11 +164,11 @@
                                                     [loanDataHolder]="loanDocument"
                         [loanType]="loanType"></app-customer-loan-document>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Group' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group"
                                    [proposalDataHolder]="loanDocument?.proposal"></app-group>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
                         <div class="py-4">
                             <app-guarantor-adder #guarantor
                                                  [taggedGuarantors]="loanDocument?.taggedGuarantors"
@@ -178,7 +178,7 @@
                         </div>
                     </ng-template>
                     <!-- Todo Not require for srdb-->
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-alpha *ngIf="loanDataReady" #creditRiskGradingAlpha
                                                        [financialData]="loanDocument?.financial?.data"
@@ -190,7 +190,7 @@
                                                        [shareSecurity]="loanDocument?.shareSecurity"></app-credit-risk-grading-alpha>
                     </ng-template>
                     <!-- Todo Not require for srdb-->
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Lambda'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-credit-risk-grading-lambda *ngIf="loanDataReady" #creditRiskGradingLambda
                                                         [customer]="loanDocument?.customerInfo"
@@ -203,7 +203,7 @@
                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
                     <!-- Todo Not require for srdb-->
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
                         <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>
                         <app-crg-micro *ngIf="loanDataReady" #crgMicro
                                        [formData]="loanDocument?.crgMicro"
@@ -212,19 +212,19 @@
                                        [microOtherParameters]="loanDocument?.loanHolder?.microOtherParameters"></app-crg-micro>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
                         <app-reporting-info-tagging #reportingInfoTagging
                                                     [type]="'f'"
                                                     [reportingInfoLevels]="loanDocument?.reportingInfoLevels">
                         </app-reporting-info-tagging>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Obtainable Documents' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Obtainable Documents'">
                         <app-obtained-document #obtainedDocument>
                         </app-obtained-document>
                     </ng-template>
 
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Insurance' && transferred === 'false'">
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
                         <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
                         <!--            </app-insurance>-->
                         <div class="py-4">
@@ -241,7 +241,7 @@
                     <div class="row text-center">
                         <div class="col-md-6 d-flex justify-content-start">
                             <button nbButton status="primary"
-                                    *ngIf="nextTabId > 1 && transferred === 'false'"
+                                    *ngIf="nextTabId > 1"
                                     (click)="tabSet.select(previousTabId.toString(10));scrollToTop()">Previous
                             </button>
                         </div>
@@ -251,11 +251,11 @@
 
                             <button nbButton status="primary"
                                     (click)="nextButtonActionFxn(tabSet);scrollToTop()"
-                                    *ngIf="nextTabId !== totalTabCount && transferred === 'false'">Next
+                                    *ngIf="nextTabId !== totalTabCount">Next
                             </button>
 
                             <button nbButton status="info"
-                                    (click)="save()" *ngIf="nextTabId === totalTabCount || transferred === 'true'"
+                                    (click)="save()" *ngIf="nextTabId === totalTabCount"
                                     [disabled]="isBlackListed">
                                 Save
                             </button>

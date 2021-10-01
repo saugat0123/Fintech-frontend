@@ -58,10 +58,8 @@ import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grad
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
-import {Document} from '../../../admin/modal/document';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
@@ -361,6 +359,17 @@ export class LoanFormComponent implements OnInit {
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
+                if (this.transferred === 'true') {
+                    const list = this.templateList;
+                    this.templateList = [];
+                    let index = 0;
+                    list.forEach(item => {
+                        if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
+                            this.templateList[index] = item;
+                            index++;
+                        }
+                    });
+                }
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Company Info') {
                         this.templateList.splice(index, 1);
@@ -580,7 +589,7 @@ export class LoanFormComponent implements OnInit {
         //   this.loanDocument.customerInfo = this.basicInfo.customer;
         // }
 
-        if (name === 'General' && action && this.transferred === 'false') {
+        if (name === 'General' && action) {
             if (this.dmsLoanFile.loanForm.invalid) {
                 this.dmsLoanFile.customerFormField.showFormField = true;
                 this.dmsLoanFile.companyFormField.showFormField = true;
@@ -603,13 +612,13 @@ export class LoanFormComponent implements OnInit {
         //   this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
         //   this.loanDocument.customerInfo = this.companyInfoComponent.customer;
         // }
-        if (name === 'Kyc Info' && action && this.transferred === 'false') {
+        if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
             const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
 
-        if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN' && this.transferred === 'false') {
+        if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
             if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
                 this.microProposalInfo.scrollToFirstInvalidControl();
                 this.microProposalInfo.submitted = true;
@@ -619,7 +628,7 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.proposal = this.microProposalInfo.proposalData;
         }
 
-        if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN' && this.transferred === 'false') {
+        if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
             if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
                 this.proposalDetail.scrollToFirstInvalidControl();
                 this.proposalDetail.submitted = true;
@@ -632,7 +641,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
-        if (name === 'Obtainable Documents' && action && this.transferred === 'false') {
+        if (name === 'Obtainable Documents' && action) {
             this.cadObtainableDocuments.documents = this.obtainedDocument.obtainabledDocument;
             this.cadObtainableDocuments.OtherDocuments = this.obtainedDocument.otherDocument;
             this.loanDocument.data = JSON.stringify(this.cadObtainableDocuments);
@@ -673,21 +682,21 @@ export class LoanFormComponent implements OnInit {
           this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
         }*/
 
-        if (name === 'Credit Risk Grading - Gamma' && action && this.transferred === 'false') {
+        if (name === 'Credit Risk Grading - Gamma' && action) {
             this.crgGamma.onSubmit();
             this.loanDocument.crgGamma = this.crgGamma.creditRiskData;
         }
 
-        if (name === 'Group' && action && this.transferred === 'false') {
+        if (name === 'Group' && action) {
             this.group.onSubmit();
             this.loanDocument.group = this.group.modelData;
         }
 
-        if (name === 'Guarantor' && action && this.transferred === 'false') {
+        if (name === 'Guarantor' && action) {
             this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
         }
 
-        if (name === 'Reporting Info' && action && this.transferred === 'false') {
+        if (name === 'Reporting Info' && action) {
             this.reportingInfoTaggingComponent.onSubmit();
             this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
         }
