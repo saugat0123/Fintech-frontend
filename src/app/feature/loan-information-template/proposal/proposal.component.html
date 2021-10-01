@@ -103,16 +103,11 @@
                                     <div class="form-group">
                                         <label class="title" for="cashMarginOrFac"><strong>Collateral Type</strong></label>
                                         <select
-                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.cashMarginOrFac.errors }"
                                             class="form-control" formControlName="cashMarginOrFac"
                                             id="cashMarginOrFac" name="cashMarginOrFac">
                                             <option value="FAC"> FAC</option>
                                             <option value="CASHMARGIN">Cash Margin</option>
                                         </select>
-                                        <div *ngIf=" (submitted)  && formControls.cashMarginOrFac.errors"
-                                             class="invalid-feedback">
-                                            <span *ngIf="(formControls.cashMarginOrFac.errors.required)">Please Select Collateral Type</span>
-                                        </div>
                                     </div>
                                 </div>
 

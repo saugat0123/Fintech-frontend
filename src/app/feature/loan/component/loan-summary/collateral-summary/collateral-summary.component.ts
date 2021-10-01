@@ -56,6 +56,10 @@ export class CollateralSummaryComponent implements OnInit {
   nonFundedCollateralTotal;
   totalCollateral;
   facSelectedLoans;
+  nonFundedFacSelected;
+  nonFundedSelectedFac;
+  nonFundedApprovedTerminatingTotal;
+  nonFundedApprovedRevolvingTotal;
   constructor(
       private customerLoanService: LoanFormService,
       private loanFormService: LoanFormService,
@@ -131,7 +135,7 @@ export class CollateralSummaryComponent implements OnInit {
 
       // calculation of Approved Terminating Loan Total
       let approvedTerminatingLoanTotal = [];
-      this.approvedLoans.map(val => {
+      this.fundedApprovedLoans.map(val => {
         if (val.loan.loanNature === 'Terminating') {
           approvedTerminatingLoanTotal.push(val.proposal.outStandingLimit);
         }
@@ -140,12 +144,28 @@ export class CollateralSummaryComponent implements OnInit {
 
       // Calculation of Approved Revolving Loan Total
       let approvedRevolvingLoanTotal =[];
-      this.approvedLoans.map(val => {
+      this.fundedApprovedLoans.map(val => {
         if (val.loan.loanNature === 'Revolving'){
           approvedRevolvingLoanTotal.push(val.proposal.existingLimit);
         }
       });
       this.approvedRevolvingLoanTotal =approvedRevolvingLoanTotal.reduce((a, b) => Number(a) + Number(b),0);
+
+      let nonFundedApprovedTerminatingTotal =[];
+      this.nonFundedApprovedLoans.map(val => {
+          if(val.loan.loanNature === 'Terminating' && val.proposal.cashMarginOrFac === 'FAC'){
+              nonFundedApprovedTerminatingTotal.push(val.proposal.outStandingLimit);
+          }
+      });
+      this.nonFundedApprovedTerminatingTotal = nonFundedApprovedTerminatingTotal.reduce((a,b) => Number(a) + Number(b),0);
+
+            let nonFundedApprovedRevolvingTotal =[];
+            this.nonFundedApprovedLoans.map(val => {
+                if(val.loan.loanNature === 'Revolving' && val.proposal.cashMarginOrFac === 'FAC'){
+                    nonFundedApprovedRevolvingTotal.push(val.proposal.existingLimit);
+                }
+            });
+            this.nonFundedApprovedRevolvingTotal = nonFundedApprovedRevolvingTotal.reduce((a,b) => Number(a) + Number(b),0);
 
 
     // calculation of Total Existing Limit
@@ -192,6 +212,7 @@ export class CollateralSummaryComponent implements OnInit {
           });
           this.NonFundedProposedTotal = nonFundedProposedTotal;
 
+
           // Total Fundable Collateral
           let fundedCollateralTotal =0;
           this.allFundedList.forEach(value => {
@@ -200,6 +221,7 @@ export class CollateralSummaryComponent implements OnInit {
             }
           });
           this.fundedCollateralTotal =fundedCollateralTotal;
+
 
           // Total Non-Fundable Collateral
           let nonFundedCollateralTotal = 0;
@@ -211,16 +233,44 @@ export class CollateralSummaryComponent implements OnInit {
           this.nonFundedCollateralTotal = nonFundedCollateralTotal;
 
 
+          let nonFundedSelectedFac = 0;
+          this.facSelectedLoans.forEach( value => {
+            if(value.proposal){
+              nonFundedSelectedFac += value.proposal.proposedLimit;
+            }
+          })
+          this.nonFundedSelectedFac = nonFundedSelectedFac;
+
+
           if(this.facSelectedLoans.length !== 0){
-            this.totalProposedAmount = (this.fundedProposedTotal+this.NonFundedProposedTotal);
+            this.totalProposedAmount = (this.fundedProposedTotal+this.nonFundedSelectedFac);
           }else if(this.facSelectedLoans.length == 0){
             this.totalProposedAmount=this.fundedProposedTotal;
           }
-          this.totalCollateral = (this.fundedCollateralTotal + this.nonFundedCollateralTotal );
-          this.loanExposureFmv = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal ) / this.security.totalSecurityAmount) *100;
-          this.loanExposureDv = ((this.totalProposedAmount + this.approvedRevolvingLoanTotal + this.approvedTerminatingLoanTotal) / this.security.totalDistressAmount)*100;
-          this.coverage = (this.security.totalSecurityAmount/(this.totalProposedAmount+this.approvedTerminatingLoanTotal+this.approvedRevolvingLoanTotal))*100;
 
+            // Total Calculator
+          this.totalCollateral = (this.fundedCollateralTotal + this.nonFundedCollateralTotal );
+
+          // Loan Exposure FMV
+          if(this.facSelectedLoans.length == 0){
+              this.loanExposureFmv = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal ) / this.security.totalSecurityAmount) *100;
+          } else if(this.facSelectedLoans.length !== 0){
+              this.loanExposureFmv =((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal + this.nonFundedApprovedTerminatingTotal+ this.nonFundedApprovedRevolvingTotal)/ this.security.totalSecurityAmount)*100;
+          }
+
+
+            // Loan Exposure Dv
+            if(this.facSelectedLoans.length == 0){
+                this.loanExposureDv = ((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal ) / this.security.totalDistressAmount) *100;
+            } else if(this.facSelectedLoans.length !== 0){
+                this.loanExposureDv =((this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal + this.nonFundedApprovedTerminatingTotal+ this.nonFundedApprovedRevolvingTotal)/ this.security.totalDistressAmount)*100;
+            }
+
+            if(this.facSelectedLoans.length == 0) {
+                this.coverage = (this.security.totalSecurityAmount / (this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal)) * 100;
+            } else if(this.facSelectedLoans.length !== 0){
+                this.coverage = (this.security.totalSecurityAmount/(this.totalProposedAmount + this.approvedTerminatingLoanTotal + this.approvedRevolvingLoanTotal + this.nonFundedApprovedTerminatingTotal+ this.nonFundedApprovedRevolvingTotal))*100;
+            }
   }
 
     )}

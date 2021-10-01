@@ -89,7 +89,7 @@
             <ng-container *ngFor="let model of nonFundedList; let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
-                    <td class="text-left pl-1">{{model?.loan?.name}}</td>
+                    <td class="text-left pl-1">{{model?.loan?.name}}<b *ngIf="model.proposal.cashMarginOrFac==='FAC'"> =>F</b><b *ngIf="model.proposal.cashMarginOrFac === 'CASHMARGIN'">=>CM</b></td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter) || 0}}</td>
                     <td></td>
                     <td></td>
@@ -105,7 +105,8 @@
             <ng-container *ngFor="let data of nonFundedApprovedLoans; let i = index;" >
             <tr class="cursor" >
                 <td>{{nonFundedList.length+i + 1}}</td>
-                <td class="text-left pl-1">{{data?.loan?.name}}<b *ngIf="data.loan.loanNature==='Terminating'">(T)</b><b *ngIf="data.loan.loanNature === 'Revolving'">(R)</b></td>
+                <td class="text-left pl-1">{{data?.loan?.name}}<b *ngIf="data.loan.loanNature==='Terminating'">(T)</b><b *ngIf="data.loan.loanNature === 'Revolving'">(R)</b>
+                    <b *ngIf="data.proposal.cashMarginOrFac==='FAC'">=>F</b><b *ngIf="data.proposal.cashMarginOrFac === 'CASHMARGIN'">=>CM</b></td>
                 <td></td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
