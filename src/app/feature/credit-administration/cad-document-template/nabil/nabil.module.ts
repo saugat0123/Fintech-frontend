@@ -11,13 +11,16 @@ import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-of
 import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
+import { LoanDeedIndividualComponent } from './loan-deed-individual/loan-deed-individual.component';
+import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent],
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent,
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent],
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,
@@ -25,7 +28,9 @@ import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/
         PersonalGuaranteeIndividualComponent,
         LetterOfSetOffPrintComponent,
         PromissoryNoteIndividualPrintComponent,
-        PromissoryNoteCompanyComponent
+        PromissoryNoteCompanyComponent,
+        LoanDeedIndividualComponent,
+        LoanDeedIndividualPrintComponent
     ],
     imports: [
         CommonModule,
