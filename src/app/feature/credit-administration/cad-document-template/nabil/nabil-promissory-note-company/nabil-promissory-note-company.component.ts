@@ -12,11 +12,11 @@ import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-promissory-note-company',
-  templateUrl: './promissory-note-company.component.html',
-  styleUrls: ['./promissory-note-company.component.scss']
+  selector: 'app-nabil-promissory-note-company',
+  templateUrl: './nabil-promissory-note-company.component.html',
+  styleUrls: ['./nabil-promissory-note-company.component.scss']
 })
-export class PromissoryNoteCompanyComponent implements OnInit {
+export class NabilPromissoryNoteCompanyComponent implements OnInit {
 
   promissoryNoteCompany: FormGroup;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;

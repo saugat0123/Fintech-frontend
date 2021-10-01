@@ -4,7 +4,7 @@ import {PromissoryNoteIndividualComponent} from './promissory-note-individual/pr
 import {ReactiveFormsModule} from '@angular/forms';
 import {PromissoryNoteIndividualPrintComponent} from './promissory-note-individual/promissory-note-individual-print/promissory-note-individual-print.component';
 import {NgxPrintModule} from 'ngx-print';
-import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
+import {NabilPromissoryNoteCompanyComponent} from './nabil-promissory-note-company/nabil-promissory-note-company.component';
 import {NbButtonModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
@@ -12,11 +12,12 @@ import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-of
 
 @NgModule({
     declarations: [PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
-        LetterOfSetOffPrintComponent, PromissoryNoteIndividualPrintComponent, PromissoryNoteCompanyComponent],
+        LetterOfSetOffPrintComponent, NabilPromissoryNoteCompanyComponent],
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,
-        PromissoryNoteCompanyComponent
+        PromissoryNoteIndividualComponent,
+        NabilPromissoryNoteCompanyComponent
     ],
     imports: [
         CommonModule,
