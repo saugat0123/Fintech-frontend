@@ -13,6 +13,7 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {CadDocStatus} from '../../../model/CadDocStatus';
+import {District} from '../../../../admin/modal/district';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -54,39 +55,47 @@ export class LetterOfSetOffComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
+    console.log('INDIVIDUAL DATA =', this.individualData);
   }
+
 
   buildForm() {
     this.letterOfSetOff = this.formBuilder.group({
-      Date: [undefined],
-      GrandFatherName: [undefined],
-      FatherName: [undefined],
-      District: [undefined],
-      VDC: [undefined],
-      WardNo: [undefined],
       date: [undefined],
-      loanamountinFigure: [undefined],
-      loanamountinWords: [undefined],
-      nameofGrandFather: [undefined],
-      nameofFather: [undefined],
-      Age: [undefined],
-      NameofPerson: [undefined],
-      CitizenshipNo: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      district: [undefined],
+      vdc: [undefined],
+      wardNo: [undefined],
+      age: [undefined],
+      daughternName: [undefined],
+      citizenshipNo: [undefined],
       dateofIssue: [undefined],
-      issueDate: [undefined],
-      nameofIssuedDistrict: [undefined],
-      Number: [undefined],
-      Interest: [undefined],
-      nameofBranchLocated: [undefined],
-      signature: [undefined],
-      nameofWitness: [undefined],
-      witnessDistrict1: [undefined],
-      witnessMunicipalityOrVdc1: [undefined],
-      witnessWardNo1: [undefined],
-      witnessAge1: [undefined],
-      witnessName1: [undefined],
-      CustomerName: [undefined],
-      NameofWitness: [undefined],
+      identifyIssuedDistrictName: [undefined],
+      actDetails: [undefined],
+      actYearFigure: [undefined],
+      nameofDepartment: [undefined],
+      dateofRegistration: [undefined],
+      registrationNo: [undefined],
+      nameofUnit:  [undefined],
+      grandDaughterName: [undefined],
+      nameofWife: [undefined],
+      daughterName: [undefined],
+      grandSonName: [undefined],
+      sonName: [undefined],
+      nameofSon: [undefined],
+      nameofBorrower: [undefined],
+      nameofBranch: [undefined],
+      sanctionLetterIssuedDate: [undefined],
+      loanAmountFigure: [undefined],
+      loanAmountWord: [undefined],
+      accountNo: [undefined],
+      nameofTD: [undefined],
+      fixedDeposit: [undefined],
+      purposeOfLoan: [undefined],
+      numberofPerson: [undefined],
+      nameofWithness: [undefined],
+      nameofWithnessfromBank: [undefined],
     });
   }
 
