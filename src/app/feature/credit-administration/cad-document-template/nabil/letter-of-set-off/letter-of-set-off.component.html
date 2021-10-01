@@ -12,7 +12,7 @@
                                                           type="text"/>
                         </p>
                     <div>
-                            <div *ngIf="cadData.loanHolder.customerType === customerType.INDIVIDUAL || cadData.loanHolder.customerType === customerType.JOINT">
+                            <div *ngIf="cadData.loanHolder.customerType === customerType.INDIVIDUAL || cadData.loanHolder.customerType === customerSubType.JOINT">
                                 <p>
                                     लिखितम् <input class="form-field form-control-sm nepaliFont"
                                            formControlName="GrandFatherName"
@@ -61,7 +61,7 @@
                                            type="text"/> )–१
                                 </p>
                             </div>
-                        <div *ngIf="cadData.loanHolder.customerType === customerType.JOINT">
+                        <div *ngIf="cadData.loanHolder.customerType === customerSubType.JOINT">
                             <p>
                                 र <input class="form-field form-control-sm nepaliFont"
                                               formControlName="GrandFatherName"

@@ -13,6 +13,7 @@ import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {CadDocStatus} from '../../../model/CadDocStatus';
+import {CustomerSubType} from '../../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -31,6 +32,7 @@ export class LetterOfSetOffComponent implements OnInit {
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   customerType = CustomerType;
+  customerSubType = CustomerSubType;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,

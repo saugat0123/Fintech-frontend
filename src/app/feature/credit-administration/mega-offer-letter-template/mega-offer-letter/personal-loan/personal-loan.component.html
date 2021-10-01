@@ -13,7 +13,7 @@
         <nb-card-body>
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="text-center font-weight-bold"><u>ऋणकर्जा सुविधा स्वीकृति पत्र</u></h4>
+                    <h4 class="text-center"><u>ऋणकर्जा सुविधा स्वीकृति पत्र</u></h4>
                 </div>
             </div>
             <form [formGroup]="personalLoan"  class="nep">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h5 class="text-center font-weight-bold">विषयः– <u>ऋणकर्जा सुविधा बारे ।</u> </h5>
+                        <h5 class="text-center">विषयः– <u>ऋणकर्जा सुविधा बारे ।</u> </h5>
                         <p>
                             महोदय,
                         </p>
@@ -311,14 +311,14 @@
                             <input class="form-field form-control-sm nepaliFont"
                                    name="companyName"
                                    formControlName="companyName"
-                                   placeholder="कम्पनीको नाम"
+                                   placeholder="रकम"
                                    type="text"/>
                             मा कर्मचारीको हैसियतमा आवद्ध रहुन्जेल सम्मका
                             लागि मात्र कायम रहनेछ ।
                             <input class="form-field form-control-sm nepaliFont"
                                    name="companyName"
                                    formControlName="companyName"
-                                   placeholder="कम्पनीको नाम"
+                                   placeholder="रकम"
                                    type="text"/>
                             संग तपाईको आवद्धता टुटे
                             पश्चात पनि ऋण कर्जा सुविधा उपभोग गर्न चाहेमा ऋण कर्जा सुविधा संग सम्बन्धित शर्त तथा बन्देजनामाहरु पुनरावलोकन
@@ -334,7 +334,7 @@
                             <input class="form-field form-control-sm nepaliFont"
                                    name="companyName"
                                    formControlName="companyName"
-                                   placeholder="कम्पनीको नाम"
+                                   placeholder="रकम"
                                    type="text"/>
                             संग तपाईको आवद्धता टुटे पश्चात बैंकको ऋण
                             कर्जा सुविधासंग संबन्धित नयाञ शर्त तथा बन्देजनामाहरु निर्धारण गर्नेछ र सोही अनुरुपको ऋणीको सामथ्र्यता बैंकलाई स्वीकार्य नभएमा
@@ -365,7 +365,7 @@
                         <input class="form-field form-control-sm nepaliFont"
                         name="branchName"
                         formControlName="branchName"
-                        placeholder="शाखाको नाम"
+                        placeholder="रकम"
                         type="text"/>
                         मा खोल्नु भएको चल्ती खातामा
                         ऋणकर्जा प्रवाह गरिनेछ ।
@@ -640,13 +640,7 @@
                     </tr>
                 </table>
                 <div class="row col-md-12">
-                    <textarea
-                            id="additionalGuarantorDetails"
-                            class="form-control customFont nepaliFont"
-                            rows="5"
-                            style="width:inherit;margin-left:5%"
-                            name="additionalGuarantorDetails"
-                            formControlName="additionalGuarantorDetails">
+                    <textarea class="nepaliFont" rows="5" style="width:inherit;margin-left:5%" name="freeText" formControlName="freeText">
                     </textarea>
                 </div>
                 <br>
@@ -673,7 +667,7 @@
                                 <input class="form-field form-control-sm nepaliFont" name="relationshipOfficer" formControlName="relationshipOfficer" placeholder="सम्बन्ध अधिकारीको नाम" type="text"/>
                             </p>
                             <p>
-                                <input class="form-field form-control-sm nepaliFont" name="branchName" formControlName="branchName" placeholder="एकाइ वा शाखा नाम" type="text"/>
+                                <input class="form-field form-control-sm nepaliFont" name="unitName" formControlName="unitName" placeholder="एकाइ वा शाखा नाम" type="text"/>
                             </p>
                         </div>
                         <div class="left-content">
@@ -682,10 +676,10 @@
                                 सम्पर्क अधिकृत
                             </p>
                             <p>
-                                <input class="form-field form-control-sm nepaliFont" name="managerName" formControlName="managerName" placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम" type="text"/>
+                                <input class="form-field form-control-sm nepaliFont" name="relationshipOfficer" formControlName="relationshipOfficer" placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम" type="text"/>
                             </p>
                             <p>
-                                <input class="form-field form-control-sm nepaliFont" name="branchName" formControlName="branchName" placeholder="एकाइ वा शाखाको नाम" type="text"/>
+                                <input class="form-field form-control-sm nepaliFont" name="unitName" formControlName="unitName" placeholder="एकाइ वा शाखाको नाम" type="text"/>
                             </p>
                         </div>
                     </div>
@@ -755,45 +749,38 @@
                 </table>
                 <div class="row mt-3">
                     <div class="col-md-12 d-flex justify-content-between">
-                        <div class="text-right" style="margin-left:75%">
-                            ................................
+                        <div class="left-content">
+                            ......................................................
                             <p>
                                 आधिकारिक हस्ताक्षर (ग्राहक)
                             </p>
-                            <p *ngIf="initialInfoPrint.signatureDate.en.nDate === undefined; else signatureDateNepali">
-                                मितिः <input class="form-field form-control-sm"
-                                             formControlName="signatureDate"
-                                             [value]="initialInfoPrint.signatureDate.en === undefined ? '' : ((initialInfoPrint.signatureDate.en | date) | engNepDate: true)"
-                                             type="text"/>
+                        </div>
+                        <div class="left-content">
+                            <p>
+                                मितिः
+                                <input class="form-field form-control-sm nepaliFont" name="signatureDate" formControlName="signatureDate" placeholder="हस्ताक्षर मिति" type="text"/>
                             </p>
-                            <ng-template #signatureDateNepali>
-                                <p>
-                                    मितिः <input class="form-field form-control-sm"
-                                                 formControlName="signatureDate"
-                                                 [value]="initialInfoPrint.signatureDate.en.nDate === undefined ? '' : initialInfoPrint.signatureDate.en.nDate"
-                                                 type="text"/>
-                                </p>
-                            </ng-template>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-md-12">
-                    <p>
-                        साक्षीः
-                    </p>
-                    <ul class="nepaliList">
-                        <li>
-                            ____________________ जिल्ला
-                            ______________________ गा.वि.स/न.पा,
-                            वडा नंं. _________
-                            बस्ने श्री ____________________________
-                        </li>
-                        <li>
-                            कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            साक्षीः
+                        </p>
+                        <p> १.
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiDistrict" formControlName="sakshiDistrict" placeholder="जिल्ला" type="text"/>
+                            जिल्ला
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiMunicipality" formControlName="sakshiMunicipality" placeholder="गाविस" type="text"/>
+                            गा.वि.स/न.पा, वडा नंं
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiWardNum" formControlName="sakshiWardNum" placeholder="वडा नंं" type="text"/>
+                            बस्ने श्री
+                            <input class="form-field form-control-sm nepaliFont" name="sakshiName" formControlName="sakshiName" placeholder="साक्षीको नाम" type="text"/>
+                        </p>
+                        <p>२. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि. का कर्मचारी श्री
                             <input class="form-field form-control-sm nepaliFont" name="employeeName" formControlName="employeeName" placeholder="कर्मचारीको नाम" type="text"/>
-                        </li>
-                    </ul>
+                        </p>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
@@ -810,6 +797,5 @@
     </nb-card>
 </div>
 <app-personal-loan-print  *ngIf="initialInfoPrint"
-                          [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
-                          [letter]="initialInfoPrint"
-                          [offerData] = "offerLetterData" hidden></app-personal-loan-print>
+                               [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
+                               [letter]="initialInfoPrint" hidden></app-personal-loan-print>

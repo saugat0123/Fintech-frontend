@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from "../../../model/customerApprovedLoanCadDocumentation";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {NabilOfferLetterConst} from "../../../nabil-offer-letter-const";
 import {Province} from "../../../../admin/modal/province";
 import {District} from "../../../../admin/modal/district";
@@ -46,11 +46,8 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   dateTypeAD = false;
   dateTypeBS1 = false;
   dateTypeAD1 = false;
-  dateTypeBS2 = false;
-  dateTypeAD2 = false;
   offerLetterDocument: OfferDocument;
   cadDocStatus = CadDocStatus.key();
-  submitted = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -85,47 +82,43 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       branchName: [undefined],
       accountNumber: [undefined],
       relationshipOfficer: [undefined],
+      unitName : [undefined],
       managerName: [undefined],
       signatureDate : [undefined],
-      // sakshiDistrict: [undefined],
-      // sakshiMunicipality: [undefined],
-      // sakshiWardNum: [undefined],
-      // sakshiName: [undefined],
+      sakshiDistrict: [undefined],
+      sakshiMunicipality: [undefined],
+      sakshiWardNum: [undefined],
+      sakshiName: [undefined],
       employeeName : [undefined],
 
       // Translated Value
-      refNumberTransVal: [undefined,Validators.required],
+      refNumberTransVal: [undefined],
       dateOfApprovalTransVal: [undefined],
       dateofApplicationTransVal: [undefined],
-      loanPurposeTransVal: [undefined,Validators.required],
-      baseRateTransVal: [undefined,Validators.required],
-      premiumRateTransVal: [undefined,Validators.required],
-      yearlyFloatingInterestRateTransVal: [undefined,Validators.required],
-      loanAdminFeeTransVal: [undefined,Validators.required],
-      emiAmountTransVal: [undefined,Validators.required],
+      loanPurposeTransVal: [undefined],
+      baseRateTransVal: [undefined],
+      premiumRateTransVal: [undefined],
+      yearlyFloatingInterestRateTransVal: [undefined],
+      loanAdminFeeTransVal: [undefined],
+      emiAmountTransVal: [undefined],
       emiAmountWordsTransVal: [undefined],
-      companyNameTransVal: [undefined,Validators.required],
-      branchNameTransVal: [undefined,Validators.required],
-      accountNumberTransVal: [undefined,Validators.required],
-      relationshipOfficerTransVal: [undefined,Validators.required],
-      managerNameTransVal: [undefined,Validators.required],
+      companyNameTransVal: [undefined],
+      branchNameTransVal: [undefined],
+      accountNumberTransVal: [undefined],
+      relationshipOfficerTransVal: [undefined],
+      unitNameTransVal: [undefined],
+      managerNameTransVal: [undefined],
       signatureDateTransVal: [undefined],
-      // sakshiDistrictTransVal: [undefined,Validators.required],
-      // sakshiMunicipalityTransVal: [undefined,Validators.required],
-      // sakshiWardNumTransVal: [undefined,Validators.required],
-      // sakshiNameTransVal: [undefined,Validators.required],
-      employeeNameTransVal: [undefined,Validators.required]
+      sakshiDistrictTransVal: [undefined],
+      sakshiMunicipalityTransVal: [undefined],
+      sakshiWardNumTransVal: [undefined],
+      sakshiNameTransVal: [undefined],
+      employeeNameTransVal: [undefined]
 
     });
   }
 
   submit() {
-    this.submitted =true;
-    if (this.form.invalid) {
-      this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
-      this.spinner = false;
-      return;
-    }
     this.spinner = true;
     this.btnDisable = true;
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
@@ -168,8 +161,7 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.customerApprovedDoc = res.detail;
       this.spinner = false;
-      this.previewBtn = false;
-      this.btnDisable = true;
+      this.previewBtn = this.btnDisable = false;
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
@@ -191,9 +183,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
         this.tdValues[key] = this.attributes;
       });
     });
-  }
-  get Form() {
-    return this.form.controls;
   }
 
   openModel() {
@@ -234,13 +223,13 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get('branchNameTransVal').patchValue(this.translatedData.branchName);
     this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
+    this.form.get('unitNameTransVal').patchValue(this.translatedData.unitName);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);
-    this.form.get('companyNameTransVal').patchValue(this.translatedData.companyName);
     this.form.get('signatureDateTransVal').patchValue(this.translatedData.signatureDate);
-    /*this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
+    this.form.get('sakshiDistrictTransVal').patchValue(this.translatedData.sakshiDistrict);
     this.form.get('sakshiMunicipalityTransVal').patchValue(this.translatedData.sakshiMunicipality);
     this.form.get('sakshiWardNumTransVal').patchValue(this.translatedData.sakshiWardNum);
-    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);*/
+    this.form.get('sakshiNameTransVal').patchValue(this.translatedData.sakshiName);
     this.form.get('employeeNameTransVal').patchValue(this.translatedData.employeeName);
   }
 
@@ -279,15 +268,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
   setDateTypeAD1() {
     this.dateTypeBS1 = false;
     this.dateTypeAD1 = true;
-  }
-  setDateTypeBS2() {
-    this.dateTypeBS2 = true;
-    this.dateTypeAD2 = false;
-  }
-
-  setDateTypeAD2() {
-    this.dateTypeBS2 = false;
-    this.dateTypeAD2 = true;
   }
 
   calInterestRate() {
