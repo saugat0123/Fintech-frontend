@@ -11,13 +11,15 @@ import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-of
 import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
+import { NabilLoanDeedCompanyComponent } from './nabil-loan-deed-company/nabil-loan-deed-company.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent],
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent],
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,
@@ -25,13 +27,15 @@ import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/
         PersonalGuaranteeIndividualComponent,
         LetterOfSetOffPrintComponent,
         PromissoryNoteIndividualPrintComponent,
-        PromissoryNoteCompanyComponent
+        PromissoryNoteCompanyComponent,
+        NabilLoanDeedCompanyComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         NgxPrintModule,
-        NbButtonModule
+        NbButtonModule,
+        CKEditorModule
     ]
 })
 export class NabilModule {
