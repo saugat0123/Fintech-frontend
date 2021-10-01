@@ -11,7 +11,7 @@
                 <button  nbButton size="small" status="primary" nbTooltip="Upload & Print SCC File"
                          (click)="openModel()" class="m-2" *ngIf="currentStatus === 'OFFER_APPROVED'">Scc</button>
                 <button nbButton size="small" status="primary" nbTooltip="choose user to forward"
-                        (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)">FORWARD
+                        (click)="approvedForwardBackward(sendForwardBackward,'FORWARD',false)" [disabled]="isForwardDisabled">FORWARD
                 </button>
                 <button nbButton size="small" status="primary" [nbTooltip]="hasBranchMaker ? 'choose user to forward' : 'No maker in the branch'"
                         (click)="approvedForwardBackward(sendForwardBackward,'SEND TO BRANCH',false)" [disabled]="isSendToBranchDisabled">SEND TO BRANCH
