@@ -837,6 +837,7 @@ export class LoanFormComponent implements OnInit {
                             catalogue : this.catalogue}})
                     .then(() => {
                         this.spinner.hide();
+                        this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully saved`));
                     });
             }, error => {
                 this.spinner.hide();
