@@ -212,6 +212,7 @@ export class LetterOfDisbursementComponent implements OnInit {
       ItisambatMonth: [undefined],
       ItisambatDay: [undefined],
       ItisambatTime: [undefined],
+      ItisambatRojSubham: [undefined],
       kaSanNumber: [undefined],
       KarmachariSanNu: [undefined],
     });
@@ -219,53 +220,43 @@ export class LetterOfDisbursementComponent implements OnInit {
 
   guarantorFormgroup(): FormGroup {
     return this.formBuilder.group({
-      guarantorName: [undefined],
-      issuedPlace: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCitizenshipIssueOffice: [undefined],
+      witnessDistrict: [undefined],
+      witnessVdcMun: [undefined],
+      witnessWardNo: [undefined],
     });
   }
 
   addGuarantor(): void {
-    const fomrArray = this.form.get('guarantorDetails') as FormArray;
-    fomrArray.push(this.guarantorFormgroup());
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    formArray.push(this.guarantorFormgroup());
   }
 
   removeGuarantor(index: number): void {
-    const fomrArray = this.form.get('guarantorDetails') as FormArray;
-    fomrArray.removeAt(index);
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    formArray.removeAt(index);
   }
 
 
   setGuarantorDetails(data) {
-    const fomrArray = this.form.get('guarantorDetails') as FormArray;
+    const formArray = this.form.get('guarantorDetails') as FormArray;
     if (data.length === 0) {
       this.addGuarantor();
       return;
     }
     data.forEach((value) => {
-      fomrArray.push(
+      formArray.push(
           this.formBuilder.group({
-            guarantorName: [value.name],
-            issuedPlace: [value.issuedPlace],
-            naPraNaName: [value.naPraNaName],
-            mitiName: [value.mitiName],
-            jiPrakaName: [value.citizenNumber],
-            jillaName1: [value.districtName],
-            jagaName1: [value.wadNo],
-            SakGuarantorName1: [value.name],
-            SakIssuedPlace1: [value.issuedPlace],
-            SakNaPraNaName1: [value.naPraNaName],
-            SakMitiName1: [value.mitiName],
-            SakJiPrakaName1: [value.citizenNumber],
-            SakJillaName1: [value.districtName],
-            SakJagaName1: [value.wadNo],
-            SakGuarantorName2: [value.name],
-            SakIssuedPlace2: [value.issuedPlace],
-            SakNaPraNaName2: [value.naPraNaName],
-            SakMitiName2: [value.mitiName],
-            SakJiPrakaName2: [value.citizenNumber],
-            SakJillaName2: [value.districtName],
-            SakJagaName2: [value.wadNo],
-            KaSanNumber: [value.KarmachariSanNu],
+            witnessName: [value.name],
+            witnessCitizenshipNo: [value.witnessCitizenshipNo],
+            witnessCitizenshipIssueDate: [value.witnessCitizenshipIssueDate],
+            witnessCitizenshipIssueOffice: [value.witnessCitizenshipIssueOffice],
+            witnessDistrict: [value.witnessDistrict],
+            witnessVdcMun: [value.witnessVdcMun],
+            witnessWardNo: [value.witnessWardNo],
           })
       );
     });
