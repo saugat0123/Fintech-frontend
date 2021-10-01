@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
 import {SbTranslateService} from '../../../../../@core/service/sbtranslate.service';
@@ -15,6 +15,7 @@ import {CreditAdministrationService} from '../../../service/credit-administratio
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-letter-template/mega-offer-letter/personal-loan-and-personal-overdraft/personal-loan-and-personal-overdraft.component';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -24,6 +25,7 @@ import {PersonalLoanAndPersonalOverdraftComponent} from '../../../mega-offer-let
 })
 export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
+    @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     offerLetterTypes = [];
     offerLetterConst = NabilOfferLetterConst;
     offerLetterSelect;
@@ -35,12 +37,14 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     existingOfferLetter = false;
     attributes;
     tdValues: any = {};
-    translatedData;
+    podtranslatedData;
+    offerLetterDocument: OfferDocument;
     dateTypeBS = false;
     dateTypeAD = false;
     dateTypeBS1 = false;
     dateTypeAD1 = false;
     previewBtn = true;
+    submitted = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -62,12 +66,8 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.form = this.formBuilder.group({
             referenceNumber: [undefined],
             dateofApproval: [undefined],
-            customerName: [undefined],
-            customerAddress: [undefined],
             dateofApplication: [undefined],
             purposeofLoan: [undefined],
-            loanAmountinFigure: [undefined],
-            loanAmountinWords: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             yearlyInterestRate: [undefined],
@@ -77,35 +77,99 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             emiInFigure: [undefined],
             emiInWords: [undefined],
             loanExpiryDate: [undefined],
-            nameofGuarantors: [undefined],
-            guaranteedAmountInFigure: [undefined],
-            guaranteedAmountInWords: [undefined],
             nameofBranch: [undefined],
-            accountNumberOfCustomer: [undefined],
             nameofCompanyCustomerWorking: [undefined],
-            NameofCustomer: [undefined],
-            accountofCustomer: [undefined],
             relationshipofficerName: [undefined],
             branchName: [undefined],
             date: [undefined],
             district: [undefined],
             wardNum: [undefined],
-            freeText: [undefined],
             witnessName: [undefined],
             staffName: [undefined],
+            // translated value
+            referenceNumberTransVal: [undefined],
+            dateofApprovalTransVal: [undefined],
+            dateofApplicationTransVal: [undefined],
+            purposeofLoanTransVal: [undefined],
+            premiumRateTransVal: [undefined],
+            yearlyInterestRateTransVal: [undefined],
+            loanAdminFeeinFigureTransVal: [undefined],
+            loanAdminFeeinWordsTransVal: [undefined],
+            loanadminFeeTransVal: [undefined],
+            emiInFigureTransVal: [undefined],
+            emiInWordsTransVal: [undefined],
+            loanExpiryDateTransVal: [undefined],
+            nameofBranchTransVal: [undefined],
+            nameofCompanyCustomerWorkingTransVal: [undefined],
+            relationshipofficerNameTransVal: [undefined],
+            dateTransVal: [undefined],
+            districtTransVal: [undefined],
+            wardNumTransVal: [undefined],
+            witnessNameTransVal: [undefined],
+            staffNameTransVal: [undefined],
+            baseRateTransVal: [undefined],
+            branchNameTransVal: [undefined],
         });
     }
 
     async translate() {
+        console.log('dasd');
         this.spinner = true;
-        this.translatedValues = await this.translateService.translateForm(this.form);
+        this.podtranslatedData = await this.translateService.translateForm(this.form);
+        this.tdValues = this.podtranslatedData;
+        this.setTemplatedCTData();
         this.spinner = false;
+        this.btnDisable = false;
+    }
+    private setTemplatedCTData(): void {
+        this.form.get('referenceNumberTransVal').patchValue(this.podtranslatedData.referenceNumber);
+        this.form.get('dateofApprovalTransVal').patchValue(this.podtranslatedData.dateofApproval);
+        this.form.get('dateofApplicationTransVal').patchValue(this.podtranslatedData.dateofApplication);
+        this.form.get('purposeofLoanTransVal').patchValue(this.podtranslatedData.purposeofLoan);
+        this.form.get('premiumRateTransVal').patchValue(this.podtranslatedData.premiumRate);
+        this.form.get('yearlyInterestRateTransVal').patchValue(this.podtranslatedData.yearlyInterestRate);
+        this.form.get('loanAdminFeeinFigureTransVal').patchValue(this.podtranslatedData.loanAdminFeeinFigure);
+        this.form.get('loanAdminFeeinWordsTransVal').patchValue(this.podtranslatedData.loanAdminFeeinWords);
+        this.form.get('loanadminFeeTransVal').patchValue(this.podtranslatedData.loanadminFee);
+        this.form.get('emiInFigureTransVal').patchValue(this.podtranslatedData.emiInFigure);
+        this.form.get('emiInWordsTransVal').patchValue(this.podtranslatedData.emiInWords);
+        this.form.get('loanExpiryDateTransVal').patchValue(this.podtranslatedData.loanExpiryDate);
+        this.form.get('nameofBranchTransVal').patchValue(this.podtranslatedData.nameofBranch);
+        this.form.get('nameofCompanyCustomerWorkingTransVal').patchValue(this.podtranslatedData.nameofCompanyCustomerWorking);
+        this.form.get('relationshipofficerNameTransVal').patchValue(this.podtranslatedData.relationshipofficerName);
+        this.form.get('dateTransVal').patchValue(this.podtranslatedData.date);
+        this.form.get('districtTransVal').patchValue(this.podtranslatedData.district);
+        this.form.get('wardNumTransVal').patchValue(this.podtranslatedData.wardNum);
+        this.form.get('witnessNameTransVal').patchValue(this.podtranslatedData.witnessName);
+        this.form.get('staffNameTransVal').patchValue(this.podtranslatedData.staffName);
+        this.form.get('baseRateTransVal').patchValue(this.podtranslatedData.baseRate);
+        this.form.get('branchNameTransVal').patchValue(this.podtranslatedData.branchName);
     }
 
     getNumAmountWord(numLabel, wordLabel) {
         const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
         const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
         this.form.get(wordLabel).patchValue(returnVal);
+    }
+
+    mappedData() {
+        Object.keys(this.form.controls).forEach(key => {
+            // tslint:disable-next-line:no-shadowed-variable
+            Object.keys(this.form.controls).forEach(key => {
+                if (key.indexOf('TransVal') > -1) {
+                    return;
+                }
+                this.attributes = new Attributes();
+                this.attributes.en = this.form.get(key).value;
+                this.attributes.np = this.tdValues[key];
+                this.attributes.ct = this.form.get(key + 'TransVal').value;
+                this.tdValues[key] = this.attributes;
+            });
+        });
+    }
+
+    get Form() {
+        return this.form.controls;
     }
 
     checkboxVal(event, formControlName) {
@@ -124,6 +188,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
     clearForm(controlName) {
         this.form.get(controlName).setValue(null);
     }
+
     setDateTypeBS() {
         this.dateTypeBS = true;
         this.dateTypeAD = false;
@@ -143,6 +208,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
         this.dateTypeBS1 = false;
         this.dateTypeAD1 = true;
     }
+
     openModel() {
         // this.modelService.open(modalName, {size: 'xl', centered: true});
         this.dialogService.open(PersonalLoanAndPersonalOverdraftComponent, {
@@ -150,21 +216,36 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             closeOnEsc: false,
             hasBackdrop: false,
             context: {
-                cadOfferLetterApprovedDoc: this.cadData,
+                cadOfferLetterApprovedDoc: this.customerApprovedDoc,
                 preview: true,
             }
         });
     }
 
     submit() {
+        this.submitted = true;
+        if (this.form.invalid) {
+            this.toastService.show(new Alert(AlertType.DANGER, 'Please check validation'));
+            this.spinner = false;
+            return;
+        }
         this.spinner = true;
         this.btnDisable = true;
-        this.cadData.docStatus = CadDocStatus.OFFER_PENDING;
+        this.customerApprovedDoc.docStatus = CadDocStatus.OFFER_AND_LEGAL_PENDING;
+
+        if (this.customerApprovedDoc.offerDocumentList.length > 0) {
+            this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+                === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString())[0];
+            if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+                this.existingOfferLetter = true;
+            }
+        }
 
         if (this.existingOfferLetter) {
-            this.cadData.offerDocumentList.forEach(offerLetterPath => {
+            this.customerApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
                     this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString()) {
+                    this.mappedData();
                     offerLetterPath.initialInformation = JSON.stringify(this.tdValues);
                 }
             });
@@ -172,29 +253,32 @@ export class PersonalLoanAndPersonalOverdraftTemplateDataComponent implements On
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
             Object.keys(this.form.controls).forEach(key => {
-                if (key === 'loanDetails') {
+                if (key.indexOf('TransVal') > -1) {
                     return;
                 }
                 this.attributes = new Attributes();
                 this.attributes.en = this.form.get(key).value;
                 this.attributes.np = this.tdValues[key];
+                this.attributes.ct = this.form.get(key + 'TransVal').value;
                 this.tdValues[key] = this.attributes;
             });
-            this.translatedData = {};
+            this.podtranslatedData = {};
             offerDocument.initialInformation = JSON.stringify(this.tdValues);
-            this.cadData.offerDocumentList.push(offerDocument);
+            this.customerApprovedDoc.offerDocumentList.push(offerDocument);
         }
-
-        this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+console.log('requested Data',this.customerApprovedDoc);
+        this.administrationService.saveCadDocumentBulk(this.customerApprovedDoc).subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.customerApprovedDoc = res.detail;
             this.spinner = false;
-            this.previewBtn = this.btnDisable = false;
+            this.previewBtn = false;
+            this.btnDisable = true;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-            this.spinner = this.btnDisable = false;
+            this.spinner = false;
+            this.btnDisable = true;
         });
-
     }
-
 }
+
