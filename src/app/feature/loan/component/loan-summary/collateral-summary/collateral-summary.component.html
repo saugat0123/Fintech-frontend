@@ -36,7 +36,7 @@
             <ng-container *ngFor="let model of fundedList;  let i=index">
                 <tr class="cursor">
                     <td>{{i + 1}}</td>
-                    <td class="text-left pl-1">{{model?.loan?.name}}<b *ngIf="model.loan.loanNature==='Terminating'">(T)</b><b *ngIf="model.loan.loanNature === 'Revolving'">(R)</b></td>
+                    <td class="text-left pl-1">{{model?.loan?.name}}</td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.proposedLimit | currencyFormatter)
                     || 0}}</td>
                     <td class="text-right pr-1" >

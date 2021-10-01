@@ -207,7 +207,7 @@ export class ProposalComponent implements OnInit {
       cashMargin: [undefined],
       commissionPercentage: [undefined],
       commissionFrequency: [undefined],
-      cashMarginOrFac: [undefined],
+      cashMarginOrFac: [undefined, Validators.required],
       couponRate: [undefined],
       premiumOnCouponRate: [undefined],
       tenorOfEachDeal: [undefined],
