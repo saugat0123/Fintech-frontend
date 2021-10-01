@@ -1,6 +1,6 @@
-<div class="container nep text-justify" id="">
+<div class="container nep text-justify">
     <form [formGroup]="form" class="nep" id="loanDeedPartnership">
-        <div class="row">
+        <div class="row align">
             <div class="col-md-12 text-center">
                 <h5>
                     <u>विषयः ऋण तमसुक</u>
@@ -10,111 +10,160 @@
                 <p>
                     <ng-container>
                         लिखितम् धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका कमलादि स्थित नविल हाउसमा मुख्य कार्यालय रहि ऐ.
-                        <input class="form-field form-control-sm nepaliFont
-                    disable-print" formControlName="nameOfBranch"
+                        <input class="form-field form-control-sm
+                                disable-print" formControlName="nameOfBranch"
                                type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('nameOfBranch').value ? form.get('nameOfBranch').value  : '========='}}</b></span>
                         शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंकÞ भनिएको छ) लिखत गरी
                         दिने ऋणीका नाम साझेदारी ऐन
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="actYearInFigure"
                                type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('actYearInFigure').value ? form.get('actYearInFigure').value  : '========='}}</b></span>
                         बमोजिम नेपाल सरकार
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="nameOfHeadOrSection"
                                type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('nameOfHeadOrSection').value ? form.get('nameOfHeadOrSection').value  : '========='}}</b></span>
                         मिति
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="dateOfRegistration"
-                               type="text"> मा दर्ता भै द.नं.ः–
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('dateOfRegistration').value ? form.get('dateOfRegistration').value  : '========='}}</b></span>
+                        मा दर्ता भै द.नं.ः–
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="registrationNumber"
-                               type="text"> कायम भएको श्री
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('registrationNumber').value ? form.get('registrationNumber').value  : '========='}}</b></span>
+                        कायम भएको श्री
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="firmName"
-                               type="text"> (जसलाई यसपछि
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('firmName').value ? form.get('firmName').value  : '========='}}</b></span>
+                        (जसलाई यसपछि
                         ऋणी फर्मÞ भनिएको छ) साझेदारी फर्मका साझेदारहरु
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="grandFatherNameOrFatherInLaw"
                                type="text">
-                        को नाती÷नातिनी÷बुहारी
-                        <input class="form-field form-control-sm nepaliFont"
+                        <span class="print-only nepaliFont"><b>{{form.get('grandFatherNameOrFatherInLaw').value ? form.get('grandFatherNameOrFatherInLaw').value  : '========='}}</b></span>
+                        को नाती/नातिनी/बुहारी
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="fatherNameOrHusbandName"
-                               type="text"> को छोरा÷छोरी÷श्रीमती
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('fatherNameOrHusbandName').value ? form.get('fatherNameOrHusbandName').value  : '========='}}</b></span>
+                        को छोरा/छोरी/श्रीमती
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="districtOfProprietor"
-                               type="text"> जिल्ला
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('districtOfProprietor').value ? form.get('districtOfProprietor').value  : '========='}}</b></span>
+                        जिल्ला
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="municipalityName"
-                               type="text"> न.पा÷गा.वि.स.÷गाँउपालिका
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('municipalityName').value ? form.get('municipalityName').value  : '========='}}</b></span>
+                        न.पा/गा.वि.स./गाँउपालिका
                         वडा नं.
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="wardNoOfProprietor"
-                               type="text"> बस्ने बर्ष
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('wardNoOfProprietor').value ? form.get('wardNoOfProprietor').value  : '========='}}</b></span>
+                        बस्ने बर्ष
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="ageOfProprietor"
-                               type="text"> को
-                        श्री÷श्रीमती÷सुश्री
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('ageOfProprietor').value ? form.get('ageOfProprietor').value  : '========='}}</b></span>
+                        को
+                        श्री/श्रीमती/सुश्री
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="nameOfProprietor"
-                               type="text"> )–१,
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('nameOfProprietor').value ? form.get('nameOfProprietor').value  : '========='}}</b></span>
+                        )–१,
                     </ng-container>
                     <ng-container>
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="grandFatherNameOrFatherInLaw1"
                                type="text">
-                        को नाती÷नातिनी÷बुहारी
-                        <input class="form-field form-control-sm nepaliFont"
+                        <span class="print-only nepaliFont"><b>{{form.get('grandFatherNameOrFatherInLaw1').value ? form.get('grandFatherNameOrFatherInLaw1').value  : '========='}}</b></span>
+                        को नाती/नातिनी/बुहारी
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="fatherNameOrHusbandName1"
-                               type="text"> को छोरा÷छोरी÷श्रीमती
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('fatherNameOrHusbandName1').value ? form.get('fatherNameOrHusbandName1').value  : '========='}}</b></span>
+                        को छोरा/छोरी/श्रीमती
 
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="districtOfProprietor1"
-                               type="text"> जिल्ला
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('districtOfProprietor1').value ? form.get('districtOfProprietor1').value  : '========='}}</b></span>
+                        जिल्ला
 
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="municipalityName1"
-                               type="text"> न.पा÷गा.वि.स.÷गाँउपालिका
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('municipalityName1').value ? form.get('municipalityName1').value  : '========='}}</b></span>
+                        न.पा/गा.वि.स./गाँउपालिका
                         वडा नं.
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="wardNoOfProprietor1"
-                               type="text"> बस्ने बर्ष
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('wardNoOfProprietor1').value ? form.get('wardNoOfProprietor1').value  : '========='}}</b></span>
+                        बस्ने बर्ष
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="ageOfProprietor1"
-                               type="text"> को श्री÷श्रीमती÷सुश्री
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('ageOfProprietor1').value ? form.get('ageOfProprietor1').value  : '========='}}</b></span>
+                        को श्री/श्रीमती/सुश्री
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="nameOfProprietor1"
-                               type="text"> )–१
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('nameOfProprietor1').value ? form.get('nameOfProprietor1').value  : '========='}}</b></span>
+                        )–१
                         र
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="grandFatherNameOrFatherInLaw2"
-                               type="text"> को नाती÷नातिनी÷बुहारी
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('grandFatherNameOrFatherInLaw2').value ? form.get('grandFatherNameOrFatherInLaw2').value  : '========='}}</b></span>
+                        को नाती/नातिनी/बुहारी
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="fatherNameOrHusbandName2"
-                               type="text"> को छोरा/छोरी/श्रीमती
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('fatherNameOrHusbandName2').value ? form.get('fatherNameOrHusbandName2').value  : '========='}}</b></span>
+                        को छोरा/छोरी/श्रीमती
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="districtOfProprietor2"
-                               type="text"> जिल्ला
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('districtOfProprietor2').value ? form.get('districtOfProprietor2').value  : '========='}}</b></span>
+                        जिल्ला
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="municipalityName2"
-                               type="text"> न.पा÷गा.वि.स.÷गाँउपालिका वडा नं.
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('municipalityName2').value ? form.get('municipalityName2').value  : '========='}}</b></span>
+                        न.पा/गा.वि.स./गाँउपालिका वडा नं.
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="wardNoOfProprietor2"
-                               type="text"> बस्ने बर्ष  ब्
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('wardNoOfProprietor2').value ? form.get('wardNoOfProprietor2').value  : '========='}}</b></span>
+                        बस्ने बर्ष
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="ageOfProprietor2"
-                               type="text"> को
-                        श्री÷श्रीमती÷सुश्री
-                        <input class="form-field form-control-sm nepaliFont"
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('ageOfProprietor2').value ? form.get('ageOfProprietor2').value  : '========='}}</b></span>
+                        को श्री/श्रीमती/सुश्री
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="nameOfProprietor2"
-                               type="text">)–१
+                               type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('nameOfProprietor2').value ? form.get('nameOfProprietor2').value  : '========='}}</b></span>
+                        )–१
                     </ng-container>
                     <ng-container>
                         समेत  ले आफ्नो व्यापार व्यवसाय संचालन गर्न यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा
                         बैंकिंग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो  । हाल हामी ऋणीहरुलाई उक्त ऋणकर्जा तथा बैंकिह् सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त
                         ऋणकर्जा सुविधा आवश्यक भई सोका लागी तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकले हामी ऋणी फर्मको नाउंमा जारी गरेको मिति
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field disable-print form-control-sm nepaliFont"
                                formControlName="sanctionLetterIssuedDate"
                                type="text">
+                        <span class="print-only nepaliFont"><b>{{form.get('sanctionLetterIssuedDate').value ? form.get('sanctionLetterIssuedDate').value  : '========='}}</b></span>
                         ष्ककगभम मबतभ को ऋण स्वीकृति पत्रानुसार स्वीकृत देहाय बमोजिमका ऋणकर्जा तथा बैंकिग सुविधाहरु सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने
                         गरी यो ऋणकर्जाको तमसुक गरिदिएको ठिक सांचो हो । तपाई धनी बैंकबाट प्राप्त ऋणकर्जा तथा बैंकिग सुविधाहरुमा लाग्ने ब्याज, कमिशन, शुल्क आदि स्वीकृत
                         ऋणकर्जा तथा बैंकिग सुविधाहरु तल उल्लेखित खण्ड खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा लेखिएको मिति भित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिग
@@ -135,7 +184,7 @@
                 </p>
             </div>
             <div class="col-md-12">
-                <p class="text-center">
+                <p class="text-center font-weight-bold">
                     स्विकृत ऋणकर्जाको विवरण
                 </p>
                 <table class="table table-bordered">
@@ -156,33 +205,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Purposed Loan</td>
-                        <td>10000</td>
-                        <td>12</td>
-                        <td>2121</td>
+                    <tr *ngFor="let data of loanDetails; let index = index">
+                        <td>
+                            <span><b>{{data.loan.name ? data.loan.name  : '========='}}</b></span>
+                        </td>
+                        <td><span><b>{{data.proposal.proposedLimit ? data.proposal.proposedLimit  : '========='}}</b></span></td>
+                        <td>
+                            <span class="nepaliFont print-only"><b>{{'========='}}</b></span>
+                        </td>
+                        <td><span class="nepaliFont print-only"><b>{{'========='}}</b></span></td>
                     </tr>
                     </tbody>
                 </table>
                 <p class="pt-2">
                     कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field disable-print form-control-sm"
                            formControlName="totalLoanAmount"
-                           type="text">। (अक्षरेपी
-                    <input class="form-field form-control-sm nepaliFont"
+                           type="text">
+                    <span class="print-only nepaliFont"><b>{{form.get('totalLoanAmount').value ? form.get('totalLoanAmount').value  : '========='}}</b></span>
+                    । (अक्षरेपी
+                    <input class="form-field disable-print form-control-sm longInput"
                            formControlName="totalLoanAmountWords"
-                           type="text"> )
+                           type="text">
+                    <span class="print-only nepaliFont"><b>{{form.get('totalLoanAmountWords').value ? form.get('totalLoanAmountWords').value  : '========='}}</b></span>
+                    )
                 </p>
             </div>
+        </div>
+        <div class="page-break"></div>
+        <div class="row mt-2">
             <div class="col-md-12">
                 <p class="font-weight-bold text-center">तपसिल</p>
-                <p>
+                <p class="mt-2">
                     उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा
                     धितोबन्धक लेखिदिई सम्बन्धित मालपोत कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु ।
                 </p>
             </div>
-            <div class="">
-                <table class="table">
+            <div class="col-md-12">
+                <table class="table table-bordered">
                     <thead>
                     <tr>
                         <td>
@@ -218,21 +278,37 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mt-2">
+                <ckeditor id="freeText" formControlName="freeText" [config]="ckConfig" class="disable-print"></ckeditor>
+                <span class="print-only nepaliFont" [innerHTML]="form.get('freeText').value | safeHtml"></span>
+            </div>
+            <div class="col-md-12 mt-4">
                 <p>
                     ईति सम्वत्
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field disable-print form-control-sm nepaliFont"
                            formControlName="yearInFigure"
-                           type="text"> साल
+                           type="text">
+                    <span class="print-only nepaliFont"><b>{{form.get('yearInFigure').value ? form.get('yearInFigure').value  : '========='}}</b></span>
+                    साल
 
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field disable-print form-control-sm nepaliFont"
                            formControlName="month"
-                           type="text">  महिना
-                    <input class="form-field form-control-sm nepaliFont"
+                           type="text">
+                    <span class="print-only nepaliFont"><b>{{form.get('month').value ? form.get('month').value  : '========='}}</b></span>
+                    महिना
+                    <input class="form-field disable-print form-control-sm nepaliFont"
                            formControlName="days"
-                           type="text"> शुभम्.................................
+                           type="text">
+                    <span class="print-only nepaliFont"><b>{{form.get('days').value ? form.get('days').value  : '========='}}</b></span>
+                    शुभम्.................................
                 </p>
             </div>
         </div>
     </form>
+    <div class="row disable-print">
+        <div class="col-md-12 text-right">
+            <button nbButton status="success" (click)="submit()">Save</button>
+            <button nbButton ngxPrint [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss" printSectionId="loanDeedPartnership" class="mr-2 custom-color" >Print</button>
+        </div>
+    </div>
 </div>

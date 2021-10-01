@@ -8,6 +8,8 @@ import {NbButtonModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import { LoanDeedPartnershipComponent } from './loan-deed-partnership/loan-deed-partnership.component';
+import {CKEditorModule} from 'ng2-ckeditor';
+import {CoreModule} from '../../../../@core/core.module';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { LoanDeedPartnershipComponent } from './loan-deed-partnership/loan-deed-
         CommonModule,
         ReactiveFormsModule,
         NgxPrintModule,
-        NbButtonModule
+        NbButtonModule,
+        CKEditorModule,
+        CoreModule
     ]
 })
 export class NabilModule { }

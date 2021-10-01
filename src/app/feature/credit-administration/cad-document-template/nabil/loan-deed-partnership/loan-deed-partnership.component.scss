@@ -13,6 +13,9 @@
   text-justify: inter-word;
   margin: 5px 20px;
 }
+p {
+  line-height: 1.8;
+}
 .form-field {
   background: yellow;
   margin: 0px 5px;
@@ -34,13 +37,6 @@
   }
 }
 
-li {
-  list-style-type: none;
-}
-
-input::-webkit-input-placeholder {
-  font-size: 16px;
-}
 @media screen {
   .print-only {
     display: none;
@@ -50,19 +46,35 @@ input::-webkit-input-placeholder {
     display: inline;
 
   }
+
+}
+.page-break {
+  page-break-after: always;
+  page-break-before: always;
 }
 
-//@media print {
-//  .print-only {
-//    display: inline;
-//  }
-//  div.align {
-//    font-size: 20px;
-//    line-height: 1.9;
-//    text-align: justify;
-//    text-justify: inter-word;
-//    margin: 10px 70px;
-//  }
-//
-//}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 5px 35px;
+  }
+  span {
+    font-size: 26px;
+    line-height: 1.5;
+  }
+  page-break {
+    page-break-after: always;
+    page-break-before: always;
+  }
+
+}
+
+
 
