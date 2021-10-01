@@ -17,7 +17,7 @@ import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent],
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent],
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,

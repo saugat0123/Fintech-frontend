@@ -13,7 +13,6 @@ import { HypoOfStockComponent } from './hypo-of-stock/hypo-of-stock.component';
 import {NbButtonModule, NbCardModule} from '@nebular/theme';
 import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple.component';
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
-// import {PromissoryNoteCompanyComponent} from './promissory-note-company/promissory-note-company.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
 import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
@@ -34,7 +33,6 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     HypoOfStockComponent,
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
-    // PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
@@ -60,7 +58,6 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     TrustReceiptNepaliLimitComponent,
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
-    // PromissoryNoteCompanyComponent,
     PromissoryNoteJointComponent,
     LoanDeedIndividualComponent,
     LoanDeedIndividualPrintComponent,
