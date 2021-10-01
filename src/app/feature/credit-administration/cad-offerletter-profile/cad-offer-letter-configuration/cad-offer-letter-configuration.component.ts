@@ -118,6 +118,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   individualData;
   editedTranslatedValueForm: FormGroup;
   oneFormGuarantorsList: Array<OneFormGuarantors> = new Array<OneFormGuarantors>();
+  guarantorProvienceList: Array<Province> = new Array<Province>();
+  guarantorDistrict: Array<District> = new Array<District>();
+  guarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -157,6 +160,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     this.addressService.getProvince().subscribe((response: any) => {
       this.tempGuarantorProvinceList = response.detail;
+    });
+
+    this.addressService.getProvince().subscribe((response: any) => {
+      this.guarantorProvienceList = response.detail;
     });
 
     if (!ObjectUtil.isEmpty(this.oneFormCustomer)) {
@@ -861,9 +868,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // }
     console.log(guarantorDetails, 'listtttt');
     guarantorDetails.forEach(value => {
+      const nepaData = JSON.parse(value.nepData);
       formArray.push(this.formBuilder.group({
           id: [value.id],
-        guarantorName: [value.guarantorName],
+        guarantorName: [ObjectUtil.isEmpty(value.name) ? undefined : value.name],
         guarantorNameTrans: [undefined],
         guarantorNameCT: [value.guarantorNameCT],
         citizenNumberTrans: [undefined],
@@ -888,7 +896,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         grandFatherNameTrans: [undefined],
 
         fatherNameCT: [value.fatherNameCT],
-        fatherName: [value.fatherName],
+        fatherName: [!ObjectUtil.isEmpty(nepaData.fatherName) ? nepaData.fatherName.en : undefined],
         fatherNameTrans: [undefined],
 
         relationship: [value.relationship],
@@ -896,20 +904,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         relationshipTrans: [undefined],
         citizenNumber: [value.citizenNumber],
         citizenNumberCT: [value.citizenNumberCT],
-        gurantedAmount: [value.gurantedAmount],
+        gurantedAmount: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.en],
         gurantedAmountCT: [value.gurantedAmountCT],
         gurantedAmountTrans: [undefined],
 
-        permanentProvince: [value.permanentProvince],
+        permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
         permanentProvinceCT: [value.permanentProvinceCT],
         permanentProvinceTrans: [undefined],
-        permanentDistrict: [value.permanentDistrict],
+        permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
         permanentDistrictCT: [value.permanentDistrictCT],
         permanentDistrictTrans: [undefined],
-        permanentMunicipality: [value.permanentMunicipality],
+        permanentMunicipality: [ObjectUtil.isEmpty(value.municipalities) ? undefined : value.municipalities],
         permanentMunicipalityCT: [value.permanentMunicipalityCT],
         permanentMunicipalityTrans: [undefined],
-        permanentWard: [value.permanentWard],
+        permanentWard: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.en],
         permanentWardCT: [value.permanentWardCT],
         permanentWardTrans: [undefined],
 
@@ -929,8 +937,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         isSameTemporaryAndPermanentCT: [undefined],
         isSameTemporaryAndPermanentTrans: [undefined],
         nepData: [value.nepData],
-        radioCitizenIssuedDate: [undefined],
-        citizenIssuedDate: [undefined],
+        radioCitizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined : nepaData.radioCitizenIssuedDate.en],
+        citizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined :
+            nepaData.radioCitizenIssuedDate.en === 'AD' ?
+                nepaData.citizenIssuedDate.en : nepaData.citizenIssuedDate.np],
 
       }));
     });
@@ -1273,8 +1283,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.districts = response.detail;
-          this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorDistrict = response.detail;
+          this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
           }
@@ -1287,8 +1297,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.municipalities = response.detail;
-          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorMunicipalities = response.detail;
+          this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
           }
