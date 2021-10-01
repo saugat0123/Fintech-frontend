@@ -17,13 +17,12 @@ import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatte
 import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 
-
 @Component({
-  selector: 'app-loan-deed-company',
-  templateUrl: './loan-deed-company.component.html',
-  styleUrls: ['./loan-deed-company.component.scss']
+  selector: 'app-loan-deed-partnership-firm',
+  templateUrl: './loan-deed-partnership-firm.component.html',
+  styleUrls: ['./loan-deed-partnership-firm.component.scss']
 })
-export class LoanDeedCompanyComponent implements OnInit {
+export class LoanDeedPartnershipFirmComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -32,6 +31,7 @@ export class LoanDeedCompanyComponent implements OnInit {
   offerLetterConst = NabilDocumentChecklist;
   form: FormGroup;
   nepData;
+
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,

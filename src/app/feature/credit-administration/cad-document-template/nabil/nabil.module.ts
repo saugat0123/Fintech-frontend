@@ -9,13 +9,15 @@ import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.com
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
 import { LoanDeedCompanyComponent } from './loan-deed-company/loan-deed-company.component';
 import { LoanDeedCompanyPrintComponent } from './loan-deed-company/loan-deed-company-print/loan-deed-company-print.component';
+import { LoanDeedPartnershipFirmComponent } from './loan-deed-partnership-firm/loan-deed-partnership-firm.component';
 
 
 @NgModule({
     declarations: [PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent,
         LoanDeedCompanyComponent,
-        LoanDeedCompanyPrintComponent],
+        LoanDeedCompanyPrintComponent,
+        LoanDeedPartnershipFirmComponent],
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,
