@@ -118,6 +118,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   individualData;
   editedTranslatedValueForm: FormGroup;
   oneFormGuarantorsList: Array<OneFormGuarantors> = new Array<OneFormGuarantors>();
+  guarantorProvienceList: Array<Province> = new Array<Province>();
+  guarantorDistrict: Array<District> = new Array<District>();
+  guarantorMunicipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
 
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
@@ -157,6 +160,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         });
     this.addressService.getProvince().subscribe((response: any) => {
       this.tempGuarantorProvinceList = response.detail;
+    });
+
+    this.addressService.getProvince().subscribe((response: any) => {
+      this.guarantorProvienceList = response.detail;
     });
 
     if (!ObjectUtil.isEmpty(this.oneFormCustomer)) {
@@ -861,76 +868,79 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // }
     console.log(guarantorDetails, 'listtttt');
     guarantorDetails.forEach(value => {
+      const nepaData = JSON.parse(value.nepData);
       formArray.push(this.formBuilder.group({
-          id: [value.id],
-        guarantorName: [value.guarantorName],
-        guarantorNameTrans: [undefined],
-        guarantorNameCT: [value.guarantorNameCT],
-        citizenNumberTrans: [undefined],
+        guarantorName: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.en],
+        guarantorNameTrans: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.np],
+        guarantorNameCT: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.ct],
+        citizenNumberTrans: [ObjectUtil.isEmpty(nepaData.citizenNumber) ? undefined : nepaData.citizenNumber.np],
         issuedPlace: [value.issuedPlace],
-        issuedPlaceTrans: [undefined],
-        issuedPlaceCT: [value.issuedPlaceCT],
-        genderCT: [value.genderCT],
-        gender: [value.gender],
-        genderTrans: [undefined],
-        relationMediumCT: [value.relationMediumCT],
-        relationMedium: [value.relationMedium],
-        husbandNameCT: [value.husbandNameCT],
-        husbandName: [value.husbandName],
-        husbandNameTrans: [undefined],
+        issuedPlaceTrans: [ObjectUtil.isEmpty(nepaData.issuedPlace) ? undefined : nepaData.issuedPlace.np],
+        issuedPlaceCT: [ObjectUtil.isEmpty(nepaData.issuedPlace) ? undefined : nepaData.issuedPlace.ct],
+        genderCT: [ObjectUtil.isEmpty(nepaData.gender) ? undefined : nepaData.gender.ct],
+        gender: [ObjectUtil.isEmpty(nepaData.gender) ? undefined : nepaData.gender.en],
+        genderTrans:  [ObjectUtil.isEmpty(nepaData.gender) ? undefined : nepaData.gender.np],
+        relationMediumCT: [ObjectUtil.isEmpty(nepaData.relationMedium) ? undefined : nepaData.relationMedium.ct],
+        relationMedium: [ObjectUtil.isEmpty(nepaData.relationMedium) ? undefined : nepaData.relationMedium.en],
+        husbandNameCT: [ObjectUtil.isEmpty(nepaData.husbandName) ? undefined : nepaData.husbandName.ct],
+        husbandName: [ObjectUtil.isEmpty(nepaData.husbandName) ? undefined : nepaData.husbandName.en],
+        husbandNameTrans: [ObjectUtil.isEmpty(nepaData.husbandName) ? undefined : nepaData.husbandName.np],
 
-        fatherInLawNameCT: [value.fatherInLawNameCT],
-        fatherInLawName: [value.fatherInLawName],
-        fatherInLawNameTrans: [undefined],
+        fatherInLawNameCT: [ObjectUtil.isEmpty(nepaData.fatherInLawName) ? undefined : nepaData.fatherInLawName.ct],
+        fatherInLawName: [ObjectUtil.isEmpty(nepaData.fatherInLawName) ? undefined : nepaData.fatherInLawName.en],
+        fatherInLawNameTrans: [ObjectUtil.isEmpty(nepaData.fatherInLawName) ? undefined : nepaData.fatherInLawName.np],
 
-        grandFatherNameCT: [value.grandFatherNameCT],
-        grandFatherName: [value.grandFatherName],
-        grandFatherNameTrans: [undefined],
+        grandFatherNameCT: [ObjectUtil.isEmpty(nepaData.grandFatherName) ? undefined : nepaData.grandFatherName.ct],
+        grandFatherName: [ObjectUtil.isEmpty(nepaData.grandFatherName) ? undefined : nepaData.grandFatherName.en],
+        grandFatherNameTrans: [ObjectUtil.isEmpty(nepaData.grandFatherName) ? undefined : nepaData.grandFatherName.np],
 
-        fatherNameCT: [value.fatherNameCT],
-        fatherName: [value.fatherName],
-        fatherNameTrans: [undefined],
+        fatherNameCT: [ObjectUtil.isEmpty(nepaData.fatherName) ? undefined : nepaData.fatherName.ct],
+        fatherName: [!ObjectUtil.isEmpty(nepaData.fatherName) ? nepaData.fatherName.en : undefined],
+        fatherNameTrans: [ObjectUtil.isEmpty(nepaData.fatherName) ? undefined : nepaData.fatherName.np],
 
-        relationship: [value.relationship],
-        relationshipCT: [value.relationshipCT],
-        relationshipTrans: [undefined],
+        relationship: [ObjectUtil.isEmpty(nepaData.relationship) ? undefined : nepaData.relationship.en],
+        relationshipCT: [ObjectUtil.isEmpty(nepaData.relationship) ? undefined : nepaData.relationship.ct],
+        relationshipTrans: [ObjectUtil.isEmpty(nepaData.relationship) ? undefined : nepaData.relationship.np],
         citizenNumber: [value.citizenNumber],
-        citizenNumberCT: [value.citizenNumberCT],
-        gurantedAmount: [value.gurantedAmount],
-        gurantedAmountCT: [value.gurantedAmountCT],
-        gurantedAmountTrans: [undefined],
+        citizenNumberCT: [ObjectUtil.isEmpty(nepaData.citizenNumber) ? undefined : nepaData.citizenNumber.ct],
+        gurantedAmount: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.en],
+        gurantedAmountCT: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.ct],
+        gurantedAmountTrans: [ObjectUtil.isEmpty(nepaData.gurantedAmount) ? undefined : nepaData.gurantedAmount.np],
 
-        permanentProvince: [value.permanentProvince],
-        permanentProvinceCT: [value.permanentProvinceCT],
-        permanentProvinceTrans: [undefined],
-        permanentDistrict: [value.permanentDistrict],
-        permanentDistrictCT: [value.permanentDistrictCT],
-        permanentDistrictTrans: [undefined],
-        permanentMunicipality: [value.permanentMunicipality],
-        permanentMunicipalityCT: [value.permanentMunicipalityCT],
-        permanentMunicipalityTrans: [undefined],
-        permanentWard: [value.permanentWard],
-        permanentWardCT: [value.permanentWardCT],
-        permanentWardTrans: [undefined],
+        permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
+        permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.ct],
+        permanentProvinceTrans: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.np],
+        permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
+        permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.ct],
+        permanentDistrictTrans: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.np],
+        permanentMunicipality: [ObjectUtil.isEmpty(value.municipalities) ? undefined : value.municipalities],
+        permanentMunicipalityCT: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.ct],
+        permanentMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.np],
+        permanentWard: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.en],
+        permanentWardCT: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.ct],
+        permanentWardTrans: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.np],
 
-        temporaryProvince: [value.temporaryProvince],
-        temporaryProvinceCT: [value.temporaryProvinceCT],
-        temporaryProvinceTrans: [undefined],
-        temporaryDistrict: [value.temporaryDistrict],
-        temporaryDistrictCT: [value.temporaryDistrictCT],
-        temporaryDistrictTrans: [undefined],
-        temporaryMunicipality: [value.temporaryMunicipality],
-        temporaryMunicipalityCT: [value.temporaryMunicipalityCT],
-        temporaryMunicipalityTrans: [undefined],
-        temporaryWard: [value.temporaryWard],
-        temporaryWardCT: [value.temporaryWardCT],
-        temporaryWardTrans: [undefined],
+        temporaryProvince: [ObjectUtil.isEmpty(value.provinceTemporary) ? undefined : value.provinceTemporary],
+        temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.ct],
+        temporaryProvinceTrans: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.np],
+        temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
+        temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.ct],
+        temporaryDistrictTrans: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.np],
+        temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
+        temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.ct],
+        temporaryMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.np],
+        temporaryWard:[ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.en],
+        temporaryWardCT:  [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.ct],
+        temporaryWardTrans:  [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.np],
         isSameTemporaryAndPermanent: [value.isSameTemporaryAndPermanent],
         isSameTemporaryAndPermanentCT: [undefined],
         isSameTemporaryAndPermanentTrans: [undefined],
         nepData: [value.nepData],
-        radioCitizenIssuedDate: [undefined],
-        citizenIssuedDate: [undefined],
+        radioCitizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined : nepaData.radioCitizenIssuedDate.en],
+        citizenIssuedDate: [ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) ? undefined :
+            nepaData.radioCitizenIssuedDate.en === 'AD' ?
+                nepaData.citizenIssuedDate.en : nepaData.citizenIssuedDate.np],
+        id: [value.id],
 
       }));
     });
@@ -1077,6 +1087,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   async translateGuarantorData(index) {
+    console.log(index);
     const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
@@ -1142,15 +1153,20 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       const individualData = a[index] as FormGroup;
       Object.keys(individualData.controls).forEach(key => {
 
-        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value) {
+
+        if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
+            || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key.indexOf('radioCitizenIssuedDate') > -1
+        || key.indexOf('citizenIssuedDate') > -1) {
           return;
         }
+        console.log(key, 'keys');
         this.attributes = new Attributes();
         this.attributes.en = individualData.get(key).value;
         this.attributes.np = guarantorsDetails[key];
         this.attributes.ct = individualData.get(key + 'CT').value;
         newArr[key] = this.attributes;
       });
+      console.log(newArr, 'GNew Arra');
       this.translatedGuarantorDetails[index] = newArr;
       this.deleteCTAndTransContorls(index);
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
@@ -1273,8 +1289,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     province.id = provinceId;
     this.addressService.getDistrictByProvince(province).subscribe(
         (response: any) => {
-          this.districts = response.detail;
-          this.districts.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorDistrict = response.detail;
+          this.guarantorDistrict.sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).patchValue(null);
           }
@@ -1287,8 +1303,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     district.id = districtId;
     this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
         (response: any) => {
-          this.municipalities = response.detail;
-          this.municipalities.sort((a, b) => a.name.localeCompare(b.name));
+          this.guarantorMunicipalities = response.detail;
+          this.guarantorMunicipalities.sort((a, b) => a.name.localeCompare(b.name));
           if (event !== null) {
             this.userConfigForm.get(['guarantorDetails', index, 'permanentMunicipality']).patchValue(null);
           }
