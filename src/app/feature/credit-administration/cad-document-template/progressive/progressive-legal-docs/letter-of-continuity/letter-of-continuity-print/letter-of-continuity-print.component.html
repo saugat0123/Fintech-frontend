@@ -40,10 +40,10 @@
           <tbody>
           <tr>
             <td style="text-align: right; vertical-align: top;width: 20%">दस्तखत गर्नेको नाम :—</td>
-            <td style="text-align: left"><span class="nepaliFont">{{printDocForm?.borrowerName}}</span>
-              <b>(ना.प्र.नं</b> <span class="nepaliFont">{{printDocForm?.borrowerCitizenshipNo}}</span>
-              <b>मिति</b> <span class="nepaliFont">{{printDocForm?.borrowerCitizenshipIssueDate}}</span>
-              <b>जि.प्र.का.</b> <span class="nepaliFont">{{printDocForm?.borrowerCdoOffice}}</span><b>)</b></td>
+            <td style="text-align: left"><span class="nepaliFont">{{printDocForm?.borrowerName}}</span>&nbsp;
+              <b>(ना.प्र.नं</b> &nbsp;<span class="nepaliFont">{{printDocForm?.borrowerCitizenshipNo}}</span>
+              &nbsp;<b>मिति</b> &nbsp;<span class="nepaliFont">{{printDocForm?.borrowerCitizenshipIssueDate}}</span>
+              &nbsp;<b>जि.प्र.का.</b> &nbsp;<span class="nepaliFont">{{printDocForm?.borrowerCdoOffice}}</span><b>)</b></td>
           </tr>
           <tr>
             <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :—</td>
@@ -105,11 +105,11 @@
       <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i"
            style="overflow-x: auto">
         {{i + 1 | nepaliWord: 'unicode'}}
-        <table class="table table-responsive-md">
+        <table class="table table-responsive-md table-borderless">
           <thead>
           <tr>
             <td>दस्तखत:</td>
-            <td>.....................</td>
+            <td style="text-align:left">..........................</td>
           </tr>
           </thead>
           <tbody>
@@ -140,11 +140,12 @@
         <br>
         <p><b class="text-left">सनाखत साक्षी</b>
           <br>
-          ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक सा¤चो हो भनी सहीछाप गर्ने धनीवित्तीय
-          संस्थामाकार्यरत
+          ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनी वित्तीय
+          संस्थामा कार्यरत
           कर्मचारी <span class="nepaliFont">{{printDocForm?.IdentifiedGuarantorName}}</span>
 
           (कर्मचारी संकेत नं. <span class="nepaliFont">{{printDocForm?.IdentifiedHintNo}}</span> )
+          <br>
           <br>
           ईतिसम्बत <span class="nepaliFont">{{printDocForm?.ItisambatYear}}</span>
           साल <span class="nepaliFont">{{printDocForm?.ItisambatMonth}}</span>
