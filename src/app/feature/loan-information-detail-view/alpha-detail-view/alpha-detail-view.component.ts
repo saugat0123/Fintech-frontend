@@ -91,26 +91,30 @@ export class AlphaDetailViewComponent implements OnInit {
       this.securityId = this.loanHolder.security.id;
     }
 
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-      this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-      this.isJointCustomer = true;
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+        this.jointCustomerData = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+        this.isJointCustomer = true;
+      }
     }
   }
 
   private getObtainableDocumentList(): void {
     this.customerLoanService.detail(this.customerId).subscribe(response => {
       const details = JSON.parse(response.detail.data);
-      if (!ObjectUtil.isEmpty(details.documents)) {
-        details.documents.forEach( resData => {
-          this.obtainableDocuments.push(resData);
-        });
-      }
-      if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
-        details.OtherDocuments.split(',').forEach(splitData => {
-          if (splitData !== '') {
-            this.otherObtainableDocuments.push(splitData);
-          }
-        });
+      if (!ObjectUtil.isEmpty(details)) {
+        if (!ObjectUtil.isEmpty(details.documents)) {
+          details.documents.forEach(resData => {
+            this.obtainableDocuments.push(resData);
+          });
+        }
+        if (!ObjectUtil.isEmpty(details.OtherDocuments)) {
+          details.OtherDocuments.split(',').forEach(splitData => {
+            if (splitData !== '') {
+              this.otherObtainableDocuments.push(splitData);
+            }
+          });
+        }
       }
     });
   }
