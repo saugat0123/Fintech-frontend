@@ -8,14 +8,23 @@ import {PromissoryNoteCompanyComponent} from './promissory-note-company/promisso
 import {NbButtonModule} from '@nebular/theme';
 import {LetterOfSetOffComponent} from './letter-of-set-off/letter-of-set-off.component';
 import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-off-print/letter-of-set-off-print.component';
+import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
+import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
+import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
 
 
 @NgModule({
-    declarations: [PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
-        LetterOfSetOffPrintComponent, PromissoryNoteIndividualPrintComponent, PromissoryNoteCompanyComponent],
+    declarations: [
+        PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
+        LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent],
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,
+        PersonalGuaranteeCompanyComponent,
+        PersonalGuaranteeIndividualComponent,
+        LetterOfSetOffPrintComponent,
+        PromissoryNoteIndividualPrintComponent,
         PromissoryNoteCompanyComponent
     ],
     imports: [
