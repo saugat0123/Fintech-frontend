@@ -60,133 +60,143 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
               private ref: NbDialogRef<PersonalLoanAndPersonalOverdraftComponent>
   ) { }
 
-  ngOnInit() {
-    this.buildPersonal();
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
-      this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-      console.log('data', this.tempData);
-    }
-    this.checkOfferLetterData(); }
-  buildPersonal() {
-    this.form = this.formBuilder.group({
-      referenceNumber: [undefined],
-      dateofApproval: [undefined],
-      customerName: [undefined],
-      customerAddress: [undefined],
-      dateofApplication: [undefined],
-      purposeofLoan: [undefined],
-      loanAmountinFigure: [undefined],
-      loanAmountinWords: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      yearlyInterestRate: [undefined],
-      loanAdminFeeinFigure: [undefined],
-      loanAdminFeeinWords: [undefined],
-      loanadminFee: [undefined],
-      emiInFigure: [undefined],
-      emiInWords: [undefined],
-      loanExpiryDate: [undefined],
-      nameofGuarantors: [undefined],
-      guaranteedAmountInFigure: [undefined],
-      guaranteedAmountInWords: [undefined],
-      nameofBranch: [undefined],
-      accountNumberOfCustomer: [undefined],
-      nameofCompanyCustomerWorking: [undefined],
-      NameofCustomer: [undefined],
-      accountofCustomer: [undefined],
-      relationshipofficerName: [undefined],
-      branchName: [undefined],
-      date: [undefined],
-      district: [undefined],
-      wardNum: [undefined],
-      freeText: [undefined],
-      witnessName: [undefined],
-      staffName: [undefined],
-    });
-  }
-  setLoanConfigData(data: any) {
-    let cadNepData = {
-      numberNepali: ')',
-      nepaliWords: 'सुन्य',
-    };
-    const customerAddress =
-        data.permanentMunicipality + ' , ' +
-        data.permanentWard + ' , ' +
-        data.permanentProvince + ' , ' +
-        data.permanentDistrict;
-    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
-      cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-    }
-    this.form.patchValue({
-      customerName: data.name ? data.name : '',
-      customerAddress: customerAddress ? customerAddress : '',
-      loanAmount: cadNepData.numberNepali,
-      loanNameInWords: cadNepData.nepaliWords,
-    });
-  }
-  checkOfferLetterData() {
-    if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
-      this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString())[0];
-      if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        this.offerLetterDocument = new OfferDocument();
-        this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
-      } else {
-        const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
-          this.offerLetterData = this.offerLetterDocument;
-          this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+    ngOnInit() {
+        console.log(this.cadOfferLetterApprovedDoc, 'asa');
+        this.buildPersonal();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
+            this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            console.log('data', this.tempData);
+
         }
-        this.initialInfoPrint = initialInfo;
-        this.existingOfferLetter = true;
-        this.selectedArray = initialInfo.loanTypeSelectedArray;
-        this.fillForm();
-        this.initialInfoPrint = initialInfo;
-      }
-    } else {
-      this.fillForm();
+        this.checkOfferLetterData();
     }
-  }
-  fillForm() {
-    const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
-        this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
-    const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
-    let totalLoanAmount = 0;
-    this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
-      const val = value.proposal.proposedLimit;
-      totalLoanAmount = totalLoanAmount + val;
-    });
-    this.form.patchValue({
-      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
-      customerAddress: customerAddress ? customerAddress : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmountinWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
-      referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
-      dateofApproval: this.tempData.dateofApproval.ct ? this.tempData.dateofApproval.ct : '',
-      dateofApplication: this.tempData.dateofApplication.ct ? this.tempData.dateofApplication.ct : '',
-      purposeofLoan: this.tempData.purposeofLoan.ct ? this.tempData.purposeofLoan.ct : '',
-      loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
-      emiInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
-      emiInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
-      loanExpiryDate: this.tempData.loanExpiryDate.ct ? this.tempData.loanExpiryDate.ct : '',
-      nameofGuarantors: this.tempData.nameofGuarantors.ct ? this.tempData.nameofGuarantors.ct : '',
-      guaranteedAmountInFigure: this.tempData.guaranteedAmountInFigure.ct ? this.tempData.guaranteedAmountInFigure.ct : '',
-      guaranteedAmountInWords: this.tempData.guaranteedAmountInWords.ct ? this.tempData.guaranteedAmountInWords.ct : '',
-      nameofBranch : this.tempData.nameofBranch.ct ? this.tempData.nameofBranch.ct : '',
-      accountNumberOfCustomer: this.tempData.accountNumberOfCustomer.ct ? this.tempData.accountNumberOfCustomer.ct : '',
-      relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
-      branchName: this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
-      date: this.tempData.date.ct ? this.tempData.date.ct : '',
-      district : this.tempData.district.ct ? this.tempData.district.ct : '',
-      wardNum : this.tempData.wardNum.ct ? this.tempData.wardNum.ct : '',
-      witnessName : this.tempData.witnessName.ct ? this.tempData.witnessName.ct : '',
-      staffName : this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
-    });
-    // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
-  }
+
+    buildPersonal() {
+        this.form = this.formBuilder.group({
+            referenceNumber: [undefined],
+            dateofApproval: [undefined],
+            customerName: [undefined],
+            customerAddress: [undefined],
+            dateofApplication: [undefined],
+            purposeofLoan: [undefined],
+            loanAmountinFigure: [undefined],
+            loanAmountinWords: [undefined],
+            baseRate: [undefined],
+            premiumRate: [undefined],
+            yearlyInterestRate: [undefined],
+            loanAdminFeeinFigure: [undefined],
+            loanAdminFeeinWords: [undefined],
+            loanadminFee: [undefined],
+            emiInFigure: [undefined],
+            emiInWords: [undefined],
+            loanExpiryDate: [undefined],
+            nameofGuarantors: [undefined],
+            guaranteedAmountInFigure: [undefined],
+            guaranteedAmountInWords: [undefined],
+            nameofBranch: [undefined],
+            accountNumberOfCustomer: [undefined],
+            nameofCompanyCustomerWorking: [undefined],
+            NameofCustomer: [undefined],
+            accountofCustomer: [undefined],
+            relationshipofficerName: [undefined],
+            branchName: [undefined],
+            date: [undefined],
+            district: [undefined],
+            wardNum: [undefined],
+            freeText: [undefined],
+            witnessName: [undefined],
+            staffName: [undefined],
+        });
+    }
+
+    setLoanConfigData(data: any) {
+        let cadNepData = {
+            numberNepali: ')',
+            nepaliWords: 'सुन्य',
+        };
+        const customerAddress =
+            data.permanentMunicipality + ' , ' +
+            data.permanentWard + ' , ' +
+            data.permanentProvince + ' , ' +
+            data.permanentDistrict;
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
+            cadNepData = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
+        }
+        this.form.patchValue({
+            customerName: data.name ? data.name : '',
+            customerAddress: customerAddress ? customerAddress : '',
+            loanAmount: cadNepData.numberNepali,
+            loanNameInWords: cadNepData.nepaliWords,
+        });
+    }
+
+    checkOfferLetterData() {
+        if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
+            this.offerLetterDocument = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
+                === this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT).toString())[0];
+            if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+                console.log('if');
+                this.offerLetterDocument = new OfferDocument();
+                this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT);
+            } else {
+                console.log('else');
+                const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
+                    this.offerLetterData = this.offerLetterDocument;
+                    this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+                }
+                this.initialInfoPrint = initialInfo;
+                this.existingOfferLetter = true;
+                this.selectedArray = initialInfo.loanTypeSelectedArray;
+                this.initialInfoPrint = initialInfo;
+                this.fillForm();
+            }
+        } else {
+            this.fillForm();
+        }
+    }
+
+    fillForm() {
+        const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
+        const customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ' ,' +
+            this.loanHolderInfo.permanentProvince.ct + ' प्रदेश ';
+        const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
+        let totalLoanAmount = 0;
+        this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+            const val = value.proposal.proposedLimit;
+            totalLoanAmount = totalLoanAmount + val;
+        });
+        console.log(this.loanHolderInfo.name.ct, 'loanHolder');
+        this.form.patchValue({
+            customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+            customerAddress: customerAddress ? customerAddress : '',
+            // loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
+            // loanAmountinWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+            referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
+            dateofApproval: this.tempData.dateofApproval.ct ? this.tempData.dateofApproval.ct : '',
+            // dateofApplication: this.tempData.dateofApplication.ct ? this.tempData.dateofApplication.ct : '',
+            // purposeofLoan: this.tempData.purposeofLoan.ct ? this.tempData.purposeofLoan.ct : '',
+            // loanadminFee: this.tempData.loanadminFee.ct ? this.tempData.loanadminFee.ct : '',
+            // emiInFigure: this.tempData.emiInFigure.ct ? this.tempData.emiInFigure.ct : '',
+            // emiInWords: this.tempData.emiInWords.ct ? this.tempData.emiInWords.ct : '',
+            // loanExpiryDate: this.tempData.loanExpiryDate.ct ? this.tempData.loanExpiryDate.ct : '',
+            // nameofGuarantors: this.tempData.nameofGuarantors.ct ? this.tempData.nameofGuarantors.ct : '',
+            // guaranteedAmountInFigure: this.tempData.guaranteedAmountInFigure.ct ? this.tempData.guaranteedAmountInFigure.ct : '',
+            // guaranteedAmountInWords: this.tempData.guaranteedAmountInWords.ct ? this.tempData.guaranteedAmountInWords.ct : '',
+            // nameofBranch: this.tempData.nameofBranch.ct ? this.tempData.nameofBranch.ct : '',
+            // accountNumberOfCustomer: this.tempData.accountNumberOfCustomer.ct ? this.tempData.accountNumberOfCustomer.ct : '',
+            // relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
+            // branchName: this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
+            // date: this.tempData.date.ct ? this.tempData.date.ct : '',
+            // district: this.tempData.district.ct ? this.tempData.district.ct : '',
+            // wardNum: this.tempData.wardNum.ct ? this.tempData.wardNum.ct : '',
+            // witnessName: this.tempData.witnessName.ct ? this.tempData.witnessName.ct : '',
+            // staffName: this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+        });
+        // this.retailProfessionalLoan.patchValue(this.loanHolderInfo);
+    }
 
   submit(): void {
     this.spinner = true;
