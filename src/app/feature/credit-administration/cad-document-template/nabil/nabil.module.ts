@@ -13,13 +13,16 @@ import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-indiv
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
 import { NabilLoanDeedCompanyComponent } from './nabil-loan-deed-company/nabil-loan-deed-company.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import { LoanDeedIndividualComponent } from './loan-deed-individual/loan-deed-individual.component';
+import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent],
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent,
+        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -29,6 +32,8 @@ import {CKEditorModule} from 'ng2-ckeditor';
         LetterOfSetOffPrintComponent,
         PromissoryNoteIndividualPrintComponent,
         PromissoryNoteCompanyComponent,
+        LoanDeedIndividualComponent,
+        LoanDeedIndividualPrintComponent,
         NabilLoanDeedCompanyComponent
     ],
     imports: [
