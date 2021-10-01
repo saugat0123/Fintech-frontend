@@ -11,16 +11,16 @@ import {LetterOfSetOffPrintComponent} from './letter-of-set-off/letter-of-set-of
 import { PersonalGuaranteeIndividualPrintComponent } from './personal-guarantee-individual/personal-guarantee-individual-print/personal-guarantee-individual-print.component';
 import { PersonalGuaranteeIndividualComponent } from './personal-guarantee-individual/personal-guarantee-individual.component';
 import { PersonalGuaranteeCompanyComponent } from './personal-guarantee-company/personal-guarantee-company.component';
-import { LoanDeedIndividualComponent } from './loan-deed-individual/loan-deed-individual.component';
-import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import { NabilLoanDeedCompanyComponent } from './nabil-loan-deed-company/nabil-loan-deed-company.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 
 @NgModule({
     declarations: [
         PromissoryNoteIndividualComponent, PromissoryNoteIndividualPrintComponent, LetterOfSetOffComponent,
         LetterOfSetOffPrintComponent, PersonalGuaranteeIndividualComponent, PersonalGuaranteeIndividualPrintComponent,
-        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent,
-        LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent],
+        PersonalGuaranteeCompanyComponent, PromissoryNoteCompanyComponent, NabilLoanDeedCompanyComponent],
+
     exports: [
         PromissoryNoteIndividualComponent,
         LetterOfSetOffComponent,
@@ -29,14 +29,14 @@ import { LoanDeedIndividualPrintComponent } from './loan-deed-individual/loan-de
         LetterOfSetOffPrintComponent,
         PromissoryNoteIndividualPrintComponent,
         PromissoryNoteCompanyComponent,
-        LoanDeedIndividualComponent,
-        LoanDeedIndividualPrintComponent
+        NabilLoanDeedCompanyComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         NgxPrintModule,
-        NbButtonModule
+        NbButtonModule,
+        CKEditorModule
     ]
 })
 export class NabilModule {
