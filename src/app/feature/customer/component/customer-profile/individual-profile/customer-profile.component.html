@@ -234,7 +234,7 @@
                                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
                                                  [formValue]="customer"></app-customer-group-loan>
                     </nb-card-body>
-                    <nb-card-footer>
+                    <nb-card-footer *ngIf="false">
                         <div class="row">
                             <div class="col" *ngIf=" !isRemarkEdited ">
                                 <a *ngIf="maker" class="p-2 cursor" (click)="editRemark()"><em
@@ -255,7 +255,7 @@
                         </div>
                     </nb-card-footer>
                 </nb-card>
-                <nb-card accent="primary" *ngIf="sbsGroupEnabled">
+                <nb-card accent="primary" *ngIf="sbsGroupEnabled && false">
                     <nb-card-header>
                         Customer Groups
                         <div class="float-right" nbTooltip="{{totalGroupAmount | currencyFormatter}}">Total Group Limit
@@ -289,7 +289,7 @@
 
                 </nb-card>
 
-                <nb-card accent="primary" *ngIf="megaGroupEnabled">
+                <nb-card accent="primary" *ngIf="megaGroupEnabled && false">
                     <nb-card-header>
                         Customer Groups
                     </nb-card-header>
@@ -316,7 +316,7 @@
                 </nb-card>
 
             </div>
-            <div class="col-md-4">
+            <div *ngIf="false" class="col-md-4">
                 <nb-card accent="primary" style="height: 650px">
                     <nb-card-header>
                         <div class="row justify-content-lg-start">
@@ -370,14 +370,14 @@
                             </div>
                             <hr>
                         </div>
-                        <div class="row" *ngIf="!crgLambdaDisabled && !microCustomer">
+                        <div class="row" *ngIf="false && !crgLambdaDisabled && !microCustomer">
                             <div class="col-md-5">
                                 <span> <strong>Net Worth</strong></span></div>
                             <div class="col-md-1">
                                 <span> <strong>:</strong></span></div>
                             <div class="col-md-5"> Rs. {{customer?.netWorth |currencyFormatter}}</div>
                         </div>
-                        <div class="row" *ngIf="!crgLambdaDisabled && !microCustomer">
+                        <div class="row" *ngIf="false && !crgLambdaDisabled && !microCustomer">
                             <div class="col-md-5">
                                 <span> <strong>Banking RelationShip</strong></span></div>
                             <div class="col-md-1">
