@@ -203,7 +203,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-            loanPurpose: [this.offerDocumentDetails.purposeOfLoan ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
+            loanPurpose: [this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
             dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || '',],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
