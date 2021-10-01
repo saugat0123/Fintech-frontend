@@ -336,7 +336,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    documentStatus: [this.backwardDocStatus()],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
@@ -381,6 +381,19 @@ export class CadActionComponent implements OnInit, OnChanges {
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {
             return 'DISBURSEMENT_PENDING';
+        } else {
+            return this.currentStatus;
+        }
+
+    }   public backwardDocStatus() {
+        if (this.currentStatus === 'OFFER_APPROVED') {
+            return 'OFFER_PENDING';
+        } else if (this.currentStatus === 'LEGAL_PENDING') {
+            return 'OFFER_APPROVED';
+        } else if (this.currentStatus === 'LEGAL_APPROVED') {
+            return 'LEGAL_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'LEGAL_APPROVED';
         } else {
             return this.currentStatus;
         }
