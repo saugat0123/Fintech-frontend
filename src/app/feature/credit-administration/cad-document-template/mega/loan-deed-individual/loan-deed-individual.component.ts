@@ -11,6 +11,10 @@ import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
     selector: 'app-loan-deed-individual',
@@ -30,7 +34,11 @@ export class LoanDeedIndividualComponent implements OnInit {
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
                 private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-                private routerUtilsService: RouterUtilsService) { }
+                private routerUtilsService: RouterUtilsService,
+                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+                private engToNepNumberPipe: EngToNepaliNumberPipe,
+                private currencyFormatPipe: CurrencyFormatterPipe,
+                private nepToEngNumberPipe: NepaliToEngNumberPipe, ){ }
 
     ngOnInit() {
         this.buildForm();
@@ -99,6 +107,13 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
 
     fillForm(){
+        let totalLoan = 0;
+        this.cadData.assignedLoan.forEach(val => {
+            const proposedAmount = val.proposal.proposedLimit;
+            totalLoan = totalLoan + proposedAmount;
+        });
+        const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+        const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
         this.loanDeedIndividual.patchValue(
             {
                 branchName: this.individualData.branch.ct,
@@ -107,7 +122,10 @@ export class LoanDeedIndividualComponent implements OnInit {
                 District: this.individualData.permanentDistrict.ct,
                 Municipality: this.individualData.permanentMunicipality.ct,
                 WadNo: this.individualData.permanentWard.ct,
+                issueDate: this.individualData.citizenshipNo.ct,
                 borrowerName: this.individualData.name.ct,
+                totalLoanAmount: finalAmount,
+                totalLoanAmountWord: loanAmountWord,
             }
         )
     }
