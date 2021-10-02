@@ -120,7 +120,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.getAllHierarchy();
 
     this.checkMakersInBranch();
-    console.log(this.selectedBranchId);
     this.currentUserId = LocalStorageUtil.getStorage().userId;
     this.roleId = LocalStorageUtil.getStorage().roleId;
     if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
@@ -134,7 +133,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.showHideCadActionButtons();
 
     this.checkForwardValidMessage();
-    this.checkIfFromAboveHierarchy();
   }
 
   getBackwardHierarchy() {
@@ -188,7 +186,6 @@ export class CadActionComponent implements OnInit, OnChanges {
   }
 
   onSubmit(templateLogin) {
-    console.log(this.formAction);
     this.errorMsgStatus = false;
     this.falseCredential = false;
     this.submitted = true;
@@ -436,7 +433,6 @@ export class CadActionComponent implements OnInit, OnChanges {
   }
 
   public showHideCadActionButtons() {
-    console.log(RoleType[LocalStorageUtil.getStorage().roleType]);
     // send to branch -> cas maker / cad
     if (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER) {
       this.isSendToBranchDisabled = false;
@@ -448,7 +444,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_MAKER)
             || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CLAD_MAKER))
         ||
-        // && @TODO: enable forward button for checkers if coming from above hierarchy
+        // enable forward button for checkers if coming from above hierarchy
         (this.checkIfFromAboveHierarchy()
             && (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_CHECKER
                 || RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_CHECKER
@@ -524,21 +520,11 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
   }
 
-  // && @TODO: open forward button if file is from above hierarchy
   checkIfFromAboveHierarchy() {
-    const allRoleHierarchy = LocalStorageUtil.getStorage().allRoleHierarchy;
-    console.log(allRoleHierarchy, 'allRoleHierarchy');
-    console.log(this.currentCADStage.fromRole.id, 'this.currentCADStage.fromRole');
-    console.log(LocalStorageUtil.getStorage().roleId, 'LocalStorageUtil.getStorage().roleId');
-    const currentUserRoleOrder = allRoleHierarchy.filter(arh1 => arh1.role.id === Number(LocalStorageUtil.getStorage().roleId))[0].roleOrder;
-    const previousRoleOrder = allRoleHierarchy.filter(arh => arh.role.id === this.currentCADStage.fromRole.id)[0].roleOrder;
-    console.log(currentUserRoleOrder, 'currentUserRoleOrder');
-    console.log(previousRoleOrder, 'previousRoleOrder');
-    if (previousRoleOrder < currentUserRoleOrder) {
+    if (LocalStorageUtil.getStorage().allRoleHierarchy.filter(arh => arh.role.id === this.currentCADStage.fromRole.id)[0].roleOrder < LocalStorageUtil.getStorage().allRoleHierarchy.filter(arh1 => arh1.role.id === Number(LocalStorageUtil.getStorage().roleId))[0].roleOrder) {
       return true;
     }
     return false;
   }
-
 
 }
