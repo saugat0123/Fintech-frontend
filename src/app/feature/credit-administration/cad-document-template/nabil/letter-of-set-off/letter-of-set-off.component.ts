@@ -12,7 +12,6 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
 import {CustomerType} from '../../../../customer/model/customerType';
-import {CadDocStatus} from '../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-letter-of-set-off',
@@ -31,11 +30,13 @@ export class LetterOfSetOffComponent implements OnInit {
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   customerType = CustomerType;
+
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-              private routerUtilsService: RouterUtilsService) { }
+              private routerUtilsService: RouterUtilsService) {
+  }
 
 
   ngOnInit() {

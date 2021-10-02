@@ -53,6 +53,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   formAction: FormGroup;
 
+  spinner = false;
   submitted = false;
   userList = [];
   errorMsg;
@@ -86,6 +87,10 @@ export class CadActionComponent implements OnInit, OnChanges {
   committeeDefaultUser;
   branchMakerRole;
   toUserNull = false;
+  showPoolCheck = true;
+  isBackwardToDisabled = false;
+  backwardToToolTip;
+  allRoleHierarchy;
   private securityUrl = ApiConfig.TOKEN;
   private headers = new HttpHeaders({
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -113,6 +118,7 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getAllHierarchy();
+
     this.checkMakersInBranch();
     console.log(this.selectedBranchId);
     this.currentUserId = LocalStorageUtil.getStorage().userId;
@@ -128,15 +134,28 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.showHideCadActionButtons();
 
     this.checkForwardValidMessage();
+    this.checkIfFromAboveHierarchy();
   }
 
-  getAllHierarchy() {
-    this.approvalRoleHierarchyService.findAll('CAD', 0)
-    .subscribe((response: any) => {
+  getBackwardHierarchy() {
+    this.approvalRoleHierarchyService.getBackwardRolesForRoleWithType(Number(LocalStorageUtil.getStorage().roleId), 'CAD', 0).subscribe(res => {
+      this.sendForwardBackwardList = res.detail;
+      this.spinner = false;
+    }, error => {
+      console.error(error);
+      this.spinner = false;
+    });
+  }
+
+  async getAllHierarchy() {
+    await this.approvalRoleHierarchyService.findAll('CAD', 0)
+    .toPromise().then((response: any) => {
+      const storage = LocalStorageUtil.getStorage();
+      storage.allRoleHierarchy = response.detail;
+      LocalStorageUtil.setStorage(storage);
       this.sendForwardBackwardList = [];
       this.sendForwardBackwardList = response.detail;
       if (this.sendForwardBackwardList.length !== 0) {
-
         // if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
         //   this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
         // }
@@ -186,7 +205,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   }
 
-
   onClose() {
     this.modalService.dismissAll(this.formAction.value);
     this.isOpened = false;
@@ -220,6 +238,29 @@ export class CadActionComponent implements OnInit, OnChanges {
 
 
   }
+
+  // public getNewDocStatusOnApprove() {
+  //   // if (this.currentStatus === 'OFFER_AND_LEGAL_PENDING') {
+  //   //   this.approvedLabel = 'APPROVE OFFER LETTER AND FORWARD';
+  //   //   return 'OFFER_AND_LEGAL_APPROVED';
+  //   // } else if (this.currentStatus === 'DOC_CHECK_PENDING') {
+  //   //   return 'DOC_CHECK_APPROVED';
+  //   // } else if (this.currentStatus === 'DISBURSEMENT_APPROVED') {
+  //   //   return '0';
+  //   // } else {
+  //   //   return 'DISBURSEMENT_APPROVED';
+  //   // }
+  // }
+
+
+  // public forwardBackwardDocStatusChange() {
+  //   if (this.currentStatus === 'OFFER_AND_LEGAL_APPROVED') {
+  //     return 'LEGAL_PENDING';
+  //   } else if (this.currentStatus === 'LEGAL_APPROVED') {
+  //     return 'DISBURSEMENT_PENDING';
+  //   } else {
+  //     return this.currentStatus;
+  //   }
 
   postAction() {
     this.isForApproveMaker = false;
@@ -273,7 +314,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
   public getUserList(role) {
     this.userList = [];
-    console.log(this.formAction);
     if (role.roleType === RoleType.CAD_LEGAL) {
       this.formAction.patchValue({
         toRole: role
@@ -306,6 +346,11 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.selectedTemplate = template;
     this.popUpTitle = val;
     this.userList = [];
+    if (this.popUpTitle === 'BACKWARD TO') {
+      this.spinner = true;
+      this.customApproveSelection = true;
+      this.getBackwardHierarchy();
+    }
     if (this.popUpTitle === 'FORWARD') {
       this.formAction = this.formBuilder.group(
           {
@@ -328,16 +373,17 @@ export class CadActionComponent implements OnInit, OnChanges {
       // await this.userService.getDefaultCommunityUser().then(res => {
       //     this.committeeDefaultUser = res.detail;
       // });
+      this.showPoolCheck = false;
       this.formAction = this.formBuilder.group(
           {
             toRole: [this.branchMakerRole],
-            toUser: this.committeeDefaultUser,
             cadId: [this.cadId],
             docAction: [DocAction.FORWARD],
             comment: [undefined, Validators.required],
             documentStatus: [this.currentStatus],
             isBackwardForMaker: returnToMaker,
             sendToBranch: true,
+            toUserNull: true
           }
       );
       const approvalType = 'CAD';
@@ -366,11 +412,11 @@ export class CadActionComponent implements OnInit, OnChanges {
       this.formAction = this.formBuilder.group(
           {
             cadId: [this.cadId],
-            docAction: [val],
+            docAction: [DocAction.BACKWARD],
             comment: [undefined, Validators.required],
             documentStatus: [this.currentStatus],
             isBackwardForMaker: returnToMaker,
-            customApproveSelection: [false],
+            customApproveSelection: [this.customApproveSelection],
             toUser: [undefined],
             toRole: [undefined]
           }
@@ -389,64 +435,61 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.isActionClicked.emit(this.isOpened);
   }
 
-  // public getNewDocStatusOnApprove() {
-  //   // if (this.currentStatus === 'OFFER_AND_LEGAL_PENDING') {
-  //   //   this.approvedLabel = 'APPROVE OFFER LETTER AND FORWARD';
-  //   //   return 'OFFER_AND_LEGAL_APPROVED';
-  //   // } else if (this.currentStatus === 'DOC_CHECK_PENDING') {
-  //   //   return 'DOC_CHECK_APPROVED';
-  //   // } else if (this.currentStatus === 'DISBURSEMENT_APPROVED') {
-  //   //   return '0';
-  //   // } else {
-  //   //   return 'DISBURSEMENT_APPROVED';
-  //   // }
-  // }
-
-
-  // public forwardBackwardDocStatusChange() {
-  //   if (this.currentStatus === 'OFFER_AND_LEGAL_APPROVED') {
-  //     return 'LEGAL_PENDING';
-  //   } else if (this.currentStatus === 'LEGAL_APPROVED') {
-  //     return 'DISBURSEMENT_PENDING';
-  //   } else {
-  //     return this.currentStatus;
-  //   }
-  //
-  // }
-
-
   public showHideCadActionButtons() {
+    console.log(RoleType[LocalStorageUtil.getStorage().roleType]);
     // send to branch -> cas maker / cad
     if (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER) {
       this.isSendToBranchDisabled = false;
     }
 
-    // forward -> rm, cad/cas maker, cas doc maker, clad maker
-    if (((RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.MAKER) ||
-        (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER) ||
-        (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_MAKER) ||
-        (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CLAD_MAKER))
-        // && @TODO: open forward button if file is from above hierarchy
-        // && @TODO: hide forward button if file is from above hierarchy
-
-    ) {
+    // forward -> enable forward for maker and rm and for checkers if coming from above hierarchy
+    if (((RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.MAKER)
+            || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER)
+            || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_MAKER)
+            || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CLAD_MAKER))
+        ||
+        // && @TODO: enable forward button for checkers if coming from above hierarchy
+        (this.checkIfFromAboveHierarchy()
+            && (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_CHECKER
+                || RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_CHECKER
+                || RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CLAD_CHECKER
+            )
+        )) {
       this.isForwardDisabled = false;
     }
 
     // backward and approve -> cas checker, cas doc checker, clad checker
-    if ((RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_CHECKER) ||
-        (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_CHECKER) ||
-        (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CLAD_CHECKER)) {
+    if (((RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_CHECKER)
+            || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_DOC_CHECKER)
+            || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CLAD_CHECKER))
+        && !this.checkIfFromAboveHierarchy()
+    ) {
       this.isApprovedDisabled = false;
+    }
+
+    if (this.currentCADStage.fromUser.id === Number(LocalStorageUtil.getStorage().userId)) {
+      this.isBackwardDisabled = true;
+    }
+
+    if (this.currentCADStage.fromRole.id === Number(LocalStorageUtil.getStorage().userId)
+        // || (RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_CHECKER)
+        // || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)
+    ) {
+      this.isBackwardDisabled = true;
+    }
+
+    if ((RoleType[LocalStorageUtil.getStorage().roleType] === RoleType.CAS_MAKER)) {
+      this.isBackwardToDisabled = true;
     }
   }
 
   public backwardTooltipMessageAndShowHideBackward() {
     const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
     // tslint:disable-next-line:max-line-length
-    if ((this.currentCADStage.fromRole.roleType === this.roleType.CAS_CHECKER) ||
-        (this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN) ||
-        (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
+    if (this.currentCADStage.fromRole.id === Number(LocalStorageUtil.getStorage().userId)
+        // || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN)
+        // || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)
+    ) {
       this.isBackwardDisabled = true;
     } else {
       this.backwardToolTip = 'return file to ' + user;
@@ -468,9 +511,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.toUserNull = this.formAction.get('toUserNull').value;
   }
 
-  // set status according to roletype
   getApprovalStatus() {
-    switch (this.currentCADStage.fromRole.roleType) {
+    switch (RoleType[LocalStorageUtil.getStorage().roleType]) {
       case this.roleType.CAS_DOC_CHECKER:
         return 'DOC_CHECK_APPROVED';
         break;
@@ -481,4 +523,22 @@ export class CadActionComponent implements OnInit, OnChanges {
         return 'OFFER_AND_LEGAL_APPROVED';
     }
   }
+
+  // && @TODO: open forward button if file is from above hierarchy
+  checkIfFromAboveHierarchy() {
+    const allRoleHierarchy = LocalStorageUtil.getStorage().allRoleHierarchy;
+    console.log(allRoleHierarchy, 'allRoleHierarchy');
+    console.log(this.currentCADStage.fromRole.id, 'this.currentCADStage.fromRole');
+    console.log(LocalStorageUtil.getStorage().roleId, 'LocalStorageUtil.getStorage().roleId');
+    const currentUserRoleOrder = allRoleHierarchy.filter(arh1 => arh1.role.id === Number(LocalStorageUtil.getStorage().roleId))[0].roleOrder;
+    const previousRoleOrder = allRoleHierarchy.filter(arh => arh.role.id === this.currentCADStage.fromRole.id)[0].roleOrder;
+    console.log(currentUserRoleOrder, 'currentUserRoleOrder');
+    console.log(previousRoleOrder, 'previousRoleOrder');
+    if (previousRoleOrder < currentUserRoleOrder) {
+      return true;
+    }
+    return false;
+  }
+
+
 }
