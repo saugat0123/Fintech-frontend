@@ -1,8 +1,9 @@
-<div class="text-justify nep" id="{{offerLetterConst.personal_overdraft}}">
+<div class="text-justify nep">
     <nb-card [nbSpinner]="spinner"
              nbSpinnerStatus="primary"
              nbSpinnerSize="large"
-             nbSpinnerMessage="personal overdraft.....">
+             nbSpinnerMessage="personal overdraft....."
+             id="{{offerLetterConst.PERSONAL_OVERDRAFT}}">
         <nb-card-header *ngIf="preview">
             <a (click)="close()" aria-label="Close" class="close cursor pull-right"
                data-dismiss="modal">
@@ -18,13 +19,21 @@
                        name="referenceNumber"
                        placeholder=" सन्दर्भ नम्बर "
                        type="text"/>
-                <p class="text-left"> मिति:
-                    <input class="form-field form-control-sm nepaliFont col-3"
-                           formControlName="dateofApproval"
-                           name="dateofApproval"
-                           placeholder="मिति"
-                           type="text"/>
+                <br>
+                <p *ngIf="initialInfoPrint.dateofApproval.en.nDate === undefined; else dateofApprovalNepali" class="text-left">
+                    मितिः <input class="form-field form-control-sm"
+                                 formControlName="dateofApproval"
+                                 [value]="initialInfoPrint.dateofApproval.en === undefined ? '' : ((initialInfoPrint.dateofApproval.en | date) | engNepDate: true)"
+                                 type="text"/>
                 </p>
+                <ng-template #dateofApprovalNepali>
+                    <p>
+                        मितिः <input class="form-field form-control-sm"
+                                     formControlName="dateofApproval"
+                                     [value]="initialInfoPrint.dateofApproval.en.nDate === undefined ? '' : initialInfoPrint.dateofApproval.en.nDate"
+                                     type="text"/>
+                    </p>
+                </ng-template>
                 <div class="mb-2"> श्रीमान्/श्रीमती
                     <input class="form-field form-control-sm nepaliFont"
                            formControlName="customerName"
@@ -44,17 +53,29 @@
                     <br>
                     <br>
                     <div class="mb-1">
-                        <p> महोदय, <br>
-                            तपाईंले मिति <input class="form-field form-control-sm nepaliFont"
-                                                    formControlName="dateofApplication"
-                                                    name="dateofApplication"
-                                                    placeholder="मिति"
-                                                    type="text"/>मा व्यक्तिगत
+                        <p>
+                            महोदय, <br>
+                            तपाईंले
+                        <span *ngIf="initialInfoPrint.dateofApplication.en.nDate === undefined; else dateofApplicationNepali" class="text-left">
+                            मितिः <input class="form-field form-control-sm"
+                                         formControlName="dateofApplication"
+                                         [value]="initialInfoPrint.dateofApplication.en === undefined ? '' : ((initialInfoPrint.dateofApplication.en | date) | engNepDate: true)"
+                                         type="text"/>
+                        </span>
+                        <ng-template #dateofApplicationNepali>
+                            <span>
+                                मितिः <input class="form-field form-control-sm"
+                                             formControlName="dateofApplication"
+                                             [value]="initialInfoPrint.dateofApplication.en.nDate === undefined ? '' : initialInfoPrint.dateofApplication.en.nDate"
+                                             type="text"/>
+                            </span>
+                        </ng-template>
+                            मा व्यक्तिगत
                             अधिविकर्ष सुविधाको लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा
-                            देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं ।
-
+                            देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृती गरेको ब्यहोरा अनुरोध गर्दछौं
                         </p>
                     </div>
+
 
 
 
@@ -199,12 +220,22 @@
                                 </td>
                             <tr>
                                 <td><strong>कर्जा अवधि समाप्ती पूनरावलोकन मितिः </strong></td>
-                                <td>मिति <input class="form-field form-control-sm nepaliFont"
-                                                formControlName="dateofExpiry"
-                                                name="dateofExpiry "
-                                                placeholder=" म्याद सकिने दिन "
-                                                type="text"/> मा हुनेछ ।</td>
-                            </tr>
+                            <td *ngIf="initialInfoPrint.dateofExpiry.en.nDate === undefined; else dateofExpiryNepali" class="text-left">
+                                मितिः
+                                <input class="form-field form-control-sm"
+                                         formControlName="dateofExpiry"
+                                         [value]="initialInfoPrint.dateofExpiry.en === undefined ? '' : ((initialInfoPrint.dateofExpiry.en | date) | engNepDate: true)"
+                                         type="text"/>
+                                मा हुनेछ ।</td>
+                            <ng-template #dateofExpiryNepali>
+                                <td>
+                                    मितिः <input class="form-field form-control-sm"
+                                             formControlName="dateofExpiry"
+                                             [value]="initialInfoPrint.dateofExpiry.en.nDate === undefined ? '' : initialInfoPrint.dateofExpiry.en.nDate"
+                                             type="text"/>
+                                    मा हुनेछ ।</td>
+                            </ng-template>
+                        </tr>
                         </table>
                     <table class="table table-borderless" style="margin-left:20px;width:100%">
                         <tr>
@@ -216,43 +247,52 @@
 
                                 <p><strong>क. </strong>  स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ । </p>
                                 <p> <strong>Collateral details </strong></p>
-                                <p> धनी    <input class="form-field form-control-sm nepaliFont"
+                                <p> धनी
+                                    <input class="form-field form-control-sm nepaliFont"
                                                   formControlName="ownerName"
                                                   name="ownerName"
                                                   placeholder="धनी "
-                                                  type="text"/> </p>
-                                <p> स्थान  <input class="form-field form-control-sm nepaliFont"
+                                                  type="text"/>
+                                </p>
+                                <p> स्थान
+                                    <input class="form-field form-control-sm nepaliFont"
                                                   formControlName="ownersAddress"
                                                   name="ownersAddress"
                                                   placeholder="स्थान "
-                                                  type="text"/> </p>
-                                <p> कित्ता नं.  <input class="form-field form-control-sm nepaliFont"
+                                                  type="text"/>
+                                </p>
+                                <p> कित्ता नं.
+                                    <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="propertyPlotNumber"
                                                        name="propertyPlotNumber"
                                                        placeholder="कित्ता नं "
-                                                       type="text"/> </p>
-                                <p> क्षेत्रफल  <input class="form-field form-control-sm nepaliFont"
+                                                       type="text"/>
+                                </p>
+                                <p> क्षेत्रफल
+                                    <input class="form-field form-control-sm nepaliFont"
                                                       formControlName="propertyArea"
                                                       name="propertyArea"
                                                       placeholder="क्षेत्रफल "
-                                                      type="text"/> </p>
-                                <p>
-                                  <strong>  ख. </strong>श्री <input class="form-field form-control-sm nepaliFont"
-                                                   formControlName="nameofGuarantors"
-                                                   name="nameofGuarantors"
-                                                   placeholder="  "
-                                                   type="text"/> ले बैंकको पक्षमा
-                                    रु <input class="form-field form-control-sm nepaliFont"
-                                              (input)="getNumAmountWord('guaranteedamountinFigure', 'guaranteedamountinWords')"
-                                              formControlName="guaranteedamountinFigure"
-                                              name="guaranteedamountinFigure"
-                                              placeholder="  "
-                                              type="text"/>
-                                    (अक्षरेपी रु <input class="form-field form-control-sm nepaliFont"
-                                                        formControlName="guaranteedamountinWords"
-                                                        name="guaranteedamountinWords"
-                                                        placeholder="  "
-                                                        type="text"/>मात्र) बराबरको व्यक्तिगत जमानत पत्र दिनुपर्नेछ ।
+                                                      type="text"/>
+                                </p>
+                                <p *ngFor="let data of guarantorData; let i = index;">
+                                    {{i + 2 | nepaliWord}}. श्री
+                                    <input class="form-field form-control-sm col-3"
+                                           formControlName="nameofGuarantors"
+                                           [value]="guarantorParse(data.nepData, 'nameofGuarantors')"
+                                           type="text"/>
+                                    ले बैंकको पक्षमा
+                                    रु
+                                    <input class="form-field form-control-sm"
+                                           formControlName="guaranteedamountinFigure"
+                                           [value]="guarantorParse(data.nepData, 'gurantedAmount')"
+                                           type="text"/>
+                                    /-(अक्षरेपि
+                                    रु. <input class="form-field form-control-sm longInput uniSize"
+                                               formControlName="guaranteedamountinWords"
+                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(data.nepData, 'gurantedAmount', 'words'))"
+                                               type="text"/>
+                                    मात्र) को व्यक्तिगत जमानत पत्र दिनु पर्नेछ ।
                                 </p>
                             </td>
                         </tr>
@@ -551,24 +591,7 @@
                                 <td> स्वीकृत ऋणकर्जा सुविधाहरु यस ऋणस्वीकृित पत्र स्वीकार गरेको मितिले ६० दिन भित्र उपयोग गरिसक्नु पर्नेछ ।</td>
                             </tr>
                             <tr>
-                                <td>३०.</td>
-                                <td> बैंकको नियम विनियम बमोजिम वा नेपाल राष्ट्र बैंकको निर्देशन/नियम अनुपालन गर्न समय समयमा ब्याजदरमा संशोधन गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।</td>
-                            </tr>
-                            <tr>
-                                <td>३१.</td>
-                                <td> व्यक्तिगत कर्जाका शर्तबन्देजहरु परिवर्तन गर्न नबिल बैंक लिमिटेडको एकल र पूर्ण अधिकार रहनेछ तर बैंकले
-                                    व्यक्तिगत कर्जाका शर्तबन्देजहरुको परिवर्तन बारे पूर्व एवं यथोचित सूचना दिनेछ ।</td>
-                            </tr>
-                            <tr>
-                                <td>३२.</td>
-                                <td> ऋणकर्जा खाता विवरणहरु र कर्जा सम्झौता प्रतिहरु मुख्य आवेदक वा लिखित स्वीकृति/मञ्जुरीमा उसको आधिकारीक प्रतिनिधिहरुलाई मात्र उपलब्ध गराईनेछ । </td>
-                            </tr>
-                            <tr>
-                                <td>३३.</td>
-                                <td> तपाईंले तपाईंको परिवर्तित पेशा/रोजगारी/ओहदा र परिवर्तित ठेगाना र बैंकलाई समय समयमा आवश्यक अन्य सूचनाहरु ऋणकर्जा अवधि भरि उपलब्ध गराउनुपर्नेछ </td>
-                            </tr>
-                            <tr>
-                                <td>३४ </td>
+                                <td>३०. </td>
                                 <td>तपाईंले बैंकमा स्वयम् उपस्थित भई देहाय बमोजिमका कर्जा सम्बन्धित कागजपत्रहरु सम्पादन गर्नु पर्नेछ।<br>
                                     क.  रु. <input class="form-field form-control-sm nepaliFont"
                                                    formControlName="loanAmountinFigure"
@@ -605,10 +628,16 @@
                                                         name="guaranteedamountinWords"
                                                         placeholder=" रकम "
                                                         type="text"/> मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।<br>
-                                    <textarea class="form-field form-control-sm nepaliFont"
-                                  formControlName="freeText"
-                                  name="freeText"
-                                  placeholder="   "></textarea><br>
+                                    <div class="row col-md-12">
+                                        <textarea
+                                                id="additionalGuarantorDetails"
+                                                class="form-control customFont nepaliFont"
+                                                rows="5"
+                                                style="width:inherit;margin-left:5%"
+                                                name="additionalGuarantorDetails"
+                                                formControlName="additionalGuarantorDetails">
+                                        </textarea>
+                                    </div><br>
                                 <p>क.	रु.<input class="form-field form-control-sm nepaliFont"
                                                     formControlName="loanAmountinFigure"
                                                     name="loanAmountinFigure"
@@ -838,7 +867,7 @@
                     status="info"
                     class="mb-4 float-right"
                     [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.personal_overdraft}}Print">Print
+                    ngxPrint printSectionId="{{offerLetterConst.PERSONAL_OVERDRAFT}}Print">Print
             </button>
         </nb-card-footer>
     </nb-card>
