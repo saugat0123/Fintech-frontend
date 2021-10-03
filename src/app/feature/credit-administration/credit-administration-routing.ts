@@ -9,10 +9,12 @@ import {DisbursementPendingComponent} from './component/disbursement/disbursemen
 import {DisbursementApprovedComponent} from './component/disbursement/disbursement-approved/disbursement-approved.component';
 import {CadDocumentListComponent} from './component/cad-document-list/cad-document-list.component';
 import {CadSummaryComponent} from './cad-work-flow/cad-summary/cad-summary.component';
+import {DocCheckPendingComponent} from './component/doc-check/doc-check-pending/doc-check-pending.component';
 
 /** Always add new route to RouteConst.ts file as a static route Variable **/
 export const routes: Routes = [
     {path: 'offer-pending', component: OfferLetterListComponent},
+    {path: 'doc-check-pending', component: DocCheckPendingComponent},
     {path: 'offer-approved', component: OfferLetterApprovedComponent},
     {path: 'legal-pending', component: LegalReviewPendingComponent},
     {path: 'legal-approved', component: LegalReviewApprovedComponent},
