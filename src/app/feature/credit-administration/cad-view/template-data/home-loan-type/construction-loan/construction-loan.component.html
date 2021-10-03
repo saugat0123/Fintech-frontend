@@ -1,0 +1,204 @@
+<div class="container-fluid">
+    <div [formGroup]="constructionLoanForm" class="row">
+        <div class="col-md-4">
+            <b>Loan Data</b>
+            <div class="form-group">
+                <label for="referenceNumber">Reference Number</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="referenceNumber" type="text" id="referenceNumber">
+            </div>
+            <div class="form-group">
+                <label for="dateType">Date of Approval</label><br>
+                <nb-radio-group name="dateType" id="dateType" (valueChange)="dateOfApproval($event)" status="success"
+                                formControlName="dateType" class="d-inline-flex">
+                    <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
+                </nb-radio-group>
+                <nepali-patro *ngIf="BSApproval" formControlName="nepaliDateOfApproval" [responseType]="2"
+                              [displayNepali]="true">
+                </nepali-patro>
+                <input *ngIf="ADApproval" nbInput fullWidth status="success" shape="semi-round"
+                       [nbDatepicker]="approvalDate"
+                       placeholder="Select Date"
+                       formControlName="dateOfApproval" id="dateOfApproval">
+                <nb-datepicker #approvalDate></nb-datepicker>
+            </div>
+            <div class="form-group">
+                <label for="applicationDateType">Date of Application</label><br>
+                <nb-radio-group name="applicationDateType" id="applicationDateType" (valueChange)="dateOfApplication($event)" status="success"
+                                formControlName="applicationDateType" class="d-inline-flex">
+                    <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
+                </nb-radio-group>
+                <nepali-patro *ngIf="BSApplication" formControlName="nepaliDateOfApplication" [responseType]="2"
+                              [displayNepali]="true">
+                </nepali-patro>
+                <input *ngIf="ADApplication" nbInput fullWidth status="success" shape="semi-round"
+                       [nbDatepicker]="approvalDate"
+                       placeholder="Select Date"
+                       formControlName="dateOfApplication" id="applicationDate">
+                <nb-datepicker #approvalDate></nb-datepicker>
+            </div>
+            <div class="form-group">
+                <label for="purposeOfLoan">Purpose of Loan</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="purposeOfLoan" type="number" id="purposeOfLoan">
+            </div>
+            <div class="form-group">
+                <label for="drawingPower">Drawing Power (% of Distress Value)</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="drawingPower" type="number" id="drawingPower">
+            </div>
+            <div class="form-group">
+                <label for="loanAmountInFigure">Loan Amount in Figure</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAmountInFigure" type="number" id="loanAmountInFigure">
+            </div>
+            <div class="form-group">
+                <label for="loanAmountInfWord">Loan Amount in Words</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAmountInfWord" type="text" id="loanAmountInfWord">
+            </div>
+            <div class="form-group">
+                <label for="baseRate">Base Rate</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="baseRate" type="number" id="baseRate">
+            </div>
+            <div class="form-group">
+                <label for="premiumRate">Premium Rate</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="premiumRate" type="number" id="premiumRate">
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="interestRate" type="number" id="interestRate">
+            </div>
+            <div class="form-group">
+                <label for="loanAdminFeeInFigure">Loan Admin Fees in Figure</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAdminFeeInFigure" type="number" id="loanAdminFeeInFigure">
+            </div>
+            <div class="form-group">
+                <label for="loanAdminFeeInWord">Loan Admin Fees in Word</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAdminFeeInWord" type="text" id="loanAdminFeeInWord">
+            </div>
+            <div class="form-group">
+                <label for="emiInFigure">EMI in Figure</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="emiInFigure" type="number" id="emiInFigure">
+            </div>
+            <div class="form-group">
+                <label for="emiInWord">EMI in Word</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="emiInWord" type="text" id="emiInWord">
+            </div>
+            <div class="form-group">
+                <label for="loanPeriodInMonths">Loan Period in Months</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanPeriodInMonths" type="number" id="loanPeriodInMonths">
+            </div>
+            <div class="form-group">
+                <label for="moratoriumPeriodInMonth">Moratorium Period in Months</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="moratoriumPeriodInMonth" type="number" id="moratoriumPeriodInMonth">
+            </div>
+            <div class="form-group">
+                <label for="loanCommitmentFee">Loan Commitment Fee (%)</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanCommitmentFee" type="number" id="loanCommitmentFee">
+            </div>
+            <div class="form-group">
+                <label for="costOfConstruction">Cost of construction in first phase</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="costOfConstruction" type="number" id="costOfConstruction">
+            </div>
+            <div class="form-group">
+                <label for="firstInstallmentAmount">First installment amount</label>
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="firstInstallmentAmount" type="number" id="firstInstallmentAmount">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <b>Nepali Translation</b>
+        </div>
+        <div class="col-md-4">
+            <b>Correct Translation</b>
+            <div class="form-group mt-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="referenceNumberCT" type="number">
+            </div>
+            <div class="form-group" style="margin-top: 78px">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="dateOfApprovalCT" type="number">
+            </div>
+            <div class="form-group" style="margin-top: 78px">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="dateOfApplicationCT" type="number">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="purposeOfLoanCT" type="number" id="purposeOfLoanCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="drawingPowerCT" type="number" id="drawingPowerCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAmountInFigureCT" type="number" id="loanAmountInFigureCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAmountInfWordCT" type="text" id="loanAmountInfWordCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="baseRateCT" type="number" id="baseRateCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="premiumRateCT" type="number" id="premiumRateCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="interestRateCT" type="number" id="interestRateCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAdminFeeInFigureCT" type="number" id="loanAdminFeeInFigureCT">
+            </div>
+            <div class="form-group mt-xl-5">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanAdminFeeInWordCT" type="text" id="loanAdminFeeInWordCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="emiInFigureCT" type="number" id="emiInFigureCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="emiInWordCT" type="text" id="emiInWordCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanPeriodInMonthsCT" type="number" id="loanPeriodInMonthsCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="moratoriumPeriodInMonthCT" type="number" id="moratoriumPeriodInMonthCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="loanCommitmentFeeCT" type="number" id="loanCommitmentFeeCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="costOfConstructionCT" type="number" id="costOfConstructionCT">
+            </div>
+            <div class="form-group mt-xl-4">
+                <input nbInput fullWidth status="success" shape="semi-round"
+                       formControlName="firstInstallmentAmountCT" type="number" id="firstInstallmentAmountCT">
+            </div>
+        </div>
+    </div>
+</div>
