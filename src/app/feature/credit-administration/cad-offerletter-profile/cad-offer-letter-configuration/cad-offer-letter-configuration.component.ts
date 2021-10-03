@@ -825,7 +825,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentMunicipality: [undefined],
       permanentMunicipalityCT: [undefined],
       permanentMunicipalityTrans: [undefined],
-      GpermanentWard: [undefined],
+      permanentWard: [undefined],
       permanentWardCT: [undefined],
       permanentWardTrans: [undefined],
 
@@ -1113,8 +1113,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).setValue(guarantorsDetails.gurantedAmount || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).setValue(guarantorsDetails.GpermanentWard || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).setValue(guarantorsDetails.GpermanentWard || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).setValue(guarantorsDetails.permanentWard || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).setValue(guarantorsDetails.permanentWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).setValue(guarantorsDetails.relationship || '');
