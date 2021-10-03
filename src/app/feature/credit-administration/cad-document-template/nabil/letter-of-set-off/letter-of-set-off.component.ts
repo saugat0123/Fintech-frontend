@@ -56,6 +56,7 @@ export class LetterOfSetOffComponent implements OnInit {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
     console.log('INDIVIDUAL DATA =', this.individualData);
+    this.fillform();
   }
 
 
@@ -97,6 +98,30 @@ export class LetterOfSetOffComponent implements OnInit {
       nameofWithness: [undefined],
       nameofWithnessfromBank: [undefined],
     });
+  }
+  fillform() {
+    this.letterOfSetOff.patchValue(
+        {
+          nameofBranch: this.individualData.branch.ct ?
+              this.individualData.branch.ct : '',
+          grandFatherName: this.individualData.grandFatherName.ct ?
+              this.individualData.grandFatherName.ct : '',
+          fatherName: this.individualData.fatherName.ct ?
+              this.individualData.fatherName.ct : '',
+          identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
+              this.individualData.citizenshipIssueDistrict.ct : '',
+          dateofIssue: this.individualData.issuedDate.ct ?
+              this.individualData.issuedDate.ct : '',
+          citizenshipNo: this.individualData.citizenshipNo.ct ?
+              this.individualData.citizenshipNo.ct : '',
+          wardNo: this.individualData.permanentWard.ct ?
+              this.individualData.permanentWard.ct : '',
+          vdc: this.individualData.permanentMunicipality.ct ?
+              this.individualData.permanentMunicipality.ct : '',
+          district: this.individualData.permanentDistrict.ct ?
+              this.individualData.permanentDistrict.ct : '',
+        }
+    );
   }
 
   submit() {
