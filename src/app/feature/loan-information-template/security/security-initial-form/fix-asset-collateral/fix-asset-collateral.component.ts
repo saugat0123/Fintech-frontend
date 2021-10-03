@@ -301,11 +301,13 @@ export class FixAssetCollateralComponent implements OnInit {
         // required parameter for backend
         formData.append('customerId', this.customerId.toString());
         formData.append('customerType', this.customerType);
-        formData.append('siteVisitData', this.fixedAssetsForm.get('date').value);
-        console.log('date', this.fixedAssetsForm.get('date').value);
+        const date = this.fixedAssetsForm.get('date').value;
+        let localDate = JSON.stringify(date);
+        localDate = localDate.slice(1, 11);
+        formData.append('siteVisitData', localDate);
         formData.append('securityName', this.security);
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
-        console.log('value', this.fixedAssetsForm.value);
+        console.log('value', localDate);
         if (this.fixedAssetsForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             this.spinner = false;

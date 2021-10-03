@@ -36,9 +36,9 @@
                     <div class="row mt-3">
                         <div class="col-md-4 form-group">
                             <label class="title" for="date">Date</label>
-                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                            <input nbInput fullWidth *ngIf="calendarType === 'AD'" class="form-control"
                                    formControlName="date"
-                                   id="date"
+                                   id="date" [ngClass]="{'is-invalid': submitted && fixedAssetsForm?.get('date')?.errors}"
                                    name="date" placeholder="Date"
                                    [nbDatepicker]="date"
                                    type="text"/>
@@ -46,7 +46,7 @@
                             <nb-datepicker #date></nb-datepicker>
                             <app-calendar (messageToEmit)="fixedAssetsForm?.get('date')?.patchValue($event?.eDate)"
                                           *ngIf="calendarType === 'BS'"
-                                          [ePreDate]="fixedAssetsForm?.get('date')?.value"></app-calendar>
+                                          [ePreDate]="form?.date?.value"></app-calendar>
                             <div *ngIf="(submitted) && form.date?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="form.date?.errors.required">Date is required</span>
