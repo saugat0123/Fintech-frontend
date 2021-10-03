@@ -823,6 +823,8 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.temporaryMunicipality?.ct :objectValueTranslater?.temporaryMunicipality"
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
