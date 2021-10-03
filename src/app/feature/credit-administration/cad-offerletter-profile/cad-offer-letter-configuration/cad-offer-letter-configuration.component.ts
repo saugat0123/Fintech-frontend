@@ -1094,7 +1094,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
       guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
-      this.translate();
+      if(this.userConfigForm.get('branchCT').value !== null || this.userConfigForm.get('branchTrans').value !== null){
+        this.translate();
+      }
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).setValue(guarantorsDetails.guarantorName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).setValue(guarantorsDetails.guarantorName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
