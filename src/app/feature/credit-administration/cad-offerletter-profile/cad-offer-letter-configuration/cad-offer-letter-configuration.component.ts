@@ -319,22 +319,22 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentMunTypeTrans: [0],
       // tslint:disable-next-line:max-line-length
       temporaryProvince: [ObjectUtil.setUndefinedIfNull(this.oneFormCustomer.temporaryProvince)],
-      temporaryProvinceCT: [undefined, Validators.required],
+      temporaryProvinceCT: [undefined],
       temporaryProvinceTrans: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryDistrict: [undefined],
-      temporaryDistrictCT: [undefined, Validators.required],
+      temporaryDistrictCT: [undefined],
       temporaryDistrictTrans: [undefined, Validators.required],
       // tslint:disable-next-line:max-line-length
       temporaryMunicipality: [undefined],
-      temporaryMunicipalityCT: [undefined, Validators.required],
+      temporaryMunicipalityCT: [undefined],
       temporaryMunicipalityTrans: [undefined, Validators.required],
       permanentWard: [undefined],
       permanentWardCT: [undefined, Validators.required],
-      permanentWardTrans: [undefined, Validators.required],
+      permanentWardTrans: [undefined],
       temporaryWard: [undefined],
-      temporaryWardCT: [undefined, Validators.required],
-      temporaryWardTrans: [undefined, Validators.required],
+      temporaryWardCT: [undefined],
+      temporaryWardTrans: [undefined],
       temporaryMunType: [1],
       temporaryMunTypeCT: [undefined],
       temporaryMunTypeTrans: [undefined],
@@ -485,11 +485,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
       if (issueDateType === 'AD') {
-        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-            this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
+        this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
+        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+        //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate);
       } else if (issueDateType === 'BS') {
-        const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
+        const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate;
+        this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
+        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(new Date(issueDate.nDate));
       }
     });
 
