@@ -485,13 +485,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('guarantorDetails').value.forEach((value, index) => {
       const issueDateType = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value;
       if (issueDateType === 'AD') {
-        this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
-        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
-        //     this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate);
+        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(
+            this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value);
       } else if (issueDateType === 'BS') {
         const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate;
-        this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
-        // this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).setValue(new Date(issueDate.nDate));
+        this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).patchValue(new Date(issueDate));
       }
     });
 
