@@ -34,6 +34,7 @@ export class LoanDeedIndividualComponent implements OnInit {
   offerLetterConst = NabilDocumentChecklist;
   offerDocumentDetails: any;
   nepaliNumber = new NepaliNumberAndWords();
+  educationInterestRate: any;
   constructor(
     private formBuilder: FormBuilder,
     private administrationService: CreditAdministrationService,
@@ -83,13 +84,6 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
   }
 
-//   getNumAmountWord(numLabel, wordLabel) {
-//     const wordLabelVar = this.nepToEngNumberPipe.transform(
-//       this.guarantorindividualGroup.get(numLabel).value
-//     );
-//     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-//   }
-
   buildForm() {
     this.loanDeedIndividual = this.formBuilder.group({
       loanDeedIndividuals: this.formBuilder.array([]),
@@ -98,6 +92,9 @@ export class LoanDeedIndividualComponent implements OnInit {
   }
 
   initIndividualLoandeed() {
+    let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
+    todayDate = todayDate.replace(',', '').split(' ');
+    const daysInNumber = new Date().getDay();
     let age: any;
     let ageNepaliNumber: string;
     if (!ObjectUtil.isEmpty(this.loanHolderNepData) && !ObjectUtil.isEmpty(this.loanHolderNepData.dob)) {
@@ -105,8 +102,12 @@ export class LoanDeedIndividualComponent implements OnInit {
         ageNepaliNumber = this.engToNepNumberPipe.transform(String(age));
     }
     let approvedDate: any;
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && !ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval)) {
         approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval.en;
+    }
+
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
+        this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
     }
     return this.formBuilder.group({
       branchName: [
@@ -145,10 +146,10 @@ export class LoanDeedIndividualComponent implements OnInit {
       propertyOwnerName: [undefined],
       plotNo: [undefined],
       area: [undefined],
-      year: [undefined],
-      month: [undefined],
-      day: [undefined],
-      time: [undefined],
+      year: [todayDate[2]],
+      month: [todayDate[1]],
+      day: [todayDate[0]],
+      time: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
       propertyOwnerName1: [undefined],
       district1: [undefined],
       municipality1: [undefined],

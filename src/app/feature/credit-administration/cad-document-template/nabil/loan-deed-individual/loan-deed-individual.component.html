@@ -138,17 +138,8 @@
                 <p>{{ loan?.proposal?.proposedLimit }}</p>
               </td>
               <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="Interest"
-                  placeholder=""
-                  type="text"
-                />
+                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ educationInterestRate }}</p>
+                <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
               </td>
               <td>
                 <input
@@ -377,7 +368,7 @@
 
         <div>
           <p>
-            ईति सम्वत् २०<input
+            ईति सम्वत्<input
               class="form-field form-control-sm d-print-none"
               formControlName="year"
               placeholder=""
