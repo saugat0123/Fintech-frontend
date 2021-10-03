@@ -51,6 +51,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ePreDate', this.ePreDate);
     this.getCalendar();
 
   }

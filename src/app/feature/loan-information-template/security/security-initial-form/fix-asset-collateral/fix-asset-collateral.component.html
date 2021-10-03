@@ -13,7 +13,7 @@
                 <span><strong>Select Last Site Visit Date</strong></span>
                 <select class="form-control" [(ngModel)]="selectedSiteVisit" (change)="getLastSiteVisitDetail()">
                     <option [ngValue]="null" hidden>Select Date</option>
-                    <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate}}</option>
+                    <option *ngFor="let siteVisit of collateralSiteVisits" [ngValue]="siteVisit">{{siteVisit?.siteVisitDate | date}}</option>
                 </select>
             </div>
             <div class="col-md-4 mt-4" *ngIf="isSiteVisitPresent">
@@ -22,15 +22,31 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-12 text-right">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType">
+                    <nb-radio value="AD">AD</nb-radio>
+                    <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <form [formGroup]="fixedAssetsForm">
                     <div class="row mt-3">
                         <div class="col-md-4 form-group">
                             <label class="title" for="date">Date</label>
-                            <input nbInput fullWidth
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.date?.errors }"
-                                   class="form-control" formControlName="date" id="date"
-                                   type="date">
+                            <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                   formControlName="date"
+                                   id="date"
+                                   name="date" placeholder="Date"
+                                   [nbDatepicker]="date"
+                                   type="text"/>
+                            <input *ngIf="calendarType === 'BS'" formControlName="date" hidden>
+                            <nb-datepicker #date></nb-datepicker>
+                            <app-calendar (messageToEmit)="fixedAssetsForm?.get('date')?.patchValue($event?.eDate)"
+                                          *ngIf="calendarType === 'BS'"
+                                          [ePreDate]="fixedAssetsForm?.get('date')?.value"></app-calendar>
                             <div *ngIf="(submitted) && form.date?.invalid"
                                  class="invalid-feedback">
                                 <span *ngIf="form.date?.errors.required">Date is required</span>
@@ -353,10 +369,17 @@
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="constructionYear">Construction Year</label>
-                                    <input nbInput fullWidth
-                                           class="form-control"
-                                           formControlName="constructionYear" id="constructionYear"
-                                           type="date">
+                                    <input *ngIf="calendarType === 'AD'" class="form-control rounded"
+                                           formControlName="constructionYear"
+                                           id="constructionYear"
+                                           name="constructionYear" placeholder="Construction Year"
+                                           [nbDatepicker]="constructionYear"
+                                           type="text"/>
+                                    <input *ngIf="calendarType === 'BS'" formControlName="constructionYear" hidden>
+                                    <nb-datepicker #constructionYear></nb-datepicker>
+                                    <app-calendar (messageToEmit)="fixedAssetsForm?.get('constructionYear')?.patchValue($event?.eDate)"
+                                                  *ngIf="calendarType === 'BS'"
+                                                  [ePreDate]="fixedAssetsForm?.get('constructionYear')?.value"></app-calendar>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label class="title" for="buildingType">Building Type</label>

@@ -191,6 +191,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
+            console.log('formDataForEdit', this.formDataForEdit);
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);

@@ -19,6 +19,7 @@ import {CreateDocumentComponent} from '../create-document/create-document.compon
 import {SiteVisitDocument} from './site-visit-document';
 import {ActivatedRoute} from '@angular/router';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-fix-asset-collateral',
@@ -50,6 +51,7 @@ export class FixAssetCollateralComponent implements OnInit {
     modelBody: string;
     isSiteVisitPresent: boolean;
     security_id_for_delete: string;
+    calendarType = CalendarType.AD;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -73,7 +75,9 @@ export class FixAssetCollateralComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.buildForm();
+        console.log('security', this.security);
+        console.log('securityId', this.securityId);
+        this.buildForm(this.fixedAssetsForm);
         this.addressService.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -98,6 +102,7 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
             this.collateralSiteVisits = response.detail;
+                console.log('collateralSiteVisits', this.collateralSiteVisits);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
@@ -105,15 +110,21 @@ export class FixAssetCollateralComponent implements OnInit {
     }
 
     getLastSiteVisitDetail() {
+        console.log('calendarType', this.calendarType);
+        // this.siteVisitDate = this.selectedSiteVisit.siteVisitDate.toDateString();
+        console.log('selected date', this.selectedSiteVisit.siteVisitDate);
         this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
             .subscribe((response: any) => {
             this.collateralSiteVisit = response.detail;
+                console.log('Date change', this.collateralSiteVisit);
             this.isSiteVisitPresent = true;
             this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
             this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+                console.log('collateralData', this.collateralData);
             this.getDistrictsById(this.collateralData.province.id, null);
             this.getMunicipalitiesById(this.collateralData.district.id, null);
             this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+                // this.buildForm(this.fixedAssetsForm);
             this.setStaffDetail(this.collateralData);
         }, error => {
             console.error(error);
@@ -171,7 +182,8 @@ export class FixAssetCollateralComponent implements OnInit {
         });
     }
 
-    buildForm() {
+    buildForm(data) {
+        console.log('build', data);
         this.fixedAssetsForm = this.formBuilder.group({
             securityName: [undefined],
             date: [undefined, Validators.required],
@@ -202,7 +214,8 @@ export class FixAssetCollateralComponent implements OnInit {
             remarksForOtherFacility: [undefined],
             building: [undefined],
             buildingArea: [undefined],
-            constructionYear: [undefined],
+            constructionYear: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.isEmpty(data.constructionYear)
+                ? undefined : new Date(data.constructionYear)],
             builtUpArea: [undefined],
             buildingType: [undefined],
             noOfStorey: [undefined],
@@ -289,13 +302,16 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('customerId', this.customerId.toString());
         formData.append('customerType', this.customerType);
         formData.append('siteVisitData', this.fixedAssetsForm.get('date').value);
+        console.log('date', this.fixedAssetsForm.get('date').value);
         formData.append('securityName', this.security);
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
+        console.log('value', this.fixedAssetsForm.value);
         if (this.fixedAssetsForm.invalid) {
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             this.spinner = false;
             return;
         }
+        console.log('securityId', this.securityId);
         this.collateralSiteVisitService.saveCollateralSiteVisit(this.securityId, formData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Save Security Site Visit'));
             this.spinner = false;
