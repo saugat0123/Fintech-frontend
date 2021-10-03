@@ -957,27 +957,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.objectTranslateForm.patchValue({
       branch: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? null : this.userConfigForm.get('branch').value.name,
       branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branchCT').value) ? null : this.userConfigForm.get('branchCT').value.name,
-      permanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
+      cspermanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
       permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvinceCT').value) ? null :
           this.userConfigForm.get('permanentProvinceCT').value.name,
-      permanentDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ? null :
+      cspermanentDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ? null :
           this.userConfigForm.get('permanentDistrict').value.name,
       permanentDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrictCT').value) ? null :
           this.userConfigForm.get('permanentDistrictCT').value.name,
-      permanentMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ? null :
+      cspermanentMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ? null :
           this.userConfigForm.get('permanentMunicipality').value.name,
       permanentMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipalityCT').value) ? null :
           this.userConfigForm.get('permanentMunicipalityCT').value.name,
-      temporaryProvince: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ? null :
+      cstemporaryProvince: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ? null :
           this.userConfigForm.get('temporaryProvince').value.name,
       temporaryProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvinceCT').value) ? null :
           this.userConfigForm.get('temporaryProvinceCT').value.name,
-      temporaryDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ? null :
+      cstemporaryDistrict: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ? null :
           this.userConfigForm.get('temporaryDistrict').value.name,
       temporaryDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrictCT').value) ? null :
           this.userConfigForm.get('temporaryDistrictCT').value.name,
-      temporaryMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ? null :
+      cstemporaryMunicipality: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ? null :
           this.userConfigForm.get('temporaryMunicipality').value.name,
       temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipalityCT').value) ? null :
           this.userConfigForm.get('temporaryMunicipalityCT').value.name,
@@ -1456,17 +1456,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.objectTranslateForm = this.formBuilder.group({
       branch: [undefined],
       branchCT: [undefined],
-      permanentProvince: [undefined],
+      cspermanentProvince: [undefined],
       permanentProvinceCT: [undefined],
-      permanentDistrict: [undefined],
+      cspermanentDistrict: [undefined],
       permanentDistrictCT: [undefined],
-      permanentMunicipality: [undefined],
+      cspermanentMunicipality: [undefined],
       permanentMunicipalityCT: [undefined],
-      temporaryProvince: [undefined],
+      cstemporaryProvince: [undefined],
       temporaryProvinceCT: [undefined],
-      temporaryDistrict: [undefined],
+      cstemporaryDistrict: [undefined],
       temporaryDistrictCT: [undefined],
-      temporaryMunicipality: [undefined],
+      cstemporaryMunicipality: [undefined],
       temporaryMunicipalityCT: [undefined],
       citizenshipIssueDistrict: [undefined],
       citizenshipIssueDistrictCT: [undefined],
@@ -1620,13 +1620,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.userConfigForm.get('fatherInLawNameTrans').patchValue(this.objectValueTranslater.fatherInLawName);
         this.userConfigForm.get('citizenshipNoTrans').patchValue(this.objectValueTranslater.citizenshipNo);
         this.userConfigForm.get('dobTrans').patchValue(this.objectValueTranslater.dob);
-        this.userConfigForm.get('permanentProvinceTrans').patchValue(this.objectValueTranslater.permanentProvince);
-        this.userConfigForm.get('permanentDistrictTrans').patchValue(this.objectValueTranslater.permanentDistrict);
-        this.userConfigForm.get('permanentMunicipalityTrans').patchValue(this.objectValueTranslater.permanentMunicipality);
+        this.userConfigForm.get('permanentProvinceTrans').patchValue(this.objectValueTranslater.cspermanentProvince);
+        this.userConfigForm.get('permanentDistrictTrans').patchValue(this.objectValueTranslater.cspermanentDistrict);
+        this.userConfigForm.get('permanentMunicipalityTrans').patchValue(this.objectValueTranslater.cspermanentMunicipality);
         this.userConfigForm.get('permanentMunTypeTrans').patchValue(this.objectValueTranslater.permanentMunType);
-        this.userConfigForm.get('temporaryProvinceTrans').patchValue(this.objectValueTranslater.temporaryProvince);
-        this.userConfigForm.get('temporaryDistrictTrans').patchValue(this.objectValueTranslater.temporaryDistrict);
-        this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(this.objectValueTranslater.temporaryMunicipality);
+        this.userConfigForm.get('temporaryProvinceTrans').patchValue(this.objectValueTranslater.cstemporaryProvince);
+        this.userConfigForm.get('temporaryDistrictTrans').patchValue(this.objectValueTranslater.cstemporaryDistrict);
+        this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(this.objectValueTranslater.cstemporaryMunicipality);
         this.userConfigForm.get('permanentWardTrans').patchValue(this.objectValueTranslater.permanentWard);
         this.userConfigForm.get('temporaryWardTrans').patchValue(this.objectValueTranslater.temporaryWard);
         this.userConfigForm.get('temporaryMunTypeTrans').patchValue(this.objectValueTranslater.temporaryMunType);
@@ -1650,12 +1650,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             husbandNameCT: this.translatedValues.husbandName,
             fatherInLawNameCT: this.translatedValues.fatherInLawName,
             citizenshipNoCT: this.translatedValues.citizenshipNo,
-            permanentProvinceCT: this.translatedValues.permanentProvince,
-            permanentDistrictCT: this.translatedValues.permanentDistrict,
-            permanentMunicipalityCT: this.translatedValues.permanentMunicipality,
-            temporaryProvinceCT: this.translatedValues.temporaryProvince,
-            temporaryDistrictCT: this.translatedValues.temporaryDistrict,
-            temporaryMunicipalityCT: this.translatedValues.temporaryMunicipalities,
+            permanentProvinceCT: this.objectValueTranslater.cspermanentProvince,
+            permanentDistrictCT: this.objectValueTranslater.cspermanentDistrict,
+            permanentMunicipalityCT: this.objectValueTranslater.cspermanentMunicipality,
+            temporaryProvinceCT: this.objectValueTranslater.cstemporaryProvince,
+            temporaryDistrictCT: this.objectValueTranslater.cstemporaryDistrict,
+            temporaryMunicipalityCT: this.objectValueTranslater.cstemporaryMunicipality,
 
 
         });
