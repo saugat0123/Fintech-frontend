@@ -74,6 +74,8 @@ import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
 import { PersonalLoanAndPersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-loan-and-personal-overdraft-template-data/personal-loan-and-personal-overdraft-template-data.component';
 import {NabilModule} from './cad-document-template/nabil/nabil.module';
 import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/personal-loan-template-data/personal-loan-template-data.component';
+import { DocCheckComponent } from './component/doc-check/doc-check.component';
+import { DocCheckPendingComponent } from './component/doc-check/doc-check-pending/doc-check-pending.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -135,7 +137,9 @@ import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/pers
     CadPullComponent,
     SmeTemplateDataComponent,
     PersonalLoanAndPersonalOverdraftTemplateDataComponent,
-    PersonalLoanTemplateDataComponent],
+    PersonalLoanTemplateDataComponent,
+    DocCheckComponent,
+    DocCheckPendingComponent],
   imports: [
     ThemeModule,
     CommonModule,
@@ -167,7 +171,7 @@ import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/pers
     CadOfferLetterConfigurationComponent,
     CadFileSetupComponent,
     ApprovedLoanListComponent, ExposureViewComponent, DisbursementModalComponent, PreviewCadComponent, CadReportComponent],
-  exports: [CadFileSetupComponent],
+  exports: [CadFileSetupComponent, FilterComponent],
   providers: [RouterUtilsService]
 })
 export class CreditAdministrationModule {

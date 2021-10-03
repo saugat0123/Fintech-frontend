@@ -3,6 +3,7 @@ export class RouteConst {
     static ROUTE_OFFER_PROFILE = '/home/credit/offer-letter-profile';
     static ROUTE_OFFER_ALL = '/home/credit';
     static ROUTE_OFFER_PENDING = '/home/credit/offer-pending';
+    static ROUTE_DOC_CHECK_PENDING = '/home/credit/doc-check-pending';
     static ROUTE_OFFER_APPROVED = '/home/credit/offer-approved';
     static ROUTER_LEGAL_PENDING = '/home/credit/legal-pending';
     static ROUTE_LEGAL_APPROVED = '/home/credit/legal-approved';
