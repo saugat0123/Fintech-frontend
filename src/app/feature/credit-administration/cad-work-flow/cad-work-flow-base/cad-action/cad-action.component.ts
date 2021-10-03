@@ -116,9 +116,8 @@ export class CadActionComponent implements OnInit, OnChanges {
   ) {
   }
 
-  ngOnInit() {
-    this.getAllHierarchy();
-
+  async ngOnInit() {
+    await this.getAllHierarchy();
     this.checkMakersInBranch();
     this.currentUserId = LocalStorageUtil.getStorage().userId;
     this.roleId = LocalStorageUtil.getStorage().roleId;
@@ -148,9 +147,7 @@ export class CadActionComponent implements OnInit, OnChanges {
   async getAllHierarchy() {
     await this.approvalRoleHierarchyService.findAll('CAD', 0)
     .toPromise().then((response: any) => {
-      const storage = LocalStorageUtil.getStorage();
-      storage.allRoleHierarchy = response.detail;
-      LocalStorageUtil.setStorage(storage);
+      this.allRoleHierarchy = response.detail;
       this.sendForwardBackwardList = [];
       this.sendForwardBackwardList = response.detail;
       if (this.sendForwardBackwardList.length !== 0) {
@@ -521,7 +518,7 @@ export class CadActionComponent implements OnInit, OnChanges {
   }
 
   checkIfFromAboveHierarchy() {
-    if (LocalStorageUtil.getStorage().allRoleHierarchy.filter(arh => arh.role.id === this.currentCADStage.fromRole.id)[0].roleOrder < LocalStorageUtil.getStorage().allRoleHierarchy.filter(arh1 => arh1.role.id === Number(LocalStorageUtil.getStorage().roleId))[0].roleOrder) {
+    if (this.allRoleHierarchy.filter(arh => arh.role.id === this.currentCADStage.fromRole.id)[0].roleOrder < this.allRoleHierarchy.filter(arh1 => arh1.role.id === Number(LocalStorageUtil.getStorage().roleId))[0].roleOrder) {
       return true;
     }
     return false;
