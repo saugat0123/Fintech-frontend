@@ -4,7 +4,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col-md-12">
-<!--                <app-filter (eventEmitter)="setSearchValue($event)" [isDefaultCADROLEFILTER]="true" ></app-filter>-->
+                <app-filter (eventEmitter)="setSearchValue($event)" [isDefaultCADROLEFILTER]="true" ></app-filter>
             </div>
         </div>
         <h6 class="text-center">Pool Document</h6>
@@ -36,7 +36,7 @@
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
-                    <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
+                    <td (click)="loadProfile(model?.id,model)">{{model?.docStatus}}</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}} ({{model?.cadCurrentStage?.fromRole?.roleName}})</td>
                     <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date:'medium'}} </td>
                     <td (click)="routeService.openLoanListModal(model?.assignedLoan)" nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
