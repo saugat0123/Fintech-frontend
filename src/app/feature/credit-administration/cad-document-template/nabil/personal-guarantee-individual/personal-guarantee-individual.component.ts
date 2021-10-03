@@ -67,7 +67,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         });
       });
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+        this.offerDocumentDetails = this.cadData.offerDocumentList ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
       }
     }
     this.taggedGuarantorsDetailsInLoan = Array.from(
@@ -101,7 +101,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         });
       });
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+        this.offerDocumentDetails = this.cadData.offerDocumentList[0] ? JSON.parse(this.cadData.offerDocumentList[0].initialInformation) : '';
       }
     }
     this.taggedGuarantorsDetailsInLoan = Array.from(
@@ -186,7 +186,15 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
           return;
         }
         console.log('individualGuarantorNepData: ', individualGuarantorNepData);
-        const approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval.en;
+        let approvedDate: any;
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
+            approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval.en;
+        }
+
+        let citznIssuedDate: any;
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
+            approvedDate = individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en;
+        }
         (
           this.guarantorindividualGroup.get("individualGuarantors") as FormArray
         ).push(
@@ -204,7 +212,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
             loanPurpose: [this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
-            dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || '',],
+            dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
             guaranteAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
@@ -243,9 +251,9 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
               individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',
             ],
             guarantorCitzenIssuedDate: [
-              this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || '',
+              this.englishNepaliDatePipe.transform(citznIssuedDate || '', true)  || ''
             ],
-            gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
+            gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
             year: [undefined],
             month: [undefined],
             day: [undefined],
