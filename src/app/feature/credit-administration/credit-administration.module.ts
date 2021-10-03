@@ -74,6 +74,8 @@ import { CadPullComponent } from './cad-work-flow/cad-pull/cad-pull.component';
 import { PersonalLoanAndPersonalOverdraftTemplateDataComponent } from './cad-view/template-data/personal-loan-and-personal-overdraft-template-data/personal-loan-and-personal-overdraft-template-data.component';
 import {NabilModule} from './cad-document-template/nabil/nabil.module';
 import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/personal-loan-template-data/personal-loan-template-data.component';
+import { HomeLoanTemplateDataComponent } from './cad-view/template-data/home-loan-template-data/home-loan-template-data.component';
+import { ConstructionLoanComponent } from './cad-view/template-data/home-loan-type/construction-loan/construction-loan.component';
 
 @NgModule({
   declarations: [UnassignedLoanComponent,
@@ -135,7 +137,9 @@ import { PersonalLoanTemplateDataComponent } from './cad-view/template-data/pers
     CadPullComponent,
     SmeTemplateDataComponent,
     PersonalLoanAndPersonalOverdraftTemplateDataComponent,
-    PersonalLoanTemplateDataComponent],
+    PersonalLoanTemplateDataComponent,
+    HomeLoanTemplateDataComponent,
+    ConstructionLoanComponent],
   imports: [
     ThemeModule,
     CommonModule,
