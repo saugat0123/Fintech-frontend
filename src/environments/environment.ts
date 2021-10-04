@@ -14,26 +14,21 @@ import {SummaryType} from '../app/feature/loan/component/SummaryType';
  command to build client related product:
  ng build --configuration= 'client name'
 
- SummaryType = GENERAL except SRDB bank
-
- active client name in current repo: 'srdb' , 'tinau' , 'mega'
+ active client name in current repo: 'mega'
  */
 export const environment = {
   production: false,
-  client: Clients.SHINE_RESUNGA,
+  client: Clients.MEGA,
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
   LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
   enablePreAddingAccountNumber: true,
-  disableCrgAlpha: true,
-  disableCrgLambda: true,
+  disableCrgAlpha: false,
+  disableCrgLambda: false,
   disableApprovalSheet: false,
-  RISK_INITIAL_ROLE_SME: 'RISK OFFICER ( SME )',
-  RISK_INITIAL_ROLE_CORPORATE: 'RISK OFFICER ( CORPORATE )',
-  microLoan: false,
+  microLoan: true,
   SBS_GROUP: false,
-  MEGA_GROUP: false,
-  summaryType: SummaryType.GAMMA
+  MEGA_GROUP: true,
 };
 
 /*
