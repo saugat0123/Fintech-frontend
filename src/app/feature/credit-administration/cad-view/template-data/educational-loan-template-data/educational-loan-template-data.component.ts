@@ -334,7 +334,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value.toString());
-    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value));
+    this.form.get(numLabel + 'TransVal').patchValue(this.engToNepaliNumberPipe.transform(this.form.get(numLabel).value.toString()));
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
     this.form.get(wordLabel + 'TransVal').patchValue(returnVal);
@@ -407,6 +407,7 @@ export class EducationalLoanTemplateDataComponent implements OnInit {
     this.form.get('interestRate').patchValue(sum);
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
+    this.translateNumber('interestRate', 'interestRateTransVal');
   }
 
   // deleteCTAndTransContorls from form controls
