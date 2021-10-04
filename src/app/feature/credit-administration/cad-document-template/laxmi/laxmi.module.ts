@@ -13,10 +13,13 @@ import {CoreModule} from '../../../../@core/core.module';
 import { PersonalGuaranteePrintComponent } from './laxmi-offer-letter/personal-guarantee/personal-guarantee-print/personal-guarantee-print.component';
 
 import { LoanDeedIndividualComponent } from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual.component';
+import { LoanDeedIndividualPrintComponent } from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
+import { PromisoryNoteIndividualComponent } from './laxmi-offer-letter/promisory-note-individual/promisory-note-individual.component';
+import { PromisoryNoteIndividualPrintComponent } from './laxmi-offer-letter/promisory-note-individual/promisory-note-individual-print/promisory-note-individual-print.component';
 
 
 @NgModule({
-    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent],
+    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent, LoanDeedIndividualPrintComponent, PromisoryNoteIndividualComponent, PromisoryNoteIndividualPrintComponent],
     imports: [
         CommonModule,
         NbCardModule,
