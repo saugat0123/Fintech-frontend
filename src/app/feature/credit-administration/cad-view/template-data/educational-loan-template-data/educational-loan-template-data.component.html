@@ -673,7 +673,8 @@
 
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Sheet No (सिट नं.)</td>
-          <td><input type="text" class="form-control" formControlName="seatNo"/></td>
+          <td><input type="number" class="form-control" formControlName="seatNo"
+          (input)="translateNumber('seatNo', 'seatNoTransVal')"/></td>
           <td class="abc">{{translatedData?.seatNo}}</td>
           <td>
             <input type="text" class="form-control" formControlName="seatNoTransVal"/>
@@ -682,7 +683,8 @@
 
         <tr *ngIf="selectedSecurityVal !== 'FIXED_DEPOSIT'">
           <td>Kitta No (कित्ता नं.)</td>
-          <td><input type="text" class="form-control" formControlName="kittaNo"/></td>
+          <td><input type="number" class="form-control" formControlName="kittaNo"
+          (input)="translateNumber('kittaNo', 'kittaNoTransVal')"/></td>
           <td class="abc">{{translatedData?.kittaNo}}</td>
           <td>
             <input type="text" class="form-control" formControlName="kittaNoTransVal"/>
