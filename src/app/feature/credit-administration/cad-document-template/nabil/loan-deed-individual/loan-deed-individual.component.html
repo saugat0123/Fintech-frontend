@@ -47,7 +47,7 @@
             type="text"
           />
           <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'municipality']).value}}</strong></span>
-          उपमहानगरपालिका वडा नंं.
+          न.पा./गा.वि.स. वडा नंं.
           <input
             class="form-field form-control-sm d-print-none"
             formControlName="wardNo"
@@ -135,10 +135,10 @@
                 <p>{{ loan?.loan?.name }}</p>
               </td>
               <td>
-                <p>{{ loan?.proposal?.proposedLimit }}</p>
+                <p>{{ convertNepaliNumber(loan?.proposal?.proposedLimit) }}</p>
               </td>
               <td>
-                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ educationInterestRate }}</p>
+                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ convertNepaliNumber(educationInterestRate) }}</p>
                 <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
               </td>
               <td>
