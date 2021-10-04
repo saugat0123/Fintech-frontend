@@ -42,7 +42,6 @@ export class LetterOfSetOffComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     console.log('This is cad Approved doc ', this.cadData);
-    console.log('This is cad Approved doc ', this.customerType.INDIVIDUAL);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -59,7 +58,6 @@ export class LetterOfSetOffComponent implements OnInit {
     this.fillform();
   }
 
-
   buildForm() {
     this.letterOfSetOff = this.formBuilder.group({
       date: [undefined],
@@ -69,40 +67,40 @@ export class LetterOfSetOffComponent implements OnInit {
       vdc: [undefined],
       wardNo: [undefined],
       age: [undefined],
-      daughternName: [undefined],
+      daughterName: [undefined],
+      nameOfCustomer: [undefined],
       citizenshipNo: [undefined],
-      dateofIssue: [undefined],
+      dateOfIssue: [undefined],
       identifyIssuedDistrictName: [undefined],
       actDetails: [undefined],
       actYearFigure: [undefined],
-      nameofDepartment: [undefined],
-      dateofRegistration: [undefined],
+      nameOfDepartment: [undefined],
+      dateOfRegistration: [undefined],
       registrationNo: [undefined],
-      nameofUnit:  [undefined],
+      nameOfUnit:  [undefined],
       grandDaughterName: [undefined],
-      nameofWife: [undefined],
-      daughterName: [undefined],
+      nameOfWife: [undefined],
       grandSonName: [undefined],
       sonName: [undefined],
-      nameofSon: [undefined],
-      nameofBorrower: [undefined],
-      nameofBranch: [undefined],
+      nameOfSon: [undefined],
+      nameOfBorrower: [undefined],
+      nameOfBranch: [undefined],
       sanctionLetterIssuedDate: [undefined],
       loanAmountFigure: [undefined],
       loanAmountWord: [undefined],
       accountNo: [undefined],
-      nameofTD: [undefined],
+      nameOfTd: [undefined],
       fixedDeposit: [undefined],
       purposeOfLoan: [undefined],
-      numberofPerson: [undefined],
-      nameofWithness: [undefined],
-      nameofWithnessfromBank: [undefined],
+      numberOfPerson: [undefined],
+      nameOfWitness: [undefined],
+      nameOfWitnessFromBank: [undefined],
     });
   }
   fillform() {
     this.letterOfSetOff.patchValue(
         {
-          nameofBranch: this.individualData.branch.ct ?
+          nameOfBranch: this.individualData.branch.ct ?
               this.individualData.branch.ct : '',
           grandFatherName: this.individualData.grandFatherName.ct ?
               this.individualData.grandFatherName.ct : '',
@@ -110,8 +108,8 @@ export class LetterOfSetOffComponent implements OnInit {
               this.individualData.fatherName.ct : '',
           identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
               this.individualData.citizenshipIssueDistrict.ct : '',
-          dateofIssue: this.individualData.issuedDate.ct ?
-              this.individualData.issuedDate.ct : '',
+          dateOfIssue: this.individualData.citizenshipIssueDate.np ?
+              this.individualData.citizenshipIssueDate.np : '',
           citizenshipNo: this.individualData.citizenshipNo.ct ?
               this.individualData.citizenshipNo.ct : '',
           wardNo: this.individualData.permanentWard.ct ?
@@ -120,23 +118,27 @@ export class LetterOfSetOffComponent implements OnInit {
               this.individualData.permanentMunicipality.ct : '',
           district: this.individualData.permanentDistrict.ct ?
               this.individualData.permanentDistrict.ct : '',
+          nameOfCustomer: this.individualData.name.ct ?
+              this.individualData.name.ct : '',
         }
     );
+    console.log('value', this.individualData.grandFatherName);
   }
 
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+          individualCadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
         cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+        this.initialInfoPrint = cadFile.initialInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -146,6 +148,7 @@ export class LetterOfSetOffComponent implements OnInit {
       const cadFile = new CadFile();
       const document = new Document();
       cadFile.initialInformation = JSON.stringify(this.letterOfSetOff.value);
+      this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -153,12 +156,12 @@ export class LetterOfSetOffComponent implements OnInit {
     }
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
     console.log(this.letterOfSetOff.value);

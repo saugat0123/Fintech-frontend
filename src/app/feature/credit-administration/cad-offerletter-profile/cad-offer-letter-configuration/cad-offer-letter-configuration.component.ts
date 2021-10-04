@@ -958,7 +958,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
     this.spinner = false;
     this.objectTranslateForm.patchValue({
-      branch: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? null : this.userConfigForm.get('branch').value.name,
+      branch: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? null :
+          this.userConfigForm.get('branch').value.name,
+      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branchCT').value) ? null :
+          this.userConfigForm.get('branchCT').value.name,
       cspermanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
       permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvinceCT').value) ? null :
@@ -1001,13 +1004,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('currentMunicipality').value.name,
     });
     this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
-    this.setNepaliData();
     this.setCustomerCTData();
     this.setCustomerTransData();
     this.patchCorrectData();
 
     this.setInstitutionCTValue();
-
+    this.setNepaliData();
     this.disableSave = false;
   }
 
@@ -1645,12 +1647,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       husbandNameCT: this.translatedValues.husbandName,
       fatherInLawNameCT: this.translatedValues.fatherInLawName,
       citizenshipNoCT: this.translatedValues.citizenshipNo,
-      permanentProvinceCT: this.objectValueTranslater.cspermanentProvince,
-      permanentDistrictCT: this.objectValueTranslater.cspermanentDistrict,
-      permanentMunicipalityCT: this.objectValueTranslater.cspermanentMunicipality,
-      temporaryProvinceCT: this.objectValueTranslater.cstemporaryProvince,
-      temporaryDistrictCT: this.objectValueTranslater.cstemporaryDistrict,
-      temporaryMunicipalityCT: this.objectValueTranslater.cstemporaryMunicipality,
+
 
 
     });
@@ -1807,13 +1804,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('citizenshipNoCT').patchValue(this.translatedValues.citizenshipNo);
     this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
     // this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
-    this.userConfigForm.get('permanentProvinceCT').patchValue(this.objectValueTranslater.permanentProvince);
-    this.userConfigForm.get('permanentDistrictCT').patchValue(this.objectValueTranslater.permanentDistrict);
-    this.userConfigForm.get('permanentMunicipalityCT').patchValue(this.objectValueTranslater.permanentMunicipality);
-    this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
-    this.userConfigForm.get('temporaryProvinceCT').patchValue(this.objectValueTranslater.temporaryProvince);
-    this.userConfigForm.get('temporaryDistrictCT').patchValue(this.objectValueTranslater.temporaryDistrict);
-    this.userConfigForm.get('temporaryMunicipalityCT').patchValue(this.objectValueTranslater.temporaryMunicipality);
+     this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
     this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
   }
 
@@ -1918,6 +1909,36 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryWard) ? undefined : this.nepData.temporaryWard.np);
     this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.np);
 
+  }
+
+  setNepaliData() {
+    this.userConfigForm.patchValue({
+      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
+      branchTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
+      permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
+      permanentProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
+
+      permanentDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
+          undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
+      permanentDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentDistrict').value) ?
+          undefined : this.userConfigForm.get('permanentDistrict').value.nepaliName,
+      permanentMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
+          undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+      permanentMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentMunicipality').value) ?
+          undefined : this.userConfigForm.get('permanentMunicipality').value.nepaliName,
+      temporaryProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
+          undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
+      temporaryProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
+          undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
+      temporaryDistrictCT : ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
+          undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
+      temporaryDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
+          undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
+      temporaryMunicipalityCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
+          undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+      temporaryMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
+          undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+    });
   }
 
 }
