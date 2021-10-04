@@ -53,7 +53,7 @@
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
                        [value]="loanHolder !== null && loanHolder.branch !== undefined ?
-                        nepData?.branch?.ct: ''"
+                        nepData?.branch?.ct: translatedValues?.branch"
                        formControlName="branchCT" type="text"/>
                 <div *ngIf="submitted && configForm.branchCT.errors"
                      class="invalid-feedback">
