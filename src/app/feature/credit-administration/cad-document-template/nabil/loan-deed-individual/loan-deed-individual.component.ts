@@ -162,6 +162,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       wardNo2: [undefined],
       plotNo2: [undefined],
       area2: [undefined],
+      freeText: [undefined],
     });
   }
 
