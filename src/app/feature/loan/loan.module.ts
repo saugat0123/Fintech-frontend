@@ -71,6 +71,7 @@ import {CustomerWiseLoanPullComponent} from './component/loan-pull/customer-wise
 import {NepaliPatroModule} from 'nepali-patro';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import { MicroCommonDetailComponent } from './component/micro-loan-summary/micro-individual/micro-common-detail/micro-common-detail.component';
+import {CreditAdministrationModule} from '../credit-administration/credit-administration.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -154,34 +155,35 @@ const modules = {
 @NgModule({
     // tslint:disable-next-line:max-line-length
     declarations: [...COMPONENTS, SummaryBaseComponent, AssignedOfferLetterComponent, PostApprovalFormComponent, TransferDocComponent, CustomerWiseLoanPullComponent],
-    imports: [
-        ThemeModule,
-        CommonModule,
-        LoanRoutingModule,
-        FormsModule,
-        NgbPaginationModule,
-        ReactiveFormsModule,
-        NgSelectModule,
-        NbDatepickerModule,
-        NgxPrintModule,
-        CoreModule,
-        AgmCoreModule.forRoot({
-            apiKey: environment.GOOGLE_MAP_API_KEY
-        }),
-        CustomerModule,
-        NepaliCalendarModule,
-        ReportingModule,
-        LoanInformationTemplateModule,
-        LoanInformationViewModule,
-        LoanSummaryModule,
-        QuillModule.forRoot({modules: modules}),
-        AngularDraggableModule,
-        LoanInformationDetailViewModule,
-        NbTooltipModule,
-        MicroLoanModule,
-        NepaliPatroModule,
-        TransferLoanModule
-    ],
+  imports: [
+    ThemeModule,
+    CommonModule,
+    LoanRoutingModule,
+    FormsModule,
+    NgbPaginationModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    NbDatepickerModule,
+    NgxPrintModule,
+    CoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.GOOGLE_MAP_API_KEY
+    }),
+    CustomerModule,
+    NepaliCalendarModule,
+    ReportingModule,
+    LoanInformationTemplateModule,
+    LoanInformationViewModule,
+    LoanSummaryModule,
+    QuillModule.forRoot({modules: modules}),
+    AngularDraggableModule,
+    LoanInformationDetailViewModule,
+    NbTooltipModule,
+    MicroLoanModule,
+    NepaliPatroModule,
+    TransferLoanModule,
+    CreditAdministrationModule
+  ],
 
     providers: [
         DatePipe,

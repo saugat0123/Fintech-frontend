@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NabilDocumentChecklist} from '../../../../../admin/modal/nabil-document-checklist.enum';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-letter-of-set-off-print',
@@ -8,8 +10,9 @@ import {NabilDocumentChecklist} from '../../../../../admin/modal/nabil-document-
 })
 export class LetterOfSetOffPrintComponent implements OnInit {
   @Input() letterData;
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
   offerLetterConst = NabilDocumentChecklist;
-
+  customerType = CustomerType;
   constructor() { }
 
   ngOnInit() {
