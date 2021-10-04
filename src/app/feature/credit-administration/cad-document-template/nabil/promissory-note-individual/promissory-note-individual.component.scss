@@ -9,11 +9,10 @@
 }
 .form-field {
   background: yellow;
-  margin: 0px 5px;
+  margin: 0px 5px 5px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
-  font-size: 20px;
   &:focus {
     outline: none;
   }
