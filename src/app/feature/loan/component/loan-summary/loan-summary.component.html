@@ -37,17 +37,28 @@
                             size="tiny" (click)="goToCustomer()"><em class="fas fa-backward"></em> <span
                             class="px-2">customer Profile</span></button>
 
-                    <button *ngIf="!disableApprovalSheetFlag"
-                            nbButton
-                            shape="rectangle"
-                            status="primary"
-                            class="float-right"
-                            size="tiny" (click)="goToApprovalSheet()">
-                        <span class="text-right px-2">
-                            Approval Sheet
-                        </span>
-                        <em class="fas fa-forward"></em>
-                    </button>
+                    <div class="fa-pull-right">
+                        <button *ngIf="!disableApprovalSheetFlag"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="tiny" (click)="openModel(updateProposal)"
+                                [disabled]="disableUpdateProposal">
+                            <span class="text-right px-2">
+                                Update Proposal
+                            </span>
+                        </button>
+                        <button *ngIf="!disableApprovalSheetFlag"
+                                nbButton
+                                shape="rectangle"
+                                status="primary"
+                                size="tiny" (click)="goToApprovalSheet()">
+                            <span class="text-right px-2">
+                                Approval Sheet
+                            </span>
+                            <em class="fas fa-forward"></em>
+                        </button>
+                    </div>
                     <!--
                     uncomment if needed
                     <button *ngIf="!disableApprovalSheetFlag && showApprovalSheetInfo"
@@ -1414,3 +1425,74 @@
         </nb-card-body>
     </nb-card>
 </section>
+
+<ng-template #updateProposal let-modal>
+    <div class="modal-document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Update Proposal</h4>
+                <button (click)="modal.dismiss()" aria-label="Close" class="close pull-right" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onSubmit()" [formGroup]="proposalForm">
+                    <!-- Proposed Limit -->
+                    <div class="form-group">
+                        <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
+                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors}"
+                               class="form-control"
+                               [readOnly]="loanType == 'PARTIAL_SETTLEMENT_LOAN' || loanType === 'RENEW_WITH_ENHANCEMENT' || loanType === 'ENHANCED_LOAN'"
+                               id="proposedLimit" name="proposedLimit" placeholder="Proposed limit"
+                               formControlName="proposedLimit"
+                               type="number" appDecimalNumber>
+                        <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
+                             class="invalid-feedback">
+                            <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
+
+                            <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
+                            <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum proposed amount must be greater than Rs.<strong>{{minimumAmountLimit}}</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Interest Rate -->
+                    <div class="form-group"
+                         *ngIf="(isFundable && (isTerminating || isRevolving)) || isFixedDeposit || isVehicle || isShare || isGeneral">
+                        <label class="title" for="interestRate"><strong>Interest
+                            Rate(%)</strong></label>
+                        <input class="form-control" formControlName="interestRate"
+                               id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
+                               type="number" (input)="updateRate()" appDecimalNumber>
+                    </div>
+
+                    <!-- Base Rate -->
+                    <div class="form-group"
+                         *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                        <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
+                        <input class="form-control" formControlName="baseRate" id="baseRate"
+                               name="baseRate" placeholder="Base Rate(%)"
+                               (input)="updateRate()"
+                               type="number" appDecimalNumber>
+                    </div>
+
+                    <!-- Premium Rate on Base Rate -->
+                    <div class="form-group"
+                         *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral">
+                        <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
+                            Rate(%)</strong></label>
+                        <input class="form-control"
+                               class="form-control" formControlName="premiumRateOnBaseRate"
+                               id="premiumRateOnBaseRate" name="premiumRate"
+                               placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
+                               type="number" readonly>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
