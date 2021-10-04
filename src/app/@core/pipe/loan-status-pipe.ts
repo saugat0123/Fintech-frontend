@@ -6,6 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class LoanStatusPipe implements PipeTransform {
 
     transform(value: any, ...args: any[]): any {
+        if ('ASSIGNED' === value) {
+            return 'PULLED';
+        }
         if ('Send Backward' === value) {
             return 'Return';
         }
