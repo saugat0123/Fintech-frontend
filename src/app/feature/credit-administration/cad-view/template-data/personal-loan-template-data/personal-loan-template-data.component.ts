@@ -82,7 +82,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       emiAmount: [undefined],
       emiAmountWords: [undefined],
       companyName: [undefined],
-      branchName: [undefined],
       accountNumber: [undefined],
       relationshipOfficer: [undefined],
       managerName: [undefined],
@@ -105,7 +104,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
       emiAmountTransVal: [undefined,Validators.required],
       emiAmountWordsTransVal: [undefined],
       companyNameTransVal: [undefined,Validators.required],
-      branchNameTransVal: [undefined,Validators.required],
       accountNumberTransVal: [undefined,Validators.required],
       relationshipOfficerTransVal: [undefined,Validators.required],
       managerNameTransVal: [undefined,Validators.required],
@@ -231,7 +229,6 @@ export class PersonalLoanTemplateDataComponent implements OnInit {
     this.form.get('loanAdminFeeTransVal').patchValue(this.translatedData.loanAdminFee);
     this.form.get('emiAmountTransVal').patchValue(this.translatedData.emiAmount);
     this.form.get('emiAmountWordsTransVal').patchValue(this.translatedData.emiAmountWords);
-    this.form.get('branchNameTransVal').patchValue(this.translatedData.branchName);
     this.form.get('accountNumberTransVal').patchValue(this.translatedData.accountNumber);
     this.form.get('relationshipOfficerTransVal').patchValue(this.translatedData.relationshipOfficer);
     this.form.get('managerNameTransVal').patchValue(this.translatedData.managerName);

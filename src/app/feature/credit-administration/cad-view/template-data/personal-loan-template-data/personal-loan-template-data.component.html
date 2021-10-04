@@ -193,20 +193,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>Name of Branch</td>
-                    <td><input type="text" class="form-control" formControlName="branchName"/></td>
-                    <td class="abc">{{translatedData?.branchName}}</td>
-                    <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.branchNameTransVal.errors }"
-                               formControlName="branchNameTransVal"/>
-                        <div *ngIf="submitted && Form.branchNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.branchNameTransVal.errors.required">Name of Branch is required</div>
-                        </div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>Account Number</td>
                     <td><input type="text" class="form-control" formControlName="accountNumber"/></td>
