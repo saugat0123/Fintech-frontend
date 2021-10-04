@@ -957,7 +957,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.translatedValues = await this.translateService.translateForm(this.userConfigForm);
     this.spinner = false;
     this.objectTranslateForm.patchValue({
-      branch: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? null : this.userConfigForm.get('branch').value.name,
       cspermanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
       permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvinceCT').value) ? null :
@@ -1491,8 +1490,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
   translateObjectValue() {
     this.objectTranslateForm = this.formBuilder.group({
-      branch: [undefined],
-      branchCT: [undefined],
       cspermanentProvince: [undefined],
       permanentProvinceCT: [undefined],
       cspermanentDistrict: [undefined],
@@ -1883,7 +1880,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   setNepaliData() {
     this.userConfigForm.patchValue({
       branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
-      branchTrans: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
+      branchTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
       permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
       permanentProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? undefined : this.userConfigForm.get('permanentProvince').value.nepaliName,
 
@@ -1899,7 +1896,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
       temporaryProvinceTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryProvince').value) ?
           undefined : this.userConfigForm.get('temporaryProvince').value.nepaliName,
-      temporaryDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
+      temporaryDistrictCT : ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
           undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
       temporaryDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryDistrict').value) ?
           undefined : this.userConfigForm.get('temporaryDistrict').value.nepaliName,
