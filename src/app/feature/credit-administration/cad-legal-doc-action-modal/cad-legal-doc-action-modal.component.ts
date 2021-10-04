@@ -24,6 +24,8 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
+import {LaxmiModule} from '../cad-document-template/laxmi/laxmi.module';
 
 @Component({
     selector: 'app-cad-legal-doc-action-modal',
@@ -137,7 +139,7 @@ export class CadLegalDocActionModalComponent implements OnInit {
     public onSubmit() {
         this.spinner = true;
         const comment = this.formAction.value.comment;
-
+     this.legalDoc = this.legalDoc.filter(d => d.docName !== LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.OFFER_LETTER));
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
         if (docActionMSG === 'Send Legal Doc') {
@@ -147,7 +149,6 @@ export class CadLegalDocActionModalComponent implements OnInit {
                 remarks: comment,
                 status: this.docAction
             };
-            console.log('we sending legal doc to remit app', sendDocToRemit);
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
                 this.spinner = false;
                 this.nbDialogRef.close();
