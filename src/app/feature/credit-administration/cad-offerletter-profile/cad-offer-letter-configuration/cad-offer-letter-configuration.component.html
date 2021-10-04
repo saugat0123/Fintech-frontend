@@ -10,7 +10,8 @@
   <nb-card-body>
     <form [formGroup]="userConfigForm">
       <nb-tabset (changeTab)="onChangeTab($event)">
-        <nb-tab *ngIf="!hideCustomer" tabId="0" [active]="activeCustomerTab" tabTitle="Client Details"
+        <nb-tab *ngIf="!hideCustomer" tabId="0" [active]="activeCustomerTab"
+                tabTitle="Client Details"
                 [disabled]="!activeCustomerTab"
                 [nbSpinner]="spinner"
                 #personal>
@@ -39,16 +40,19 @@
                 <label class="title">Branch</label>
               </td>
               <td>
-                <ng-select bindLabel="name" [placeholder]="loanHolder.branch == null ? 'Select branch' : ''" formControlName="branch">
-<!--                  <option [value]="null" hidden>Select Branch</option>-->
-<!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
-<!--                  </option>-->
-                  <ng-option *ngFor="let branch of branchList" [value]="branch">{{branch?.name}}</ng-option>
+                <ng-select bindLabel="name"
+                           [placeholder]="loanHolder.branch == null ? 'Select branch' : ''"
+                           formControlName="branch">
+                  <!--                  <option [value]="null" hidden>Select Branch</option>-->
+                  <!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
+                  <!--                  </option>-->
+                  <ng-option *ngFor="let branch of branchList"
+                             [value]="branch">{{branch?.name}} || {{branch?.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="branchTrans" type="text"
-                    ></td>
+              ></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{ 'is-invalid':submitted && configForm.branchCT.errors }"
@@ -179,7 +183,7 @@
               <td><label class="title">Contact No</label></td>
               <td><input class="form-control "
                          formControlName="contactNo"
-
+                         (input)="translateNumber('contactNo')"
                          name="contactNo" placeholder="Contact No"
                          type="text"/>
               </td>
@@ -190,7 +194,7 @@
                        [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
                        [value]="loanHolder !== null && loanHolder.contactNo !== undefined ?
                         nepData?.contactNo?.ct :translatedValues?.contactNo"
-                       formControlName="contactNoCT" type="text" />
+                       formControlName="contactNoCT" type="text"/>
                 <div *ngIf="submitted && configForm.contactNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
@@ -479,12 +483,13 @@
               </td>
               <td>
                 <ng-select
-                        [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrict.errors}"
-                        formControlName="citizenshipIssueDistrict"
-                        id="citizenshipIssueDistrict"
-                        [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
-                    <ng-option *ngFor="let issuedDistrict of allDistrictList" [value]="issuedDistrict.name">{{issuedDistrict.name}}</ng-option>
+                    [compareWith]="compareFn"
+                    [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrict.errors}"
+                    formControlName="citizenshipIssueDistrict"
+                    id="citizenshipIssueDistrict"
+                    [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
+                  <ng-option *ngFor="let issuedDistrict of allDistrictList"
+                             [value]="issuedDistrict.name">{{issuedDistrict.name}} || {{issuedDistrict.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
@@ -543,7 +548,8 @@
               <td>
                 <input class="form-control "
                        formControlName="panNo"
-                       name="panNo" placeholder="PAN No" type="text"/>
+                       (change)="translateNumber('panNo')"
+                       name="panNo" placeholder="PAN No" type="number"/>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="panNoTrans" type="text"></td>
@@ -663,15 +669,15 @@
                 </nb-radio-group>
                 <ng-select
 
-                        bindLabel="name"
-                        [compareWith]="compareFn"
-                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
-                        formControlName="permanentMunicipality"
-                        id="permanentMunicipality"
+                    bindLabel="name"
+                    [compareWith]="compareFn"
+                    [ngClass]="{'is-invalid': submitted && form.permanentMunicipality.errors}"
+                    formControlName="permanentMunicipality"
+                    id="permanentMunicipality"
                     [placeholder]="oneFormCustomer.municipalities == null ? 'Municipality or VDC' : ''">
-                  <ng-option  *ngFor="let municipalityVal of municipalities"
-                          [value]="municipalityVal">
-                          {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
+                  <ng-option *ngFor="let municipalityVal of municipalities"
+                             [value]="municipalityVal">
+                    {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                   </ng-option>
                 </ng-select>
               </td>
@@ -982,7 +988,8 @@
                 />
                 <div *ngIf="submitted && configForm.registeredMunicipalityTrans.errors"
                      class="invalid-feedback">
-                  <div *ngIf="configForm.registeredMunicipalityTrans.errors.required">Municipality is
+                  <div *ngIf="configForm.registeredMunicipalityTrans.errors.required">Municipality
+                    is
                     required
                   </div>
                 </div>
@@ -1327,7 +1334,7 @@
                                formControlName="contactNo"
 
                                name="contactNo" placeholder="Contact No"
-                               type="text"/>
+                               type="number"/>
                     </td>
                     <td><input class="form-control" type="text"
                                formControlName="contactNoTrans" readonly/></td>
@@ -2017,10 +2024,10 @@
                 <td>
                   <input class="form-control "
                          formControlName="gurantedAmount"
-
+                         (input)="translateNumberInFA('gurantedAmount', i)"
                          autocomplete="off"
                          name="gurantedAmount" placeholder="Guranted Amount"
-                         type="text"/>
+                         type="number"/>
                 </td>
                 <td>
                   <input class="form-control" type="text"
@@ -2056,9 +2063,9 @@
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
                   <option [value]="null" hidden>Select Gender</option>
-                  <option  value="MALE">Male</option>
-                  <option  value="FEMALE">Female</option>
-                  <option  value="OTHERS">Others</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                  <option value="OTHERS">Others</option>
                 </select>
                 </td>
                 <td>
@@ -2261,6 +2268,7 @@
                 <td>
                   <input class="form-control "
                          formControlName="permanentWard"
+                         (input)="translateNumberInFA('permanentWard', i)"
                          name="permanentWard" placeholder="Ward No"
                          type="number"/>
                 </td>
@@ -2415,7 +2423,7 @@
             </table>
           </div>
           <button class="float-right" nbButton (click)="saveCustomer()">
-           {{hideLoan===true ? 'Save' :  'Save & Next'}}
+            {{hideLoan === true ? 'Save' : 'Save & Next'}}
           </button>
         </nb-tab>
         <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
@@ -2424,7 +2432,8 @@
                            (cadApprovedData)="getCadApprovedData($event)"
                            [customerType]="customerType"></app-loan-create>
         </nb-tab>
-        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा" [active]="activeTemplateDataTab"
+        <nb-tab *ngIf="!hideLoan" tabId="3" tabTitle="टेम्प्लेट डाटा"
+                [active]="activeTemplateDataTab"
                 [disabled]="!activeTemplateDataTab">
           <app-template-data [cadData]="cadData"></app-template-data>
         </nb-tab>
