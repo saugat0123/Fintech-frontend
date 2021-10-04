@@ -175,6 +175,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     this.addressService.getAllDistrict().subscribe((resp: any) => {
+      console.log(resp);
       this.allDistrictList = resp.detail;
     });
     this.buildForm();
@@ -1794,7 +1795,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('grandFatherNameCT').patchValue(this.translatedValues.grandFatherName);
     this.userConfigForm.get('fatherNameCT').patchValue(this.translatedValues.fatherName);
     this.userConfigForm.get('citizenshipNoCT').patchValue(this.translatedValues.citizenshipNo);
-    this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
+    // this.userConfigForm.get('citizenshipIssueDistrictCT').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
     // this.userConfigForm.get('panNoCT').patchValue(this.translatedValues.panNo);
      this.userConfigForm.get('permanentWardCT').patchValue(this.translatedValues.permanentWard);
     this.userConfigForm.get('temporaryWardCT').patchValue(this.translatedValues.temporaryWard);
@@ -1930,6 +1931,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
       temporaryMunicipalityTrans: ObjectUtil.isEmpty(this.userConfigForm.get('temporaryMunicipality').value) ?
           undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
+      citizenshipIssueDistrictCT: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
+          undefined : this.userConfigForm.get('citizenshipIssueDistrict').value,
+      citizenshipIssueDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
+          undefined : this.userConfigForm.get('citizenshipIssueDistrict').value
     });
   }
 
