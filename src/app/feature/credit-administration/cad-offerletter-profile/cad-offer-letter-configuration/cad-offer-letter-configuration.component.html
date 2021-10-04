@@ -489,7 +489,7 @@
                     id="citizenshipIssueDistrict"
                     [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
                   <ng-option *ngFor="let issuedDistrict of allDistrictList"
-                             [value]="issuedDistrict.name">{{issuedDistrict.name}} || {{issuedDistrict.nepaliName}} </ng-option>
+                             [value]="issuedDistrict.nepaliName">{{issuedDistrict.name}} || {{issuedDistrict.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
@@ -498,7 +498,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.citizenshipIssueDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.citizenshipIssueDistrict?.ct :objectValueTranslater?.citizenshipIssueDistrict"
+                       nepData?.citizenshipIssueDistrict?.ct :''"
                        formControlName="citizenshipIssueDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.citizenshipIssueDistrictCT.errors"
                      class="invalid-feedback">
