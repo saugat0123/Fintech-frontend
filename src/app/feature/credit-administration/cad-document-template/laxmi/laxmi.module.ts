@@ -12,9 +12,11 @@ import { OfferLetterPrintComponent } from './laxmi-offer-letter/offer-letter/off
 import {CoreModule} from '../../../../@core/core.module';
 import { PersonalGuaranteePrintComponent } from './laxmi-offer-letter/personal-guarantee/personal-guarantee-print/personal-guarantee-print.component';
 
+import { LoanDeedIndividualComponent } from './laxmi-offer-letter/loan-deed-individual/loan-deed-individual.component';
+
 
 @NgModule({
-    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent],
+    declarations: [LaxmiOfferLetterComponent, LetterOfCommitmentComponent, PersonalGuaranteeComponent, OfferLetterComponent, LetterOfCommitmentPrintComponent, OfferLetterPrintComponent, PersonalGuaranteePrintComponent, LoanDeedIndividualComponent],
     imports: [
         CommonModule,
         NbCardModule,
@@ -22,6 +24,9 @@ import { PersonalGuaranteePrintComponent } from './laxmi-offer-letter/personal-g
         NbSpinnerModule,
         NgxPrintModule,
         CoreModule
+    ],
+    exports: [
+        LoanDeedIndividualComponent
     ],
     entryComponents: [
         LaxmiOfferLetterComponent
