@@ -1129,6 +1129,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
       guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+      if(this.userConfigForm.get('branchCT').value !== null || this.userConfigForm.get('branchTrans').value !== null){
+        this.translate();
+      }
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).setValue(guarantorsDetails.guarantorName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).setValue(guarantorsDetails.guarantorName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).setValue(guarantorsDetails.citizenNumber || '');
@@ -1181,6 +1184,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryMunicipalityCT']).setValue(this.addressTranslatedValue.temporaryMunicipality || '');
 
 
+
       // translate guarantorsDetails
       const formArrayDataArrays: FormArray = this.userConfigForm.get(`guarantorDetails`) as FormArray;
       let a: any;
@@ -1208,6 +1212,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.deleteCTAndTransContorls(index);
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
       // end guarantorDetails
+
     }
   }
 
