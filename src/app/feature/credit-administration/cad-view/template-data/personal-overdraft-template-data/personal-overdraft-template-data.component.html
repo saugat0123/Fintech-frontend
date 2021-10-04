@@ -22,8 +22,8 @@
             </div>
         </div>
         <table
-<!--                *ngIf="fieldFlag"-->
-               class="table table-borderless table-hover text-center sb-small table-sm">
+                *ngIf="fieldFlag"
+                class="table table-borderless table-hover text-center sb-small table-sm">
             <tr>
                 <th></th>
                 <th>Loan Data</th>
@@ -107,31 +107,16 @@
             </tr>
 
             <tr>
-                <td>Sheet Number</td>
-                <td><input type="text" class="form-control" formControlName="sheetNumber"></td>
-                <td class="abc">{{translatedValues?.sheetNumber}}</td>
+                <td>Purpose of Loan</td>
+                <td><input type="text" class="form-control" formControlName="loanPurpose"></td>
+                <td class="abc">{{translatedValues?.loanPurpose}}</td>
                 <td>
                     <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.sheetNumberTransVal.errors }"
-                           formControlName="sheetNumberTransVal"/>
-                    <div *ngIf="submitted && Form.sheetNumberTransVal.errors"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanPurposeTransVal.errors }"
+                           formControlName="loanPurposeTransVal"/>
+                    <div *ngIf="submitted && Form.loanPurposeTransVal.errors"
                          class="invalid-feedback">
-                        <div *ngIf="Form.sheetNumberTransVal.errors.required">Sheet Number is required</div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td> Loan Commitment Fee (in Percentage</td>
-                <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
-                <td class="abc">{{translatedValues?.loanCommitmentFee}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.loanCommitmentFeeTransVal.errors }"
-                           formControlName="loanCommitmentFeeTransVal"/>
-                    <div *ngIf="submitted && Form.loanCommitmentFeeTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.loanCommitmentFeeTransVal.errors.required">Loan Commitment Fee is required</div>
+                        <div *ngIf="Form.loanPurposeTransVal.errors.required">Purpose of loan is required</div>
                     </div>
                 </td>
             </tr>
@@ -201,14 +186,29 @@
                 <td><input type="text" class="form-control" formControlName="loanadminFeeWords"></td>
                 <td class="abc">{{translatedValues?.loanadminFeeWords}}</td>
                 <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.loanadminFeeWordsTransVal.errors }"
-                               formControlName="loanadminFeeWordsTransVal"/>
-                        <div *ngIf="submitted && Form.loanadminFeeWordsTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.loanadminFeeWordsTransVal.errors.required">Loan Admin Fee is required</div>
-                        </div>
-                    </td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanadminFeeWordsTransVal.errors }"
+                           formControlName="loanadminFeeWordsTransVal"/>
+                    <div *ngIf="submitted && Form.loanadminFeeWordsTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanadminFeeWordsTransVal.errors.required">Loan Admin Fee is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td> Loan Commitment Fee (in Percentage)</td>
+                <td><input type="text" class="form-control" formControlName="loanCommitmentFee"></td>
+                <td class="abc">{{translatedValues?.loanCommitmentFee}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.loanCommitmentFeeTransVal.errors }"
+                           formControlName="loanCommitmentFeeTransVal"/>
+                    <div *ngIf="submitted && Form.loanCommitmentFeeTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.loanCommitmentFeeTransVal.errors.required">Loan Commitment Fee is required</div>
+                    </div>
+                </td>
             </tr>
 
             <tr>
@@ -246,29 +246,29 @@
                 <td><input type="text" class="form-control" formControlName="ownerName"></td>
                 <td class="abc">{{translatedValues?.ownerName}}</td>
                 <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.ownerNameTransVal.errors }"
-                               formControlName="ownerNameTransVal"/>
-                        <div *ngIf="submitted && Form.ownerNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.ownerNameTransVal.errors.required">Owner's Name is required</div>
-                        </div>
-                    </td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.ownerNameTransVal.errors }"
+                           formControlName="ownerNameTransVal"/>
+                    <div *ngIf="submitted && Form.ownerNameTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.ownerNameTransVal.errors.required">Owner's Name is required</div>
+                    </div>
+                </td>
             </tr>
 
             <tr>
-                <td>Owners Address</td>
+                <td>Owner's Address</td>
                 <td><input type="text" class="form-control" formControlName="ownersAddress"></td>
                 <td class="abc">{{translatedValues?.ownersAddress}}</td>
                 <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.ownersAddressTransVal.errors }"
-                               formControlName="ownersAddressTransVal"/>
-                        <div *ngIf="submitted && Form.ownersAddressTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.ownersAddressTransVal.errors.required">Owner's Address is required</div>
-                        </div>
-                    </td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.ownersAddressTransVal.errors }"
+                           formControlName="ownersAddressTransVal"/>
+                    <div *ngIf="submitted && Form.ownersAddressTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.ownersAddressTransVal.errors.required">Owner's Address is required</div>
+                    </div>
+                </td>
             </tr>
 
             <tr>
@@ -276,14 +276,29 @@
                 <td><input type="text" class="form-control" formControlName="propertyPlotNumber"></td>
                 <td class="abc">{{translatedValues?.propertyPlotNumber}}</td>
                 <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.propertyPlotNumberTransVal.errors }"
-                               formControlName="propertyPlotNumberTransVal"/>
-                        <div *ngIf="submitted && Form.propertyPlotNumberTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.propertyPlotNumberTransVal.errors.required">Property Plot Number is required</div>
-                        </div>
-                    </td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.propertyPlotNumberTransVal.errors }"
+                           formControlName="propertyPlotNumberTransVal"/>
+                    <div *ngIf="submitted && Form.propertyPlotNumberTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.propertyPlotNumberTransVal.errors.required">Property Plot Number is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Sheet Number</td>
+                <td><input type="text" class="form-control" formControlName="sheetNumber"></td>
+                <td class="abc">{{translatedValues?.sheetNumber}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.sheetNumberTransVal.errors }"
+                           formControlName="sheetNumberTransVal"/>
+                    <div *ngIf="submitted && Form.sheetNumberTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.sheetNumberTransVal.errors.required">Sheet Number is required</div>
+                    </div>
+                </td>
             </tr>
 
             <tr>
@@ -302,18 +317,18 @@
             </tr>
 
             <tr>
-                <td>Name of Branch</td>
-                <td><input type="text" class="form-control" formControlName="nameofBranch"></td>
-                <td class="abc">{{translatedValues?.nameofBranch}}</td>
+                <td>Relationship officer Name</td>
+                <td><input type="text" class="form-control" formControlName="relationshipofficerName"></td>
+                <td class="abc">{{translatedValues?.relationshipofficerName}}</td>
                 <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.nameofBranchTransVal.errors }"
-                               formControlName="nameofBranchTransVal"/>
-                        <div *ngIf="submitted && Form.nameofBranchTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.nameofBranchTransVal.errors.required">Branch Name is required</div>
-                        </div>
-                    </td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.relationshipofficerNameTransVal.errors }"
+                           formControlName="relationshipofficerNameTransVal"/>
+                    <div *ngIf="submitted && Form.relationshipofficerNameTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.relationshipofficerNameTransVal.errors.required">Relationship Officer Name is required</div>
+                    </div>
+                </td>
             </tr>
 
             <tr>
@@ -331,51 +346,6 @@
                     </td>
             </tr>
 
-            <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
-                <td>Insurance Amount in Figure</td>
-                <td><input type="text" class="form-control" formControlName="insuranceAmountinFigure"></td>
-                <td class="abc">{{translatedValues?.insuranceAmountinFigure}}</td>
-                <td>
-                    <input type="text" class="form-control"
-                           [ngClass]="{ 'is-invalid':submitted && Form.insuranceAmountinFigureTransVal.errors }"
-                           formControlName="insuranceAmountinFigureTransVal"/>
-                    <div *ngIf="submitted && Form.insuranceAmountinFigureTransVal.errors"
-                         class="invalid-feedback">
-                        <div *ngIf="Form.insuranceAmountinFigureTransVal.errors.required">Insurance Amount is required</div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Relationship officer Name</td>
-                <td><input type="text" class="form-control" formControlName="relationshipofficerName"></td>
-                <td class="abc">{{translatedValues?.relationshipofficerName}}</td>
-                <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.relationshipofficerNameTransVal.errors }"
-                               formControlName="relationshipofficerNameTransVal"/>
-                        <div *ngIf="submitted && Form.relationshipofficerNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.relationshipofficerNameTransVal.errors.required">Relationship Officer Name is required</div>
-                        </div>
-                    </td>
-            </tr>
-
-            <tr>
-                <td>Branch Name</td>
-                <td><input type="text" class="form-control" formControlName="branchName"></td>
-                <td class="abc">{{translatedValues?.branchName}}</td>
-                <td>
-                        <input type="text" class="form-control"
-                               [ngClass]="{ 'is-invalid':submitted && Form.branchNameTransVal.errors }"
-                               formControlName="branchNameTransVal"/>
-                        <div *ngIf="submitted && Form.branchNameTransVal.errors"
-                             class="invalid-feedback">
-                            <div *ngIf="Form.branchNameTransVal.errors.required">Branch Name is required</div>
-                        </div>
-                    </td>
-            </tr>
-
             <tr>
                 <td>Staff Name</td>
                 <td><input type="text" class="form-control" formControlName="staffName"></td>
@@ -387,6 +357,21 @@
                     <div *ngIf="submitted && Form.staffNameTransVal.errors"
                          class="invalid-feedback">
                         <div *ngIf="Form.staffNameTransVal.errors.required">Staff Name is required</div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr *ngIf="selectedSecurityVal === 'LAND_AND_BUILDING'">
+                <td>Insurance Amount in Figure</td>
+                <td><input type="text" class="form-control" formControlName="insuranceAmountinFigure"></td>
+                <td class="abc">{{translatedValues?.insuranceAmountinFigure}}</td>
+                <td>
+                    <input type="text" class="form-control"
+                           [ngClass]="{ 'is-invalid':submitted && Form.insuranceAmountinFigureTransVal.errors }"
+                           formControlName="insuranceAmountinFigureTransVal"/>
+                    <div *ngIf="submitted && Form.insuranceAmountinFigureTransVal.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="Form.insuranceAmountinFigureTransVal.errors.required">Insurance Amount is required</div>
                     </div>
                 </td>
             </tr>

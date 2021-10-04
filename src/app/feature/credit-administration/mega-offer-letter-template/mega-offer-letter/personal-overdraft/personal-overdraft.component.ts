@@ -48,6 +48,9 @@ export class PersonalOverdraftComponent implements OnInit {
   tempData;
   offerLetterData;
   afterSave = false;
+  selectedSecurity;
+  loanLimit;
+  renewal;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -68,6 +71,9 @@ export class PersonalOverdraftComponent implements OnInit {
     this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
   }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    console.log('guarantor Data:',this.guarantorData);
+    console.log('All Data:',this.tempData);
+    console.log('Loan Holder initial data:',this.loanHolderInfo);
     this.checkOfferLetterData();
   }
 
@@ -78,10 +84,10 @@ buildPersonal() {
     customerName: [undefined],
     customerAddress: [undefined],
     dateofApplication: [undefined],
-    nameoftheVehicle: [undefined],
     loanCommitmentFee: [undefined],
     loanAmountinFigure: [undefined],
     loanAmountInWords: [undefined],
+    loanPurpose: [undefined],
     baseRate: [undefined],
     premiumRate: [undefined],
     yearlyInterestRate: [undefined],
@@ -91,11 +97,11 @@ buildPersonal() {
     ownerName: [undefined],
     ownersAddress: [undefined],
     propertyPlotNumber: [undefined],
-    freeText: [undefined],
     propertyArea: [undefined],
+    sheetNumber: [undefined],
     nameofBranch: [undefined],
     nameofBranchManager: [undefined],
-    nameofGuarantors: [undefined],
+    guarantorName: [undefined],
     guaranteedamountinFigure: [undefined],
     guaranteedamountinWords: [undefined],
     insuranceAmountinFigure: [undefined],
@@ -105,6 +111,10 @@ buildPersonal() {
     wardNum: [undefined],
     witnessName: [undefined],
     staffName: [undefined],
+    selectedSecurity: [undefined],
+    loanLimitChecked: [undefined],
+    renewalChecked: [undefined],
+    additionalGuarantorDetails: [undefined],
   });
 }
   setLoanConfigData(data: any) {
@@ -136,10 +146,14 @@ buildPersonal() {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.PERSONAL_OVERDRAFT);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+        console.log('Selected Security Details:', initialInfo);
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
           this.offerLetterData = this.offerLetterDocument;
           this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
+        this.selectedSecurity = initialInfo.selectedSecurity.en;
+        this.loanLimit = initialInfo.loanLimitChecked.en;
+        this.renewal = initialInfo.renewalChecked.en;
         this.initialInfoPrint = initialInfo;
         this.existingOfferLetter = true;
         this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -167,7 +181,8 @@ buildPersonal() {
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
       // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
-      // nameoftheVehicle: this.tempData.nameoftheVehicle.ct ? this.tempData.nameoftheVehicle.ct : '',
+      referenceNumber: this.tempData.referenceNumber.ct ? this.tempData.referenceNumber.ct : '',
+      loanPurpose: this.tempData.loanPurpose.ct ? this.tempData.loanPurpose.ct : '',
       loanCommitmentFee: this.tempData.loanCommitmentFee.ct ? this.tempData.loanCommitmentFee.ct : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
@@ -178,19 +193,22 @@ buildPersonal() {
       ownersAddress: this.tempData.ownersAddress.ct ? this.tempData.ownersAddress.ct : '',
       propertyPlotNumber: this.tempData.propertyPlotNumber.ct ? this.tempData.propertyPlotNumber.ct : '',
       propertyArea: this.tempData.propertyArea.ct ? this.tempData.propertyArea.ct : '',
-      nameofBranch: this.tempData.nameofBranch.ct ? this.tempData.nameofBranch.ct : '',
-      unitName : this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
+      sheetNumber: this.tempData.sheetNumber.ct ? this.tempData.sheetNumber.ct : '',
+      nameofBranch: this.tempData.branch ? this.tempData.branch : '',
+      relationshipofficerName: this.tempData.relationshipofficerName.ct ? this.tempData.relationshipofficerName.ct : '',
       nameofBranchManager: this.tempData.nameofBranchManager.ct ? this.tempData.nameofBranchManager.ct : '',
-      branchName : this.tempData.branchName.ct ? this.tempData.branchName.ct : '',
-      district : this.tempData.district.ct ? this.tempData.district.ct : '',
-      wardNum : this.tempData.wardNum.ct ? this.tempData.wardNum.ct : '',
-      witnessName : this.tempData.witnessName.ct ? this.tempData.witnessName.ct : '',
+      branchName : this.tempData.branch ? this.tempData.branch : '',
       staffName : this.tempData.staffName.ct ? this.tempData.staffName.ct : '',
+      insuranceAmountinFigure : this.tempData.insuranceAmountinFigure.ct ? this.tempData.insuranceAmountinFigure.ct : '',
     });
   }
   submit(): void {
     this.spinner = true;
     this.cadOfferLetterApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
+
+    this.form.get('selectedSecurity').patchValue(this.selectedSecurity);
+    this.form.get('loanLimitChecked').patchValue(this.loanLimit);
+    this.form.get('renewalChecked').patchValue(this.renewal);
 
     if (this.existingOfferLetter) {
       this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
