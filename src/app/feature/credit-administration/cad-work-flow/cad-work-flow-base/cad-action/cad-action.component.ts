@@ -340,8 +340,12 @@ export class CadActionComponent implements OnInit, OnChanges {
     this.selectedTemplate = template;
     this.popUpTitle = val;
     this.userList = [];
+    if (this.popUpTitle === 'BACKWARD') {
+      this.showPoolCheck = false;
+    }
     if (this.popUpTitle === 'BACKWARD TO') {
       this.spinner = true;
+      this.showPoolCheck = true;
       this.customApproveSelection = true;
       this.getBackwardHierarchy();
     }
@@ -384,6 +388,7 @@ export class CadActionComponent implements OnInit, OnChanges {
       const refId = 0;
 
     } else if (this.popUpTitle === 'APPROVED') {
+      this.showPoolCheck = false;
       const newDocStatus = this.getApprovalStatus();
       this.popUpTitle = this.approvedLabel;
       // if (newDocStatus === '0') {

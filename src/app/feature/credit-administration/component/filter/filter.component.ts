@@ -58,7 +58,7 @@ export class FilterComponent implements OnInit {
   subCustomerType = CustomerSubType;
   createSubClientType: any;
   createSubInstituteType: any;
-
+  currentRoleType;
   constructor(private branchService: BranchService,
               private toastService: ToastService,
               private nbDialogService: NbDialogService,
@@ -72,7 +72,7 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.currentRoleType = LocalStorageUtil.getStorage().roleType;
     this.buildFilterForm();
     this.userService.getLoggedInUser().subscribe(res => {
       if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {

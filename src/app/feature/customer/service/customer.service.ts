@@ -35,4 +35,10 @@ export class CustomerService extends BaseService<Object> {
     protected getApi(): string {
         return CustomerService.API;
     }
+    public getJointInfoDetails(id) {
+        const api = `${this.getApi()}/${id}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
 }

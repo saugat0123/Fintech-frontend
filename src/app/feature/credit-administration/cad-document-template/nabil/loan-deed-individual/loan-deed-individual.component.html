@@ -167,13 +167,17 @@
               formControlName="totalLoanAmount"
               placeholder=""
               type="text"
-            />। (अक्षरेपी
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value}}</strong></span>
+            । (अक्षरेपी
             <input
               class="form-field form-control-sm d-print-none disable-print"
               formControlName="totalLoanAmountWord"
               placeholder=""
               type="text"
-            />)
+            />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmountWord']).value}}</strong></span>
+            )
           </p>
         </div>
 
@@ -362,40 +366,45 @@
           </table>
         </div>
         <div class="free-txt mt-5" *ngIf="offerDocumentDetails.selectedSecurity !== 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity !== 'LAND'">
-          <textarea name="freetext" id="freetext" rows="4" class="w-100 nepaliFont form-control"></textarea>
+          <textarea name="freetext" formControlName="freeText" id="freetext" rows="4" class="w-100 nepaliFont form-control d-print-none"></textarea>
+          <span class="print-only nepaliFont"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'freeText']).value}}</strong></span>
         </div>
         <br />
         <br />
 
         <div>
-          <p>
-            ईति सम्वत्<input
+          <p class="text-center">
+            ईति सम्वत् <input
               class="form-field form-control-sm d-print-none"
               formControlName="year"
               placeholder=""
               type="text"
             />
-            साल
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'year']).value}}</strong></span>
+            साल &nbsp;&nbsp;
             <input
               class="form-field form-control-sm d-print-none"
               formControlName="month"
               placeholder=""
               type="text"
             />
-            महिना
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'month']).value}}</strong></span>
+            महिना &nbsp;&nbsp;
             <input
               class="form-field form-control-sm d-print-none"
               formControlName="day"
               placeholder=""
               type="text"
             />
-            गते रोज
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'day']).value}}</strong></span>
+            गते रोज &nbsp;&nbsp;
             <input
               class="form-field form-control-sm d-print-none"
               formControlName="time"
               placeholder=""
               type="text"
             />
+            <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'time']).value}}</strong></span>
             शुभम् ।
           </p>
         </div>
