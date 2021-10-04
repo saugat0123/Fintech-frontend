@@ -150,29 +150,25 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
-    try {
-      this.form.patchValue(
-          {
-            nameofBranchLocated: this.individualData.branch.ct,
-            nameofGrandFather: this.individualData.grandFatherName.ct,
-            nameofFather: this.individualData.fatherName.ct,
-            nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
-            dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-            citizenshipNo: this.individualData.citizenshipNo.ct,
-            nameofPerson: this.individualData.name.ct,
-            wardNo: this.individualData.permanentWard.ct,
-            vdc: this.individualData.permanentMunicipality.ct,
-            district: this.individualData.permanentDistrict.ct,
-            loanamountinFigure: finalAmount,
-            loanamountinWords: loanAmountWord,
-            age: age ? age : '',
-            totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-            interest: this.educationalTemplateData.interestRate && this.educationalTemplateData.interestRate.ct ? this.educationalTemplateData.interestRate.ct : '',
-          }
-      );
-    } catch (exp) {
-      console.log(exp);
-    }
+    this.form.patchValue(
+        {
+          nameofBranchLocated: this.individualData.branch.ct,
+          nameofGrandFather: this.individualData.grandFatherName.ct,
+          nameofFather: this.individualData.fatherName.ct,
+          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
+          citizenshipNo: this.individualData.citizenshipNo.ct,
+          nameofPerson: this.individualData.name.ct,
+          wardNo: this.individualData.permanentWard.ct,
+          vdc: this.individualData.permanentMunicipality.ct,
+          district: this.individualData.permanentDistrict.ct,
+          loanamountinFigure: finalAmount,
+          loanamountinWords: loanAmountWord,
+          age: age ? age : '',
+          totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
+          interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
+        }
+    );
   }
 
   ageCalculation(startDate) {
@@ -291,7 +287,8 @@ export class PromissoryNoteIndividualComponent implements OnInit {
       this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
           === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        this.educationalTemplateData = JSON.parse(this.offerLetterDocument.initialInformation);
+        const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+        this.educationalTemplateData = educationalOfferData.interestRate;
       }
     }
   }
