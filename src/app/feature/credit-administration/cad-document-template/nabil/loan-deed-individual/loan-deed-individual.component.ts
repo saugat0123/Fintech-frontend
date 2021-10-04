@@ -172,6 +172,10 @@ export class LoanDeedIndividualComponent implements OnInit {
     );
   }
 
+  convertNepaliNumber(value){
+return this.engToNepNumberPipe.transform(String(value));
+  }
+
   submit() {
     let flag = true;
     if (
