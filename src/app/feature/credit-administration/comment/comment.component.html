@@ -48,7 +48,7 @@
                 </div>
             </td>
 
-            <td>{{previousList?.docAction | loanStatusPipe}}</td>
+            <td>{{previousList?.docAction | replace:'_':' '| loanStatusPipe}}</td>
             <td class="text-left px-2">
                 {{ previousList?.comment}}
             </td>
@@ -82,7 +82,7 @@
                 </div>
             </td>
 
-            <td>{{cadData?.cadCurrentStage?.docAction | loanStatusPipe}}</td>
+            <td>{{cadData?.cadCurrentStage?.docAction | replace:'_':' '| loanStatusPipe}}</td>
             <td class="text-left  px-2">
 
                 {{cadData?.cadCurrentStage?.comment}}
