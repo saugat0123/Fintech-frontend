@@ -872,6 +872,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     // }
     console.log(guarantorDetails, 'listtttt');
     guarantorDetails.forEach(value => {
+      const nepaData = JSON.parse(value.nepData);
       formArray.push(this.formBuilder.group({
         guarantorName: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.en],
         guarantorNameTrans: [ObjectUtil.isEmpty(nepaData.guarantorName) ? undefined : nepaData.guarantorName.np],
