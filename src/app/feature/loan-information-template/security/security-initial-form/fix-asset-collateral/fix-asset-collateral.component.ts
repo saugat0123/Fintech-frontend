@@ -19,6 +19,7 @@ import {CreateDocumentComponent} from '../create-document/create-document.compon
 import {SiteVisitDocument} from './site-visit-document';
 import {ActivatedRoute} from '@angular/router';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-fix-asset-collateral',
@@ -28,6 +29,7 @@ import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 export class FixAssetCollateralComponent implements OnInit {
 
     fixedAssetsForm: FormGroup;
+    calendarType = CalendarType.AD;
     @Input() securityId: number;
     @Input() security: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
