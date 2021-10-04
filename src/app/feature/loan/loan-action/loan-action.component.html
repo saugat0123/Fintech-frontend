@@ -51,6 +51,10 @@
 <!--    <i class="col-md-1 fa fa-edit"></i>-->
   </button>
 
+  <button  (click)="onEdit()" *ngIf="documentStatus == 'PENDING' && catalogueStatus === true" class="btn-sm btn-primary">
+    Document update
+  </button>
+
   <button (click)="loanAction('close')" *ngIf="!catalogueStatus"
           [disabled]="!actionsList.closed"
           [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"

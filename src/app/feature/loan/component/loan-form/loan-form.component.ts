@@ -58,10 +58,8 @@ import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grad
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {ObtainedDocumentComponent} from '../../../loan-information-template/obtained-document/obtained-document.component';
-import {Document} from '../../../admin/modal/document';
 import {ObtainableDoc} from '../../../loan-information-template/obtained-document/obtainableDoc';
 
 @Component({
@@ -222,6 +220,8 @@ export class LoanFormComponent implements OnInit {
         OtherDocuments: null
     };
     nbSpinner = false;
+    transferred = 'false';
+    catalogue;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -261,7 +261,8 @@ export class LoanFormComponent implements OnInit {
                     customerProfileId: null,  // CustomerInfo->associateId
                     customerType: null,
                     customerInfoId: null,   // CustomerInfo->id
-                    loanType: null
+                    loanType: null,
+                    transferred: null
                 };
 
                 this.allId = paramsValue;
@@ -270,7 +271,7 @@ export class LoanFormComponent implements OnInit {
                 this.customerId = this.allId.customerId;
                 this.loanHolder.id = this.allId.customerInfoId;
                 this.loanType = this.allId.loanType;
-
+                this.transferred = this.allId.transferred;
                 if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
                     if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
                         this.getCustomerInfo(this.allId.customerProfileId);
@@ -356,6 +357,9 @@ export class LoanFormComponent implements OnInit {
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
+            if (this.transferred === 'true') {
+                this.filterTemplateList(this.templateList);
+            }
             // Splicing customer loan for Personal Type Loan--
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
@@ -402,6 +406,9 @@ export class LoanFormComponent implements OnInit {
 
             // Remove Customer Info Template for Business Loan Type
             if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
+                if (this.transferred === 'true') {
+                    this.filterTemplateList(this.templateList);
+                }
                 this.templateList.forEach((value, i) => {
                     if (value.name === 'Customer Info') {
                         this.templateList.splice(i, 1);
@@ -819,9 +826,18 @@ export class LoanFormComponent implements OnInit {
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
-                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+                if (this.transferred === 'true') {
+                    this.catalogue = true;
+                } else {
+                    this.catalogue = null;
+                }
+                this.router.navigate(['/home/loan/summary'],
+                    {queryParams: {loanConfigId: this.id,
+                            customerId: this.customerLoanId,
+                            catalogue : this.catalogue}})
                     .then(() => {
                         this.spinner.hide();
+                        this.toastService.show(new Alert(AlertType.SUCCESS, `Successfully saved`));
                     });
             }, error => {
                 this.spinner.hide();
@@ -838,5 +854,19 @@ export class LoanFormComponent implements OnInit {
     goToCustomer() {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+    }
+
+    filterTemplateList(templateList) {
+        if (this.transferred === 'true') {
+            const list = this.templateList;
+            this.templateList = [];
+            let index = 0;
+            list.forEach(item => {
+                if (item.name === 'Loan Document' || item.name === 'Obtainable Documents') {
+                    this.templateList[index] = item;
+                    index++;
+                }
+            });
+        }
     }
 }

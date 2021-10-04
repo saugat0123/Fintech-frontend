@@ -190,6 +190,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     otherObtainableDocuments = Array<string>();
     spinner = false;
     spinnerMsg = 'Please Wait!!';
+    currentUserId = LocalStorageUtil.getStorage().userId;
+    currentUserRoleType = LocalStorageUtil.getStorage().roleType;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -764,6 +766,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     changeDetails(LoanId) {
         this.spinner = true;
         this.loanFormService.detail(LoanId).subscribe((response: any) => {
+            console.log('loan detail', response);
             this.loanDataHolder = response.detail;
             this.obtainableDocuments = [];
             this.otherObtainableDocuments = [];
@@ -771,12 +774,25 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.crgGammaSummary = false;
             this.creditRiskAlphaSummary = false;
             this.creditRiskLambdaSummary = false;
-            this.router.navigate(['/home/loan/summary'], {
-                queryParams: {
-                    loanConfigId: this.loanDataHolder.loan.id,
-                    customerId: this.loanDataHolder.id
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.currentStage)) {
+                if ((this.loanDataHolder.currentStage.toUser.id.toString() === this.currentUserId) &&
+                    (this.currentUserRoleType === 'MAKER')) {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: this.loanDataHolder.loan.id,
+                            customerId: this.loanDataHolder.id
+                        }
+                    });
+                } else {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: this.loanDataHolder.loan.id,
+                            customerId: this.loanDataHolder.id,
+                            catalogue: true
+                        }
+                    });
                 }
-            });
+            }
             this.getLoanDataHolder();
             this.spinner = false;
         }, error =>  {

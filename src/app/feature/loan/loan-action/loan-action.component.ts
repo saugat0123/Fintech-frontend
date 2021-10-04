@@ -39,12 +39,15 @@ export class LoanActionComponent implements OnInit, OnChanges {
     @Input() customerType;
     @Input() branchId;
     @Input() customerLoanHolder: LoanDataHolder;
+    @Input() documentStatus;
     public isMaker = false;
     public committeeRole = false;
     private dialogRef: NbDialogRef<any>;
     isOpen = false;
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    transferred = false;
+    loanStatus;
 
 
     constructor(
@@ -70,6 +73,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
             this.showCadDocumentRoute = true;
         }
         this.committeeRole = roleType === RoleType.COMMITTEE;
+        this.loanFormService.detail(this.id).subscribe(async (response: any) => {
+            this.loanStatus = response.detail.documentStatus;
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -198,11 +204,15 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     public onEdit() {
+        if (this.catalogueStatus === true) {
+            this.transferred = true;
+        }
         this.router.navigate(['/home/loan/loanForm'], {
             queryParams: {
                 loanId: this.loanConfigId,
                 customerId: this.id,
-                loanCategory: this.loanCategory
+                loanCategory: this.loanCategory,
+                transferred : this.transferred
             }
         });
     }
