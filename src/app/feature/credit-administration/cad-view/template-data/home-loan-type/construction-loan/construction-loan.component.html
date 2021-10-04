@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" [nbSpinner]="spinner">
     <div [formGroup]="constructionLoanForm" class="row">
         <div class="col-md-4">
             <b>Loan Data</b>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label for="purposeOfLoan">Purpose of Loan</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="purposeOfLoan" type="number" id="purposeOfLoan">
+                       formControlName="purposeOfLoan" type="text" id="purposeOfLoan">
             </div>
             <div class="form-group">
                 <label for="drawingPower">Drawing Power (% of Distress Value)</label>
@@ -50,12 +50,13 @@
             <div class="form-group">
                 <label for="loanAmountInFigure">Loan Amount in Figure</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
+                       (change)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWord')"
                        formControlName="loanAmountInFigure" type="number" id="loanAmountInFigure">
             </div>
             <div class="form-group">
-                <label for="loanAmountInfWord">Loan Amount in Words</label>
+                <label for="loanAmountInWord">Loan Amount in Words</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAmountInfWord" type="text" id="loanAmountInfWord">
+                       formControlName="loanAmountInWord" type="text" id="loanAmountInWord">
             </div>
             <div class="form-group">
                 <label for="baseRate">Base Rate</label>
@@ -75,6 +76,7 @@
             <div class="form-group">
                 <label for="loanAdminFeeInFigure">Loan Admin Fees in Figure</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
+                       (change)="getNumAmountWord('loanAdminFeeInFigure', 'loanAdminFeeInWord')"
                        formControlName="loanAdminFeeInFigure" type="number" id="loanAdminFeeInFigure">
             </div>
             <div class="form-group">
@@ -85,6 +87,7 @@
             <div class="form-group">
                 <label for="emiInFigure">EMI in Figure</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
+                       (change)="getNumAmountWord('emiInFigure', 'emiInWord')"
                        formControlName="emiInFigure" type="number" id="emiInFigure">
             </div>
             <div class="form-group">
@@ -165,6 +168,7 @@
             <div class="form-group">
                 <label for="insuranceAmountInFigure">Insurance amount in figure</label>
                 <input nbInput fullWidth status="success" shape="semi-round"
+                       (change)="getNumAmountWord('insuranceAmountInFigure', 'insuranceAmountInWord')"
                        formControlName="insuranceAmountInFigure" type="number" id="insuranceAmountInFigure">
             </div>
             <div class="form-group">
@@ -197,137 +201,137 @@
             <b>Nepali Translation</b>
             <div class="form-group mt-4">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="referenceNumberTrans" type="number" readonly>
+                       formControlName="referenceNumberTrans" type="text" readonly>
             </div>
-            <div class="form-group" style="margin-top: 78px">
+            <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="dateOfApprovalTrans" type="number" readonly>
+                       formControlName="dateOfApprovalTrans" type="text" readonly>
             </div>
-            <div class="form-group" style="margin-top: 78px">
+            <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="applicationDateTypeTrans" type="number" readonly>
+                       formControlName="dateOfApplicationTrans" type="text" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="purposeOfLoanTrans" type="number" id="purposeOfLoanTrans" readonly>
+                       formControlName="purposeOfLoanTrans" type="text" id="purposeOfLoanTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="drawingPowerTrans" type="number" id="drawingPowerTrans" readonly>
+                       formControlName="drawingPowerTrans" type="text" id="drawingPowerTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanAmountInFigureTrans" type="number" id="loanAmountInFigureTrans" readonly>
+                       formControlName="loanAmountInFigureTrans" type="text" id="loanAmountInFigureTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanAmountInfWordTrans" type="text" id="loanAmountInfWordTrans" readonly>
+                       formControlName="loanAmountInWordTrans" type="text" id="loanAmountInWordTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="baseRateTrans" type="number" id="baseRateTrans" readonly>
+                       formControlName="baseRateTrans" type="text" id="baseRateTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="premiumRateTrans" type="number" id="premiumRateTrans" readonly>
+                       formControlName="premiumRateTrans" type="text" id="premiumRateTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="interestRateTrans" type="number" id="interestRateTrans" readonly>
+                       formControlName="interestRateTrans" type="text" id="interestRateTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanAdminFeeInFigureTrans" type="number" id="loanAdminFeeInFigureTrans" readonly>
+                       formControlName="loanAdminFeeInFigureTrans" type="text" id="loanAdminFeeInFigureTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="loanAdminFeeInWordTrans" type="text" id="loanAdminFeeInWordTrans" readonly>
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="emiInFigureTrans" type="number" id="emiInFigureTrans" readonly>
+                       formControlName="emiInFigureTrans" type="text" id="emiInFigureTrans" readonly>
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="emiInWordTrans" type="text" id="emiInWordTrans" readonly>
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanPeriodInMonthsTrans" type="number" id="loanPeriodInMonthsTrans" readonly>
+                       formControlName="loanPeriodInMonthsTrans" type="text" id="loanPeriodInMonthsTrans" readonly>
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group" style="margin-top: 46px;">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="moratoriumPeriodInMonthTrans" type="number" id="moratoriumPeriodInMonthTrans" readonly>
+                       formControlName="moratoriumPeriodInMonthTrans" type="text" id="moratoriumPeriodInMonthTrans" readonly>
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group" style="margin-top: 46px;">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="loanCommitmentFeeTrans" type="number" id="loanCommitmentFeeTrans" readonly>
+                       formControlName="loanCommitmentFeeTrans" type="text" id="loanCommitmentFeeTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="costOfConstructionTrans" type="number" id="costOfConstructionTrans" readonly>
+                       formControlName="costOfConstructionTrans" type="text" id="costOfConstructionTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="firstInstallmentAmountTrans" type="number" id="firstInstallmentAmountTrans" readonly>
+                       formControlName="firstInstallmentAmountTrans" type="text" id="firstInstallmentAmountTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="costOfConstructionInSecondPhaseTrans" type="number" id="costOfConstructionInSecondPhaseTrans" readonly>
+                       formControlName="costOfConstructionInSecondPhaseTrans" type="text" id="costOfConstructionInSecondPhaseTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="secondInstallmentAmountTrans" type="number" id="secondInstallmentAmountTrans" readonly>
+                       formControlName="secondInstallmentAmountTrans" type="text" id="secondInstallmentAmountTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="costOfFinalProjectCompletionTrans" type="number" id="costOfFinalProjectCompletionTrans" readonly>
+                       formControlName="costOfFinalProjectCompletionTrans" type="text" id="costOfFinalProjectCompletionTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="thirdInstallmentAmountTrans" type="number" id="thirdInstallmentAmountTrans" readonly>
+                       formControlName="thirdInstallmentAmountTrans" type="text" id="thirdInstallmentAmountTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="nameOfLandOwnerTrans" type="text" id="nameOfLandOwnerTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="landLocationTrans" type="text" id="landLocationTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-medium">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="kittaNumberTrans" type="number" id="kittaNumberTrans" readonly>
+                       formControlName="kittaNumberTrans" type="text" id="kittaNumberTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="areaTrans" type="number" id="areaTrans" readonly>
+                       formControlName="areaTrans" type="text" id="areaTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="seatNumberTrans" type="number" id="seatNumberTrans" readonly>
+                       formControlName="seatNumberTrans" type="text" id="seatNumberTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
-                       formControlName="insuranceAmountInFigureTrans" type="number" id="insuranceAmountInFigureTrans" readonly>
+                       formControlName="insuranceAmountInFigureTrans" type="text" id="insuranceAmountInFigureTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="insuranceAmountInWordTrans" type="text" id="insuranceAmountInWordTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="freeTextRequiredTrans" type="text" id="freeTextRequiredTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="nameOfRelationshipOfficerTrans" type="text" id="nameOfRelationshipOfficerTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="nameOfBranchManagerTrans" type="text" id="nameOfBranchManagerTrans" readonly>
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small">
                 <input nbInput fullWidth status="success" shape="semi-round" class="border-0"
                        formControlName="approvalStaffNameTrans" type="text" id="approvalStaffNameTrans" readonly>
             </div>
@@ -336,140 +340,143 @@
             <b>Correct Translation</b>
             <div class="form-group mt-4">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="referenceNumberCT" type="number">
+                       formControlName="referenceNumberCT" type="text">
             </div>
-            <div class="form-group" style="margin-top: 78px">
+            <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="dateOfApprovalCT" type="number">
+                       formControlName="dateOfApprovalCT" type="text">
             </div>
-            <div class="form-group" style="margin-top: 78px">
+            <div class="form-group mt-large">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="dateOfApplicationCT" type="number">
+                       formControlName="dateOfApplicationCT" type="text">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="purposeOfLoanCT" type="number" id="purposeOfLoanCT">
+                       formControlName="purposeOfLoanCT" type="text" id="purposeOfLoanCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="drawingPowerCT" type="number" id="drawingPowerCT">
+                       formControlName="drawingPowerCT" type="text" id="drawingPowerCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAmountInFigureCT" type="number" id="loanAmountInFigureCT">
+                       formControlName="loanAmountInFigureCT" type="text" id="loanAmountInFigureCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAmountInfWordCT" type="text" id="loanAmountInfWordCT">
+                       formControlName="loanAmountInWordCT" type="text" id="loanAmountInWordCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="baseRateCT" type="number" id="baseRateCT">
+                       formControlName="baseRateCT" type="text" id="baseRateCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="premiumRateCT" type="number" id="premiumRateCT">
+                       formControlName="premiumRateCT" type="text" id="premiumRateCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="interestRateCT" type="number" id="interestRateCT">
+                       formControlName="interestRateCT" type="text" id="interestRateCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanAdminFeeInFigureCT" type="number" id="loanAdminFeeInFigureCT">
+                       formControlName="loanAdminFeeInFigureCT" type="text" id="loanAdminFeeInFigureCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="loanAdminFeeInWordCT" type="text" id="loanAdminFeeInWordCT">
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="emiInFigureCT" type="number" id="emiInFigureCT">
+                       formControlName="emiInFigureCT" type="text" id="emiInFigureCT">
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="emiInWordCT" type="text" id="emiInWordCT">
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanPeriodInMonthsCT" type="number" id="loanPeriodInMonthsCT">
+                       formControlName="loanPeriodInMonthsCT" type="text" id="loanPeriodInMonthsCT">
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="moratoriumPeriodInMonthCT" type="number" id="moratoriumPeriodInMonthCT">
+                       formControlName="moratoriumPeriodInMonthCT" type="text" id="moratoriumPeriodInMonthCT">
             </div>
-            <div class="form-group mt-xl-4">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="loanCommitmentFeeCT" type="number" id="loanCommitmentFeeCT">
+                       formControlName="loanCommitmentFeeCT" type="text" id="loanCommitmentFeeCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="costOfConstructionCT" type="number" id="costOfConstructionCT">
+                       formControlName="costOfConstructionCT" type="text" id="costOfConstructionCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="firstInstallmentAmountCT" type="number" id="firstInstallmentAmountCT">
+                       formControlName="firstInstallmentAmountCT" type="text" id="firstInstallmentAmountCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="costOfConstructionInSecondPhaseCT" type="number" id="constOfConstructionInSecondPhaseCT">
+                       formControlName="costOfConstructionInSecondPhaseCT" type="text" id="constOfConstructionInSecondPhaseCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="secondInstallmentAmountCT" type="number" id="secondInstallmentAmountCT">
+                       formControlName="secondInstallmentAmountCT" type="text" id="secondInstallmentAmountCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="costOfFinalProjectCompletionCT" type="number" id="costOfFinalProjectCompletionCT">
+                       formControlName="costOfFinalProjectCompletionCT" type="text" id="costOfFinalProjectCompletionCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="thirdInstallmentAmountCT" type="number" id="thirdInstallmentAmountCT">
+                       formControlName="thirdInstallmentAmountCT" type="text" id="thirdInstallmentAmountCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfLandOwnerCT" type="text" id="nameOfLandOwnerCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="landLocationCT" type="text" id="landLocationCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="kittaNumberCT" type="number" id="kittaNumberCT">
+                       formControlName="kittaNumberCT" type="text" id="kittaNumberCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="areaCT" type="number" id="areaCT">
+                       formControlName="areaCT" type="text" id="areaCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="seatNumberCT" type="number" id="seatNumberCT">
+                       formControlName="seatNumberCT" type="text" id="seatNumberCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
-                       formControlName="insuranceAmountInFigureCT" type="number" id="insuranceAmountInFigureCT">
+                       formControlName="insuranceAmountInFigureCT" type="text" id="insuranceAmountInFigureCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="insuranceAmountInWordCT" type="text" id="insuranceAmountInWordCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="freeTextRequiredCT" type="text" id="freeTextRequiredCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfRelationshipOfficerCT" type="text" id="nameOfRelationshipOfficerCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="nameOfBranchManagerCT" type="text" id="nameOfBranchManagerCT">
             </div>
-            <div class="form-group mt-xl-5">
+            <div class="form-group mt-small-2">
                 <input nbInput fullWidth status="success" shape="semi-round"
                        formControlName="approvalStaffNameCT" type="text" id="approvalStaffNameCT">
             </div>
         </div>
     </div>
+</div>
+<div class="row d-flex justify-content-center">
+    <button nbButton status="info" (click)="setTranslatedValue()">Translate</button>
 </div>
