@@ -177,6 +177,10 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
   }
 
   taggedGuarantorsDetailsForm() {
+    let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
+    todayDate = todayDate.replace(',', '').split(' ');
+    const daysInNumber = new Date().getDay();
+
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
         const individualGuarantorNepData = val.nepData
@@ -254,10 +258,10 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
               this.englishNepaliDatePipe.transform(citznIssuedDate || '', true)  || ''
             ],
             gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
-            year: [undefined],
-            month: [undefined],
-            day: [undefined],
-            date: [undefined],
+            year: [todayDate[2]],
+            month: [todayDate[1]],
+            day: [todayDate[0]],
+            date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
             freeText: [undefined],
           })
         );
