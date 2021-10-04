@@ -825,7 +825,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       permanentMunicipality: [undefined],
       permanentMunicipalityCT: [undefined],
       permanentMunicipalityTrans: [undefined],
-      GpermanentWard: [undefined],
+      permanentWard: [undefined],
       permanentWardCT: [undefined],
       permanentWardTrans: [undefined],
 
@@ -958,7 +958,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.spinner = false;
     this.objectTranslateForm.patchValue({
       branch: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? null : this.userConfigForm.get('branch').value.name,
-      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branchCT').value) ? null : this.userConfigForm.get('branchCT').value.name,
       cspermanentProvince: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvince').value) ? null :
           this.userConfigForm.get('permanentProvince').value.name,
       permanentProvinceCT: ObjectUtil.isEmpty(this.userConfigForm.get('permanentProvinceCT').value) ? null :
@@ -1001,6 +1000,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           this.userConfigForm.get('currentMunicipality').value.name,
     });
     this.objectValueTranslater = await this.translateService.translateForm(this.objectTranslateForm);
+    this.setNepaliData();
     this.setCustomerCTData();
     this.setCustomerTransData();
     this.patchCorrectData();
@@ -1148,8 +1148,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).setValue(guarantorsDetails.grandFatherName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).setValue(guarantorsDetails.fatherName || '');
       this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).setValue(guarantorsDetails.gurantedAmount || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).setValue(guarantorsDetails.GpermanentWard || '');
-      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).setValue(guarantorsDetails.GpermanentWard || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardTrans']).setValue(guarantorsDetails.permanentWard || '');
+      this.userConfigForm.get(['guarantorDetails', index, 'permanentWardCT']).setValue(guarantorsDetails.permanentWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardTrans']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'temporaryWardCT']).setValue(guarantorsDetails.temporaryWard || '');
       this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).setValue(guarantorsDetails.relationship || '');
@@ -1633,7 +1633,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   patchCorrectData() {
     this.userConfigForm.patchValue({
       nameCT: this.translatedValues.name,
-      branchCT: this.translatedValues.branch,
       emailCT: this.translatedValues.email,
       contactNoCT: this.translatedValues.contactNo,
       panNoCT: this.translatedValues.panNo,
@@ -1774,7 +1773,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   }
 
   private setCustomerCTData(): void {
-    this.userConfigForm.get('branchCT').patchValue(this.objectValueTranslater.branch);
     this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
     this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
@@ -1898,6 +1896,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('temporaryWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryWard) ? undefined : this.nepData.temporaryWard.np);
     this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.np);
 
+  }
+
+  setNepaliData() {
+    this.userConfigForm.patchValue({
+      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
+    });
   }
 
 }
