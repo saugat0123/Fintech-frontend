@@ -828,6 +828,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             });
             this.getLoanDataHolder();
+            this.reloadForm();
             this.spinner = false;
         }, error =>  {
             this.spinner = false;
@@ -895,6 +896,32 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     refresh() {
         this.refreshLoanSummary.emit(true);
+    }
+
+    reloadForm() {
+        this.isFundable = this.loanDataHolder.loan.isFundable;
+        this.fundableNonFundableSelcted = !ObjectUtil.isEmpty(this.loanDataHolder.loan.isFundable);
+        this.isFixedDeposit = this.loanDataHolder.loan.loanTag === 'FIXED_DEPOSIT';
+        this.isGeneral = this.loanDataHolder.loan.loanTag === 'GENERAL';
+        this.isShare = this.loanDataHolder.loan.loanTag === 'SHARE_SECURITY';
+        this.isVehicle = this.loanDataHolder.loan.loanTag === 'VEHICLE';
+        this.minimumAmountLimit = this.loanDataHolder.loan.minimumProposedAmount;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loan.loanNature)) {
+            this.loanNatureSelected = true;
+            this.isRevolving = this.loanDataHolder.loan.loanNature === 0;
+            this.isTerminating = this.loanDataHolder.loan.loanNature === 1;
+            if (this.isRevolving) {
+                this.isGeneral = false;
+            }
+        }
+        if (!this.isFundable) {
+            this.isGeneral = false;
+        }
+        if (this.isFixedDeposit) {
+            this.loanNatureSelected = false;
+            this.fundableNonFundableSelcted = false;
+        }
+        this.proposalForm.reset();
     }
 }
 
