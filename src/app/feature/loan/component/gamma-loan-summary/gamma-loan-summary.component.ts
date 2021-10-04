@@ -54,7 +54,7 @@ import {SummaryType} from '../SummaryType';
   templateUrl: './gamma-loan-summary.component.html',
   styleUrls: ['./gamma-loan-summary.component.scss']
 })
-export class GammaLoanSummaryComponent implements OnInit {
+export class GammaLoanSummaryComponent implements OnInit, OnDestroy {
   @Output() changeToApprovalSheetActive = new EventEmitter<string>();
 
   @Input() loanData;
@@ -253,7 +253,7 @@ export class GammaLoanSummaryComponent implements OnInit {
     }
   }
 
-  OnDestroy(): void {
+  ngOnDestroy(): void {
     this.navigationSubscription.unsubscribe();
   }
 
