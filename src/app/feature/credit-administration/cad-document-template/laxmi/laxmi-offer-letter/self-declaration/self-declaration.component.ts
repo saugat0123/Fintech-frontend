@@ -12,11 +12,11 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 
 @Component({
-  selector: 'app-loan-deed-individual',
-  templateUrl: './loan-deed-individual.component.html',
-  styleUrls: ['./loan-deed-individual.component.scss']
+  selector: 'app-self-declaration',
+  templateUrl: './self-declaration.component.html',
+  styleUrls: ['./self-declaration.component.scss']
 })
-export class LoanDeedIndividualComponent implements OnInit {
+export class SelfDeclarationComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
@@ -25,22 +25,21 @@ export class LoanDeedIndividualComponent implements OnInit {
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
       private routerUtilsService: RouterUtilsService
   ) { }
-  @Input() cadData;
-  @Input() documentId;
-  @Input() customerLoanId;
-  initialInfoPrint;
-  spinner = false;
   form: FormGroup;
   cadCheckListEnum = CadCheckListTemplateEnum;
+  initialInfoPrint;
+@Input() cadData;
+  @Input() documentId;
+  @Input() customerLoanId;
+  spinner = false;
   ngOnInit() {
-    console.log('cad data', this.cadData);
-    console.log('cad data', this.documentId);
-    console.log('cad data', this.customerLoanId);
-    this.buildForm();
+  this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           this.initialInfoPrint = singleCadFile.initialInformation;
+          console.log('this is data', this.initialInfoPrint);
+
           this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
         }
       });
@@ -49,51 +48,17 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.form = JSON.parse(this.cadData.loanHolder.nepData);
     }
   }
-
   buildForm() {
     this.form = this.formBuilder.group({
-      district: [undefined],
-      municipality: [undefined],
-      wadNo: [undefined],
-      branch: [undefined],
-      grandParentName: [undefined],
-      permanentMunicipality: [undefined],
-      fatherName: [undefined],
-      husbandWifeName: [undefined],
-      permanentDistrict: [undefined],
-      temporaryWardNum: [undefined],
-      temporaryAddress: [undefined],
-      temporaryDistrict: [undefined],
-      tempWardNum: [undefined],
-      livingYear: [undefined],
+      year: [undefined],
+      month: [undefined],
+      day: [undefined],
       name: [undefined],
-      naPraNa: [undefined],
-      districtOffice: [undefined],
-      issuedYear: [undefined],
-      issuedMonth: [undefined],
-      issuedDay: [undefined],
-      offerYear: [undefined],
-      offerMonth: [undefined],
-      offerDay: [undefined],
-      customerName: [undefined],
-      rupees: [undefined],
-      amount: [undefined],
-      itisambatYear: [undefined],
-      itisambatMonth: [undefined],
-      itisambatDay: [undefined],
-      roj: [undefined],
-      witnessDistrictOne: [undefined],
-      witnessMunicipalityOne: [undefined],
-      witnessWadNoOne: [undefined],
-      witnessDistrictTwo: [undefined],
-      witnessMunicipalityTwo: [undefined],
-      witnessWadNoTwo: [undefined],
-      role: [undefined]
+      address: [undefined],
     });
   }
-
-
   submit() {
+    this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -120,14 +85,18 @@ export class LoanDeedIndividualComponent implements OnInit {
       cadFile.customerLoanId = this.customerLoanId;
       this.cadData.cadFileList.push(cadFile);
     }
+
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+      this.spinner = false;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
+      this.spinner = false;
     });
+    console.log(this.form.value);
   }
 }

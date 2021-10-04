@@ -1,70 +1,52 @@
-<div [nbSpinner]="spinner" class="row">
-    <div class="col-md-12 viewFull">
-        <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
+<div class="row" id="print-section-{{cadCheckListEnum.LOAN_DEED_SINGLE}}">
+    <div  class="row">
+        <div class="col-md-12 viewFull text-justify">
+            <div  class="text-justify nepali">
 
-            <p class="text-center"><b> विषय:— <u>कर्जा तमसुक</u></b></p>
+                <p class="text-center"><b> विषय:— <u>कर्जा तमसुक</u></b></p>
 
                 लिखितम लिखत गराई लिने धनीको नाम प्रचलित कानून बमोजिम संस्थापित तथा सञ्चालित काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं.१
                 हात्तिसार स्थित केन्द्रिय कार्यालय भएको <b>लक्ष्मी बैंक लिमिटेडको </b> जिल्ला
-                <input type="text" class="nepaliFont form-control-sm form-field"
-                       formControlName="district"> गा.पा./न.पा.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="municipality">
+                <span class="nepaliFont">{{printDocForm.district}}</span> गा.पा./न.पा.
+                <span class="nepaliFont">{{printDocForm.municipality}}</span>
                 वडा न.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="wadNo">
+                <span class="nepaliFont">{{printDocForm.wadNo}}</span>
                 वस्थित शाखा कार्यालय,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="branch">
+                <span class="nepaliFont">{{printDocForm.branch}}</span>
                 (यसपछि धनी बैंक भनिएको छ) आगे तमसुक लेखिदिने ऋणीको नाम
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="grandParentName">
+                <span class="nepaliFont">{{printDocForm.grandParentName}}</span>
                 को नाती/नातिनी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentMunicipality">
+                <span class="nepaliFont">{{printDocForm.permanentMunicipality}}</span>
                 को छोरा/छोरी
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="fatherName">
+                <span class="nepaliFont">{{printDocForm.fatherName}}</span>
                 को पति/पत्नी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="husbandWifeName">
+                <span class="nepaliFont">{{printDocForm.husbandWifeName}}</span>
                 जिल्ला,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentDistrict">
+                <span class="nepaliFont">{{printDocForm.permanentDistrict}}</span>
                 न.पा./गा.पा.वडानं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryWardNum">
+                <span class="nepaliFont">{{printDocForm.temporaryWardNum}}</span>
                 भई हाल
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryAddress">
+                <span class="nepaliFont">{{printDocForm.temporaryAddress}}</span>
                 जिल्ला,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryDistrict">
+                <span class="nepaliFont">{{printDocForm.temporaryDistrict}}</span>
                 न.पा./गा.पा. वडा नंं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="tempWardNum">
+                <span class="nepaliFont">{{printDocForm.tempWardNum}}</span>
                 बस्ने बर्ष
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="livingYear">
+                <span class="nepaliFont">{{printDocForm.livingYear}}</span>
                 को
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="name">
-                (ना.प्र.नं.<input type="text" class="form-control-sm form-field nepaliFont"
-                                  formControlName="naPraNa">, जि.प्र.का.,<input type="text" class="form-control-sm form-field nepaliFont"
-                                                                                formControlName="districtOffice">
-                , जारी मिति <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedYear">/
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedMonth">/
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedDay"/>)
+                <span class="nepaliFont">{{printDocForm.name}}</span>
+                (ना.प्र.नं.<span class="nepaliFont">{{printDocForm.naPraNa}}</span>, जि.प्र.का.,<span class="nepaliFont">{{printDocForm.districtOffice}}</span>
+                , जारी मिति <span class="nepaliFont">{{printDocForm.issuedYear}}</span>/
+                <span class="nepaliFont">{{printDocForm.issuedMonth}}</span>/
+                <span class="nepaliFont">{{printDocForm.issuedDay}}</span>)
                 (यसपछि ऋणी भनिएको छ) ले धनी बैंकको (अफर लेटर) नं. कर्जा स्वीकृति पत्र
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="offerYear">/
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="offerMonth">/
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="offerDay"/>)
+                <span class="nepaliFont">{{printDocForm.offerYear}}</span>/
+                <span class="nepaliFont">{{printDocForm.offerMonth}}</span>/
+                <span class="nepaliFont">{{printDocForm.offerDay}}</span>)
                 मिति
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="customerName">
+                <span class="nepaliFont">{{printDocForm.customerName}}</span>
                 को कर्जा स्वीकृतीपत्र/प्रस्तावपत्रमा उल्लेखित शर्त कबुलियत बमोजिम तोकिएको उद्देश्यमा उपयोग गर्ने गरी जम्मा कर्जा/कर्जा सुविधा
-              <b>  रु<input type="text" class="form-control-sm form-field nepaliFont"
-                            formControlName="rupees">/–</b> (<b>अक्षरेपी रुपैयाँ <input type="text" class="form-control-sm form-field nepaliFont" formControlName="amount"/> लाख मात्र</b>)
+                <b>  रु<span class="nepaliFont">{{printDocForm.rupees}}</span>/–</b> (<b>अक्षरेपी रुपैयाँ <span class="nepaliFont">{{printDocForm.amount}}</span> लाख मात्र</b>)
                 कर्जा लिए खाएको ठिक साँचो हो । उक्त कर्जा एकै पटक वा पटक पटक प्राप्त गरेको एवं भविश्यमा ऋण कर्जा तथा सुविधा पुनरावलोकन वा नविकरण गरी जारी हुने स्वीकृतिपत्र (अफर लेटर)
                 मा उल्लेख भएका शर्त कबुलियत अनुसारको थप ऋण कर्जा तथा बैंकिङ्ग सुविधा र/वा भविष्यमा ऋणीले प्राप्त गर्ने ऋण तथा विभिन्न सुविधाहरु र यो ऋण प्राप्त गर्नु अगाडि अन्य कुनै बैंकिङ्ग
                 सुविधा प्राप्त गरेको भए सो समेत र ऋणीले अन्य कुनै व्यक्ति, फर्म वा कम्पनीलाई जमानत दिई उत्पन्न दायित्व र ऋणी आफै संलग्न भएको कुनै पनि फर्म, कम्पनी, उद्योग समेतले लिएको कर्जा समेत
@@ -87,47 +69,29 @@
                 सूचि सम्वन्धी व्यवस्था वा/र भविष्यमा जारी तथा संसोधन हुने व्यवस्थाको अवस्था परी ऋणी, जमानतकर्ता लगायतका कर्जा संग सम्बन्धीत सम्बद्ध व्यक्ति तथा संस्थाहरुको नाम कर्जा सूचना केन्द्रको कालो सूचिमा समावेश गरेमा समेत
                 ऋणीको पूर्ण मन्जुरी रहेको छ । साथै संस्थापक शेयरको धितोमा कर्जा उपभोग गरेको अवस्थामा नेपाल राष्ट्र बैंकको निर्देशन अनुसार तोकिएको भुक्तानी अवधी भित्र कर्जा चुक्ता नगरेमा कालो सूचीमा समावेश गर्नुपर्ने कारण सहित ३५
                 दिनको सूचना दिई तत्पश्चात ७ दिन भित्र अनिवार्य रुपमा म/हामीलाई कालोसूचीमा राखेमा समेत मेरो/हाम्रो मन्जुरी रहेको छ भनी ऋणीको मनोमान राजिखुसीले धनी बैंकको कार्यालयमा वसी साक्षीहरुको रोहवरमा यो तमसुकमा सही
-                छाप गरी धनी बैंकलाई दिए/दियौ र यसको एक प्रति दोहरी बुझिलियौ । इति सम्बत <input type="text" class="form-control-sm form-field nepaliFont"
-                                                                                               formControlName="itisambatYear">
-            साल
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="itisambatMonth">
-            महिना
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="itisambatDay">
-            गते रोज
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="roj"> शुभम्.––––––––––––।
-            <div class="col-md-12 viewFull">
-                    <p class="text-center"><b><u>साक्षी</u></b></p>
-                <div class="row">
-                    १. जिल्ला <input class="form-control-sm form-field nepaliFont" formControlName="witnessDistrictOne"/>
-                    गा.पा./न.पा <input class="form-control-sm form-field nepaliFont" formControlName="witnessMunicipalityOne"/>
-                    वडा नं<input class="form-control-sm form-field nepaliFont" formControlName="witnessWadNoOne"/>
-                </div>
-                <div class="row">
-                    २. जिल्ला <input class="form-control-sm form-field nepaliFont" formControlName="witnessDistrictTwo"/>
-                    गा.पा./न.पा <input class="form-control-sm form-field nepaliFont" formControlName="witnessMunicipalityTwo"/>
-                    वडा नं<input class="form-control-sm form-field nepaliFont" formControlName="witnessWadNoTwo"/>
-                </div>
-                <br>
-                <div class="row">
-                    सनाखत साक्षी ः धनी बैंकमा  <input class="form-control-sm form-field nepaliFont" formControlName="role"/> पदमा कार्यरत
+                छाप गरी धनी बैंकलाई दिए/दियौ र यसको एक प्रति दोहरी बुझिलियौ । इति सम्बत <span class="nepaliFont">{{printDocForm.itisambatYear}}</span>
+                साल
+                <span class="nepaliFont">{{printDocForm.itisambatMonth}}</span>
+                महिना
+                <span class="nepaliFont">{{printDocForm.itisambatDay}}</span>
+                गते रोज
+                <span class="nepaliFont">{{printDocForm.roj}}</span> शुभम्.––––––––––––।
+                <div class="col-md-12 viewFull text-center" id="witness">
+                    साक्षी
+                    <br>
+                        १. जिल्ला <span [ngClass]="printDocForm.witnessDistrictOne ?'nepaliFont' :''"  >{{(printDocForm.witnessDistrictOne?printDocForm.witnessDistrictOne:'_______________')}}</span>
+                        गा.पा./न.पा  <span [ngClass]="printDocForm.witnessMunicipalityOne ?'nepaliFont' :''"  >{{(printDocForm.witnessMunicipalityOne?printDocForm.witnessMunicipalityOne:'_______________')}}</span>
+                        वडा नं <span [ngClass]="printDocForm.witnessWadNoOne ?'nepaliFont' :''"  >{{(printDocForm.witnessWadNoOne?printDocForm.witnessWadNoOne:'_______________')}}</span>
+                    <br>
+                        २. जिल्ला <span [ngClass]="printDocForm.witnessDistrictTwo ?'nepaliFont' :''"  >{{(printDocForm.witnessDistrictTwo?printDocForm.witnessDistrictTwo:'_______________')}}</span>
+                        गा.पा./न.पा  <span [ngClass]="printDocForm.witnessMunicipalityTwo ?'nepaliFont' :''"  >{{(printDocForm.witnessMunicipalityTwo?printDocForm.witnessMunicipalityTwo:'_______________')}}</span>
+                        वडा नं <span [ngClass]="printDocForm.witnessWadNoTwo ?'nepaliFont' :''"  >{{(printDocForm.witnessWadNoTwo?printDocForm.witnessWadNoTwo:'_______________')}}</span>
+                    <br>
+                        सनाखत साक्षी ः धनी बैंकमा  <span [ngClass]="printDocForm.role ?'nepaliFont' :''" >{{(printDocForm.role?printDocForm.role:'_______________')}}</span>पदमा कार्यरत
                 </div>
             </div>
-            <div>
-                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
-                    Save
-                </button>
-            </div>
-        </form>
-        <button class="btn btn-primary d-print-none"
-                [useExistingCss]="true"
-                [disabled]="!initialInfoPrint"
-                printSectionId="print-section-{{cadCheckListEnum.LOAN_DEED_SINGLE}}"
-                ngxPrint>print
-        </button>
+
+        </div>
     </div>
+
 </div>
-<app-loan-deed-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                              hidden></app-loan-deed-individual-print>

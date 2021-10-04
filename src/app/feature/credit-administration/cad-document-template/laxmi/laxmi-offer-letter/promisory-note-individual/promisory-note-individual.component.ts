@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
@@ -12,11 +12,11 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 
 @Component({
-  selector: 'app-loan-deed-individual',
-  templateUrl: './loan-deed-individual.component.html',
-  styleUrls: ['./loan-deed-individual.component.scss']
+  selector: 'app-promisory-note-individual',
+  templateUrl: './promisory-note-individual.component.html',
+  styleUrls: ['./promisory-note-individual.component.scss']
 })
-export class LoanDeedIndividualComponent implements OnInit {
+export class PromisoryNoteIndividualComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
@@ -28,15 +28,12 @@ export class LoanDeedIndividualComponent implements OnInit {
   @Input() cadData;
   @Input() documentId;
   @Input() customerLoanId;
-  initialInfoPrint;
-  spinner = false;
   form: FormGroup;
+  spinner = false;
+  initialInfoPrint;
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
-    console.log('cad data', this.cadData);
-    console.log('cad data', this.documentId);
-    console.log('cad data', this.customerLoanId);
-    this.buildForm();
+  this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -48,52 +45,30 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.form = JSON.parse(this.cadData.loanHolder.nepData);
     }
+   this.setSakshis(JSON.parse(this.initialInfoPrint).sakshi);
   }
-
   buildForm() {
     this.form = this.formBuilder.group({
-      district: [undefined],
-      municipality: [undefined],
-      wadNo: [undefined],
       branch: [undefined],
-      grandParentName: [undefined],
-      permanentMunicipality: [undefined],
-      fatherName: [undefined],
-      husbandWifeName: [undefined],
-      permanentDistrict: [undefined],
-      temporaryWardNum: [undefined],
-      temporaryAddress: [undefined],
-      temporaryDistrict: [undefined],
-      tempWardNum: [undefined],
-      livingYear: [undefined],
-      name: [undefined],
-      naPraNa: [undefined],
-      districtOffice: [undefined],
-      issuedYear: [undefined],
-      issuedMonth: [undefined],
-      issuedDay: [undefined],
-      offerYear: [undefined],
-      offerMonth: [undefined],
-      offerDay: [undefined],
-      customerName: [undefined],
       rupees: [undefined],
       amount: [undefined],
-      itisambatYear: [undefined],
-      itisambatMonth: [undefined],
-      itisambatDay: [undefined],
+      name: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      husbandName: [undefined],
+      address: [undefined],
+      personalDetails: [undefined],
+      role: [undefined],
+      roleName: [undefined],
+      itiSambatYear: [undefined],
+      itiSambatMonth: [undefined],
+      itiSambatDay: [undefined],
       roj: [undefined],
-      witnessDistrictOne: [undefined],
-      witnessMunicipalityOne: [undefined],
-      witnessWadNoOne: [undefined],
-      witnessDistrictTwo: [undefined],
-      witnessMunicipalityTwo: [undefined],
-      witnessWadNoTwo: [undefined],
-      role: [undefined]
+      sakshi: this.formBuilder.array([]),
     });
   }
-
-
   submit() {
+    this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -120,14 +95,49 @@ export class LoanDeedIndividualComponent implements OnInit {
       cadFile.customerLoanId = this.customerLoanId;
       this.cadData.cadFileList.push(cadFile);
     }
+
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+      this.spinner = false;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
+      this.spinner = false;
+    });
+    console.log(this.form.value);
+  }
+
+  addSakshi() {
+    (this.form.get('sakshi') as FormArray).push(
+        this.formBuilder.group({
+          district: [undefined],
+          municipality: [undefined],
+          wardNum: [undefined],
+          age: [undefined],
+          name: [undefined]
+        }));
+  }
+
+  removeSakshi(i) {
+    (this.form.get('sakshi') as FormArray).removeAt(i);
+  }
+  setSakshis(data) {
+    const formArray = this.form.get('sakshi') as FormArray;
+    if (data.length === 0 || ObjectUtil.isEmpty(data)) {
+      this.addSakshi();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        district: [value.district],
+        municipality: [value.municipality],
+        wardNum: [value.wardNum],
+        age: [value.age],
+        name: [value.name],
+      }));
     });
   }
 }
