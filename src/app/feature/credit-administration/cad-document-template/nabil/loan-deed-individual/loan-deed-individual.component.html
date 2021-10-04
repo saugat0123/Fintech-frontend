@@ -135,10 +135,10 @@
                 <p>{{ loan?.loan?.name }}</p>
               </td>
               <td>
-                <p>{{ loan?.proposal?.proposedLimit }}</p>
+                <p>{{ convertNepaliNumber(loan?.proposal?.proposedLimit) }}</p>
               </td>
               <td>
-                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ educationInterestRate }}</p>
+                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ convertNepaliNumber(educationInterestRate) }}</p>
                 <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
               </td>
               <td>
