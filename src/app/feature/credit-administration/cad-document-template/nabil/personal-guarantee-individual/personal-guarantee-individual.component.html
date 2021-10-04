@@ -27,7 +27,7 @@
                                     name="grandFatherName"
                                     formControlName="grandFatherName" placeholder="हजुरबुबा वा ससुराको नाम" type="text"/>
                                     <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'grandFatherName']).value}}</strong></span>
-                                को नाति/नातिनीबुहारी
+                                को नाति/नातिनी/बुहारी
                                 <input class="form-field form-control-sm d-print-none"
                                     name="father_husbandName"
                                     formControlName="father_husbandName" placeholder="बुबा वा पतिको नाम" type="text"/>
@@ -325,9 +325,12 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-md-12">
-                            <textarea rows="5" style="width:inherit;margin-left:20px" class="" name="freeText" formControlName="freeText">
-                            </textarea>
+                        <div class="row w-100">
+                            <div class="col-md-12">
+                                <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control nepaliFont d-print-none" name="freeText" formControlName="freeText">
+                                </textarea>
+                                <span class="print-only nepaliFont"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'freeText']).value}}</strong></span>
+                            </div>
                         </div>
                         <div>
                             <h3><p style="text-align: center;font-size:18px"><strong>तपसिल खण्ड "ख"</strong></p></h3>
@@ -422,23 +425,23 @@
                             </div>
                             <div>
                                 <p style="text-align:center">
-                                    ईति सम्वत्
-                                    <input class="form-field form-control-sm nepaliFont d-print-none"
+                                    ईति सम्वत् &nbsp;&nbsp;
+                                    <input class="form-field form-control-sm d-print-none"
                                         name="year"
                                         formControlName="year" placeholder="साल" type="text"/>
                                         <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'year']).value}}</strong></span>
-                                    साल
-                                    <input class="form-field form-control-sm nepaliFont d-print-none"
+                                    साल &nbsp;&nbsp;
+                                    <input class="form-field form-control-sm d-print-none"
                                         name="month"
                                         formControlName="month" placeholder="महिना" type="text"/>
                                         <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'month']).value}}</strong></span>
-                                    महिना
-                                    <input class="form-field form-control-sm nepaliFont d-print-none"
+                                    महिना &nbsp;&nbsp;
+                                    <input class="form-field form-control-sm d-print-none"
                                         name="day"
                                         formControlName="day" placeholder="गते" type="text"/>
                                         <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'day']).value}}</strong></span>
-                                    गते रोज
-                                    <input class="form-field form-control-sm nepaliFont d-print-none"
+                                    गते रोज &nbsp;&nbsp;
+                                    <input class="form-field form-control-sm d-print-none"
                                         name="date"
                                         formControlName="date" placeholder="दिन" type="text"/>
                                         <span class="print-only"><strong>{{guarantorindividualGroup.get(['individualGuarantors', i, 'date']).value}}</strong></span>

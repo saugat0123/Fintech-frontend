@@ -15,8 +15,6 @@ import {LoanDeedMultipleComponent} from './loan-deed-multiple/loan-deed-multiple
 import {LoanDeedSingleComponent} from './loan-deed-single/loan-deed-single.component';
 import {PromissoryNoteJointComponent} from './promissory-note-joint/promissory-note-joint.component';
 import {NgxPrintModule} from 'ngx-print';
-import {LoanDeedIndividualComponent} from './loan-deed-individual/loan-deed-individual.component';
-import {LoanDeedIndividualPrintComponent} from './loan-deed-individual/loan-deed-individual-print/loan-deed-individual-print.component';
 import { HomeLoanComponent } from './home-loan/home-loan.component';
 import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-print.component';
 
@@ -34,8 +32,6 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteJointComponent,
-    LoanDeedIndividualComponent,
-    LoanDeedIndividualPrintComponent,
     HomeLoanComponent,
     HomeLoanPrintComponent
 ],
@@ -59,10 +55,6 @@ import { HomeLoanPrintComponent } from './home-loan/home-loan-print/home-loan-pr
     LoanDeedMultipleComponent,
     LoanDeedSingleComponent,
     PromissoryNoteJointComponent,
-    LoanDeedIndividualComponent,
-    LoanDeedIndividualPrintComponent,
-    LoanDeedIndividualComponent,
-    LoanDeedIndividualPrintComponent,
     HomeLoanComponent
   ],
   entryComponents: [DeedHypoOfMachineryComponent
