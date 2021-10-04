@@ -91,8 +91,9 @@
               <td>
                 <input class="form-control "
                        formControlName="customerCode"
+                       (input)="translateNumber('customerCode')"
                        name="customerCode" placeholder="Customer Code"
-                       type="text"
+                       type="number"
                        [readOnly]="loanHolder?.customerCode"/>
               </td>
               <td><input disabled readonly class="form-control"
@@ -100,9 +101,7 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.customerCodeCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.customerCode !== undefined ?
-                       nepData?.customerCode?.ct : translatedValues?.customerCode"
-                       formControlName="customerCodeCT" type="text"/>
+                       formControlName="customerCodeCT" type="text" readonly/>
                 <div *ngIf="submitted && configForm.customerCodeCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.customerCodeCT.errors.required">Customer code is required
@@ -185,16 +184,14 @@
                          formControlName="contactNo"
                          (input)="translateNumber('contactNo')"
                          name="contactNo" placeholder="Contact No"
-                         type="text"/>
+                         type="number"/>
               </td>
               <td><input disabled readonly class="form-control"
                          formControlName="contactNoTrans" type="text"></td>
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.contactNoCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.contactNo !== undefined ?
-                        nepData?.contactNo?.ct :translatedValues?.contactNo"
-                       formControlName="contactNoCT" type="text"/>
+                       formControlName="contactNoCT" type="text" readonly/>
                 <div *ngIf="submitted && configForm.contactNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.contactNoCT.errors.required">Contact no is required</div>
@@ -556,9 +553,7 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && configForm.panNoCT.errors}"
-                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                        nepData?.panNo?.ct :translatedValues?.panNo"
-                       formControlName="panNoCT" type="text"/>
+                       formControlName="panNoCT" type="text" readonly/>
                 <div *ngIf="submitted && configForm.panNoCT.errors"
                      class="invalid-feedback">
                   <div *ngIf="configForm.panNoCT.errors.required">Pan no is required</div>
@@ -704,7 +699,7 @@
               <td>
                 <input class="form-control "
                        formControlName="permanentWard"
-
+                       (change)="translateNumber('permanentWard')"
                        name="permanentMunicipality" placeholder="Ward No"
                        type="number"/>
               </td>
@@ -846,7 +841,7 @@
               <td>
                 <input class="form-control "
                        formControlName="temporaryWard"
-
+                       (change)="translateNumber('temporaryWard')"
                        name="temporaryWard" placeholder="Ward No"
                        type="number"/>
               </td>
@@ -1002,7 +997,7 @@
               <td>
                 <input class="form-control "
                        formControlName="permanentWard"
-
+                       (change)="translateNumber('permanentWard')"
                        name="registeredMunicipality" placeholder="Ward No"
                        type="number"/>
               </td>
@@ -1856,7 +1851,7 @@
                     <td>
                       <input class="form-control "
                              formControlName="temporaryWard"
-
+                             (input)="translateNumberInFA('temporaryWard', i)"
                              name="temporaryWard" placeholder="Ward No"
                              type="number"/>
                     </td>
@@ -2386,6 +2381,7 @@
                 </td>
                 <td>
                   <input class="form-control "
+                         (change)="translateNumberInFA('temporaryWard', i)"
                          formControlName="temporaryWard"
                          name="temporaryWard" placeholder="Ward No"
                          type="number"/>
