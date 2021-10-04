@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -45,18 +45,23 @@ export class LoanActionComponent implements OnInit, OnChanges {
     isOpen = false;
     showCadDocumentRoute = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    private loan: any;
 
-
+    companyInfoId: any;
     constructor(
         private alertService: AlertService,
         private toastService: ToastService,
         private nbDialogService: NbDialogService,
         private router: Router,
+        private  activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
     ) {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe((data)=> {
+            this.companyInfoId = data.customerInfoId;
+        })
         const roleName: string = LocalStorageUtil.getStorage().roleName;
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
@@ -202,7 +207,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
             queryParams: {
                 loanId: this.loanConfigId,
                 customerId: this.id,
-                loanCategory: this.loanCategory
+                loanCategory: this.loanCategory,
+                customerInfoId: this.companyInfoId
             }
         });
     }

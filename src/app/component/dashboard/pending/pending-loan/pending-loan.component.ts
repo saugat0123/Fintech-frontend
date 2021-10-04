@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 import {CatalogueSearch, CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
@@ -28,11 +28,11 @@ export class PendingLoanComponent implements OnInit {
         private loanFormService: LoanFormService,
         private catalogueService: CatalogueService,
         private customerOfferLetterService: CustomerOfferLetterService,
-        private creditAdminService: CreditAdministrationService
     ) {
     }
 
     ngOnInit() {
+
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
