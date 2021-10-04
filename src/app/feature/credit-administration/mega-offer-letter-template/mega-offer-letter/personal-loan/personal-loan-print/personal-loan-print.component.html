@@ -84,6 +84,7 @@
                             <span class=" font-weight-bold uniSize">{{nepaliCurrencyWordPipe.transform(proposedAmount)}}
                             </span>
                              मात्र ।)
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -319,8 +320,8 @@
                         <td>
                             आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु बैंकको पक्षमा गरिदिए पश्चात तपाईंको आवश्यकत्ता र निवेदन बमोजिम
                             ब्यक्तिगत कर्जा तपाईंले यस नबिल बैंक लिमिटेडको,
-                            <span [ngClass]="{'font-weight-bold' : letter?.branchName.ct !== null && letter?.branchName.ct !== ''}">
-                                {{letter?.branchName.ct === null || letter?.branchName.ct === '' ? '___________' : letter?.branchName.ct}}
+                            <span [ngClass]="{'font-weight-bold' : letter?.branch !== null && letter?.branch !== ''}">
+                                {{letter?.branch === null || letter?.branch === '' ? '___________' : letter?.branch}}
                             </span>
                             मा खोल्नु भएको चल्ती खातामा
                             ऋणकर्जा प्रवाह गरिनेछ ।
@@ -602,7 +603,7 @@
                         </td>
                     </tr>
                 </table>
-                <div class="row col-md-12" style="margin-left:5%">
+                <div *ngIf="offerData?.supportedInformation !== null" class="row col-md-12" style="margin-left:5%">
                     <span class="nepaliFont" style="font-size: 28px;">{{offerData?.supportedInformation}}</span>
                 </div>
                 <br>
@@ -631,8 +632,8 @@
                                 </span>
                              </p>
                             <p>
-                                <span [ngClass]="{'font-weight-bold' : letter?.branchName.ct !== null && letter?.branchName.ct !== ''}">
-                                    {{letter?.branchName.ct === null || letter?.branchName.ct === '' ? '___________' : letter?.branchName.ct}}
+                                <span [ngClass]="{'font-weight-bold' : letter?.branch !== null && letter?.branch !== ''}">
+                                    {{letter?.branch === null || letter?.branch === '' ? '___________' : letter?.branch}}
                                 </span>
                              </p>
                         </div>
@@ -647,8 +648,8 @@
                                 </span>
                             </p>
                             <p>
-                                <span [ngClass]="{'font-weight-bold' : letter?.branchName.ct !== null && letter?.branchName.ct !== ''}">
-                                    {{letter?.branchName.ct === null || letter?.branchName.ct === '' ? '___________' : letter?.branchName.ct}}
+                                <span [ngClass]="{'font-weight-bold' : letter?.branch !== null && letter?.branch !== ''}">
+                                    {{letter?.branch === null || letter?.branch === '' ? '___________' : letter?.branch}}
                                 </span>
                             </p>
                         </div>
