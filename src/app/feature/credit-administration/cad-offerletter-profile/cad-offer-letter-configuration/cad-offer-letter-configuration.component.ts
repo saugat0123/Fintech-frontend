@@ -1030,8 +1030,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       // this.userConfigForm.get(['jointCustomerDetails', index, 'contactNoCT']).patchValue(jointCustomerDetails.contactNo ? jointCustomerDetails.contactNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoTrans']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
       // this.userConfigForm.get(['jointCustomerDetails', index, 'panNoCT']).patchValue(jointCustomerDetails.panNo ? jointCustomerDetails.panNo : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
-      this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeTrans']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
+      // this.userConfigForm.get(['jointCustomerDetails', index, 'customerCodeCT']).patchValue(jointCustomerDetails.customerCode ? jointCustomerDetails.customerCode : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderTrans']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'genderCT']).patchValue(jointCustomerDetails.gender ? jointCustomerDetails.gender : '');
       this.userConfigForm.get(['jointCustomerDetails', index, 'fatherNameTrans']).patchValue(jointCustomerDetails.fatherName ? jointCustomerDetails.fatherName : '');
@@ -1130,6 +1130,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
   async translateGuarantorData(index) {
     console.log(index);
     const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
+    this.userConfigForm.removeControl('gurantedAmount');
+
     if (alluarantors.length > 0) {
       let guarantorsDetails: any = [];
       guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
@@ -1200,14 +1202,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             || key.indexOf('citizenIssuedDate') > -1) {
           return;
         }
-        console.log(key, 'keys');
+        // console.log(key, 'keys');
         this.attributes = new Attributes();
         this.attributes.en = individualData.get(key).value;
         this.attributes.np = guarantorsDetails[key];
         this.attributes.ct = individualData.get(key + 'CT').value;
         newArr[key] = this.attributes;
       });
-      console.log(newArr, 'GNew Arra');
+      // console.log(newArr, 'GNew Arra');
       this.translatedGuarantorDetails[index] = newArr;
       this.deleteCTAndTransContorls(index);
       this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
@@ -1726,46 +1728,64 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     console.log(this.oneFormGuarantorsList, 'GLIST');
   }
 
+  translateNumber(source) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(source).value.toString());
+    this.userConfigForm.get(source + 'Trans').patchValue(wordLabelVar);
+    this.userConfigForm.get(source + 'CT').patchValue(wordLabelVar);
+  }
+
+  translateNumberInFA(source, i) {
+    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString());
+    this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
+    this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
+  }
+
   private setCustomerTransData(): void {
-    this.userConfigForm.get('clientTypeTrans').patchValue(this.objectValueTranslater.clientType);
-    this.userConfigForm.get('nameTrans').patchValue(this.objectValueTranslater.name);
-    this.userConfigForm.get('emailTrans').patchValue(this.objectValueTranslater.email);
-    // this.userConfigForm.get('contactNoTrans').patchValue(this.objectValueTranslater.contactNo);
-    // this.userConfigForm.get('panNoTrans').patchValue(this.objectValueTranslater.panNo);
-    this.userConfigForm.get('registrationNoTrans').patchValue(this.objectValueTranslater.registrationNo);
-    this.userConfigForm.get('registrationDateTrans').patchValue(this.objectValueTranslater.registrationDate);
-    this.userConfigForm.get('registeredMunicipalityTrans').patchValue(this.objectValueTranslater.registeredMunicipality);
-    this.userConfigForm.get('registeredMunTypeTrans').patchValue(this.objectValueTranslater.registeredMunType);
-    this.userConfigForm.get('registeredDistrictTrans').patchValue(this.objectValueTranslater.registeredDistrict);
-    this.userConfigForm.get('registeredProvinceTrans').patchValue(this.objectValueTranslater.registeredProvince);
-    this.userConfigForm.get('currentMunTypeTrans').patchValue(this.objectValueTranslater.currentMunType);
-    this.userConfigForm.get('currentProvinceTrans').patchValue(this.objectValueTranslater.currentProvince);
-    this.userConfigForm.get('currentWardTrans').patchValue(this.objectValueTranslater.currentWard);
-    this.userConfigForm.get('currentDistrictTrans').patchValue(this.objectValueTranslater.currentDistrict);
-    this.userConfigForm.get('currentMunicipalityTrans').patchValue(this.objectValueTranslater.currentMunicipality);
-    this.userConfigForm.get('customerCodeTrans').patchValue(this.objectValueTranslater.customerCode);
-    this.userConfigForm.get('genderTrans').patchValue(this.objectValueTranslater.gender);
-    this.userConfigForm.get('fatherNameTrans').patchValue(this.objectValueTranslater.fatherName);
-    this.userConfigForm.get('grandFatherNameTrans').patchValue(this.objectValueTranslater.grandFatherName);
-    this.userConfigForm.get('relationMediumTrans').patchValue(this.objectValueTranslater.relationMedium);
-    this.userConfigForm.get('husbandNameTrans').patchValue(this.objectValueTranslater.husbandName);
-    this.userConfigForm.get('fatherInLawNameTrans').patchValue(this.objectValueTranslater.fatherInLawName);
-    this.userConfigForm.get('citizenshipNoTrans').patchValue(this.objectValueTranslater.citizenshipNo);
-    this.userConfigForm.get('dobTrans').patchValue(this.objectValueTranslater.dob);
-    this.userConfigForm.get('permanentMunTypeTrans').patchValue(this.objectValueTranslater.permanentMunType);
-    this.userConfigForm.get('permanentWardTrans').patchValue(this.objectValueTranslater.permanentWard);
-    this.userConfigForm.get('temporaryWardTrans').patchValue(this.objectValueTranslater.temporaryWard);
-    this.userConfigForm.get('temporaryMunTypeTrans').patchValue(this.objectValueTranslater.temporaryMunType);
-    this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(this.objectValueTranslater.citizenshipIssueDistrict);
-    this.userConfigForm.get('citizenshipIssueDateTrans').patchValue(this.objectValueTranslater.citizenshipIssueDate);
-    this.userConfigForm.get('municipalityOrVdcTrans').patchValue(this.objectValueTranslater.municipalityOrVdc);
-    this.userConfigForm.get('temporaryMunicipalityOrVdcTrans').patchValue(this.objectValueTranslater.temporaryMunicipalityOrVdc);
-    this.userConfigForm.get('dobDateTypeTrans').patchValue(this.objectValueTranslater.dobDateType);
-    this.userConfigForm.get('issuedDateTrans').patchValue(this.objectValueTranslater.issuedDate);
+    this.userConfigForm.get('clientTypeTrans').patchValue(this.translatedValues.clientType);
+    this.userConfigForm.get('nameTrans').patchValue(this.translatedValues.name);
+    this.userConfigForm.get('emailTrans').patchValue(this.translatedValues.email);
+    // this.userConfigForm.get('contactNoTrans').patchValue(this.translatedValues.contactNo);
+    // this.userConfigForm.get('panNoTrans').patchValue(this.translatedValues.panNo);
+    this.userConfigForm.get('registrationNoTrans').patchValue(this.translatedValues.registrationNo);
+    this.userConfigForm.get('registrationDateTrans').patchValue(this.translatedValues.registrationDate);
+    this.userConfigForm.get('registeredMunicipalityTrans').patchValue(this.translatedValues.registeredMunicipality);
+    this.userConfigForm.get('registeredMunTypeTrans').patchValue(this.translatedValues.registeredMunType);
+    this.userConfigForm.get('registeredDistrictTrans').patchValue(this.translatedValues.registeredDistrict);
+    this.userConfigForm.get('registeredProvinceTrans').patchValue(this.translatedValues.registeredProvince);
+    this.userConfigForm.get('currentMunTypeTrans').patchValue(this.translatedValues.currentMunType);
+    this.userConfigForm.get('currentProvinceTrans').patchValue(this.translatedValues.currentProvince);
+    this.userConfigForm.get('currentWardTrans').patchValue(this.translatedValues.currentWard);
+    this.userConfigForm.get('currentDistrictTrans').patchValue(this.translatedValues.currentDistrict);
+    this.userConfigForm.get('currentMunicipalityTrans').patchValue(this.translatedValues.currentMunicipality);
+    // this.userConfigForm.get('customerCodeTrans').patchValue(this.translatedValues.customerCode);
+    this.userConfigForm.get('genderTrans').patchValue(this.translatedValues.gender);
+    this.userConfigForm.get('fatherNameTrans').patchValue(this.translatedValues.fatherName);
+    this.userConfigForm.get('grandFatherNameTrans').patchValue(this.translatedValues.grandFatherName);
+    this.userConfigForm.get('relationMediumTrans').patchValue(this.translatedValues.relationMedium);
+    this.userConfigForm.get('husbandNameTrans').patchValue(this.translatedValues.husbandName);
+    this.userConfigForm.get('fatherInLawNameTrans').patchValue(this.translatedValues.fatherInLawName);
+    this.userConfigForm.get('citizenshipNoTrans').patchValue(this.translatedValues.citizenshipNo);
+    this.userConfigForm.get('dobTrans').patchValue(this.translatedValues.dob);
+    this.userConfigForm.get('permanentProvinceTrans').patchValue(this.translatedValues.permanentProvince);
+    this.userConfigForm.get('permanentDistrictTrans').patchValue(this.translatedValues.permanentDistrict);
+    this.userConfigForm.get('permanentMunicipalityTrans').patchValue(this.translatedValues.permanentMunicipality);
+    this.userConfigForm.get('permanentMunTypeTrans').patchValue(this.translatedValues.permanentMunType);
+    this.userConfigForm.get('temporaryProvinceTrans').patchValue(this.translatedValues.temporaryProvince);
+    this.userConfigForm.get('temporaryDistrictTrans').patchValue(this.translatedValues.temporaryDistrict);
+    this.userConfigForm.get('temporaryMunicipalityTrans').patchValue(this.translatedValues.temporaryMunicipality);
+    this.userConfigForm.get('permanentWardTrans').patchValue(this.translatedValues.permanentWard);
+    this.userConfigForm.get('temporaryWardTrans').patchValue(this.translatedValues.temporaryWard);
+    this.userConfigForm.get('temporaryMunTypeTrans').patchValue(this.translatedValues.temporaryMunType);
+    this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(this.translatedValues.citizenshipIssueDistrict);
+    this.userConfigForm.get('citizenshipIssueDateTrans').patchValue(this.translatedValues.citizenshipIssueDate);
+    this.userConfigForm.get('municipalityOrVdcTrans').patchValue(this.translatedValues.municipalityOrVdc);
+    this.userConfigForm.get('temporaryMunicipalityOrVdcTrans').patchValue(this.translatedValues.temporaryMunicipalityOrVdc);
+    this.userConfigForm.get('dobDateTypeTrans').patchValue(this.translatedValues.dobDateType);
+    this.userConfigForm.get('issuedDateTrans').patchValue(this.translatedValues.issuedDate);
   }
 
   private setCustomerCTData(): void {
-    this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
+    // this.userConfigForm.get('customerCodeCT').patchValue(this.translatedValues.customerCode);
     this.userConfigForm.get('nameCT').patchValue(this.translatedValues.name);
     // this.userConfigForm.get('contactNoCT').patchValue(this.translatedValues.contactNo);
     this.userConfigForm.get('genderCT').patchValue(this.translatedValues.gender);
@@ -1864,7 +1884,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     this.userConfigForm.get('emailTrans').patchValue(ObjectUtil.isEmpty(this.nepData.email) ? undefined : this.nepData.email.np);
     // this.userConfigForm.get('contactNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.contactNo) ? undefined : this.nepData.contactNo.np);
     // this.userConfigForm.get('panNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.panNo) ? undefined : this.nepData.panNo.np);
-    this.userConfigForm.get('customerCodeTrans').patchValue(ObjectUtil.isEmpty(this.nepData.customerCode) ? undefined : this.nepData.customerCode.np);
+    // this.userConfigForm.get('customerCodeTrans').patchValue(ObjectUtil.isEmpty(this.nepData.customerCode) ? undefined : this.nepData.customerCode.np);
     this.userConfigForm.get('genderTrans').patchValue(ObjectUtil.isEmpty(this.nepData.gender) ? undefined : this.nepData.gender.np);
     this.userConfigForm.get('fatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.np);
     this.userConfigForm.get('grandFatherNameTrans').patchValue(ObjectUtil.isEmpty(this.nepData.grandFatherName) ? undefined : this.nepData.grandFatherName.np);
@@ -1916,18 +1936,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
       citizenshipIssueDistrictTrans: ObjectUtil.isEmpty(this.userConfigForm.get('citizenshipIssueDistrict').value) ?
           undefined : this.userConfigForm.get('citizenshipIssueDistrict').value
     });
-  }
-
-  translateNumber(source) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(source).value.toString());
-    this.userConfigForm.get(source + 'Trans').patchValue(wordLabelVar);
-    this.userConfigForm.get(source + 'CT').patchValue(wordLabelVar);
-  }
-
-  translateNumberInFA(source, i) {
-    const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString());
-    this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
-    this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
   }
 
 }

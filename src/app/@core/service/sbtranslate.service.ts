@@ -17,6 +17,7 @@ export class SbTranslateService extends BaseService<String> {
     }
 
     async translate(q: any) {
+        this.translatedValues = {};
         this.spinner = true;
         const req = ApiUtils.getRequest(`${SbTranslateService.API}`);
         return  this.http.post(req.url, q, {headers: req.header}).toPromise().then((res: any) => {
