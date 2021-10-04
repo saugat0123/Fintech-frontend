@@ -197,7 +197,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
 
         let citznIssuedDate: any;
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
-            approvedDate = individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en;
+            approvedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
         }
         (
           this.guarantorindividualGroup.get("individualGuarantors") as FormArray
