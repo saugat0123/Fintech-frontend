@@ -192,7 +192,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
         console.log('individualGuarantorNepData: ', individualGuarantorNepData);
         let approvedDate: any;
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails)) {
-            approvedDate = this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval.en;
+          approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
         }
 
         let citznIssuedDate: any;
@@ -215,7 +215,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             temporaryVDCMunicipality: [undefined],
             temporaryward: [undefined],
             borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-            loanPurpose: [this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
+            loanPurpose: [this.offerDocumentDetails.purposeOfLoan && this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
             dateOfApproval: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
             loanAmount: [undefined],
             loanAmountWords: [undefined],
