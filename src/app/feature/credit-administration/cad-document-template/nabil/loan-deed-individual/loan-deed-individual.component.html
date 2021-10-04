@@ -138,17 +138,8 @@
                 <p>{{ loan?.proposal?.proposedLimit }}</p>
               </td>
               <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="Interest"
-                  placeholder=""
-                  type="text"
-                />
+                <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ educationInterestRate }}</p>
+                <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
               </td>
               <td>
                 <input
@@ -186,7 +177,7 @@
           </p>
         </div>
 
-        <div>
+        <div class="mt-5" *ngIf="offerDocumentDetails.selectedSecurity === 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity === 'LAND'">
           <p class="text-center"><b>तपसिल</b></p>
           <br />
           <p>
@@ -194,190 +185,191 @@
             घरजग्गा तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिई सम्बन्धित मालपोत
             कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु।
           </p>
+          <br />
+          <table border="1" width="100%">
+            <thead>
+              <tr>
+                <th>घरजग्गा धनी</th>
+                <th>जिल्ला</th>
+                <th>नगर</th>
+                <th>वडा नं.</th>
+                <th>कित्ता नं.</th>
+                <th>क्षेत्रफल</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="propertyOwnerName1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="district1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="municipality1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="wardNo1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="plotNo1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="area1"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="propertyOwnerName2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="district2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="municipality2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="wardNo2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="plotNo2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      form-field form-control-sm
+                      d-print-none
+                      disable-print
+                      col-9
+                    "
+                    formControlName="area2"
+                    placeholder=""
+                    type="text"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <br />
-
-        <table border="1" width="100%">
-          <thead>
-            <tr>
-              <th>घरजग्गा धनी</th>
-              <th>जिल्ला</th>
-              <th>नगर</th>
-              <th>वडा नं.</th>
-              <th>कित्ता नं.</th>
-              <th>क्षेत्रफल</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="propertyOwnerName1"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="district1"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="municipality1"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="wardNo1"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="plotNo1"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="area1"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="propertyOwnerName2"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="district2"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="municipality2"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="wardNo2"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="plotNo2"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    form-field form-control-sm
-                    d-print-none
-                    disable-print
-                    col-9
-                  "
-                  formControlName="area2"
-                  placeholder=""
-                  type="text"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
+        <div class="free-txt mt-5" *ngIf="offerDocumentDetails.selectedSecurity !== 'LAND_AND_BUILDING' || offerDocumentDetails.selectedSecurity !== 'LAND'">
+          <textarea name="freetext" id="freetext" rows="4" class="w-100 nepaliFont form-control"></textarea>
+        </div>
         <br />
         <br />
 
         <div>
           <p>
-            ईति सम्वत् २०<input
+            ईति सम्वत्<input
               class="form-field form-control-sm d-print-none"
               formControlName="year"
               placeholder=""
