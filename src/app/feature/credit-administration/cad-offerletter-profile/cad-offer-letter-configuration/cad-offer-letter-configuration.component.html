@@ -47,7 +47,8 @@
                   <!--                  <option  *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}-->
                   <!--                  </option>-->
                   <ng-option *ngFor="let branch of branchList"
-                             [value]="branch">{{branch?.name}} || {{branch?.nepaliName}} </ng-option>
+                             [value]="branch">{{branch?.name}}
+                    || {{branch?.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
@@ -486,7 +487,8 @@
                     id="citizenshipIssueDistrict"
                     [placeholder]="oneFormCustomer.citizenshipIssuedPlace == null ? 'Select district' : ''">
                   <ng-option *ngFor="let issuedDistrict of allDistrictList"
-                             [value]="issuedDistrict.name">{{issuedDistrict.name}} || {{issuedDistrict.nepaliName}} </ng-option>
+                             [value]="issuedDistrict.name">{{issuedDistrict.name}}
+                    || {{issuedDistrict.nepaliName}} </ng-option>
                 </ng-select>
               </td>
               <td><input disabled readonly class="form-control"
@@ -1180,9 +1182,9 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <button class="float-right" nbButton size="small" status="info" (click)="translate()">
+              <a class="float-right" nbButton size="small" status="info" (click)="translate()">
                 Translate Customer Data
-              </button>
+              </a>
             </div>
           </div>
 
@@ -1869,19 +1871,19 @@
                   </tbody>
                 </table>
                 <div class="clearfix">
-                  <button nbButton (click)="translateJointCustomerData(i)" class="float-right">
+                  <a nbButton (click)="translateJointCustomerData(i)" class="float-right">
                     Translate
                     Joint Customer
-                  </button>
+                  </a>
                 </div>
 
               </div>
             </div>
           </div>
           <h4>Guarantors
-            <button nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
+            <a nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
               Guarantor
-            </button>
+            </a>
           </h4>
           <div
               *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
@@ -2404,23 +2406,23 @@
               <tr>
                 <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2"
                     class="text-left">
-                  <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                  <a nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
                           style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
-                  </button>
+                  </a>
                 </td>
                 <td [attr.colspan]="userConfigForm.get('guarantorDetails')['length'] > 1 ? '3' : '5'"
                     class="text-right">
-                  <button nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
+                  <a nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
                     Translate Guarantor Data
-                  </button>
+                  </a>
                 </td>
               </tr>
             </table>
           </div>
-          <button class="float-right" nbButton (click)="saveCustomer()">
+          <a class="float-right" nbButton (click)="saveCustomer()">
             {{hideLoan === true ? 'Save' : 'Save & Next'}}
-          </button>
+          </a>
         </nb-tab>
         <nb-tab *ngIf="!hideLoan" tabId="2" tabTitle="Loan Details" [active]="activeLoanTab"
                 [disabled]="!activeLoanTab">
@@ -2439,8 +2441,8 @@
   <nb-card-footer>
     <div *ngIf="!hideSaveBtn">
       <div class="col-md-12">
-        <!--<button class="float-right" nbButton (click)="save()">save</button>-->
-        <!--        <button class="float-right" nbButton status="info" (click)="translate()">Translate</button>-->
+        <!--<a class="float-right" nbButton (click)="save()">save</a>-->
+        <!--        <a class="float-right" nbButton status="info" (click)="translate()">Translate</a>-->
       </div>
     </div>
   </nb-card-footer>
