@@ -51,9 +51,7 @@
 <!--    <i class="col-md-1 fa fa-edit"></i>-->
   </button>
 
-  <button (click)="onEdit()" *ngIf="loanStatus !== 'APPROVED'" [disabled]="!actionsList.roleTypeMaker && !catalogueStatus"
-          [ngStyle]="{ 'filter' : (actionsList.roleTypeMaker === false)? 'grayscale(100%)': 'grayscale(0%)'}"
-          class="btn-sm btn-primary">
+  <button  (click)="onEdit()" *ngIf="documentStatus == 'PENDING' && catalogueStatus === true" class="btn-sm btn-primary">
     Document update
   </button>
 
