@@ -11,11 +11,15 @@ import {CustomerType} from '../../../../../customer/model/customerType';
 export class LetterOfSetOffPrintComponent implements OnInit {
   @Input() letterData;
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
+  @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
   offerLetterConst = NabilDocumentChecklist;
   customerType = CustomerType;
   constructor() { }
 
   ngOnInit() {
+    console.log(this.letterData);
   }
 
 }
