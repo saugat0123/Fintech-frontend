@@ -1,0 +1,41 @@
+<div [nbSpinner]="spinner" class="row" id="promissory-note-individual">
+    <div class="col-md-12 viewFull">
+        <form (ngSubmit)="submit()" [formGroup]="form" class="text-justify nepali">
+            <p class="float-right">
+                मिति: <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="year" >
+                /<input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="month" >
+                /<input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="day" >
+            </p>
+            <p>
+                श्री लक्ष्मी बैंक लि.
+                <br>
+                शाखा कार्यालय, तौलिहवा ।
+            </p>
+            <p class="text-center"><b> विषय:— घोषना गरेको सम्बन्धमा ।</b></p>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु.१,००,००,०००/–
+            (अक्षरेपी रुपैया एक करोड) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
+            घोषना गर्ने
+            <br>
+            ऋणीको नामः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="name" >
+           <br> ठेगानाः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="address" >
+            <br>दस्तखतः
+            <div class="clearfix mb-5">
+                <div class="signature-area float-right text-center">वाँया</div>
+                <div class="signature-area float-right text-center">दाँया</div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
+        </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                [disabled]="!initialInfoPrint"
+                printSectionId="print-section-{{cadCheckListEnum.SELF_DECLARATION}}"
+                ngxPrint>print
+        </button>
+    </div>
+</div>
+<app-self-declaration-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                     hidden></app-self-declaration-print>
