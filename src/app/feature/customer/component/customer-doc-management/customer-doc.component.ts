@@ -15,6 +15,8 @@ import {DmsLoanFileComponent} from '../../../loan/component/loan-main-template/d
 import {CustomerType} from '../../model/customerType';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../../admin/modal/roleType';
+import {init} from 'protractor/built/launcher';
+import {MultiFile} from '../../model/multiFile';
 
 @Component({
     selector: 'app-customer-doc',
@@ -41,6 +43,10 @@ export class CustomerDocComponent implements OnInit {
     index;
     currentRoleTypeMaker = false;
     spinner = false;
+    pathValueData;
+    multiFile: MultiFile[] = [];
+    doc_index: number;
+    deleteDocPath: string;
 
     constructor(private documentService: DocumentService,
                 private loanService: LoanFormService,
@@ -58,15 +64,17 @@ export class CustomerDocComponent implements OnInit {
         this.currentRoleTypeMaker = roleType === RoleType.MAKER;
     }
 
-    openModel(model, documentName: string, documentId, index: number) {
+    openModel(model, documentName: string, documentId, index: number, doc_index: number, doc_path: string) {
         this.documentName = documentName;
         this.documentId = documentId;
         this.index = index;
+        this.doc_index = doc_index;
+        this.deleteDocPath = doc_path;
         this.modelService.open(model);
     }
 
     uploadDoc(event) {
-        this.uploadFile = event.target.files[0];
+        this.uploadFile = event.target.files;
     }
 
     onClose() {
@@ -76,7 +84,16 @@ export class CustomerDocComponent implements OnInit {
     onFileChange(documentName: string, documentId, index: number) {
         this.spinner = true;
         const formData: FormData = new FormData();
-        formData.append('file', this.uploadFile);
+        const doc = this.uploadFile;
+        for (let i = 0; i < doc.length; i++) {
+            if (doc[i].size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+                this.modelService.dismissAll();
+                this.toastService.show(new Alert(AlertType.INFO, 'Maximum File Size Exceeds for'.concat(documentName)));
+                this.spinner = false;
+                return;
+            }
+            formData.append('file', doc[i]);
+        }
         formData.append('documentName', documentName);
         formData.append('documentId', documentId);
         formData.append('customerName', this.customerInfo.name);
@@ -93,11 +110,12 @@ export class CustomerDocComponent implements OnInit {
             this.spinner = false;
             return;
         }
-        this.customerGeneralDocumentService.uploadDoc(formData).subscribe((res: any) => {
+        this.customerGeneralDocumentService.uploadMultipleDoc(formData).subscribe((res: any) => {
             this.modelService.dismissAll();
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved '.concat(documentName)));
             this.refreshCustomerInfo.emit(true);
             this.spinner = false;
+            this.pathValueData = res.detail;
         }, error => {
             this.spinner = false;
             this.modelService.dismissAll();
@@ -133,7 +151,17 @@ export class CustomerDocComponent implements OnInit {
                         this.generalDocumentReq.forEach((initDoc, j) => {
                             if (singleDoc.document.id === initDoc.id) {
                                 initDoc.checked = true;
-                                initDoc.docPath = singleDoc.docPath;
+                                if (initDoc.docPath === undefined || initDoc.docPath === null) {
+                                    initDoc.docPath = singleDoc.docPath;
+                                } else {
+                                    initDoc.docPath = initDoc.docPath + ',' + singleDoc.docPath;
+                                }
+                                this.multiFile[i] = new MultiFile();
+                                this.multiFile[i].id = singleDoc.document.id;
+                                this.multiFile[i].docPath = singleDoc.docPath;
+                                this.multiFile[i].fileName = singleDoc.docPath
+                                    .substring(singleDoc.docPath.lastIndexOf('/') + 1, singleDoc.docPath.length);
+                                this.multiFile[i].docIndex = singleDoc.docIndex;
                             }
                         });
                     });
@@ -157,7 +185,8 @@ export class CustomerDocComponent implements OnInit {
         this.modelService.dismissAll();
         const removeDocument = this.generalDocumentReq[this.index];
         const docId = removeDocument.id;
-        this.customerGeneralDocumentService.deleteDocument(docId, this.customerInfo.id, removeDocument.docPath).subscribe((res: any) => {
+        this.customerGeneralDocumentService.deleteDocument(docId, this.customerInfo.id, this.deleteDocPath, this.doc_index)
+            .subscribe((res: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED '.concat(this.documentName)));
             this.refresh();
         }, error => {
@@ -178,4 +207,7 @@ export class CustomerDocComponent implements OnInit {
         });
     }
 
+    filterMultiFile(id: number): any {
+        return this.multiFile.filter(x => x.id === id);
+    }
 }
