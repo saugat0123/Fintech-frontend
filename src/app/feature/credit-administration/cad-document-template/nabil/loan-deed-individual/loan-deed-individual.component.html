@@ -123,25 +123,25 @@
         <table border="1" width="100%">
           <thead>
             <tr>
-              <th>ऋणकर्जा वा बैंकिङ्ग सुविधा</th>
-              <th>रकम</th>
-              <th>ब्याज र कमिसन</th>
-              <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
+              <th class="px-2">ऋणकर्जा वा बैंकिङ्ग सुविधा</th>
+              <th class="px-2">रकम</th>
+              <th class="px-2">ब्याज र कमिसन</th>
+              <th class="px-2">अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let loan of cadData?.assignedLoan">
-              <td>
-                <p>{{ loan?.loan?.name }}</p>
+              <td class="px-2">
+                <p>{{ loan?.loan?.nepaliName || loan?.loan?.name }}</p>
               </td>
-              <td>
-                <p>{{ convertNepaliNumber(loan?.proposal?.proposedLimit) }}</p>
+              <td class="px-2">
+                <p>{{ convertNepaliNumberAmount(loan?.proposal?.proposedLimit) }}</p>
               </td>
-              <td>
+              <td class="px-2">
                 <p *ngIf="loan?.loan?.name === 'EDUCATION LOAN'">{{ convertNepaliNumber(educationInterestRate) }}</p>
                 <p *ngIf="loan?.loan?.name !== 'EDUCATION LOAN'">{{'__________'}}</p>
               </td>
-              <td>
+              <td class="px-2">
                 <input
                   class="
                     form-field form-control-sm
