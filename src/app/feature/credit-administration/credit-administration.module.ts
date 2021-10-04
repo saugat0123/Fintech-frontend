@@ -56,6 +56,7 @@ import {CadFileSetupComponent} from './cad-work-flow/cad-work-flow-base/legal-an
 import {ExcelOfferLetterTemplateModule} from './excel-offer-letter-template/excel-offer-letter-template.module';
 import {ProgressiveModule} from './cad-document-template/progressive/progressive.module';
 import {CadLegalDocActionModalComponent} from "./cad-legal-doc-action-modal/cad-legal-doc-action-modal.component";
+import {LaxmiModule} from './cad-document-template/laxmi/laxmi.module';
 
 
 @NgModule({
@@ -102,22 +103,23 @@ import {CadLegalDocActionModalComponent} from "./cad-legal-doc-action-modal/cad-
         CadOfferLetterConfigurationComponent,
         NepProposedAmountFormComponent,
         CadFileSetupComponent],
-  imports: [
-    ThemeModule,
-    CommonModule,
-    NbDialogModule.forRoot(),
-    MegaOfferLetterTemplateModule,
-    ExcelOfferLetterTemplateModule,
-    CadDocumentTemplateModule,
-    RouterModule.forChild(routes),
-    NgSelectModule,
-    CoreModule,
-    MegaModule,
-    NgxPrintModule,
-    AngularDraggableModule,
-    NepaliCalendarModule,
-    ProgressiveModule,
-  ],
+    imports: [
+        ThemeModule,
+        CommonModule,
+        NbDialogModule.forRoot(),
+        MegaOfferLetterTemplateModule,
+        ExcelOfferLetterTemplateModule,
+        CadDocumentTemplateModule,
+        RouterModule.forChild(routes),
+        NgSelectModule,
+        CoreModule,
+        MegaModule,
+        NgxPrintModule,
+        AngularDraggableModule,
+        NepaliCalendarModule,
+        ProgressiveModule,
+        LaxmiModule,
+    ],
     entryComponents: [
         AssignPopUpComponent,
         VerifyPopUpComponent,
