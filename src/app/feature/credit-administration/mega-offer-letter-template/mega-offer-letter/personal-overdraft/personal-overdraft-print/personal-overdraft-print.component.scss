@@ -1,9 +1,14 @@
-.logo-container {
-  display: flex;
-  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
-  margin: 10px 50px;
+input{
+  font-size: 16px !important;
 }
-.nepali {
+.nepaliList {
+  list-style-type: devanagari;
+}
+table{
+  text-align: justify !important;
+  line-height: 1.9;
+}
+.nep {
   font-size: 16px;
   line-height: 1.9;
   text-align: justify;
@@ -11,9 +16,9 @@
   margin: 10px 50px;
 }
 
-.form-fields {
+.form-field {
   background: yellow;
-  margin: 0px 5px;
+  margin: 0px 5px 5px 5px;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0px;
@@ -21,28 +26,27 @@
     outline: none;
   }
 }
-.box {
-  border-style: solid;
 
+nb-card{
+  max-height: 100vh !important;
 }
 
-@media print{
-  .divFooter{
-    //position: fixed;
-    //bottom: 0;
-    //width: 100%;
-    //page-break-before: auto;
-    //page-break-inside: avoid;
-    //color: black !important;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-  //footer {page-break-after: always;
+li {
+  list-style-type: none;
+  line-height: 1.9;
 }
-.nepaliFont {
-  font-size: 21px;
-  font-family: Preeti;
+
+.disclist > li{
+  list-style-type: disc;
 }
-.size{
-  font-size: 16px;
+.hello{
+  width: 95%;
+  float: right;
 }
+.hello >tr{
+  border: 1px solid black !important;
+}
+.hello > tr > td{
+  border: 1px solid black !important;
+}
+
