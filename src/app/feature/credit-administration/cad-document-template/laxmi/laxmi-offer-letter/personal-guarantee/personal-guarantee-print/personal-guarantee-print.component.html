@@ -107,15 +107,15 @@
         <b>साक्षी</b>
         <div *ngFor="let sakshi of printDocForm?.sakshis; index as i">
             {{ i + 1 | nepaliNumber}}.
-            <span class="nepaliFont">{{sakshi?.district}}</span>
+            <span [ngClass]="sakshi?.district ? 'nepaliFont':''">{{(sakshi.district ? sakshi.district :'______________')}}</span>
             जिल्ला,
-            <span class="nepaliFont">{{sakshi?.municipality}}</span>
+            <span [ngClass]="sakshi?.municipality ? 'nepaliFont':''" >{{(sakshi.municipality ? sakshi.municipality :'______________')}}</span>
             गा.पा./न.पा. वडा नं
-            <span class="nepaliFont">{{sakshi?.wardNum}}</span>
+            <span [ngClass]="sakshi?.wardNum ? 'nepaliFont':''">{{(sakshi.wardNum ? sakshi.wardNum :'______________')}}</span>
             बस्ने बर्ष
-            <span class="nepaliFont">{{sakshi?.age}}</span>
+            <span [ngClass]="sakshi?.age ? 'nepaliFont':''">{{(sakshi.age ? sakshi.age :'______________')}}</span>
             को
-            <span class="nepaliFont">{{sakshi?.name}}</span>
+            <span [ngClass]="sakshi?.name ? 'nepaliFont':''">{{(sakshi.name ? sakshi.name :'______________')}} ।</span>
         </div>
 
         <p class="mt-5">
