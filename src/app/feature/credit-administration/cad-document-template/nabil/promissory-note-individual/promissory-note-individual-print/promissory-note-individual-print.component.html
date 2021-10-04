@@ -3,7 +3,7 @@
         <div class="col-md-12 viewFull" style="overflow-y: auto; height: auto;">
             <div class="nep">
                 <div>
-                    <p class="text-center" style="font-size:16pt;"><b>विप्रतिज्ञा पत्र (PROMISSORY NOTE)</b></p>
+                    <p class="text-center" style="font-size:16pt;"><b>प्रतिज्ञा पत्र (PROMISSORY NOTE)</b></p>
                     <p class="text-right"> मिति:
                         <span [ngClass]="{'nepaliFont outside' : letterData?.date !== null && letterData?.date !== ''}">
                             {{letterData?.date === null || letterData?.date === '' ? '___________' : letterData?.date}}</span>
@@ -32,7 +32,7 @@
                             {{letterData?.vdc === null || letterData?.vdc === '' ? '___________' : letterData?.vdc}}</span>
 
                         न.पा/गा.वि.स. वडा नं <span
-                                [ngClass]="{'nepaliFont outside' : letterData?.wardNo !== null && letterData?.wardNo !== ''}">
+                                class="outside">
                             {{letterData?.wardNo === null || letterData?.wardNo === '' ? '___________' : letterData?.wardNo}}</span>
                         बस्ने बर्ष
                         <span [ngClass]="{'nepaliFont outside' : letterData?.age !== null && letterData?.age !== ''}">
@@ -43,7 +43,7 @@
                             {{letterData?.nameofPerson === null || letterData?.nameofPerson === '' ? '___________' : letterData?.nameofPerson}}</span>
 
                         (ना.प्र.नं. <span
-                                [ngClass]="{'nepaliFont outside' : letterData?.citizenshipNo !== null && letterData?.citizenshipNo !== ''}">
+                                class="outside">
                             {{letterData?.citizenshipNo === null || letterData?.citizenshipNo === '' ? '___________' : letterData?.citizenshipNo}}</span>।
                         मिति <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.dateofIssue !== null && letterData?.dateofIssue !== ''}">
@@ -69,7 +69,7 @@
                             {{letterData?.vdc === null || letterData?.vdc === '' ? '___________' : letterData?.vdc}}</span>
                         न.पा/गा.वि.स.
                         वडा नं.<span
-                                [ngClass]="{'nepaliFont outside' : letterData?.wardNo !== null && letterData?.wardNo !== ''}">
+                                class="outside">
                             {{letterData?.wardNo === null || letterData?.wardNo === '' ? '___________' : letterData?.wardNo}}</span>
                         बस्ने बर्ष <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.age !== null && letterData?.age !== ''}">
@@ -80,7 +80,7 @@
                             {{letterData?.nameofPerson === null || letterData?.nameofPerson === '' ? '___________' : letterData?.nameofPerson}}</span>
 
                         (ना.प्र.नं.<span
-                                [ngClass]="{'nepaliFont outside' : letterData?.citizenshipNo !== null && letterData?.citizenshipNo !== ''}">
+                                class="outside">
                             {{letterData?.citizenshipNo === null || letterData?.citizenshipNo === '' ? '___________' : letterData?.citizenshipNo}}</span>।
                         मिति <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.dateofIssue !== null && letterData?.dateofIssue !== ''}">
@@ -104,7 +104,7 @@
                                 [ngClass]="{'nepaliFont outside' : letterData?.vdc !== null && letterData?.vdc !== ''}">
                             {{letterData?.vdc === null || letterData?.vdc === '' ? '___________' : letterData?.vdc}}</span>
                         न.पा/गा.वि.स. वडा नं.
-                        <span [ngClass]="{'nepaliFont outside' : letterData?.wardNo !== null && letterData?.wardNo !== ''}">
+                        <span class="outside">
                             {{letterData?.wardNo === null || letterData?.wardNo === '' ? '___________' : letterData?.wardNo}}</span>
 
                         बस्ने बर्ष <span
@@ -114,7 +114,7 @@
                                 [ngClass]="{'nepaliFont outside' : letterData?.nameofPerson !== null && letterData?.nameofPerson !== ''}">
                             {{letterData?.nameofPerson === null || letterData?.nameofPerson === '' ? '___________' : letterData?.nameofPerson}}</span>
                         (ना.प्र.नं.<span
-                                [ngClass]="{'nepaliFont outside' : letterData?.citizenshipNo !== null && letterData?.citizenshipNo !== ''}">
+                                class="outside">
                             {{letterData?.citizenshipNo === null || letterData?.citizenshipNo === '' ? '___________' : letterData?.citizenshipNo}}</span>।
                         मिति <span
                                 [ngClass]="{'nepaliFont outside' : letterData?.dateofIssue !== null && letterData?.dateofIssue !== ''}">
