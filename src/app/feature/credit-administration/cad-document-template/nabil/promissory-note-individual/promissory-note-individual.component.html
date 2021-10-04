@@ -11,7 +11,7 @@
                                                                 formControlName="date"
                                                                 placeholder="मिति"
                                                                 type="text"/>
-                            <span class="print-only font-weight-bold">{{form.get('date').value ? form.get('date').value : "_____________________"}}</span>
+                            <span class="print-only font-weight-bold nepaliFont">{{form.get('date').value ? form.get('date').value : "============================"}}</span>
 
                             <table class="table table-bordered" style="width: 40%">
                                 रु <input (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
@@ -37,7 +37,7 @@
                                               type="text"/>
                                 <span class="print-only font-weight-bold">{{form.get('nameofGrandFather').value ? form.get('nameofGrandFather').value : "___________________"}}</span>
 
-                                को नाती/नातिनी/बुहारी <input class="form-field disable-print form-control-sm nepaliFont"
+                                को नाती/नातिनी/बुहारी <input class="form-field disable-print form-control-sm"
                                                              name="nameofFather"
                                                              formControlName="nameofFather"
                                                              placeholder="बुबाको नाम"
