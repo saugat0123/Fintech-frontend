@@ -60,4 +60,5 @@ export class LocalStorage {
   calendar: any;
   bankUtil: BankUtils;
   menus: NbMenuItem[];
+  allRoleHierarchy: any;
 }

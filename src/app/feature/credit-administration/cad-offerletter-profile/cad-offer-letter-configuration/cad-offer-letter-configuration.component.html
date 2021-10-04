@@ -610,7 +610,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentProvinceCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                        nepData?.permanentProvince?.ct :objectValueTranslater?.permanentProvince"
+                        nepData?.permanentProvince?.ct :objectValueTranslater?.cspermanentProvince"
                        formControlName="permanentProvinceCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentProvinceCT.errors"
                      class="invalid-feedback">
@@ -640,7 +640,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                        nepData?.permanentDistrict?.ct :objectValueTranslater?.permanentDistrict"
+                        nepData?.permanentDistrict?.ct :objectValueTranslater?.cspermanentDistrict"
                        formControlName="permanentDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentDistrictCT.errors"
                      class="invalid-feedback">
@@ -681,7 +681,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.permanentMunicipalityCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.permanentMunicipality?.ct :objectValueTranslater?.permanentMunicipality"
+                       nepData?.permanentMunicipality?.ct :objectValueTranslater?.cspermanentMunicipality"
                        formControlName="permanentMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.permanentMunicipalityCT.errors"
                      class="invalid-feedback">
@@ -756,7 +756,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryProvinceCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.temporaryProvince?.ct :objectValueTranslater?.temporaryProvince"
+                       nepData?.temporaryProvince?.ct :objectValueTranslater?.cstemporaryProvince"
                        formControlName="temporaryProvinceCT" type="text"
                 />
                 <div *ngIf="submitted && configForm.temporaryProvinceCT.errors"
@@ -788,7 +788,7 @@
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryDistrictCT.errors}"
                        [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
-                       nepData?.temporaryDistrict?.ct :objectValueTranslater?.temporaryDistrict"
+                       nepData?.temporaryDistrict?.ct :objectValueTranslater?.cstemporaryDistrict"
                        formControlName="temporaryDistrictCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryDistrictCT.errors"
                      class="invalid-feedback">
@@ -823,6 +823,8 @@
               <td>
                 <input class="form-control"
                        [ngClass]="{'is-invalid': submitted && form.temporaryMunicipalityCT.errors}"
+                       [value]="loanHolder !== null && loanHolder.nepData !== undefined ?
+                       nepData?.temporaryMunicipality?.ct :objectValueTranslater?.cstemporaryMunicipality"
                        formControlName="temporaryMunicipalityCT" type="text"/>
                 <div *ngIf="submitted && configForm.temporaryMunicipalityCT.errors"
                      class="invalid-feedback">
@@ -1993,7 +1995,7 @@
                 <td></td>
                 <td>
                   <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                formControlName="citizenIssuedDate" [responseType]="0"
+                                formControlName="citizenIssuedDate" [responseType]="2"
                                 [displayNepali]="true">
                   </nepali-patro>
                   <input [nbDatepicker]="citizenshipDate"
@@ -2054,9 +2056,9 @@
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
                   <option [value]="null" hidden>Select Gender</option>
-                  <option [selected]="loanHolder.gender === 'MALE'" value="MALE">Male</option>
-                  <option [selected]="loanHolder.gender === 'FEMALE'" value="FEMALE">Female</option>
-                  <option [selected]="loanHolder.gender === 'OTHERS'" value="OTHERS">Others</option>
+                  <option  value="MALE">Male</option>
+                  <option  value="FEMALE">Female</option>
+                  <option  value="OTHERS">Others</option>
                 </select>
                 </td>
                 <td>
@@ -2181,7 +2183,7 @@
                           class="custom-select"
                           formControlName="permanentProvince">
                     <option [ngValue]="null" hidden>Province</option>
-                    <option *ngFor="let provinceVal of provinceList"
+                    <option *ngFor="let provinceVal of guarantorProvienceList"
                             [ngValue]="provinceVal">
                       {{provinceVal.name}} || {{provinceVal.nepaliName}}
                     </option>
@@ -2204,7 +2206,7 @@
                     class="custom-select"
                     formControlName="permanentDistrict">
                   <option [ngValue]="null" hidden>District</option>
-                  <option *ngFor="let districtVal of districts"
+                  <option *ngFor="let districtVal of guarantorDistrict"
                           [ngValue]="districtVal">
                     {{districtVal.name}} || {{districtVal.nepaliName}}
                   </option>
@@ -2236,7 +2238,7 @@
                   <select [compareWith]="compareFn"
                           class="custom-select"
                           formControlName="permanentMunicipality">
-                    <option *ngFor="let municipalityVal of municipalities"
+                    <option *ngFor="let municipalityVal of guarantorMunicipalities"
                             [ngValue]="municipalityVal">
                       {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
                     </option>
