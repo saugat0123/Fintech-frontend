@@ -167,7 +167,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
             loanamountinWords: loanAmountWord,
             age: age ? age : '',
             totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-            interest: this.educationalTemplateData.interestRate.ct ? this.educationalTemplateData.interestRate.ct : '',
+            interest: this.educationalTemplateData.interestRate && this.educationalTemplateData.interestRate.ct ? this.educationalTemplateData.interestRate.ct : '',
           }
       );
     } catch (exp) {
