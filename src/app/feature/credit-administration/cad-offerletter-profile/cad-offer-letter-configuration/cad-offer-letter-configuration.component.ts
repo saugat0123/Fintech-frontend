@@ -1727,14 +1727,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     console.log(this.oneFormGuarantorsList, 'GLIST');
   }
 
-  setNepaliData() {
-    this.userConfigForm.patchValue({
-      branchCT: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
-      branchTrans: ObjectUtil.isEmpty(this.userConfigForm.get('branch').value) ? undefined : this.userConfigForm.get('branch').value.nepaliName,
-
-    });
-  }
-
   translateNumber(source) {
     const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(source).value.toString());
     this.userConfigForm.get(source + 'Trans').patchValue(wordLabelVar);
