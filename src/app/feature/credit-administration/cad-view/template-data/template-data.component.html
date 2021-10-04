@@ -28,7 +28,7 @@
 <!--        <app-retail-housing-loan-template-data></app-retail-housing-loan-template-data>-->
 <!--    </nb-card-body>-->
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_OVERDRAFT" [nbSpinner]="spinner">
-        <app-personal-overdraft-template-data [cadData]="cadData"></app-personal-overdraft-template-data>
+        <app-personal-overdraft-template-data [customerApprovedDoc]="cadData"></app-personal-overdraft-template-data>
     </nb-card-body>
     <nb-card-body *ngIf="offerLetterSelect === offerLetterConst.PERSONAL_LOAN_AND_PERSONAL_OVERDRAFT">
         <app-personal-loan-and-personal-overdraft-template-data [cadData]="cadData" [customerApprovedDoc]="cadData"></app-personal-loan-and-personal-overdraft-template-data>

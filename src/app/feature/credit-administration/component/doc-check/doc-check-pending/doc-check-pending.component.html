@@ -1,0 +1,175 @@
+<nb-card [nbSpinner]="spinner" accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-12">
+        <app-filter (eventEmitter)="setSearchValue($event)" [docStatus]="'DOC_CHECK_PENDING'"
+                    [isDefaultCADROLEFILTER]="true"></app-filter>
+      </div>
+    </div>
+    <h6 class="text-center">Document Check Pending</h6>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th>S.N</th>
+        <th>Branch</th>
+        <th>Province</th>
+        <th class="cursor" nbTooltip="Sort By"
+            (click)="asc = !asc;sortFilter('loanHolder.name',asc === true ? 'ASC':'DESC')">Customer
+          Name <em class="fas fa-sort"></em></th>
+        <th>Status</th>
+        <th>From</th>
+        <th class="cursor" nbTooltip="Sort By"
+            (click)="asc = !asc;sortFilter('lastModifiedAt',asc === true ? 'ASC':'DESC')">Date <em
+            class="fas fa-sort"></em></th>
+        <th>Loan Document No</th>
+        <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Initiator</th>-->
+        <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Loan Approved Date</th>-->
+        <!--                <th *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">Current Possession</th>-->
+        <th>Preview</th>
+        <!--                <th>Action</th>-->
+
+
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let model of loanList;let i=index">
+        <tr class="cursor">
+          <td (click)="loadProfile(model?.id,model)">{{(pageable.number - 1) * pageable.size + i
+          + 1}}</td>
+          <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.name}}</td>
+          <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.branch?.province?.name}}</td>
+          <td (click)="loadProfile(model?.id,model)">{{model?.loanHolder?.name}}</td>
+          <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.docAction}}</td>
+          <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.fromUser?.name}}
+            ({{model?.cadCurrentStage?.fromRole?.roleName}})
+          </td>
+          <td (click)="loadProfile(model?.id,model)">{{model?.cadCurrentStage?.lastModifiedAt | date:'medium'}} </td>
+          <td (click)="routeService.openLoanListModal(model?.assignedLoan)"
+              nbTooltip="Click to view  Loan">{{model?.assignedLoan?.length}}</td>
+          <!--                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.loanStage?.fromUser?.name}}</td>-->
+          <!--                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.assignedLoan[0]?.currentStage?.lastModifiedAt | date :'medium'}}</td>-->
+          <!--                    <td (click)="loadProfile(model?.id,model)" *ngIf="(user?.role?.roleType === roleType.CAD_ADMIN)||(user?.role?.roleType === roleType.CAD_SUPERVISOR)">{{model?.cadCurrentStage?.toUser?.name}}-{{model?.cadCurrentStage?.toRole?.roleName}}</td>-->
+          <td>
+            <a class="px-2 cursor"
+               (click)="routeService.previewCadDoc(model?.id)"
+               nbTooltip="click to view detail ">
+              <em class="fas fa-info-circle text-info"></em>
+            </a>
+          </td>
+          <!--                    <td>-->
+          <!--                        <div>-->
+          <!--                            <button nbButton status="warning" size="tiny"-->
+          <!--                                    (click)="onEdit(model?.id)">-->
+          <!--                                <em class="fa fa-edit"></em></button>-->
+          <!--                        </div>-->
+          <!--                    </td>-->
+        </tr>
+        <ng-container *ngIf="toggleArray[i].toggled">
+          <tr>
+            <td colspan="10"><b>Post Approval Document Comments</b></td>
+          </tr>
+          <tr class="sb-bg-dark text-white">
+            <th>S.N</th>
+            <th>Date</th>
+            <th>From User</th>
+
+            <th>To User</th>
+
+            <th>Status</th>
+            <th class="cmt-width" colspan="5">Remarks</th>
+          </tr>
+
+          <tr *ngFor="let previousList of model?.previousList ; let j = index">
+            <td>{{j + 1}}</td>
+            <td>
+              {{previousList?.lastModifiedAt | date}}
+            </td>
+            <td>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  {{previousList?.fromUser?.name}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  <span>({{previousList?.fromRole?.roleName}})</span>
+                </div>
+
+              </div>
+
+            </td>
+
+            <td>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  {{previousList?.toUser?.name}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  ({{previousList?.toRole?.roleName}})
+                </div>
+
+              </div>
+            </td>
+
+            <td>{{previousList?.docAction | replace:'_':' '}}</td>
+            <td class="text-left px-2" colspan="5">
+              {{ previousList?.comment}}
+            </td>
+          </tr>
+          <tr>
+            <td>{{currentIndexArray[i].currentIndex + 1 }}</td>
+            <td>{{model?.cadCurrentStage?.lastModifiedAt | date}}</td>
+            <td>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  {{model?.cadCurrentStage?.fromUser?.name}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  <span>({{model?.cadCurrentStage?.fromRole?.roleName}})</span>
+                </div>
+
+              </div>
+            </td>
+
+            <td>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  {{model?.cadCurrentStage?.toUser?.name}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="d-flex justify-content-center">
+                  <span>({{model?.cadCurrentStage?.toRole?.roleName}})</span>
+                </div>
+
+              </div>
+            </td>
+
+            <td>{{model?.cadCurrentStage?.docAction | replace:'_':' '}}</td>
+            <td class="text-left px-2" colspan="5">
+
+              {{model?.cadCurrentStage?.comment}}
+
+
+            </td>
+
+          </tr>
+          <tr class="sb-bg-dark text-white">
+            <td colspan="10">.</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+      </tbody>
+    </table>
+    <!-- ===================table-pagination==================== -->
+    <app-paging *ngIf="!spinner" [pageable]="pageable"
+                (changePage)="changePage($event)"></app-paging>
+    <!-- ===================table-pagination==================== -->
+
+  </nb-card-body>
+</nb-card>
+
