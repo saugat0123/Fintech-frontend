@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {HomeLoanType} from '../../cad-constant/home-loan-type';
+import {ConstructionLoanComponent} from '../home-loan-type/construction-loan/construction-loan.component';
 
 @Component({
   selector: 'app-home-loan-template-data',
@@ -14,6 +15,8 @@ export class HomeLoanTemplateDataComponent implements OnInit {
   isConstructionLoan = false;
   isPurchaseLoan = false;
   isTakeOverLoan = false;
+
+  @ViewChild('constructionLoan', {static: false}) constructionLoan: ConstructionLoanComponent;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -36,6 +39,12 @@ export class HomeLoanTemplateDataComponent implements OnInit {
 
   public typeOfHomeLoan(value): void {
     this.isConstructionLoan = value === HomeLoanType.CONSTRUCTION.valueOf();
+  }
+
+  public onSubmit(): void {
+    if (this.isConstructionLoan) {
+      const constructionLoanForm = this.constructionLoan.constructionLoanForm.value;
+    }
   }
 
 }
