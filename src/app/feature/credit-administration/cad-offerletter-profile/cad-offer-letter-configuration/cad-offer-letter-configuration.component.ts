@@ -2000,5 +2000,4 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
           undefined : this.userConfigForm.get('temporaryMunicipality').value.nepaliName,
     });
   }
-
 }
